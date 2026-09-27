@@ -3,16 +3,20 @@
 // 스크립트 — ACP(/admin/articles) 게시 짧은 글(아티클) 학습 라이브러리.
 // /library 레이아웃의 LibraryTabs(도서 · 스크립트 · 공용 단어장) 하위 페이지.
 
-import { FileText } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { Capsule, Screen } from '@/components/ui/ios'
+import { AreaHero } from '@/components/layout/AreaHero'
+import { MATERIAL_TONE } from '@/lib/design/tone'
+import { Screen } from '@/components/ui/ios'
 import { createClient } from '@/lib/supabase/server'
 import { ScriptsBrowser } from '@/components/library/browse/ScriptsBrowser'
 import { applyArticleCatalogGate } from '@/lib/library/publish-gate'
 import { pagedSelect } from '@/lib/supabase/paged-select'
 import type { PublishedArticle } from '@/lib/articles/types'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
+
+/** 수치 알약 — 1.1만처럼 한국어 단위로 접는다(도서 화면과 같은 규칙). */
+const COUNT = new Intl.NumberFormat('ko-KR', { notation: 'compact', maximumFractionDigits: 1 })
 
 export const metadata = {
   title: 'Dispatches',
@@ -69,30 +73,22 @@ export default async function LibraryScriptsPage({
   return (
     <Screen width="wide" background="bg2" padX="md">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header className="flex flex-col gap-3 px-1">
-          <div className="flex items-center gap-3">
-            <span
-              aria-hidden
-              className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] bg-[var(--p)] text-[var(--on-p)]"
-            >
-              <FileText size={16} />
-            </span>
-            <h1 className="font-editorial text-[44px] font-[500] tracking-[-0.012em] leading-[1.02] text-[var(--t1)] md:text-[56px]">
-              {MATERIAL_LABEL.article}
-            </h1>
-          </div>
-          <p className="font-body text-[15px] text-[var(--t2)]">
-            큐레이션된 짧은 영어 글 — 당신 수준에 맞는 추천부터 편하게 시작해요.
-          </p>
-          {articles.length > 0 && (
-            <div className="mt-1 flex flex-wrap items-center gap-2">
-              <Capsule label={MATERIAL_LABEL.article} value={`${articles.length}`} />
-              {totalWords > 0 && (
-                <Capsule label="단어" value={`${(totalWords / 1000).toFixed(1)}k`} />
-              )}
-            </div>
-          )}
-        </header>
+        {/* DD-68 — 참조 도서관 머리(tines-mapping §24): 기사 범주 색 진한 판 · 오른쪽 tile-articles. 수치는 방금 받은 카탈로그에서 센다. */}
+        <AreaHero
+          kicker={`서가 · ${MATERIAL_LABEL.article}`}
+          title={MATERIAL_LABEL.article}
+          sub="큐레이션된 짧은 영어 글 — 당신 수준에 맞는 추천부터 편하게 시작해요."
+          tile="tile-articles"
+          tint={MATERIAL_TONE.article.tint}
+          stats={
+            articles.length > 0
+              ? [
+                  { label: MATERIAL_LABEL.article, value: `${articles.length}` },
+                  ...(totalWords > 0 ? [{ label: '단어', value: COUNT.format(totalWords) }] : []),
+                ]
+              : undefined
+          }
+        />
 
         <ScriptsBrowser articles={articles} series={searchParams.series ?? null} loadError={loadError} />
       </div>

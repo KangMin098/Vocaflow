@@ -1,14 +1,19 @@
 // scripts/check-acp-feeds.ts
 //
 // LCP 대량 GET 정상 작동 검증.
-// 실행: pnpm tsx scripts/check-acp-feeds.ts [voa|nasa|nih|arxiv|all]
+// 실행: pnpm tsx scripts/check-acp-feeds.ts [voa|nasa|nih|all]
+//
+// ⚠️ **arXiv 가지를 걷었다**(2026-09-23 · DD-78). 그 소스는 마이그레이션
+//   `20260614240000_acp_remove_arxiv_source` 로 제거됐고 CHECK 제약이 재삽입을 막는다.
+//   그런데 이 파일은 `ingest-article/arxiv` 를 **최상위에서 import** 하고 있어서,
+//   그 모듈이 사라진 뒤로는 voa 를 부르든 all 을 부르든 **import 에서 죽었다.**
+//   `scripts/` 가 어느 tsconfig 에도 안 잡혀 컴파일이 그것을 못 봤다.
 
 import { listVoaFeed, VOA_FEEDS } from '../packages/library-pipeline/src/ingest-article/voa'
 import { listNasaFeed, NASA_FEEDS } from '../packages/library-pipeline/src/ingest-article/nasa'
 import { listNihFeed, NIH_FEEDS } from '../packages/library-pipeline/src/ingest-article/nih'
-import { listArxivFeed, ARXIV_FEEDS } from '../packages/library-pipeline/src/ingest-article/arxiv'
 
-type Source = 'voa' | 'nasa' | 'nih' | 'arxiv'
+type Source = 'voa' | 'nasa' | 'nih'
 
 const target = (process.argv[2] ?? 'voa').toLowerCase() as Source | 'all'
 
@@ -45,15 +50,6 @@ async function checkNih(): Promise<void> {
     await runOne('nih', feed.id, feed.label, feed.url, () => listNihFeed(feed.url, feed.id))
   }
 }
-async function checkArxiv(): Promise<void> {
-  console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  console.log(`  arXiv 6 feed`)
-  console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
-  for (const feed of ARXIV_FEEDS) {
-    await runOne('arxiv', feed.id, feed.label, feed.url, () => listArxivFeed(feed.url, feed.id))
-  }
-}
-
 async function runOne<T>(
   src: Source,
   id: string,
@@ -100,13 +96,11 @@ async function main() {
     await checkVoa()
     await checkNasa()
     await checkNih()
-    await checkArxiv()
   } else if (target === 'voa') await checkVoa()
   else if (target === 'nasa') await checkNasa()
   else if (target === 'nih') await checkNih()
-  else if (target === 'arxiv') await checkArxiv()
   else {
-    console.error(`Unknown target: ${target}. 사용: voa|nasa|nih|arxiv|all`)
+    console.error(`Unknown target: ${target}. 사용: voa|nasa|nih|all`)
     process.exit(1)
   }
   console.log('\n━━━ 종료 ━━━')

@@ -239,13 +239,13 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             <section className="mb-6" data-lecture-target="analysis:answer">
               <div className="flex items-baseline gap-3">
                 <h2 className="text-sm font-bold text-[var(--t1)]">답이 왜 이것인가</h2>
-                <span className="font-display text-lg font-bold tabular-nums text-[#2E7D5A]">
+                <span className="font-display text-lg font-bold tabular-nums text-[var(--memory-stable)]">
                   {CIRCLED[item.answer] ?? item.answer}
                 </span>
               </div>
 
               {item.why_correct ? (
-                <p className="mt-2 rounded-[var(--r-md)] border border-[#2E7D5A] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t1)]">
+                <p className="mt-2 rounded-[var(--r-md)] border border-[var(--memory-stable)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-[var(--t1)]">
                   {item.why_correct}
                 </p>
               ) : (
@@ -306,7 +306,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
                       <p className="mt-1 text-sm leading-relaxed text-[var(--t2)]">{d.why_tempting}</p>
                     ) : null}
                     {d.how_to_reject ? (
-                      <p className="mt-2 border-l-2 border-[#9C3A30] pl-3 text-sm leading-relaxed text-[var(--t1)]">
+                      <p className="mt-2 border-l-2 border-[var(--memory-risk)] pl-3 text-sm leading-relaxed text-[var(--t1)]">
                         지우는 근거 — {d.how_to_reject}
                       </p>
                     ) : null}

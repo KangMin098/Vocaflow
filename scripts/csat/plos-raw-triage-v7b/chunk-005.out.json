@@ -1,0 +1,418 @@
+[
+  {
+    "id": "02c84781-cc8c-4ef3-9c13-46a408322a39",
+    "source_updated_at": "2026-09-25T07:12:33.772653+00:00",
+    "body_sha256": "444d2d2e76271c2f0c3d75d9da6df2afaf704ad4013180017a945e441180e899",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론의 「EEG 신호는 잡음이 많고 개인차가 커서 특징 추출이 중요하다」 단락이 문제-해법 논지로 떼어져 주제·빈칸 칸을 채운다. 방법·수식 절은 쓰지 않는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "However, EEG signals are inherently noisy",
+      "note": "인용 괄호와 약어를 걷으면 논지는 서지만 non-stationary·pre-processing 등 전문어를 바꾸면 뜻이 흐려져 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "02d13d8e-224e-4c1a-b5c7-244148dee02e",
+    "source_updated_at": "2026-09-25T07:12:37.752658+00:00",
+    "body_sha256": "d43853f0d221f1130f7c9bd5425b0ccde259ec80388991f152eccfa7a97eb5cf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 「현장 관찰은 SAT2 백신의 교차 보호를 시사했으나 실험실 r1 값이 이를 뒤집었다」 단락이 통념-반증 구조로 서고 서론의 구제역 전파 단락이 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A key objective of this study",
+      "note": "serotype→virus type, cross-reactive immunity→shared protection 으로 바꾸고 r1 수치를 빼니 「기대와 달리 교차 보호가 없었다」 논지가 그대로 섰다."
+    }
+  },
+  {
+    "id": "02d905a1-a557-4a99-af72-08776ed5ed18",
+    "source_updated_at": "2026-09-25T07:12:43.230458+00:00",
+    "body_sha256": "6d5314f43ce55848c11cd264293ec4aebabf8b0f391d9bb6b4a196bfa551f55c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "한계 절의 「수술 전 삽관은 원인이 아니라 중증도의 표지일 수 있다」 단락과 ICU 체류-감염의 양방향 관계 단락이 상관·인과 구별 논지로 서서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "First, confounding by indication represents a",
+      "note": "「First,」와 HAI 약어를 걷고 confounding→hidden third factor, endotracheal intubation→breathing tube 로 바꾸면 인과 주의 논지가 자족적으로 선다."
+    }
+  },
+  {
+    "id": "02dbaf47-8535-42d9-915c-1ededf2a0ce8",
+    "source_updated_at": "2026-09-25T07:12:45.773956+00:00",
+    "body_sha256": "bfc7ec8339e24d4848337f55e3222339dca08cb30f2b2d6421d944c514e7f42e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「선별 검사가 엄격해지자 약물 간 결핵 위험 차이가 사라졌다」(대만 전후 비교) 단락이 시대 비교·주장-근거로 서고 지역 결핵 부담 단락이 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "then-now",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Another factor to consider is the",
+      "note": "첫 문장을 「One factor…」로 바꾸고 약물 이름을 「a newer drug」로 줄이니 「검사 관행이 위험 판단을 바꾼다」 논지가 선다."
+    }
+  },
+  {
+    "id": "03055a26-4c93-44ea-b033-848b46831ef7",
+    "source_updated_at": "2026-09-25T07:13:04.958663+00:00",
+    "body_sha256": "dc485274538f5b923175b935f4e2dc70d776fa148d032a22ff47f6227d0a7a47",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "빵집 장면으로 여는 도입, 노래할 때는 말더듬이 사라지는 현상, 사회적 맥락 단락 등 교양 설명문 단락이 많아 주제·빈칸·순서·삽입·심경 칸을 두루 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "order",
+        "insert",
+        "irrelevant",
+        "mood",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Besides the preserved ability to sing,",
+      "note": "「Besides…sing」을 떼고 neuromodulator 문장을 한 줄로 줄이니 「혼잣말은 유창하고 청중 앞에서 더듬는다」 논지가 쉽게 섰다."
+    }
+  },
+  {
+    "id": "0318ebc2-b2c6-4b07-82c2-569b336a6802",
+    "source_updated_at": "2026-09-25T07:13:14.412395+00:00",
+    "body_sha256": "3d9e0869f81fd45d2ab776bdd8c2f0ec0b97328abe74c1ccae2e61cc65baa555",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 「병용 약물 조합은 체계적 탐색이 아니라 직관과 경험으로 정해져 왔다」 단락이 문제 제기 논지로 서서 주제·빈칸 칸을 채우고, 나머지는 실험 절차라 쓰지 않는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In addition to combining chemotherapy with",
+      "note": "약물 이름과 RB 약어를 걷고 synergistic→working better together 로 바꾸면 「조합은 직관이 아닌 체계적 탐색으로」 논지가 선다."
+    }
+  },
+  {
+    "id": "0321c2ca-17ed-40be-895d-97a90e56edb0",
+    "source_updated_at": "2026-09-25T07:13:17.402765+00:00",
+    "body_sha256": "53f83607d888f1d4ffaee890b29022a84216fec7eb269385255584fcab890b0e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "짧은 논문이지만 고찰의 「각막이 맑아져도 황반 질환이 있으면 시력 회복이 제한된다」 단락과 결론이 요지 한 줄로 서서 요지·요약 칸을 채운다. 결과 절은 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Consistent with previous reports, our findings",
+      "note": "논지는 서지만 단락이 짧아 지문 길이를 채우려면 서론·결론을 이어 붙여야 한다. corneal opacity→cloudy cornea 로 바꾸기는 쉬웠다."
+    }
+  },
+  {
+    "id": "0340dedc-8722-444f-99bf-66832b95e30e",
+    "source_updated_at": "2026-09-25T07:13:34.031015+00:00",
+    "body_sha256": "90e48454bed598fafa2d9b8b87f675ea31698541985ca9d46bbdea5208e9e2c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "「사례」 절의 Gaoshanyao 협동조합 이야기(계획·자금 조달·지역 평판)가 사건 흐름과 논지를 함께 갖고, 정책 제언 단락이 주장 칸을 채운다. 방법·회귀 절은 쓰지 않는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Effective high-level management practices within cooperative",
+      "note": "조합 이름을 「a village cooperative」로 바꾸고 200,000 yuan 을 빼도 「관리 역량이 성과를 만든다」 사례 흐름이 선다. 원문 영어가 어색한 문장이 있어 다듬어야 한다."
+    }
+  },
+  {
+    "id": "0376182b-4b6a-4240-8ccb-dbeca163b666",
+    "source_updated_at": "2026-09-25T07:13:48.002173+00:00",
+    "body_sha256": "333e8f8e35789bd526173e3ad0a7d134cecbc07e2a0c09ce210438a0028f6d8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 「심해에 가장 흔한 원생생물인데도 거의 알려지지 않았다」 단락과 결론의 「탄수화물이 없어도 분해 효소를 만드는 이유」 물음이 연구 물음형 논지로 서서 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "title"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite their importance, our knowledge of",
+      "note": "「Despite their importance」의 their 를 diplonemids 로 풀고 axenic cultures→lab cultures 로 바꾸니 떼어진다. 본문 대부분은 단백질 목록이라 쓸 단락은 두셋이다."
+    }
+  },
+  {
+    "id": "0377a1f6-4265-472c-8f7a-e92e3785e20c",
+    "source_updated_at": "2026-09-25T07:13:50.577913+00:00",
+    "body_sha256": "dac15bdc3159c7bbebd6f7cb9e7ca36a40d81b6dd30ef655f88b52a29844bf04",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "본문 대부분이 잔기 번호·결합 에너지 나열이고, 서론의 「컴퓨터 설계가 신약 탐색을 앞당긴다」 단락만 얇게 서며 고찰이 결과(P-gp 기질 여부)와 어긋나 보관 여부가 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Computer-aided drug design (CADD) approach for",
+      "note": "떼어 보니 CADD 장점과 천연물 출처를 두 문장씩 말하고 끝나 논지가 한 지문으로 서기에 얇다."
+    },
+    "hold_reason": "borderline"
+  }
+]

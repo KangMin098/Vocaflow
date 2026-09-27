@@ -17,8 +17,9 @@
 
 'use client'
 
-import { ArrowRight, BookOpen, Check, Languages, Sparkles } from 'lucide-react'
+import { ArrowRight, BookOpen, Check, Languages } from 'lucide-react'
 import Link from 'next/link'
+import { SpotState } from '@/components/ui/SpotState'
 import { useState } from 'react'
 
 import type { QueueBook, QueueChapter, QuizQueue } from '@/lib/scriptquiz/queue'
@@ -176,26 +177,10 @@ function AllCaughtUp({ readTotal, hasCatalog }: { readTotal: number; hasCatalog:
             '/scriptquiz/play',
           ]
 
+  // DD-68 · tines-mapping §16 — 참조 빈 결과 문법(가운데 소품 · 세리프 제목 · 알약)
   return (
-    <section className="flex flex-col items-start gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-6">
-      <span
-        className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)]"
-        style={{ backgroundColor: 'var(--warning-light)', color: ACCENT_INK }}
-        aria-hidden
-      >
-        <Sparkles size={18} strokeWidth={2} />
-      </span>
-      <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">{title}</h2>
-      <p className="max-w-[46ch] font-body text-[13px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
-        {body.replace(/\*\*/g, '')}
-      </p>
-      <Link
-        href={href}
-        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-      >
-        {cta}
-        <ArrowRight size={13} aria-hidden />
-      </Link>
+    <section>
+      <SpotState art="empty-page" role="status" title={title} body={body.replace(/\*\*/g, '')} primary={{ href, label: cta }} />
     </section>
   )
 }

@@ -1,0 +1,1989 @@
+[
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "7137c4e3-ec12-4d34-9753-75e938e938ea",
+    "revision": "2026-09-13T07:16:27.849034+00:00",
+    "body_sha256": "562f2e5ce9263e6f38b352e180a52bcdc9e5c54e7b74ec339b7d2d73284ad3b0",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 첫 단락(감염 후 면역 지속 기간을 알아야 백신 일정을 정할 수 있다)이 떼어도 서서 주제·요지 칸을 채워 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Establishing an immune response is essential",
+          "note": "항체 이름(anti-S1 IgG 등)을 풀어 쓰면 논지는 남지만 수치 문단은 쓰지 못한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.397Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:05:05.565Z",
+      "topicMargin": 23.56
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "7138acb7-0b46-4942-ab75-7759dadef809",
+    "revision": "2026-09-15T15:16:37.69534+00:00",
+    "body_sha256": "caf21d18dbaa1cdcfe3145e5df6e648ae05ca8784e6d32a4720f3817709b2d82",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 알부민·호중구 단락이 염증과 영양 상태의 관계를 인과 순서로 설명해 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Albumin level is commonly used as",
+          "note": "TME·MMP-9 같은 약어가 많아 밴드를 내리려면 문장을 새로 써야 한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.398Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:04.923Z",
+      "topicMargin": 7.559999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "713eea69-f0b5-4902-a2f6-61a2215cd7e9",
+    "revision": "2026-09-25T07:39:40.302064+00:00",
+    "body_sha256": "cad84e9f9b95a239d0bd0b4de105ffdee82ffecede6cc97ab8fea346d37fce8b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "서론의 축구 감독 예시로 학습 편향을 설명하는 단락이 일상 사례와 개념을 이어 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some of our everyday decisions are",
+          "note": "dACC·aIns 약어만 걷으면 파블로프 편향 개념 설명이 그대로 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.399Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 6,
+      "type": "R-BLANK",
+      "shape": 12,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:11.977Z",
+      "topicMargin": 1.4600000000000009
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71410ccd-59d7-4d8f-af87-5f0e1cceb220",
+    "revision": "2026-09-13T06:29:35.745751+00:00",
+    "body_sha256": "41e62d7541bd35ec40f3386838279b017cf88763c2595a03dcd5198aa6e9de82",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "서론의 쌀 주식·토양 오염 경로 단락이 원인에서 건강 위험으로 이어져 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cereals are widely cultivated in most",
+          "note": "원소 기호와 지역명을 걷어도 주식 오염의 위험이라는 요지가 남는다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.400Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 11,
+      "type": "R-BLANK",
+      "shape": 24,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:45:40.528Z",
+      "topicMargin": 1.7400000000000002
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "714b6757-51ef-4242-b822-8d2e29293d89",
+    "revision": "2026-09-25T07:39:40.855336+00:00",
+    "body_sha256": "0ac099ed1064217ae97d1d2943b1b05344d75eb8b55f53cf17c3cf6468473227",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "초록의 게스트하우스 개조 비유 단락이 기생충의 영양 획득을 일관된 비유로 설명해 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In essence, the parasitophorous vacuole",
+          "note": "비유 문단은 쉽지만 GRA·PVM 약어를 풀어야 해서 어휘 조정 폭이 크다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.400Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:42:03.132Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "714f49a2-2865-4da4-acd7-7c4cf985bdac",
+    "revision": "2026-09-25T07:39:41.443647+00:00",
+    "body_sha256": "a1d63adeaa88f19287ab765ec7f3dda9d898a9979a827db75410f182d5627d5e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 비만 치료제 부작용 단락이 기존 약의 한계와 새 치료 필요성을 이어 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Anorexic drugs are utilized to counteract",
+          "note": "약물명 목록을 걷으면 논지는 서지만 수용체·효소 용어가 남아 밴드가 높다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.401Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:15:06.697Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71521e79-9e41-47ab-b5c6-dd5a4ee14172",
+    "revision": "2026-09-13T06:39:51.178469+00:00",
+    "body_sha256": "6249ff50698a8cc98a4506530229a3edcdaff21acff6d54fc39e6264b7f80613",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 구리 항상성과 파킨슨병 단락이 과잉·결핍 양쪽 위험을 설명해 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Copper is important for various neuronal",
+          "note": "생정보 분석 결과 문단은 수치 나열이라 서론 한 경로만 쓸 수 있다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.401Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:59:48.222Z",
+      "topicMargin": 24.270000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "715eebfc-03e5-4fd7-b72a-d60eb83ee2a7",
+    "revision": "2026-09-25T07:39:43.312128+00:00",
+    "body_sha256": "0f0c73da3fd4d220345178918b61fb05c14e236ad18b7ac22d8df425399998ec",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 체중 감량 정체기 단락이 식욕·대사 적응과 기존 연구 설계의 한계를 이어 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Additionally, weight loss is a dynamic",
+          "note": "plateau·satiety 정도만 바꾸면 고등 밴드로 내려갈 수 있다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.402Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:40:08.763Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "716a10a8-6baa-4a5b-912c-c9d0e62dcbcc",
+    "revision": "2026-09-13T07:03:26.572063+00:00",
+    "body_sha256": "15b4aa0e9ae6191a6bc97aa6d9dd66fb8d0824eddf507bb2341a24465426ebda",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "서론의 사회 정체성과 장신구 단락이 소속감 표현이라는 논지를 일반 독자 수준으로 세워 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Humans strive for a sense of",
+          "note": "유적명·조개 학명을 걷어도 장신구가 소속을 드러낸다는 요지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.403Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 6,
+      "type": "R-BLANK",
+      "shape": 19,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:41:28.286Z",
+      "topicMargin": 2.8499999999999996
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "7172ca7b-790f-4535-8373-0c8ca2df7401",
+    "revision": "2026-09-15T15:16:44.329378+00:00",
+    "body_sha256": "821ca8e44c9f055e6fa9fb5e5523bc764d6202330ff95421259395bab77010f2",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "서론의 무임승차와 신뢰 붕괴 단락이 원인에서 생태계 붕괴로 이어져 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nevertheless, innovation ecosystems may encounter numerous",
+          "note": "모형 절은 변수 기호가 빠져 쓸 수 없고 서론 문단만 가공 경로다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.403Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:53.366Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "7191f442-08ab-4dbd-9681-c937c8b5a5f4",
+    "revision": "2026-09-25T07:39:48.400225+00:00",
+    "body_sha256": "01e6d4f55106882d5da98dae510de021b788b6d22d726822dc24d0dbaed102fb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 빈혈 단락이 당뇨 환자와 대조군의 비슷한 유병률에서 지역 보건 문제라는 결론을 끌어내 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Notably, anemia was also observed among",
+          "note": "혈액 지표 약어를 걷으면 비교에서 결론으로 가는 흐름이 남는다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.404Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:13.037Z",
+      "topicMargin": 3.3200000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71946c08-8043-4baa-9b6d-a0d411350b42",
+    "revision": "2026-09-13T07:44:14.577719+00:00",
+    "body_sha256": "8b10a6e8279bc95161ac3d9356a4fbec7219fc073ac859523a0b2c6f82c9214b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "science",
+        "why": "서론·고찰 모두 잔기 번호와 단백질 이름이 문단마다 박혀 떼어 낸 문단이 전문 용어 없이 서지 않아 보류한다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "In cells of the baker´s yeast",
+          "note": "rDNA 원형·수명 연결 단락도 Rtg2p 경로 설명 없이는 서지 않아 가공이 애매하다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.405Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 11,
+      "type": "R-BLANK",
+      "shape": 27,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:15:48.995Z",
+      "topicMargin": 16.060000000000002
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "719f6ffd-ad12-49c4-9737-d0874518624a",
+    "revision": "2026-09-25T07:39:48.909105+00:00",
+    "body_sha256": "5c3570c56d1e572a887311f23a42f5a6e63c9e74c4c0da927ba07b9370cddf39",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 미성숙 흉터와 관망 관행 비판 단락이 조기 개입 필요라는 주장을 근거와 함께 세워 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Upon complete re-epithelialization, an immature scar",
+          "note": "PRP·MMP 약어를 풀면 조기 치료 창이라는 주장이 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.405Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:08:50.108Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71b14691-39df-4c3c-9169-1babf6b5d51d",
+    "revision": "2026-09-13T07:07:23.789951+00:00",
+    "body_sha256": "78af0ac36a4536b884fe60ba15f20d4bcdabea25a8d5597a210c410c963af534",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 요가 스트레칭과 염증 단락이 동물 연구와 사람 연구의 간극을 설명해 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Yogic stretching primarily happens within the",
+          "note": "자세 이름 몇 개만 풀면 요가 스트레칭 효과 연구의 어려움이라는 요지가 남는다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.406Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:53:37.706Z",
+      "topicMargin": 20.340000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71b75ccd-f9f7-4315-bbe4-4ac52c15dcca",
+    "revision": "2026-09-15T15:16:51.550235+00:00",
+    "body_sha256": "bcc3136515461e7e5149a15b92670d150aca33b39bc8cb00be96d21723210e9c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "배경 절의 심장 수술 최소 침습화 흐름 단락이 기존 방식의 한계에서 새 접근으로 이어져 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Minimally invasive surgery has been a",
+          "note": "CABG 약어만 풀면 수술 기법 변천이라는 흐름이 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.407Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:20:09.468Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71c54218-7d0a-47fd-b245-ba05e8d1a88c",
+    "revision": "2026-09-15T15:16:53.194811+00:00",
+    "body_sha256": "cef5064882e2a9d3570161bd31042d1af0e40fe979685b37973c7e82f4434c51",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 치주염과 파골세포 단락이 뼈 손실 원인과 연구 모델 필요성을 이어 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Periodontitis, one of the most common",
+          "note": "RANKL 등 분자 이름을 걷으면 논지는 서지만 실험 결과 문단은 쓰지 못한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.407Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:53.186Z",
+      "topicMargin": 8.13
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71c54980-d24f-4ff4-ac76-6b82b7e82388",
+    "revision": "2026-09-25T07:39:53.472226+00:00",
+    "body_sha256": "b70183351f12ff80fb6a385c12669dc76c67b44635776ce94098a81c400051cd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 혈뇌장벽 단락이 알츠하이머 약 개발의 난점을 설명해 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The blood-brain barrier is a semipermeable",
+          "note": "MK-8931을 승인 약으로 적은 대목은 사실과 달라 가공 때 걷어낸다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.408Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:15.704Z",
+      "topicMargin": 20.380000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71c60419-5c3d-4f66-bbae-41f05aee15d5",
+    "revision": "2026-09-13T07:35:42.475643+00:00",
+    "body_sha256": "e4c312fb547cdfc4c2cccbbb8dc73ed088af73df8f702810ad4d43c441f1fae6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 시냅스 소실과 인지 저하 단락이 판(plaque)보다 시냅스가 중요하다는 논지를 세워 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While the deposition of amyloid is",
+          "note": "synaptic atrophy 등 두세 낱말만 바꾸면 고3 밴드에 가깝다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.408Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:13:51.269Z",
+      "topicMargin": 31.880000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71c9202b-fbfe-469a-b2a8-e2c0076cca5e",
+    "revision": "2026-09-25T07:39:53.877369+00:00",
+    "body_sha256": "6c3d183443720c20db1c77e409ae02d4227b9f1ee4e1b787de6a4ed12f312fa2",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "고찰의 지역 사회경제 수준과 수술 접근성 단락이 교통·의료 인프라 등 원인을 이어 떼어 내도 서므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "These findings highlight a complex interaction",
+          "note": "오즈비 수치를 걷어도 거주지 격차가 치료 접근을 가른다는 요지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.409Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:54.103Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-53-56-395Z",
+    "id": "71d03734-0ec7-4222-aa75-281f061ae6a8",
+    "revision": "2026-09-13T06:44:16.388169+00:00",
+    "body_sha256": "4b3d69cb0a0d776bf07b672f0fa9112011a36a1a839915171d561187504cc999",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:06:38.261Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 지아르디아 감염과 바이러스 치료 단락이 약물 한계에서 대안 제시로 이어져 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "However, infection with G. duodenalis is",
+          "note": "구조 분석 본문은 잔기 번호 중심이라 서론 한 경로만 가공이 된다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:53:56.409Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:06:38.261Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:07:06.054Z",
+      "topicMargin": 28.590000000000003
+    }
+  }
+]

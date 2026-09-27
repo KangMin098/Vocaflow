@@ -84,7 +84,7 @@ export function FactoryLineDiagram({ stages, selectedId, onSelect, bottleneckOrd
           aria-hidden
         >
           <div
-            className="rounded-t-[var(--r-sm)] border-b-2 border-[var(--p)]/40 pb-1 text-center font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]"
+            className="rounded-t-[var(--r-sm)] border-b-2 border-[color-mix(in_srgb,var(--p)_40%,transparent)] pb-1 text-center font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--p)]"
             style={{ gridColumn: `span ${labCount}` }}
           >
             {LANE_LABEL.lab}
@@ -129,7 +129,7 @@ export function FactoryLineDiagram({ stages, selectedId, onSelect, bottleneckOrd
                   aria-label={`${s.def.ord}. ${s.def.name} — ${st.label}${isBottleneck ? ' · 지금 라인을 막고 있다' : ''}`}
                   className={`relative z-10 flex min-h-[44px] w-full flex-col items-center gap-1 rounded-[var(--r-md)] border bg-[var(--bg)] px-1 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
                     on
-                      ? 'border-[var(--p)] bg-[var(--p)]/8'
+                      ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_8%,transparent)]'
                       : 'border-[var(--bd)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
                   }`}
                 >
@@ -147,7 +147,7 @@ export function FactoryLineDiagram({ stages, selectedId, onSelect, bottleneckOrd
                 </button>
 
                 {isBottleneck ? (
-                  <span className="mt-1 break-keep rounded-[var(--r-full)] bg-[#B5803A]/15 px-1.5 py-0.5 font-display text-[9.5px] font-[700] text-[#B5803A]">
+                  <span className="mt-1 break-keep rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--memory-shaky)_15%,transparent)] px-1.5 py-0.5 font-display text-[9.5px] font-[700] text-[var(--memory-shaky)]">
                     여기서 막힘
                   </span>
                 ) : null}

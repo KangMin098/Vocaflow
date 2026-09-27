@@ -27,6 +27,59 @@ import type { HelpActor, HelpDiagram, HelpNode, ScreenHelp } from '@/lib/admin/h
 
 const STORE = 'vocaflow-admin-help-open'
 
+/* ─────────────────────── 글자 안의 강조 ─────────────────────── */
+//
+// ⚠️ **별표가 글자로 새고 있었다** — 실측 2026-09-23: 교재 공장 11화면 + 탭 6개의 렌더
+//    결과에 `**` 가 **1,164개** 그대로 찍혔다(= 굵게 표시 582군데). 도움말 본문은 처음부터
+//    마크다운처럼 쓰여 있었는데 그리는 쪽이 그냥 문자열로 내보냈기 때문이다.
+//    그래서 가장 중요한 문장이 `**실측이지 캐시가 아니다.**` 처럼 보였다 —
+//    강조가 오히려 **읽기를 방해하는** 상태였고, 이것이 「도움말이 어렵다」의 1순위 원인이다.
+//
+// 고치는 방법은 둘이었다: ① 1,164곳에서 별표를 지운다 ② 그리는 쪽이 읽는다.
+// ②를 골랐다 — ①은 본문에서 **무엇이 중요한지의 표시를 잃는** 일이고, 다음 사람이 다시
+// 별표를 쓰기 시작하면 원점이다.
+//
+// `dangerouslySetInnerHTML` 은 쓰지 않는다. 문자열을 조각으로 잘라 React 원소로 만든다 —
+// 도움말 본문은 저장소 안의 상수지만, HTML 을 그리는 경로를 하나 더 내지 않는다.
+// ⚠️ 굵게 안쪽에 **홑별표가 들어갈 수 있다** — `docs/reports/vocab-*-benchmark.json` 처럼
+//    글로브 패턴을 적은 자리가 실제로 있다(실측: 처음 규칙 `[^*\n]+` 은 그 한 줄을 못 읽고
+//    별표를 그대로 흘렸다). 그래서 「`**` 가 아닌 글자」로 받는다. 줄바꿈은 여전히 경계다 —
+//    여러 줄에 걸친 강조는 대개 짝이 깨진 것이고, 그런 것은 눈에 띄어야 고쳐진다.
+const EMPHASIS = /(\*\*(?:(?!\*\*)[^\n])+\*\*|`[^`\n]+`)/g
+
+/**
+ * `**굵게**` 와 `` `코드` `` 만 읽는다. 그 밖의 마크다운은 본문에 쓰지 않는다.
+ *
+ * ⚠️ **조각이 아니라 한 덩이를 돌려준다.** 배열을 그대로 돌려주면 `display:flex` 인 문단에
+ *    넣었을 때 조각마다 flex 아이템이 되어 390px 에서 한 낱말씩 세로로 쪼개진다
+ *    (실측 캡처 2026-09-23 — 레일 아래 규칙 한 줄이 그렇게 무너졌다). 부르는 쪽이 매번
+ *    감싸는 것을 기억할 수는 없으므로 **여기서** 감싼다.
+ */
+export function richText(text: string): React.ReactNode {
+  if (!text.includes('**') && !text.includes('`')) return text
+  const parts = text.split(EMPHASIS).filter((p) => p !== '')
+  return <span>{parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**') && part.length > 4) {
+      return (
+        <strong key={i} className="font-[800] text-[var(--t1)]">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    if (part.startsWith('`') && part.endsWith('`') && part.length > 2) {
+      return (
+        <code
+          key={i}
+          className="rounded-[var(--r-sm)] bg-[var(--bg3)] px-1 py-[1px] font-mono text-[0.92em] font-[500] text-[var(--t2)]"
+        >
+          {part.slice(1, -1)}
+        </code>
+      )
+    }
+    return <span key={i}>{part}</span>
+  })}</span>
+}
+
 function readOpen(screen: string): boolean {
   if (typeof window === 'undefined') return false
   try {
@@ -72,7 +125,7 @@ function DocRef({ label, doc }: { label: string; doc: string }) {
 
 function HelpLink({ href, label }: { href: string; label: string }) {
   const cls =
-    'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p-hover)] underline decoration-[var(--p)]/40 underline-offset-2 hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
+    'inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--p-hover)] underline decoration-[color-mix(in_srgb,var(--p)_40%,transparent)] underline-offset-2 hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'
   if (href.startsWith('/')) {
     return (
       <Link href={href} className={cls}>
@@ -107,8 +160,8 @@ function Cautions({ items }: { items: readonly string[] }) {
     <ul className="mt-3 flex flex-col gap-1">
       {items.map((c) => (
         <li key={c} className="flex gap-2 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
-          <AlertTriangle size={13} aria-hidden className="mt-1 shrink-0 text-[#B45309]" />
-          <span>{c}</span>
+          <AlertTriangle size={13} aria-hidden className="mt-1 shrink-0 text-[var(--warning)]" />
+          <span>{richText(c)}</span>
         </li>
       ))}
     </ul>
@@ -132,21 +185,48 @@ const ACTOR: Record<HelpActor, { label: string; mark: string }> = {
  * 같은 이유로 모양을 갈랐고, 도움말도 같은 규약을 쓴다.
  */
 const STATE: Record<NonNullable<HelpNode['state']>, { label: string; color: string; mark: string }> = {
-  pass: { label: '통과', color: '#2E7D5A', mark: '●' },
-  short: { label: '몫 남음', color: '#B5803A', mark: '◐' },
-  blocked: { label: '막힘', color: '#9C3A30', mark: '■' },
-  unmeasured: { label: '못 잼', color: '#8A8278', mark: '○' },
+  pass: { label: '통과', color: 'var(--memory-stable)', mark: '●' },
+  short: { label: '몫 남음', color: 'var(--memory-shaky)', mark: '◐' },
+  blocked: { label: '막힘', color: 'var(--memory-risk)', mark: '■' },
+  unmeasured: { label: '못 잼', color: 'var(--memory-new)', mark: '○' },
 }
 
-function NodeCard({ n }: { n: HelpNode }) {
+/** 칸 안의 항목 목록 — 「받는 것 셋」처럼 셀 수 있는 것. 문장이 아니라 눈금이다. */
+function NodeItems({ items }: { items: readonly string[] }) {
+  return (
+    <ul className="flex flex-col gap-0.5">
+      {items.map((it) => (
+        <li
+          key={it}
+          className="flex gap-1.5 break-keep font-body text-[11px] leading-[1.5] text-[var(--t2)]"
+        >
+          <span aria-hidden className="mt-[5px] h-[3px] w-[3px] shrink-0 rounded-full bg-[var(--t3)]" />
+          <span className="min-w-0">{richText(it)}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function NodeCard({ n, order }: { n: HelpNode; order?: number }) {
   const st = n.state ? STATE[n.state] : null
   const ac = n.actor ? ACTOR[n.actor] : null
   return (
     <div
       className="flex min-w-0 flex-1 flex-col gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2"
-      style={st ? { borderColor: `${st.color}66` } : undefined}
+      style={st ? { borderColor: `color-mix(in srgb, ${st.color} 40%, transparent)` } : undefined}
     >
       <p className="flex items-center gap-1 break-keep font-display text-[12px] font-[700] leading-snug text-[var(--t1)]">
+        {/* 순서가 있는 그림에서는 몇 번째인지를 **숫자로** 낸다 — 화살표만으로는
+            390px 에서 세로로 접힌 뒤 순서가 흐려진다(실측). */}
+        {order !== undefined && (
+          <span
+            aria-hidden
+            className="inline-flex h-[17px] w-[17px] shrink-0 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--p)_12%,transparent)] font-mono text-[9.5px] font-[800] text-[var(--p-hover)]"
+          >
+            {order}
+          </span>
+        )}
         {st && (
           <span aria-hidden className="shrink-0 text-[11px]" style={{ color: st.color }}>
             {st.mark}
@@ -161,8 +241,9 @@ function NodeCard({ n }: { n: HelpNode }) {
         </span>
       )}
       {n.says && (
-        <p className="break-keep font-body text-[11px] leading-[1.55] text-[var(--t2)]">{n.says}</p>
+        <p className="break-keep font-body text-[11px] leading-[1.55] text-[var(--t2)]">{richText(n.says)}</p>
       )}
+      {n.items && n.items.length > 0 && <NodeItems items={n.items} />}
       {ac && (
         <span className="mt-auto inline-flex w-fit items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-1 py-0.5 font-mono text-[9.5px] font-[700] text-[var(--t3)]">
           <span aria-hidden>{ac.mark}</span>
@@ -170,6 +251,149 @@ function NodeCard({ n }: { n: HelpNode }) {
         </span>
       )}
     </div>
+  )
+}
+
+/**
+ * 공정 레일 — 칸이 여덟이어도 한 눈에 들어오게.
+ *
+ * `flow` 로 여덟 칸을 그리면 1440px 에서 상자 하나가 160px 이 되고 390px 에서는 세로로
+ * 여덟 번 접힌다(그 상한이 회귀에 6칸으로 박힌 이유다). 레일은 알약이라 줄바꿈으로 흐른다.
+ * **지금 손댈 칸 하나**만 크게 그린다 — 관리자가 이 화면에서 묻는 것이 그것 하나다.
+ */
+function Lane({
+  nodes,
+  bottleneck,
+  rule,
+}: {
+  nodes: readonly HelpNode[]
+  bottleneck?: string
+  rule?: string
+}) {
+  return (
+    <div className="flex flex-col gap-2">
+      <ol className="flex flex-wrap items-stretch gap-1">
+        {nodes.map((n, i) => {
+          const st = n.state ? STATE[n.state] : null
+          const here = bottleneck === n.label
+          return (
+            <li key={n.label} className="flex items-stretch gap-1">
+              {i > 0 && (
+                <span aria-hidden className="self-center font-mono text-[11px] leading-none text-[var(--t3)]">
+                  ›
+                </span>
+              )}
+              <div
+                className={
+                  'flex min-w-0 flex-col justify-center gap-0.5 rounded-[var(--r-md)] border px-2 py-1.5 ' +
+                  (here
+                    ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] ring-2 ring-[color-mix(in_srgb,var(--p)_25%,transparent)]'
+                    : 'border-[var(--bd)] bg-[var(--bg)]')
+                }
+                style={!here && st ? { borderColor: `color-mix(in srgb, ${st.color} 40%, transparent)` } : undefined}
+              >
+                <p className="flex items-center gap-1 whitespace-nowrap font-display text-[11.5px] font-[700] text-[var(--t1)]">
+                  {st && (
+                    <span aria-hidden className="text-[10px]" style={{ color: st.color }}>
+                      {st.mark}
+                    </span>
+                  )}
+                  {n.label}
+                </p>
+                {here && (
+                  <span className="whitespace-nowrap font-mono text-[9.5px] font-[800] text-[var(--p-hover)]">
+                    ▲ 여기부터
+                  </span>
+                )}
+                {n.says && (
+                  <span className="break-keep font-body text-[10px] leading-[1.45] text-[var(--t3)]">
+                    {richText(n.says)}
+                  </span>
+                )}
+              </div>
+            </li>
+          )
+        })}
+      </ol>
+      {rule && (
+        <p className="flex items-start gap-1.5 break-keep font-body text-[11.5px] leading-[1.55] text-[var(--t2)]">
+          <span aria-hidden className="font-mono text-[11px] text-[var(--p)]">
+            ▲
+          </span>
+          {/* ⚠️ `richText` 는 조각 배열을 돌려준다 — flex 컨테이너에 그대로 넣으면 **조각마다
+              flex 아이템**이 되어 390px 에서 한 낱말씩 세로로 쪼개진다(실측 캡처 2026-09-23).
+              한 겹 감싸서 문단으로 되돌린다. */}
+          <span className="min-w-0">{richText(rule)}</span>
+        </p>
+      )}
+    </div>
+  )
+}
+
+/**
+ * 화면의 계약 — 받는 것 → 하는 일 → 내놓는 것.
+ *
+ * 가운데 칸만 테두리를 진하게 준다: 세 칸이 같은 무게면 「이 화면이 무엇인가」가 안 보이고
+ * 그냥 상자 셋이 된다.
+ */
+const IO_ROLE = ['받는 것', '하는 일', '내놓는 것'] as const
+
+function Io({ nodes, gate }: { nodes: readonly HelpNode[]; gate?: string }) {
+  return (
+    <>
+    <div className="flex flex-col items-stretch gap-1.5 sm:flex-row">
+      {nodes.slice(0, 3).map((n, i) => (
+        <div key={n.label} className="flex min-w-0 flex-1 flex-col items-stretch gap-1.5 sm:flex-row">
+          {i > 0 && (
+            <span aria-hidden className="self-center font-mono text-[12px] leading-none text-[var(--t3)]">
+              <span className="sm:hidden">↓</span>
+              <span className="hidden sm:inline">→</span>
+            </span>
+          )}
+          <div
+            className={
+              'flex min-w-0 flex-1 flex-col gap-1 rounded-[var(--r-sm)] border p-2 ' +
+              (i === 1 ? 'border-[color-mix(in_srgb,var(--p)_45%,transparent)] bg-[color-mix(in_srgb,var(--p)_6%,transparent)]' : 'border-[var(--bd)] bg-[var(--bg)]')
+            }
+          >
+            <span className="font-mono text-[9.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
+              {IO_ROLE[i]}
+            </span>
+            <NodeCardBody n={n} />
+          </div>
+        </div>
+      ))}
+    </div>
+    {/* 게이트 — 세 칸 아래 한 줄. 「내놓는 것」과 붙여 두면 산출물 설명으로 읽힌다. */}
+    {gate && (
+      <p className="mt-1.5 flex items-start gap-1.5 break-keep rounded-[var(--r-sm)] border border-dashed border-[var(--bd)] px-2 py-1.5 font-body text-[11.5px] leading-[1.55] text-[var(--t2)]">
+        <span aria-hidden className="mt-[1px] font-mono text-[10px] font-[800] text-[var(--t3)]">
+          관문
+        </span>
+        <span className="min-w-0">{richText(gate)}</span>
+      </p>
+    )}
+    </>
+  )
+}
+
+/** `Io` 안에서는 테두리를 바깥 칸이 이미 그렸다 — 속만 다시 쓴다. */
+function NodeCardBody({ n }: { n: HelpNode }) {
+  const ac = n.actor ? ACTOR[n.actor] : null
+  return (
+    <>
+      <p className="break-keep font-display text-[12px] font-[700] leading-snug text-[var(--t1)]">{n.label}</p>
+      {n.says && (
+        <p className="break-keep font-body text-[11px] leading-[1.55] text-[var(--t2)]">{richText(n.says)}</p>
+      )}
+      {n.items && n.items.length > 0 && <NodeItems items={n.items} />}
+      {ac && (
+        <span className="mt-auto inline-flex w-fit items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg2)] px-1 py-0.5 font-mono text-[9.5px] font-[700] text-[var(--t3)]">
+          <span aria-hidden>{ac.mark}</span>
+          {ac.label}
+        </span>
+      )}
+    </>
   )
 }
 
@@ -182,27 +406,33 @@ function NodeCard({ n }: { n: HelpNode }) {
  */
 function Diagram({ d }: { d: HelpDiagram }) {
   return (
-    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--bg)]/60 p-3">
+    <figure className="m-0 mt-3 flex flex-col gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_20%,transparent)] bg-[color-mix(in_srgb,var(--bg)_60%,transparent)] p-3">
       <figcaption className="break-keep font-display text-[11.5px] font-[800] text-[var(--t2)]">
-        {d.caption}
+        {richText(d.caption)}
       </figcaption>
 
-      <div className="flex flex-col items-stretch gap-1.5 sm:flex-row sm:items-stretch">
-        {d.nodes.map((n, i) => (
-          <div key={n.label} className="flex min-w-0 flex-1 flex-col items-stretch gap-1.5 sm:flex-row">
-            {i > 0 && d.kind === 'flow' && (
-              <span
-                aria-hidden
-                className="self-center font-mono text-[12px] leading-none text-[var(--t3)] sm:self-center"
-              >
-                <span className="sm:hidden">↓</span>
-                <span className="hidden sm:inline">→</span>
-              </span>
-            )}
-            <NodeCard n={n} />
-          </div>
-        ))}
-      </div>
+      {d.kind === 'lane' ? (
+        <Lane nodes={d.nodes} bottleneck={d.bottleneck} rule={d.rule} />
+      ) : d.kind === 'io' ? (
+        <Io nodes={d.nodes} gate={d.gate} />
+      ) : (
+        <div className="flex flex-col items-stretch gap-1.5 sm:flex-row sm:items-stretch">
+          {d.nodes.map((n, i) => (
+            <div key={n.label} className="flex min-w-0 flex-1 flex-col items-stretch gap-1.5 sm:flex-row">
+              {i > 0 && d.kind === 'flow' && (
+                <span
+                  aria-hidden
+                  className="self-center font-mono text-[12px] leading-none text-[var(--t3)] sm:self-center"
+                >
+                  <span className="sm:hidden">↓</span>
+                  <span className="hidden sm:inline">→</span>
+                </span>
+              )}
+              <NodeCard n={n} order={d.kind === 'flow' ? i + 1 : undefined} />
+            </div>
+          ))}
+        </div>
+      )}
 
       {d.kind === 'flow' && d.branch && d.branch.length > 0 && (
         <ul className="flex flex-col gap-1">
@@ -212,7 +442,7 @@ function Diagram({ d }: { d: HelpDiagram }) {
               className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 break-keep border-l-2 border-[var(--bd)] pl-2 font-body text-[11.5px] leading-[1.55] text-[var(--t2)]"
             >
               <span className="font-mono text-[10px] font-[700] text-[var(--t3)]">{b.when}</span>
-              <span>{b.then}</span>
+              <span>{richText(b.then)}</span>
             </li>
           ))}
         </ul>
@@ -223,7 +453,8 @@ function Diagram({ d }: { d: HelpDiagram }) {
           <span aria-hidden className="font-mono text-[12px] text-[var(--p)]">
             ↺
           </span>
-          {d.loop}
+          {/* 위 `Lane` 과 같은 이유로 한 겹 감싼다 — 조각이 flex 아이템이 되면 안 된다. */}
+          <span className="min-w-0">{richText(d.loop)}</span>
         </p>
       )}
     </figure>
@@ -249,7 +480,7 @@ function Fold({
   children: React.ReactNode
 }) {
   return (
-    <details className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]/50">
+    <details className="mt-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_50%,transparent)]">
       <summary className="flex min-h-[44px] cursor-pointer list-none items-center gap-2 px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] motion-reduce:transition-none">
         <ChevronDown size={13} aria-hidden className="shrink-0" />
         {label}
@@ -272,11 +503,11 @@ function Fold({
 export function HelpBody({ body }: { body: ScreenHelp }) {
   return (
     <>
-      <p className="mt-1.5 font-body text-[13.5px] leading-[1.7] text-[var(--t1)]">{body.summary}</p>
+      <p className="mt-1.5 font-body text-[13.5px] leading-[1.7] text-[var(--t1)]">{richText(body.summary)}</p>
       {body.when && (
         <p className="mt-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
           <span className="font-[700] text-[var(--t1)]">언제 </span>
-          {body.when}
+          {richText(body.when)}
         </p>
       )}
 
@@ -295,11 +526,11 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
                 {i + 1}
               </span>
               <span className="min-w-0">
-                <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{s.title}</span>
-                <span className="ml-1.5 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{s.detail}</span>
+                <span className="font-display text-[13px] font-[700] text-[var(--t1)]">{richText(s.title)}</span>
+                <span className="ml-1.5 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{richText(s.detail)}</span>
                 {s.done && (
                   <span className="mt-0.5 block font-body text-[12px] text-[var(--t3)]">
-                    완료 신호 — {s.done}
+                    완료 신호 — {richText(s.done)}
                   </span>
                 )}
               </span>
@@ -313,8 +544,8 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
           <dl className="grid gap-x-4 gap-y-2 sm:grid-cols-[max-content_1fr]">
             {body.fields.map((f) => (
               <div key={f.label} className="contents">
-                <dt className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{f.label}</dt>
-                <dd className="font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{f.detail}</dd>
+                <dt className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{richText(f.label)}</dt>
+                <dd className="font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{richText(f.detail)}</dd>
               </div>
             ))}
           </dl>
@@ -323,19 +554,19 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
 
       {body.drain && (
         <Fold label="Claude Code 드레인 절차" count={body.drain.procedure.length}>
-        <section className="rounded-[var(--r-md)] border border-[#B0843A]/35 bg-[#B0843A]/[0.06] p-3">
+        <section className="rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--active)_35%,transparent)] bg-[color-mix(in_srgb,var(--active)_6%,transparent)] p-3">
           <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[800] text-[var(--t1)]">
-            <Terminal size={13} aria-hidden className="text-[#B0843A]" />
+            <Terminal size={13} aria-hidden className="text-[var(--active)]" />
             Claude Code 드레인 절차
           </h3>
-          <p className="mt-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{body.drain.what}</p>
+          <p className="mt-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{richText(body.drain.what)}</p>
 
           <p className="mt-2 font-display text-[11.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
             시작 전 확인
           </p>
           <ul className="mt-0.5 list-disc pl-4 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
             {body.drain.prerequisites.map((p) => (
-              <li key={p}>{p}</li>
+              <li key={p}>{richText(p)}</li>
             ))}
           </ul>
 
@@ -345,14 +576,14 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
           <ol className="mt-0.5 flex flex-col gap-2">
             {body.drain.procedure.map((s, i) => (
               <li key={s.title} className="flex gap-2">
-                <span aria-hidden className="font-mono text-[11.5px] font-[800] text-[#B0843A]">
+                <span aria-hidden className="font-mono text-[11.5px] font-[800] text-[var(--active)]">
                   {i + 1}.
                 </span>
                 <span className="min-w-0">
-                  <span className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{s.title}</span>
-                  <span className="ml-1.5 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{s.detail}</span>
+                  <span className="font-display text-[12.5px] font-[700] text-[var(--t1)]">{richText(s.title)}</span>
+                  <span className="ml-1.5 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">{richText(s.detail)}</span>
                   {s.done && (
-                    <span className="mt-0.5 block font-body text-[12px] text-[var(--t3)]">완료 신호 — {s.done}</span>
+                    <span className="mt-0.5 block font-body text-[12px] text-[var(--t3)]">완료 신호 — {richText(s.done)}</span>
                   )}
                 </span>
               </li>
@@ -364,7 +595,7 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
           </p>
           <ul className="mt-0.5 list-disc pl-4 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
             {body.drain.verify.map((v) => (
-              <li key={v}>{v}</li>
+              <li key={v}>{richText(v)}</li>
             ))}
           </ul>
 
@@ -375,7 +606,7 @@ export function HelpBody({ body }: { body: ScreenHelp }) {
               </p>
               <ul className="mt-0.5 list-disc pl-4 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
                 {body.drain.recovery.map((r) => (
-                  <li key={r}>{r}</li>
+                  <li key={r}>{richText(r)}</li>
                 ))}
               </ul>
             </>
@@ -443,7 +674,7 @@ export function AdminScreenHelp({
         // min-h-[36px] 이었다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지).
         // 이 버튼은 **모든 관리자 화면**에 있어서 하나 고치면 26곳이 함께 낫는다
         // (실측 2026-08-26 · 390px). 관리자가 폰에서 처음 누르는 것이 대개 이것이다.
-        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p)]/8 hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
+        className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[color-mix(in_srgb,var(--p)_8%,transparent)] hover:text-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:scale-[0.97] disabled:opacity-50 motion-reduce:transition-none"
       >
         <CircleHelp size={14} aria-hidden />
         화면 도움말
@@ -459,12 +690,12 @@ export function AdminScreenHelp({
           id={panelId}
           role="region"
           aria-label={`${entry.title} 화면 도움말`}
-          className="mt-2 rounded-[var(--r-lg)] border border-[var(--p)]/25 bg-[var(--p)]/[0.04] p-4"
+          className="mt-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--p)_25%,transparent)] bg-[color-mix(in_srgb,var(--p)_4%,transparent)] p-4"
         >
           <div className="flex flex-wrap items-baseline gap-2">
             <h2 className="font-display text-[14px] font-[800] text-[var(--t1)]">{entry.title}</h2>
             {scoped && (
-              <span className="rounded-[var(--r-full)] bg-[var(--p)]/14 px-2 py-1 font-display text-[11px] font-[700] text-[var(--p-hover)]">
+              <span className="rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--p)_14%,transparent)] px-2 py-1 font-display text-[11px] font-[700] text-[var(--p-hover)]">
                 {tab}
               </span>
             )}
@@ -473,12 +704,12 @@ export function AdminScreenHelp({
           <HelpBody body={scoped ?? screenLevel} />
 
           {showScreenFooter && (
-            <section className="mt-4 border-t border-[var(--p)]/20 pt-3">
+            <section className="mt-4 border-t border-[color-mix(in_srgb,var(--p)_20%,transparent)] pt-3">
               <h3 className="font-display text-[11.5px] font-[800] uppercase tracking-[0.08em] text-[var(--t3)]">
                 이 화면 전체
               </h3>
               <p className="mt-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)]">
-                {screenLevel.summary}
+                {richText(screenLevel.summary)}
               </p>
               {screenLevel.cautions && screenLevel.cautions.length > 0 && (
                 <Cautions items={screenLevel.cautions} />

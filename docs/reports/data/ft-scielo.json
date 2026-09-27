@@ -1,0 +1,368 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "fulltext-spans/v1",
+  "source": "scielo_sza",
+  "n": 30,
+  "items": [
+    {
+      "pid": "S0256-01002009000100001",
+      "journal": "South African Journal of Education",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 6795,
+      "trimmed_words": 5158,
+      "abstract_words": 177,
+      "refs_words": 1397,
+      "n_sentences": 155
+    },
+    {
+      "pid": "S0038-23532009000100021",
+      "journal": "South African Journal of Science",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 5196,
+      "trimmed_words": 3662,
+      "abstract_words": 287,
+      "refs_words": 1159,
+      "n_sentences": 153
+    },
+    {
+      "pid": "S2222-34362016000400003",
+      "journal": "South African Journal of Economic and Management Sciences",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8684,
+      "trimmed_words": 6451,
+      "abstract_words": 104,
+      "refs_words": 2076,
+      "n_sentences": 255
+    },
+    {
+      "pid": "S2074-77052016000200011",
+      "journal": "Verbum et Ecclesia",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 3893,
+      "trimmed_words": 3314,
+      "abstract_words": 242,
+      "refs_words": 299,
+      "n_sentences": 149
+    },
+    {
+      "pid": "S0256-95072018000200001",
+      "journal": "Missionalia",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 9905,
+      "trimmed_words": 7678,
+      "abstract_words": 160,
+      "refs_words": 2036,
+      "n_sentences": 267
+    },
+    {
+      "pid": "S2221-40702019000100010",
+      "journal": "Educational Research for Social Change",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 7424,
+      "trimmed_words": 6264,
+      "abstract_words": 175,
+      "refs_words": 948,
+      "n_sentences": 238
+    },
+    {
+      "pid": "S2223-03862021000100004",
+      "journal": "Yesterday and Today",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8980,
+      "trimmed_words": 7739,
+      "abstract_words": 266,
+      "refs_words": 925,
+      "n_sentences": 393
+    },
+    {
+      "pid": "S1815-74402007000100002",
+      "journal": "Journal of Contemporary Management",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 3404,
+      "trimmed_words": 2666,
+      "abstract_words": 95,
+      "refs_words": 607,
+      "n_sentences": 132
+    },
+    {
+      "pid": "S1753-59132023000600002",
+      "journal": "South African Journal of Higher Education",
+      "license": [
+        "BY-NC-ND/4.0"
+      ],
+      "raw_words": 7556,
+      "trimmed_words": 4984,
+      "abstract_words": 265,
+      "refs_words": 2264,
+      "n_sentences": 194
+    },
+    {
+      "pid": "S2410-79722017000300005",
+      "journal": "African Human Mobility Review",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8223,
+      "trimmed_words": 6665,
+      "abstract_words": 191,
+      "refs_words": 1324,
+      "n_sentences": 303
+    },
+    {
+      "pid": "S1996-20962025000200007",
+      "journal": "African Human Rights Law Journal",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 12417,
+      "trimmed_words": 9933,
+      "abstract_words": 296,
+      "refs_words": 2024,
+      "n_sentences": 452
+    },
+    {
+      "pid": "S2071-31852025000100024",
+      "journal": "Southern African Journal of Entrepreneurship and Small Business Management",
+      "license": [
+        "BY-NC/4.0"
+      ],
+      "raw_words": 7352,
+      "trimmed_words": 5807,
+      "abstract_words": 205,
+      "refs_words": 1279,
+      "n_sentences": 251
+    },
+    {
+      "pid": "S1560-683X2025000100033",
+      "journal": "South African Journal of Information Management",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8287,
+      "trimmed_words": 6322,
+      "abstract_words": 253,
+      "refs_words": 1634,
+      "n_sentences": 322
+    },
+    {
+      "pid": "S2225-71602025000100011",
+      "journal": "De Jure Law Journal",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8731,
+      "trimmed_words": 5610,
+      "abstract_words": 190,
+      "refs_words": 2900,
+      "n_sentences": 259
+    },
+    {
+      "pid": "S2309-737X2025000200005",
+      "journal": "African Journal on Conflict Resolution",
+      "license": [
+        "BY-NC-ND/4.0"
+      ],
+      "raw_words": 8568,
+      "trimmed_words": 6841,
+      "abstract_words": 208,
+      "refs_words": 1416,
+      "n_sentences": 316
+    },
+    {
+      "pid": "S0256-01002009000100003",
+      "journal": "South African Journal of Education",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 6546,
+      "trimmed_words": 5899,
+      "abstract_words": 173,
+      "refs_words": 363,
+      "n_sentences": 268
+    },
+    {
+      "pid": "S0038-23532008000600021",
+      "journal": "South African Journal of Science",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 1746,
+      "trimmed_words": 1254,
+      "abstract_words": 120,
+      "refs_words": 323,
+      "n_sentences": 55
+    },
+    {
+      "pid": "S2222-34362016000400004",
+      "journal": "South African Journal of Economic and Management Sciences",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 7795,
+      "trimmed_words": 6259,
+      "abstract_words": 197,
+      "refs_words": 1303,
+      "n_sentences": 321
+    },
+    {
+      "pid": "S2074-77052016000200007",
+      "journal": "Verbum et Ecclesia",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 5434,
+      "trimmed_words": 3955,
+      "abstract_words": 265,
+      "refs_words": 1163,
+      "n_sentences": 168
+    },
+    {
+      "pid": "S0256-95072018000200002",
+      "journal": "Missionalia",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 11212,
+      "trimmed_words": 10326,
+      "abstract_words": 265,
+      "refs_words": 592,
+      "n_sentences": 339
+    },
+    {
+      "pid": "S2221-40702019000100005",
+      "journal": "Educational Research for Social Change",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 7863,
+      "trimmed_words": 6695,
+      "abstract_words": 169,
+      "refs_words": 943,
+      "n_sentences": 319
+    },
+    {
+      "pid": "S2223-03862021000100005",
+      "journal": "Yesterday and Today",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8245,
+      "trimmed_words": 7022,
+      "abstract_words": 260,
+      "refs_words": 926,
+      "n_sentences": 324
+    },
+    {
+      "pid": "S1815-74402007000100004",
+      "journal": "Journal of Contemporary Management",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 6322,
+      "trimmed_words": 5116,
+      "abstract_words": 169,
+      "refs_words": 985,
+      "n_sentences": 238
+    },
+    {
+      "pid": "S1753-59132023000600013",
+      "journal": "South African Journal of Higher Education",
+      "license": [
+        "BY-NC-ND/4.0"
+      ],
+      "raw_words": 6356,
+      "trimmed_words": 4981,
+      "abstract_words": 212,
+      "refs_words": 1083,
+      "n_sentences": 206
+    },
+    {
+      "pid": "S2410-79722017000200001",
+      "journal": "African Human Mobility Review",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 10722,
+      "trimmed_words": 8844,
+      "abstract_words": 190,
+      "refs_words": 1609,
+      "n_sentences": 333
+    },
+    {
+      "pid": "S1996-20962025000200026",
+      "journal": "African Human Rights Law Journal",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 15097,
+      "trimmed_words": 9595,
+      "abstract_words": 274,
+      "refs_words": 4880,
+      "n_sentences": 374
+    },
+    {
+      "pid": "S2071-31852025000100021",
+      "journal": "Southern African Journal of Entrepreneurship and Small Business Management",
+      "license": [
+        "BY-NC/4.0"
+      ],
+      "raw_words": 10960,
+      "trimmed_words": 8433,
+      "abstract_words": 260,
+      "refs_words": 2187,
+      "n_sentences": 404
+    },
+    {
+      "pid": "S1560-683X2025000100042",
+      "journal": "South African Journal of Information Management",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 8252,
+      "trimmed_words": 6229,
+      "abstract_words": 222,
+      "refs_words": 1732,
+      "n_sentences": 344
+    },
+    {
+      "pid": "S2225-71602025000100010",
+      "journal": "De Jure Law Journal",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 12303,
+      "trimmed_words": 8386,
+      "abstract_words": 158,
+      "refs_words": 3436,
+      "n_sentences": 357
+    },
+    {
+      "pid": "S0256-01002009000100004",
+      "journal": "South African Journal of Education",
+      "license": [
+        "BY/4.0"
+      ],
+      "raw_words": 5505,
+      "trimmed_words": 4669,
+      "abstract_words": 159,
+      "refs_words": 542,
+      "n_sentences": 227
+    }
+  ]
+}

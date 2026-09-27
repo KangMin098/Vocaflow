@@ -4,6 +4,7 @@
 //   GET <apiBase>?action=query&prop=extracts&explaintext=1&titles=<Title>
 
 import type { ArticleSource, RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout } from './_helpers'
 import { GOVERNED_SOURCES, sourceKey, type GovernedSource } from './source-key'
@@ -61,9 +62,8 @@ export async function ingestMediaWikiArticle(opts: MediaWikiOpts): Promise<RawAr
 
   const content = (page.extract ?? '').trim()
   const minLen = opts.minLen ?? 200
-  if (content.length < minLen) {
-    throw new Error(`${opts.source} body too short: ${content.length} chars (stub?)`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.length < minLen
 
   const pageTitle = page.title ?? title
   const fullUrl =
@@ -79,7 +79,7 @@ export async function ingestMediaWikiArticle(opts: MediaWikiOpts): Promise<RawAr
       : pageTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')
   ).slice(0, 60)
 
-  return {
+  const article: RawArticle = {
     source: opts.source,
     source_id: governed
       ? sourceKey(opts.source as GovernedSource, { pageid: page.pageid, url: fullUrl })
@@ -94,4 +94,13 @@ export async function ingestMediaWikiArticle(opts: MediaWikiOpts): Promise<RawAr
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`${opts.source} body too short: ${content.length} chars (stub?)`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

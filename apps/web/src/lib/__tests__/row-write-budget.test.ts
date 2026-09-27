@@ -89,8 +89,19 @@ type Scanner = {
  * `upsert(changed)` 로 넘긴다(행마다 PATCH 가 아니다). 09-05/09-06 을 멈춘 경로
  * (수만 행 × 초당 100+)와 자릿수가 다르다 — 그래서 고치라고 요구하지 않고 예산만 옮긴다.
  * 다음에 또 오르면 같은 방식으로 파일 이름을 적는다. 내리는 것은 언제나 환영이다.
+ *
+ * 151 → 158 (2026-09-26):
+ *   +2  scripts/acp/plos-figure-refetch.mts (그림 결함 원본 재수집 · 되돌리기 — 행마다 옛 본문 백업을 먼저 적고 쓴다)
+ *   +1  scripts/acp/plos-piece-seam-scan.mjs (--archive · 이음매 조각 159행 보관함 — 참조 0 확인 뒤)
+ *   둘 다 이미 한 번 돌린 일회성 수리다.
+ *   +4  design/replica-first 통합으로 들어온 다른 세션 커밋분 — 파일 미특정(PR #120 병합 전 확인 필요)
+ *
+ * 158 → 137 (2026-09-26):
+ *   스캐너가 한 SELECT 의 500자 창 안에 뒤 UPDATE 가 있으면 읽기 줄까지 쓰기로 중복 계산했다.
+ *   첫 연산이 SELECT 인 후보를 빼도록 고치고 회귀를 추가했다. 실제 단건 쓰기를 없앤 척한 것이
+ *   아니라 같은 UPDATE 를 두 번 세던 오탐을 제거한 결과이며, 깨끗한 LF 체크아웃 실측 137이다.
  */
-const BASELINE = 151
+const BASELINE = 137
 
 let scanner: Scanner
 
@@ -166,6 +177,20 @@ export async function probe(words: string[]) {
 `)
     expect(hits.length).toBeGreaterThan(0)
     expect(hits[0]!.table).toBe('shared_dictionary')
+  })
+
+  it('조회 뒤의 별도 UPDATE 를 앞 SELECT 에도 중복 귀속하지 않는다', () => {
+    const hits = scanSource(`
+declare const db: any
+export async function probe(ids: string[]) {
+  for (const id of ids) {
+    const { data } = await db.from('library_articles').select('title').eq('id', id).single()
+    await db.from('library_articles').update({ title: data.title.trim() }).eq('id', id)
+  }
+}
+`)
+    expect(hits).toHaveLength(1)
+    expect(hits[0]!.op).toBe('update')
   })
 
   it('배치 관용구는 잡지 않는다 — 오탐이 쌓이면 목록을 통째로 무시하게 된다', () => {

@@ -2,7 +2,7 @@
 // Published analysis only; no passage/choices columns. Learners use RLS; authenticated admin callers may inject a fresh client.
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
-import { pagedSelect } from '@/lib/supabase/paged-select'
+import { keysetSelect } from '@/lib/supabase/keyset-select'
 import { loadSessionCatalog } from './session/catalog'
 import { loadItemSkeleton, type ItemSkeleton } from './skeleton'
 import verifiedAnchors from './dissect-anchors.json'
@@ -24,15 +24,26 @@ export async function loadDissectionCatalog(options: { db?: SupabaseClient; fres
   const db = options.db ?? (await createClient()) as unknown as SupabaseClient
   const [base, items, analyses] = await Promise.all([
     loadSessionCatalog(options),
-    pagedSelect<{ id: string; type_id: string; answer: number | null }>((from, to) => db.from('csat_items_public').select('id,type_id,answer').eq('in_scope', true).order('id').range(from, to), 'dissection items'),
-    pagedSelect<Analysis>((from, to) => db.from('csat_item_analyses').select('item_id,version,design_intent,answer_unknown,answer_locus,choice_analysis').eq('status', 'published').order('item_id').order('version', { ascending: false }).range(from, to), 'dissection analysis'),
+    keysetSelect<{ id: string; type_id: string; answer: number | null }, string>((cursor, limit) => {
+      let query = db.from('csat_items_public').select('id,type_id,answer').eq('in_scope', true).order('id').limit(limit)
+      if (cursor) query = query.gt('id', cursor)
+      return query
+    }, (row) => row.id, '해부 문항'),
+    keysetSelect<Analysis, { itemId: string; version: number }>((cursor, limit) => {
+      let query = db.from('csat_item_analyses').select('item_id,version,design_intent,answer_unknown,answer_locus,choice_analysis').eq('status', 'published').order('item_id').order('version').limit(limit)
+      if (cursor) query = query.or(`item_id.gt.${cursor.itemId},and(item_id.eq.${cursor.itemId},version.gt.${cursor.version})`)
+      return query
+    }, (row) => ({ itemId: row.item_id, version: row.version }), '해부 분석'),
   ])
   if (base.error) throw new Error(base.error)
   // An expired session can return an empty RLS result without a query error.
   // Do not turn that into hundreds of false metadata defects or cache it.
   if (items.length > 0 && analyses.length === 0) throw new Error('공개 분석을 읽지 못했습니다. 로그인 상태를 확인해 주세요.')
   const latest = new Map<string, Analysis>()
-  for (const row of analyses) if (!latest.has(row.item_id)) latest.set(row.item_id, row)
+  for (const row of analyses) {
+    const current = latest.get(row.item_id)
+    if (!current || row.version > current.version) latest.set(row.item_id, row)
+  }
   const typeOf = new Map(items.map(i => [i.id, i.type_id]))
   const frequency = new Map<string, Map<string, number>>()
   for (const a of latest.values()) {

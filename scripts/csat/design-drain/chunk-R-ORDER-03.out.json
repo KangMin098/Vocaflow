@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-ORDER",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2109#36",
+      "roles": ["background", "background", "support", "example", "topic", "support", "example", "support"],
+      "alternatives": [{ "index": 4, "role": "background" }, { "index": 7, "role": "conclusion" }],
+      "pattern": "myth_rebuttal",
+      "selection": "인간 중심 통념을 인용으로 세운 뒤 그 가정이 많은 것을 놓치게 한다고 예고하고, 공유 능력 목록과 자동차 비유로 반박하는 글이라 예고-충족 고리가 순서를 정한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 통념을 가정으로 재진술하는 블록과 그 가정을 받는 지시 형용사가 첫 자리를 정한다.",
+      "cues": ["pronoun", "logic", "repetition"],
+      "data_defect": "(A) 첫 문장 인용구 안에 빈칸 표시(make ______ us human)가 잘못 끼어 있다 — 원문 추출 잡음."
+    },
+    {
+      "id": "M2106#37",
+      "roles": ["background", "background", "conclusion", "support", "turn", "support", "topic", "support"],
+      "alternatives": [{ "index": 6, "role": "background" }, { "index": 2, "role": "support" }],
+      "pattern": "problem_solution",
+      "selection": "숙성 후 부패라는 문제 → 미숙 수확·에틸렌 처리 관행 → 맛 손실 → 숙성 지연이라는 해법으로 이어지는 문제-해결 사슬이라, 대명사와 시간 부사가 블록을 한 줄로 꿴다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 복수 대명사와 '그다음' 부사가 미숙 수확 문장을 요구해 (C) 뒤 (B)가 정해진다.",
+      "cues": ["pronoun", "time", "connective", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#36",
+      "roles": ["topic", "support", "example", "example", "example", "conclusion", "support", "example"],
+      "alternatives": [{ "index": 6, "role": "conclusion" }],
+      "pattern": "study_implication",
+      "selection": "역경이 이롭다는 주장을 재진술한 뒤 곡선 관계 연구와 후속 연구로 뒷받침하고 함의로 맺는 연구 소개형이라, 연구 도입과 결과 서술의 층위를 가려야 순서가 선다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 곡선 관계를 처음 세우는 연구 도입과 후속 연구 예고가 뒤 블록을 부른다.",
+      "cues": ["connective", "logic", "repetition", "time"],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#37",
+      "roles": ["background", "background", "support", "conclusion", "conclusion", "topic", "example", "example", "turn", "support", "support"],
+      "alternatives": [{ "index": 5, "role": "background" }, { "index": 3, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "기술을 확장된 몸으로 보는 유추를 먼저 세우고 그 결함을 짚어 '생각의 확장된 몸'이라는 새 결론으로 뒤집는 통념-반박 구조라, 유추를 받는 지시어와 정관사 되받기가 순서를 잠근다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — '이 유추'가 (B)를 받고 설계도의 정관사 되받기가 (C) 뒤 (A)를 정한다.",
+      "cues": ["pronoun", "article", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#36",
+      "roles": ["topic", "support", "support", "background", "support", "support", "turn", "example", "example", "example"],
+      "alternatives": [{ "index": 4, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "기보가 보존 수단 이상이었다는 예고를 본질 변화로 채우고, 장점 뒤 단점과 구전 전통의 사례로 넓혀 가는 글이라 예고-충족 사슬이 블록마다 이어진다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 단수 대명사가 기보를 받고 '단점' 예고와 '구전' 어휘 반복이 뒤 순서를 정한다.",
+      "cues": ["pronoun", "connective", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#37",
+      "roles": ["background", "topic", "support", "support", "support", "support", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 5, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "예술가라는 말의 보편적 사용이 오해라고 지적한 뒤 그 의미가 서구 개인 업적 전통에 뿌리를 둔다고 좁혀 가는 글이라, '하나됨'을 되받는 지시어가 마지막 두 블록을 가른다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 그 용어와 적용 대상을 되받는 첫 블록, 하나됨을 되받는 지시어가 배열을 정한다.",
+      "cues": ["pronoun", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#36",
+      "roles": ["background", "topic", "example", "support", "conclusion", "example", "support"],
+      "alternatives": [{ "index": 6, "role": "topic" }, { "index": 4, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "주의가 눈 움직임 이상이라는 주장을 두 갈래 사례(보지 않고 주의하기·보면서 주의하지 않기)로 풀어 주는 일반-구체 글이라, 경험을 받는 지시어가 블록을 잇는다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — '이 경험'이 (C) 끝 진술을 받고 정관사 명사가 독서 장면을 되받는다.",
+      "cues": ["pronoun", "article", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2026#37",
+      "roles": ["topic", "support", "conclusion", "support", "turn", "support", "support"],
+      "alternatives": [{ "index": 4, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "철학의 넓은 시야를 인정한 뒤 비경험적 한계를 규정하고 과학과의 협업 필요로 넘어가는 글이라, 장점-한계-보완의 논리 순서와 결론 연결 표지가 판정 근거가 된다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 협업 요구를 '이는 ~을 뜻한다'로 되풀이하는 블록이 요구 뒤에 붙는다.",
+      "cues": ["connective", "pronoun", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2026#36",
+      "roles": ["background", "topic", "support", "example", "example", "example", "support", "support", "example"],
+      "alternatives": [{ "index": 6, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "시계는 반복 과정이라는 주장을 일반 규정·기본 예시에서 겉보기에 연속적인 특수 사례로 넓혀 가는 글이라, '또 하나의 이와 같은' 사례 표지가 선행 사례를 요구한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 방사성 탄소 사례가 양초 사례를 '이와 같은'으로 받아 (A)-(B) 인접을 정한다.",
+      "cues": ["pronoun", "repetition", "logic", "connective"],
+      "data_defect": null
+    },
+    {
+      "id": "2025#37",
+      "roles": ["background", "example", "topic", "support", "conclusion", "example", "example"],
+      "alternatives": [{ "index": 3, "role": "example" }],
+      "pattern": "study_implication",
+      "selection": "정서 전염을 새 떼 관찰로 제시한 뒤 한 연구의 결과·추가 관찰·해석 순으로 이어지는 연구 소개형이라, 결과를 되받는 상관 접속과 해석 물음의 전제 관계가 순서를 가른다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 조정력 결과를 되받고 불안 관찰을 더하는 블록이 해석 블록 앞에 선다.",
+      "cues": ["logic", "repetition", "article"],
+      "data_defect": null
+    }
+  ]
+}

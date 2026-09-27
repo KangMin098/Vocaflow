@@ -24,6 +24,7 @@
 //   ③ [다시 시도] — 서버 데이터를 다시 받아야 하므로 `router.refresh()`
 
 'use client'
+import { SpotState } from '@/components/ui/SpotState'
 
 import { useCallback, useEffect, useState, useTransition } from 'react'
 import Link from 'next/link'
@@ -289,13 +290,17 @@ function DailyCard({
   // 재료가 없는 이유는 하나뿐 — 받아쓸 자료가 없다. (비로그인은 라우트가 막는다.)
   if (!daily) {
     return (
-      <section className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-5">
-        <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">오늘의 받아쓰기</h2>
-        <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-          {hasAnything
-            ? '아래에서 자료를 하나 골라 첫 세션을 마치면, 내일부터는 오늘의 5문장이 자동으로 만들어져요.'
-            : '받아쓸 자료가 아직 없어요. 도서를 담거나 스크립트를 넣으면 여기에 매일 5문장이 놓입니다.'}
-        </p>
+      <section>
+        <SpotState
+          art="empty-page"
+          role="status"
+          title="오늘의 받아쓰기"
+          body={
+            hasAnything
+              ? '아래에서 자료를 하나 골라 첫 세션을 마치면, 내일부터는 오늘의 5문장이 자동으로 만들어져요.'
+              : '받아쓸 자료가 아직 없어요. 도서를 담거나 스크립트를 넣으면 여기에 매일 5문장이 놓입니다.'
+          }
+        />
       </section>
     )
   }

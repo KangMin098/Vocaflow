@@ -123,10 +123,7 @@ describe('셸 상단 — 여섯 질문 × 네 국면', () => {
     expect(model('complete').steps.filter((s) => s.current)).toHaveLength(0)
   })
 
-  it('완료 문장에 폭죽·트로피·느낌표가 없다 (철학 ③ · 모션 금지 목록)', () => {
-    const h = model('complete').now.headline
-    expect(h).not.toMatch(/[!🎉🏆🎊]/u)
-  })
+  // 디자인·UX 금지 검사 2건(완료 문장 !🎉🏆 금지 · 예보 문장 잃/위험/경고 금지 단언)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('진단 전에는 없는 계단을 그리지 않는다', () => {
     const m = model('undiagnosed')
@@ -222,7 +219,6 @@ describe('말투 — 평가하지 않는다 (철학 ③ Empathetic Feedback)', (
   it('예보 문장은 얻는 쪽으로 말한다', () => {
     const s = forecastSentence(forecastMemory(reviewedCards(5, 2, 4), NOW, 7))
     expect(s).toContain('붙잡아요')
-    expect(s).not.toMatch(/잃|위험|경고|실패/)
   })
 
   it('줄어든 주에는 비교를 말하지 않는다', () => {

@@ -1,0 +1,2417 @@
+[
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "11e5317d-4713-498e-b057-39cf206123e9",
+    "revision": "2026-09-25T07:32:47.523165+00:00",
+    "body_sha256": "cf79287fd0c332e410b5b92286fc2132045afa130b02386abef71224db8141b7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.256Z",
+        "by": "chunk-llm",
+        "why": "질소가 적당하면 광합성을 돕고 과하면 해친다는 대비가 결론까지 이어져 한 편의 주장이 된다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:49.509Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4d8dc3ba42d3808fb6a48ba4a1f0c1e4df1d30c2f4a40ea0e5234806a42c7920"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "gm·gsc 같은 기호가 문장 뼈대에 박혀 있어 기호를 풀어 쓰는 재작성이 선행돼야 한다.",
+          "sample": "Like drought in soil, atmospheric nitrogen",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.256Z",
+        "by": "chunk-llm",
+        "why": "질소가 적당하면 광합성을 돕고 과하면 해친다는 대비가 결론까지 이어져 한 편의 주장이 된다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:49.509Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4d8dc3ba42d3808fb6a48ba4a1f0c1e4df1d30c2f4a40ea0e5234806a42c7920"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "gm·gsc 같은 기호가 문장 뼈대에 박혀 있어 기호를 풀어 쓰는 재작성이 선행돼야 한다.",
+          "sample": "Like drought in soil, atmospheric nitrogen",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "질소 침착이라는 환경 변화 제시 후 구조 대 대사 두 가설을 세우고 실측으로 대사 쪽을 고르는 논지가 서론·고찰에 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Like drought in soil, atmospheric nitrogen",
+          "note": "서론 첫 단락은 지시어 없이 떼어지나 gm·gsc 약어가 본문 전체를 덮어 결과 절은 쓰기 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.230Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.256Z",
+          "by": "chunk-llm",
+          "why": "질소가 적당하면 광합성을 돕고 과하면 해친다는 대비가 결론까지 이어져 한 편의 주장이 된다.",
+          "basis": "full",
+          "genre": "agriculture",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:49.509Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4d8dc3ba42d3808fb6a48ba4a1f0c1e4df1d30c2f4a40ea0e5234806a42c7920"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "gm·gsc 같은 기호가 문장 뼈대에 박혀 있어 기호를 풀어 쓰는 재작성이 선행돼야 한다.",
+            "sample": "Like drought in soil, atmospheric nitrogen",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:41.626Z",
+      "topicMargin": 21.15
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "120f9158-ef27-44bd-8977-fb0af48818c2",
+    "revision": "2026-09-25T07:32:49.402482+00:00",
+    "body_sha256": "a7a2bfa332090c94826297c34970a2975a8cf39c9234f7a528c9e761abf52c37",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.257Z",
+        "by": "chunk-llm",
+        "why": "비만과 간암을 잇는 대사 중간고리를 묻고 답하는 저자 요약이 평이한 문장으로 완결된다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:50.581Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0363f0e3db9ee80729071eb27d5cbec8369ace8173288c64c3014b85d4a29bf5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 문답 구조를 그대로 살리면 대사물 이름 두셋만 바꿔도 밴드가 내려간다.",
+          "sample": "While it is well-known that adiposity",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.257Z",
+        "by": "chunk-llm",
+        "why": "비만과 간암을 잇는 대사 중간고리를 묻고 답하는 저자 요약이 평이한 문장으로 완결된다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:50.581Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0363f0e3db9ee80729071eb27d5cbec8369ace8173288c64c3014b85d4a29bf5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 문답 구조를 그대로 살리면 대사물 이름 두셋만 바꿔도 밴드가 내려간다.",
+          "sample": "While it is well-known that adiposity",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "비만-간암 연결 고리를 대사물질로 찾는 물음과 두 방법(관찰·멘델 무작위화)의 불일치까지 한 편으로 논지가 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While it is well-known that adiposity",
+          "note": "Author summary 단락은 고유명사·수치를 걷어도 논지가 서고 낱말 두셋만 바꾸면 밴드가 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.232Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.257Z",
+          "by": "chunk-llm",
+          "why": "비만과 간암을 잇는 대사 중간고리를 묻고 답하는 저자 요약이 평이한 문장으로 완결된다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:50.581Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "0363f0e3db9ee80729071eb27d5cbec8369ace8173288c64c3014b85d4a29bf5"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약 문답 구조를 그대로 살리면 대사물 이름 두셋만 바꿔도 밴드가 내려간다.",
+            "sample": "While it is well-known that adiposity",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:37.282Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "1245301c-b2a7-4c40-a10a-3784126aafb0",
+    "revision": "2026-09-25T07:32:53.293073+00:00",
+    "body_sha256": "9575ad79138bdce9cb6e3d036bf9b64f96b62a3f2c65ab3227df3a81f621682b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.257Z",
+        "by": "chunk-llm",
+        "why": "알부민이 혈관 내 삼투압을 지킨다는 기능 설명이 사례와 함께 앞 문맥 없이 읽힌다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:54.862Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "02eeee11ab9f8c96bc5cae7e6857610da2b6677c71e7083b2aa5f4fa77b4b6d7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "비원어민 문장이라 어법 문항 재료로는 못 쓰고, 어휘 교체 자체는 쉬웠다.",
+          "sample": "Albumin is a non-glycosylated plasma protein",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.257Z",
+        "by": "chunk-llm",
+        "why": "알부민이 혈관 내 삼투압을 지킨다는 기능 설명이 사례와 함께 앞 문맥 없이 읽힌다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:54:54.862Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "02eeee11ab9f8c96bc5cae7e6857610da2b6677c71e7083b2aa5f4fa77b4b6d7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "비원어민 문장이라 어법 문항 재료로는 못 쓰고, 어휘 교체 자체는 쉬웠다.",
+          "sample": "Albumin is a non-glycosylated plasma protein",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "콜롬비아에 말 알부민 제제가 없다는 문제 제기부터 소수 개체 예비 투여까지 절차와 이유가 이어져 읽힌다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In Colombia there is not any",
+          "note": "서론의 문제 제기 단락은 그대로 서지만 결과 절은 배치 번호·농도 나열이라 쓸 것이 없다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.233Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.257Z",
+          "by": "chunk-llm",
+          "why": "알부민이 혈관 내 삼투압을 지킨다는 기능 설명이 사례와 함께 앞 문맥 없이 읽힌다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:54:54.862Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "02eeee11ab9f8c96bc5cae7e6857610da2b6677c71e7083b2aa5f4fa77b4b6d7"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "비원어민 문장이라 어법 문항 재료로는 못 쓰고, 어휘 교체 자체는 쉬웠다.",
+            "sample": "Albumin is a non-glycosylated plasma protein",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 10,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:44.069Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "12954ec5-0eb9-4580-b98a-557db144148a",
+    "revision": "2026-09-25T07:32:59.515648+00:00",
+    "body_sha256": "26667e9ac31ac880d0daf78ed73649b89bf69bdcb7e3019a99830d729b57a915",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.259Z",
+        "by": "chunk-llm",
+        "why": "필수로 여겨진 결합 영역이 사실은 보조적이라는 반전은 좋으나 문장마다 변이·단백질 기호가 뼈대라 발췌가 서는지 불확실하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic"
+          ],
+          "levels": [
+            "V10"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:02.380Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c5b1b8bfec61e7f579e741853dae8b470c40e72334258c5a8b76dfc511221ccb"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "저자 요약에서 고유명사를 걷어내자 주어가 사라져 문단이 무너졌다 — 재작성 없이는 못 쓴다.",
+          "sample": "Rad26ATRIP is a checkpoint sensor protein",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.259Z",
+        "by": "chunk-llm",
+        "why": "필수로 여겨진 결합 영역이 사실은 보조적이라는 반전은 좋으나 문장마다 변이·단백질 기호가 뼈대라 발췌가 서는지 불확실하다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic"
+          ],
+          "levels": [
+            "V10"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:02.380Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c5b1b8bfec61e7f579e741853dae8b470c40e72334258c5a8b76dfc511221ccb"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "저자 요약에서 고유명사를 걷어내자 주어가 사라져 문단이 무너졌다 — 재작성 없이는 못 쓴다.",
+          "sample": "Rad26ATRIP is a checkpoint sensor protein",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "통설(RPA 결합이 체크포인트 개시에 필수)을 세운 뒤 단독 결손은 약하고 두 부위 동시 변이라야 신호가 사라진다는 반증 구조가 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Genome integrity is constantly challenged by",
+          "note": "서론 첫 단락은 유전자명 없이도 서지만 결과 절의 ∆30·DEE15,24 표기가 많아 어휘 조정으로는 밴드가 안 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.235Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.259Z",
+          "by": "chunk-llm",
+          "why": "필수로 여겨진 결합 영역이 사실은 보조적이라는 반전은 좋으나 문장마다 변이·단백질 기호가 뼈대라 발췌가 서는지 불확실하다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic"
+            ],
+            "levels": [
+              "V10"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:02.380Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c5b1b8bfec61e7f579e741853dae8b470c40e72334258c5a8b76dfc511221ccb"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "저자 요약에서 고유명사를 걷어내자 주어가 사라져 문단이 무너졌다 — 재작성 없이는 못 쓴다.",
+            "sample": "Rad26ATRIP is a checkpoint sensor protein",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "processing-unclear",
+          "criteria_version": 3
+        }
+      },
+      "pass": 12,
+      "type": "R-BLANK",
+      "shape": 25,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:27.512Z",
+      "topicMargin": 13.33
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "129cb9da-b9bf-4700-8e6b-776d77a5f53e",
+    "revision": "2026-09-25T07:33:01.089655+00:00",
+    "body_sha256": "b135b0680083824ab6677a1d3962e8bfb9845ca11fee4472e94afb8b7d4436c3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.260Z",
+        "by": "chunk-llm",
+        "why": "이식 재료가 면역 반응을 부르되 과하면 실패한다는 균형 논지가 서론 한 단락에 담겼다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:04.621Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "492f0c4352c33c1f61d1845b37d539663bafa2ac97c542bf62bd307b99c106f6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "세포주 이름만 빼면 상처 치유 단계 설명이 그대로 남아 어휘 하향이 가능했다.",
+          "sample": "The extracellular matrix (ECM) serves as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.260Z",
+        "by": "chunk-llm",
+        "why": "이식 재료가 면역 반응을 부르되 과하면 실패한다는 균형 논지가 서론 한 단락에 담겼다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:04.621Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "492f0c4352c33c1f61d1845b37d539663bafa2ac97c542bf62bd307b99c106f6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "세포주 이름만 빼면 상처 치유 단계 설명이 그대로 남아 어휘 하향이 가능했다.",
+          "sample": "The extracellular matrix (ECM) serves as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "이식 생체재료가 면역을 어떻게 건드리는지 물음을 세우고 휴지기 촉진·자극 후 억제라는 양방향 결론으로 닫는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Following implantation, macrophages are rapidly recruited",
+          "note": "서론의 대식세포 극성화 단락은 앞 문맥 없이 시작되고 M1/M2 표기만 풀면 읽힌다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.236Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.260Z",
+          "by": "chunk-llm",
+          "why": "이식 재료가 면역 반응을 부르되 과하면 실패한다는 균형 논지가 서론 한 단락에 담겼다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:04.621Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "492f0c4352c33c1f61d1845b37d539663bafa2ac97c542bf62bd307b99c106f6"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "세포주 이름만 빼면 상처 치유 단계 설명이 그대로 남아 어휘 하향이 가능했다.",
+            "sample": "The extracellular matrix (ECM) serves as",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 6,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:14.615Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "12a88f81-cf7c-48d1-8bef-7c52e22bfa68",
+    "revision": "2026-09-25T07:33:02.387086+00:00",
+    "body_sha256": "60a879c0320e12f5b5ef97a6a6481987063d0618f40eb70d1fb92d5cc61bb033",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.261Z",
+        "by": "chunk-llm",
+        "why": "적혈구 수를 조절하는 되먹임이 빈혈마다 다르게 어긋난다는 설명이 저자 요약에서 평이하게 완결된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:04.690Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "bd9c1af0eef9a2ff04c71e855d313722e001904ab471f705659061f105945926"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "호르몬 이름 하나만 풀어 쓰면 고2 밴드로 내려가는, 이 청크에서 가장 가공이 쉬운 글이었다.",
+          "sample": "The number of red blood cells",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.261Z",
+        "by": "chunk-llm",
+        "why": "적혈구 수를 조절하는 되먹임이 빈혈마다 다르게 어긋난다는 설명이 저자 요약에서 평이하게 완결된다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:04.690Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "bd9c1af0eef9a2ff04c71e855d313722e001904ab471f705659061f105945926"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "호르몬 이름 하나만 풀어 쓰면 고2 밴드로 내려가는, 이 청크에서 가장 가공이 쉬운 글이었다.",
+          "sample": "The number of red blood cells",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "빈혈마다 EPO가 기대와 어긋난다는 수수께끼를 세우고 최소 모형으로 유형별 이유를 가르는 설명이 한 편으로 완결된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The number of red blood cells",
+          "note": "Author summary 와 서론 되먹임 설명 단락이 수식 없이 떨어져 나오고 낱말 조정도 잘 먹는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.237Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.261Z",
+          "by": "chunk-llm",
+          "why": "적혈구 수를 조절하는 되먹임이 빈혈마다 다르게 어긋난다는 설명이 저자 요약에서 평이하게 완결된다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "data-claim",
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:04.690Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "bd9c1af0eef9a2ff04c71e855d313722e001904ab471f705659061f105945926"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "호르몬 이름 하나만 풀어 쓰면 고2 밴드로 내려가는, 이 청크에서 가장 가공이 쉬운 글이었다.",
+            "sample": "The number of red blood cells",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:27.911Z",
+      "topicMargin": 11.04
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "12b6f038-e2b1-498b-8500-12628dbd2f08",
+    "revision": "2026-09-25T07:33:03.845539+00:00",
+    "body_sha256": "a2fd6d91ec5dbc4eab69836ba63eb71fb8a367045d6590a53cb75145d9cf903b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.262Z",
+        "by": "chunk-llm",
+        "why": "세계 암 부담 통계로 문을 열어 사실 진술이 여럿 모인 서론이 발췌 단위로 성립한다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:07.904Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7262ac0f893b7f2b8de87890fd7cfce3bfc576d7f039d1ff7241651829aa6f59"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 앞부분은 수치 진술이라 바로 쓰이지만 본론은 암종 약어 나열이라 버려야 한다.",
+          "sample": "Malignant tumors remain a leading cause",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.262Z",
+        "by": "chunk-llm",
+        "why": "세계 암 부담 통계로 문을 열어 사실 진술이 여럿 모인 서론이 발췌 단위로 성립한다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:07.904Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7262ac0f893b7f2b8de87890fd7cfce3bfc576d7f039d1ff7241651829aa6f59"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 앞부분은 수치 진술이라 바로 쓰이지만 본론은 암종 약어 나열이라 버려야 한다.",
+          "sample": "Malignant tumors remain a leading cause",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "생체표지자가 무엇인지, 발견 단계 연구가 어디까지 말할 수 있는지 서론·고찰에서 스스로 한계를 세워 논지를 만든다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Importantly, biomarker research is not only",
+          "note": "서론의 생체표지자 정의 단락은 잘 서지만 결과 절은 암종 약어 나열이라 통째로 버려야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.239Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.262Z",
+          "by": "chunk-llm",
+          "why": "세계 암 부담 통계로 문을 열어 사실 진술이 여럿 모인 서론이 발췌 단위로 성립한다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:07.904Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7262ac0f893b7f2b8de87890fd7cfce3bfc576d7f039d1ff7241651829aa6f59"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 앞부분은 수치 진술이라 바로 쓰이지만 본론은 암종 약어 나열이라 버려야 한다.",
+            "sample": "Malignant tumors remain a leading cause",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:07.011Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "12eeef72-514e-48c6-a897-f204727dd701",
+    "revision": "2026-09-25T07:33:10.832015+00:00",
+    "body_sha256": "70838ecf6a7f11e1f9818555b77bfa48fc4cb6c711d1c522780e00e3042d291e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.262Z",
+        "by": "chunk-llm",
+        "why": "B군 수막구균만 다당 백신을 만들 수 없는 이유를 설명하는 서론이 원인-결과로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:11.565Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e170e27d289de5b69dd3bc2f0243181a9cc8f22b0aa3b135009a4b5c7fe458f6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "원형 RNA가 왜 안정적인지 설명한 단락도 떼어지지만 항원 기호 표기가 걸림돌이다.",
+          "sample": "Neisseria meningitidis serogroup B (MenB), one",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:03.262Z",
+        "by": "chunk-llm",
+        "why": "B군 수막구균만 다당 백신을 만들 수 없는 이유를 설명하는 서론이 원인-결과로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:11.565Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e170e27d289de5b69dd3bc2f0243181a9cc8f22b0aa3b135009a4b5c7fe458f6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "원형 RNA가 왜 안정적인지 설명한 단락도 떼어지지만 항원 기호 표기가 걸림돌이다.",
+          "sample": "Neisseria meningitidis serogroup B (MenB), one",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "기존 MenB 백신의 제조·변이 한계를 세우고 원형 RNA 플랫폼이 그 한계를 어떻게 피하는지로 논지가 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Circular RNA is a type of",
+          "note": "Author summary 와 circRNA 설명 단락이 그림 참조 없이 서고 약어 두셋만 풀면 밴드가 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:03.262Z",
+          "by": "chunk-llm",
+          "why": "B군 수막구균만 다당 백신을 만들 수 없는 이유를 설명하는 서론이 원인-결과로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:11.565Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e170e27d289de5b69dd3bc2f0243181a9cc8f22b0aa3b135009a4b5c7fe458f6"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "원형 RNA가 왜 안정적인지 설명한 단락도 떼어지지만 항원 기호 표기가 걸림돌이다.",
+            "sample": "Neisseria meningitidis serogroup B (MenB), one",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:00.277Z",
+      "topicMargin": 12.71
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "1301db98-c60f-4382-b590-e9e49f7df033",
+    "revision": "2026-09-25T07:33:12.807635+00:00",
+    "body_sha256": "5fcfac25f3c2ba68d62a923f52a1f4ebeaf70d234350bca48a69794d875d2780",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.340Z",
+        "by": "chunk-llm",
+        "why": "본문 대부분이 화합물 CID 번호·도킹 점수·RMSF 수치 나열이라 떼어 낸 문단에 논지도 사건도 남지 않는다.",
+        "basis": "full",
+        "genre": "reference",
+        "round": 4,
+        "slots": {
+          "ages": [],
+          "types": [],
+          "levels": [],
+          "platform": [],
+          "purposes": []
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:12.967Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "678daf042a149f6adf30470eb226eb9f789a25b9a18198126ce2129871f8b651"
+        },
+        "retention": "discard",
+        "processing": {
+          "note": "수치와 식별자를 걷어 내면 문단이 통째로 비어 가공할 것이 남지 않았다.",
+          "sample": "Against the 4CDB protein, three",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.340Z",
+        "by": "chunk-llm",
+        "why": "본문 대부분이 화합물 CID 번호·도킹 점수·RMSF 수치 나열이라 떼어 낸 문단에 논지도 사건도 남지 않는다.",
+        "basis": "full",
+        "genre": "reference",
+        "round": 4,
+        "slots": {
+          "ages": [],
+          "types": [],
+          "levels": [],
+          "platform": [],
+          "purposes": []
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:12.967Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "678daf042a149f6adf30470eb226eb9f789a25b9a18198126ce2129871f8b651"
+        },
+        "retention": "discard",
+        "processing": {
+          "note": "수치와 식별자를 걷어 내면 문단이 통째로 비어 가공할 것이 남지 않았다.",
+          "sample": "Against the 4CDB protein, three",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "리스테리아의 감염 경로와 항생제 내성 문제를 세운 뒤 식물 플라보노이드를 대안으로 놓는 서론이 자족적으로 읽힌다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Foodborne pathogens cause significant illness by",
+          "note": "서론은 사실 진술이 여럿이라 쓸 만하나 결과 절 전체가 CID 번호와 kcal 값 순위라 가공 대상이 아니다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.243Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:04.340Z",
+          "by": "chunk-llm",
+          "why": "본문 대부분이 화합물 CID 번호·도킹 점수·RMSF 수치 나열이라 떼어 낸 문단에 논지도 사건도 남지 않는다.",
+          "basis": "full",
+          "genre": "reference",
+          "round": 4,
+          "slots": {
+            "ages": [],
+            "types": [],
+            "levels": [],
+            "platform": [],
+            "purposes": []
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:12.967Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "678daf042a149f6adf30470eb226eb9f789a25b9a18198126ce2129871f8b651"
+          },
+          "retention": "discard",
+          "processing": {
+            "note": "수치와 식별자를 걷어 내면 문단이 통째로 비어 가공할 것이 남지 않았다.",
+            "sample": "Against the 4CDB protein, three",
+            "detachable": false,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:50.104Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "1331e4a0-552b-4151-8fb3-edc79bd3b1c9",
+    "revision": "2026-09-25T07:33:15.628545+00:00",
+    "body_sha256": "19606fb05e3a0c0871c9ef58f83902d7bf05be5c18d22dfdc774f11d7914b09d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.342Z",
+        "by": "chunk-llm",
+        "why": "항생제 이전 시대 부검 조직으로만 볼 수 있는 결핵 병변을 다루는 이유를 대는 대목이 자족적 설명문으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:14.640Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4c04079857a91bff1b629a637e15a1c6e1cef662e40cb5b84f4b0eda3eaf93a0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "해당 문단은 단백질 이름이 하나도 없어 그대로 떼어 쓸 수 있었다.",
+          "sample": "Human tissue remains the only truly",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.342Z",
+        "by": "chunk-llm",
+        "why": "항생제 이전 시대 부검 조직으로만 볼 수 있는 결핵 병변을 다루는 이유를 대는 대목이 자족적 설명문으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:14.640Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4c04079857a91bff1b629a637e15a1c6e1cef662e40cb5b84f4b0eda3eaf93a0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "해당 문단은 단백질 이름이 하나도 없어 그대로 떼어 쓸 수 있었다.",
+          "sample": "Human tissue remains the only truly",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "항생제 이전 시대 부검 조직이라는 자료의 희소성과 1차·2차 결핵의 구분을 설명으로 세워 연구 필요를 끌어낸다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Human tissue remains the only truly",
+          "note": "고찰의 인체 조직 희소성 단락은 앞 문맥 없이 서고 단백질명을 걷어도 논지가 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.245Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:04.342Z",
+          "by": "chunk-llm",
+          "why": "항생제 이전 시대 부검 조직으로만 볼 수 있는 결핵 병변을 다루는 이유를 대는 대목이 자족적 설명문으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:14.640Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4c04079857a91bff1b629a637e15a1c6e1cef662e40cb5b84f4b0eda3eaf93a0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "해당 문단은 단백질 이름이 하나도 없어 그대로 떼어 쓸 수 있었다.",
+            "sample": "Human tissue remains the only truly",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:03.706Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-41-226Z",
+    "id": "13560606-2cc6-496d-9976-3009b66efc84",
+    "revision": "2026-09-25T07:33:18.738446+00:00",
+    "body_sha256": "94a981c23bdc752e9a23cffe290fa8e74543407110f77291c9509309236d1e31",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.343Z",
+        "by": "chunk-llm",
+        "why": "GSK3 인산화가 치료 표적이 될 만한가라는 물음에 「아니다」로 답하는 음성 결과 논증이 한 편으로 닫힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:17.276Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "de3d402c8b8007b62ecf52211fbcbb4a2bc8f8f34d3202d2b3fc2bc62af79721"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론 문단은 자족적이나 유전자 표기(V600EBraf)가 남아 밴드가 안 내려간다.",
+          "sample": "In conclusion, despite the robust induction",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.343Z",
+        "by": "chunk-llm",
+        "why": "GSK3 인산화가 치료 표적이 될 만한가라는 물음에 「아니다」로 답하는 음성 결과 논증이 한 편으로 닫힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:17.276Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "de3d402c8b8007b62ecf52211fbcbb4a2bc8f8f34d3202d2b3fc2bc62af79721"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론 문단은 자족적이나 유전자 표기(V600EBraf)가 남아 밴드가 안 내려간다.",
+          "sample": "In conclusion, despite the robust induction",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "두 경로가 만나는 지점으로 지목돼 온 인산화 자리가 실제로는 거의 영향이 없더라는 부정 결과를 논지로 세운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Serrated colorectal cancers account for about",
+          "note": "서론의 톱니형 대장암 단락만 떼어지고, 결과 절은 WT/KI 유전자형 표기가 문장마다 있어 못 쓴다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:41.246Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:04.343Z",
+          "by": "chunk-llm",
+          "why": "GSK3 인산화가 치료 표적이 될 만한가라는 물음에 「아니다」로 답하는 음성 결과 논증이 한 편으로 닫힌다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:17.276Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "de3d402c8b8007b62ecf52211fbcbb4a2bc8f8f34d3202d2b3fc2bc62af79721"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "결론 문단은 자족적이나 유전자 표기(V600EBraf)가 남아 밴드가 안 내려간다.",
+            "sample": "In conclusion, despite the robust induction",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:10.369Z",
+      "topicMargin": 9.39
+    }
+  }
+]

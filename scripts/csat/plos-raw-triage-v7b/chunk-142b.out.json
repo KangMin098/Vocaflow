@@ -1,0 +1,427 @@
+[
+  {
+    "id": "72f446d8-f70b-44ff-9402-37e465ac8679",
+    "source_updated_at": "2026-09-25T07:40:23.488664+00:00",
+    "body_sha256": "d7f12000f74747d0a61681cfa06eb75cc424ea7b7e52c3e163f1dbeb09c7e39f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 단락(세포 스트레스와 샤페론의 역할)과 결론의 「steric push」 설명이 과정 흐름을 이뤄 요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cells are frequently exposed to environmental",
+      "note": "Hsp70·JD 같은 약어를 「보호 단백질」로 바꾸면 서지만 잔기 번호가 많은 결과 절은 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "731ba9f9-67ba-4bdd-a73a-9e4bb270bee2",
+    "source_updated_at": "2026-09-23T21:04:56.283214+00:00",
+    "body_sha256": "0f4e2c33d74a1040b9dba628b3dc74a3928501113d49fdffc8cd61bfc74f5905",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 진단 지연 단락이 원인 추정과 국가 간 비교로 논지를 세워 요지·주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A central finding concerns the diagnostic",
+      "note": "백분율을 걷어도 「공공 의료에서 진단이 늦다」는 논지가 남고 refractory 등은 쉬운 말로 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "73272ac6-e3f7-491b-802a-841e152209d5",
+    "source_updated_at": "2026-09-13T06:46:26.56309+00:00",
+    "body_sha256": "08c32fcbda99624707063a2a77833001dda74ad4b038ef117e7454f5439ca027",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 빈곤·위생·치즈 생산과 감염원 단락이 원인-결과로 이어져 요지·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The high DEC prevalence that cause",
+      "note": "문법 오류가 있는 문장이 섞여 가공 때 다듬어야 하나 병원체 약어를 「장내 세균」으로 바꾸면 선다."
+    }
+  },
+  {
+    "id": "73317af2-1ce8-4170-b5e8-e7bc991cc3e3",
+    "source_updated_at": "2026-09-13T06:53:40.227415+00:00",
+    "body_sha256": "4d74741f3c4b23f4a8cf6474309f0d6b857b58d398a06bf56fd4deddd6b69030",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 「눈은 뇌를 들여다보는 창」 논지와 고찰의 GCIPL 바이오마커 단락이 주장-근거로 서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The retina and the brain are",
+      "note": "영상 지표 약어가 많지만 망막과 뇌의 발생 공통점 단락은 약어 없이 떼어 낼 수 있다."
+    }
+  },
+  {
+    "id": "733e5ed7-b7e2-4289-852c-a10012923909",
+    "source_updated_at": "2026-09-13T07:20:22.333717+00:00",
+    "body_sha256": "e66ed76da11f7be59f1c47516248f733e5fc877b605ca4d053defce473c31aa6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 단일 표적 약물이 우회 경로로 무력화된다는 단락이 논지를 세워 요지·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since EGFR and MET activate many",
+      "note": "수용체 이름을 「신호 스위치」로 바꾸면 「막으면 다른 길이 열린다」는 논지가 남는다."
+    }
+  },
+  {
+    "id": "733f63ce-cb6d-4e12-a2f0-5856f850aa7f",
+    "source_updated_at": "2026-09-13T06:42:45.423038+00:00",
+    "body_sha256": "21f447aeb959a12edec47f1a69b2a45fdf20cc111f61198141891040d31f8711",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 침습적 검사를 대신할 혈액 지표가 필요하다는 단락이 문제-해결 흐름이라 목적·요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As HVPG measurement is invasive, expensive,",
+      "note": "HVPG·CSPH 약어를 「간 혈압 측정」으로 풀면 서고 단백질 목록 절은 걷어야 한다."
+    }
+  },
+  {
+    "id": "7344de59-d6c4-4401-a880-c4a5d3b3ed0d",
+    "source_updated_at": "2026-09-13T06:42:41.229703+00:00",
+    "body_sha256": "02aac0c4dc98e4ed15f3ab9e5ee0478d14ebce2d32aebf9b288fe5ea0fb72dc9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 병원 표면 청소가 절반만 제대로 된다는 단락과 결론의 대책 권고가 요지·주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The hospital environment, in particular, serves",
+      "note": "세균 학명을 걷어도 「손이 닿는 곳이 감염 통로」라는 논지가 서고 어휘 조정이 쉽다."
+    }
+  },
+  {
+    "id": "7350adab-6168-4282-838b-0ed53c2a1109",
+    "source_updated_at": "2026-09-25T07:40:32.111689+00:00",
+    "body_sha256": "c7df7c0e1b44e50fa6d464f17214d7c542619fde9dfb00914c6ddc7333a6446c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론·고찰이 「코로닌은 액틴 단백질」이라는 통념을 표지 부착의 인공물로 반박해 요지·주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Based on the results described here,",
+      "note": "GFP 표지를 「형광 꼬리표」로 바꾸면 「관찰 도구가 결과를 왜곡한다」는 논지가 선다."
+    }
+  },
+  {
+    "id": "7356b9c7-2cda-491a-8591-b86bd9ffa10e",
+    "source_updated_at": "2026-09-25T07:40:33.039877+00:00",
+    "body_sha256": "518d790db4ba1a6e317a657e1d910ba15a9fbfb62045f08c8b107a8b704d6559",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 고찰 첫 절이 모듈 구조 예상을 뒤집는 결과를 설명해 요지·빈칸·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Viruses that infect bacteria, known as",
+      "note": "저자 요약 단락은 약어가 거의 없어 그대로 떼어 쓸 수 있고 nested 등 두세 낱말만 풀면 된다."
+    }
+  },
+  {
+    "id": "7366dce4-d3e3-46b1-bbb0-da9a28d2ea48",
+    "source_updated_at": "2026-09-25T07:40:34.180683+00:00",
+    "body_sha256": "9fc5424a96aff452abb266f6b40776a5976008e92ac3e3760997ad50ddd30b21",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 조산 기전 단락과 고찰의 한계 단락(동물 결과의 임상 전환 어려움)이 논지를 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Preterm birth refers to delivery before",
+      "note": "사이토카인 이름을 「염증 물질」로 바꾸면 흐름이 서고 동물 실험 세부는 걷는다."
+    }
+  }
+]

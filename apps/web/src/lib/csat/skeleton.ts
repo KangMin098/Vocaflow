@@ -123,3 +123,17 @@ export function skeletonSiblings(typeId: string): SkeletonSibling[] {
   }
   return out
 }
+
+/**
+ * 회차 → 사람이 읽는 이름. **구운 파일이 정본이다** — 이름을 id 에서 지어내지 않는다.
+ *
+ * `M2606` 을 「2026학년도 6월 모의평가」로 «계산»할 수는 있지만, 그 규칙이 언제 깨질지는
+ * 규칙을 쓴 사람만 모른다(2014 는 A/B 형이 있었다). 빌드가 이미 이름을 들고 있으므로 그걸 읽는다.
+ */
+export function skeletonExamMeta(): { exam_id: string; label: string; items: number }[] {
+  return skeletonExams().map((e) => ({
+    exam_id: e.exam_id,
+    label: loadExam(e.exam_id)?.exam_label ?? e.exam_id,
+    items: e.items,
+  }))
+}

@@ -14,6 +14,7 @@
 //   사이트 구조 변경 시 live-tune 필요 (the-conversation.ts 와 동일 계약).
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import {
   decodeEntities,
@@ -101,13 +102,12 @@ export async function ingestOwidArticle(itemUrl: string): Promise<RawArticle> {
   body = body.replace(/<table[\s\S]*?<\/table>/gi, '\n')
   const content = stripOwidChrome(htmlToPlainText(body))
 
-  if (content.trim().length < 300) {
-    throw new Error(`OWID body too short: ${content.trim().length} chars`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().length < 300
 
   const slug = slugFromUrl(itemUrl) ?? hashString(itemUrl).toString(36)
 
-  return {
+  const article: RawArticle = {
     source: 'owid',
     source_id: `owid:${slug}`,
     source_url: itemUrl,
@@ -121,6 +121,15 @@ export async function ingestOwidArticle(itemUrl: string): Promise<RawArticle> {
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`OWID body too short: ${content.trim().length} chars`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }
 
 // ── OWID 페이지 껍데기 제거 (v06.211 재작성) ────────────────────────────────

@@ -208,11 +208,14 @@ export function volumeMetricsCss(): string {
   )
 }
 
-export function volumeCssVariables(): string {
+export function volumeCssVariables(
+  // 적은 자리만 토큰 값 대신 쓴다(DD-66 — 팔레트 = 토큰 고정 해제). 생략하면 전과 같은 결과.
+  override: { light?: Partial<VolumePalette>; dark?: Partial<VolumePalette> } = {},
+): string {
   const decl = (p: VolumePalette): string =>
     `--ink:${p.ink};--sub:${p.sub};--line:${p.line};--bg:${p.bg};--accent:${p.accent};--slot:${p.slot}`
-  const l = decl(VOLUME_PALETTE.light)
-  const d = decl(VOLUME_PALETTE.dark)
+  const l = decl({ ...VOLUME_PALETTE.light, ...override.light })
+  const d = decl({ ...VOLUME_PALETTE.dark, ...override.dark })
   return [
     `:root{${l}}`,
     `@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){${d}}}`,

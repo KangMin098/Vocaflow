@@ -1,0 +1,217 @@
+[
+ {
+  "id": "6448641c-4fbe-437d-9ee0-a13645d7e0f8",
+  "source_updated_at": "2026-09-25T07:33:49.447009+00:00",
+  "body_sha256": "fef82cb89f1167e288262d4f489b97d1895648c5651f540b2512bba3d2b6a153",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 메탄올 독성 기전 단락과 고찰의 음이온차 보정 논리가 한 편의 설명문으로 서서 주제·빈칸·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Methanol is a highly toxic alcohol",
+   "note": "formic acid·optic nerve 정도만 풀어 쓰면 되고 인용 괄호를 걷어도 기전 설명이 선다."
+  }
+ },
+ {
+  "id": "64542c28-74f8-4c5c-9f7d-2dfa5e236b13",
+  "source_updated_at": "2026-09-25T07:33:51.310704+00:00",
+  "body_sha256": "17f8ab3e41b6843d5eea562a1bbf4010ed91c9487b5d24bea016e89462b3fcc1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약과 서론의 분비 시스템 설명 단락이 세균 침입 기전을 논지 있게 설명해 주제·순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The free-living nematodes, C. elegans and",
+   "note": "T3SS·effector 같은 약어를 「주입 장치」 등으로 바꾸면 읽히지만 유전자 이름이 많은 결과 절은 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "6463d561-cdba-467d-9ae9-5b527af28b83",
+  "source_updated_at": "2026-09-25T07:33:53.278027+00:00",
+  "body_sha256": "6d26eea30aaf849db5e99c02a3ced86ed522b057f2d1c376c9f1343f8660cc01",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 지역별 독 변이 단락과 고찰의 항독소 효력 저하 논의가 원인-결과로 이어져 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A clinically important finding is that",
+   "note": "monovalent·neutralization 을 쉬운 말로 바꾸고 지역명을 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "6465eeec-b895-4072-b3f9-edc728c0017e",
+  "source_updated_at": "2026-09-25T07:33:53.715365+00:00",
+  "body_sha256": "f5d21023eb91faf36b0248fe08a33c996a28f9447ef6c006c6f3cf2badebb406",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 카피바라 생태·경제적 역할과 인간 환경 확산 단락이 자족적 설명문이라 주제·순서·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Capybaras (Hydrochoerus hydrochaeris), the largest rodents",
+   "note": "학명과 인용 괄호만 걷으면 어휘 조정이 거의 필요 없는 문단이다."
+  }
+ },
+ {
+  "id": "646bd55c-2cf3-44c0-be55-3579c3d68b03",
+  "source_updated_at": "2026-09-15T15:10:19.105505+00:00",
+  "body_sha256": "1bfaddcdda07c1bc1a6fb1778526c8eb676f63b02904d431bbd5c40936a0cf22",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 간이 말라리아 발병에서 하는 역할과 지질 대사 변화 단락이 원인-결과로 이어져 요지·빈칸·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The liver is a major organ",
+   "note": "효소 약어를 「간 효소」로 묶고 sporozoite 를 풀어 쓰면 목표 밴드로 내려간다."
+  }
+ }
+]

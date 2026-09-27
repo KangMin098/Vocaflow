@@ -1,0 +1,133 @@
+[
+  {
+    "id": "6ae9ecfd-efc8-444f-9424-0f89c41b2b2c",
+    "source_updated_at": "2026-09-13T07:21:26.530095+00:00",
+    "body_sha256": "88783f5c3c5a9fd3c46a2157e3be6a4f17d4c65745a7db040d5f8d75b1cae81c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "해조류가 잘린 뒤 싹·헛뿌리·포자 형성으로 반응한다는 논지를 고찰의 「손상 반응」 절이 사례로 이어 세운다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "main_point", "summary", "content_match", "blank"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three injury responses in macroalgae were",
+      "note": "종명·그림 번호를 걷으면 문단이 서고, thallus·rhizoid 를 「몸체」·「뿌리 모양 구조」로 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "6aec5eed-be4b-45ac-a218-0049c7f7f898",
+    "source_updated_at": "2026-09-25T07:36:52.634399+00:00",
+    "body_sha256": "60b81011e8e1e1221f0f5f834d28ce4a3965a2359fae60e82a6bb9476ea87cfb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "세포주기 인자와 천연 화합물의 억제 효과를 논지로 잇고, 고찰의 코호트 불일치 해석 단락이 발췌 가능하다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "summary", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence", "data-claim"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The discrepancy in CCNB1 prognostic value",
+      "note": "유전자 약어가 문장마다 들어가 어휘 교체로는 밴드가 잘 내려가지 않고, 데이터베이스 이름은 걷을 수 있다."
+    }
+  },
+  {
+    "id": "6afb31a3-f958-4467-a7a5-168ee4cb4f45",
+    "source_updated_at": "2026-09-25T07:36:54.615091+00:00",
+    "body_sha256": "c7d6ae6f82cc5334579616b65619909adc44bb7a22a2d17f2430cafe2a4f83f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약 절이 희귀 근육병의 원인 단백질 변형과 그 결과를 전문 용어 없이 한 편으로 설명한다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "summary", "content_match", "blank"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oculopharyngeal muscular dystrophy is a late",
+      "note": "저자 요약 단락은 구조물 이름을 「변형된 단백질」로 바꾸면 서고, 결과 절은 그림 참조가 많아 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "6afbd383-8cd0-4ab7-ab82-e511dc0223cd",
+    "source_updated_at": "2026-09-13T07:40:21.797841+00:00",
+    "body_sha256": "d14f58703eeb029ceb87c421383c64824f560591db894b64c7cba7c98ee8d7e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "hold_reason": "processing-unclear",
+    "why": "서론과 결론은 해충 방제라는 논지를 세우지만 본문 대부분이 유전자 수와 비율 나열이라 쓸 문단이 남는지 갈린다.",
+    "slots": {
+      "ages": ["adult"],
+      "purposes": ["reading"],
+      "types": ["content_match"],
+      "levels": ["V7", "V8"],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "At present the primary strategies to",
+      "note": "서론의 방제 전략 단락만 떼면 서지만, 결과 절은 수치를 걷으면 남는 내용이 거의 없다."
+    }
+  },
+  {
+    "id": "6b14087d-fcf2-4492-aced-62a7be459c24",
+    "source_updated_at": "2026-09-15T15:13:36.643478+00:00",
+    "body_sha256": "5e296e11afffef0962377932d5909f30a82406a41fd9f0e3ae5e4bf51d767515",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "간 상주 면역세포가 「문지기」 역할을 한다는 주장을 고찰이 선행 연구와 실험 결과로 잇는다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "main_point", "summary", "content_match", "blank"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence", "myth-rebuttal"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kupffer cells are resident macrophages in",
+      "note": "유전자 표기와 그림 번호를 걷고 Kupffer cell 을 「간의 면역세포」로 바꾸면 논지가 그대로 선다."
+    }
+  }
+]

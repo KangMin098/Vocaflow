@@ -27,6 +27,9 @@ import path from 'node:path'
 
 import { loadEnv, fetchAllIn } from './volume-pool.mjs'
 
+// 등급 슬러그가 `license`(원문 표기) 칸에 들어가는 사고를 막는 정본 — 재고 80편 사고(2026-09-23).
+const { licenseTextOf } = await import('@vocaflow/library-pipeline')
+
 loadEnv()
 const arg = (n) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -190,7 +193,12 @@ for (const r of rows) {
       title,
       content: text,
       language: 'en',
-      license: r.source_license ?? 'public_domain',
+      // ⚠️ 두 칸은 **다른 값**이다. `license` 는 사람이 읽는 원문 표기이고
+      // `license_class` 가 파생 등급이다. 여기에 같은 슬러그를 넣었더니 DB 트리거
+      // `acp_classify_license` 가 `license` 를 다시 파싱해 등급을 덮어썼고,
+      // `'PUBLIC_DOMAIN'` 은 공백이 없어 `'PUBLIC DOMAIN'` 검사를 빗나가
+      // **재고 80편이 `restricted` 로 떨어졌다**(2026-09-23 · 부모는 전부 PD/CC-BY 라 오탐 0).
+      license: licenseTextOf(r.source_license),
       license_class: r.source_license ?? 'public_domain',
       copyright_safe_in_kr: true,
       status: 'ready',

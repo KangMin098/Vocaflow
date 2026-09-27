@@ -3,8 +3,11 @@
 // 나침반 띠 **렌더 회귀** — 모델이 맞아도 화면이 안 그리면 아무 일도 안 일어난다.
 //
 // 옆 파일 `wayfinder.test.ts` 는 *모델*이 여섯 질문에 답하는지를 잰다. 여기서는 그 답이
-// **실제 HTML 에 나오는지**와, 셸이 지켜야 하는 제약(진행에 퍼센트 금지 · 상시 층은 CTA 하나 ·
-// 학습 세션에서는 통째로 사라짐 · 44px 터치 타깃)이 살아 있는지를 본다.
+// **실제 HTML 에 나오는지**와, 셸의 동작(학습 세션에서는 통째로 사라짐 · 44px 터치 타깃)이
+// 살아 있는지를 본다.
+//
+// 디자인·UX 금지 검사 4건(상시 층 CTA 하나 · 퍼센트·게이지 금지 · 연속일 0 금지 · 하드코딩 색 금지)은
+// DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
@@ -88,34 +91,10 @@ describe('나침반 띠 — 상시 층', () => {
     expect(library).not.toBe(growth)
   })
 
-  it('상시 층의 CTA 는 하나다 — 셸에서 고르게 하지 않는다', () => {
-    const html = render()
-    // v07 「주묵 판면」 — 1차 행동의 채움색이 `--p`(딥 잉크 알약)에서 `--ju`(주묵 판면 버튼)로
-    // 바뀌었다. 지키려는 계약은 그대로다: **상시 층의 1차 CTA 는 정확히 하나.**
-    // ⚠️ 이 검사는 클래스 문자열을 보므로 토큰을 바꾸면 조용히 0을 세고 실패한다 —
-    //    그게 실제로 났다(2026-09-16). 검사가 형태가 아니라 **의도**를 보게 이름으로 잡는다.
-    const ctas = html.match(/bg-\[var\(--ju\)\][^"]*text-\[var\(--on-ju\)\]/g) ?? []
-    expect(ctas).toHaveLength(1)
-  })
-
-  it('진행을 퍼센트·게이지로 그리지 않는다 (철학 ④ Implicit Progress)', () => {
-    const html = render()
-    // 계단 점만 있고 눈에 보이는 분수·퍼센트 텍스트는 없다.
-    // (`data-today-progress` 는 회귀가 읽는 자리라 화면에 렌더되지 않는다.)
-    const visible = html.replace(/data-today-progress="[^"]*"/g, '')
-    expect(visible).not.toMatch(/\d+\s*%/)
-    expect(visible).not.toMatch(/>\s*\d+\s*\/\s*\d+\s*</)
-  })
-
   it('상시 층은 연속일을 한 번만 그린다 (ADR 0006 D2)', () => {
     const html = render()
     const hits = html.match(/연속\s*\d+\s*일/g) ?? []
     expect(hits).toHaveLength(1)
-  })
-
-  it('연속일이 0이면 그리지 않는다 (0을 보여주는 것은 압박이다 — 철학 ③)', () => {
-    const html = render(data({ past: { activeDays: 0, prevActiveDays: 0, streak: 0 } }))
-    expect(html).not.toMatch(/연속\s*\d+\s*일/)
   })
 
   it('상시 층의 링크는 44px 이상 확보한다', () => {
@@ -187,7 +166,7 @@ describe('「나의 자리」 — 펼친 층', () => {
     expect(failed).toContain('계산하지 못했어요')
   })
 
-  it('글자 색은 잉크 3단 안에서만 고른다 (임의 회색 금지)', () => {
+  it('글자에 대비 미달 잉크(--t4)를 쓰지 않는다 (AA 대비)', () => {
     // ⚠️ 한때 이 자리에 "`--t3` 를 쓰지 말 것 — `--bg2` 위에서 4.07:1" 이라고 적혀 있었다.
     //    **틀린 근거였다.** 그 4.07 은 axe 가 패널의 300ms 진입 페이드 **도중에** 잰 값이고
     //    (요소 opacity < 1 → 더 밝은 전경으로 합성됨), 정착 후 실측은 **4.77:1 로 AA 통과**다
@@ -199,10 +178,5 @@ describe('「나의 자리」 — 펼친 층', () => {
     const textInks = [...html.matchAll(/text-\[var\((--t\d)\)\]/g)].map((m) => m[1])
     expect(textInks.length).toBeGreaterThan(0)
     expect([...new Set(textInks)].sort()).not.toContain('--t4')
-  })
-
-  it('하드코딩 색이 없다 — 전부 토큰이라 dark 테마가 따라온다', () => {
-    expect(html).not.toMatch(/#[0-9a-fA-F]{6}/)
-    expect(html).not.toMatch(/rgb\(/)
   })
 })

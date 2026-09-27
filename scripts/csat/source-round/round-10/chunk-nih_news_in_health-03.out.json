@@ -1,0 +1,1012 @@
+[
+ {
+  "id": "1155f654-d5fd-4fe9-b074-4cb28fe7dd57",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a3f5c8acb8824ef6adb15cf73ee7b514cb187bea09d246fa0739971223b75c64",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "생체시계가 밤 섭식·활동과 어긋나 병을 부른다는 설명(P2~P7)과 교대근무자 수면 요령(P10~P13)이 문답으로 이어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "main_point"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of them is to try",
+   "note": "P10 의 「24시간 총수면을 늘려라」는 답변을 3인칭 설명으로 바꾸니 문답 틀 없이 한 단락으로 섰다."
+  }
+ },
+ {
+  "id": "116839ff-4366-4741-9d72-df590019d210",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "be1d088d6791477ee2d75715f61e45a0ecc42de9a6c74f1b1afea17d08ea25eb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "전립선 비대·염증·암 세 질환의 비슷한 증상과 차이(P2~P7)를 대조해 성인 대상 내용일치·삽입 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In fact, more than half of",
+   "note": "P7 「80세 남성 절반이 암세포를 갖지만 대부분 문제가 안 된다」는 의외성 있는 단락이라 떼어 쓰기 좋았다."
+  }
+ },
+ {
+  "id": "11c8b3d4-778b-402f-8122-9c9a23963af8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "19c89d1318e22d352b7a8bd81ad10171517de69e71938dc8a311930fb36bb92f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "역류가 언제 GERD 가 되는지(P2~P3)와 체중 감량→약물→수술로 이어지는 단계적 치료(P6~P11)가 서 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of the most effective treatments",
+   "note": "P6~P7 의 체중 감량이 가장 효과적인 치료라는 대목은 수치만 남기고 Pandolfino 인용을 풀어 한 단락으로 만들었다."
+  }
+ },
+ {
+  "id": "11e2f3db-5460-4e06-8f8c-88311c898d96",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "cb5ae663472fcaacf2fe822815873ada1c99a5b3d6288adf36ca66ff2ee94f3e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두통이 사람마다 다르고 기록이 원인·치료를 찾는 열쇠라는 짧은 안내(P1~P5)가 서 중등 주제·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Tracking your headaches can help your",
+   "note": "P3 의 두통 기록 요령은 무엇을 적을지 나열하지만 「왜 기록하나」 문장이 앞에 있어 한 단락으로 섰다."
+  }
+ },
+ {
+  "id": "1235b3ba-c8ae-402d-9b0b-f9e8f3afd010",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5202b95bdb570542767c151053f5796cbacee65df05c547e0af6b11adeb669aa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "보건부가 새 신체활동 지침을 냈다며 가족에게 연령별 권장량을 채우라고 알리는 안내(P2~P6)라 목적·내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Adults need at least 150 minutes",
+   "note": "P3 의 주당 150분 권고는 짧은 명령문 위주라 조정 없이 초급 내용일치 재료가 됐다."
+  }
+ },
+ {
+  "id": "1332050f-10dd-450a-b08a-9812fac5b3e8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "328244618f1b9c792436d8b3cec8d1c5683ca9f861a7aeeb443d3d342841f705",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "엠폭스의 이름 유래·증상·전파 경로·백신(P1~P4)을 2022년 유행 시점에서 설명해 내용일치 칸을 채우고 시대 비교 속성도 있다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Anyone who has been in close",
+   "note": "P3 의 세 전파 경로는 세미콜론 목록이지만 문장형이라 셋으로 쪼개 내용일치 선지로 바로 옮겨졌다."
+  }
+ },
+ {
+  "id": "134d61de-0b55-4175-9161-6312c5fa8b4b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "cdb316fa1fdc3b5d60a12d5bf319eb25d311cd23955b23712f89b9f0687b0093",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "어떤 활동이든 없는 것보다 낫다는 주장(P3·P31)을 연령별 이점·걷기 좋은 동네 연구로 받쳐 주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "topic",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V2",
+    "V3",
+    "V4"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“People mistakenly think that you have",
+   "note": "P14 「운동은 특정 방식이어야 한다는 착각」은 통념을 먼저 말하고 뒤집는 한 단락이라 그대로 빈칸 문항이 됐다."
+  }
+ },
+ {
+  "id": "13696768-2455-48df-9874-bc325bf57aef",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c568032bc3337ae6139753107bb4cb193357b2fb22877ae30096d05657fa8c34",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "CT 두 장을 맞대어 폐 손상 지도를 만든다는 문제→방법→검증 흐름(P2~P5)이 서 요약·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "To address this problem, NIH-funded researchers",
+   "note": "P3 의 들숨·날숨 CT 대조 원리는 parametric response mapping 을 빼도 되지만 emphysema·airways 는 바꾸면 뜻이 흐려져 V6 아래는 어려웠다."
+  }
+ },
+ {
+  "id": "13a9a3ec-270c-496d-be19-22315c50068b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "396ee5774daa41444598470d111e911012a9bc23822af8a398b7432b21cc89a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 눈 연구소가 저시력자에게 새 큰글씨 책자·영상을 보고 전문가 도움을 받으라고 권하는 공지(P0~P2)라 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A new 20-page large-print booklet, Living",
+   "note": "P2 의 책자 소개는 전문가 도움을 받으라는 권유를 담아 그대로 쓰고 P3 의 주소는 걷는다."
+  }
+ },
+ {
+  "id": "141e0346-237d-405d-97ea-4228c70917c6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "578fc5b036642d23230819c9cddeeb9973a07d5fe230895176ca9989dfd39b68",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "흡연이 폐·심혈관·DNA 를 해치는 경로(P3~P8)와 청소년 중독·금연 전략(P10~P19)이 이어져 주장·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It takes just 10 seconds for",
+   "note": "P13 의 니코틴→도파민→갈망 순서는 인과 단계가 뚜렷해 순서 배열 문항으로 쪼개기 쉬웠다."
+  }
+ },
+ {
+  "id": "14f600db-ef76-4033-a769-e0846fe0e6fb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e2956ff4f5578c6fb55b75a91d684edb5b6fd4ba48502a588796eb6d055e7803",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전체 전체 대신 단백질 암호 1%만 읽어 진단률 4분의 1을 얻었다는 연구(P2~P4)가 서 요약·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Instead of sequencing the entire human",
+   "note": "P2 의 엑솜이 유전체의 1%라는 설명은 핵심이지만 exome·genome 을 쉬운 말로 바꾸면 논지가 사라져 조정이 어려웠다."
+  }
+ },
+ {
+  "id": "153d7093-4b56-4256-8ae5-ef10cd75e4e3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8739ebc8de8dfcb10c37e6a5fa6449bc6f2c4ad82a4e8a7aa4ef052dff6501aa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "부모가 건강하게 먹으면 아이도 따라 한다며(P0) NIH 가족 요리법 카드를 받아 함께 요리하라고 권하는 안내라 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock"
+   ],
+   "types": [
+    "purpose"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To reduce fat content in meals,",
+   "note": "P2 의 지방 줄이기 요령은 세미콜론으로 이어진 문장이라 셋으로 끊어 쓰면 중등용 단락이 된다."
+  }
+ },
+ {
+  "id": "1554e0f9-bdab-4ee4-b36a-29763d779dce",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1db4ddfaca928177d058a594fc6b4c7f6305fb6bb99f8dca698a1292abd16d57",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두통이 뇌가 아니라 주변 신경에서 시작한다는 교정(P2)과 긴장형·편두통·군발 두통 구분(P3~P8)이 서 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A headache may feel like a",
+   "note": "P2 「두통은 뇌 안의 통증이 아니다」는 통념 교정 한 단락이라 그대로 빈칸 문항이 됐다."
+  }
+ },
+ {
+  "id": "160e8eec-ae20-4c34-ba34-dab4f6fa3b52",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "47345ae28b6a3372058a8a9ba7df4bc1e2086af1eeae3d08d5d303bf81a8519f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "겸상적혈구병의 유전 원리·위기 기제(P4~P5)와 치료 진전(P7~P8)이 이어져 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sickle cell disease arises when you",
+   "note": "P5 의 유전자 두 개→이상 헤모글로빈→낫 모양→혈류 차단 순서는 hemoglobin 만 풀면 순서 문항으로 딱 맞았다."
+  }
+ },
+ {
+  "id": "1623fea1-5252-488b-ae9d-51a85eb6f54c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4af6e63684aa1e025b1336daea65ae8eda4a060c836ed71a59ec0f07507d45f1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "심장 건강 7항목 점수가 뇌졸중 위험도 예측한다는 연구(P2~P4)와 작은 개선도 돕는다는 결론(P5)이 서 요지·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "NIH-funded scientists tested to see if",
+   "note": "P3 의 「한 단계 나아질 때마다 25% 감소」는 수치가 논지 자체라 남기고 LS7 약어만 풀었다."
+  }
+ },
+ {
+  "id": "17381283-dc99-4eee-bac8-147b41ac4f56",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "17a24dc0360b6797b95d5b83834519126e8cd004f9172b078e5f616b2701e07d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "채소에 맛을 강조한 이름을 붙이면 건강 강조보다 더 먹는다는 실험(P1~P4)과 문화 비판(P5)이 서 요지·빈칸·제목 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "title"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Students were more likely to choose",
+   "note": "P4 의 14%·29%·39% 수치는 도표 문항 재료로 따로 두고 본문은 「맛있는 이름이 더 팔렸다」로 줄였다."
+  }
+ },
+ {
+  "id": "183a09ec-9abc-4c94-be72-ea6ce6399f37",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4ac6e5d1d78646ea5aeb30e5883aa0f9172bca131a13535eeb82f77a7da57508",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "잠든 신생아가 소리와 바람을 짝짓는 법을 배웠다는 실험 절차·결과(P2~P5)가 서 순서·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To see whether newborns could learn",
+   "note": "P2 의 소리→바람 실험 절차는 순서가 분명하고 eyelids·scrunched 정도만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1882bd22-1ca4-4784-a98e-4a25bff7b737",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1ef31b6b5e6267553769daa7a17b8ab2dc0e78636b61233d9669e2387b656322",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "외상 뒤 반응이 PTSD 로 이어지는 과정(P0~P2)·위험 요인 연구·대처 전략(P12~P18)이 이어져 주장·삽입 칸을 채운다. 폭행 언급이 있어 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“It’s important to have a coping",
+   "note": "P13~P14 의 좋은·나쁜 대처 대비는 Tuma 인용을 풀어 한 단락으로 합치니 요지 문항에 맞았다."
+  }
+ },
+ {
+  "id": "18c2d770-4462-4459-9085-c81e6c893edd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e4690a837b5676d42aaafaae81c2064c70c0a2431ae093e2ed580a8b551d3edc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "sports",
+  "why": "미식축구 경력 연수·충격 세기가 CTE 위험을 가른다는 분석(P1~P3)과 연습 방식을 바꾸자는 제언(P4)이 서 요지·요약 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The team found that the risk",
+   "note": "P3 「뇌진탕 횟수가 아니라 충격 세기가 예측 변수」는 통념 뒤집기라 빈칸 자리로 가공했다."
+  }
+ },
+ {
+  "id": "18d6fafe-3768-448b-a132-a37e6f4022a9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6dd8b8f816d7dee8207e15e2744396742e0122d9a657111d4507316ba4b0c851",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "씻기·분리·익히기·식히기 네 단계를 차례로 풀어 쓴 안내(P1~P4)라 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Next, be sure to separate foods.",
+   "note": "P2 「Next, be sure to separate」의 Next 만 빼면 분리 단계가 독립 단락이 되고 네 단계가 순서 문항으로 섰다."
+  }
+ },
+ {
+  "id": "1939b8a4-56ad-4810-a226-4b9bb40f6343",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "50c16a820bd7fea5bb5054f9ff0daefc786edd7ded9b11af050c951ec28672aa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "눈 검사가 온몸의 병을 비춘다는 논지(P1·P7~P8)와 녹내장·황반변성 영상 기술·보조기기 연구가 이어져 주제·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For example, eye doctors often detect",
+   "note": "P8 의 망막으로 당뇨를 먼저 찾는다는 예시는 짧고 뜻이 분명해 「눈은 몸의 창」 논지의 근거로 떼어졌다."
+  }
+ },
+ {
+  "id": "1a124619-e42e-4dbf-9e34-70379820ce5c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e68b8cbb3cb507a045e54127546ef0ea9ef94c6f0ac531909fb6146def57eef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH 가 노인·보호자에게 7주 이메일 강좌에 가입해 사전 돌봄 계획을 세우라고 까닭(P2)과 함께 권하는 공지라 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Research shows that you’re more likely",
+   "note": "P2 의 「미리 논의하면 원하는 돌봄을 받을 확률이 높다」가 권유의 까닭이라 목적 문항의 근거 문장으로 썼다."
+  }
+ },
+ {
+  "id": "1a22c906-a7d1-4985-b731-b0c9cf1fb16c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9fd20316649669fb3280ea81a63bcb8d7747463c8520a014247c0a7130548ee0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "산불 연기가 멀리서도 폐·혈액·정신 건강을 해치는 경로(P3~P7)와 복합 재해 연구가 이어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Inhaled particulate matter can also end",
+   "note": "P4 의 미세먼지가 혈액을 타고 온몸에 간다는 단락은 인과가 한 줄로 이어져 빈칸 문항에 맞았다."
+  }
+ },
+ {
+  "id": "1a3e1aac-cb6c-451b-bfb1-1cad3dad3c53",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8e7ea747e9cb98a327fe291f81921afdab1338daa56a881f16226a54eff105b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "신장결석이 생기는 과정과 크기에 따른 치료(P1~P2)를 짧게 풀어 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Kidney stones can arise when high",
+   "note": "P1 의 결석 생성·크기·막힘 설명은 lithotripsy 같은 전문어가 없어 조정 없이 떼어졌다."
+  }
+ },
+ {
+  "id": "1a5375df-345a-4e87-921f-14f6b088a171",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e2088a0644d27b3257bc1686593c6cd051545a41dccb7bc1ab55f5318b6abf9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "생존율이 같으니 부작용이 치료 선택을 가른다는 결론(P5)을 10년 추적 연구(P3~P4)가 받쳐 성인 대상 요지 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Men who had surgery had a",
+   "note": "P4 의 치료별 부작용 대조는 surgery/radiation 짝이 분명해 내용일치 선지로 나누기 쉬웠다."
+  }
+ }
+]

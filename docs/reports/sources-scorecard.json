@@ -1,0 +1,1369 @@
+{
+  "readOnly": true,
+  "contract": "source-scorecard/v1",
+  "scoredAt": "2026-09-22T21:23:47.143Z",
+  "inputs": {
+    "structural": "supabase SQL (csat_source_eligibility policy_version=3, revision-matched, status ready|published)",
+    "structuralMeasuredAt": "2026-09-23",
+    "sampleVerified": "source-scorecard-verify.mts (sha256·건수·스키마 대조 통과분만)"
+  },
+  "axes": {
+    "F1": "난이도 적합 — 3중 합의 CEFR 이 기출 분포와 가까운가(14) + 밴드 안 비율(6)",
+    "F2": "지문 적합 — 결함 없음(8) + 자족성(5) + 산문성(3) + 유형 폭(4)",
+    "F3": "소재 기여 — 기출 8분류와의 거리(12) + 부족 칸 기여(8)",
+    "F4": "법적 적격 — L0 20 · L1 18 · L2 12 · L3 4 · L4 0 (재고 혼재 −3)",
+    "F5": "수율·규모 — 적격률(10) + 1,000편당 적격 문항(6) + 재고 규모(4)"
+  },
+  "thresholds": {
+    "keep": 70,
+    "shrink": 50,
+    "note": "L4 는 점수 무관 display-only · 미판정 ≥50% 는 보류"
+  },
+  "totals": {
+    "sources": 21,
+    "stockLive": 87720,
+    "eligibleArticles": 13722,
+    "eligibleItems": 119559
+  },
+  "verdictCounts": {
+    "유지": 8,
+    "축소": 7,
+    "보류": 5,
+    "유지(display-only)": 1
+  },
+  "rows": [
+    {
+      "source": "original",
+      "stockLive": 631,
+      "sampled": 50,
+      "eligibleArticles": 611,
+      "eligiblePct": 96.83,
+      "eligibleItems": 8569,
+      "itemsPer1000": 13580,
+      "grades": {
+        "usable": 442,
+        "blocked": 18,
+        "excerpt": 169,
+        "unjudged": 2
+      },
+      "unjudgedPct": 0.3,
+      "topBlockAxes": [
+        "judgement 20"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "cc0",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc0": 631
+      },
+      "licenseWhy": "권리 포기 — 제약 없음",
+      "consensusCefr": {
+        "B1": 46,
+        "A2": 44,
+        "B2": 10
+      },
+      "cefrDistanceToExam": 42.6,
+      "inBandPct": 100,
+      "register": {
+        "expository": 42,
+        "argumentative": 36,
+        "narrative": 20,
+        "news": 2
+      },
+      "topic": {
+        "과학·자연": 30,
+        "사회·경제": 20,
+        "분류불가": 16,
+        "역사·인류": 8,
+        "교육·언어": 8,
+        "예술·문화": 6,
+        "심리·인지": 6,
+        "기술·매체": 6
+      },
+      "topicDistanceToExam": 26.8,
+      "shortTopicSharePct": 46,
+      "topDefects": [
+        "duplicated 4",
+        "fragment 2",
+        "citation-apparatus 2"
+      ],
+      "cleanPct": 92,
+      "selfContainedPct": 100,
+      "prosePct": 100,
+      "csatTypeCoverage": 12,
+      "wordsMedian": 193,
+      "F1": 14,
+      "F2": 19.4,
+      "F3": 14.2,
+      "F4": 20,
+      "F5": 18.5,
+      "total": 86.1,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "wikipedia",
+      "stockLive": 59,
+      "sampled": 50,
+      "eligibleArticles": 32,
+      "eligiblePct": 54.24,
+      "eligibleItems": 971,
+      "itemsPer1000": 16458,
+      "grades": {
+        "blocked": 26,
+        "excerpt": 32,
+        "excerpt-blind": 1
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 26",
+        "format 1"
+      ],
+      "licenseGrade": "L2",
+      "licenseClassMajor": "cc_by_sa",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by_sa": 59
+      },
+      "licenseWhy": "파생 가능하나 동일조건 전염 — 교재 전체가 SA 가 된다",
+      "consensusCefr": {
+        "B2": 84,
+        "B1": 14,
+        "C1": 2
+      },
+      "cefrDistanceToExam": 33.4,
+      "inBandPct": 98,
+      "register": {
+        "expository": 60,
+        "reference": 40
+      },
+      "topic": {
+        "예술·문화": 42,
+        "역사·인류": 28,
+        "과학·자연": 14,
+        "사회·경제": 8,
+        "철학·윤리": 4,
+        "교육·언어": 2,
+        "기술·매체": 2
+      },
+      "topicDistanceToExam": 47.4,
+      "shortTopicSharePct": 54,
+      "topDefects": [
+        "table-or-list 8",
+        "boilerplate 2"
+      ],
+      "cleanPct": 90,
+      "selfContainedPct": 94,
+      "prosePct": 96,
+      "csatTypeCoverage": 10,
+      "wordsMedian": 2690,
+      "F1": 15.2,
+      "F2": 18.8,
+      "F3": 12.7,
+      "F4": 12,
+      "F5": 17.6,
+      "total": 76.2,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "gutenberg",
+      "stockLive": 23618,
+      "sampled": 50,
+      "eligibleArticles": 9408,
+      "eligiblePct": 39.83,
+      "eligibleItems": 42736,
+      "itemsPer1000": 1809,
+      "grades": {
+        "usable": 8516,
+        "blocked": 2523,
+        "excerpt": 892,
+        "unjudged": 3806,
+        "excerpt-blind": 7881
+      },
+      "unjudgedPct": 16.1,
+      "topBlockAxes": [
+        "format 7900",
+        "judgement 6212",
+        "safety 88"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": true,
+      "licenseMix": {
+        "restricted": 10,
+        "public_domain": 23608
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B2": 40,
+        "B1": 34,
+        "A2": 16,
+        "A1": 6,
+        "C1": 4
+      },
+      "cefrDistanceToExam": 12.1,
+      "inBandPct": 96,
+      "register": {
+        "narrative": 50,
+        "expository": 22,
+        "argumentative": 22,
+        "reference": 6
+      },
+      "topic": {
+        "분류불가": 28,
+        "예술·문화": 22,
+        "역사·인류": 18,
+        "과학·자연": 10,
+        "사회·경제": 8,
+        "기술·매체": 6,
+        "철학·윤리": 6,
+        "교육·언어": 2
+      },
+      "topicDistanceToExam": 47.4,
+      "shortTopicSharePct": 38,
+      "topDefects": [
+        "citation-apparatus 10",
+        "table-or-list 4",
+        "fragment 4"
+      ],
+      "cleanPct": 80,
+      "selfContainedPct": 72,
+      "prosePct": 96,
+      "csatTypeCoverage": 9,
+      "wordsMedian": 316,
+      "F1": 18.1,
+      "F2": 16.5,
+      "F3": 10.8,
+      "F4": 17,
+      "F5": 12.9,
+      "total": 75.3,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "simple_wikipedia",
+      "stockLive": 55,
+      "sampled": 50,
+      "eligibleArticles": 48,
+      "eligiblePct": 87.27,
+      "eligibleItems": 2144,
+      "itemsPer1000": 38982,
+      "grades": {
+        "usable": 20,
+        "blocked": 7,
+        "excerpt": 28
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "format 4",
+        "judgement 3"
+      ],
+      "licenseGrade": "L2",
+      "licenseClassMajor": "cc_by_sa",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by_sa": 55
+      },
+      "licenseWhy": "파생 가능하나 동일조건 전염 — 교재 전체가 SA 가 된다",
+      "consensusCefr": {
+        "B1": 68,
+        "A2": 24,
+        "B2": 8
+      },
+      "cefrDistanceToExam": 44.6,
+      "inBandPct": 100,
+      "register": {
+        "expository": 82,
+        "reference": 18
+      },
+      "topic": {
+        "예술·문화": 36,
+        "과학·자연": 22,
+        "역사·인류": 18,
+        "기술·매체": 10,
+        "사회·경제": 8,
+        "교육·언어": 4,
+        "분류불가": 2
+      },
+      "topicDistanceToExam": 36.6,
+      "shortTopicSharePct": 58,
+      "topDefects": [
+        "duplicated 4",
+        "citation-apparatus 4",
+        "fragment 2"
+      ],
+      "cleanPct": 88,
+      "selfContainedPct": 96,
+      "prosePct": 98,
+      "csatTypeCoverage": 3,
+      "wordsMedian": 900,
+      "F1": 13.8,
+      "F2": 16,
+      "F3": 14.4,
+      "F4": 12,
+      "F5": 17.5,
+      "total": 73.7,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "frym",
+      "stockLive": 119,
+      "sampled": 50,
+      "eligibleArticles": 58,
+      "eligiblePct": 48.74,
+      "eligibleItems": 327,
+      "itemsPer1000": 2748,
+      "grades": {
+        "usable": 58,
+        "blocked": 61
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 59",
+        "legal 1",
+        "format 1"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": true,
+      "licenseMix": {
+        "cc_by": 118,
+        "restricted": 1
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "B1": 64,
+        "B2": 30,
+        "A2": 6
+      },
+      "cefrDistanceToExam": 31.4,
+      "inBandPct": 100,
+      "register": {
+        "expository": 98,
+        "argumentative": 2
+      },
+      "topic": {
+        "과학·자연": 66,
+        "심리·인지": 16,
+        "기술·매체": 8,
+        "사회·경제": 4,
+        "교육·언어": 4,
+        "철학·윤리": 2
+      },
+      "topicDistanceToExam": 46.4,
+      "shortTopicSharePct": 32,
+      "topDefects": [],
+      "cleanPct": 100,
+      "selfContainedPct": 100,
+      "prosePct": 100,
+      "csatTypeCoverage": 8,
+      "wordsMedian": 141,
+      "F1": 15.6,
+      "F2": 19.2,
+      "F3": 10.2,
+      "F4": 15,
+      "F5": 13.2,
+      "total": 73.2,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "noaa",
+      "stockLive": 50,
+      "sampled": 50,
+      "eligibleArticles": 30,
+      "eligiblePct": 60,
+      "eligibleItems": 1920,
+      "itemsPer1000": 38400,
+      "grades": {
+        "blocked": 20,
+        "excerpt": 30
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 18",
+        "legal 2"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": true,
+      "licenseMix": {
+        "restricted": 2,
+        "public_domain": 48
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B2": 92,
+        "B1": 6,
+        "A2": 2
+      },
+      "cefrDistanceToExam": 39.9,
+      "inBandPct": 100,
+      "register": {
+        "expository": 80,
+        "news": 10,
+        "narrative": 8,
+        "reference": 2
+      },
+      "topic": {
+        "과학·자연": 88,
+        "사회·경제": 10,
+        "역사·인류": 2
+      },
+      "topicDistanceToExam": 64.6,
+      "shortTopicSharePct": 10,
+      "topDefects": [
+        "boilerplate 6",
+        "table-or-list 4",
+        "duplicated 4"
+      ],
+      "cleanPct": 84,
+      "selfContainedPct": 82,
+      "prosePct": 98,
+      "csatTypeCoverage": 11,
+      "wordsMedian": 1073,
+      "F1": 14.4,
+      "F2": 17.8,
+      "F3": 5.4,
+      "F4": 17,
+      "F5": 17.5,
+      "total": 72.1,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "futurity",
+      "stockLive": 2853,
+      "sampled": 50,
+      "eligibleArticles": 723,
+      "eligiblePct": 25.34,
+      "eligibleItems": 20412,
+      "itemsPer1000": 7155,
+      "grades": {
+        "usable": 2,
+        "blocked": 1829,
+        "excerpt": 721,
+        "excerpt-blind": 301
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 1808",
+        "format 301",
+        "safety 15"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": true,
+      "licenseMix": {
+        "cc_by": 2847,
+        "restricted": 6
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "B2": 86,
+        "B1": 10,
+        "C1": 4
+      },
+      "cefrDistanceToExam": 37.4,
+      "inBandPct": 96,
+      "register": {
+        "expository": 98,
+        "news": 2
+      },
+      "topic": {
+        "과학·자연": 52,
+        "심리·인지": 18,
+        "기술·매체": 12,
+        "사회·경제": 12,
+        "교육·언어": 4,
+        "예술·문화": 2
+      },
+      "topicDistanceToExam": 38.4,
+      "shortTopicSharePct": 48,
+      "topDefects": [
+        "citation-apparatus 12",
+        "table-or-list 6",
+        "non-prose 4"
+      ],
+      "cleanPct": 76,
+      "selfContainedPct": 100,
+      "prosePct": 96,
+      "csatTypeCoverage": 6,
+      "wordsMedian": 587,
+      "F1": 14.5,
+      "F2": 16.4,
+      "F3": 13,
+      "F4": 15,
+      "F5": 12.4,
+      "total": 71.4,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "usgs",
+      "stockLive": 558,
+      "sampled": 50,
+      "eligibleArticles": 237,
+      "eligiblePct": 42.47,
+      "eligibleItems": 5267,
+      "itemsPer1000": 9439,
+      "grades": {
+        "blocked": 321,
+        "excerpt": 237
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 311",
+        "legal 10"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": true,
+      "licenseMix": {
+        "restricted": 10,
+        "public_domain": 548
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B2": 88,
+        "B1": 12
+      },
+      "cefrDistanceToExam": 35.9,
+      "inBandPct": 100,
+      "register": {
+        "expository": 82,
+        "news": 8,
+        "narrative": 6,
+        "reference": 4
+      },
+      "topic": {
+        "과학·자연": 76,
+        "기술·매체": 8,
+        "사회·경제": 8,
+        "역사·인류": 8
+      },
+      "topicDistanceToExam": 57.1,
+      "shortTopicSharePct": 16,
+      "topDefects": [
+        "caption 12",
+        "boilerplate 10",
+        "fragment 6"
+      ],
+      "cleanPct": 66,
+      "selfContainedPct": 82,
+      "prosePct": 98,
+      "csatTypeCoverage": 7,
+      "wordsMedian": 891,
+      "F1": 15,
+      "F2": 15.1,
+      "F3": 7,
+      "F4": 17,
+      "F5": 16.6,
+      "total": 70.7,
+      "verdict": "유지",
+      "why": "5축 합 70 이상"
+    },
+    {
+      "source": "owid",
+      "stockLive": 9,
+      "sampled": 9,
+      "eligibleArticles": 8,
+      "eligiblePct": 88.89,
+      "eligibleItems": 499,
+      "itemsPer1000": 55444,
+      "grades": {
+        "blocked": 1,
+        "excerpt": 8
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 1"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by": 9
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "B1": 66.7,
+        "B2": 33.3
+      },
+      "cefrDistanceToExam": 34.1,
+      "inBandPct": 100,
+      "register": {
+        "expository": 66.7,
+        "argumentative": 33.3
+      },
+      "topic": {
+        "사회·경제": 66.7,
+        "과학·자연": 11.1,
+        "철학·윤리": 11.1,
+        "기술·매체": 11.1
+      },
+      "topicDistanceToExam": 61.4,
+      "shortTopicSharePct": 77.8,
+      "topDefects": [
+        "boilerplate 100"
+      ],
+      "cleanPct": 0,
+      "selfContainedPct": 33.3,
+      "prosePct": 100,
+      "csatTypeCoverage": 4,
+      "wordsMedian": 1544,
+      "F1": 15.2,
+      "F2": 6.3,
+      "F3": 12.6,
+      "F4": 18,
+      "F5": 16.8,
+      "total": 69,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "storyweaver",
+      "stockLive": 119,
+      "sampled": 50,
+      "eligibleArticles": 41,
+      "eligiblePct": 34.45,
+      "eligibleItems": 219,
+      "itemsPer1000": 1840,
+      "grades": {
+        "usable": 34,
+        "blocked": 78,
+        "excerpt": 7
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "format 58",
+        "judgement 17",
+        "legal 3"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": true,
+      "licenseMix": {
+        "cc_by": 116,
+        "restricted": 3
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "A2": 70,
+        "A1": 20,
+        "B1": 8,
+        "B2": 2
+      },
+      "cefrDistanceToExam": 74.4,
+      "inBandPct": 100,
+      "register": {
+        "narrative": 90,
+        "expository": 8,
+        "argumentative": 2
+      },
+      "topic": {
+        "사회·경제": 30,
+        "과학·자연": 30,
+        "심리·인지": 14,
+        "교육·언어": 8,
+        "예술·문화": 8,
+        "철학·윤리": 4,
+        "기술·매체": 2,
+        "역사·인류": 2,
+        "분류불가": 2
+      },
+      "topicDistanceToExam": 21.1,
+      "shortTopicSharePct": 62,
+      "topDefects": [
+        "non-prose 6",
+        "fragment 6",
+        "table-or-list 2"
+      ],
+      "cleanPct": 84,
+      "selfContainedPct": 88,
+      "prosePct": 92,
+      "csatTypeCoverage": 6,
+      "wordsMedian": 85,
+      "F1": 9.6,
+      "F2": 16.3,
+      "F3": 16.8,
+      "F4": 15,
+      "F5": 9.8,
+      "total": 67.5,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "voa",
+      "stockLive": 10649,
+      "sampled": 50,
+      "eligibleArticles": 128,
+      "eligiblePct": 1.2,
+      "eligibleItems": 1345,
+      "itemsPer1000": 126,
+      "grades": {
+        "blocked": 161,
+        "excerpt": 128,
+        "unjudged": 10360
+      },
+      "unjudgedPct": 97.3,
+      "topBlockAxes": [
+        "judgement 10476",
+        "safety 28",
+        "legal 17"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": true,
+      "licenseMix": {
+        "restricted": 17,
+        "public_domain": 10632
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B1": 82,
+        "A2": 12,
+        "B2": 6
+      },
+      "cefrDistanceToExam": 49.4,
+      "inBandPct": 100,
+      "register": {
+        "expository": 58,
+        "news": 26,
+        "narrative": 10,
+        "reference": 4,
+        "argumentative": 2
+      },
+      "topic": {
+        "과학·자연": 24,
+        "사회·경제": 24,
+        "교육·언어": 14,
+        "역사·인류": 14,
+        "예술·문화": 12,
+        "기술·매체": 6,
+        "분류불가": 4,
+        "심리·인지": 2
+      },
+      "topicDistanceToExam": 21.3,
+      "shortTopicSharePct": 58,
+      "topDefects": [
+        "boilerplate 52"
+      ],
+      "cleanPct": 48,
+      "selfContainedPct": 96,
+      "prosePct": 96,
+      "csatTypeCoverage": 4,
+      "wordsMedian": 753,
+      "F1": 13.1,
+      "F2": 13.1,
+      "F3": 16.3,
+      "F4": 17,
+      "F5": 3.9,
+      "total": 63.4,
+      "verdict": "보류",
+      "why": "미판정 97% — 원천의 성질이 아니라 내용 판정 미실행이다. 판정 후 재평가"
+    },
+    {
+      "source": "frontiers",
+      "stockLive": 1958,
+      "sampled": 50,
+      "eligibleArticles": 0,
+      "eligiblePct": 0,
+      "eligibleItems": 0,
+      "itemsPer1000": 0,
+      "grades": {
+        "blocked": 1,
+        "unjudged": 1957
+      },
+      "unjudgedPct": 99.9,
+      "topBlockAxes": [
+        "judgement 1957",
+        "safety 1"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by": 1958
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "B2": 86,
+        "C1": 12,
+        "B1": 2
+      },
+      "cefrDistanceToExam": 45.4,
+      "inBandPct": 88,
+      "register": {
+        "expository": 90,
+        "argumentative": 10
+      },
+      "topic": {
+        "교육·언어": 70,
+        "심리·인지": 16,
+        "기술·매체": 6,
+        "사회·경제": 4,
+        "과학·자연": 2,
+        "역사·인류": 2
+      },
+      "topicDistanceToExam": 60.3,
+      "shortTopicSharePct": 96,
+      "topDefects": [
+        "citation-apparatus 14",
+        "fragment 4",
+        "duplicated 2"
+      ],
+      "cleanPct": 80,
+      "selfContainedPct": 84,
+      "prosePct": 100,
+      "csatTypeCoverage": 7,
+      "wordsMedian": 5791,
+      "F1": 12.9,
+      "F2": 16.4,
+      "F3": 12.8,
+      "F4": 18,
+      "F5": 2.9,
+      "total": 63,
+      "verdict": "보류",
+      "why": "미판정 100% — 원천의 성질이 아니라 내용 판정 미실행이다. 판정 후 재평가"
+    },
+    {
+      "source": "nasa",
+      "stockLive": 221,
+      "sampled": 50,
+      "eligibleArticles": 59,
+      "eligiblePct": 26.7,
+      "eligibleItems": 1393,
+      "itemsPer1000": 6303,
+      "grades": {
+        "usable": 2,
+        "blocked": 162,
+        "excerpt": 57
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 142",
+        "legal 18",
+        "format 2"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": true,
+      "licenseMix": {
+        "restricted": 18,
+        "public_domain": 203
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B2": 88,
+        "C1": 6,
+        "A2": 4,
+        "B1": 2
+      },
+      "cefrDistanceToExam": 41.4,
+      "inBandPct": 94,
+      "register": {
+        "expository": 84,
+        "narrative": 8,
+        "news": 6,
+        "reference": 2
+      },
+      "topic": {
+        "과학·자연": 64,
+        "사회·경제": 16,
+        "기술·매체": 12,
+        "교육·언어": 8
+      },
+      "topicDistanceToExam": 46.6,
+      "shortTopicSharePct": 36,
+      "topDefects": [
+        "boilerplate 28",
+        "caption 26",
+        "duplicated 2"
+      ],
+      "cleanPct": 42,
+      "selfContainedPct": 70,
+      "prosePct": 74,
+      "csatTypeCoverage": 3,
+      "wordsMedian": 691,
+      "F1": 13.8,
+      "F2": 10.3,
+      "F3": 10.6,
+      "F4": 17,
+      "F5": 11.2,
+      "total": 63,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "african_storybook",
+      "stockLive": 4,
+      "sampled": 4,
+      "eligibleArticles": 4,
+      "eligiblePct": 100,
+      "eligibleItems": 0,
+      "itemsPer1000": 0,
+      "grades": {
+        "usable": 4
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by": 4
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "A2": 75,
+        "B1": 25
+      },
+      "cefrDistanceToExam": 59.4,
+      "inBandPct": 100,
+      "register": {
+        "narrative": 100
+      },
+      "topic": {
+        "예술·문화": 100
+      },
+      "topicDistanceToExam": 82.1,
+      "shortTopicSharePct": 100,
+      "topDefects": [
+        "caption 25"
+      ],
+      "cleanPct": 75,
+      "selfContainedPct": 50,
+      "prosePct": 75,
+      "csatTypeCoverage": 2,
+      "wordsMedian": 166,
+      "F1": 11.7,
+      "F2": 11.6,
+      "F3": 10.1,
+      "F4": 18,
+      "F5": 10.5,
+      "total": 61.9,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "elife",
+      "stockLive": 301,
+      "sampled": 50,
+      "eligibleArticles": 42,
+      "eligiblePct": 13.95,
+      "eligibleItems": 731,
+      "itemsPer1000": 2429,
+      "grades": {
+        "blocked": 242,
+        "excerpt": 42,
+        "excerpt-blind": 17
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 235",
+        "format 17",
+        "legal 6"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": true,
+      "licenseMix": {
+        "cc0": 8,
+        "cc_by": 287,
+        "restricted": 6
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "B2": 86,
+        "A2": 6,
+        "C1": 6,
+        "B1": 2
+      },
+      "cefrDistanceToExam": 39.4,
+      "inBandPct": 94,
+      "register": {
+        "expository": 100
+      },
+      "topic": {
+        "과학·자연": 90,
+        "심리·인지": 10
+      },
+      "topicDistanceToExam": 66.6,
+      "shortTopicSharePct": 10,
+      "topDefects": [],
+      "cleanPct": 100,
+      "selfContainedPct": 100,
+      "prosePct": 100,
+      "csatTypeCoverage": 9,
+      "wordsMedian": 343,
+      "F1": 14.1,
+      "F2": 19.6,
+      "F3": 5.2,
+      "F4": 15,
+      "F5": 6.5,
+      "total": 60.4,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "nist",
+      "stockLive": 10,
+      "sampled": 10,
+      "eligibleArticles": 0,
+      "eligiblePct": 0,
+      "eligibleItems": 0,
+      "itemsPer1000": 0,
+      "grades": {
+        "unjudged": 10
+      },
+      "unjudgedPct": 100,
+      "topBlockAxes": [
+        "judgement 10"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": false,
+      "licenseMix": {
+        "public_domain": 10
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B2": 100
+      },
+      "cefrDistanceToExam": 47.9,
+      "inBandPct": 100,
+      "register": {
+        "expository": 80,
+        "news": 20
+      },
+      "topic": {
+        "과학·자연": 60,
+        "기술·매체": 40
+      },
+      "topicDistanceToExam": 70.6,
+      "shortTopicSharePct": 40,
+      "topDefects": [
+        "fragment 10",
+        "table-or-list 10",
+        "boilerplate 10"
+      ],
+      "cleanPct": 70,
+      "selfContainedPct": 100,
+      "prosePct": 100,
+      "csatTypeCoverage": 4,
+      "wordsMedian": 607,
+      "F1": 13.3,
+      "F2": 15.2,
+      "F3": 8.2,
+      "F4": 20,
+      "F5": 0.9,
+      "total": 57.6,
+      "verdict": "보류",
+      "why": "미판정 100% — 원천의 성질이 아니라 내용 판정 미실행이다. 판정 후 재평가"
+    },
+    {
+      "source": "space_place",
+      "stockLive": 37,
+      "sampled": 37,
+      "eligibleArticles": 29,
+      "eligiblePct": 78.38,
+      "eligibleItems": 136,
+      "itemsPer1000": 3676,
+      "grades": {
+        "usable": 29,
+        "blocked": 8
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "legal 6",
+        "judgement 2"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": true,
+      "licenseMix": {
+        "restricted": 6,
+        "public_domain": 31
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B1": 51.4,
+        "A2": 48.6
+      },
+      "cefrDistanceToExam": 52.6,
+      "inBandPct": 100,
+      "register": {
+        "expository": 100
+      },
+      "topic": {
+        "과학·자연": 100
+      },
+      "topicDistanceToExam": 76.6,
+      "shortTopicSharePct": 0,
+      "topDefects": [
+        "boilerplate 21.6",
+        "caption 13.5",
+        "fragment 8.1"
+      ],
+      "cleanPct": 45.9,
+      "selfContainedPct": 78.4,
+      "prosePct": 91.9,
+      "csatTypeCoverage": 2,
+      "wordsMedian": 129,
+      "F1": 12.6,
+      "F2": 11.1,
+      "F3": 2.8,
+      "F4": 17,
+      "F5": 13.6,
+      "total": 57.2,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "europe_pmc",
+      "stockLive": 1299,
+      "sampled": 50,
+      "eligibleArticles": 0,
+      "eligiblePct": 0,
+      "eligibleItems": 0,
+      "itemsPer1000": 0,
+      "grades": {
+        "blocked": 4,
+        "unjudged": 1295
+      },
+      "unjudgedPct": 99.7,
+      "topBlockAxes": [
+        "judgement 1295",
+        "safety 4"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by": 1299
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "C1": 56,
+        "B2": 44
+      },
+      "cefrDistanceToExam": 54.5,
+      "inBandPct": 44,
+      "register": {
+        "argumentative": 54,
+        "expository": 44,
+        "narrative": 2
+      },
+      "topic": {
+        "과학·자연": 32,
+        "사회·경제": 24,
+        "심리·인지": 20,
+        "교육·언어": 16,
+        "기술·매체": 8
+      },
+      "topicDistanceToExam": 26.6,
+      "shortTopicSharePct": 68,
+      "topDefects": [
+        "citation-apparatus 78",
+        "duplicated 4",
+        "non-prose 2"
+      ],
+      "cleanPct": 16,
+      "selfContainedPct": 78,
+      "prosePct": 98,
+      "csatTypeCoverage": 6,
+      "wordsMedian": 304,
+      "F1": 9,
+      "F2": 10.5,
+      "F3": 16.8,
+      "F4": 18,
+      "F5": 2.8,
+      "total": 57.1,
+      "verdict": "보류",
+      "why": "미판정 100% — 원천의 성질이 아니라 내용 판정 미실행이다. 판정 후 재평가"
+    },
+    {
+      "source": "factbook",
+      "stockLive": 4,
+      "sampled": 4,
+      "eligibleArticles": 1,
+      "eligiblePct": 25,
+      "eligibleItems": 4,
+      "itemsPer1000": 1000,
+      "grades": {
+        "blocked": 3,
+        "excerpt": 1
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "judgement 3"
+      ],
+      "licenseGrade": "L0",
+      "licenseClassMajor": "public_domain",
+      "licenseMixed": false,
+      "licenseMix": {
+        "public_domain": 4
+      },
+      "licenseWhy": "파생·발행·상업 이용 자유",
+      "consensusCefr": {
+        "B2": 100
+      },
+      "cefrDistanceToExam": 47.9,
+      "inBandPct": 100,
+      "register": {
+        "reference": 100
+      },
+      "topic": {
+        "역사·인류": 100
+      },
+      "topicDistanceToExam": 94.5,
+      "shortTopicSharePct": 0,
+      "topDefects": [],
+      "cleanPct": 100,
+      "selfContainedPct": 100,
+      "prosePct": 100,
+      "csatTypeCoverage": 1,
+      "wordsMedian": 580,
+      "F1": 13.3,
+      "F2": 16.4,
+      "F3": 0.7,
+      "F4": 20,
+      "F5": 6.1,
+      "total": 56.5,
+      "verdict": "축소",
+      "why": "5축 합 50~69 — 잘 드는 구간(피드·등급·연도)만 남긴다"
+    },
+    {
+      "source": "plos",
+      "stockLive": 45096,
+      "sampled": 50,
+      "eligibleArticles": 2263,
+      "eligiblePct": 5.02,
+      "eligibleItems": 32886,
+      "itemsPer1000": 729,
+      "grades": {
+        "blocked": 9114,
+        "excerpt": 2263,
+        "unjudged": 31058,
+        "excerpt-blind": 2661
+      },
+      "unjudgedPct": 68.9,
+      "topBlockAxes": [
+        "judgement 39934",
+        "format 2661",
+        "safety 237"
+      ],
+      "licenseGrade": "L1",
+      "licenseClassMajor": "cc_by",
+      "licenseMixed": true,
+      "licenseMix": {
+        "cc_by": 45095,
+        "restricted": 1
+      },
+      "licenseWhy": "파생·상업 가능 · 출처 표시 의무",
+      "consensusCefr": {
+        "B2": 60,
+        "C1": 40
+      },
+      "cefrDistanceToExam": 47.3,
+      "inBandPct": 60,
+      "register": {
+        "expository": 98,
+        "argumentative": 2
+      },
+      "topic": {
+        "과학·자연": 50,
+        "사회·경제": 36,
+        "심리·인지": 6,
+        "교육·언어": 4,
+        "기술·매체": 4
+      },
+      "topicDistanceToExam": 44.3,
+      "shortTopicSharePct": 50,
+      "topDefects": [
+        "citation-apparatus 72",
+        "table-or-list 4",
+        "duplicated 4"
+      ],
+      "cleanPct": 16,
+      "selfContainedPct": 98,
+      "prosePct": 98,
+      "csatTypeCoverage": 6,
+      "wordsMedian": 4503,
+      "F1": 11,
+      "F2": 11.5,
+      "F3": 12.6,
+      "F4": 15,
+      "F5": 5.4,
+      "total": 55.5,
+      "verdict": "보류",
+      "why": "미판정 69% — 원천의 성질이 아니라 내용 판정 미실행이다. 판정 후 재평가"
+    },
+    {
+      "source": "the_conversation",
+      "stockLive": 70,
+      "sampled": 50,
+      "eligibleArticles": 0,
+      "eligiblePct": 0,
+      "eligibleItems": 0,
+      "itemsPer1000": 0,
+      "grades": {
+        "blocked": 70
+      },
+      "unjudgedPct": 0,
+      "topBlockAxes": [
+        "legal 70"
+      ],
+      "licenseGrade": "L4",
+      "licenseClassMajor": "cc_by_nd",
+      "licenseMixed": false,
+      "licenseMix": {
+        "cc_by_nd": 70
+      },
+      "licenseWhy": "ND — 파생 불가 · display-only",
+      "consensusCefr": {
+        "B2": 88,
+        "B1": 8,
+        "C1": 4
+      },
+      "cefrDistanceToExam": 39.4,
+      "inBandPct": 96,
+      "register": {
+        "expository": 56,
+        "argumentative": 44
+      },
+      "topic": {
+        "사회·경제": 36,
+        "과학·자연": 22,
+        "심리·인지": 12,
+        "교육·언어": 10,
+        "기술·매체": 8,
+        "역사·인류": 6,
+        "예술·문화": 6
+      },
+      "topicDistanceToExam": 20.2,
+      "shortTopicSharePct": 72,
+      "topDefects": [
+        "boilerplate 22",
+        "table-or-list 8",
+        "non-prose 4"
+      ],
+      "cleanPct": 66,
+      "selfContainedPct": 100,
+      "prosePct": 96,
+      "csatTypeCoverage": 10,
+      "wordsMedian": 1028,
+      "F1": 14.2,
+      "F2": 17.2,
+      "F3": 17.6,
+      "F4": 0,
+      "F5": 1.6,
+      "total": 50.6,
+      "verdict": "유지(display-only)",
+      "why": "L4 — 파생 불가. 읽기 자료로만 남고 문항 공급원이 아니다(점수 무관)"
+    }
+  ]
+}

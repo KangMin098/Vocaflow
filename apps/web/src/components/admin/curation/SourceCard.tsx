@@ -28,7 +28,7 @@ export function SourceCard({ catalog, rank, onActivate }: SourceCardProps) {
         'shadow-[var(--sh-sm)]',
         'transition-all duration-[var(--dur-normal)] ease-[var(--ease)]',
         isPrimary
-          ? 'border-[var(--p)] shadow-[0_2px_12px_rgba(139,92,246,0.15)]'
+          ? 'border-[var(--p)] shadow-[0_2px_12px_color-mix(in_srgb,var(--p)_15%,transparent)]'
           : 'border-[var(--bd)]',
         !isDisabled && 'hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]',
         isDisabled && 'opacity-60',

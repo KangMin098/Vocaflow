@@ -7,7 +7,7 @@
 // (회귀 `__tests__/palette.test.ts` 가 "여기 hex 리터럴 0개" 를 잠근다.)
 
 import { colorsLight } from '@vocaflow/design-tokens'
-import type { AccentKey } from '../spec/types'
+import type { Accent, AccentKey } from '../spec/types'
 
 export const ACCENT: Record<AccentKey, string> = {
   brand: colorsLight.p,
@@ -25,6 +25,18 @@ export const ACCENT_SOFT: Record<AccentKey, string> = {
   amber: colorsLight.warningLight,
   clay: colorsLight.errorLight,
   slate: colorsLight.infoLight,
+}
+
+const isAccentKey = (a: Accent): a is AccentKey => Object.prototype.hasOwnProperty.call(ACCENT, a)
+
+/** 강조색 — 키면 토큰 값, 아니면 받은 CSS 색 값 그대로(DD-66). */
+export function accentColor(a: Accent): string {
+  return isAccentKey(a) ? ACCENT[a] : a
+}
+
+/** 옅은 강조색 — 키면 토큰의 `-light` 값, 원시 색이면 같은 색 14% 를 투명과 섞는다. */
+export function accentSoft(a: Accent): string {
+  return isAccentKey(a) ? ACCENT_SOFT[a] : `color-mix(in srgb, ${a} 14%, transparent)`
 }
 
 /**

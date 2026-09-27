@@ -1,0 +1,432 @@
+[
+ {
+  "id": "7b717229-b988-45eb-b895-20e91f4fdf46",
+  "source_updated_at": "2026-09-15T15:21:39.629152+00:00",
+  "body_sha256": "4e1a09a2ff84856e1eb37dad57ecbc81542cf0830465563f59b3d1f9cea3fb68",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "말라리아 노출이 호중구 아형을 바꾸고 그것이 버킷림프종과 이어진다는 논지가 고찰 절에서 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "At homeostasis, aged neutrophils exit",
+   "note": "CD62L·CD184 같은 표지 기호를 「노화 표지」로 바꾸면 서고, 빈도 수치는 걷어도 인과가 남는다."
+  }
+ },
+ {
+  "id": "7b78a33d-8712-4559-a049-a9f9a53c7c98",
+  "source_updated_at": "2026-09-25T07:29:40.531472+00:00",
+  "body_sha256": "42e383b26548487f3b3fa62264b5fff0d1d21ed2de96d8220b9b41e51d0f18d3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "항생제 투여가 길수록 손상이 커지고 회복이 느려진다는 인과를 저자 요약과 고찰이 평이한 문장으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Antibiotics used to treat Mycobacterium",
+   "note": "Author summary 단락이 약어 없이 거의 그대로 서고, HRZE·RS ratio 두어 낱말만 풀면 된다."
+  }
+ },
+ {
+  "id": "7b7c0624-425b-472d-9604-eea920473bce",
+  "source_updated_at": "2026-09-13T06:41:11.405186+00:00",
+  "body_sha256": "792388e823c7030a3c0fb558bb438493a42478fa2d023b83c96d12b7de7dbcf5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "본문 대부분이 그림 설명과 변이 기호 나열이라 떼어 낸 문단이 그림 없이 서는지 판단이 갈린다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "To drive apoptosis, BAK must",
+   "note": "고찰 첫 단락은 논지가 있으나 변이 표기(A172I/L/W)가 문장마다 박혀 있어 걷으면 문장이 비고, 남기면 그림을 봐야 한다."
+  }
+ },
+ {
+  "id": "7b7d7065-ddfc-40cf-9895-f0dc05f33236",
+  "source_updated_at": "2026-09-15T15:21:42.090728+00:00",
+  "body_sha256": "2538568c7a3b1c9b2b2c2cf3ef63a2acac366b391fd11a91274ba7a0e676dac9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "흡입 진정제가 산화 스트레스를 줄이는지 묻고 결과와 한계를 고찰에서 차례로 대는 임상 논증이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Surgical procedures trigger a complex systemic",
+   "note": "서론 첫 단락은 약어 없이 서고, 한계 단락도 수치를 걷으면 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "7ba1023f-fda0-485e-8bdb-ec3bfe2d20fe",
+  "source_updated_at": "2026-09-23T21:04:58.514034+00:00",
+  "body_sha256": "f3db00e7d07de675bb3aa55d16d4ee391e36987ebb1c562e66ea742284d5f8fb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "노로바이러스가 독감처럼 면역 압력에 쫓겨 진화한다는 통념 비교를 한 편으로 끌고 간다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "blank",
+    "order",
+    "insert",
+    "summary",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Linguistically speaking, the predominant viral cause",
+   "note": "이름이 바뀌어 온 첫 단락이 그대로 한 편이 되고, 유전형 표기만 두어 개 풀면 된다."
+  }
+ },
+ {
+  "id": "7bb35f2e-6cce-4bfd-a9fd-c6c6cfafa72e",
+  "source_updated_at": "2026-09-25T07:29:44.585752+00:00",
+  "body_sha256": "f255faabf267436f1c30a05bbc97751cf1e02764dd41f0f5ee4f623b88f33fe3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "저항성 품종이 해충 가해에 더 크게 대사를 바꾼다는 논지를 서론과 고찰이 사례로 받친다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Spider mites are globally important pests",
+   "note": "대사물 이름을 「방어 물질」로 묶으면 서고, KEGG 경로 번호는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "7bb99203-a1ca-44db-98a8-af552e7df72c",
+  "source_updated_at": "2026-09-25T07:29:45.977104+00:00",
+  "body_sha256": "55c25c407c81603a3b7195037e4eb32714096a8235c0e3cb4907b8a831d76d5b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전 위험이 어느 세포에서 작동하는지 묻고 특정 상피 아형으로 좁혀 가는 흐름이 저자 요약에 또렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Prostate cancer tends to run in",
+   "note": "Author summary는 유전자 이름 없이 서지만 본문 단락은 기호가 많아 발췌 자리를 고르게 된다."
+  }
+ },
+ {
+  "id": "7bc4add8-a1bc-43b5-8a39-44523c4206d1",
+  "source_updated_at": "2026-09-13T06:52:47.173481+00:00",
+  "body_sha256": "e9b7a7ec57d12da33dc086e7c19e36877677a85c0c154b48509a1c393758d2ce",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "본문 가운데가 균주별 표와 프라이머 서열 나열이라 읽는 글로 쓸 분량이 남는지 갈린다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Coagulase-negative staphylococci are considered commensal",
+   "note": "고찰 첫 단락은 서지만 균종·유전자 이름이 문장의 뼈대라 바꾸면 내용이 사라진다."
+  }
+ },
+ {
+  "id": "7bd62972-b1bc-4451-a88d-a4a764b82de5",
+  "source_updated_at": "2026-09-25T07:29:48.313771+00:00",
+  "body_sha256": "152aa6751b2f315a40424f228501b6f9020f6d3617b8f759e422c72d805c3d19",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "폐섬유증과 근감소증을 잇는 공통 경로를 찾겠다는 물음과 그 한계를 서론·고찰이 문장으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Both IPF and sarcopenia are well",
+   "note": "결과 절은 그림 번호 나열이라 못 쓰고, 서론과 검증 실패를 인정하는 고찰 단락만 쓴다."
+  }
+ },
+ {
+  "id": "7bd74449-5c83-4fea-8e3d-6fd988169a41",
+  "source_updated_at": "2026-09-13T06:43:07.372784+00:00",
+  "body_sha256": "2ecdeeeb8adb1c109eb3dd60d3794aa81b8e54eaf31720f9cbc87f57a51239b3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "백신 후보에 네 군데를 고쳐 열 안정성을 높였다는 과정과 결과가 고찰에서 순서대로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "RSV infectivity is readily lost during",
+   "note": "보관 온도 이야기 단락은 배경 지식 없이 서고, 변이 표기는 「네 군데 치환」으로 묶인다."
+  }
+ }
+]

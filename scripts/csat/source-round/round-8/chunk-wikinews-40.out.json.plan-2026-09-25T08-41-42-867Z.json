@@ -1,0 +1,1922 @@
+[
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cb75569-ea47-4ec4-9648-fa4f7a858771",
+    "revision": "2026-09-25T07:28:09.981357+00:00",
+    "body_sha256": "0a0169d75d1adfe63ad982ee64e51a726d24a247a4d4139992dc9ae8b584d936",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "EU 통합 정보를 알릴 체계가 없다는 문제 진단과 정보센터·무료전화 같은 해결 방안, 예산 부족으로 공개 입찰에 맡긴다는 절차가 고3 목적·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "purpose",
+            "main_point"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The draft strategy document states that",
+          "note": "초안 단락은 「체계 없음 → 방안 제시 → 참여 장치」가 떼어도 서고 demographic 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.870Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Moldovan_government_proposes_awareness-raising_strategy_on_EU_integration",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cb890bf-baee-4a03-bdc2-ac74b9c3115c",
+    "revision": "2026-09-25T07:49:30.364952+00:00",
+    "body_sha256": "9bc72bb784139c4739399861e6034f0ef85b814516746861bc6c8268681eea0f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "news",
+        "why": "후보의 「여성과 토론하기 복잡하다」 발언을 다룬 기사인데 인용문이 모두 빠져 「said,」 「responded by saying,」 뒤가 비어 있어 받은 본문이 문장 도중에 끊겼다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Both politicians spent most of the",
+          "note": "토론 내용 단락 하나만 온전하고 핵심 발언 인용이 비어 원문을 다시 받아야 판정할 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/'Debating_with_a_woman_is_complicated'_says_Spanish_Partido_Popular_EU_candidate",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.327
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cb8edb5-05f2-4a56-8ab8-e23c199f3916",
+    "revision": "2026-09-25T08:10:28.347649+00:00",
+    "body_sha256": "c05d699909e97119f9fa06389f740ae501f699d21a9c120cdcc77eda65ef2052",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "심장마비 사망과 오제이스 가수의 아들로서 80~90년대 히트곡, 유작 앨범과 추모식이 이어진 세 단락 부고로 중등~고1 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Gerald Levert was the son of",
+          "note": "둘째 단락은 떼어도 경력이 서고 어려운 낱말이 거의 없어 그대로 V4~V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/R%26B_singer_Gerald_Levert_dies",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.316,
+          "words": 95,
+          "english": 0.362
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cba9034-923b-46fa-b0a6-6c2cd6e9e5a0",
+    "revision": "2026-09-25T07:49:35.434174+00:00",
+    "body_sha256": "d64e83a047eeb31845f1becc9e80d408169bf0d4fdcf6db239436e97b487bfed",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "「대마불사」 은행을 해마다 지정하는 인도 중앙은행의 선정 기준(규모·연결성·대체 가능성)과 추가 자본 요건이 고3 빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The primary criterion to be used",
+          "note": "셋째 단락은 기준 나열이 떼어도 서지만 Tier 1 비율 수치는 가공 때 걷고 systemically important 를 풀어 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Reserve_Bank_of_India_announces_plan_to_list_systemically_important_banks",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cbf7fc5-d66a-43e3-8ac6-0806a47e0579",
+    "revision": "2026-09-25T07:39:35.266184+00:00",
+    "body_sha256": "537c9a2d3f83d90bd54433dbc0bc99cf907a5ab39bc377b28f2139e204f6ba84",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아프간 전황이 「심각」하다는 판단 → 새 전략 보고서 제출 → 상부 검토 → 증원 요청 가능성으로 이어져 고3 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Although the report does not include",
+          "note": "셋째 단락은 판단 → 우려 → 평가 필요가 떼어도 서고 under-resourced 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._General_McChrystal_submits_plan_on_Afghanistan_to_President_Obama",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 8,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cbf8953-d3dd-4046-98f3-9f36c9a66820",
+    "revision": "2026-09-25T07:28:21.29401+00:00",
+    "body_sha256": "cc1b1daed46f249bbabb5060150568d6770a5ca0d2f704847036e7667680b796",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "폐렴은 병원 주사 항생제로 치료해야 한다는 WHO 지침을 파키스탄 2천 명 비교 실험(가정 복용과 동일 효과)으로 뒤집는 구조가 고1~고2 요지·빈칸 칸과 통념 교정 속성을 갖는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The group examined 2,037 children between",
+          "note": "실험 단락은 두 집단 비교 → 같은 회복이 떼어도 서고 intravenous 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Childhood_pneumonia_can_be_cured_at_home",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.376,
+          "words": 186,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cc01efb-d861-4d3a-ad12-7decd68b01f6",
+    "revision": "2026-09-25T08:14:26.128796+00:00",
+    "body_sha256": "42d6b5c9f18f2d126009ff52c549fb28d67faf12d9973c65bc39255cd6843dd3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "학생회장 피살 발견 → 신원 확인 → 무작위 범행 추정 → 1만 명 추모로 이어져 고2 이상 내용 일치·심경 칸을 채운다(총격 묘사가 구체적).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Several memorials were held on Thursday",
+          "note": "추모 단락은 떼어도 슬픔의 심경이 서지만 총격 부위 묘사 단락은 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/University_of_North_Carolina_student_body_president_murdered",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cc4f204-5c93-4a04-b1b9-042227b9e7de",
+    "revision": "2026-09-25T08:09:23.848525+00:00",
+    "body_sha256": "770d7c4c9dea9add86cee214cced71c3b73df4bc93612783754efa5ac13cdd8e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "18년 내전 반군의 일방적 휴전 선언과 정부의 관망, 지도부 전범 수배·아동 납치 전력이 이어져 고2 이상 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It is a significant step in",
+          "note": "다섯째 단락은 「의미 있는 진전이지만 지도부는 회담에 못 온다」 대비가 떼어도 서고 cessation 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ugandan_rebels_agree_to_a_ceasefire",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.42
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cca90ba-29c6-4b23-802e-1f85d43b0e05",
+    "revision": "2026-09-25T08:22:20.053453+00:00",
+    "body_sha256": "d0a8614cb6c8a53fc4b88ced89c4515904738cee33ce0637c7fe74536a9395d2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "만취 운전으로 약혼자를 치어 숨지게 한 여성의 유죄 판결과 목격 증언, 경찰의 「이기적 음주 운전」 경고가 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Detective Sergeant Peter Knight released a",
+          "note": "경찰 성명 단락은 떼어도 음주 운전의 해악이 서고 wholly unnecessary 는 문맥으로 잡힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Woman_found_guilty_of_killing_fianc%C3%A9_by_drink_driving_in_Bath%2C_England",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.842,
+          "words": 190,
+          "english": 0.375
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cccfd83-2a7d-4f9a-8e12-b0491df68400",
+    "revision": "2026-09-25T07:38:46.023615+00:00",
+    "body_sha256": "ac8f871ac7b32a16cdbda8632107c8c7b2c8ad1a84df46dd28e84c57174ea4b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "「등산 중」이라던 주지사의 잠적이 해외 불륜 방문으로 드러나 자백·직책 사임·사과로 이어진 경위가 고3 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After it was discovered that he",
+          "note": "셋째 단락은 귀국 발각 → 첫 해명이 떼어도 서고 tenuous 만 바꾸면 된다(불륜 소재라 고2 이상)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Carolina_governor_resigns_GOP_post%2C_explains_disappearance",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.441
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cce45e2-847d-45ad-a717-d1978d438c32",
+    "revision": "2026-09-25T07:58:52.392092+00:00",
+    "body_sha256": "370300c3ff43279943889915b1b3bee7149d029001d4aecf9c9655a386b2c517",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "신용평가사가 2년간 오류 정정을 외면해 대출을 거절당한 여성이 거액 배상을 받은 경위와 변호인의 피해 설명이 고1~고2 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Miller said she had contacted Equifax",
+          "note": "둘째 단락은 오류 발견 → 정정 요청 → 다른 기관은 고침이 떼어도 서고 dispute 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Woman_awarded_18.6_million_dollars_in_lawsuit_against_Equifax",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cceda05-62a4-4586-bf83-a1bbfcd3a6b5",
+    "revision": "2026-09-25T08:07:20.734558+00:00",
+    "body_sha256": "53536db8d13b87e4e7a580cbeff5d30eb77ce424c7340a816ff5bb31dda2ef47",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "사망한 해커의 실명 기재가 인격권 침해가 아니라는 법원 판단 근거와 유족 변호인의 「성이 독특해 식별된다」 반박이 맞서 고3 주장-근거 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The court found that identifying the",
+          "note": "둘째 단락은 판단과 이유가 떼어도 서고 libelous·disfiguring 을 풀어 쓰면 V7."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Berlin_court_repeals_preliminary_injunction_against_Wikimedia_Germany",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.478
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0ce1570d-4fcf-41fb-b643-156055532d21",
+    "revision": "2026-09-25T06:58:23.981343+00:00",
+    "body_sha256": "ab28cf3c95d48d21f6f9ddca098371c8aeb81cf0ba3b327e61654b169c246d81",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "두 약체 방송망이 시청자를 끌지 못해 합병한다는 이유와 각자의 강점, 18~34세 표적 전략이 셋째 단락에서 서서 고3 빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The merger is in response to",
+          "note": "셋째 단락은 부진 → 합병 → 강점 결합이 떼어도 서고 프로그램 이름은 가공 때 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/The_WB_and_UPN_networks_to_become_the_CW_network",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0ce245c0-d6de-4dd6-84f4-0b10bd0887bf",
+    "revision": "2026-09-25T07:47:43.57482+00:00",
+    "body_sha256": "7f4769c87c81c03277924a17465239821ac19e11282b373fe1266c14856559ae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "경선 중도 하차 발표와 딸의 병간호 중 내린 결정, 고향 주 패배 회피라는 분석과 경쟁 후보의 지지층 공략이 이어져 고3 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In his announcement, Santorum proclaimed, \"We",
+          "note": "셋째 단락은 결정 이유가 떼어도 서지만 대의원 수 단락은 가공 때 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.871Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rick_Santorum_drops_U.S._presidential_bid",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cec6a67-37d0-4030-ad0f-510f99806275",
+    "revision": "2026-09-25T06:49:14.322797+00:00",
+    "body_sha256": "88b3c64e180b840538b99c513d737a039991e771133fc92d54bd8a21236dfea7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "소프트웨어 특허 지침 부결과 「혁신을 막고 소기업·개인 개발자를 소송 위험에 빠뜨린다」는 반대 측 근거가 고2 이상 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Adversaries to the patent directive claim",
+          "note": "셋째 단락은 주장과 근거가 두 문장에 서고 stifle·portfolios 만 바꾸면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/European_parliament_says_NO_to_software_patents",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.403,
+          "words": 159,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0ced9e4a-aa5f-4ab1-89a8-817e0cb7ef75",
+    "revision": "2026-09-25T08:11:25.650882+00:00",
+    "body_sha256": "0cff1d9e4bce5d23c15dcf8cae23f445c553929b6110c41f2f23d0e130d43f6d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "후기 낙태 시술 금지법 합헌 판결의 다수 의견과 긴즈버그 대법관의 반대 의견이 맞서 고3 이상 주장·요지 칸을 채운다(시술 묘사가 있다).",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In dissent Judge Ginsburg wrote: \"Today’s",
+          "note": "반대 의견 단락은 떼어도 논지가 서지만 시술 묘사 단락은 가공 때 걷고 판례 번호도 뺀다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Supreme_Court_upholds_ban_on_partial_birth_abortions",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.434
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cef945f-5278-4fa2-9f61-a8065c1d8167",
+    "revision": "2026-09-25T07:42:56.97464+00:00",
+    "body_sha256": "9032b1a00fb07a1c2c9df169b30e2c58b933f9c428aa017fae60a327a4422e07",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "세르비아 의회의 스레브레니차 학살 규탄 결의와 친서방 여당의 찬성 이유, 민족주의 야당·무슬림 의원의 서로 다른 반대가 대비돼 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But yesterday, Serbia showed the world",
+          "note": "셋째 단락은 세 입장이 이유와 함께 떼어도 서고 genocide 는 문맥으로 잡힌다(학살 소재)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Serbia_condemns_1995_Srebrenica_massacre",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cefe632-da10-49b8-a376-0b12ff994e5d",
+    "revision": "2026-09-25T06:47:59.411168+00:00",
+    "body_sha256": "4d1be84ca7441ea756e13804a97b140737bd579a17b8ae5e7fd4bf190cc19c9d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령 외교 고문이 건강 문제로 사임하고 대행이 지명된 경위, 후임이 정해질 때까지 남아 달라는 요청이 이어진 두 단락이 고1 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Andrei Pleşu became the presidential advisor",
+          "note": "둘째 단락은 사임 이유와 경위가 떼어도 서고 어려운 낱말이 거의 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Romanian_presidential_advisor_resigns",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.762,
+          "words": 105,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cf17374-ec2a-4b3b-8c4b-7004687e9181",
+    "revision": "2026-09-25T08:09:42.676294+00:00",
+    "body_sha256": "3020aaacdf9e531e4ff656638a69a00a56de5897c485f7cf5bcc466cc2db770d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "허가받지 않은 짧은 활주로에서 이륙하다 속도가 모자라 추락한 원인 추정과 신혼부부 등 희생자·유족 증언이 고2 이상 빈칸·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank",
+            "mood"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Investigators believe the plane did not",
+          "note": "원인 단락은 「짧은 활주로 → 속도 부족 → 추락」이 떼어도 서고 핫라인 번호는 가공 때 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/49_dead_after_Comair_regional_jet_crashes_in_Kentucky",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.378
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cf3df53-832e-42c0-a3bb-93e660d60160",
+    "revision": "2026-09-25T06:48:43.21611+00:00",
+    "body_sha256": "888f70aed6770bfd0a7d5c42f13c7d3fe7ebaeea600f882d953653722cb91119",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "50만 명 추적 연구에서 붉은 고기·가공육은 대장암 위험 35% 증가, 생선은 20% 감소라는 결과와 정의가 이어져 고1~고2 요지·빈칸·수치 주장 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After an average of five years,",
+          "note": "셋째·넷째 단락을 이으면 「고기 ↑ 위험 ↑, 생선 ↑ 위험 ↓」 대비가 서고 portions 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Red_and_processed_meats_linked_to_bowel_cancer",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cf917f6-dccd-4a92-8eab-f873c5d47acf",
+    "revision": "2026-09-25T08:13:55.596983+00:00",
+    "body_sha256": "3710228fae29234495b5433fd863e0f9cc54aa653204eb687a3ea2e99e1683dc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "관타나모 6주년 시위와 앰네스티의 「폐쇄하고 기소하라」 해법, 정부의 「석방 뒤 재공격」 우려가 맞서 고3 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"There is an easy answer to",
+          "note": "콕스 해법 단락은 순서대로 해결책이 떼어도 서고 asylum 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Protests_mark_anniversary_of_Guantanamo_detention_center",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cf94d26-f0c2-4e30-a604-3f48d71a1827",
+    "revision": "2026-09-25T07:05:17.512307+00:00",
+    "body_sha256": "d77fdecff0cca46fa5e59f7a4c4267642705cad4e31486f4c864aa59c126819e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "레바논 전쟁 속 뉴질랜드인 90명이 영국 해군선으로 키프로스에 대피하는 경위와 대사관이 없어 영국 철수에 포함된 이유가 고1~고2 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This evacuation comes after Britain announced",
+          "note": "넷째 단락은 「대사관 없음 → 영국 철수에 합류」 이유가 떼어도 서고 어려운 낱말이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ninety_New_Zealanders_evacuated_from_Lebanon",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cfcb84c-bcae-479e-bc18-9f0519f20014",
+    "revision": "2026-09-25T07:40:08.628803+00:00",
+    "body_sha256": "c25c28f6de78547812ddcfe9aa32abf3f02f590e95f85956938dbfbd67dc3f07",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "취임 9개월 만의 노벨평화상 수상이 의외로 받아들여진 이유와 위원장의 「하려는 일을 지지하려고」 설명, 상의 유래가 고1~고2 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Head of the awarding committee, Thorbjørn",
+          "note": "위원장 단락은 수상 이유가 한 문장에 서고 disarmament 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Barack_Obama_wins_Nobel_Peace_Prize",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.011,
+          "words": 183,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0cfefb30-dd20-42cd-986c-24e972342b08",
+    "revision": "2026-09-25T08:14:44.737762+00:00",
+    "body_sha256": "b012d13a7789833d70b33baffeb7d645e6fb3ba3918ac1066908af0c1c5acc2e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "선거 결과 발표 지연에 대한 유엔 총장의 「민주 절차 신뢰가 걸렸다」 경고와 영국 총리의 부정선거 비판, 음베키-주마의 엇갈린 판단이 고3 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At a summit in New York",
+          "note": "반기문 발언 단락은 「투명한 해법 없으면 악화」 조건-결과가 떼어도 서고 impasse 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Zimbabwe's_election_delay_could_have_'serious_implications'%2C_warns_UN_Secretary-General",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-42-867Z",
+    "id": "0d00fb9f-40b3-427c-b1ff-12dc4cc3db6a",
+    "revision": "2026-09-25T08:09:18.29544+00:00",
+    "body_sha256": "986da43b08adb1d6bff2d1602691f1942f8c153a07d70cfaf26abc1855bca67d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "news",
+        "why": "헤즈볼라 지도자의 미-이스라엘 음모 주장을 전하면서 끝 단락은 알제리 신문의 체니-네타냐후 밀약설을 확인 없이 사실처럼 적어 선동 전달과 보도의 경계에 있다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Gerald Steinberg, professor of political science",
+          "note": "스타인버그 교수 단락은 떼어도 「이스라엘이 가장 준비된 전쟁」 논지가 서지만 나머지는 출처 불명 주장이라 가공 경로가 애매하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:42.872Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hezbollah_leader_alleges_prior_Israeli-US_planning_of_current_conflict",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.388
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

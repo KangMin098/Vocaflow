@@ -1,0 +1,2290 @@
+[
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "08dfff5d-e7aa-416c-9104-90f13258df52",
+    "revision": "2026-09-25T07:29:08.94298+00:00",
+    "body_sha256": "a5cac16eb22fd8ad399aad61d60038d2c95d0e8e7bc31a117b2b795ffc7b55ef",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.270Z",
+        "by": "chunk-llm",
+        "why": "서론 둘째 단락이 효과가 입증된 심신장 보호제가 고칼륨혈증 위험 때문에 덜 처방된다는 문제를 세우고 새 약의 필요로 이어 목적·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "purpose",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:33.298Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "01b23494777f4837f2fa7d5464da2ae9e134f16bcfc344708b95a88537c91a4b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "hyperkalemia를 「혈중 칼륨 과다」, MRA를 「이 약」으로 바꾸면 V8에 맞으나 수용체 명칭이 많다.",
+          "sample": "Preclinical studies have shown that the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.270Z",
+        "by": "chunk-llm",
+        "why": "서론 둘째 단락이 효과가 입증된 심신장 보호제가 고칼륨혈증 위험 때문에 덜 처방된다는 문제를 세우고 새 약의 필요로 이어 목적·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "purpose",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:33.298Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "01b23494777f4837f2fa7d5464da2ae9e134f16bcfc344708b95a88537c91a4b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "hyperkalemia를 「혈중 칼륨 과다」, MRA를 「이 약」으로 바꾸면 V8에 맞으나 수용체 명칭이 많다.",
+          "sample": "Preclinical studies have shown that the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 둘째 단락(MRA가 고칼륨혈증 위험 때문에 덜 쓰인다는 문제 제기)과 결론 단락이 주제·요지·빈칸 칸을 채우나 약리 용어가 촘촘하다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Preclinical studies have shown that the",
+          "note": "논지(기존 약의 부작용 → 새 조절제 필요)는 서지만 mineralocorticoid·hyperkalemia 등을 바꾸면 논지가 흐려져 어휘 조정이 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.084Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:41.270Z",
+          "by": "chunk-llm",
+          "why": "서론 둘째 단락이 효과가 입증된 심신장 보호제가 고칼륨혈증 위험 때문에 덜 처방된다는 문제를 세우고 새 약의 필요로 이어 목적·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "purpose",
+              "blank",
+              "main_point"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:33.298Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "01b23494777f4837f2fa7d5464da2ae9e134f16bcfc344708b95a88537c91a4b"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "hyperkalemia를 「혈중 칼륨 과다」, MRA를 「이 약」으로 바꾸면 V8에 맞으나 수용체 명칭이 많다.",
+            "sample": "Preclinical studies have shown that the",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 6,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:36.942Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "08e43be0-20bd-48fc-813a-b844b822811f",
+    "revision": "2026-09-25T07:29:10.318257+00:00",
+    "body_sha256": "cdc09147c1821463daac616428136afc196b5001a5c1ff18541923d0488c853b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.270Z",
+        "by": "chunk-llm",
+        "why": "고찰 끝 단락이 공격적으로 싸우는 범용 곰팡이와 면역을 피해 숨어 자라는 전문 곰팡이의 두 전략을 대비해 주제·요약·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:33.464Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e5dca1032d5861565748b32f2472e861b4de99e0d9917bb681d3e8a70a2ebace"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "entomopathogenic을 「곤충을 감염시키는」, obligate를 「숙주에만 사는」으로 바꾸니 V7에 선다.",
+          "sample": "Fungal pathogens have evolved within different",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.270Z",
+        "by": "chunk-llm",
+        "why": "고찰 끝 단락이 공격적으로 싸우는 범용 곰팡이와 면역을 피해 숨어 자라는 전문 곰팡이의 두 전략을 대비해 주제·요약·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:33.464Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e5dca1032d5861565748b32f2472e861b4de99e0d9917bb681d3e8a70a2ebace"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "entomopathogenic을 「곤충을 감염시키는」, obligate를 「숙주에만 사는」으로 바꾸니 V7에 선다.",
+          "sample": "Fungal pathogens have evolved within different",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 끝 단락(일반종은 공격적 감염, 특화종은 면역 회피라는 두 전략 대비)이 주제·요약·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Thus, two distinct infection strategies emerge",
+          "note": "학명을 \"일반종 곰팡이/특화종 곰팡이\"로 바꾸고 protoplast·hemolymph 를 풀어 쓰면 대비 구조가 그대로 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.090Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:41.270Z",
+          "by": "chunk-llm",
+          "why": "고찰 끝 단락이 공격적으로 싸우는 범용 곰팡이와 면역을 피해 숨어 자라는 전문 곰팡이의 두 전략을 대비해 주제·요약·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:33.464Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e5dca1032d5861565748b32f2472e861b4de99e0d9917bb681d3e8a70a2ebace"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "entomopathogenic을 「곤충을 감염시키는」, obligate를 「숙주에만 사는」으로 바꾸니 V7에 선다.",
+            "sample": "Fungal pathogens have evolved within different",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:28.970Z",
+      "topicMargin": 12
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "0912277b-fd3f-4498-9f4f-93c47f186a7c",
+    "revision": "2026-09-25T07:29:14.723473+00:00",
+    "body_sha256": "3062ef3c3e35cdd2e1b952579846798a14e051311dd7c7eb90584b4cb24b84f1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.365Z",
+        "by": "chunk-llm",
+        "why": "생체시계와 포도당 대사의 관계를 통념·한계·물음 순으로 세우는 서론과 고찰이 모두 읽힌다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:36.984Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1f55958ea0a3cf3bab5626a7b4a99b4f32fc100ab00ce995b3b384ec250f8777"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "교대근무·시차 같은 일상 소재가 있어 낱말 두셋만 바꿔도 내려간다; 동위원소 표기 단락은 버려야 한다.",
+          "sample": "Rhythmicity is an ever-present feature",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.365Z",
+        "by": "chunk-llm",
+        "why": "생체시계와 포도당 대사의 관계를 통념·한계·물음 순으로 세우는 서론과 고찰이 모두 읽힌다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:36.984Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1f55958ea0a3cf3bab5626a7b4a99b4f32fc100ab00ce995b3b384ec250f8777"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "교대근무·시차 같은 일상 소재가 있어 낱말 두셋만 바꿔도 내려간다; 동위원소 표기 단락은 버려야 한다.",
+          "sample": "Rhythmicity is an ever-present feature",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 인간 적용 단락(이른 시간 식사·운동 시각과 혈당 조절)이 요지·빈칸·무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant",
+            "title"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While the isotope tracing portion of",
+          "note": "isotope tracing·glycemic control 두세 개를 풀면 \"먹는 시각이 대사에 중요하다\"는 논지가 앞 문맥 없이 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.092Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.365Z",
+          "by": "chunk-llm",
+          "why": "생체시계와 포도당 대사의 관계를 통념·한계·물음 순으로 세우는 서론과 고찰이 모두 읽힌다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal",
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:36.984Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "1f55958ea0a3cf3bab5626a7b4a99b4f32fc100ab00ce995b3b384ec250f8777"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "교대근무·시차 같은 일상 소재가 있어 낱말 두셋만 바꿔도 내려간다; 동위원소 표기 단락은 버려야 한다.",
+            "sample": "Rhythmicity is an ever-present feature",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:07.037Z",
+      "topicMargin": 15.39
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "0914e6eb-4e8a-4230-be40-402ed595355b",
+    "revision": "2026-09-25T07:29:15.078507+00:00",
+    "body_sha256": "46d82fbf29b8b80483470eb2a168fb91d237b093229e9dd8bd749c0428648483",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.366Z",
+        "by": "chunk-llm",
+        "why": "요산과 결석의 기전, 성별 차이의 설명까지 고찰이 근거를 갖춘 논지로 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:38.499Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "07e94eb680549c889cd7d0c3fee4800e6812255cedab68c108bf57d49c31413d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론이 유병률·부담으로 시작해 자족적이고, 고유명사 없이도 성차 설명 단락이 그대로 선다.",
+          "sample": "Nephrolithiasis, or kidney stone disease",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.366Z",
+        "by": "chunk-llm",
+        "why": "요산과 결석의 기전, 성별 차이의 설명까지 고찰이 근거를 갖춘 논지로 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:38.499Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "07e94eb680549c889cd7d0c3fee4800e6812255cedab68c108bf57d49c31413d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론이 유병률·부담으로 시작해 자족적이고, 고유명사 없이도 성차 설명 단락이 그대로 선다.",
+          "sample": "Nephrolithiasis, or kidney stone disease",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 성차 설명 단락(에스트로겐이 요산 배출을 늘린다)과 한계 단락이 요지·내용 일치·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sexual dimorphism in uric acid metabolism",
+          "note": "urate transporters·lithogenesis 를 쉬운 말로 바꾸면 주장 하나에 근거 둘(호르몬·생활습관)이 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.093Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.366Z",
+          "by": "chunk-llm",
+          "why": "요산과 결석의 기전, 성별 차이의 설명까지 고찰이 근거를 갖춘 논지로 이어진다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:38.499Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "07e94eb680549c889cd7d0c3fee4800e6812255cedab68c108bf57d49c31413d"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론이 유병률·부담으로 시작해 자족적이고, 고유명사 없이도 성차 설명 단락이 그대로 선다.",
+            "sample": "Nephrolithiasis, or kidney stone disease",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:27:50.452Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "093f15fe-316f-422d-a13e-07573cce5bdd",
+    "revision": "2026-09-25T07:29:18.152035+00:00",
+    "body_sha256": "5cef10955352e0b4e17de6f748666028d755a78f62a004920da72cb5216c28ab",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.366Z",
+        "by": "chunk-llm",
+        "why": "2절이 통째로 빠지고 수식이 모두 지워져 「where denotes…」처럼 주어 없는 문장이 남았다.",
+        "basis": "full",
+        "genre": "economics",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:42.705Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7746b120af0d8659cfa186a6e4d190d3fcebe3dd67fdfdf8b5fd5ef2927b38d3"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "수식이 빠진 자리마다 문장이 끊겨, 떼어 낸 단락이 앞뒤 없이 뜻을 잃었다.",
+          "sample": "Traditional financial theory models asset",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.366Z",
+        "by": "chunk-llm",
+        "why": "2절이 통째로 빠지고 수식이 모두 지워져 「where denotes…」처럼 주어 없는 문장이 남았다.",
+        "basis": "full",
+        "genre": "economics",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:42.705Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7746b120af0d8659cfa186a6e4d190d3fcebe3dd67fdfdf8b5fd5ef2927b38d3"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "수식이 빠진 자리마다 문장이 끊겨, 떼어 낸 단락이 앞뒤 없이 뜻을 잃었다.",
+          "sample": "Traditional financial theory models asset",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "이론 절은 수식 자리표시만 남았지만 4.6절(성장 둔화기에 ROE 급변 비율이 늘어난다)과 결론이 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Second, industry heterogeneity and structural adjustments",
+          "note": "떼어 내면 서지만 종목 코드·ROE/ROA 약어가 촘촘하고 심사자 응답 문구가 섞여 있어 정리가 필요하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.366Z",
+          "by": "chunk-llm",
+          "why": "2절이 통째로 빠지고 수식이 모두 지워져 「where denotes…」처럼 주어 없는 문장이 남았다.",
+          "basis": "full",
+          "genre": "economics",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:42.705Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7746b120af0d8659cfa186a6e4d190d3fcebe3dd67fdfdf8b5fd5ef2927b38d3"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "수식이 빠진 자리마다 문장이 끊겨, 떼어 낸 단락이 앞뒤 없이 뜻을 잃었다.",
+            "sample": "Traditional financial theory models asset",
+            "detachable": false,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:34.100Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "095753e7-50ff-4e36-9290-253b668925b2",
+    "revision": "2026-09-25T07:29:19.577004+00:00",
+    "body_sha256": "467e875007118a54e06726bb01f4104fdf0faaeda6d783936e9237fe919f38f8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.367Z",
+        "by": "chunk-llm",
+        "why": "단일 혈당값의 한계를 짚고 SHR이라는 대안 지표를 세우는 도입 논증이 뚜렷하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:44.636Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "727612fcc5877b86ce8530ceb5815ee600b824a1451cd155b9fe5bcc0bc32fb7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "「대사 기억」·적응 가설을 설명한 고찰 단락은 수치를 걷어도 논지가 그대로 선다.",
+          "sample": "However, using a single measurement",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.367Z",
+        "by": "chunk-llm",
+        "why": "단일 혈당값의 한계를 짚고 SHR이라는 대안 지표를 세우는 도입 논증이 뚜렷하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:44.636Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "727612fcc5877b86ce8530ceb5815ee600b824a1451cd155b9fe5bcc0bc32fb7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "「대사 기억」·적응 가설을 설명한 고찰 단락은 수치를 걷어도 논지가 그대로 선다.",
+          "sample": "However, using a single measurement",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 세 가지 설명 단락(당뇨 환자는 만성 고혈당에 적응해 급성 상승에 덜 민감하다)이 순서·요지·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "insert"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The first possible explanation is that",
+          "note": "first/second/third 로 이어지는 설명이 순서 문항에 맞고, HPA axis·catecholamines 를 풀면 한 단계 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.367Z",
+          "by": "chunk-llm",
+          "why": "단일 혈당값의 한계를 짚고 SHR이라는 대안 지표를 세우는 도입 논증이 뚜렷하다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence",
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:44.636Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "727612fcc5877b86ce8530ceb5815ee600b824a1451cd155b9fe5bcc0bc32fb7"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "「대사 기억」·적응 가설을 설명한 고찰 단락은 수치를 걷어도 논지가 그대로 선다.",
+            "sample": "However, using a single measurement",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:09.098Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "0957da25-52f8-4c3b-a44c-2ce24d57bd8e",
+    "revision": "2026-09-25T07:29:20.070667+00:00",
+    "body_sha256": "8d110286e0fe3e7ce0f3cb784ed218b782046eb361ea50a53c926da205e9cb8e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.368Z",
+        "by": "chunk-llm",
+        "why": "표준 치료의 한계에서 식물 유래 후보물질 탐색으로 넘어가는 서론이 자족적이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:44.662Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "9593b7ad26b4ef5be60361849c9c66691fb2c6fa04403177a1e8ad4e315daa3b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론이 결합에너지 수치 나열 한 덩어리라 못 쓰고, 쓸 만한 곳은 서론 두세 단락뿐이다.",
+          "sample": "Breast cancer remains the leading",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.368Z",
+        "by": "chunk-llm",
+        "why": "표준 치료의 한계에서 식물 유래 후보물질 탐색으로 넘어가는 서론이 자족적이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:44.662Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "9593b7ad26b4ef5be60361849c9c66691fb2c6fa04403177a1e8ad4e315daa3b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "결론이 결합에너지 수치 나열 한 덩어리라 못 쓰고, 쓸 만한 곳은 서론 두세 단락뿐이다.",
+          "sample": "Breast cancer remains the leading",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "본문 대부분은 도킹 점수·ADMET 수치 나열이지만 서론 둘째 단락(콩 이소플라본을 약 후보로 보는 이유)이 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Given these limitations, bioactive natural products",
+          "note": "서론 단락은 서지만 결과·고찰은 결합 에너지 수치 나열이라 가공할 곳이 한 단락뿐이다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.097Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.368Z",
+          "by": "chunk-llm",
+          "why": "표준 치료의 한계에서 식물 유래 후보물질 탐색으로 넘어가는 서론이 자족적이다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:44.662Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "9593b7ad26b4ef5be60361849c9c66691fb2c6fa04403177a1e8ad4e315daa3b"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "결론이 결합에너지 수치 나열 한 덩어리라 못 쓰고, 쓸 만한 곳은 서론 두세 단락뿐이다.",
+            "sample": "Breast cancer remains the leading",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:11.029Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "098589dc-464d-4016-a6d9-9e78b1d2d031",
+    "revision": "2026-09-25T07:29:22.767655+00:00",
+    "body_sha256": "7e8df3ed8d9226afb618857b4692cafdc7e66ac7a086a9f65545468ed1a15873",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.370Z",
+        "by": "chunk-llm",
+        "why": "주관적 CT 판독의 한계를 짚고 3차원 이질성 지표를 대안으로 세우는 구조가 뚜렷하다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:49.101Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f29f795f157cce599f46e8fc610d58695e2b33321652b72fc3891fdc1aa15886"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자요약은 비전문 독자용이라 거의 그대로 쓰이고, 알고리즘 의사코드 구간만 잘라내면 된다.",
+          "sample": "Lung adenocarcinoma is the predominant",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.370Z",
+        "by": "chunk-llm",
+        "why": "주관적 CT 판독의 한계를 짚고 3차원 이질성 지표를 대안으로 세우는 구조가 뚜렷하다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:49.101Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f29f795f157cce599f46e8fc610d58695e2b33321652b72fc3891fdc1aa15886"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자요약은 비전문 독자용이라 거의 그대로 쓰이고, 알고리즘 의사코드 구간만 잘라내면 된다.",
+          "sample": "Lung adenocarcinoma is the predominant",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약과 서론 첫 단락(침습 여부가 절제 범위를 가른다)이 주제·요지·내용 일치 칸을 채우고, 알고리즘 절은 쓰지 않는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Lung adenocarcinoma is the predominant form",
+          "note": "저자 요약은 일반 독자용이라 lobectomy·radiomics 두어 개만 풀면 앞 문맥 없이 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.098Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.370Z",
+          "by": "chunk-llm",
+          "why": "주관적 CT 판독의 한계를 짚고 3차원 이질성 지표를 대안으로 세우는 구조가 뚜렷하다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:49.101Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "f29f795f157cce599f46e8fc610d58695e2b33321652b72fc3891fdc1aa15886"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자요약은 비전문 독자용이라 거의 그대로 쓰이고, 알고리즘 의사코드 구간만 잘라내면 된다.",
+            "sample": "Lung adenocarcinoma is the predominant",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:44.440Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "098b6a99-2053-4650-813d-7810dd4ad7d4",
+    "revision": "2026-09-25T07:29:23.50731+00:00",
+    "body_sha256": "c63f70e4b801bb3dbcd68f22918ebc137952a750695d458e57c49a0cd14f0ad4",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.371Z",
+        "by": "chunk-llm",
+        "why": "비만과 아동 정신건강의 양방향 관계를 사회생태 모형으로 엮는 서론이 한 편의 논설로 읽힌다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:49.183Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "42258f23a0c70ef9ab27a1f6f0d1c9747de5827007878932d86817676989c11a"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "괴롭힘·가족 회복력 같은 소재라 고유명사를 걷어도 서고, 어려운 낱말 두셋만 바꾸면 고1 밴드다.",
+          "sample": "Childhood obesity and mental health",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.371Z",
+        "by": "chunk-llm",
+        "why": "비만과 아동 정신건강의 양방향 관계를 사회생태 모형으로 엮는 서론이 한 편의 논설로 읽힌다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:49.183Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "42258f23a0c70ef9ab27a1f6f0d1c9747de5827007878932d86817676989c11a"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "괴롭힘·가족 회복력 같은 소재라 고유명사를 걷어도 서고, 어려운 낱말 두셋만 바꾸면 고1 밴드다.",
+          "sample": "Childhood obesity and mental health",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "서론(비만·괴롭힘·부모 정신건강이 아이 우울에 얽힌다)과 고찰의 역설 해석 단락이 주장·요지·빈칸·무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "blank",
+            "irrelevant",
+            "title"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Peer relationships more broadly also serve",
+          "note": "또래 우정이 완충한다는 단락은 moderators·attachment 두 낱말만 바꾸면 고등 밴드로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.100Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.371Z",
+          "by": "chunk-llm",
+          "why": "비만과 아동 정신건강의 양방향 관계를 사회생태 모형으로 엮는 서론이 한 편의 논설로 읽힌다.",
+          "basis": "full",
+          "genre": "social",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high1",
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "main_point",
+              "blank",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence",
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "school",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:49.183Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "42258f23a0c70ef9ab27a1f6f0d1c9747de5827007878932d86817676989c11a"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "괴롭힘·가족 회복력 같은 소재라 고유명사를 걷어도 서고, 어려운 낱말 두셋만 바꾸면 고1 밴드다.",
+            "sample": "Childhood obesity and mental health",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:46.680Z",
+      "topicMargin": 11.91
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-32-079Z",
+    "id": "099b89a6-2d00-4106-8faf-4150480d1a3e",
+    "revision": "2026-09-25T07:29:25.285717+00:00",
+    "body_sha256": "2199b7bf5e8960c90b56a8af5ae204031db8183bb39be8065e3da40a88a6f9e7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.373Z",
+        "by": "chunk-llm",
+        "why": "유산균 우세가 산도를 지켜 감염을 막는 기전을 서론이 인과 사슬로 설명한다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:52.149Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "be55e710f0b03e1d031928510b47e56412389f3d291a7a3e26d68a946ed95181"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "균 이름을 「특정 세균」으로 바꾸면 흐름이 유지되나, 결과 절은 분만 방식 수치 나열이라 제외한다.",
+          "sample": "The vaginal microbiota is a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.373Z",
+        "by": "chunk-llm",
+        "why": "유산균 우세가 산도를 지켜 감염을 막는 기전을 서론이 인과 사슬로 설명한다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:52.149Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "be55e710f0b03e1d031928510b47e56412389f3d291a7a3e26d68a946ed95181"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "균 이름을 「특정 세균」으로 바꾸면 흐름이 유지되나, 결과 절은 분만 방식 수치 나열이라 제외한다.",
+          "sample": "The vaginal microbiota is a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 둘째 단락(유산균이 산성 장벽을 만들고 줄면 조산 위험이 오른다)과 고찰 첫 단락이 주제·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The vaginal microbiota is a complex",
+          "note": "원인→결과 사슬(유산균 감소→pH 상승→염증→조산)이 뚜렷하나 소재상 성인 읽기 자료 칸에 한정했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:32.101Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.373Z",
+          "by": "chunk-llm",
+          "why": "유산균 우세가 산도를 지켜 감염을 막는 기전을 서론이 인과 사슬로 설명한다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "order",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:52.149Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "be55e710f0b03e1d031928510b47e56412389f3d291a7a3e26d68a946ed95181"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "균 이름을 「특정 세균」으로 바꾸면 흐름이 유지되나, 결과 절은 분만 방식 수치 나열이라 제외한다.",
+            "sample": "The vaginal microbiota is a",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:25.327Z"
+    }
+  }
+]

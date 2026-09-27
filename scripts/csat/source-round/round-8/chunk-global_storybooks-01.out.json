@@ -1,0 +1,853 @@
+[
+  {
+    "id": "0049cea7-e7c0-4cf7-940a-271eda8a6793",
+    "source_updated_at": "2026-09-25T04:02:38.362347+00:00",
+    "body_sha256": "fd71ebb4d0655326a0d31d505f121e21706a949fcf84b56c7474daa8eb077d1b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "잡아먹힐 처지의 늙은 수탉이 고양이·개·말과 도시로 떠나 노래로 도둑을 쫓는 누적 서사가 초중등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time there was",
+      "note": "동물이 하나씩 합류하는 반복이 순서 문항에 좋고 도둑이 차여 죽는 대목은 가공 때 누그러뜨린다."
+    }
+  },
+  {
+    "id": "010c63a3-6ffa-4b80-b6d5-b554b32c03ae",
+    "source_updated_at": "2026-09-25T04:01:53.040288+00:00",
+    "body_sha256": "9bb5d82499b428f9a3e63ca508025d942729116d9688dd81a8b11d95a91db0b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "아이들이 좋아하는 놀이를 이름별로 한 줄씩 늘어놓은 나열이라 문장 사이 연결이 없어 초등 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Young children like to play with",
+      "note": "놀이 나열뿐이라 사건·이유·순서가 없다."
+    }
+  },
+  {
+    "id": "01a772e2-f810-491c-9555-8406a1074c29",
+    "source_updated_at": "2026-09-25T04:02:30.625003+00:00",
+    "body_sha256": "eb1a06471c577dd70eb9b29175139342d0c888f4ef1aaae9aae7a3c063b94ed6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "노란 나비·드럼·말·트럭을 장소와 함께 한 줄씩 나열한 색깔 그림책이라 문장끼리 이어지지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Yellow butterfly on the sand. Yellow",
+      "note": "사물 나열이라 가공할 흐름이 없다."
+    }
+  },
+  {
+    "id": "01d1d303-b346-4e26-96de-8666c3552a11",
+    "source_updated_at": "2026-09-25T04:02:11.414061+00:00",
+    "body_sha256": "759b2dfed572a59b6f89b2e45b22cb294648954e246c683fcf69da183e7af164",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "폭군 추장에게 시집보내려는 왕을 피해 연인과 도망친 공주가 폭풍 속 강에서 익사하는 비극이 죽음이 결말의 중심이라 고1 이상 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "long_reference"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Long, long ago there was a",
+      "note": "뱃사공 설득 단락이 떼어져도 서고 fat old man 같은 외모 비하는 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "01ef99f5-68d7-4501-97f6-69bd1b6e1cdb",
+    "source_updated_at": "2026-09-25T04:02:24.527407+00:00",
+    "body_sha256": "0b0932dabd1fa7dce968b58b5a45e1976d9835773d965e2d26ed18bd25ed4296",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "토끼와 뱀의 눈싸움에서 뱀이 허물만 남기고 빠져나가 토끼가 눈 뜨고 자게 됐다는 유래담이 초등 순서·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A long time ago, the rabbit",
+      "note": "짧지만 내기→허물→유래 인과가 선다."
+    }
+  },
+  {
+    "id": "024a57a1-463b-4967-bab3-2c56ceaded5d",
+    "source_updated_at": "2026-09-25T04:02:00.276307+00:00",
+    "body_sha256": "c3ea4a23c7755133db3d8027e7787336820e1a08832d240e214832577c38248a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "엘란드를 쏜 뒤 사람으로 변한 것을 본 청년이 친구에게 외면당하고 가족에게 도움받는 설화가 중등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This story is about two friends,",
+      "note": "아버지의 교훈 단락이 요지로 떼어지고 독화살 사냥 묘사는 절제돼 있다."
+    }
+  },
+  {
+    "id": "02c0baa7-037a-4f65-bd68-7b0baf93d909",
+    "source_updated_at": "2026-09-25T04:01:38.539433+00:00",
+    "body_sha256": "5b930f4a65e5eab2cfc97cd543e65d06f21ed02a6088095416d8dbeb66c3caba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "일찍 일어난 자마가 씻고 인사하고 옷 입고 학교 가는 아침 일과를 뽐내는 흐름이 순서로 이어져 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "My little brother sleeps very late.",
+      "note": "아침 일과가 시간순이라 순서 배열에 쓸 수 있다."
+    }
+  },
+  {
+    "id": "02f7e81e-817b-4194-9d80-ba548c9c7b2c",
+    "source_updated_at": "2026-09-25T04:02:23.686645+00:00",
+    "body_sha256": "c85f0a8e06f6afcd2d154cbb76a02eda24457d6392dfea40d7f05e24cc981e24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "토끼 농장을 가로챈 아난시가 비 오는 길가에 둔 돈 바구니를 독수리에게 빼앗기는 인과응보 설화가 초중등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anansi the Spider and Rabbit were",
+      "note": "원로 판결 단락이 전환점이라 요지·빈칸에 쓰기 좋다."
+    }
+  },
+  {
+    "id": "030531af-780c-466b-9c29-863cd37a76cb",
+    "source_updated_at": "2026-09-25T04:01:30.734087+00:00",
+    "body_sha256": "a1de7894d2f80ab60f73fb7d9de54afeb9cd5a0f5c95f88d42d6ad52c9c1e43b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "입학·그림책·수업·낮잠·견학을 한 줄씩 적은 학교생활 나열이라 문장끼리 사건·이유로 이어지지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Last Monday,Nakitto started school. She entered",
+      "note": "여덟 문장이 서로 무관한 활동 나열이다."
+    }
+  },
+  {
+    "id": "0357af41-3aa6-4491-9ba2-a028f34eaab1",
+    "source_updated_at": "2026-09-25T04:02:25.951879+00:00",
+    "body_sha256": "df31e9bb4c7087c028e57e196ec58290b53a192658b2d5f4161855ddaa4b07e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "피임 없이 아이를 낳고 헤어진 부모 사이에서 계부에게 맞던 딸이 친아버지에게 돌아가는 이야기라 성·폭력 소재로 고1 이상 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Once there was a young man",
+      "note": "사건 순서는 분명하나 서술이 요약투라 심경 가공은 어렵다."
+    }
+  },
+  {
+    "id": "03e7e343-559c-4122-bb6f-1335d10e1486",
+    "source_updated_at": "2026-09-25T04:01:47.596088+00:00",
+    "body_sha256": "3beadb4701ff5e76faf0323984e0fe842071a8ee1220fa2d42428fbd4f686e4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "If I were 로 시작하는 서로 무관한 공상 문장 열한 개의 나열이라 글의 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "If I were a bank manager,",
+      "note": "가정법 문장 모음일 뿐 사건·논지가 없다."
+    }
+  },
+  {
+    "id": "03e8e3f7-f4fc-4910-b592-04e543cbf721",
+    "source_updated_at": "2026-09-25T04:01:37.390224+00:00",
+    "body_sha256": "d22a86a28e9b22f09669976ed9a967d25429b07dbb35ad9742652eee14eaba56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "오두막의 재료·문·시원함을 한 줄씩 적은 특징 나열이라 초등 칸의 최소선(문장 사이 연결)에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A hut is made using poles,",
+      "note": "특징 문장 나열이고 끝은 제작 학급 표기다."
+    }
+  },
+  {
+    "id": "045c3bd3-e0c9-4c35-af50-fba3bb333d22",
+    "source_updated_at": "2026-09-25T04:02:28.226468+00:00",
+    "body_sha256": "65479c4ac4508956f1e68e82a82995bfd6023a755f6c97852e03c7308fba7361",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "작은 모자·큰 모자처럼 대비 낱말 쌍을 다섯 번 나열한 그림 낱말책이라 문장이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Little hat, big hat. Little hands,",
+      "note": "낱말 쌍뿐이라 가공할 문장이 없다."
+    }
+  },
+  {
+    "id": "056bd3d8-33b0-48d5-af02-3a2f2cfebc10",
+    "source_updated_at": "2026-09-25T04:01:48.429085+00:00",
+    "body_sha256": "cd47415f2191ca1fc23fa6d0281910fa4c2d79c5279662c0f4566c3734a74a5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "눈이 나쁜 상어 오스카가 당근을 거부하다 의사에게 안경을 받아 물고기를 보게 되는 인과가 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V0",
+        "V1"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Oscar has a problem with his",
+      "note": "짧지만 문제→권유→진료→해결로 이어진다."
+    }
+  },
+  {
+    "id": "057d18bf-e08a-4bd4-a93b-39cb4db854a7",
+    "source_updated_at": "2026-09-25T04:01:29.882945+00:00",
+    "body_sha256": "89554ebb5627c2dfd35c96f380675fb227714792c8fe6d5d65170f27a88b7f48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "주인이 없는 동안 고양이 사피가 개와 이웃을 쫓고 밥 먹고 자다 주인을 맞는 하루가 순서로 이어져 초등 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In my village lives Mister Kiio.",
+      "note": "When 절로 시작하는 문장들이 하루 순서로 이어진다."
+    }
+  },
+  {
+    "id": "0768ff95-7fac-4d39-9eb6-9bd2d32ce62f",
+    "source_updated_at": "2026-09-25T04:02:29.185255+00:00",
+    "body_sha256": "ddc2fe0d1682576ea407d55c01d7efb5356175b9af73474c1bf63e6e5f3ce5be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "볏이 불이라고 속여 왕이 된 수탉의 거짓말이 비 오는 날 여우에게 들통나는 유래담이 초등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There was a time when all",
+      "note": "거짓말→추대→추위→들통 인과가 분명하다."
+    }
+  },
+  {
+    "id": "08944dd9-6635-4f3b-b0c9-4c2017249cd4",
+    "source_updated_at": "2026-09-25T04:01:33.133236+00:00",
+    "body_sha256": "a43e144d3e06660915adb4d10a28c24943656baa2e7719136c1c727cb77fe756",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "추장이 숲을 베자 강이 마르고 새 지도자가 길을 막아 강이 되살아나는 흐름이 초등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two small streams formed River Temu.",
+      "note": "벌목→고갈→교체→회복 인과가 짧게 선다."
+    }
+  },
+  {
+    "id": "089f25e1-59b9-4454-bbc7-842dacdf2712",
+    "source_updated_at": "2026-09-25T04:01:54.075794+00:00",
+    "body_sha256": "d56e7f5583ec0adbaccd6418bb477bd3aa4b3bf4c448f036925cb078bb51137f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "그네를 못 멈춘 케케가 뛰어내려 다치고 선생님이 달래 주는 흐름이 초등 심경·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Keke sat on her swing. She",
+      "note": "신남→두려움→안도 심경 전환이 분명하다."
+    }
+  },
+  {
+    "id": "08b5f9d2-64c5-49b0-9e00-d224232a14f6",
+    "source_updated_at": "2026-09-25T04:01:35.329539+00:00",
+    "body_sha256": "3765b768fd264f87602b1e8309f67ff30a2394367b392f1f9244b6fa258c3982",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "춤을 비웃은 마을 사람들을 낯선 이가 돌로 만들어 나모라퉁가 유적이 생겼다는 전설이 초중등 순서·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Long time ago, in a Turkana",
+      "note": "비웃음→저주→돌 유래 순서가 분명하다."
+    }
+  },
+  {
+    "id": "09d8b907-ffe0-4469-a2c3-f328a6c34fa8",
+    "source_updated_at": "2026-09-25T04:02:14.990232+00:00",
+    "body_sha256": "5ae98e6a197438f8f67e9d3f58320f00f33594b56cb2516b5393c9fb0cfc10f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "눈먼 어머니를 버리고 떠난 아들과 둘째 부인이 약탈자에게 죽고 첫 부인만 돌아오는 설화가 죽음이 교훈 중심이라 고1 이상 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There lived a man called Lodipo.",
+      "note": "투르카나어 노래 줄은 걷어내고 인과응보 흐름만 쓴다."
+    }
+  },
+  {
+    "id": "0ade4e61-67a6-4eeb-9fc5-fa1ffa1b25cf",
+    "source_updated_at": "2026-09-25T04:02:05.851322+00:00",
+    "body_sha256": "7771e2b5250259ebf578d0b852ec8cc5f7d24caffec2f46ac439455457cfff66",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "군인들이 소를 빼앗자 할머니가 팅기를 낙엽 밑에 숨겨 살아남는 짧은 서사가 전쟁 위협을 다뤄 중등 이상 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V0",
+        "V1"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tingi lived with his grandmother. He",
+      "note": "짧지만 약탈→숨기→위기→귀가 순서가 긴장감 있게 선다."
+    }
+  },
+  {
+    "id": "0bb38ddf-298e-4d18-9c4b-4782b0f28e63",
+    "source_updated_at": "2026-09-25T04:02:18.068094+00:00",
+    "body_sha256": "2364e7c27e99cd43e37b3768ff265b313a12b11a43d8b67ddc795d66e3a5655a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "소웨토의 수줍던 소녀가 미스 남아공·방송 사업가·자선가가 되는 전기가 중등 순서·요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Basetsana Makgalemele was born in a",
+      "note": "모토(To whom much is given) 단락이 요지로 떼어진다."
+    }
+  },
+  {
+    "id": "0c4ca134-c9de-499d-a3d4-e1dde3ccefa2",
+    "source_updated_at": "2026-09-25T04:01:58.943746+00:00",
+    "body_sha256": "a058c4bed39bf10d60942daba8fc99862d39f2c6439b2465a7393d33a30581a9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "토끼를 판 돈으로 학용품을 산 친구와 새끼 고양이를 팔지 못한 친구를 대비하는 짧은 글이 초등 내용일치 칸을 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V1"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Kabali and Kateera are friends. Kabali",
+      "note": "나열에 가깝지만 판매→학용품, 수요 없음→못 팜 인과가 있다."
+    }
+  },
+  {
+    "id": "0c545785-25da-4046-82cf-a6961619c207",
+    "source_updated_at": "2026-09-25T04:02:38.549588+00:00",
+    "body_sha256": "c51bf5d88629f61b2d740e874807965de020ae54249a84f6492eaa042ee49dae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "하늘·잎·바나나 색깔을 묻고 짧게 답하는 문답 나열이라 문답끼리 이어지지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Why is the sky blue? It",
+      "note": "서로 무관한 문답 여섯 쌍이다."
+    }
+  },
+  {
+    "id": "0c749045-4a22-4692-aa8d-35d4cc3c30e9",
+    "source_updated_at": "2026-09-25T04:01:34.946115+00:00",
+    "body_sha256": "e727b63d3d2c66fabf576fbf048f5ccb68fe4f1c315f96b04abc0289a32909ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "연날리기·공차기·구조 같은 그림 캡션 조각이라 그림 없이는 뜻이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "This is cow. Cow is cool!",
+      "note": "캡션 조각이라 떼어 쓸 문장이 없다."
+    }
+  }
+]

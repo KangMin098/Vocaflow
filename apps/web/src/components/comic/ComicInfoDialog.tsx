@@ -11,21 +11,19 @@
 // 복원 만화는 "왜 이걸 공짜로 읽을 수 있는가"가 곧 신뢰의 문제다. 1940년대 만화를 출처 없이
 // 올려두면 정당하게 확보한 콘텐츠도 해적판처럼 보인다. 원본 링크와 근거를 **먼저** 내보인다.
 //
-// 접근성: 네이티브 <dialog> 를 쓰지 않는다(Safari 지원·스타일 제약). 대신
-// role="dialog" + aria-modal + Esc 닫기 + 포커스 트랩 + 열기 전 포커스 복원을 직접 구현한다.
+// 접근성: 네이티브 <dialog> 를 쓰지 않는다(Safari 지원·스타일 제약). role="dialog" +
+// aria-modal + Esc + 포커스 트랩 + 포커스 복원은 `ui/Dialog` 가 한 곳에서 보장한다
+// (DD-68 · tines-mapping §28, 2026-09-23 — 예전에는 이 파일이 그 규칙을 혼자 구현했다).
 
 'use client'
 
-import { BookOpen, ExternalLink, Info, ShieldCheck, X } from 'lucide-react'
+import { BookOpen, ExternalLink, Info, ShieldCheck } from 'lucide-react'
 import Link from 'next/link'
-import { useCallback, useEffect, useId, useRef, useState } from 'react'
+import { useCallback, useState } from 'react'
 
+import { Dialog, DialogSection, DialogTintPanel } from '@/components/ui/Dialog'
+import { BTN } from '@/components/ui/tines-kit'
 import { pdBasisLabel, type PdComicInfo } from '@/lib/pd-comic/model'
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
-
-/** 포커스 가능한 요소 — 트랩이 순환시킬 대상. */
-const FOCUSABLE =
-  'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
 export function ComicInfoDialog({
   slug,
@@ -40,12 +38,6 @@ export function ComicInfoDialog({
   const [open, setOpen] = useState(false)
   const [info, setInfo] = useState<PdComicInfo | null>(null)
   const [state, setState] = useState<'idle' | 'loading' | 'error'>('idle')
-  const panelRef = useRef<HTMLDivElement>(null)
-  const openerRef = useRef<HTMLButtonElement>(null)
-  const titleId = useId()
-
-  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다(lib/ui/use-close-on-back.ts).
-  useCloseOnBack(open, () => setOpen(false))
 
   // 정보는 **열 때** 가져온다 — 서가에 카드가 100개면 미리 받는 것은 100번의 낭비다.
   const load = useCallback(async () => {
@@ -63,47 +55,9 @@ export function ComicInfoDialog({
     }
   }, [info, slug])
 
-  useEffect(() => {
-    if (!open) return
-    // 정리 시점에 ref.current 는 이미 바뀌어 있을 수 있다 — 지금 값을 붙잡아 둔다.
-    const opener = openerRef.current
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.stopPropagation()
-        setOpen(false)
-        return
-      }
-      if (e.key !== 'Tab') return
-      // 포커스 트랩 — 모달 밖으로 새면 뒤 화면을 조작하게 된다.
-      const nodes = panelRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE)
-      if (!nodes?.length) return
-      const first = nodes[0]
-      const last = nodes[nodes.length - 1]
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault()
-        last.focus()
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault()
-        first.focus()
-      }
-    }
-    document.addEventListener('keydown', onKey)
-    // 배경 스크롤 잠금 — 팝업 위에서 스크롤하면 뒤 목록이 밀린다.
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    panelRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus()
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prevOverflow
-      // 닫으면 원래 있던 버튼으로 포커스를 되돌린다 — 키보드 사용자가 목록의 자리를 잃지 않게.
-      opener?.focus()
-    }
-  }, [open])
-
   return (
     <>
       <button
-        ref={openerRef}
         type="button"
         onClick={() => {
           setOpen(true)
@@ -117,144 +71,124 @@ export function ComicInfoDialog({
       </button>
 
       {open && (
-        <div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(23,17,10,.55)] p-0 backdrop-blur-sm sm:items-center sm:p-4"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) setOpen(false)
-          }}
-        >
-          <div
-            ref={panelRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby={titleId}
-            className="max-h-[88vh] w-full max-w-[520px] overflow-y-auto rounded-t-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-lg sm:rounded-[var(--r-lg)]"
-          >
-            <header className="sticky top-0 flex items-start gap-3 border-b border-[var(--bd)] bg-[var(--bg)] px-5 py-4">
-              <div className="min-w-0 flex-1">
-                {info?.kindLabel && (
-                  <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
-                    {info.kindLabel}
-                  </p>
+        <Dialog
+          onClose={() => setOpen(false)}
+          size="lg"
+          crumbs={['복원 만화', '서가', info?.kindLabel ?? '콘텐츠 정보']}
+          title={info?.title ?? label}
+          byline={
+            info
+              ? [info.seriesTitle, info.publisher, info.publishedYear ? `${info.publishedYear}년` : null]
+                  .filter(Boolean)
+                  .join(' · ')
+              : undefined
+          }
+          tags={
+            info
+              ? [
+                  info.issueNo != null ? `제 ${info.issueNo}호` : '단행본',
+                  `${info.panelsTotal}쪽`,
+                  info.bubbleCount > 0 ? `대사 ${info.bubbleCount}개` : '대사 검수 중',
+                ]
+              : undefined
+          }
+          footer={
+            info ? (
+              <>
+                <Link href={`/comics/restored/${info.slug}`} className={BTN.primary}>
+                  읽기
+                </Link>
+                {info.seriesKey && info.seriesIssuesPublished > 1 && (
+                  <Link
+                    href={`/comics/restored?series=${encodeURIComponent(info.seriesKey)}`}
+                    className={BTN.secondary}
+                  >
+                    이 시리즈 {info.seriesIssuesPublished}권
+                  </Link>
                 )}
-                <h2
-                  id={titleId}
-                  className="mt-0.5 font-display text-[17px] font-[800] leading-snug text-[var(--t1)]"
-                >
-                  {info?.title ?? label}
-                </h2>
-              </div>
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="닫기"
-                className="-mr-2 -mt-1 inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-              >
-                <X size={18} aria-hidden />
-              </button>
-            </header>
-
-            <div className="px-5 py-4">
-              {state === 'loading' && (
-                <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">
-                  정보를 불러오는 중…
-                </p>
-              )}
-              {state === 'error' && (
-                <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">
-                  정보를 가져오지 못했어요. 잠시 뒤 다시 열어 보세요.
-                </p>
-              )}
-              {info && state === 'idle' && <InfoBody info={info} />}
-            </div>
-          </div>
-        </div>
+                {info.libraryBookId && (
+                  <Link href={`/library/books/${info.libraryBookId}`} className={`${BTN.secondary} ml-auto`}>
+                    원작 도서
+                  </Link>
+                )}
+              </>
+            ) : undefined
+          }
+        >
+          {state === 'loading' && (
+            <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">정보를 불러오는 중…</p>
+          )}
+          {state === 'error' && (
+            <p className="py-6 text-center font-body text-[13px] text-[var(--t2)]">
+              정보를 가져오지 못했어요. 잠시 뒤 다시 열어 보세요.
+            </p>
+          )}
+          {info && state === 'idle' && <InfoBody info={info} />}
+        </Dialog>
       )}
     </>
   )
 }
 
+// 본문 — 서지 일부와 호수·분량은 머리의 「By」 줄·태그가 이미 말한다. 여기 남는 것은
+// **판단의 근거** 둘: 무엇을 배우는가(옅은 살구 패널 — 참조의 「Starting prompt」 자리)와
+// 왜 읽어도 되는가(출처). 이어서 읽을 곳은 바닥 버튼 줄로 갔다.
 function InfoBody({ info }: { info: PdComicInfo }) {
   return (
-    <div className="flex flex-col gap-4">
-      {/* 서지 — 학습자가 "언제 것인지"를 먼저 본다 */}
-      <dl className="grid grid-cols-2 gap-x-4 gap-y-3">
-        <Row label="시리즈" value={info.seriesTitle} />
-        <Row label="호수" value={info.issueNo != null ? `제 ${info.issueNo}호` : '단행본'} />
-        <Row label="원본 발행" value={info.publishedYear ? `${info.publishedYear}년` : '연도 미상'} />
-        <Row label="발행사" value={info.publisher} />
-        {/* 발행본의 `panelsTotal` 은 **페이지 수**다 — publish-upload 가 페이지 행으로 교체한다.
-            컷(패널)이라고 부르면 학습자가 받는 것과 다른 것을 말하게 된다. */}
-        <Row label="분량" value={`${info.panelsTotal}쪽`} />
-        <Row label="대사" value={info.bubbleCount > 0 ? `${info.bubbleCount}개` : '검수 중'} />
-      </dl>
-
+    <div className="flex flex-col gap-5">
       {/* 학습 노트 — 이 유형을 읽으면 어떤 영어를 얻나. 서가의 유형 구분이 존재하는 이유. */}
       {info.kindLearnerNote && (
-        <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
-          <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[700] text-[var(--t1)]">
-            <BookOpen size={14} aria-hidden />
-            이 유형으로 배우는 것
-          </h3>
-          <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        <DialogTintPanel
+          tone="peach"
+          dots
+          title={
+            <span className="inline-flex items-center gap-2">
+              <BookOpen size={15} aria-hidden />이 유형으로 배우는 것
+            </span>
+          }
+        >
+          <p className="font-body text-[13.5px] leading-relaxed text-[var(--t1)] break-keep">
             {info.kindLearnerNote}
           </p>
           {info.seriesBlurb && (
-            <p className="mt-2 font-body text-[12.5px] leading-relaxed text-[var(--t3)]">
+            <p className="mt-2 font-body text-[12.5px] leading-relaxed text-[var(--t2)] break-keep">
               {info.seriesBlurb}
             </p>
           )}
-        </section>
+        </DialogTintPanel>
       )}
 
-      {/* 출처·저작권 — 신뢰의 문제라 숨기지 않는다 */}
-      <section className="rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3">
-        <h3 className="flex items-center gap-2 font-display text-[12.5px] font-[700] text-[var(--t1)]">
-          <ShieldCheck size={14} aria-hidden />
-          출처와 이용 근거
-        </h3>
-        <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
-          {pdBasisLabel(info.pdBasis)}
-        </p>
-        {info.sourceUrl && (
-          <a
-            href={info.sourceUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-2 inline-flex min-h-[44px] items-center gap-2 font-body text-[12.5px] font-[600] text-[var(--active-ink)] underline underline-offset-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            원본 스캔 보기
-            {info.sourceArchive === 'internet-archive' && ' (Internet Archive)'}
-            <ExternalLink size={13} aria-hidden />
-          </a>
-        )}
-      </section>
+      {/* 서지 — 발행본의 `panelsTotal` 은 **페이지 수**다(publish-upload 가 페이지 행으로
+          교체한다). 컷(패널)이라고 부르면 학습자가 받는 것과 다른 것을 말하게 된다. */}
+      <DialogSection label="서지">
+        <dl className="grid grid-cols-2 gap-x-4 gap-y-3 sm:grid-cols-3">
+          <Row label="시리즈" value={info.seriesTitle} />
+          <Row label="호수" value={info.issueNo != null ? `제 ${info.issueNo}호` : '단행본'} />
+          <Row label="원본 발행" value={info.publishedYear ? `${info.publishedYear}년` : '연도 미상'} />
+          <Row label="발행사" value={info.publisher} />
+          <Row label="분량" value={`${info.panelsTotal}쪽`} />
+          <Row label="대사" value={info.bubbleCount > 0 ? `${info.bubbleCount}개` : '검수 중'} />
+        </dl>
+      </DialogSection>
 
-      {/* 이어서 읽을 곳 */}
-      <div className="flex flex-wrap gap-2">
-        <Link
-          href={`/comics/restored/${info.slug}`}
-          className="inline-flex min-h-[44px] flex-1 items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-px active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
-        >
-          읽기
-        </Link>
-        {info.seriesKey && info.seriesIssuesPublished > 1 && (
-          <Link
-            href={`/comics/restored?series=${encodeURIComponent(info.seriesKey)}`}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-full)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            이 시리즈 {info.seriesIssuesPublished}권
-          </Link>
-        )}
-        {info.libraryBookId && (
-          <Link
-            href={`/library/books/${info.libraryBookId}`}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-full)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            원작 도서
-          </Link>
-        )}
-      </div>
+      {/* 출처·저작권 — 신뢰의 문제라 숨기지 않는다 */}
+      <DialogSection label="출처와 이용 근거">
+        <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
+          <p className="flex items-start gap-2 font-body text-[13px] leading-relaxed text-[var(--t1)] break-keep">
+            <ShieldCheck size={15} aria-hidden className="mt-0.5 shrink-0" />
+            {pdBasisLabel(info.pdBasis)}
+          </p>
+          {info.sourceUrl && (
+            <a href={info.sourceUrl} target="_blank" rel="noopener noreferrer" className={BTN.text}>
+              원본 스캔 보기
+              {info.sourceArchive === 'internet-archive' && ' (Internet Archive)'}
+              <ExternalLink size={13} aria-hidden />
+            </a>
+          )}
+        </div>
+      </DialogSection>
+
+      {/* 이어서 읽을 곳은 바닥 버튼 줄(`Dialog` 의 footer) — 참조도 결정을 바닥에 모은다. */}
     </div>
   )
 }

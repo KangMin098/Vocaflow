@@ -81,6 +81,7 @@
 //    글 단위 사실은 Crossref 쪽이다.)
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { fetchWithTimeout, htmlToPlainText } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -466,26 +467,19 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
   if (!w) throw new Error(`FrYM Crossref 응답이 비었다: ${doi}`)
 
   const licenseUrl = frymLicenseUrl(w.license)
-  const code = frymLicenseCode(licenseUrl)
-  if (!code) {
-    // **모르는 것을 허용으로 바꾸지 않는다.** 학술지 단위로 뭉뚱그리면 예외를 못 본다.
-    throw new Error(`FrYM 라이선스를 글에서 확인하지 못했다: ${doi}`)
-  }
+  // 라이선스로 버리지 않는다(DD-75). **모르는 것을 허용으로 바꾸지도 않는다** — 학술지 단위로
+  //   뭉뚱그리지 않고, 글에서 못 읽었으면 'unknown' 으로 적어 DB 트리거가 restricted 로 막게 둔다.
+  const license = frymLicenseCode(licenseUrl) ?? licenseUrl ?? 'unknown'
 
-  // 라이선스를 확인한 **뒤에** 본문을 받는다 — 쓸 수 없는 글을 받으러 가지 않는다.
   const fullUrl = frymFullUrl(doi)
   const page = await fetchWithTimeout(fullUrl, { accept: 'text/html' })
   if (!page.ok) throw new Error(`FrYM 본문 GET 실패: ${page.status} ${fullUrl}`)
   const content = frymFullTextContent(await page.text())
   const words = countWords(content)
-  if (words < FULLTEXT_MIN_WORDS) {
-    throw new Error(
-      `FrYM 본문이 너무 짧다: ${words}어 (최소 ${FULLTEXT_MIN_WORDS}) ${doi} — ` +
-        `판형이 바뀌었는지 ${fullUrl} 를 확인할 것`
-    )
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = words < FULLTEXT_MIN_WORDS
 
-  return {
+  const article: RawArticle = {
     source: 'frym',
     // 목록기와 **같은 함수** — 여기서 문자열을 조립하면 그게 두 번째 규칙이 된다.
     source_id: sourceKey('frym', { doi: w.DOI ?? doi, url: fullUrl }),
@@ -495,11 +489,20 @@ export async function ingestFrymArticle(itemUrl: string): Promise<RawArticle> {
     title: (w.title ?? [])[0]?.replace(/\s+/g, ' ').trim() || '(제목 미상)',
     author: 'Frontiers for Young Minds',
     language: 'en',
-    license: code,
+    license,
+    license_evidence: 'api',
     published_at: frymPublishedAt(w.published) ? new Date(frymPublishedAt(w.published)!) : null,
     content,
     // 8~15세 대상이지만 심사물이라 등급이 붙어 있지 않다 — analyze 가 판정한다.
     estimated_cefr: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(
+      `FrYM 본문이 너무 짧다: ${words}어 (최소 ${FULLTEXT_MIN_WORDS}) ${doi} — ` +
+        `판형이 바뀌었는지 ${fullUrl} 를 확인할 것`,
+      { source: article.source, url: article.source_url, content: article.content, article },
+    )
+  }
+  return article
 }

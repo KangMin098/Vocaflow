@@ -15,7 +15,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { fetchAllIn } from './volume-pool.mjs'
+import { fetchArticleVocab } from './volume-pool.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -73,14 +73,8 @@ for (const d of dcp ?? []) {
 //   지문별로 나눠 받아 자를 여지를 없앤다.
 // ⚠️ **나눠 받는 것만으로는 모자라다.** `.limit(20000)` 은 서버 상한(1000행)을 못 넘으므로
 //   한 조각이 1000행을 넘기면 뒤가 조용히 잘린다. 페이징은 `fetchAllIn` 한 곳에만 둔다.
-const vocabRows = await fetchAllIn(
-  db,
-  'library_article_vocabularies',
-  'library_article_id, word, first_sentence, frequency_in_article',
-  'library_article_id',
-  ids,
-  ['library_article_id', 'word'],
-)
+// 행이 없는 지문은 본문에서 다시 만들어 받는다(`fetchArticleVocab` 주석 참조).
+const vocabRows = await fetchArticleVocab(db, 'library_article_id, word, first_sentence, frequency_in_article', ids)
 const words = [...new Set((vocabRows ?? []).map((v) => v.word))]
 const meaning = new Map()
 for (let i = 0; i < words.length; i += 500) {

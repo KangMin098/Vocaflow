@@ -1,0 +1,1766 @@
+[
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1221c9d5-ca86-4c6e-85de-d51576d86202",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f48e255152c6eaf376262b02377483426f39748a2b550301d56727aebc1210bb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "청소년만 듣는 소음 장치를 두고 인권 단체의 차별 비판과 의원의 옹호가 맞서 주장·주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr Murphy maintains the NSW government's",
+          "note": "차별 논리 문단은 근거 없는 전제를 짚어 주장 문항에 바로 섰고 문장이 짧아 조정할 낱말이 거의 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.278Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Questions_raised_over_Mosquito_device_ahead_of_New_South_Wales_trial",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.375
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1228cd29-a4d5-469e-bbed-ddb8f32ba06c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e4522debbda7c209ad58cba0dbc483d1f716f8eccfaa7772953ce5b42897100",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "좌초선 점검과 폭풍 사망·수색, 기상 전망이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Divers and around 45 Police officers",
+          "note": "수색 문단은 도로 붕괴로 차가 추락한 경위를 담아 섰고 embankment 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.278Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Salvage_crew_boards_grounded_ship_in_Newcastle%2C_Australia",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.337
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "122b7157-5fd6-4b08-8416-897d248660da",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4c1d77980229c25724ba192a3fa0fd4a2db1945ee7b0643a4975cd8d5206d75a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "선거제 개편안 수용을 둘러싼 찬성·급진파 반발·당내 분열이 단락별로 갈려 요약·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "However, not all Democratic Party members",
+          "note": "당내 반대 문단은 탈당 위협과 분열 전망이 섰지만 인명이 많아 둘만 남기고 풀어 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hong_Kong_Democratic_Party_stirs_up_universal_suffrage_reform_package_controversy",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.448
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12300d0a-d413-437f-b78a-3315001b1c08",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6b2de29e3bde25f8f80c5c3783b70babfb43aa7bae607edb15f79954c73e3e1f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "교황 서거·왕세자 결혼 연기로 해산 일정이 바뀐 경위가 날짜 순으로 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Members of Parliament (Lords and Commons) will",
+          "note": "회기 종료 문단은 입법 일정이 줄어든 결과를 담아 섰고 괄호 설명을 걷고 dropped 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_Prime_Minister_sets_2005_General_Election_date",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1230188b-c485-4b71-a0de-c88c82e4df28",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0efb331b87534a2a423a0c343f7badf012213e3a1a10b5bb37a6b1055da14353",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하마스 집권 뒤 캐나다의 원조 동결과 이에 대한 우려가 짧게 인과로 서서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Canadian Arab Federation head, Faraj",
+          "note": "반응 문단은 한 문장이지만 결정의 영향까지 담아 섰고 dismay 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canada_freezes_aid_to_Palestine",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.706,
+          "words": 85,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "123dace2-8e83-40e6-8577-49a1bfe848a0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "717163f3ba5fa672e7a6a51ada72b5305b9070efd7498c69f4f1b4f86906741c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "첫 두 단락의 부양책 합의 뒤로 지수별 등락률·종목 순위 나열이 본문 대부분이라 내용 일치 칸도 수치 나열뿐이어서 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The Dow Jones Industrial Average index",
+          "note": "다우 지수 문단을 떼니 지수·종목 등락률 나열뿐이라 논지나 사건 흐름이 남지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Global_markets_surge_in_value",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.421
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "123e0f35-c583-4ee8-bdf9-73ba940f33d8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "324eb84c56052dc6eee5b181286240bf308f747ba05ad26dc8cf1511d4b41864",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "슈라 위원회 첫 여성 임명과 여성 정치 참여 이력, 노동법 개정 배경이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dr Jaber wasn't the first woman",
+          "note": "여성 각료 이력 문단은 시간순으로 섰고 인명은 직함으로 바꿔 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Qatar_appoints_four_women_to_its_law-drafting_Shura_Council",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "123e4145-415a-4c33-b8f5-395610c90e92",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "62d066f381d20d56de5cabe35e2dd17101494c846d7c87a3e345627f6b0b4648",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "오염 사료로 인한 반려동물 사망·리콜 규모·원인 조사가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The FDA says that the possible",
+          "note": "원인 추정 문단은 한 문장이라 앞 검사 문단과 묶었고, 끝의 리콜 목록 링크 문장은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Contaminated_pet_food_causes_massive_recall",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "123ee549-c122-4977-a645-cc7b85ce1d57",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "49d9a9043806bf7e89b023b4f6fd8ccb4365d62d523b3d152758af190679cd8d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "늑대 사냥 허가를 둘러싼 판결의 인정·기각 부분과 핀란드 정부 반응이 정리돼 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The court ruled that despite two",
+          "note": "판결 논리 문단은 법률 인용(Habitats Directive)이 핵심이라 어휘를 바꾸면 뜻이 흐려져 V6 아래로 못 내렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/EU_awards_partial_victory_to_Finland_over_wolf_hunting_case",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.439
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12430a4a-30cd-4346-84ce-97e9e5200da0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79bb52fc853268a9b6e428d0233b0975e22e22fc412bcd45f7141a0f72d35d81",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "social",
+        "why": "집회 체포 경위는 서나 후반이 원주민에 대한 일방적 비난 인용으로 채워져 bias 쪽인지 보도인지 판단이 갈린다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The OPP said the men were",
+          "note": "체포 사유 문단은 서지만 후반 절반이 원주민을 일괄 범죄자로 그리는 주최자 인용이라 걷으면 기사 흐름이 반으로 줄었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rally_organizer_arrested_in_Caledonia%2C_Ontario",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12432b05-35fd-400a-be6f-f88805147ada",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95914f7347a6185c186e861adbd3e07da2071d757414d388950ec7419f2119d0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "시상식 예고 기사로 본문 대부분이 출연자·후보·선물 목록 나열이라 읽는 글로 설 칸이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "MuchMusic is the most popular music",
+          "note": "행사 소개 문단은 관객 수만 있고 이후는 출연자·후보·선물 목록이라 떼어 쓸 논지나 사건이 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.279Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/MuchMusic_Video_Awards_this_Sunday_in_Toronto%2C_Canada%3B_Wikinews_will_be_there",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.285
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12497cb7-e1c9-4df0-80c4-d8ac6e8be20f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "64e5341f82ee27937d17967c2f20f0476e05b2add3da7e0c490a6d19f5540412",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "mixed",
+        "why": "후보 발표·시상자 선임·다큐 규정 개정 세 보도자료가 이어 붙어 주제가 중간에 갈아엎히므로 mixed 로 폐기한다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Meanwhile, Documentary category rules for the",
+          "note": "다큐 규정 문단은 따로 서지만 앞의 후보 발표·시상자 소식과 다른 보도자료가 이어 붙은 것이라 한 편이 되지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Academy_Award_Nominees_Announced",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "124b9371-357b-4f95-9986-3e76b4e53c81",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ddd74ff16377bc1b66829360143d42e458db0a55d5ca70e6459fd484dba24fa5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "travel",
+        "why": "여행박람회 기사 중 「Stanley said:」 다음 인용이 비어 글이 중간에서 끊겼으므로 불완전 원천으로 보류한다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "At the press conference yesterday, TVA",
+          "note": "기자회견 문단은 섰지만 셋째 단락 「Stanley said:」 뒤의 인용이 통째로 빠져 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2007_Taipei_International_Travel_Fair%3A_Bigger_than_ever_before_it_even_begins",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.124,
+          "words": 194,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "125021cd-af9d-4146-b17c-fe9581e918df",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df7ff1e86e242b9d9262e17ee17e8ececad8739294bf0b72f8f32a531a3fca7b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "전 CIA 국장 회고록 출간과 위선 비판, 책 속 사실 오류 지적이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Tenet faced accusations of hypocrisy from",
+          "note": "위선 비판 문단은 한 문장으로 섰고 hypocrisy 를 풀었으며, 다음 오류 문단과 묶으면 반박 구조가 생겼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ex-CIA_Director_George_Tenet's_memoir_published",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.321,
+          "words": 162,
+          "english": 0.386
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12565d67-fbc1-4443-8b91-949d52e65ca3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "90b9620e6529165625154596e8227e18f59cdb7d11586360600a939250f82cfe",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "전력 민영화 반대 시위와 정부의 강행 입장이 맞서 짧은 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Government seems to have ignored",
+          "note": "정부 반응 문단은 시위와 맞세워 섰고 privatise 는 sell off 로 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thousands_protest_privatisation_of_Australian_electricity_industry",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.386,
+          "words": 114,
+          "english": 0.339
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1258c4fb-03b1-4e8f-a033-a11ef1b04e13",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd1339a74c6c27fd909829450d310bc9f5931e38d7b7d76ac389a638e75db04f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "남극 유람선 침몰과 탈출·구조 선박 파견 경위가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite having a strong reinforced ice",
+          "note": "선체 기울기 문단은 구조선 도착 시각까지 담아 섰고 listing·vicinity 두 낱말을 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canadian_cruise_ship_sinking_in_Antarctic",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.594,
+          "words": 143,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "125d08a9-f6ca-4a4e-82d4-56089af06518",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "394fc9f15544a5adcec4a20474110b262756266e59b09a0b027b917a0413dc03",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "저작권 요율 인상에 맞선 법안과 방송사·저작권 단체의 대립 주장이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A common fear among Internet broadcasters",
+          "note": "파산 우려 문단은 인용 하나로 주장이 섰고 diversity 외에는 쉬웠으나 첫 문단의 요율 수치는 걷어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Internet_Radio_Equality_Act_proposed",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.375
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12600b80-a082-4946-b2f6-cbd812acd445",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c559988cf33c27af93e9dcf84a059b8d8784d6de146846b6f191ab05018967e3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "북한 사면령과 기념일 배경, 사면의 의도 분석이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The birth anniversary of founding leader",
+          "note": "기념일 문단은 두 명절 이름과 날짜를 설명해 섰고 grandiose 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/North_Korea_offers_amnesty_to_criminals%2C_marking_important_holidays",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "126a6e7e-a271-4790-acc5-0f02632bada3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0d168a424fe9a622a021d6a869a259535377d328c92c9727fc70d1d7b42456b2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "폭발물 분실 경위와 보안 실패 책임, 셈텍스 설명이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Minister of the Interior, Michèle",
+          "note": "장관 문단은 보안 실패와 소장 정직을 담아 섰고 failings 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/French_police_search_for_missing_explosives",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.436
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "126e12fd-4a44-409d-8cd7-4c745f217f87",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4a2d2aaa3294b216f1ce386aad9f7100fde30c5cecdee959a9206ec634fd53e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "도서관 정전 장면이 시간순으로 이어지고 자동 서고 설명이 있어 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The glass ceiling normally allows enough",
+          "note": "정전 장면 문단은 어두워짐→스위치→안내→이동 순서가 서서 순서 문항에 맞았고 patrons 를 users 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/University_of_Chicago's_Mansueto_Library_suffers_power_outage",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.025,
+          "words": 199,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1274ebb2-22b4-43a7-a4d2-17ba40c2c9e2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "828f96f824f6ce2d0e0dc926da46a5097ba7fc84cd7ad38be7c1c5646ffacf0a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "「최고 회전 기록」 보도와 달리 목적은 양자 마찰 연구였다는 문답이 이어져 주제·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The experiment was designed to explore",
+          "note": "실험 목적 문단은 고전·양자 경계를 풀어 설명해 섰지만 quantum·enigmatic 을 바꿔도 개념 자체가 V7 이라 더 내려가지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_Dr._Michael_Mazilu_on_creating_world's_fastest_spinning_manmade_object",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.305
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1276870f-5957-4e8f-a101-2f97caf40edf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80f2c1f22cb148f120eb1772638b5e7bd815ad42b89d959aefc4ae06d752dd33",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "옐친의 사망과 재임기 평가, 은퇴 후 행적이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Yeltsin maintained a low profile since",
+          "note": "은퇴 후 문단은 생일 발언까지 담아 섰고 monopolistic 만 풀었으나 러시아어 괄호 표기는 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Boris_Yeltsin%2C_former_president_of_Russia%2C_dies_at_76",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.674,
+          "words": 141,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "1276a2a2-6484-4e7c-b1f7-bf44d3dabe00",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "03e25428a3fee7d3c6c811d0fcf4fc3b3a1444c6d920d4edc89f4bcc817ec13d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "교황 저격범의 석방과 복역·사면 경위, 시민의 분노가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Agca was sentenced to life in",
+          "note": "형기 경위 문단은 사면→송환→복역 순서가 서고 extradited 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Shooter_of_former_Pope_John_Paul_II_released_from_prison",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.762,
+          "words": 126,
+          "english": 0.376
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "12772f77-ab4a-44d7-9cc9-46d611057eda",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "717819e1e5c5b74793d817542990a7003fc98931c373c832e7856f81ba754b7a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "평화유지군 매복 공격과 치안 악화 진단, 파병 부진의 이유가 이어져 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The peacekeepers are part of a",
+          "note": "파병 부진 문단은 이유 둘을 담아 섰고 restrictions 외엔 조정이 필요 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sudan_ambush_leaves_seven_peacekeepers_dead%2C_more_than_a_dozen_wounded",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-13-276Z",
+    "id": "127ae794-28a0-4f2e-a641-17fb63bff864",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1291148455bdc6ab213f1c1155dd22482afc1bdfe22cb5f12d82ffef03463225",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "보석 강도 사건의 기소 현황과 범행·도주 경위가 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "43 diamond rings, watches, and bracelets",
+          "note": "범행 경위 문단은 인질·가면·총격을 차례로 담아 섰고 prosthetic 을 fake 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:13.280Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_charged_with_attempted_murder_in_%C2%A340_million_London_jewel_heist",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.404
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

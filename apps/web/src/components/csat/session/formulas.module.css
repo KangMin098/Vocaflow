@@ -1,0 +1,46 @@
+/* apps/web/src/components/csat/session/formulas.module.css */
+/* 내 공식 — 참조 사례 상세(히어로 + 소품 · 강조 수치 면 3 · 계보 카드). 면 색은 globals `.tone-*`. */
+.page { color: var(--t1); word-break: keep-all; padding-block: 8px 48px; }
+.page :is(a, summary):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
+.hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding-bottom: 28px; }
+.hero > div { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.hero h1 { font-family: var(--font-ko-display), serif; font-size: clamp(34px, 4vw, 48px); font-weight: 500; line-height: 1.15; letter-spacing: -.03em; }
+.chip { display: inline-flex; align-items: center; height: 30px; padding: 0 14px; border-radius: 999px; background: var(--tint-lavender); color: var(--tint-lavender-ink); font-size: 13px; font-weight: 700; }
+.intro { font-size: 15px; line-height: 1.75; color: var(--t2); max-width: 34em; }
+.spot { width: 120px; height: 120px; flex-shrink: 0; }
+
+.metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 40px; }
+.metrics > div { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 1px solid var(--bd); border-radius: 12px; }
+.metrics dt { font-size: 13px; font-weight: 700; }
+.metrics dt small { font-size: 12px; font-weight: 500; }
+.metrics dd { font-family: var(--font-ko-display), serif; font-size: 40px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.metrics dd small { font-size: 22px; }
+.meter { display: block; height: 6px; border-radius: 999px; background: var(--bd); overflow: hidden; margin-top: 4px; }
+.meter span { display: block; height: 100%; background: var(--t1); border-radius: inherit; }
+
+.emptyCard { border: 1px solid var(--bd); border-radius: 14px; padding: 16px; }
+.lineage { display: grid; gap: 16px; }
+.typeCard { border: 1px solid var(--bd-strong, var(--bd)); border-radius: 14px; padding: 4px 20px 8px; }
+.typeCard > summary { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; min-height: 60px; padding-block: 16px 12px; cursor: pointer; list-style: none; border-bottom: 1px solid var(--bd); }
+.typeCard > summary::-webkit-details-marker { display: none; }
+.typeCard > summary strong { font-family: var(--font-ko-display), serif; font-size: 24px; font-weight: 500; }
+.typeCard > summary span { font-size: 13px; font-weight: 700; color: var(--t2); }
+.typeCard li + li { border-top: 1px solid var(--bd); }
+.formula > summary { display: flex; gap: 12px; align-items: baseline; min-height: 56px; padding-block: 16px; cursor: pointer; list-style: none; font-family: var(--font-ko-display), serif; font-size: 18px; line-height: 1.55; }
+.formula > summary::-webkit-details-marker { display: none; }
+.formula > summary::before { content: '+'; flex-shrink: 0; width: 16px; font-family: inherit; color: var(--t2); }
+.formula[open] > summary::before { content: '−'; }
+.formula > summary:hover { text-decoration: underline; }
+.formulaBody { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 0 0 16px 28px; }
+.sources { display: flex; flex-wrap: wrap; gap: 6px; }
+.sources span { display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 999px; background: var(--tint-lavender); color: var(--tint-lavender-ink); font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+@media (min-width: 640px) { .metrics { gap: 12px; } }
+@media (max-width: 639px) {
+  .spot { width: 80px; height: 80px; }
+  .typeCard { padding-inline: 14px; }
+  .metrics > div { padding: 12px; }
+  .metrics dt { font-size: 12px; min-height: 34px; }
+  .metrics dd { font-size: 28px; }
+  .metrics dd small { font-size: 16px; }
+}

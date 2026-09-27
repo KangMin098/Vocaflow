@@ -40,7 +40,9 @@ import { contentsOf, type VolumeContents } from './volume-contents'
 export type Readiness = NonNullable<VolumeContents['readiness']>
 
 export const readinessFromSnapshot = (v: ShelfVolume): Readiness | null =>
-  contentsOf(v.vLevels)?.readiness ?? null
+  // ⚠️ 시리즈를 함께 넘긴다 — 계단이 겹쳐서(독해 5단 · 어휘 5단 · 구문 5단이 전부 V5)
+  //    V레벨만으로 찾으면 다른 시리즈의 준비도를 그 권의 것으로 읽는다.
+  contentsOf(v.seriesId, v.vLevels)?.readiness ?? null
 
 /** 이 단계를 누가 하는가. */
 export type StageActor = 'script' | 'claude-code' | 'user'

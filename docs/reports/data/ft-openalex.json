@@ -1,0 +1,440 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "fulltext-spans/v1",
+  "source": "openalex_ah",
+  "n": 27,
+  "items": [
+    {
+      "idx": 0,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 6782,
+      "trimmed_words": 4723,
+      "eng_ratio": 0.382,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 145,
+        "school_paragraph": 26,
+        "csat_short": 25,
+        "csat_long": 12
+      }
+    },
+    {
+      "idx": 1,
+      "host": "doi.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 92631,
+      "trimmed_words": 16470,
+      "eng_ratio": 0.2,
+      "latin_ratio": 0.108,
+      "english": false,
+      "spans": {
+        "school_sentence": 424,
+        "school_paragraph": 90,
+        "csat_short": 90,
+        "csat_long": 42
+      }
+    },
+    {
+      "idx": 3,
+      "host": "periodicos.ufsc.br",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 7669,
+      "trimmed_words": 7131,
+      "eng_ratio": 0.433,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 155,
+        "school_paragraph": 41,
+        "csat_short": 40,
+        "csat_long": 19
+      }
+    },
+    {
+      "idx": 4,
+      "host": "doi.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 3479,
+      "trimmed_words": 2967,
+      "eng_ratio": 0.345,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 92,
+        "school_paragraph": 16,
+        "csat_short": 16,
+        "csat_long": 8
+      }
+    },
+    {
+      "idx": 7,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 9309,
+      "trimmed_words": 8133,
+      "eng_ratio": 0.036,
+      "latin_ratio": 1,
+      "english": false,
+      "spans": {
+        "school_sentence": 142,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 21
+      }
+    },
+    {
+      "idx": 8,
+      "host": "zenodo.org",
+      "route": "pdf_url->embedded_pdf",
+      "raw_words": 3031,
+      "trimmed_words": 2388,
+      "eng_ratio": 0.424,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 74,
+        "school_paragraph": 13,
+        "csat_short": 13,
+        "csat_long": 6
+      }
+    },
+    {
+      "idx": 9,
+      "host": "zenodo.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 7199,
+      "trimmed_words": 4998,
+      "eng_ratio": 0.413,
+      "latin_ratio": 0.999,
+      "english": true,
+      "spans": {
+        "school_sentence": 145,
+        "school_paragraph": 27,
+        "csat_short": 26,
+        "csat_long": 13
+      }
+    },
+    {
+      "idx": 10,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 10735,
+      "trimmed_words": 8248,
+      "eng_ratio": 0.424,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 76,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 22
+      }
+    },
+    {
+      "idx": 11,
+      "host": "doi.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 12602,
+      "trimmed_words": 10793,
+      "eng_ratio": 0.038,
+      "latin_ratio": 1,
+      "english": false,
+      "spans": {
+        "school_sentence": 223,
+        "school_paragraph": 59,
+        "csat_short": 59,
+        "csat_long": 28
+      }
+    },
+    {
+      "idx": 13,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 6935,
+      "trimmed_words": 6525,
+      "eng_ratio": 0.421,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 135,
+        "school_paragraph": 36,
+        "csat_short": 36,
+        "csat_long": 17
+      }
+    },
+    {
+      "idx": 15,
+      "host": "zenodo.org",
+      "route": "pdf_url->embedded_pdf",
+      "raw_words": 6554,
+      "trimmed_words": 4911,
+      "eng_ratio": 0.398,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 145,
+        "school_paragraph": 26,
+        "csat_short": 26,
+        "csat_long": 12
+      }
+    },
+    {
+      "idx": 17,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 7568,
+      "trimmed_words": 7271,
+      "eng_ratio": 0.029,
+      "latin_ratio": 0.995,
+      "english": false,
+      "spans": {
+        "school_sentence": 168,
+        "school_paragraph": 40,
+        "csat_short": 40,
+        "csat_long": 19
+      }
+    },
+    {
+      "idx": 18,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 6319,
+      "trimmed_words": 4986,
+      "eng_ratio": 0.061,
+      "latin_ratio": 1,
+      "english": false,
+      "spans": {
+        "school_sentence": 130,
+        "school_paragraph": 27,
+        "csat_short": 27,
+        "csat_long": 13
+      }
+    },
+    {
+      "idx": 20,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 7386,
+      "trimmed_words": 5506,
+      "eng_ratio": 0.439,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 125,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      }
+    },
+    {
+      "idx": 22,
+      "host": "doi.org",
+      "route": "pdf_url->embedded_pdf",
+      "raw_words": 1460,
+      "trimmed_words": 1129,
+      "eng_ratio": 0.371,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 27,
+        "school_paragraph": 6,
+        "csat_short": 6,
+        "csat_long": 3
+      }
+    },
+    {
+      "idx": 24,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 13836,
+      "trimmed_words": 10988,
+      "eng_ratio": 0.043,
+      "latin_ratio": 1,
+      "english": false,
+      "spans": {
+        "school_sentence": 345,
+        "school_paragraph": 58,
+        "csat_short": 58,
+        "csat_long": 28
+      }
+    },
+    {
+      "idx": 25,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 5638,
+      "trimmed_words": 5244,
+      "eng_ratio": 0.352,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 144,
+        "school_paragraph": 28,
+        "csat_short": 28,
+        "csat_long": 13
+      }
+    },
+    {
+      "idx": 28,
+      "host": "doi.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 3537,
+      "trimmed_words": 2936,
+      "eng_ratio": 0.452,
+      "latin_ratio": 0.99,
+      "english": true,
+      "spans": {
+        "school_sentence": 89,
+        "school_paragraph": 16,
+        "csat_short": 15,
+        "csat_long": 7
+      }
+    },
+    {
+      "idx": 30,
+      "host": "doi.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 10833,
+      "trimmed_words": 10510,
+      "eng_ratio": 0.447,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 247,
+        "school_paragraph": 57,
+        "csat_short": 57,
+        "csat_long": 27
+      }
+    },
+    {
+      "idx": 32,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 7795,
+      "trimmed_words": 5364,
+      "eng_ratio": 0.427,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 142,
+        "school_paragraph": 29,
+        "csat_short": 29,
+        "csat_long": 14
+      }
+    },
+    {
+      "idx": 33,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 1652,
+      "trimmed_words": 1524,
+      "eng_ratio": 0.387,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 24,
+        "school_paragraph": 9,
+        "csat_short": 8,
+        "csat_long": 4
+      }
+    },
+    {
+      "idx": 34,
+      "host": "dx.doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 3709,
+      "trimmed_words": 1986,
+      "eng_ratio": 0,
+      "latin_ratio": 0.015,
+      "english": false,
+      "spans": {
+        "school_sentence": 57,
+        "school_paragraph": 11,
+        "csat_short": 11,
+        "csat_long": 5
+      }
+    },
+    {
+      "idx": 35,
+      "host": "doi.org",
+      "route": "landing_page_url->embedded_pdf",
+      "raw_words": 1658,
+      "trimmed_words": 1162,
+      "eng_ratio": 0.313,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 34,
+        "school_paragraph": 6,
+        "csat_short": 6,
+        "csat_long": 3
+      }
+    },
+    {
+      "idx": 37,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 9263,
+      "trimmed_words": 7649,
+      "eng_ratio": 0.42,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 227,
+        "school_paragraph": 41,
+        "csat_short": 41,
+        "csat_long": 20
+      }
+    },
+    {
+      "idx": 40,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 2749,
+      "trimmed_words": 1898,
+      "eng_ratio": 0.356,
+      "latin_ratio": 0.088,
+      "english": false,
+      "spans": {
+        "school_sentence": 59,
+        "school_paragraph": 10,
+        "csat_short": 10,
+        "csat_long": 5
+      }
+    },
+    {
+      "idx": 41,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 13820,
+      "trimmed_words": 10167,
+      "eng_ratio": 0.266,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 294,
+        "school_paragraph": 55,
+        "csat_short": 55,
+        "csat_long": 26
+      }
+    },
+    {
+      "idx": 42,
+      "host": "doi.org",
+      "route": "pdf_url->pdf",
+      "raw_words": 1397,
+      "trimmed_words": 776,
+      "eng_ratio": 0.404,
+      "latin_ratio": 1,
+      "english": true,
+      "spans": {
+        "school_sentence": 22,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      }
+    }
+  ]
+}

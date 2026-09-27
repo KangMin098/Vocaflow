@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2506#31",
+      "roles": ["background", "background", "topic", "support", "support", "support", "conclusion"],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "아날로그와 디지털 환경을 대비해 매체와 그 위의 정보를 가르는 글이라, 빈칸이 매체가 속하지 않는 쪽을 대립쌍으로 채우게 만든다.",
+      "transform": "paraphrase",
+      "transform_note": "보존해야 할 것은 매체가 아니라 매체 위의 정보라는 마지막 진술이 선지에서 내용물을 뜻하는 한 낱말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#34",
+      "roles": ["topic", "support", "example", "support", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "example" }],
+      "pattern": "contrast",
+      "selection": "사진 이전과 이후를 대비하는 글에서 빈칸이 첫 문장에 있어, 뒤에 이어지는 사진의 확산 서술의 반대 상태를 거꾸로 추려야 한다.",
+      "transform": "negation_flip",
+      "transform_note": "사진이 장소를 시공간으로 순환시키는 수단이 됐다는 긍정 진술이 선지에서 그 이전엔 장소가 잘 이동하지 못했다는 부정형으로 뒤집혔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#33",
+      "roles": ["topic", "support", "support", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 2, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "혁신은 한 걸음 앞만 열어야 한다는 원칙을 세우고 멘델 사례로 그 반대와 이후 수용을 보여 주어, 사례 속 빈칸을 앞의 원칙 문장으로 돌아가 채우게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "혁신이 알려진 것에서 다음 한 걸음만 연다는 원칙 진술이 선지에서 그의 통찰이 이제 한 걸음 거리에 있었다는 말로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#32",
+      "roles": ["background", "background", "background", "background", "background", "topic", "support", "example"],
+      "alternatives": [{ "index": 5, "role": "turn" }],
+      "pattern": "myth_rebuttal",
+      "selection": "이미지 태깅 시스템이 자연스러운 해법처럼 제시된 뒤 역접으로 그 한계를 지적하는 글이라, 부정문 빈칸에 태그가 갖추지 못한 것을 뒤의 예시에서 찾아 넣어야 한다.",
+      "transform": "abstraction",
+      "transform_note": "누가 무엇을 하는지를 태그가 담지 못한다는 진술과 고양이 예시가 선지에서 이미지 속 일어나는 일의 포괄적 기술이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#31",
+      "roles": ["background", "background", "background", "topic", "support", "example", "example"],
+      "alternatives": [{ "index": 4, "role": "example" }],
+      "pattern": "cause_effect",
+      "selection": "전후 교외화와 자가용 의존이라는 원인을 쌓고 여가의 변화라는 결과를 빈칸에 둔 뒤 집 중심 여가와 텔레비전으로 풀어, 앞뒤 근거를 한 개념으로 묶게 한다.",
+      "transform": "abstraction",
+      "transform_note": "여가가 집이나 동네 중심으로 좁혀지고 텔레비전으로 옮겨 갔다는 구체 서술이 선지에서 사유화라는 한 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#32",
+      "roles": ["background", "topic", "support", "support", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 2, "role": "topic" }, { "index": 4, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "노동 공유 집단을 도덕 경제로 규정하고 공식 기록이 없다는 부정 뒤에 대체 방식을 빈칸에 두어, 앞의 부정과 뒤의 신뢰 공동체 서술을 함께 읽고 북미 사례로 확인하게 한다.",
+      "transform": "abstraction",
+      "transform_note": "오랜 신뢰와 나눔에 기반한 도덕 공동체라는 서술이 선지에서 사회적으로 규제된다는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#34",
+      "roles": ["example", "support", "support", "support", "support", "support", "topic"],
+      "alternatives": [{ "index": 0, "role": "background" }, { "index": 3, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "정원과 황야라는 비유로 심리학과 문학의 접근을 대비하고 아동 연구로 확장한 뒤 심리학자에게 처방을 내리는 빈칸을 두어, 비유의 반대항을 끝까지 유지하는지를 본다.",
+      "transform": "paraphrase",
+      "transform_note": "아이들의 제멋대로이고 상상적인 사고를 놓치지 말라는 논지가 선지에서 비유 속 황야 쪽으로 조금 더 자주 들어가 보라는 처방으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#32",
+      "roles": ["background", "background", "background", "background", "turn", "topic", "example", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "concession" }],
+      "pattern": "contrast",
+      "selection": "개인 팬의 즐거움을 길게 서술한 뒤 역접으로 사회적 맥락으로 무게를 옮기는 글이라, 빈칸이 뒤집힌 쪽을 요약하는지 앞부분의 인상을 따르는지를 가른다.",
+      "transform": "paraphrase",
+      "transform_note": "애착을 공유한 사람들이 그 대상을 두고 어울린다는 진술이 선지에서 다른 팬들과 연결되는 데서 온다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#31",
+      "roles": ["topic", "support", "example", "support", "example", "support", "support", "example"],
+      "alternatives": [{ "index": 5, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "동물이 영역을 구획한다는 명제를 사람 집의 공간 분할에 빗대어 예시로 풀고 빈칸으로 되받는 구조라, 구체 예시에서 공통 성질의 이름을 되찾아야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "방마다 기능을 나누는 내부 전문화라는 진술이 선지에서 깔끔한 기능적 조직이라는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#33",
+      "roles": ["topic", "support", "support", "support", "support"],
+      "alternatives": [{ "index": 1, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "혁신은 제조사가 한다는 제조사들의 통념을 제시하고 선도 사용자의 혁신이 무시되지만 실제 원천이라고 반박하는 글이라, 빈칸이 대립항인 사용자 혁신 쪽을 가리키는지 읽어야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "선도 사용자의 요구와 시제품 해법이 실제 혁신의 원천이었다는 진술이 선지에서 선도 사용자가 이미 개발한 것이라는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

@@ -18,6 +18,7 @@
 //   대신 **명령어**(관리자가 복사해 돌리는 것)와 **표 헤더**(데이터 열)를 잠근다 —
 //   그 둘이 남아 있으면 그 수치를 낼 자리도 남아 있다.
 
+import type { EligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 
@@ -28,6 +29,22 @@ import { buildSourceEligibilityPanel } from '@/lib/textbook/source-eligibility-v
 import { buildSourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
 import { SourceEligibilityClient } from '../sources/SourceEligibilityClient'
+
+/**
+ * 스냅샷 대비 증감 — **못 읽은 상태**를 표본으로 쓴다.
+ *
+ * 렌더 테스트는 DB 를 안 타므로 「지금 값」이 없는 것이 정상이고, 화면은 그때
+ * 「못 읽었다」고 적어야 한다(0 이 아니다). 그 문장이 안 나오면 이 표본이 거짓으로 통과한다.
+ */
+const DRIFT_UNREAD: EligibilityDrift = {
+  available: false,
+  error: null,
+  snapshotAt: '2026-09-19T02:31:46.502Z',
+  measuredAt: null,
+  snapshotTotal: 0,
+  nowTotal: null,
+  grades: [],
+}
 
 interface Baseline {
   capturedAt: string
@@ -40,7 +57,7 @@ const baseline: Baseline = JSON.parse(
   readFileSync(resolve(__dirname, 'sources-inventory-baseline.json'), 'utf8'),
 )
 
-const html = renderToString(<SourceEligibilityClient panel={buildSourceEligibilityPanel()} inventory={buildSourceInventoryPanel()} />)
+const html = renderToString(<SourceEligibilityClient panel={buildSourceEligibilityPanel()} inventory={buildSourceInventoryPanel()} drift={DRIFT_UNREAD} />)
 /** 태그를 걷어낸 화면 텍스트 — 어디에 있든 「있다」로 센다(배치는 재설계의 자유다). */
 const text = html
   .replace(/<[^>]*>/g, ' ')
@@ -51,9 +68,19 @@ const text = html
  * 절 제목을 고쳐 부른 것 — **옛 이름 → 지금 화면에 있어야 할 문자열**.
  * 비어 있으면 이름을 하나도 안 바꿨다는 뜻이다.
  */
-const HEADING_RENAMES: Record<string, string> = {}
+const HEADING_RENAMES: Record<string, string> = {
+  // 2026-09-23 · DD-74 — 메뉴를 레인(lab/line)대로 재배열하며 이 화면을 **라인 입구**로 옮겼다.
+  // 이 화면의 출력은 ④ 소재의 입력이지 연구소(①②③)의 입력이 아니다(전자는 평가원 기출,
+  // 후자는 library_articles — 겹치지 않는다). 이름이 그 자리를 말하게 했다.
+  // 라우트(/admin/csat/sources) · 도움말 슬러그(csat-sources) · 탭 라벨은 그대로다.
+  // 2026-09-24 — 공장 흐름을 쉬운 말 걸음으로 다시 세우며 이 화면의 제목이 걸음 이름이 됐다.
+  //   「원천 관리」 탭은 「글감 모으기」(걸음 2), 「적격 판정」 탭은 「글감 고르기」(걸음 3)다.
+  //   이 표본은 기본 탭(원천 관리)을 그리므로 「글감 모으기」가 뜬다.
+  '원문 적격': '글감 모으기',
+}
 
 const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
+
 
 describe('원문 적격 — 재설계해도 정보가 빠지지 않는다', () => {
   it('기준선을 실제로 읽었다', () => {

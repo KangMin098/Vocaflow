@@ -19,11 +19,20 @@
 import { useState, useTransition } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import {
+  StageFailures,
+  StageFrame,
+  type FailureRow,
+  type StageBlock,
+} from '@/components/admin/csat/StageFrame'
+import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
 
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
 import type { SourceConsoleView } from '@/lib/csat/source-console'
 
 import { BandStrip } from './BandStrip'
+
+const STAGE = FACTORY_STAGES.find((s) => s.id === 'source')!
 
 // `import type` 이라 런타임에 사라진다 — 액션 모듈(그리고 그것이 끌고 오는 인증 경로)이
 // 이 파일에 묶이지 않는다. 실제 함수는 page.tsx 가 prop 으로 내린다.
@@ -65,13 +74,57 @@ export function SourceClient({
 
   const behind = targets.filter((t) => t.pct != null && t.pct < 1)
 
+  // ── ② 막힌 것 ──────────────────────────────────────────────────────
+  // ⚠️ 오디오 축 밴드(S5)는 **지문을 수확해서 채우는 칸이 아니다.** 0편인 것이 결함이 아니므로
+  //   막힌 것으로 세지 않는다 — 옛 판정이 그것을 세는 바람에 화면이 **아무리 수확해도 안 꺼지는
+  //   빨간불**을 띄웠다(그 사고 기록은 `factory-line-model.ts` §④ 에 있다).
+  const blocks: StageBlock[] = [
+    {
+      what: '지문으로 채워야 하는데 0편인 밴드',
+      count: rollup == null ? null : emptyBands.length,
+      unmeasuredReason: rollup == null ? '아직 한 번도 안 쟀다 — 0편이 아니다' : undefined,
+    },
+    {
+      what: '몫에 미달한 소스 타겟',
+      count: rollup == null ? null : behind.length,
+      unmeasuredReason: rollup == null ? '아직 한 번도 안 쟀다' : undefined,
+    },
+    {
+      what: '등록부에 없는 원천 — 누가 언제 왜 넣었는지 모른다',
+      // 등록부에 없는 원천은 **원천 수가 아니라 편수**로 센다 — 한 원천이 수천 편일 수 있다.
+      count: audit ? audit.unregistered.reduce((a, u) => a + u.n, 0) : null,
+      unmeasuredReason: audit ? undefined : '등록부 대조를 못 했다',
+    },
+  ]
+
+  const failureRows: FailureRow[] = [
+    ...emptyBands.map((b) => ({
+      id: `band:${b}`,
+      label: BAND_KO[b] ?? b,
+      tags: ['지문 0편'],
+      says: '이 밴드의 책은 지금 못 만든다 — 문항을 더 만들어도 안 된다. 수확이 먼저다.',
+    })),
+    ...behind.slice(0, 6).map((t) => ({
+      id: `target:${t.key}`,
+      label: t.label,
+      tags: ['몫 미달', t.pct == null ? '못 잼' : `${Math.round(t.pct * 100)}%`],
+      says: t.basisLabel ?? t.note ?? '몫의 근거가 적혀 있지 않다',
+    })),
+  ].slice(0, 10)
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">④ 소재 — 지문 재고</h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">시중: 지문 섭외 · 저작권 검토</p>
-        </div>
+    <StageFrame
+      stage={STAGE}
+      status={judgeStage([
+        {
+          label: '지문으로 채우는 밴드 중 재고 보유',
+          num: rollup == null ? null : bands.length - emptyBands.length,
+          den: bands.length,
+          unit: 'ratio',
+          unmeasuredReason: rollup == null ? '아직 한 번도 안 쟀다' : undefined,
+        },
+      ])}
+      help={
         <div className="flex items-center gap-2">
           {/*
             크론(6시간)과 **같은 RPC** 를 부른다. 드레인을 막 돌린 사람에게 여섯 시간은 길고,
@@ -96,13 +149,50 @@ export function SourceClient({
           </button>
           <AdminScreenHelp screen="csat-sourcing" />
         </div>
-      </div>
+      }
+      blocks={blocks}
+      commands={[
+        {
+          cmd: 'node scripts/csat/harvest-plos.mjs',
+          why: '수확은 커서를 남긴다 — 다시 돌려도 같은 것을 두 번 안 가져온다',
+          writes: true,
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12',
+          why: '사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — StoryWeaver 후보를 예행으로 센다(쓰지 않음)',
+        },
+        {
+          cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs',
+          why: '수확한 글이 그 밴드 규격(어휘 커버리지 · 문장 수)에 드는지 먼저 잰다. 읽기만 한다',
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/write-drain-import.mjs --dir <밴드 디렉터리> --commit',
+          why: '에이전트가 쓴 원글을 적재한다. 재실행 안전(source_id 유일키) · 건너뛴 수를 출력한다',
+          writes: true,
+        },
+      ]}
+      approvalNote={
+        '규격 밖 글을 적재하면 문항이 안 나오고 재고만 불어난다 — 수확 전에 graded-source-probe 로 먼저 잰다. 적재한 글을 지우는 길은 없다.'
+      }
+      failures={
+        <StageFailures
+          title="막고 있는 자리 — 밴드와 타겟"
+          total={rollup == null ? null : emptyBands.length + behind.length}
+          rows={failureRows}
+          emptyNote={
+            rollup == null
+              ? '아직 한 번도 안 쟀다 — 0편이 아니다. 위 「지금 다시 잰다」를 누른다.'
+              : '지문으로 채우는 밴드에 모두 재고가 있고 타겟도 다 찼다.'
+          }
+        />
+      }
+    >
 
       {view.errors.map((e) => (
         <p
           key={e}
           role="alert"
-          className="break-keep rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="break-keep rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {e}
         </p>
@@ -127,7 +217,7 @@ export function SourceClient({
           <section className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
             <p
               className="break-keep font-display text-[15px] font-[700]"
-              style={{ color: emptyBands.length ? '#9C3A30' : '#2E7D5A' }}
+              style={{ color: emptyBands.length ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
             >
               {emptyBands.length
                 ? `${emptyBands.map((b) => BAND_KO[b] ?? b).join(' · ')} 는 지문이 0편이다 — 문항을 더 만들어도 안 된다`
@@ -197,7 +287,7 @@ export function SourceClient({
                       <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t1)]">
                         {t.publishable.toLocaleString()}
                         {t.unjudged ? (
-                          <span className="ml-1 text-[10.5px] text-[#B5803A]">
+                          <span className="ml-1 text-[10.5px] text-[var(--memory-shaky)]">
                             미판정 {t.unjudged.toLocaleString()}
                           </span>
                         ) : null}
@@ -207,7 +297,7 @@ export function SourceClient({
                       </td>
                       <td
                         className="py-2 pr-3 font-mono tabular-nums"
-                        style={{ color: t.left > 0 ? '#9C3A30' : '#2E7D5A' }}
+                        style={{ color: t.left > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
                       >
                         {t.left > 0 ? t.left.toLocaleString() : '채움'}
                       </td>
@@ -247,7 +337,7 @@ export function SourceClient({
                 </p>
               ) : null}
               {audit.licenseMismatch.length ? (
-                <p className="break-keep font-body text-[12px] text-[#9C3A30]">
+                <p className="break-keep font-body text-[12px] text-[var(--memory-risk)]">
                   라이선스 어긋남 —{' '}
                   {audit.licenseMismatch
                     .map((m) => `${m.src}: 등록 ${m.registered} / 실제 ${m.actual.join(',')}`)
@@ -287,20 +377,87 @@ export function SourceClient({
       >
         <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">초·중 원문 재고</h3>
         {kidSource.error ? (
-          <p className="break-keep font-body text-[12px] text-[#9C3A30]">{kidSource.error}</p>
+          <p className="break-keep font-body text-[12px] text-[var(--memory-risk)]">{kidSource.error}</p>
         ) : kidSource.inventory == null ? (
-          <p className="break-keep font-body text-[12px] text-[#8A8278]">
+          <p className="break-keep font-body text-[12px] text-[var(--memory-new)]">
             못 잼 — 0 이 아니다. 조회가 값을 안 돌려줬다.
           </p>
         ) : (
-          <ul className="flex flex-wrap gap-x-4 gap-y-1 font-mono text-[12px] tabular-nums text-[var(--t2)]">
-            {Object.entries(kidSource.inventory).map(([k, v]) => (
-              <li key={k}>
-                <span className="mr-1 font-body text-[11px] text-[var(--t3)]">{k}</span>
-                {typeof v === 'number' ? v.toLocaleString() : String(v)}
-              </li>
-            ))}
-          </ul>
+          // ⚠️ 여기는 **`Object.entries` 로 통째로 펴고 있었다**(실측 2026-09-23 캡처):
+          //   화면에 영어 키(`bands`·`adapted`·`total`·`pct`)와 `[object Object]` 가 여섯 줄
+          //   찍혔다 — `bands` 는 배열이고 `adapted` 는 객체라 `String(v)` 가 그렇게 된다.
+          //   타입도 린트도 안 잡는 종류의 결함이고, 스크립트도 오류를 안 냈다.
+          //   모양을 모르는 값을 펴서 인쇄하지 않는다 — **칸을 이름으로 적는다.**
+          <div className="flex flex-col gap-2">
+            <div className="overflow-x-auto">
+              <table className="w-full min-w-[520px] text-left text-[12px]">
+                <thead>
+                  <tr className="border-b border-[var(--bd)] text-[11px] text-[var(--t3)]">
+                    <th className="py-1.5 pr-3 font-[500]">칸</th>
+                    <th className="py-1.5 pr-3 font-[500]">적재</th>
+                    <th className="py-1.5 pr-3 font-[500]">격리</th>
+                    <th className="py-1.5 pr-3 font-[500]">게시 가능</th>
+                    <th className="py-1.5 pr-3 font-[500]">조합 가능</th>
+                    <th className="py-1.5 font-[500]">몫 남음</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {kidSource.inventory.bands.map((b) => (
+                    <tr key={b.band} className="border-b border-[var(--bd)] last:border-0">
+                      <td className="py-1.5 pr-3 break-keep text-[var(--t1)]">{b.band}</td>
+                      <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                        {b.held.toLocaleString()}
+                      </td>
+                      <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                        {b.quarantined.toLocaleString()}
+                        <span className="ml-1 text-[10.5px] text-[var(--t3)]">
+                          {b.quarantinedPct}%
+                        </span>
+                      </td>
+                      <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t1)]">
+                        {b.publishable.toLocaleString()}
+                      </td>
+                      {/* ⚠️ **적재와 조합 가능은 다르다.** 실측 2026-09-07: 이 표가 97.8% 를
+                          보고하는 동안 조판이 실제로 쓸 수 있는 것은 9편뿐이었다(나머지는
+                          queued). 안 주면 `undefined` 이고 그때는 「못 잼」이다. */}
+                      <td className="py-1.5 pr-3 font-mono tabular-nums">
+                        {b.composable == null ? (
+                          <span className="text-[var(--memory-new)]">못 잼</span>
+                        ) : (
+                          <span style={{ color: b.composable > 0 ? 'var(--memory-stable)' : 'var(--memory-risk)' }}>
+                            {b.composable.toLocaleString()}
+                          </span>
+                        )}
+                      </td>
+                      <td className="py-1.5 font-mono tabular-nums text-[var(--t2)]">
+                        {b.quotaLeft.toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                  <tr className="border-t border-[var(--bd)]">
+                    <td className="py-1.5 pr-3 break-keep text-[var(--t1)]">각색분</td>
+                    <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                      {kidSource.inventory.adapted.held.toLocaleString()}
+                    </td>
+                    <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t2)]">
+                      {kidSource.inventory.adapted.quarantined.toLocaleString()}
+                    </td>
+                    <td className="py-1.5 pr-3 font-mono tabular-nums text-[var(--t1)]">
+                      {kidSource.inventory.adapted.publishable.toLocaleString()}
+                    </td>
+                    <td className="py-1.5 pr-3 text-[10.5px] text-[var(--t3)]">칸이 아니다</td>
+                    <td className="py-1.5" />
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="font-mono text-[12px] tabular-nums text-[var(--t1)]">
+              게시 가능 합계 {kidSource.inventory.total.toLocaleString()}
+              <span className="ml-1.5 font-body text-[11.5px] text-[var(--t3)]">
+                목표 대비 {kidSource.inventory.pct}%
+              </span>
+            </p>
+          </div>
         )}
         <p className="break-keep font-body text-[11px] leading-snug text-[var(--t3)]">
           사다리 아래 계단(초·중)은 수능 지문으로 못 채운다 — 그 학령의 원문이 따로 있어야 한다.
@@ -316,7 +473,7 @@ export function SourceClient({
             node scripts/csat/harvest-plos.mjs
           </code>
           <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-            node scripts/textbook/harvest-gutenberg-kid.mjs
+            pnpm dlx tsx scripts/textbook/storyweaver-ingest.mjs --limit 12
           </code>
           <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
             npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/graded-source-probe.mjs
@@ -328,6 +485,6 @@ export function SourceClient({
           </p>
         </div>
       </details>
-    </div>
+    </StageFrame>
   )
 }

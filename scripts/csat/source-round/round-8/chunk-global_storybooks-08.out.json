@@ -1,0 +1,916 @@
+[
+ {
+  "id": "763877cc-a3db-4097-b84a-5c307b954964",
+  "source_updated_at": "2026-09-25T04:02:29.601434+00:00",
+  "body_sha256": "e707e33b171bba42d4fd47cbbcbef31642d02288fb6f89db03c463d95d750f4b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "「I enjoy ~」로 좋아하는 일을 한 줄씩 대고 질문으로 끝나는 나열이라 문장 사이 사건·이유 연결이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "I enjoy skipping with my friend.",
+   "note": "동명사 목록일 뿐 떼어 낼 문단이 없다."
+  }
+ },
+ {
+  "id": "768d421a-fe00-46ac-b15b-6357e4817828",
+  "source_updated_at": "2026-09-25T04:02:29.401498+00:00",
+  "body_sha256": "1f56999586d6a7200d85f952423d58f557f73487f4ec4aefc42fc8148957758a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "앞을 못 보는 소년이 부모의 만류에도 아들을 잃은 부자에게 노래로 위로하고 보답받는 이야기가 인과로 이어져 초·중등 심경·순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "mood",
+    "order",
+    "main_point",
+    "insert"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Sakima lived with his parents and",
+   "note": "결말의 시력 회복은 급하지만 사건 흐름은 선다."
+  }
+ },
+ {
+  "id": "7857e687-5aa9-4306-8ba2-58bee5734a20",
+  "source_updated_at": "2026-09-25T04:02:17.831266+00:00",
+  "body_sha256": "12819f7818a2a0c7918bd02f85d73b88d30267d682a05d0997530da51e867451",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "삼촌의 매질을 피해 거리에서 사는 고아가 한 어른의 꾸준한 관심으로 학교에 가 읽기를 배우는 서사로 폭력·노숙이 줄곧 깔려 고1 이상 심경·장문 칸으로 보관한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "mood",
+    "order",
+    "long_reference",
+    "summary"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In the busy city of Nairobi,",
+   "note": "그림책 조종사→축구 선수→교사로 이어지는 복선이 장문 지칭 재료다."
+  }
+ },
+ {
+  "id": "790270a0-3945-4380-8dc4-5ef85d30c09f",
+  "source_updated_at": "2026-09-25T04:02:40.330408+00:00",
+  "body_sha256": "f74d9252ebf8922666c7e75ce50593d9bf9517c7fe0018d6cad9a9673fbfe22c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "「This house is new. This house is old.」처럼 그림 속 집을 가리키는 캡션 나열이라 그림 없이 뜻이 서지 않는다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Mzi lives in a thatched house.",
+   "note": "지시어 this 가 모두 그림을 가리킨다."
+  }
+ },
+ {
+  "id": "7a556760-d039-49db-9c78-dea72085d358",
+  "source_updated_at": "2026-09-25T04:01:38.9417+00:00",
+  "body_sha256": "ed5e17926c9be6737d2f309d2a34508a35102901243bc3aac6f06462facce972",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "엄마 말을 엉뚱하게 따르던 소년의 실수가 누적되다 소를 짊어진 모습에 웃지 않던 추장 딸이 웃는 누적 설화라 초·중등 순서·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Once, long ago, there was a",
+   "note": "반복 구조가 뚜렷해 순서 문항 단서가 많다."
+  }
+ },
+ {
+  "id": "7a5c8f22-c888-4d3c-85f1-b49a96d29ebc",
+  "source_updated_at": "2026-09-25T04:01:56.079794+00:00",
+  "body_sha256": "18c5f939a6c9052b176a22dd92277cdb8e17e6cbe8b07da2840d44e49a0af529",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "아난시가 표범·말벌·뱀을 꾀로 잡아 하늘신에게서 이야기를 얻어 나누는 세 단계 설화라 중등 순서·삽입·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Long, long ago, the Sky God,",
+   "note": "마지막 「Stories are for telling」 문장이 요지 문장이다."
+  }
+ },
+ {
+  "id": "7bb7009e-79fc-4b00-ac07-19927e52672f",
+  "source_updated_at": "2026-09-25T04:01:51.566475+00:00",
+  "body_sha256": "63a7bf9054926ea1b32447740c2146113d4e38fc10e5740fc33a0f30a68f6113",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "직업마다 「가장 중요하다」는 주장과 이유를 대다 모두 중요하고 누구나 먼저 학생이라는 결론으로 모이는 논증 구조라 초·중등 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In a village there was a",
+   "note": "주장-이유 짝이 반복돼 주장 찾기 연습에 맞다."
+  }
+ },
+ {
+  "id": "7cfd627f-1a72-48df-8f8f-96d1c81013ee",
+  "source_updated_at": "2026-09-25T04:01:58.285418+00:00",
+  "body_sha256": "56f1e6278a68e1fbbb38f31c4a9d11cd189340c11bf25090a5d3a4ce1e1c334e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "빨간 양동이·트럭·꽃을 한 줄씩 대는 그림 캡션 나열이라 마지막 장화 두 줄 말고는 연결이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Mama is filling a red bucket.",
+   "note": "그림을 봐야 하는 색 어휘 목록이다."
+  }
+ },
+ {
+  "id": "7e7dab99-c062-4649-8840-f594b3841a54",
+  "source_updated_at": "2026-09-25T04:02:00.764302+00:00",
+  "body_sha256": "03afbbe4b3d24d45fee14c6484f20970de0702aa80b2da71243ca192d79055f5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "부모가 작은 밭을 심고 가꾸고 거둔 뒤 더 큰 밭을 심는 순서가 반복 패턴으로 이어져 초등 순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "My mother planted. She planted a",
+   "note": "반복 문형이라 어휘보다 순서 배열에 맞다."
+  }
+ },
+ {
+  "id": "7f531913-dff8-4c35-b3d3-47169f2595d6",
+  "source_updated_at": "2026-09-25T04:02:34.189076+00:00",
+  "body_sha256": "23de7db66ebab5380563dec3b04976b96b6cf18da8ee1625edcc76dfdca7b450",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "공격 전 정탐꾼이 나무 밑 아기와 놀다 마음을 바꿔 어머니에게 피하라고 이르는 이야기라 초·중등 요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "A woman carrying her baby went",
+   "note": "끝의 erotot 낱말 주석은 본문 앞 풀이로 옮긴다."
+  }
+ },
+ {
+  "id": "7fef30c9-c4ef-422d-a6f9-a1af9a04ca37",
+  "source_updated_at": "2026-09-25T04:01:55.442963+00:00",
+  "body_sha256": "f5d93e5ed5d6a4a0535b25a1a30b6a604dd5bd9b999501c93ad5167e878a0bea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "해 여섯을 쏘아 없애 어둠이 오자 동물들이 차례로 남은 해를 부르다 수탉이 불러내는 유래담이라 초·중등 순서·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Long, long ago there were seven",
+   "note": "동물 호출 순서가 순서 문항 단서로 좋다."
+  }
+ },
+ {
+  "id": "8113dfcc-b92e-4e9c-be36-346fdac0f9e3",
+  "source_updated_at": "2026-09-25T04:01:22.27749+00:00",
+  "body_sha256": "67e43bae4071aec6d98f0d0a1027312ac8cb0da50c5b1d25b12feb51a0b7c2e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "아픈 척하는 하이에나 굴에 들어간 발자국만 있고 나온 것이 없음을 본 토끼가 속지 않는 우화라 초·중등 요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Once upon a time, a long",
+   "note": "잡아먹힘은 암시로만 나와 초등 칸을 막지 않는다."
+  }
+ },
+ {
+  "id": "8128fd03-6cd6-4f1b-a3ff-27a049db5c55",
+  "source_updated_at": "2026-09-25T04:02:07.251496+00:00",
+  "body_sha256": "12a09272b2a1cd7528da77f5d391e43019aaf71c754b181bdf8e87b7c9b01874",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "선생님의 구슬 땋은 머리를 보고 엄마에게 똑같이 해 달라 조르고 선생님처럼 되겠다는 이유 연결이 있어 초등 읽기·어휘 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "I love my teacher. She is",
+   "note": "앞 세 줄은 묘사지만 뒤로 바람이 이어진다."
+  }
+ },
+ {
+  "id": "8205172f-171d-4fd0-acf0-6e604e7feb23",
+  "source_updated_at": "2026-09-25T04:01:28.243469+00:00",
+  "body_sha256": "5598a51e85d62ce9adfdcf20cd800c3cf24b54fabc567e76d5daa522c295eb18",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "「You see orange. You see blue.」처럼 무지개 그림의 색을 짚는 21낱말 캡션이라 사건·이유 연결이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "It has many colours. They appear",
+   "note": "주어 it 조차 제목 없이는 알 수 없다."
+  }
+ },
+ {
+  "id": "82af080a-7aa4-4363-b852-72e1a6c21e16",
+  "source_updated_at": "2026-09-25T04:01:55.199253+00:00",
+  "body_sha256": "5968c09e3c4a46ac6e8f57f2a864d1fd1a64bf543217e5665b7a4c397823f45d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "나병 든 노파를 업어 준 동생은 부자가 되고 거절한 언니는 벌레에게 먹히는 권선징악 설화로 죽음이 교훈의 중심이라 고1 이상 요지·순서 칸으로 보관한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Once upon a time, there lived",
+   "note": "대비 구조가 뚜렷해 요지 문항에 맞다."
+  }
+ },
+ {
+  "id": "87155b89-0789-46e3-a13c-4fb98e3fef93",
+  "source_updated_at": "2026-09-25T03:34:49.817269+00:00",
+  "body_sha256": "975a268cbf1fde65095b9997573f8bd4e5f52c66398024773cc1ae87fe129c2d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "강아지 형제를 떼어 놓자 시무룩해진 코코가 형제와 다시 만나 기운을 찾는 1인칭 이야기라 초등 심경·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "mood",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "When I was five years old,",
+   "note": "코코의 심경 변화가 단락마다 선명하다."
+  }
+ },
+ {
+  "id": "8752772b-a581-4629-847a-a470315f185e",
+  "source_updated_at": "2026-09-25T04:01:57.814775+00:00",
+  "body_sha256": "d3eadd95768f87f9013d14f7e9e4c0f0155da912c37038f593278a72e802c891",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "공놀이하던 강아지와 고양이가 담 너머로 넘어간 공을 강아지가 찾아와 다시 노는 사건 흐름이라 초등 순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "One day Little Dog was playing",
+   "note": "대사 중심이라 낭독 재료로도 쉽다."
+  }
+ },
+ {
+  "id": "886bf42a-89be-41ce-aeb3-cae6d3a8fcc3",
+  "source_updated_at": "2026-09-25T04:01:39.789347+00:00",
+  "body_sha256": "1b92a2e40887a4f2865c94d4131b3d130c4d181b6cbfe6115acc99e41120a5d3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "기근 속 토끼가 「서로 삶기」 놀이로 친구 원숭이를 솥에 가둬 죽여 먹는 잔혹 우화라 죽음이 결말의 중심이어서 고1 이상 칸으로만 보관한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Once upon a time, the rabbit",
+   "note": "대사 부호를 정리해야 하고 교훈이 명시되지 않는다."
+  }
+ },
+ {
+  "id": "8879dde5-ef50-4bec-a124-4306048d94ea",
+  "source_updated_at": "2026-09-25T04:02:03.276654+00:00",
+  "body_sha256": "f526c814e828eed6957886b3734c8949a897668e615fb1ea5053a2c3bd823def",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "「I can do this. I can hop.」 한 문형에 동사만 바꿔 여덟 번 되풀이한 나열이라 사건·이유 연결이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "I can do this. I can",
+   "note": "동사 목록이라 가공할 문단이 없다."
+  }
+ },
+ {
+  "id": "8ab06e69-5e37-4304-9d3a-cfe762ac29f5",
+  "source_updated_at": "2026-09-25T04:01:44.908358+00:00",
+  "body_sha256": "c4327f7ca9b6a7d9dc3463ea090e8b443c496200fdee0d68d8ad8b63525e68dc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "읽어 줄 상대를 찾아 가족을 차례로 살피다 스스로 읽기로 맺는 반복 패턴이 결말로 이어져 초등 읽기 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V0",
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "I love to read Who can",
+   "note": "같은 틀의 다른 판본과 함께 쓰면 비교 읽기 재료가 된다."
+  }
+ },
+ {
+  "id": "8b5de5b2-8088-41fb-98f0-8f4860fa208b",
+  "source_updated_at": "2026-09-25T04:01:22.498843+00:00",
+  "body_sha256": "aae6e2c359102a71253ddc5be0c784eae98811a4a0b9895ae220ff56ee5dc14e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "염소를 훔쳐 잡은 사내가 이튿날 마을 사람들에게 들키는 사건과 교훈 문장이 이어져 초등 순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "main_point"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "A man called Kato lived in",
+   "note": "도축 한 구절은 짧아 초등 칸을 막지 않는다."
+  }
+ },
+ {
+  "id": "8bb82852-18be-497b-8854-b81fc84e1b91",
+  "source_updated_at": "2026-09-25T04:01:37.782272+00:00",
+  "body_sha256": "f54a13107a3d712748762afcbf060fb596656ede5071db3dda2c8a0976ed2859",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "경주 뒤 토끼와 거북이 왕의 사절로 나서 가시밭과 강을 서로 업어 건너 기한 전에 돌아오는 협력 이야기라 중등 요지·순서·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Do you remember the Great Race",
+   "note": "assume airs·bore no grudge 같은 관용구를 풀어야 한다."
+  }
+ },
+ {
+  "id": "8c2db01c-9075-4b3f-9145-83a4fa633f7f",
+  "source_updated_at": "2026-09-25T04:01:40.198415+00:00",
+  "body_sha256": "197fc958450031ff29c1281e759aa39dfeaf09b11200e38b727fe60ee8d516f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "미리엄 마케바가 1인칭으로 감옥에서의 유아기부터 노래로 차별을 알리다 추방되고 민주화 뒤 귀국하기까지를 시간순으로 말해 중등·고1 요지·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "A long time ago, in the",
+   "note": "인종차별 비판은 사실 서술 안에 있어 선동이 아니다."
+  }
+ },
+ {
+  "id": "8c775495-e4b1-4e2b-8f3e-a6741e12144f",
+  "source_updated_at": "2026-09-25T04:01:46.936387+00:00",
+  "body_sha256": "142dd8febf0d7ab0144c4ba94cbc91a85909c17677a93cda335e26b8ee68df36",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "말썽꾸러기가 농장 일에 지루해하다 동물을 풀어 마을을 난장판으로 만들고 수습한 뒤 달라지는 이야기라 초·중등 순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "main_point",
+    "mood"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a far away town, there",
+   "note": "오탈자·시제 오류(new, naughthy)가 많아 교정이 먼저다."
+  }
+ },
+ {
+  "id": "8d8ae7ca-9e73-4346-ab68-565b9a9dc025",
+  "source_updated_at": "2026-09-25T04:01:27.357189+00:00",
+  "body_sha256": "7d2923071292cc4dee0230f712307e41080872c28d66c92593f93aab809d1537",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "자칼이 까마귀의 깃털과 목소리를 추켜세워 노래하게 하고 떨어진 치즈를 차지하는 아첨 우화라 초·중등 요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Once upon a time Jackal was",
+   "note": "flattered·glossy 정도만 풀면 초등 밴드다."
+  }
+ }
+]

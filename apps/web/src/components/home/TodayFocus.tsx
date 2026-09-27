@@ -30,7 +30,8 @@
 //    눈으로는 영영 안 잡히는 자리다. 회귀는 `__tests__/TodayFocus.test.tsx` 가 잠근다.
 // ─────────────────────────────────────────────────────────────
 
-import { ArrowRight, Compass } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import type { TasteWord } from '@/lib/learner/taste-word'
@@ -39,18 +40,28 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
   return (
     <section
       aria-label="시작하기"
-      className="relative overflow-hidden rounded-ios-2xl bg-[var(--bg)] px-5 py-6 shadow-ios-2 md:px-8 md:py-8"
+      // DD-68 — 참조 카드 문법: 그림자·왼쪽 획 대신 가는 테두리 + 24px 모서리, 구석에 소품 삽화.
+      //   제안 구역은 안쪽 라벤더 면으로 가른다(참조 ToneCards 의 틴트 면).
+      className="relative overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-6 md:px-8 md:py-8"
     >
-      <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-[var(--p)]" />
+      {word && (
+        <Image
+          src="/illustrations/tines/spot-memory.webp"
+          alt=""
+          width={1328}
+          height={1328}
+          className="pointer-events-none absolute right-6 top-6 hidden w-[132px] select-none md:block"
+        />
+      )}
 
       {/* ── 지면: 제품이 하는 일 ── */}
       {word && (
         <>
-          <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
+          <p className="font-display text-[14px] font-[700] tracking-[0.04em] text-[var(--ju)]">
             오늘 만나 볼 단어
           </p>
 
-          <h2 className="mt-4 font-editorial text-[40px] font-[500] leading-[1.02] tracking-[-0.02em] text-[var(--t1)] md:text-[52px]">
+          <h2 className="mt-4 font-display text-[44px] font-[400] leading-[1.02] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">
             {word.word}
           </h2>
 
@@ -74,17 +85,18 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
       {/* ── 제안: 게이트가 아니다 ──
           단어를 본 다음에 온다. 순서가 뒤집히면 다시 시험이 된다. */}
       <div
-        className={`flex flex-col gap-4 md:flex-row md:items-center md:gap-8 ${
-          word ? 'mt-8 border-t border-[var(--bd)] pt-6' : ''
+        className={`flex flex-col gap-4 tone-lavender rounded-[var(--r-xl)] p-5 md:flex-row md:items-center md:gap-8 md:p-6 ${
+          word ? 'mt-8' : ''
         }`}
       >
         <div className="flex min-w-0 flex-1 items-start gap-4">
-          <span
-            aria-hidden
-            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
-          >
-            <Compass size={20} strokeWidth={1.9} />
-          </span>
+          <Image
+            src="/illustrations/tines/spot-quiz.webp"
+            alt=""
+            width={1328}
+            height={1328}
+            className="h-16 w-16 shrink-0 select-none"
+          />
 
           <div className="min-w-0 flex-1">
             <h3 className="max-w-[26ch] font-display text-[16px] font-[700] leading-[1.4] text-[var(--t1)] [word-break:keep-all] md:text-[17px]">
@@ -101,7 +113,7 @@ export function TodayFocus({ word }: { word: TasteWord | null }) {
 
         <Link
           href="/diagnostic"
-          className="group inline-flex min-h-[48px] shrink-0 items-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] motion-safe:hover:brightness-110 motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:self-auto"
+          className="group inline-flex min-h-[48px] shrink-0 items-center gap-2 self-start rounded-full bg-[var(--ju)] px-6 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline motion-safe:transition-all motion-safe:duration-[var(--dur-ios-normal)] hover:bg-[var(--p)] motion-safe:active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:self-auto"
         >
           5분 시작하기
           <ArrowRight

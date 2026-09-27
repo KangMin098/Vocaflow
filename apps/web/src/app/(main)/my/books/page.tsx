@@ -3,6 +3,7 @@
 
 import { Suspense } from 'react';
 import Link from 'next/link';
+import { SpotState } from '@/components/ui/SpotState'
 import { BookOpen, Library } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom';
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -492,22 +493,6 @@ function Loading() {
 
 function Empty({ message }: { message: string }) {
   return (
-    <div
-      role="status"
-      className="flex flex-col items-center justify-center gap-3 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] py-16 text-center"
-    >
-      <div className="select-none text-3xl" aria-hidden>
-        📚
-      </div>
-      <h2 className="font-display text-[14px] font-[700] text-[var(--t1)]">{message}</h2>
-      <Link
-        href="/library/books"
-        // 151×34 였다 — 44px 미만 탭 대상(CLAUDE.md 절대 금지 · 실측 390px).
-        // 빈 서가에서 **밖으로 나가는 유일한 버튼**이라 특히 놓치면 안 된다.
-        className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] bg-[var(--ju)] px-4 py-2 font-display text-[12px] font-[600] text-[var(--on-ju)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
-      >
-        Library에서 책 발견 →
-      </Link>
-    </div>
+    <SpotState art="empty-shelf" role="status" title={message} primary={{ href: '/library/books', label: 'Library에서 책 발견 →' }} />
   );
 }

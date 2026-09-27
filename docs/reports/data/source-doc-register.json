@@ -1,0 +1,3017 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "source-doc-register/v1",
+  "total": 117,
+  "kept": 94,
+  "judged": 117,
+  "bySource": {
+    "olh": {
+      "n": 30,
+      "keep": 21,
+      "drop": 9,
+      "unread": 0
+    },
+    "econstor": {
+      "n": 30,
+      "keep": 27,
+      "drop": 3,
+      "unread": 0
+    },
+    "scielo": {
+      "n": 30,
+      "keep": 30,
+      "drop": 0,
+      "unread": 0
+    },
+    "openalex": {
+      "n": 27,
+      "keep": 16,
+      "drop": 11,
+      "unread": 0
+    }
+  },
+  "dropReasons": {
+    "화제": 11,
+    "장르": 3,
+    "정제 후 N% 만 남는다 — 본문이 아니라 표·서지다": 1,
+    "언어": 2,
+    "영어가 아니다(기능어 N.N%)": 5,
+    "내용": 1
+  },
+  "domains": {
+    "문화": 8,
+    "사회": 18,
+    "경제": 20,
+    "예술": 3,
+    "인류": 1,
+    "철학": 8,
+    "역사": 6,
+    "심리": 7,
+    "기술": 3,
+    "환경": 3,
+    "과학": 4,
+    "교육": 13
+  },
+  "docs": [
+    {
+      "id": "olh:28752",
+      "source": "olh",
+      "words_raw": 7064,
+      "words_prose": 7022,
+      "keep_pct": 99.4,
+      "english_ratio": 0.387,
+      "yield": {
+        "school_sentence": 217,
+        "school_paragraph": 39,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "통일 후 동서독 등반 동호회 회보의 언어·가치 차이",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:28335",
+      "source": "olh",
+      "words_raw": 5641,
+      "words_prose": 5593,
+      "keep_pct": 99.1,
+      "english_ratio": 0.312,
+      "yield": {
+        "school_sentence": 175,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "일본 외국인 돌봄노동자의 자격증 취득과 귀국 의사",
+      "domain": "사회",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:23236",
+      "source": "olh",
+      "words_raw": 4464,
+      "words_prose": 4463,
+      "keep_pct": 100,
+      "english_ratio": 0.34,
+      "yield": {
+        "school_sentence": 146,
+        "school_paragraph": 24,
+        "csat_short": 24,
+        "csat_long": 11
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "굿윈이 물리학 개념으로 경기순환의 불규칙성을 설명한 방식",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:16974",
+      "source": "olh",
+      "words_raw": 9992,
+      "words_prose": 9928,
+      "keep_pct": 99.4,
+      "english_ratio": 0.391,
+      "yield": {
+        "school_sentence": 288,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "크로아티아어 'do so' 대치 실험으로 본 논항과 부가어의 구분",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:17390",
+      "source": "olh",
+      "words_raw": 1561,
+      "words_prose": 1560,
+      "keep_pct": 99.9,
+      "english_ratio": 0.362,
+      "yield": {
+        "school_sentence": 49,
+        "school_paragraph": 9,
+        "csat_short": 9,
+        "csat_long": 4
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "태양열 어도비 건축을 둘러싼 기술·문화 담론의 역사",
+      "domain": "예술",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:14947",
+      "source": "olh",
+      "words_raw": 664,
+      "words_prose": 660,
+      "keep_pct": 99.4,
+      "english_ratio": 0.396,
+      "yield": {
+        "school_sentence": 19,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "음식 준비와 장내 감각으로 읽는 아프로-디아스포라 종교 의례",
+      "domain": "인류",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:27275",
+      "source": "olh",
+      "words_raw": 9358,
+      "words_prose": 9336,
+      "keep_pct": 99.8,
+      "english_ratio": 0.332,
+      "yield": {
+        "school_sentence": 282,
+        "school_paragraph": 52,
+        "csat_short": 52,
+        "csat_long": 25
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "인류세·'행성적' 담론이 기술 낙관론과 민족주의로 갈라지는 양상",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:25789",
+      "source": "olh",
+      "words_raw": 9966,
+      "words_prose": 9923,
+      "keep_pct": 99.6,
+      "english_ratio": 0.379,
+      "yield": {
+        "school_sentence": 317,
+        "school_paragraph": 54,
+        "csat_short": 54,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "거주지 분리를 줄이기 위한 동네 인구구성 할당제의 정당화",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:20178",
+      "source": "olh",
+      "words_raw": 11674,
+      "words_prose": 11658,
+      "keep_pct": 99.9,
+      "english_ratio": 0.367,
+      "yield": {
+        "school_sentence": 383,
+        "school_paragraph": 63,
+        "csat_short": 63,
+        "csat_long": 30
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "19세기 정치경제학에서 소비 개념이 밀려난 과정",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:18652",
+      "source": "olh",
+      "words_raw": 8075,
+      "words_prose": 8072,
+      "keep_pct": 100,
+      "english_ratio": 0.389,
+      "yield": {
+        "school_sentence": 260,
+        "school_paragraph": 44,
+        "csat_short": 43,
+        "csat_long": 20
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "이탈리아어 형용사의 명사 앞뒤 어순에 대한 통사 이론",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:15355",
+      "source": "olh",
+      "words_raw": 8579,
+      "words_prose": 8573,
+      "keep_pct": 99.9,
+      "english_ratio": 0.366,
+      "yield": {
+        "school_sentence": 252,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "채용의 공정성과 '타인의 반응'에 근거한 자격 요건",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:14957",
+      "source": "olh",
+      "words_raw": 986,
+      "words_prose": 969,
+      "keep_pct": 98.3,
+      "english_ratio": 0.364,
+      "yield": {
+        "school_sentence": 32,
+        "school_paragraph": 6,
+        "csat_short": 5,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "생물학의 발견 앞에서 신학이 취하는 태도에 대한 비판적 서평",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:28543",
+      "source": "olh",
+      "words_raw": 6428,
+      "words_prose": 5953,
+      "keep_pct": 92.6,
+      "english_ratio": 0.306,
+      "yield": {
+        "school_sentence": 197,
+        "school_paragraph": 32,
+        "csat_short": 32,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "브라질 차량호출 플랫폼 확산이 운전 노동에 미친 영향",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:18423",
+      "source": "olh",
+      "words_raw": 10560,
+      "words_prose": 10546,
+      "keep_pct": 99.9,
+      "english_ratio": 0.38,
+      "yield": {
+        "school_sentence": 340,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 27
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "정책·개발 분야 무작위 통제 실험의 윤리적 한계",
+      "domain": "철학",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:20012",
+      "source": "olh",
+      "words_raw": 5820,
+      "words_prose": 5718,
+      "keep_pct": 98.2,
+      "english_ratio": 0.351,
+      "yield": {
+        "school_sentence": 174,
+        "school_paragraph": 32,
+        "csat_short": 31,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "케인스 이전 미국에서 '재정정책' 개념이 형성된 역사",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:17534",
+      "source": "olh",
+      "words_raw": 8234,
+      "words_prose": 8234,
+      "keep_pct": 100,
+      "english_ratio": 0.38,
+      "yield": {
+        "school_sentence": 254,
+        "school_paragraph": 45,
+        "csat_short": 45,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "스페인어 wh-의문 생략 구문의 동일성 조건과 생략 허가 기제",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:11753",
+      "source": "olh",
+      "words_raw": 8172,
+      "words_prose": 8121,
+      "keep_pct": 99.4,
+      "english_ratio": 0.35,
+      "yield": {
+        "school_sentence": 229,
+        "school_paragraph": 45,
+        "csat_short": 43,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "포르투갈어 조동사 costumar 가 표현하는 습관상의 문법적 성질",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:14966",
+      "source": "olh",
+      "words_raw": 768,
+      "words_prose": 768,
+      "keep_pct": 100,
+      "english_ratio": 0.333,
+      "yield": {
+        "school_sentence": 19,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "종교·과학 학술지 한 호의 편집자 서문과 오픈액세스 이관 공지",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "장르"
+    },
+    {
+      "id": "olh:25600",
+      "source": "olh",
+      "words_raw": 9942,
+      "words_prose": 9931,
+      "keep_pct": 99.9,
+      "english_ratio": 0.362,
+      "yield": {
+        "school_sentence": 287,
+        "school_paragraph": 55,
+        "csat_short": 54,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "유색인종 여성 슬램 시에서 분노가 어떻게 공동체를 만드는가",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:24525",
+      "source": "olh",
+      "words_raw": 8123,
+      "words_prose": 8114,
+      "keep_pct": 99.9,
+      "english_ratio": 0.403,
+      "yield": {
+        "school_sentence": 257,
+        "school_paragraph": 43,
+        "csat_short": 43,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "티그리냐·티그레어 후음의 모음 연접 해소(guttural syneresis)와 요소 이론",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:18200",
+      "source": "olh",
+      "words_raw": 7854,
+      "words_prose": 7825,
+      "keep_pct": 99.6,
+      "english_ratio": 0.337,
+      "yield": {
+        "school_sentence": 189,
+        "school_paragraph": 45,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "2차대전 이후 영화가 국제 평화·교류의 매체로 기대되던 국제주의의 역사",
+      "domain": "역사",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:17373",
+      "source": "olh",
+      "words_raw": 4694,
+      "words_prose": 4682,
+      "keep_pct": 99.7,
+      "english_ratio": 0.389,
+      "yield": {
+        "school_sentence": 150,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "wh-이동과 결속 조건 C 의 재구성 여부에 대한 통사 실험",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:10624",
+      "source": "olh",
+      "words_raw": 8552,
+      "words_prose": 8542,
+      "keep_pct": 99.9,
+      "english_ratio": 0.364,
+      "yield": {
+        "school_sentence": 275,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "행위자·사역자·피영향자 의미역의 통사적 허가 구조",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:14967",
+      "source": "olh",
+      "words_raw": 8620,
+      "words_prose": 8500,
+      "keep_pct": 98.6,
+      "english_ratio": 0.345,
+      "yield": {
+        "school_sentence": 243,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "근대 이후 쿠란을 현대 과학의 예언으로 읽으려 한 해석 흐름과 그 비판",
+      "domain": "역사",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:28765",
+      "source": "olh",
+      "words_raw": 6013,
+      "words_prose": 6012,
+      "keep_pct": 100,
+      "english_ratio": 0.337,
+      "yield": {
+        "school_sentence": 168,
+        "school_paragraph": 34,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "빅토리아 시대 해양 기반시설과 선원들의 기록이 제국을 떠받친 방식",
+      "domain": "역사",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:23979",
+      "source": "olh",
+      "words_raw": 8347,
+      "words_prose": 8316,
+      "keep_pct": 99.6,
+      "english_ratio": 0.261,
+      "yield": {
+        "school_sentence": 285,
+        "school_paragraph": 44,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "낱말 의미를 결합해 이해하는 인간 인지의 합성성과 작업기억",
+      "domain": "심리",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:17501",
+      "source": "olh",
+      "words_raw": 6072,
+      "words_prose": 6053,
+      "keep_pct": 99.7,
+      "english_ratio": 0.358,
+      "yield": {
+        "school_sentence": 180,
+        "school_paragraph": 32,
+        "csat_short": 32,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "실존 인물을 다루는 만화(그래픽 바이오픽션)가 보통 사람의 이야기를 만드는 방법",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:18564",
+      "source": "olh",
+      "words_raw": 3107,
+      "words_prose": 3102,
+      "keep_pct": 99.8,
+      "english_ratio": 0.387,
+      "yield": {
+        "school_sentence": 86,
+        "school_paragraph": 18,
+        "csat_short": 17,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "시학(poetics)이란 무엇이며 왜 필요한가를 따지는 서평",
+      "domain": "예술",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "olh:11042",
+      "source": "olh",
+      "words_raw": 6784,
+      "words_prose": 6784,
+      "keep_pct": 100,
+      "english_ratio": 0.36,
+      "yield": {
+        "school_sentence": 191,
+        "school_paragraph": 38,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "독일어·스페인어 다중 생략의문문의 절 동일성 조건 실험",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "olh:14953",
+      "source": "olh",
+      "words_raw": 11994,
+      "words_prose": 11944,
+      "keep_pct": 99.6,
+      "english_ratio": 0.311,
+      "yield": {
+        "school_sentence": 371,
+        "school_paragraph": 64,
+        "csat_short": 64,
+        "csat_long": 31
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "산업혁명·식민주의가 무슬림 근대주의자의 쿠란 해석을 바꾼 과정",
+      "domain": "역사",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/341150",
+      "source": "econstor",
+      "words_raw": 8836,
+      "words_prose": 8324,
+      "keep_pct": 94.2,
+      "english_ratio": 0.269,
+      "yield": {
+        "school_sentence": 268,
+        "school_paragraph": 46,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "이해관계자 참여가 실제 권한 이전 없이 상징적 의례로 변질되는 현상",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/341294",
+      "source": "econstor",
+      "words_raw": 7748,
+      "words_prose": 7620,
+      "keep_pct": 98.3,
+      "english_ratio": 0.339,
+      "yield": {
+        "school_sentence": 234,
+        "school_paragraph": 42,
+        "csat_short": 40,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "독일 사회경제패널(SOEP) 가구 변수 코드북과 결측 대체 절차",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "장르"
+    },
+    {
+      "id": "econstor:10419/341449",
+      "source": "econstor",
+      "words_raw": 8387,
+      "words_prose": 7462,
+      "keep_pct": 89,
+      "english_ratio": 0.309,
+      "yield": {
+        "school_sentence": 247,
+        "school_paragraph": 40,
+        "csat_short": 40,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "한국과 중국의 비혼 확산과 사회경제적 계층 간 결혼 격차",
+      "domain": "사회",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/341753",
+      "source": "econstor",
+      "words_raw": 6774,
+      "words_prose": 6645,
+      "keep_pct": 98.1,
+      "english_ratio": 0.278,
+      "yield": {
+        "school_sentence": 216,
+        "school_paragraph": 36,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "중국의 경제적 압박에 맞선 회복력 전략과 일본의 희토류 대응 경험",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/341967",
+      "source": "econstor",
+      "words_raw": 11515,
+      "words_prose": 10816,
+      "keep_pct": 93.9,
+      "english_ratio": 0.339,
+      "yield": {
+        "school_sentence": 323,
+        "school_paragraph": 60,
+        "csat_short": 59,
+        "csat_long": 28
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "일자리와 학력의 불일치(과잉학력)에서 기업이 맡는 역할",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342004.2",
+      "source": "econstor",
+      "words_raw": 4080,
+      "words_prose": 3717,
+      "keep_pct": 91.1,
+      "english_ratio": 0.312,
+      "yield": {
+        "school_sentence": 114,
+        "school_paragraph": 20,
+        "csat_short": 20,
+        "csat_long": 10
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "유럽 경찰·군인이 극우 정당을 더 지지하는가와 그 동인",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342011",
+      "source": "econstor",
+      "words_raw": 11375,
+      "words_prose": 9976,
+      "keep_pct": 87.7,
+      "english_ratio": 0.317,
+      "yield": {
+        "school_sentence": 313,
+        "school_paragraph": 53,
+        "csat_short": 53,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "백신이 주는 안심이 오히려 위험 행동을 늘리는가(위험보상 행동)",
+      "domain": "심리",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342086",
+      "source": "econstor",
+      "words_raw": 8961,
+      "words_prose": 2525,
+      "keep_pct": 28.2,
+      "english_ratio": 0.223,
+      "yield": {
+        "school_sentence": 84,
+        "school_paragraph": 14,
+        "csat_short": 13,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "정제 후 28% 만 남는다 — 본문이 아니라 표·서지다",
+      "read_verdict": "drop",
+      "topic_ko": null,
+      "domain": null,
+      "usable_for": [],
+      "drop_reason": "정제 후 28% 만 남는다 — 본문이 아니라 표·서지다"
+    },
+    {
+      "id": "econstor:10419/342099",
+      "source": "econstor",
+      "words_raw": 4674,
+      "words_prose": 3970,
+      "keep_pct": 84.9,
+      "english_ratio": 0.356,
+      "yield": {
+        "school_sentence": 125,
+        "school_paragraph": 21,
+        "csat_short": 21,
+        "csat_long": 10
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "이항분포 적합도 검정을 위한 확률생성함수 기반 검정통계량의 점근분포",
+      "domain": "과학",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "econstor:10419/342212",
+      "source": "econstor",
+      "words_raw": 7486,
+      "words_prose": 7006,
+      "keep_pct": 93.6,
+      "english_ratio": 0.357,
+      "yield": {
+        "school_sentence": 218,
+        "school_paragraph": 38,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "환경·사회 피해를 돈으로 환산해 보고하는 것이 정당한가",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342288",
+      "source": "econstor",
+      "words_raw": 8610,
+      "words_prose": 7916,
+      "keep_pct": 91.9,
+      "english_ratio": 0.328,
+      "yield": {
+        "school_sentence": 265,
+        "school_paragraph": 42,
+        "csat_short": 41,
+        "csat_long": 20
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "지속가능 투자에서 운용사의 주주관여와 의결권 행사",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342332",
+      "source": "econstor",
+      "words_raw": 9951,
+      "words_prose": 9018,
+      "keep_pct": 90.6,
+      "english_ratio": 0.293,
+      "yield": {
+        "school_sentence": 303,
+        "school_paragraph": 49,
+        "csat_short": 49,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "범용기술로서의 인공지능이 발명하는 방식 자체를 바꾸는가",
+      "domain": "기술",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342356",
+      "source": "econstor",
+      "words_raw": 10011,
+      "words_prose": 9413,
+      "keep_pct": 94,
+      "english_ratio": 0.334,
+      "yield": {
+        "school_sentence": 314,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 24
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "오스만 제국 현금 와크프(자선재단)가 지급한 임금과 실질임금의 장기 하락",
+      "domain": "역사",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342437",
+      "source": "econstor",
+      "words_raw": 6800,
+      "words_prose": 5472,
+      "keep_pct": 80.5,
+      "english_ratio": 0.285,
+      "yield": {
+        "school_sentence": 182,
+        "school_paragraph": 29,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "농촌의 디지털화가 개발도상국 식량 불안정을 줄이는가",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342595",
+      "source": "econstor",
+      "words_raw": 893,
+      "words_prose": 401,
+      "keep_pct": 44.9,
+      "english_ratio": 0.235,
+      "yield": {
+        "school_sentence": 13,
+        "school_paragraph": 2,
+        "csat_short": 2,
+        "csat_long": 1
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "팀 안에서 교섭력이 업무 분담과 합의 이행에 미치는 영향",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342616",
+      "source": "econstor",
+      "words_raw": 7038,
+      "words_prose": 6092,
+      "keep_pct": 86.6,
+      "english_ratio": 0.318,
+      "yield": {
+        "school_sentence": 188,
+        "school_paragraph": 33,
+        "csat_short": 32,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "유럽의 응급피임약 처방전 없이 구매 허용 전환과 그 효과",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342788",
+      "source": "econstor",
+      "words_raw": 6732,
+      "words_prose": 5870,
+      "keep_pct": 87.2,
+      "english_ratio": 0.271,
+      "yield": {
+        "school_sentence": 192,
+        "school_paragraph": 32,
+        "csat_short": 32,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "동료의 프로젝트 실패를 지켜보는 환경이 연구개발 직원의 몰입과 직무만족을 떨어뜨린다",
+      "domain": "심리",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342821",
+      "source": "econstor",
+      "words_raw": 10255,
+      "words_prose": 9538,
+      "keep_pct": 93,
+      "english_ratio": 0.34,
+      "yield": {
+        "school_sentence": 317,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 25
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "농업 집약화로 줄어든 생물다양성을 되살리려는 유럽 보조금이 왜 기대만큼 듣지 않는가",
+      "domain": "환경",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342958",
+      "source": "econstor",
+      "words_raw": 6759,
+      "words_prose": 6150,
+      "keep_pct": 91,
+      "english_ratio": 0.334,
+      "yield": {
+        "school_sentence": 200,
+        "school_paragraph": 33,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "동료와 견준 자기 성과 평가가 직무만족과 어떻게 이어지는가",
+      "domain": "심리",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/342985",
+      "source": "econstor",
+      "words_raw": 8829,
+      "words_prose": 7477,
+      "keep_pct": 84.7,
+      "english_ratio": 0.348,
+      "yield": {
+        "school_sentence": 247,
+        "school_paragraph": 40,
+        "csat_short": 40,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "경제학 연구가 실증으로 기울며 겪은 p-해킹·재현성 위기와 투명성 운동",
+      "domain": "과학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343005",
+      "source": "econstor",
+      "words_raw": 9795,
+      "words_prose": 8851,
+      "keep_pct": 90.4,
+      "english_ratio": 0.311,
+      "yield": {
+        "school_sentence": 288,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "빈곤 연구가 실업에만 쏠린 탓에 놓친 '일하는 빈곤'과 노조의 역할",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343019",
+      "source": "econstor",
+      "words_raw": 6718,
+      "words_prose": 6390,
+      "keep_pct": 95.1,
+      "english_ratio": 0.398,
+      "yield": {
+        "school_sentence": 204,
+        "school_paragraph": 35,
+        "csat_short": 35,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "극우 정당의 등장이 주류 좌파 정당의 이민 정책 입장을 어떻게 흔드는가",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343036",
+      "source": "econstor",
+      "words_raw": 7161,
+      "words_prose": 7037,
+      "keep_pct": 98.3,
+      "english_ratio": 0.383,
+      "yield": {
+        "school_sentence": 222,
+        "school_paragraph": 39,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "강물을 열원으로 쓰는 열펌프로 지역 난방을 하는 방법과 조건",
+      "domain": "기술",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343157",
+      "source": "econstor",
+      "words_raw": 9573,
+      "words_prose": 9052,
+      "keep_pct": 94.6,
+      "english_ratio": 0.314,
+      "yield": {
+        "school_sentence": 289,
+        "school_paragraph": 50,
+        "csat_short": 49,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "2022 에너지 위기에서 가격 인상보다 절약 호소가 더 크게 작동한 독일 가정",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343311",
+      "source": "econstor",
+      "words_raw": 5113,
+      "words_prose": 4709,
+      "keep_pct": 92.1,
+      "english_ratio": 0.3,
+      "yield": {
+        "school_sentence": 158,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "수학 기초의 차이가 경제·경영 전공 학업 성취의 격차로 이어진다",
+      "domain": "교육",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343325",
+      "source": "econstor",
+      "words_raw": 8659,
+      "words_prose": 7275,
+      "keep_pct": 84,
+      "english_ratio": 0.272,
+      "yield": {
+        "school_sentence": 240,
+        "school_paragraph": 39,
+        "csat_short": 39,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "한 IT 기업 사례로 본 리더십·조직문화·직원 동기의 맞물림",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343823",
+      "source": "econstor",
+      "words_raw": 8090,
+      "words_prose": 6927,
+      "keep_pct": 85.6,
+      "english_ratio": 0.346,
+      "yield": {
+        "school_sentence": 217,
+        "school_paragraph": 38,
+        "csat_short": 37,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "정치적 유인이 공식 GDP 통계를 부풀리며, 야간 불빛이 그 과장을 드러낸다",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343861",
+      "source": "econstor",
+      "words_raw": 13359,
+      "words_prose": 9370,
+      "keep_pct": 70.1,
+      "english_ratio": 0.349,
+      "yield": {
+        "school_sentence": 298,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 24
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "자기 판단을 지나치게 확신하는 성향은 금융에서도 정치에서도 같이 나타난다",
+      "domain": "심리",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343882",
+      "source": "econstor",
+      "words_raw": 2890,
+      "words_prose": 2510,
+      "keep_pct": 86.9,
+      "english_ratio": 0.284,
+      "yield": {
+        "school_sentence": 83,
+        "school_paragraph": 14,
+        "csat_short": 13,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "생성형 AI가 신입 일자리를 줄인다는 미국 발견이 핀란드에서는 재현되지 않았다",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "econstor:10419/343905",
+      "source": "econstor",
+      "words_raw": 3846,
+      "words_prose": 2899,
+      "keep_pct": 75.4,
+      "english_ratio": 0.341,
+      "yield": {
+        "school_sentence": 92,
+        "school_paragraph": 16,
+        "csat_short": 16,
+        "csat_long": 7
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "개인정보를 사고파는 시장이 없어 이용자가 자기 데이터의 몫을 못 받는다",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0256-01002009000100001",
+      "source": "scielo",
+      "words_raw": 4800,
+      "words_prose": 4593,
+      "keep_pct": 95.7,
+      "english_ratio": 0.357,
+      "yield": {
+        "school_sentence": 123,
+        "school_paragraph": 26,
+        "csat_short": 24,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "교사가 자기 수업을 되돌아보는 '성찰적 실천'과 실행연구의 절차",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0038-23532009000100021",
+      "source": "scielo",
+      "words_raw": 3403,
+      "words_prose": 3221,
+      "keep_pct": 94.7,
+      "english_ratio": 0.334,
+      "yield": {
+        "school_sentence": 107,
+        "school_paragraph": 18,
+        "csat_short": 18,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "남아프리카 가뭄의 100년 기록과 그것이 식생에 남긴 흔적",
+      "domain": "환경",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2222-34362016000400003",
+      "source": "scielo",
+      "words_raw": 6131,
+      "words_prose": 5585,
+      "keep_pct": 91.1,
+      "english_ratio": 0.352,
+      "yield": {
+        "school_sentence": 175,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "이사회 구성·규모가 기업 성과와 어떤 관계인가",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2074-77052016000200011",
+      "source": "scielo",
+      "words_raw": 3276,
+      "words_prose": 3174,
+      "keep_pct": 96.9,
+      "english_ratio": 0.352,
+      "yield": {
+        "school_sentence": 96,
+        "school_paragraph": 17,
+        "csat_short": 17,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "아프리카 여성 신학자 모임이 신학을 바꾼 네 가지 흐름",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0256-95072018000200001",
+      "source": "scielo",
+      "words_raw": 7384,
+      "words_prose": 7266,
+      "keep_pct": 98.4,
+      "english_ratio": 0.351,
+      "yield": {
+        "school_sentence": 214,
+        "school_paragraph": 40,
+        "csat_short": 39,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "제임스 콘의 흑인신학이 아프리카 고유 종교성을 어떻게 다뤘는가",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2221-40702019000100010",
+      "source": "scielo",
+      "words_raw": 6169,
+      "words_prose": 6115,
+      "keep_pct": 99.1,
+      "english_ratio": 0.361,
+      "yield": {
+        "school_sentence": 186,
+        "school_paragraph": 34,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "걸으며 하는 인터뷰에서 우연한 사물과의 마주침이 연구를 바꾼 경험",
+      "domain": "교육",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2223-03862021000100004",
+      "source": "scielo",
+      "words_raw": 7626,
+      "words_prose": 7568,
+      "keep_pct": 99.2,
+      "english_ratio": 0.364,
+      "yield": {
+        "school_sentence": 241,
+        "school_paragraph": 41,
+        "csat_short": 41,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "교생 실습에서 온라인 게시판·블로그가 멘토링을 대신할 수 있는가",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1815-74402007000100002",
+      "source": "scielo",
+      "words_raw": 2537,
+      "words_prose": 2508,
+      "keep_pct": 98.9,
+      "english_ratio": 0.344,
+      "yield": {
+        "school_sentence": 80,
+        "school_paragraph": 13,
+        "csat_short": 13,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "돈 없는 환자에게 응급의료를 어디까지 보장해야 하는가",
+      "domain": "사회",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1753-59132023000600002",
+      "source": "scielo",
+      "words_raw": 4813,
+      "words_prose": 4765,
+      "keep_pct": 99,
+      "english_ratio": 0.368,
+      "yield": {
+        "school_sentence": 153,
+        "school_paragraph": 26,
+        "csat_short": 26,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "대학 교육은 공공재인가 — 재정과 접근성의 문제",
+      "domain": "교육",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2410-79722017000300005",
+      "source": "scielo",
+      "words_raw": 6468,
+      "words_prose": 6050,
+      "keep_pct": 93.5,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 193,
+        "school_paragraph": 33,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "국내 이주가 국제 이주보다 훨씬 많은 이유와 이주 상인의 생계 전략",
+      "domain": "사회",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1996-20962025000200007",
+      "source": "scielo",
+      "words_raw": 9677,
+      "words_prose": 9675,
+      "keep_pct": 100,
+      "english_ratio": 0.311,
+      "yield": {
+        "school_sentence": 330,
+        "school_paragraph": 52,
+        "csat_short": 52,
+        "csat_long": 25
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "고문을 처벌로 막을 것인가 사전 감시로 막을 것인가 — 케냐의 선택",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2071-31852025000100024",
+      "source": "scielo",
+      "words_raw": 5660,
+      "words_prose": 5427,
+      "keep_pct": 95.9,
+      "english_ratio": 0.328,
+      "yield": {
+        "school_sentence": 186,
+        "school_paragraph": 30,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "소상공인에게 디지털 마케팅이 왜 기회인가",
+      "domain": "경제",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1560-683X2025000100033",
+      "source": "scielo",
+      "words_raw": 6140,
+      "words_prose": 5858,
+      "keep_pct": 95.4,
+      "english_ratio": 0.328,
+      "yield": {
+        "school_sentence": 170,
+        "school_paragraph": 33,
+        "csat_short": 31,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "정신질환자를 돌보는 가족이 정보를 찾는 방식과 그 장벽",
+      "domain": "사회",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2225-71602025000100011",
+      "source": "scielo",
+      "words_raw": 5399,
+      "words_prose": 5399,
+      "keep_pct": 100,
+      "english_ratio": 0.368,
+      "yield": {
+        "school_sentence": 164,
+        "school_paragraph": 30,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "종이 거래를 전제로 만든 법이 전자상거래를 따라가지 못하는 문제",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2309-737X2025000200005",
+      "source": "scielo",
+      "words_raw": 6634,
+      "words_prose": 6433,
+      "keep_pct": 97,
+      "english_ratio": 0.259,
+      "yield": {
+        "school_sentence": 216,
+        "school_paragraph": 35,
+        "csat_short": 34,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "폭력적 극단주의의 뿌리는 치안인가 빈곤·실업인가",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0256-01002009000100003",
+      "source": "scielo",
+      "words_raw": 5698,
+      "words_prose": 4980,
+      "keep_pct": 87.4,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 153,
+        "school_paragraph": 27,
+        "csat_short": 27,
+        "csat_long": 13
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "학교의 분위기와 조직 건강이 교사와 학생에게 미치는 영향",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0038-23532008000600021",
+      "source": "scielo",
+      "words_raw": 1158,
+      "words_prose": 978,
+      "keep_pct": 84.5,
+      "english_ratio": 0.366,
+      "yield": {
+        "school_sentence": 31,
+        "school_paragraph": 6,
+        "csat_short": 5,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "개 방광 결석(스트루바이트)의 X선 회절 분석에서 나타난 이상 강도 패턴과 그 원인",
+      "domain": "과학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2222-34362016000400004",
+      "source": "scielo",
+      "words_raw": 6097,
+      "words_prose": 5788,
+      "keep_pct": 94.9,
+      "english_ratio": 0.377,
+      "yield": {
+        "school_sentence": 193,
+        "school_paragraph": 31,
+        "csat_short": 31,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "기업의 사회적 책임에서 지역사회 참여가 시혜적 단계에서 변혁적 단계로 옮겨 가는 조건",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2074-77052016000200007",
+      "source": "scielo",
+      "words_raw": 3881,
+      "words_prose": 3837,
+      "keep_pct": 98.9,
+      "english_ratio": 0.395,
+      "yield": {
+        "school_sentence": 106,
+        "school_paragraph": 22,
+        "csat_short": 21,
+        "csat_long": 10
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "아프리카 여성 신학자 모임 「서클」의 유산과 포괄적 정의 담론으로의 확장",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0256-95072018000200002",
+      "source": "scielo",
+      "words_raw": 10118,
+      "words_prose": 10038,
+      "keep_pct": 99.2,
+      "english_ratio": 0.38,
+      "yield": {
+        "school_sentence": 267,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "제임스 콘의 흑인 해방신학이 억압받는 공동체의 경험에서 신학을 다시 세우는 방식",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2221-40702019000100005",
+      "source": "scielo",
+      "words_raw": 6602,
+      "words_prose": 6530,
+      "keep_pct": 98.9,
+      "english_ratio": 0.355,
+      "yield": {
+        "school_sentence": 203,
+        "school_paragraph": 35,
+        "csat_short": 35,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "남아공 읽기 능력 최하위 성적을 배경으로 두 교사가 자기 독서 경험을 되짚어 읽기를 특권으로 재해석하기",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2223-03862021000100005",
+      "source": "scielo",
+      "words_raw": 6905,
+      "words_prose": 6745,
+      "keep_pct": 97.7,
+      "english_ratio": 0.369,
+      "yield": {
+        "school_sentence": 212,
+        "school_paragraph": 37,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "온라인 학습으로의 전환에서 평가 설계와 소통이 학습 성과를 가르는 이유",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1815-74402007000100004",
+      "source": "scielo",
+      "words_raw": 4891,
+      "words_prose": 4578,
+      "keep_pct": 93.6,
+      "english_ratio": 0.369,
+      "yield": {
+        "school_sentence": 144,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "해외 파견 관리자의 직무 태도가 적응 실패와 조기 귀국 의도로 이어지는 경로",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1753-59132023000600013",
+      "source": "scielo",
+      "words_raw": 4840,
+      "words_prose": 4668,
+      "keep_pct": 96.4,
+      "english_ratio": 0.352,
+      "yield": {
+        "school_sentence": 144,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "대리 작성(계약형 부정행위)이 대학의 학문 윤리 정책에서 잡히지 않는 이유",
+      "domain": "교육",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2410-79722017000200001",
+      "source": "scielo",
+      "words_raw": 8602,
+      "words_prose": 8319,
+      "keep_pct": 96.7,
+      "english_ratio": 0.361,
+      "yield": {
+        "school_sentence": 257,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "난민에게 자립을 요구하면서 비공식 경제를 단속하는 정책의 모순",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1996-20962025000200026",
+      "source": "scielo",
+      "words_raw": 9362,
+      "words_prose": 9346,
+      "keep_pct": 99.8,
+      "english_ratio": 0.358,
+      "yield": {
+        "school_sentence": 296,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 24
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "아프리카인권재판소 판결이 당사국을 넘어 다른 나라에 해석 선례로 퍼질 가능성",
+      "domain": "사회",
+      "usable_for": [
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2071-31852025000100021",
+      "source": "scielo",
+      "words_raw": 8007,
+      "words_prose": 7323,
+      "keep_pct": 91.5,
+      "english_ratio": 0.296,
+      "yield": {
+        "school_sentence": 254,
+        "school_paragraph": 39,
+        "csat_short": 38,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "남아공 하우텡 지역 중소기업의 지속 가능성을 가르는 역량과 환경 요인",
+      "domain": "경제",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S1560-683X2025000100042",
+      "source": "scielo",
+      "words_raw": 6047,
+      "words_prose": 5663,
+      "keep_pct": 93.6,
+      "english_ratio": 0.268,
+      "yield": {
+        "school_sentence": 189,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "정신건강 앱 이용자가 실망하는 지점 — 신뢰·품질·기능·요금 전환",
+      "domain": "심리",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S2225-71602025000100010",
+      "source": "scielo",
+      "words_raw": 8143,
+      "words_prose": 8099,
+      "keep_pct": 99.5,
+      "english_ratio": 0.384,
+      "yield": {
+        "school_sentence": 271,
+        "school_paragraph": 44,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "훼손된 광산 부지의 소유와 복구 책임을 누가 질 것인가 — 퇴출·수용·생물학적 복원",
+      "domain": "환경",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "scielo:S0256-01002009000100004",
+      "source": "scielo",
+      "words_raw": 4601,
+      "words_prose": 4447,
+      "keep_pct": 96.7,
+      "english_ratio": 0.372,
+      "yield": {
+        "school_sentence": 145,
+        "school_paragraph": 24,
+        "csat_short": 24,
+        "csat_long": 11
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "놀이와 게임을 통한 학교 갈등 관리 — 두 중등학교 개입 사례",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:0",
+      "source": "openalex",
+      "words_raw": 6336,
+      "words_prose": 5706,
+      "keep_pct": 90.1,
+      "english_ratio": 0.327,
+      "yield": {
+        "school_sentence": 183,
+        "school_paragraph": 31,
+        "csat_short": 31,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "영어 말하기 불안의 세 원인(발화 불안·부정 평가 두려움·시험 불안)과 성별 차이",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:1",
+      "source": "openalex",
+      "words_raw": 29584,
+      "words_prose": 26271,
+      "keep_pct": 88.8,
+      "english_ratio": 0.2,
+      "yield": {
+        "school_sentence": 747,
+        "school_paragraph": 144,
+        "csat_short": 143,
+        "csat_long": 68
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "러시아 학술지 2015년 2호 합본(농학·법학·사회학 논문 다수)",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "언어"
+    },
+    {
+      "id": "openalex:3",
+      "source": "openalex",
+      "words_raw": 7620,
+      "words_prose": 7409,
+      "keep_pct": 97.2,
+      "english_ratio": 0.35,
+      "yield": {
+        "school_sentence": 206,
+        "school_paragraph": 41,
+        "csat_short": 40,
+        "csat_long": 20
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "애트우드 『레이디 오라클』로 본 대중문학 속 여성 정체성과 고정관념",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:4",
+      "source": "openalex",
+      "words_raw": 3404,
+      "words_prose": 3084,
+      "keep_pct": 90.6,
+      "english_ratio": 0.296,
+      "yield": {
+        "school_sentence": 99,
+        "school_paragraph": 16,
+        "csat_short": 16,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "단순한 규칙의 반복이 복잡한 나선 구조를 만들어 내는 드로잉(창발)",
+      "domain": "예술",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:7",
+      "source": "openalex",
+      "words_raw": 10010,
+      "words_prose": 9804,
+      "keep_pct": 97.9,
+      "english_ratio": 0.042,
+      "yield": {
+        "school_sentence": 243,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 4.2%)",
+      "read_verdict": "drop",
+      "topic_ko": null,
+      "domain": null,
+      "usable_for": [],
+      "drop_reason": "영어가 아니다(기능어 4.2%)"
+    },
+    {
+      "id": "openalex:8",
+      "source": "openalex",
+      "words_raw": 2915,
+      "words_prose": 2600,
+      "keep_pct": 89.2,
+      "english_ratio": 0.357,
+      "yield": {
+        "school_sentence": 84,
+        "school_paragraph": 14,
+        "csat_short": 14,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "인도 타밀나두 비자야망갈람 힌두 사원 4곳의 현황 조사",
+      "domain": "역사",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "openalex:9",
+      "source": "openalex",
+      "words_raw": 6661,
+      "words_prose": 5726,
+      "keep_pct": 86,
+      "english_ratio": 0.351,
+      "yield": {
+        "school_sentence": 178,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "글 속에 메시지를 숨기는 텍스트 스테가노그래피와 암호학의 차이",
+      "domain": "기술",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:10",
+      "source": "openalex",
+      "words_raw": 10824,
+      "words_prose": 4781,
+      "keep_pct": 44.2,
+      "english_ratio": 0.33,
+      "yield": {
+        "school_sentence": 112,
+        "school_paragraph": 27,
+        "csat_short": 27,
+        "csat_long": 13
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "성인이 아마추어 음악 활동을 계속하거나 그만두는 이유",
+      "domain": "교육",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:11",
+      "source": "openalex",
+      "words_raw": 12912,
+      "words_prose": 12282,
+      "keep_pct": 95.1,
+      "english_ratio": 0.053,
+      "yield": {
+        "school_sentence": 333,
+        "school_paragraph": 69,
+        "csat_short": 68,
+        "csat_long": 32
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 5.3%)",
+      "read_verdict": "drop",
+      "topic_ko": null,
+      "domain": null,
+      "usable_for": [],
+      "drop_reason": "영어가 아니다(기능어 5.3%)"
+    },
+    {
+      "id": "openalex:13",
+      "source": "openalex",
+      "words_raw": 6751,
+      "words_prose": 6612,
+      "keep_pct": 97.9,
+      "english_ratio": 0.348,
+      "yield": {
+        "school_sentence": 187,
+        "school_paragraph": 36,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "칼뱅의 타 종교관 — 그리스도만이 구원의 길이라는 교리 변론",
+      "domain": "철학",
+      "usable_for": [],
+      "drop_reason": "내용"
+    },
+    {
+      "id": "openalex:15",
+      "source": "openalex",
+      "words_raw": 6399,
+      "words_prose": 5730,
+      "keep_pct": 89.5,
+      "english_ratio": 0.353,
+      "yield": {
+        "school_sentence": 178,
+        "school_paragraph": 31,
+        "csat_short": 30,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "급속한 도시화 속 산업유산의 가치 평가와 재생",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:17",
+      "source": "openalex",
+      "words_raw": 9012,
+      "words_prose": 8929,
+      "keep_pct": 99.1,
+      "english_ratio": 0.023,
+      "yield": {
+        "school_sentence": 229,
+        "school_paragraph": 50,
+        "csat_short": 50,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 2.3%)",
+      "read_verdict": "drop",
+      "topic_ko": null,
+      "domain": null,
+      "usable_for": [],
+      "drop_reason": "영어가 아니다(기능어 2.3%)"
+    },
+    {
+      "id": "openalex:18",
+      "source": "openalex",
+      "words_raw": 6999,
+      "words_prose": 6743,
+      "keep_pct": 96.3,
+      "english_ratio": 0.07,
+      "yield": {
+        "school_sentence": 200,
+        "school_paragraph": 38,
+        "csat_short": 37,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 7.0%)",
+      "read_verdict": "drop",
+      "topic_ko": null,
+      "domain": null,
+      "usable_for": [],
+      "drop_reason": "영어가 아니다(기능어 7.0%)"
+    },
+    {
+      "id": "openalex:20",
+      "source": "openalex",
+      "words_raw": 7176,
+      "words_prose": 6556,
+      "keep_pct": 91.4,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 196,
+        "school_paragraph": 37,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "전자사전의 소리·그림·영상이 뜻풀이에 실제로 도움이 되는가",
+      "domain": "교육",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:22",
+      "source": "openalex",
+      "words_raw": 1428,
+      "words_prose": 1298,
+      "keep_pct": 90.9,
+      "english_ratio": 0.292,
+      "yield": {
+        "school_sentence": 42,
+        "school_paragraph": 7,
+        "csat_short": 7,
+        "csat_long": 3
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "세르비아어 3음절어 성조 악센트의 F0 측정(러시아어 화자 비교)",
+      "domain": "기타",
+      "usable_for": [],
+      "drop_reason": "화제"
+    },
+    {
+      "id": "openalex:24",
+      "source": "openalex",
+      "words_raw": 16042,
+      "words_prose": 15274,
+      "keep_pct": 95.2,
+      "english_ratio": 0.027,
+      "yield": {
+        "school_sentence": 477,
+        "school_paragraph": 81,
+        "csat_short": 81,
+        "csat_long": 39
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 2.7%)",
+      "read_verdict": "drop",
+      "topic_ko": null,
+      "domain": null,
+      "usable_for": [],
+      "drop_reason": "영어가 아니다(기능어 2.7%)"
+    },
+    {
+      "id": "openalex:25",
+      "source": "openalex",
+      "words_raw": 5543,
+      "words_prose": 5277,
+      "keep_pct": 95.2,
+      "english_ratio": 0.316,
+      "yield": {
+        "school_sentence": 167,
+        "school_paragraph": 29,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "딥페이크의 미적 완성도가 거짓 정보의 설득력을 높이는 방식",
+      "domain": "사회",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:28",
+      "source": "openalex",
+      "words_raw": 3712,
+      "words_prose": 3500,
+      "keep_pct": 94.3,
+      "english_ratio": 0.368,
+      "yield": {
+        "school_sentence": 110,
+        "school_paragraph": 19,
+        "csat_short": 19,
+        "csat_long": 9
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "마하바라타 「야크샤 프라슈나」 문답에 담긴 다르마와 앎의 윤리",
+      "domain": "철학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:30",
+      "source": "openalex",
+      "words_raw": 10684,
+      "words_prose": 10257,
+      "keep_pct": 96,
+      "english_ratio": 0.347,
+      "yield": {
+        "school_sentence": 288,
+        "school_paragraph": 57,
+        "csat_short": 56,
+        "csat_long": 27
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "바인 델로리아 인터뷰 — 아메리카 원주민의 조약 권리와 저항 운동",
+      "domain": "사회",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:32",
+      "source": "openalex",
+      "words_raw": 7573,
+      "words_prose": 7297,
+      "keep_pct": 96.4,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 229,
+        "school_paragraph": 39,
+        "csat_short": 39,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "마요르카 후기 로마 난파선과 3~4세기 지중해 교역",
+      "domain": "역사",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:33",
+      "source": "openalex",
+      "words_raw": 1633,
+      "words_prose": 1599,
+      "keep_pct": 97.9,
+      "english_ratio": 0.313,
+      "yield": {
+        "school_sentence": 43,
+        "school_paragraph": 9,
+        "csat_short": 9,
+        "csat_long": 4
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "국가 연구비에 기댄 과학자의 자율성과 해양학 연구사",
+      "domain": "과학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": null
+    },
+    {
+      "id": "openalex:34",
+      "source": "openalex",
+      "words_raw": 955,
+      "words_prose": 772,
+      "keep_pct": 80.8,
+      "english_ratio": 0.226,
+      "yield": {
+        "school_sentence": 22,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "우크라이나 대학의 스포츠 매니지먼트 전공 교육과정 구성",
+      "domain": "교육",
+      "usable_for": [],
+      "drop_reason": "언어"
+    },
+    {
+      "id": "openalex:35",
+      "source": "openalex",
+      "words_raw": 1601,
+      "words_prose": 1295,
+      "keep_pct": 80.9,
+      "english_ratio": 0.284,
+      "yield": {
+        "school_sentence": 42,
+        "school_paragraph": 7,
+        "csat_short": 7,
+        "csat_long": 3
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "맨눈 계측의 한계를 대신하는 무료 이미지 분석 소프트웨어(Fiji)로 해부 구조를 재는 법",
+      "domain": "과학",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": ""
+    },
+    {
+      "id": "openalex:37",
+      "source": "openalex",
+      "words_raw": 8989,
+      "words_prose": 8591,
+      "keep_pct": 95.6,
+      "english_ratio": 0.356,
+      "yield": {
+        "school_sentence": 273,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "프로이트의 원초아·자아·초자아로 소설 인물의 성격을 해석하기",
+      "domain": "심리",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": ""
+    },
+    {
+      "id": "openalex:40",
+      "source": "openalex",
+      "words_raw": 444,
+      "words_prose": 331,
+      "keep_pct": 74.5,
+      "english_ratio": 0.209,
+      "yield": {
+        "school_sentence": 10,
+        "school_paragraph": 2,
+        "csat_short": 2,
+        "csat_long": 1
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "drop",
+      "topic_ko": "우크라이나 아네티우카 1 유적 1981년 발굴 석기 조합의 형식 분류",
+      "domain": "역사",
+      "usable_for": [],
+      "drop_reason": "장르"
+    },
+    {
+      "id": "openalex:41",
+      "source": "openalex",
+      "words_raw": 13186,
+      "words_prose": 6992,
+      "keep_pct": 53,
+      "english_ratio": 0.237,
+      "yield": {
+        "school_sentence": 221,
+        "school_paragraph": 37,
+        "csat_short": 37,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "도시화 속 문화유산을 사후 기록이 아니라 사전 예측으로 보존하자는 평가 틀",
+      "domain": "문화",
+      "usable_for": [
+        "school_paragraph",
+        "csat_short",
+        "csat_long"
+      ],
+      "drop_reason": ""
+    },
+    {
+      "id": "openalex:42",
+      "source": "openalex",
+      "words_raw": 1347,
+      "words_prose": 1048,
+      "keep_pct": 77.8,
+      "english_ratio": 0.337,
+      "yield": {
+        "school_sentence": 33,
+        "school_paragraph": 6,
+        "csat_short": 6,
+        "csat_long": 3
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null,
+      "read_verdict": "keep",
+      "topic_ko": "자바 바탕 마을의 손그림 바틱 — 문양의 추상화와 생애를 감싸는 천의 의미",
+      "domain": "문화",
+      "usable_for": [
+        "school_sentence",
+        "school_paragraph",
+        "csat_short"
+      ],
+      "drop_reason": ""
+    }
+  ]
+}

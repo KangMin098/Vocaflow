@@ -11,6 +11,7 @@
 // source_id: "elife:<id>" (예: "elife:91060")
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { decodeEntities, fetchWithTimeout, htmlToPlainText, safeDate } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -137,14 +138,13 @@ export async function ingestElifeArticle(itemUrl: string): Promise<RawArticle> {
     .map((b) => htmlToPlainText(b.text!))
     .join('\n\n')
     .trim()
-  if (content.split(/\s+/).filter(Boolean).length < 150) {
-    throw new Error(`eLife digest too short: ${content.length} chars (${id})`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.split(/\s+/).filter(Boolean).length < 150
 
   // 라이선스 — copyright.license (예: 'CC-BY-4.0'). digest 도 동일 라이선스.
   const license = (data.copyright?.license ?? 'CC-BY-4.0').toUpperCase()
 
-  return {
+  const article: RawArticle = {
     source: 'elife',
     source_id: `elife:${id}`,
     source_url: `https://elifesciences.org/articles/${id}`,
@@ -158,4 +158,13 @@ export async function ingestElifeArticle(itemUrl: string): Promise<RawArticle> {
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`eLife digest too short: ${content.length} chars (${id})`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

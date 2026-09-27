@@ -1,0 +1,211 @@
+[
+ {
+  "id": "642670f0-d997-4089-a19f-51af065a306a",
+  "source_updated_at": "2026-09-15T15:10:10.331034+00:00",
+  "body_sha256": "432c2760044a6429d89735088062c9782ffd9dad2d2264891d56efef848d64f0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰에서 티베트 양이 병원체를 빨리 없애고 항체만 남기는 「파수꾼 숙주」라는 해석이 논지로 서서 주제·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Molecular biology and bacterial culture tests",
+   "note": "Yersinia pestis 를 plague bacteria 로, seroprevalence 를 antibody rate 로 바꾸면 수치 없이도 논지가 선다."
+  }
+ },
+ {
+  "id": "642dd947-8f32-4344-be27-c4e2740b1187",
+  "source_updated_at": "2026-09-15T15:10:11.260232+00:00",
+  "body_sha256": "60e865ba12ee3c4d1d9784fb0da83792c3fdc1fb9b84c27874233948aff0d0b8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 두 이성질체의 구조 차이가 간 흡수 속도와 안전성 차이로 이어진다는 인과를 단계적으로 설명해 빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While Gd-A has a higher relaxivity",
+   "note": "약어(OATP·SIpeak)를 「간 운반 단백질」「신호 세기」로 풀면 서고, 수치 괄호는 걷어도 된다."
+  }
+ },
+ {
+  "id": "643251ef-4ff9-4233-8add-4e878dd50ea7",
+  "source_updated_at": "2026-09-25T07:33:44.225383+00:00",
+  "body_sha256": "1b89665a1d6b866c6b7ea2c08dbe8c1846c813d1b3119a2593cf0ddf1f50936f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론과 고찰 첫 단락이 기존 항생제의 한계에서 단백질 상호작용 차단이라는 새 전략으로 논지를 이어 주제·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A relatively new class of antimicrobials",
+   "note": "단백질 이름(BB0238 등)을 「두 단백질」로 바꾸고 인용 괄호를 걷으면 항독성 약물 개념이 자족적으로 선다."
+  }
+ },
+ {
+  "id": "643efeab-8f03-4d2e-ad8c-8841ceda37fd",
+  "source_updated_at": "2026-09-13T07:39:55.833145+00:00",
+  "body_sha256": "ff81201350b278e075af9f2ce19b3290747da264a4c8a552a94e088880911e52",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "health",
+  "why": "전 절이 I K1·APD·ERP 같은 기호와 시뮬레이션 수치로 짜여 있어 서론 첫 단락 외에는 떼어 낸 문단이 자족적으로 서는지 애매하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The short QT syndrome (SQTS) is",
+   "note": "전류 기호를 풀어 쓰면 문단이 길어지고 두 돌연변이 대비가 기호 없이는 무너진다."
+  }
+ },
+ {
+  "id": "64475a28-6d0a-4657-8486-9ec916f88ef6",
+  "source_updated_at": "2026-09-13T06:46:20.784908+00:00",
+  "body_sha256": "93f97b55c4ec9936d729d1b3092c4a8020fd7c9e68fc87db83c36b31f7fb5acd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰에서 암을 기대한 유전자 변형 쥐가 종양 대신 만성 신장병과 빈혈을 보였다는 예상 밖 결과와 그 해석이 논지로 서서 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Remarkably, mutant mice produced additional features",
+   "note": "EPO 를 red blood cell hormone 으로, extramedullary hematopoiesis 를 blood-cell production outside bone marrow 로 바꾸면 선다."
+  }
+ }
+]

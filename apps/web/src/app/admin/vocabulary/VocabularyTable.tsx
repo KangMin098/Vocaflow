@@ -15,13 +15,15 @@ interface VocabularyTableProps {
   onPageChange: (page: number) => void
 }
 
+// 단계 색은 전역 CEFR 토큰(globals.css) — admin 스킨에서 C 단은 주황·빨강이다(DD-82).
+// 색은 배지 **면**에만 쓴다: A1 연두는 글자로 쓰면 흰 면 대비 1.4 라 글자는 먹색(--t1)이다.
 const CEFR_COLOR: Record<string, string> = {
-  A1: '#86EFAC',
-  A2: '#22C55E',
-  B1: '#3B82F6',
-  B2: '#1D4ED8',
-  C1: 'var(--p-hover)',
-  C2: '#581C87',
+  A1: 'var(--cefr-a1)',
+  A2: 'var(--cefr-a2)',
+  B1: 'var(--cefr-b1)',
+  B2: 'var(--cefr-b2)',
+  C1: 'var(--cefr-c1)',
+  C2: 'var(--cefr-c2)',
 }
 
 const SEV_DOT: Record<'critical' | 'warning' | 'info', string> = {
@@ -107,7 +109,7 @@ export function VocabularyTable({
                   tabIndex={0}
                   role="button"
                   aria-pressed={isSelected}
-                  className={`cursor-pointer border-b border-[var(--bd)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/40 ${
+                  className={`cursor-pointer border-b border-[var(--bd)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] ${
                     isSelected ? 'bg-[var(--p-light)]' : ''
                   }`}
                 >
@@ -131,8 +133,8 @@ export function VocabularyTable({
                       <span
                         className="inline-flex items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 font-mono text-[10px] font-[700]"
                         style={{
-                          backgroundColor: `${cefrColor}1A`,
-                          color: cefrColor,
+                          backgroundColor: `color-mix(in srgb, ${cefrColor} 22%, transparent)`,
+                          color: 'var(--t1)',
                         }}
                       >
                         {cefr}

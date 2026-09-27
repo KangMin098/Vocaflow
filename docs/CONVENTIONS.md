@@ -27,6 +27,9 @@ DB 가 **25분간 전면 정지**했다. 원인은 사전 드레인이 `/rest/v1
 정말 한 행씩 해야 하면 **초당 상한을 둔다.** 이 DB 의 실측 한계는 초당 33건 아래다.
 
 **가드**: `node scripts/lib/scan-row-writes.mjs` — 루프 안 단건 쓰기를 훑는다.
+스캐너는 같은 500자 창의 **첫 DB 연산**을 기준으로 판정한다. 앞의 `.select()`와 뒤의
+`.update()`를 한 쓰기로 두 번 세면 예산을 낮춘 것이 아니라 오탐을 쌓은 것이므로, 조회 줄은
+후속 쓰기에 귀속하지 않는다(`row-write-budget.test.ts`가 이 순서를 회귀로 고정).
 2026-09-06 기준 **후보 135건**(`shared_dictionary` 58 · `library_books` 17 · `library_articles` 14).
 2026-09-08 재측정 **140건**(`shared_dictionary` 58 · `library_articles` 19 · `library_books` 17) —
 늘어난 9건은 전부 09-07 에 들어온 **일회성 백필·수확기**(backfill-source-ids · harvest-voa-sitemap 등)이고
@@ -711,27 +714,15 @@ flush 가 완주 이벤트 하나에만 걸려 있었다. 나가는 길은 다�
   한다(`(vocabulary_id, attempted_at)`). 유실보다 중복이 낫다 — 중복은 고칠 수 있고 유실은 못 고친다.
 - 큐는 `sessionStorage` 가 아니라 `localStorage` — 탭 수명보다 오래 살아야 다음 방문이 이어 올린다.
 
-### Typography
-- `Inter` · `Roboto` · `Arial` 사용
-- 한글 텍스트에 영어 폰트 (Lora) 사용
-- 영어 본문에 산세리프 (Plus Jakarta / DM Sans) 사용
+(Typography 금지 · 색상 금지(v5 롱폼 · 보라 그라디언트) · 학습 UX 금지(광고 · 모달 중단 · 빨간 글씨 · 폭죽·트로피) 목록은 DD-66 으로 삭제.)
 
-### 색상
-- `--color-primary` 등 v5 롱폼 변수 사용 (**v6 이후 `--p` 축약형만**)
-- 보라색 그라디언트 배경 (PairFlip Editorial 팔레트 제외)
+### 색상 (IP · 접근성)
 - Quizlet 로고·아이콘·브랜드색(#4255FF teal) 복사
 - 색상만으로 정보 전달 (접근성 위반)
-
-### 학습 UX
-- 학습 중 화면 광고 배치
-- 모달 오버레이로 학습 중단 ("3일 연속 학습이 끊겼어요!")
-- 정답률 빨간 글씨 압박 ("정확도 67% 😢")
-- 진행률 100% 도달 시 폭죽·트로피 — 차분한 "오늘 잘 마쳤어요" 선호
 
 ### 접근성
 - 44px 미만 터치 타겟
 - placeholder 만으로 레이블 대체
-- 애니메이션 없는 상태 전환
 
 ### 가로 넘침 원인은 "잘리지 않는 요소" 중에서 찾는다 (v06.34 — `/library` 61px 실측)
 넘침을 추적할 때 **뷰포트를 넘는 요소를 그냥 세면 틀린 곳을 고친다**. 조상 중 하나라도
@@ -899,16 +890,11 @@ grid·flex 자식의 `min-width` 는 `auto` 라 **안쪽 콘텐츠의 최소 폭
 ## 항상 지킬 것
 
 ### 컴포넌트
-- 모든 인터랙티브 요소에 hover + active + focus + disabled 4상태
-- 모든 카드·버튼에 transition (`--dur-normal`, `--ease`)
-- 정답/오답 피드백: 색상 + 아이콘 + 애니메이션 3중
-- 모바일 퍼스트 → 데스크톱 확장 (390 → 768 → 1280)
+- 인터랙티브 요소에 보이는 focus 표시 (접근성) — 나머지 디자인 의무(4상태 · transition · 3중 피드백 · 모바일 퍼스트 · 다크 대응 · 아이콘 우선)는 DD-66 으로 삭제
 - 공통 컴포넌트 `components/ui/` 재사용 우선
 
 ### 스타일
-- CSS Variables (`--p`, `--bg`, `--t1`) 로 테마 제어 — 하드코딩 금지 (게임 전용 예외 제외)
-- `data-theme="dark"` 모든 컴포넌트 대응 필수
-- 이미지 대신 Lucide 아이콘 우선
+- CSS Variables (`--p`, `--bg`, `--t1`) 로 테마 제어
 
 ### React Native
 - `minHeight: 44, minWidth: 44` 터치 타겟
@@ -946,7 +932,7 @@ grid·flex 자식의 `min-width` 는 `auto` 라 **안쪽 콘텐츠의 최소 폭
 |---|---|---|
 | `components/ui` | 디자인 시스템 원자 | Parts Kit 컴포넌트만. 비즈니스 로직 금지 |
 | `components/{도메인}` | 도메인별 합성 | API 호출 OK. 다른 도메인 import 금지 |
-| `components/admin` | 관리자 콘솔 전용 | AdminSidebar 등. 사용자 앱과 격리 (보라 액센트) |
+| `components/admin` | 관리자 콘솔 전용 | AdminSidebar 등. 사용자 앱과 격리 |
 | `components/dev` | 개발 도구 | StubPage 등 placeholder. 프로덕션 의미 부여 금지 |
 | `hooks` | UI ↔ 데이터 연결 | React 훅만. 순수 함수는 `lib/utils` |
 | `stores` | 전역 클라이언트 상태 | Zustand 스토어 |
@@ -1337,9 +1323,7 @@ const n = text.chapterCount ?? 0
 
 머지 전:
 - [ ] 학습 과학 원칙 중 최소 1개에 명시적 기여?
-- [ ] Calm UI 위반 없는가? (색·소리·애니메이션 과잉)
 - [ ] 회상 부담을 명시적으로 만드는가?
-- [ ] 실패가 비난적이지 않은가? ("다시 만나봐요" / "곧 익숙해질 거예요")
 - [ ] 진행을 환경으로 보여주는가? (숫자만이 아닌 색·아이콘·여백)
 - [ ] 맥락을 보존하는가? (단어/표현은 스크립트이나 예문과 결합)
 - [ ] DB direct query · 라우트 grep 으로 검증 가능한가?

@@ -1,0 +1,944 @@
+[
+  {
+    "id": "01d94b23-57b7-4f7d-9061-8738ed205084",
+    "source_updated_at": "2026-09-25T08:11:07.538197+00:00",
+    "body_sha256": "cb13795337d7c85c63dd2062aec4eaea06cf1da1d5527627cb36ec892f7ddb72",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "칸다하르 장갑차 3대 충돌 사고의 경위·후송·대변인 발언이 짧은 사건 기사로 서서 고1 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Seven soldiers were taken to the",
+      "note": "부대명·차량 약칭을 걷어도 사고-후송-복귀 흐름이 선다."
+    }
+  },
+  {
+    "id": "01db4577-b2e8-4684-a65d-7c80ad8ca824",
+    "source_updated_at": "2026-09-25T07:42:19.743482+00:00",
+    "body_sha256": "f91d50c49a1324154f05891a660c6ef5868eeb57ac9a800799d7f22b90b46774",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "2009년 러시아 경제 7.9% 위축과 유가 원인·향후 전망 인용이 이어져 경제 기사 내용 일치·요약 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was the largest decrease in",
+      "note": "수치가 많지만 원인(유가)과 전망 대비가 있어 논지가 선다; contraction 등은 문맥으로 잡힌다."
+    }
+  },
+  {
+    "id": "01df3a8b-f473-4490-917b-112498045252",
+    "source_updated_at": "2026-09-25T07:58:43.1869+00:00",
+    "body_sha256": "d5ba411098776820b1359c1a87311603adeb4a3c41b10c911fd1fd939987ebb2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "토니 주트의 생애·저작·ALS 투병·이스라엘 관점 변화가 시간순 부고로 이어져 전기 서사·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "long_reference"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In September 2008, Judt was diagnosed",
+      "note": "ALS 투병 단락은 떼어도 서고, 이스라엘 관련 강한 인용은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "01ec9c14-9a49-42d1-88a3-5ab660992043",
+    "source_updated_at": "2026-09-25T06:46:40.25406+00:00",
+    "body_sha256": "80171ec9ef6694910763fdf85c37295e75c3384bb3f31551b8ca9bf76dc78264",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "게일 버먼의 파라마운트 사장 임명과 폭스 시청률 반등 공적이 짧게 설명돼 인사 기사 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Berman is credited for the major",
+      "note": "프로그램명을 걷어도 꼴찌에서 1위로의 반등 논지가 남는다."
+    }
+  },
+  {
+    "id": "01edccee-c150-4985-9f48-f46400718586",
+    "source_updated_at": "2026-09-25T06:49:26.11706+00:00",
+    "body_sha256": "a0a0c38649b419d57f423ebb2da47998c6dc96dbc8634d37237f8b1700887135",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버밍엄 도심 2만 명 대피와 경찰청장의 위협 판단·폭발물 처리 결과가 순서대로 이어져 사건 기사 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However he stressed that the intelligence",
+      "note": "청장 발언 단락이 대피의 정당성을 스스로 설명해 떼기 쉽다."
+    }
+  },
+  {
+    "id": "01ef187c-1900-4f57-84ef-85b5581a5349",
+    "source_updated_at": "2026-09-25T05:31:51.523935+00:00",
+    "body_sha256": "7ce3140cec4b56552c3053dc72f5e56f4de194e4d0c51d227d1448d1c0cfc80f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "성범죄 전과자 이주를 두고 시장·주 총리·야당이 격리 수용을 다투는 주장 대립이 서서 고등 이상 주장 칸만 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"I think the only thing left",
+      "note": "민감 소재라 초·중 칸은 달지 않았다; 세 입장 인용이 뚜렷해 주장 찾기가 쉽다."
+    }
+  },
+  {
+    "id": "01f1659e-5930-4877-831f-b531fb3f6aff",
+    "source_updated_at": "2026-09-25T07:32:29.28949+00:00",
+    "body_sha256": "0a4f4803904851cc6834f9e0abfa3d21e0bdeb3e2bae8cad1d788bb83dd9167f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전당포에서 금팔찌를 삼켜 훔친 사건과 CCTV로 드러난 경위·아이러니한 결말이 이야기처럼 흘러 중등 이상 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The clerk noticed the bracelets were",
+      "note": "점원 질문-‘검색해 보라’-영상 확인 흐름이 떼어도 선다."
+    }
+  },
+  {
+    "id": "01f44386-e44d-41c4-9382-1169dc67a2c2",
+    "source_updated_at": "2026-09-25T07:35:15.468417+00:00",
+    "body_sha256": "90a00f1f748605f32da38609e78834891cb5f357782da14634006842f68e9a2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "사파테로 총리가 2009년 경기 침체 전망과 금리 인하 효과를 인터뷰로 밝힌 경제 기사로 요지·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the interview Zapatero also described",
+      "note": "인용 위주라 간접화법으로 바꾸면 요지가 선다; Euribor 는 걷어낸다."
+    }
+  },
+  {
+    "id": "01f6edf7-9310-4d52-b23e-a8a3116e4af5",
+    "source_updated_at": "2026-09-25T07:58:43.210172+00:00",
+    "body_sha256": "8a54ff8c37f11c31e27474c44bf7df2423b65cf3318e99794048866d9e35419c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "배우 멘텔의 안전벨트 미착용 교통사고 사망과 동료 추모가 짧은 부고로 서서 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iowa County Sheriff's Department, who confirmed",
+      "note": "사고 경위 단락이 자족적이고 죽음 묘사는 구체적이지 않다."
+    }
+  },
+  {
+    "id": "01fc2a77-cca7-4a5a-830e-07c9c921e11d",
+    "source_updated_at": "2026-09-25T07:51:30.338807+00:00",
+    "body_sha256": "1e9e0b42e4a9432da272b030922676998dc5feac6396b6b450cb79a912760826",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "헝가리 「Stop Soros」 법 통과를 두고 정부 논리와 국제기구 비판이 맞서는 구조라 주장-근거·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bill was passed by a",
+      "note": "양측 인용이 분명해 주장 짝 찾기가 쉽고 기관명은 줄여도 된다."
+    }
+  },
+  {
+    "id": "01fc5397-7509-49e0-a09a-b031c553dadf",
+    "source_updated_at": "2026-09-25T08:03:38.723029+00:00",
+    "body_sha256": "9bc289672e2f27f825ebb393246ac5f42c93effc406732628dd887434f2c8f11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "애틀랜타 법정 총격 용의자의 심리와 도주·인질극·자수 경위가 시간순으로 이어져 고등 이상 사건 서사 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nichols allegedly shot the judge at",
+      "note": "폭력 사건이라 고1 이상만; 도주-인질-석방-자수 순서가 뚜렷하다."
+    }
+  },
+  {
+    "id": "0206685c-c411-4fc6-8f4c-a939c45dafc6",
+    "source_updated_at": "2026-09-25T07:51:58.813254+00:00",
+    "body_sha256": "7f7dccbc0e56d33c1e2400f292c7ebbca71ddbe8854341a32fb91397e116fbfb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "독일 첫 코로나19 확진과 WHO 위험도 상향·확진자 통계가 이어진 초기 보도라 내용 일치와 시대 비교 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "then-now",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "WHO said they are uncertain whether",
+      "note": "잠복기 전파 불확실성 단락이 지금 사실과 대조하기 좋다."
+    }
+  },
+  {
+    "id": "020b3df7-c5ad-473f-a0a9-cce8f4aef4b9",
+    "source_updated_at": "2026-09-25T08:12:04.291283+00:00",
+    "body_sha256": "7c1a99eaea45ef4656b617d4115b2318df7b2d52a344d01693cc0742504d8879",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "레바논 남부 평화유지군 폭탄 공격의 피해·책임 부인·주둔 규모가 짧게 정리돼 고1 이상 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least two UN armored vehicles",
+      "note": "사망 사건이나 묘사가 절제돼 있고 탄약 폭발 인과가 선다."
+    }
+  },
+  {
+    "id": "020b5887-ffaa-474c-ad9d-ce3b0ae69d67",
+    "source_updated_at": "2026-09-25T07:25:34.638832+00:00",
+    "body_sha256": "2bfa4f2a31a4c179e1c7eea921b5e3bd8ab967b71351356e7a864a13e1620c3e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "녹색당 후보 인터뷰의 문답이 각각 도시 확산·녹색 일자리·비례대표 등 입장을 밝혀 주장·요지 칸을 문답 단위로 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I am part of local environmental",
+      "note": "‘green jobs’ 답변 단락은 떼어도 주장이 서지만, 목록형 생활 실천 부분은 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "020e2461-f90b-4056-b4e0-3cee7ac121b7",
+    "source_updated_at": "2026-09-25T08:12:27.550798+00:00",
+    "body_sha256": "93992d9d63cc95013774ab1f644d2d5d4c687714be09a0df00f8735b82a952df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "톰슨 탐색위원회 모금이 연방선거법상 후보 요건을 넘는지 논란을 인용으로 전해 고3·성인 내용 일치 칸만 겨우 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "CQ Politics reports, \"Friends of Fred",
+      "note": "법 조항·단체명 인용이 겹쳐 걷으면 논지가 얇아지고 어휘 조정도 어렵다."
+    }
+  },
+  {
+    "id": "0211f5ce-d1e5-415e-b00c-9e8c76d9de6c",
+    "source_updated_at": "2026-09-25T06:48:25.61804+00:00",
+    "body_sha256": "e0c3abbe7613b141c1110b193f16468ad99ac4f4ba6b980c7989c862016a6963",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "코비의 발리 마약 반입 유죄 선고와 법정 반응·변론 논리·총리 발언이 이어져 사건 서사와 심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Corby was arrested at Denpasar Airport",
+      "note": "수하물 조작 변론 단락이 자족적이고 법정의 분위기가 읽힌다."
+    }
+  },
+  {
+    "id": "021245b5-b4c4-47f0-b63d-6661bb74d31f",
+    "source_updated_at": "2026-09-25T07:34:10.629409+00:00",
+    "body_sha256": "32e7b85b067dd78ed96ab80410ac3c9c950e9e8969e2a40207aa7b8cfc1743df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "크롬 약관의 콘텐츠 권리 조항 삭제와 구글의 복사 실수 해명이 인과로 이어져 요지·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spokesperson for Google has said",
+      "note": "약관 원문 인용은 길어 줄이고 해명 단락을 쓰면 된다."
+    }
+  },
+  {
+    "id": "02132016-4ab2-4c6d-96d7-6b5897ca5575",
+    "source_updated_at": "2026-09-25T08:05:12.45208+00:00",
+    "body_sha256": "7d796f931929eb3a2bb82c314fc616bbff05da19478300f940323b17dfbcdb4b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "런던 폭탄범 사진 공개와 이동 경로를 묻는 경찰 호소가 이어진 기사로 고1 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Metropolitan Police claimed in a",
+      "note": "전화번호·시각은 걷어야 하고 경찰 질문 목록은 사진을 가리키지만 본문은 선다."
+    }
+  },
+  {
+    "id": "0213ba86-ef75-479f-adb6-59f82e6381d1",
+    "source_updated_at": "2026-09-25T07:00:55.590711+00:00",
+    "body_sha256": "a98dadebc0df3e28e71485d25666de6fc78225461c4314dd3fc731fd683f2efc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "케네디 의원의 의사당 앞 사고와 수면제 해명·재활 입원 발표가 순서대로 이어져 사건 서사·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kennedy said in a written statement",
+      "note": "약물 해명 단락이 사건의 쟁점을 스스로 설명한다."
+    }
+  },
+  {
+    "id": "02159c27-ad20-4f61-8dd8-26d337257eb9",
+    "source_updated_at": "2026-09-25T07:39:44.470393+00:00",
+    "body_sha256": "dabb336d09709a6bf5306a817b13271f1d4cd8955420ffe20476ae53a1292a07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "잭슨 추모 공연의 빈→런던 이전과 연기 이유, 오스트리아 언론에 대한 저메인의 반박이 서서 목적·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Therefore we decided, after careful consideration,",
+      "note": "일정 변경 이유 인용이 명확해 떼기 쉽다."
+    }
+  },
+  {
+    "id": "021716f2-36b6-463a-80ce-6b5fbf566f5f",
+    "source_updated_at": "2026-09-25T07:14:33.548414+00:00",
+    "body_sha256": "683dbcafe2b899ed2ee3dfa66bbb11d12c68bb5ebcc4376b2d7317938afbc396",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "에큐메니컬 헬레니즘 프로그램의 후원·행사 일정만 나열한 홍보성 공지라 사건 흐름도 논지도 없어 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Ecumenical Hellenism program announced that the",
+      "note": "행사 목록을 떼어 보니 인명·일정만 남아 문단이 서지 않는다."
+    }
+  },
+  {
+    "id": "021f5534-f8ab-43da-84f5-9061e547c7b7",
+    "source_updated_at": "2026-09-25T07:49:27.981493+00:00",
+    "body_sha256": "a575e343a90db83f0ae43a22bc6f4ceab5669494249b565fd744a3ca170f7bdd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "황새 마을 선정 이유와 주민의 황새 보호 활동·상의 취지가 설명돼 중등 이상 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Storks nest in the village center",
+      "note": "주민 활동 단락이 떼어도 서고 한 문장이 빠진 흔적(‘lies partly in,’)은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "0224b321-08ec-4dc5-aed5-7df39ff0b815",
+    "source_updated_at": "2026-09-25T07:09:04.954807+00:00",
+    "body_sha256": "bafd366b1956ad85b2f04c9e64749dc422160b22331d9fd62db8a6b1200d48c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이슬라믹 지하드의 로켓 공격 중단 검토와 아바스의 휴전 요청·양측 희생이 짧게 서서 고1 이상 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Palestinian group Islamic Jihad may",
+      "note": "분쟁 기사로 양측 사상자를 함께 적어 편향 없이 떼어진다."
+    }
+  },
+  {
+    "id": "0226361b-9fb3-4a2c-8c4d-0c245b87bc0d",
+    "source_updated_at": "2026-09-25T08:15:38.069536+00:00",
+    "body_sha256": "d65b4133a203fb699a034bf8d6c5d36c8b80bca3676fe6e0e0a244b251d1a64a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "음베키가 잠비아 대통령 사망을 잘못 발표하고 사과한 경위가 인과로 이어져 사건 서사·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mwanawasa was flown into Paris, France",
+      "note": "오보-실제 상태-사과-해명 요구 순서가 분명하다."
+    }
+  },
+  {
+    "id": "0228735a-0f6f-44eb-a323-631c145b7f3a",
+    "source_updated_at": "2026-09-25T07:44:46.129976+00:00",
+    "body_sha256": "a39889367bb0f7564575ee9f70e2723fe595388044568b8f664d1ddc92b47032",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "피칠레무 독립 200주년 퍼레이드와 지진 뒤 재기를 말한 시장 발언이 행사 기사로 서서 중등 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"This parade shows the power that",
+      "note": "참가 학교 나열은 걷어야 하고 시장 발언 단락이 핵심이다."
+    }
+  }
+]

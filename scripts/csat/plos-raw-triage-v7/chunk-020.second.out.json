@@ -1,0 +1,812 @@
+[
+  {
+    "id": "0c8629d7-70cc-47fd-b63a-397fb00fadd8",
+    "source_updated_at": "2026-09-15T13:55:04.138989+00:00",
+    "body_sha256": "0f498bd799aa9a8e5201ec3b37730c0e6063bca614050bda75795db58f067908",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "두 진단법(대사체 차세대 염기서열분석 대 다중 PCR)을 직접 견주고 고찰에서 일치율이 낮은 이유를 근거로 따져 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Syndromic respiratory viral and bacterial",
+      "note": "서론 둘째 단락은 앞 문맥 없이 서고 논지도 남지만 검사 상표명을 지우면 비교 대상이 흐려진다."
+    }
+  },
+  {
+    "id": "0c8c3f0a-fee6-4e6e-9f65-ec5302fdf6f3",
+    "source_updated_at": "2026-09-15T13:55:20.049499+00:00",
+    "body_sha256": "ae5c1742fe9fbbc2399a60d095470e5ff7563a2bf53b303f56aefb6f0000569f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "약용식물 추출물이 암세포에 미치는 영향을 통념(천연물은 부작용이 적다)에서 실험 근거로 끌고 가 고찰이 한 편의 설명문으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Natural products have garnered attention as",
+      "note": "서론의 천연물 단락은 유전자 이름을 걷어내도 논지가 남고 apoptosis·metastasis 정도만 바꾸면 한 단계 내려간다."
+    }
+  },
+  {
+    "id": "0c8cacfc-1b68-4818-9efb-b9ae5e7cb4e7",
+    "source_updated_at": "2026-09-23T21:04:32.96674+00:00",
+    "body_sha256": "f57ca286044d81a16a0b24f84c8357b8da3ee0ae78f3e353d48402ee69dfe79e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "특발성 폐섬유증의 예후 예측이라는 물음을 서론이 또렷이 세우고, 고찰이 콜레스테롤 대사와 면역을 잇는 해석을 편다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Idiopathic Pulmonary Fibrosis (IPF) is a",
+      "note": "서론 첫 단락은 그대로 떼어져 질병 설명으로 서지만, 결과 절은 데이터셋 번호 나열이라 발췌에 못 쓴다."
+    }
+  },
+  {
+    "id": "0ca1827f-08e1-4972-b221-2125bd501630",
+    "source_updated_at": "2026-09-13T07:11:54.864224+00:00",
+    "body_sha256": "fefe2549fd2c86a1d7fcdb32d89277689c37f2f24cca431a9d655931b7883f63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "기존 Notch 억제법의 한계를 열거한 뒤 안티센스 올리고뉴클레오타이드를 대안으로 제시하는 대조 구조가 서론·고찰에 걸쳐 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The administration of antisense oligonucleotides (ASO)",
+      "note": "ASO 소개 단락은 떼어도 서지만 유전자·계통 이름이 촘촘해 어휘를 낮추기 어렵다."
+    }
+  },
+  {
+    "id": "0ca559b6-6f60-414f-9a01-227df3e5914e",
+    "source_updated_at": "2026-09-13T06:39:07.687483+00:00",
+    "body_sha256": "e2e84623e9ed4834e2cbe37c8aa4d49fd88824979ffcd0b3c2cf6061e2adf448",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "휘발성 유기화합물 오염과 생물여과라는 환경 문제를 서론이 배경부터 풀어 주고 혼합물 상호작용이라는 물음으로 좁힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Volatile organic compounds (VOCs) are widely",
+      "note": "서론 앞부분은 약어 셋만 풀어 쓰면 고등 수준으로 내려간다 — 이 청크에서 가장 다루기 쉬웠다."
+    }
+  },
+  {
+    "id": "0cc2f8a0-f709-40d2-a1a2-3ec9fc1750df",
+    "source_updated_at": "2026-09-15T13:55:59.967531+00:00",
+    "body_sha256": "968a8b57dc3b384b2bb05e68ae54954c8018aaa2b1ad812b665897f3278b4157",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「갑상샘암은 순한 암」이라는 통념을 삶의 질·파산율 자료로 뒤집는 구조가 서론과 고찰 양쪽에 또렷하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Over the past several decades, the",
+      "note": "통념-반증 단락은 수치를 빼도 논지가 그대로 서고 allostatic load 를 풀어 쓰면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "0cc63078-e113-4f1f-b14c-ccd47934fcee",
+    "source_updated_at": "2026-09-23T21:04:32.985225+00:00",
+    "body_sha256": "52e8f41fe36e8c04ded242f1a72c22c4647253a2df476492335fa6ae70fa6b9f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「좋은 콜레스테롤」이라는 상식을 U자 관계로 반박하며 임계값(67.43 mg/dL)을 근거로 제시한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "HDL cholesterol can impede the development",
+      "note": "서론 둘째 단락은 떼어도 통념과 반증이 남고 신뢰구간 표기만 지우면 읽기가 크게 쉬워진다."
+    }
+  },
+  {
+    "id": "0cc7d5e8-f4ec-4203-be18-724ec5cec1b8",
+    "source_updated_at": "2026-09-15T13:56:04.790634+00:00",
+    "body_sha256": "5177cd3eeb7c9d03de415729e62a34c74e4c57f0d41f29417e251637ce8a3f5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "같은 바이러스 감염 세포가 기존 억제제에는 듣지 않고 분해제에만 반응한다는 대조가 고찰에서 설명으로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Kaposi’s sarcoma-associated herpesvirus (KSHV), also known",
+      "note": "질병 소개 단락만 자족적이고, 기전 단락은 약어를 걷으면 주장을 이룰 근거가 남지 않는다."
+    }
+  },
+  {
+    "id": "0cc86c09-9906-419f-8f3e-d713f9e4f744",
+    "source_updated_at": "2026-09-15T13:56:08.464664+00:00",
+    "body_sha256": "9c55fd8290fa07e53acf55800479904779e7e8673cd7f14c4a3639e80c93dd4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "기생충이 숙주 면역을 어떻게 눌러 자리 잡는지, 산 기생충과 죽은 기생충 대조로 논증이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Toxoplasma gondii (hereafter referred to as",
+      "note": "서론 첫 단락은 유전자 이름 없이도 서고, 고찰 마지막 단락은 대조 설계를 그대로 요약해 준다."
+    }
+  },
+  {
+    "id": "0ce0a27b-12d7-4700-bea7-b52b7423c777",
+    "source_updated_at": "2026-09-15T13:56:16.165285+00:00",
+    "body_sha256": "4bd948f334e3c16281f29759ee1b500f844940bfb9077fdc6fa7efb900ebeb11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "두 항히스타민제 부작용 보고를 견주며 성별·지역 차이를 해석하는 대목이 설명 논지로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the data analysis, the",
+      "note": "성별 차이 해석 단락은 떼어도 서지만, 결과 절은 기관계 이름 나열이라 지문으로 못 쓴다."
+    }
+  },
+  {
+    "id": "0cf0c5ea-4c6e-4c6a-9c8b-62cbff6184a5",
+    "source_updated_at": "2026-09-13T07:07:58.111048+00:00",
+    "body_sha256": "f50b1bdcadbec5ba0422745ca157f08acbdbc32954d75fbfebfbaa33180c4753",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "옛 정신과 약을 항암제로 되살린다는 약물 재창출 논지가 서론에서 세워지고 두 표적의 시너지로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Several phenothiazines (PTZ) are approved as",
+      "note": "재창출 취지 단락은 자족적이나 단백질 약어가 문장마다 있어 어휘 조정이 어렵다."
+    }
+  },
+  {
+    "id": "0cfe7fb7-98c3-4363-b820-ffbf7ae0b4a9",
+    "source_updated_at": "2026-09-15T13:56:34.859048+00:00",
+    "body_sha256": "b1fee098e3880cebc1c1663f7a379acda78651bab583415919ec26bd57f44056",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "아프리카돼지열병의 과도한 염증이 사망 원인이라는 문제 제기에서 바이로포린이라는 답으로 좁혀 가는 흐름이 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "African swine fever (ASF) is a",
+      "note": "질병·산업 피해 서론은 그대로 서고, 채널 전기생리 절은 수치 나열이라 발췌 대상이 아니다."
+    }
+  },
+  {
+    "id": "0d0560bf-be18-4823-8763-4ef275a9d83d",
+    "source_updated_at": "2026-09-13T07:21:26.546038+00:00",
+    "body_sha256": "98c1b6661246b1ea89465fba4db78b4639bc04a03e87e13d3d51a14001b383b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "세균 편모의 구조와 운동성을 설명한 서론이 균주별 차이라는 연구 물음으로 이어져 한 편의 설명문을 이룬다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The flagellum is a filamentous organelle",
+      "note": "편모 구조 설명 단락은 균주 기호를 걷어도 서고 낱말 두셋만 바꾸면 고교 상급으로 내려간다."
+    }
+  },
+  {
+    "id": "0d15ad8c-7f53-4a0b-badc-80b93afd8098",
+    "source_updated_at": "2026-09-13T07:13:22.915202+00:00",
+    "body_sha256": "6e0ed7c7f29a9da6ff997c66ff0413cd4e0c753917a938ff4f5e2041f94cfabf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "백신 면역원 설계 논지는 있으나 문장마다 항체·당쇄 약어가 얽혀 떼어 낸 단락이 지문으로 서는지 확인되지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The premise underlying this study was",
+      "note": "고찰 첫 단락을 실제로 손질해 보니 T/F Env·nAb·glycan 을 풀어 쓰면 문장이 두 배로 늘어 지문 길이를 넘었다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "0d207a19-fc3b-4061-9821-d581258f363c",
+    "source_updated_at": "2026-09-15T13:57:05.907194+00:00",
+    "body_sha256": "2bd1a08379eec015b4974a8cfe9db2ca069f351d02b5d84ac11f0d5537853cd9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "경험적 용량 결정의 한계를 지적하고 최적화 틀을 제안하는 서론·결론이 수식 없이도 논지로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Executing effective oral drug therapy for",
+      "note": "서론 첫 단락과 결론의 「큰 첫 용량 뒤 작은 유지 용량」 대목은 수식 없이 그대로 선다."
+    }
+  },
+  {
+    "id": "0d34da88-c76a-4e77-8aac-44b4f7f50202",
+    "source_updated_at": "2026-09-15T13:57:11.343953+00:00",
+    "body_sha256": "f52829af172a18518f987582a2bda11afed931536789a812dec4f4a5ea4aaf9f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "암 종류마다 대사 재구성이 다르다는 주장을 폐암·유방암 대조로 세우고 약물 재활용 가능성으로 잇는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Cancer cells survive and proliferate by",
+      "note": "서론 첫 단락은 유전자 기호 없이 서지만, 결과 절은 유전자 이름 목록이라 발췌할 곳이 서론·고찰 앞뒤로 한정된다."
+    }
+  },
+  {
+    "id": "0d3a1225-8daa-4ca6-9615-b289dd024af0",
+    "source_updated_at": "2026-09-13T07:34:29.641553+00:00",
+    "body_sha256": "2900f6f819e6a2ad715e4d8a4f49e06114497f505e1e01c8f0f71801a73078ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기존 지표(NT-proBNP)의 한계를 먼저 밝히고 새 지표를 견주는 구조라 주장-근거 짝이 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Natriuretic peptides (NPs) such as BNP",
+      "note": "서론 첫 단락은 지표 한계를 스스로 설명해 자족적이고, 표를 빼도 고찰의 비교 논지가 남는다."
+    }
+  },
+  {
+    "id": "0d40c57e-6576-49b3-81c8-34fbfed749df",
+    "source_updated_at": "2026-09-15T13:57:17.508253+00:00",
+    "body_sha256": "974541e4b1255c246707a855b9f9b42ca82a618bf3641fa6c5d3f05082b90a8d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "임신 중 뎅기 감염이 태아 성장에 미치는 영향을 저자 요약이 일상어로 풀어 인과 사슬을 보여 준다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "DENV infection during pregnancy can lead",
+      "note": "저자 요약(Author summary)은 그 자체로 쉬운 설명문이라 손질이 거의 필요 없었다."
+    }
+  },
+  {
+    "id": "0d41bcfb-5bdf-4204-b423-1d60d84a7e64",
+    "source_updated_at": "2026-09-15T13:57:19.301812+00:00",
+    "body_sha256": "1418657d1f9632a2b1119a228dbe5dae713c05db49325c9411dfbab5ea22f5c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "당뇨발 궤양에서 혈관 생성이 왜 막히는지 문제를 세우고 두 후보 유전자로 좁히는 논지가 서론·고찰에 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Diabetic foot ulcers (DFUs) are severe",
+      "note": "서론 첫 단락은 수치와 함께 그대로 서고, 방법 절의 데이터셋 번호는 지문에 들어갈 자리가 없다."
+    }
+  },
+  {
+    "id": "0d426934-88b6-4dd1-b21a-d2a9bf358cea",
+    "source_updated_at": "2026-09-13T07:41:52.94588+00:00",
+    "body_sha256": "f316db446b9f40cf279535f6749d41947aa76e524385bd6933f7d7104daafa87",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "당뇨 환자의 결핵 영상이 왜 비전형적으로 보이는지를 혈당 조절 정도와 묶어 설명하는 논지가 고찰에서 완결된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tuberculosis (TB) and diabetes mellitus (DM)",
+      "note": "서론 첫 단락은 두 질병의 관계만으로 서고, 영상 용어 몇 개만 풀면 고2 수준까지 내려간다."
+    }
+  }
+]

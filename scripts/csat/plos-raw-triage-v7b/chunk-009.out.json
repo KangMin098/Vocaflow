@@ -1,0 +1,377 @@
+[
+  {
+    "id": "05a24fcb-30c7-4bb1-b3b0-5428d69820d0",
+    "source_updated_at": "2026-09-25T07:27:42.757008+00:00",
+    "body_sha256": "cbdde5a3ded0eb6d6f6bcb1b14ba63792d2b77063e223fa47c4b019e432e599e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 rTMS 한계→LIFU 대안 단락과 고찰의 「사후 점수 무차이≠동등 효과」 해석 단락이 논지로 서서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite these within-group gains, no statistically",
+      "note": "수치·척도명을 걷어도 「자연 회복·집중 재활 때문에 단기 비교로는 차이를 잡기 어렵다」는 논지가 서고, neuromodulation·subacute 등 세 낱말을 바꾸니 V7 안으로 들어왔다."
+    }
+  },
+  {
+    "id": "05c87044-e800-4f72-8483-5af3811ab786",
+    "source_updated_at": "2026-09-25T07:27:46.903458+00:00",
+    "body_sha256": "8f83cabb3f55e8b515eee4d3457865c8bd37f3532a4b3ed3d4eb3c3df031b2ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 매개충 선호가 전파 효율을 정한다는 단락과 고찰의 「SA 축적에도 기피가 없다」 역설 단락이 설명문으로 서서 주제·순서·빈칸 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During a virus acquisition-transmission cycle, arthropod",
+      "note": "약어(SA·BV1·SLCMV)를 「식물 방어 호르몬」「바이러스 단백질」로 풀면 흐름이 서지만, viruliferous·inoculum 을 바꿔도 V8 아래로는 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "05d94b33-2ebf-44ee-9312-72fc5518b0b5",
+    "source_updated_at": "2026-09-25T07:27:49.514912+00:00",
+    "body_sha256": "06dd7d4feb44aa47a5b35c4f774690a52e40ebb3f6d3e86c2b2f40973a4cf899",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "고찰의 전역·국소 두 관점을 잇는 결합 모델 설명 단락과 「데이터 증강이 오히려 성능을 낮췄다」 절제 연구 단락이 통념-반증 구조로 제목·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The proposed FetCAT model performed well",
+      "note": "모델명을 「이 AI」로 바꾸면 큰 그림과 세부를 함께 본다는 비유가 쉬운 영어로 그대로 서고, 수식·표 참조 절은 건너뛰어야 한다."
+    }
+  },
+  {
+    "id": "05f811ba-5b6a-4970-80a4-06926565915a",
+    "source_updated_at": "2026-09-25T07:27:51.029706+00:00",
+    "body_sha256": "4e8632f46c59388e9f620a784a02a24ecce2d427ab9256710546f0f6fe80a90c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "「핵막은 굳는데 핵 전체는 물러진다」는 모순을 모델로 푸는 계산 모형 절과 고찰의 밀도·삼투압 설명 단락이 논지로 서서 주제·요약·빈칸 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our experimental data indicated that the",
+      "note": "AFM·LINC 같은 약어를 걷고 lamina·osmotic 을 풀어 쓰면 「겉보기 모순→가설 검증」 흐름이 앞 문맥 없이 시작된다."
+    }
+  },
+  {
+    "id": "060c7e24-fa92-41a5-85f0-f3b691afaffd",
+    "source_updated_at": "2026-09-25T07:27:53.783345+00:00",
+    "body_sha256": "8aa41ca68a746e84f06aa77d0316a90e0da16a625106dfced489d973c037ccb8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 1894년 두 발견이 한 속명으로 합쳐지는 역사 단락과 고찰의 멜라닌 유전자 전용(굴절적응) 단락이 사건 흐름·논지로 서서 순서·내용일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The basidiomycete genus Cryptococcus was formally",
+      "note": "인명·연도를 남겨도 발견→재명명 순서가 분명해 순서 문항이 쉽게 서고, ascospore·granulomatous 두 낱말만 바꾸면 V7이 된다. 종 기재 절은 표 나열이라 쓰지 않는다."
+    }
+  },
+  {
+    "id": "060e2146-8cfd-4dc1-9a73-55712d43c0d2",
+    "source_updated_at": "2026-09-25T07:27:54.241473+00:00",
+    "body_sha256": "3cefa858635cc42bcbcade6b336eae937b89332e37843f0cf333d6c325cbe06f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 값비싼 독점 항체가 필요한 지역에 닿지 못한다는 문제 제기와 고찰의 나노항체 저비용·동물 희생 없음 단락이 주장-근거로 서서 요지·주장·빈칸 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nabs can be produced at a",
+      "note": "Nab 을 「작은 항체」로 풀고 periplasmic·thermically 를 바꾸니 「싸고 윤리적인 대안이 진단 불평등을 줄인다」는 논지가 V6~V7로 선다."
+    }
+  },
+  {
+    "id": "06184627-c330-404e-9947-00ec145841d9",
+    "source_updated_at": "2026-09-25T07:27:55.117212+00:00",
+    "body_sha256": "cc65f6dd6cade93c0dcc2fcc4792182978baa771d21b8a26d3c244cf6b841ee1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 설문 의존 선별의 한계→객관 자료 기반 예측 단락과 표본 작음·과적합 경고 단락이 논지로 서서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Integrating these diverse risk factors into",
+      "note": "PHQ-9·EHR 을 일반어로 바꾸면 자기보고 편향과 조기 발견의 가치가 독립적으로 서고, 방법 절의 하이퍼파라미터 나열은 쓸 수 없다."
+    }
+  },
+  {
+    "id": "063943cd-9e57-4ed9-9f03-3c8d97b59bd3",
+    "source_updated_at": "2026-09-25T07:27:58.633402+00:00",
+    "body_sha256": "7ce210a13251315b73580966c7fdb162ae2e1a9b6317d5a5ab9339685d0dc5c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 수술·알벤다졸 각각의 한계를 대조하는 단락과 고찰의 염증·낭포 압박 두 경로로 섬유화를 설명하는 단락이 구조가 뚜렷해 순서·삽입·빈칸 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Echinococcus tapeworm infection triggers a hepatic",
+      "note": "「한편으로·다른 한편으로」 짜임은 떼어도 서지만 stellate·extracellular matrix·fibrosis 가 겹쳐 두세 낱말 교체로는 V8 아래로 내려가지 않았다."
+    }
+  },
+  {
+    "id": "065fad43-a0a8-4333-bc2d-c75e4f919ad4",
+    "source_updated_at": "2026-09-25T07:28:04.740658+00:00",
+    "body_sha256": "3c40dc96ed673a9d5589f86fa0d2480f22a9371f4e714830417c751d776079b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 Ang-2가 스스로를 늘리는 악순환 단락과 고찰의 혈장교환 대비 약물 대안 단락이 인과 사슬로 서서 순서·빈칸·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Angiopoietin-2 (Ang-2) has been identified as",
+      "note": "단백질 이름을 「신호 물질 A·B」로 바꾸면 양의 되먹임 고리가 단계별로 이어져 순서 문항에 맞고, Weibel-Palade·glycocalyx 를 걷으면 V8이 된다."
+    }
+  }
+]

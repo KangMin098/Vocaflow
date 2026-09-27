@@ -108,3 +108,24 @@ export function cleanSentence(s) {
   return { text: t }
 }
 
+
+// ── 원문 단위 라이선스 (DD-75 · 2026-09-24) ─────────────────────────
+//
+// ⚠️ **PLOS 는 전부 CC BY 가 아니다.** Solr `copyright` 필드(글마다 다르다)를 실측하면
+//   「Creative Commons Public Domain declaration」 글이 18,185편 있다(2026-09-24 `q=copyright:"public domain"`).
+//   예전 수확기는 모든 글에 'CC BY 4.0' 을 박았다 — 컬렉션 표지를 원문 권리로 쓴 것이다.
+//   이 함수는 **그 글의 copyright 문장**을 읽어 license 표기로 옮긴다. 못 읽으면 null(추측하지 않는다).
+export function plosLicenseOf(copyright) {
+  const t = String(copyright ?? '').replace(/\s+/g, ' ').trim()
+  if (!t) return null
+  const lower = t.toLowerCase()
+  if (/public domain|\bcc0\b|free of all copyright/.test(lower)) return 'CC0 1.0 (public domain)'
+  if (/creative commons attribution|creativecommons\.org\/licenses\/by/.test(lower)) {
+    const nc = /non-?commercial/.test(lower)
+    const nd = /no-?deriv/.test(lower)
+    const sa = /share-?alike/.test(lower)
+    return `CC BY${nc ? '-NC' : ''}${nd ? '-ND' : sa ? '-SA' : ''} 4.0`
+  }
+  // 알 수 없는 문장은 **찾은 그대로** — 트리거가 restricted 로 분류한다.
+  return t.slice(0, 300)
+}

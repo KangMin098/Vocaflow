@@ -1,0 +1,816 @@
+[
+  {
+    "id": "043642de-448a-49a5-a8be-f7c34e09f224",
+    "source_updated_at": "2026-09-15T12:52:46.254559+00:00",
+    "body_sha256": "f011c7b86b24220e939ebabfe031d80801076a17aa848e8dd3f1750a176ee447",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 첫 단락이 「NLR은 중등도 패혈증에서만 예측력을 갖는다」는 논지를 근거와 함께 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Recent five-year evidence has consistently demonstrated",
+      "note": "수치·약어를 걷어내도 「염증 지표는 만능이 아니다」 논지가 남고 elevated·robust 정도만 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "0437d057-2e0b-487a-9cb2-f82e0254ae01",
+    "source_updated_at": "2026-09-15T12:52:47.268798+00:00",
+    "body_sha256": "ba1baa58623e889b8f1a9eda635cec17193e5d93a64ba9e330e6d12cfbc55548",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「치료 실패 정의가 제각각이라 통합 수치가 의미를 잃는다」 단락이 앞 문맥 없이도 주장-근거로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A primary driver of the observed",
+      "note": "PROBAST·AUC 같은 고유명사를 「평가 도구」·「정확도 지표」로 바꾸면 그대로 읽히고 논지가 유지된다."
+    }
+  },
+  {
+    "id": "044b1a89-3649-40bc-ab14-608462808e63",
+    "source_updated_at": "2026-09-15T12:52:52.888014+00:00",
+    "body_sha256": "a862fd76a5a5c1e2c7ab61d0a05852f3d451b59d8c929bd23120f95a07e73e1f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론이 LLM 환각·지리 의미 이해 한계라는 문제를 세우고 자기 교정 고리로 답하는 구조라 주장-근거 칸이 산다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Despite their promise, applying LLMs to",
+      "note": "세 가지 난점을 나열한 단락은 그대로 떼어져 순서·삽입에 좋지만 NER/RE 약어가 남아 어휘 하향은 제한적이다."
+    }
+  },
+  {
+    "id": "0454e8ce-3a92-4de9-b8dc-c898372f589a",
+    "source_updated_at": "2026-09-15T12:52:55.319865+00:00",
+    "body_sha256": "39da9fb18795bdc8e4d7111c6c315b66ff2251a19024fec82b50d7c5b6919564",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 소수성/친수성 표면이 단백질 흡착량을 가른다는 설명 단락이 인과로 이어져 빈칸·요지 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "DMB bone graft exhibited hydrophobic characteristics",
+      "note": "표면 성질→흡착→대식세포 반응의 인과가 떼어도 서지만 면역 표지자 약어가 많아 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "045f84ad-50ae-4592-b9b7-0952d8d9b601",
+    "source_updated_at": "2026-09-15T12:53:01.655467+00:00",
+    "body_sha256": "1a31f9b423607ad270460ac20766a001a72dc406d5564c4b6a402c95bd0f4ebf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "평이한 저자 요약 단락이 통합효소가 숙주 DNA를 찾는 과정을 비유 없이도 한 편으로 설명해 준다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Retroviruses insert their genetic material into",
+      "note": "저자 요약은 그대로 독립 지문이 되지만 본문 결과 단락은 완충액·약어가 빽빽해 쓸 수 없다."
+    }
+  },
+  {
+    "id": "0469ef3d-dba3-4a68-b2f5-f5f2a55a0a1a",
+    "source_updated_at": "2026-09-15T12:53:02.876047+00:00",
+    "body_sha256": "52b346693d748d8cada81d4340cfdb52be33c65fd0be0def41ffd1d5bfeacb40",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론이 다감각 통합의 초가산 반응을 정의하고 왜 설치류에서 재야 하는지로 이어져 주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Multisensory integration represents a fundamental neural",
+      "note": "장비 절 단락은 못 쓰지만 서론·고찰 단락은 자석 측정기 이름만 치우면 일반 독자용으로 읽힌다."
+    }
+  },
+  {
+    "id": "047881f8-aa6a-4c6e-bf9a-7aa475d19a8b",
+    "source_updated_at": "2026-09-13T06:41:27.249313+00:00",
+    "body_sha256": "8903e26c5f1429832ea1ff4a63da6972a861f7325c505d5fd9d36cb5a5a2e3b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "지질 운반체를 세포벽과 다른 중합체가 나눠 쓴다는 서론의 자원 우선순위 설명이 비유 없이도 논지로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "All organisms use polyprenyl-phosphate lipids to",
+      "note": "서론 첫 단락은 떼어지지만 본문 전체가 유전자명·그림 참조로 이어져 어휘 하향은 사실상 막힌다."
+    }
+  },
+  {
+    "id": "047948c0-49cd-4def-9b36-fb3f96ec19fc",
+    "source_updated_at": "2026-09-15T12:53:06.277589+00:00",
+    "body_sha256": "6b37f98a2b6e57b35f2853a81e4b06cd2085533dd8c0a799073828da4d39926d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "서론의 폐암 역학 단락 말고는 유전자·miRNA 식별자 나열이라 떼어 낸 문단에 논지가 남지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "For numerous decades, lung cancer is",
+      "note": "역학 단락 하나는 떼어지지만 나머지는 DEG·DEM 수치 나열이라 자족 문단을 더 고르지 못했다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "048c26e8-bac4-4c7a-b038-f83c3e5cce21",
+    "source_updated_at": "2026-09-15T12:53:28.94604+00:00",
+    "body_sha256": "62e9bef1243bcc14a61a6214d416aee8dac73a756df6f62746118d7f81c7e35b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "BMI와 골다공증의 역상관을 「비만 역설」로 설명하는 고찰 단락이 기전 근거까지 달고 자족한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Notably, we observed a negative correlation",
+      "note": "SHAP 값만 지우면 통념-반증 구조가 그대로 남아 빈칸 자리를 잡기 쉬웠다."
+    }
+  },
+  {
+    "id": "04ab67ce-93d6-4109-ab47-cb38b4ab73fd",
+    "source_updated_at": "2026-09-13T06:16:16.633004+00:00",
+    "body_sha256": "cfef50aa7e016451bbfc4247c98c808c28b6cd1853e950b43ceda6fecf109720",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "food",
+    "why": "정유 나노에멀션 피막이 수분·산화를 어떻게 막는지 설명하는 보존 결과 단락이 인과로 읽혀 내용 일치 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fig 2A illustrate the variation of",
+      "note": "그림 지시어와 처리군 약어를 풀어 쓰면 「막이 있어야 수분이 덜 빠진다」는 설명문으로 바로 선다."
+    }
+  },
+  {
+    "id": "04b0a53a-a035-4260-badb-bfab71feb0b2",
+    "source_updated_at": "2026-09-15T12:53:33.632479+00:00",
+    "body_sha256": "474d4061713006fe67bdd9aa612c21d102bd40821b6e51cdc9591dd9369656ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "history",
+    "why": "흑사병 집단 매장지를 문헌·지층·연대측정으로 좁혀 가는 과정이 사건 흐름으로 이어져 장문·서사 칸까지 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "insert",
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1926/27, large-scale ground modification and",
+      "note": "1920년대 비행장 공사 단락은 그대로 이야기로 서고 지질 층위 용어만 바꾸면 고2까지 내려간다."
+    }
+  },
+  {
+    "id": "04b84670-1001-4b4b-be1c-18fc63cd3edb",
+    "source_updated_at": "2026-09-13T07:03:38.45149+00:00",
+    "body_sha256": "47d63eecf0e871e512481b271e31a9f66e6fa5938fb9a55eddbabd1cd0f77614",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "닭·사람·환경을 잇는 원헬스 관점에서 항생제 내성 확산을 설명하는 서론·고찰이 한 편의 논증으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antimicrobial resistance (AMR) is an urgent",
+      "note": "유전자 돌연변이 표는 버리고 서론·고찰만 쓰면 일반 독자용 논설로 바로 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "04ba8b41-c314-43eb-8abe-5c5371abb78d",
+    "source_updated_at": "2026-09-15T12:53:36.997215+00:00",
+    "body_sha256": "4c1cae83c971ece6d35a32a71425284949ba4ca66e6306e69c4332e08f89ff42",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "총 헴 농도가 같아도 결합 형태가 다르면 독성이 다르다는 고찰의 대조가 논지로 읽혀 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In SCD and other hemolytic disorders",
+      "note": "「총량이 아니라 분포가 문제」라는 대비는 떼어도 서지만 단백질명이 많아 어휘 조정 폭이 좁다."
+    }
+  },
+  {
+    "id": "04be796b-dd66-42f3-8d87-e009b915deb0",
+    "source_updated_at": "2026-09-13T06:56:10.947462+00:00",
+    "body_sha256": "a9fca291e75768c722af8ee334bd36fe6e0b0f524278cb2fa38b684a23d6ebdd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "시냅스 접착 분자가 짝을 고르고 연결을 굳힌다는 서론 설명이 배경 지식 없이도 한 문단으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The proper formation of synaptic connections",
+      "note": "서론 단락은 자족하지만 결과 절이 균주·대조군 설계 논의라 그 뒤로는 쓸 문단이 없었다."
+    }
+  },
+  {
+    "id": "04c5f74e-f744-4a3d-bfbd-444a06001d3e",
+    "source_updated_at": "2026-09-13T07:08:23.946594+00:00",
+    "body_sha256": "b0fe77b57e0fe56eac9e3b451a27f564b90627d246cfe5b831625bde9e804ab1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "APOE ε4 위험과 Klotho 보호 효과를 대비시키는 서론·고찰이 유전 위험이라는 한 논지로 모인다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Alzheimer disease (AD), the most common",
+      "note": "대립유전자 이름을 「특정 유전형」으로 바꾸면 서론 단락이 고3 지문 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "04c76d98-8bca-493c-8029-fb26e0191604",
+    "source_updated_at": "2026-09-15T12:53:54.085617+00:00",
+    "body_sha256": "7f80df5cd0ee233592e25b8d2427733d9cb33b5f14a727eb03320c51ce231099",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "호중구가 바이러스를 삼킨 뒤 스스로 죽어 분해를 못 끝낸다는 저자 요약이 사건 흐름으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Adenoviruses are common viruses that trigger",
+      "note": "평이한 저자 요약은 손댈 것 없이 떨어져 나왔고 실험 단락만 걷어내면 그대로 쓸 수 있다."
+    }
+  },
+  {
+    "id": "04d0f683-1d8c-4b67-8173-d51912f7c5c2",
+    "source_updated_at": "2026-09-15T12:54:01.86484+00:00",
+    "body_sha256": "b32f5862399efbc8d909e45f911815c0acfadd970f391de6a7cc747f82358005",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "서론 한 단락 말고는 도킹 점수와 잔기 번호 나열이라 떼어 낸 문단에 논지가 서지 않는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The degradation of the intracellular second",
+      "note": "약물 재창출이라는 배경은 읽히지만 결과 단락이 RMSD·수소결합 점유율 수치뿐이라 가공 경로를 못 찾았다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "04d3dd00-c8e0-4516-b959-1b8918121a90",
+    "source_updated_at": "2026-09-15T12:54:14.253433+00:00",
+    "body_sha256": "db5830abc11a4d9932a8f79573246c45165a91cb56f7b6772239b4d1eb2a9b51",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "B형 간염이 간암으로 이어지는 경로와 천연물 표적 탐색을 잇는 서론·고찰이 한 편의 설명문으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Globally, cancer remains a leading challenge",
+      "note": "서론은 수치만 남기고 바로 떨어지고, 경로명은 「특정 신호 전달 경로」로 바꾸면 읽힌다."
+    }
+  },
+  {
+    "id": "04d4a9b2-4045-4bca-80a4-9e9e4b0f2777",
+    "source_updated_at": "2026-09-13T06:43:48.547958+00:00",
+    "body_sha256": "2170ce5b47dfec1d8f01ff0c6f58a79ab6f29a8b237434c489c8ab2b0c9889be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "MYC 계열 암유전자가 성장과 분화 억제를 동시에 조절한다는 서론이 논지로 서고, 두 보조인자 동시 표적이라는 결론이 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The deregulation of MYC family oncogenes",
+      "note": "서론 한 단락은 떼어지지만 본문 대부분이 ChIP-seq 신호와 그림 참조라 쓸 수 있는 분량이 얇다."
+    }
+  },
+  {
+    "id": "04d9e49a-267d-4b15-9c09-0b9739917aa1",
+    "source_updated_at": "2026-09-15T12:54:22.825158+00:00",
+    "body_sha256": "5851e38a59b431795b9b3ee02b3924e799b1a1b094fafe0cadf9ce717a1b0bf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "유전체의 절반을 차지하는 이동성 요소가 신경 퇴행에서 깨어난다는 서론·고찰이 인과 논지로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There are a few previous cases",
+      "note": "초파리·생쥐 선행 사례를 모은 단락이 그대로 근거 묶음으로 떨어져 주장-근거 짝을 만들기 쉬웠다."
+    }
+  }
+]

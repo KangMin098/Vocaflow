@@ -151,7 +151,7 @@ export function VocabularyBrowserClient({
             value={qLocal}
             onChange={(e) => setQLocal(e.target.value)}
             placeholder="word · meaning_ko · lemma_band 검색 (2자 이상)"
-            className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/30"
+            className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] py-2 pl-9 pr-3 font-body text-[13px] text-[var(--t1)] placeholder:text-[var(--t2)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_30%,transparent)]"
           />
         </div>
 
@@ -236,7 +236,7 @@ function FilterSelect({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-2 font-mono text-[11px] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/30"
+      className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-2 font-mono text-[11px] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_30%,transparent)]"
     >
       {options.map((o) => (
         <option key={o.value} value={o.value}>

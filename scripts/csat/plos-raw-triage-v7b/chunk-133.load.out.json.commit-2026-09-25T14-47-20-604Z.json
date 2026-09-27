@@ -1,0 +1,1818 @@
+[
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6bf904c3-246d-457d-9e83-cc1728198282",
+    "revision": "2026-09-15T15:14:01.657948+00:00",
+    "body_sha256": "6f8451ff94a01a1856ea0042c949be82b39e8e202c504117b12b288bd29a1d52",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 고찰 첫 문단(만성 염증과 산화 LDL 침착이 소포체 스트레스를 부른다)을 떼어 보니 앞 문맥 없이 논지가 서고, 유전자 약어는 가공 때 풀어 쓰면 된다 — 칸이 있고 가공이 되므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Atherosclerosis is a chronic vascular disease",
+          "note": "논지는 서지만 TRIM25·CYBB 같은 유전자 기호가 문단마다 박혀 있어 밴드를 내리려면 기호 자체를 설명으로 바꿔야 한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.607Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:27:45.309Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6bfb4003-1d95-4958-a9ce-ef139d011b8c",
+    "revision": "2026-09-15T15:14:02.209485+00:00",
+    "body_sha256": "04c90b4705632f3e190763952e9ab794e7af1bc0abdf113c2bb0cda16a27cedb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 무홍채증 각막병증 단락(각막 혼탁이 진행되는 까닭을 단계로 설명)이 앞 문맥 없이 서고 수치를 걷어도 논지가 남아 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Congenital aniridia is a rare panocular",
+          "note": "서론은 설명문으로 읽히나 결과 절은 p값 나열이라 발췌는 서론과 고찰에서 잘라야 한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.608Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:59.576Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c004d32-bc5c-432f-aaf4-ad63d1e6a3fd",
+    "revision": "2026-09-25T07:37:19.454021+00:00",
+    "body_sha256": "dfb09b97d4968f89a4967a9d4f7aa7d35fad90936cf1f43be110ac9a9eea2189",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "§3-2: 서론의 전체-부분 처리 설명(산과 강이 전체, 돌과 나무가 부분)을 떼어 보니 예시만으로 논지가 서고 어휘도 일반어가 많아 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Most visual stimuli encountered in daily",
+          "note": "서론 예시 단락은 전문 용어가 적어 두세 낱말만 바꾸면 고2 밴드까지 내려간다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.609Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:30.479Z",
+      "topicMargin": 2.3200000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c011bc8-5f9b-42c9-9d4f-3ad1630c1646",
+    "revision": "2026-09-25T07:37:20.048265+00:00",
+    "body_sha256": "fcd1192822de03ba031b464fbf24f2265b42d6b204e70be83cfedddd87195470",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 고찰의 내성 단락(약 압력이 내성 변이를 골라낸다는 논지)이 독립해 서고 근거가 둘 이상이라 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Antibiotic pressure causes pathogens to evolve",
+          "note": "idsA2와 embB 같은 유전자명이 논지의 축이라 밴드를 내리려면 한 유전자라는 식으로 일반화해야 한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.610Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:57.017Z",
+      "topicMargin": 20
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c0b6170-581d-46f2-b282-31ccb404c7e1",
+    "revision": "2026-09-25T07:37:20.449338+00:00",
+    "body_sha256": "25d3ca9e141de0827d35f842f93f881d00991988957aac36a8735d48246fef75",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 뎅기 백신 단락(혈청형 넷이 함께 돌아 백신 개발이 막힌다는 인과)이 앞 문맥 없이 서고 사실 진술이 여럿이라 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dengue is the most prevalent arboviral",
+          "note": "서론에 역학 수치와 인과가 함께 있어 내용일치 문항 재료가 넉넉하다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.611Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:37.139Z",
+      "topicMargin": 11.81
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c1be3e3-240d-456d-8586-81883904d761",
+    "revision": "2026-09-13T07:20:03.735234+00:00",
+    "body_sha256": "cc8a0ceda0f4936db92cdc53ceb82629468bf41834a85d25f26520d8b348da3f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 고찰 첫 단락(골모세포에서 Scarb1을 지워도 골량이 변하지 않았다는 음성 결과 해석)이 독립해 서서 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The results presented herein show that",
+          "note": "본문 가운데에 그림 범례가 통째로 섞여 있어 발췌 전에 범례 덩어리를 걷어내야 한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.611Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:12:18.702Z",
+      "topicMargin": 13.58
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c3169d6-1aa6-4780-8d6d-719f7bafb12c",
+    "revision": "2026-09-13T07:41:04.313487+00:00",
+    "body_sha256": "05b3c94939cba72b373f270d362dd36fd6ef59ea2ecb659bbcb21c5477e847ca",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "§3-2: 서론의 뇌 구획 나누기 단락(고전 조직학의 한계와 유전자 지도라는 대안)이 대조 구조로 독립해 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "A major challenge in neuroanatomy is",
+          "note": "서론은 논지가 뚜렷하나 결과 절이 그림 범례와 뒤섞여 있어 발췌는 서론과 고찰로 한정된다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.612Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:15:28.913Z",
+      "topicMargin": 21.75
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c3a5527-976b-47c2-9a66-3826ad0cbf23",
+    "revision": "2026-09-13T06:27:57.761202+00:00",
+    "body_sha256": "7da6192f5f4687f44e187c2fd83a9db48a933b090489deffa31c01b8d80f86d7",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "§3-2: 서론의 개 심장판막병 단락(나이가 들수록 유병률이 거의 선형으로 오른다는 진술)이 독립해 서고 수치 근거가 여럿이라 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Myxomatous mitral valve disease which is",
+          "note": "표가 본문에 통으로 들어와 있어 가공 때 표를 걷어야 하지만 서론과 고찰은 온전하다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.613Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:44:50.978Z",
+      "topicMargin": 21.82
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c3c1496-a067-4811-8e81-44849d0c0101",
+    "revision": "2026-09-13T06:46:35.066143+00:00",
+    "body_sha256": "a5c75831bb5b459ab03f64068de46d1e6dbac020e8b55b2acc34fda7c6641f16",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 대식세포 양극화 단락(M1과 M2가 서로 다른 대사를 쓴다는 대비)이 앞 문맥 없이 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Macrophages are phenotypically plastic and can",
+          "note": "HBeAg·DAP3·TLR4 같은 약어가 논지의 축이라 밴드를 내리기 어렵고 방법 절은 길어 걷어내야 한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.613Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 13,
+      "type": "R-BLANK",
+      "shape": 29,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:08:48.865Z",
+      "topicMargin": 30.2
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c3d8020-6324-4d61-a1e8-16c60bb7ed2d",
+    "revision": "2026-09-25T07:37:26.708778+00:00",
+    "body_sha256": "a6a8293293c2d585f9fe46aa733ac09f2ecd666c427f34376d2ebd83f94801e4",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 나방파리 단락(분변에서 유충이 나왔다고 장내 기생으로 볼 수 있는가라는 물음)이 독립해 서고 통념과 반증 구조라 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Moth flies are dipteran insects that",
+          "note": "통념을 세우고 실험으로 뒤집는 흐름이 뚜렷해 순서와 문장삽입 재료로도 쓸 만하다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.614Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:43.557Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c52be58-6ea3-481e-8bce-e56d28b5f584",
+    "revision": "2026-09-25T07:37:28.001661+00:00",
+    "body_sha256": "3e7c7ef4dd7b1a4164363cadbbe562d820965d68b694685ed9cf7faf86b22e09",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 전립선암 면역치료 단락(면역억제 환경 탓에 효과가 제한된다는 인과)이 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Prostate cancer is one of the",
+          "note": "TDP2와 EMT 같은 약어가 촘촘해 서론 첫 두 단락 말고는 밴드를 내리기 어렵다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.615Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 9,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:20:01.411Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c5f1985-e64d-45eb-bcf8-6e1b098a5e31",
+    "revision": "2026-09-13T06:49:28.898105+00:00",
+    "body_sha256": "56e17b6d5f94cc1cdb44435dda03d18fb5c8e60964033e57e5232bdc4489ac33",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 프로테아좀 설명 단락(분해가 막히면 빨리 분열하는 암세포가 더 크게 타격받는다)이 인과로 독립해 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The ubiquitin proteasome pathway is the",
+          "note": "서론은 논지가 서지만 결과 절에 표와 그림 범례가 통으로 섞여 있어 그 부분은 쓰지 못한다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.615Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 9,
+      "type": "R-BLANK",
+      "shape": 26,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:11:45.889Z",
+      "topicMargin": 19.69
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c65ebe5-7c03-4f81-b4aa-adaae987d089",
+    "revision": "2026-09-13T07:44:59.05607+00:00",
+    "body_sha256": "128395bc68587baf24efa97ce2c98f702df21c71efd4aa094893da022ae8a847",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "§3-2: 서론의 음악 훈련 단락(연주가 청각·시각·운동을 한꺼번에 쓴다는 설명)이 앞 문맥 없이 서고 일반 어휘라 keep.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Within modality neuroplasticity has been investigated",
+          "note": "피아노와 현악기의 손 쓰임 대비가 구체적이라 두세 낱말만 바꾸면 고1 밴드까지 내려간다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.616Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "예술·문화",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T14:01:41.394Z",
+      "topicMargin": 10.2
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c671792-3813-4fbf-94df-33f28eef00b1",
+    "revision": "2026-09-13T07:48:36.779197+00:00",
+    "body_sha256": "0d9498f77dbc3ffdfa0e2d2277f36f6d25df3719e9027750a712ebf6ce1c6a5c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "§3-2: 서론의 석기 제작 논쟁 단락(도구가 인지 진화의 증거인가를 두고 갈리는 견해)이 대립 구조로 독립해 서서 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Enhancement of prefrontal executive control is",
+          "note": "고고학과 뇌과학이 겹치는 소재라 논지가 뚜렷하고 좌표와 통계 문단만 걷으면 발췌가 쉽다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.617Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T15:16:31.580Z",
+      "topicMargin": 3.710000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c769a38-8a47-454f-91ee-c335e81e6271",
+    "revision": "2026-09-13T07:07:50.447835+00:00",
+    "body_sha256": "4a0b1f0d37f9f2842521372300e4a5fae8a660cf182aba4c0b075d168ea6343f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "§3-2: 서론의 세균 신호물질 단락(고리형 이뉴클레오타이드 셋을 차례로 소개하는 구조)이 독립해 서서 keep.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Three cyclic dinucleotide second messengers have",
+          "note": "유전자와 균주 기호가 문장마다 들어가 지시어를 걷어도 앞 문맥 없이는 읽히지 않는 단락이 많다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.618Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 9,
+      "type": "R-BLANK",
+      "shape": 31,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:54:42.112Z",
+      "topicMargin": 28.22
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c7d2b5b-e348-4693-8faf-1e1ab7e89e84",
+    "revision": "2026-09-25T07:37:33.654417+00:00",
+    "body_sha256": "93f5aaea40984237f3e4b3ba17ae6c458c35583653a517fbba5e89f8b274d77c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 녹농균 생물막 단락(만성 감염에서 생물막이 면역과 항생제를 함께 피한다는 인과)이 떼어 내도 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Pseudomonas aeruginosa is a virulent opportunistic",
+          "note": "서론 앞부분은 일반 설명이라 쓸 만하고 뒤로 갈수록 유전자명이 촘촘해 발췌 범위가 좁다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.618Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:42:05.332Z",
+      "topicMargin": 5.71
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c7fe98c-3004-4af8-a3d5-b94a3f3ba212",
+    "revision": "2026-09-13T06:44:09.983608+00:00",
+    "body_sha256": "23606fe86347ff28fcb1a137c23336819ccc78c8a2ba79d6d5286d0c6730345f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "§3-2: 서론의 2형 당뇨 단락(과영양이 인슐린 저항과 고인슐린혈증을 거쳐 병으로 간다는 순서)이 독립해 서서 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Type 2 diabetes mellitus primarily arises",
+          "note": "서론은 인과가 또렷하나 결과 절이 유전자 ID 나열이라 발췌는 서론과 고찰로 한정된다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:07:35.680Z",
+      "topicMargin": 19.59
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-20-604Z",
+    "id": "6c985259-d049-4d89-9990-cc679651ce6b",
+    "revision": "2026-09-15T15:14:22.249702+00:00",
+    "body_sha256": "b18127c4c7d30fcf2d080180c6ca8b4ecdf428b95175898cb91af41b0634ef76",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "§3-2: 야행성 설치류로 세운 일주기 통념을 순록과 들쥐 사례로 뒤집는 논설이고 문단마다 주장과 근거가 짝지어 서 있어 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It is widely held that daily",
+          "note": "논설이라 실험 절이 없고 문단 경계가 뚜렷해 순서와 빈칸 재료로 바로 쓸 만하다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:20.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:37:21.952Z",
+      "topicMargin": 12.91
+    }
+  }
+]

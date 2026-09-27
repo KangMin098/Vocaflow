@@ -1,0 +1,838 @@
+[
+ {
+  "id": "4501bbe8-c4d5-4f24-a1c5-008cb759abfd",
+  "source_updated_at": "2026-09-15T14:55:21.274193+00:00",
+  "body_sha256": "00fcf9d02dff6f4cf0a98e0437dac399f841d7b158e8cd98f59d6d82987724d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "크실렌 노출과 폐암을 산업 용도·역학 근거·분자 기전 순으로 잇는 논지가 고찰에서 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Xylene is a common industrial solvent",
+   "note": "유전자 약어(ITGAM·CCR5)를 「면역 관련 유전자」로 바꾸면 서고, 도킹 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "4504e613-e2bf-4f88-958b-aa4f8e0f9219",
+  "source_updated_at": "2026-09-25T07:39:52.975009+00:00",
+  "body_sha256": "abeb571878204044410381af69647429f2017633e4d061c27a998b6f1c1108a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소고기 유통 단계의 살모넬라 오염과 항생제 내성을 지역 비교로 설명하는 단락이 독립적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The high isolation rate of Salmonella",
+   "note": "RAPD-PCR 절차 용어를 걷고 위생·저온유통 설명만 남기면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "45474cfe-2ce0-4263-bcf3-4bf7935cb22c",
+  "source_updated_at": "2026-09-25T07:39:59.990662+00:00",
+  "body_sha256": "5d05e348cdcf2b62e1bbabb3fdabf795adee5f1ff6de5558da06df406193bdf7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미세한 경계 이동이 질병 신호로 오독될 수 있다는 주장이 수치 비교와 함께 고찰에서 명확히 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The magnitude of segmentation-induced metric",
+   "note": "장비명과 마이크로미터 수치를 걷어도 「기술적 오차가 병증처럼 보인다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "45597930-d4e9-4fb2-b989-99ac0ffb71fb",
+  "source_updated_at": "2026-09-25T07:40:01.964183+00:00",
+  "body_sha256": "b3410b27dc14304d5e637657a118f2d08190173597573c90485de0de5badf228",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "중환자실 다약제 처방이 심혈관 부작용 위험을 키운다는 주장을 대체 처방 시뮬레이션으로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In clinical scenarios such as these",
+   "note": "약물명 나열을 「진통제·항구토제」 범주로 바꾸면 중등 상위까지 내려갈 여지가 있다."
+  }
+ },
+ {
+  "id": "455f06e2-ed6f-4b52-b7c4-2bdce220c12f",
+  "source_updated_at": "2026-09-23T21:04:45.63566+00:00",
+  "body_sha256": "fa036dd2c422ca524ff57bc22dc6e76ce965db0c5b7f4ae4bd85e85521f08887",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "인공관절 마모 입자 종류에 따라 염증 경로가 달라진다는 결론이 고찰에서 대조 구조로 정리된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Cobalt chromium molybdenum alloys are widely",
+   "note": "서론의 임플란트 마모·조직 반응 단락은 떼어지지만 결과 단락은 단백질 약어가 논지의 뼈대라 치환이 어렵다."
+  }
+ },
+ {
+  "id": "45689fee-80fb-46fa-b32c-99df50ddccad",
+  "source_updated_at": "2026-09-25T07:40:02.660348+00:00",
+  "body_sha256": "c03294f62d66a3b495729212a641ec64ca916e48ba3496d29447b0571924fa94",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "자폐와 과민성 대장 증후군의 공통 면역 신호를 뇌-장 축으로 설명하는 고찰 도입부가 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The high prevalence of co-occurring",
+   "note": "유전자 이름 네 개가 논지의 축이라 치환이 어렵지만 스트레스-면역 설명 단락만 떼면 선다."
+  }
+ },
+ {
+  "id": "457a5c57-efe0-4ff0-9d25-f43944db186f",
+  "source_updated_at": "2026-09-13T06:41:50.772518+00:00",
+  "body_sha256": "681b77d3c246db749cc008a95da439dd95155d21018ce18e356915c808146817",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "파지 치료가 세균만 죽이는 것이 아니라 기도 상피의 면역 반응도 일으킨다는 논지가 선명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The demand for alternative therapeutic treatments",
+   "note": "본문에 그림 설명이 섞여 있어 가공 때 Fig 단락을 걷어야 하고, 걷으면 논지가 깔끔히 남는다."
+  }
+ },
+ {
+  "id": "457d22c9-b5fc-437f-8eed-560b502adea2",
+  "source_updated_at": "2026-09-25T07:40:04.466475+00:00",
+  "body_sha256": "2ae79ccbc7ab1ef336e77d16ec3be5a121cdcfe6b372f2af0f9cea80b4406073",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "식사 시각이 빛보다 강한 생체시계 신호가 된다는 결론이 실험 비교로 한 편처럼 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Feeding is a vital behaviour for",
+   "note": "뇌 부위 약어(DVC·NTS)를 「뇌줄기 포만 중추」로 바꾸면 고2 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "457e6ea5-4685-4c14-88f0-6c6f25480a00",
+  "source_updated_at": "2026-09-25T07:40:05.0569+00:00",
+  "body_sha256": "af411367ed110c1a0b7b86927307b2ef9ea588b8a2f6367c5e7485d539c17357",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "개인별 뇌 활동 모의 모형을 다루지만 본문 수식이 자리표시로 빠져 있어 발췌할 단락을 가리기 어렵다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The brain a dynamic system of",
+   "note": "서론은 읽히지만 방법·수식부가 기호 자리로 끊겨 떼어낸 문단이 혼자 서지 않는다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "457edaf5-9236-42da-83b0-90596bac4abf",
+  "source_updated_at": "2026-09-15T14:55:35.956438+00:00",
+  "body_sha256": "ef0a646c65c30b19e757edad93c5204c238dd365676dda0e5fb5e383c3fb93f4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "잠수 감압이 폐동맥 내피 기능을 떨어뜨리는 경로를 산화 스트레스 사슬로 설명해 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Scuba diving entails hyperbaric exposure followed",
+   "note": "효소 약어가 인과 사슬 자체라 치환은 제한적이나 서론은 떼어 쓰기 쉽다."
+  }
+ },
+ {
+  "id": "4581852a-e2df-497f-96df-d01804754cf9",
+  "source_updated_at": "2026-09-25T07:40:05.539829+00:00",
+  "body_sha256": "c3885633bf746065897d1d1870d9a4702048537e7f9bda68148ee173fe994e61",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "용량을 올린 보조제가 더 긴 진통으로 이어지지 않았다는 반증형 결론이 한 편으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To extend the duration of postoperative",
+   "note": "약물명을 「보조 약물 A·B」로 바꾸면 수치를 걷고도 대조 논지가 남는다."
+  }
+ },
+ {
+  "id": "4582da44-9349-4455-ace7-1b720e72c68c",
+  "source_updated_at": "2026-09-13T06:46:31.194099+00:00",
+  "body_sha256": "896c8f95021895fe3008b260b318a13b259e1f784c7b2f52491239e7bbb0ea82",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "바이러스 단백질의 핵 이동 기전을 다루지만 본문이 그림 설명과 실험 약어로 촘촘해 떼어낼 단락이 불분명하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Viruses are obligate intracellular mobile genetic",
+   "note": "서론 한 단락은 읽히지만 결과부는 Fig 설명이 문장 사이에 섞여 문맥이 끊긴다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "45843b6c-d7a3-4a6e-9d15-02298b9c4789",
+  "source_updated_at": "2026-09-25T07:40:05.82816+00:00",
+  "body_sha256": "6b3554e173eb70a5d09dc9bedde41a72f1ed982223a6f70e5dec0d384af8798b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "면역저하 환자의 수막염이 전형 증상 없이 온다는 점을 사망 예측 인자와 함께 정리해 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Acute meningitis remains a major global",
+   "note": "병원체 이름을 「세균성·결핵성」으로 묶으면 중등 상위까지 내려갈 수 있다."
+  }
+ },
+ {
+  "id": "4595a7a9-6266-4a47-af47-69e03b9f1eed",
+  "source_updated_at": "2026-09-25T07:40:06.271451+00:00",
+  "body_sha256": "1ee6ce29aabfc75d5f4514dd887402e900a97ebcdbbceb48f8ea4b3b8416d318",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "샤가스병 진단에서 당 항원이 민감도는 높지만 자연 항체 때문에 특이도가 흔들린다는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "claim"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Chagas disease caused by the parasitic",
+   "note": "서론과 고찰은 떼어지나 합성 절차 단락은 화학식 나열이라 가공 때 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "459a1ff7-1ed0-4812-a069-3cfb8a5719e9",
+  "source_updated_at": "2026-09-25T07:40:07.773315+00:00",
+  "body_sha256": "5c7f41206daaba9c52be121c8037f4c7eba1e23268284f2e442d05804ccfacde",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "21일 해독 후 심혈관·혈액 지표는 회복해도 산화 스트레스는 덜 회복한다는 대조가 결론으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chronic alcohol consumption is a primary",
+   "note": "지표 약어를 「혈압·적혈구 수치」로 풀면 고1 밴드까지 내려간다. 음주 소재라 초등·중등 칸은 달지 않았다."
+  }
+ },
+ {
+  "id": "45a899dd-3005-40f8-aed6-abc1f1420aae",
+  "source_updated_at": "2026-09-13T06:46:45.998832+00:00",
+  "body_sha256": "444f862fd9f84ddd4fe6ad3a7cddf5afaf0567a34f60ecb581811812aad532a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "배아 줄기세포가 이웃 세포와 견주어 살아남는 기준을 단백질 경로로 설명하는 고찰이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Cell Competition is a mechanism that",
+   "note": "「승자·패자 세포」 비유가 논지의 축이라 도입 단락은 잘 서지만 유전자명 치환은 어렵다."
+  }
+ },
+ {
+  "id": "45ad3433-0de1-485d-8983-efbb483a37cc",
+  "source_updated_at": "2026-09-25T07:40:09.334028+00:00",
+  "body_sha256": "023890126a478d54ac4e7e3c473245ff111e51606fb0d5140e55a95bd672ab74",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "뇌 혈관 모형과 영상 신호를 다루지만 본문에 수식 자리표시와 그림 설명이 섞여 발췌 단락을 정하기 어렵다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Functional magnetic resonance imaging particularly via",
+   "note": "서론은 읽히지만 방법부가 수식 기호 자리로 끊겨 떼어낸 문단의 문맥이 서지 않는다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "45bcda1e-ec23-4cac-b0bf-954c29c0a41d",
+  "source_updated_at": "2026-09-13T06:41:23.343195+00:00",
+  "body_sha256": "c417ba07754bd9b77209ea0205d6dc23f884488ce1752783c0b48683ce873a81",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "산소가 부족하면 성숙 호르몬 신호를 눌러 발생이 늦춰진다는 인과가 실험 대조로 한 편처럼 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Animals often grow and develop in",
+   "note": "초파리 유전자명을 「성숙 신호 유전자」로 바꾸면 서고, 서론 두 단락은 그대로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "45bd1646-b549-4a79-927e-23b9dddbf718",
+  "source_updated_at": "2026-09-13T06:25:39.266931+00:00",
+  "body_sha256": "49d52524a3d84907a82022f066d4d504c760d4ed8cac93c945f3fa192766baeb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "적은 수의 변이 세포가 주변 정상 림프관 세포까지 흔든다는 가설을 실험 비율 비교로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Generalized lymphatic anomaly and kaposiform lymphangiomatosis",
+   "note": "본문에 그림 설명이 섞여 있고 약어가 많아 가공 때 Fig 문장부터 걷어야 한다."
+  }
+ },
+ {
+  "id": "45bdfc22-9ae7-41c8-8a1a-58422b7dc425",
+  "source_updated_at": "2026-09-15T14:55:42.131879+00:00",
+  "body_sha256": "feb159346df3abdc50f0ed7dbe24c01385b0e533cabb3dcf3186c6e5102c46d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "값싼 모래 보관이 14년 뒤에도 균의 생존과 기능을 지켰다는 결과가 실용적 논지로 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Biological research and biotechnological applications require",
+   "note": "균주 이름과 로그 수치를 걷어도 「저비용 보관법이 통했다」는 사건이 남아 중등 칸까지 내려간다."
+  }
+ }
+]

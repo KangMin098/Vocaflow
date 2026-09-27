@@ -1,0 +1,824 @@
+[
+ {
+  "id": "2b330ac6-608b-466c-9a9c-aecad4f1f9df",
+  "source_updated_at": "2026-09-15T14:42:55.441972+00:00",
+  "body_sha256": "32e445117c28f02e85c052af2e27aa83cc03de57b435c658bc3e5aac5c0c5f6e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "타우 병리에 IL-1 차단이 듣지 않았다는 음성 결과를 고찰에서 가설-반증 구조로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Taken as a whole, our data",
+   "note": "약어(IL-1RA·rAAV)를 「염증 신호 차단제」로 바꾸면 서고, 결론 단락은 앞 문맥 없이 시작한다."
+  }
+ },
+ {
+  "id": "2b35abbc-b86d-46dd-afe5-9b6c61837f37",
+  "source_updated_at": "2026-09-13T06:25:41.41353+00:00",
+  "body_sha256": "bcbea02574d9df1ae877689cf88eac61aff06b9055d9a79126b1dcd3bdcadfc4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "장 상피 재생에서 MAMDC4가 두 신호를 잇는다는 모형을 고찰이 한 편의 논지로 세운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Membrane trafficking modulates an array of",
+   "note": "결과 절은 그림 참조가 촘촘해 떼기 어렵고, 고찰 첫 단락만 자족적이다."
+  }
+ },
+ {
+  "id": "2b441607-3e0a-43f9-96cf-f68a49aab001",
+  "source_updated_at": "2026-09-13T07:32:58.627941+00:00",
+  "body_sha256": "6a4aedc84000ddc05384381ab6e48b58afc72c85a6433b27d937ac2ddac45ae8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "세프트리악손·NAC가 허혈 내성을 만든다는 주장과 글루타메이트 측정 근거를 고찰이 차례로 붙인다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Excitotoxicity is the first and the",
+   "note": "고찰 서두의 흥분독성 설명 단락은 수치를 걷어도 인과가 남는다."
+  }
+ },
+ {
+  "id": "2b54d9f7-50e0-4d20-aca7-d8fdab012e6c",
+  "source_updated_at": "2026-09-13T06:45:52.801959+00:00",
+  "body_sha256": "a98d47c1dfc5f953105a97e70c26ca3903bf35cd7a43cc76181bd6ab6adcafcd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "같은 계열 세 코로나바이러스에서 같은 효소 기능의 중요도가 달랐다는 대조가 고찰에 정리돼 있다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Coronavirus proteases are multifunctional enzymes that",
+   "note": "돌연변이 표기(F69S 등)는 지우기 어렵지만 비교 논지는 이름 없이도 선다."
+  }
+ },
+ {
+  "id": "2b54de65-af7c-470c-b6d9-fcb812822b18",
+  "source_updated_at": "2026-09-13T07:16:34.082366+00:00",
+  "body_sha256": "e28916ac631a476c2d4dbe2222d0eeeae77e82851ae4d8d7349e608be373ee2e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아침 광치료가 참전군인 수면을 개선했다는 예비 결과와 한계를 고찰이 균형 있게 서술한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our results showed that both subjective",
+   "note": "설문 약어(ISI·PCL-5)를 풀어 쓰면 고교 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "2b5b41bb-a5b3-4518-850f-f44a651a7a77",
+  "source_updated_at": "2026-09-13T06:41:55.157793+00:00",
+  "body_sha256": "87f035a1aa86a3ea30ca165cdee20fbe99c6a25c40e59d0c11bedcb04ec6ccdd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "전기 자극이 칼슘 유입을 통해 NK세포 살상력을 높인다는 가설-검증 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Calcium signaling is a key mechanism",
+   "note": "유전자 약어가 많지만 고찰 첫 단락은 「칼슘이 면역세포 기능을 좌우한다」로 요약된다."
+  }
+ },
+ {
+  "id": "2b5c15c3-7352-4dd2-ac88-3428a6caffef",
+  "source_updated_at": "2026-09-25T07:30:10.217402+00:00",
+  "body_sha256": "1c340e5593a705942e6f094ba2f3ee0ad00aa116c7a3d4e24b721a5df25a916b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "장기 난청이 뇌 피질 위축과 이어지고 보청기 사용 기간이 이를 늦춘다는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of our key findings was",
+   "note": "영상 지표(CT·CV)를 「피질 두께·부피」로 바꾸면 고2 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "2b65a4b3-f498-4824-be70-444a4728c742",
+  "source_updated_at": "2026-09-25T07:30:11.145269+00:00",
+  "body_sha256": "84f4a6371e64147672be01412b17ecc46c11f87b26abaaf476a1ba370e7d91b8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "살모넬라가 정족수 신호로 산성 환경을 견딘다는 기전을 고찰이 사례와 함께 잇는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The human body serves as a",
+   "note": "균주 표기(STM ΔluxS)가 결과 절을 막지만 고찰 도입 단락은 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "2b6698aa-f7ac-4690-b8bc-cb3e900116a8",
+  "source_updated_at": "2026-09-25T07:30:11.586505+00:00",
+  "body_sha256": "b0002aaea17b8800263fe3e2101256c015e0b42a4f8039a9f0ae833e38798a75",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "통신 끊김과 운전자 편차가 혼합 교통 안정성을 어떻게 흔드는지 결론이 조건과 한계까지 적는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study examined how cooperative-information loss",
+   "note": "본문 수식이 자리표시자로 남아 있어 수식 없는 결론·서론 단락을 골라야 한다."
+  }
+ },
+ {
+  "id": "2b8c7949-167f-4923-b464-56ae929e3a4b",
+  "source_updated_at": "2026-09-13T06:57:59.515193+00:00",
+  "body_sha256": "49f4353913c8ecf53c243bb4430f040c5d246e1b88ac6ef4dfa145ad20ea45be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "탈세포 골이식재가 탈회 이식재보다 신생골을 더 만든다는 비교 논지가 고찰에 정리돼 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The size of the bone graft",
+   "note": "유전자 약어를 「뼈 형성 지표」로 묶으면 서고, 두 재료 대조는 수치를 걷어도 남는다."
+  }
+ },
+ {
+  "id": "2b93fc93-8cca-4fdb-b1ca-5cad34e634a1",
+  "source_updated_at": "2026-09-13T07:34:27.678024+00:00",
+  "body_sha256": "c7615af317d82a113907a1a167d640fa424de703c357af0ea4f66edd5135e4a2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "초급성 뇌출혈 주변 확산제한 띠가 예후 지표가 아니라는 결론을 근거와 함께 밝힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "ADC is a measure of the",
+   "note": "영상 약어(ADC·PDR)를 풀어 쓰면 되고, 고찰은 통념 대조 구조라 떼기 쉽다."
+  }
+ },
+ {
+  "id": "2b9b10e6-97b2-48b2-a02a-c8c0b9b38d21",
+  "source_updated_at": "2026-09-13T07:05:54.682309+00:00",
+  "body_sha256": "8553b50443106d851a4195df6680b4dce88ed227bd722f733b1062e5dc86d094",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "세균 독소 조각으로 특정 수용체만 막아 부작용을 피했다는 설계 논리가 고찰에 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wnt signaling is a key pathway",
+   "note": "수용체 이름이 많지만 「넓게 막으면 부작용, 좁게 막으면 안전」이라는 대비가 논지를 지탱한다."
+  }
+ },
+ {
+  "id": "2b9cb307-cb92-49c8-9ebd-ea8531518c0a",
+  "source_updated_at": "2026-09-25T07:30:16.173209+00:00",
+  "body_sha256": "32897dd606c8273c340cf4ad520433f524d8c7c313ba922e541a0e4e9632371f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "새우 장내 미생물 균형을 면역 경로 하나가 주도한다는 다중오믹스 결론이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While the intricate relationship between host",
+   "note": "유전자·속명 나열이 많아 고찰 첫 단락과 결론만 발췌 대상이다."
+  }
+ },
+ {
+  "id": "2bc4720f-1775-4e79-acab-013f65648d3e",
+  "source_updated_at": "2026-09-25T07:30:19.637563+00:00",
+  "body_sha256": "4d9ee5c253bdcc7ed1edbc975594c2e1dff8d95291983ff2b44d570e41603b67",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "포스트바이오틱이 육계 장벽 유전자와 미생물군을 바꿨지만 항체는 못 올렸다는 결과를 균형 있게 논한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In this study, the group fed",
+   "note": "균 속명을 「유익균」으로 묶으면 고2 밴드로 내려가고, 한계 단락이 그대로 결론이 된다."
+  }
+ },
+ {
+  "id": "2bd4e244-baec-4cfe-b881-12adfaf64130",
+  "source_updated_at": "2026-09-15T14:43:12.019294+00:00",
+  "body_sha256": "4009b2b0860dd948c59d0007b9f135dd2d13734df95d60c08d567515fba73854",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "CXCL3가 종양 미세환경을 바꿔 간암을 진행시킨다는 주장에 여러 실험 근거가 붙는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The tumor microenvironment is a complex",
+   "note": "미세환경 설명 단락은 세포주 이름 없이도 서고 어휘만 낮추면 된다."
+  }
+ },
+ {
+  "id": "2bdf1558-51e9-43c2-9e60-edbf658b6122",
+  "source_updated_at": "2026-09-15T14:43:13.439658+00:00",
+  "body_sha256": "d21017920734ff5ff2145a0e5001f27956d63f96bbfb2845ba00bf05701c9386",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "비스포스포네이트가 치주 줄기세포의 면역 표지와 혈관 형성 능력을 함께 떨어뜨린다는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Reduced bone remodeling, delayed soft tissue",
+   "note": "약물 약어(ZOL·ALN)를 이름으로 풀면 되고, 고찰 첫 단락이 문제 제기로 그대로 쓰인다."
+  }
+ },
+ {
+  "id": "2be9bfd0-b906-4fef-8378-319278e2d6db",
+  "source_updated_at": "2026-09-13T06:27:47.913772+00:00",
+  "body_sha256": "d868f0bbc3be5e20a732041bb9da9a63f932c7fe8845be5230b162361e219434",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "레티노산이 뇌허혈에서 생존 신호를 지켜 세포사를 줄인다는 인과 사슬이 고찰에 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study supported the neuroprotective effects",
+   "note": "단백질 이름을 「생존 신호 단백질」로 바꾸면 서고, 행동검사 서술은 사건 순서가 있다."
+  }
+ },
+ {
+  "id": "2bf5382e-66aa-43cc-aa5b-73db238890e7",
+  "source_updated_at": "2026-09-08T05:41:01.505082+00:00",
+  "body_sha256": "4af5d06de7bfd734765c235771a79c51448a52144f0bfcedb70b834e6ad9b437",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "시벨레스타트가 페롭토시스를 억제해 패혈증 폐손상을 줄인다는 기전과 한계가 함께 적혀 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sepsis is an extremely complex and",
+   "note": "초록이 두 번 실려 있어 발췌 시 중복을 걷어야 하고, 고찰 도입은 자족적이다."
+  }
+ },
+ {
+  "id": "2c2d3409-aae8-45a3-926e-61fbddd23227",
+  "source_updated_at": "2026-09-15T14:43:18.963419+00:00",
+  "body_sha256": "e220dae633b75f5f088a38dd294b32e40f470865f32d8c145386717e6ccb38b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "방수 내 염증인자와 망막 영상 지표를 짝지어 시력 예후를 설명하는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During ocular inflammation, lymphocytes and macrophages",
+   "note": "사이토카인 약어가 많지만 「염증 물질」로 묶으면 고찰 단락이 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "2c3753a1-479a-41b6-8c5c-ed30fd0cbd14",
+  "source_updated_at": "2026-09-13T06:54:51.08703+00:00",
+  "body_sha256": "b5771615767799bd542ec7c6562a05a612f54bf7a3150253d8d68332553aa1e7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스 단백질이 후성유전 표지로 면역 유전자를 잠근다는 새 기전을 근거 순서대로 제시한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our results indicate that like many",
+   "note": "실험 기법 서술은 걷어내고 고찰만 쓰면 되며, 약물 이름 두셋만 바꾸면 밴드가 내려간다."
+  }
+ }
+]

@@ -1,0 +1,1537 @@
+[
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "457bf365-89ce-49b4-b16c-a266899d4439",
+    "revision": "2026-09-25T04:03:11.170464+00:00",
+    "body_sha256": "0ddb16e287fdaf71b55a55aeacc4085e9e12ce6620aaeb316526d29b0ac258f7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "약을 거부한 꼬마 마녀가 기침 때문에 주문을 망치다 약을 먹고 낫는 인과 흐름이라 초등 순서 칸 하나는 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Knip was not feeling well. Aunt",
+          "note": "「rabbit got stranger」 등 그림 의존 줄을 한두 개 풀어 쓰고 끝 「Copyright page」 잔재를 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.949Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/knip-the-little-witch/",
+          "year": null,
+          "author": "Audelia Agustine."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "46d39234-ea28-4e8a-b6c4-f7a77ce300d9",
+    "revision": "2026-09-25T04:03:27.000413+00:00",
+    "body_sha256": "adbedd739efa899b45e405d5419c515c5a41256e5c4ac5025b593fe2b70e2a5b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "대비하는 개미와 노는 나비·메뚜기가 태풍 때 갈리는 필리핀판 우화가 속담으로 요지를 밝혀 순서·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The butterfly asked, \"Ant, why do",
+          "note": "뒤에 붙은 작가 소개·추천사는 앞 설화와 다른 글이라 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.950Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-ant-and-the-butterfly/",
+          "year": null,
+          "author": "Cziera Zaad Corpuz."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "47abf062-a709-4ed5-9a7e-e77c50496bcf",
+    "revision": "2026-09-25T04:03:22.215681+00:00",
+    "body_sha256": "5f6d6302de4d125c1bd1a46f18ef5a0b7c0009bbef18c22227eb62c642823920",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "힘이 약하다고 여기던 나닝이 엄마와 고기잡이를 하며 함께 드는 힘을 깨닫는 흐름이라 순서·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Here’s the place,” said Mom while",
+          "note": "「If I was Mom」 반복이 장면 경계라 떼기 쉽고 대명사 오류(himself) 하나만 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.950Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC-SA",
+        "license": "cc-by-nc-sa-4-0-2",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/strong-like-mom/",
+          "year": null,
+          "author": "Witaru Emi."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "4a17d52d-f975-4c57-b003-73b7fc10c8ec",
+    "revision": "2026-09-25T04:03:32.11189+00:00",
+    "body_sha256": "e0563f65ad74ac966021c1bcb90a2c155a027c69b5d9f974fdf2c483c71306ba",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "쓰레기통을 뒤진 개가 비닐봉지 개미에게 물리고 잔디의 도움을 받아 공원을 치우는 인과 흐름이라 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But before Lulu could take a",
+          "note": "문단마다 사건 하나라 순서 문항에 알맞고 어휘는 이미 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/dog-makes-a-mess/",
+          "year": null,
+          "author": "Muth Kunthy."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "4a3c1686-f0b5-4d97-90c5-5da27442fd0f",
+    "revision": "2026-09-25T04:03:16.673382+00:00",
+    "body_sha256": "42a81c3b9864a44cd7c47088d91c56ccc854642517270f4fff72184543737cf5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "괴물을 잡으려던 소녀가 연구자를 도와 샴악어를 관찰하며 보전을 배우는 흐름이라 순서·내용일치·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Our job is to observe animals,",
+          "note": "관찰의 목적을 설명하는 연구자 대사 문단은 떼어도 논지가 서고 extinction 은 본문이 풀어 준다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/where-the-river-monster-roams/",
+          "year": null,
+          "author": "The Asia Foundation - Let's Read."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "4ccdc9ba-a8f9-4e43-8277-86c4a8cca62c",
+    "revision": "2026-09-25T04:03:46.171787+00:00",
+    "body_sha256": "69fd98cac2d8dfad3a39cb88c9b731a9251a3385279087673e9076eca466782c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "따로 등을 만들던 원과 삼각형 남매가 모양을 합쳐 대회에서 이기는 짧은 흐름이라 초등 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Circle got to work. But, he",
+          "note": "짧고 쉬워 그대로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/who-will-win/",
+          "year": null,
+          "author": "Ramya Nawaratne."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "4d84ba98-30ff-4e84-b6ad-aabfb65df236",
+    "revision": "2026-09-25T04:03:07.300423+00:00",
+    "body_sha256": "b13ba27e5064e2a9a34d74a7acfaec87ba5a9ce13263dff7233d2099275b32a3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "싫어하던 황마 신발의 발자국 덕에 길을 되찾고 할머니 뜻을 깨닫는 흐름이라 심경 변화 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But then one day, walking home",
+          "note": "끝 Note 의 황마 설명은 짧은 설명문으로 떼어 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/gold-shoes/",
+          "year": null,
+          "author": "HerStory Foundation."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "4fef8a5d-a205-4506-ab28-263fe1879e9b",
+    "revision": "2026-09-25T04:03:00.044546+00:00",
+    "body_sha256": "50bead975c376256bca258bb4927bb46e5e2301cfc8f5ca1125efee6d8d55959",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "자전거를 사려던 티눅이 엄마의 약초 음료에 맛·병·상표·전단을 더해 팔아 내는 흐름이라 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While waiting in line at the",
+          "note": "맛 실험→포장→홍보 단계가 뚜렷해 배열 문항에 알맞다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/no-ordinary-herbs/",
+          "year": null,
+          "author": "Saptorini."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "4ffd3082-bc56-42e1-be51-8ddde6b096f9",
+    "revision": "2026-09-25T04:03:32.322544+00:00",
+    "body_sha256": "e79f3c6bcedb6e762790141856b1d1b0d30639d326bce9b34e02da916563f715",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "travel",
+        "why": "할아버지와 부킷팅기 마차를 타며 수수께끼로 명소를 맞히는 흐름이라 초등 순서·내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Well, we need to go to",
+          "note": "수수께끼 문단이 지명·특징 짝이라 내용일치로 쓰기 좋고 노래 구절만 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/riding-the-horse-cart/",
+          "year": null,
+          "author": "Khairani."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "500b6691-a60a-406b-af3c-c6508bfaea65",
+    "revision": "2026-09-25T04:03:36.020157+00:00",
+    "body_sha256": "42f3715f4ed983194debd5a79f4c7b90a264de75683e33d4f964e5226587d8ac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "시골이 지루하던 티다가 남의 연을 잃고 함께 찾으며 반딧불과 친구를 얻는 흐름이라 심경·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Thida tried to get the kite",
+          "note": "장면 단위가 짧아 자르기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/small-lights/",
+          "year": null,
+          "author": "Mel Sopheawatey."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "50d786fb-cea8-4a60-8d53-aa61c90b7ace",
+    "revision": "2026-09-25T04:03:03.529123+00:00",
+    "body_sha256": "5dad8894aa7874ee82df27c349f3a56dbf22b9656fcd9d68b5420a26706c6f39",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "개미 보호 아래 눈과 날개를 잃는 흰개미들과 이를 알린 테리의 우화라 길들여진 안락이라는 요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Terry decided to follow them. She",
+          "note": "늙은 흰개미의 반론과 테리의 설득 문단이 대비돼 요지 문항으로 떼기 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-blind-termites/",
+          "year": null,
+          "author": "Yamam Khartash."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "529cf733-7efb-4e9f-9e4e-afe38641f0db",
+    "revision": "2026-09-25T04:02:59.786054+00:00",
+    "body_sha256": "be8e1be00b7ffde6d84c8c0c03a9bfce229a9718ca537026e480b9e8029a59a3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "껍데기를 잃은 거북이 아르마딜로·달팽이·굴의 껍데기와 비교하며 찾는 흐름이라 초등 내용일치·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The ball uncurled into an angry",
+          "note": "동물마다 껍데기 특징 대비가 문장 연결을 만들고 carapace 는 본문이 풀어 준다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.951Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/where-did-my-home-go/",
+          "year": null,
+          "author": "Layla Audi."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "53a49a44-71f3-48d9-8955-f79642b02907",
+    "revision": "2026-09-25T04:02:59.070909+00:00",
+    "body_sha256": "627ffbf6fc7196742dafc0279444e4823d56bce1e567d88648b7caf6255d69d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "엄마가 일하러 떠난 뒤 엄한 할아버지와 부딪히던 남매가 할아버지도 그리워함을 알게 되는 심경 흐름이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Alia brought Bagas to the table",
+          "note": "사진을 보는 할아버지 장면은 떼어도 서고 Mbah 풀이 주석만 정리한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/when-is-mom-coming-home/",
+          "year": null,
+          "author": "Veronica W."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "559b9776-4e99-4e0c-8a3b-80b1c6289df5",
+    "revision": "2026-09-25T04:03:26.569767+00:00",
+    "body_sha256": "ce5cbfaae61a9d3516c22ec5fc2b3edded9b761ba767d5b0dc0acba047bb83d3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "지렁이를 쫓아낸 토끼가 채소가 시든 것을 보고 지렁이의 역할을 깨닫는 인과 흐름이라 초등 주제·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The next day, the vegetables were",
+          "note": "끝 두 문장이 느슨해 한 줄 정리가 필요하다 — 나머지는 그대로 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/disgusting/",
+          "year": null,
+          "author": "Sin Sinat."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "55a674fc-51d9-485d-b1c2-14b6a5f0b5eb",
+    "revision": "2026-09-25T04:03:38.113726+00:00",
+    "body_sha256": "a26ff9fd7cb5e30628ad1611d2251dc2bc8feffa6cc61c432c90f63e2ef2c110",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "학교가 싫던 니마가 선물에도 시무룩하다 친구를 만나 마음이 바뀌는 흐름이라 초등 심경 칸 하나가 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nima is not happy today. Father",
+          "note": "반복 패턴에 결말 반전이 있어 그대로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/nimas-first-day-of-school/",
+          "year": null,
+          "author": "Krishnadip Sigdel."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "55d1703e-2190-46dd-9f4d-14afcd4f9439",
+    "revision": "2026-09-25T04:03:12.284055+00:00",
+    "body_sha256": "71131182905ffeb32e516aa884f1097c9c1b009962f30041cf1c911dbd646c65",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "소금세의 부당함→행진→체포·독립으로 이어지는 역사 서술이 끝 문장에 요지를 담아 내용일치·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "order",
+            "summary"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The British made it illegal for",
+          "note": "첫 문단의 번역 안내만 걷어내면 되고 civil disobedience 하나만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC-SA",
+        "license": "cc-by-nc-sa-4-0-2",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/mahatma-gandhi-the-salt-march/",
+          "year": null,
+          "author": "Esther David."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "5626801f-ba61-4025-b879-149f19187977",
+    "revision": "2026-09-25T06:46:21.861805+00:00",
+    "body_sha256": "d5ffd158fbadf8a13a8b002d90086e54baad8c5b6639d4faa6f5b33203658903",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "사고 뒤 말을 잃은 아빠를 위해 웨치를 사 오던 니켄이 넘어지자 아빠가 다시 웃는 흐름이라 심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Why isn’t Dad answering her?Is he",
+          "note": "끝 Learn More 의 절단 설명은 본문과 이어 주면 좋고 성별 맞히기 장면은 줄여도 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/lets-play-together-dad/",
+          "year": null,
+          "author": "Nurhayati Pujiastuti."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "567762b7-3850-498b-8ea8-9d203d10e071",
+    "revision": "2026-09-25T04:03:19.89005+00:00",
+    "body_sha256": "53b1e77f42a7e87f9a3f4363714a863795aaa14dd2034088314bea5a24113e6d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "소음으로 숲을 괴롭히던 곰에게 동물들이 복수하고 늙은 염소가 공존을 묻는 흐름이라 주제·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Having had enough, the animals in",
+          "note": "대소문자·따옴표가 어지러워 정리가 필요하고 끝 물음은 요지 문장으로 바꿔 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/uh-oh-pang-pang-is-up-to-something/",
+          "year": null,
+          "author": "Juhee Hong."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "56910f5e-25e2-4042-9bc1-127e77b1539d",
+    "revision": "2026-09-25T04:03:47.329118+00:00",
+    "body_sha256": "02ca2c248efd82cb60ebe14dfe68e14473af5a782b4dffd7339b06510c428742",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "격려 봉투를 받던 고아 소녀가 아픈 친구에게 초대장 봉투를 만들어 비를 뚫고 전하는 흐름이라 순서·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Marlina took the cover off her",
+          "note": "봉투 속 시도(동전·시·그림·꽃) 문단이 순서 단서가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/a-message-in-the-envelope-2/",
+          "year": null,
+          "author": "Yulina Trihaningsih."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "59217f38-71a8-44d8-a484-6537708083a3",
+    "revision": "2026-09-25T04:03:04.70227+00:00",
+    "body_sha256": "f0b8114fed5f395a7280b79b105a5c2aabc12eb0d9aaeb24acd657f7c1f2615f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "수학이 싫던 주니어가 양말 투석기 로켓 꿈을 꾸고 수학의 쓸모를 깨닫는 흐름이라 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But he didn't know how he",
+          "note": "「초속 6만 km 탈출속도」는 틀린 수치라 가공 때 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.952Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/run-away-to-the-stars/",
+          "year": null,
+          "author": "Amima Iziddine."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "597b5127-d706-40d1-8bb9-fb7244a83426",
+    "revision": "2026-09-25T04:03:11.648397+00:00",
+    "body_sha256": "e09fd3cb82500cdbc952048b990fee81eae9a1a0106e188a79f1e5bc3481d92f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "넘친 연못의 원인을 에넹이 배수구에 걸린 천에서 찾아내는 문제해결 흐름이라 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Ujang, we helped Grandpa harvest fish",
+          "note": "입수·배수 원리를 떠올리는 문단이 떼어도 서는 설명 단락이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.953Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/grandpas-fish-pond/",
+          "year": null,
+          "author": "Ammy Ramdhania."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "59f7083a-3cba-40d9-974b-e141564bef03",
+    "revision": "2026-09-25T04:02:54.875571+00:00",
+    "body_sha256": "aa6cdc268264e3bca19bb7d6494a7ba9f899557961b41c6f1540b08cbfefc25e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "곱셈이 싫던 테이테이가 가게 놀이로 곱셈의 쓸모를 익히는 흐름이라 초등 순서·내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"You know,\" Som says, \"using multiplication",
+          "note": "「4 x 40」 처럼 틀린 식 표기 하나를 고치면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.953Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/tey-tey-times-10/",
+          "year": null,
+          "author": "Ngoun Sakal."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "5a34eefb-d82b-41cb-af20-0fcc2d235bc1",
+    "revision": "2026-09-25T04:02:47.445856+00:00",
+    "body_sha256": "36adb84cdf44b6328e03bcc0f9ec221ae2a7766dd74611a8ff5e3ba48a6b8ec8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "지적 장애 친구 알리프를 따돌리던 화자가 물싸움 전통으로 함께 노는 법을 찾는 심경 흐름이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "I feel guilty. I go over",
+          "note": "줄표(-----) 잔재를 걷어내고 끝 해설은 짧은 설명문으로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.953Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/lets-have-a-water-fight/",
+          "year": null,
+          "author": "Anna Farida."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "5acdca11-dffa-41e3-9803-4c37f0e4f4c9",
+    "revision": "2026-09-25T04:03:42.376947+00:00",
+    "body_sha256": "b99faf32382aac2d72c2d91f0ea1ff69992dc91a8cd9999aecec8b9b9aa11d72",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "겁쟁이라 놀림받던 망고의 손전등이 착각을 차례로 풀어 주는 반복 흐름이라 초등 순서 칸 하나가 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"It’s so dark. I’m bringing my",
+          "note": "「Girls really are scaredy-cats」는 이야기가 뒤집는 대사라 두되 노래 줄은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.953Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-torch-of-mango/",
+          "year": null,
+          "author": "Nhã Thuyên."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-47-947Z",
+    "id": "5b367d30-027f-4031-9542-538fe7a4503d",
+    "revision": "2026-09-25T04:03:09.200374+00:00",
+    "body_sha256": "fcff9676c6d51f03ddb2e0c4b09358bbf63f8eb9629f114bf3e3135d7d3c4a5e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "다카 아르메니아인의 정착·교역·교회를 대화로 설명하고 공존으로 맺어 내용일치·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“So where are all the Armenians",
+          "note": "「35 0g raves」 같은 쪼개진 숫자를 붙이면 그대로 짧은 설명문이 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:47.953Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/armenians-of-dhaka/",
+          "year": null,
+          "author": "HerStory Foundation."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  }
+]

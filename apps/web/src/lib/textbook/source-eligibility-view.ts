@@ -365,7 +365,18 @@ export interface DefectPanel {
   rules: DefectRow[]
 }
 
-/** 등급 표시 순서 — 좋은 것부터 나쁜 것 순. 화면이 이 순서로 읽는다. */
+/* 등급 표시 순서 — 좋은 것부터 나쁜 것 순. 화면이 이 순서로 읽는다.
+ *
+ * ⚠️ **이 목록은 「지금 나오는 등급」이 아니라 「스냅샷에 들어 있을 수 있는 등급 전부」다.**
+ *   `excerpt-blind` 를 한 번 뺐다가 되돌렸다(2026-09-23) — DD-79 로 길이 축이 사라져
+ *   `evaluateSource` 는 더 이상 이 등급을 안 내지만, **낡은 스캔 파일에는 14,439편이 그대로 있다.**
+ *   목록에서 빼면 그 행들이 합계에서 통째로 증발해 73,281 ≠ 87,720 이 된다(회귀가 잡았다).
+ *   즉 고칠 것은 이 목록이 아니라 **스냅샷의 낡음**이다.
+ *
+ * 실측 2026-09-23 · `csat_source_eligibility`(실시간 캐시) 전수:
+ *   unjudged 31,106 · usable 28,633 · blocked 27,981 = 87,720. `excerpt-blind` 는 **0편**.
+ * 화면 위쪽 조회 콘솔이 이 캐시를 직접 읽으므로, 아래 스냅샷 표와 숫자가 다르면
+ * **콘솔 쪽이 현재**고 스냅샷은 과거다. */
 const GRADE_ORDER: EligibilityGrade[] = [
   'usable',
   'excerpt',
@@ -423,7 +434,7 @@ export function buildSourceEligibilityPanel(now: Date = new Date()): SourceEligi
       pct: total.total ? +((count / total.total) * 100).toFixed(1) : 0,
       nextStep:
         grade === 'unjudged' && allUnjudgedAreStructural
-          ? '전부 미절단 원본이라 게이트로는 안 풀린다 — 발췌 경로(scripts/csat/plos-extract)로 가야 한다'
+          ? '전부 미절단 원본이다 — 먼저 보관 판정(scripts/csat/plos-raw-triage-export), 보관된 것만 발췌(scripts/csat/plos-extract)'
           : GRADE_NEXT_STEP[grade],
       composable: COMPOSABLE.includes(grade),
     }

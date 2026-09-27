@@ -1,0 +1,934 @@
+[
+  {
+    "id": "0df88f6c-1b9e-4aa7-b093-5c443a6b13c0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4d67b5378040fc91f0e57e27a8db6547e2860a7609e6102a22e502cfb0898d3e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프리토리아 인근 관광열차 탈선의 피해·추정 원인·구조 현장을 전해 사건 흐름으로 내용일치 칸을 채운다; 사망 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The train had been entering a",
+      "note": "탈선 경위 문단은 기관차 교체 중 사고라는 추정과 출발지·승객 수가 서서 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "0dfc18c6-5ccf-46ce-a836-f5fa331deb2a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "43b373358bcad4d537f10e5111599e6c6f2e959a16e55b2f6e0338eed8c7473d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "hold",
+    "genre": "environment",
+    "why": "미 공병대 전국 오염 허가 제한을 법원이 인정한 기사로 칸은 있으나 첫 문단이 변경 조건을 나열하다 쉼표에서 끊겨 본문 일부가 잘렸다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Due to concerns over the amount",
+      "note": "1980년대 규제 강화 문단은 홀로 서지만 첫 문단 끝 조건 목록이 문장 도중에 끊겨 원문 확인이 필요하다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "0dff43ac-5176-4adc-8dd4-84250c1fdf28",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "90eeedb6d66ef91e0fadd33ddd5d99f43d7f32535457512ac000f2ca9118c78f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "토론토 프로판 시설 연쇄 폭발의 목격담·피해·대피·교통 통제를 전해 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There is concern that two large",
+      "note": "탱크 냉각 문단은 폭발 위험→냉각 작업→대피 흐름이 서서 순서 문항으로 잘렸다."
+    }
+  },
+  {
+    "id": "0e0069f9-fc73-4bd3-af38-ce92f682a2ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d756632a250d8e0e2db64a9ff2721106a68caead96b75f9275d35e23ec948b0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "블룸버그의 대선 출마설을 자금력·중도층 공략·페로 선례 연구로 전해 내용일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Media reports speculate that Bloomberg is",
+      "note": "출마 조건 문단은 양당이 지지층에 치우치면 중도 공간이 생긴다는 논리가 서서 요지 문항이 됐다."
+    }
+  },
+  {
+    "id": "0e07f035-c42f-4819-a8e4-6589a372f4e7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d3d98f41c4f658ba86b18b55da8f3be6881682a2894b8c02c814d5217f6cb17a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스리랑카 정부군의 삼푸르 점령 주장과 타밀 반군의 반론을 전해 주장 대비·내용일치 칸이 된다; 교전 소재라 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Overnight shelling and mortar attacks from",
+      "note": "작전 목적 문단은 포 세 문을 무력화하려 했다는 이유와 반군 반론이 한 문단에 대비됐다."
+    }
+  },
+  {
+    "id": "0e08d998-4228-4b00-a2ed-299cf02a422e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dba8f800661d69003e93012300761c184b59ca32bdf11edb2ed3536c30f1c5f5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카르자이 대통령 이복동생 피살과 대통령 성명·배후 논란·과거 암살 시도를 전해 내용일치 칸을 채운다; 암살 소재라 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The motive as to why Mohammed",
+      "note": "배후 논란 문단은 탈레반 주장과 현지 정치인의 의심이 맞서 사실-주장 구분 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "0e0ed6dc-470e-4231-afc1-22326f9be3cb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "475104cdf0e17fdf2c77f40b3f4e0f2d8c56b9da4ac41c47c0ff2e9ce06c5c35",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "칠레 여진 기사로 규모·깊이·진앙 거리와 여진 여덟 건의 시각·수치 나열이 본문 대부분이라 떼어 낸 문단에 사건 흐름이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "ONEMI (National Emergencies Office), reported that",
+      "note": "ONEMI 문단만 피해 없음을 전해 섰으나 나머지 수치 나열을 걷으면 두 문장뿐이라 가공이 막혔다."
+    }
+  },
+  {
+    "id": "0e161668-e4cb-4a01-9078-11de0ebd5bc3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33afe1c8f516309c36e755acc8be8dc9bd6bfbffe0505803e7669fcdae506ce7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "허리케인 에이드리언의 이례적 북동 진로와 상륙·예상 피해를 기상 설명과 함께 전해 내용일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The north-easterly track of this storm",
+      "note": "이례적 진로 문단은 1966년 이후 네 번뿐이라는 근거로 논지가 서지만 기상 용어는 V6 아래로 못 내렸다."
+    }
+  },
+  {
+    "id": "0e1f1b3d-16dd-4f0d-a350-ff75171ea6fb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba8da0c946871012f4e520b52d9c20c869837eb20a3aa5efe86c9aa356aaaf31",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "hold",
+    "genre": "news",
+    "why": "첫 유로비전 댄스 콘테스트 기사지만 「listed in winning order, are:」 뒤 순위 목록이 통째로 빠져 본문이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Greece didn't air the show live,",
+      "note": "진행 문단은 방송·사회자 이야기로 서지만 우승국 순위 목록이 없어 기사 중심 사실이 비었다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "0e22082f-39ed-4665-83fc-2f4237c2ede0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "632bd6c02f36039dd2d08ffc768dfe9fe79ac2ba46650433553524c6cac660a1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아프간 치누크 헬기 격추로 38명이 숨진 사건의 경위·탈레반 주장·신중론을 전해 사실-주장 구분 내용일치 칸을 채운다; 전사 소재라 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Taliban said that they had",
+      "note": "탈레반 주장 문단은 개조 RPG 주장과 증거 없음이 한 문단에 서서 주장-근거 짝 문항으로 쓰였다."
+    }
+  },
+  {
+    "id": "0e255e8b-04ed-4c45-b24d-c28a82263b82",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f1ffcbf3af083526346f5c8febab6109b63da065595c8a2af424ce59f203d91",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "호주 하원 회기 마지막 날 야당의 문책 동의안 셋과 정부의 토론 종결 표결을 전하는 짧은 기사로 사건 흐름만 겨우 선다; 빠진 의원 이름 하나는 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Government with their House majority",
+      "note": "정부 대응 문단은 다수 의석으로 발언을 끊고 부결했다는 결말이 한 문장에 서서 떼어졌다."
+    }
+  },
+  {
+    "id": "0e26610f-a4b8-43f5-83e2-99b0043b4e3d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5b665f0df810f81f97ee7919be1d28682a8728c27d19aa741d3c840b99d2ae29",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "제노폰 상원의원의 사이언톨로지 수사 요구와 교단 반박·총리 신중론·해외 판결을 전해 주장 대비·내용일치 칸을 채운다; 고3 이상이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a statement, the Church of",
+      "note": "교단 반박 문단은 면책특권 남용이라는 반론이 인용 하나로 서서 주장 대비 문항에 쓰였다."
+    }
+  },
+  {
+    "id": "0e285b3d-a8b1-4f9e-804e-84d4a38c8a36",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "63c1586401d52b7c7792d6949e98defd9eafc598e590fa4e21aabb3d08560897",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "방콕 클럽 새해 화재의 원인(불꽃)·확산 이유·출구 부족을 전해 인과·내용일치 칸을 채운다; 대량 사망 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lt. Sutin Pongkhamphan has revealed a",
+      "note": "압사·확산 문단은 연료가 많아 빨리 번졌다는 인과가 인용 둘로 서서 빈칸 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "0e2a10c4-1380-4fe9-a952-d1a8f34ed8e5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "498afdbe9b28d2dbb7803996bfd3bd92a1246f1a8862d3f1c1ea2556df4ce1c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영국 법원이 밝힌 미국의 정보협력 중단 위협과 외무장관 부인, 피랍 고문 주장 사건을 전해 주장 대비 칸을 채운다; 고문 묘사가 있어 고3 이상이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The court case and the British",
+      "note": "영미 관계 변화 문단은 새 행정부와의 관계 재정립이라는 배경이 서지만 extraordinary rendition 같은 용어는 못 바꿨다."
+    }
+  },
+  {
+    "id": "0e2f25a8-7255-40f8-8ff9-ba78b69c37be",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3cf2bd2972a2af2d978b2c75d8c3ece8923e7ad8d103f06a7afaee1d9327e69c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "페이팔 본사 폭발 사건을 경찰·회사·소방 발언으로 전해 짧은 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The blast was seen from the",
+      "note": "폭발 위치 문단은 휴게 구역·유리창 파손이 두 문장으로 서서 쉽게 떼어졌다."
+    }
+  },
+  {
+    "id": "0e34322f-ca12-477a-866f-d446cef90ad2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "57ee1f55c973a6763ec2315a2e9a2ca255430a8f009ed6680141214b615154ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "GTA 선정성 논란에 대한 클린턴 입법 추진과 등급위원회·업계·반대 변호사 입장을 대비해 주장-근거·요약 칸을 채운다; 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Like many Grand Theft Auto gamers,",
+      "note": "ESRB 성명 문단은 성급한 판단을 경계하는 입장이 인용 하나로 서서 주장 파악 문항이 됐다."
+    }
+  },
+  {
+    "id": "0e3e5599-dc0a-4d0b-8dd8-5a3a45abcb89",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e25155f31cc650977ffbf1cbe5c0724891c5ed91894be8026226737ea26e0107",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미주리 법원이 가족계획연맹에 보조금 반환을 명령한 판결과 앞선 재판 경과를 전해 내용일치 칸을 채운다; 낙태 관련이라 고3 이상이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Missouri Supreme Court overturned two",
+      "note": "대법원 파기 문단은 두 번의 파기 이유가 순서대로 서지만 법률 용어가 많아 V6 에 머문다."
+    }
+  },
+  {
+    "id": "0e3f8086-1499-426c-99a4-56cee687c69d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6eb6cf670eb1b14b302d3bbb4adca6f3bad01e8948f4989c4dc513ae02f16413",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카디프에서 위조 담배 2,200만 개비를 적발한 경위와 세관의 이유(정직한 상인·건강 보호)를 전해 목적·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The HMRC have stated that they",
+      "note": "세관 발언 문단은 적발이 막은 피해 두 가지가 인용으로 서서 목적 파악 문항에 맞았다."
+    }
+  },
+  {
+    "id": "0e4034f3-68f2-4665-8489-e04c8161f4f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1a77443f9b06d4d3dd070140c763978f5d90efabc7d1559a737d12cb61571951",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영국 억만장자의 호주 자유당 기부 공개와 외국 기부 금지 주장·비공개 규정 비판을 전해 주장-근거 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Australian Democrats' senator Andrew Murray expressed",
+      "note": "머리 의원 발언 문단은 공짜 점심은 없다는 주장이 서서 주장 문항 핵심 문장으로 쓰였다."
+    }
+  },
+  {
+    "id": "0e48bc30-6661-42c3-a90d-56c6689ce55b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "245db8a9b38b4527988ed2682ad15a705013a0ec401a5b8dae769b791a4077ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "룩셈부르크 총리의 코로나 입원과 감염 경로·방역 조치·국내 확산을 전해 내용일치 칸을 채운다; 비문 한 곳은 고친다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bettel tested positive for COVID-19 after",
+      "note": "감염 경로 문단은 회의 참석→양성→밀접접촉 아님 흐름이 서서 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "0e499050-d8df-431e-9718-f7990a69f4bd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "becd5a8bb286b9d54328a9697e016f9f5086e173cf08d709ba5e375c94e5b383",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "LA 워싱턴산 산불의 발생·진화 과정을 시각 순서대로 전해 순서·내용일치 칸이 된다; 첫 줄 날짜는 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Firefighters were on the scene by",
+      "note": "진화 문단은 출동 장비와 헬기 살수가 시간순으로 서서 순서 배열로 바로 잘렸다."
+    }
+  },
+  {
+    "id": "0e4d02ea-0ec9-4375-9624-05eebbf4d87f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c3da55dc082ed74972fe7d76df80176c30c19637f172fb1661ecbe9ede78396",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콩고 대선 1차 결과 발표 뒤 킨샤사 충돌과 부정선거 주장·평화유지군 투입을 전해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The June 30 election was the",
+      "note": "독립 이후 첫 민주 선거 문단은 1960년과 대비돼 짧지만 역사 배경 선택지로 섰다."
+    }
+  },
+  {
+    "id": "0e557c46-da07-428b-90df-c62a375c7f4d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6897707d2c5821d132121b6b2260b794c4c8abf717a6431be46fdb240b5296a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "영국 성공회가 독신 동성애자 주교를 허용하기로 한 결정과 복음주의 측 반론을 전해 관점 대비·내용일치 칸을 채운다; 고3 이상이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Whether gay clergyman would be allowed",
+      "note": "2003년 제프리 존 사례 문단은 쟁점의 발단을 시간순으로 세우지만 교회 직제 용어는 못 바꿨다."
+    }
+  },
+  {
+    "id": "0e5b4ea1-cd8e-474f-887c-e339dc560bbb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2cb33533258a4dc96ce7c878fb65fe32b2701f408edd107b670a303c953408bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "호주 구조대원 250명의 석면 노출과 훈련장 관리 부실 보도를 전해 내용일치 칸을 채운다; 끝의 인용 나열은 줄인다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Members of the Urban Search and",
+      "note": "훈련장 문단은 가상 재난 훈련장이 2004년부터 쓰였다는 배경이 서서 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "0e5c4039-d232-4cc1-8b39-99f9a4325ac3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b43d4a281c368bab8bc26674002be5dd8b6dcdfa42c8cd4e87545f5c5700accc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "남호주 목장에서 사라진 네 살 거스 라몽 수색 확대와 실종 경위를 전해 서사·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Searches of the surrounding area were",
+      "note": "실종 당일 문단은 모래 놀이→사라짐→가족 수색→신고 순서가 서서 순서 문항이 됐다."
+    }
+  }
+]

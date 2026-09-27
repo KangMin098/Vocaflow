@@ -14,6 +14,7 @@
 // source_id: "factbook:<code>" (예: "factbook:ks" = South Korea)
 
 import type { RawArticle } from '../types-article'
+import { ShortBodyError } from './short-body'
 
 import { decodeEntities, fetchWithTimeout, htmlToPlainText } from './_helpers'
 import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
@@ -116,9 +117,8 @@ export async function ingestFactbookArticle(itemUrl: string): Promise<RawArticle
     throw new Error(`Factbook: Introduction/Background 없음 (${itemUrl})`)
   }
   const content = htmlToPlainText(bgHtml)
-  if (content.trim().length < 200) {
-    throw new Error(`Factbook Background too short: ${content.trim().length} chars`)
-  }
+  // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
+  const shortBody = content.trim().length < 200
 
   // code = URL 마지막 세그먼트. 제목 = 국가명(conventional short form), 없으면 code.
   const code = itemUrl.match(/\/([a-z]{2})\.json$/i)?.[1] ?? 'xx'
@@ -128,7 +128,7 @@ export async function ingestFactbookArticle(itemUrl: string): Promise<RawArticle
       ? decodeEntities(shortForm).trim()
       : `Factbook ${code.toUpperCase()}`
 
-  return {
+  const article: RawArticle = {
     source: 'factbook',
     source_id: `factbook:${code}`,
     source_url: itemUrl,
@@ -142,4 +142,13 @@ export async function ingestFactbookArticle(itemUrl: string): Promise<RawArticle
     audio_url: null,
     fetched_at: new Date(),
   }
+  if (shortBody) {
+    throw new ShortBodyError(`Factbook Background too short: ${content.trim().length} chars`, {
+      source: article.source,
+      url: article.source_url,
+      content: article.content,
+      article,
+    })
+  }
+  return article
 }

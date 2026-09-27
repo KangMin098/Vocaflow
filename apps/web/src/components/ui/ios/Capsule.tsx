@@ -41,7 +41,8 @@ interface ToneStyle {
 //    글자로 얹으면 2.0~3.5:1 로 전부 미달이었다(2026-08-09 axe 실측) → *-ink 토큰으로 교체.
 //    neutral/gray 라벨도 --t3(0.38 알파)는 어떤 배경에서도 4.5 를 못 넘겨(최대 2.4) --t2 로 올림.
 const TONE_STYLES: Record<CapsuleTone, ToneStyle> = {
-  neutral: { bg: 'var(--bg3)', label: 'var(--t2)', value: 'var(--t1)' },
+  // 참조 칩(ui-kit-summary 38페이지): 라벤더 #ece8fd 위 #6741bf 14px/600 — 스킨 끔에서는 --tint-lavender = --bg3
+  neutral: { bg: 'var(--tint-lavender)', label: 'var(--ju)', value: 'var(--t1)' },
   brand: { bg: 'var(--p-light)', label: 'var(--on-p-tint)', value: 'var(--on-p-tint)' },
   red: { bg: 'var(--ios-red-tint)', label: 'var(--ios-red-ink)', value: 'var(--ios-red-ink)' },
   orange: { bg: 'var(--ios-orange-tint)', label: 'var(--ios-orange-ink)', value: 'var(--ios-orange-ink)' },

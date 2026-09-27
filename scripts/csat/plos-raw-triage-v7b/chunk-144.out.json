@@ -1,0 +1,849 @@
+[
+  {
+    "id": "743c0209-477e-4bf4-bdb1-37c9118da30d",
+    "source_updated_at": "2026-09-15T15:18:06.01558+00:00",
+    "body_sha256": "4aed7096193e272dc196152fe8dd239bd98a69ceb63e2ffdf84327784c21639e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "리프트밸리열 바이러스의 확산과 항체 인식 각도라는 논지를 서론·고찰이 한 편으로 잇는다 — 서론 첫 단락이 발췌 가능.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rift Valley fever virus (RVFV) is",
+      "note": "매개 모기·기후 확산 단락은 약어를 풀면 서고, PDB·IC50 수치는 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "7445e0f7-05f8-440a-8681-b6f32ed4d93c",
+    "source_updated_at": "2026-09-13T06:59:23.772284+00:00",
+    "body_sha256": "7afe4a9eae710f0148846e42a26b22342e0e9c5f550fe414da221092fb065440",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "수입 대두박을 국내 면실박으로 바꾸는 까닭과 한계(50%)를 서론과 고찰이 인과로 잇는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The fisheries sector in Pakistan",
+      "note": "사료비 비중·수입 의존 단락은 표를 걷어도 서고, gossypol 을 「독성 성분」으로 바꾸면 내려간다."
+    }
+  },
+  {
+    "id": "74460bf3-cfc6-4e16-9805-56eeba5ce427",
+    "source_updated_at": "2026-09-25T07:40:56.864396+00:00",
+    "body_sha256": "48099f3cbe20b2f85768319992bd43c47ecf2312038045a72385f533369f661d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "선형 염색체의 말단 복제 문제와 효소 기능 전환이라는 개념 축이 서론·고찰에 문장으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Bacteria of the genera Borrelia",
+      "note": "변이 명칭(D202R·D398A)이 본문 대부분을 덮어, 개념 단락만 떼어 쓰는 경로로 남는다."
+    }
+  },
+  {
+    "id": "7449f578-9ec1-4579-88c6-6887a08e128e",
+    "source_updated_at": "2026-09-15T15:18:08.478533+00:00",
+    "body_sha256": "24776986688240daf542360e7abfea9f7f2f48f80518476edb8a8fc5ca73a384",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "장내 미생물 대사산물과 관상동맥질환 위험을 발견-검증 3단계로 잇고 고찰에서 한계까지 밝힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Coronary heart disease (CHD) remains",
+      "note": "대사산물 이름을 걷고 「장내 미생물이 만든 물질」로 묶으면 서론 단락이 그대로 지문이 된다."
+    }
+  },
+  {
+    "id": "7458256a-2a1d-4ea6-b63b-1a379a6c4cc7",
+    "source_updated_at": "2026-09-15T15:18:10.314797+00:00",
+    "body_sha256": "c15e616612ee71f4ace6687f21641f758ea9310afb081466090eff4499c9b518",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "자궁내막증의 진단 지연과 DCN 의 진단 표지자 가능성을 서론·고찰이 논지로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Endometriosis affects approximately 6–10%",
+      "note": "서론의 질병 부담 단락은 유전자 약어 없이 서고, 결과 절은 데이터셋 번호가 많아 걷어야 한다."
+    }
+  },
+  {
+    "id": "74595645-073a-4ec7-b2bf-a29a3446f81e",
+    "source_updated_at": "2026-09-13T07:36:05.161152+00:00",
+    "body_sha256": "f67922f6a2632a9474578e01968c5397cfa2f7a9b190a42c4b743207f5e445a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "기생충 염화이온 통로와 이버멕틴 작용 기전을 서론에서 세우고 고찰에서 되짚는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Pentameric ligand gated ion channels",
+      "note": "전기생리 수치(pS·dwell)가 촘촘해 서론 개념 단락 외에는 가공이 무겁다."
+    }
+  },
+  {
+    "id": "745a6fef-882f-4459-b633-f2544e08f114",
+    "source_updated_at": "2026-09-25T07:41:00.721642+00:00",
+    "body_sha256": "0cfb40342228bfe98ed7ded01f748c8be37091d69a0fc451df2c1754da445002",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "클라리넷 리드의 수분 흡수와 노화를 중성자 영상으로 설명하며 관찰에서 결론까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The modern clarinet originated from the",
+      "note": "악기 구조 설명이 구체적이고 전문 용어가 적어 고1 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "745d8570-cc37-4270-a0e3-70c4e2d245d2",
+    "source_updated_at": "2026-09-13T07:35:10.588628+00:00",
+    "body_sha256": "ca0db59c8bd38797215e0398d9599b66ed028965aeefccea358505042f7ba710",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "유전자 발현과 뉴런 전기 특성의 대응을 왜 찾는지부터 자원 공개까지 논지로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A major goal of neuroscience has",
+      "note": "서론은 유전자 이름을 걷어도 서지만 결과 절은 데이터셋 명칭이 많아 통째로 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "745dd752-73a4-4be4-b72d-454af2f4d4b9",
+    "source_updated_at": "2026-09-13T06:40:37.726945+00:00",
+    "body_sha256": "223667020f27538a8044f9af1ea56a8b135d39d29557ba468c0fa1460946319f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "톡소포자충의 TBC 단백질 전수 조사를 목적·방법·의미 순으로 잇고 고찰이 중복성 가설을 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Toxoplasma gondii is an obligate",
+      "note": "감염 규모를 말하는 서론 단락은 쓸 만하고, 세포소기관 약어가 많은 결과 절은 걷어야 한다."
+    }
+  },
+  {
+    "id": "746356cd-7f55-4ac5-a8a7-b57be27f1d24",
+    "source_updated_at": "2026-09-25T07:41:05.034607+00:00",
+    "body_sha256": "5d183dbb66dd267c149c93bb3b32bfac1a589e9d18195b9b0beeafccb8bac23b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "화합물 번호와 IC50 수치가 본문의 뼈대여서 떼어 낸 문단이 논지로 설지 판단이 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The energy utilization with digitally controlled",
+      "note": "마이크로파 합성의 이점 단락만 문장으로 서고 나머지는 시약·수율 나열이라 가공 경로가 불분명하다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "7468fa80-7602-4c7b-84a5-f7b7645043a4",
+    "source_updated_at": "2026-09-13T07:12:46.294447+00:00",
+    "body_sha256": "915b9980573c61d902048872e3cc1f3593776c5318e19f992c40da30fb309fb2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "간이 분비하는 Fetuin-A 의 조절 경로를 가설에서 작업 모델까지 인과로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The liver is known to play",
+      "note": "서론의 대사질환 배경 단락은 약어를 풀면 서고, 결과 절의 siRNA 조건은 걷어야 한다."
+    }
+  },
+  {
+    "id": "746e3151-a912-407f-809d-1bf9da15021d",
+    "source_updated_at": "2026-09-25T07:41:07.180508+00:00",
+    "body_sha256": "ae9c2f62b05a9dc9f27aa3460847c68aa99451058eeacf02d5cc8f795329af1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "목본 피복 정도가 씨앗 먹는 새 무리에 미치는 영향을 가설·결과·해석으로 잇는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Land-use intensification in cattle-ranching landscapes",
+      "note": "고찰 첫 단락이 풍부도와 종수의 차이를 말로 풀어 수치를 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "747a1a9d-bc59-46f4-916c-13aff8306fb9",
+    "source_updated_at": "2026-09-25T07:41:09.919504+00:00",
+    "body_sha256": "f5ccc7079dfee04cc0624efd4e67f6ad8a67b936919ae6f9627688c3dc414a6f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "바이러스 단백질 12종의 면역 억제 기여를 한 체계에서 나란히 비교한 까닭을 고찰이 설명한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Several SARS-CoV-2 proteins have been",
+      "note": "단백질 번호가 문장마다 들어가 서론·고찰 첫 단락 외에는 가공이 무겁다."
+    }
+  },
+  {
+    "id": "7483932b-0fda-46f9-8dbd-0fc8480d87c5",
+    "source_updated_at": "2026-09-13T06:43:46.687452+00:00",
+    "body_sha256": "8b10b8c72c298a52f8fb0c9df8b3ce3b77157f3b50253ecf53ee8fa68166f01e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "다발성경화증의 우울·피로와 뇌 연결성 변화를 체계적 문헌고찰로 정리하고 결과의 불일치까지 밝힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Multiple sclerosis (MS) is a chronic",
+      "note": "질병 소개 단락이 자족적이고, 뇌 영역 이름은 몇 개만 남기면 고2 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "7483ec7d-0112-4f89-9501-0d87e5bb8d88",
+    "source_updated_at": "2026-09-25T07:41:11.299098+00:00",
+    "body_sha256": "f4f865264d680e0b1db7930cf0db79f7fd9e3468bd3a4aab64de6e513544c3ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "핀 길이가 알루미늄-강 접합 강도를 가르는 기전을 원인 세 가지로 나눠 결론까지 잇는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Al/steel clad plates combine the strength",
+      "note": "서론의 소재 조합 설명이 쉽고, IMC 를 「취성 화합물층」으로 바꾸면 고2까지 내려간다."
+    }
+  },
+  {
+    "id": "748a57c5-9cad-4658-aedc-539c5f1f3bc8",
+    "source_updated_at": "2026-09-13T07:00:49.109785+00:00",
+    "body_sha256": "1dee8289bf2c5f6c56673d8278d40fd0deaec688d7140b22d471fcdd042633d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "폐경 후 골다공증의 유전 요인을 연구 공백에서 상호작용 발견까지 논지로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Osteoporosis (OP) is a prevalent metabolic",
+      "note": "질병 배경 단락은 그대로 서고, rs 번호가 늘어선 결과 절은 걷어야 한다."
+    }
+  },
+  {
+    "id": "748ed0ae-8211-4b03-abc3-9f4584fb0aee",
+    "source_updated_at": "2026-09-25T07:41:12.920652+00:00",
+    "body_sha256": "6b9f7e566564fb11f83542a721fc0d85a8d3ca9c4235207d63070e7c46af11af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "폐결절 검출률 상승을 감염·AI 판독·정책 변화로 나눠 설명하며 단일 원인 설명을 경계한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The post-coronavirus disease 2019 pulmonary",
+      "note": "고찰의 교란 요인 단락이 수치를 걷어도 서고, 연도 나열만 정리하면 된다."
+    }
+  },
+  {
+    "id": "74952d00-218c-410a-b688-7943d0475d8c",
+    "source_updated_at": "2026-09-25T07:41:14.578301+00:00",
+    "body_sha256": "48290d6a5ae0f9b31578f025458d293c50c9f0eb13558b84e64a67703dc50e02",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "넷린-1 이 B형 간염 바이러스 부착을 막는 경로를 선행 연구에서 기전 규명으로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Netrin-1, a secreted laminin-related protein",
+      "note": "세포주·약어가 촘촘해 서론과 고찰 첫 단락만 발췌 경로로 남는다."
+    }
+  },
+  {
+    "id": "749a163f-8ea3-45e8-a1d7-dc73a5b7bfd7",
+    "source_updated_at": "2026-09-25T07:41:16.477626+00:00",
+    "body_sha256": "05fc5f106509ce8b7750d6cb4218e689cd5039759557abacdf9c628a24a49298",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "PARP-2 의 촉매 활성이 생식세포 DNA 복구에 필요하다는 주장을 예상 밖 결과까지 포함해 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Maintaining genome integrity in the germline",
+      "note": "촉매 불활성 변이가 결손보다 더 심하다는 고찰 단락은 논지로 서지만 유전자 표기를 다듬어야 한다."
+    }
+  },
+  {
+    "id": "74a8c71e-8b5a-4f20-bf25-15bd57a70acd",
+    "source_updated_at": "2026-09-13T07:17:50.987169+00:00",
+    "body_sha256": "fa16bad3783d84f8270b4e7ce2c246c303cc095b0f0a56f5d6731c7353045c9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "잉어 척추 기형과 신경계·성장 유전자 발현의 연관을 조직별로 짚어 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The common carp ( Cyprinus carpio )",
+      "note": "양식 배경 단락은 쉽게 서고, 유전자명과 원소 기호가 얽힌 고찰은 일부만 쓸 수 있다."
+    }
+  }
+]

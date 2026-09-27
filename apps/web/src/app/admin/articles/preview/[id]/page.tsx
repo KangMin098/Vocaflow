@@ -9,6 +9,7 @@
 
 import { notFound } from 'next/navigation'
 import { createClient as createServiceClient } from '@supabase/supabase-js'
+import { ensureArticleVocab } from '@vocaflow/library-pipeline'
 
 import { requireAdmin } from '@/lib/auth/require-admin'
 import type { ArticleStatus } from '@/lib/articles/types'
@@ -84,6 +85,17 @@ export default async function AdminArticlePreviewPage({ params }: PageProps) {
       n: string,
       p: Record<string, unknown>,
     ) => Promise<{ data: unknown; error: { message: string } | null }>
+  }
+  // 어휘 행이 없으면 먼저 본문에서 다시 만든다(docs/reports/lav-retention-2026-09-24.md §4 3단계).
+  //   보여주기만 하지 않고 **저장한다** — 선별은 SQL(`select_article_vocab`)이 표를 읽어 하므로,
+  //   JS 로 따로 흉내 내면 미리보기와 발행이 갈린다. 검수한 글만 행이 남는 것이 보관 범위로도 맞다.
+  //   실패해도 화면은 연다(어휘 칸이 비어 보일 뿐) — 원인은 서버 로그에 남긴다.
+  if ((a.content ?? '').trim().length > 0) {
+    try {
+      await ensureArticleVocab(a.id, { client, now: () => new Date() })
+    } catch (e) {
+      console.warn(`[admin/articles/preview] 어휘 재생성 실패 (${a.id}):`, e instanceof Error ? e.message : e)
+    }
   }
   const { data: vocabRows } = await sb.rpc('select_article_vocab', { p_article_id: a.id })
 

@@ -151,10 +151,27 @@ describe('한 권을 고르는 규칙은 한 벌뿐이다', () => {
     // `.limit(20000)` 같은 "크게 잡으면 되겠지" 를 남겨 두지 않는다.
     expect(codeOnly(pool), 'limit 으로 서버 상한을 넘으려는 코드가 남아 있다').not.toMatch(BIG_LIMIT)
     // 세 조회 모두 페이징을 거친다.
+    //
+    // ⚠️ **이름이 아니라 경로를 본다.** 2026-09-24 에 `fetchArticleVocab` 이 테스트에서
+    //   가짜를 끼울 수 있게 `{ fetch = fetchAllIn }` 기본 인자로 바꾸면서 호출부가
+    //   `fetch(db, 'library_article_vocabularies', …)` 가 됐다. **동작은 그대로 페이징인데**
+    //   `fetchAllIn(` 만 찾던 이 검사가 걸었다 — 규칙이 정당한 코드를 건 것이므로
+    //   코드가 아니라 **규칙을 고친다**(AGENTS.md).
+    //
+    //   그래서 두 꼴을 다 받는다:
+    //     ① 직접 호출        `fetchAllIn(db, 'table'`
+    //     ② 기본 인자 주입   `fetch = fetchAllIn` 이 있고 `fetch(db, 'table'`
+    //   ②의 기본값이 `fetchAllIn` 이 **아니면** 통과하지 않는다 — 그게 이 검사의 핵심이다.
+    const injectsFetchAllIn = /\bfetch\s*=\s*fetchAllIn\b/.test(pool)
     for (const table of ['csat_dcp_items', 'library_article_vocabularies', 'shared_dictionary']) {
-      expect(pool, `${table} 조회가 fetchAllIn 을 안 쓴다`).toMatch(
-        new RegExp(`fetchAllIn\\([\\s\\S]{0,80}'${table}'`),
-      )
+      const direct = new RegExp(`fetchAllIn\\([\\s\\S]{0,80}'${table}'`)
+      const injected = new RegExp(`\\bfetch\\([\\s\\S]{0,80}'${table}'`)
+      const paged = direct.test(pool) || (injectsFetchAllIn && injected.test(pool))
+      expect(
+        paged,
+        `${table} 조회가 페이징을 안 거친다 — fetchAllIn 을 직접 부르거나 ` +
+          `\`{ fetch = fetchAllIn }\` 로 주입할 것 (PostgREST 는 1000행에서 자른다)`,
+      ).toBe(true)
     }
   })
 

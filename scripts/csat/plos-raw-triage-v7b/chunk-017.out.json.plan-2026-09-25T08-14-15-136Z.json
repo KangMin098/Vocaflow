@@ -1,0 +1,2069 @@
+[
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0b83bc98-1639-49c1-b451-618bb8418ce0",
+    "revision": "2026-09-25T07:30:16.899003+00:00",
+    "body_sha256": "59365529cd311b3ac866db34e35823c4ed6eca2b6ee6789834d7c0aa4bda43d3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.503Z",
+        "by": "chunk-llm",
+        "why": "농업 탄소 산정의 한계를 열거한 뒤 원격 역산이라는 대안을 내놓는 흐름이 서론 한 편으로 선다.",
+        "basis": "full",
+        "genre": "climate",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:33.905Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "a5c9b856eff1abdd35e8634193e30af341791ee11911cac8c810755c3da57207"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 두 단락은 자족적이고 쉬우나, 본문 중간에 수식 기호가 빠진 문장이 있어 그 대목은 쓰지 못한다.",
+          "sample": "From a global perspective, agricultural",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.503Z",
+        "by": "chunk-llm",
+        "why": "농업 탄소 산정의 한계를 열거한 뒤 원격 역산이라는 대안을 내놓는 흐름이 서론 한 편으로 선다.",
+        "basis": "full",
+        "genre": "climate",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:33.905Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "a5c9b856eff1abdd35e8634193e30af341791ee11911cac8c810755c3da57207"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 두 단락은 자족적이고 쉬우나, 본문 중간에 수식 기호가 빠진 문장이 있어 그 대목은 쓰지 못한다.",
+          "sample": "From a global perspective, agricultural",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "서론 첫 단락의 농업 탄소 배출원·국가별 대응이 떼어져 서고, 기존 계수법 한계→대안 제시 흐름이 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "From a global perspective, agricultural carbon",
+          "note": "수치와 국가명을 걷어도 배출원 설명과 대응 전략이 서고, ruminant·anaerobic 을 바꾸면 V7 로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.138Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.503Z",
+          "by": "chunk-llm",
+          "why": "농업 탄소 산정의 한계를 열거한 뒤 원격 역산이라는 대안을 내놓는 흐름이 서론 한 편으로 선다.",
+          "basis": "full",
+          "genre": "climate",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:33.905Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "a5c9b856eff1abdd35e8634193e30af341791ee11911cac8c810755c3da57207"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 두 단락은 자족적이고 쉬우나, 본문 중간에 수식 기호가 빠진 문장이 있어 그 대목은 쓰지 못한다.",
+            "sample": "From a global perspective, agricultural",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:59.124Z",
+      "topicMargin": 10.459999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0b8fe0a1-13c9-46f0-ae4c-c75af00c20c9",
+    "revision": "2026-09-25T07:30:19.901649+00:00",
+    "body_sha256": "d59787204919f6354ccfc881449487fe87eb1f8dd1804bc6f1c2f59353ca075b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.503Z",
+        "by": "chunk-llm",
+        "why": "가시광과 적외선의 장단점을 맞세워 둘을 합쳐야 하는 이유를 끌어내는 대비 구조가 서론에 있다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:37.180Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e6b78a63e71ee931c23b4bd0d5b7235d534d398278b811761814dbacdd4cf166"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "RGB와 적외선을 견주는 단락은 모델 이름을 걷어도 서고 약어를 풀면 한 단 내려간다.",
+          "sample": "Traditional low-altitude remote sensing target",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:44.503Z",
+        "by": "chunk-llm",
+        "why": "가시광과 적외선의 장단점을 맞세워 둘을 합쳐야 하는 이유를 끌어내는 대비 구조가 서론에 있다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:37.180Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e6b78a63e71ee931c23b4bd0d5b7235d534d398278b811761814dbacdd4cf166"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "RGB와 적외선을 견주는 단락은 모델 이름을 걷어도 서고 약어를 풀면 한 단 내려간다.",
+          "sample": "Traditional low-altitude remote sensing target",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론 둘째 단락의 가시광·적외선 영상 장단점 대비가 떼어져 서서 주제·빈칸·순서 칸을 채우고 나머지는 모듈 설명이다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In previous studies, most methodologies have",
+          "note": "RGB/IR 약어를 풀고 delineation·modality 를 바꾸면 두 영상의 상보성이라는 논지가 한 단락으로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.139Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:44.503Z",
+          "by": "chunk-llm",
+          "why": "가시광과 적외선의 장단점을 맞세워 둘을 합쳐야 하는 이유를 끌어내는 대비 구조가 서론에 있다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match",
+              "irrelevant"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:37.180Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e6b78a63e71ee931c23b4bd0d5b7235d534d398278b811761814dbacdd4cf166"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "RGB와 적외선을 견주는 단락은 모델 이름을 걷어도 서고 약어를 풀면 한 단 내려간다.",
+            "sample": "Traditional low-altitude remote sensing target",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:59.819Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0ba7d75b-c4e3-43f6-a1cc-7db25dbdcf22",
+    "revision": "2026-09-25T07:30:22.659332+00:00",
+    "body_sha256": "58c2bc69bafc4b61cd7e9779a89ee640c2ff90f5eb6a057a1b97f3fb6f0095bc",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.516Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 플라스틱 99%가 폐기물로 환경에 들어가 미세플라스틱으로 토양에 남고, 생분해 PLA로의 전환도 새 위험을 낳는다는 흐름을 세워 주제·요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "environment",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:38.987Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5658dd9ff82b486762a3a76bc86d978f17c9c6764f920ea58076c5fba66253ac"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "MPs·PLA 약어를 풀고 biodegradable·anthropogenic 을 쉬운 말로 바꾸면 V6 로 내려가고 인용 괄호만 걷으면 앞 문맥 없이 선다.",
+          "sample": "Plastics are integral components of modern",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.516Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 플라스틱 99%가 폐기물로 환경에 들어가 미세플라스틱으로 토양에 남고, 생분해 PLA로의 전환도 새 위험을 낳는다는 흐름을 세워 주제·요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "environment",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:38.987Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5658dd9ff82b486762a3a76bc86d978f17c9c6764f920ea58076c5fba66253ac"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "MPs·PLA 약어를 풀고 biodegradable·anthropogenic 을 쉬운 말로 바꾸면 V6 로 내려가고 인용 괄호만 걷으면 앞 문맥 없이 선다.",
+          "sample": "Plastics are integral components of modern",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "서론 첫 단락의 미세플라스틱 발생·생분해 대체재 확산과 그 역설이 떼어져 서고, 결론의 PLA 이차 미세플라스틱 경고가 요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Plastics are integral components of modern",
+          "note": "PLA 약어만 풀면 문맥 없이 시작되고 biodegradable 외 어휘가 평이해 V6 까지 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.140Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.516Z",
+          "by": "chunk-llm",
+          "why": "서론 첫 단락이 플라스틱 99%가 폐기물로 환경에 들어가 미세플라스틱으로 토양에 남고, 생분해 PLA로의 전환도 새 위험을 낳는다는 흐름을 세워 주제·요지·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "environment",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "insert"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:38.987Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "5658dd9ff82b486762a3a76bc86d978f17c9c6764f920ea58076c5fba66253ac"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "MPs·PLA 약어를 풀고 biodegradable·anthropogenic 을 쉬운 말로 바꾸면 V6 로 내려가고 인용 괄호만 걷으면 앞 문맥 없이 선다.",
+            "sample": "Plastics are integral components of modern",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 7,
+      "type": "R-BLANK",
+      "shape": 14,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:20:08.487Z",
+      "topicMargin": 11.65
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0bb68963-2dc8-4787-9889-62b55cd1884c",
+    "revision": "2026-09-25T07:30:23.685459+00:00",
+    "body_sha256": "dc09022f32d87950c6d37fac340f16af011bf96e7ac10dc068d1daed6ec603c6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.518Z",
+        "by": "chunk-llm",
+        "why": "Author summary 가 흡혈 곤충의 장내 공생균이 영양만이 아니라 몸 전체 면역을 깨운다는 발견을 쉬운 문장으로 세우고, 고찰이 초파리 중심 통념을 뒤집어 주제·제목·통념 반박 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:41.118Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "cdd602d13518c0097fa0b8a4e74e127dec708c1d00e32ad07a859a5e830ea234"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "kissing bug·symbiont 만 풀면 저자 요약 단락이 그대로 서고, 학명 없이도 「균이 살아 있어야 면역이 깨어난다」는 논지가 남는다.",
+          "sample": "Insects often form beneficial relationships with",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.518Z",
+        "by": "chunk-llm",
+        "why": "Author summary 가 흡혈 곤충의 장내 공생균이 영양만이 아니라 몸 전체 면역을 깨운다는 발견을 쉬운 문장으로 세우고, 고찰이 초파리 중심 통념을 뒤집어 주제·제목·통념 반박 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:41.118Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "cdd602d13518c0097fa0b8a4e74e127dec708c1d00e32ad07a859a5e830ea234"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "kissing bug·symbiont 만 풀면 저자 요약 단락이 그대로 서고, 학명 없이도 「균이 살아 있어야 면역이 깨어난다」는 논지가 남는다.",
+          "sample": "Insects often form beneficial relationships with",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "Author summary 가 흡혈 곤충 공생균의 면역 역할을 평이하게 한 단락으로 세우고, 고찰의 Drosophila 선형 모델 재검토가 통념 교정 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Insects often form beneficial relationships with",
+          "note": "Author summary 는 학명 없이도 서며 symbiont·commensal 두 낱말만 풀면 V6 에 맞는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.141Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.518Z",
+          "by": "chunk-llm",
+          "why": "Author summary 가 흡혈 곤충의 장내 공생균이 영양만이 아니라 몸 전체 면역을 깨운다는 발견을 쉬운 문장으로 세우고, 고찰이 초파리 중심 통념을 뒤집어 주제·제목·통념 반박 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "summary",
+              "blank",
+              "irrelevant"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:41.118Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "cdd602d13518c0097fa0b8a4e74e127dec708c1d00e32ad07a859a5e830ea234"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "kissing bug·symbiont 만 풀면 저자 요약 단락이 그대로 서고, 학명 없이도 「균이 살아 있어야 면역이 깨어난다」는 논지가 남는다.",
+            "sample": "Insects often form beneficial relationships with",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:29.658Z",
+      "topicMargin": 10.65
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0bbc6f24-1fb6-4ef3-97e9-83d710d416d4",
+    "revision": "2026-09-25T07:30:24.600149+00:00",
+    "body_sha256": "a43f697a8834137f02e2c87afacee9a6e9440311fe287d8c794594ac453613e1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.519Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락만 ARVC 가 운동선수·청소년 급사의 원인이라는 사실을 담고 나머지는 결합 단백질·약어 목록과 방법 절차라, 사실 진술 한 단락으로 내용 일치 칸이 서는지 판단이 갈린다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:41.267Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "299c4a7f231d4b9b37beb25d5ce60b494a6c1d44b58f474d54d459d8c6d7fd9c"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "유전자 이름(DES·ILK·FLNC 등)을 걷으면 남는 것은 위험 요인과 비율 나열뿐이라 논지가 서지 않는다.",
+          "sample": "Arrhythmogenic right ventricular cardiomyopathy (ARVC) is",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.519Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락만 ARVC 가 운동선수·청소년 급사의 원인이라는 사실을 담고 나머지는 결합 단백질·약어 목록과 방법 절차라, 사실 진술 한 단락으로 내용 일치 칸이 서는지 판단이 갈린다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:41.267Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "299c4a7f231d4b9b37beb25d5ce60b494a6c1d44b58f474d54d459d8c6d7fd9c"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "유전자 이름(DES·ILK·FLNC 등)을 걷으면 남는 것은 위험 요인과 비율 나열뿐이라 논지가 서지 않는다.",
+          "sample": "Arrhythmogenic right ventricular cardiomyopathy (ARVC) is",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "health",
+        "why": "서론 첫 단락의 ARVC 소개만 떼어 볼 만한데 위험군 비율 나열과 유전자 목록이 중심이라 논지 칸이 서는지 갈리고, 나머지는 실험 절차다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Arrhythmogenic right ventricular cardiomyopathy (ARVC) is",
+          "note": "수치와 유전자명을 걷으면 「데스모솜 질환」 정의 한 줄만 남아 논지·흐름이 약하고 어휘를 바꿔도 밴드가 내려가지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.141Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.519Z",
+          "by": "chunk-llm",
+          "why": "서론 첫 단락만 ARVC 가 운동선수·청소년 급사의 원인이라는 사실을 담고 나머지는 결합 단백질·약어 목록과 방법 절차라, 사실 진술 한 단락으로 내용 일치 칸이 서는지 판단이 갈린다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:41.267Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "299c4a7f231d4b9b37beb25d5ce60b494a6c1d44b58f474d54d459d8c6d7fd9c"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "유전자 이름(DES·ILK·FLNC 등)을 걷으면 남는 것은 위험 요인과 비율 나열뿐이라 논지가 서지 않는다.",
+            "sample": "Arrhythmogenic right ventricular cardiomyopathy (ARVC) is",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "processing-unclear",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 10,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:06.491Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0bcd020c-d518-4e72-8292-59ffba9169c7",
+    "revision": "2026-09-25T07:30:27.460246+00:00",
+    "body_sha256": "9a62738dbd9e1077c306291a764fed00962d614486efee312f8f47a531348645",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.520Z",
+        "by": "chunk-llm",
+        "why": "Summary 단락이 리슈마니아증의 세 형태와 「같은 기생충이 왜 다른 병을 일으키나」라는 물음을 세우고, 서론이 모래파리 전파에서 숙주 세포 안 생존까지 생활사를 시간순으로 그려 주제·순서·삽입 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:45.577Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c6df5dcdea072c4ea25603351bf260fa690de052a92beb0bd67709260e8e19ab"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "promastigote·amastigote 를 「이동형·정착형」으로 바꾸면 생활사 단락이 순서 문항으로 쪼개지고 저자 요약은 거의 그대로 선다.",
+          "sample": "Leishmaniasis is a devastating neglected tropical",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.520Z",
+        "by": "chunk-llm",
+        "why": "Summary 단락이 리슈마니아증의 세 형태와 「같은 기생충이 왜 다른 병을 일으키나」라는 물음을 세우고, 서론이 모래파리 전파에서 숙주 세포 안 생존까지 생활사를 시간순으로 그려 주제·순서·삽입 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:45.577Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c6df5dcdea072c4ea25603351bf260fa690de052a92beb0bd67709260e8e19ab"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "promastigote·amastigote 를 「이동형·정착형」으로 바꾸면 생활사 단락이 순서 문항으로 쪼개지고 저자 요약은 거의 그대로 선다.",
+          "sample": "Leishmaniasis is a devastating neglected tropical",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "Summary 단락이 리슈마니아증의 세 형태와 풀리지 않은 물음을 한 편으로 세우고, 서론의 모래파리→대식세포 감염 주기가 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Leishmaniasis is a devastating neglected tropical",
+          "note": "환자 수를 걷어도 질병 형태와 미해결 문제의 흐름이 서고, obligate intracellular·protozoan 을 풀면 V7 로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.142Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.520Z",
+          "by": "chunk-llm",
+          "why": "Summary 단락이 리슈마니아증의 세 형태와 「같은 기생충이 왜 다른 병을 일으키나」라는 물음을 세우고, 서론이 모래파리 전파에서 숙주 세포 안 생존까지 생활사를 시간순으로 그려 주제·순서·삽입 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "order",
+              "insert",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:45.577Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c6df5dcdea072c4ea25603351bf260fa690de052a92beb0bd67709260e8e19ab"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "promastigote·amastigote 를 「이동형·정착형」으로 바꾸면 생활사 단락이 순서 문항으로 쪼개지고 저자 요약은 거의 그대로 선다.",
+            "sample": "Leishmaniasis is a devastating neglected tropical",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:54.862Z",
+      "topicMargin": 8.22
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0c185d30-407d-4743-927c-0b76faa47a96",
+    "revision": "2026-09-25T07:30:34.267527+00:00",
+    "body_sha256": "9d902a4f205aab6fb8500d56d46439c3b52157bc23d63f8514b9af7286239afd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.523Z",
+        "by": "chunk-llm",
+        "why": "서론이 간암 증가 추세 → 항암제 부작용 → 리포솜과 초음파로 약을 종양에만 푸는 해법으로 이어지는 문제-해결 구조라 주제·요지·순서·삽입 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:50.358Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "65d3ebf699c77017f4b50b6318d66ae764339de731ad82c5e17b2f6499fb0a35"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "약명 열두 개 나열을 「여러 항암제」로 줄이고 EPR·nanocarrier 를 풀면 문제-해결 흐름이 V6 에서 선다.",
+          "sample": "Traditional drug delivery methods often rely",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.523Z",
+        "by": "chunk-llm",
+        "why": "서론이 간암 증가 추세 → 항암제 부작용 → 리포솜과 초음파로 약을 종양에만 푸는 해법으로 이어지는 문제-해결 구조라 주제·요지·순서·삽입 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:50.358Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "65d3ebf699c77017f4b50b6318d66ae764339de731ad82c5e17b2f6499fb0a35"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "약명 열두 개 나열을 「여러 항암제」로 줄이고 EPR·nanocarrier 를 풀면 문제-해결 흐름이 V6 에서 선다.",
+          "sample": "Traditional drug delivery methods often rely",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 넷째 단락의 기존 약물 전달 한계→초음파 표적 방출이라는 문제-해결 흐름이 떼어져 서서 주제·빈칸·무관 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Traditional drug delivery methods often rely",
+          "note": "dendrimers 나열과 EPR 약어를 걷으면 논지가 남고 vasculature·endocytosis 를 바꾸면 V7 에 맞는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.143Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.523Z",
+          "by": "chunk-llm",
+          "why": "서론이 간암 증가 추세 → 항암제 부작용 → 리포솜과 초음파로 약을 종양에만 푸는 해법으로 이어지는 문제-해결 구조라 주제·요지·순서·삽입 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "order",
+              "insert"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:50.358Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "65d3ebf699c77017f4b50b6318d66ae764339de731ad82c5e17b2f6499fb0a35"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "약명 열두 개 나열을 「여러 항암제」로 줄이고 EPR·nanocarrier 를 풀면 문제-해결 흐름이 V6 에서 선다.",
+            "sample": "Traditional drug delivery methods often rely",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 7,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:27.885Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0c3965e7-36f3-4ccb-bb38-d1e5b1d20ac8",
+    "revision": "2026-09-25T07:30:37.760978+00:00",
+    "body_sha256": "b6d8ff512272ec9d0d99eae91a8d0c92ba09d955edc3efc5ca72bfdc527137af",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.526Z",
+        "by": "chunk-llm",
+        "why": "고찰이 올가미 보조법이 더 빠를 것이라는 기대와 달리 시간·비용만 늘었다는 결과를 이유와 함께 풀고 「일상적으로 권하지 않는다」로 맺어 주장·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:53.256Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "3dd884ee63ff99ef9202ee19afc4587a2ae0c2a77709f4f53940f8b6a6c36799"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "올가미 단락은 그림(Fig 3)을 가리키는 괄호를 걷으면 서지만 시술 용어(ESD knife·muscularis propria)가 많아 성인 읽기 자료 쪽이다.",
+          "sample": "Snares can be used for the",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.526Z",
+        "by": "chunk-llm",
+        "why": "고찰이 올가미 보조법이 더 빠를 것이라는 기대와 달리 시간·비용만 늘었다는 결과를 이유와 함께 풀고 「일상적으로 권하지 않는다」로 맺어 주장·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:53.256Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "3dd884ee63ff99ef9202ee19afc4587a2ae0c2a77709f4f53940f8b6a6c36799"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "올가미 단락은 그림(Fig 3)을 가리키는 괄호를 걷으면 서지만 시술 용어(ESD knife·muscularis propria)가 많아 성인 읽기 자료 쪽이다.",
+          "sample": "Snares can be used for the",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 첫 단락이 점막하 종양의 진단 어려움과 조기 치료 권고를 한 단락으로 세우고, 결론의 「새 기법이 더 낫지 않다」 주장이 요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Gastric submucosal tumors (SMTs) are defined",
+          "note": "mucosa·biopsy 설명을 덧붙이면 논지가 서지만 시술 용어가 많아 V8 아래로는 내려가지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.143Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.526Z",
+          "by": "chunk-llm",
+          "why": "고찰이 올가미 보조법이 더 빠를 것이라는 기대와 달리 시간·비용만 늘었다는 결과를 이유와 함께 풀고 「일상적으로 권하지 않는다」로 맺어 주장·요지 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "claim",
+              "main_point",
+              "summary"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:53.256Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "3dd884ee63ff99ef9202ee19afc4587a2ae0c2a77709f4f53940f8b6a6c36799"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "올가미 단락은 그림(Fig 3)을 가리키는 괄호를 걷으면 서지만 시술 용어(ESD knife·muscularis propria)가 많아 성인 읽기 자료 쪽이다.",
+            "sample": "Snares can be used for the",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:46.664Z",
+      "topicMargin": 5
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-15-136Z",
+    "id": "0c40727f-0d65-4168-800f-6f84a17f98e4",
+    "revision": "2026-09-25T07:30:38.240657+00:00",
+    "body_sha256": "936064a503babf6885c82885eb660f21baa428a66a46d426ced99544576ae797",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.526Z",
+        "by": "chunk-llm",
+        "why": "서론이 철이 생명에 필수이면서 독이 되는 양면성, 말라리아 생활사, 「철이 가장 많은 세포에 살면서 철 조절이 수수께끼」라는 아이러니를 차례로 세워 주제·제목·빈칸·순서 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:53.288Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "91581f91e0d92928e2f17f75e2035d4937004fd3efe9d3969aae41dd4571e7cf"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Fenton chemistry·cofactors 를 풀면 첫 단락이 V6 에서 서고, 말라리아 생활사 단락은 시간순이라 순서 문항으로 쪼개진다.",
+          "sample": "Iron is essential for nearly all",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:45.526Z",
+        "by": "chunk-llm",
+        "why": "서론이 철이 생명에 필수이면서 독이 되는 양면성, 말라리아 생활사, 「철이 가장 많은 세포에 살면서 철 조절이 수수께끼」라는 아이러니를 차례로 세워 주제·제목·빈칸·순서 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:53.288Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "91581f91e0d92928e2f17f75e2035d4937004fd3efe9d3969aae41dd4571e7cf"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Fenton chemistry·cofactors 를 풀면 첫 단락이 V6 에서 서고, 말라리아 생활사 단락은 시간순이라 순서 문항으로 쪼개진다.",
+          "sample": "Iron is essential for nearly all",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 첫 단락의 철의 필수성과 독성이라는 이중성이 한 편으로 서고, 2.1 절의 혈청 철 가설이 반증되는 흐름이 통념 교정 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Iron is essential for nearly all",
+          "note": "Fenton chemistry·transition metal 을 풀어 쓰면 역설 구조가 그대로 남아 V6 까지 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:15.144Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:45.526Z",
+          "by": "chunk-llm",
+          "why": "서론이 철이 생명에 필수이면서 독이 되는 양면성, 말라리아 생활사, 「철이 가장 많은 세포에 살면서 철 조절이 수수께끼」라는 아이러니를 차례로 세워 주제·제목·빈칸·순서 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "order",
+              "insert"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:53.288Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "91581f91e0d92928e2f17f75e2035d4937004fd3efe9d3969aae41dd4571e7cf"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "Fenton chemistry·cofactors 를 풀면 첫 단락이 V6 에서 서고, 말라리아 생활사 단락은 시간순이라 순서 문항으로 쪼개진다.",
+            "sample": "Iron is essential for nearly all",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:15:20.882Z",
+      "topicMargin": 21.27
+    }
+  }
+]

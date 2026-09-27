@@ -99,8 +99,11 @@ function scanFile(file) {
     const offset = lines.slice(0, i).reduce((n, l) => n + l.length + 1, 0);
     const window = src.slice(offset, offset + CHAIN_CHARS);
 
-    const isWrite = /\.(update|delete)\s*\(/.test(window);
-    if (!isWrite) continue;
+    const firstWrite = window.search(/\.(update|delete)\s*\(/);
+    if (firstWrite < 0) continue;
+    // 앞 조회의 넓은 창에 뒤 UPDATE 가 들어와 같은 쓰기를 두 번 세지 않는다.
+    const firstSelect = window.search(/\.select\s*\(/);
+    if (firstSelect >= 0 && firstSelect < firstWrite) continue;
 
     // 한 행을 겨냥하는가 — eq/match 가 있어야 단건이다.
     const targetsOne = /\.(eq|match)\s*\(/.test(window);

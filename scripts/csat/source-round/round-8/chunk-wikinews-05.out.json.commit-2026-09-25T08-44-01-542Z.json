@@ -1,0 +1,1825 @@
+[
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "017b333b-adf3-480f-b13d-f34ee4492aaf",
+    "revision": "2026-09-25T07:05:50.970522+00:00",
+    "body_sha256": "4a3295836027c6a997ee89c059a89409bdc4ded0740dbd0293f8980220ace0a7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "세븐일레븐 모회사가 파산한 화이트헨 체인을 인수한 소식과 인수의 전략적 의미·매장 수 확대가 짧게 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"This acquisition is a strategic fit",
+          "note": "인수가 시장 입지를 넓힌다는 인용 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.545Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/7-Eleven_acquires_Chicago-based_White_Hen_chain",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.797,
+          "words": 138,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "017f5fd4-d877-4abe-939f-bd678bf24b83",
+    "revision": "2026-09-25T07:52:00.90081+00:00",
+    "body_sha256": "1dcce3d2e7c662c54060552168ba02f710b5c0a7b35663faa4f2f6fbce59b1d9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "코로나 초기 호주 마트들이 휴지 구매 한도를 낮춘 경과와 사재기 원인·공급 대응·빈 선반이 불안을 키운다는 전문가 설명이 이어져 요지·순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a News.com.au report, Dr Gary",
+          "note": "부피가 큰 휴지가 빠지면 빈 선반이 커 보여 부족감을 키운다는 단락이 인과로 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Stores_in_Australia_lower_toilet_paper_limits_per_transaction",
+          "year": 2020,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.284
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "018a2cef-5b4c-4e55-999e-5caf7b0699e2",
+    "revision": "2026-09-25T05:30:28.013425+00:00",
+    "body_sha256": "26b0e8c9ee0cd29a172aad9eac13bd463975221f934ca1225f1526406d1157f7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "냅스터 창업자가 합법 P2P 음원 플랫폼을 공개하고 유니버설과 계약했다는 짧은 소식으로 내용일치 칸이 서고 2004년 기사라 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to Snocap's press release, the",
+          "note": "저작권 관리와 아이튠즈 경쟁 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Napster_founder_Shawn_Fanning_introduces_new_file-sharing_project",
+          "year": 2004,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "019976d2-fd74-4224-9c5f-4e70446c998b",
+    "revision": "2026-09-25T07:05:49.191285+00:00",
+    "body_sha256": "87ca23bbde95c513a003c3c87f21343d29205abbc05b091d43986fa433bb850e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "구글이 악성 소프트웨어 유포 사이트를 검색 결과에서 경고하는 기능과 StopBadware 협력 사업을 소개해 내용일치 칸이 서고 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Google is introducing warnings in its",
+          "note": "배드웨어 정의와 경고 문구 단락이 자족적이고 disrupt 정도만 풀면 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Google_to_warn_users_about_%22bad%22_websites",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.409,
+          "words": 176,
+          "english": 0.358
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01998879-c717-4b3e-a309-59ba2834f029",
+    "revision": "2026-09-25T08:09:22.085829+00:00",
+    "body_sha256": "ea95f031310ec6d032a7e0e43b848028700a0b4d3d53fa2b998cf75781b6d83c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "미군 수뇌부가 이라크 종파 폭력이 내전으로 번질 수 있다고 인정한 발언과 행정부·영국 대사의 판단이 대비돼 내용일치·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "President Bush and Defense Secretary Donald",
+          "note": "내전이라 부르기를 거부하는 행정부 단락이 자족적이고 어휘가 V5~6 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fears_raised_of_Iraq_Civil_War",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.389
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "0199908c-2104-40b6-9fe3-d3ff9a14bb0c",
+    "revision": "2026-09-25T07:25:40.047254+00:00",
+    "body_sha256": "ed870700055b3eb1962e87d1c23fc1968e6646c79fa3a4335ee9c6bd6ca42488",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "과학 방송인 닥터 칼이 상원 출마를 선언한 소식과 그의 다채로운 경력이 짧게 이어져 중등 이상 인물 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to his ABC bio, Kruszelnicki",
+          "note": "물리학자부터 기상 캐스터까지 경력 나열 단락이 인물 소개로 서고 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dr_Karl_to_run_for_Australian_senate",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.667,
+          "words": 135,
+          "english": 0.37
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "019abb0d-0b7e-43ae-a55e-878e70a9a216",
+    "revision": "2026-09-25T07:43:42.108621+00:00",
+    "body_sha256": "724c4e79456ebdef6d763d0fb282dfd82baa8a47f53a3963027245259efefd36",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "방글라데시가 정치인 풍자 만화 게시자 체포 뒤 페이스북을 일시 차단한 경위가 서서 내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "No official comment has been made,",
+          "note": "차단 요청과 접속 불가 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Facebook_blocked_in_Bangladesh",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.747,
+          "words": 174,
+          "english": 0.259
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "019e3d11-2d57-4584-bd04-d59e8c060d6b",
+    "revision": "2026-09-25T08:04:42.181679+00:00",
+    "body_sha256": "09be1f30362772c126733f2491c5c72bfb2c81ba4cd83646bb55bc41cc8670fb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이라크 서부 폭탄으로 해병 5명이 숨진 소식과 처형식 시신 발견·바그다드 차량 폭탄이 이어져 내용일치 칸이 서고 전쟁 소재라 고1 이상이다; 전사자 명단은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In Baghdad, up to three Iraqi",
+          "note": "시장 인근 차량 폭탄 단락이 짧게 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bombs_kill_US_Marines%2C_civillians_in_Iraq",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 9.639,
+          "words": 166,
+          "english": 0.306
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "019fe836-d85a-44a1-82a0-200974e552d6",
+    "revision": "2026-09-25T07:46:57.230843+00:00",
+    "body_sha256": "d699bee335a47ce0f77ff4b1eec7dd92be588e296868f45850e9d037ceb4e641",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "에티오피아에서 스웨덴 기자 두 명이 테러 혐의로 재판받는 과정과 총리의 비난, 스웨덴 외무장관 이해관계 의혹이 엇갈려 내용일치·주장 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"They are, at the very least,",
+          "note": "「그게 언론이면 테러는 뭐냐」는 총리 발언 단락이 주장으로 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jailed_Swedish_journalists_tried_as_terrorists",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.414
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01a9dabe-37e7-4a74-a1b1-3a7f0fbbcbc6",
+    "revision": "2026-09-25T08:32:09.436415+00:00",
+    "body_sha256": "4de338bdf38ad8040e3f61198c473da0200a06f052f48238ba34f1f107fde4ab",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "토론토 인근 사무실 건물에 경비행기가 추락한 사고와 목격담, 직원 대피가 짧게 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The aircraft, which crashed into the",
+          "note": "추락 직전 상황을 전한 목격 단락이 자족적이고 engulfed 만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Plane_crashes_into_Toronto_office_building",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.833,
+          "words": 120,
+          "english": 0.372
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01addd61-b57f-4003-8f2f-8fb91f56e45a",
+    "revision": "2026-09-25T07:27:06.94942+00:00",
+    "body_sha256": "9c253f778c0282edb3a6d2f199f3af3ad2a14b615416bbe8e0d55238fa87c258",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이라크 포로 심문관들이 이란 연루 증거를 찾으라는 압박을 받는다는 증언과 전쟁 전 증거 조작 논란 배경이 이어져 내용일치·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The US government accuses Iran of",
+          "note": "이란 무장 지원 비난과 과거 증거 과장 논란 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.546Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_interrogators_complain_of_%22sickening%22_pressure_for_evidence_on_Iran",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01b4e09f-66d3-47d1-8430-52903933434b",
+    "revision": "2026-09-25T07:47:56.433092+00:00",
+    "body_sha256": "0720c8d45c347ec77f5519bb51a1c2062d6488e278daf29b8a622573143e4af4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "맥코터 의원이 위조 서명 청원으로 예비선거 명부에서 빠진 뒤 기명 운동마저 포기한 경위가 인과로 서서 내용일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Though the submission listed 2,000 signatures,",
+          "note": "2천 명 중 244명만 유효했다는 단락이 사건 원인으로 서고 duplicate 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._Congressman_Thad_McCotter_aborts_write-in_campaign",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01b7fde9-9e9b-4c57-8e05-7691f6e654e1",
+    "revision": "2026-09-25T06:59:17.887125+00:00",
+    "body_sha256": "47b2bdf395b0081aae714b71ffdfcaa6918bd664130bc9b637d867cb3f4a320e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "디볼드 전자투표기 관련 문서를 유출한 내부고발자가 절도 혐의로 기소된 소식과 문서 내용·변호인 반론이 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The legal documents discussed the legal",
+          "note": "미인증 시스템 사용 시 소송 위험 단락이 서지만 ramifications 등 법률어가 걸린다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Diebold_%22whistleblower%22_faces_criminal_charges_in_California",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.369,
+          "words": 157,
+          "english": 0.293
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01b9bcc6-6e55-45ea-8acb-fb933017ec90",
+    "revision": "2026-09-25T07:43:13.438744+00:00",
+    "body_sha256": "c841b43e073b531229d05c8a7221de5f5de3357c6ff1e89a298856c40ff8a761",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "아이슬란드 화산재로 항공사가 17억 달러 손실을 입었다는 발표와 영공 폐쇄가 과잉이었다는 비판·필요했다는 반론이 맞서 주장·요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bisignani also criticized the response of",
+          "note": "모델이 아니라 사실로 판단했어야 한다는 비판 단락이 주장·근거로 서고 empirical 만 풀면 V5~6 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ash-triggered_flight_disruptions_cost_airlines_%241.7_billion",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.384
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01ba5eb8-9e95-4b0f-a641-8c404247f08a",
+    "revision": "2026-09-25T07:12:38.306019+00:00",
+    "body_sha256": "1b310c984f3c30bf4862ed0aa652105ca4646b6f276c3be1d126412f36440d61",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "WTO 법 모의재판 대회에서 멜버른대가 우승한 소식과 쟁점인 의약품 특허·강제실시권 설명이 이어져 내용일치·주제 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Under World Trade Organization rules, a",
+          "note": "강제실시권 정의 단락이 짧고 자족적이며 royalty 만 풀면 V5~6 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Global_WTO_competition_for_law_students_won_by_the_University_of_Melbourne",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01bb0b87-e9eb-4835-bf11-ce3cb48f2015",
+    "revision": "2026-09-25T07:49:04.837291+00:00",
+    "body_sha256": "20e97aeae7d80ecc6d4c97b97a37e70ef1c69cbad6c14eb4e2bc9477e6889c6c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "노르웨이 보수당·진보당의 소수 연립정부 구성과 정책 합의, 석유 시추 금지에 대한 업계 반발이 짧게 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The coalition government plans to change",
+          "note": "연정 정책 합의 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Norway's_Conservative%2C_Progress_parties_form_minority_government_coalition",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.882,
+          "words": 136,
+          "english": 0.372
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01bdd765-e272-48a6-9d3d-499be45ff80b",
+    "revision": "2026-09-25T07:28:10.320698+00:00",
+    "body_sha256": "4a00af49f24e6bacbaf96d037f1c26df887d7d165c4b0dda3fb80fd9d953f9cf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "영국 신년 서훈 기사는 앞 몇 단락이 수훈자와 훈장 이름 소개이고 뒤 절반이 수훈자 명단이라 떼어 낼 논지·사건 흐름이 없다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "599 of the 972 awards this",
+          "note": "이름과 직함 나열이 이어져 문단으로 묶어도 흐름이 생기지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Celebrities_draw_attention_on_2008_UK_New_Year_Honours_list",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01bea3e1-1720-4dce-bcf9-5166a3aaea80",
+    "revision": "2026-09-25T06:55:17.156078+00:00",
+    "body_sha256": "154cea9475165fdc1392c90e2429d6051206b02711cdd7ff0183cdf0a5709b7d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "카트리나 홍수에 닷새간 갇혔던 휠체어 사용 호주인 구조 소식과 호주 정부의 영사 지원 부족을 둘러싼 여야 공방이 이어져 내용일치·주장 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"The bottom line is this: when",
+          "note": "미국 정부를 설득하지 못했다는 야당 비판 단락이 주장으로 서고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wheelchair-bound_Australian_rescued_in_New_Orleans",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.434
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01c1ccd9-01c2-479c-9abc-f99f9237199d",
+    "revision": "2026-09-25T07:52:58.86064+00:00",
+    "body_sha256": "daa57d39488fd417808ef2cd2d6511a56e47e795a3946ad9bf4f03fed0429cb1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "세바스토폴 여행작가 강연 단신은 방문국 나열과 저자의 자기 소개 인용 뒤 사진 캡션 머리(「Papua New Guinea:」)만 남아 사건 흐름·논지가 없다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Pinchuk described stops in Malaysia, Brunei,",
+          "note": "방문국 나열과 자기 소개뿐이라 떼어도 읽을 단락이 되지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russian_travel_writer_Viktor_Pinchuk_recounts_Southeast_Asia_expedition_in_Sevastopol%2C_Crimea",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01c83eb2-6504-465a-a3ee-ba9636cddf10",
+    "revision": "2026-09-25T07:29:39.135907+00:00",
+    "body_sha256": "d6dcd25bbc0e9f18075cb64289de1519fdcc33e9a6273e64a2ad7d559ee49b94",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "저지섬 옛 아동보호시설에서 아동 유해가 발견돼 1960년대 학대 조사가 발굴로 확대된 경위가 서서 내용일치 칸이 되지만 학대·강간 혐의 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "A helpline set up to find",
+          "note": "제보 전화가 발굴 수색으로 이어진 단락은 서지만 소재가 무거워 연령을 낮추기 어렵다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Remains_of_a_child_discovered_in_Jersey_care_home",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01cce92e-a67b-4e2c-981f-8365298a9547",
+    "revision": "2026-09-25T07:25:45.865746+00:00",
+    "body_sha256": "b66291a57aeee72849626b190afe5a8bbd7a6d41642ea774d87412168f0d444c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "social",
+        "why": "온타리오 가족연합당 후보 인터뷰로 선거제·세금 주장은 문답으로 서지만 「더 뜨거운 태양」 온난화설·동성혼 반대·조롱조 표현이 일방적 정치 논박으로 이어져 polemic 경계에 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "I agree that MMP works to",
+          "note": "연동형 비례대표 답변 단락은 비교적 온건하게 서지만 나머지 답변 다수가 비방조라 걷을 분량이 크다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ontario_Votes_2007%3A_Interview_with_Family_Coalition_Party_candidate_Bob_Innes%2C_Hamilton_East%E2%80%94Stoney_Creek",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.404
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01cdcc2e-29b8-404a-884e-48a55fa7fac6",
+    "revision": "2026-09-25T08:15:06.28979+00:00",
+    "body_sha256": "7e4af78f27b3fd9c6b75e6e348d4a4aee29ed17b1fe697b66582c699e90f02a3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "엑서터 카페 폭발 사건 뒤 두 명이 체포되고 용의자의 기기에서 선동 흔적이 나온 수사 경과가 이어져 내용일치 칸이 서고 테러 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Experts have gone over Reilly's mobile",
+          "note": "휴대전화·컴퓨터 분석 결과 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Police_arrest_two_over_Exeter_bomb_explosion",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01d03c56-db40-4362-8463-7adecb2afdf0",
+    "revision": "2026-09-25T08:13:05.429277+00:00",
+    "body_sha256": "ed31cf8a4e27ecfa9a282e82d917eee8596deadb59f515a3d4ba05a5a968db10",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "버마 군정이 연료 보조금 폐지로 시작된 민주화 시위 지도자들을 체포한 소식과 동원된 관제 집회가 대비돼 내용일치·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The wave of protests, which began",
+          "note": "보조금 폐지→유가 폭등→시위의 인과 단락이 자족적이고 subsidies 만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Burma's_military_rulers_arrest_leaders_of_pro-democracy_protests",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.377
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01d10bd0-6bbb-4c23-8afb-b34eb7053e3f",
+    "revision": "2026-09-25T08:09:58.113229+00:00",
+    "body_sha256": "b031e3dee5a3131db3730d4ff49696856df5a2ccbde4d4c300bde52a46038eac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "터키 디야르바키르 폭탄 사망자 증가와 책임 주장이 엇갈리는 보도가 짧게 이어져 내용일치 칸이 서고 아동 사망 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are conflicting reports as to",
+          "note": "책임 주장이 엇갈린다는 단락이 자족적이고 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Turkey_bomb_blast_death_toll_rises",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.795,
+          "words": 146,
+          "english": 0.408
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-01-542Z",
+    "id": "01d4db6b-125d-443d-a827-0fbfc82a42a7",
+    "revision": "2026-09-25T06:47:13.690143+00:00",
+    "body_sha256": "74b8ff88d2c20033f843853ebd17a1e99dc356192a20923109c5c28d1ed6358a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "15세 팔레스타인 소년이 검문소에서 폭탄을 터뜨리려다 저지된 사건과 병사의 증언, 반복되는 아동 동원 배경이 이어져 내용일치·심경 칸이 서고 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"You could see it's a young",
+          "note": "울기 직전인 아이의 눈을 본 병사 증언이 심경 문항이 되고 어휘가 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:01.547Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Israeli_paratroopers_stop_15-year-old_Palestinian_from_detonating_himself",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.389
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

@@ -241,6 +241,53 @@ export function keysetOr([colA, colB], [valA, valB]) {
   return `${colA}.gt.${valA},and(${colA}.eq.${valA},${colB}.gt.${valB})`
 }
 
+/**
+ * 지문 어휘를 받되, **행이 하나도 없는 지문은 본문에서 다시 만들어** 다시 받는다.
+ *
+ * 왜: `library_article_vocabularies` 는 발행 안 된 글의 행을 걷어낼 계획이다
+ *   (docs/reports/lav-retention-2026-09-24.md §4 4단계). 그러면 조판에 쓰인 지문 일부가
+ *   행이 없을 수 있는데, 그대로 두면 그 단원의 어휘 표가 **오류 없이 비어** 나온다.
+ * 재생성은 `ensureArticleVocab` — 발행 경로와 같은 함수·같은 설정(LLM 없음 · 사전 안 바꿈).
+ * 한 번에 `maxRebuild` 편을 넘기면 다시 만들지 않고 건너뛴 수를 찍는다 — 밴드 전체 비교
+ *   손잡이(`VOCAFLOW_VOCAB_ALL`)가 수만 편을 재분석하지 않게.
+ * 재생성 실패도 조판을 멈추지 않지만 **수와 첫 사유를 반드시 찍는다**(빈 어휘가 조용히 나가지 않게).
+ */
+export async function fetchArticleVocab(db, columns, refs, { maxRebuild = 500, fetch = fetchAllIn, ensure } = {}) {
+  const rows = await fetch(db, 'library_article_vocabularies', columns, 'library_article_id', refs, [
+    'library_article_id',
+    'word',
+  ])
+  const have = new Set(rows.map((r) => r.library_article_id))
+  const missing = refs.filter((r) => !have.has(r))
+  if (missing.length === 0) return rows
+
+  const todo = missing.slice(0, maxRebuild)
+  if (missing.length > todo.length) {
+    console.warn(
+      `  ⚠ 어휘 행 없는 지문 ${missing.length}편 중 ${todo.length}편만 다시 만든다(상한 ${maxRebuild}) — 나머지 ${missing.length - todo.length}편은 어휘 0 으로 나간다`,
+    )
+  }
+  const ensureArticleVocab = ensure ?? (await import('@vocaflow/library-pipeline')).ensureArticleVocab
+  const rebuilt = []
+  const failed = []
+  for (const id of todo) {
+    try {
+      const r = await ensureArticleVocab(id, { client: db, now: () => new Date() })
+      if (r.rows > 0) rebuilt.push(id)
+    } catch (e) {
+      failed.push(`${id}: ${e instanceof Error ? e.message : String(e)}`)
+    }
+  }
+  console.log(`  어휘 재생성: 없던 ${missing.length}편 → 만듦 ${rebuilt.length} · 실패 ${failed.length}`)
+  if (failed.length > 0) console.warn(`  ⚠ 첫 실패 — ${failed[0]}`)
+  if (rebuilt.length === 0) return rows
+  const more = await fetch(db, 'library_article_vocabularies', columns, 'library_article_id', rebuilt, [
+    'library_article_id',
+    'word',
+  ])
+  return rows.concat(more)
+}
+
 export async function fetchAllIn(db, table, columns, column, values, orderBy, apply) {
   const out = []
   // 한 번 줄인 페이지는 이 호출 내내 유지한다 — 다시 키우면 같은 자리에서 또 걸린다.
@@ -1316,9 +1363,8 @@ export async function loadVolume(
     : process.env.VOCAFLOW_VOCAB_POOL
       ? [...new Set(pool.map((it) => it.ref_id).filter((r) => byId.has(r)))]
       : usedRefs.filter((r) => byId.has(r))
-  const vocabRows = await fetchAllIn(
+  const vocabRows = await fetchArticleVocab(
     db,
-    'library_article_vocabularies',
     // ⚠️ **`first_sentence` 를 받지 않는다.** 조합기(`pickVocabulary`)는 `meaning_ko` 와
     //   `frequency_in_article` 로만 고르고, 조판물의 어휘 표는 낱말+뜻만 인쇄한다.
     //   받아서 `vocabByRef` 까지 실어 나르지만 **아무도 읽지 않는다.**
@@ -1327,9 +1373,7 @@ export async function loadVolume(
     //   (발행 경로는 다르다 — `select_article_vocab` → `publish_article_word_set` 가
     //    이 값을 `shared_words.source_sentence` 로 복사한다. 컬럼 자체는 지우면 안 된다.)
     'library_article_id, word, frequency_in_article',
-    'library_article_id',
     poolRefs,
-    ['library_article_id', 'word'],
   )
   timer.mark('어휘 조회 (library_article_vocabularies · 2열 정렬)')
   const words = [...new Set(vocabRows.map((v) => v.word))]

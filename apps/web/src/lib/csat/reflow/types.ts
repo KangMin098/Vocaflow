@@ -16,11 +16,20 @@ export interface PdfFrag {
   h: number
 }
 
+/** 가로 선 하나 — PDF 좌표계. 시험지의 **빈칸은 글자가 아니라 이 선으로 그려진다**(blank-probe 실측). */
+export interface HLine {
+  x0: number
+  x1: number
+  y: number
+}
+
 export interface PageFrags {
   p: number
   w: number
   h: number
   frags: PdfFrag[]
+  /** 그리기 명령에서 모은 가로 선 — 없으면(옛 호출) 빈칸을 복원하지 않는다 */
+  lines?: HLine[]
 }
 
 /** 커밋된 좌표 색인(`anchor-data/<회차>.json`)에서 reflow 가 쓰는 부분 */

@@ -1,0 +1,922 @@
+[
+  {
+    "id": "62fb5760-8239-4bd4-be3e-fcd6c4521dc9",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:31:31.745342+00:00",
+    "body_sha256": "486460e1df4166dfca77d89fcb3856229286813a6f5067623799a5884cdbeba0",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 쾌락 상실(anhedonia)과 SSRI 부작용 문제 제기 단락이 떼어져 논지가 서며 주제·요지 칸을 채운다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since the time of Epicurus, an",
+      "note": "실험 수치·약물명을 걷으면 스트레스와 쾌락 상실의 관계라는 논지가 남는다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63039d74-26a2-499a-a00a-75e1b6b271ff",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:07.60372+00:00",
+    "body_sha256": "7c82380923693efb392953106d132f0b7d863a8052058d8ccdccdaa89b9db785",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 만성 신장병·투석 혈관 접근 문제와 고찰의 인 과잉이 혈관을 해치는 기전 단락이 자족적 설명문이다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The prevalence of chronic kidney diseases",
+      "note": "통계·HR 수치를 걷고 인이 혈관을 굳히는 흐름만 남기면 순서 문항이 된다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "631a8bc0-4095-4a33-99ed-001d94f410a9",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:11.696652+00:00",
+    "body_sha256": "e1dea415566c5e6ce51ab8ae695c315d5cecaa4ee15e2527a0fe3c98723e20e0",
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 1.2절 각막 상피의 세포 재생 흐름(줄기세포→기저→날개→표층) 서술이 순서·삽입 칸을 채운다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Injuries to the cornea are a",
+      "note": "저자 요약 단락이 거의 그대로 떼어지며 전문어 두세 개만 바꾸면 된다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "6327bd61-77f6-4253-9949-12ef8d2cf0ba",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:12.862444+00:00",
+    "body_sha256": "9bce3a00b502b90cef01d837fad9079b409590d4e792b185c9434c14047684a3",
+    "retention": "keep",
+    "genre": "sports",
+    "why": "고찰의 사이클이 성적을 좌우하고 달리기가 최종 결과를 가른다는 해석 단락이 주장·근거 구조로 선다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "summary",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Performance in IRONMAN® 70.3 reflects the",
+      "note": "인용 괄호와 백분율을 걷어도 사이클·페이스·환경의 세 요인 논지가 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "6327f6d4-3208-4c31-b472-3aa83926d843",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:13.335854+00:00",
+    "body_sha256": "31e41317e7dd2ee6ea145f2d13fac09200456da469e709935c001ffaf8a2200b",
+    "retention": "keep",
+    "genre": "nature",
+    "why": "서론의 탄산칼슘 골격과 마그네슘 함량이 과거 수온 기록이 된다는 단락과 생물적 영향(vital effects) 설명이 자족적이다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Calcium carbonate (CaCO₃) biomineralization is a",
+      "note": "종명·지명을 걷으면 골격 화학이 환경 기록이자 생물 조절의 결과라는 논지가 남는다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "6329324e-7dbc-4056-a837-188a40378a7f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:13.965084+00:00",
+    "body_sha256": "f18f03c6e3b215cb7cd6fa8f7bbed03feaded84c8abe431d2fb6846c2a56204d",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 당뇨발 궤양 부담과 동물실험 대안(오가노이드 칩) 필요성 단락이 목적·요지 칸을 채운다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Diabetes mellitus (DM) is a disorder",
+      "note": "절단·사망 통계를 걷어도 기존 모델 한계와 새 기술 필요라는 흐름이 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "632cc731-7bb3-461a-9822-e187a1b268d4",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:39:31.147865+00:00",
+    "body_sha256": "4201a1c00e6e984b21b682dbe59b767989fce9e4b21f9751997be0915a793e90",
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 사회적 고립이 수초 형성과 학습에 영향을 준다는 동물 연구 소개 단락이 근거 나열형 설명문으로 선다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Myelin sheaths play pivotal roles as",
+      "note": "참고문헌 번호를 걷으면 환경 자극→신경 활동→수초 변화의 흐름이 남는다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "633212ee-cdd7-4738-8afb-3b8d97f20fce",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:47:19.606798+00:00",
+    "body_sha256": "3b18d2ade4a0ef0ab14924b71d2ff74129aac9c3a4b3a10f2b0ac736dcbf57bb",
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "science",
+    "why": "본문 대부분이 DFT 반응성 지표·표 수치 나열이고 서론 Ras 단락만 설명문이라 가공 경로가 애매하다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Ras proteins, also known as small",
+      "note": "서론 첫 단락은 떼어지지만 전문어 밀도가 높아 어휘 조정으로 밴드를 내리기 어렵다"
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "6335caa1-b132-471c-b587-9df109c9d485",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:27:59.219644+00:00",
+    "body_sha256": "1e81de023906ee20785d11209464f3988b643fb67c84c75ca884518afa1ee3f9",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 돼지 위축성 비염의 원인·증상·경제 손실과 백신 필요성 설명이 인과 순서로 이어진다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Swine atrophic rhinitis (AR), a common",
+      "note": "균 이름을 한 번만 두고 나머지를 걷으면 감염→증상→예방 흐름이 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "6346a133-9df4-4a35-be64-a6dae84a568e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:16.857801+00:00",
+    "body_sha256": "c8ff052b63fff68559fe4fc9129780fa099c4a1cdf2d6e0487c68e9883915730",
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론의 유전체가 줄어든 기생균이 어떻게 다양한 무기를 유지하나라는 역설 제기 단락이 자족적이다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Phytoplasmas are minute bacteria that inhabit",
+      "note": "저자 요약은 전문어가 적어 거의 그대로 쓰이며 effector 한 낱말만 풀어 주면 된다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "6346cc1d-89bd-43d9-aaeb-b2206cb7ace9",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:16:43.583954+00:00",
+    "body_sha256": "dfea1d256c5a3fa102f672e27d180c53329373cbfe8780ac3ad328a7a1fb75f4",
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 설사병 부담과 고찰의 제2형 분열체 가설이 실시간 관찰로 반박되는 과학사 서술이 통념 교정 구조다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Edward Tyzzer in his initial description",
+      "note": "교과서 생활사가 틀렸음을 보이는 단락이라 연구자 이름을 두고도 논지가 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "635ba9e5-131f-4b47-90bb-bf74f9510ce1",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:20.298942+00:00",
+    "body_sha256": "a77ba7dd210d13ae546fc2ff5531919262e2754d7a302e52b74dc3069e85436a",
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 노화와 mTOR 억제의 이점·부작용 딜레마 단락이 요지·빈칸 칸을 채운다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite this promise, a challenge for",
+      "note": "약물명·유전자명을 걷으면 전신 억제의 부작용과 표적 개입 필요라는 논지가 남는다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "637572dc-0cad-4724-900e-4cd776432c54",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:22.117247+00:00",
+    "body_sha256": "b81a5177fd21df32f8bf82ddc0d26f045e7a0ec5759671028fdc9e5e6016ea88",
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 폭발파가 헬멧·두개골을 거치며 방향에 따라 달리 전달된다는 단락이 자족적 설명문이다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Blast-induced trauma is strongly influenced by",
+      "note": "수치를 걷어도 보호층이 충격을 줄이기도 집중시키기도 한다는 논지가 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "638e8201-ad01-485e-bf4f-4c315845ec5f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:25.502676+00:00",
+    "body_sha256": "9d4bcaad86104f68b4ba4c8b0d186d8e153bbaeaf4f2eee7e8bfc0bc133c7042",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 카사바 줄기꽂이 번식의 한계와 인공종자 기술 소개 단락이 문제-해결 구조로 선다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The primary bottleneck limiting the acceleration",
+      "note": "품종명·비율을 걷으면 느린 증식·병 전파→캡슐화 대안의 흐름이 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63a00283-aa38-4caf-b551-c0e5b97447c0",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:26.839866+00:00",
+    "body_sha256": "95cdd11c938672cf4ee502419dda5c502dd13bf5aabd8ae2bd1a5313e4d918b5",
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약과 고찰의 낭포 전부 절제 대 내부만 제거의 장단점 비교 단락이 논지가 뚜렷하다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cystic echinococcosis is a parasitic disease",
+      "note": "저자 요약은 전문어 두셋만 풀면 수술 범위 선택의 딜레마로 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63ba4517-ad37-44f8-9466-925ae5f32717",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:16:11.189528+00:00",
+    "body_sha256": "52d21e8bbbe1d30920c416732e631342fcec74348b6d9092e112dcc97ced25b3",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론의 세포 주변 기질 단단함 측정법(AFM·광학·초음파) 장단점 비교 단락이 대조 구조로 선다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The mechanical properties of cell microenvironments",
+      "note": "방법 이름이 많아 어휘 조정은 어렵지만 떼어 낸 단락은 비교 논지가 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63c1d46e-1d53-4f02-b12f-abc11de17f51",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:29.951482+00:00",
+    "body_sha256": "c17ac9c86b0b9a0a5c8966c95215ff2f928d50fb08b749319ba8505f15bf94a4",
+    "retention": "keep",
+    "genre": "science",
+    "why": "에세이 전체가 세균의 항바이러스 방어가 사람 면역에도 남아 있다는 개념을 논증하며 통념 교정 구조다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Historically, immunology research has focused largely",
+      "note": "단백질 이름을 두세 개로 줄이면 계통 특이 면역 통념→반례→새 개념의 흐름이 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63d03543-8534-45c1-aeb9-9248f5b8aa47",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:31.554199+00:00",
+    "body_sha256": "71cb99be0333acd384a3ae63ba4cd562d695ac8fe7214243c6c0e8b5d21bcf0e",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 기능성 소화불량 정의와 장 장벽·염증 연결 설명 단락이 자족적 설명문이다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Functional dyspepsia (FD) is one of",
+      "note": "진단 기준명·분자명을 걷으면 장벽 손상→염증→증상의 흐름이 남는다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63d49030-6958-4f03-ad67-7e128f04e19e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:58:04.303544+00:00",
+    "body_sha256": "d01841de89bcea7912bdbf540cdc6c9a253ab209513cdeca0225339150a8c977",
+    "retention": "keep",
+    "genre": "environment",
+    "why": "서론의 산업화에 따른 중금속 오염과 6가 크롬의 위해성·기존 처리법 한계 단락이 문제 제기로 선다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The accelerated industrialization and urbanization in",
+      "note": "화학식과 기준치를 걷으면 오염→위해→흡착 대안의 흐름이 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "63d8aa01-f4e1-44b7-8e5e-1a49d1f7e191",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:33:32.837986+00:00",
+    "body_sha256": "cc8790e338fb60627442833d0d359bac1bfca20242703ff9c6788ff96d8dc0bd",
+    "retention": "keep",
+    "genre": "nature",
+    "why": "저자 요약과 서론의 소나무재선충 확산과 근연종과의 병원성 차이 서술이 자족적이며 요지·빈칸 칸을 채운다",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The PWN is an invasive species",
+      "note": "유전자군 약어를 풀어 쓰면 확산 성공의 세 요인 논지가 선다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  }
+]

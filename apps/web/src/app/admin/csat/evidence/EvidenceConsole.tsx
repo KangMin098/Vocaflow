@@ -4,6 +4,8 @@
 import { ArrowRight, CheckCircle2, RefreshCw, TriangleAlert } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { LabHeader } from '@/components/admin/factory/StepHeader'
+import { PLAIN_LAB } from '@/lib/csat/factory-plain'
 import {
   AXES,
   MEASURES,
@@ -182,18 +184,19 @@ export function EvidenceConsole({
           else node?.removeAttribute('inert')
         }}
       >
+        <LabHeader
+          lab={PLAIN_LAB.find((l) => l.key === 'evidence')!}
+          help={<AdminScreenHelp screen="csat-evidence" tab={VIEWS[state.view]} />}
+        />
         <header className={s.header}>
           <div>
-            <p className={s.eyebrow}>CSAT · EVIDENCE OPERATIONS</p>
-            <h2>기출 원천 관리</h2>
-            <p className={s.muted}>배포 상태를 확인하고, 근거가 필요한 문항부터 처리합니다.</p>
+            <p className={s.muted}>배포 상태를 확인하고, 근거가 필요한 문제부터 처리해요.</p>
           </div>
           <div className={s.actions}>
             <button className={s.button} onClick={verify} disabled={busy}>
               <RefreshCw size={16} aria-hidden />
               {busy ? '재검증 중…' : '지금 재검증'}
             </button>
-            <AdminScreenHelp screen="csat-evidence" tab={VIEWS[state.view]} />
           </div>
         </header>
         <p className={s.muted}>

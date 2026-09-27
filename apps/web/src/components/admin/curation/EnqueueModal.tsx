@@ -4,7 +4,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { X, Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Dialog } from '@/components/ui/Dialog';
+import { BTN } from '@/components/ui/tines-kit';
 import { createClient } from '@/lib/supabase/client';
 import { enqueueBookViaRpc } from '@/lib/library/admin-queries';
 import type { SeedItem } from './SeedCard';
@@ -39,18 +41,8 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<EnqueueResult | null>(null);
 
-  useEffect(() => {
-    if (!source) return;
-    function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape' && !submitting) onClose();
-    }
-    document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
-    };
-  }, [source, submitting, onClose]);
+  // Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 `ui/Dialog` 의 계약이다.
+  // 전송 중에는 닫히면 안 되므로 `onClose` 자체를 빈 함수로 넘긴다(아래 return).
 
   useEffect(() => {
     if (source) setResult(null);
@@ -81,34 +73,36 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
   }
 
   return (
-    <ModalShell labelledById="enqueue-modal-title" onClose={submitting ? () => {} : onClose}>
-      <div className="flex items-start justify-between gap-3 border-b border-[var(--bd)] px-5 py-4">
-        <div>
-          <h2
-            id="enqueue-modal-title"
-            className="font-display text-[16px] font-[700] text-[var(--t1)]"
+    <Dialog
+      onClose={submitting ? () => {} : onClose}
+      size="md"
+      crumbs={['Admin', '도서 큐레이션', '큐 추가']}
+      title="큐에 책 추가"
+      byline="처리 큐에 추가하면 자동으로 분석이 시작됩니다."
+      footer={
+        <>
+          <button type="button" onClick={onClose} disabled={submitting} className={BTN.secondary}>
+            취소
+          </button>
+          <button
+            type="button"
+            onClick={handleEnqueue}
+            disabled={submitting || result?.kind === 'success'}
+            className={`${BTN.primary} ml-auto`}
           >
-            큐에 책 추가
-          </h2>
-          <p className="mt-0.5 font-body text-[12px] text-[var(--t2)]">
-            처리 큐에 추가하면 자동으로 분석이 시작됩니다.
-          </p>
-        </div>
-        <button
-          type="button"
-          onClick={onClose}
-          disabled={submitting}
-          // h-8(32px) 이었다 — CLAUDE.md 가 금지하는 44px 미만 터치 타겟이다.
-          // 관리자도 폰으로 볼 수 있고, 폰에는 Esc 가 없어 이 버튼이 닫는 유일한 길이다
-          // (실측 2026-08-25 · 390px). 아이콘 크기는 그대로 두고 누를 면적만 넓힌다.
-          className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
-          aria-label="닫기"
-        >
-          <X size={16} aria-hidden />
-        </button>
-      </div>
-
-      <div className="flex flex-col gap-3 px-5 py-4">
+            {submitting ? (
+              <>
+                <Loader2 size={14} className="animate-spin" aria-hidden />
+                추가 중…
+              </>
+            ) : (
+              '큐에 추가'
+            )}
+          </button>
+        </>
+      }
+    >
+      <div className="flex flex-col gap-3">
         <SummaryRow label="제목" value={normalized.title} bold />
         {normalized.author && <SummaryRow label="저자" value={normalized.author} />}
         <SummaryRow
@@ -153,32 +147,7 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
         )}
       </div>
 
-      <div className="flex items-center justify-end gap-2 border-t border-[var(--bd)] bg-[var(--bg2)] px-5 py-3">
-        <button
-          type="button"
-          onClick={onClose}
-          disabled={submitting}
-          className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:opacity-50"
-        >
-          취소
-        </button>
-        <button
-          type="button"
-          onClick={handleEnqueue}
-          disabled={submitting || result?.kind === 'success'}
-          className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] bg-[var(--p)] px-4 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {submitting ? (
-            <>
-              <Loader2 size={14} className="animate-spin" aria-hidden />
-              추가 중…
-            </>
-          ) : (
-            '➕ 큐에 추가'
-          )}
-        </button>
-      </div>
-    </ModalShell>
+    </Dialog>
   );
 }
 
@@ -313,43 +282,6 @@ function SummaryRow({
   );
 }
 
-// ─────────────────────────────────────────────
-// Modal shell — 다른 모달도 재사용
-// ─────────────────────────────────────────────
-
-export function ModalShell({
-  labelledById,
-  onClose,
-  children,
-  size = 'md',
-}: {
-  labelledById: string;
-  onClose: () => void;
-  children: React.ReactNode;
-  size?: 'md' | 'lg';
-}) {
-  return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby={labelledById}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-8 backdrop-blur-[2px]"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div
-        className={[
-          'flex w-full flex-col overflow-hidden',
-          'rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]',
-          'shadow-[var(--sh-lg)]',
-          'max-h-[90vh]',
-          size === 'lg' ? 'max-w-2xl' : 'max-w-md',
-        ].join(' ')}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
+// 팝업 껍데기는 더 이상 여기 없다 — `ui/Dialog` 하나가 저장소의 단일 출처다
+// (DD-68 · tines-mapping §28). 예전 `ModalShell` 은 이 파일과 BookDetailModal 둘만 쓰던
+// 두 번째 껍데기였고, 참조를 닮게 고칠 때마다 두 벌을 같이 고쳐야 했다.

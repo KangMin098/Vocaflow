@@ -1,0 +1,834 @@
+[
+  {
+    "id": "23c63d2d-dcb2-4af6-810c-34f60e096984",
+    "source_updated_at": "2026-09-13T07:06:02.930698+00:00",
+    "body_sha256": "646dfa2706f6aa0d03cca956cff743695f008af68ca36c1934376e4e0fd2f249",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "중화항체가 오히려 세포간 융합을 촉진한다는 통념 뒤집기 구조가 서론·고찰에 서 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Majority of SARS-CoV-2 neutralization antibodies are",
+      "note": "고찰 첫 단락은 항체명(CB6·REGN10933)을 「한 항체」로 바꾸면 서고, 그림 참조가 없다."
+    }
+  },
+  {
+    "id": "23ca3377-42b5-4f19-bf99-189c904508c7",
+    "source_updated_at": "2026-09-13T06:42:43.65938+00:00",
+    "body_sha256": "4cb7728dd9917ccf7678a37ecda25e93719cf6897e151acfc82e18d9334c2a36",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "복막투석 섬유화에서 miR-132 감소라는 하나의 논지를 동물·세포·환자 순으로 쌓아 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In this study, we demonstrated that",
+      "note": "고찰 단락은 자족적이나 유전자 약어가 많아 두세 개를 「섬유화 신호물질」로 바꿔야 한다."
+    }
+  },
+  {
+    "id": "23ccdff8-4e74-4587-941b-8fcee9fc239a",
+    "source_updated_at": "2026-09-25T07:40:05.930491+00:00",
+    "body_sha256": "d4c0c5280ec72d2d2585197829da26e77988d3bac5b72484186533074933a1ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "유전자 목록 나열이 많지만 고찰이 다섯 유전자를 하나씩 설명하고 한계까지 논증한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Exosomes have made significant progress in",
+      "note": "결과 절은 유전자 기호 나열이라 못 쓰고, 고찰의 CD44·CXCR4 단락만 쓸 만하다."
+    }
+  },
+  {
+    "id": "23d4477e-4d72-4b8b-8c6f-c6a3bdd96102",
+    "source_updated_at": "2026-09-13T07:30:24.548754+00:00",
+    "body_sha256": "e926d6376fd594b31a7917fb98af08d700c278962c36aa9183a35ee551eb798b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "갑상선 호르몬과 뇌혈류의 관계를 MCI·AD 단계로 갈라 해석하는 대비 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The present study investigated the effects of",
+      "note": "표는 걷어도 고찰이 서고, TSH·fT3 는 「갑상선 호르몬 두 지표」로 묶을 수 있다."
+    }
+  },
+  {
+    "id": "23d89d09-0dfb-4f71-b82f-4031bf967974",
+    "source_updated_at": "2026-09-13T07:03:11.241349+00:00",
+    "body_sha256": "512d1d0335553910d8355c0e19e12b171ba2f55e427dcd224256b17bd1a05ab2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "2020년 바그잔 유정 분출 사고의 경위와 수질·어류 오염 결과를 사건 순서로 잇는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oil India Limited (OIL), a state-owned",
+      "note": "사고 경위 단락은 수치를 걷어도 사건이 남고, 화합물 약어는 「발암성 오염물질」로 줄일 수 있다."
+    }
+  },
+  {
+    "id": "240f7cab-f8c0-4caf-beb2-a0b12aaecc5e",
+    "source_updated_at": "2026-09-15T14:39:33.286952+00:00",
+    "body_sha256": "2eb384bb64094c576ed0cea0186c6142ee2a2b7bbcac48639822b8ee6e9783c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "만성 샤가스병에서 NK세포가 고갈된 것이 아니라 조절이 풀린 것이라는 반전 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Overall, the NK cells of symptomatic",
+      "note": "저자 요약(Author summary)이 이미 쉬운 말로 돼 있어 그 단락이 가장 손쉽다."
+    }
+  },
+  {
+    "id": "24142d2d-ac25-49ab-aab7-cd700088ef9c",
+    "source_updated_at": "2026-09-13T07:00:14.923836+00:00",
+    "body_sha256": "ab3589ce72d587713a8a0e98ba14a1dafa5a7e5b0e09d7c373a42e57d16e429e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "두 사람 감염 유형이 사실상 다른 종일 수 있다는 주장을 83개 유전체 비교로 끌고 간다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The definition of what constitutes species",
+      "note": "「종이란 무엇인가」 단락은 떼어도 서지만, 결과 절은 단백질 약어 표라 못 쓴다."
+    }
+  },
+  {
+    "id": "244068ba-2f33-4982-b874-a6d2f5baa64a",
+    "source_updated_at": "2026-09-13T07:04:06.133107+00:00",
+    "body_sha256": "a95f1b5b7330e826ad9d4876ed60455ac8d88f11d76742280d20404406c894e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "잇몸 세균 내독소가 심장 기능을 떨어뜨리고 ACE 억제제가 막는다는 인과 사슬이 명확하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oral health is important for maintaining",
+      "note": "고찰 첫 단락은 구강 건강과 전신 질환이라는 일반 화제로 시작해 떼기 쉽다."
+    }
+  },
+  {
+    "id": "244d98f6-491a-4706-a54d-d24fe4ce7a76",
+    "source_updated_at": "2026-09-25T07:40:19.060858+00:00",
+    "body_sha256": "ff05a9fad92ba97f2e32162303a20a6f22d9a9702cfc29a58376cb85a0060917",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "염색체 중복이 조기 노화를 부른다는 가설을 효모 실험으로 세우고 기전까지 제안한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Why does chromosome amplification cause RQC",
+      "note": "고찰이 「왜 그런가」 물음으로 단락을 열어 순서·삽입 문항 재료가 된다."
+    }
+  },
+  {
+    "id": "245a286b-25ff-4039-b307-3ac7a3b5b68e",
+    "source_updated_at": "2026-09-15T14:39:41.23681+00:00",
+    "body_sha256": "cffa6647aa4e6e1d1a3419e35dffaa4c9841540fbe3ddb6a055666db5c21d69f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "응급실 위장관 출혈에서 혈당 비율이 기존 점수보다 나은 예측력을 보인다는 비교 논증이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Stress-induced hyperglycemia has been recognized as",
+      "note": "고찰 단락이 수치 없이도 논지가 서고, 약어(SHR·GBS)는 한 번만 풀어 주면 된다."
+    }
+  },
+  {
+    "id": "2473e5e8-4620-485e-907a-9587a267bfd6",
+    "source_updated_at": "2026-09-25T07:40:23.175006+00:00",
+    "body_sha256": "68e4a603e1bee5f5a6e7fc322a60a9abe5ffc70ece9d7c9b3f4c00048950d127",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "기생충이 숙주의 산화 공격을 어떻게 견디는지 설명하는 리뷰라 논지 흐름이 처음부터 끝까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oxidative stress is the direct consequence",
+      "note": "리뷰라 단락마다 설명이 자족적이고, 효소명을 「복구 효소」로 묶으면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "24743965-f990-4f9d-a19f-6179709f5c48",
+    "source_updated_at": "2026-09-13T07:04:15.598972+00:00",
+    "body_sha256": "9123479fdd9429b3e26b70f024e29e529434edb3bd02fe4da2e826f6e56c6eb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "림프종에서 lncRNA 가 miRNA 를 흡착해 약물 내성을 만든다는 경로를 단계적으로 밝힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice",
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "DLBCL is a group of B-cell",
+      "note": "고찰 첫 단락은 서지만 유전자·세포주 기호가 촘촘해 치환만으로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "24755f81-8fc0-49aa-bbbe-3a52c9fb69a3",
+    "source_updated_at": "2026-09-25T07:40:23.541573+00:00",
+    "body_sha256": "8aa9d374b425f16dc169110de1390449e2af0300d5fdaa3179ce93c808b2aa65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "히르슈슈프룽병 장 상피의 취약성을 오가노이드로 보여 주고 약물로 회복시킨 흐름이 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "This study demonstrated that colonic organoids",
+      "note": "고찰은 논지가 서지만 밀착연접·수용체 약어가 많아 목표 밴드까지는 못 내려간다."
+    }
+  },
+  {
+    "id": "24796b2e-a334-4d21-8fd9-5768706c511b",
+    "source_updated_at": "2026-09-13T07:18:49.213008+00:00",
+    "body_sha256": "1b7fc2e3f8e6ce348187dd40a4363328686521eb087ed7181b54cb1b2432ef4f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "두 약용식물의 케르세틴이 간 손상을 막는다는 주장을 동물 실험과 전산 모의로 이중 검증한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Medicinal plants have phytochemicals which act",
+      "note": "고찰 도입만 일반 서술이고 나머지는 결합에너지 수치 나열이라 떼어 쓸 자리가 좁다."
+    }
+  },
+  {
+    "id": "247d3942-388e-43aa-94fe-a77628600e0c",
+    "source_updated_at": "2026-09-25T07:40:24.722844+00:00",
+    "body_sha256": "c0470d4713389e70dab6353e4c7b163778f90e7835289ada73d2b50907127b57",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "geography",
+    "why": "허난성 전통 마을의 분포를 지형·역사·도시화의 결합 효과로 설명하고 단일 요인 설명을 배격한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "title",
+        "summary",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Traditional villages, often described as ancient",
+      "note": "서론 첫 단락이 고유명사 없이 서고, 통계 용어를 걷어도 논지가 그대로 남는다."
+    }
+  },
+  {
+    "id": "247dc17e-f572-4c62-9158-4b7ac2bcdbb7",
+    "source_updated_at": "2026-09-25T07:40:25.20569+00:00",
+    "body_sha256": "6c98724856da9441cabf2137c781eea9b266b8583cf6f41bef7d8a13787f0366",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "장기 감염이 변이의 산실이라는 가설을 캘리포니아 감시 자료 69건으로 확인하는 구성이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The emergence of new viral variants",
+      "note": "저자 요약과 서론이 쉬운 말로 돼 있어 그대로 쓸 수 있고, 계통수 용어만 걷으면 된다."
+    }
+  },
+  {
+    "id": "2498bf71-7743-487e-9a2b-be9741aa99b2",
+    "source_updated_at": "2026-09-13T07:36:44.935397+00:00",
+    "body_sha256": "5410f7dd0f7886f55cf371e5afc987ebf8ab50162d68dab895af654a26abdf86",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "눈 안 압력의 하루 리듬이 눈 자체가 아니라 뇌 시계에서 온다는 결론을 실험으로 좁혀 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our experiments were designed to specifically",
+      "note": "결론 단락이 가설-검증-귀결로 자족하고, 옵신 이름은 「빛 감지 단백질」로 묶인다."
+    }
+  },
+  {
+    "id": "249f9a18-016e-4f33-bdf1-d2d289c89142",
+    "source_updated_at": "2026-09-13T07:07:54.279249+00:00",
+    "body_sha256": "1d0379c68ae6c989b0aae4418971b24e7e1dfbded641e21f2f523fe005cce241",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "섬유근육통 환자 중 통증 조절계가 망가진 쪽에서 뇌 연결이 오히려 강해진다는 역설을 다룬다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fibromyalgia (FM) is characterized by widespread",
+      "note": "서론 첫 단락은 질환 소개라 떼기 쉽고, 영상 기법 약어는 고찰에서만 정리하면 된다."
+    }
+  },
+  {
+    "id": "24b5ba3d-8be3-4d58-8b72-737fdca78976",
+    "source_updated_at": "2026-09-13T07:06:47.248191+00:00",
+    "body_sha256": "30f1074c40e75bbea159e2db96207a33945cfc23c41d62826f8d748e8ddafe55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "보상 신호가 특정 수용체 아형을 거친다는 것을 유전자 억제 실험으로 가르는 논증이 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The dorsal raphe nucleus (DR) plays",
+      "note": "논지는 서지만 수용체 아형 기호가 논지의 뼈대라 치환하면 뜻이 무너진다."
+    }
+  },
+  {
+    "id": "24ba9543-98fe-41f1-91ed-3d6eaaa7547e",
+    "source_updated_at": "2026-09-25T07:40:33.473581+00:00",
+    "body_sha256": "c324a59985c34ba0219579e390be4fa37b6c4c28a77746903d4b8f1c2b548c7e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "곰팡이독소로 망가진 장을 유산균이 지킨다는 주장을 세포·생쥐 두 층위로 뒷받침한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Zearalenone (ZEN) is a nonsteroidal estrogenic",
+      "note": "서론은 곡물 오염이라는 일상 화제로 열려 쉽고, 지표 약어는 「항산화 지표」로 묶인다."
+    }
+  }
+]

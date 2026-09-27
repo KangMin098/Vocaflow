@@ -23,6 +23,7 @@
 // 그 권들은 안 따라온다. 색·대비처럼 없으면 화면이 깨지는 것만 `contrast.ts` 의 하한을 쓴다.
 
 import {
+  isColorValue,
   resolveBrandColors,
   type PaletteRole,
   type VocabBrandCanvas,
@@ -50,8 +51,10 @@ export interface CoverLockup {
   plateInset: number
   /** 도판 위 글자를 덮는 정도(0~1). */
   scrimStrength: number
-  /** 서체 — 역할이 가리키는 Tailwind 클래스. */
+  /** 서체 — 역할이 가리키는 Tailwind 클래스(서체 이름을 직접 적은 자리는 빈 문자열). */
   fontClass: { display: string; body: string; numerals: string }
+  /** 서체 이름을 직접 적은 자리의 `font-family` 값(역할을 적은 자리는 `null`) — DD-66. */
+  fontFamily: { display: string | null; body: string | null; numerals: string | null }
   /** 계열 듀오톤 — 역할을 따라 푼 값(`resolveBrandColors`). */
   ink: string
   paper: string
@@ -59,6 +62,9 @@ export interface CoverLockup {
 
 const isRole = (v: unknown): v is PaletteRole =>
   v === 'ink' || v === 'paper' || v === 'accent' || v === 'spine' || v === 'plate'
+
+/** 색 자리 — 역할 이름 또는 CSS 색 값(캔버스 검증과 같은 판정 · DD-66). */
+const isPaletteColor = (v: unknown): v is string => isRole(v) || isColorValue(v)
 
 const isFontRole = (v: unknown): v is FontRole => typeof v === 'string' && v in FONT_CLASS
 
@@ -100,12 +106,15 @@ export function coverLockupOf(
   if (!Number.isFinite(scrim) || scrim < 0 || scrim > 1) return null
 
   const palette = c.palette
-  if (!palette || !isRole(palette.ink) || !isRole(palette.paper)) return null
+  if (!palette || !isPaletteColor(palette.ink) || !isPaletteColor(palette.paper)) return null
 
+  // 서체는 역할 이름 또는 font-family 값(DD-66). 빈 값만 규격 불량으로 본다.
   const type = c.typography
-  if (!type || !isFontRole(type.display) || !isFontRole(type.body) || !isFontRole(type.numerals)) {
+  if (!type || !nonEmpty(type.display) || !nonEmpty(type.body) || !nonEmpty(type.numerals)) {
     return null
   }
+  const cls = (f: string) => (isFontRole(f) ? FONT_CLASS[f] : '')
+  const raw = (f: string) => (isFontRole(f) ? null : f.trim())
 
   const { ink, paper } = resolveBrandColors({ family, palette }, theme)
 
@@ -118,11 +127,8 @@ export function coverLockupOf(
     aspectRatio: `${ratio[1]} / ${ratio[2]}`,
     plateInset: inset,
     scrimStrength: scrim,
-    fontClass: {
-      display: FONT_CLASS[type.display],
-      body: FONT_CLASS[type.body],
-      numerals: FONT_CLASS[type.numerals],
-    },
+    fontClass: { display: cls(type.display), body: cls(type.body), numerals: cls(type.numerals) },
+    fontFamily: { display: raw(type.display), body: raw(type.body), numerals: raw(type.numerals) },
     ink,
     paper,
   }

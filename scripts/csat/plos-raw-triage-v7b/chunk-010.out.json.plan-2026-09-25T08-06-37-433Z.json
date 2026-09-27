@@ -1,0 +1,1565 @@
+[
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "0679d4e8-23d3-4fc1-bb9f-6f86f8b3cceb",
+    "revision": "2026-09-25T07:28:06.847025+00:00",
+    "body_sha256": "dbb38684ee4c1d119ccd09bdb88791ccb63058baf3c78e70f29887397c3efbc8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.922Z",
+        "by": "chunk-llm",
+        "why": "가상 IED 의 응답 시간·지연 측정이 본문의 거의 전부라 떼어 낸 단락이 시험 설정표와 그림 없이는 무엇을 주장하는지 서지 않는다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:34.920Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "576759ca26c873bb08bb55d4ed6839afc0fc49f321ce9d66af813b8430678803"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "도입 단락만 문맥 없이 읽히고 결론은 시험 구성·VM 전환 사례에 묶여 있어 자족 지문으로 만들지 못했다.",
+          "sample": "With the growing complexity of modern",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.922Z",
+        "by": "chunk-llm",
+        "why": "가상 IED 의 응답 시간·지연 측정이 본문의 거의 전부라 떼어 낸 단락이 시험 설정표와 그림 없이는 무엇을 주장하는지 서지 않는다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:34.920Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "576759ca26c873bb08bb55d4ed6839afc0fc49f321ce9d66af813b8430678803"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "도입 단락만 문맥 없이 읽히고 결론은 시험 구성·VM 전환 사례에 묶여 있어 자족 지문으로 만들지 못했다.",
+          "sample": "With the growing complexity of modern",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론이 기존 변전소의 고정 하드웨어 한계 → 가상화·SDN 대안으로 논지를 세워 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "title"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "With the growing complexity of modern",
+          "note": "서론 문단은 고유명사를 걷어도 논지가 서지만, 후반 절은 의사코드·그림 참조와 비문이 많아 발췌 범위를 서론·관련연구로 제한해야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.438Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.922Z",
+          "by": "chunk-llm",
+          "why": "가상 IED 의 응답 시간·지연 측정이 본문의 거의 전부라 떼어 낸 단락이 시험 설정표와 그림 없이는 무엇을 주장하는지 서지 않는다.",
+          "basis": "full",
+          "genre": "engineering",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:34.920Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "576759ca26c873bb08bb55d4ed6839afc0fc49f321ce9d66af813b8430678803"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "도입 단락만 문맥 없이 읽히고 결론은 시험 구성·VM 전환 사례에 묶여 있어 자족 지문으로 만들지 못했다.",
+            "sample": "With the growing complexity of modern",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "processing-unclear",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:41.648Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "06911ffc-56ec-4ea2-a965-daa3dcb5e578",
+    "revision": "2026-09-25T07:28:08.586455+00:00",
+    "body_sha256": "76405bc69c5cd6a62fd63a32a4586841b2dd81cb627da169be4ffe81bf19c474",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.922Z",
+        "by": "chunk-llm",
+        "why": "바이러스가 숙주 대사를 가로챈다는 일반 논지 아래 HCV 가 NAD 합성에 기대는 근거를 단계별로 쌓는다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:36.703Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "884bdb9e0d8e887d745f69afdd5ba90e0415a98e29cbcc7a030b187f4005dac7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 단락은 그림 참조 없이 논지만으로 서지만 LVP·ApoB 가 주장의 중심이라 낱말을 바꿀 수 없다.",
+          "sample": "An increasing body of literature is",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:39.922Z",
+        "by": "chunk-llm",
+        "why": "바이러스가 숙주 대사를 가로챈다는 일반 논지 아래 HCV 가 NAD 합성에 기대는 근거를 단계별로 쌓는다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:36.703Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "884bdb9e0d8e887d745f69afdd5ba90e0415a98e29cbcc7a030b187f4005dac7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 단락은 그림 참조 없이 논지만으로 서지만 LVP·ApoB 가 주장의 중심이라 낱말을 바꿀 수 없다.",
+          "sample": "An increasing body of literature is",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약이 바이러스가 숙주 대사를 가로챈다는 논지를 수치 없이 한 편으로 세워 요지·제목 칸을 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Viruses are obligate parasites that rely",
+          "note": "서론 첫 문단은 약어를 풀고 바이러스 이름 나열만 줄이면 그대로 지문이 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.441Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:39.922Z",
+          "by": "chunk-llm",
+          "why": "바이러스가 숙주 대사를 가로챈다는 일반 논지 아래 HCV 가 NAD 합성에 기대는 근거를 단계별로 쌓는다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "order",
+              "summary"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:36.703Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "884bdb9e0d8e887d745f69afdd5ba90e0415a98e29cbcc7a030b187f4005dac7"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 첫 단락은 그림 참조 없이 논지만으로 서지만 LVP·ApoB 가 주장의 중심이라 낱말을 바꿀 수 없다.",
+            "sample": "An increasing body of literature is",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:56.283Z",
+      "topicMargin": 28.98
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "06c0696e-3d3a-4079-8f4a-f86de8b4f568",
+    "revision": "2026-09-25T07:28:11.859807+00:00",
+    "body_sha256": "1e2eca0e96594ce6c5ce0e0f65b8c6055b71c7e0ea14faa565f7c196ba2b5b78",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.906Z",
+        "by": "chunk-llm",
+        "why": "저자 요약(author summary)이 전문 용어 없이 같은 내용을 다시 써 두어 쉬운 밴드 지문으로 바로 깎인다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:42.016Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "cd0c59f1986ec44d8aefd4c029fe8ada1074126b7cb94d19ac9054c9e22819a0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 지시어가 없어 그대로 떨어졌고 opportunistic·virulence 두 낱말만 바꿔도 읽혔다.",
+          "sample": "Enterococcus faecalis is a major opportunistic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.906Z",
+        "by": "chunk-llm",
+        "why": "저자 요약(author summary)이 전문 용어 없이 같은 내용을 다시 써 두어 쉬운 밴드 지문으로 바로 깎인다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:42.016Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "cd0c59f1986ec44d8aefd4c029fe8ada1074126b7cb94d19ac9054c9e22819a0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 지시어가 없어 그대로 떨어졌고 opportunistic·virulence 두 낱말만 바꿔도 읽혔다.",
+          "sample": "Enterococcus faecalis is a major opportunistic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약과 고찰이 세균 신호물질과 숙주 면역의 상호작용을 설명문으로 풀어 주제·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Second messengers are small signaling molecules",
+          "note": "서론 둘째 문단은 떼어도 서지만 효소 약어(DAC·PDE)가 많아 목표 밴드로 내리려면 용어 치환이 여러 개 필요했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.443Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.906Z",
+          "by": "chunk-llm",
+          "why": "저자 요약(author summary)이 전문 용어 없이 같은 내용을 다시 써 두어 쉬운 밴드 지문으로 바로 깎인다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:42.016Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "cd0c59f1986ec44d8aefd4c029fe8ada1074126b7cb94d19ac9054c9e22819a0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약 단락은 지시어가 없어 그대로 떨어졌고 opportunistic·virulence 두 낱말만 바꿔도 읽혔다.",
+            "sample": "Enterococcus faecalis is a major opportunistic",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 15,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:47.519Z",
+      "topicMargin": 14.370000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "06e98ab9-3868-4736-bc98-c31d084b07b2",
+    "revision": "2026-09-25T07:28:17.896672+00:00",
+    "body_sha256": "c98a75126ca7d2b3331a25b9201cb612af1c1753861d7cfb2fbde613b64dc6ba",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.908Z",
+        "by": "chunk-llm",
+        "why": "본문이 「(3)where A is…」처럼 수식만 빠진 채 이어지고 서론 다음 절이 통째로 비어 받은 글이 중간에서 끊겼다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:46.048Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "06f24fa3fcbf49576292fd1524363c35a3e7f6421fe12ecadda0fff562625801"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "결론 절을 떼어 보니 (19)·(21) 식과 Fig 21 을 가리켜 수식 없이는 문장이 서지 않았다.",
+          "sample": "A thorough understanding of the failure",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.908Z",
+        "by": "chunk-llm",
+        "why": "본문이 「(3)where A is…」처럼 수식만 빠진 채 이어지고 서론 다음 절이 통째로 비어 받은 글이 중간에서 끊겼다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:46.048Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "06f24fa3fcbf49576292fd1524363c35a3e7f6421fe12ecadda0fff562625801"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "결론 절을 떼어 보니 (19)·(21) 식과 Fig 21 을 가리켜 수식 없이는 문장이 서지 않았다.",
+          "sample": "A thorough understanding of the failure",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "서론이 낮은 변형률의 인장 파괴와 높은 구속압의 전단 파괴를 대비시켜 논지가 서고, 결론은 항목별 사실 진술이 많다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In the dynamic uniaxial compression test",
+          "note": "서론 문단은 수식 없이 인과가 이어지지만, 본문 대부분이 수식·그림 지시라 발췌 가능 구간이 서론과 결론으로 좁다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.445Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.908Z",
+          "by": "chunk-llm",
+          "why": "본문이 「(3)where A is…」처럼 수식만 빠진 채 이어지고 서론 다음 절이 통째로 비어 받은 글이 중간에서 끊겼다.",
+          "basis": "full",
+          "genre": "engineering",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:46.048Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "06f24fa3fcbf49576292fd1524363c35a3e7f6421fe12ecadda0fff562625801"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "결론 절을 떼어 보니 (19)·(21) 식과 Fig 21 을 가리켜 수식 없이는 문장이 서지 않았다.",
+            "sample": "A thorough understanding of the failure",
+            "detachable": false,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 13,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:01.947Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "070e376a-ba7c-4bdc-9b41-4fbdfc229309",
+    "revision": "2026-09-25T07:28:22.720078+00:00",
+    "body_sha256": "73384cc28629c45170ec0eed0804e3b324ad99f2a6b1223885c82ff8229f4b11",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.909Z",
+        "by": "chunk-llm",
+        "why": "RSV 융합 단백질과 대조해 「왜 중화가 안 되는가」를 따지는 고찰이 통념 교정 구조로 서 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:49.255Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "28142554ef51eaf0e71158b7c8429823abfa73fa59a764e334666e4d5c27ab63"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약이 같은 논지를 쉬운 말로 다시 써 두어 발췌 후보가 둘이었지만 epitope·conformation 은 바꿀 수 없었다.",
+          "sample": "The lack of neutralizing activity and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.909Z",
+        "by": "chunk-llm",
+        "why": "RSV 융합 단백질과 대조해 「왜 중화가 안 되는가」를 따지는 고찰이 통념 교정 구조로 서 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:49.255Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "28142554ef51eaf0e71158b7c8429823abfa73fa59a764e334666e4d5c27ab63"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약이 같은 논지를 쉬운 말로 다시 써 두어 발췌 후보가 둘이었지만 epitope·conformation 은 바꿀 수 없었다.",
+          "sample": "The lack of neutralizing activity and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약이 보존된 부위를 노려도 중화가 안 된 까닭을 묻고 답하는 구조라 요지·빈칸 칸을 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The lack of neutralizing activity and",
+          "note": "고찰 둘째 문단은 RSV 비교가 근거로 붙어 있어 실험 수치를 걷어도 논지가 남았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.447Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.909Z",
+          "by": "chunk-llm",
+          "why": "RSV 융합 단백질과 대조해 「왜 중화가 안 되는가」를 따지는 고찰이 통념 교정 구조로 서 있다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:49.255Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "28142554ef51eaf0e71158b7c8429823abfa73fa59a764e334666e4d5c27ab63"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약이 같은 논지를 쉬운 말로 다시 써 두어 발췌 후보가 둘이었지만 epitope·conformation 은 바꿀 수 없었다.",
+            "sample": "The lack of neutralizing activity and",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 11,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:36:03.615Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "0713c388-f883-408f-8d24-a06f255f1e5b",
+    "revision": "2026-09-25T07:28:24.362791+00:00",
+    "body_sha256": "9cea761727e732603ca5bc99ad03b7391acc45cfcf193b7273fff2a6f7faa4ed",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.911Z",
+        "by": "chunk-llm",
+        "why": "백신이 없는 자리에 항체 유전자를 넣는다는 대안을 저자 요약이 일상어로 풀어써 요지·요약 칸을 연다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "vocab"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:50.357Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c30bff27e549c9091d82c90058fecec17620c8181b282991ba7d3e0d764466d8"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 지시어 없이 시작했고 virulence·prophylaxis 두 낱말만 풀어써도 고3 밴드에 들어왔다.",
+          "sample": "Staphylococcus aureus is a major cause",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.911Z",
+        "by": "chunk-llm",
+        "why": "백신이 없는 자리에 항체 유전자를 넣는다는 대안을 저자 요약이 일상어로 풀어써 요지·요약 칸을 연다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "vocab"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:50.357Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c30bff27e549c9091d82c90058fecec17620c8181b282991ba7d3e0d764466d8"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약은 지시어 없이 시작했고 virulence·prophylaxis 두 낱말만 풀어써도 고3 밴드에 들어왔다.",
+          "sample": "Staphylococcus aureus is a major cause",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약이 항체 치료의 한계 → 유전자 전달 대안이라는 문제-해결 구조를 갖춰 제목·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Staphylococcus aureus is a major cause",
+          "note": "저자 요약은 일반 독자를 향해 쓰여 약어 두셋만 풀면 바로 고2 밴드까지 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.449Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.911Z",
+          "by": "chunk-llm",
+          "why": "백신이 없는 자리에 항체 유전자를 넣는다는 대안을 저자 요약이 일상어로 풀어써 요지·요약 칸을 연다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading",
+              "vocab"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:50.357Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c30bff27e549c9091d82c90058fecec17620c8181b282991ba7d3e0d764466d8"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약은 지시어 없이 시작했고 virulence·prophylaxis 두 낱말만 풀어써도 고3 밴드에 들어왔다.",
+            "sample": "Staphylococcus aureus is a major cause",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:08:54.604Z",
+      "topicMargin": 20.909999999999997
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-37-433Z",
+    "id": "0716fa22-12f7-4962-9e69-831b61be6ed7",
+    "revision": "2026-09-25T07:28:24.909457+00:00",
+    "body_sha256": "1ce99c961b214e1575406647e1b5535db06ce4980321103aff5f8cace08282aa",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.912Z",
+        "by": "chunk-llm",
+        "why": "장내 미생물이 무너지면 면역과 대사가 함께 흔들린다는 서론이 고유명사를 빼도 논지가 남는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:50.394Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "38d3435b245b012e39811350e8ecc44b5d24376d03f80b4ebb100fec73360a43"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "균종 이름을 「beneficial microbes」로 묶으니 문단이 그대로 섰고 dysbiosis 만 설명하면 됐다.",
+          "sample": "The intestine serves as both the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.912Z",
+        "by": "chunk-llm",
+        "why": "장내 미생물이 무너지면 면역과 대사가 함께 흔들린다는 서론이 고유명사를 빼도 논지가 남는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:50.394Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "38d3435b245b012e39811350e8ecc44b5d24376d03f80b4ebb100fec73360a43"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "균종 이름을 「beneficial microbes」로 묶으니 문단이 그대로 섰고 dysbiosis 만 설명하면 됐다.",
+          "sample": "The intestine serves as both the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약과 서론이 장내 미생물 균형이 깨지면 숙주 대사가 흔들린다는 인과를 한 편으로 세운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Far beyond its role in digestion",
+          "note": "장내 미생물의 기능을 열거한 문단은 떼어도 서고, 어려운 낱말 두세 개만 바꾸면 밴드가 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:37.450Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.912Z",
+          "by": "chunk-llm",
+          "why": "장내 미생물이 무너지면 면역과 대사가 함께 흔들린다는 서론이 고유명사를 빼도 논지가 남는다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:50.394Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "38d3435b245b012e39811350e8ecc44b5d24376d03f80b4ebb100fec73360a43"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "균종 이름을 「beneficial microbes」로 묶으니 문단이 그대로 섰고 dysbiosis 만 설명하면 됐다.",
+            "sample": "The intestine serves as both the",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:33.897Z"
+    }
+  }
+]

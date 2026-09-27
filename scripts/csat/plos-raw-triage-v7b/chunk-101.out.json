@@ -1,0 +1,875 @@
+[
+  {
+    "id": "51b7d3f8-54ad-4c92-b467-1bcf69be61c5",
+    "source_updated_at": "2026-09-15T15:01:20.350094+00:00",
+    "body_sha256": "f0a92feaf34e4d00575f19f02c61fe552a974d460a6cdfdd68386358cf354923",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 폐선암 예후 문제와 고찰의 아노이키스 저항 설명이 논지를 이뤄 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anoikis, a programmed cell death mechanism,",
+      "note": "TIMP1·Treg 등 약어를 「단백질」「면역 억제 세포」로 바꾸면 고찰 단락이 선다."
+    }
+  },
+  {
+    "id": "51b81f59-e67d-484f-9c05-7c4abeb72991",
+    "source_updated_at": "2026-09-25T07:29:29.032129+00:00",
+    "body_sha256": "e601d78a5b419ef146124d1a9721a780998fba8ef94c1e81d8b9382d68e0677d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 알렌드로네이트 교란 해석 단락이 「연관은 인과가 아니다」 논지를 세워 요지·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In clinical practice, patients prescribed alendronate",
+      "note": "ROR 수치를 걷어도 교란 논지가 서고 pharmacovigilance를 drug safety monitoring으로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "51be1aae-34d6-46a2-968d-6d5def2cab15",
+    "source_updated_at": "2026-09-25T07:29:29.725652+00:00",
+    "body_sha256": "d0cd6fe5c60ad7b603047bd731f4f613f46f627e4022f46e88b9927d9791ee7f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약 단락이 유전 변이와 코로나 중증도 관계를 쉬운 말로 설명해 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Individual humans show widely varying responses",
+      "note": "저자 요약은 거의 그대로 서고 transcription factors만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "51c24efa-06cb-437f-b922-9d768c28a80f",
+    "source_updated_at": "2026-09-13T07:00:00.295856+00:00",
+    "body_sha256": "794e06c07e231f2608e926ec79efc8fbcda1f67ad0a219574f32fb5655283a9d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 콜리스틴 사료 금지와 내성 유전자 감소 서술이 인과 흐름을 이뤄 순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Colistin has been used as an",
+      "note": "mcr-1·MCRPE 약어를 「내성 유전자」로 바꾸면 정책-결과 흐름이 선다."
+    }
+  },
+  {
+    "id": "51cf52c5-8a49-4037-aee6-41f0534c02ac",
+    "source_updated_at": "2026-09-13T07:02:18.220167+00:00",
+    "body_sha256": "cce8e429661e1980fe72a98aa4b76dff31fa341af593e86902e39f8de7f62af1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 MMP9 보호 역할과 선행 연구 불일치 해석이 논지를 세워 주제·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Previous studies concerning the role of",
+      "note": "MMP·pcy 모델명을 걷고 「효소」「쥐 모델」로 바꾸면 불일치 해석 단락이 선다."
+    }
+  },
+  {
+    "id": "51dad147-ac5a-4807-8a21-35a80902993e",
+    "source_updated_at": "2026-09-25T07:29:31.996315+00:00",
+    "body_sha256": "3f9ba326be69f8f0fc8e6f3016a938ba626f87d050f40b3668c64e38fdef0ea1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 조류-세균 공생과 탐지 어려움 설명이 논지를 이뤄 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cross-kingdom microbial symbioses abound in nature.",
+      "note": "공생 사례 나열 단락은 학명만 일반명으로 바꾸면 그대로 선다."
+    }
+  },
+  {
+    "id": "51ebc532-c554-4dbb-b541-217b92b9c444",
+    "source_updated_at": "2026-09-15T15:01:26.140089+00:00",
+    "body_sha256": "a353eda05310a8046811e79d76fb7556c0be82df5230e4d042330ee161ddb761",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 고령 척수손상과 섬망 문제, 고찰의 음주 위험 단락이 흐름을 이뤄 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Delirium is defined as an acute,",
+      "note": "NPAR을 「혈액 염증 지표」로 바꾸면 섬망 정의·위험 단락이 선다."
+    }
+  },
+  {
+    "id": "52090c54-eab3-4e76-b86e-03ef2d86f9ea",
+    "source_updated_at": "2026-09-25T07:29:35.566958+00:00",
+    "body_sha256": "bd0db20d0a343422670a5e191a634c728fa3bdfe73da614c59ea3660bb0f43ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 키 결정 요인과 고찰의 키-심방세동 기전 설명이 논지를 세워 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Height is a fundamental aspect of",
+      "note": "PRS·GWAS를 「유전 점수」「유전체 연구」로 풀면 키와 질병 관계 단락이 선다."
+    }
+  },
+  {
+    "id": "5225cac0-e901-4283-8392-4491a8dfcbd8",
+    "source_updated_at": "2026-09-13T06:47:55.338966+00:00",
+    "body_sha256": "c9a8203d55cb21d4ce16fa32ee22026c20bf60443f89ebd0f44b51ebf6cebf7e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 2DG 치료 가능성 개관과 고찰의 소장 면역 해석이 논지를 이뤄 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The small intestine is a unique",
+      "note": "2DG를 「포도당 유사 물질」로 바꾸면 소장 면역 단락이 선다."
+    }
+  },
+  {
+    "id": "52370c0f-d9fa-46d6-91ee-172b792a6cca",
+    "source_updated_at": "2026-09-25T07:29:38.575832+00:00",
+    "body_sha256": "107823725ea74a840d48d4a070e2a7cc5be0bd24d39fd807cb2f2e2283df2658",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 두 데이터베이스 차이 해석과 성별 위험 단락이 논지를 세워 요지·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This pronounced difference likely reflects fundamental",
+      "note": "FAERS·JADER를 「미국·일본 보고 체계」로 바꾸면 해석 단락이 선다."
+    }
+  },
+  {
+    "id": "523b4831-385b-468e-82c0-11b42372d1bd",
+    "source_updated_at": "2026-09-13T07:41:22.343725+00:00",
+    "body_sha256": "b1adbf5de1ed73f7983ea850a65b1613c3c816894722379b99a2050152d9a071",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 세포 죽음 방식과 염증 관계 설명이 논지를 이뤄 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When cells die in vivo they",
+      "note": "DAMP·NLRP3 등 약어를 걷으면 괴사와 세포자멸 비교 단락이 선다."
+    }
+  },
+  {
+    "id": "5243ec3c-2947-497d-a5a6-3d2e3abf1f75",
+    "source_updated_at": "2026-09-25T07:29:40.485564+00:00",
+    "body_sha256": "729075309a14ce872f7a7a4c55095bb7a000ae69ee1ea93e005df957084220c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 제브라피시와 포유류 망막 재생 차이 설명이 논지를 세워 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Müller glia (MG) reprogramming sustains morphological",
+      "note": "Müller glia를 「망막 지지 세포」로 바꾸면 재생 차이 단락이 선다."
+    }
+  },
+  {
+    "id": "5248f652-f897-45a4-bfc3-6300b255b976",
+    "source_updated_at": "2026-09-25T07:29:41.563868+00:00",
+    "body_sha256": "4327d7da66f0ad7ca82eb86f06858adf9d4f7ac00b21858dddaead2d34bbc104",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "social",
+    "why": "서론의 장애인 공공서비스 신뢰와 데이터 거버넌스 논증이 한 편으로 서서 주제·주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "main_point",
+        "blank",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Trust is a core currency of",
+      "note": "audit 용어 몇 개를 「점검」으로 바꾸면 신뢰 논증 단락이 선다."
+    }
+  },
+  {
+    "id": "524be8e9-04e7-4080-b366-4c8ec58fbde3",
+    "source_updated_at": "2026-09-15T15:01:37.000507+00:00",
+    "body_sha256": "d83c43f5e98e3c91c2f96cd6ba852a73a0f27e3fb66bc6d74a64b7ffe13969e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "서론의 미세플라스틱 노출과 간 축적 설명이 논지를 이뤄 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Microplastics, defined as plastic particles smaller",
+      "note": "수치를 걷어도 미세플라스틱 확산 논지가 서고 PET를 「페트 플라스틱」으로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "525b5f50-6928-4170-9d2a-191d29be5dd4",
+    "source_updated_at": "2026-09-25T07:29:43.616042+00:00",
+    "body_sha256": "fa354e5b32c39e35b7b6d6d0865bc38cc4591de7760e6c5df86c75812152ee78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 식도암 현황과 번역후 변형 개관이 논지를 이뤄 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Esophageal cancer is one of the",
+      "note": "ESCC·CK2 약어를 「식도암」「효소」로 바꾸면 도입 단락이 선다."
+    }
+  },
+  {
+    "id": "526afe09-cd31-4d66-a18d-147e9e1f222b",
+    "source_updated_at": "2026-09-13T06:27:01.513237+00:00",
+    "body_sha256": "a0a83d65909fa540a660df9b6e030661dfa479a5bbcb327e8b3b46b7e8c994c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 식품 알레르기와 유산균 단백질 문제 제기가 논지를 세워 주제·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the EU, the issue of",
+      "note": "BPs·FDP 약어를 「세균 단백질」「발효 유제품」으로 바꾸면 문제 제기 단락이 선다."
+    }
+  },
+  {
+    "id": "526e74c6-15cc-4f64-bcbc-16756433a666",
+    "source_updated_at": "2026-09-25T07:29:45.300922+00:00",
+    "body_sha256": "f888a806eb154596d878656f15d9fbcf72de82e81b6c24d31790516598bad10f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약 단락이 두 세포 유형의 돌연변이 차이를 쉬운 말로 설명해 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Genomes of all human cells accumulate",
+      "note": "저자 요약은 SNV·OA만 풀어 쓰면 그대로 선다."
+    }
+  },
+  {
+    "id": "52905731-c719-4c2f-84a6-259a1e6218b8",
+    "source_updated_at": "2026-09-13T06:46:41.277044+00:00",
+    "body_sha256": "50b9d34e472cb3a174d8630eb03065d474b5750b11b46f4f5ad3d123ba2195f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 코로나 혈전 기전과 유전적 혈전성향 설명이 흐름을 이뤄 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Patients with COVID-19 infection appear to",
+      "note": "인자·유전자 이름을 「응고 관련 유전자」로 묶으면 혈전 기전 단락이 선다."
+    }
+  },
+  {
+    "id": "5297c1c9-ce04-4112-bf36-b68e990f8cce",
+    "source_updated_at": "2026-09-13T07:03:22.589141+00:00",
+    "body_sha256": "6ba57752175ed594d8f3a9cba2764d3546d6920e4baf73088d5c48825374b757",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 반복 유산과 줄기세포 면역 조절 설명이 논지를 이뤄 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mesenchymal stem cells (MSCs) are mesoderm-derived",
+      "note": "NK·Th1 약어를 「면역 세포」로 묶으면 줄기세포 설명 단락이 선다."
+    }
+  },
+  {
+    "id": "5298fccd-0308-4f1a-b3ea-86a92b9c3761",
+    "source_updated_at": "2026-09-25T07:29:49.659058+00:00",
+    "body_sha256": "b273f656b2824fe1222e5d7e37fb523630d10a9a17a6c78db64b4d72b51de28a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "고찰의 주입 속도와 겔화 균형 트레이드오프 단락이 논지를 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The selection of these formulations represents",
+      "note": "β-GP·HEC를 「첨가 성분」으로 바꾸면 빠른 굳음과 주입성의 균형 논지가 선다."
+    }
+  }
+]

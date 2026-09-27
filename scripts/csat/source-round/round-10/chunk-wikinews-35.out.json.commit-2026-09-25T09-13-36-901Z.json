@@ -1,0 +1,1873 @@
+[
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "1941f4ee-343b-4aa2-9a77-34018e923fbd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "48947c195829994aa2e65f10416e8eef78b690364a69ac239e721f2e1ca4bc59",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "사형 집행 재개와 그 명분(범죄 증가)이 끝 단락에서 서지만 처형 소재라 고2 이상 내용 일치·주장 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since the stay began in 2006,",
+          "note": "유예 이후 사형수 증가 문단은 범죄 증가 탓이라는 장관 주장이 서고 moratorium 을 풀어 쓰면 V4 에 앉는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.903Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jordan_ends_eight-year_stay_on_executions%2C_hangs_eleven",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.593,
+          "words": 182,
+          "english": 0.37
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "194398c9-8580-40a3-800c-0b5c4d73b87f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5fb96ea4467a9451915152a5404a7795b71c71a52db191b17d302f34dbd4f2a1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "외래종 두꺼비를 겁주어 개체를 줄인다는 실험 결과가 둘째 단락에서 인과로 서서 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The scientists have reported that scared",
+          "note": "실험 문단은 겁먹은 올챙이가 일찍 변태해 약해진다는 인과가 서고 metamorphosis·prematurely 를 바꾸면 V6 로 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientists_suggest_scaring_toads_to_limit_population",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.102,
+          "words": 98,
+          "english": 0.414
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "19444cb9-43a8-4b2e-8556-e98af8ba426a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "83fe22da6204b02871ebd9df0ba792ca83ec6077b6d820a900e6cb4709b24e5f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "폭우의 원인과 해안·내륙 피해, 추가 강우 전망이 차례로 이어져 삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Further inland and north, where colder",
+          "note": "내륙 문단은 추운 곳에서는 비가 얼음·눈으로 바뀌어 도로가 막혔다는 흐름이 서서 glaze·accumulations 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2005%2F01%2F19_Pacific_Northwest_soaked_with_%22Tropical_Punch%22",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "1946079a-08c4-4857-89d6-4e4b099124b6",
+    "revision": "2026-09-25T08:53:34.439658+00:00",
+    "body_sha256": "b23863d062c062d0035f9aa921f668bbf9140d93f81f517d27ea99f6cda7775a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령의 주장과 잡지·관계자의 반박이 이어지는 구조라 주장·요약 칸과 통념 교정 속성을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Time magazine recognizes as \"Person of",
+          "note": "선정 기준 문단은 「영향력」이 기준이라는 사실이 트윗 주장과 대비돼 서고 인명을 걷어도 반박 구조가 남는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Time_magazine_refutes_US_President_Donald_Trump's_Twitter_claim_he_was_nominated_Time_'Person_of_the_Year'",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.401
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "1949b401-fbbd-4546-a7ff-f0f1a63f88fb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf70e143fa3bfd6846efa4f7c0d7424573cec6e06afa98da230d13064791c2a2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "폭풍 사망·실종과 좌초선 환경 우려가 이어져 가족 사망 소재라 고1 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Authorities also fear a \"potentially major",
+          "note": "좌초선 문단은 연료 유출 우려와 선원 구조가 서지만 선박 이름 셋을 걷어야 읽기가 편했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Worst_storm_in_thirty_years_hits_Newcastle%2C_Australia",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "194bc7b1-1dff-415f-ba7e-e2a6dab2dc84",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78426440109c0e61e9a060ea8a796c54678a7cb4b00da5503336c0432176eb17",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "혜성 충돌 실험의 목적과 과정, 풀려는 질문이 이어져 주제·삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Deep Impact is a NASA space",
+          "note": "임무 소개 문단은 표면만 찍던 이전 탐사와 내부를 보는 이번 탐사를 대비해 서고 끝의 동영상 캡션 두 줄은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NASA's_Deep_Impact_probe_strikes_comet_successfully",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "194d3707-2768-4fb3-9f9a-7105e1065bc6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "68f0a105f1c2197ef1f3cf8f16fc127978c22bb32dfc03eafbad355d2c2be36b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "극우 군인 조직의 테러 모의 체포와 증거가 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Of the 17 arrested, 10 were",
+          "note": "군인 가담 문단은 무기 비축과 부대 안 훈련이 서지만 paramilitary·faction 같은 말이 남아 밴드가 잘 안 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/17_terrorism_suspects_arrested_in_Belgium",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "1952c68d-8602-41e7-bcba-eb0e22f21aaf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b41c9f4bb6d0db2b96269a10bab5d964b36bd4b113a0471d221517840421279",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "글라이더 추락 뒤 실종자 발견까지 짧은 사건이 서서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Spanish pilot survived the crash",
+          "note": "수색 문단은 여러 나라 잠수부와 폭우로 인한 어려움이 서서 쉬웠지만 사건이 짧아 칸은 내용 일치 하나다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.904Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Body_of_Sheikh_Ahmed_bin_Zayed_Al_Nahyan_found_in_Moroccan_lake",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.797,
+          "words": 138,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "195ae6da-bf1d-40f9-953b-745eb93c3158",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f14e3d6cd1b06ea75889cd7b20c7a1731c7514a42d8ffc1daf9099ae1d8eab04",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "정치 다큐 제작과 편파 수사 공방이 긴 글로 맞서 주장·장문·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "DeLay defenders have used the film",
+          "note": "옹호 측 공격 문단은 영화가 표적 수사의 증거라는 주장이 서지만 인물 관계를 알아야 해서 이름을 걷으면 흐려진다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Film_about_Travis_County_DA's_investigation_of_Texas_election_of_2002",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.312
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "195c6219-d9c3-4701-bc9d-6ed5df6b176e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d36f4671b7751ea1f611bd119cabf51774b7b6a54fa2d4754c5e7f1ccccf6882",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "서커스 코끼리가 도시를 누비다 붙잡힌 사건이 순서대로 이어져 초등부터 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "For nearly an hour, police chased",
+          "note": "추격 문단은 쫓다 → 못 따라가다 → 조련사가 태우다로 순서가 서서 recaptured 를 caught 로 바꾸면 초등 읽기에도 맞다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Circus_elephant_escapes_in_Zurich%2C_Switzerland",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "195cbc4a-96b3-4d5a-8906-6de849948c77",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b459130c78f06f687bcc85bcf05af01ae3bbaabc394714e0fe2234e436a958a6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "제세동기 결함 경고와 결함 원리가 둘째 단락에서 서서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the Associated Press article,",
+          "note": "결함 문단은 자석 스위치가 붙어 심장 리듬 치료를 못 한다는 인과가 서지만 주가 단락은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Guidant_announces_more_defibrillator_problems",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.714,
+          "words": 105,
+          "english": 0.363
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "195d05f7-e857-4f34-8c60-d6b311533e39",
+    "revision": "2026-09-25T08:59:12.943758+00:00",
+    "body_sha256": "e45500dd91eb94aefbbc0631b1ba2478df0e648ab712a2d3714d01a50a318329",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "앨범 표지 촬영 일화와 스턴트 인생이 이어지는 부고라 심경·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The photoshoot was done in the",
+          "note": "촬영 문단은 방염복에도 콧수염이 타 쓰러진 순간과 사진가 회고가 서서 retardant·disintegrated 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Stunt_performer_set_ablaze_for_cover_artwork_of_Pink_Floyd_album_dies_aged_88",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "19621e42-f142-4c6a-a222-30a93954391e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1a1c1b865e99ef19c51a7db0c56e580c647e458d08ac5cccadd8b9778919b9d9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "킹 목사 기념일을 기리는 대통령과 각지 행사가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On Monday, Obama, with his family",
+          "note": "무료 급식 봉사 문단은 기념일을 기리는 방식이 서서 in tow·pay tribute 만 풀면 중등에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_President_Obama_celebrates_his_first_Martin_Luther_King_Jr._Day_while_in_office",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.353
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "19684e22-0a93-446d-968f-442c112d371a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "83c4148706cba7b6980524f88554b38ca9fd8d36b43a37e5bd981dec3f5d0d9e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "출마 선언 장소의 의미와 연설 요지, 경력이 이어져 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Obama placed topics such as healthcare",
+          "note": "연설 문단은 세대교체라는 틀과 철군 주장이 서서 인용을 줄이면 요지 문항으로 쓰기 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._Senator_Obama_announces_presidential_candidacy",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.313
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "196cc5a7-794d-4c8c-a8c7-9137e70ae526",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f1fe4a58b72ad629fea196ba591e875e5c23599ea1cb9bc9aaadc3fb5c118f76",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "news",
+        "why": "세 문장짜리 방문 일정 기사라 사건 흐름이 최소선에 걸리는지 기준으로 가를 수 없다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "He will tour the coastline by",
+          "note": "일정 문단은 헬기 순시와 공병 방문만 남아 사건 흐름이 거의 없어 칸이 서는지 판단이 갈렸다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_PM_arrives_in_Aceh",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "19796624-6652-415f-86b9-dd8c7be56600",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "99cc9b4de9d88d807cb77850c04f24c5b7fac57e59c45b4b9eea9065d4d514b8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "동물원 코끼리 수명 연구와 동물원 측 반박이 맞서 주장·주제 칸과 주장-근거 속성을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Association of Zoos and Aquariums",
+          "note": "동물원 협회 반론 문단은 연구가 결함투성이라는 주장과 미국은 수입하지 않는다는 근거가 짝지어져 쉽게 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Zoo_elephants_live_shorter_lives_than_their_wild_counterparts%2C_report_warns",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.388
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "197a17f0-6cf4-40e5-8cfb-c073420e7f26",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3eb7a214a6ddc506152a6ec668b36b1e9d00dfe87aca46d794394f8bf9a48e49",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가자 공습 개시와 하마스 지휘관 사망, 확전 경고가 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The fighting could last for days",
+          "note": "지상전 가능성 문단은 양측 발언이 이어져 서지만 보복 위협 인용은 가공 때 줄여야 한다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Israel_launches_airstrikes_against_Gaza_Strip%2C_kills_Hamas_commander",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "197d247d-b4ed-4c84-a025-f5c2d04d4fc6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2afeae18705a7bcf38143664e60a6ac4c294734d18014f2338f8fa757fd15ffb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "면화 보조금을 이유로 한 보복 관세와 양측 논리가 이어져 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The subsidies cited by Brazil as",
+          "note": "보조금 문단은 브라질의 논거와 미국 측 반론이 한 문단에 맞서 subsidies·tariffs 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sanctions_on_US_products_introduced_by_Brazil",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.412
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "1980cdf9-e24f-4ba1-9d0c-5eb6f00b5430",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f7268e675f7c7ce1f3c90642bde8c9af267f31ad6878f0a7b8453f36e5cca3af",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "사회적 고립이 흡연만큼 해롭다는 연구 논지가 한 편으로 서서 요지·주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The scientists on the project ranked",
+          "note": "비교 문단은 나쁜 관계를 흡연·음주에 견주는 논지가 서고 substance abuse 를 쉬운 말로 바꾸면 중등에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Loneliness_unhealthy_as_smoking_and_alcoholism%2C_new_study_says",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.302
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "1985e609-cf8b-453c-b6cb-8d30106f4eff",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b19bf362c5adb9b90d1530de42982680c11ac2bcdb8e4e0ca00f3524d5baa6e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "철도 운영사가 승객에게 공사로 인한 운휴와 대체 수단을 알리는 안내라 목적·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "CFR said that any trains running",
+          "note": "운휴 범위 문단은 어느 열차가 멈추는지를 알리고 마지막 대체 버스 안내가 권유라서 공지문 목적 칸으로 다듬기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Romania_to_cancel_trains_on_major_line_due_to_road_works",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.196,
+          "words": 143,
+          "english": 0.311
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "198655db-6062-4132-b83c-c538866ae3ff",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "076280e15255eb07ebcc339abf8e043f4007051ba78ae028b40f4afc5d5b3f87",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "멸종으로 여겨진 딱따구리 재발견과 쇠퇴 원인, 보전 노력이 이어져 주제·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The birds inhabited a wide swath",
+          "note": "서식지 문단은 도시 확장 → 먹이터 상실 → 멸종 추정으로 이어져 bottomlands 만 바꾸면 중등에 맞는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rare_woodpecker_discovered_in_Arkansas",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "19898955-d67a-4ca2-a9d9-800ca46a552e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc5e803631b898f24b91d77a416fe43b6e4b1b3a77401336555c5a4b8c00b872",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "원전 사고 등급 상향과 냉각 복구 노력이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Engineers are working frantically to connect",
+          "note": "냉각 복구 문단은 전원 연결 → 펌프 재가동이라는 순서가 서지만 spent fuel·reactor 용어는 바꿀 수 없어 밴드가 버틴다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Japan_raises_severity_level_of_crisis%3B_efforts_to_cool_damaged_nuclear_power_plant_continue",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.321
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "198af91c-e361-4b29-9341-dcac05be209a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "893724fb14f4a10082023b61a2e2c0b96ca7902d3784655ba1ce0ae2f6e234d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "모바일 전용 도메인에 반대하는 주장과 근거가 한 단락에 서서 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Opera CEO Jon S. von Tetzchner",
+          "note": "본문 거의 전부인 첫 문단이 「인터넷은 하나여야 한다」는 주장과 브라우저 판별이라는 대안을 함께 담아 그 문단을 그대로 다듬었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jon_S._von_Tetzchner%2C_CEO_for_Opera_speaks_against_DotMobi",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 9.524,
+          "words": 105,
+          "english": 0.366
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "198c405c-7d7a-4f77-b65c-4e0a0efad31c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a3728187bf2a786428c6c82148dfb2858ce0941438123dc1dc0bbfa685c51dc6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "폭탄 테러와 봉쇄 충돌, 분리주의 공격 배경이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Assamese protesters who were blockading a",
+          "note": "봉쇄 충돌 문단은 봉쇄 → 물자 끊긴 노동자와 충돌 → 사망으로 인과가 서서 떼어 내기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India's_Assam_state_hit_by_fresh_violence",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.618,
+          "words": 178,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-36-901Z",
+    "id": "198cf089-9ef0-45ed-8f86-311170df4810",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "45827dbc5ca94ba2d2cfb04cfc54ca73f8ee5d65a8e8c48ffe692916a1e80cfa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "보건부가 가정마다 대유행 대비 안내문을 보내려는 계획이라 목적·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The brochures will complement print, radio",
+          "note": "홍보 문단은 방송 광고와 우편물을 함께 쓴다는 계획이 서지만 보건 당국 확인 유보 단락은 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:36.905Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_to_send_out_bird_flu_brochures",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.667,
+          "words": 150,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

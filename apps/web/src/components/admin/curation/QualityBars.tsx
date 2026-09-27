@@ -22,7 +22,7 @@
 // - non-compact 모드: 단독 표시용 (단일 column)
 //
 // 색 정책:
-// - 점수 막대 + 별 색은 categorical color로 #ef4444 / #eab308 / #22c55e 직접 사용.
+// - 점수 막대 + 별 색은 categorical color로 var(--error) / var(--warning) / var(--success) 직접 사용.
 //   CLAUDE.md §"Colors" 하드코딩 금지 예외 — 점수 자체가 색의 의미라 토큰화 부적절.
 //   별 색도 옵션 c 채택 (점수↔별 색 일관성).
 //   다크모드에서도 동일 색 (점수 의미 보존).
@@ -74,9 +74,9 @@ interface BarItem {
  * 3.5 ~ 5.0: 초록 (Tailwind green-500)
  */
 function scoreToColor(score: number): string {
-  if (score >= 3.5) return '#22c55e';
-  if (score >= 2.0) return '#eab308';
-  return '#ef4444';
+  if (score >= 3.5) return 'var(--success)';
+  if (score >= 2.0) return 'var(--warning)';
+  return 'var(--error)';
 }
 
 // ─────────────────────────────────────────────

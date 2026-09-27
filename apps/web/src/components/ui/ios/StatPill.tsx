@@ -48,6 +48,10 @@ export function StatPill({
         'flex flex-col gap-2 rounded-ios-xl bg-[var(--bg3)] p-4',
         className,
       )}
+      // 점 색이 있으면 그 색을 **면에도 8%** 섞는다(DD-68 · tines-mapping §25 — 참조는 항목마다 면 색이 다르다).
+      //   점 하나로만 가르던 네 칸이 크림 한 색이라 화면에서 상태가 읽히지 않았다. 8% 라 숫자 대비는 그대로다
+      //   (숫자 색은 ACCENT_COLORS 의 잉크 — 원색이 아니다). 점 색이 없는 곳(관리자 KPI)은 예전 그대로.
+      style={dotColor ? { backgroundColor: `color-mix(in srgb, ${dotColor} 8%, var(--bg3))` } : undefined}
     >
       <div className="flex items-center gap-2">
         {dotColor && (

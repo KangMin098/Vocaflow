@@ -110,7 +110,8 @@ export function PrimaryButton({
   const s = SIZE[size]
 
   const baseCls = cn(
-    'inline-flex items-center justify-between gap-3 rounded-ios-xl',
+    // 참조 1차 버튼은 알약(990px, 69/80 페이지 — tines-mapping §14)
+    'inline-flex items-center justify-between gap-3 rounded-full',
     'font-display font-[600]',
     'transition-all duration-[var(--dur-ios-normal)] ease-ios-standard',
     'active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-50',

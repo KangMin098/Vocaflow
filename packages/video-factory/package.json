@@ -9,7 +9,8 @@
     ".": "./src/index.ts",
     "./spec": "./src/spec/index.ts",
     "./catalog": "./src/catalog/index.ts",
-    "./ids": "./src/catalog/ids.ts"
+    "./ids": "./src/catalog/ids.ts",
+    "./requests": "./src/requests/index.ts"
   },
   "scripts": {
     "studio": "tsx src/render/prestudio.mts && remotion studio src/remotion/index.ts --public-dir work --port 4334",

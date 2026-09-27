@@ -1,0 +1,1639 @@
+[
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "dc91726f-6abe-449a-a459-1cf5f76a20b1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f3b5d8dac900ba6642b9ba2a32e609ded7560a51e323f5ff09ff762df7cbed8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "체온계·임신 검사에서 문신형·주입형 센서로 이어지는 바이오센서 발전이 사례별 단락으로 서서 순서·삽입·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "insert",
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The mercury thermometer is one of",
+          "note": "수은 체온계 문단은 옛 기술→오늘 탐침으로 목적이 같다는 대비가 짧게 서서 떼기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.823Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/07/biosensors-your-health",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "dd06862e-ca94-409c-aa55-4fb263240d4b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c6e6c6f3a690199f317683df6ac34fc4212db811af492e63acd7169861876bb0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "음식 관용이 면역의 무시가 아니라 능동적 신호라는 발견이 통념 교정으로 서서 주장·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Scientists are just starting to understand",
+          "note": "「관용은 알레르기의 부재」 통념→「능동적 행동」 인용 문단이 그대로 빈칸 문항이 됐고 epitope 은 앞 문단에만 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2026/06/certain-proteins-may-help-prevent-food-allergies",
+          "year": 2026,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "de365273-00e2-4ca0-9b5b-2a3643514606",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "673cb73b96c77a9b03ff1005e604289d362526e92cede520af98f5b35bfed06f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "경피증의 자가면역 기전(콜라겐 과다)과 국소형·전신형 구분이 짧게 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are two main types of",
+          "note": "두 유형 대조 문단은 영향 범위가 뚜렷해 선택지를 만들기 쉬웠고 localized·systemic 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/06/what-scleroderma",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "de685eb0-5675-4330-bf05-7a14f06e0cb2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "442c36b5ad6bd29876fc510d3831446e30369c0da6023e9266af3eb4277bd4cd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "학습장애는 지능과 무관한 뇌 차이이며 모든 부진이 장애는 아니라는 구분과 조기 개입 논지가 서서 요지·주장·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Not all struggling learners have a",
+          "note": "「모든 부진아가 장애는 아니다」 문단은 원인 나열로 짧게 서서 무관한 문장 문항에도 알맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/09/keeping-up-school",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "de7573c0-1613-4a3f-95b1-cec443fc6bf5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5364c0e4280373e449a796dca96719d99907a6b82c770e999b10f4b7245fd501",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "첫 검사에서 골밀도가 정상이면 15년 뒤 재검해도 된다는 연구 결과와 예상보다 길었다는 해석이 서서 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The researchers found that less than",
+          "note": "1%·5% 전환 수치 문단은 짧고 대비가 분명해 내용 일치에 좋았고 osteopenia 는 앞 문단에만 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/03/how-often-should-women-have-bone-tests",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "def2c62a-6752-4c8a-897e-94fb1eace62c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67d75030b7c0b4107e72a7720663091df49aed19078d3b6eb3949f2fc26100cc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "멍이 생기고 색이 변하는 원리와 이상 신호가 인과로 이어져 순서·내용 일치 칸을 채우며 가정폭력 언급은 가공 때 걷는다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When you first get a bruise,",
+          "note": "멍 색 변화 문단은 분홍→흡수→색 변화가 시간순이라 순서 문항에 알맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/01/bruising-questions",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "df52a81d-7f5d-4296-859e-3788592c15e0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b593b331866664ad24d0c252f3b9465b8798ba7c2700931b1dcd66f290c48b42",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "근시가 눈이 길어져 생긴다는 원리와 다초점 렌즈가 진행을 43% 늦춘 실험이 서서 빈칸·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Myopia is caused by the eye",
+          "note": "단초점 렌즈가 오히려 눈을 길게 한다는 원리 문단이 역설을 세워 빈칸 재료로 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2020/10/contact-lenses-slow-childrens-nearsightedness",
+          "year": 2020,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "dfb43f07-8400-42d0-a731-0b2aebeab7a9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "61726b0a20f6519d22e9c4bc52f4bbdf66321fe7344043203d3310657681958f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "말하기 부끄러워 숨기는 골반저 질환을 치료받으라고 권하는 글로 운동 효과 조건 설명이 서서 목적·내용 일치 칸을 채우며 성인 칸이다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mazloomdoost explains that Kegels performed at",
+          "note": "집에서 하는 운동이 안 듣는 까닭(시간·횟수 부족) 문단은 신체 부위 언급 없이 떼어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/03/power-pelvis",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "dfdd1c90-a296-4264-9cfe-17c2dda0e113",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8f8935931ecbb4a20a3bad4e803e4b9ed61e4f832ddf172e74b3f85ec0feb7b1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "세 원뿔세포 중 하나가 없거나 손상되면 색을 못 가린다는 원리와 유형 차이가 서서 내용 일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cones allow us to identify differences",
+          "note": "원뿔세포 문단은 빨강·초록·파랑 셋과 손상 결과가 인과로 이어져 초등 칸 최소선도 넘었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2010/02/cant-see-certain-colors",
+          "year": 2010,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e00fb403-b468-42b8-9820-92724c0d3ada",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19e06989d3151bcb4beb9934d4363e513e38c3dfb705f299eb9d96f371d91539",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "설하 면역요법 무작위 시험의 70% 대 15% 결과와 「아직 널리 쓸 단계 아님」 단서가 서서 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After 44 weeks, 14 of the",
+          "note": "결과 문단은 치료·위약 비율 대비가 선명해 도표형 문항에도 쓸 만했고 sublingual 은 앞에서 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2013/02/therapy-shows-promise-peanut-allergy",
+          "year": 2013,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e013bc67-1b95-44cf-98d5-6027adf65839",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f9d553e54fee378b14a45ea189428aefec12e2dd1dcab404074d643c87af5e60",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "저장강박은 게으름이 아니라 뇌의 결정 기능 이상이라는 통념 교정과 대화 요령이 서서 주장·빈칸·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But if they are forced to",
+          "note": "결정을 강요하면 뇌가 「모두 중요하다」고 외친다는 문단은 앞 문단의 둔감과 대비돼 둘을 함께 뗐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/02/problem-piles-up",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e05cdc06-f400-4120-816e-b5bfc80b307e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "07c625675dd0f87bb9dd53db0193161ae13a6790c950d009b921df1f3b9d2f62",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "정서 조절 실패가 눈덩이처럼 우울로 번지는 과정과 조절 전략이 어려서 학습된다는 논지가 서서 순서·빈칸·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "blank",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "If something starts to make you",
+          "note": "「So it snowballs」 문단은 if→then 사슬이 명확해 순서 문항으로 곧바로 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.824Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/01/dr-maria-kovacs-mood-depression",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e09a4246-8970-4437-9cca-0bb3c63458d4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "943419e279873d36ba07301fb0357b61b06869bf3e765053edb22ec3f2cbb91a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "청소년 자살 시도가 관심 끌기라는 통념을 반박하고 대화·안전 계획을 권하는 예방 글이라 주장·목적 칸을 채우며 소재상 고1 이상이다(§8).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "claim",
+            "purpose",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Persistent misunderstandings about suicide can also",
+          "note": "오해 문단과 「그건 신화다」 인용 문단을 이으니 통념 반박이 섰고 수단 언급 문장은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/09/teen-suicide",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e0aee997-5c56-4fcd-8243-02af74cafc8d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1efcdbe71f34df932c7daef361afc088e89f49e5943f2ed8942e55f36604eff",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "보상 체계가 인지 통제보다 먼저 성숙한다는 뇌 발달 설명(고삐 없는 경주마)이 서서 빈칸·요지 칸을 채우며 성 관련 수치 때문에 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "blank",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In other words, the brain’s “that’s",
+          "note": "「so cool 과 stop and think」 비유 문단은 성 통계 문단과 떨어져 있어 그것만 떼니 고1 칸도 가능해 보였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2011/09/risky-business",
+          "year": 2011,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e0e83d26-6dfb-4529-a929-2b37bcd08c50",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19bb110adacabed510d9255e5f367fc119ecac9a915679d0888e8fc6c9ac5e27",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "자살을 다른 정신질환의 부작용으로만 보던 관점이 뇌 생물학 연구로 바뀐 경위와 경고 신호가 서서 빈칸·요지 칸을 채우며 고2 이상 칸이다(§8).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "blank",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the past, many scientists believed",
+          "note": "과거 관점→새 증거 문단이 짧게 서서 빈칸으로 좋았고 수단·통계 문단은 가공 때 뺀다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/05/sorrow-suicide",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e1262d58-6147-48dc-b0c7-8acdcd60ed06",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f047591762d2903fcce1e04c4e8dc30fa9c8e20120b915cbd9ae28e04d564fbb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "헤로인 중독의 뇌 변화와 처방 오피오이드 경로, 치료 가능성이 짧게 이어져 내용 일치·요지 칸을 채우며 소재상 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Research suggests that abuse of prescription",
+          "note": "처방약→헤로인 전환 이유 문단은 값·구하기 쉬움으로 인과가 섰고 보고서 안내 줄은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2014/04/updated-report-heroin",
+          "year": 2014,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e180aca7-f858-4a35-a049-e8115b0d4706",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc6fac63bccec3711b9e34609e92bfef9e5fca0677c33ade87d989441addea63",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "노인 운동의 이익과 낮은 참여율 대비, 네 종류 운동 설명이 서서 요지·내용 일치 칸을 채우고 Go4Life 안내는 목적 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Experts recommend four types of exercise",
+          "note": "네 운동 유형 문단은 각각 일상 예를 달아 내용 일치 선택지로 쓰기 쉬웠고 특별호 편집 주는 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/12/you-re-never-too-old",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e1bd9df2-944d-420b-88cf-136e253ee262",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a35b3c90f310f200521379979e8acd7badba1f31a36525808a303c1722003f77",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "10학년 음주율과 의사의 문진·조언 비율 조사가 「기회를 놓친다」는 결론으로 이어져 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Of the students who had seen",
+          "note": "54%·40%·25% 수치 문단은 점점 줄어드는 비율이라 도표형 내용 일치로 알맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2013/03/many-doctors-dont-ask-teens-about-alcohol",
+          "year": 2013,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e1bf60a1-6d29-491f-bb61-1288ed7860cf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a09ce107dfccc31d43a830a367ca9dc303de16e67d803a9765af203902f4d23d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "NIH가 원주민에게 건강 뉴스레터 구독을 알리며 첫 호 주제를 소개하는 공지로 누가·누구에게·무엇을이 서서 목적 칸을 채운다(§3-2).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The first issue focuses on healthy",
+          "note": "첫 호 내용 문단이 구독 권유의 까닭을 대신했지만 권유 이유가 얇아 목적 문항 재료로만 쓸 만했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/09/health-newsletter-native-americans",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e1d98a58-ab46-436e-9e9b-f7d5fb1bb3c1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d43105423adf4eae3d9f14f5121e841286cc5db7be3590983e91ff9460fa87f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "낙상 위험 요인(골밀도·균형·약·감각 저하)과 예방 계획이 이어져 내용 일치·순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "main_point"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "People with weak bones are more",
+          "note": "뼈가 약해지는 과정 문단은 얇아짐→골다공증→골절 인과가 쉬운 문장으로 이어졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/09/preventing-falls",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e232facf-5b5f-4f0b-9b42-0739aef772f9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0970febbbb81fcc66fd260d9d86002fa1ffa2b41056146b4550f5e961072e1fa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "목소리·말·호흡 패턴으로 병을 진단하려는 연구와 「같은 쉰 목소리라도 원인이 다르다」는 한계가 서서 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Voice and speech analysis tools will",
+          "note": "후두암과 후두염이 같게 들린다는 예시 문단이 한계를 선명히 세워 빈칸 문항이 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2024/08/sound-check",
+          "year": 2024,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e24ad0ca-abbc-4a48-88fd-4c4359dcaefd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9f45d4bcf02b1870566295aca4870af6bd74d7797b1a172d3de9b10e24cc7477",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "좋은 습관과 나쁜 습관이 같은 뇌 기제로 생기지만 도파민이 차이를 만든다는 논지와 자제력은 근육 같다는 연구가 서서 주장·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "summary",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After successfully resisting a temptation, Baumeister’s",
+          "note": "자제력 소진→훈련으로 강화 문단은 though 전환이 있어 빈칸 재료가 됐고 이름만 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2012/01/breaking-bad-habits",
+          "year": 2012,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e41e95e6-bd4f-4334-b3a2-9ad31b4966e7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "66feaecbed82a8884bce84b0b68949e3cf61e035ca919d9b2526ceff125649d1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고교생 부모에게 졸업 파티 음주 위험을 자녀와 이야기하라고 권하는 안내문이라 목적 칸을 채운다(§3-2).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock"
+          ],
+          "types": [
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ask your teen to think about",
+          "note": "결과를 생각해 보게 하라는 문단이 권유의 까닭을 세웠고 성폭행 언급 구절과 끝 주소 문단은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2017/06/guiding-teens-toward-alcohol-free-parties",
+          "year": 2017,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e441692e-e9d3-41ab-98fc-ba41a8a42b46",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "45d107351bdff9311acc6caf9a196b55a4c51b40199638c03f7c3842dca808ea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "시간 제한 식사와 열량 제한을 비교한 6개월 실험 결과가 대안 식사법이라는 결론으로 서서 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The researchers recruited 75 people with",
+          "note": "세 집단 설계 문단은 정오~오후 8시 조건이 구체적이라 내용 일치 선택지를 만들기 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2024/01/intermittent-fasting-type-2-diabetes",
+          "year": 2024,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-49-821Z",
+    "id": "e4c393cb-f59b-42a3-9f61-a9b9b3bb8285",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "680ad598b134703fc0bd1e7509452a2de4a8b561b5dedc05c0b2a40e9103a78c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "주말 몰아 자기가 수면 부족 피해를 되돌리지 못하고 인슐린 감수성을 더 떨어뜨렸다는 결과가 통념을 반박해 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Those who had recovery sleep gained",
+          "note": "13% 대 27% 대비 문단이 반직관적 결론을 받쳐 빈칸 문항으로 섰고 insulin sensitivity 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:49.825Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/05/making-up-sleep-may-not-help",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  }
+]

@@ -26,6 +26,7 @@ import {
   MY_LIBRARY_VIEW_PARAM,
   type MyLibraryView,
 } from '@/lib/library/tabs'
+import { SpotState } from '@/components/ui/SpotState'
 import { GradientBookCover } from '@/components/library/shared/GradientBookCover'
 import { MediaCover } from '@/components/library/MediaCover'
 import { resolveMediaForm, mediaFormSrLabel } from '@/lib/library/media-form'
@@ -463,15 +464,18 @@ export function MyLibraryCarousel({
           )}
         </>
       ) : (
-        <div className="rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-8 py-12 text-center">
-          <p className="font-body text-[13px] text-[var(--t2)]">
-            {tab === 'books'
+        <SpotState
+          art={tab === 'books' ? 'empty-shelf' : tab === 'scripts' ? 'empty-page' : 'empty-vault'}
+          size="sm"
+          role="status"
+          title={
+            tab === 'books'
               ? '아직 라이브러리에 도서가 없어요'
               : tab === 'scripts'
                 ? '아직 직접 추가한 스크립트가 없어요'
-                : '아직 구독한 단어장이 없어요'}
-          </p>
-        </div>
+                : '아직 구독한 단어장이 없어요'
+          }
+        />
       )}
 
       <NetflixDetailSheet variant={detail} onClose={() => setDetail(null)} />

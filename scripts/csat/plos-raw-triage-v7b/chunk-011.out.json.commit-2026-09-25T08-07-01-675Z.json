@@ -1,0 +1,2005 @@
+[
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "0741e858-dd12-46cf-b82b-fa043afcf7d1",
+    "revision": "2026-09-25T07:28:28.642555+00:00",
+    "body_sha256": "004c9b83259eefc37d5b115e430d27a8c448a212e77a4dc511f3020fe8b5d0ba",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.914Z",
+        "by": "chunk-llm",
+        "why": "선진국 근거를 자원 부족 환경에 그대로 옮길 수 없다는 문제 제기가 서론 한 단락으로 완결된다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:53.737Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c4133c5849fb4880819b25103a82c2408a9a90eeedba4952d46be6708bf923bb"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론은 통계 괄호가 적어 그대로 떨어졌고 opioid·adjuvant 만 설명하면 고2 밴드였다.",
+          "sample": "Postoperative pain remains a significant clinical",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.914Z",
+        "by": "chunk-llm",
+        "why": "선진국 근거를 자원 부족 환경에 그대로 옮길 수 없다는 문제 제기가 서론 한 단락으로 완결된다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:53.737Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c4133c5849fb4880819b25103a82c2408a9a90eeedba4952d46be6708bf923bb"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론은 통계 괄호가 적어 그대로 떨어졌고 opioid·adjuvant 만 설명하면 고2 밴드였다.",
+          "sample": "Postoperative pain remains a significant clinical",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 둘째 단락이 기존 연구의 한계 넷을 First~Finally 로 나열해 순서·삽입과 요지 칸을 채우고, 고찰의 다중진통 효과 해석도 떼어 쓸 수 있다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The current literature exhibits several important",
+          "note": "LMIC·NSAIDs 등 약어를 풀고 pharmacological 을 drug 로 바꾸니 V7 에 들어왔고, 한계 넷이 순서 표지로 이어져 떼기 쉬웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.679Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.914Z",
+          "by": "chunk-llm",
+          "why": "선진국 근거를 자원 부족 환경에 그대로 옮길 수 없다는 문제 제기가 서론 한 단락으로 완결된다.",
+          "basis": "full",
+          "genre": "social",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "blank"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:53.737Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c4133c5849fb4880819b25103a82c2408a9a90eeedba4952d46be6708bf923bb"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론은 통계 괄호가 적어 그대로 떨어졌고 opioid·adjuvant 만 설명하면 고2 밴드였다.",
+            "sample": "Postoperative pain remains a significant clinical",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:34.986Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "07424377-5e62-4ad9-9c1b-5261a53573f7",
+    "revision": "2026-09-25T07:28:29.023892+00:00",
+    "body_sha256": "94cdbaa17cacd57599de97d90a0e14f1817993bc14f54b88c955f15765b65c79",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.914Z",
+        "by": "chunk-llm",
+        "why": "홀로세 네 구간의 기온 변화를 시대별로 잇고 다른 기록과 대조해 순서·then-now 재료가 된다.",
+        "basis": "full",
+        "genre": "climate",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "then-now"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:53.776Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6976edcd1b1d03396992b86b3ce95f431ce5436c69388cc9ac809b5674999f4c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "ka BP 연대와 시추공 이름을 「수천 년 전」으로 바꾸니 문단이 섰지만 원문 영어에 어색한 반복이 있었다.",
+          "sample": "Holocene temperature changes changes are characterized",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:40.914Z",
+        "by": "chunk-llm",
+        "why": "홀로세 네 구간의 기온 변화를 시대별로 잇고 다른 기록과 대조해 순서·then-now 재료가 된다.",
+        "basis": "full",
+        "genre": "climate",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "then-now"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:53.776Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6976edcd1b1d03396992b86b3ce95f431ce5436c69388cc9ac809b5674999f4c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "ka BP 연대와 시추공 이름을 「수천 년 전」으로 바꾸니 문단이 섰지만 원문 영어에 어색한 반복이 있었다.",
+          "sample": "Holocene temperature changes changes are characterized",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "고찰 끝 단락이 눈 덮개의 반사율과 열 관성으로 티베트고원의 온난 극대기가 늦어진 이유를 인과로 풀어 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The extensive snow cover over the",
+          "note": "albedo 를 reflectivity 로, thermal inertia 를 풀어 쓰니 내려갔고, 영문 비문이 몇 곳 있어 문장 손질이 필요했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.681Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:40.914Z",
+          "by": "chunk-llm",
+          "why": "홀로세 네 구간의 기온 변화를 시대별로 잇고 다른 기록과 대조해 순서·then-now 재료가 된다.",
+          "basis": "full",
+          "genre": "climate",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "order",
+              "content_match",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "then-now"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:53.776Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6976edcd1b1d03396992b86b3ce95f431ce5436c69388cc9ac809b5674999f4c"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "ka BP 연대와 시추공 이름을 「수천 년 전」으로 바꾸니 문단이 섰지만 원문 영어에 어색한 반복이 있었다.",
+            "sample": "Holocene temperature changes changes are characterized",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:15:52.336Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "07562443-adae-42a8-ad4b-a357e87d1064",
+    "revision": "2026-09-25T07:28:31.047256+00:00",
+    "body_sha256": "044785207936dccf0a16af8f6ae21116aa837939c07246734bfcf6728835de15",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.938Z",
+        "by": "chunk-llm",
+        "why": "고찰 첫머리의 '유비퀴틴 체계는 숙주와 세균 모두의 무기' 단락이 군비경쟁 비유로 논지를 세워 주제·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:55.463Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "2e7b97e413b292a9cf415d96d92ff4162e282bfb86edbef0c2e07946b1712639"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "deubiquitinase·xenophagy 두 낱말을 풀어 쓰니 앞 문맥 없이 서고, 세균명만 걷으면 논지가 남는다.",
+          "sample": "The ubiquitin system has been thought",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.938Z",
+        "by": "chunk-llm",
+        "why": "고찰 첫머리의 '유비퀴틴 체계는 숙주와 세균 모두의 무기' 단락이 군비경쟁 비유로 논지를 세워 주제·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:50:55.463Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "2e7b97e413b292a9cf415d96d92ff4162e282bfb86edbef0c2e07946b1712639"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "deubiquitinase·xenophagy 두 낱말을 풀어 쓰니 앞 문맥 없이 서고, 세균명만 걷으면 논지가 남는다.",
+          "sample": "The ubiquitin system has been thought",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 둘째 단락이 유비퀴틴 체계가 숙주와 세균 양쪽의 무기라는 논지를 한 단락으로 세워 주제·요지 칸을 채우지만 나머지는 효소·단백질명 중심이다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The ubiquitin system has been thought",
+          "note": "그 단락은 앞 문맥 없이 서지만 ubiquitination·effector·eukaryotes 를 바꾸면 뜻이 흐려져 밴드를 내리기 어려웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.683Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.938Z",
+          "by": "chunk-llm",
+          "why": "고찰 첫머리의 '유비퀴틴 체계는 숙주와 세균 모두의 무기' 단락이 군비경쟁 비유로 논지를 세워 주제·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "insert"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:50:55.463Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "2e7b97e413b292a9cf415d96d92ff4162e282bfb86edbef0c2e07946b1712639"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "deubiquitinase·xenophagy 두 낱말을 풀어 쓰니 앞 문맥 없이 서고, 세균명만 걷으면 논지가 남는다.",
+            "sample": "The ubiquitin system has been thought",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 6,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:58.854Z",
+      "topicMargin": 18.979999999999997
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "0781fa87-ef2f-41b8-8342-75c520bc2caa",
+    "revision": "2026-09-25T07:28:34.735678+00:00",
+    "body_sha256": "3b58053ccdffe61c199486b8b287dc013908929b4b18dfe6f0f7960f012b9ab2",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.941Z",
+        "by": "chunk-llm",
+        "why": "고찰 4.3 의 'HPV 검사만으로는 부족하고 증상 평가를 더해야 한다' 단락이 주장-근거로 서서 주장·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:03.244Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e8074b44d3621f14405f26414f030cc672b49a08a50529b4405f5f665412d3cc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "수치를 걷으면 논지는 서지만 부인과 용어(cytology·neoplasia)가 많아 낱말 몇 개로는 밴드가 잘 안 내려간다.",
+          "sample": "Either among the hr-HPV positive or",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.941Z",
+        "by": "chunk-llm",
+        "why": "고찰 4.3 의 'HPV 검사만으로는 부족하고 증상 평가를 더해야 한다' 단락이 주장-근거로 서서 주장·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:03.244Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "e8074b44d3621f14405f26414f030cc672b49a08a50529b4405f5f665412d3cc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "수치를 걷으면 논지는 서지만 부인과 용어(cytology·neoplasia)가 많아 낱말 몇 개로는 밴드가 잘 안 내려간다.",
+          "sample": "Either among the hr-HPV positive or",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 둘째 단락이 세포검사와 HPV 검사의 장단을 대조하고 병행검사로 잇는 흐름이라 요지·빈칸 칸을 채우고, 결과 절은 수치 나열이다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Common cervical cancer screening methods include",
+          "note": "CIN2+ 같은 등급 표기와 인용 수치를 걷어도 대조 논지가 섰고 over-referral 을 풀어 쓰면 V8 가 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.684Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.941Z",
+          "by": "chunk-llm",
+          "why": "고찰 4.3 의 'HPV 검사만으로는 부족하고 증상 평가를 더해야 한다' 단락이 주장-근거로 서서 주장·요지 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "claim",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:03.244Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "e8074b44d3621f14405f26414f030cc672b49a08a50529b4405f5f665412d3cc"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "수치를 걷으면 논지는 서지만 부인과 용어(cytology·neoplasia)가 많아 낱말 몇 개로는 밴드가 잘 안 내려간다.",
+            "sample": "Either among the hr-HPV positive or",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:07.466Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "0785d3df-caac-4162-a9c0-f848fb0dca67",
+    "revision": "2026-09-25T07:28:35.116964+00:00",
+    "body_sha256": "c7f3a998b6a8fa713c1c931e3da0a477a052c8ed74b26ac683ca6acbfd4716a0",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.942Z",
+        "by": "chunk-llm",
+        "why": "서론의 미엘린과 다발성 경화증 설명 단락이 사실 진술 여럿으로 서서 내용 일치·순서 칸을 채운다(고찰 절은 받은 본문에 없다).",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:03.295Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ee778ceecb616ce573a6a928c7b2ff30b83ba8bacd90cb21485d83341781af7e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "myelin sheath 를 '신경 절연막'으로 풀면 서지만 결과 절은 도구 이름·점수 나열이라 쓸 곳이 서론뿐이다.",
+          "sample": "The Myelin Basic Protein (MBP) gene",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.942Z",
+        "by": "chunk-llm",
+        "why": "서론의 미엘린과 다발성 경화증 설명 단락이 사실 진술 여럿으로 서서 내용 일치·순서 칸을 채운다(고찰 절은 받은 본문에 없다).",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:03.295Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ee778ceecb616ce573a6a928c7b2ff30b83ba8bacd90cb21485d83341781af7e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "myelin sheath 를 '신경 절연막'으로 풀면 서지만 결과 절은 도구 이름·점수 나열이라 쓸 곳이 서론뿐이다.",
+          "sample": "The Myelin Basic Protein (MBP) gene",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 앞부분의 MBP 가 수초를 만들어 신경 전도를 빠르게 하고 그 손상이 다발성 경화증과 이어진다는 설명이 한 문단으로 떼어져 주제·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The Myelin Basic Protein (MBP) gene",
+          "note": "서론이 한 덩어리 단락이라 앞 여섯 문장만 잘라야 했고, 방법·결과는 도구 이름 나열이며 saltatory·oligodendrocytes 는 바꾸기 어려웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.685Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.942Z",
+          "by": "chunk-llm",
+          "why": "서론의 미엘린과 다발성 경화증 설명 단락이 사실 진술 여럿으로 서서 내용 일치·순서 칸을 채운다(고찰 절은 받은 본문에 없다).",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "content_match",
+              "order",
+              "insert"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:03.295Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ee778ceecb616ce573a6a928c7b2ff30b83ba8bacd90cb21485d83341781af7e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "myelin sheath 를 '신경 절연막'으로 풀면 서지만 결과 절은 도구 이름·점수 나열이라 쓸 곳이 서론뿐이다.",
+            "sample": "The Myelin Basic Protein (MBP) gene",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T07:36:50.620Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "07c23450-5433-463a-aa8e-e78c1ba839a2",
+    "revision": "2026-09-25T07:28:39.316044+00:00",
+    "body_sha256": "be90b335ba15d69580b410444245382c7489eccdeb598d610c4030c7e1d2c919",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.944Z",
+        "by": "chunk-llm",
+        "why": "서론의 생체시계와 교대근무·시차가 대사질환을 부른다는 단락, 고찰의 모형이 자연의 먹이 부족·추위를 닮았다는 단락이 주제·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:06.821Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "146a5b0ae9bedf223d39497cb599f26b0586a86b0c7694548f76db3a6d00e61c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "SCN 을 '뇌의 생체시계'로 풀면 서고, 받은 본문은 방법 절 머리만 있고 내용이 없지만 쓸 단락에는 지장이 없다.",
+          "sample": "Disruptions in SCN-regulated circadian rhythms, as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.944Z",
+        "by": "chunk-llm",
+        "why": "서론의 생체시계와 교대근무·시차가 대사질환을 부른다는 단락, 고찰의 모형이 자연의 먹이 부족·추위를 닮았다는 단락이 주제·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:06.821Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "146a5b0ae9bedf223d39497cb599f26b0586a86b0c7694548f76db3a6d00e61c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "SCN 을 '뇌의 생체시계'로 풀면 서고, 받은 본문은 방법 절 머리만 있고 내용이 없지만 쓸 단락에는 지장이 없다.",
+          "sample": "Disruptions in SCN-regulated circadian rhythms, as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 셋째 단락이 고지방 먹인 쥐도 저체온을 못 막았다는 대조로 에너지 저장이 아니라 뇌 신호가 열 생산을 좌우한다는 논지를 세워 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our results extend these findings by",
+          "note": "SCN 을 the brain's master clock, TRF-STE 를 limited feeding in the cold 로 바꾸니 앞 문맥 없이 읽혔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.687Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.944Z",
+          "by": "chunk-llm",
+          "why": "서론의 생체시계와 교대근무·시차가 대사질환을 부른다는 단락, 고찰의 모형이 자연의 먹이 부족·추위를 닮았다는 단락이 주제·요지 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:06.821Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "146a5b0ae9bedf223d39497cb599f26b0586a86b0c7694548f76db3a6d00e61c"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "SCN 을 '뇌의 생체시계'로 풀면 서고, 받은 본문은 방법 절 머리만 있고 내용이 없지만 쓸 단락에는 지장이 없다.",
+            "sample": "Disruptions in SCN-regulated circadian rhythms, as",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:26.087Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "07d06937-dc0e-4318-a37c-e52f75fb74a4",
+    "revision": "2026-09-25T07:28:41.457668+00:00",
+    "body_sha256": "4d5273de68d8762c39abae7fb3847a7e0ab57f4a505d090121c165875806445c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.945Z",
+        "by": "chunk-llm",
+        "why": "서론의 B형 간염 억제 뒤에도 간암이 생기는 이유를 대사 요인에서 찾는 단락과 고찰의 지방간 역설 단락이 요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:08.831Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5f4dcc621b7590dbce0a78158d6bdc1867ae91d64ab229c594d1d7d01a69a7b7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "'간이 굳을수록 지방이 빠진다(burnout)'는 반직관 설명이 약어 몇 개만 풀면 떼어 쓰기 좋다.",
+          "sample": "In contrast, isolated hepatic steatosis did",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.945Z",
+        "by": "chunk-llm",
+        "why": "서론의 B형 간염 억제 뒤에도 간암이 생기는 이유를 대사 요인에서 찾는 단락과 고찰의 지방간 역설 단락이 요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:08.831Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5f4dcc621b7590dbce0a78158d6bdc1867ae91d64ab229c594d1d7d01a69a7b7"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "'간이 굳을수록 지방이 빠진다(burnout)'는 반직관 설명이 약어 몇 개만 풀면 떼어 쓰기 좋다.",
+          "sample": "In contrast, isolated hepatic steatosis did",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 셋째 단락이 지방간이 오히려 간암 위험을 높이지 않은 결과를 섬유화와 지방 소실로 설명하는 반전 구조라 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The presence of CMRFs, including DM,",
+          "note": "약어 CMRFs·DM·HT·CAP 를 풀어 쓰는 손질이 필요했지만 그 뒤엔 반전 논지가 그대로 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.688Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.945Z",
+          "by": "chunk-llm",
+          "why": "서론의 B형 간염 억제 뒤에도 간암이 생기는 이유를 대사 요인에서 찾는 단락과 고찰의 지방간 역설 단락이 요지·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "blank",
+              "order",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:08.831Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "5f4dcc621b7590dbce0a78158d6bdc1867ae91d64ab229c594d1d7d01a69a7b7"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "'간이 굳을수록 지방이 빠진다(burnout)'는 반직관 설명이 약어 몇 개만 풀면 떼어 쓰기 좋다.",
+            "sample": "In contrast, isolated hepatic steatosis did",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:50.789Z",
+      "topicMargin": 15.809999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "07d13dd9-a815-4624-a64a-072458fe8346",
+    "revision": "2026-09-25T07:28:41.812896+00:00",
+    "body_sha256": "dbb09b5337117644960c86c5241137095870a05ede4434ddbdb7fcbee719a0d8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.946Z",
+        "by": "chunk-llm",
+        "why": "서론의 6G 전환과 채널 정보 수집 부담 단락이 문제 제기로 서서 주제·빈칸 칸을 채운다(수식 절은 기호가 빠져 쓸 수 없다).",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:09.929Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "70923368fecdfa124049495e7c9c0a5aaba0bf64af6381d7bb4fd4dc67ef552e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "CSI·MIMO 를 풀어도 통신 전문 개념이 남아 밴드가 잘 안 내려가고, 본문 수식은 기호가 빠져 뜻이 안 선다.",
+          "sample": "A paradigm change towards intelligent AI-native",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.946Z",
+        "by": "chunk-llm",
+        "why": "서론의 6G 전환과 채널 정보 수집 부담 단락이 문제 제기로 서서 주제·빈칸 칸을 채운다(수식 절은 기호가 빠져 쓸 수 없다).",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:09.929Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "70923368fecdfa124049495e7c9c0a5aaba0bf64af6381d7bb4fd4dc67ef552e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "CSI·MIMO 를 풀어도 통신 전문 개념이 남아 밴드가 잘 안 내려가고, 본문 수식은 기호가 빠져 뜻이 안 선다.",
+          "sample": "A paradigm change towards intelligent AI-native",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론 첫 단락이 채널 정보 수집의 부담이 커지는 문제를 설명해 주제·요지 칸을 채우나, 방법·증명 절은 수식 자리표시가 많아 쓸 수 없다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "A paradigm change towards intelligent AI-native",
+          "note": "CSI·MIMO·beamforming 을 풀어 쓰면 단락이 길어지고 뜻이 흐려져 밴드를 내리지 못했고, 둘째 단락부터는 [수식] 자리가 끼어 있다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.689Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.946Z",
+          "by": "chunk-llm",
+          "why": "서론의 6G 전환과 채널 정보 수집 부담 단락이 문제 제기로 서서 주제·빈칸 칸을 채운다(수식 절은 기호가 빠져 쓸 수 없다).",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:09.929Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "70923368fecdfa124049495e7c9c0a5aaba0bf64af6381d7bb4fd4dc67ef552e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "CSI·MIMO 를 풀어도 통신 전문 개념이 남아 밴드가 잘 안 내려가고, 본문 수식은 기호가 빠져 뜻이 안 선다.",
+            "sample": "A paradigm change towards intelligent AI-native",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:55.229Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-01-675Z",
+    "id": "07e1e7ae-9875-44ce-ae44-4f080973a278",
+    "revision": "2026-09-25T07:28:43.239647+00:00",
+    "body_sha256": "60300a5300232ae76f02d85e78cab407fa34186d050ba8504adecb25d257f83c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.948Z",
+        "by": "chunk-llm",
+        "why": "서론의 치주염 정의와 대사 재프로그래밍 단락, 고찰의 '연관일 뿐 인과가 아니다' 한계 단락이 주제·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:11.450Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "41ab216de25e09b1757eaf93493e616c9f18c3b06700aba702ffb38e83fd0f2d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "TCA·fumarate 를 풀어 쓰면 서론 첫 단락은 서지만 나머지는 유전자 기호가 촘촘하다.",
+          "sample": "Periodontitis (PD) is a long-standing inflammatory",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.948Z",
+        "by": "chunk-llm",
+        "why": "서론의 치주염 정의와 대사 재프로그래밍 단락, 고찰의 '연관일 뿐 인과가 아니다' 한계 단락이 주제·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:11.450Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "41ab216de25e09b1757eaf93493e616c9f18c3b06700aba702ffb38e83fd0f2d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "TCA·fumarate 를 풀어 쓰면 서론 첫 단락은 서지만 나머지는 유전자 기호가 촘촘하다.",
+          "sample": "Periodontitis (PD) is a long-standing inflammatory",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 번역적 관점 단락이 도킹 결과만으로 약효를 말할 수 없다는 신중론을 한 단락으로 세워 요지·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "From a translational perspective, our in-silico",
+          "note": "in-silico 를 computer-based, docking 을 풀어 쓰고 유전자명을 three genes 로 묶으니 논지가 그대로 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:01.690Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.948Z",
+          "by": "chunk-llm",
+          "why": "서론의 치주염 정의와 대사 재프로그래밍 단락, 고찰의 '연관일 뿐 인과가 아니다' 한계 단락이 주제·요지 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "irrelevant"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:11.450Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "41ab216de25e09b1757eaf93493e616c9f18c3b06700aba702ffb38e83fd0f2d"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "TCA·fumarate 를 풀어 쓰면 서론 첫 단락은 서지만 나머지는 유전자 기호가 촘촘하다.",
+            "sample": "Periodontitis (PD) is a long-standing inflammatory",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:58.707Z"
+    }
+  }
+]

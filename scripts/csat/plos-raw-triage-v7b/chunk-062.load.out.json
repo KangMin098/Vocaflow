@@ -1,0 +1,812 @@
+[
+ {
+  "id": "318326de-2f05-47b5-a9f7-0516bc447145",
+  "source_updated_at": "2026-09-13T07:35:04.90034+00:00",
+  "body_sha256": "ac92488329921f6620bc64baa886b780b44c0242b417544f21f5654c972ff8ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 알로스타시스 개념 설명과 고찰의 「사회적 알로스타시스」 논지가 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Allostasis is a concept developed by",
+   "note": "HPA·CRF 약어를 「스트레스 호르몬 체계」로 바꾸면 논지가 선다."
+  }
+ },
+ {
+  "id": "318ef7c2-4266-45be-bb70-b434506df5dc",
+  "source_updated_at": "2026-09-23T21:04:41.126655+00:00",
+  "body_sha256": "416e6f5f42d4effe276d6c5f40e85b57d2e1dcb497b155b780d04ed689eef657",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 메니에르병 염증 원인 설명과 고찰의 칼프로텍틴 해석 단락이 내용일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Calprotectin is a calcium-binding protein",
+   "note": "수치를 걷고 biomarker를 「표지 물질」로 바꾸면 쉬워진다."
+  }
+ },
+ {
+  "id": "31904e99-74de-49d5-9114-21ddcd246d08",
+  "source_updated_at": "2026-09-25T07:31:02.606572+00:00",
+  "body_sha256": "0cd1d037f4f9aea1226589347f912c07b12b74d0814d068c37e85524e8875ab6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 꿀벌 월동 에너지 문제와 고찰의 관리 방식에 따른 장내 미생물 다양성 논지가 요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Overwintering is one of the most",
+   "note": "분류군 이름만 걷으면 월동과 다양성의 인과가 그대로 선다."
+  }
+ },
+ {
+  "id": "31936b0f-17e3-4e93-93d9-6ab526574759",
+  "source_updated_at": "2026-09-13T06:46:32.886409+00:00",
+  "body_sha256": "973c611b0c7ce1389717e03c48654edacd4d2436b449d6816cffcbe4bc0ed477",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 동물 수집 장애와 원헬스 관점 설명이 자족적 단락으로 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Animal hoarding disorder (AHD) is defined",
+   "note": "병원체 학명을 「개 브루셀라균」으로 바꾸면 떼어 쓸 수 있다."
+  }
+ },
+ {
+  "id": "319414ef-6d3b-4d79-96d1-c72789caf3e9",
+  "source_updated_at": "2026-09-25T07:31:03.644056+00:00",
+  "body_sha256": "b458d853fdb09bb7eb67be7254a054d081d003a4d2e52df59a57a53074a78e3c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 힘줄 재생 능력이 생후 초기에만 유지된다는 단락이 심장 사례와 대조되어 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Postnatal tendon growth is characterized by",
+   "note": "세포외기질 용어를 풀어 쓰면 재생 대비 논지가 선다."
+  }
+ },
+ {
+  "id": "319f4dd4-280c-43c2-8833-b7771990bfec",
+  "source_updated_at": "2026-09-13T06:29:13.185315+00:00",
+  "body_sha256": "baf5cc44a1ad90eed1686984621b30cca37e1850eae3b72554557b32ef30c467",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 풀체리민 철 격리 역할과 고찰의 항산화 해석 단락이 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pulcherrimin is a secreted iron chelating",
+   "note": "유전자 기호를 걷고 chelating을 「붙잡는」으로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "31b05dcd-61b3-440c-8d37-47d363eb518a",
+  "source_updated_at": "2026-09-25T07:31:07.19107+00:00",
+  "body_sha256": "1135bdfa6ca1c142ca602010b692b7114eafeb27938ff2ba56c14ebbdab43dbe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 지카 바이러스 유행과 선천 증후군 설명 단락이 시간순 흐름으로 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Zika virus (ZIKV) is a mosquito-borne",
+   "note": "연도와 수치를 줄이고 teratogenic을 풀면 서사형으로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "31ceeaaf-5d02-4eb4-821a-34815eccce1d",
+  "source_updated_at": "2026-09-13T07:11:59.793087+00:00",
+  "body_sha256": "37f3f771f09aa8cd30a723f4f303a203b91a413179b6a7fee238e50e15e5d20d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 조현병 유전율과 「잃어버린 유전율」 문제 제기 단락이 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "main_point"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Genome-wide association studies (GWASs) have identified",
+   "note": "GWAS를 「대규모 유전체 비교 연구」로 풀면 논지가 선다."
+  }
+ },
+ {
+  "id": "31dcfb5a-5175-43ab-b71e-c986349ceec6",
+  "source_updated_at": "2026-09-25T07:31:12.181661+00:00",
+  "body_sha256": "812d950a1425dc3729faa4e297338aa33b69cb6f9d18e47826ac1d48c7828ea6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 진단 기준에 따라 연관성이 달라진다는 해석 단락이 요지·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The observed differences may be attributable",
+   "note": "BPD·pCMV 약어를 풀어 쓰면 기준 차이 논지가 선다."
+  }
+ },
+ {
+  "id": "31e889ad-a5e0-40e2-a8f8-bef85e5707f3",
+  "source_updated_at": "2026-09-15T14:45:59.365826+00:00",
+  "body_sha256": "aa75a63f359a0872268cd22330bdaca3dc6b81d52f2fa4941a44e1626f48ffef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 전신경화증 병리와 고찰의 눈 조직 섬유화 해석이 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The pathogenesis of SSc is multifactorial,",
+   "note": "OCT를 「눈 단층 촬영」으로 바꾸면 떼어 쓸 수 있다."
+  }
+ },
+ {
+  "id": "31f6c545-5fea-48bf-9607-b77a43dc4a88",
+  "source_updated_at": "2026-09-25T07:31:14.86549+00:00",
+  "body_sha256": "59e383ac9edefb7e35288dcc4fc5c666645ab76de6b2c7c72a6ad01f12107e1c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약의 손상 단백질 제거 설명이 일반 독자용으로 자족적이라 요지·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cells must constantly destroy proteins that",
+   "note": "lysine desert만 풀어 쓰면 그대로 지문이 된다."
+  }
+ },
+ {
+  "id": "3201ca3c-0db1-462c-a445-3df4ed539442",
+  "source_updated_at": "2026-09-25T07:31:17.126213+00:00",
+  "body_sha256": "664083674f600eba336f2813f065b595c4145ab1407337be154a09e3b44acc7b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 저소득 국가 이송 지연과 치료 시점 논의 단락이 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neonatal transport remains a major challenge",
+   "note": "의학 약어를 풀면 제도 문제 논지가 선다."
+  }
+ },
+ {
+  "id": "3211cc01-b39f-4e38-95d3-de8b124744e6",
+  "source_updated_at": "2026-09-13T06:56:47.464507+00:00",
+  "body_sha256": "a7fa4b838e08228276c78b09c68f78b8e50c5b58f2ad74ca61c2c6aab86c9178",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 피부 상재 효모가 공생체이자 병원체일 수 있다는 단락이 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Malassezia is by far the most",
+   "note": "종명과 인용을 걷으면 공생·병원성 대비가 선다."
+  }
+ },
+ {
+  "id": "3221158f-b2b6-4e67-8c8e-9664d4300ac4",
+  "source_updated_at": "2026-09-05T23:22:56.789536+00:00",
+  "body_sha256": "05ae4215f099964afdf15734a63af6bdf352a288fe56036585161599ed15a079",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "논평 전체가 연관성과 인과성의 간극을 논증해 주제·주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "That distinction matters because stronger signals",
+   "note": "TMAO 등 대사물 이름만 걷으면 논증이 선다."
+  }
+ },
+ {
+  "id": "322723b3-52ab-43bf-8500-f2c9e42a5e38",
+  "source_updated_at": "2026-09-25T07:31:20.940074+00:00",
+  "body_sha256": "4dfe22a1257a4ca020ab9d2ad4b29bafd88170d42b66b7551a05f751d36d44f1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 독감 감염 뒤 길랭-바레 증후군이 늘어난 사례 단락이 내용일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Seasonal influenza caused by Influenza A",
+   "note": "면역 용어를 풀면 감염-자가면역 연결이 선다."
+  }
+ },
+ {
+  "id": "3233c44f-498c-4c13-9243-a4fd6e5ade7b",
+  "source_updated_at": "2026-09-13T06:52:32.993703+00:00",
+  "body_sha256": "a9c79a9c6612ffd2dcfb8f97cf863276a166214a3075bd7f6de23ab8ea7a57c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 영양 불량이 운동 재활 효과를 떨어뜨린다는 해석 단락이 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Also of note is that as",
+   "note": "BDNF를 「뇌 유래 성장 인자」로 풀면 인과 흐름이 선다."
+  }
+ },
+ {
+  "id": "323628b5-549d-4080-8dfa-6b7c5b3723ac",
+  "source_updated_at": "2026-09-13T06:39:59.513724+00:00",
+  "body_sha256": "80f9b0939cc4a4766f7bddaf4736bd887a059d5f943e2aff96c4eee61f58576b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "서론의 자폐 진단 지연과 조기 개입 중요성 단락이 주제·목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "purpose",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diagnosing ASD proves to be challenging",
+   "note": "통계 수치를 걷으면 진단 지연 논지가 선다."
+  }
+ },
+ {
+  "id": "323f1978-2555-482f-b2e5-9a0e70476d46",
+  "source_updated_at": "2026-09-25T07:31:23.823898+00:00",
+  "body_sha256": "f57cc1ece0b23562bdbfbbf7adfea4786566d7fe2350ac01e1e12e36d2056803",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "저자 요약의 HIV 잠복 설명이 자족적이라 요지·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The constant latency of human immunodeficiency",
+   "note": "단백질 기호를 「숙주 단백질」로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "3241c32a-64e7-4615-a09b-da2b2b502272",
+  "source_updated_at": "2026-09-15T14:46:07.649289+00:00",
+  "body_sha256": "a3fbafa63f29a569c91fcfb8ffa7edf53c40de38869466cc872b4dcd24857909",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "hold",
+  "genre": "essay",
+  "why": "세계보건의 위기 담론을 식민 구조로 비판하는 에세이로 일방적 정치 논박 여부가 기준상 갈려 보류한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Global health has perennially been characterized",
+   "note": "논증은 서지만 한쪽 입장만 강하게 펴 polemic 경계에 있다."
+  },
+  "hold_reason": "borderline"
+ }
+]

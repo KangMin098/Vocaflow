@@ -78,21 +78,23 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
       <nav
         aria-label="주요 화면"
         // md 이상은 사이드바가 같은 일을 한다 — 둘을 동시에 띄우면 같은 링크가 두 번이다.
-        className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--bd)] bg-[var(--bg)] md:hidden"
+        // DD-68 · tines-mapping §14 — 참조의 떠 있는 유리 막대(라벤더 반투명 · blur 12px · 50px 모서리 · 선택 = 흰 알약).
+        //   가장자리에서 12px 띄운다 — 높이 합은 --tabbar-h(globals.css)가 같이 센다.
+        className="fixed inset-x-3 z-40 overflow-hidden rounded-[28px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--tint-lavender)_82%,transparent)] p-1 backdrop-blur-[12px] md:hidden"
         style={{
           // 홈 인디케이터에 탭이 깔리지 않게 (iOS)
-          paddingBottom: 'env(safe-area-inset-bottom, 0px)',
+          bottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
         }}
       >
         {/* 오늘 진행 실 — 상단 경계선 위에 겹쳐 그린다. 0이면 아예 없다. */}
         {ratio > 0 && (
           <span
             aria-hidden
-            className="absolute inset-x-0 top-[-1px] h-[2px] origin-left bg-[var(--ju)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)]"
+            className="absolute inset-x-0 top-0 h-[2px] origin-left bg-[var(--ju)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)]"
             style={{ transform: `scaleX(${ratio})` }}
           />
         )}
-        <ul className="flex items-stretch">
+        <ul className="flex items-stretch gap-1">
           {SURFACE_ORDER.map((id) => {
             const surface = SURFACES[id]
             const Icon = ICON[id]
@@ -109,8 +111,8 @@ export function MobileTabBar({ status = null }: MobileTabBarProps) {
                       : undefined
                   }
                   // 44px 하한은 프로젝트 절대 규칙 — h-14(56px)로 여유를 둔다.
-                  className={`flex h-14 flex-col items-center justify-center gap-1 transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-inset ${
-                    active ? 'text-[var(--ju-ink)]' : 'text-[var(--t2)]'
+                  className={`flex h-14 flex-col items-center justify-center gap-1 rounded-[24px] transition-colors duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-inset ${
+                    active ? 'bg-[var(--bg)] text-[var(--ju-ink)]' : 'text-[var(--t2)]'
                   }`}
                 >
                   <span className="relative">

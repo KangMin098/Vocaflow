@@ -94,6 +94,7 @@ import { Toggle } from '@/components/ui/Toggle'
 import { signOut } from '@/hooks/useAuth'
 import { useMotionPreference } from '@/components/layout/DevicePreferences'
 import { useDevicePrefs, useThemePreference } from '@/lib/settings/device-prefs'
+import { TINT_CLASS, type Tint } from '@/lib/design/tone'
 
 /** 아직 못 하는 것을 못 한다고 말하는 자리. 토글처럼 보이면 안 된다. */
 function PendingBadge() {
@@ -113,15 +114,17 @@ interface SectionProps {
   title: string
   description: string
   accent: string
+  /** 구역 면 색(DD-68 · tines-mapping §25) — 참조는 구역마다 면 색이 다르다. 글자·테두리는 면 색을 따라간다. */
+  tone: Tint
   children: React.ReactNode
 }
 
-function Section({ id, icon: Icon, title, description, accent, children }: SectionProps) {
+function Section({ id, icon: Icon, title, description, accent, tone, children }: SectionProps) {
   return (
     <section
       id={id}
       aria-label={title}
-      className="scroll-mt-20 rounded-ios-2xl bg-[var(--bg)] p-6 shadow-ios-2 md:p-8"
+      className={`${TINT_CLASS[tone]} dots scroll-mt-20 rounded-ios-2xl p-6 text-[var(--t1)] shadow-ios-2 md:p-8`}
     >
       <header className="mb-6 flex items-start gap-4">
         <span
@@ -299,6 +302,7 @@ export default function SettingsPage() {
           title="학습 흐름"
           description="학습 과학에 기반한 핵심 동작을 조정합니다."
           accent="var(--p)"
+          tone="green"
         >
           <Row
             label="집중 모드 (Focus Mode)"
@@ -347,6 +351,7 @@ export default function SettingsPage() {
           title="외형"
           description="시각 환경을 당신에게 맞춥니다."
           accent="var(--learn-fresh)"
+          tone="lavender"
         >
           <Row
             label="테마"
@@ -366,7 +371,7 @@ export default function SettingsPage() {
           />
           <Row
             label="모션 감소"
-            description="애니메이션을 최소화하여 시각 자극을 줄입니다 (전정 감각 민감자 추천)."
+            description="화면에서 계속 움직이는 것(떠 있는 삽화 · 흐르는 선 · 시차)을 멈추고, 전환을 짧게 줄입니다."
             control={
               <Toggle
                 checked={reducedMotion}
@@ -384,6 +389,7 @@ export default function SettingsPage() {
           title="음성"
           description="TTS 발음을 당신의 학습 속도에 맞춥니다 (이중 부호화 지원)."
           accent="var(--info)"
+          tone="teal"
         >
           <Row
             label="TTS 활성화"
@@ -441,6 +447,7 @@ export default function SettingsPage() {
           title="알림"
           description="아직 보낼 길이 없어요. 준비되면 여기서 켤 수 있게 하겠습니다."
           accent="var(--active)"
+          tone="peach"
         >
           {/* ⚠️ 세 토글이 켜지고 「저장됨」까지 떴지만, 이 저장소에는 알림을 보내는 코드가
               **하나도 없다** — web-push · 서비스워커 · 메일 발송 어느 것도 없다(실측 2026-09-05).
@@ -470,6 +477,7 @@ export default function SettingsPage() {
           title="계정·데이터"
           description="당신의 정보·학습 기록은 언제든 가져가거나 지울 수 있어요."
           accent="var(--success)"
+          tone="yellow"
         >
           {(
             [

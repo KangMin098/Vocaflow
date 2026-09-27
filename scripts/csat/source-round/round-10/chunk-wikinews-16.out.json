@@ -1,0 +1,908 @@
+[
+  {
+    "id": "12816253-5f3e-4494-99d2-bb2b9c1efbd2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "82373ba1a0d2ef6f013d5c9458b52cb6f8abed57dddcbf22e8506f20c5093ef3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "hold",
+    "genre": "news",
+    "why": "아동 성착취물 수사 기사가 마지막 신고 안내 문장 도중에 끊겨 있고 소재상 성인 칸뿐이라 불완전 원천으로 보류한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Amid the legal and practical issue",
+      "note": "수사 범위 문단은 섰지만 마지막 문장이 「online through」에서 끊겼고 아동 성착취 묘사가 구체적이라 성인 칸 외엔 쓸 수 없었다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "1288af34-f340-42fb-96b3-884f8661312b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8fa9c63423391ced60bd8515e9ba2bc4cc971eca854062363769a0a624e108b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경선 사퇴와 깅리치 지지 선언, 지지율 하락 경위가 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Perry entered the presidential race last",
+      "note": "지지율 하락 문단은 출마→상승→토론 후 하락→순위 순서가 서서 순서 문항에 맞았다."
+    }
+  },
+  {
+    "id": "1289e834-e271-463c-8877-5966ce49ded5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "85327b72a944a84b05052bb5838be2fdf22dd9d9a173171203f785b9bf9c0489",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "104어 가운데 대부분이 유로·파운드 환율 수치 나열이고 원인은 인용 한 줄뿐이라 칸이 수치 나열로만 채워진다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The euro traded at US$1.3436 in",
+      "note": "환율 문단을 떼니 시세·등락률 숫자뿐이었고 원인 설명은 끝의 인용 한 줄에 그쳤다."
+    }
+  },
+  {
+    "id": "1292d920-3f6c-4059-bc50-b84facfdc7f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "483c0180941c94b8de37c50a831f33b724f3c8541c77d0315b343473de3fc62c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "hold",
+    "genre": "art",
+    "why": "박스오피스 예고 기사가 목록 머리(「The following films…:」)만 남기고 끊겨 불완전 원천으로 보류한다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "To be considered in wide release,",
+      "note": "광역 개봉 정의 문단은 섰지만 끝의 「The following films will be playing…:」 뒤 목록이 통째로 없었다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "12930332-9841-4b11-abbc-70d5e74e7e22",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "735584aec0ff425c2d49d1567e418f567a536eea423a72ed9ca7e266e16f7ace",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "목 문신 때문에 잡힌 절도범 사건과 경찰의 CCTV 효과·시민 당부가 이어져 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ian Wylie, who is police superintendent",
+      "note": "CCTV 효과를 말하는 경찰 인용 문단은 스스로 섰고 incriminating 은 앞 문단 것이라 이 문단은 조정할 게 적었다."
+    }
+  },
+  {
+    "id": "12939605-ceec-4691-bbaa-f6c8cd5d4ea9",
+    "source_updated_at": "2026-09-25T08:57:24.760974+00:00",
+    "body_sha256": "a4a0e90fadb4788721f77d65c6195c38a0cc07f3b4a70aa0451aa346cdc902e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "키이우 공격·공항 장악·제재·안보리 거부권이 차례로 이어져 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following several sanctions from the West",
+      "note": "제재 문단은 한 문장이라 안보리 거부권 문단과 묶어야 흐름이 섰고 vetoed 를 풀었다."
+    }
+  },
+  {
+    "id": "1294e17a-5f9e-48e4-916d-23729cff4787",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8cfa456f3e395a2d1d83acb034f1653aa12b1b5fdf530aa051225323fea4c8da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "박쥐 이주 시도의 까닭과 과거 실패 원인·극복 방법이 인과로 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "All previous attempts at moving bats",
+      "note": "귀소 본능 문단은 실패 이유→새 방법(어린 박쥐)의 인과가 뚜렷해 빈칸에 좋았고 homing instincts 를 풀면 V3 까지 내려갔다."
+    }
+  },
+  {
+    "id": "12986758-05e4-4480-9ad7-aca7fb9d5ec0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e70e6c840c6ff9c1c3f0f4b6385d455b8764238c85e81e3005fae296e2a088b5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경찰관 강간 혐의 무죄와 직무상 비위 유죄 경위가 법정 공방으로 이어지나 성범죄 소재라 성인 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Edward Burgess, defending, had suggested to",
+      "note": "변론 문단은 배심원 지시까지 담아 섰고 dispassionate 를 풀었으나 성범죄 재판이라 성인 칸으로만 둔다."
+    }
+  },
+  {
+    "id": "12995ad4-5bda-42a0-bfb0-0e41a4a4c270",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "213689ee87bdba7a84182514656206d31a4a3992d741aadafdb1f84e57b2fa11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "IBM 이 특허 500건을 오픈소스에 쓰지 않겠다는 서약의 내용과 대상이 짧게 서서 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "So begins the pledge IBM has",
+      "note": "서약 대상 문단은 첫 인용을 받아야 뜻이 서서 두 문단을 묶었고 assert 를 풀었다."
+    }
+  },
+  {
+    "id": "12a72528-a4aa-4892-b812-8258029183ba",
+    "source_updated_at": "2026-09-25T08:58:47.278084+00:00",
+    "body_sha256": "3c14427d9760623ff44d174c45b343a0fec6d14f2d3abc4f01d1aa00d77e4885",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "드론 공격 피해와 사이렌 미작동, 그간의 공격 누적이 이어져 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Over the course of the post-October",
+      "note": "배경 문단은 공격 누적과 피난을 담아 섰고 escalation 을 풀면 V5 였다."
+    }
+  },
+  {
+    "id": "12bd0c03-cb5c-402d-9973-8965ae9280d5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d21181d557167f886e64d31bbe268c94b0676e56395c817719528f206c8e41c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "위키뉴스 폴란드어판 9천 번째 기사 소식이 기사 수·순위·사용자 수 나열에 그쳐 보관 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Wikinews is developed in 27 language",
+      "note": "언어판 순위 문단을 떼니 언어판 수·기사 수·사용자 수 나열뿐이라 사건이나 논지가 없었다."
+    }
+  },
+  {
+    "id": "12c0f94c-531c-4e6d-bff6-2dc011d8f15a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "961b7af2e344c2b1fe42fb71660ab219916944bf00282695826a27fb29db4abc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무인기 공습 두 건의 표적·사망자·수습 상황이 이어져 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A nearby compound used by rebels",
+      "note": "두 번째 공격 문단은 공격 시간까지 담아 섰고 compound 를 buildings 로 바꿨다."
+    }
+  },
+  {
+    "id": "12c4fc60-2b45-4195-8681-95832d0778ea",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e4b21d2c5d6072fd066ec07649de7bd3da1ee100950851f6cc0b80914833e55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "위키백과를 닮은 빵 상표와 재단의 유쾌한 반응, 말장난 마무리가 이어져 제목·어조·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "title",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Wikimedia Foundation's communications manager Sandra",
+      "note": "재단 반응 문단은 농담 섞인 인용으로 어조가 드러나 섰고, 한자 병음 문단은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "12c77d52-d5fe-4eb4-9ee8-a68f161648d8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27065ea86bc43cca0cadc9402b9d7d15327cffeb1fa408b9529ee27b2c35846e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "곡예비행 추락과 구조·사망·행사 중단이 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After airport fire trucks put out",
+      "note": "구조 문단은 진화→이송→기도→사망 순서가 뚜렷해 순서 문항에 맞았고 standby 만 바꿨다."
+    }
+  },
+  {
+    "id": "12c8b12b-48d6-441a-8cc6-702d26dc7198",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d0faa91d487c72750b52bca9abf3d11befc63ba9dab1c6dd4f5aeec7f4d2312",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "독일 대통령 선출의 투표 경과와 총리의 지명 이유 발언, 전임자 사임이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wulff succeeds Horst Koehler, who resigned",
+      "note": "승계 문단은 한 문장이라 메르켈 인용 문단과 묶었고 conviction 을 belief 로 바꿨다."
+    }
+  },
+  {
+    "id": "12d44014-2222-47c9-9875-29844a43ac18",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e5ea3d5514b814dbaf10d5113c5e13367b16afd19748218c8af3e7c5a3b95328",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "벨파스트 이틀째 폭동의 장소별 공격·차량 탈취·실탄 발사가 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A digger was used to take",
+      "note": "굴착기 문단은 소등→ATM 탈취→진압 공격 순서가 섰고 retrieve 만 바꾸면 됐다."
+    }
+  },
+  {
+    "id": "12da2f83-4946-45e5-8c8c-2872b5b83040",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e7fa28c974814c8e60565df2fd09867dbb5558446d179b6503e420befb459090",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "살해된 여성의 가족을 돕는 모금과 공동체의 슬픔, 용의자 체포 경위가 이어져 심경·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Webster, 25, was arrested early last",
+      "note": "체포 문단은 수사 경위를 담아 섰지만 살인 사건이라 고2 이상으로 두었고 bond 를 풀었다."
+    }
+  },
+  {
+    "id": "12dc1c42-e878-4cb5-abff-a35dc5528e8c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "470f6aa8dcb30893ab78e04346395fb328191d80adf93d2a8dd0e49cb1262b26",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "폰지 사기 유죄 인정과 사과, 보석 취소 이유가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Judge Denny Chin of Federal District",
+      "note": "보석 취소 문단은 판사의 이유 셋을 담아 섰고 remanded 를 풀었다."
+    }
+  },
+  {
+    "id": "12de8c96-d2de-41ce-b689-36996861bc61",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "435e54af2585ca5e19171faa402e25020d61bd398a1cf72ed442d2cbe31c4568",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "세계보건기구 문답이 전파·증상·치료·백신 안전성을 단락별로 설명해 요약·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pandemic H1N1 virus is spread from",
+      "note": "전파 경로 문단은 문답에서 떼도 섰고 droplets·expelled 를 풀면 V6 이었으나 국가 목록·고위험군 목록은 걷는다."
+    }
+  },
+  {
+    "id": "12e21390-1401-4753-b3d6-473477a2ee8b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ff1e53018274eea62582131b655834943a18e270234c06a59a6e0841f1c3f3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "24시간 매장 개발을 두고 주민·의원의 반대 근거(소음·치안)와 당국 판단이 맞서 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 24-hour McDonald's in Councillor Thompson's",
+      "note": "기존 매장 비교 문단은 주거지와 붙지 않았다는 차이를 담아 섰고 premises 만 바꿨다."
+    }
+  },
+  {
+    "id": "12e78384-f1f6-4e2e-9913-47c1d140ea5b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fba3e9254368f0e2afa549875e26fa6c5e44f2913d1e954d9fe6d87383a910f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "space",
+    "why": "우주왕복선 임무 완료와 설치 부품, 착륙 지연, 다음 일정이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the mission the JEM ELM-PS",
+      "note": "임무 문단은 설치 부품과 마지막 비행을 담아 섰지만 약어 모듈 이름은 「일본 실험 모듈」로 풀어야 했다."
+    }
+  },
+  {
+    "id": "12eb5ab8-c477-4def-ad36-1e1641d152aa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "57751fe4f8c6e3f46e5e6012bf3e98ae7bd9a0a7369d5d4c8ce24c144f47108a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "산불 확산과 피해, 고온·강풍이라는 원인이 짧게 이어져 중등 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Grampians fire has destroyed 24",
+      "note": "피해 문단은 고온·강풍이 불길을 키운 인과를 담아 섰고 fanned 만 바꾸면 됐으나 55어라 전체를 써야 했다."
+    }
+  },
+  {
+    "id": "12ebc8f7-1bf8-4b18-b00e-d3d3d7baf91a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2345a12f16579d62892780601ca80b9754aaee8273f08cb73d3fb16208e788ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "동성혼 법안 발의자의 차별 반대 논리와 총리의 혼인 지위 보존 논리가 맞서 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The federal Government is opposed to",
+      "note": "정부 입장 문단은 총리 인용으로 반대 논리가 서서 앞 문단 발의 논리와 맞세우기 좋았다."
+    }
+  },
+  {
+    "id": "12f124de-1fc1-4d56-9b1c-abd07b60cb92",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "833c020503b7688d88b32f4635261ef5320ef74df4221953aec7e31932cbd0d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "history",
+    "why": "허리케인으로 떠밀려 온 배가 명소가 되고 다음 허리케인 뒤 존폐 논란에 선 흐름이 순서·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "People want it gone, suggesting it",
+      "note": "존폐 논란 문단은 흉물론과 보존론이 한 문단에 맞서 섰고 eyesore 만 풀면 됐다."
+    }
+  },
+  {
+    "id": "12f9406a-166d-4726-8cf7-f23d2ba57a0d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1bbe14d7c33bdf6de3b832bdd80910e40524ef44ccd3fe0901f524f15b07fe3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "mixed",
+    "why": "단신 모음이라 마르코스 탈세 무죄와 탁신 자산 동결이라는 무관한 두 기사가 섞여 있어 mixed 로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Thailand's embattled former prime minister Thaksin",
+      "note": "탁신 자산 문단은 따로 서지만 앞의 마르코스 무죄 기사와 무관하고 사이에 「Sources」 잔재가 끼어 한 편이 되지 않았다."
+    }
+  }
+]

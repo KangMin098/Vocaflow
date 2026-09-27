@@ -28,7 +28,7 @@ export function BacklogItemCard({ item }: BacklogItemCardProps) {
   const isDone = item.status === 'done'
   const accent = isDone ? 'var(--success)' : PRIORITY_COLOR[item.priority]
   const ringClass = item.isCorePain && !isDone
-    ? 'ring-2 ring-[var(--error)] shadow-[0_0_16px_rgba(239,68,68,0.18)]'
+    ? 'ring-2 ring-[var(--error)] shadow-[0_0_16px_color-mix(in_srgb,var(--error)_18%,transparent)]'
     : ''
 
   return (

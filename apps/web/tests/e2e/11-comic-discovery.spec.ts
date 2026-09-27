@@ -71,7 +71,7 @@ test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
   });
   test.use({ storageState: STATE_PATH });
 
-  test('사이드바 만화 메뉴로 들어가고, 카탈로그 카드가 유효한 진입 경로를 갖는다', async ({
+  test('셸 만화 메뉴로 들어가고, 카탈로그 카드가 유효한 진입 경로를 갖는다', async ({
     page,
   }) => {
     test.setTimeout(90_000);
@@ -79,15 +79,18 @@ test.describe('CCP 발견 — 만화 메뉴 · 포맷 필터', () => {
 
     await page.goto('/library/books', { waitUntil: 'domcontentloaded', timeout: 30_000 });
 
-    // ① 만화는 /library 하위 탭이 아니라 사이드바 최상위 메뉴다(2026-08-09 결정)
+    // ① 만화는 /library 하위 탭이 아니라 셸 내비의 독립 항목이다(2026-08-09 결정)
     const tabs = page.getByRole('tablist', { name: '라이브러리 탭' });
     await expect(tabs).toBeVisible({ timeout: 15_000 });
     await expect(tabs.getByRole('tab', { name: '만화' })).toHaveCount(0);
 
-    // 사이드바 루트는 <aside aria-label="주 메뉴"> → 암묵 role 은 complementary(navigation 아님)
-    const sidebar = page.getByRole('complementary', { name: '주 메뉴' });
-    // 사이드바 라벨은 자주 바뀐다(만화 → Comics → Book Comics) → href 로 고정
-    const comicMenu = sidebar.locator('a[href^="/comics"]').first();
+    // v08.6 — 셸 내비는 상단 막대 + 메가메뉴다(`components/layout/AppHeader`).
+    //   만화는 레일 밖이라 ① Read 패널의 **하단 링크 줄**(열 밖 · 번호 밖)에 있다 — 열어야 보인다.
+    const shell = page.locator('header[aria-label="주 메뉴"]');
+    await expect(shell).toBeVisible({ timeout: 15_000 });
+    await shell.getByRole('button', { name: /Read/ }).hover();
+    // 메뉴 라벨은 자주 바뀐다(만화 → Comics → Book Comics) → href 로 고정
+    const comicMenu = shell.locator('a[href^="/comics"]').first();
     await expect(comicMenu).toBeVisible({ timeout: 15_000 });
 
     await comicMenu.click();

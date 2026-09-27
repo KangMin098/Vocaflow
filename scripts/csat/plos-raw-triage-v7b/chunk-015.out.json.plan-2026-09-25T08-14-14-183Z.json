@@ -1,0 +1,1575 @@
+[
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "09bb3766-8d3b-49c0-acb0-e105920af826",
+    "revision": "2026-09-25T07:29:31.25509+00:00",
+    "body_sha256": "c766901aac145d6b9115a56dc87803c339bd26dc4a1c5f66a8a9a5da87f2d4d0",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.375Z",
+        "by": "chunk-llm",
+        "why": "내성균이 약을 무력화하는 두 방식과 다표적 전략의 필요를 서론이 차근히 논증한다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:56.550Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5a6cbfd529302c306146cc02e040b669874d355c0f1254a2a1791983425a6d88"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "부레옥잠의 전통 약용 소개 단락은 수치 없이도 서고, 효소 이름만 풀면 고2 밴드로 내려간다.",
+          "sample": "Infectious diseases are the second",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:42.375Z",
+        "by": "chunk-llm",
+        "why": "내성균이 약을 무력화하는 두 방식과 다표적 전략의 필요를 서론이 차근히 논증한다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:56.550Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5a6cbfd529302c306146cc02e040b669874d355c0f1254a2a1791983425a6d88"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "부레옥잠의 전통 약용 소개 단락은 수치 없이도 서고, 효소 이름만 풀면 고2 밴드로 내려간다.",
+          "sample": "Infectious diseases are the second",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 셋째~넷째 단락이 MRSA 내성 두 기전과 다중 표적 약물 전략의 논지를 세워 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Both antibiotic resistance mechanisms of MRSA",
+          "note": "PBP2a·β-lactamase 를 \"두 방어 수단\"으로 풀면 문단이 서고, multi-target·efficacy 를 쉬운 말로 바꾸면 V7 로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.187Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:42.375Z",
+          "by": "chunk-llm",
+          "why": "내성균이 약을 무력화하는 두 방식과 다표적 전략의 필요를 서론이 차근히 논증한다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "order",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:56.550Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "5a6cbfd529302c306146cc02e040b669874d355c0f1254a2a1791983425a6d88"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "부레옥잠의 전통 약용 소개 단락은 수치 없이도 서고, 효소 이름만 풀면 고2 밴드로 내려간다.",
+            "sample": "Infectious diseases are the second",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 9,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:39.696Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "09eea370-3577-4d79-a507-abe4f7251d4a",
+    "revision": "2026-09-25T07:29:34.330649+00:00",
+    "body_sha256": "65e09b7464945d54e2de83f918482b2c1b77ed25e9558de25f8a27fb57546b1d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.451Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 프리온이 정상 단백질을 접어 바꾸며 번지는 연쇄를 그림 없이 설명해 한 편으로 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:01.896Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0b915a69c23684a9d81f57313e0b8d57b01c27924232df31e474be3874558e41"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "misfolded·propagate 를 「잘못 접힌」「퍼진다」로 바꾸면 내려가고, 유전자 약호가 촘촘한 결과 절은 쓸 수 없다.",
+          "sample": "Prion diseases are fatal brain disorders",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.451Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 프리온이 정상 단백질을 접어 바꾸며 번지는 연쇄를 그림 없이 설명해 한 편으로 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:01.896Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0b915a69c23684a9d81f57313e0b8d57b01c27924232df31e474be3874558e41"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "misfolded·propagate 를 「잘못 접힌」「퍼진다」로 바꾸면 내려가고, 유전자 약호가 촘촘한 결과 절은 쓸 수 없다.",
+          "sample": "Prion diseases are fatal brain disorders",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약 단락이 프리온의 자기증폭 전파와 연구 물음을 한 편으로 설명해 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Prion diseases are fatal brain disorders",
+          "note": "유전자 이름(Tfap2c·mTORC1)을 \"한 단백질\"로 일반화하면 서고, misfolded·propagate 풀이로 V8 가능; 본론은 유전자 기호 밀도가 높다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.189Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.451Z",
+          "by": "chunk-llm",
+          "why": "저자 요약이 프리온이 정상 단백질을 접어 바꾸며 번지는 연쇄를 그림 없이 설명해 한 편으로 선다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:01.896Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "0b915a69c23684a9d81f57313e0b8d57b01c27924232df31e474be3874558e41"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "misfolded·propagate 를 「잘못 접힌」「퍼진다」로 바꾸면 내려가고, 유전자 약호가 촘촘한 결과 절은 쓸 수 없다.",
+            "sample": "Prion diseases are fatal brain disorders",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:10.242Z",
+      "topicMargin": 23.19
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "0a13351e-c499-45f4-9e90-d40daed88b5a",
+    "revision": "2026-09-25T07:29:36.989644+00:00",
+    "body_sha256": "4e6cd27ac16185a9a86406ae15d94faa96ab0ec009c6fc00c8796c8e2eefcc9f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.452Z",
+        "by": "chunk-llm",
+        "why": "고찰에서 저체중이 중증과 연결된 결과가 비만 위험이라는 통념과 부딪히는 대목이 통념-반증 구조로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:04.640Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1d2ca04fce016c1a972ca432686ebc73d05c183ad3acac1c9468351990d83b0c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "BMI·hematocrit 를 「체질량」「적혈구 비율」로 풀면 고2 밴드에 들고, 오즈비 수치는 걷어도 논지가 남는다.",
+          "sample": "Our findings, which indicate an association",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.452Z",
+        "by": "chunk-llm",
+        "why": "고찰에서 저체중이 중증과 연결된 결과가 비만 위험이라는 통념과 부딪히는 대목이 통념-반증 구조로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:04.640Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1d2ca04fce016c1a972ca432686ebc73d05c183ad3acac1c9468351990d83b0c"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "BMI·hematocrit 를 「체질량」「적혈구 비율」로 풀면 고2 밴드에 들고, 오즈비 수치는 걷어도 논지가 남는다.",
+          "sample": "Our findings, which indicate an association",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 BMI 단락이 비만 위험 통념과 상반된 결과를 대조하고 이유를 제시해 주장·빈칸·무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "irrelevant",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our findings, which indicate an association",
+          "note": "오즈비·수치를 걷어도 \"낮은 BMI도 위험할 수 있다\"는 논지가 서고, endothelial dysfunction 등 2~3개를 풀면 V7."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.190Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.452Z",
+          "by": "chunk-llm",
+          "why": "고찰에서 저체중이 중증과 연결된 결과가 비만 위험이라는 통념과 부딪히는 대목이 통념-반증 구조로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match",
+              "blank"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:04.640Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "1d2ca04fce016c1a972ca432686ebc73d05c183ad3acac1c9468351990d83b0c"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "BMI·hematocrit 를 「체질량」「적혈구 비율」로 풀면 고2 밴드에 들고, 오즈비 수치는 걷어도 논지가 남는다.",
+            "sample": "Our findings, which indicate an association",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:36:59.030Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "0a1ed7e1-d0fa-4c34-b65d-a6eac112223a",
+    "revision": "2026-09-25T07:29:39.07067+00:00",
+    "body_sha256": "c332144a6322c70549146af258422cff9bdaf0084b94a715dcb367710595b14c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.454Z",
+        "by": "chunk-llm",
+        "why": "서론이 기존 관절염 약은 증상만 다룬다는 한계에서 질병 자체를 늦추는 약의 필요로 넘어가 요지 칸을 연다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:06.592Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c85884aed43ac55f1d819958d33971e29c22a94594b791b0650cd17c4c695ae6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "NSAID·cartilage degradation 을 「소염제」「연골 닳음」으로 바꾸면 내려가고, 마취·촬영 절차 절은 읽을 글이 아니다.",
+          "sample": "Current osteoarthritis (OA) therapies such as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.454Z",
+        "by": "chunk-llm",
+        "why": "서론이 기존 관절염 약은 증상만 다룬다는 한계에서 질병 자체를 늦추는 약의 필요로 넘어가 요지 칸을 연다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:06.592Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c85884aed43ac55f1d819958d33971e29c22a94594b791b0650cd17c4c695ae6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "NSAID·cartilage degradation 을 「소염제」「연골 닳음」으로 바꾸면 내려가고, 마취·촬영 절차 절은 읽을 글이 아니다.",
+          "sample": "Current osteoarthritis (OA) therapies such as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 마지막 단락이 개 골관절염이 사람 연구의 모형이 되는 이유를 수명 차이로 논증해 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "title"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "OA is the most common canine",
+          "note": "OA 약어를 풀고 pathophysiologically·predisposition 을 바꾸니 V7 로 내려가며 인과 흐름이 뚜렷하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.190Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.454Z",
+          "by": "chunk-llm",
+          "why": "서론이 기존 관절염 약은 증상만 다룬다는 한계에서 질병 자체를 늦추는 약의 필요로 넘어가 요지 칸을 연다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "topic",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:06.592Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c85884aed43ac55f1d819958d33971e29c22a94594b791b0650cd17c4c695ae6"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "NSAID·cartilage degradation 을 「소염제」「연골 닳음」으로 바꾸면 내려가고, 마취·촬영 절차 절은 읽을 글이 아니다.",
+            "sample": "Current osteoarthritis (OA) therapies such as",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 8,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:21.469Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "0a341caf-a30d-4650-b1ae-761b37423f00",
+    "revision": "2026-09-25T07:29:41.321422+00:00",
+    "body_sha256": "533d924826c5b4eaa9c826ffc0323291833a9537aaff71afa74dade10d59fa17",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.454Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 바이러스가 세균의 털 기구를 무력화해 경쟁자를 막는다는 논지를 그림 없이 세운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:06.780Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "478a72d37323db324e0d6c0c6ea5eef5c41b89f3594b3884887ebae131eb4a4e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "ATPase·hexamer 를 「효소」「여섯 조각 덩어리」로 풀면 서지만, 본문 결과는 그림 번호 참조가 촘촘해 못 쓴다.",
+          "sample": "The phage-encoded protein Aqs1 disables type",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.454Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 바이러스가 세균의 털 기구를 무력화해 경쟁자를 막는다는 논지를 그림 없이 세운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:06.780Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "478a72d37323db324e0d6c0c6ea5eef5c41b89f3594b3884887ebae131eb4a4e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "ATPase·hexamer 를 「효소」「여섯 조각 덩어리」로 풀면 서지만, 본문 결과는 그림 번호 참조가 촘촘해 못 쓴다.",
+          "sample": "The phage-encoded protein Aqs1 disables type",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 첫 단락이 바이러스가 경쟁 바이러스를 막으려 세균 섬모를 무력화한다는 흐름을 설명해 주제·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "insert",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Type IV pili (T4P) are widespread",
+          "note": "T4P·PilB 를 \"털 모양 구조\"·\"모터 효소\"로 바꾸면 서지만 본론은 돌연변이 기호 위주라 서론·고찰 끝 단락만 쓸 만하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.191Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.454Z",
+          "by": "chunk-llm",
+          "why": "저자 요약이 바이러스가 세균의 털 기구를 무력화해 경쟁자를 막는다는 논지를 그림 없이 세운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:06.780Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "478a72d37323db324e0d6c0c6ea5eef5c41b89f3594b3884887ebae131eb4a4e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "ATPase·hexamer 를 「효소」「여섯 조각 덩어리」로 풀면 서지만, 본문 결과는 그림 번호 참조가 촘촘해 못 쓴다.",
+            "sample": "The phage-encoded protein Aqs1 disables type",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:38:33.111Z",
+      "topicMargin": 12.33
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "0a3bde45-d870-4d81-a0da-327c21117c09",
+    "revision": "2026-09-25T07:29:43.330303+00:00",
+    "body_sha256": "de39ed9ea020617a39f56b29b9b641180f7f0581377d1b1b0b7428e862cfe0af",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.455Z",
+        "by": "chunk-llm",
+        "why": "고찰이 감각 영역 억제와 연합 영역 활성이라는 방향이 다른 두 변화를 대조해 논지를 세운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:08.725Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b2d8172a545dce155c7a647def526860f823ae49438e787cbb6759a08efbdd2e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "synchrony·metastable·E/I ratio 가 논지의 뼈대여서 쉬운 낱말로 바꾸면 주장이 사라진다.",
+          "sample": "Present study, from the perspective of",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.455Z",
+        "by": "chunk-llm",
+        "why": "고찰이 감각 영역 억제와 연합 영역 활성이라는 방향이 다른 두 변화를 대조해 논지를 세운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:08.725Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b2d8172a545dce155c7a647def526860f823ae49438e787cbb6759a08efbdd2e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "synchrony·metastable·E/I ratio 가 논지의 뼈대여서 쉬운 낱말로 바꾸면 주장이 사라진다.",
+          "sample": "Present study, from the perspective of",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "서론 첫 단락이 환각제 연구 재부상과 뇌 네트워크 재편, 기전 규명의 필요를 논해 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Recently, interest in Lysergic acid diethylamide",
+          "note": "BOLD·entropy 괄호를 걷고 entrenched·maladaptive 를 바꾸니 \"열쇠\" 비유로 논지가 선다; 소재상 연령은 성인."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.193Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.455Z",
+          "by": "chunk-llm",
+          "why": "고찰이 감각 영역 억제와 연합 영역 활성이라는 방향이 다른 두 변화를 대조해 논지를 세운다.",
+          "basis": "full",
+          "genre": "psychology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:08.725Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "b2d8172a545dce155c7a647def526860f823ae49438e787cbb6759a08efbdd2e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "synchrony·metastable·E/I ratio 가 논지의 뼈대여서 쉬운 낱말로 바꾸면 주장이 사라진다.",
+            "sample": "Present study, from the perspective of",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:12.056Z",
+      "topicMargin": 3.33
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-14-183Z",
+    "id": "0a8c6f81-6887-4c47-97c1-5209bbf1aaa7",
+    "revision": "2026-09-25T07:29:52.040831+00:00",
+    "body_sha256": "d13fd5f7842af6cf8e096c2c14f82d78a71dbeed308d456f36761bf768cc9dea",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.460Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 바이러스 유전체의 두 작은 구조가 병원성을 좌우한다는 논지를 그림 없이 세운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "main_point"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:15.532Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "afd7fdf81f7f96e1106499d4c24206ea5431019bfc5e56a4ed6a096698bdcafe"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "stem-loop·termination 을 「고리 구조」「끝내는 신호」로 바꾸면 서고, 변이체 이름이 나오는 본문은 뺀다.",
+          "sample": "Understanding how viruses control their gene",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:43.460Z",
+        "by": "chunk-llm",
+        "why": "저자 요약이 바이러스 유전체의 두 작은 구조가 병원성을 좌우한다는 논지를 그림 없이 세운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "main_point"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:52:15.532Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "afd7fdf81f7f96e1106499d4c24206ea5431019bfc5e56a4ed6a096698bdcafe"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "stem-loop·termination 을 「고리 구조」「끝내는 신호」로 바꾸면 서고, 변이체 이름이 나오는 본문은 뺀다.",
+          "sample": "Understanding how viruses control their gene",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약 단락이 바이러스 유전체 요소를 바꿔 병원성을 약화시킨 실험 흐름을 쉽게 서술해 요약·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "summary",
+            "order",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Understanding how viruses control their gene",
+          "note": "reverse genetics·stem-loop 두 낱말만 풀면 V7 로 내려가고 목적→방법→결과 순서가 뚜렷하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:14.194Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:43.460Z",
+          "by": "chunk-llm",
+          "why": "저자 요약이 바이러스 유전체의 두 작은 구조가 병원성을 좌우한다는 논지를 그림 없이 세운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "main_point"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:52:15.532Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "afd7fdf81f7f96e1106499d4c24206ea5431019bfc5e56a4ed6a096698bdcafe"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "stem-loop·termination 을 「고리 구조」「끝내는 신호」로 바꾸면 서고, 변이체 이름이 나오는 본문은 뺀다.",
+            "sample": "Understanding how viruses control their gene",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:15:22.053Z",
+      "topicMargin": 34.78
+    }
+  }
+]

@@ -10,8 +10,10 @@
 //
 // 그래서 화면은 여기 하나뿐이고, 두 라우트는 **시리즈 id 만 다르게** 넘긴다.
 
+import { AreaHero } from '@/components/layout/AreaHero'
 import { LevelChart } from '@/components/library/textbooks/LevelChart'
 import { SeriesTabs } from '@/components/library/textbooks/SeriesTabs'
+import { MATERIAL_TONE } from '@/lib/design/tone'
 import { TextbookShelf } from '@/components/library/textbooks/TextbookShelf'
 import { Screen } from '@/components/ui/ios'
 import { ComponentVideo } from '@/components/video/ComponentVideo'
@@ -19,6 +21,7 @@ import { seriesVideo } from '@/lib/video/catalog'
 import type { MySelection } from '@/lib/textbook/my-shelf-query'
 import type { Shelf } from '@/lib/textbook/shelf'
 import { buildLevelChart } from '@vocaflow/library-pipeline'
+import { SERIES_CATALOG } from '@vocaflow/library-pipeline/textbook-series-catalog'
 
 export function ShelfScreen({
   shelf,
@@ -32,14 +35,29 @@ export function ShelfScreen({
 }) {
   return (
     <Screen width="wide" background="bg2" padX="md">
-      {/* ⚠️ 이 화면에는 **보이는 제목이 없다** — Calm UI 라 그렇게 설계했다.
-          그래도 이름은 있어야 한다: h1 이 없으면 스크린리더로 "여기가 어디" 를 물을 방법이 없다
-          (실측 2026-08-23: 학습자 화면 3곳이 그랬다).
-          시리즈가 셋이 됐으므로 **어느 서가인지**를 이름에 넣는다 — 「교재 서가」 셋이 같은
-          이름을 가지면 탭·북마크·스크린리더에서 구별되지 않는다. */}
-      <h1 className="sr-only">{shelf.brand} 교재 서가</h1>
       <div className="flex flex-col gap-4 py-6 md:py-8">
-        {/* 코너 표지판이 매대보다 **먼저** 온다 — 어느 서가인지 모르고 권을 고를 수는 없다. */}
+        {/* 이름은 **보여야 한다.** 2026-08-23 에는 sr-only h1 하나였다(Calm UI) — 스크린리더는
+            "여기가 어디" 를 알 수 있었지만 눈으로 보는 학습자는 못 알아봤고, 이웃 서가(도서 ·
+            기사)가 전부 이름 붙은 판을 갖게 되면서 교재만 이름 없는 화면으로 남았다.
+            판 제목이 곧 h1 이다 — 시리즈 이름이 들어가 탭·북마크·스크린리더에서 서가 셋이 구별된다.
+            DD-68 · tines-mapping §24. */}
+        <AreaHero
+          kicker="서가 · 교재"
+          title={`${shelf.brand} 교재 서가`}
+          sub={SERIES_CATALOG.find((s) => s.id === shelf.seriesId)?.question ?? '학년을 잇는 단계별 교재 서가.'}
+          tile="tile-textbooks"
+          tint={MATERIAL_TONE.textbook.tint}
+          stats={
+            shelf.volumes.length > 0
+              ? [
+                  { label: '권', value: `${shelf.volumes.length}` },
+                  { label: '펼칠 수 있는 권', value: `${shelf.readyCount}` },
+                ]
+              : undefined
+          }
+        />
+        {/* 코너 표지판이 매대보다 **먼저** 온다 — 어느 서가인지 모르고 권을 고를 수는 없다.
+            시리즈마다 답하는 물음과 조판 여부가 붙으므로 판 아랫변 탭으로 접지 않는다. */}
         <SeriesTabs current={shelf.seriesId} />
 
         {/*

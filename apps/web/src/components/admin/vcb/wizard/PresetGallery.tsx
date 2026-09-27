@@ -48,7 +48,7 @@ export function PresetGallery({ selectedPresetId, selectedVariantId, onSelect }:
           onClick={() => onSelect(null, null)}
           className="group relative flex flex-col gap-3 rounded-[var(--r-lg)] border-2 p-5 text-left transition-all"
           style={{
-            borderColor: selectedPresetId === CUSTOM_PRESET_ID ? '#64748B' : 'var(--bd)',
+            borderColor: selectedPresetId === CUSTOM_PRESET_ID ? 'var(--t3)' : 'var(--bd)',
             background: selectedPresetId === CUSTOM_PRESET_ID ? 'var(--bg2)' : 'var(--bg)',
             borderStyle: 'dashed',
           }}
@@ -96,14 +96,14 @@ function PresetCard({
       style={{
         // Selected: 6% tint + soft 8% ring (눈 피로 저감)
         borderColor: isSelected ? preset.accent : 'var(--bd)',
-        background: isSelected ? `${preset.accent}0F` : 'var(--bg)',
-        boxShadow: isSelected ? `0 0 0 3px ${preset.accent}14` : 'none',
+        background: isSelected ? `color-mix(in srgb, ${preset.accent} 5.9%, transparent)` : 'var(--bg)',
+        boxShadow: isSelected ? `0 0 0 3px color-mix(in srgb, ${preset.accent} 7.8%, transparent)` : 'none',
       }}
     >
       <div className="flex items-start gap-3 mb-3">
         <div
           className="w-11 h-11 rounded-[var(--r-md)] flex items-center justify-center text-2xl flex-shrink-0"
-          style={{ background: `${preset.accent}18` }}
+          style={{ background: `color-mix(in srgb, ${preset.accent} 9.4%, transparent)` }}
           aria-hidden
         >
           {preset.emoji}
@@ -135,7 +135,7 @@ function PresetCard({
               className="min-h-[44px] group flex items-center justify-between gap-2 px-3 py-2 rounded-[var(--r-md)] text-left transition-all"
               style={{
                 // Calm UI — solid accent 대신 12% tint + left accent bar (Material 3 토널)
-                background: isVariantSelected ? `${preset.accent}14` : 'var(--bg2)',
+                background: isVariantSelected ? `color-mix(in srgb, ${preset.accent} 7.8%, transparent)` : 'var(--bg2)',
                 color: isVariantSelected ? preset.accent : 'var(--t1)',
                 borderLeft: `3px solid ${isVariantSelected ? preset.accent : 'transparent'}`,
               }}
@@ -146,7 +146,7 @@ function PresetCard({
                 </span>
                 <span
                   className="text-[11px] font-body truncate"
-                  style={{ color: isVariantSelected ? `${preset.accent}CC` : 'var(--t3)' }}
+                  style={{ color: isVariantSelected ? `color-mix(in srgb, ${preset.accent} 80%, transparent)` : 'var(--t3)' }}
                 >
                   {variant.hint}
                 </span>

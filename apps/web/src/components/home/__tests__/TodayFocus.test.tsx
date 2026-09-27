@@ -59,26 +59,7 @@ describe('단어를 못 고른 경우', () => {
   })
 })
 
-describe('테마 안전성 (하드코딩 금지)', () => {
-  it('색을 hex 로 하드코딩하지 않는다', () => {
-    // `#F5F3FF` 배경 + `var(--t1)` 글자 조합이 다크에서 흰 글자를 흰 배경에 얹었다.
-    for (const html of [withWord, noWord]) {
-      expect(html).not.toMatch(/#[0-9a-fA-F]{6}/)
-      expect(html).not.toMatch(/#[0-9a-fA-F]{3}\b/)
-    }
-  })
-
-  it('배경·글자를 모두 토큰으로 잡는다', () => {
-    expect(withWord).toContain('bg-[var(--bg)]')
-    expect(withWord).toContain('text-[var(--t1)]')
-  })
-
-  it('Admin 전용 보라 액센트를 쓰지 않는다', () => {
-    for (const purple of ['#AF52DE', '#5856D6', '#8B5CF6', '#6D28D9']) {
-      expect(withWord).not.toContain(purple)
-    }
-  })
-})
+// 디자인·UX 금지 검사 3건(hex 하드코딩 금지 · 토큰 강제 · 보라 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
 describe('처음 온 사람에게 하는 말', () => {
   it('내부 용어(V-Level)로 설명하지 않는다', () => {

@@ -15,15 +15,15 @@
 
 import React from 'react'
 
-import type { AccentKey, ProgressionScene } from '../../spec/types'
+import type { Accent, ProgressionScene } from '../../spec/types'
 import { proseColumnWidth } from '../../spec/layout'
-import { ACCENT, FONT, SURFACE } from '../../theme/palette'
+import { accentColor, FONT, SURFACE } from '../../theme/palette'
 import { enterExit, spread, transform } from '../motion'
 import { KO, useFormat } from '../Frame'
 
 export const Progression: React.FC<{
   scene: ProgressionScene
-  accent: AccentKey
+  accent: Accent
   duration: number
 }> = ({ scene, accent, duration }) => {
   const { format, scale, prose, frame } = useFormat()
@@ -91,9 +91,9 @@ export const Progression: React.FC<{
                 borderRadius: '50%',
                 flexShrink: 0,
                 marginTop: Math.round(12 * scale),
-                backgroundColor: s.now ? ACCENT[accent] : 'transparent',
+                backgroundColor: s.now ? accentColor(accent) : 'transparent',
                 border: `${Math.max(2, Math.round(2 * scale))}px solid ${
-                  s.now ? ACCENT[accent] : SURFACE.border
+                  s.now ? accentColor(accent) : SURFACE.border
                 }`,
               }}
             />
@@ -104,7 +104,7 @@ export const Progression: React.FC<{
                   fontFamily: FONT.display,
                   fontSize: Math.round(34 * scale),
                   fontWeight: 600,
-                  color: s.now ? ACCENT[accent] : SURFACE.ink,
+                  color: s.now ? accentColor(accent) : SURFACE.ink,
                   lineHeight: 1.15,
                 }}
               >

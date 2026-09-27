@@ -33,6 +33,7 @@ import {
   listFrymFeed,
 } from './frontiers-young-minds'
 import { SOURCE_POLICIES, SOURCE_REGISTER_DEFAULT, SOURCE_SPECS, resolveArticleRegister } from './_curation-spec'
+import { rightsClassOf, rightsTag } from './rights-tag'
 
 /** 실측 형태 — Crossref 는 초록을 JATS 조각으로 준다. */
 const jats =
@@ -455,7 +456,7 @@ describe('FrYM 적재 — 메타는 Crossref · 본문은 /full', () => {
     )
   })
 
-  it('라이선스를 못 읽으면 **본문을 받으러 가지도 않는다**', async () => {
+  it('라이선스를 못 읽어도 버리지 않고 unknown 으로 담는다(DD-75) — 트리거가 restricted 로 막는다', async () => {
     const f = mockFetch({
       'api.crossref.org': {
         status: 200,
@@ -466,10 +467,10 @@ describe('FrYM 적재 — 메타는 Crossref · 본문은 /full', () => {
       'kids.frontiersin.org': { status: 200, body: LONG_PAGE },
     })
     vi.stubGlobal('fetch', f)
-    await expect(ingestFrymArticle('https://doi.org/10.3389/frym.2026.1699332')).rejects.toThrow(
-      /라이선스를 글에서 확인하지 못했다/,
-    )
-    expect(f.mock.calls.every(([u]) => !String(u).includes('kids.frontiersin.org'))).toBe(true)
+    const a = await ingestFrymArticle('https://doi.org/10.3389/frym.2026.1699332')
+    expect(a.license).toBe('unknown')
+    expect(rightsClassOf(a.license)).toBe('unknown')
+    expect(rightsTag({ license: a.license, licenseEvidence: a.license_evidence }).needsResolution).toBe(true)
   })
 
   it('DOI 를 못 읽는 주소는 망을 타지 않는다', async () => {

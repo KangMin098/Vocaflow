@@ -1,0 +1,1854 @@
+[
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "054162e5-d429-452c-8b65-42ebc36efb8e",
+    "revision": "2026-09-25T08:20:30.904109+00:00",
+    "body_sha256": "0395a2ad18d049098f32899e2a32c7bab0f8e8b4ae4d6cd49f48cb8ceb09f743",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "종교를 이유로 항암치료를 거부한 소년에게 법원이 치료를 명한 판결과 「국가 이익」 대 「부모의 결정권」 논거, 소년의 이해 부족 판단이 논지로 서서 주제·주장·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The judge said that the court",
+          "note": "「충분히 이해해야 동의가 성립한다」는 결론 문단이 떼어지고 informed consent 를 풀면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.564Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Court_rules_teen_must_take_chemotherapy",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.447
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "05447467-3341-4cfa-98d6-b8fa692a8739",
+    "revision": "2026-09-25T07:41:01.526673+00:00",
+    "body_sha256": "2f355667f826737f8fd566410d9e8f712c3ae3a49ae532f3108e14747865a713",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "23년간 혼수로 오진된 남성이 사실은 의식이 있었음이 재검사로 드러나고 발로 소통을 배운 경위, 오진률 연구가 이어져 심경·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It was only after his family's",
+          "note": "「비명을 질렀지만 들리지 않았다」 인용이 심경 문항 재료로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_misdiagnosed_as_being_in_coma_for_23_years",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.665,
+          "words": 191,
+          "english": 0.392
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "05483e64-3ec4-416e-88cf-369a81a7c33c",
+    "revision": "2026-09-25T06:45:53.815969+00:00",
+    "body_sha256": "e33967e59037b1c122ade130098e2fbd43791777b740a936e86ab38c83de18d9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "기관 절개 수술 뒤 삼종기도를 처음 거른 교황이 병실 창가에 깜짝 등장한 경위와 대리 축복이 이어져 짧은 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Archbishop Leonardo Sandri, substitute Secretary of",
+          "note": "짧지만 불참→대리→깜짝 등장 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pope_John_Paul_II_makes_surprise_appearance_at_window_of_his_hospital_room",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.195,
+          "words": 113,
+          "english": 0.407
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "0548a17b-5ff3-4221-8d32-5dbbe604769a",
+    "revision": "2026-09-25T07:29:08.135892+00:00",
+    "body_sha256": "1b8c8ad781cb38e6878a725b747016a297ae0c3e9461f8515d1278645587cee8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "시의회 회의장 총격의 경위와 범인이 과거 출입 금지된 인물이었다는 배경이 이어져 고1 이상 내용 일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "According to KSDK, an NBC affiliate,",
+          "note": "총격 묘사가 여러 문단에 흩어져 있어 배경 문단만 떼어 써야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gunman_opens_fire_at_Missouri_city_council_meeting",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.5,
+          "words": 200,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "0548c260-85ce-4521-8d2b-729a7f6079c6",
+    "revision": "2026-09-25T08:16:11.032288+00:00",
+    "body_sha256": "8b60d94d11bc2cdb90c9d9317d95fa63f3a7b1bca56538067a0da74e86a9f88c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가자 봉쇄를 거슬러 들어간 활동가가 귀국길에 체포된 경위와 법 근거, 경찰의 「테러 조직 정당화」 주장이 이어져 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to police, Halper was arrested",
+          "note": "금지 법의 배경(2007년 봉쇄)이 한 문장에 있어 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Israeli-American_activist_arrested_for_entering_Gaza_Strip",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.417
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "054cd597-b605-45a4-8a27-963045cfaea8",
+    "revision": "2026-09-25T07:45:10.70514+00:00",
+    "body_sha256": "f8667ea55729a2f29296bba736cbb2b54e57ac9345f44851c0efc917bde4efb9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "유출 외교 전문에 드러난 걸프 국가들의 이란 핵 우려와 무력 사용 주장, 이란의 해외 반체제 인사 암살 시도 사건이 이어져 고2 이상 내용 일치·요약 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Early November last year, General David",
+          "note": "인명·직함이 촘촘해 걷으면 누가 말했는지가 흐려진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.566Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikileaks_cable_disclosure_shows_Arab_fears_of_Iranian_ambitions",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.313
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "054dcaf4-0e75-4d9d-9f50-a933bc073214",
+    "revision": "2026-09-25T08:10:41.311949+00:00",
+    "body_sha256": "ed6c386d7a6dfdd2cd0cc275a3045fefc658757ddcc991fbc07c6cc404be22d2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아난 총장의 「내전보다 나쁘다」 발언과 이라크 측 반발, 럼즈펠드·베이커·파월의 비슷한 평가가 이어져 주장·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Donald Rumsfeld, former U.S. Defence Secretary",
+          "note": "여러 인사의 평가가 한 주장을 뒷받침하는 구조라 근거 찾기에 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Kofi_Annan%3A_Iraq_situation_much_worse_than_civil_war",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "054f3d97-ef00-40d7-b233-e1c3f2235c53",
+    "revision": "2026-09-25T07:10:52.081709+00:00",
+    "body_sha256": "37e0d66c3b138ab2ad47b4705d0f987a5a61abe4d27e9514d73787a749364985",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "발리우드 두 배우의 약혼 발표와 청혼 경위, 결혼 일정·전통 의식이 이어져 쉬운 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to one daily, the wedding",
+          "note": "인명이 많지만 약혼 소식과 의식 설명은 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bollywood_stars_Aishwarya_Rai_and_Abhishek_Bachchan_engaged",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.41
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "054f8ba5-bf33-40a6-96ea-9959ae321779",
+    "revision": "2026-09-25T07:25:30.935697+00:00",
+    "body_sha256": "729273b0bd1aa54b5fb0cf1a25441601fca4a05003c088b67d304b30c163242a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "도킨스 재단의 자선단체 승인과 소급 공제 효과, 재단의 설립 목적(의사과학 대응·과학 교육)이 이어져 짧은 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dawkins started the foundation to combat",
+          "note": "재단 목적 문단이 떼어지고 Enlightenment 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Richard_Dawkins_Foundation_for_Reason_and_Science_officially_deemed_a_charity",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.478,
+          "words": 134,
+          "english": 0.377
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "05542a1a-2905-41de-a97a-19596babcfc5",
+    "revision": "2026-09-25T06:46:16.874423+00:00",
+    "body_sha256": "9674e457acebe2a7c64fdafc345fb19799484d8dc04781fc0d905a7b84bd5b9b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "성별 선택 수요 조사가 「성비 불균형」 우려와 달리 남녀 선택이 고르게 나뉜다는 결과와 찬반 학회 입장을 보여 주제·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Contradicting fears that such sex selection",
+          "note": "우려→조사 결과로 반박 구조가 두 문단에 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Many_infertile_American_women_want_sex_selection",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "055852ae-bfa2-4878-bdd1-649b9bbdbcce",
+    "revision": "2026-09-25T07:33:00.918436+00:00",
+    "body_sha256": "43197fe0632d0f4d1d0bc26ad73b046ebfe9a20db8c8678c0f4ce1f3130675eb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "프로톤 로켓의 조기경보 위성 발사와 구형 기체 사용 이유, 지난 실패 이후 첫 발사라는 맥락이 이어져 고1 이상 내용 일치 칸 하나가 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "This is the first launch of",
+          "note": "형식 번호가 많아 걷으면 「실패 뒤 구형 상단 사용」만 남는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Proton_rocket_launches_Prognoz_satellite",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.405
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "0559c4c7-44a1-40a1-856c-8cb8e24ccc4e",
+    "revision": "2026-09-25T07:53:19.05815+00:00",
+    "body_sha256": "8b05f641148fc48f77347fb77b49dedbf46a29cc9430c9408256ee9e891c1557",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "소행성 2024 YR4 충돌 확률이 2.2%로 올랐지만 관측이 쌓이면 대개 사라진다는 전문가 설명과 아포피스 전례가 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dr. Robert Massey of the Royal",
+          "note": "「계산이 정밀해지면 위험은 사라지곤 한다」 문단이 요지로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/International_Asteroid_Warning_Network_issues_alert_on_asteroid_2024_YR4_impact_risk_in_2032",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.435
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "055ade79-1237-4401-abb5-0ec8e934f826",
+    "revision": "2026-09-25T08:30:28.932684+00:00",
+    "body_sha256": "f3106c2dc37206869bb2156e6fb7f570d3f9ed38484ffb9b8e660ea8b521b391",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가게 뒤 봉지 속 신생아 발견이 늦어진 경위와 가게 주인의 후회, 경찰의 산모 찾기 호소가 이어져 고1 이상 심경·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Gursewak Singh, the father of the",
+          "note": "주인의 긴 인용이 후회의 심경을 그대로 담아 심경 문항 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Baby_dies_after_being_found_abandoned_behind_shop_in_Gwent%2C_Wales",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.433
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "055b7944-3d46-4df5-9183-f27d6930caaa",
+    "revision": "2026-09-25T06:58:18.651275+00:00",
+    "body_sha256": "c06d58916b1dc9d9c432d0b53e3aa7707618046ac32747b1ece1446c8637c8a4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "템스강에 올라온 병코고래가 다리 밑을 지나 돌아선 경위와 좌초 우려, 수의사 진단이 이어져 쉬운 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The whale is said to be",
+          "note": "건강해 보인다→상처 발견 대비가 짧게 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Whale_spotted_in_river_Thames%2C_Central_London",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.321,
+          "words": 162,
+          "english": 0.37
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "055c2b54-8420-42cd-a7c1-422302904a17",
+    "revision": "2026-09-25T08:30:44.834741+00:00",
+    "body_sha256": "954955593d68a45b0fa867709760072263ffebf5712604ab1736a4452f541060",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "포드 대통령의 닉슨 사면에 반대해 한 달 만에 사임한 대변인의 사임 이유와 서한 인용이 이어져 주장·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He resigned from his position over",
+          "note": "「양심상 옹호할 수 없다」 논지가 서한 인용으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_United_States_press_secretary_Jerald_terHorst_dies_at_age_87",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.031,
+          "words": 159,
+          "english": 0.388
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "055f4d77-c49d-478e-8ee6-e5cce9414dc5",
+    "revision": "2026-09-25T08:26:11.743123+00:00",
+    "body_sha256": "15545de3cca4fe17320b5ecd0b2e7e9c79b787b133129e7ca69627e97032a969",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "나일강 두 여객선 충돌 뒤 실종 보고가 있었지만 전원 확인돼 수색을 끝낸 경위가 짧게 이어져 내용 일치 칸 하나가 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Local officials said that they found",
+          "note": "「실종 보고→전원 확인」 반전이 짧게 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rescuers_in_Egypt_end_search_for_victims_of_ferry_crash",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.455,
+          "words": 110,
+          "english": 0.376
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "05617883-a2cb-4cdc-a08d-e5805f6830c1",
+    "revision": "2026-09-25T07:07:03.519711+00:00",
+    "body_sha256": "8278f1ee8945c899ea87f9b192025575a29c99043da7ece78f67f775fa979b60",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "도브 광고가 모델 사진 보정 과정을 보여 주며 왜곡된 미의 기준을 비판하는 내용과 서구의 이상화 이미지 탈피 흐름이 이어져 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This continuing promotion, launched in 2004,",
+          "note": "광고 장면 순서 문단과 사회 흐름 문단이 각각 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dove's_Real_Beauty_looks_at_photoshoot_techniques_in_commercial",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "056e10e1-cd10-4dfe-b70a-afefd5a4863b",
+    "revision": "2026-09-25T08:03:33.16532+00:00",
+    "body_sha256": "afaeae1a8ee48554ac74cbd511291457774c4ab016072e15e24db9dff801da9e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "통증을 극대화하는 비살상 무기 연구와 원리(전자기 펄스), 통증 연구자들의 윤리적 비판이 맞서 주장·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"I am deeply concerned about the",
+          "note": "「통증 완화 연구가 통증 극대화에 쓰인다」 역설이 첫 문단에 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.567Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_military_developing_non-lethal_pain_weapon",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.404
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "056ebb5f-2353-499f-a572-cc487f38efa4",
+    "revision": "2026-09-25T07:32:08.828868+00:00",
+    "body_sha256": "a8e5b82a07c8c6cc9b0331900270060765f13b3b9942b028d5ed659a70d6f0af",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "아라비아반도 공룡 발자국 발견과 두 발 보행 자취·무리 이동 흔적, 발견 경위가 이어져 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The study noted that \"west of",
+          "note": "무리 이동 흔적 문단이 떼어지고 tridactyl 을 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dinosaur_tracks_found_in_Arabian_Peninsula",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.818,
+          "words": 176,
+          "english": 0.401
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "05709bdb-677c-454c-a2e7-1506681a6e3b",
+    "revision": "2026-09-25T08:14:23.620861+00:00",
+    "body_sha256": "0a449f44308625e95c327de6d05c81c3835c85987249ca5e73bc63c550cb97a3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "핀란드 아동 음란물 차단 목록이 무관한 사이트까지 막아 검열 논란이 된 경위와 당국·비판 측 논거가 맞서 고2 이상 주장·요지·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The general opinion after analysis by",
+          "note": "차단 목록 검증 문단이 근거로 서지만 소재 때문에 고2 이상만 단다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Demonstrations_planned_to_protest_internet_censorship_in_Finland",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.385
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "05710cfa-3b15-4a0f-b2be-6458742680c5",
+    "revision": "2026-09-25T08:09:32.545316+00:00",
+    "body_sha256": "1ae0ec9820f33532f14814e3b9620a84035a2661f246901129eeba847dbd65ee",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "존베넷 램지 살해 자백과 알리바이 반론, 성폭행 혐의 기소 예정이 이어져 내용 일치 칸이 되지만 아동 대상 범죄라 성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Despite the confession, ABC News is",
+          "note": "자백과 알리바이 대비 문단은 서지만 소재상 교재 가공 폭이 좁다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_confesses_to_1996_murder_of_JonBenet_Ramsey",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.415
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "057a44c9-2d4b-4576-851a-b4699231d361",
+    "revision": "2026-09-25T06:58:57.558493+00:00",
+    "body_sha256": "7a50e3fc6d8174b0207d5269a19fbe57c48dabd2d167a2f5dd0ed6c9bcac7330",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "온난 전선 앞 짙은 안개로 가시거리가 줄어 출근길 주의가 권고된 57어 기사로 원인·결과·조치가 이어져 짧은 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A dense fog has enveloped the",
+          "note": "안개→가시거리→주의 권고 인과가 네 문장에 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thick_fog_blankets_Houston_area",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.78,
+          "words": 59,
+          "english": 0.386
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "057a634e-5aa2-46bb-a7af-d50e190439d5",
+    "revision": "2026-09-25T07:34:16.405738+00:00",
+    "body_sha256": "0100f801ca532ceeb946fa26ed39ef27f60356edbf1a17e3a4784f2b5ceb7b79",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "travel",
+        "why": "보잉 747을 공항 입구 호스텔로 개조하는 계획과 인터뷰 문답(아이디어의 계기·프랜차이즈 구상)이 이어져 내용 일치 칸과 구어 문답 재료가 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "However, his intention is not to",
+          "note": "「비행기가 아닌 숙소」 반전 문단이 앞 문맥 없이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oscar_Di%C3%B6s_tells_Wikinews_about_his_hostel_within_a_Boeing_747",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.423
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "057ca7e1-0e16-47e4-b188-8a00e4739f29",
+    "revision": "2026-09-25T08:30:40.724586+00:00",
+    "body_sha256": "02fb363f123768f53f1caaa3a5285a71cfa93450795bb7157939ce0fdaa4b04c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "열차에 치인 남성 사망과 건널목 사고설 부인·수사 착수가 이어진 짧은 기사로 고1 이상 내용 일치 칸 하나가 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The death is not being treated",
+          "note": "경찰 발표 인용이 앞 부인과 어긋나 보여 가공 때 한쪽을 걷어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_dies_after_being_hit_by_train_in_Moray%2C_Scotland",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.762,
+          "words": 189,
+          "english": 0.439
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-24-561Z",
+    "id": "057cd76e-6947-46ec-b2cb-56efcd5e1ff9",
+    "revision": "2026-09-25T08:09:03.41781+00:00",
+    "body_sha256": "1347fb2f00f434e52e356f0b9b495af9485f0767668b94cfda34805762abad7a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "뉴욕 최고법원이 동성혼 금지를 유지하며 「입법부가 정할 문제」라 한 논거와 소수 의견, 각 주 현황이 이어져 주장·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"We do not predict what people",
+          "note": "판결 인용이 「현 세대가 대표를 통해 결정」 논지를 담아 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:24.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_York's_highest_court_upholds_gay_marriage_ban",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

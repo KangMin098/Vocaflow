@@ -1,0 +1,1487 @@
+[
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "000201be-298a-425d-beef-dc3e33a72078",
+    "revision": "2026-09-13T07:24:58.200225+00:00",
+    "body_sha256": "e22c440f3aeadba748df7191ecb22cb4f6db845effc1dde8b535ec2d33508e23",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 「시간 부족이 가장 큰 장벽 → 15초×3일로 줄인 후속 연구」 단락과 「더 나은 교육이 필요하다」 절이 통념-해법 논지로 서서 주제·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A lack of time was by far",
+          "note": "「rat tickling」 정의 한 문장만 앞에 붙이면 서고, habituation·acclimation 을 getting used to·settling-in 으로 바꾸니 V5 로 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.891Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T11:16:16.342Z",
+      "topicMargin": 10.14
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "009c36c9-dcca-4f18-8673-3857e1ae490f",
+    "revision": "2026-09-13T07:09:39.977755+00:00",
+    "body_sha256": "fdac814e8e98104376eb9dbb6713d74f57bc1544d89399e2821c18cdcf15331d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 일조시간 단락(가축이 밖에 오래 머물러 진드기 접촉이 는다)과 폭풍이 단기 발병을 줄이는 대목이 인과 설명으로 서서 순서·삽입·내용 일치 칸을 채우나 원문 영어가 거칠다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "insert",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The reason for this may be",
+          "note": "베타 계수·GAM 용어를 걷으면 인과 사슬은 서지만 비문이 많아 문장을 다시 써야 했고 어휘만 바꿔서는 밴드가 내려가지 않았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.892Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:00:11.362Z",
+      "topicMargin": 16.75
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "00c4b052-2ad9-4915-82c0-ec702a34037f",
+    "revision": "2026-09-13T07:27:26.66748+00:00",
+    "body_sha256": "76cf14b9c2788e3f0d990d6df29daafd696dfcaa1f2d89e83cee8560734aadfc",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "서론의 「가족 한 사람의 변화가 다른 구성원에게 번진다」 단락과 고찰의 어머니·아버지 차이 설명(치료 참여 정도)이 논지로 서서 주제·요지·빈칸·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Environmental experiences can modify an individual",
+          "note": "인용 번호만 걷으면 앞 문맥 없이 서고, reciprocal·heritability 를 two-way·inherited 로 바꾸니 V5 로 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.893Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T11:28:16.352Z",
+      "topicMargin": 16.11
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "00f35b02-99b7-4449-a297-b8c83e9e8590",
+    "revision": "2026-09-13T06:24:33.750202+00:00",
+    "body_sha256": "3e5a070722d03b8249ccf72835c890f467f2d36d0e60239d6f47f43b9b2006a4",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "고찰의 「신문은 오래 가는 자원봉사자를, SNS 는 넓은 층을 모았다」 단락과 「도시가 아니라 숲 목격이 늘었다」는 선행 결과 반박 대목이 주장-근거 구조로 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Obtaining coverage in newspaper articles facilitated",
+          "note": "프로젝트 이름(MassBears)만 「our project」로 바꾸면 서고, credibility·retention 은 문맥으로 뜻이 잡혀 그대로 V5 에 실린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.893Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:39:05.027Z",
+      "topicMargin": 1.5899999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "0186d1f3-81d4-406b-bbc2-94fde5c8f9df",
+    "revision": "2026-09-13T07:15:10.910549+00:00",
+    "body_sha256": "07f991487dac8c32f79493d2a194ee207d71db432a7060af5faedf3b68c5cfac",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "health",
+        "why": "대부분이 비율·오즈비 나열이고 논지는 고찰의 「지식(89.8%)보다 실천(79.5%)이 낮다 — SNS 정보의 신뢰성 문제」 한 단락뿐인데 그마저 비문이 많아 수치 나열 최소선과 경계에 있다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "In this study, the results for",
+          "note": "수치를 걷으면 「알아도 다 실천하지는 않는다」는 한 줄만 남아 한 편으로 서기 어렵고, 문장을 거의 새로 써야 했다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 11,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "심리·인지",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:08:03.849Z",
+      "topicMargin": 3.75
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "01890155-fe9b-41dc-af60-bbb829df60e5",
+    "revision": "2026-09-13T07:26:57.274553+00:00",
+    "body_sha256": "ca1fa463a1ec037773676a4d72da76930e21856c21f2e91889b879a3b7099cc1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "Annie·Lucas 사례 상자가 인물의 결정·후회·가족 갈등을 시간순으로 그려 심경·장문·순서 칸을, 고찰의 직관(context)과 숙고(calculation) 대비가 주제·빈칸 칸을 함께 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "mood",
+            "long_reference",
+            "order",
+            "insert",
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Annie, an 83-year-old woman who initially",
+          "note": "병명(OSAS)을 「a breathing machine at night」로 바꾸니 앞 문맥 없이 이야기로 서고 V4 까지 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 18,
+      "type": "R-BLANK",
+      "shape": 21,
+      "topic": "철학·윤리",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T11:21:53.060Z",
+      "topicMargin": 0.41999999999999993
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "01e067c6-d550-4cde-9441-6f06e744ca99",
+    "revision": "2026-09-13T07:42:44.77512+00:00",
+    "body_sha256": "b6396a503d0569af9975f387d8caf40ce68ee62fad7e2539ac203ee663370cdb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "고찰의 「앞줄에 앉혀도 칠판까지 2.76m, 글씨는 1cm — 글씨를 키우거나 거리를 줄여야」 단락이 측정값과 권고 기준 대비로 서서 요지·내용 일치 칸과 수치 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "purpose",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Children with any type of sensory",
+          "note": "logMAR 수치를 「smaller letters than recommended」로 풀면 학생 독자에게 바로 서고, acuity 를 eyesight 로 바꾸니 V5 가 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 12,
+      "topic": "교육·언어",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:16:15.426Z",
+      "topicMargin": 21.13
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "01eefb06-2d58-445b-b880-d093fc4ab349",
+    "revision": "2026-09-13T06:32:38.055042+00:00",
+    "body_sha256": "acc5aafd47545cd33750e1f0726aac172901c344231822d27b19e241b06c55fa",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "고찰의 「현장 교육은 1인당 8~78달러, 유튜브 광고는 1~4달러」 비교 단락과 「바이럴·포화」 설명이 주장-근거로 서서 요지·빈칸·내용 일치 칸과 수치 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Online agricultural education using YouTube ads",
+          "note": "베타 계수 단락은 버리고 비용 비교 단락만 떼면 서며, dissemination 을 spreading 으로 바꾸니 V5 가 된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "교육·언어",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:50:32.408Z",
+      "topicMargin": 5.41
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "02a023fa-c792-4f09-8a9b-648ea5b4009e",
+    "revision": "2026-09-13T07:16:33.55442+00:00",
+    "body_sha256": "995c7d043b04e2b0f590d9e8a8faa7b79730aa9d05f10cb24b987a56d99d171b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "결과의 「팬데믹이 정당 간 격차를 만든 것이 아니라 이미 있던 격차 위에 모두의 불안이 올라갔다」 반전과 흑인·백인 민주당원 대비 단락이 예상-반증 구조로 주제·요약·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "These over-time results indicate a stable",
+          "note": "정당 이름은 그대로 두어도 논지가 서고, attenuated·exacerbated 를 weakened·worsened 로 바꾸니 V6 까지 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:05:20.960Z",
+      "topicMargin": 1.1000000000000014
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "035d4752-037b-4f52-8566-f2fb0d0dc869",
+    "revision": "2026-09-15T12:51:39.629791+00:00",
+    "body_sha256": "bd2c0ec846607a62ad88da818a4760f4c14b83b0d954cc31b7cee7e3e5282865",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "psychology",
+        "why": "본문이 가설(3절)에서 곧장 4.2 측정·4.4 매개효과로 건너뛰어 서론이 예고한 표본·결과 절(4.1·4.3)이 통째로 없고, 결론도 「unsafe behavior」로 앞 논지와 어긋난다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Heinrich’s causal chain theory elucidates the",
+          "note": "도미노 이론 단락은 떼면 서지만 결과 절이 없어 원천 전체 논지를 확인할 수 없었다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:37.864Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "035f9c10-1f7e-4445-a4fe-d769613a2932",
+    "revision": "2026-09-13T06:34:31.125186+00:00",
+    "body_sha256": "3252d7a7eac18df70aae5274d7bd131216a49a91066e0dc52ecbb96cc43cb3ff",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 「근무시간 제한이 교육을 해친다는 우려 ↔ 실제로 차이 없었다」 대비와 결과의 레지던트·교수 인용이 통념-반증과 목소리 자료로 주제·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Although the DHRs were proposed to",
+          "note": "DHRs 를 「limits on doctors’ working hours」로 풀어 쓰니 앞 문맥 없이 서고 V5 로 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:53:20.956Z",
+      "topicMargin": 6.08
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "03b5cefa-c8d5-463a-93da-b03edcecb40c",
+    "revision": "2026-09-13T07:09:04.230723+00:00",
+    "body_sha256": "42aeba0e91c7ba0102ae349a33d54ba2af02037340ab69f0de9df23d61382737",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「집에서 돌보는 가족이 가장 힘들고 요양 병동은 가족의 짐을 덜어 준다」 설명 단락이 원인-결과로 서서 요지·빈칸 칸을 채우나 나머지는 표와 오즈비 나열이다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since the main caregivers of home-based",
+          "note": "PMV·RCW 를 「patients on breathing machines」·「care wards」로 바꾸면 서고 V6 에 실린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T07:55:26.860Z",
+      "topicMargin": 6.119999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "04070d24-34d6-42f0-b15e-1801654f85e1",
+    "revision": "2026-09-13T07:19:02.290056+00:00",
+    "body_sha256": "55e161291322e287401bd728626df6e461d1befef237c876be4a67d47d14426d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "결과의 「친구를 골라야 하는 괴로움」·「1학년에 멈춰 있는 느낌」 같은 청소년 인용과 「정보는 넘치는데 규칙은 헷갈린다」 단락이 심경·구어·주제 칸을 고르게 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "mood",
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Much of their misery seemed to",
+          "note": "앞 문맥 없이 서며 apathetic·stagnation 두 낱말만 바꾸니 V4 까지 내려갔고 인용은 구어 그대로 쓸 수 있다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 8,
+      "type": "R-BLANK",
+      "shape": 17,
+      "topic": "교육·언어",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:10:34.983Z",
+      "topicMargin": 2
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "0425bec4-9ffb-4b17-8bd5-21a9a74276b5",
+    "revision": "2026-09-13T07:42:08.069568+00:00",
+    "body_sha256": "c2870701efd643dc5a4a74e055353c50b3d5e06180a0a2500378ee55f6c23a2a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「부작용 보도 뒤 덴마크·일본 접종률이 70%에서 27%·1%로 떨어졌다 — 오해는 SNS 로 번진다」 단락이 주장-근거로 서서 요지·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rumours and misconceptions as well as",
+          "note": "증후군 약어(POTS·CRPS)를 「rare side effects」로 묶으면 서고, 나머지 낱말은 V6 에 그대로 실린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 9,
+      "type": "R-BLANK",
+      "shape": 14,
+      "topic": "교육·언어",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:16:03.153Z",
+      "topicMargin": 0.6699999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T00-23-54-889Z",
+    "id": "042ac994-6d5c-4126-a52d-50a6d6bf8aee",
+    "revision": "2026-09-13T06:27:10.028217+00:00",
+    "body_sha256": "095062e7517f5d813b7a3e26eb52d4519a3a22fed87c5bac1f6d2ad19e0e69c3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론의 「생체표지는 모으기 어렵다 → 적은 자료로도 예측할 수 있는가」 물음 단락이 문제-해법 논지로 서서 주제·빈칸·순서 칸을 채우지만 방법 절은 전문 용어가 짙다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Advancements in technology, such as machine",
+          "note": "물음 단락은 떼면 서지만 biomarker·augmentation 을 풀어 쓰면 설명이 길어져 어휘 교체만으로는 V6 아래로 못 내렸다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 3,
+        "by": "chunk-llm",
+        "at": "2026-09-25T00:23:54.898Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "기술·매체",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:42:24.466Z",
+      "topicMargin": 2.870000000000001
+    }
+  }
+]

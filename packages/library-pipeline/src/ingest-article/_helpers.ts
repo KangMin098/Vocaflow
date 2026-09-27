@@ -248,9 +248,45 @@ export function decodeEntities(s: string): string {
   return out
 }
 
+/**
+ * 이름 있는 엔티티 표.
+ *
+ * ── 왜 정규식 하나로 안 훑는가 (실측 2026-09-23) ─────────────────────────────
+ * DB 전수에서 `/&[a-zA-Z][a-zA-Z0-9]*;/` 에 걸린 75종 중 상당수가 **엔티티가 아니었다** —
+ * `&ARM;` `&MS;` `&Japan;` `&Huangjiu;` `&O1;` `&S2;` `&RCG;` 와 한 글자짜리 `&A;`~`&Y;` 는
+ * 본문에 그대로 있어야 할 글자다(깨진 마크업이나 유전자·화합물 이름). 일반 규칙으로 지우면
+ * 조용히 본문을 망가뜨린다. 그래서 **아는 것만** 바꾼다.
+ *
+ * 아래 목록은 저장소 DB 에 실제로 나타난 것에서 뽑았다(제목 2,548편 · 본문 28편, 전부 `plos`).
+ * 새 원천을 붙여 낯선 엔티티가 보이면 여기에 더한다 — 정규식으로 넓히지 않는다.
+ */
+const NAMED_ENTITIES: Record<string, string> = {
+  // 활자 — 제목에 가장 많다(&rsquo; 1,256 · &ndash; 909 · &ldquo; 251 · &rdquo; 248 · &mdash; 140).
+  rsquo: '\u2019', lsquo: '\u2018', rdquo: '\u201D', ldquo: '\u201C',
+  ndash: '\u2013', mdash: '\u2014', hellip: '\u2026', prime: '\u2032', dagger: '\u2020',
+
+  // 라틴 문자 — 사람 이름과 지명이 대부분이라 **뭉개면 안 된다**.
+  aacute: 'á', eacute: 'é', iacute: 'í', oacute: 'ó', uacute: 'ú',
+  egrave: 'è', ocirc: 'ô', atilde: 'ã', ntilde: 'ñ',
+  auml: 'ä', ouml: 'ö', uuml: 'ü', iuml: 'ï', aring: 'å', oslash: 'ø',
+  szlig: 'ß', scaron: '\u0161',
+
+  // 그리스 문자 — 논문 제목의 변수·수용체 이름.
+  alpha: 'α', beta: 'β', gamma: 'γ', delta: 'δ', Delta: 'Δ', epsilon: 'ε',
+  zeta: 'ζ', eta: 'η', kappa: 'κ', lambda: 'λ', sigma: 'σ', tau: 'τ', Phi: 'Φ',
+
+  // 기호.
+  deg: '°', micro: 'µ', plusmn: '±', times: '×', minus: '\u2212', infin: '∞',
+  ge: '≥', rarr: '\u2192', reg: '®', trade: '\u2122', acute: '´',
+  sup1: '¹', sup3: '³',
+}
+
+const NAMED_ENTITY_RE = new RegExp(`&(${Object.keys(NAMED_ENTITIES).join('|')});`, 'g')
+
 function decodeOnce(s: string): string {
   return s
     .replace(/&nbsp;/g, ' ')
+    .replace(NAMED_ENTITY_RE, (whole: string, name: string) => NAMED_ENTITIES[name] ?? whole)
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')

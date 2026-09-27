@@ -59,7 +59,7 @@ export function CollectButton({ rpc, label, loadingLabel, hint, variant }: Props
     'inline-flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2 font-display text-[12px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50'
   const skin =
     variant === 'primary'
-      ? 'border border-[var(--p)]/40 bg-[var(--p)]/8 text-[var(--p-hover)] hover:bg-[var(--p)]/15'
+      ? 'border border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p)_8%,transparent)] text-[var(--p-hover)] hover:bg-[color-mix(in_srgb,var(--p)_15%,transparent)]'
       : 'border border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
 
   return (

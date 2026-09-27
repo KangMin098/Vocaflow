@@ -20,13 +20,16 @@ import {
   buildEpmcListUrl,
   buildEpmcQuery,
   epmcArticleUrl,
+  epmcBodyParagraphs,
   epmcIntroSection,
   epmcLicenseAllowed,
   epmcLicenseCode,
   epmcParagraphs,
+  epmcResolveLicense,
   epmcTopLevelSections,
   epmcWordCount,
 } from './europe-pmc'
+import { rightsClassOf } from './rights-tag'
 
 describe('라이선스 관문 — ND·NC 는 절대 통과하지 않는다', () => {
   it('CC BY · CC BY-SA · CC0 만 통과한다', () => {
@@ -52,6 +55,21 @@ describe('라이선스 관문 — ND·NC 는 절대 통과하지 않는다', () 
     expect(epmcLicenseCode('cc0')).toBe('CC0-1.0')
     expect(epmcLicenseCode('cc by-nc')).toBeNull()
     expect(epmcLicenseCode('무엇인지 모를 값')).toBeNull()
+  })
+})
+
+describe('적재할 license — 버리지 않고 더 제한적인 표기를 남긴다(DD-75)', () => {
+  it('둘 다 통과면 DB 코드로 옮긴다', () => {
+    expect(epmcResolveLicense('cc by', 'cc by')).toBe('CC-BY-4.0')
+    expect(epmcResolveLicense(null, 'cc0')).toBe('CC0-1.0')
+  })
+  it('하나라도 통과 목록 밖이면 그 값을 찾은 그대로 — 트리거가 restricted 로 막는다', () => {
+    expect(epmcResolveLicense('cc by', 'cc by-nc')).toBe('cc by-nc')
+    expect(rightsClassOf(epmcResolveLicense('cc by-nd', 'cc by'))).toBe('BY-ND')
+  })
+  it('표기가 없으면 unknown', () => {
+    expect(epmcResolveLicense(null, null)).toBe('unknown')
+    expect(rightsClassOf(epmcResolveLicense(null, ' '))).toBe('unknown')
   })
 })
 
@@ -184,5 +202,19 @@ describe('열쇠와 주소', () => {
   it('표시 주소가 PMCID 로 만들어진다', () => {
     expect(epmcArticleUrl('PMC13539362')).toBe('https://europepmc.org/article/PMC/13539362')
     expect(epmcArticleUrl('13539362')).toBe('https://europepmc.org/article/PMC/13539362')
+  })
+})
+
+describe('원천 전문 — 서론 발췌는 원천이 아니다(criteria.md §1)', () => {
+  it('본문 전체의 문단을 절을 가로질러 모은다 · 표·그림·인용 번호는 걷는다', () => {
+    const xml =
+      '<article><body><sec><title>Introduction</title><p>Intro one <xref>[1]</xref>.</p></sec>' +
+      '<sec><title>Methods</title><p>Method two.</p><fig><p>caption</p></fig></sec>' +
+      '<sec><title>Discussion</title><sec><title>Sub</title><p>Nested three.</p></sec></sec></body></article>'
+    expect(epmcBodyParagraphs(xml)).toEqual(['Intro one .', 'Method two.', 'Nested three.'])
+  })
+
+  it('본문이 없으면 빈 배열 — 발췌로 물러서지 않는다', () => {
+    expect(epmcBodyParagraphs('<article><front/></article>')).toEqual([])
   })
 })

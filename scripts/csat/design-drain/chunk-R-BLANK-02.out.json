@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2309#33",
+      "roles": ["background", "turn", "support", "turn", "support", "topic"],
+      "alternatives": [{ "index": 1, "role": "background" }, { "index": 5, "role": "conclusion" }],
+      "pattern": "contrast",
+      "selection": "옛 재단사(무명 장인)와 19세기 말 이후 예술가 디자이너를 시간축으로 대비한 글이라, 빈칸이 두 시기의 차이를 한 명사구로 봉하는 판단을 요구한다.",
+      "transform": "abstraction",
+      "transform_note": "옷 짓는 이가 남성 예술가와 같은 창작자로 번성했다는 구체 서술이 선지에서 옷 디자인과 예술의 새로운 연결이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#31",
+      "roles": ["topic", "example", "example", "turn", "support", "conclusion"],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "30년 전 비평가가 붙이던 호칭과 지금 작가들이 컴퓨터를 언급하지 않는 현실을 대비하는 글이라, 빈칸에서 그 호칭의 운명을 한 낱말로 추론하게 된다.",
+      "transform": "inference",
+      "transform_note": "작가들이 더는 컴퓨터를 언급하지 않고 기기도 달라졌다는 서술을 근거로 그 호칭이 사라졌다는 결론을 논리로 채워야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#31",
+      "roles": ["topic", "support", "support", "support", "example", "example", "support"],
+      "alternatives": [{ "index": 5, "role": "support" }, { "index": 6, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장의 빈칸 주장을 나머지 문장이 유형·무형 문화의 식별 난도로 거듭 뒷받침하는 일반-구체 구조라, 뒤의 설명을 모아 첫 형용사를 복원하게 된다.",
+      "transform": "abstraction",
+      "transform_note": "많은 문화 측면이 고고학적으로 잘 드러나지 않는다는 서술이 선지에서 기록이 불완전하다는 한 낱말로 요약됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2206#32",
+      "roles": ["topic", "support", "example", "example", "support", "example"],
+      "alternatives": [{ "index": 5, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장의 인용 정의(전략적 자기무지)를 둘째 문장이 풀어 쓰고 뒤에 인용 예시가 붙는 구조라, 빈칸이 정의를 다른 말로 재진술하는 능력을 잰다.",
+      "transform": "paraphrase",
+      "transform_note": "그런 활동을 하지 말라고 권하는 정보라는 빈칸 뒤 이유절이 선지에서 현재 활동의 매력을 떨어뜨린다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": "⑤ 선지 끝에 깨진 글자 '8' 이 붙어 있다."
+    },
+    {
+      "id": "M2206#31",
+      "roles": ["background", "topic", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "수집이 학문적 지위를 잃어 간 원인과 과정을 서술한 뒤 마지막 문장에서 그 결과를 한 형용사로 접는 인과 구조라 빈칸 판단에 맞다.",
+      "transform": "paraphrase",
+      "transform_note": "수집이 가치 있는 지적 추구로서의 지위를 잃었다는 진술이 선지에서 부차적 지위라는 한 낱말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#34",
+      "roles": ["topic", "example", "example", "support", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "example" }, { "index": 4, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장의 명제(보는 것은 기대하는 것)를 모닥불·벽의 사례로 풀고 마지막 빈칸에서 다시 일반화하는 구조라, 사례에서 원리로 되돌아가는 판단을 요구한다.",
+      "transform": "abstraction",
+      "transform_note": "우리가 기대하는 것을 본다는 첫 명제와 벽의 금에서 얼굴이 나타나는 사례가 선지에서 마음속 이미지를 세계에 투사한다는 원리로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#31",
+      "roles": ["topic", "support", "support", "support", "conclusion"],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "딱딱한 바닥일수록 충격이 크다는 통념을 연구로 반박하는 글이고 빈칸이 첫 문장의 연구 결과 자리라, 뒤의 결론을 끌어와 복원해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "다양한 바닥에서 다리에 전해지는 충격이 놀랍도록 비슷하다는 진술이 선지에서 거의 변하지 않았다는 표현으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#34",
+      "roles": ["topic", "support", "turn", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "other",
+      "selection": "칸트의 법치관을 인간 본성관과 이상적 법 개념으로 풀어 가는 해설형 글로, 마지막 부정문 빈칸에서 이상적 법이 자유를 제약하지 않는다는 논리를 완성하게 한다.",
+      "transform": "inference",
+      "transform_note": "법이 합리적 존재가 스스로 택할 원칙의 구현이라는 진술에서 그 금지는 자유의 제약이 아니라는 결론을 논리로 복원해야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#32",
+      "roles": ["topic", "support", "support", "support", "concession", "support", "support", "support", "example"],
+      "alternatives": [{ "index": 3, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "비판적 사고를 통제가 아닌 정신적 해방으로 규정한 뒤 자극에 끌려다니는 삶의 해로움을 대비하는 글이라, 빈칸이 그 해방의 방향과 형태를 동시에 요구한다.",
+      "transform": "paraphrase",
+      "transform_note": "정신적 해방이라는 앞선 규정이 선지에서 사람을 짐에서 벗어나게 한다는 동사구로 바뀌었다.",
+      "cues": [],
+      "data_defect": "5번 문장에 정답 자리(동사구)가 빠진 채 이어지고 빈칸 표시가 엉뚱하게 뒤쪽 형용사 자리에 붙어 있다 · ⑤ 선지 끝에 깨진 글자 '8'."
+    },
+    {
+      "id": "2025#31",
+      "roles": ["topic", "background", "background", "support", "support", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "support" }, { "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장 빈칸의 주장을 기계적 언어 학습과 몰입적 문학 읽기의 대비로 끝까지 뒷받침하는 구조라, 문단 끝의 서술을 모아 빈칸 명사구를 골라야 한다.",
+      "transform": "abstraction",
+      "transform_note": "독자가 책에 끌려 들어가 인물과 감정을 나누고 사람 전체가 허구 세계에 빠진다는 서술이 선지에서 개인적 관여로 요약됐다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

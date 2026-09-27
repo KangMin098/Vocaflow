@@ -1,0 +1,1012 @@
+[
+  {
+    "id": "f461548c-527b-467d-a70b-05b5e50cd692",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6fe671d038c424aea52c022606d0c97bdbf7c261511a0a506d6fd469715f0933",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "민감·반응적 양육과 안정 애착, 대처 기술 기르기를 전문가 인용으로 펼친 장문이라 주제·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "“As parents, we try really hard",
+      "note": "과보호하면 대처 기술이 안 자란다는 인용 문단은 역설 논지가 선명해 빈칸 문항으로 바로 섰다."
+    }
+  },
+  {
+    "id": "f4799013-9665-48a0-9252-8867002d6cec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "99b3e27118bf0fbad4f0ae0e17bb790d3ad9f4a8e36af56655a5ea6946cca6fc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "위마비의 진단 배제 과정·원인·연구 컨소시엄을 설명해 주제·내용일치·순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Uncontrolled diabetes is the most common",
+      "note": "당뇨-미주신경 문단은 인과 세 단계가 한 문단에 있어 순서 배열로 쉽게 잘렸고 motility 만 바꿨다."
+    }
+  },
+  {
+    "id": "f4acf03d-39e9-4a47-b4e5-3f41053fc7e6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "15f0ddedbf93d4fe7f2d7a2b9e34098fc727f37261ac5b3b05b0a687159c4d72",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH 가 독자에게 무료 건강 뉴스레터 구독을 권하는 공지로 까닭(정보 과잉)과 행동(구독)이 서 목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "With so much new health and",
+      "note": "뉴스레터 소개 문단은 그 자체로 권유가 서지만 파란 버튼 클릭 안내 문단은 화면 조작이라 걷는다."
+    }
+  },
+  {
+    "id": "f4e18e3c-928f-4894-97c7-3d730912f79e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eefa0235756ec2a6919f2d48d6a8ed147a97bd28d7421a6ed6e818c27723e3b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH 가 CLL/SLL 환자에게 3제 병용 연구 참여를 권하는 모집 공지로 대상·절차·혜택이 서 목적·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "CLL/SLL is a type of blood",
+      "note": "질병 설명 문단은 lymphocytes·bone marrow 를 바꿔도 약물명이 남아 V5 아래로는 안 내려갔다."
+    }
+  },
+  {
+    "id": "f4ee47be-0369-4937-a44a-177e553e5e10",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e9556b7218cfcf47783a6cf112b2ace6b5682191595b37b9e23191bc5438e38f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "폐암 진단 전 금연 시기와 생존율 관계를 대규모 연구로 제시해 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But the researchers also found that",
+      "note": "금연 기간이 길수록 생존이 낫다는 문단은 수치 없이도 서서 요지 문항으로 바로 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "f509ee63-d1ef-4292-b46e-2bd2ec6f6271",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c5b3b561cff84cac34ee4724e6139174890bd10dd184d64771bb20e986a2a83f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "심근염의 정의·원인·치료를 짧게 설명하는 글로 원인 문단들이 경계가 뚜렷해 내용일치·무관한 문장 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Myocarditis may also be a part",
+      "note": "자가면역 문단은 This happens when 연결로 두 문장이 이어져 쉽게 떼어졌다."
+    }
+  },
+  {
+    "id": "f53afeec-d57c-46ce-ac3f-2d429c1dc398",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1d632ba3125d1b1a35f74f03d6a50bc11f44fd48f9a0fce5794e47d7faec287f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소아암 치료가 표적약·CAR T·치료량 조절로 개인화되는 흐름을 설명해 주제·순서·삽입 칸을 채운다; 풀이 삽입구가 여럿 끼어 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A new type of treatment called",
+      "note": "표적약 문단은 앞 문단 없이도 기전과 장점이 서지만 CAR T 문단의 immune system 앞 풀이 삽입구는 걷어야 한다."
+    }
+  },
+  {
+    "id": "f5c76beb-6575-4991-8445-1fa7c46d469b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea43f43a49f14046381d40e4aecb74b262669b27b73d9a06c3e282224ac35561",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "불임의 남녀 원인·고령 출산·치료법을 전문가 인용으로 풀어 주제·내용일치·순서 칸을 채운다; 생식 소재라 고2 이상 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fertility troubles can arise in any",
+      "note": "임신 단계 문단은 배란→수정→착상 순서가 뚜렷해 순서 문항으로 곧장 가공됐다."
+    }
+  },
+  {
+    "id": "f6d13a5d-2f1b-42b5-b5d8-086bbf5f435f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e3e2d418fcf0bc918baccf5dc327321737a96cff8b19c60c52e6056f8cd86d44",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "잇몸병의 원인·진행·증상·치료를 순서대로 풀어 순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If not treated, gum disease can",
+      "note": "방치 시 진행 문단은 세 문장 인과가 짧아 중등 순서 문항 재료로 좋았다."
+    }
+  },
+  {
+    "id": "f70c5db1-fc9c-43dc-ad20-4b9335bb46d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6ec61ed04b74c2ab14eb8e64dbad8e68893fd41e0ff64c336d40ab0bcb5c4d89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고체온증의 원리와 열 관련 질환 단계, 예방을 설명해 순서·내용일치·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heat exhaustion is a warning that",
+      "note": "열탈진 문단은 증상→조치→악화 경고 순이 뚜렷해 문장 삽입 문항으로 쉽게 잘렸다."
+    }
+  },
+  {
+    "id": "f77455ee-793a-42fc-994d-78a4c0c71032",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "307943c1d6200ff3fd1ea18f8eede36eabce09213308613c669c2a82fb3f2da3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "영양소 3대 구성과 탄수화물·지방·단백질의 역할, 정밀 영양 연구를 설명해 주제·내용일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "vocab_choice",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Simple carbs are made of one",
+      "note": "단순·복합 탄수화물 문단은 대조가 뚜렷해 어휘 선택 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "f7c0fc31-0f05-4ed8-b392-b0880ce5e4ad",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bc301f6cc979b88ab6ffe893ffd686b4392b9a30cd8107a30ca44335c4a449df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "여드름의 원인·종류·오해(음식·먼지)와 관리를 짧게 풀어 내용일치 칸과 중등 읽기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There are different types of acne,",
+      "note": "블랙헤드 색이 먼지 때문이 아니라는 문단은 통념 교정이 한 문단에 서서 내용일치에 좋았다."
+    }
+  },
+  {
+    "id": "f7f84209-6f9b-49c4-b120-8223d70f8352",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95b40a202727ea1d2a018bda182e480d7111fec2818c9629b8633d201245e355",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저용량 아스피린의 득실과 체중에 따른 효과 차이, 전문가 예상이 뒤집힌 연구를 담아 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heffron’s team has been trying to",
+      "note": "Heffron 팀 문단은 예상(더 많은 용량)과 반증이 한 문단에 있어 빈칸 핵심 문장으로 쓰였다."
+    }
+  },
+  {
+    "id": "f839628a-be9e-443e-ad04-f2c2124b4818",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19a13d160ecd8e22ca92ca805c7a1060b321d4af5c1dcb5d15198a7220110693",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "원거리 돌봄자에게 NIA 소책자를 권하는 안내로 까닭(돌봄 부담)과 무엇을(소책자 활용)이 서 목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Long-distance caregiving can mean many things.",
+      "note": "원거리 돌봄 예시 문단은 앞 문맥 없이 서지만 끝의 URL·전화번호 문단은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "f8a1bb02-af63-4883-9e7c-2359826c0e63",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "516285bbdd632c2515a5c54887e8c738d80af8856dc5dc2710f1d00fcb6831a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "개인 맞춤 mRNA 췌장암 백신 소규모 시험을 방법·결과·과제 순으로 전해 요약·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One and a half years after",
+      "note": "결과 문단은 강한 면역반응과 생존의 연결이 한 문단에 서서 요약문 빈칸에 맞았다."
+    }
+  },
+  {
+    "id": "f8cdb8d9-eef3-45f0-a6e9-d7c12db9b24b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6abb230cbd2150c24a0d2a2f55d700a9d1651c9c2fedae2fb2f16e361a9e7c20",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "HIV 단일클론항체 첫 인체시험을 배경·방법·결과로 전해 요약·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A research team led by long-time",
+      "note": "연구팀 접근 문단은 monoclonal antibodies 같은 핵심어를 못 바꿔 V6 에 머문다."
+    }
+  },
+  {
+    "id": "f99f398a-85df-4d2a-af2c-aabe61493b9a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6a7f5d832a4c47f54918fbe7193d33e4788c7bc74f1a0f9d97a6c9f8514225f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIAAA 가 음주 문제 가족·본인에게 치료 탐색기 사용을 권하는 안내로 까닭과 행동이 서 목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Alcohol use disorder is a health",
+      "note": "치료 경로가 사람마다 다르다는 문단은 권유의 까닭을 홀로 세워 목적 문항 근거로 쓰였다."
+    }
+  },
+  {
+    "id": "f9b1d60c-c2fe-481e-a82a-a19f1c9e6d00",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2494425ee4a8785762b5cccaff697ea25ba21829ff1700122e19497bce8c3856",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "알레르기의 원리·원인 찾기·회피·치료를 차례로 풀어 순서·내용일치 칸을 채운다; 풀이 삽입구가 두 곳 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If your symptoms become persistent and",
+      "note": "검사 문단은 증상→방문→검사 순이라 순서 문항으로 잘렸고 allergist 만 쉬운 말로 풀었다."
+    }
+  },
+  {
+    "id": "fa43abd3-02e4-4a8d-8820-37b1ce85fb2f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b7b934fbfc25ff2c1f625d3a3d6ccad582306933a76b80a3aa3550d943fdebbe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "science",
+    "why": "유치 층위로 영아기 금속 노출 시기를 잰 연구로 방법의 비유(나이테)와 결정적 시기 결론이 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An NIH-funded research team measured the",
+      "note": "나이테처럼 층층이 자라는 유치 문단은 비유가 선명해 빈칸 문항으로 가장 쉬웠다."
+    }
+  },
+  {
+    "id": "fa4770b7-6112-4f26-8015-917bfa327526",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "250976ae477daa91caea147933a23fe8890a3666c6eb2ecaff967d48b5353ea7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "social",
+    "why": "체로키 지역 청소년 음주 예방 두 전략을 지역 단위로 비교한 연구로 설계·결과가 서 요약·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The other prevention strategy was aimed",
+      "note": "학교 사회복지사 전략 문단은 대상·방법·후속 조치가 한 문단에 모여 쉽게 떼어졌다."
+    }
+  },
+  {
+    "id": "fa62e6a4-a740-4645-877c-d020efbf1c5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "652d8718eedc8163a23b17a7a3547a05a4e2c9c68381d46213756534e8eb956b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "텃밭 가꾸기의 신체·정신 건강 효과와 약물 상호작용 주의를 풀어 주제·요지·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Children can also benefit from growing",
+      "note": "아이들 텃밭 문단은 효과 세 가지가 한 문장에 모여 중등 요지 문항으로 좋았다."
+    }
+  },
+  {
+    "id": "fa763316-3008-440c-8988-3d0a5a5b4811",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ead64884314f56050ce1986f1b70a8f0720b90e39c3b7efd8a124126a960f8d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "낭포성 섬유증의 유전 원리와 치료 발전, 쌍둥이 연구를 설명해 주제·내용일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A daily routine of good self-care",
+      "note": "흉부 물리치료 문단은 자세→두드리기→기침 순 절차가 뚜렷해 순서 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "faabbed6-2c28-4612-9302-8f9ecbbe760f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a8fd5f3d1e48790ccd730a4a54af639a5dd2ec25f12d0b9066f2c0aa109f86cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "깨어 쉬는 동안에도 기억이 재생·공고화된다는 fMRI 연구로 가설·실험·결과·함의가 서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "These results suggest that these brain",
+      "note": "결론 문단은 coffee break 인용 덕에 학생 독자에게 요지가 바로 서고 consolidate 만 풀었다."
+    }
+  },
+  {
+    "id": "faef4086-55ca-421b-8b82-8b1ff1ad7c27",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f531f67f943a8f3b3516b6d029c37cfa8171c559766870a3befe503954f98d10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소규모 연구의 비타민 C·E 효과 기대를 1만 명 연구가 뒤집은 글이라 통념-반증 구조로 요지·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some small studies had suggested that",
+      "note": "대규모 연구 문단은 기대→검증 설계가 한 문단에 모여 요약문 빈칸으로 가공됐다."
+    }
+  },
+  {
+    "id": "fbcc61ec-8879-47d8-93d1-be34ad0079e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "77b7772b117f1b1dc4241a40481197e7c6b33500ad642bc7313b73643246d602",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "녹내장의 원인·무증상·위험군·정기검진 권고를 짧게 풀어 내용일치·목적 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Glaucoma may not cause any early",
+      "note": "무증상이라 검진이 필요하다는 문단은 That’s why 인과가 분명해 떼기 쉬웠다."
+    }
+  }
+]

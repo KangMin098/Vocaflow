@@ -1,0 +1,1011 @@
+[
+ {
+  "id": "a6a2d9ac-44fe-453f-8d5b-77524cfa9478",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "da02e23ab4c87d0ed43b7856886a21022b7ae8009ba8d0f360f7c2668cbd5c4a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "노인 25만 명의 일곱 가지 여가 운동과 12년 사망 위험을 비교해 어떤 운동이든 이롭다는 결과와 즐길 운동을 찾으라는 권고가 서서 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Older adults who got the recommended",
+   "note": "권장량을 채운 노인의 사망 위험 13% 감소와 라켓 운동·달리기 문단이 수치 결과로 단독으로 섰다."
+  }
+ },
+ {
+  "id": "a7cd9afe-a09f-47de-97c0-79a6718d8e67",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7c121336b021519eab39dd641666857fac5abb1ba4abc4b631f6f8eb77165e9b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "오염된 물놀이 물의 원인을 빗물 유출 경로로 설명하고 배수관 근처·비 온 뒤 수영을 피하라는 권고로 이어져 주제·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Natural water sources, including lakes, rivers",
+   "note": "빗물이 공원·농장을 거쳐 해변으로 흘러가는 경로 문단이 순서로 이어져 배열 문항 조각이 되었다."
+  }
+ },
+ {
+  "id": "a81a20b0-be69-4c22-8371-ade348d2cd04",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "30ba07614287125129900f5267d74183255986c53ec3cb3f8059355a37bec75c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "음악이 청각 외 감정·기억·운동 영역을 자극하고 음악 훈련·음악치료가 뇌 발달과 회복을 돕는다는 논지가 연구로 서서 요지·빈칸·제목 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "title",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“Once you teach your brain how",
+   "note": "음악 수업이 끝난 뒤에도 뇌가 소리에 잘 반응한다는 문단이 인용을 풀면 수능 빈칸 논지가 되었다."
+  }
+ },
+ {
+  "id": "a83f897a-7b54-4637-9b73-a5ccb55b876d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ee5b5c73d7758f41a3e78a80d4fbcf166fc9ce4fc221a40d1ffca1515ccf42fd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "비만 위험이 높은 흑인 여성을 위한 Sisters Together 프로그램 안내서를 소개하며 지역 프로그램 시작을 권하는 공지라 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Anybody can start a local program—even",
+   "note": "누구나 지역 프로그램을 시작할 수 있다는 권유 문단이 공지 목적의 중심이고 지침서 내용 문단과 이어졌다."
+  }
+ },
+ {
+  "id": "a8997a51-23cf-4142-a57a-208b21f7d78c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "34a227f1e8cae696a265f37fb23318821286900bca688e965b404e8cad7a7754",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "다발성경화증의 발병·증상·MRI 진단과 유전·흡연·EB바이러스·일조의 위험 요인, 조기 치료 약물을 설명해 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "People who live near the equator",
+   "note": "적도 근처 저위험과 비타민D 가설 문단은 추론 구조로 서서 빈칸 이유 문장 재료가 되었다."
+  }
+ },
+ {
+  "id": "a8ab77aa-ddb2-4830-91cc-39408d1a0e27",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e697cc88909adc579a724612e58c6a8f8d71d75a3d941c45255fa3c302834dfc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "청소년 44,000명 조사에서 전자담배가 급증해 니코틴 사용 감소를 되돌린다는 결과와 뇌 발달 위험 경고가 서서 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "More than 44,000 students took part",
+   "note": "12학년 전자담배 경험 28%에서 37%로 증가 문단이 수치 주장으로 서서 내용일치 선지가 나왔다."
+  }
+ },
+ {
+  "id": "a8abdf68-38b7-4bc0-bf24-0230753b8aaf",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ae846a122bf5a1096425037ff9502d30e5ea218c1bf8839af22833aa644995a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "청년 3,200명을 25년 추적해 비만 기간이 길수록 무증상 심장병 위험이 커진다는 결과와 비만 지속 기간을 재야 한다는 함의가 서서 빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "About 40% of the adults became",
+   "note": "비만 20년 이상 38% 대 비비만 25% 비교와 해마다 2~4% 증가 문단이 수치 결론으로 단독으로 섰다."
+  }
+ },
+ {
+  "id": "a8def108-61c8-4a03-b03d-f6f1e5e9fc48",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "66b1580c93887536fe8264c3c4da75372204cc6744e9e8cecfd03a00a82f7e15",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "명절 음식을 맛은 지키며 건강하게 바꾸는 재료 대체·분량 조절·식후 활동 팁이 이유와 함께 이어져 초·중등 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Keep portion sizes healthy. Heaping platters",
+   "note": "큰 접시가 과식을 부르니 작은 그릇을 쓰라는 문단이 이유와 방법이 이어져 초등 최소선을 넘었다."
+  }
+ },
+ {
+  "id": "a8e276cb-e6b1-4f5d-9c3f-bc2d1a5ed188",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7fcd930ad9236c21d9cc98e07cf3e0d501aace825cbe27b60a076feab5cb2c1a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전 변이에 따라 약 반응이 달라 맞춤 의학이 필요하다는 논지를 백혈병·아스피린·클로피도그렐 사례와 유전자 검사의 한계로 세워 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many of the Amish people studied",
+   "note": "아미시 연구에서 약물 반응 변이를 찾아 라벨이 바뀐 문단은 앞 설계 한 줄을 붙이면 사례 근거로 섰다."
+  }
+ },
+ {
+  "id": "a93a5d69-5b0b-47ce-8d63-264ad382a4f6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a0d3c454934e02ef7e42f3ccdf6ccac9d5a5d032af340113eb5da24b121cd0ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "출생부터 45세까지 추적한 노화 속도 지표를 MRI 한 장으로 재는 도구로 만들어 인지 저하·치매를 예측한 연구가 단계별로 서서 순서·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Most of the study participants also",
+   "note": "노화 속도 점수와 MRI를 결합해 새 척도를 만든 문단이 앞 단계 뒤에 이어져 순서 배열 조각이 되었다."
+  }
+ },
+ {
+  "id": "a975b3e6-ae4d-4099-8dc9-a9f46ced8cbd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9e504014f11044660e1fa0535bd8e8eeddd20339fbb0c49839d9cb96a12c2456",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "새 지침상 권하지 않는 노인·출혈 위험군 상당수가 의사 권고 없이 아스피린을 먹는다는 14,000명 조사라 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nearly half of people age 70",
+   "note": "70세 이상 절반·궤양 병력자 4분의 1이 복용한다는 문단은 새 지침 한 줄을 붙이면 대비 선지가 됐다."
+  }
+ },
+ {
+  "id": "aa289559-fc0f-43d7-8690-cced7a69f69c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e402cdae2dd454fd068acf5d6a9e3fd0e867b7f322a0a9fe4a008e4d3a92f2fe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아이 중이염의 흔함·원인·진단·치료와 감기 예방을 통한 예방 권고가 짧게 이어져 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of the best ways to",
+   "note": "감기·독감 예방으로 귀 감염을 막으라는 문단이 인과로 서고 influenza만 flu로 두면 중등 밴드가 된다."
+  }
+ },
+ {
+  "id": "aaa32aab-9502-440a-84cf-ecf97bea6f39",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4be6882749774bf355c35326a632a8643c7d2b0c492da322ed7312a6f2b30518",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "HPV의 흔함과 암 위험, 노출 전 접종의 효과와 감염률 86% 감소를 제시하는 글이라 주제·빈칸 칸을 채우며 성 매개 감염 소재라 고2 이상으로 둔다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For the HPV vaccine to be",
+   "note": "노출 전에 맞아야 효과가 크다는 접종 시기 문단이 까닭과 권고 나이를 함께 담아 빈칸 지문으로 섰다."
+  }
+ },
+ {
+  "id": "aac067e1-0e9f-4e6a-a3d8-eee234ba868e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "04b48d9cc67064bbec497b0a90c847cae7951f964e066c8b618dd50c4da7a8c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "백내장의 원인·위험 요인·증상·검사와 수술 절차·이점을 차례로 설명하는 글이라 주제·순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cataracts that are bad enough to",
+   "note": "초음파·레이저로 흐린 수정체를 깨고 인공 렌즈를 넣는 절차 문단이 순서로 이어져 쉽게 떼어졌다."
+  }
+ },
+ {
+  "id": "ab3ef212-276d-4af8-b10f-ae61a3e5b8f8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9968a958d7084e19dc91afa163760a185ed53759c077e1590cd6a3d2d1269c89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항생제 5일 단축이 내성을 줄일 거라는 가설을 520명 무작위 시험의 악화율 34% 대 16%와 내성 차이 없음으로 반박하는 글이라 빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After treatment, the researchers examined bacteria",
+   "note": "짧은 치료가 내성을 줄일 거라는 기대와 달리 차이가 없었다는 문단이 기대-반증 구조로 빈칸이 되었다."
+  }
+ },
+ {
+  "id": "ac4933a3-c92a-4c20-8c0a-a162efd66a38",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9a0e66e9247ef0704634de5f58b9dfc5b6c3c0b464ad7d6203721e03cd3a6e40",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "치료 뒤 스트레스를 겪는 암 생존자에게 노인 건강 사이트의 새 주제를 권하며 다루는 내용을 알리는 안내라 목적·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If you or a loved one",
+   "note": "암 생존자와 가족에게 새 주제 페이지가 무엇을 알려 주는지 밝히는 문단이 안내 목적을 담았고 URL은 걷는다."
+  }
+ },
+ {
+  "id": "adc5b33c-569c-4dcc-ba1f-f037489d6100",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "63e406a71c6b362904306e92155c416ce819f68f65a7e4afb0373d5c095f5d1b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "travel",
+  "why": "일상을 벗어나면 건강 행동이 무너지기 쉬우니 수면·시차·운전·음식을 미리 계획하라는 요지가 연구자 조언으로 서서 요지·빈칸·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Jet lag is another sleep concern",
+   "note": "동쪽 여행 시차가 더 심한 까닭 문단이 인과로 서서 빈칸 이유 문장 재료가 되었다."
+  }
+ },
+ {
+  "id": "aded58ad-f6f4-492f-bef3-264d4f20eee7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7996a67791a6cc24710d47daa05940f03d8a5c25f37940b287552032c1b07691",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "출생 시 산소 부족 신생아의 저체온 치료 효과가 6~7세까지 이어져 사망률 28% 대 44%였다는 추적 연구라 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In 2005, an NIH-supported study found",
+   "note": "냉각 담요 치료를 처음 입증한 연구 문단이 방법과 결과를 담아 섰고 neonatal만 풀면 된다."
+  }
+ },
+ {
+  "id": "adee5e02-1d1e-4a02-b70e-155a9f6367ef",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "94877e986ecce4d93915e4d5136c9c200c46e0f473514e3cbe67652e56faa38c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "중독은 의지·도덕 문제라는 통념을 뇌 보상·위험·전전두엽 회로의 변화로 반박하고 청소년 취약성과 치료를 설명해 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But when you’re becoming addicted to",
+   "note": "생존을 돕던 보상·위험 회로가 중독 때 거꾸로 작동한다는 문단이 대비 구조로 수능 빈칸 논지가 되었다."
+  }
+ },
+ {
+  "id": "aeaceb93-8694-42bd-80c9-321dc32fc049",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e0f510562a8c54b2212a31d9fae88ac3cfdad8ec13947b601c2952550afafba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "사람과 병을 공유하는 개를 견주와 함께 연구하는 유전체·노화 프로젝트와 상관을 인과로 단정하지 않는 태도가 서서 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One recent study found that active",
+   "note": "활동적인 노견이 치매가 적지만 인과는 모른다는 문단이 상관-인과 구분을 세워 빈칸 문장이 되었다."
+  }
+ },
+ {
+  "id": "aed6fd4f-6952-45ad-bfed-57f365651c6e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0353ecded95972eb853a92ab04584a6a8db3109932efc0adb6d68243e6cf9be5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "한 시간 이상 떨어져 사는 간병인에게 정보 파악·서류 정리·연락 유지·간병 교육을 권하는 짧은 안내라 목적·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Organize important paperwork. That way it’s",
+   "note": "서류를 한곳에 모으고 한 사람이 의료진과 소통하라는 문단이 권유와 까닭을 함께 담아 요지로 섰다."
+  }
+ },
+ {
+  "id": "af110f88-c813-469b-bac0-ea6fdfa0e5a3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6cb2c3e6aee58c513108be8ac7f907b03a4b7f7c6535b90fc7dd5dbe936e855a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뇌졸중 재활이 반복 과제로 뇌 재배선을 돕는다는 원리와 가정용 게임 재활·실어증 뇌자극 연구를 소개해 주제·빈칸·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Skills are lost when brain cell",
+   "note": "뇌세포 연결이 끊겨 잃은 기술을 재배선으로 되찾는다는 문단이 원리를 혼자 세워 빈칸 지문이 되었다."
+  }
+ },
+ {
+  "id": "af1d4e22-a64f-47ea-b414-dcad4a6d5651",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "75eb477055352885f395a960724d3e7ad1e83051fee2313882dfedf2ba05b545",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "허브를 써 보려는 사람에게 효과·부작용을 먼저 확인하라며 NIH HerbList 앱을 소개하는 안내라 목적·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Use the app to explore what",
+   "note": "앱이 50여 가지 허브의 근거·부작용을 보여 준다는 문단이 안내의 핵심이고 스토어 안내 줄은 걷었다."
+  }
+ },
+ {
+  "id": "af5148c2-9821-46b6-83b9-e7e2efc8453a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7c170d80ab48137e87b768897a200324060fe7ce23e8b0249ea44fa4d0c25e76",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "나이 들수록 근력 운동이 독립 생활을 지키는 데 중요하며 작은 운동도 이롭고 목표·즐거움·동반자가 지속을 돕는다는 대담이라 요지·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Fielding: There's a very close relationship",
+   "note": "근력 감소가 이동 제한과 독립 상실로 이어진다는 문단은 화자 표시를 걷으면 인과 논지 단락으로 섰다."
+  }
+ },
+ {
+  "id": "b02fe0fe-7d3a-4bdd-87cb-3249f4556e72",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4f0f37b4e3cfc4711681370803ffc188b97b04b4e5f727a402b184bece13cb27",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "햇빛의 이로움과 자외선 A·B의 피부 손상·피부암 위험, 어릴 때부터의 차단과 자외선 차단제 원리를 설명해 주제·삽입·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sunscreens come labeled with a sun",
+   "note": "SPF 15는 화상까지 15배 걸린다는 정의 문단이 수치 설명으로 혼자 서서 내용일치 선지가 바로 나왔다."
+  }
+ }
+]

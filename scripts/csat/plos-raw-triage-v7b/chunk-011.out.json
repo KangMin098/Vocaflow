@@ -1,0 +1,358 @@
+[
+  {
+    "id": "0741e858-dd12-46cf-b82b-fa043afcf7d1",
+    "source_updated_at": "2026-09-25T07:28:28.642555+00:00",
+    "body_sha256": "004c9b83259eefc37d5b115e430d27a8c448a212e77a4dc511f3020fe8b5d0ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 둘째 단락이 기존 연구의 한계 넷을 First~Finally 로 나열해 순서·삽입과 요지 칸을 채우고, 고찰의 다중진통 효과 해석도 떼어 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The current literature exhibits several important",
+      "note": "LMIC·NSAIDs 등 약어를 풀고 pharmacological 을 drug 로 바꾸니 V7 에 들어왔고, 한계 넷이 순서 표지로 이어져 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "07424377-5e62-4ad9-9c1b-5261a53573f7",
+    "source_updated_at": "2026-09-25T07:28:29.023892+00:00",
+    "body_sha256": "94cdbaa17cacd57599de97d90a0e14f1817993bc14f54b88c955f15765b65c79",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "고찰 끝 단락이 눈 덮개의 반사율과 열 관성으로 티베트고원의 온난 극대기가 늦어진 이유를 인과로 풀어 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The extensive snow cover over the",
+      "note": "albedo 를 reflectivity 로, thermal inertia 를 풀어 쓰니 내려갔고, 영문 비문이 몇 곳 있어 문장 손질이 필요했다."
+    }
+  },
+  {
+    "id": "07562443-adae-42a8-ad4b-a357e87d1064",
+    "source_updated_at": "2026-09-25T07:28:31.047256+00:00",
+    "body_sha256": "044785207936dccf0a16af8f6ae21116aa837939c07246734bfcf6728835de15",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰 둘째 단락이 유비퀴틴 체계가 숙주와 세균 양쪽의 무기라는 논지를 한 단락으로 세워 주제·요지 칸을 채우지만 나머지는 효소·단백질명 중심이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The ubiquitin system has been thought",
+      "note": "그 단락은 앞 문맥 없이 서지만 ubiquitination·effector·eukaryotes 를 바꾸면 뜻이 흐려져 밴드를 내리기 어려웠다."
+    }
+  },
+  {
+    "id": "0781fa87-ef2f-41b8-8342-75c520bc2caa",
+    "source_updated_at": "2026-09-25T07:28:34.735678+00:00",
+    "body_sha256": "3b58053ccdffe61c199486b8b287dc013908929b4b18dfe6f0f7960f012b9ab2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 둘째 단락이 세포검사와 HPV 검사의 장단을 대조하고 병행검사로 잇는 흐름이라 요지·빈칸 칸을 채우고, 결과 절은 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Common cervical cancer screening methods include",
+      "note": "CIN2+ 같은 등급 표기와 인용 수치를 걷어도 대조 논지가 섰고 over-referral 을 풀어 쓰면 V8 가 된다."
+    }
+  },
+  {
+    "id": "0785d3df-caac-4162-a9c0-f848fb0dca67",
+    "source_updated_at": "2026-09-25T07:28:35.116964+00:00",
+    "body_sha256": "c7f3a998b6a8fa713c1c931e3da0a477a052c8ed74b26ac683ca6acbfd4716a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 앞부분의 MBP 가 수초를 만들어 신경 전도를 빠르게 하고 그 손상이 다발성 경화증과 이어진다는 설명이 한 문단으로 떼어져 주제·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Myelin Basic Protein (MBP) gene",
+      "note": "서론이 한 덩어리 단락이라 앞 여섯 문장만 잘라야 했고, 방법·결과는 도구 이름 나열이며 saltatory·oligodendrocytes 는 바꾸기 어려웠다."
+    }
+  },
+  {
+    "id": "07c23450-5433-463a-aa8e-e78c1ba839a2",
+    "source_updated_at": "2026-09-25T07:28:39.316044+00:00",
+    "body_sha256": "be90b335ba15d69580b410444245382c7489eccdeb598d610c4030c7e1d2c919",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰 셋째 단락이 고지방 먹인 쥐도 저체온을 못 막았다는 대조로 에너지 저장이 아니라 뇌 신호가 열 생산을 좌우한다는 논지를 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our results extend these findings by",
+      "note": "SCN 을 the brain's master clock, TRF-STE 를 limited feeding in the cold 로 바꾸니 앞 문맥 없이 읽혔다."
+    }
+  },
+  {
+    "id": "07d06937-dc0e-4318-a37c-e52f75fb74a4",
+    "source_updated_at": "2026-09-25T07:28:41.457668+00:00",
+    "body_sha256": "4d5273de68d8762c39abae7fb3847a7e0ab57f4a505d090121c165875806445c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 셋째 단락이 지방간이 오히려 간암 위험을 높이지 않은 결과를 섬유화와 지방 소실로 설명하는 반전 구조라 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The presence of CMRFs, including DM,",
+      "note": "약어 CMRFs·DM·HT·CAP 를 풀어 쓰는 손질이 필요했지만 그 뒤엔 반전 논지가 그대로 섰다."
+    }
+  },
+  {
+    "id": "07d13dd9-a815-4624-a64a-072458fe8346",
+    "source_updated_at": "2026-09-25T07:28:41.812896+00:00",
+    "body_sha256": "dbb09b5337117644960c86c5241137095870a05ede4434ddbdb7fcbee719a0d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론 첫 단락이 채널 정보 수집의 부담이 커지는 문제를 설명해 주제·요지 칸을 채우나, 방법·증명 절은 수식 자리표시가 많아 쓸 수 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A paradigm change towards intelligent AI-native",
+      "note": "CSI·MIMO·beamforming 을 풀어 쓰면 단락이 길어지고 뜻이 흐려져 밴드를 내리지 못했고, 둘째 단락부터는 [수식] 자리가 끼어 있다."
+    }
+  },
+  {
+    "id": "07e1e7ae-9875-44ce-ae44-4f080973a278",
+    "source_updated_at": "2026-09-25T07:28:43.239647+00:00",
+    "body_sha256": "60300a5300232ae76f02d85e78cab407fa34186d050ba8504adecb25d257f83c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 번역적 관점 단락이 도킹 결과만으로 약효를 말할 수 없다는 신중론을 한 단락으로 세워 요지·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "From a translational perspective, our in-silico",
+      "note": "in-silico 를 computer-based, docking 을 풀어 쓰고 유전자명을 three genes 로 묶으니 논지가 그대로 섰다."
+    }
+  }
+]

@@ -1,0 +1,1053 @@
+[
+ {
+  "id": "6310675b-4fce-49c8-bc32-5cb663e2baef",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "708859fe1241fb4d77ab89e2cbc29dadc44b4bb35c2a742edf2a2f1859e35a6f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "NIH 가 누리집 운영자에게 자동 갱신되는 건강 콘텐츠를 달아 쓰라고 알리고 그 까닭(시간·비용 절약)을 대는 공지라 목적 칸을 채운다(기준 v5 공지문 조항).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Using NIH’s information can save you",
+   "note": "이점 단락은 권유 까닭이 앞 두 문장에 서지만 뒤 절반이 주소·절차 안내라 그 부분을 걷어야 목적 지문 길이가 겨우 나온다."
+  }
+ },
+ {
+  "id": "63263da7-d9fc-4982-a64e-89d65b326f51",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f83299fa7436c828d778c1943d3046ea635ead247a460a374391b458e25b2d90",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아이스버킷 챌린지로 시작해 운동신경 소실 기전, 원인 불명과 가족성 유전자, 약·돌봄으로 이어지는 설명이라 주제·순서·내용 일치 칸을 채운다(죽음 소재라 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Because the mind remains relatively intact,",
+   "note": "정신은 온전해 상실을 또렷이 느낀다는 단락이 인과 한 쌍으로 짧게 서고 keenly·tailor 두 낱말만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "632cf914-ceb0-4f4e-b8c3-e7fde419cf76",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4533ca0bb7891a10e08a5736edf81384636908f1bacaba764df50afdba098886",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "비말과 에어로졸의 크기 차이, 환기·습도가 공기 전파에 미치는 영향, 교실 공기청정기 연구로 논지가 서서 주제·요지·빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When aerosols collect in the air,",
+   "note": "환기 단락은 「모이면 들이마실 확률 증가 → 식당·예배당 집단 감염」 인과가 선명하고 poorly ventilated 만 풀면 중등도 된다."
+  }
+ },
+ {
+  "id": "63344337-a540-4423-bc9d-46d70ae7e612",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "aaf42ea0ab0337c648c5478b3aea592833d858c9e101d7dcd79d57bb79451411",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소화관의 구조와 흔한 질환, 스트레스·섬유질·장내 미생물·유화제의 영향이 이어져 주제·요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chang studies the connection between stress",
+   "note": "초기 스트레스와 과민성 장 단락은 「털어놓으면 위험이 줄었다」는 반전이 있어 빈칸에 좋고 confided 하나만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "63805724-643b-46f8-a924-e5ea9a6c8518",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "393eec3fa743809b152b3f63410fb92140f0aa8cd4480b4862c82211d4ffe039",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "인후통의 원인을 알레르기·바이러스·세균으로 가르고 항생제는 세균에만 듣는다는 점과 병원에 갈 때를 안내해 목적·내용 일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If test results confirm strep, your",
+   "note": "항생제 단락은 「대부분은 바이러스라 항생제가 안 듣는다」는 교정이 한 문단에 서고 약 이름 나열만 줄이면 V4다."
+  }
+ },
+ {
+  "id": "63eb058e-3ba1-44e6-ab39-e01caf3df950",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "21f749e1b8a8031872c1e426cd437d0762aeeb8752be9440df2aa85dcd112795",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "파키스탄 임신부 750명에게 비전문가 상담을 준 결과 산후 불안·우울이 크게 줄었다는 연구로 「인력 부족을 비전문가가 메울 수 있다」 요지가 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "By six weeks after childbirth, only",
+   "note": "결과 단락은 9% 대 27%, 12% 대 41% 대비가 선명해 수치 선택지로 좋고 episode 정도만 풀면 된다."
+  }
+ },
+ {
+  "id": "63f4c587-a124-4dcb-b6f0-c342070d8fc3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6da04a40a51a87ec2f4b6ae9d2b6a3cab2135055bc687fc40f7f85e082ea1c5b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "늦게 발견돼 치명적인 췌장암을 혈중 단백질 네 가지로 조기에 잡는 검사가 92% 정확도를 보였다는 연구 흐름이라 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The combined test was able to",
+   "note": "정확도 단락은 짧지만 앞의 「선별 검사가 없다」 단락과 이으면 문제-해결 구조가 서고 distinguish 하나만 바꾼다."
+  }
+ },
+ {
+  "id": "6463b603-74b7-44e5-88c8-4513736e3fec",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5380f05c87b271a115fcf64b4ed748bd96b78cb8e8342f4bc975663df5288a9d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "144만 명 자료를 모아 여가 운동이 26종 중 13종 암 위험을 낮췄다는 결과와 흑색종은 오히려 높았다는 예외가 서서 요지·내용 일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "During a follow-up of about a",
+   "note": "추적 결과 단락은 떼어지지만 뒤 단락의 암 이름 나열(adenocarcinoma 등)은 대체할 말이 없어 걷어야 하고 밴드는 그대로다."
+  }
+ },
+ {
+  "id": "649e784b-2922-460b-802c-c37ab5ba2a63",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "48d2835e5cc25c466052e178f51ad95dc224f6c51de920eefd07547249503517",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "생물학적 성과 사회적 젠더를 구분하고 심장마비 증상·통증·니코틴 대사·자가면역에서 성차가 나타난다는 사례로 논지가 서서 주제·요지·빈칸·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Men and women also tend to",
+   "note": "통증 단락은 두 문장이라 다음 인용(양성 모두 연구해야)과 합쳐야 논지가 서고, 소제목 표지(Defining Differences — 등)는 걷는다."
+  }
+ },
+ {
+  "id": "64bdd4af-e59b-4b57-9706-419bb110d1e4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3d1af88f0170f205bcdf967beb968b1d90d225b1fe768cb5a4dca341cd43ef8c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "최면이 무대 쇼가 아니라 주의 집중과 암시로 통증의 정서 부분을 줄인다는 뇌 영상 연구와 약물과의 대비가 서서 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The way a drug treats pain",
+   "note": "약물 대비 단락은 「뇌 전체에 작용 → 부작용」이 앞 최면 단락과 대조를 이뤄 빈칸·요지에 좋고 어휘는 이미 쉽다."
+  }
+ },
+ {
+  "id": "6521bfc3-bdf2-4b20-a90a-2fa3f926b411",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a21316f980d1eb3296939bad4b3832687382ba9c900f1538c0abd6f4b698e7dc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "헌팅턴병이 반복 서열 수가 늘어난 한 유전자에서 오고 반복이 많을수록 일찍 발병한다는 원리와 치료 연구가 이어져 주제·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The problem in the huntingtin gene",
+   "note": "반복 서열 단락은 다음 27·36 기준 단락과 이으면 수치-위험 관계가 한 지문에 서고 sequence 하나만 풀면 된다."
+  }
+ },
+ {
+  "id": "65de0b70-6377-457f-a57c-5c8adecc08ca",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "60b2b5f9e7b3a4d5821bd7c5f31a3c998f448577449e01a6845f9d3372d53054",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "가족력이 걱정되는 사람에게 NIH 가 유전자와 알츠하이머 관계를 설명한 쉬운 안내서를 알리고 「부모가 앓아도 꼭 걸리지는 않는다」는 까닭을 대는 공지라 목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Genes contain information passed down from",
+   "note": "유전자 단락은 안내서가 답하는 물음의 요지를 담아 권유의 까닭이 되고, 끝의 주문·전화 단락은 걷는다."
+  }
+ },
+ {
+  "id": "6647e76f-d0df-4185-8c62-f8bae1f1093b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "aa6efbcccdc8fccab0b1adf4b943630e0012b0a414e8ac0ff8deba9d98112893",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아이가 암 진단을 받은 부모에게 NIH 가 개정 안내서를 알리며 상담·검사·치료·대화 요령을 담았다고 소개하는 공지라 목적 칸을 채운다(질병 소재라 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock"
+   ],
+   "types": [
+    "purpose"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Designed to be used as a",
+   "note": "구성 소개 단락은 목차 나열에 가까워 권유의 까닭은 첫 단락(당황한 부모를 돕는다)에서 끌어와야 하고, 다운로드 주소는 걷는다."
+  }
+ },
+ {
+  "id": "66536669-f665-41a9-9454-06a3f09acc96",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e8487f6f0e2dc8c2a874bc71c8ee994f053a3dc74cd48f30d225a14a2d997d19",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뇌염과 수막염의 차이·증상과 미국에선 백신 덕에 바이러스성이 흔하다는 설명, 예방 권유가 이어져 주제·내용 일치·목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many scientists are trying to develop",
+   "note": "광범위 항바이러스제 단락은 「원인 바이러스를 몰라도 치료 시작」이라는 이점을 풀이까지 담아 떼기 쉽고 어휘도 무난하다."
+  }
+ },
+ {
+  "id": "666d15ae-bbee-4c01-908e-52307e3e0777",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "86a8e688a86bf7dcf05e87106b1a183fe62c145c08d335c6faa6933d8b7d01cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "도박 문제의 유병률과 빈곤·충동성 위험, 전뇌 기능 저하 영상 연구, 짧은 개입·인지행동치료 효과로 「죄가 아니라 의학적 장애」 논지가 서서 주제·요지·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Talk therapy can also help. Dr.",
+   "note": "대화 치료 단락은 인명·기관을 걷어도 비교 결과가 서지만 pathological·interventions 가 뼈대라 V5 아래로는 어렵다."
+  }
+ },
+ {
+  "id": "66a206b7-aa96-42a0-a63f-6fc37d7e6176",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0348458eb41013be950d685ad2b71000c09ac601c2d2caf6ff9eb3561e464013",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "센서·구동기·제어라는 로봇의 세 요소에서 치매 돌봄 로봇, 휘는 미세 카테터, 외골격으로 이어지되 「인간 교류를 대신하지 못한다」는 결론까지 서서 주제·요지·순서·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Minimally invasive aneurysm surgery typically involves",
+   "note": "카테터 단락은 「꼬불꼬불한 길 → 못 닿으면 수술 취소」라는 문제를 세워 다음 3D 프린팅 해결 단락과 순서 문항을 만들기 쉽다."
+  }
+ },
+ {
+  "id": "66af5441-750b-4220-a301-7d37b4d25d52",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "873a6fd6bd2954e2b9230ef9e1b83854daaeb9bc984160420750ed1f390d30c2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "최선의 식단은 과학에 기반하고 지킬 수 있는 것이라는 논지 아래 첨가당·포화지방·소금 한도와 DASH 식단을 대서 요지·주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Fats that are liquid at room",
+   "note": "액체 기름 단락은 「상온에서 액체 → 불포화 → 더 건강」 대비가 한 문단에 있어 중등 설명문으로 바로 쓰인다."
+  }
+ },
+ {
+  "id": "66c234cf-4a6f-47bb-aeeb-dc34d532ddae",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c50144260a0453b3d60649dcbbdd69a10a2c970d779c3436b8ab38f6bf2faabc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "과학이 느린 까닭(기초 연구·모델 생물·동료 심사·자기 수정)을 차례로 풀고 「유레카가 아니라 한 걸음씩」이라는 결론으로 논지가 서서 주제·요지·순서·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Just because a study is published",
+   "note": "「출판됐다고 옳은 것은 아니다」 단락은 짧아서 다음 두 단락(가장 많이 설명하는 모델·자기 수정)과 이어야 수능형 지문이 된다."
+  }
+ },
+ {
+  "id": "66fe3b66-3d5c-42bc-b07d-da71785d15c9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "11f8281ab225f85b369e8693a6831ce7939b59e1cf257d0bff49a7b20b3d3cf9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "food",
+  "why": "20만 명 22년 추적에서 흰쌀은 당뇨 위험을 17% 높이고 현미는 11% 낮췄다는 대비로 「정제 곡물을 통곡물로」 결론이 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On the other hand, people who",
+   "note": "현미 단락은 On the other hand 로 흰쌀 단락과 짝을 이뤄 대조 문항이 쉽고 servings 만 풀면 중등 수준이다."
+  }
+ },
+ {
+  "id": "675ed245-6eb5-4e07-aebc-ef9c4461db8e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "068f1d034158967aff53b0060fb7b03db7299efc5f5e215ce353f673932d41d3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소아암 생존율이 80%를 넘은 까닭(빠르게 자라는 종양이 치료에 잘 반응)과 방사선을 줄인 치료 변화, 가족의 대처가 이어져 주제·요지·내용 일치 칸을 채운다(질병 소재라 고1 이상 칸).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For instance, Seibel says, childhood tumors",
+   "note": "종양 반응 단락은 「빨리 자라서 오히려 치료가 잘 듣는다」는 역설이 한 문단에 서서 빈칸 재료가 되고 For instance 만 걷는다."
+  }
+ },
+ {
+  "id": "67802362-a90c-4265-a38e-69aa0645c29a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fab1cba49c6d80983b68911ae71debe5d55b20bbcb676d425c624ae9962952be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "대학과 지역이 함께 음주 단속·판매 규제를 한 7개 학교에서 과음이 줄고 다른 장소로 옮겨 가지도 않았다는 결과로 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To test a community-based program, NIH-funded",
+   "note": "프로그램 설계 단락은 조치 셋이 한 문장에 묶여 있어 떼기 쉽고, 결론 인용의 「풍선 효과는 없었다」가 통념 반박 재료다."
+  }
+ },
+ {
+  "id": "67f5e219-3fb5-42ae-b832-b12e31a6905d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b1495cbfc3bcc6c228d575ef685e0232b53fcbd79d5160f8565741e21fd27105",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "하루 1만 보라는 기준이 근거 없음을 짚고 노년 여성 연구에서 4,400보부터 사망 위험이 줄고 7,500보에서 멈췄다는 결과로 통념을 고쳐 주장·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The risk of death continued to",
+   "note": "평탄화 단락은 「7,500보 이후 효과 없음, 1만 보는 추가 이득 없음」이 짧게 서서 통념 반박 빈칸에 딱 맞다."
+  }
+ },
+ {
+  "id": "683abf41-204d-4788-a3ef-4877d45efa56",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "93d63509780ef2eaa536f27328719889cd8ea9774bed88f8fc31dd9d0505a997",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "관절염이 노인병만은 아니라는 교정과 골관절염·통풍·류머티즘 관절염의 원인 차이, 유전·체중 위험이 이어져 주제·요지·내용 일치·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A very different type of arthritis",
+   "note": "류머티즘 단락은 In contrast 로 앞 두 유형과 대조가 서고, 끼어든 immune system 풀이 문구와 특별호 안내는 걷는다."
+  }
+ },
+ {
+  "id": "689aa101-8714-482c-9e16-e74b1fa4d6ab",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "24b4b757198f7a5a6e74794b0c24fda98463e1633e8587e74e16095e458cbdb7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "방사선이 위험하면서 생명도 구한다는 역설에서 CT 암 위험 연구, 체형별 선량 조절, 과다 사용 비판으로 「위험과 이익을 따져라」 논지가 서서 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Traditionally, the amount of radiation used",
+   "note": "체형별 선량 단락은 「체중 기준 → 키 큰 아이는 절반이면 된다」 반전이 있어 빈칸에 좋고 radioactivity 만 풀면 된다."
+  }
+ },
+ {
+  "id": "69478dbb-16f0-4a63-99df-fcaefc3598db",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c5bac605f876ba04d158734a80547e5b835b509fbf2a076351bd80f29e2bd065",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "뇌의 주시계가 빛에 맞춰 멜라토닌과 각성을 조절하고 교대 근무·시차가 이 리듬을 깨 건강을 해친다는 설명이라 주제·순서·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For instance, shift workers who must",
+   "note": "교대 근무 단락은 For instance 만 걷으면 「밤 근무 → 시계와 어긋남 → 수면 문제 → 질병 위험」으로 서고 어휘가 쉽다."
+  }
+ }
+]

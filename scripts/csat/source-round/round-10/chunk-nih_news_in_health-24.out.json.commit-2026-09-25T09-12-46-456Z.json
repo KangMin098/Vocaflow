@@ -1,0 +1,1633 @@
+[
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c384428a-778c-44f5-b15e-a7e72f249ffe",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "804fe1ee293baaf225e9181114bd56b8218043b3627dddf76b5bcbad04e6f80a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "유전자 점수로 항암치료를 피해도 되는 환자를 가린 임상 결과가 문제→시험→결론으로 서서 요지·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The team found that 16% of",
+          "note": "결과 문단은 점수 구간·재발률 두 수치로 짧게 닫혀 떼기 쉬웠고 ER-positive 괄호는 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.458Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/11/tumor-test-helps-tailor-breast-cancer-treatments",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c3bf9992-8950-40a7-b2b3-8122522cd4b2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "284c64b1ed95493e37ae2ba91a3490dee328d4f0f04db46c1d497293150b688b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "담즙의 화학 균형이 깨지면 결석이 생기는 원리와 치료가 인과로 이어져 순서·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bile has a delicate chemical balance.",
+          "note": "담즙 균형 문단은 결정화→침착→결석 단계가 뚜렷했고 soluble·crystalize 두 낱말만 쉬운 말로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.458Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2015/02/galled-gallbladder",
+          "year": 2015,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c4572b99-3d90-4896-ae60-1f4036e182cf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1d4521340406ca6f4092957401ac91ea6c80a71bb4047f4851a637ad155d59f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고혈압 기준이 140/90에서 130/80으로 바뀐 경위가 짧게 서서 내용 일치·시대 비교 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "NIH-sponsored research played an important role",
+          "note": "기준 변경 문단은 전후 수치가 한 문단에 있어 떼기 쉬웠고 「11월」은 연도를 밝혀야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/01/experts-lower-high-blood-pressure-numbers",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c4abf1f0-271a-440c-bdac-36a0af2c5df9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ecbceaf37bece90a99e6766c5668ebb51b684edc4acc4bf85b21491d8002f7d9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "환자 면역세포를 골라 배양해 되돌린 치료 과정이 단계별로 이어져 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The researchers then tested the patient’s",
+          "note": "추출→분석→배양→주입 단계가 then 으로 이어져 순서 문항에 알맞았으나 cholangiocarcinoma 는 걷어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2014/06/patients-own-cells-helped-fight-cancer",
+          "year": 2014,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c51dba24-5c99-427e-8c7d-ea95cecbdeaa",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "50bace9ac2cc6a26988235254f50b6ed2f92f39983633f433b528dfb70794d84",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "화상 정도 구분과 면역 반응이 추가 손상을 부른다는 설명이 서서 내용 일치·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The severity of a burn depends",
+          "note": "1·2·3도 화상 구분 문단은 정도 순서가 분명해 내용 일치에 좋았고 penetrates 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2013/12/burning-issue",
+          "year": 2013,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c5ceb6cd-efb7-4014-8838-df9bb3395ae9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c70fc754ed69d9786140039b5d821e117be8d1623de622520f9ca6c7b7c74307",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "녹지와 아동 정신건강의 관계가 연령대에 따라 갈린 결과와 해석이 서서 요지·내용 일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In older children, ages 6 to",
+          "note": "6~11세 무관 결과와 학교 시간 해석 문단이 이유를 달고 있어 빈칸 재료가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2024/06/green-spaces-may-improve-kids-mental-health",
+          "year": 2024,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c71ec526-556b-4354-ad2f-78cbf834998f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5e658c698621979b4a3e0134df29bde33c6eda6afe49c2ee82ae61d5706d5ab7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "발 부상이 걸음을 바꿔 다른 관절 점액낭에 염증을 일으키는 인과 설명이 서서 빈칸·순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bursitis often flairs up because of",
+          "note": "부상→걸음 변화→힘 변화→염증 인과 사슬이 인용과 함께 완결돼 순서 문항에 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/06/beating-bursitis",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c794974b-0dbc-4da7-851c-46bd507c9dca",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "046bb9c8530570e5fe4acf787f68a66d3acc953bde8be5997c5c2b8de8b7ba3c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "중년 식습관과 건강한 노화의 30년 추적 결과가 식품군별로 제시돼 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Those who ate more healthy foods",
+          "note": "건강 식품·비건강 식품 대비 문단이 짧아 떼기 쉬웠고 legumes 하나만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/05/midlife-eating-linked-health-decades-later",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c84ccbd5-5019-4e6b-90ab-3aa861ccfb95",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9f33347d6bcbec37fd07c23a7d904cd61b090093f9a04da83ec4ddee56039f4e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "모기가 가장 치명적인 동물이라는 비교 수치와 모기 매개 질환·백신 현황이 서서 내용 일치·요지 칸을 채우며 2015년 수치는 시점 표시가 필요하다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "insert"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The diseases spread by mosquito bites",
+          "note": "뱀·상어와 비교한 사망 수치 문단이 흥미를 끌며 독립됐고 수치 대비로 내용 일치를 만들 수 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/04/block-buzzing-bites-bumps",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c8533c97-0f26-44f0-af0f-4aa510c3f22b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fb4b538918626e5dd149745e9bd80e6a6403997b6be991c59e8bfb68f929115b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "헤르페스가 흔하고 무증상 전파된다는 사실로 낙인을 반박하는 구조라 주장·목적 칸을 채우며 성 접촉 언급으로 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once someone is infected with herpes",
+          "note": "잠복·재발 문단은 성 관련 표현 없이 떼어져 고등 칸에 쓰기 쉬웠고 re-emerge 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/06/herpes-can-happen-anyone",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c88cde87-8def-4bb0-8226-7c4aa26c4265",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "289595b31702ef1e1b1a930c46716d6c35b9c1262cfe09fa76f9b1d0eba2ee7b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "고립과 외로움 구분, 외로움이 면역에 직접 해롭다는 연구, 남을 돕는 해법이 이어져 요지·빈칸·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Social isolation and loneliness can both",
+          "note": "「방 안 가득 사람 속에서도 외롭다」 인용 문단이 정의 대비를 세워 빈칸 재료로 바로 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/08/care-connection",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c8e4d5b9-bbb7-4038-ab10-5c2038029f10",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1679c092333c79be23715bfaf0bbab181394f00d433e0eff90abe85ba39869f0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "사회적 단절이 팬데믹 이전부터 늘었다는 추세와 생성성·관계 질이 보호한다는 연구가 서서 요지·주장·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Recently, the COVID-19 pandemic affected our",
+          "note": "팬데믹 전부터 누적된 원인 나열 문단이 떼기 쉬웠고 faith-based 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/03/build-social-bonds-protect-health",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c951d270-f86a-461a-b104-1e56def77745",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "656a936b6b14e901693d0af2f2cb2f3f5c452ca659a41305d655a97f9d0fcbe4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "여성의 약물 문제에 호르몬·역할·치료 반응 차이가 겹친다는 요지가 짧게 서서 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Culturally defined roles for men and",
+          "note": "문화적 역할 문단은 두려움·부담의 이유를 달아 독립됐지만 끝 링크 문장은 걷어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/01/substance-abuse-women",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c9930941-efe9-49b3-987f-fcec808488be",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "763e67fb0ab91a762edeae61bef18399f0177ea6c2fa67e999a4b3106a02528b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "오메가3의 종류와 공급원, 보충제보다 음식이 낫다는 결론이 짧게 이어져 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "You can find dietary supplements that",
+          "note": "보충제보다 음식이라는 문단은 but 대비로 요지가 섰고 DHA 같은 약어는 앞 문단에만 있어 쉽게 뗐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/08/what-are-omega-3s",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "c99abd31-7753-41a0-9bec-012461a43141",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f3c1856ab22e90b00093a6adc0dae60b0e4b7f4c5ecfc0af59dd76b87c4aed8a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "language",
+        "why": "실어증의 원인과 베르니케·브로카 두 유형의 차이가 대조로 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Two of the most common types",
+          "note": "두 유형 대조 문단은 짧고 선명했으나 끝의 웹 주소 두 개는 가공 때 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.459Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/07/understanding-aphasia",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "ca12acc4-ecb8-44c3-9ee3-b47287ef83d7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7a4b745936b8c5aa4a245079c7b1ae2b7da42fc57855d1570d98a00d2862eeb3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "대기오염이 줄면 폐 기능이 나아진다는 연구 등 환경과 폐 건강의 인과 진술이 짧게 이어져 내용 일치·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some studies have found that long-term",
+          "note": "오염 노출·개선 두 방향 연구 문단은 떼어지지만 전체가 짧은 개관이라 논지는 얇았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2022/12/lung-health-our-environment",
+          "year": 2022,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "ca166b24-40a3-4499-9042-a29a992eeb66",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b4cd10632a00a3dfc981d6b6c5b76e5563c2280f1421b3984c04b2ab74fb9694",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "1회 접종 백신이 변이에도 보호력이 있다는 소규모 연구가 결과·단서와 함께 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Overall, the vaccine offered strong protection",
+          "note": "결과 문단은 중화항체가 낮았지만 다른 반응은 비슷했다는 대비가 있어 neutralizing 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2021/08/single-shot-covid-19-vaccine-protects-against-variants",
+          "year": 2021,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "ca20b1d3-bb78-4e09-b6bb-40ec35d7c820",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "58e11d9b8d152a4f4c59a9c30a4caf2ba9f00395ffcbbafd85744dfc0f26833a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "인간은 무리 지어 살아남도록 진화해 고립을 위협으로 느낀다는 답이 논증으로 서서 주장·빈칸·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "People haven’t evolved to live alone.",
+          "note": "첫 답은 질문 없이도 약한 몸→협력→생존 논증으로 완결돼 빈칸 문항으로 곧바로 쓰였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2018/08/dr-steve-cole-loneliness",
+          "year": 2018,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "ca5a51f4-0e20-4183-b062-90776326f9db",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e2634b7f14b309940e2fb1291bb877a6577bf01f73ead42c2218d9e74ed230fa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "세 시험의 개별·통합 결과가 엇갈리는 과정이 서서 내용 일치 칸을 채우며 성 기능 언급으로 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When the researchers combined data from",
+          "note": "통합 분석 문단은 개별 결과와 대비돼야 뜻이 서서 앞 문단과 함께 떼었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/04/testosterone-therapy-tested-older-men",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "ca8e97af-1b68-4d60-a040-f9f51fdeeff4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c8930c8a9d29b42eb4412456c3c34bd18a3d77cf63457393eb5c606f39f8999",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "계절성 우울의 원인과 광치료·인지행동치료 효과 지속 비교가 서서 요지·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rohan’s team has been comparing how",
+          "note": "두 치료 효과 지속 비교 문단은 부정적 생각 감소가 열쇠라는 결론까지 있어 빈칸 재료로 섰다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2024/11/feeling-sad",
+          "year": 2024,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "cafe3e3c-5916-48e2-b191-ccff9eb9f0fe",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf48dc2f97c1a4060ff6500cb934d482b912e5b5ffd3508cb83481848b5abd4a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "극저온 전자현미경으로 지카 바이러스 표면 차이를 찾은 과정과 의미가 서서 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "To learn more about Zika virus,",
+          "note": "동결→입자 발사→2D 이미지 합성 절차가 순서 문항에 알맞았고 near-atomic 은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2016/05/researchers-examine-structure-zika-virus",
+          "year": 2016,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "cb5e8c67-28d6-49d0-9677-92b3e2d539d9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b1652e135d3036acae959ce9854d0aacf8bc34c55500c163089bd4d18f2a89ca",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "인후통 대부분이 바이러스성이라 항생제가 소용없고 세균성만 치료가 필요하다는 구분이 서서 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "To soothe your irritated throat, keep",
+          "note": "아침에 더 아픈 까닭(밤새 건조)을 묻고 답하는 문단이 인과로 이어져 초등 칸 최소선도 넘었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2013/03/soothing-sore-throat",
+          "year": 2013,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "cb66581a-fe54-4dbc-aca9-27707ff31e83",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e78cd8c9cf8f66317dcf36e35c7af1ca5f2661276044818e37c7ca9748db1698",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "노로바이러스 전파·증상과 미니 장 모델 연구가 이어져 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "NIH-funded researchers are now studying the",
+          "note": "미니 장 문단은 모델→감염→복제 관찰 순서가 짧게 서서 떼기 쉬웠고 antivirals 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2026/01/navigating-norovirus",
+          "year": 2026,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "cc1f4793-a869-43ba-8bd8-fe1cccd904bf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94ccbfc6af8f821e3d1512ad6d3cf429cb7db4c57e03457fef452eb88ae2f2a2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "영국 설탕 배급 종료를 자연 실험으로 삼아 초기 당 노출과 당뇨·고혈압 위험을 비교한 설계가 서서 빈칸·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "blank",
+            "main_point",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence",
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The researchers looked at data from",
+          "note": "배급 전후 출생 집단 구분 문단이 자연 실험 논리를 세워 빈칸 문항으로 특히 좋았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2025/01/health-consequences-early-exposure-sugar",
+          "year": 2025,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-12-46-456Z",
+    "id": "cc3db332-cab0-4219-8fab-4cb981607fe3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3575b8440bebe6906184d689f34823854b5245f4b787754e493671602ab4a180",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "건선성 관절염의 원인·증상·대처가 쉬운 문장으로 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "You are more likely to get",
+          "note": "위험 요인 문단은 가족력·감염 두 원인이 짧게 이어졌고 induce 하나만 바꾸면 쉬운 밴드가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:12:46.460Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://newsinhealth.nih.gov/2019/08/what-psoriatic-arthritis",
+          "year": 2019,
+          "author": "NIH News in Health (NIH Office of Communications and Public Liaison)"
+        },
+        "needsResolution": true
+      }
+    }
+  }
+]

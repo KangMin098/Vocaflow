@@ -1,0 +1,893 @@
+[
+ {
+  "id": "144fee8a-0dfa-4933-b16a-ed872dd070be",
+  "source_updated_at": "2026-09-25T07:33:37.098663+00:00",
+  "body_sha256": "2e40582d4337ba74e350ab389d192408e17645a03e4e70383c4c8b1bc0441ebb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "안데스-아마존 생물경제를 엔트로피 법칙과 조상지식으로 재정의하는 논지가 서론-고찰-결론으로 이어지고, 5.1절 「생물문화 자본 우위」가 그대로 논증 지문이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The statistical significance of the Biocultural",
+   "note": "계량 용어(Malmquist·FE 모형)를 걷어내도 「보전은 비용이 아니라 투자」라는 역설 논지가 남는다."
+  }
+ },
+ {
+  "id": "147bab0d-31ed-4d3f-b104-b838a808a090",
+  "source_updated_at": "2026-09-25T07:33:40.024358+00:00",
+  "body_sha256": "947a4846f7d846ca5101530958a3c17e051b5c9bc1bb86fd924bc207d8351c51",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기존 용혈 검사와 새 유세포 검사를 절차·정확도·시료량으로 견주는 고찰 앞부분이 비교형 설명문으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Unlike the conventional EOF test",
+   "note": "시약·기기명은 걷히지만 앞부분은 실험 절차 나열이라 고찰 쪽에서만 잘라야 한다."
+  }
+ },
+ {
+  "id": "14b8e1b8-6e66-493c-912d-9bf6bb355865",
+  "source_updated_at": "2026-09-25T07:33:43.589638+00:00",
+  "body_sha256": "bc15398e7e91ccc5d649062b2eace4b1241077a4bd26e2d244003c84bb1c4201",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "전이 미세환경을 단일세포 기술로 읽어 온 과정을 개념 중심으로 풀어낸 에세이라 전문용어를 줄이면 과학 설명문이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dormancy is increasingly being recognized",
+   "note": "「휴면은 수동적 상태가 아니다」 단락은 통념-반증 구조가 뚜렷해 고유명사만 걷으면 자족한다."
+  }
+ },
+ {
+  "id": "14cdd693-b30b-46b1-bddc-e78c2769db78",
+  "source_updated_at": "2026-09-25T07:33:45.881483+00:00",
+  "body_sha256": "c4382bbd07df0940daac212eb6e70b869de2a7dbe4bc883c3756e83de275d65d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "예상과 어긋난 결과를 계통·녹아웃 방식·보상 기전으로 해명하는 고찰이 가설 검증 글의 표본이 된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "It is well-known that mouse models",
+   "note": "유전자·계통 약어가 논지에 직접 얽혀 낱말 교체만으로는 밴드가 안 내려간다 — 고찰 요지만 개작해야 한다."
+  }
+ },
+ {
+  "id": "14cdf494-8a2c-4f71-aa7e-709319ec0779",
+  "source_updated_at": "2026-09-25T07:33:46.41708+00:00",
+  "body_sha256": "6fd661bd0ff2ee1de91e34139e2cbd9f29461b8a667a067808703aa795edf146",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "관절 손상 후 연골 성분 감소를 계산 모형으로 설명하는 글로, 저자 요약(Author summary)이 일반 독자용 설명문으로 그대로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Post-traumatic osteoarthritis is an incurable",
+   "note": "저자 요약은 수식·기호가 없어 바로 쓰이고, 본문 결과절은 수치 밀도가 높아 부적합하다."
+  }
+ },
+ {
+  "id": "14e35aba-cce2-4c1b-be2f-fbffd62727f1",
+  "source_updated_at": "2026-09-25T07:33:49.817748+00:00",
+  "body_sha256": "c6594e7ed6dcc78c9de36165967ffb810a55675f03b30e800768eb8fac08ebfd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈소판이 바이러스 운반체가 될 수 있는지 묻고 실험으로 답하는 구조가 서론과 고찰에 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "At the late stage of Ebola",
+   "note": "저자 요약 단락이 질문-답 흐름을 갖춰 세포주 이름만 일반어로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "156d335b-4ec2-436a-9b5b-7359bd4495f8",
+  "source_updated_at": "2026-09-25T07:33:57.886322+00:00",
+  "body_sha256": "a55d844ea9a19c1d0b9929b9fe4bee4b9530d2125e637f5a9b9a33af101a9d4b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "감비아 디에틸렌글리콜 사건에서 왜 일부 아이만 신장손상을 피했는지를 연령·복약수로 설명하는 고찰이 인과 추론 지문이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An initially counterintuitive finding merits",
+   "note": "「몸무게가 아니라 발달 성숙도」 절은 통계치를 걷어도 논지가 그대로 서서 가공이 가장 쉬웠다."
+  }
+ },
+ {
+  "id": "158ba3c7-40c2-45c2-bf42-209747cbcdfa",
+  "source_updated_at": "2026-09-25T07:34:00.413414+00:00",
+  "body_sha256": "5cdfcb8dda0474a38e148507857d5d9a6c5794cc4b525d893c1daec133cdf9dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "복합재를 이미지가 아니라 그래프로 보아야 하는 이유를 서론에서 대비로 세우고, 결론에서 한계까지 적어 논증이 닫힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This work posits that stochastic heterogeneous",
+   "note": "서론 단락은 수식 자리표시자가 없어 깨끗하고, 방법절은 [수식] 조각이 많아 못 쓴다."
+  }
+ },
+ {
+  "id": "158e9b61-7b3d-499c-b9dc-1ce3dea1b3d5",
+  "source_updated_at": "2026-09-25T07:34:01.004024+00:00",
+  "body_sha256": "bf4b8296a2651bf30dba289a3f73adc8345d95d0cdd0baeebe3592ee166444f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "초파리 혈구가 감염에 맞춰 대사를 바꾸는 과정을 저자 요약이 평이한 서술로 정리해 학습 지문으로 옮길 수 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The immune system relies on specialized",
+   "note": "유전자 약어가 결과절 전체를 덮어 저자 요약 한 단락 말고는 쓸 곳이 없다."
+  }
+ },
+ {
+  "id": "15b8646b-41aa-4a7e-912d-fc729e99a011",
+  "source_updated_at": "2026-09-13T07:05:14.646746+00:00",
+  "body_sha256": "8e83f9ee5a43b02dc6640f6615f9b9225410dc14f6e4b10a93b260914f671872",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "단백질이 핵 밖으로 나가는 경로를 억제제 실험으로 가르는 글이지만 서론의 감수분열 개관이 설명문으로 자족한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In sexually-reproducing organisms, chromosome distribution",
+   "note": "본문에 그림 설명(Fig 범례)이 그대로 섞여 있어 발췌할 때 범례 문단을 먼저 걷어야 한다."
+  }
+ },
+ {
+  "id": "15b9ae93-6f92-4ae6-a285-f2855b9474f8",
+  "source_updated_at": "2026-09-13T07:34:05.895142+00:00",
+  "body_sha256": "2eb63c8a4566bc3150e890fe882f1c06e76d5bf7c9359100bb3a277d9f99fd32",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "심장 주변 지방과 시스타틴 C의 관계를 신기능과 분리해 해석하는 고찰이 상관과 인과를 가르는 지문이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cystatin C, a 13-kD endogenous",
+   "note": "본문 중간에 표가 통째로 흘러들어 있어 고찰 단락만 떼어야 하고, 떼면 논지가 선다."
+  }
+ },
+ {
+  "id": "15cfe7cd-2e3c-4d02-a2d4-ee25275977eb",
+  "source_updated_at": "2026-09-13T06:54:04.412034+00:00",
+  "body_sha256": "c9fa4534b63fe9fdb007fc881da8f1d7166830f19d5c9cf74b827ec0d54947b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "파킨슨병과 다계통위축증이 같은 단백질의 다른 형태에서 갈린다는 설명을 1817년부터의 발견사로 풀어 서사와 논증이 함께 있다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In 1817, James Parkinson published",
+   "note": "도입부는 연도순 서사라 순서·삽입 문항까지 열리고, 어려운 낱말은 대여섯 개뿐이라 교체가 쉽다."
+  }
+ },
+ {
+  "id": "15d1b319-3439-4176-b4d1-ce93d38ee640",
+  "source_updated_at": "2026-09-25T07:34:10.535859+00:00",
+  "body_sha256": "037d70a92cdcc8631c81241dad15dbc14839bf3911a156a455a542eedf084542",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "지질대사 효소가 면역 회피 단백질을 분해시킨다는 발견을 서론에서 기존 기전과 대비해 세워 논지가 분명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Immune checkpoints play critical roles",
+   "note": "단백질 약어를 빼면 문장이 가리키는 대상이 사라져 서론 두 단락을 크게 다시 써야 한다."
+  }
+ },
+ {
+  "id": "15dcc706-a5c0-4a3a-a38c-9004225353e7",
+  "source_updated_at": "2026-09-13T06:46:45.685431+00:00",
+  "body_sha256": "e189a33c4e446b3f2da034176f05531062282ded1fdde1e4bebf3c6024f6ffa6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당뇨약이 골밀도에 주는 영향을 유전변이 도구로 추정하는 글로, 방법의 가정 세 가지를 설명하는 대목이 추론 구조 지문이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In accordance with the fundamental principles",
+   "note": "약물별 결과절은 수치 나열이지만 서론·한계 단락은 논지가 서고 낱말 교체도 통한다."
+  }
+ },
+ {
+  "id": "15f209dd-0d76-48f9-97ff-b5215601b9a3",
+  "source_updated_at": "2026-09-13T06:27:06.234936+00:00",
+  "body_sha256": "b3f29b5ef7fc8f83104e01fdf08e866a72587cbf03dbbe7a6965649d2082c529",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "예상과 다른 분해 경로를 발견해 가설을 바꾸는 과정이 서론 끝과 고찰 앞에 서술돼 연구 서사로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "We initially sought to expand",
+   "note": "화합물 번호(H1~H28)와 효소 이름이 문장 골격이라 떼어내면 지시 대상이 비어 개작 부담이 크다."
+  }
+ },
+ {
+  "id": "15ff3664-b81f-48fc-b95e-30a8be6bc099",
+  "source_updated_at": "2026-09-25T07:34:16.208132+00:00",
+  "body_sha256": "921760e1295bf376fb1a148ded4c7d72ee34ab2c732af0762abd1061c8a20cf9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "탄소배출권의 「적격」 표시가 품질 보증으로 오해되는 현상을 개념으로 세우고 세 가지 이유와 대안까지 제시해 논증이 완결된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "purpose",
+    "summary",
+    "blank",
+    "order",
+    "insert",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Calls to strengthen integrity in carbon",
+   "note": "「기준 강화만으로 부족한 세 이유」 절은 주장 하나에 근거 셋이 나뉘어 순서·삽입 문항까지 만들 수 있다."
+  }
+ },
+ {
+  "id": "16016114-bc51-45c7-8c65-67c66117ecf8",
+  "source_updated_at": "2026-09-13T07:20:07.382308+00:00",
+  "body_sha256": "8b7946aa2fca8321e984529e62f1854f8d57e9c6003d3680632b8f0f1b7f66df",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "지네풀 추출물의 발모 효과를 기존 치료제의 부작용과 견주는 고찰 도입이 대안 제시형 설명문으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The proportion of appearance among modern",
+   "note": "신호전달 경로 이름을 「특정 단백질」로 바꾸면 탈모 치료 대안이라는 논지가 그대로 남는다."
+  }
+ },
+ {
+  "id": "1613d91b-ab4e-4933-8fb4-bb4de098c4f6",
+  "source_updated_at": "2026-09-25T07:34:17.731366+00:00",
+  "body_sha256": "4bb8cfde9cc42383dd712cfef6e34db9ae34cf34a32b002596ab153cfb14fa76",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "하수처리장이 아니라 자연 하구에서 분리한 균주라야 하는 이유를 서론에서 대비로 세워 문제-해결 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, to date, most of the reported",
+   "note": "서론은 수치가 거의 없어 그대로 쓰이고, 결과절은 제거율 비교 나열이라 쓰지 않는다."
+  }
+ },
+ {
+  "id": "1615261d-3b91-4aef-b9f1-d3a2ad5dfbcd",
+  "source_updated_at": "2026-09-13T06:42:53.218431+00:00",
+  "body_sha256": "3cdb7a66c56e7e387b47372ae7145f2838fbc7ee8532a8a012201655c3060abe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "진흙 속 규조류의 움직임을 보려면 투명한 대체 바닥이 필요하다는 문제 설정이 서론에 또렷하고, 고찰이 재료별로 왜 실패했는지 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Using optical measurements to study MPB",
+   "note": "하이드로젤 조건(투명·함수율·강성)을 하나씩 세우는 단락은 조건 나열이 논지를 이루어 발췌가 쉬웠다."
+  }
+ },
+ {
+  "id": "161e2918-08c8-466d-898f-f07323d55772",
+  "source_updated_at": "2026-09-25T07:34:20.537677+00:00",
+  "body_sha256": "dc2507a067429d2a58d775721cbeec74752022e345947cdf8e8d22ffe1634219",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "바이러스가 막 없는 액체 방울로 복제 공장을 만든다는 개념을 저자 요약이 일상어로 풀어 과학 설명문으로 옮길 수 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In this study, we investigate the role",
+   "note": "저자 요약과 서론 첫 단락은 약어가 적어 쓸 수 있고, 결과절은 변이체 표기가 빽빽해 못 쓴다."
+  }
+ }
+]

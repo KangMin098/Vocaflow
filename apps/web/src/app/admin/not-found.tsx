@@ -27,7 +27,7 @@ export default function AdminNotFound() {
       <div className="mx-auto max-w-2xl rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-6 shadow-[var(--sh-sm)]">
         <div className="flex items-start gap-3">
           <span
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)]/12 text-[var(--p)]"
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[color-mix(in_srgb,var(--p)_12%,transparent)] text-[var(--p)]"
             aria-hidden
           >
             <Compass size={16} strokeWidth={2} />

@@ -1,0 +1,939 @@
+[
+  {
+    "id": "6bf904c3-246d-457d-9e83-cc1728198282",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:14:01.657948+00:00",
+    "body_sha256": "6f8451ff94a01a1856ea0042c949be82b39e8e202c504117b12b288bd29a1d52",
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 동맥경화 사망 부담을 수치와 함께 제시하고 고찰이 유전자별 역할을 논증으로 이어 간다 — 성인 독해 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Atherosclerosis (AS) is a chronic",
+      "note": "서론 첫 문단은 지시어 없이 떼어지나 TRIM25 같은 유전자명이 많아 목표 밴드로 내리기 어렵다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6bfb4003-1d95-4958-a9ce-ef139d011b8c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:14:02.209485+00:00",
+    "body_sha256": "04c90b4705632f3e190763952e9ab794e7af1bc0abdf113c2bb0cda16a27cedb",
+    "retention": "keep",
+    "genre": "health",
+    "why": "무홍채증 각막병증을 설명하는 서론 문단이 인과로 이어져 한 편의 설명문으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Congenital aniridia is a rare",
+      "note": "질환 설명 문단은 자족적이지만 유전자·단백질 약어가 빽빽해 어휘 교체만으로는 안 내려간다"
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c004d32-bc5c-432f-aaf4-ad63d1e6a3fd",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:19.454021+00:00",
+    "body_sha256": "dfb09b97d4968f89a4967a9d4f7aa7d35fad90936cf1f43be110ac9a9eea2189",
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "전체를 먼저 보는 지각 우위를 산·나무 비유로 풀어내 일반 독자도 따라갈 수 있는 도입부다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Most visual stimuli encountered in daily",
+      "note": "hierarchically·configural 같은 낱말 두셋만 바꾸면 고2 밴드로 내려간다 — 뒤쪽 통계 기호 문단은 걷는다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c011bc8-5f9b-42c9-9d4f-3ad1630c1646",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:20.048265+00:00",
+    "body_sha256": "fcd1192822de03ba031b464fbf24f2265b42d6b204e70be83cfedddd87195470",
+    "retention": "keep",
+    "genre": "health",
+    "why": "결핵균이 약제 내성을 단계적으로 얻는 과정을 고찰이 이야기처럼 이어 설명한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tuberculosis is the deadliest infectious",
+      "note": "저자 요약(Author summary)은 그대로 떼어 써도 논지가 서지만 유전자 기호는 남는다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "sequence"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c04cc52-399d-4512-b0c7-fdfa003f327e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-23T21:04:54.63289+00:00",
+    "body_sha256": "648e6751d38446669baa96ff85b852e775ef949084e367d02538f83955843994",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "본문 대부분이 데이터베이스 이름과 매개변수 나열이라 떼어 낼 문단이 서론뿐이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Histone Deacetylases (HDACs) are a",
+      "note": "서론은 서지만 결과·고찰이 유전자 여덟 개 이름과 결합에너지 수치 반복이라 가공 경로가 불분명하다"
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c0b6170-581d-46f2-b282-31ccb404c7e1",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:20.449338+00:00",
+    "body_sha256": "25d3ca9e141de0827d35f842f93f881d00991988957aac36a8735d48246fef75",
+    "retention": "keep",
+    "genre": "health",
+    "why": "뎅기열 백신 개발의 난점을 서론이 원인과 결과로 풀어 한 편의 논증이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dengue is the most prevalent",
+      "note": "서론 두 문단은 항원 이름 몇 개만 일반어로 바꾸면 고3 밴드에 실린다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c1be3e3-240d-456d-8586-81883904d761",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:20:03.735234+00:00",
+    "body_sha256": "cc8a0ceda0f4936db92cdc53ceb82629468bf41834a85d25f26520d8b348da3f",
+    "retention": "keep",
+    "genre": "health",
+    "why": "가설을 세우고 실험이 그 가설을 부정하는 흐름이 고찰에서 또렷하게 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The scavenger receptor class B",
+      "note": "고찰 첫 문단은 예상과 다른 결과를 논지로 세우나 유전자·마우스 계통 표기가 촘촘하다"
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c25fd96-2af7-4594-b2dd-52a28eaba90a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:22.824232+00:00",
+    "body_sha256": "e17199f78865a847a220f15fe34beb86ec1caf4c28dea18b5317e7b177b15564",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "플라스틱 대체물질의 위험이라는 소재는 좋으나 본문이 도킹 점수와 잔기 이름 나열에 치우친다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Non-alcoholic fatty liver disease (NAFLD)",
+      "note": "서론은 떼어지지만 결과 절이 TRP66·VAL112 같은 잔기 나열이라 발췌 가능한 분량이 얼마인지 불확실하다"
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c3169d6-1aa6-4780-8d6d-719f7bafb12c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:41:04.313487+00:00",
+    "body_sha256": "05b3c94939cba72b373f270d362dd36fd6ef59ea2ecb659bbcb21c5477e847ca",
+    "retention": "keep",
+    "genre": "science",
+    "why": "뇌를 관절에서 가르듯 나눈다는 비유로 시작해 방법의 필요성까지 논지가 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A major challenge in neuroanatomy",
+      "note": "서론 첫 문단은 고유명사를 걷어도 논지가 서고 어휘 서넛 교체로 고3 밴드에 든다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c3a5527-976b-47c2-9a66-3826ad0cbf23",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:27:57.761202+00:00",
+    "body_sha256": "7da6192f5f4687f44e187c2fd83a9db48a933b090489deffa31c01b8d80f86d7",
+    "retention": "keep",
+    "genre": "health",
+    "why": "개의 승모판 질환 유병률이 나이에 따라 어떻게 오르는지 수치와 함께 서술해 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Myxomatous mitral valve disease (MMVD)",
+      "note": "서론의 유병률 문단은 견종 이름만 걷으면 그대로 서고 어휘도 내려간다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c3c1496-a067-4811-8e81-44849d0c0101",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:46:35.066143+00:00",
+    "body_sha256": "a5c75831bb5b459ab03f64068de46d1e6dbac020e8b55b2acc34fda7c6641f16",
+    "retention": "keep",
+    "genre": "health",
+    "why": "B형 간염 바이러스가 면역세포 대사를 바꿔 방어를 무디게 한다는 논지가 고찰에 한 줄기로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Macrophages are phenotypically plastic and",
+      "note": "대식세포 M1/M2 설명 문단은 자족적이나 약어가 많아 목표 밴드로 못 내린다"
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c3d8020-6324-4d61-a1e8-16c60bb7ed2d",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:26.708778+00:00",
+    "body_sha256": "a6a8293293c2d585f9fe46aa733ac09f2ecd666c427f34376d2ebd83f94801e4",
+    "retention": "keep",
+    "genre": "health",
+    "why": "장내 구더기증 의심 사례가 실제 감염인지 오염인지 가르는 통념 교정 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Moth flies are dipteran insects",
+      "note": "서론과 고찰 첫 문단이 통념-반증-결론으로 이어져 발췌가 쉽다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c52be58-6ea3-481e-8bce-e56d28b5f584",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:28.001661+00:00",
+    "body_sha256": "3e7c7ef4dd7b1a4164363cadbbe562d820965d68b694685ed9cf7faf86b22e09",
+    "retention": "keep",
+    "genre": "health",
+    "why": "전립선암 치료가 면역 억제 환경에 막힌다는 문제 제기가 서론 한 문단으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Prostate cancer (PRAD) is one",
+      "note": "서론은 떼어 쓸 만하나 결과 절이 유전자·신호경로 약어로 빽빽하다"
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c5f1985-e64d-45eb-bcf8-6e1b098a5e31",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:49:28.898105+00:00",
+    "body_sha256": "56e17b6d5f94cc1cdb44435dda03d18fb5c8e60964033e57e5232bdc4489ac33",
+    "retention": "keep",
+    "genre": "health",
+    "why": "항암제 내성이 왜 생기는지 서론이 단백질 분해 체계부터 차근히 설명해 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ubiquitin–proteasome pathway is the",
+      "note": "프로테아좀 설명 문단은 고유명사를 걷어도 인과가 남고 낱말 두셋 교체로 내려간다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c65ebe5-7c03-4f81-b4aa-adaae987d089",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:44:59.05607+00:00",
+    "body_sha256": "128395bc68587baf24efa97ce2c98f702df21c71efd4aa094893da022ae8a847",
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "음악 훈련이 좌우 뇌의 대칭성을 바꾼다는 주장을 현악·건반 비교로 뒷받침해 발췌가 쉽다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "audio"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Within-modality neuroplasticity has been investigated",
+      "note": "현악 연주자 손가락 표상 문단은 그대로 서고 어휘도 고2 밴드로 내려간다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c671792-3813-4fbf-94df-33f28eef00b1",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:48:36.779197+00:00",
+    "body_sha256": "0d9498f77dbc3ffdfa0e2d2277f36f6d25df3719e9027750a712ebf6ce1c6a5c",
+    "retention": "keep",
+    "genre": "history",
+    "why": "석기 제작이 인류 인지 진화에 무엇을 요구했는지 찬반을 나란히 놓고 논증한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Enhancement of prefrontal executive control",
+      "note": "서론과 결론은 학설 대립이 뚜렷해 떼기 쉽고, fMRI 좌표 문단만 걷으면 된다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c769a38-8a47-454f-91ee-c335e81e6271",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:07:50.447835+00:00",
+    "body_sha256": "4a0b1f0d37f9f2842521372300e4a5fae8a660cf182aba4c0b075d168ea6343f",
+    "retention": "keep",
+    "genre": "science",
+    "why": "포식성 세균이 먹이에서 빠져나가는 과정을 신호물질과 엮어 사건 순서로 설명한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Three cyclic dinucleotide (CDN) second",
+      "note": "포식 생활사 설명 문단은 사건 흐름이 남지만 유전자 기호가 많아 밴드를 못 내린다"
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c7d2b5b-e348-4693-8faf-1e1ab7e89e84",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:33.654417+00:00",
+    "body_sha256": "93f5aaea40984237f3e4b3ba17ae6c458c35583653a517fbba5e89f8b274d77c",
+    "retention": "keep",
+    "genre": "health",
+    "why": "녹농균 만성 감염과 바이오필름의 관계를 서론이 원인·결과로 풀어 한 편이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pseudomonas aeruginosa is a virulent",
+      "note": "저자 요약과 서론 앞 두 문단은 유전자명을 걷어도 논지가 남는다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c7fe98c-3004-4af8-a3d5-b94a3f3ba212",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:44:09.983608+00:00",
+    "body_sha256": "23606fe86347ff28fcb1a137c23336819ccc78c8a2ba79d6d5286d0c6730345f",
+    "retention": "keep",
+    "genre": "health",
+    "why": "과식이 어떻게 당뇨로 이어지는지 서론이 단계별 인과로 설명해 발췌 단위가 잡힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Type 2 diabetes mellitus (T2DM)",
+      "note": "서론 첫 문단은 인과 사슬이 남고 ncRNA 약어만 풀어 쓰면 고3 밴드에 든다"
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "6c985259-d049-4d89-9990-cc679651ce6b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:14:22.249702+00:00",
+    "body_sha256": "b18127c4c7d30fcf2d080180c6ca8b4ecdf428b95175898cb91af41b0634ef76",
+    "retention": "keep",
+    "genre": "nature",
+    "why": "생체시계가 모든 포유류에 통하지 않는다는 통념 교정 구조가 글 전체를 끌고 간다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is widely held that",
+      "note": "쳇바퀴가 실험을 왜곡한다는 문단이 특히 자족적이고, 학명을 걷으면 고1 밴드까지 내려간다"
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  }
+]

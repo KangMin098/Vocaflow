@@ -32,6 +32,8 @@ export interface Evidence {
 /* ───────────────────────── 컷 ───────────────────────── */
 
 export interface SceneBase {
+  /** 이 컷의 「말하는 자리」 서체 — 생략하면 `voiceFont` 기본값(한글 본문 정체 · 영어 Lora italic). */
+  voice?: VoiceStyle
   /** 화면 아래 자막. **모든 컷의 필수 항목** — 소리를 끄고 봐도 내용이 전달돼야 한다. */
   caption: string
   /**
@@ -226,6 +228,8 @@ export type VideoKind =
   | 'method'
   /** 권장안 — 한 자리에서 다음으로 무엇을 권하는가 */
   | 'advice'
+  /** 관리자 요청으로 설계·승인된 편 (`requests/`) */
+  | 'request'
 
 export interface VideoSpec {
   /** 파일명이자 컴포지션 id. `<kind>-<slug>`. */
@@ -235,14 +239,39 @@ export interface VideoSpec {
   title: string
   /** 한 줄 부제 — 90자 이내(CLAUDE.md I4 와 같은 바닥). */
   subtitle: string
-  /** 강조색 — `theme/palette.ts` 의 키만 받는다. 원시 hex 금지. */
-  accent: AccentKey
+  /** 강조색 — `theme/palette.ts` 의 키, 또는 CSS 색 값(hex · rgb() · hsl() …)을 그대로. */
+  accent: Accent
   scenes: SceneSpec[]
   evidence: Evidence[]
   formats: FormatId[]
+  /**
+   * 요청 편의 기획 요지 — 목적·수요자·남길 한 문장. 규칙 편(catalog)에는 없다.
+   * 평가가 「목적 달성」을 잴 때 무엇을 재야 하는지 여기서 안다.
+   */
+  brief?: VideoBrief
 }
 
-/** 쓸 수 있는 강조색 — 디자인 토큰에 실재하는 것만. */
+export interface VideoBrief {
+  purpose: 'learn' | 'buy'
+  audience: 'student' | 'parent' | 'teacher' | 'adult'
+  message: string
+  /**
+   * 교체 편이면 이어받는 자리의 id(= 이 편의 id). 있으면 같은 id 의 규칙 편을 이긴다(`requests/merge.ts`).
+   */
+  replaces?: string
+}
+
+/** 이름 붙은 강조색 — 디자인 토큰 값으로 풀린다. */
 export type AccentKey = 'brand' | 'gold' | 'forest' | 'amber' | 'clay' | 'slate'
+
+/** 강조색 — 이름(`AccentKey`)이면 토큰 값, 아니면 CSS 색 값 그대로(DD-66 으로 원시 색 허용). */
+export type Accent = AccentKey | (string & {})
+
+/** 「말하는 자리」 서체 덮어쓰기. 적은 항목만 기본값을 바꾼다. */
+export interface VoiceStyle {
+  fontFamily?: string
+  fontStyle?: 'normal' | 'italic'
+  fontWeight?: number
+}
 
 export type { Audience, FormatId }

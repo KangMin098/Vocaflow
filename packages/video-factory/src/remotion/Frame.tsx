@@ -15,8 +15,8 @@ import React from 'react'
 import { AbsoluteFill, useCurrentFrame, useVideoConfig } from 'remotion'
 
 import { FORMATS, proseScale, typeScale, type FormatId } from '../spec/format'
-import type { AccentKey } from '../spec/types'
-import { ACCENT, FONT, SURFACE } from '../theme/palette'
+import type { Accent, VoiceStyle } from '../spec/types'
+import { accentColor, FONT, SURFACE } from '../theme/palette'
 
 /** 한글이 낱말 중간에서 쪼개지지 않게 — 모든 한국어 텍스트에 얹는다. */
 export const KO: React.CSSProperties = {
@@ -26,7 +26,7 @@ export const KO: React.CSSProperties = {
 
 export interface FrameProps {
   format: FormatId
-  accent: AccentKey
+  accent: Accent
   caption: string
   /** 영상 전체에서 지금 어디쯤인가 (0~1). 진행 실선이 이 값만큼 찬다. */
   overallProgress: number
@@ -45,7 +45,7 @@ export const Frame: React.FC<FrameProps> = ({
 }) => {
   const def = FORMATS[format]
   const scale = typeScale(format)
-  const color = ACCENT[accent]
+  const color = accentColor(accent)
 
   return (
     <AbsoluteFill style={{ backgroundColor: SURFACE.page }}>
@@ -202,8 +202,10 @@ export function hasHangul(s: string): boolean {
  * 그래서 한글은 **DM Sans 정체**로 쓰고, "사람의 목소리" 는 기울기가 아니라
  * **왼쪽 세로선**으로 표시한다. 한글 조판에 이탤릭이라는 장치가 원래 없다.
  */
-export function voiceFont(text: string): React.CSSProperties {
-  return hasHangul(text)
+export function voiceFont(text: string, override?: VoiceStyle): React.CSSProperties {
+  // 기본값은 그대로 두고, 스펙이 적은 항목만 덮어쓴다(DD-66 — 한글 정체 · 영어 italic 강제 해제).
+  const base: React.CSSProperties = hasHangul(text)
     ? { fontFamily: FONT.body, fontStyle: 'normal', fontWeight: 500 }
     : { fontFamily: FONT.english, fontStyle: 'italic', fontWeight: 600 }
+  return { ...base, ...(override ?? {}) }
 }

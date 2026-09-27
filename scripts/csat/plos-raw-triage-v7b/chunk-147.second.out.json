@@ -1,0 +1,897 @@
+[
+  {
+    "id": "764e77c5-f704-4314-8805-9cf93e22c323",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:19:28.188223+00:00",
+    "body_sha256": "a7b0b5e744680b9b85ceb3c22bbc01fbd6604344c9d31751408321f6e4e1e87a",
+    "retention": "keep",
+    "genre": "health",
+    "why": "옴 가려움의 원인 경로를 통념 대신 근거로 설명하는 서론과 고찰 단락이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "With an annual global prevalence of",
+      "note": "서론 첫 단락은 유병률과 증상 설명이 이어져 떼어내도 서고, 항체 번호와 시약명은 가공 때 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7653827f-0f7e-4d82-82b6-543381cbb83c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:19:29.823037+00:00",
+    "body_sha256": "e0eee6ecbd8b40ff43b1230c8981f9c5217a87c5495628e46b50448aedd7c320",
+    "retention": "keep",
+    "genre": "health",
+    "why": "가나 장티푸스 유전형 조사가 진단 한계와 공중보건 대응이라는 논지로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ghana is a typhoid endemic",
+      "note": "서론 셋째 단락은 진단 도구의 한계를 논지로 삼아 자족적이고, 유전자 약어 나열은 걷어야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "766691f4-2a9c-4325-864e-31efd8d80f8d",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:19:31.751478+00:00",
+    "body_sha256": "ca579324258164b66ee8e3859daf48d84e58c7aead0f9b890f2d3ff0b8bd3ff7",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "저농도 카드뮴이 성장은 늘리되 식품 안전은 해친다는 역설을 한 편의 논지로 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The intensification of agricultural and industrial",
+      "note": "서론 첫 단락은 토양 오염과 식품 안전 문제로 자족하고, 시약 농도 표기는 고쳐 써야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "766e808e-c1bb-4e7e-ab23-a24fb07358b3",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:27:45.695747+00:00",
+    "body_sha256": "6857712949d37499c7bf40459f64d527c241ecfb391a00805f54f58498068b66",
+    "retention": "keep",
+    "genre": "health",
+    "why": "역형성 갑상선암의 예후와 EpCAM 표적 가능성을 잇는 서론·고찰이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Anaplastic thyroid cancer (ATC) is",
+      "note": "서론 첫 단락은 떼어내도 서지만 세포주명과 신호전달 약어가 많아 밴드를 크게 낮추기는 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76733994-3d54-4767-b298-f4485faed2ea",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:13:06.356974+00:00",
+    "body_sha256": "36f81c2a6b010d45a956ac1dd803e7252443b5a517a533eb14a260178b534c5e",
+    "retention": "hold",
+    "genre": "health",
+    "why": "본문 중간에 91개 균주 내성표가 통째로 박혀 있어 떼어 쓸 단락의 경계가 불분명하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The presence of antibiotics or heavy",
+      "note": "고찰의 환경 내성 단락은 논지가 서지만 앞뒤가 표 문자열이라 자동 분할이 어긋난다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4,
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "769af3de-5ed4-49e1-af02-8864133c9616",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-06T00:08:09.973643+00:00",
+    "body_sha256": "23511053ace68ff80eb4a170f438cef95a5fc1243a4129ea1d5b412d23523d55",
+    "retention": "keep",
+    "genre": "climate",
+    "why": "기후와 만성질환을 잇는 인과 사슬이 보이지 않는다는 주장을 근거로 전개한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Climate change disproportionately burdens socioeconomically disadvantaged",
+      "note": "형평성 단락은 통째로 떼어도 논지가 서고 전문 용어가 적어 밴드를 내리기 쉽다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76a33009-b171-4684-bf34-1feb0eb20516",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:34:33.328213+00:00",
+    "body_sha256": "1a5ef5e3074aa9e5190b0a59b04dd6afa0543ad91ed2bbbf18e689fac0518441",
+    "retention": "keep",
+    "genre": "science",
+    "why": "근긴장성이영양증의 뇌 연결망이 위축에도 보존된다는 역설을 고찰이 풀어 준다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In accordance with the previous study",
+      "note": "고찰의 보상기전 단락은 자족하지만 그래프이론 용어가 남아 어휘 교체만으로는 한계가 있다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76a64356-e45e-450b-9563-08676364f2a3",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:40:26.207754+00:00",
+    "body_sha256": "546764f1326cbb10b6be3c111c9518e29cb937659d4717bc87e80c5b99fc67cb",
+    "retention": "keep",
+    "genre": "science",
+    "why": "CT로 안 보이는 표적을 MRI로 겨냥한다는 문제-해결 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In contrast to CT, Magnetic Resonance",
+      "note": "서론의 영상 대조 단락은 떼어내도 서지만 장비명과 수치가 촘촘해 손질이 많이 든다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76a7d091-f3fd-4101-bfb8-0964ad8019fd",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:27:49.417669+00:00",
+    "body_sha256": "12e9200e82e7beaa54779fc751cbaf551c2cc5977c0d34cb0b91c9eddc611afc",
+    "retention": "keep",
+    "genre": "health",
+    "why": "두 기생체 동시감염 조사 결과를 위생 기반 시설 논의로 잇는 고찰이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Schistosomiasis is one of the most",
+      "note": "서론 첫 단락은 질병 설명으로 자족하고 오즈비 괄호만 걷으면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76af496b-5102-4fdf-b786-fad3e57a24f4",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:27:50.339781+00:00",
+    "body_sha256": "585a9dfbb2ae7b42e09b887d537ba69867b88852f11f77a93789c29e1dbb4fc6",
+    "retention": "keep",
+    "genre": "science",
+    "why": "인돌이 독이자 신호라는 이중성을 적응 실험으로 뒤집어 보이는 구조가 좋다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Entamoeba histolytica is a protozoan parasite",
+      "note": "저자 요약은 일반 독자용 문장이라 그대로 떼어 쓸 수 있고 어휘도 조정하기 쉽다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76b43158-f19b-40f1-a001-d87c525846a3",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:28:23.726187+00:00",
+    "body_sha256": "88444d62681406a3c633e0ddb3302134ff41121f0a5eb222487d63fc18d06459",
+    "retention": "keep",
+    "genre": "health",
+    "why": "예상과 달리 단백질 양은 변하지 않았다는 음성 결과를 고찰이 논지로 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Accumulating evidence suggests destruction of endothelial",
+      "note": "고찰의 상반된 선행 연구 단락은 자족하나 항체 카탈로그 번호가 많은 방법부는 못 쓴다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76c2e113-b86f-4127-9a36-75033669eb0d",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:56:39.125207+00:00",
+    "body_sha256": "0caa824ac4b73887d60ad9658d23c0f7d470829067c931dc6e4487be9c8a7369",
+    "retention": "keep",
+    "genre": "health",
+    "why": "약초가 천연이라 안전하다는 통념을 검증이 필요하다는 논지로 되받는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is estimated that 80% of",
+      "note": "서론 첫 단락은 통념과 반론이 한 문단에 다 있어 떼어 써도 서고 어휘도 평이하다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76d26d3e-9cb4-4ab2-850a-26384d7f7fee",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:40:29.127479+00:00",
+    "body_sha256": "ea73b7e596734e83784e844c4208ea098a64d30e1f27956ec88f4fa8e9bb9006",
+    "retention": "keep",
+    "genre": "health",
+    "why": "혈관내피 기능 장애를 약물로 되돌리는 기전 설명이 고찰에서 논지로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Endothelial dysfunction is an early manifestation",
+      "note": "고찰 둘째 단락은 자족적이지만 효소 약어가 촘촘해 중등 밴드로는 못 내린다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76de3d87-cfa1-4416-a1bc-3c72cdcca983",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:27:54.40555+00:00",
+    "body_sha256": "5b4e300615319bf29f6a2df1186461e06ed994646bfde6717e54a1fcea93bc6d",
+    "retention": "keep",
+    "genre": "science",
+    "why": "갈륨이 철을 대신해 세균 대사를 흔든다는 설명이 결론에서 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bacterial biofilm formation induces bacterial phenotypic",
+      "note": "결론의 생물막 설명 단락은 떼어내도 서고 실험 기기명이 없어 손질이 적다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76e997a7-49d4-490c-bf1b-4a665ca911e0",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:27:56.016794+00:00",
+    "body_sha256": "ca2cf78f2235aa1b882be695181f6dd9ba7cdbb2f322fbaeae3b16f2ca9efa51",
+    "retention": "keep",
+    "genre": "science",
+    "why": "해충의 소화관이 산업 효소의 미개척 공급원이라는 주장이 서론과 결론을 관통한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Enzymes play a fundamental role in",
+      "note": "서론 첫 단락은 자족하지만 본문에 수식이 빠진 자리 표시가 남아 그 절은 쓸 수 없다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "76ee4495-7490-49a2-9c10-7ac942585bca",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:29:57.363427+00:00",
+    "body_sha256": "f48ac32c77a698a0a2a5aa77f8df2bff5dff6abb7acc7e8f14bc455b58c0a559",
+    "retention": "keep",
+    "genre": "health",
+    "why": "코돈쌍 재설계로 백신을 약독화한다는 원리 설명이 서론에서 자족적으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Codon-pair deoptimization (CPD) is a strategy",
+      "note": "서론 첫 단락은 개념 설명으로 자족하나 뒤쪽은 변이 표기가 빽빽해 발췌 범위를 앞에 둬야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7716f31a-2f8a-47a5-ad65-80dfc3856d39",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T15:19:47.395936+00:00",
+    "body_sha256": "b74402de6cdef4a2c041d944d01c33dce8f25b47fe4dc31492198210945fe42d",
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "거식증 뇌 구조의 평균 차이보다 개인차가 크다는 결론이 논지로 서 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Why was this study done?",
+      "note": "저자 요약은 문답 형식으로 정리돼 그대로 떼어 쓸 수 있고 어휘 교체도 쉽다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "771e68c7-d34a-4522-a963-0e417cd2f126",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:52:53.276097+00:00",
+    "body_sha256": "8b22ad2445d70a7016166bccb55512b7908c2c8704ae7904f1a55f74dc95d1d0",
+    "retention": "keep",
+    "genre": "health",
+    "why": "인공감미료와 당뇨의 엇갈린 관찰 결과를 인과 추론으로 정리하는 논지가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As lifestyles change, the demand for",
+      "note": "서론 둘째 단락은 상반된 선행 연구를 대비시켜 자족하고 유전 용어는 뒤에 몰려 있다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  },
+  {
+    "id": "7736720a-de13-4231-a891-60665827ebbc",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:04:01.794325+00:00",
+    "body_sha256": "63a44071d9a429b45fc606d6f5f27487f0adfae51f4481c8b8ed89add92cc19f",
+    "retention": "hold",
+    "genre": "health",
+    "why": "읽을 만한 대목이 균종별 내성 백분율 나열에 묻혀 떼어 쓸 단락을 정하기 어렵다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Bacterial biofilms are an organized community",
+      "note": "서론 첫 단락은 논지가 서지만 결과·고찰이 거의 수치 나열이라 한 편 분량을 채우기 애매하다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4,
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "773eb146-d87e-4d7b-bfe3-0c9bcc06a424",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:59:42.66316+00:00",
+    "body_sha256": "1f6c3831847b7fea0578ba94d535479b8765e0dabf46bbec4bed69bfe3149f12",
+    "retention": "keep",
+    "genre": "science",
+    "why": "미페프리스톤의 수명 연장이 산란 감소 때문이 아님을 실험으로 가르는 구조가 좋다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Mifepristone (RU486) is a synthetic steroid",
+      "note": "서론 첫 단락은 자족하지만 유전자형 표기가 많은 결과부는 발췌 대상에서 빼야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 6,
+    "round": 4
+  }
+]

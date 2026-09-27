@@ -19,7 +19,8 @@ import { sceneFrames, validateAll } from '../spec/validate'
 import { captionFrames, CPS, MAX_CAPTION_SEC, MIN_CAPTION_SEC } from '../spec/timing'
 import { FPS, FORMAT_IDS, proseScale, typeScale } from '../spec/format'
 import { shelfTotalWidth, usableWidth } from '../spec/layout'
-import { ACCENT, retention, decayColor, DECAY } from '../theme/palette'
+import { ACCENT, ACCENT_SOFT, accentColor, accentSoft, retention, decayColor, DECAY } from '../theme/palette'
+import { voiceFont } from '../remotion/Frame'
 import { spread } from '../remotion/motion'
 import { VIDEO_MOTION } from '../spec/timing'
 import { applyVoiceTiming } from '../voice/timing'
@@ -110,8 +111,20 @@ describe('품질 게이트', () => {
     }
   })
 
-  it('강조색은 토큰 키만 쓴다 (원시 hex 금지)', () => {
-    for (const s of specs) expect(Object.keys(ACCENT)).toContain(s.accent)
+  // 「강조색은 토큰 키만 (원시 hex 금지)」 제한은 DD-66 으로 풀었다 — 키든 원시 색이든 받는다.
+  it('강조색 — 키는 토큰 값으로, 원시 CSS 색은 그대로 풀린다', () => {
+    expect(accentColor('brand')).toBe(ACCENT.brand)
+    expect(accentSoft('brand')).toBe(ACCENT_SOFT.brand)
+    expect(accentColor('#714bd0')).toBe('#714bd0')
+    expect(accentColor('rgb(12, 34, 56)')).toBe('rgb(12, 34, 56)')
+    expect(accentSoft('#714bd0')).toBe('color-mix(in srgb, #714bd0 14%, transparent)')
+  })
+
+  it('말하는 자리 서체 — 기본값을 두고, 장면의 voice 가 적은 항목만 덮어쓴다', () => {
+    expect(voiceFont('안녕하세요')).toMatchObject({ fontStyle: 'normal', fontWeight: 500 })
+    expect(voiceFont('Hello')).toMatchObject({ fontStyle: 'italic', fontWeight: 600 })
+    expect(voiceFont('안녕하세요', { fontStyle: 'italic' })).toMatchObject({ fontStyle: 'italic', fontWeight: 500 })
+    expect(voiceFont('Hello', { fontFamily: 'Pretendard', fontStyle: 'normal' })).toMatchObject({ fontFamily: 'Pretendard', fontStyle: 'normal', fontWeight: 600 })
   })
 
   it('「나아가는 차례」 컷의 수치가 전부 프레임워크 정본에서 온다', () => {

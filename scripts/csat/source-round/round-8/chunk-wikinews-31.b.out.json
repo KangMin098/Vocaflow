@@ -1,0 +1,1010 @@
+[
+  {
+    "id": "09bd935f-33f1-4b47-93bd-b2e62129b6f6",
+    "source_updated_at": "2026-09-25T07:10:51.161168+00:00",
+    "body_sha256": "057e8ea7614506e6416d42251f41e5209dbbd2d86ec5a439e73dfc1015a32482",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "국세청 전산 장애와 신고 영향이 출처 인용으로 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Computer systems used by the Canada",
+      "note": "출처 머리줄 잔재를 걷어 낸다."
+    }
+  },
+  {
+    "id": "09be94d6-5892-4963-be65-17c2233765c9",
+    "source_updated_at": "2026-09-25T07:53:24.500073+00:00",
+    "body_sha256": "05bb6c5aaeb33532e6c25d20d1eda4fecbba723485f9fc46de6351268cd51055",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카메룬 분리주의 지원 혐의 기소와 디아스포라 배경이 설명돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Friday, a federal grand jury",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09c28abc-5623-4553-b093-bc2a453e3ca4",
+    "source_updated_at": "2026-09-25T07:10:03.866781+00:00",
+    "body_sha256": "cd3d28715c1f6b86e8bfadd708bed834e568c0fe7268d2c8f4652cb7b724aa3a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "UCLA의 USC 격파와 순위 영향이 짧게 이어져 중고등 내용일치 칸이 겨우 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The UCLA Bruins defeated the USC",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09c94c6e-38b3-4922-98fa-a26f2ac6af95",
+    "source_updated_at": "2026-09-25T08:16:17.947806+00:00",
+    "body_sha256": "97a84784c53aae86c8127854c813dd2494cf51c4e6efdd5cf2e93c65c8c9188b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이슬라마바드 매리엇 폭탄 테러 피해와 배경이 서술돼 고2 이상 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Marriott Hotel in Islamabad, Pakistan",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09d2dc91-eef1-4607-8fe0-54eac674cddc",
+    "source_updated_at": "2026-09-25T08:05:53.464222+00:00",
+    "body_sha256": "2f24a8b3e579153a47ff47df720a78ae24f4495c760fa2174ca9693f98e1f523",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "렌퀴스트 대법원장 별세와 대법원 공석 상황이 설명돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "United States Chief Justice William Rehnquist",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09dc705b-8898-4860-b2e3-89a1c27a42e6",
+    "source_updated_at": "2026-09-25T06:56:23.030434+00:00",
+    "body_sha256": "b73e692a8254bf454a76afcdd041b764a5444bd3addbf75f8fc2cf0d4e261981",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뉴델리 연쇄 폭탄과 배후 논란·과거 사례가 이어져 고2 이상 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three bombs shook the Indian capital",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09dd899c-b1b2-49f8-b7e4-97b7bc6a18eb",
+    "source_updated_at": "2026-09-25T07:07:06.64985+00:00",
+    "body_sha256": "344ba565f119861383a635c7d799b2b381a725f3f3496de860f0d8935d82e533",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "영국 최저임금 연령별 금액과 환산값 나열이라 논지·흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A minimum wage increase has come",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "09de6393-85d0-4da2-9c36-e9b403985272",
+    "source_updated_at": "2026-09-25T07:29:51.755834+00:00",
+    "body_sha256": "a735e652bb7d71e73dc2633bdf3ccf7ca4bd776ffb4a6c0fd7a8051744d5d99d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "hold",
+    "genre": "polemic",
+    "why": "무소속 후보 프랭크 무어의 공약 선전과 성적 표현이 긴 답변을 채워 인터뷰 칸인지 선동인지 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "While nearly all coverage of the",
+      "note": "떼어 볼 수는 있으나 무엇을 칸으로 삼을지 기준이 갈린다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "09e4a799-67a2-4cc0-8f14-6184b2a93bdd",
+    "source_updated_at": "2026-09-25T07:45:23.375904+00:00",
+    "body_sha256": "a3846ecb1511cf7c332a566e3ed2db4f35d871756e30b3c491fdf3e696d7a63f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "웨일스 독감 사망과 보건 당국의 예방접종 당부가 이어지나 병원별 수치가 많아 가공이 필요하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Over the course of the last",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09e8d726-6244-4b4c-bc9d-5ac77893259c",
+    "source_updated_at": "2026-09-25T08:13:23.742162+00:00",
+    "body_sha256": "523e67e0fff82c3912477a5f7d0ada50148eaec13250852f5b81933c4970ef2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미국의 이란 공격설 부인과 증거 압박 보도가 대조 구조로 서서 고등 주장-근거 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A top US commander said yesterday",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09ec46a6-36aa-46ad-a8cc-8a91c88ee25b",
+    "source_updated_at": "2026-09-25T05:31:19.011983+00:00",
+    "body_sha256": "471e86669c1954ea896c58656b9ef2937a2a158722654ce43d1fec500abdeccb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "룰라 이복형제 사망 단신으로 사실이 짧게 이어져 고등 내용일치 칸이 간신히 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr Odair de Inácio Góis, aged",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09f04f13-ea66-4582-b26f-3604682a2c63",
+    "source_updated_at": "2026-09-25T08:09:31.053009+00:00",
+    "body_sha256": "96161ddad03c51c3be8edb1eb8e4ed77d32aa620a810df5ef97d229a7aac16b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "마오리 여왕 별세와 생애·투병이 서술돼 고등 전기 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The New Zealand Māori Queen, Te",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09f08991-cc49-4a73-88c3-db5c33f43cc4",
+    "source_updated_at": "2026-09-25T06:51:41.743517+00:00",
+    "body_sha256": "2033e31773918a9b9369fc5f9ccd2328b2156d4de6d7ce2746e29081d85990e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "MI6 요원 명단 공개와 과거 유사 사례가 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cryptome.org, a US-based website, has published",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09f28924-a8c5-4ad0-8c64-f12d0e768d46",
+    "source_updated_at": "2026-09-25T07:39:16.068995+00:00",
+    "body_sha256": "8e1536d416aff5bbd2ad81f3d34f0d3fece76225cfc1297e7a2f06fbff2ba874",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "허리케인 펠리샤 발달과 하와이 대비 당부가 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Residents in Hawaii are currently tracking",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "09fe85a9-aa81-4d0d-892f-a892da6ea3ef",
+    "source_updated_at": "2026-09-25T07:30:03.711402+00:00",
+    "body_sha256": "6064b7964e38df8341b91c3fc02c7c59b52e71a59b6752e47b8f6b388a482080",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "투르 드 타이완 3구간 경기 경과가 서술되나 끝의 결과 목록은 걷어 내야 한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 3rd Stage of 2008 Tour",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a0494a6-da4f-4a60-8849-9fc9da091f19",
+    "source_updated_at": "2026-09-25T08:11:14.549904+00:00",
+    "body_sha256": "fe5feef287735b13fb430efaf2b507c65dbc5e030f230b3ad98071788b5ef7a4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무샤라프의 대법원장 정직과 배경이 짧게 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pakistan President Pervez Musharraf has suspended",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a0532da-192e-42a2-b476-11448f445c96",
+    "source_updated_at": "2026-09-25T07:58:50.227309+00:00",
+    "body_sha256": "4a871e9686f4ddfb3b73ac006bcf901ab975803ded185e76b51751cb4ecb5939",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의자에 2년간 붙어 지낸 남성 사망 기사로 묘사가 불쾌·구체적이라 성인 칸으로만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A morbidly obese Ohio man died",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a073d51-2ae4-486c-af27-eb914c2d5772",
+    "source_updated_at": "2026-09-25T07:45:24.236947+00:00",
+    "body_sha256": "b00078a0b305023cec355c0898ec947dcb9dc9f95417830b480dfd35ee6e97cf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "스티브 잡스 병가 발표와 건강 배경·원문 메일이 이어져 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Steve Jobs, the chief executive officer",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a079027-8761-4447-9200-812cea132954",
+    "source_updated_at": "2026-09-25T08:08:16.288746+00:00",
+    "body_sha256": "16059b5dee73f23c1ef2dabd98a9d3296bc2168ed049a68541c9cd9bd05c4ce1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "라이언에어 폭탄 협박 회항이 장난으로 밝혀지는 경위가 시간순으로 서서 고등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the UK Department of",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a082424-09f2-4940-a9fa-14a459c3157a",
+    "source_updated_at": "2026-09-25T06:49:42.133255+00:00",
+    "body_sha256": "debe3776a9bdacae480cb2f45ea09d192ea863618f0751229baeb203c36740bd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "유타 신적 설계 교육 법안 철회와 종교·정치 배경이 설명돼 고등 주제 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Utah Senator Chris Buttars has decided",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a0b2a81-1828-4de9-a6a0-3290357dda6c",
+    "source_updated_at": "2026-09-25T07:42:13.674287+00:00",
+    "body_sha256": "57c2e398838b2bcffa312e8432272729925685877bbd8c552f2d4ebcb5d110bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지진 15일 뒤 구조된 소녀의 생존 경위와 구조대 증언이 이어져 고등 심경·내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A sixteen-year-old girl, Darlene Etienne, was",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a130c15-46bd-4411-8930-9edcfdda09cd",
+    "source_updated_at": "2026-09-25T07:43:27.631557+00:00",
+    "body_sha256": "363e181f130b2afed45df01a2a0ec2d06bb151813accf1c301362cfe42bfd034",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "러시아 전승절 65주년 행사와 외국군 참가가 서술돼 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Russia yesterday celebrated Victory Day, to",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a182a96-1e9b-4ab4-ad0a-dc53b772d49e",
+    "source_updated_at": "2026-09-25T07:58:50.298726+00:00",
+    "body_sha256": "32f672d0adc04a120b0eb1823a302b3b6ddf0dd343d357db82fae9ac39f4eb3e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "발라랏 기후 시위를 행진 경로와 참가 단체 이름 나열로만 전하는 한 단락이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Ballarat, Australia — The rural Australian",
+      "note": "떼어 낼 문단에 사건·논지 연결이 없어 가공할 재료가 없다."
+    }
+  },
+  {
+    "id": "0a1d5542-5ec5-4fce-9dd7-530496ce2c65",
+    "source_updated_at": "2026-09-25T08:03:25.520979+00:00",
+    "body_sha256": "0aebf25d5afa1a7807f94385f62348a720bc067eefa313f87a9e952c62ee31ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콜롬비아 지뢰로 아이들이 숨지고 학생 시위가 이어진 경위가 서서 고등 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three children were killed Sunday in",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0a1de686-2959-468f-82c5-71537fceaa3d",
+    "source_updated_at": "2026-09-25T07:48:59.631044+00:00",
+    "body_sha256": "e86b2de2715a0c915b0920b4c9ea77de8fd9a500d4a9c1ea452af25048e51092",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "국립공원 벌목 제안과 주민 편지 운동으로 보호가 확인되는 과정이 인과로 서서 고등 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Local residents of Dungog, a small",
+      "note": "문단 하나를 떼어도 사건·논지가 서고 어려운 낱말 두세 개만 바꾸면 된다."
+    }
+  }
+]

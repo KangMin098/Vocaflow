@@ -1,0 +1,1360 @@
+[
+  {
+    "runId": "2026-09-25T08-14-16-934Z",
+    "id": "0df03f5c-8599-4068-b2c9-cbaeaf08835c",
+    "revision": "2026-09-25T07:31:19.972506+00:00",
+    "body_sha256": "13c8f1faa39bd00bf1a232f47a80c59add301fdeeace6fc5819da34c84c042d9",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.604Z",
+        "by": "chunk-llm",
+        "why": "서론의 아시아 일부 국가 유병률이 낮은 것은 실제 차이가 아니라 조사 방법의 과소 추정일 수 있다는 단락과 공정성 욕구 단락이 주제·주장·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:33.285Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5f8e632bbffeee095fd7eab00fc1d2b42fa4d6fe761c7f99315d9470be13c281"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Imagery Rescripting·인용을 걷고 vengefulness·ethologists 두 낱말을 바꾸면 공정성은 기본 욕구라는 논지가 V6 권에서 선다.",
+          "sample": "The sense of fairness emerges as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:33.604Z",
+        "by": "chunk-llm",
+        "why": "서론의 아시아 일부 국가 유병률이 낮은 것은 실제 차이가 아니라 조사 방법의 과소 추정일 수 있다는 단락과 공정성 욕구 단락이 주제·주장·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:33.285Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5f8e632bbffeee095fd7eab00fc1d2b42fa4d6fe761c7f99315d9470be13c281"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Imagery Rescripting·인용을 걷고 vengefulness·ethologists 두 낱말을 바꾸면 공정성은 기본 욕구라는 논지가 V6 권에서 선다.",
+          "sample": "The sense of fairness emerges as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "서론의 스키마 치료 모델 설명과 공정성 욕구 단락이 논지로 서 주제·요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The sense of fairness emerges as",
+          "note": "공정성 단락은 인용 번호만 걷으면 선다; ethologists·injustice sensitivity 를 풀어 쓰면 V7 로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:16.938Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:33.604Z",
+          "by": "chunk-llm",
+          "why": "서론의 아시아 일부 국가 유병률이 낮은 것은 실제 차이가 아니라 조사 방법의 과소 추정일 수 있다는 단락과 공정성 욕구 단락이 주제·주장·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "psychology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "claim",
+              "blank",
+              "insert",
+              "summary"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:33.285Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "5f8e632bbffeee095fd7eab00fc1d2b42fa4d6fe761c7f99315d9470be13c281"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "Imagery Rescripting·인용을 걷고 vengefulness·ethologists 두 낱말을 바꾸면 공정성은 기본 욕구라는 논지가 V6 권에서 선다.",
+            "sample": "The sense of fairness emerges as",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "예술·문화",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:38.957Z",
+      "topicMargin": 2.59
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-16-934Z",
+    "id": "0e2440d2-bcf4-4383-9af0-6661c2689a6d",
+    "revision": "2026-09-25T07:31:24.576108+00:00",
+    "body_sha256": "48633971a6fbcef4316358e07fd37450309aacb493e9ba0d2fb73a82a37f95ed",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.628Z",
+        "by": "chunk-llm",
+        "why": "교차반응 위양성과 다중에피토프 단백의 실패 이유를 고찰이 가설과 함께 따져 주장-근거 짝이 잡힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:37.207Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "19ac3b428736b7435223e20509a41a4d46575f1a8cce1162ec84afc61592a079"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 문단은 떼어지나 ELISA 절차 절은 수치 나열이라 못 쓴다.",
+          "sample": "The use of synthetic peptides selected",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.628Z",
+        "by": "chunk-llm",
+        "why": "교차반응 위양성과 다중에피토프 단백의 실패 이유를 고찰이 가설과 함께 따져 주장-근거 짝이 잡힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:37.207Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "19ac3b428736b7435223e20509a41a4d46575f1a8cce1162ec84afc61592a079"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 문단은 떼어지나 ELISA 절차 절은 수치 나열이라 못 쓴다.",
+          "sample": "The use of synthetic peptides selected",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "대부분 방법 절차지만 서론 둘째 단락의 LPS 교차반응·위양성 문제 설명이 떼어져 내용일치·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Serological methods have been widely used",
+          "note": "위양성 논지는 서지만 LPS·gram-negative 등 전문어가 핵심이라 바꾸면 뜻이 흐려진다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:16.939Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:34.628Z",
+          "by": "chunk-llm",
+          "why": "교차반응 위양성과 다중에피토프 단백의 실패 이유를 고찰이 가설과 함께 따져 주장-근거 짝이 잡힌다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "claim",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:37.207Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "19ac3b428736b7435223e20509a41a4d46575f1a8cce1162ec84afc61592a079"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 문단은 떼어지나 ELISA 절차 절은 수치 나열이라 못 쓴다.",
+            "sample": "The use of synthetic peptides selected",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:58.036Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-16-934Z",
+    "id": "0e3be88d-10ef-436d-8025-831ecbc5477b",
+    "revision": "2026-09-25T07:31:26.287835+00:00",
+    "body_sha256": "fe6ec0134f82943fb8a4fe9ea247c02186c4a3b32bacd701e0b3143f934375c5",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.631Z",
+        "by": "chunk-llm",
+        "why": "불필요한 항생제·방사선 노출이라는 문제 제기에서 기계학습 선별로 이어지는 논지가 뚜렷하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:37.402Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6ec6d3e5eca12a1ce6f94ab8cc89e27b7258dff5fd39627224b698c49bc0e098"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론과 고찰은 검사 약어 두셋만 풀면 고교 수준으로 내려간다.",
+          "sample": "Bronchopneumonia (BP) is one",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.631Z",
+        "by": "chunk-llm",
+        "why": "불필요한 항생제·방사선 노출이라는 문제 제기에서 기계학습 선별로 이어지는 논지가 뚜렷하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:37.402Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6ec6d3e5eca12a1ce6f94ab8cc89e27b7258dff5fd39627224b698c49bc0e098"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론과 고찰은 검사 약어 두셋만 풀면 고교 수준으로 내려간다.",
+          "sample": "Bronchopneumonia (BP) is one",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 소아 기관지폐렴 조기 감별 난점·항생제 과다처방 논지가 한 단락으로 서 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bronchopneumonia (BP) is one of the",
+          "note": "약어 BP·URTI 를 풀고 antimicrobial resistance·empirical 을 쉬운 말로 바꾸면 V8 로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:16.940Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:34.631Z",
+          "by": "chunk-llm",
+          "why": "불필요한 항생제·방사선 노출이라는 문제 제기에서 기계학습 선별로 이어지는 논지가 뚜렷하다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:37.402Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6ec6d3e5eca12a1ce6f94ab8cc89e27b7258dff5fd39627224b698c49bc0e098"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론과 고찰은 검사 약어 두셋만 풀면 고교 수준으로 내려간다.",
+            "sample": "Bronchopneumonia (BP) is one",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:19.242Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-16-934Z",
+    "id": "0e3c7c37-6842-432a-84b7-1ffdd1c63315",
+    "revision": "2026-09-25T07:31:26.763161+00:00",
+    "body_sha256": "e82eff7edca882b933b84d53b8df03bcba0d16465d1d2a6b66720322160165e6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.631Z",
+        "by": "chunk-llm",
+        "why": "연결성 기반 분할이 20년 발전에도 조직학 경계와 어긋난다는 반증형 결론이 고찰에서 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:37.512Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "8bb5e713a52e3703b340d8f492704fb933bf7478a87c417ee23dac0a88a909b5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 문단은 떼어지나 영상 기법 약어가 빽빽해 어휘 조정 여지가 없다.",
+          "sample": "The CBP method was introduced",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.631Z",
+        "by": "chunk-llm",
+        "why": "연결성 기반 분할이 20년 발전에도 조직학 경계와 어긋난다는 반증형 결론이 고찰에서 선다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:37.512Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "8bb5e713a52e3703b340d8f492704fb933bf7478a87c417ee23dac0a88a909b5"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 문단은 떼어지나 영상 기법 약어가 빽빽해 어휘 조정 여지가 없다.",
+          "sample": "The CBP method was introduced",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 첫 단락의 시상 기능 설명과 고찰의 CBP 한계 논지가 떼어져 내용일치·주제 칸을 채운다; 나머지는 영상 방법 절차다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The thalamus is a subcortical brain",
+          "note": "시상 단락은 선다; 핵 이름·질환명이 많아 몇 개 바꿔도 V9 아래로 잘 안 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:16.941Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:34.631Z",
+          "by": "chunk-llm",
+          "why": "연결성 기반 분할이 20년 발전에도 조직학 경계와 어긋난다는 반증형 결론이 고찰에서 선다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "claim",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:37.512Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "8bb5e713a52e3703b340d8f492704fb933bf7478a87c417ee23dac0a88a909b5"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 첫 문단은 떼어지나 영상 기법 약어가 빽빽해 어휘 조정 여지가 없다.",
+            "sample": "The CBP method was introduced",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:03.636Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-16-934Z",
+    "id": "0e4c864b-6b99-4d2f-b0bd-2ed3d0abee4a",
+    "revision": "2026-09-25T07:31:27.767633+00:00",
+    "body_sha256": "5a71473ca5ed2366b2aba526deea673a40bb9eb1fb7535a878b29acb7efe2615",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.632Z",
+        "by": "chunk-llm",
+        "why": "근력운동과 스테로이드 병용이 세포 수축력은 높이면서 심장 구조는 망가뜨린다는 역설이 결론으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:38.433Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "bb70e39ba754783b1cda20d45e449655b4b5273b963540c8d05c46e4c45c6da0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "사용 실태를 다룬 서론 문단은 통계치를 줄이면 그대로 읽히고 소재도 학생에게 가깝다.",
+          "sample": "The widespread use of anabolic-androgenic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.632Z",
+        "by": "chunk-llm",
+        "why": "근력운동과 스테로이드 병용이 세포 수축력은 높이면서 심장 구조는 망가뜨린다는 역설이 결론으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:38.433Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "bb70e39ba754783b1cda20d45e449655b4b5273b963540c8d05c46e4c45c6da0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "사용 실태를 다룬 서론 문단은 통계치를 줄이면 그대로 읽히고 소재도 학생에게 가깝다.",
+          "sample": "The widespread use of anabolic-androgenic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 스테로이드 사용 실태·심장 위험 단락들이 연결되어 순서·요지·내용일치 칸을 채운다; 결과 절은 수치 나열이다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nevertheless, these substances abuse may lead",
+          "note": "첫머리 Nevertheless 를 걷고 앞 단락 AAS 정의를 한 줄 붙이면 서며 hypertrophy·compliance 를 풀면 V8."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:16.942Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:34.632Z",
+          "by": "chunk-llm",
+          "why": "근력운동과 스테로이드 병용이 세포 수축력은 높이면서 심장 구조는 망가뜨린다는 역설이 결론으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "claim",
+              "summary"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:38.433Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "bb70e39ba754783b1cda20d45e449655b4b5273b963540c8d05c46e4c45c6da0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "사용 실태를 다룬 서론 문단은 통계치를 줄이면 그대로 읽히고 소재도 학생에게 가깝다.",
+            "sample": "The widespread use of anabolic-androgenic",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:17.193Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-16-934Z",
+    "id": "0e679c90-8988-4185-8b45-d9387fc8dc6e",
+    "revision": "2026-09-25T07:31:29.777376+00:00",
+    "body_sha256": "319eee79426df573cbef56dc643833301053dceac14f5a371d0e155b7d52d5ea",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.634Z",
+        "by": "chunk-llm",
+        "why": "정액 속 바이러스 RNA 지속 기간과 실제 전파 가능 기간이 다르다는 대비가 저자 요약에 평이하게 있다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:40.038Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c65ecb607590ef4d2650450139ae0b096179745e7321c746eb75cb92c961165b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 그대로 지문 길이에 맞고 어휘도 이미 낮다.",
+          "sample": "Zika virus (ZIKV) is primarily",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.634Z",
+        "by": "chunk-llm",
+        "why": "정액 속 바이러스 RNA 지속 기간과 실제 전파 가능 기간이 다르다는 대비가 저자 요약에 평이하게 있다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:40.038Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "c65ecb607590ef4d2650450139ae0b096179745e7321c746eb75cb92c961165b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 그대로 지문 길이에 맞고 어휘도 이미 낮다.",
+          "sample": "Zika virus (ZIKV) is primarily",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약과 서론의 지카 성접촉 전파 기간 문제, RNA 잔존≠전파력 논지가 서 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Zika virus (ZIKV) is primarily transmitted",
+          "note": "저자 요약 단락은 그대로 서고 hSTAT2 KI·epididymal ligation 을 풀면 V8; 성접촉 소재라 연령은 성인으로 둔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:16.943Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:34.634Z",
+          "by": "chunk-llm",
+          "why": "정액 속 바이러스 RNA 지속 기간과 실제 전파 가능 기간이 다르다는 대비가 저자 요약에 평이하게 있다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:40.038Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "c65ecb607590ef4d2650450139ae0b096179745e7321c746eb75cb92c961165b"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약 단락은 그대로 지문 길이에 맞고 어휘도 이미 낮다.",
+            "sample": "Zika virus (ZIKV) is primarily",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 3,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:42.138Z"
+    }
+  }
+]

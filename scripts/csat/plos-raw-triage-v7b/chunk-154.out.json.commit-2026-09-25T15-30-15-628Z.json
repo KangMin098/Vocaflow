@@ -1,0 +1,1007 @@
+[
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7a95b556-dd69-4520-9722-1ab9973510e6",
+    "revision": "2026-09-25T07:29:20.323872+00:00",
+    "body_sha256": "071b326ff27ec8ac8e29626ca334fa374b5c26c75e09c7657789206d214a3838",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 β-alanine 단락(종양이 쓰는 대사 경로 → 외부 보충이면 반대로 작용할 수 있다)을 떼어 보니 앞 문맥 없이 주장과 근거가 서서, 칸이 있고 가공도 되므로 보관한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In addition, the GC-MS dataset",
+          "note": "PC 30:1 · SHAP 같은 표기를 쉬운 말로 바꾸려 해 봤지만 대사물 이름 자체가 논지를 지탱해 밴드를 크게 내리긴 어렵다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.631Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:22.706Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7a96618d-873d-4413-be65-ddea6a7b8d36",
+    "revision": "2026-09-15T15:21:14.906449+00:00",
+    "body_sha256": "5212f52a8839469a70978ed08452fe9216fc4e26a7b5c6238b11d145e7e2f654",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 첫 단락(신생아 패혈증 31.4%라는 수치 → 분만·산후 위생과 의료 여건이라는 원인 설명)이 한 편의 논증으로 서고 표 없이도 읽혀 보관한다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Neonatal sepsis is one of",
+          "note": "균주·항생제 이름을 「일부 항생제」로 묶으니 논지가 그대로 서서 밴드를 한두 단계 내릴 수 있었다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.632Z"
+      }
+    },
+    "changed": true,
+    "status": "published",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:36:13.767Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7aa0c5d3-71c6-4746-911d-979edd0d411a",
+    "revision": "2026-09-25T07:29:21.802232+00:00",
+    "body_sha256": "e3a83bb6a7bf112c4e43e3d770048f7838c358b01406f5f21e6b334571d72d5d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 고령 환자 단락(신기능 저하·다제 복용 → 부작용 보고가 65세 이상에 몰린다)이 인과로 이어져 읽히므로, 나머지가 신호 탐지 수치 나열이어도 채울 칸이 있다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our analysis showed that the",
+          "note": "ROR·PRR 같은 지표 약어가 든 문장은 통째로 걷어야 하고, 남는 설명 단락만으로도 한 편이 된다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.633Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:08:58.742Z",
+      "topicMargin": 1.6099999999999994
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7aa804c2-c102-4c3b-a557-4c5cacd4e696",
+    "revision": "2026-09-13T07:35:59.101732+00:00",
+    "body_sha256": "8edc1acf7bb5d53b94fe65ec9a4f7d6160e4d11ac3df35d4cf405bc0b86edd08",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 4.3(간질 발화를 시작하는 것이 억제성 뉴런이라는 주장과 반대 가설의 대조)이 수식 없이 논쟁 구조로 이어져, 방법부의 수식 더미를 걷어내면 한 편이 선다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The synchronization of a mutually",
+          "note": "본문 절반이 방정식과 파라미터 목록이라 쓸 수 있는 자리가 서론·고찰로 좁고, 전문 용어를 바꾸면 주장이 흐려진다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.634Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 6,
+      "type": "R-BLANK",
+      "shape": 24,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T12:12:58.288Z",
+      "topicMargin": 4.58
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7aafb923-4237-4400-9b59-b8cac3115f8e",
+    "revision": "2026-09-25T07:29:23.120026+00:00",
+    "body_sha256": "f892d61833c44078a12f2ab96452ffce638cfc5272bcc290697e41fe1a6a1869",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약(현재 치료는 바이러스를 없애지 못한다 → 잠복 상태로 묶어 두는 접근)이 통념·대안 구조로 자족해 보관한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Current HIV therapies effectively suppress viral",
+          "note": "저자 요약은 약어를 두엇만 풀면 그대로 내려가지만, 결과부는 단백질 이름이 문장마다 박혀 손대기 어렵다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.634Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:37.842Z",
+      "topicMargin": 6.049999999999999
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7accd112-7c1f-4020-bf6d-ced68e233cb1",
+    "revision": "2026-09-25T07:29:24.993619+00:00",
+    "body_sha256": "d6c5f10280d22482702db896d9a7e65ae57ff1c997ce9c42e8e2d135e1700381",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약과 서론(치료약이 하나뿐이라 내성이 늘었다 → 신경전달물질 경로를 새 표적으로)이 문제·대안으로 이어져 발췌가 쉬워 보관한다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The liver fluke, Fasciola hepatica",
+          "note": "유전자 이름(FhTPH 등)을 「합성 효소」로 바꿔도 논지가 유지돼 밴드를 내릴 수 있었다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.635Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:23.581Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7ad5f4da-2028-4962-8f2c-329557c80b7c",
+    "revision": "2026-09-13T06:27:38.324958+00:00",
+    "body_sha256": "08dbc520ae2a25b95748934454628da28c8d97f3b3091d266c4af3aa907089dd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 관 세척 단락(관을 씻는 기존 처치가 오히려 합병증을 부른다 → 형광 조영이 대안)이 반박 구조로 서서 보관한다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The routine flushing of the",
+          "note": "해부 용어를 「쓸개관」 정도로 풀면 읽히고, 표와 그림 설명은 가공 때 걷어낸다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.636Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:42:41.107Z",
+      "topicMargin": 11.17
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7ad6c916-90d3-46b5-bd32-2a0244c2778e",
+    "revision": "2026-09-25T07:29:25.771646+00:00",
+    "body_sha256": "07bd31f93900136b4c34246ead0d61aacbc8a11378609580cc0b07423ff8060a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약(같은 바이러스 껍질 단백질을 두 숙주 단백질이 붙잡는데 결과가 정반대)이 대조 구조로 자족해 보관한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Herpes simplex virus type 1",
+          "note": "TRIM5α·CypA 는 「제한 인자」·「숙주 효소」로 바꿔도 대조가 살아 있었고, 결과부는 실험 조건이 빽빽해 쓰기 어렵다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.636Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 6,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:53.665Z",
+      "topicMargin": 18.130000000000003
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7adc439d-96ea-4563-937e-56efc9643940",
+    "revision": "2026-09-13T06:26:04.85569+00:00",
+    "body_sha256": "f7e47dd61da37a3d41cf07ee65117ff70f5a24920190eb968838a5d1b9f398e1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "서론(딥워터 허라이즌 유출유의 행방을 모르던 양이 바다눈 형태로 바닥에 가라앉았다)이 사건의 원인·결과로 이어져 그대로 한 편이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The implications of marine microbial biopolymers",
+          "note": "배럴·리터 수치를 「전체의 약 4분의 1」로 바꾸니 흐름이 더 또렷해졌고, NMR 분석 절은 통째로 뺀다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.637Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:41:03.236Z",
+      "topicMargin": 18.34
+    }
+  },
+  {
+    "runId": "2026-09-25T15-30-15-628Z",
+    "id": "7ae246b9-18ab-401b-be80-9092f584ab56",
+    "revision": "2026-09-25T07:29:26.87719+00:00",
+    "body_sha256": "012bd5c202ad29d9b377fe91d53994f2499bb5fd75c728addfdb6759ca385039",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:08:28.388Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "서론(비탈면을 식생으로 보호하려면 뿌리가 흙의 붕괴를 어떻게 막는지 먼저 알아야 한다)이 문제 제기로 서고, 고찰 끝의 시공 권고도 이어 읽힌다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Contemporary slope stabilization practices have witnessed",
+          "note": "결과부는 계수와 p 값 나열이라 못 쓰고, 서론·고찰만 떼면 「뿌리 굵기와 배치가 왜 중요한가」로 읽힌다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T15:30:15.638Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:08:28.388Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "기술·매체",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:46.005Z",
+      "topicMargin": 1.58
+    }
+  }
+]

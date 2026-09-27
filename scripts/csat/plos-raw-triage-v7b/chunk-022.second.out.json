@@ -1,0 +1,493 @@
+[
+  {
+    "id": "0f688afe-2472-4751-a319-7c6f6f92649f",
+    "source_updated_at": "2026-09-25T07:31:49.468057+00:00",
+    "body_sha256": "b322571e8a7aa129b0e68ac962b0c550ee3c4f583f2a8422bacb27774a7451c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "전통 약재의 효능을 통념에서 실험 검증으로 옮기는 서론·고찰이 한 편의 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The rising incidence of neurodegenerative disorders,",
+      "note": "서론 문단은 떼어도 서지만 NF-κB·iNOS 등 기전 용어는 바꿔도 뜻이 남지 않는다."
+    }
+  },
+  {
+    "id": "0f76aad5-8bdd-42f0-bfa7-4b1659722545",
+    "source_updated_at": "2026-09-25T07:31:49.872022+00:00",
+    "body_sha256": "11e5a6773e88da9e9f7ac8181ef04d39b55bb42f98659bea0c9716781bc8089b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약과 고찰이 뱀물림 후 뇌졸중이라는 간과된 결과를 근거로 세워 논지가 분명하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Snakebites are a major public health",
+      "note": "저자 요약 문단은 수치와 종명을 걷어도 주장-근거가 남아 밴드 조정이 쉬웠다."
+    }
+  },
+  {
+    "id": "0f96a424-11b9-45ae-9ace-b5101cf2534e",
+    "source_updated_at": "2026-09-25T07:31:53.728372+00:00",
+    "body_sha256": "9d2bcedbf9e82fecec40b4c22fd880c37e013a0413d44007e9329931d91e32b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "공진화 논지는 일반적이나 문단마다 균주·변이 표기에 묶여 떼어낸 뒤 논지가 남는지 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Protein coevolution is a process",
+      "note": "첫 문장만 일반 진술이고 이어지는 근거가 paRecN 변이체라 고유 표기를 걷으면 내용이 사라졌다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "0f975958-2409-4709-bcb8-3b73b46bc51e",
+    "source_updated_at": "2026-09-25T07:31:54.216058+00:00",
+    "body_sha256": "30cfd3878ae9fc57bdfa3deb289106616097aec7dcff2d642404a9d4ca522aea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「이중 타격」 가설을 세우고 코호트 결과로 뒷받침하는 고찰 문단이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Acute heart failure is a common",
+      "note": "저자 요약은 떼어져 서지만 mRS·NIHSS 같은 척도 약어는 대체어가 없었다."
+    }
+  },
+  {
+    "id": "0fa90faf-bb64-47da-b8a4-c28e3dbb09c6",
+    "source_updated_at": "2026-09-25T07:31:55.656271+00:00",
+    "body_sha256": "a9e85c103b1be5f27306a6e74cba10ff093aa1d600311d16d1acf3fedd9d9209",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "도시 길고양이가 기생충 환경오염원이라는 주장을 검사 결과와 놀이터 조사로 잇는 고찰이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The public health implications of these",
+      "note": "기생충 학명을 일반명으로 바꿔도 논지가 그대로 서서 밴드 하향이 가장 쉬웠다."
+    }
+  },
+  {
+    "id": "0fad4436-fb4a-4c36-a51d-281966518793",
+    "source_updated_at": "2026-09-25T07:31:56.081001+00:00",
+    "body_sha256": "2e49b5f44c2744a5b79fabc4fffb646ac2d583fc04fb750e5aea14d7cfe1b699",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "초파리 모형으로 반복서열 독성을 가르고 치료 시도가 악화시킨 반전까지 저자 요약이 논지로 담는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tandem repeat expansions in the human",
+      "note": "저자 요약 문단은 자족적이나 DPR·HRR 약어는 풀어 써도 길이만 늘었다."
+    }
+  },
+  {
+    "id": "0fb6c60b-d209-4ae4-beff-500b3ec4f354",
+    "source_updated_at": "2026-09-25T07:31:57.443642+00:00",
+    "body_sha256": "42c156ab28e55474dd32837acdf9e1f1031b1c28616800d5faab56c134155f30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "기존 진료가 놓친 환자군을 언어모형이 찾아냈다는 주장과 예후 격차 근거가 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heart failure with preserved ejection fraction",
+      "note": "저자 요약은 검사 수치를 걷어도 서고 전문 용어 두셋만 풀면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "0fc191be-c456-4a24-b5ed-b9c5e258d38f",
+    "source_updated_at": "2026-09-25T07:31:57.860136+00:00",
+    "body_sha256": "6193a62126ff2e4bbf26b7666cb34da31093a10b549c920d50a621ff6bff6784",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "지방 이식 서론만 일반 진술이고 본론이 유전자 기호 나열이라 가공 가능한 문단이 있는지 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Adipose-derived stem cells (ADSCs) have",
+      "note": "서론 한 문단 말고는 FABP4·PLIN1 같은 기호 열거라 떼어내면 논지가 남지 않았다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "0fda4e03-2aa4-47d4-8fc2-d11d11699ce7",
+    "source_updated_at": "2026-09-25T07:31:59.252477+00:00",
+    "body_sha256": "8f1ab8cfb31682b50dd2eb687fcaf65b40bc23143a9f4bc8ce1660821c0b939b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "분비 장치가 거꾸로 DNA를 들여온다는 역설을 세우고 빠진 부품을 찾아가는 흐름이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The capacity of bacteria to exchange",
+      "note": "저자 요약은 떼어도 역설이 남지만 T4SS·ComB 표기는 바꿀 말이 없었다."
+    }
+  },
+  {
+    "id": "0fdffbfd-2003-4b58-ba5e-22c1314d166b",
+    "source_updated_at": "2026-09-25T07:31:59.768653+00:00",
+    "body_sha256": "39ba403a77e0238f93de0dbedb52b494712627adbe930e742f155a3f88d8ef38",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "DNA·RNA 바이러스가 같은 방어 경로를 각기 다른 수로 무력화한다는 대비가 한 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Cells have built-in defenses that restrict",
+      "note": "저자 요약 문단은 앞 문맥 없이 시작되지만 Spt16·ETS-1 이름을 걷으면 대비가 무너진다."
+    }
+  },
+  {
+    "id": "0fe74b41-badd-4c6d-b232-7a17d51f7e3e",
+    "source_updated_at": "2026-09-25T07:32:01.184116+00:00",
+    "body_sha256": "1ccdf77cfa7dcc1379ef92a6a07591aec344ca015269d55663917c84e4613b63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "모기 매개 바이러스에 치료제가 없다는 문제 제기에서 새 표적 발견까지 저자 요약이 논지로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Orthoflaviviruses, including Dengue, West Nile",
+      "note": "서론 앞부분은 화합물 코드명을 빼도 문제-해결 구조가 남아 조정 여지가 있었다."
+    }
+  },
+  {
+    "id": "0fed0f88-7053-453e-addf-3270ccce3ed0",
+    "source_updated_at": "2026-09-25T07:32:01.832641+00:00",
+    "body_sha256": "f80a516015c7163c3fca085bb2a14a58f401086860e7dbdf12c24e89ab8d89aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "내성균 문제와 약용식물 전통 사용을 잇는 서론이 자족적이라 논지 재료가 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Plant-based natural compounds have been widely",
+      "note": "서론은 떼어져 서지만 결과 절은 분획 약어와 수치뿐이라 쓸 곳이 서론에 한정된다."
+    }
+  }
+]

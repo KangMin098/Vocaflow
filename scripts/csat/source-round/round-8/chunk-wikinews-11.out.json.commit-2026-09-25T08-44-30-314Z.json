@@ -1,0 +1,1810 @@
+[
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "039362d8-3a09-4101-a099-dba443f1b795",
+    "revision": "2026-09-25T07:38:19.309582+00:00",
+    "body_sha256": "6428739201c9ee55c192d56f76d74e7952711713bb1e69646077e39aeff51ff1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "일본 민주당이 오자와 사퇴 뒤 하토야마를 새 대표로 뽑은 경위와 공약·총선 전망이 짧게 서서 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hatoyama and the Democrats have promised",
+          "note": "공약 단락이 자족적이고 정치자금 사건 단락은 배경으로 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.315Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Japan's_opposition_chooses_new_leader",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.096,
+          "words": 157,
+          "english": 0.331
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "0396191e-90bc-43ba-92e1-4eb755bd644b",
+    "revision": "2026-09-25T08:43:09.874684+00:00",
+    "body_sha256": "901857208bd597bf0cfdcc1adc23be5f7202897dfac33a078e977718f2de7509",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아동 음란물 소지 전직 사제의 선고와 적발 경위·본인 해명이 짧게 이어진 사건 기사라 성인 칸 내용 일치 하나만 연다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sorenson, now aged 63, was discovered",
+          "note": "적발 경위는 서지만 소재 탓에 학생 칸은 달 수 없고 가공 여지가 좁다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pennsylvania_court_sentences_child_porn_priest_to_eight_years_in_prison",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.517,
+          "words": 145,
+          "english": 0.407
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "0398d421-0b77-4cf9-bdb4-bfbae880f06a",
+    "revision": "2026-09-25T08:11:57.668945+00:00",
+    "body_sha256": "c293356a87bfb5f0cd221aae2d1e421a8a1cd2294baaadea8461f4149ffddfb5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "아이들에게 50년간 생활 도구로 과학을 보여 준 ‘미스터 위저드’의 방송 철학과 생애가 이어져 전기·요지 칸을 초등 이상에 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr. Wizard was the host of",
+          "note": "‘일상 도구를 썼기에 아이들이 겁내지 않았다’는 인용 단락이 이유 연결로 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Television's_'Mr._Wizard'_Don_Herbert_dies_at_89",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 8,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "039906a9-b91d-43b4-8690-e25c15db9faa",
+    "revision": "2026-09-25T07:35:06.057625+00:00",
+    "body_sha256": "0d187061a47bf8b15e48d31093b8936b1783ee659588f3abab47695aff0b2d4d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "economics",
+        "why": "다우지수의 분 단위 등락 수치가 본문 대부분이고 마지막 이코노미스트의 바닥론 인용만 논지를 가져 수치 나열 최소선에 걸리는지 갈린다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Peter Cardillo, chief market economist at",
+          "note": "카딜로 인용 단락은 떼어도 서지만 나머지 세 단락은 순위·등락 나열이라 쓸 수 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dow_Jones_recovers_hundreds_of_points%2C_before_losing_them_in_minutes",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.353
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "039dd3de-908d-47ef-9e5f-5acf2d1bbaeb",
+    "revision": "2026-09-25T07:29:30.952177+00:00",
+    "body_sha256": "1bf4737e2659bfda12e1d618648cc5cc77d8a77caf859adc977b44b9ecf23b62",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "무소속 대선 후보가 자유무역·부패·이민을 우선 과제로 꼽고 양당 체제를 비판한 문답이 주장·근거로 서서 고3·성인 주장 칸을 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Obviously, the next American President and",
+          "note": "우선 과제 답변 단락은 주장-근거가 선명하나 비속어·투표 호소 문답은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_Richard_H._Clark%2C_independent_candidate_for_US_President",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 11,
+          "words": 200,
+          "english": 0.472
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03a8c61a-aa5d-4789-a88d-e2b94552e629",
+    "revision": "2026-09-25T07:35:16.868646+00:00",
+    "body_sha256": "006aa1692f32f3d0cd5e3077f7c7734b57cb3c3a3ed2805867a5ff81a780523b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "인도 첫 달 탐사선 찬드라얀 1호의 발사·임무 목표와 예산 낭비 비판이 이어져 우주 기사 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Polar Satellite Launch Vehicle (PSLV)",
+          "note": "임무 목표 단락이 자족적이고 발사 비용 논란이 주장 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India's_first_lunar_mission_launched",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03aa5568-c628-461d-9baa-96f6d25ca2b6",
+    "revision": "2026-09-25T07:26:41.473116+00:00",
+    "body_sha256": "802852d160149084111c71dce445244d5d4eeeaf1ccc1ebc9f39604c1fc4870e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "벨기에가 149일째 정부를 못 꾸린 이유를 플랑드르와 왈롱의 언어·자치 대립으로 설명해 고2 이상 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Flemish politicians argue that the time",
+          "note": "양측 논리 대비 단락이 떼어도 서고 인구 구성 단락이 배경을 준다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Belgium_still_without_government%2C_new_record_set",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03afa36c-c461-4643-b353-160d6ddc21da",
+    "revision": "2026-09-25T08:08:33.662108+00:00",
+    "body_sha256": "6bf11a9cac63606b5a91c0bf2b39cf5bf88f410a11a0cd5f7a87d4de08db03d9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "인도 5개 주 의회 선거의 정당별 의석수만 주마다 나열한 결과표 성격이라 내용 일치 칸조차 수치 나열뿐으로 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The DPA has won 21 out",
+          "note": "아삼 단락의 과반 계산 외에는 떼어도 의석 숫자만 남는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Legislative_Assembly_election_results_declared_in_5_Indian_States",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03b4ea16-7d6f-4040-a4ef-33137450b517",
+    "revision": "2026-09-25T06:59:40.001283+00:00",
+    "body_sha256": "05f569eaa69fe17893ec0e921cfc6da8d9b07a6abe20df38a9b759b222982a67",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "친나왓 가문 기업이 비판 활동가를 상대로 낸 명예훼손 소송에서 져 의견 표현의 권리가 인정된 경위가 짧게 서서 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The court's finding that Supinya has",
+          "note": "판결 단락이 표현의 자유 논지를 자족적으로 담는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.316Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Shin_Corporation_defamation_suit_fails",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.054,
+          "words": 148,
+          "english": 0.436
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03b57969-e695-430a-804a-440b6c4f39ab",
+    "revision": "2026-09-25T07:38:39.663357+00:00",
+    "body_sha256": "64e95e7316a9e444d810ee6ce561ba40f0e868dcb3a7cff1cabf5d2f47afc069",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "동방항공의 A320 20대 구매 계약과 국내선 수요 이유·A320 특징이 짧게 설명돼 중등 이상 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The airline, which is the third",
+          "note": "수요 이유 한 문장이 있어 나열만은 아니다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/China_Eastern_Airlines_to_purchase_twenty_new_Airbus_A320_jets",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.202,
+          "words": 129,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03b6c53b-5f91-43a3-ab55-dc7e4ff2dc71",
+    "revision": "2026-09-25T08:18:45.856583+00:00",
+    "body_sha256": "3a11b971fd549591f0fb0f3ad8388f27996489b165a9b74a99bcf05f83f66737",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "버펄로 추락기가 결빙 상황에서 자동조종 상태였고 얼음이 날개 모양을 바꿔 위험하다는 설명이 인과로 서서 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"If the autopilot is left on",
+          "note": "보스 인용 단락이 결빙-날개 형태-추락 인과를 자족적으로 설명한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Airplane_that_crashed_near_Buffalo%2C_New_York_'was_on_autopilot'",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.375
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03b9a048-3064-43e5-9009-095004ae0360",
+    "revision": "2026-09-25T06:58:31.548563+00:00",
+    "body_sha256": "e90b71073cd937331c0091610405b609c083ca0f97f40aab9291d3696435a8d4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "세슘 원자시계와 지구 자전의 흔들림 차이 때문에 윤초를 넣는 이유가 짧은 설명문으로 서서 고2 이상 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Because the Earth’s spin will fluctuate",
+          "note": "조석·바람으로 자전이 흔들린다는 단락이 이유를 자족적으로 주고 resonance 등은 쉬운 말로 바꿀 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Timekeeping_will_pause_into_the_New_Year_with_a_'Leap_Second'",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.634,
+          "words": 142,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03b9e70a-a255-4ab7-90e8-f478fc3b5cad",
+    "revision": "2026-09-25T08:05:27.246715+00:00",
+    "body_sha256": "2cced6a00be22a166e8774790e4da05f21d7f146cb46f3f67c8494d9c672d1b6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "7·21 런던 폭탄 미수 용의자의 버밍엄 체포 과정과 대피·추가 체포가 시간순으로 이어져 고1 이상 사건 서사 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After a struggle ensued involving, it",
+          "note": "급습-몸싸움-테이저-대피 순서가 분명하다; 국적 추정 문장은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/21_July_London_bombing_suspect_held",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03bb2b9f-0ef7-4b0a-b4d9-067607212020",
+    "revision": "2026-09-25T07:07:19.838681+00:00",
+    "body_sha256": "a0cf770a7c65f1b582c8af0f999f66bd394caaaa90f26475e3dbc96870bcf52d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "카시니가 타이탄 극지방에서 에탄 구름과 비·눈을 발견해 에탄 바다가 없던 이유를 설명한 연구가 서서 과학 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Our observations imply that surface deposits",
+          "note": "‘전역에 퍼졌다고 가정했으나 극지방에’라는 반전 인용이 통념 교정 구조다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ethane_clouds_found_on_Titan",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.337
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03bdedbc-ea23-4a2c-a87a-04ce4dcd0cd9",
+    "revision": "2026-09-25T08:10:21.021065+00:00",
+    "body_sha256": "cc8b00093a6683246f5f089194fbee1b44b430a046f244298ddacdbd1853d890",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이란 혁명수비대 미사일 훈련과 ‘억지력 과시일 뿐’이라는 사령관 발언이 짧게 서서 고2 이상 내용 일치·목적 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Major General Yahya Rahim Safavi, leader",
+          "note": "사령관 인용 단락이 훈련 목적을 자족적으로 밝힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iran_begins_10_days_of_military_exercises",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.046,
+          "words": 173,
+          "english": 0.343
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03c2d06e-af46-4257-8ae2-d15748510d9c",
+    "revision": "2026-09-25T06:48:11.130771+00:00",
+    "body_sha256": "6abdc4132f71992917808ff5f244cdd2d840151ec0d797576aa575d154080f90",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "석유-식량 프로그램에서 영·프 정치인이 석유 권리를 받았다는 상원 조사와 증거의 한계가 설명돼 고3·성인 내용 일치 칸을 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Under the OFP program, Iraq was",
+          "note": "프로그램 작동 단락은 서지만 인물 이력 단락이 길어 걷어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._Senate%3A_U.K._and_French_politicians_were_allocated_Iraqi_oil",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03cd51e7-1013-420c-89e1-b35a72c3e8f1",
+    "revision": "2026-09-25T07:33:49.95167+00:00",
+    "body_sha256": "38eab43afdb19a28b273fc1e271760eccf3859064458071891a46ba8eafdb941",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "러시아의 조지아 작전 종료 선언과 남오세티야 교전에서 해상 봉쇄까지의 경과가 시간순으로 이어져 고2 이상 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On August 7, following days of",
+          "note": "8월 7일부터의 경과 단락이 날짜 순으로 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russia_withdraws_from_Georgia",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03d7ef1e-d65a-4846-a9f4-9ef77e9f9823",
+    "revision": "2026-09-25T07:58:44.740753+00:00",
+    "body_sha256": "77a11825bf634e841292ccccab9a8c8e142e7a3da1a16d84347eb4d758ba4447",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "에펠탑 폭탄 협박 대피와 같은 해 반복된 폐쇄 사례가 짧게 이어져 중등 이상 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Threats and evacuations are a recurring",
+          "note": "반복 사례 단락이 날짜로 이어져 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Eiffel_Tower_evacuated_after_telephone_bomb_threat",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.385,
+          "words": 130,
+          "english": 0.339
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03dc2630-f5a9-4b4b-9673-3d29691bedd6",
+    "revision": "2026-09-25T07:50:20.118068+00:00",
+    "body_sha256": "e84589ad50ea814177bd187a9fcf199c80f33c58d4cc64e8b370041047e76c55",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "사우디 52명 사형 예정과 시아파 활동가·미성년 범행·고문 자백을 문제 삼는 앰네스티 비판이 서서 고3·성인 주장-근거 칸을 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Amnesty International said others who are",
+          "note": "앰네스티 단락이 불공정 재판 근거를 담으나 사형·고문 소재라 연령을 제한했다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/At_least_52%2C_including_six_Shia_Muslim_activists%2C_to_be_executed_in_Saudi_Arabia",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03dc6210-38d2-45fe-b78c-226ad2f35449",
+    "revision": "2026-09-25T07:05:55.627335+00:00",
+    "body_sha256": "96fbe148b9f2accde83d0552c7cf8f1422054a95293891534d38f5a33628ca69",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "프랑스가 레바논 평화유지군 2천 명 파병을 결정하기까지 망설인 이유(보스니아 경험)와 시라크 발언이 이어져 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "France initially surprised the world by",
+          "note": "보스니아 경험 단락이 망설임의 이유를 자족적으로 설명한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/France_offers_promised_2000_soldiers_to_the_UN_in_Lebanon",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03dc969e-ecbc-4c1a-81e4-1a5230164b0e",
+    "revision": "2026-09-25T07:32:16.329372+00:00",
+    "body_sha256": "a93488d54538cdefb088858845f201a42f52d1e3cad20a1e276c14b1073fb8dd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "유치원 교사가 자폐 의심 아동을 반에서 내보내는 투표를 한 사건과 어머니·학교·경찰 진술이 이어져 심경·서사·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "mood",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Alex's mother gave her account of",
+          "note": "‘I feel sad’ 로 끝나는 어머니 진술 단락이 심경 문항에 맞고 떼어도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Florida_teacher_lets_students_vote_to_remove_child_from_class",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.41
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03df0d1a-6a48-4b1a-a2e3-c0051f4154d1",
+    "revision": "2026-09-25T08:39:45.65526+00:00",
+    "body_sha256": "dcd78ca95f757e7cb476b82969aaf6b63bd93fb1ff1af5441757dd42b0d7db2d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "마오리 최초 총독이자 성직자였던 폴 리브스의 생애와 임명 논란·이후 활동이 시간순 부고로 이어져 전기·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He was appointed the fifteenth Governor-General",
+          "note": "총독 임명 단락이 ‘성직자가 총독을’ 논란과 함께 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_Governor-General_of_New_Zealand_Paul_Reeves_dies_aged_78",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.409
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03df4b8a-9c63-4538-9ec8-7b7a98e84b12",
+    "revision": "2026-09-25T08:33:21.110936+00:00",
+    "body_sha256": "a3995e8564620dfab4e5727b95886d53ad5014439ea884663274e75a36c05ed1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "위키리크스 아프간 전쟁 기록 공개와 언론사 교차 검증·‘새로울 것 없다’는 평이 짧게 서서 고2 이상 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The material was scrutinised in co-operation",
+          "note": "교차 검증 단락이 언론 협업 방식을 자족적으로 설명한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikileaks_release_Afghan_'war_logs'_in_co-operation_with_mainstream_media",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.448,
+          "words": 116,
+          "english": 0.41
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03e15245-8a5b-4b7b-bcae-64eebe361cd4",
+    "revision": "2026-09-25T07:05:08.86666+00:00",
+    "body_sha256": "1a867deceb3202119bd9511f974203782a5e02b660628000a5dfe85daae43596",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "뭄바이 나흘째 폭우로 교통·공항·학교가 마비된 상황과 지난해 대홍수와의 비교가 이어져 재해 기사 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Powai Lake has begun to",
+          "note": "지명 나열을 걷으면 호수 범람과 작년 대비 단락이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Heavy_rains_lash_Mumbai%2C_many_parts_of_the_city_flooded",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-30-314Z",
+    "id": "03e24c55-34cf-4ad9-8e4f-1c4e04c400d4",
+    "revision": "2026-09-25T07:06:07.499647+00:00",
+    "body_sha256": "38ffcbd1d39f09c9061d42ddd87bab2860c155ab4f60d86ca04b69e202b1fcae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "펩시코 첫 여성 CEO 누이 선임과 경영진 개편·코카콜라 추월 성과가 이어져 인물·기업 기사 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "title"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nooyi, 50, is a Yale-educated daughter",
+          "note": "누이 약력과 성과 단락이 자족적이고 직책 개편 단락은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:30.317Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/PepsiCo_names_Nooyi_CEO_as_Reinemund_retires",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

@@ -26,11 +26,11 @@ import { CATEGORY_KO, type EvalCategory } from '@vocaflow/library-pipeline/textb
  * 기호만으로 말하면 처음 여는 사람이 못 읽는다 — 기호·글자·색 셋을 함께 낸다.
  */
 const STANDING_KO: Record<Standing, { mark: string; label: string; color: string }> = {
-  superior: { mark: '▲', label: '우위', color: '#2E7D5A' },
-  parity: { mark: '●', label: '대등', color: '#8A8278' },
-  inferior: { mark: '▼', label: '열위', color: '#9C3A30' },
-  absent: { mark: '✕', label: '없음', color: '#9C3A30' },
-  unmeasured: { mark: '?', label: '못 잼', color: '#8A8278' },
+  superior: { mark: '▲', label: '우위', color: 'var(--memory-stable)' },
+  parity: { mark: '●', label: '대등', color: 'var(--memory-new)' },
+  inferior: { mark: '▼', label: '열위', color: 'var(--memory-risk)' },
+  absent: { mark: '✕', label: '없음', color: 'var(--memory-risk)' },
+  unmeasured: { mark: '?', label: '못 잼', color: 'var(--memory-new)' },
 }
 
 /**

@@ -1,0 +1,904 @@
+[
+ {
+  "id": "a125615f-85dc-4b08-9ccf-a63076c11fd4",
+  "source_updated_at": "2026-09-25T04:02:21.05967+00:00",
+  "body_sha256": "4f44cce41f2653ea30310802db8ac19f9bd7724f5acd8c9e1e419004067fa2e1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "버스를 기다리다 늦게 온 작은 빨간 버스를 타는 사건 흐름과 에베이의 걱정→기쁨 심경이 뚜렷해 초등 순서·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "school"
+   ],
+   "types": [
+    "order",
+    "mood",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There was only one bus in",
+   "note": "첫 문단부터 앞 문맥 없이 시작되고 심경 변화가 분명해 쉬웠다."
+  }
+ },
+ {
+  "id": "a451b114-6c6e-45b9-8d0b-1e539820dcd2",
+  "source_updated_at": "2026-09-25T04:02:34.374669+00:00",
+  "body_sha256": "e0fc43a2cf7b281a4192c2da3c28658e4807c04aa39b93e88742e7f07b21fae9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "밀랍 아이가 햇빛에 녹고 형제들이 새로 빚어 날려 보내는 인과가 짧게 이어져 초등 순서·심경 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Once upon a time, there lived",
+   "note": "짧지만 금지→어김→결과→위로의 사건 연결이 있다."
+  }
+ },
+ {
+  "id": "a52af8e2-883b-4242-b947-cbea1f848ced",
+  "source_updated_at": "2026-09-25T04:01:37.581456+00:00",
+  "body_sha256": "d2f98fc9d128eaafabc2a0b8a0aa9124a4fbadd1944947ec825d92b5047402a7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "빌린 몸의 머리 남자와 거북이 뿔피리를 빈대떡으로 막아 도망치는 사건 연쇄가 서서 초등~중등 순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Adun was very beautiful. All the",
+   "note": "diviner·bean cakes 정도만 풀면 되고 사건이 선형이다."
+  }
+ },
+ {
+  "id": "a56107a2-c9fa-452b-8b98-0287dda52b1b",
+  "source_updated_at": "2026-09-25T04:02:02.620757+00:00",
+  "body_sha256": "923e0f84fb9fa47d0eb3785955c0edd6035719bf430b84748015a92201b05e47",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "개가 알을 가져와 부화시키고 악어가 찾아와 용서하는 인과가 명확해 초등 순서·내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "school"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One day at the river, Dog",
+   "note": "offspring 하나만 바꾸면 초등 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "a5ca7084-df1f-493d-a496-24a9eea7a7e3",
+  "source_updated_at": "2026-09-25T04:01:34.731054+00:00",
+  "body_sha256": "92ada8133f8d1e9a17eb1eb40d7ac26d51cf389a68adc8b5ba12b9157d888fb3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "사과가 피 흘린다고 소리친 아이가 실은 이를 안 닦아 잇몸에서 피가 났다는 반전 구조로 초등 심경·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "mood",
+    "blank"
+   ],
+   "levels": [
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Kala was staying with his Mom.",
+   "note": "끝의 행주 체벌 구절은 가공 때 걷어낸다; 어법 오류(she order) 손질 필요."
+  }
+ },
+ {
+  "id": "a62aac61-f2cc-4d51-a0e4-ffec9ba765cb",
+  "source_updated_at": "2026-09-25T04:02:13.972516+00:00",
+  "body_sha256": "465d44b0ca0c44499fc729aa6bf7502895761567e64387d818f9c04bdb0d05c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "이웃을 피해 외딴 곳에 산 남자의 아내를 하이에나가 잡아먹는 결말이 교훈의 중심이라 고1 이상 요지 칸으로만 보관한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "topic"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There was a man who didn't",
+   "note": "죽음이 교훈의 중심이라 연령을 고1 이상으로 제한했다."
+  }
+ },
+ {
+  "id": "a6bb8bca-6927-41ff-8a59-a8d1beae6442",
+  "source_updated_at": "2026-09-25T04:02:02.216346+00:00",
+  "body_sha256": "d66dd1c1cf7dcddc6ed535dc5219919de04e423e348358ea5904034b08af4256",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "신디웨 마고나의 교사 꿈→청소부→유학→유엔→귀향 작가 생애가 시간순으로 흘러 중등 내용일치·순서 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "school"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "topic"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One day a very clever baby",
+   "note": "고유명사를 걷어도 생애 흐름이 서고 scholarship 등은 문맥으로 잡힌다."
+  }
+ },
+ {
+  "id": "a74ef698-c328-4dc3-99e1-cbbfafe08816",
+  "source_updated_at": "2026-09-25T04:01:50.922492+00:00",
+  "body_sha256": "defc7b4c9bbebceb76cfb81aa1458b05fda481643d1f00f5fd5c95e94cdd23e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "poetry-drama",
+  "why": "동물과 무엇을 한다는 운율 문장의 나열뿐이라 문장 사이 사건·이유 연결이 없고 운문 형식이다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "My dinosaur and I look at",
+   "note": "각 줄이 독립 운문이라 떼어 낼 문단이 없다."
+  }
+ },
+ {
+  "id": "a8296a10-5fde-45f0-920b-9e16c57dbf50",
+  "source_updated_at": "2026-09-25T04:01:50.713816+00:00",
+  "body_sha256": "4b66fb0aaff563625412aca53e9df598df332009cf358794153f4d5517593610",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "'what do you see?' 뒤에 상점·음식 이름을 나열하는 반복 목록이라 사건 흐름도 논지도 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "A walk in kampala, what do",
+   "note": "명사 나열만 남아 가공할 문장이 없다."
+  }
+ },
+ {
+  "id": "aad04f4d-b5d4-4012-a015-119dc219cdcc",
+  "source_updated_at": "2026-09-25T04:01:30.311203+00:00",
+  "body_sha256": "44eca6941ad77522adf988f2b5cd093531bd275ee7ab22bcceddc408bcfdd56a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "축구 수업 뒤 선생님이 깜짝 선물을 예고하고 다음 날 새 유니폼을 받는 순서 연결이 있어 초등 최소선을 넘는다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V0",
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "We love soccer. Moloko is teaching",
+   "note": "매우 짧지만 예고→다음 날→선물의 순서가 있다."
+  }
+ },
+ {
+  "id": "ab5cfe28-53f4-46a0-b2fe-76d2c4f6e7cf",
+  "source_updated_at": "2026-09-25T04:02:18.889787+00:00",
+  "body_sha256": "e8aca5fe42fbc9b949ed3889a4bbffdc30d3a7f2ff018484bb495aab4fb6f5ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "비누를 싫어하던 번티가 세균 꿈과 비누 왕 덕에 씻게 되는 인과가 있어 초등 순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "main_point"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bunty loves to play with butterflies...",
+   "note": "앞 두 줄은 그림 캡션 성격이라 떼고 꿈 장면부터 쓰면 된다."
+  }
+ },
+ {
+  "id": "abea5f97-8e61-449d-9c94-49c1a6350254",
+  "source_updated_at": "2026-09-25T04:02:38.97534+00:00",
+  "body_sha256": "e77230f2481cb9ba48e6d416a037283f63d0d6163ba1389310e61afabff2a3b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "숲에 들어가지 말라는 말을 어긴 므와리가 괴물에게 잡혔다 구출되는 교훈 설화로 초등 순서·요지 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "main_point"
+   ],
+   "levels": [
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Once upon a time there lived",
+   "note": "문장 순서가 일부 어긋나 있어(첫날 통나무 문장) 가공 때 바로잡아야 한다."
+  }
+ },
+ {
+  "id": "ad609328-aa55-4aff-b0bb-d4063843c726",
+  "source_updated_at": "2026-09-25T04:02:02.83398+00:00",
+  "body_sha256": "a25ac99ecef18ce58212b61b08cb33d9e4cf86702a8ed3be077fe6011c815b1f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "hold",
+  "genre": "sports",
+  "why": "응원 구호와 코치의 말이 섞여 경기 전후 순서가 뒤엉켜 있어 사건 흐름으로 떼어 쓸 수 있을지 애매하다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "mood"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The day that we've been talking",
+   "note": "경기 뒤 칭찬 다음에 '경기는 언제냐'가 나와 순서가 거꾸로다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "ad7e25a1-be07-464b-979d-a6715370b663",
+  "source_updated_at": "2026-09-25T04:01:21.998049+00:00",
+  "body_sha256": "5e3564869dff4cf2dc9d04a0b2e620aa393609e766c2cc93ab716cb690d44cf7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "사자와 사람이 친구가 됐다 서로의 두려움으로 갈라서는 우화에 끝의 교훈이 명시돼 중등 요지·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "topic",
+    "order"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Once upon time, a lion wanted",
+   "note": "교훈 문장이 끝에 있어 요지 문항으로 바로 뒤집기 쉬웠다."
+  }
+ },
+ {
+  "id": "af212de9-1d96-4134-ac9c-6e95a15107c8",
+  "source_updated_at": "2026-09-25T04:02:22.500064+00:00",
+  "body_sha256": "cb0d97531d1f7ea6da1e012193c5f22d083142c490f263a1adff5c00d725b55e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "선생님이 요일마다 다른 이야기를 들려준다는 요일 순서와 화자의 동경이 이어져 초등 어휘·순서 칸 최소선을 넘는다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "vocab",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "This is my teacher. Her name",
+   "note": "자장가 가사는 걷어내고 요일 흐름만 쓰면 된다."
+  }
+ },
+ {
+  "id": "af5a0610-8aa5-4a03-9d8d-a84c633f6bcc",
+  "source_updated_at": "2026-09-25T04:01:59.440055+00:00",
+  "body_sha256": "79845ec742af91fe7dc6baf2d80ed959d66cd84806c9a30334129e30f1bcd1c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "친구를 좇다 길을 잃은 물롱고가 하이에나의 '혼자 먹지 않는다' 규칙을 틈타 탈출하는 긴 서사로 중등 순서·삽입·심경 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "mock"
+   ],
+   "types": [
+    "order",
+    "insert",
+    "mood",
+    "long_reference"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There was once a girl called",
+   "note": "hyenas circled her hungrily 등 묘사가 좋아 심경 문항이 쉽다."
+  }
+ },
+ {
+  "id": "afcff9bd-ae28-405e-93e9-2d40c4cd7fe1",
+  "source_updated_at": "2026-09-25T04:01:52.838987+00:00",
+  "body_sha256": "094783627d0e3c021bb8089780b73edfb591dda69c4e91c0820172dcde633cbd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "배고픈 악어가 숨어 있다 덮쳐 배불렀다 다시 배고파지는 순환 사건이 이어져 초등 최소선을 넘는다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order"
+   ],
+   "levels": [
+    "V0",
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Once there was a very hungry",
+   "note": "36어라 순서 문항 정도만 가능하다."
+  }
+ },
+ {
+  "id": "b11b73c7-705a-498c-8447-2031dbbef8b5",
+  "source_updated_at": "2026-09-25T04:02:08.548749+00:00",
+  "body_sha256": "a417b84112e1e21b58b8d7befda602a849b4a6b1ed4c63f0205bca984bfe5346",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "'This is a cow' 식 그림 캡션의 반복이라 그림 없이는 뜻이 서지 않는다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Ben keeps animals. This is a",
+   "note": "캡션 나열이라 가공할 연결이 없다."
+  }
+ },
+ {
+  "id": "b27102db-2240-4bfd-8543-bf6830a3fed2",
+  "source_updated_at": "2026-09-25T04:01:39.981523+00:00",
+  "body_sha256": "a78e79bf621755695cb98e1e6ba304bd3d2ea1fbcce7a34c7a7a5e7c627a1548",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "수다쟁이 칼라부셰가 하이에나에게 말을 흘려 삼켜졌다 계속된 질문으로 풀려나는 빨간 망토형 서사로 초등~중등 순서·요지 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "school"
+   ],
+   "types": [
+    "order",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Long time ago, there lived a",
+   "note": "반복 문답이 뚜렷해 순서 문항 만들기가 쉬웠다."
+  }
+ },
+ {
+  "id": "b33a8a90-ac9b-4548-ae3b-6f9905a251b7",
+  "source_updated_at": "2026-09-25T04:01:47.795271+00:00",
+  "body_sha256": "4c118b59bae0bd8d0e452a4d7d5ae582f2dcd18d72976151db51f96d7614b2c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "토끼의 함정에 빠진 원숭이가 꼬리를 잘리고 그 꼬리를 먹게 되는 속임수 서사가 인과로 이어져 중등 순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Once upon a time the rabbit",
+   "note": "매질 장면은 짧아 초등도 가능하나 가공 때 수위를 낮춘다."
+  }
+ },
+ {
+  "id": "b3a34e5a-2139-4304-9894-a327bf383f2e",
+  "source_updated_at": "2026-09-25T04:01:56.740479+00:00",
+  "body_sha256": "5dd0e4416ec9f990730392bd7d5bce9588493b836964e6193b790c76c0af8648",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "과일을 먹는다는 서로 무관한 특징 문장의 나열이라 초등 최소선인 문장 간 연결이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Fruits, fruits, fruits. Fruit is sweet",
+   "note": "사건·이유 연결이 없어 떼어 낼 것이 없다."
+  }
+ },
+ {
+  "id": "b599872e-2e0c-4d34-b798-5c6d61dadd29",
+  "source_updated_at": "2026-09-25T04:01:58.032062+00:00",
+  "body_sha256": "4dc363eaa9ed51ec75c64e7f95504575b84d0970c0d53fa136230df6737d261b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "깃털도 꼬리도 없어 새·쥐 어느 쪽 친척으로도 인정받지 못한 박쥐 아자오의 유래 설화가 반복 구조로 이어져 초등 순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order",
+    "main_point"
+   ],
+   "levels": [
+    "V1",
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ajao, a bat, lay in his",
+   "note": "새→쥐 두 번의 반복이 순서 문항에 알맞다."
+  }
+ },
+ {
+  "id": "b620a14f-9b8e-4118-8a4c-c59d7d3a530f",
+  "source_updated_at": "2026-09-25T03:34:46.484768+00:00",
+  "body_sha256": "5e0d33a7d03bad5b3140e6dbe48a8fcba6616f78503b3a80f0b99a78ecbd7d46",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "너무 커서 불편하던 남자가 물건을 길게 고쳐 쓰는 문제→해결 짝이 이어져 초등 최소선을 넘는다.",
+  "slots": {
+   "ages": [
+    "elem"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "order"
+   ],
+   "levels": [
+    "V0",
+    "V1"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "His hoe was too short. His",
+   "note": "too short/very long 짝이 어휘 교재에 쓸 만하다."
+  }
+ },
+ {
+  "id": "b65314c3-3bfc-4da5-a44d-a010619751c0",
+  "source_updated_at": "2026-09-25T04:01:32.922305+00:00",
+  "body_sha256": "a04d043c30966230751c7d9fe5117c24841c2edbe5d472e78d705f10f6572e13",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "막내 카티투가 큰 뱀을 쏘고 코끼리 뱃속에서 갈대 노래로 구출되는 긴 설화로 중등~고1 장문 지칭·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "long_reference",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Once upon a time there lived",
+   "note": "끝의 Story notes 단락은 걷어내야 하고 본문은 앞 문맥 없이 선다."
+  }
+ },
+ {
+  "id": "b666964c-206a-4968-ad4f-bbe1255927dd",
+  "source_updated_at": "2026-09-25T04:02:24.322073+00:00",
+  "body_sha256": "47ef7ee7b8e82fc1f0b396ef70de67822d5e6013ce53904781248cd9e9538e02",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "fiction",
+  "why": "달걀→지팡이→이엉→소로 이어지는 누적 사건과 선물보다 함께함이 중요하다는 누나의 말로 요지가 서서 초등~중등 요지·순서 칸이 선다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid"
+   ],
+   "purposes": [
+    "reading",
+    "vocab",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V2"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Early one morning Vusi's granny called",
+   "note": "누적 반복을 줄이면 순서 문항이 된다."
+  }
+ }
+]

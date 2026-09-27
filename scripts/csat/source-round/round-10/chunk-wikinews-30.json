@@ -1,0 +1,827 @@
+[
+ {
+  "id": "17875f8b-3572-426e-8c61-324dafacc53a",
+  "title": "NASA launches exoplanet-hunting satellite TESS",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0954b5042bffed76a5258dac31df38f381cf016a0c1d859141e785b06df46e18",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 598,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2018-04-21T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/NASA_launches_exoplanet-hunting_satellite_TESS",
+     "year": 2018,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "On Wednesday at 6:51 p.m. local time (2251 UTC), a SpaceX Falcon 9 rocket launched from Cape Canaveral Air Force Base in Florida, United States, carrying, as a payload for the US National Aeronautics and Space Administration (NASA), the Transiting Exoplanet Survey Satellite (TESS). NASA designed TESS to search for exoplanets circling stars mostly within 300 light-years of the Sun.\n\nOfficially a NASA Astrophysics Explorer mission, much of the TESS program is to be run from the Massachusetts Institute of Technology's (MIT) Kavli Institute for Astrophysics and Space Research in cooperation with the Goddard Space Flight Center. \"One of the biggest questions in exoplanet exploration is: If an astronomer finds a planet in a star's habitable zone, will it be interesting from a biologist's point of view?\" TESS principal investigator George Ricker told the press, \"We expect TESS will discover a number of planets whose atmospheric compositions, which hold potential clues to the presence of life, could be precisely measured by future observers.\"\n\nA little more than an hour after launch, NASA and SpaceX teams announced the satellite was up and functioning and had deployed its solar panels. Most launches have a roughly two-hour period during which the mission can be executed, but this one had a window of only thirty seconds because this satellite must use the Moon's gravity to reach the desired orbit.\n\nTESS is slated to enter a high orbit distinct from the geosynchronous orbits used by many other satellites. TESS instrument scientist Joel Villasenor, also of MIT, explained, \"The Moon and the satellite are in a sort of dance. The Moon pulls the satellite on one side, and by the time TESS completes one orbit, the Moon is on the other side tugging in the opposite direction. The overall effect is the Moon's pull is evened out, and it's a very stable configuration over many years. Nobody's done this before, and I suspect other programs will try to use this orbit later on.\"\n\nIf all goes according to plan, TESS will circle the Earth for 60 days to establish its 13.7-day orbit and test its machinery before beginning its mission: using its four cameras to analyze stars for decreases in brightness that may be caused by a planet passing between us and them, a technique called the transit method. TESS's launch comes just as the Kepler space telescope, launched into orbit around the Sun 2009, is about to run out of fuel. Scientists used Kepler to identify at least over 2300, perhaps over 4500 planets and gather data on stars and black holes. TESS is designed to cover 400 times as much of the sky as Kepler, and is capable of viewing 85% of the sky. Scientists expect it to find 1500 planets during its two-year mission, 300 Earth-like, but believe it may find many more.\n\nBecause TESS's cameras can cover a wide range of radiant energy, including infrared, scientists believe it may be able to detect planets orbiting red dwarf stars, which scientists consider likely to host rocky, Earth-like planets with the right mass for an atmosphere and the right temperature to host liquid water, a range called the habitable zone.\n\nThe data collected by TESS are to be publicly accessible so anyone who wishes may participate in the search. NASA plans to process the data, about 27 gigabytes collected per day, using a supercomputer called Pleiades.\n\nThe original schedule had launch at 6:32 p.m. on Monday evening but it was postponed so the SpaceX team could perform more guidance navigation control tests before launch.\n\nSpaceX is a private company that has partnered with NASA before on such missions as resupplying the International Space Station."
+ },
+ {
+  "id": "178d8d5c-b8fd-4e50-8925-274cdf8c6bdc",
+  "title": "Senator Harry Reid elected Democratic minority leader",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "641b233c18beb15b38da8e887bd7a474a90895636f30b29b7ba2909c50db4048",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 99,
+   "v_level": 3,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2004-11-16T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Senator_Harry_Reid_elected_Democratic_minority_leader",
+     "year": 2004,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Democratic Senator Harry Reid has been elected the new leader of the Democratic party in the Senate. Reid, from Nevada, replaces out-going leader Tom Daschle who lost his re-election bid in the state of South Dakota. Reid was re-elected with 61% of the vote in the November elections.\n\nReid won the position as the Republican party still holds majority in both houses of Congress. Dennis Hastert (R-IL) and Tom DeLay (R-TX) were re-elected by the Republicans for new terms as Speaker and Majority Leader in the House of Representatives.\n\nSenator Dick Durbin (D-IL) replaced Reid as the Senate Minority Whip."
+ },
+ {
+  "id": "179091c5-7424-4086-8d43-0cb31512dc11",
+  "title": "Recent American E. coli outbreak linked to cattle",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "61541b3c5216a7b9877a49734f06253cdb1a05619af1b24146357a456283d9b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 229,
+   "v_level": 6,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2006-10-13T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Recent_American_E._coli_outbreak_linked_to_cattle",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The recent E. coli outbreak that killed three people and sickened nearly 200 in the United States and Canada has been linked to cattle. The outbreak affected people who ate contaminated bagged spinach. Shortly after the outbreak began, the contaminated spinach had been traced to the Salinas Valley region of California. Now, health officials say the contamination came from cattle manure.\n\nThe infected cattle manure was found on a ranch in Salinas Valley that is adjacent to the field that produced contaminated spinach. How precisely the infection was transported from the ranch to the spinach field is still unknown. Dr. Kevin Reilly of the California Department of Health Services said that \"we don't know if wild swine are playing a role or not, but we do know that on this particular ranch, there is a very large population of wild boar, and we have witnessed on this site that they have torn through fencing and under fencing and have the ability to access the field\". The bacteria could have been carried by wild animals from the cattle ranch to the spinach field.\n\nJoan Rose, a microbiologist and food safety expert at Michigan State University, commented that it is not surprising that cattle manure was the source of the infection. \"If you start to look at the pathogen levels even in untreated sewage, it's minor compared to animal waste\", she said."
+ },
+ {
+  "id": "179133ea-5f5b-4d97-bb55-bea9cb400ad1",
+  "title": "$200,000 reward for information on Perth arsonist",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ea29d4000844f39ac81172a92f3c7d4da47957877f3b64ffb629be8f6c312b7a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 174,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2007-02-05T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/%24200%2C000_reward_for_information_on_Perth_arsonist",
+     "year": 2007,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "In the aftermath of the bush fires around Perth the Western Australian government has offered a $A200,000 reward for information leading to the conviction of an arsonist.\n\nPremier Alan Carpenter, who is visiting the area of the Dwellingup fires said, \"It is almost inconceivable that anybody could be so stupid and so criminally, willfully damaging to the community as to go about setting a fire deliberately in these circumstances\".\n\nFurther fires were lit today near Yanchep and in John Forrest National Park both fires are believed to be deliberately lit as they had multiple ignition points.\n\nEarlier this morning the Dwellingup fire, assisted by strong easterly winds, broke containment lines and threatened the town of Coolup. Additional flareups and spot fires from embers have now been contained. This fire has burnt more then 11,000 hectares so far.\n\nSpokesman for the Department of Environment and Conservation, Murray Mitchel says that firefighters were trying to consolidate the fire in preparation for Wednesday's expected 40oC (104oF) temperatures. A fire weather warning has been issued for the south west of Western Australia."
+ },
+ {
+  "id": "1792827f-2e30-4943-8fa4-e80f561ed2a8",
+  "title": "The Lancet study suggests inactivity now as deadly as smoking",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f27b9c23925aabac7b239678895ee232622083b93e1a2478188c713f0651638",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 332,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2012-07-19T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/The_Lancet_study_suggests_inactivity_now_as_deadly_as_smoking",
+     "year": 2012,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A report published by public-health journal The Lancet suggests living a sedentary lifestyle is now as-fatal for individuals as smoking. Compiled by 33 research workers, the report speaks of a \"pandemic\" in which an estimated one-in-three adults worldwide are inactive, leading to approximately 5.3 million fatalities from this.\n\nResearch for The Lancet established people in higher-income countries are more inactive than those where lower incomes prevail. The study indicated nearly two-in-three adults in the United Kingdom are not active enough. \"Roughly three of every 10 individuals aged 15 years or older — about 1.5 billion people — do not reach present physical activity recommendations,\" states the report, publicised in the approach to the 2012 Summer Olympics.\n\nPedro Hallal, a lead researcher for the study, explained: \"With the upcoming 2012 Olympic Games, sport and physical activity will attract tremendous worldwide attention. Although the world will be watching elite athletes from many countries compete in sporting events [...] most spectators will be quite inactive. The global challenge is clear - make physical activity a public health priority throughout the world to improve health and reduce the burden of disease.\" Faculty of Public Health president Professor Lindsey Davies spoke of a similar theory: \"We need to do all we can to make it easy for people to look after their health and get active as part of their daily lives [...] Our environment has a significant part to play. For example, people who feel unsafe in their local park will be less likely to use it.\" According to BBC Health, exercising can assist in strengthening one's bones, as well as assisting with issues such as insomnia and depression.\n\nHowever, BBC News Online reported the comparison of a sedentary lifestyle with smoking has been called into question, as smoking is more likely to cause death. At-issue is comparing the number of smokers with the significantly lower number of individuals living sedentary lifestyles. Dr. Claire Knight from Cancer Research UK asserts: \"When it comes to preventing cancer, stopping smoking is by far the most important thing you can do.\""
+ },
+ {
+  "id": "1792b632-b2a0-4164-bb8f-960f15a158aa",
+  "title": "Brazzaville picks up the pieces after ammo depot explosion",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2ff36f811910678cf27e9b6e06377fd2d5af5bb651f086d7f47cf9577e5d4676",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 1051,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2012-04-04T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Brazzaville_picks_up_the_pieces_after_ammo_depot_explosion",
+     "year": 2012,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "World relief organizations are assisting the Republic of the Congo after last month's deadly explosions at the Brazzaville Arms Depot that claimed around 300 lives, according to the International Committee of the Red Cross, and left parts of the city looking like a war zone.\n\nOne month after the March 4 explosions and the relief efforts continue.\n\nBernard Metraux, who is in charge of the ICRC mission in Brazzaville, said 292 people have died and around 12 bodies were still unidentified as of Monday. On Saturday, Pierre Moussa, Minister of Defense for the Republic of Congo, released a slightly lower death toll of 282. There was no explanation for discrepancies between the government's and the relief organization's figures as the ICRC's previous statement was already higher than Moussa's figure. Moussa said the death count, however, is expected to rise higher as the relief operations continue.\n\nMetraux also reported 75 children were still missing. The international organization has had success reuniting 42 children with their families in the aftermath and locating 23 missing children since.\n\nAlso, the World Health Organization has confirmed around 10 cases of cholera, which was supported by Alexis Elira Dokekias, the nation's director general of health.\n\nAlready in the first month of the operation, the munitions clearing teams have disposed of 16 tons of ordinance.\n\nThe International Federation of Red Cross and Red Crescent Societies expects the relief operation to last three more months.\n\nTo put the Brazzaville blast into perspective, the number of people killed by the depot explosion this month is almost 100 times the average number of people killed in explosive incidents, based on figures presented by Landmine Action and Medact of explosions and deaths from around the world. The average death per explosive incident was reported by Landmine Action to be 3.3 people (see infographic).\n\nThe blast on March 4, 2012, was actually three separate explosions that were caused by an electrical short circuit at the depot. The blast injured 2,500, made 14,000 homeless, and disrupted education for 20,000 students. The explosion collapsed whole buildings nearby, including a church; contaminated the area within 1 km; and destroyed windows as far away as 4 km. The force of the explosion could be felt in neighboring Kinshasa. And, most dangerous for people now, the blast spread live munitions over a perimeter that spans 6 km. The Talangaï Hospital, one of Brazzaville's medical centers, was the most critical site affected. A portion of the hospital was destroyed and unexploded ordinances were spread over the premises.\n\nBrazzaville is the capital of the Republic of the Congo. According to the US State Department, 70 percent of the country's population lives in Brazzaville. It is the largest city there with a population of over 1.2 million, according to the CIA World Factbook. Nearly one third of the population there lives near the affected sections of the city, including Talangaï, Ouenzé, Moungali and Mfilou which were close to the depot located in the Mpila district.\n\nThe storage of arms in city centers is more common in Africa. In an interview with Wikinews, Dr. Kelechi Kalu, who is the director of the Center for African Studies at Ohio State University, said the orgins of the practice go back to the Cold War when the United States and the Soviet Union would arm opposite sides and would locate the arms so that the forces they supported could have access to them. After the Cold War, however, the practice was continued by governing institutions. \"The institutional structure that is supposed to handle explosives such as this and dispose of them in order to keep people safe are not as developed as people would expect.\" Kalu referred to another armory explosion in January 27, 2002, in Lagos, Nigeria that killed over 1000 people.\n\nThe 2009 report from Landmine Action said casualities as a result of explosives happens regularly around the world and the number of incidents spreads globally within a fairly short period of time — six months of data were studied. The report said the worst cases with high death rates occurred when explosive violence took place in urban settings, like the blast from the arms depot located in the highly populated area of Brazzaville.\n\nMoreover, the Landmine Action study reported that civilians, especially women and children, fared worse from these blasts. Congolese citizen Irène Ithos, 44, and a mother of three, told IRIN News that the blast was unprecedented in her lifetime. It is one of the Republic of the Congo's worst catastrophes since its civil war was fought between 1997 and 1999. The depot itself was a holdover from the civil war era.\n\nDealing with the unexploded munitions is urgent. \"The main thing now is to clear those areas as quickly as possible so that the people who live or work there and want to go back can do so without danger,\" said Metraux.\n\nThe Congolese army has fenced off the 1km area around the depot so that the site can be decontaminated. The United Nations Mine Action Coordination Centre is trying to dispose of the live munitions so that the Brazzaville residents can leave the camps and return to their homes. The organizations involved in ordinance disposal also include the British Mines Advisory Group, a contingent from Handicap International, and the ICRC. With so much ordinance underneath the ruins, the Congolese Red Cross is playing an important role in warning residents to call for assistance if they see ammunition.\n\nEarly on the Congolese Red Cross, as the area's first responders, provided first aid, transported crush victims from the fallen buildings and burn victims to the military and university hospitals, and provided blankets and water, said Christian Sedar Ndinga, president the country's organization. The Congolese Red Cross mobilized 200 volunteers in response to the crisis.\n\nWhile the relief agencies working with the Congolese have alleviated some needs, the effort still has holes to fill. Six sites have been established to relieve the homeless, but the camps do not have enough tents. One of those sites is the Sacred Heart Cathedral and it has 20 tents that were set up by the French army, but those are not enough, and during rains, even when the church is opened, not all people can be sheltered. The Nkombo Market is the other large relief site; it is a covered market converted into a shelter. The sites, however, have allowed Doctors Without Borders to vaccinate 2,500 children from measles and the medical staff there has reported some malnutrition cases."
+ },
+ {
+  "id": "1794fee0-5838-4dd2-b368-7ca240f143a8",
+  "title": "New search engine to search inside Wikipedia",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e637fc61167a3b3dc6b8af4775393e0c67e0525ff1da12023a0df1b6290bbae",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 373,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2007-01-18T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/New_search_engine_to_search_inside_Wikipedia",
+     "year": 2007,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A new search engine that was announced yesterday finds articles and links within the English Wikipedia. Wikiseek, run by a California based startup company called \"searchme\", is a website which aims to be \"A better way to search Wikipedia.\"\n\nAlthough most keywords work without problems, Digg users have found search terms that the site does not recognize. If you enter \"Chicago\" for example, it shows no Wikipedia articles at all, and clicking \"Chicago, Illinois\" leads to an article on West Chicago, Illinois and other related articles to the subject. Similarly, entering \"Christmas\", \"United States\" or \"PlayStation 3\" only provides links to related articles on Wikipedia, although they are in the top 10 of most viewed articles in the English Wikipedia. Searching \"porn\" comes up with commercial websites linked from Wikipedia, but not the relevant articles in the free encyclopedia. For most articles however, the relevant Wikipedia article is the first result or among the results.\n\nThe site says that \"The contents of Wikiseek are restricted to Wikipedia pages and only those sites which are referenced within Wikipedia, making it an authoritative source of information less subject to spam and SEO schemes.\" The site also offers a Toolbar plugin and a Firefox extension to add a Wikiseek search button inside of Wikipedia pages.\n\nDanny Sullivan at the Search Engine Land blog found Wikiseek's results inferior compared to the results from established search engines. SearchMe CEO Randy Adams stressed that Wikiseek is still in a beta phase. He pointed out that they welcome feedback more than the average search engine, which can be posted on their company wiki.\n\nSearchme put a button on their main page, encouraging beta testers to instantly promote the site on Digg. In August 2006, Digg had half a million registered users.\n\nSome media outlets have reported that Wikiseek was created by either the Wikimedia Foundation which runs Wikipedia, or private corporation Wikia, which hosts a collection of wiki communities. Both rumors are untrue, says Angela Beesley, co-founder of Wikia and chair of the Advisory Board of the Wikimedia Foundation. \"Wikiseek is an independent project with no affiliation with either Wikia or the Wikimedia Foundation.\"\n\nThe Wikiseek site says they contribute the majority of its revenue from advertisement to the Wikimedia Foundation's fundraising effort."
+ },
+ {
+  "id": "1798f40a-eb0a-44d7-9564-1a7c404ec979",
+  "title": "Marine Corps F-18 crashes in California",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a56422f5babd6962d76658f41ff3195c0b4a1cd87684699a20adbe0c0d361558",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 102,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-12-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Marine_Corps_F-18_crashes_in_California",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "An F/A-18 jet belonging to the US Marines crashed today at the Miramar Air Station in San Diego, California.\n\nThe pilot, who ejected safely, was found conscious and did not suffer major injuries said spokesperson for the San Diego Fire-Rescue Department, Maurice Luque. Luque also confirmed that the pilot was the only person aboard the plane.\n\nThe plane crashed about three miles away from Miramar Airfield. The cause of the crash is currently being investigated by the US Marine Corps.\n\nAn eyewitness to the event told local television station KUSI-TV that, \"...it just pitched down and plummeted straight into the ground.\""
+ },
+ {
+  "id": "179aa921-a450-4688-bf3c-1213964296ef",
+  "title": "Swedish nuclear reactors shut down over safety concerns",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5e74ba376a27baac6c3c153b2044bfe3d730817d6d59f2751e7dd799ce9cbd31",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 405,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-08-05T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Swedish_nuclear_reactors_shut_down_over_safety_concerns",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Three of Sweden's ten nuclear reactors have been shut down due to safety concerns following an incident last week at the Forsmark Nuclear Power Plant, in which the reactor cooling systems failed. The reactor has since been shut down there. After the incident, the Swedish Nuclear Power Inspectorate, SKI asked all the nuclear power plants to demonstrate that the same failure could not happen in them. On Wednesday, two more reactors at Oskarshamn were shut down after the operator said their safety could not be guaranteed.\n\nLast week's incident at the Forsmark plant was triggered by a short circuit that cut power to the reactor cooling system. Two of the four backup generators also failed to start, but the remaining two worked and were sufficient to meet the plant's needs. Greenpeace reports that the fault in the backup power systems were traced to new equipment installed in 1993.\n\nThe spokesman of the Swedish Nuclear Power Inspectorate Anders Bredfell denied that there was any danger of a meltdown, adding that there was also a backup gas turbine to power the cooling system in an emergency.\n\nHowever, Lars-Olov Höglund, who was responsible for the nuclear plant Forsmark for many years, said the incident was the most dangerous one since Chernobyl and Three Mile island, and that a meltdown was avoided only by pure luck. His views have however been questioned as he is involved in litigation with the Swedish nuclear industry and is known as an outspoken nuclear critic. Researchers at the Royal Institute of Technology as well as the personnel at the power plant were critical of Höglunds' view.\n\nSpeaking to BBC News, SKI spokesman Anders Bredfell said that the International Atomic Energy Agency (IAEA) was informed of the incident as required and that the incident classes as a '2' in the 0-7 scale used by the IAEA to assess the severity of the incident.\n\nAnother reactor in Forsmark and a fifth at Ringhals nuclear power plant have been offline due to planned maintenance work. With five of its ten reactors down, Sweden's power generation capacity is down by almost a fifth.\n\nThe environmental group Greenpeace called on the government to shut down all reactors and probe whether the fault was a generic one. The Green Party has called for an independent investigation of the incident. Sweden is scheduled to retire all its nuclear power plants in the next few decades, as decided by a referendum in 1980."
+ },
+ {
+  "id": "179c7de6-a69d-44a1-b9e0-a21be1b654f3",
+  "title": "Three killed, three others injured in stabbing attack in Reading, UK",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:56:33.12582+00:00",
+  "body_sha256": "f74b0942be908b71baa956a27b746729ff9f0e45f5b9dffb9c23b96a3f7361fe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 216,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2020-06-23T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Three_killed%2C_three_others_injured_in_stabbing_attack_in_Reading%2C_UK",
+     "year": 2020,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "On Saturday evening in Forbury Gardens in Reading, Berkshire, UK shortly before 19:00 local time (1800 UTC), a mass stabbing killed three people and injured three others. A 25-year-old man was arrested by Thames Valley Police on suspicion of murder. Reports named him on Sunday as Reading resident and Libyan national Khairi Saadallah. Police also announced on Sunday morning they were treating it as a terrorist incident.\n\nThe Daily Telegraph cited a security source that mental health may be a factor in the attack. Witnesses, according to The Telegraph, said a man approached and attacked a group of middle-aged men, using a knife. Thames Valley Police soon arrived and detained the man, later identified as Khairi Saadallah. Saadallah came to the UK a number of years ago, after the Libyan Civil War. A counter terror police raid removed various items from Saadallah's flat, amongst them reportedly a circular saw.\n\nThe head of the UK's counter terror police, Neil Basu, on Sunday said the police found nothing inconsistent with the attacker acting alone. He also said there is no suggestion of specific increased threat towards people in crowded places from terrorists. A Black Lives Matter protest had taken place in Forbury Gardens a few hours before the attack, but Basu also stated this was not connected to the crime."
+ },
+ {
+  "id": "179d444f-b67c-4e20-8af2-cfb776e929c7",
+  "title": "Wikinews Shorts: December 11, 2008",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "286ad5b1c132cc09e1fb32ff58828792e2d95445a192b1d0ed0aa6d9d5fe97ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 261,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": null,
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_December_11%2C_2008",
+     "year": null,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The British pound sterling fell to a record low against the euro Wednesday, descending to under 1.14 euros for the first time. It reached new lows against other currencies as well.\n\nOne euro was worth 87.79 pence today, compared with the price of 71.91 pence a year ago. The United States dollar was trading at $1.4827 for a pound.\n\nSome currency analysts speculate that the pound might be headed for parity — when one pound will be worth about one euro or dollar.\n\nSources\n\nThe United States office supplies company Office Depot announced on Wednesday that it will close about 9% or 112 of its stores in North America and slash 2,200 jobs over the next three months.\n\nThe plan to close the stores will bring the chain's base to 1,163 stores. 45 stores are to be shut down in the Central US, 40 in the Northeastern US and Canada, 19 in the Western US, and eight in the South.\n\nSix of Office Depot's 33 North American distribution facilities are also to be closed.\n\nShares of the company rose more than 12% on the news.\n\nSources\n\nBarack Obama, the President-elect of the United States, has said that Illinois governor Rod Blagojevich should resign from his post. Obama's statement comes following Blagojevich's arrest on charges that he attempted to \"sell\" Obama's Senate seat, which the latter vacated to become President.\n\nAs governor of the state, Blagojevich has the authority to select Mr. Obama's successor to represent Illinois in the Senate.\n\nBlagojevich has been charged with conspiracy and solicitation to commit bribery, crimes that are punishable by up to 20 and 10 years in jail, respectively.\n\nRelated news\n\nSources"
+ },
+ {
+  "id": "179d4ac0-89f9-4e92-a794-09305c64e949",
+  "title": "Exit polls indicate pro-Thaksin party lead in Thai election",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2b316a7259ff09e5b3973a4e390446b33e6058cc00e0d2363923c31fbfe86a61",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 188,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2007-12-23T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Exit_polls_indicate_pro-Thaksin_party_lead_in_Thai_election",
+     "year": 2007,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Initial exit polls for Thailand's general election suggest the People Power Party (PPP), allied with the former Prime Minister Thaksin Shinawatra, has a clear lead. The poll predicted the party would win 202 out of the total of 480 seats, although a survey by Suan Dusit Rajabhat University suggested the party may win as many as 256 seats.\n\nIn September 2006 a bloodless military coup overthrew Shinawatra. Following the coup, Thai Rak Thai—Thaksin's party—was disbanded amid corruption allegations. With the coup timed such that Prime Minister was in New York, he went into self-imposed exile in the UK. His supporters, who were not banned from politics, formed the People Power Party. They have benefited from Thaksin's popularity in rural areas.\n\nIf the lower prediction of 202 seats is correct it is possible that the People Power Party will not form a government. According to a Reuters report in the Washington Post the caretaker government and military leaders are likely to oppose PPP forming a coalition government.\n\nAccording to the DPA, Thaksin observed the elections from Hong Kong, instead of his London residence. The PPP have—if elected—committed to his return on February 14 next year."
+ },
+ {
+  "id": "179fd788-18c4-41b5-94ae-00bc0f245c06",
+  "title": "Dublin Pride 2018 attracts tens of thousands of people",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "843386e71185178f9f202f297d8569441003b5b2f9e6d3f023dc166d5abdcd77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 286,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2018-07-03T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Dublin_Pride_2018_attracts_tens_of_thousands_of_people",
+     "year": 2018,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "On Saturday, the Lesbian, Gay, Bisexual and Transgender (LGBT) Pride in the Irish capital Dublin attracted a record number of people. According to the organisers of the Pride, about 60 thousand people attended the event, almost double the number of attendees in last year's Pride.\n\nFor the first time, members of the Defence Forces attended the annual rally in their military uniforms, The Independent reported. The Defence Forces were led by Vice-Admiral Mark Mellett. This year's theme was \"We Are Family\". Buildings were decorated in the colours of the rainbow on the eve of the 25th anniversary of the Dublin Pride.\n\nAccording to reports, ex-president Mary McAleese and children's minister Katherine Zappone had attended the Pride. \"Happy Pride everyone! Have a great day celebrating equality, inclusiveness and love\", Health Minister Simon Harris tweeted.\n\nHomosexuality was decriminalised in the Irish Republic 25 years ago in 1993, and the marriage of same-sex couples was legalised in November 2015 after a nation-wide referendum. On June 19, Irish Taoiseach Leo Varadkar, who is the country's first openly-gay Taoiseach addressed the Dáil saying, \"Today the people I want to pay a special tribute to are the unknown heroes, the thousands of people whose names we do not know, who were criminalised by our forbears\".\n\nSame-sex marriage is illegal in the neighbouring country of Northern Ireland. Mary Lou McDonald, leader of the Sinn Féin political party said, \"We stand in solidarity to those in the North who are still struggling to have their families recognised in the most basic of ways - marriage equality\". She added, saying, \"The people here, the people of pride are an unstoppable force. Rights are for all. Equality is for all. Change is coming and make no mistake the North is next.\""
+ },
+ {
+  "id": "17a31a6e-9149-408a-a8b0-890c4ac86ef1",
+  "title": "Pakistan and China sign free-trade deal",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6500c5755c943e787e6a38478fcfda641221aac4412f5e8fd55878f1b52f42b0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 159,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2006-11-25T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Pakistan_and_China_sign_free-trade_deal",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Chinese president, Hu Jintao has signed a free-trade deal with his Pakistani counterpart, General Pervez Musharraf, during ongoing talks in Islamabad. They signed a five-year pact to boost bilateral trade on Friday.\n\nAfter a three-day trip to India, Hu Jintao travelled to Pakistan for a four-day visit and received a royal reception at his arrival. His visit to Pakistan is the first by a Chinese leader in a decade.\n\nAccording to diplomats, the agreement could triple the value of bilateral trade within next five years, to $15bn.\n\nPakistani commerce minister, Humayoun Akhtar said that new trade pact would energize the efforts to cut tariffs. He added that the trade would be completely tariff-free between the two countries within next five years.\n\nBoth countries have agreed a number of new defence and energy deals. The Pakistan Air Force and Chinese Aviation Industries have agreed for long term collaboration in the fields of aircraft manufacturing including Airborne Warning And Control Systems (AWACS)."
+ },
+ {
+  "id": "17aabae1-8491-4d51-8e93-0b6fa69cf029",
+  "title": "Musharraf denies making rape remarks",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e8e1f3d129abdcd92ba415f5126bc23e67f487ea067367e5c4572ecc12bc4cb6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 206,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2005-09-19T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Musharraf_denies_making_rape_remarks",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Pakistan's President, Pervez Musharraf, has denied making the comments on rape reported by the Washington Post.\n\nThe widespread reporting of the quotes from Musharraf's interview sparked protests on Friday in Pakistan and drew criticism from around the globe, with the Canadian Prime Minister, Paul Martin, saying that President Musharraf should issue some sort of apology.\n\nWhilst Musharraf may deny the specifics of the comments made, co-author of the Post's interview, Glenn Kessler, has said that the Pakistani President was quoted, \"verbatim and in context\". That context being a discussion of the treatment given to Mukhtar Mai, a rape victim whose plight was publicised worldwide. Musharraf is quoted as saying, \"A lot of people say if you want to go abroad and get a visa for Canada or citizenship and be a millionaire, get yourself raped.\"\n\nIn recent times, Pakistan has seen a growth in activist groups seeking to promote Women's rights in Pakistan. A number of high profile rape cases, including that of Mukhtar Mai, have focused international attention on some of the practices that are commonplace in tribal parts of the country. Activists have accused President Musharraf of not taking the issue seriously, and that tribal elders still condone rape, if not actually ordering it."
+ },
+ {
+  "id": "17ac886d-efe4-45d6-aa06-3c804219408b",
+  "title": "Freelance reporter fired from Boston Globe for adding fictitious details to story",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f1f558cdcbcde711622bbbd1f55d509f2cf1ec1f9f875801158cc325cdc8d72",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 554,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2005-04-16T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Freelance_reporter_fired_from_Boston_Globe_for_adding_fictitious_details_to_story",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Barbara Stewart, former freelance reporter for The Boston Globe, was dismissed this week after adding fictitious details to a story about events which actually did not occur at the time of her writing. The Boston Globe's Executive Editor Helen Donovan called the incident a \"significant breach\" and said, \"We should have noticed the lack of attribution on a couple of key facts and should have asked questions we didn't ask.\"\n\nThe story in question was about a Canadian seal hunt that was supposed to take place, but actually did not occur that day because of bad weather. Stewart wrote about it anyway as though it had actually happened. Her article, dated April 13, began, \"Over the vigorous protests of international animal-welfare organizations, the largest seal hunt in a half-century resumed yesterday off Newfoundland and Labrador. Hunters on about 300 boats converged on ice floes, shooting harp seal cubs by the hundreds, as the ice and water turned red. Most of the seals were less than 6 weeks old.\"\n\n\"When I read the article, I was kind of shocked,\" said Phil Jenkins, spokesman for Fisheries and Oceans Canada, according to The Washington Post. Jenkins said he told the Globe that \"the events as described in quite vivid detail had not taken place.\"\n\nThe Canadian hunt for harp seal cubs is an annual event that has been drawing protests from animal rights activists since the 1960s. The hunts take place on ice floes and sometimes in weather conditions that can deter protesters from visiting the event.\n\nJames Smith, Foreign Editor at the Globe, says that the Globe will now institute stricter hiring practices for future part-time correspondents. He reports Stewart as saying after the incident was uncovered: \"I don't know why I did this. I've never done anything like this before.\"\n\nStewart has been a reporter for The New York Times Metro Desk between October, 1994 and May, 2004; according to the Boston Herald, the Times denied that Stewart fabricated any parts of stories while she was employed there. This was Stewart's third article for the Globe.\n\nIn another example of recent press controversy, Mitch Albom has been suspended from the Detroit Free Press for writing ahead of time about the attendance at a Final Four basketball game by two former Michigan State University players, who told him they would be attending but later did not.\n\nOther notable press scandals in recent years have included the Jayson Blair scandal of numerous fabrications and plagiarisms in 2003 at The New York Times, which led to the resignation of Blair and two editors.\n\nThe Globe itself has been marked by similar scandals in 1998 which led to the resignation of two columnists, Patricia Smith and Mike Barnicle, in separate incidents.\n\nBob Zelnick, chairman of the Department of Journalism at Boston University, called the current Globe controversy \"embarrassing...a serious problem...a lapse of editorial judgment\", but Dan Kennedy of the Boston Phoenix characterized the incident as \"probably not that big a deal\", according to The Washington Post. \"It was an unknown freelancer writing a fairly small story inside the paper, and they took care of it immediately.\"\n\nThe Globe published a correction two days later on April 15. It appears from a Google search that the prior story may have been removed from the boston.com website; however, it is currently still accessible in the Google cache."
+ },
+ {
+  "id": "17aefcb8-3b71-4ee0-a36b-017dc4a3b223",
+  "title": "Former US Secretary of State Alexander Haig dies at age 85",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1c3a1b6addc4bcdb5358fc7ab0706fa0386c629b674d8fcc47710bc62c69a382",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 279,
+   "v_level": 6,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2010-02-20T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Former_US_Secretary_of_State_Alexander_Haig_dies_at_age_85",
+     "year": 2010,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Retired four-star general and former US Secretary of State Alexander Haig died Saturday morning of complications from an infection at Johns Hopkins Hospital in Baltimore, Maryland at the age of 85.\n\nA West Point graduate and decorated veteran of both the Korean and Vietnam wars, Haig served as commander of US forces stationed in Europe and Supreme Allied Commander of NATO. He also held top advisory posts in the Nixon, Ford, and Reagan administrations. Haig furthermore unsuccessfully sought the Republican presidential nomination in 1988.\n\nDespite his distinguished military and political career, Haig was never able to fully live down his internationally televised response to the assassination attempt on President Ronald Reagan in 1981.\n\n\"As of now, I am in control here in the White House, pending the return of the Vice President,\" Haig said hours after the shooting.\n\nSome saw the comment as a calculated usurping of Vice President George H.W. Bush's authority and as a purposeful disregard of the overall chain of command.\n\nIn his own defense, Haig later told the media that what he said earlier was done \"to reassure Americans\" that the White House was functioning during the absence of Vice President Bush whom was flying back to Washington, D.C. from Texas at the time of the shooting.\n\nIn a press conference on Saturday, US President Barack Obama described Haig as a valued public servant who \"exemplified our finest warrior-diplomat tradition of those who dedicate their lives to public service.\"\n\nHaig \"served his country in many capacities for many years, earning honor on the battlefield, the confidence of presidents and prime ministers, and the thanks of a grateful nation,\" US Secretary of State Hillary Clinton later added."
+ },
+ {
+  "id": "17b3ee22-009f-421b-8365-6a542c5c2c6a",
+  "title": "Norman Kember returns home safely",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1c0e5ac84ac7218d10db24d0e7d557845d42f58ba5f07b68b77af04479090be5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 65,
+   "v_level": 6,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-03-25T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Norman_Kember_returns_home_safely",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The freed hostage Norman Kember arrived home earlier Saturday. In a prepared statement delivered at Heathrow Airport, he responded to earlier accusations that he was \"not grateful\" for the multinational effort culminating in his release.\n\n\"I do not believe that a lasting peace is achieved by armed force, but I pay tribute to their courage and thank those who played a part in my release.\""
+ },
+ {
+  "id": "17b4ffb5-c883-4271-a21a-72cfeb8ae249",
+  "title": "Police describe bloody evidence in NY Sen. Monserrate assault trial",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5330281d1dba67835f101554b7eb628a9d787577fe08438bef07e58d34bb70d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 626,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2009-10-01T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Police_describe_bloody_evidence_in_NY_Sen._Monserrate_assault_trial",
+     "year": 2009,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A crime scene police detective and a forensic biologist testified on Tuesday about bloody evidence entered into the court record, in the ongoing criminal trial against New York State Senator Hiram Monserrate. Monserrate faces charges of felony assault in an alleged attack on his girlfriend Karla Giraldo.\n\nThe prosecution has asserted that when Monserrate discovered that his girlfriend had the business card of another man, he chose to strike out at her. Monserrate has entered a plea of not guilty to charges he sliced his girlfriend's face with broken glass during a conflict at their apartment on December 19, 2008. The defense team denied that the injury to the woman by Monserrate was intentional, instead claiming that the incident was \"an accident\" and the result of Monserrate tripping while bringing Giraldo a glass of water.\n\nAn emergency physician that had treated Giraldo stated in court last Thursday that Monserrate's girlfriend asserted to her that her injuries were not the result of an accident. Though the defense has argued that Giraldo, who is from Ecuador, may have been difficult to understand – the physician stated she conversed with Monserrate's girlfriend in both Spanish and in English.\n\nThe police detective that first inspected the crime scene testified Tuesday to the court about his recollection of discovering broken glass at the apartment, along with blood, towels covered in blood, and a ripped women's t-shirt. Prosecutors entered into evidence a ripped sleeveless undershirt that police had found in the garbage outside Monserrate's apartment on the night of the alleged attack. Bloody towels were was also found at the crime scene in the bathroom, and bloody smudges were discovered on a light switch in the bedroom.\n\nAccording to forensic biologist Ewilina Badja, the majority of the blood found at the scene originated from one woman. Prosecutors assert that this woman is Giraldo, who was treated for injuries surrounding her left eye that took approximately 40 stitches to remedy. Badja identified blood on a male green shirt found in the bathroom sink as that of Monserrate.\n\nJoseph Tacopina, defense counsel for Monserrate, argued that the police detective's testimony does not prove his client attacked Giraldo. NY1 reported that Tacopina stated: \"There's not a piece of evidence that supports there was a scuffle where someone tore someone's clothing, so it is nothing more than rank speculation. It was not a blood drenched t-shirt. When it was torn who knows? I have in my closet right now torn T-shirts that I wear to bed every night.\"\n\nOn cross-examination, Tacopina queried New York City Police Department crime scene analyst Detective David Hernandez regarding the blood discovered on the bedroom light switch. According to Hernandez, police did not evaluate the blood on the light switch; Hernandez also stated that the lights in the apartment were found turned on. Tacopina argued that this bolsters the story provided by defense – that his client stumbled in a dark room while attempted to bring water to his girlfriend, and placed his bloody hand on the light switch after accidentally breaking the drinking glass on Giraldo's face.\n\nQueens Supreme Court Justice William Erlbaum will judge the case without a jury, as Monserrate waived his right for a trial before his peers. The group National Organization for Women has requested that the judge rule Monserrate should be given \"the maximum sentence allowable by law\". If convicted, Democrat Sen. Monserrate could serve seven years in prison and lose his New York State Senate seat.\n\nMonserrate is a former city councilman. He became a member of the New York State Senate weeks after the alleged conflict with Giraldo, and was made chair of the committee overseeing consumer affairs. Along with Democrat Pedro Espada Jr., Monserrate started a shift in control of the Senate by aligning with the Republican Party."
+ },
+ {
+  "id": "17b7f8d1-2f6d-4bdb-b930-409a0a5a205d",
+  "title": "Row over NZ Police memo on issuing traffic tickets",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4017d77815887e25120fdac2fffc98b0dc86f3b3170f141cef366a0607d471bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 223,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-07-19T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Row_over_NZ_Police_memo_on_issuing_traffic_tickets",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "According to a leaked memorandum, sent to New Zealand Police officers in the Levin district last year, they will be penalised if they do not perform well in the issuing tickets.\n\nThe penalties for not reaching the target will be:\n\nPay deductions, 20% loss of pay\n\nLoss of additional training courses or specialised duties\n\n'Named and shamed'\n\nDemotion\n\nThe requirement for issuing tickets is one per hour and the requirement for catching a drunk driver is one per ten hours.\n\nSimon Power, Law and Order spokesman for the New Zealand National Party, said \"It is very disturbing that police officers are being put under internal and financial pressure to write traffic tickets. And just yesterday Annette King told me in answer to a written question that police do not receive incentives, financial or otherwise, if they issue a particular number of tickets.\"\n\nTwo weeks ago a different memo was leaked which showed the police officers have quotas, which the Police Minister, Annette King, dismissed.\n\nHowever if police officers are performing well the Area or District Commanders will be informed which could lead to extra benefits.\n\nThe Police Central District Commander, Superintendent Mark Lammas, said that there was nothing wrong with the memo as it is reasonable for officers to be told they may not receive a pay increase if they consistently fail to enforce."
+ },
+ {
+  "id": "17c03cea-c4a2-4654-8399-fd119eb70378",
+  "title": "Explosives investigation at US Embassy in Chile; Pakistani man detained",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b0cc1b7e15ff84125ed4f99ffa0e70f599f79f36b248ac7a8b6f1488d84f0435",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 200,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2010-05-12T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Explosives_investigation_at_US_Embassy_in_Chile%3B_Pakistani_man_detained",
+     "year": 2010,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A Pakistani man, identified as Muhammad Saif-ur-Rehman Khan, 28, was arrested in Chile on Monday after he was found with traces of explosives in the US Embassy.\n\nChilean police say that traces of Tetryl, used to help detonate explosives, were detected. Yesterday a judge ordered Khan's continued detention under anti-terrorism laws.\n\nIt has been reported that Khan was in Chile for four months, and was called to the embassy to be told that his visa]] for the US was revoked. A US official told Reuters that \"based on the information that we had, we revoked his visa.\" The official declined to give the reason behind the decision, saying only that \"[we] are required to notify individuals when we take that action and we invited him in.\"\n\nKhan spoke briefly to Chilean journalists and denied he was a terrorist or that he was handling explosives. \"I've never seen anything like this in my life,\" he said, claiming that the US \"just want to hide the damage they have caused to Iraq and Afghanistan.\"\n\nThis is not the first incident involving explosives at the US Embassy in Santiago; after the September 11 attacks of 2001, the embassy was sent a letter bomb that was defused."
+ },
+ {
+  "id": "17c58884-95a7-4901-8498-2039fab4afd3",
+  "title": "Tourists evacuated following shootout between Mexican army and drug hitmen",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:48:12.200953+00:00",
+  "body_sha256": "ac71594eca8c6a800ae9e0f7af151ee4e5688150758b345107131b670251b149",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "queued",
+   "words": 391,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2009-06-08T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Tourists_evacuated_following_shootout_between_Mexican_army_and_drug_hitmen",
+     "year": 2009,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A two-hour gun battle which began at 7 p.m. local time between the Mexican Army and drug hitmen ended in 18 fatalities at the Mexican holiday resort of Acapulco on Saturday.\n\nTwo soldiers and 16 gunmen were killed in the battle. The army was dispatched to follow up on an anonymous tip and were met by drug hitmen lobbing hand grenades and firing AK-47 type rifles.\n\n\"There were grenade and rocket explosions, and weapons like AK-47s. The fight lasted almost two hours,\" said an observer.\n\nReinforcements who attempted to join the gunmen in the house were killed by army personnel.\n\nGunmen attempting to flee from the gun battle were prevented doing so by a military Hummer.\n\nFollowing the battle, the army seized a huge arsenal of 36 large caliber rifles, 13 small-caliber shotguns, two grenade launchers, 13 hand grenades, 3,525 rounds of ammunition, 180 magazine charges and eight vehicles.\n\nFive people were placed under arrest. Between three and nine soldiers were injured along with three bystanders. 22 people were evacuated from the area following the battle including tourists, a family, the elderly, and a pregnant woman.\n\nFour Guerrero state police were found in the garage of the property who claim they had been kidnapped and held hostage. A colonel reported anonymously that their account was not confirmed.\n\nLocal media reported that the gunmen were a part of the Beltran Leyva drug-trafficking gang who belong to the Sinaloa Cartel.\n\nDrug related violence has damaged tourism to the beach front resort city as well as economic investment in the area. The recent H1N1 flu virus outbreak in Mexico which caused 89 deaths, the wearing of masks, school closures and an airport quarantine cost billions of dollars in lost tourism dollars at the end of April.\n\nTourism destinations are offering discounted hotel rates to entice visiting tourists. Hotel Los Flamingos once owned by John Wayne and Tarzan's (Johnny Weissmuller) former home were neighboring tourism sites in the neighborhood of Saturday's gun battle.\n\nAcapulco, population over 600,000 is a city of the state of Guerrero on the Pacific coast of Mexico, 300 miles southwest from Mexico City. Guerrero provides a main route for drug smugglers between South America and the United States.\n\nMexico's president, Felipe Calderon, along with American President, Barack Obama, have initiated a crack down on drug gangs. Rival drug gang violence in Mexico has resulted in 2,300 fatalities in the first five months of this year."
+ },
+ {
+  "id": "17cdd35d-c81c-468f-9199-82acd0b1b39f",
+  "title": "5.6-magnitude aftershock earthquake strikes Italy",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a74c0278304c990a17503e4241b8a6db68f223ee4cfa4c30352b8964453827e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 272,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2009-04-08T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/5.6-magnitude_aftershock_earthquake_strikes_Italy",
+     "year": 2009,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "An aftershock with a magnitude of 5.6 shook Central Italy on Tuesday, nearly 48 hours after a major 6.3 quake hit the country. Earlier in the day, another aftershock of 4.2 was also reported. The death toll from the quakes has now surpassed 200 with thousands of others injured. At least one person was killed in the aftershock.\n\nThe aftershock caused two apartment blocks to collapse in the city of L'Aquila, and slabs of masonry fell from other damaged buildings. Local media reported that an old church and many houses were also damaged. The shaking was felt as far away as Rome.\n\nFrancessco Rocha, the head of the Italian Red Cross, estimated that 20,000 people had lost their homes, and it may be many months before they can return to them.\n\n\"The victims so far are 207,\" said the premier of Italy, Silvio Berlusconi, at a press conference. \"Of these victims, 190 have been identified while other 17 remain unidentified, 15 people are missing and there are more than 1,000 injured, 100 of which are in serious conditions,\" said Rocha.\n\n\"Civil protection men are working hard and for the next 48 hours rescuers will search for other survivors,\" added Berlusconi. \"More than 7,000 men are at work. These people risk their lives and I want to congratulate myself with them, they are doing an extraordinary job considering the frequent ground movements complicate rescuing operations. Already 150 people have been extracted and saved from the ruins.\"\n\nThe 6.3-magnitude quake on April 6 is the deadliest quake to strike Italy since November 23, 1980. Nearly 3,000 people were killed in a magnitude 6.8 earthquake that struck Southern Italy in the Irpinia region. At least 10,000 were injured in that earthquake, with over 300,000 being left homeless."
+ },
+ {
+  "id": "17cdd413-0f70-4b3e-ad70-0b9a5ade7ad4",
+  "title": "Astronaut's baby born 200 miles below him",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "381bb1cd9bfb3c2961f170a61adfaa15cf64a545ad87d9dd9c08a75bc2ce0659",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 159,
+   "v_level": 2,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2009-11-22T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Astronaut's_baby_born_200_miles_below_him",
+     "year": 2009,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "American astronaut, Randolph Bresnik, is in orbit over 200 miles above the Earth, where he learned of the birth of his daughter Abigail. Lieutenant Colonel Bresnik becomes only the second man to have become a father while in space.\n\nOnboard Atlantis this morning, the crew were woken by mission control playing Butterfly Kisses, a song chosen by Bresnik's wife Rebecca. Prior to launch, Bresnik joked about the birth expected while on his eleven day mission with the Shuttle, \"this is a pretty good excuse [for missing the birth] and hopefully she will forgive me later on\".\n\nThe first-ever father in space was astronaut Mike Fincke in 2004.\n\nAtlantis's current mission is scheduled to return to Earth this coming Friday, having resupplied the International Space Station and carried out two separate spacewalks. This will be the first time astronaut Bresnik gets to see the newest addition to his family. The couple live in Houston with their adopted three year-old son from Ukraine."
+ },
+ {
+  "id": "17d004cb-a751-429d-ad4b-8e514e3bf0af",
+  "title": "Teenager stabbed to death in east London",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0699b713ace21063cae5040ec9242c6ff0924276a077d7d82dd60d19f7af02a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "hints": {
+   "status": "ready",
+   "words": 89,
+   "v_level": 4,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2007-03-16T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Teenager_stabbed_to_death_in_east_London",
+     "year": 2007,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "London Police are looking for two men seen running away after a 15-year-old boy was stabbed to death in a London street in the latest teenage killing to hit the British capital.\n\nThe victim, Adam Regis, from Plaistow, east London, collapsed on the pavement before horrified witnesses on Saturday evening.\n\nWitnesses saw two young black men, casually dressed and wearing white Nike trainers, running away after the boy was stabbed.\n\nA post mortem released today showed that Regis died from a single stab wound to the chest and abdomen."
+ }
+]

@@ -277,7 +277,7 @@ export function BookExtractionPanel({
       {unbound && unbound.length > 0 && (
         <section
           aria-labelledby="unbound-title"
-          className="mt-2 flex flex-col gap-2 rounded-[var(--r-sm)] border border-[var(--learn-error)]/30 bg-[var(--learn-error-light)]/40 p-3"
+          className="mt-2 flex flex-col gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-error)_30%,transparent)] bg-[color-mix(in_srgb,var(--learn-error-light)_40%,transparent)] p-3"
         >
           <header className="flex items-baseline justify-between gap-2">
             <h3
@@ -313,7 +313,7 @@ export function BookExtractionPanel({
                     'base 가 대부분 V1 기능어(be·hello·have·they)라 학습 후보 아님 → seed 불필요(genuine miss 아님). ' +
                     `(이 중 genuine_miss ${clusterRecoverableMiss}건)`
                   }
-                  className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--info)]/40 bg-[var(--info-light)] px-2 py-1 font-mono text-[10px] text-[var(--info)]"
+                  className="inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[color-mix(in_srgb,var(--info)_40%,transparent)] bg-[var(--info-light)] px-2 py-1 font-mono text-[10px] text-[var(--info)]"
                 >
                   ↻ 클러스터 회수
                   <strong>{clusterRecoverable.length}</strong>

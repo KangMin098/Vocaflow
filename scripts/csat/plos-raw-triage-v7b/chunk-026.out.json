@@ -1,0 +1,165 @@
+[
+  {
+    "id": "135e02a1-9e42-45a9-8a3c-fe91ec7c4ef5",
+    "source_updated_at": "2026-09-25T07:33:20.908427+00:00",
+    "body_sha256": "44fbf3626245849d09c252181303f9d835a4349805c480fa8196c6f8a3abead6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "서론의 풍부환경 정의 단락과 고찰의 한계·인간 적용 단락이 떼어 내도 논지가 서서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Environmental enrichment (EE) is a non-pharmacological",
+      "note": "non-pharmacological→drug-free, neurogenesis→growth of new brain cells, HPA axis 구절 삭제로 V7 근처가 되고 약어만 풀면 선다."
+    }
+  },
+  {
+    "id": "13d0f003-c908-4d08-b843-59bbe8825151",
+    "source_updated_at": "2026-09-25T07:33:27.717817+00:00",
+    "body_sha256": "153c4bde2b563326a8de3e430b0d3dd6e9e2aaa3365a8e64b058c07b77d77816",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 기존 치료 한계 단락과 고찰의 「통계적 유의하나 임상적으로 작은 효과」 단락이 주장-근거로 서서 요지·주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The cornerstone of T2DM management includes",
+      "note": "약물 이름 나열을 「여러 먹는 약과 주사 약」으로 줄이고 adherence→taking medicine as told, glycemic→blood sugar 로 바꾸니 논지가 남았다."
+    }
+  },
+  {
+    "id": "13f14a16-14f5-4c2e-b598-061cc156869e",
+    "source_updated_at": "2026-09-25T07:33:29.47976+00:00",
+    "body_sha256": "d0edc3885ab6bdc579ed05ec4c2cb2a1f159dcf404fcec8f13bd0de38333b59e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 둘째 단락(닮은 두 수용체 중 하나만 홍조 부작용)이 떼어 쓸 만한 유일한 대목이고 나머지는 잔기 번호 서술이라 칸은 주제·빈칸 정도다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "HCAR2 shares the highest sequence similarity",
+      "note": "수용체 이름을 「두 닮은 수용체」로 바꾸면 부작용 대비 논지는 서지만 ERK·prostaglandin 등을 걷으면 문단이 짧아져 V9 아래로 내리기 어렵다."
+    }
+  },
+  {
+    "id": "13fd410d-14cd-4b90-b908-b29bedd25451",
+    "source_updated_at": "2026-09-25T07:33:30.776322+00:00",
+    "body_sha256": "b94f7bd15fef435f4d835686c1b244d64c687bdd5f4e7276d4f92e789ebaf910",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론 첫 단락의 사슴 만성소모병 확산·말초 조직 전파 설명, 고찰 끝의 자연 전파 모형 필요성이 떼어져 주제·빈칸·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The contamination of the food chain",
+      "note": "cervids→deer and elk, irrevocable→unstoppable, conformational 문장 삭제로 V8 이 되고 저자 요약 단락은 그대로 자족적이다."
+    }
+  }
+]

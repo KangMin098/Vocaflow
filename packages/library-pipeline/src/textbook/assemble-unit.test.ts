@@ -183,11 +183,20 @@ describe('cefrFitsBand', () => {
     expect(cefrFitsBand('C1', 4)).toBe(false)
   })
 
-  it('고등은 B2 까지 — C1 학술 산문을 막는다', () => {
+  it('고1(V5)은 B2 까지 — 시중 고1 교재의 93~94% 가 B2 이하다', () => {
     expect(cefrFitsBand('B2', 5)).toBe(true)
     expect(cefrFitsBand('B1', 5)).toBe(true)
     expect(cefrFitsBand('C1', 5)).toBe(false)
+  })
+
+  /** 2026-09-24 실측: 기출 17.8% · 시중 고2~고3 26~32% 가 C1 이다(정본 자). C2 는 어디에도 없다. */
+  it('고2 이상(V6+)은 C1 까지 — C2 는 어느 밴드에서도 막는다', () => {
+    expect(cefrFitsBand('C1', 6)).toBe(true)
+    expect(cefrFitsBand('C1', 7)).toBe(true)
+    expect(cefrFitsBand('C1', 9)).toBe(true)
+    expect(cefrFitsBand('C2', 6)).toBe(false)
     expect(cefrFitsBand('C2', 7)).toBe(false)
+    expect(cefrFitsBand('C2', 11)).toBe(false)
   })
 
   /** ⚠️ **모름은 금지가 아니다** — 재저작 지문 38편이 CEFR 없이 FK 1.9 다. */

@@ -59,6 +59,7 @@ import {
   VolumeGuide,
   VolumeSummary,
 } from '@/components/library/textbooks/ShelfControls'
+import { SpotState } from '@/components/ui/SpotState'
 import type { Shelf, ShelfVolume } from '@/lib/textbook/shelf'
 import { taglineOf } from '@/lib/textbook/shelf-copy'
 import { readEnumParam, useShelfUrlState } from '@/lib/library/shelf-url-state'
@@ -286,14 +287,18 @@ export function TextbookShelf({
 
       {shown.length === 0 ? (
         // 0건을 빈 화면으로 두지 않는다 — 무엇을 풀어야 다시 보이는지 말해 준다.
-        <p
+        <SpotState
+          art="search"
+          size="sm"
           role="status"
-          className="rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-5 font-body text-[13px] leading-[1.75] text-[var(--t2)] [word-break:keep-all]"
-        >
-          {query.trim()
-            ? `'${query.trim()}' 에 걸리는 권이 없어요. 검색어를 지우거나 조건을 하나 풀어 보세요.`
-            : "고른 조건에 맞는 권이 없어요. '좁혀 찾기' 에서 조건을 하나 풀어 보세요."}
-        </p>
+          align="start"
+          title="고른 조건에 맞는 권이 없어요"
+          body={
+            query.trim()
+              ? `'${query.trim()}' 에 걸리는 권이 없어요. 검색어를 지우거나 조건을 하나 풀어 보세요.`
+              : "'좁혀 찾기' 에서 조건을 하나 풀어 보세요."
+          }
+        />
       ) : (
         // ⚠️ 전에는 여기 앞에 **건너뛰기 링크**가 있었다. 칩 40개 때문에 첫 권까지 Tab 을
         //    24번 눌러야 했기 때문이다. 지금은 도구줄까지 5번이면 닿으므로 그 우회로를 없앴다 —

@@ -5,7 +5,92 @@
 // ⚠️ 드레인 절차·게이트·스크립트 이름이 바뀌면 **같은 커밋에서** 여기도 고친다
 //    (루트 CLAUDE.md §3️⃣). 낡은 절차는 관리자를 잘못 조작하게 만든다.
 
-import type { HelpRegistry } from './types'
+import { FACTORY_STAGES } from '@/lib/csat/factory-model'
+import { PLAIN_LAB, PLAIN_STEPS, WHO_KO } from '@/lib/csat/factory-plain'
+import type { HelpDiagram, HelpRegistry } from './types'
+
+/* ───────────────── 공정 칸의 계약을 **모델에서 만든다** ─────────────────
+ *
+ * 단계 화면에서 관리자가 가장 먼저 묻는 것은 「이 화면은 뭘 받아서 뭘 내놓나」다.
+ * 그 답은 `factory-model.ts` 의 `input` · `output` · `gate` 에 이미 있고, 화면 부제로도 쓰인다.
+ *
+ * ⚠️ **여기 다시 적지 않는다.** 도움말에 베껴 두면 공정이 바뀔 때 화면은 따라가고 도움말만
+ *    조용히 낡는다 — 이 저장소가 두 번 겪은 실패 방식이고, 낡은 도움말은 코드보다 위험하다
+ *    (AGENTS 자동화 정책 ②). 모델에서 만들면 다음에 계약이 바뀌는 순간 그림도 같이 바뀐다.
+ *
+ * `factory-model` 은 import 가 0 인 순수 모듈이라 클라이언트 그래프에 들어가도 안전하다
+ * (이미 `FactoryLineClient` 등 아홉 화면이 쓴다).
+ */
+const ORD_MARK = ['', '①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨'] as const
+
+function stage(id: (typeof FACTORY_STAGES)[number]['id']) {
+  const s = FACTORY_STAGES.find((x) => x.id === id)
+  if (!s) throw new Error(`공정이 없다: ${id}`)
+  return s
+}
+
+/**
+ * 「…으로 / …로」 를 **받침으로 고른다.**
+ *
+ * 칸 이름이 모델에서 오므로 조사를 손으로 붙일 수 없다. 붙이지 않으면 「⑦ 검수 으로」처럼
+ * 틀린 말이 화면에 서고, 도움말이 어색하면 읽는 사람이 그 화면 전체를 대충 읽는다.
+ * 규칙은 하나다 — 받침이 없거나 받침이 ㄹ 이면 「로」, 그 밖에는 「으로」.
+ */
+function ro(word: string): string {
+  const code = word.charCodeAt(word.length - 1) - 0xac00
+  if (code < 0 || code > 11171) return `${word}로`
+  const jong = code % 28
+  return jong === 0 || jong === 8 ? `${word}로` : `${word}으로`
+}
+
+/** 앞 칸 · 뒤 칸 이름 — 「어디서 와서 어디로 가나」를 칸 이름으로 말한다. */
+function neighbours(ord: number) {
+  const prev = FACTORY_STAGES.find((s) => s.ord === ord - 1)
+  const next = FACTORY_STAGES.find((s) => s.ord === ord + 1)
+  return {
+    from: prev ? `${ORD_MARK[prev.ord]} ${prev.name}에서` : '공장 밖에서',
+    // ⑨ 는 ② 기획으로 돌아간다 — 고리가 거기서 닫힌다(모델의 `output` 이 그렇게 적혀 있다).
+    to: next ? `${ORD_MARK[next.ord]} ${ro(next.name)}` : '② 기획으로 — 다음 바퀴',
+  }
+}
+
+/** 공정 한 칸의 계약 그림. 세 칸 + 관문 한 줄. */
+function contractOf(id: (typeof FACTORY_STAGES)[number]['id']): HelpDiagram {
+  const s = stage(id)
+  const { from, to } = neighbours(s.ord)
+  return {
+    kind: 'io',
+    caption: '이 칸은 무엇을 받아 무엇을 내놓나',
+    nodes: [
+      { label: from, says: s.input },
+      { label: `${ORD_MARK[s.ord]} ${s.name}`, says: s.question },
+      { label: to, says: s.output },
+    ],
+    gate: s.gate,
+  }
+}
+
+/** 레인 이름 — 「어느 무리에 속한 칸인가」. 메뉴가 이 순서로 서 있다(DD-72). */
+const LANE_NAME: Record<string, string> = { lab: '연구소', line: '생산 라인', shelf: '매대' }
+
+/**
+ * 공정 아홉 칸을 한 줄 레일로. **칸 이름도 순서도 모델이 정본이다** —
+ * 칸이 늘거나 이름이 바뀌면 이 그림이 따라 바뀐다(손으로 적으면 따라오지 않는다).
+ */
+function factoryLane(caption: string): HelpDiagram {
+  return {
+    kind: 'lane',
+    caption,
+    // 레인 이름은 **그 무리의 첫 칸에만** 적는다. 칸마다 적으면 「생산 라인」이 다섯 번
+    // 되풀이돼 레일이 같은 글자의 줄이 된다(실측 캡처 2026-09-23).
+    nodes: FACTORY_STAGES.map((st, i) => ({
+      label: `${ORD_MARK[st.ord]} ${st.name}`,
+      says: FACTORY_STAGES[i - 1]?.lane === st.lane ? undefined : (LANE_NAME[st.lane] ?? st.lane),
+    })),
+    rule:
+      '「병목」은 **가장 나쁜 칸이 아니라 가장 앞선 막힌 칸**이다 — 앞이 막힌 채 뒤를 돌리면 그 결함이 그대로 책에 실린다(해설을 안 붙이고 조판하면 해설 빠진 책이 나온다). 화면은 그 칸을 이미 펼쳐 둔다.',
+  }
+}
 
 export const CSAT_HELP: HelpRegistry = {
   // ── 새 교재 만들기 ──────────────────────────────────────────────
@@ -103,12 +188,13 @@ export const CSAT_HELP: HelpRegistry = {
   // ── 카탈로그 ────────────────────────────────────────────────────
   // 공장에 없던 답 — 「뭘 만드나」. 공정 8칸은 전부 "공장이 어떤 상태인가" 였다.
   'csat-catalog': {
-    title: '카탈로그 — 어떤 시리즈를 파나',
+    title: '품목·운영 ⑨ — 무엇을 더 낼 것인가, 낸 것을 어떻게 할 것인가',
     screen: {
       summary:
-        '**행이 시리즈, 열이 학령이고 한 칸이 한 권**이다. 시중이 파는 단위가 시리즈라서 그렇다 — 서점에 있는 것은 「독해 고1」이 아니라 「리딩튜터 주니어 Level 2」이고, 한 브랜드가 학령 전체를 계단으로 잇는다. 공정 8칸이 「공장이 어떤 상태인가」를 말한다면 여기는 **「무엇을 파는가」**를 말한다.',
+        '**행이 시리즈, 열이 학령이고 한 칸이 한 권**이다. 시중이 파는 단위가 시리즈라서 그렇다 — 서점에 있는 것은 「독해 고1」이 아니라 「리딩튜터 주니어 Level 2」이고, 한 브랜드가 학령 전체를 계단으로 잇는다. ⚠️ **이 화면은 공정의 앞이 아니라 뒤다**(2026-09-23 · DD-77). 하는 일이 둘이고 둘 다 「낸 다음」의 일이다: 낸 책이 팔리는지 보고 개정·절판을 정하는 것(⑨ 운영), 그리고 그 판단으로 **다음 유형을 발의하는 것**(품목). 뒤의 것이 ② 기획의 입력이라 여기가 끝이면서 다음 바퀴의 시작이다. 그전에는 ⓪ 으로 맨 앞에 서 있었고, 그래서 공정이 ⑧ 에서 **끝났다.**',
       when: '무엇을 만들지 정할 때. 그리고 배치를 돌리기 전에 — 어느 권을 겨냥하는지 정해야 헛일을 안 한다.',
       diagrams: [
+        contractOf('operate'),
         {
           kind: 'keys',
           caption: '칸 하나가 한 권 — 기호가 그 권의 상태다',
@@ -136,7 +222,22 @@ export const CSAT_HELP: HelpRegistry = {
         {
           label: '시리즈 N/22',
           detail:
-            '분모는 코퍼스 실측이다 — 시중 시리즈 **22개 · 출판사 6곳**(NE능률 혼자 13개). 세는 스크립트는 scripts/textbook-corpus/market-series.mjs 다. 우리는 지금 **1개**(Vocaflow Reading)만 조판돼 나가고, 어휘·구문은 정의만 끝난 상태다. 유형별로는 시장이 독해 16 · 어휘 3 · 구문 2 · 내신 1 을 굴린다.',
+            '분모는 코퍼스 실측이다 — 시중 시리즈 **22개 · 출판사 6곳**(NE능률 혼자 13개). 세는 스크립트는 scripts/textbook-corpus/market-series.mjs 다. 분자는 **조판 기록에서 센다** — 정의만 해 둔 시리즈를 「판다」로 세면 그 수가 거짓이 된다. 유형별로는 시장이 독해 16 · 어휘 3 · 구문 2 · 내신 1 을 굴린다.',
+        },
+        {
+          label: '생애 자리 — 발의 · 기획 · 생산 · 출고 · 개정 · 절판',
+          detail:
+            '시리즈마다 붙는 알약이다. **상수가 아니라 실측에서 파생한다**(judgeLifecycle): 계단이 없으면 발의 · 찍을 권이 없으면 기획 · 찍을 수 있는데 안 찍었으면 생산 · 나간 권이 있으면 출고 · 나갔는데 **옛 규격 권이 섞였으면 개정** · 접었으면 절판. 조판 기록이나 재고를 못 읽으면 「못 잼」이고 그때는 0 으로 세지 않는다. ⚠️ **출고가 끝이 아니다** — 규격이 바뀌면 같은 시리즈가 개정으로 되돌아온다.',
+        },
+        {
+          label: '왜 생겼나 — 계기 · 근거 · 날짜',
+          detail:
+            '시리즈를 낳은 여섯 계기 중 하나(제도 · 시기 · 대상 · 경쟁 · 공급 · 수요)와 **그때 본 측정값**, 그리고 잰 날. 지금 셋은 독해=경쟁(시장 22종 중 독해 16), 어휘·구문=공급(담을 책이 없던 재고 28.8만 · 15.4만). 근거 없이는 못 적는다 — 근거 칸이 비면 회귀가 떨어진다. 새 시리즈를 발의할 때 **이 셋을 먼저 채운다.**',
+        },
+        {
+          label: '다음 유형은 어디서 오나',
+          detail:
+            '시장 칸(독해 16 · 어휘 3 · 구문 2 · 내신 1) 대비 우리 수다. **이 목록이 비는 날은 오지 않는다** — 시장은 계속 늘어난다. 그래서 「낼 수 있는 권을 다 냈다」가 나와도 화면은 남은 빈 자리 수를 이어 붙인다. 못 만드는 칸(내신)은 **지우지 않고 이유와 함께** 남는다: 빈칸으로 두면 「잊은 것」처럼 읽혀 매번 다시 검토된다.',
         },
         {
           label: '칸의 기호',
@@ -156,7 +257,7 @@ export const CSAT_HELP: HelpRegistry = {
         {
           label: '안 만드는 것 — 칸이 아니라 이유',
           detail:
-            '기출(평가원 저작물) · 내신(학교 교과서 본문이 출판사 저작물 — 우리 경로는 BYO 뿐) · 개인 맞춤(관측이 없어서 못 짠다). 셋을 격자에 그리면 21칸이 영영 회색인데, 회색 칸은 **아무 행동도 안 부른다**. 그래서 한 줄씩 이유로 적는다. 내신을 시리즈로 안 세운 것은 평가 요소표의 school_exam_fit(열위)과 같은 말이다.',
+            '기출(평가원 저작물) · 개인 맞춤(관측이 없어서 못 짠다). 격자에 그리면 그 칸들이 영영 회색인데, 회색 칸은 **아무 행동도 안 부른다**. 그래서 한 줄씩 이유로 적고, 「다음 유형은 어디서 오나」 표 **바로 아래**에 둔다 — 무엇을 더 낼 것인가와 무엇은 안 내는가는 같은 물음의 양면이다. ⚠️ **내신은 여기 없다**(2026-09-23): 같은 사실을 두 목록이 적고 있어 시장 칸 표의 school 행(내신 0/1)으로 합쳤다. 그 판단은 평가 요소표의 school_exam_fit(열위)과 같은 말이다.',
         },
         {
           label: '한 권 = 60문항',
@@ -168,6 +269,8 @@ export const CSAT_HELP: HelpRegistry = {
         '재고 수는 30분마다 갱신되는 집계표에서 온다 — 화면 아래에 **언제 센 값인지**가 적혀 있다. 드레인 직후에 「왜 안 늘었지」로 읽지 않으려면 그 시각을 먼저 본다.',
         '조판 기록은 **시리즈마다 따로** 남는다(마이그레이션 textbook_volume_renders_series — series 열 + (series, band) 복합 키). 그 전에는 band 하나로 키를 잡아서 어휘 권을 찍으면 그 밴드의 독해 기록을 덮었다 — 실측 2026-09-06 에 band 5 의 제목이 「Vocaflow Reading 4」에서 「Vocaflow Vocab Advanced」로 바뀌며 발행 중인 시리즈의 기록을 잃었다(재조판으로 복구). 새 시리즈를 찍을 때 --series 를 빼면 기본값 reading 으로 기록돼 같은 일이 난다.',
         '시리즈를 하나 더 세우는 것은 **싸다** — series-catalog.ts 에 몇 줄이면 된다. 그래서 위험하다: 재고 없는 단을 정의하면 이 화면이 즉시 「찍으면 됨」으로 세고 조판이 빈 권을 낸다. 회귀 15종이 그것을 막지만, 새 단을 넣을 때는 재고를 먼저 재고 그 수를 주석에 적는다.',
+        '**새 시리즈를 발의하는 절차**(2026-09-23): ① series-catalog.ts 에 SeriesDef 를 더한다 — id · kind(시장 칸 키) · brand · accent(겹치면 매대에서 같은 시리즈로 읽힌다) · intent · **origin 셋(계기·근거·날짜)**. ② 계단이 아직 없으면 rungs 를 비워 둔다 — 화면이 「발의」로 세고 설계(③)를 다음 걸음으로 적는다. ③ 계단을 넣고 재고가 한 권(60문항)을 넘으면 「생산」이 된다. ④ 조판은 반드시 --series 를 싣는다. **이 순서를 건너뛰고 조판부터 하면** 기록만 생기고 화면은 그 시리즈를 모른다.',
+        '카탈로그 상수는 **「팔린다」를 선언하지 않는다.** 예전에는 status: shipping|draft 가 있었고, 그 값이 시리즈를 정의한 날에 멈춰 있어서 어휘·구문을 찍은 뒤에도 학습자 서가가 **17일 동안** 「인쇄본 준비 중」을 찍었다(광고 영상 번들도 같은 상수를 복사했다). 지금은 조판 기록과 목차 스냅샷이 그 말을 한다 — 회귀 둘이 상수 부활을 막는다.',
       ],
       seeAlso: [
         { label: '시장 시리즈 실측', doc: 'docs/reports/textbook-market-series.json' },
@@ -178,19 +281,129 @@ export const CSAT_HELP: HelpRegistry = {
   },
   // ── 공정 현황판 ─────────────────────────────────────────────────
   // 이 화면이 「파이프라인」이다. 옛 조회 표 세 개는 공정 ①(기출 원천)으로 내려갔다.
+  // ── 공장 지도 (2026-09-24) ─────────────────────────────────────
+  // 첫 화면의 도움말은 **쉬운 말**로만 쓴다. 걸음 이름·한 줄·누가는 `PLAIN_STEPS` 에서 만든다 —
+  // 여기 다시 적으면 지도와 도움말이 따로 논다.
+  'csat-map': {
+    title: '공장 지도 — 글감이 책이 되기까지',
+    screen: {
+      summary:
+        '영어 글감이 문제집 한 권이 되기까지 여덟 걸음을 한 화면에 펼쳐요. 맨 위 카드가 **지금 가장 먼저 할 일**이고, 칸을 누르면 그 걸음 화면으로 가요.',
+      when: '공장에 처음 왔을 때, 그리고 「지금 무엇부터 해야 하지?」가 궁금할 때.',
+      diagrams: [
+        {
+          // 여덟 칸이라 `flow`(6칸 한도)가 아니라 `lane`(10칸)이다 — 도식 한도 회귀가 같은 규칙을 모든 화면에 건다.
+          kind: 'lane',
+          caption: '여덟 걸음 — 왼쪽 위 1번부터 흘러가요',
+          nodes: PLAIN_STEPS.filter((st) => st.no != null).map((st) => ({
+            label: `${st.no}. ${st.name}`,
+            actor: st.who === 'person' ? 'user' : st.who === 'claude' ? 'claude' : 'auto',
+            says: WHO_KO[st.who],
+          })),
+          rule: '낸 뒤 살피기 — 낸 책을 보고 정한 것이 다시 1번 주문이 돼요.',
+        },
+        {
+          kind: 'keys',
+          caption: '칸의 상태 표시 — 색과 모양과 글자가 함께 가요',
+          nodes: [
+            { label: '순조로움', state: 'pass', says: '할 일이 없어요. 다음 걸음으로 넘어가도 돼요.' },
+            { label: '할 일 남음', state: 'short', says: '움직이고는 있지만 남은 몫이 있어요.' },
+            { label: '멈춤', state: 'blocked', says: '여기서 막혀 다음으로 아무것도 안 넘어가요.' },
+            { label: '아직 못 셈', state: 'unmeasured', says: '숫자를 못 읽었어요. 0 이 아니라 「모른다」예요.' },
+          ],
+        },
+      ],
+      steps: [
+        {
+          title: '맨 위 카드부터 읽어요',
+          detail:
+            '「지금 가장 먼저 할 일」은 흐름에서 **가장 앞에 있는** 막힌 걸음이에요. 뒤 걸음이 더 나빠 보여도 앞이 막혀 있으면 뒤를 고쳐도 소용없어요.',
+          done: '카드의 단추를 누르면 그 걸음 화면이 열려요.',
+        },
+        {
+          title: '칸의 숫자를 봐요',
+          detail: '칸마다 큰 숫자 하나와 그 숫자가 무엇을 센 것인지가 적혀 있어요. 「약」이 붙으면 어림값이에요.',
+        },
+        {
+          title: '누가 하는 걸음인지 봐요',
+          detail:
+            '사람이 정해요 · Claude 가 채워요 · 자동으로 돌아요 · 자동 + 사람 확인 넷 중 하나예요. 사람이 정하는 걸음은 자동으로 넘어가지 않아요.',
+        },
+      ],
+      fields: [
+        {
+          label: '기준을 세우는 곳',
+          detail: `${PLAIN_LAB.map((l) => l.name).join(' · ')}. 글감이 거쳐 가는 곳이 아니라, 무엇을 어떤 수준으로 만들지 정하는 곳이에요. 여기가 멈춰도 여덟 걸음은 계속 돌아요.`,
+        },
+        {
+          label: '글감 고르기가 「순조로움」인데 안 본 글감이 많아요',
+          detail:
+            '이 걸음의 일은 다음 걸음이 쓸 글감을 대는 것이에요. 실어도 되는 글감이 있으면 뒤는 막히지 않으니 순조로움으로 둬요. 안 본 몫은 그 화면에서 숫자로 보여요.',
+        },
+        {
+          label: '숫자로 자세히 보기',
+          detail: '운영자용 현황판이에요. 걸음마다 재는 숫자, 통과 기준, 터미널에서 돌릴 실행 줄이 그대로 있어요.',
+        },
+      ],
+      cautions: [
+        '이 화면에는 데이터를 바꾸는 단추가 없어요. 바꾸는 일은 각 걸음 화면에서 해요.',
+        '숫자는 걸음마다 세는 시각이 달라요. 해설·문제 수는 30분마다, 글감 판정은 스냅샷을 찍은 날 기준이에요.',
+      ],
+      seeAlso: [
+        { label: '용어집', href: '/admin/csat/help' },
+        { label: '숫자로 자세히 — 운영자용', href: '/admin/csat/details' },
+      ],
+    },
+  },
+
+  'csat-glossary': {
+    title: '용어집 — 공장의 낱말',
+    screen: {
+      summary:
+        '공장 화면의 점선 밑줄 낱말을 모두 여기서 풀어요. 툴팁도 이 용어집도 **같은 한 곳**에서 글을 가져오므로 둘이 다른 말을 하지 않아요.',
+      when: '실행 줄이나 예전 문서에서 모르는 말을 만났을 때 — 「예전 말」 칸에서 찾아보세요.',
+      cautions: ['낱말 설명을 고치려면 화면이 아니라 lib/csat/factory-glossary.ts 한 곳을 고쳐요.'],
+      seeAlso: [{ label: '공장 지도', href: '/admin/csat' }],
+    },
+  },
+
   csat: {
     title: '교재 공장 — 공정 현황판',
     screen: {
       summary:
-        '시중 교재 제작 공정(기획 → 설계 → 소재 → 집필 → 해설 → 검수 → 조판)을 그대로 8칸으로 세우고, 칸마다 실측 눈금·게이트·다음에 돌릴 명령을 함께 보여 준다. 조작 버튼은 없다 — 각 칸을 채우는 것은 Claude Code 배치이고, 이 화면은 그 배치를 어디에 돌릴지 정하는 자리다.',
+        '시중 교재 제작 공정을 그대로 **아홉 칸**으로 세우고, 칸마다 실측 눈금 · 게이트 · 다음에 돌릴 명령을 함께 보여 준다. 칸 이름과 순서는 바로 아래 레일에 있다.',
       when: '배치를 한 번 돌린 뒤, 또는 하루를 시작하며 "오늘 무엇을 돌릴까" 를 정할 때.',
       diagrams: [
+        factoryLane('공정 아홉 칸 — 내가 보고 있는 화면이 어디인가'),
+        {
+          kind: 'io',
+          caption: '이 화면은 무엇을 받아 무엇을 내놓나',
+          nodes: [
+            {
+              label: '아홉 칸에서',
+              says: '칸마다 잰 눈금과 게이트 판정',
+              items: ['재고 집계(30분 갱신)', '리포트 · 검수 기록', '조판 준비도'],
+            },
+            {
+              label: '막힌 칸을 고른다',
+              actor: 'auto',
+              says: '가장 앞선 막힌 칸 하나를 펼친다',
+            },
+            {
+              label: '터미널로',
+              actor: 'script',
+              says: '거기서 돌릴 명령 한 줄',
+              items: ['복사해서 붙인다', '웹에서는 안 끝난다'],
+            },
+          ],
+          gate: '이 화면에는 **조작 버튼이 없다** — 칸을 채우는 것은 Claude Code 배치이고, 여기는 그 배치를 어디에 돌릴지 정하는 자리다.',
+        },
         {
           kind: 'flow',
-          caption: '이 화면을 읽는 순서 — 조작 버튼은 없다',
+          caption: '그래서 이 화면을 보는 순서',
           nodes: [
             { label: '막힌 곳 한 줄', says: '가장 앞선 막힌 공정. 여기부터 푼다' },
-            { label: '라인 도식', says: '여덟 칸을 색 + 모양 + 글자로' },
+            { label: '라인 도식', says: '아홉 칸을 색 + 모양 + 글자로' },
             { label: '고른 칸 상세', says: '눈금 · 게이트 · 다음에 돌릴 명령' },
             { label: '명령 복사', actor: 'script', says: '터미널에 붙인다 — 웹에서 안 끝난다' },
           ],
@@ -200,10 +413,10 @@ export const CSAT_HELP: HelpRegistry = {
           kind: 'keys',
           caption: '상태 넷 — 색만으로 가르지 않는다',
           nodes: [
-            { label: '통과', state: 'pass', says: '게이트를 넘었다' },
-            { label: '몫 남음', state: 'short', says: '재고는 있는데 목표에 못 닿았다' },
-            { label: '막힘', state: 'blocked', says: '분자가 0 — 시작도 못 했다' },
-            { label: '못 잼', state: 'unmeasured', says: '실패가 아니라 안 잰 것. 0 과 다르다' },
+            { label: '통과', state: 'pass', says: '이 칸에서 더 할 일이 없다' },
+            { label: '몫 남음', state: 'short', says: '만들기는 했는데 목표에 못 닿았다' },
+            { label: '막힘', state: 'blocked', says: '아직 한 건도 없다 — 시작 전' },
+            { label: '못 잼', state: 'unmeasured', says: '안 잰 것이다. 「0건」과 다르다' },
           ],
         },
       ],
@@ -352,11 +565,17 @@ export const CSAT_HELP: HelpRegistry = {
               '조합·조판은 전부 결정적이다(`build-volume` → `render-volume`). 다만 **해설이 안 붙은 채로 찍으면 해설 빠진 책이 그대로 나온다** — ⑥ 을 먼저 끝낸다. 절차는 **조판 화면**의 도움말에 있다.',
             done: '「조판된 계단」이 7/7 이 된다.',
           },
+          {
+            title: '⑨ 운영·개정 — Claude Code 몫 아님',
+            detail:
+              '**여기가 끝이 아니라 고리가 닫히는 자리다.** 낸 권마다 ⑧ 에서 사람이 결재했는가, 그리고 학습자가 실제로 집었는가를 본다. 둘 다 배치로 못 만드는 값이다 — 결재는 사람이 누르고, 수요는 학습자가 준다. 안 집는 권이 쌓이면 할 일은 **더 찍는 것이 아니라** 그 권을 개정하거나 접고 다음 유형을 발의하는 것이다(품목 화면). 그 판단이 ② 기획의 입력이 된다.',
+            done: '「발행 결재를 받은 권」과 「학습자가 고른 권」이 둘 다 나간 권 수에 닿는다.',
+          },
         ],
         verify: [
           '교재 문항: 그 밴드를 조판하면 발행 게이트의 「3인 검수」 축이 오른다. 전부 차면 그 축이 사라진다 — revise·fail 이 남아 있으면 조판이 계속 막힌다(문항을 고치는 것은 별개 작업이고, 고친 뒤 그 문항의 검수 행을 지우고 다시 받는다).',
           '병목 칸이 앞으로 밀렸는가 — 뒤로 밀렸으면 앞 공정을 되돌린 것이다.',
-          '「공정 통과 N/8」이 올랐는가.',
+          '「공정 통과 N/9」가 올랐는가 — ⑨ 운영·개정이 분모에 있다(2026-09-23). 여덟 칸이 통과해도 **낸 책을 아무도 안 집으면 9/9 가 아니다.**',
           '**사다리 밖 재고가 같이 늘지 않았는가** — 늘었으면 어느 권에도 안 실릴 것을 만든 것이다(집필 화면).',
         ],
         recovery: [
@@ -378,6 +597,7 @@ export const CSAT_HELP: HelpRegistry = {
         '시중 교재와 7축으로 견주어 「120% 우위」가 실제로 성립하는지 출판사마다 따로 판정한다. 합본 평균이 아니라 **가장 낮은 출판사(구속점)** 로 판정하는 화면이다.',
       when: '새 밴드를 열기 전, 또는 벤치마크를 다시 돌린 뒤. 「우위」를 주장하는 문서를 쓰기 직전에도 여기를 본다.',
       diagrams: [
+        contractOf('market'),
         {
           kind: 'flow',
           caption: '「우위」를 주장하기 전에 거치는 세 걸음',
@@ -492,6 +712,7 @@ export const CSAT_HELP: HelpRegistry = {
         '원고를 쓰기 전에 정하는 표 — **어느 학년(연령)에 · 어느 수준(V-Level)으로 · 어느 유형을** 낼 것인가. 이 표가 없으면 집필이 있는 소재대로 흘러가고 학년별 난이도 사다리가 들쭉날쭉해진다.',
       when: '새 학년대를 열 때, 계단이 끊겼다는 보고를 받았을 때, 게이트 임계를 손대기 전.',
       diagrams: [
+        contractOf('blueprint'),
         {
           kind: 'flow',
           caption: '분류표가 서는 순서 — 선언과 생산이 어긋나면 여기서 보인다',
@@ -537,6 +758,100 @@ export const CSAT_HELP: HelpRegistry = {
       ],
     },
   },
+  // ── ⑥ 해설 ───────────────────────────────────────────────────────
+  //
+  // 이 항목은 **2026-09-23 에 처음 생겼다**(DD-74). 그전까지 ⑥ 은 전용 화면이 없어
+  // 도움말도 없었고, 그 공백이 채점에서 A1·A2·A3·B4·B6 = 0 으로 나타났다.
+  'csat-explain': {
+    title: '교재 공장 ⑥ 해설 — 유형 × 수준 보유',
+    screen: {
+      summary:
+        '문항마다 한국어 해설이 붙었는지를 **칸으로** 본다. 합계는 99.46%(실측 2026-09-23)로 거의 다 찬 것처럼 보이지만 구멍은 고르게 퍼져 있지 않다 — 4,719건 중 3,800건이 어휘 유형 하나에 몰려 있다. **합계는 「거의 다 됐다」, 칸은 「유형 하나 돌리면 끝난다」**이고 할 일이 다르다.',
+      when: '권이 조판에서 「해설 없음」으로 막혔을 때, 새 유형을 대량 생성한 직후, 드레인을 돌리기 전에 몫을 확인할 때.',
+      diagrams: [
+        contractOf('explain'),
+        {
+          kind: 'flow',
+          caption: '해설이 붙는 두 길 — 규칙이 먼저다',
+          nodes: [
+            { label: '규칙 해설', actor: 'auto', says: 'explain-fill 이 규칙으로 쓸 수 있는 것을 먼저 채운다' },
+            { label: '남은 몫', says: '규칙으로 못 쓰는 것 — 이것만 에이전트가 쓴다' },
+            { label: 'Claude Code', actor: 'claude', says: 'chunk-NN.json → chunk-NN.out.json' },
+            { label: '적재', actor: 'auto', says: 'explanation_ko 키 하나만 더한다' },
+          ],
+          loop: '규칙 단계를 건너뛰면 다음 단계가 「쓸 몫 0」이라고 거짓말한다 — 규칙이 채울 것까지 에이전트 몫으로 세지 않기 때문이다.',
+        },
+      ],
+      fields: [
+        {
+          label: '없음 (붉은 수)',
+          detail:
+            '그 유형에 해설이 안 붙은 문항 수. **0 과 「못 잼」을 가른다** — 집계표를 못 읽으면 회색 「못 잼」이고, 그때 0 으로 적으면 「해설이 다 붙었다」는 정반대의 거짓말이 된다.',
+        },
+        {
+          label: '사다리 밖',
+          detail:
+            '그 (유형 × 수준) 조합을 지금 사다리가 안 쓴다 — 그 문항은 **어느 권에도 안 실린다.** 구멍이어도 급하지 않다. 먼저 채울 것은 사다리 안이다.',
+        },
+        {
+          label: '보유율 막대',
+          detail:
+            '분자·분모를 함께 적는다. 백분율만 적으면 반올림이 미달을 숨긴다 — 99.9% 와 100% 는 조판에서 정반대 판정이다(⑧ 게이트는 「해설 안 붙은 문항 0」을 요구한다).',
+        },
+        {
+          label: '집계 시각',
+          detail:
+            '값은 30분마다 갱신되는 집계표에서 온다. 드레인을 막 돌렸으면 아직 반영 전일 수 있고, 주기의 2배를 넘기면 화면이 「갱신이 멈췄을 수 있다」로 말을 바꾼다.',
+        },
+      ],
+      cautions: [
+        '해설 판정 정의는 집계표 쪽을 따른다 — 빈 문자열을 NULL 로 치는 COALESCE 규칙이다. **키만 있고 값이 빈 문항을 「해설 있음」으로 세면 구멍이 영영 안 보인다**(실측 1,135건 차이).',
+        '적재할 때 answer_key 를 **통째로 덮지 않는다** — 기존 값을 읽어 explanation_ko 키 하나만 더한다. 덮으면 정답 키가 날아가고 그 문항은 채점이 안 된다. 되돌릴 수 없다.',
+        '이 화면은 **문항 하나하나를 열지 못한다** — 집계표가 칸 단위라서다. 어느 문항인지가 필요하면 드레인 export 가 그 목록을 낸다.',
+      ],
+      drain: {
+        what: '문항별 한국어 해설 — 규칙으로 쓸 수 있는 것은 스크립트가, 나머지는 에이전트가 쓴다.',
+        prerequisites: [
+          '규칙 해설(explain-fill)을 먼저 돌렸는가 — 안 돌리면 에이전트 몫이 부풀려진다.',
+          '그 밴드에 조판 후보 문항이 있는가 — 없으면 뽑을 몫이 0 이다.',
+        ],
+        procedure: [
+          {
+            title: '① 규칙으로 채운다',
+            detail:
+              'pnpm dlx tsx scripts/textbook/explain-fill.mjs --commit — 규칙으로 쓸 수 있는 해설을 먼저 채운다. **재실행 안전**(이미 붙은 것은 건너뛴다).',
+          },
+          {
+            title: '② 남은 몫을 뽑는다',
+            detail:
+              'pnpm dlx tsx scripts/textbook/explain-drain-export.mjs --band 6 --volume 20 --size 12 — **읽기만 한다.** 이미 채운 청크는 다시 안 뽑는다.',
+          },
+          {
+            title: '③ 에이전트가 채운다',
+            detail:
+              'chunk-NN.json 을 읽어 chunk-NN.out.json 으로 저장한다. **재실행 안전**(②가 다시 안 뽑는다).',
+          },
+          {
+            title: '④ 적재한다',
+            detail:
+              'pnpm dlx tsx scripts/textbook/explain-drain-import.mjs --band 6 --commit — --commit 없이는 아무것도 쓰지 않는다. **재실행 안전** · 건너뛴 수를 출력한다. 빈 값·너무 짧은 값은 넣지 않는다(빈 값이 들어가면 구멍이 영영 남는다).',
+          },
+        ],
+        verify: [
+          '이어서 ②를 다시 돌려 「남은 몫 0」이 찍히는지 본다 — 안 줄었으면 적재가 안 된 것이다.',
+          '이 화면의 「없음」이 줄었는지 본다. ⚠️ **집계표는 30분 주기**라 바로 안 바뀐다 — 시각을 먼저 확인한다.',
+        ],
+        recovery: [
+          'answer_key 를 통째로 덮어 정답 키가 날아갔다면 그 문항은 채점이 안 된다. 되돌리는 길은 재생성뿐이다 — 그래서 적재기가 키 하나만 더한다.',
+        ],
+      },
+      seeAlso: [
+        { label: '공정 현황판', href: '/admin/csat' },
+        { label: '⑤ 집필 — 유형 × 수준 재고', href: '/admin/csat/authoring' },
+        { label: '⑦ 검수 — 다층 · 다각도', href: '/admin/csat/review' },
+      ],
+    },
+  },
   // ── ④ 소재 ───────────────────────────────────────────────────────
   'csat-sourcing': {
     title: '교재 공장 ④ 소재 — 지문 재고',
@@ -545,6 +860,7 @@ export const CSAT_HELP: HelpRegistry = {
         '단계 밴드별로 **조판이 고를 수 있는 지문**이 몇 편인지 본다. 값은 DB 가 6시간마다 떠 두는 스냅샷(`csat_source_rollup()`)에서 읽으므로 방문마다 10만 행을 훑지 않는다 — 대신 화면이 **언제 잰 값인지**를 늘 함께 적는다. 시중은 여기서 섭외비를 쓰고, 우리는 공개 도메인·개방 접근에서 수확하므로 대신 **수율**이 든다.',
       when: '어느 밴드의 책이 안 만들어질 때. 문항을 아무리 만들어도 그 학년 권이 안 차면 원인이 대개 여기다. 드레인·수확을 막 돌린 뒤 재고가 실제로 늘었는지 볼 때도 — 그때는 「지금 다시 잰다」를 먼저 누른다.',
       diagrams: [
+        contractOf('source'),
         {
           kind: 'flow',
           caption: '지문이 밴드에 들어오는 길',
@@ -665,7 +981,7 @@ export const CSAT_HELP: HelpRegistry = {
       },
       seeAlso: [
         { label: '공정 현황판', href: '/admin/csat' },
-        { label: '원문 적격 — 실어도 되는가', href: '/admin/csat/sources' },
+        { label: '소재 적격 — 실어도 되는가', href: '/admin/csat/sources' },
         { label: '원문 본문·소스별 목록 (ACP)', href: '/admin/articles' },
         { label: '수확기·소스별 함정', doc: 'docs/LIBRARY_PIPELINE.md' },
       ],
@@ -680,6 +996,7 @@ export const CSAT_HELP: HelpRegistry = {
         'DB 에 있는 문항 **전량**을 유형 25 × 수준 9 표로 편다. 설계 화면(③)이 「사다리가 쓰기로 한 칸」만 보여 준다면, 여기는 그 밖까지 보여 준다 — 그 차이가 이 화면의 요점이다.',
       when: '재고가 많다는데 권이 안 차는 이유를 찾을 때. 새 유형을 만들지 말지 정할 때.',
       diagrams: [
+        contractOf('author'),
         {
           kind: 'flow',
           caption: '빈 칸을 채우는 순서 — 글보다 문항이 먼저다',
@@ -758,7 +1075,7 @@ export const CSAT_HELP: HelpRegistry = {
             title: '⑤ 「글의 목적」(18번)은 서신 갈래로 쓴다',
             detail:
               '`purpose` 는 **부르는 사람·받는 사람과 요청 행위**가 있는 글에만 선다(`type-fit.ts` · 평가원 설계 규칙 §R-PURPOSE). 재고 10.7만 편 중 편지 꼴이 7편뿐이라 거르기로는 안 되고, 2026-09-17 재측정에서 시장 합본 유형 다양성(A5)이 16 대 15 로 진 원인이 이 한 유형이었다. ' +
-              '순서(**재실행 안전 여부**): ① `write-drain-export.mjs --band 5 --mode correspondence --need 30 --size 6`(읽기만 · 슬롯 번호는 DB 와 같은 밴드 디렉터리를 보고 이어 붙인다) → ② Claude Code 가 `write-drain/v5-corr/chunk-NN.out.json` 을 쓴다 — **200어 이하 · 본문 12문장 이상 · you/your 3회 이상 · 앞쪽 `I am writing to`/`We would like to` + 문장 첫머리 `Please`**. 창이 인사말 뒤에서 잘리면 「부르는 자국」이 you 로만 남는다. **V7 문항 창은 178어**라 200어 편지의 끝이 잘린다 — 인사말은 대문자 두 낱말 이하(`Dear Residents,`)로 두고 you 는 앞쪽에 두 번 이상 쓴다(실측: `Dear Director of Greenfield Community Center,` 로 시작해 you 가 끝에만 있던 V6 편지가 V7 창에서 `no_addressee`) → ③ `write-drain-verify --band 5 --dir …/v5-corr`(읽기만 · **굴절형은 안 세어진다 — 어려운 낱말은 원형으로**) → ④ `write-drain-import … --dir …/v5-corr`(미리보기)로 시중 자리 하한 25 를 확인한 뒤 `--commit`(재실행 안전 · `source_id` 유일키) → ⑤ `scripts/acp/reprocess.mjs --ids-file <새 id>` `--commit`(재실행 안전) — **`--missing-vocab` 은 10만 편을 훑어 느리다** → ⑥ `scripts/csat/gate-article-export.mjs --ids-file <새 id> --output <새 JSON>`으로 전체 본문·UUID/revision/해시를 뽑고 에이전트가 장르·근거를 별도 JSON에 기록한다. `scripts/csat/gate-mixed-import.mjs --input <판정 JSON>` 예행 → checkpoint/소량 검증 → --commit → 해당 ID의 source-policy-refresh로 캐시를 재검증한다(같은 판정 재실행은 변경 0). 제목 기반 gate-import commit은 중지되었다. 판정이 없으면 조판기가 「내용 판정 없음」으로 통째로 뺀다 → ⑦ `item-drain-export --type purpose --band 5`(읽기만) → Claude Code 가 선택지를 쓴다 — **정답 길이를 오답 평균에 맞춘다**: 적재기가 0.72·0.76배(짧음)와 1.26~1.53배(긺)를 거르고 0.83~1.23배는 넣었다(실측 2026-09-17) → `item-drain-import --type purpose --band 5 --commit`(재실행 안전).',
+              '순서(**재실행 안전 여부**): ① `write-drain-export.mjs --band 5 --mode correspondence --need 30 --size 6`(읽기만 · 슬롯 번호는 DB 와 같은 밴드 디렉터리를 보고 이어 붙인다) → ② Claude Code 가 `write-drain/v5-corr/chunk-NN.out.json` 을 쓴다 — **200어 이하 · 본문 12문장 이상 · you/your 3회 이상 · 앞쪽 `I am writing to`/`We would like to` + 문장 첫머리 `Please`**. 창이 인사말 뒤에서 잘리면 「부르는 자국」이 you 로만 남는다. **V7 문항 창은 178어**라 200어 편지의 끝이 잘린다 — 인사말은 대문자 두 낱말 이하(`Dear Residents,`)로 두고 you 는 앞쪽에 두 번 이상 쓴다(실측: `Dear Director of Greenfield Community Center,` 로 시작해 you 가 끝에만 있던 V6 편지가 V7 창에서 `no_addressee`) → ③ `write-drain-verify --band 5 --dir …/v5-corr`(읽기만 · **굴절형은 안 세어진다 — 어려운 낱말은 원형으로**) → ④ `write-drain-import … --dir …/v5-corr`(미리보기)로 시중 자리 하한 25 를 확인한 뒤 `--commit`(재실행 안전 · `source_id` 유일키) → ⑤ `scripts/acp/reprocess.mjs --ids-file <새 id>` `--commit`(재실행 안전) — **`--missing-vocab` 은 2026-09-24 부터 발행 글·가공 글(`original`)만 훑는다**(발행 대기 외부 글은 어휘 행이 없는 게 정상이다 — 게시·미리보기·조판이 없으면 다시 만든다. 옛 대상 전체는 `--keep-vocab` 과 함께) → ⑥ `scripts/csat/gate-article-export.mjs --ids-file <새 id> --output <새 JSON>`으로 전체 본문·UUID/revision/해시를 뽑고 에이전트가 장르·근거를 별도 JSON에 기록한다. `scripts/csat/gate-mixed-import.mjs --input <판정 JSON>` 예행 → checkpoint/소량 검증 → --commit → 해당 ID의 source-policy-refresh로 캐시를 재검증한다(같은 판정 재실행은 변경 0). 제목 기반 gate-import commit은 중지되었다. 판정이 없으면 조판기가 「내용 판정 없음」으로 통째로 뺀다 → ⑦ `item-drain-export --type purpose --band 5`(읽기만) → Claude Code 가 선택지를 쓴다 — **정답 길이를 오답 평균에 맞춘다**: 적재기가 0.72·0.76배(짧음)와 1.26~1.53배(긺)를 거르고 0.83~1.23배는 넣었다(실측 2026-09-17) → `item-drain-import --type purpose --band 5 --commit`(재실행 안전).',
             done: '`build-volume --band 5` 의 유형 구성에 `purpose` 가 찍히고 「재고 0 인 유형」에서 빠진다(실측 2026-09-17: 편지 6편 적재 후 V5 권에 purpose 6 · 시장 전체 기준 적합도 82.7% → 86.9%). 같은 날 V5·V6·V7 각 30편 · 목적 문항 각 30개를 적재했다 — 적재 전 밴드 적중 V6 30/30 · V7 30/30.',
           },
         ],
@@ -787,6 +1104,7 @@ export const CSAT_HELP: HelpRegistry = {
         '층 넷이 각자 **다른 것**을 본다. 통과율 하나로 접지 않는 이유는, 오탈자를 보는 눈이 논리 오류를 못 보고 논리를 보는 눈이 정답 쏠림을 못 보기 때문이다. 한 층만 통과한 원고는 검수를 받은 것이 아니다.',
       when: '조판 직전. 그리고 「우위」를 주장하는 문서를 쓰기 전.',
       diagrams: [
+        contractOf('review'),
         {
           kind: 'keys',
           caption: '층 넷이 각자 다른 것을 본다 — 순서가 아니다',
@@ -992,6 +1310,7 @@ export const CSAT_HELP: HelpRegistry = {
         '공정의 끝. 여기까지 와야 학습자가 손에 쥐는 것이 생긴다 — 그 앞의 모든 수치는 **재고**이지 책이 아니다.',
       when: '한 밴드의 공정이 다 끝났다고 판단할 때. 그리고 규격(브랜드·지문 길이)을 바꾼 뒤.',
       diagrams: [
+        contractOf('press'),
         {
           kind: 'flow',
           caption: '조판 명령 하나가 거치는 길 — 이제 거절할 수 있다',
@@ -1174,9 +1493,49 @@ export const CSAT_HELP: HelpRegistry = {
         '`render-volume` 은 **지정한 파일을 덮어쓴다.** 앞 판을 남기려면 `--out` 이름을 바꾼다.',
         '해설이 안 붙은 문항이 남아 있으면 조판이 **거절한다**(exit 1 · 파일도 기록도 안 남는다). 터미널이 부족한 수와 해설 드레인 명령을 함께 찍으므로 그것을 먼저 돌린다 — 「조판이 실패했다」가 아니라 「아직 낼 수 없다」는 뜻이다.',
       ],
+      drain: {
+        what: '찍을 후보 권과 권마다의 차단 사유 — 조판은 결정적이라 에이전트 몫이 없다 — 후보 산출 + 사람 승인 + 조판이다.',
+        prerequisites: [
+          '⑦ 검수에서 그 권의 3인 판정이 끝났는가 — 「기록 없음」은 통과가 아니라 **안 본 것**이고, 안 본 권은 승인 대상이 아니다.',
+          '⑥ 해설에서 그 권의 해설이 다 붙었는가 — 하나라도 빠지면 해설 없는 책이 나간다.',
+          '그 시리즈의 목차 스냅샷이 구워져 있는가 — 없으면 학습자 상세면이 목차 절을 통째로 잃는다(실측 2026-09-23: 어휘·구문 12권이 그 상태였다).',
+        ],
+        procedure: [
+          {
+            title: '① 후보와 차단 사유를 뽑는다',
+            detail:
+              'pnpm dlx tsx scripts/textbook/press-candidates.mjs — **DB 를 읽기만 한다.** 권마다 막는 이유와 못 잰 축을 갈라 낸다. 이미 승인·발행된 권은 건너뛰고 **건너뛴 수를 출력한다**(재실행 안전의 증거). 판정은 화면과 **같은 함수**(judgePressGate)라 두 곳이 다른 수를 말할 수 없다.',
+          },
+          {
+            title: '② 사람이 승인한다',
+            detail:
+              '차단 사유 0 **그리고** 못 잰 것 0 인 권만 대상이다. ⚠️ 못 잰 것을 통과로 세면 검수를 한 번도 안 돌린 권이 깨끗한 권으로 나간다 — 이 파이프라인의 지배적 결함이 그것이다.',
+          },
+          {
+            title: '③ 찍고 기록을 남긴다',
+            detail:
+              'build-volume 은 읽기만 하며 3관점 채점표를 내고, render-volume 이 **지정한 파일을 덮어쓴다.** 되돌릴 원장이 없으므로 out 이름에 시각을 넣는 것을 권한다.',
+          },
+          {
+            title: '④ 목차 스냅샷을 굽는다',
+            detail:
+              'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs --series <id> --units <n> — 조판과 같은 코드 경로로 실제 단원을 조합한다. **시리즈를 빠뜨리면 그 권은 학습자에게 목차 없이 나간다.**',
+          },
+        ],
+        verify: [
+          '①을 다시 돌려 그 권이 후보에서 빠졌는지 본다 — 안 빠졌으면 차단 사유가 남아 있다.',
+          '이 화면의 「학습자에게 닿는가」 표에서 그 권의 막는 이유가 「없음」인지 본다.',
+          '매대 주소를 실제로 열어 목차 절이 나오는지 본다 — 스냅샷이 없으면 절이 통째로 빠진다.',
+        ],
+        recovery: [
+          'render-volume 이 파일을 덮어썼고 새 판이 나쁘면 되돌릴 원장이 없다 — 다시 찍는 것이 유일한 길이다.',
+          '잘못 발행한 권은 colophon.publish.status 를 withdrawn 으로 두고 **사유를 10자 이상** 적는다. 사유 없는 철회는 다음 세션에게 「막혔다」만 남긴다.',
+        ],
+      },
       seeAlso: [
-        { label: '검수 (조판 전 층 4개)', href: '/admin/csat/review' },
-        { label: '⑧ 조판·발행 — 브랜드 규격·조판된 권', href: '/admin/csat/press' },
+        { label: '⑥ 해설 — 유형 × 수준 보유', href: '/admin/csat/explain' },
+        { label: '⑦ 검수 — 조판 전 층 4개', href: '/admin/csat/review' },
+        { label: '카탈로그 — 어떤 시리즈를 파나', href: '/admin/csat/catalog' },
       ],
     },
   },
@@ -1184,6 +1543,7 @@ export const CSAT_HELP: HelpRegistry = {
     title: '기출 원천 관리',
     tabs: {
       '운영 현황': { summary: '학습자 해부 준비도와 별도의 원천 품질을 먼저 확인합니다.', diagrams: [
+        contractOf('evidence'),
         {
           kind: 'keys',
           caption: '원천 품질과 학습 준비는 다른 자다 — 무엇을 보고 있나',

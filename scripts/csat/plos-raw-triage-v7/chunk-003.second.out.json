@@ -1,0 +1,827 @@
+[
+  {
+    "id": "0156642e-aa57-4242-9c4c-769df0c56f0a",
+    "source_updated_at": "2026-09-15T12:49:10.67173+00:00",
+    "body_sha256": "4e57437549c24593639046d504f36e637662dc4aba4502e8edf285696bacefd3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "감나무 뿌리 괴사의 원인균을 코흐 원칙으로 확인하고 마지막 절에서 재배 관행 수정과 방제 대안까지 논지를 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The finding that I. liriodendri, a",
+      "note": "결론 둘째 단락은 학명만 「한 토양 전염 곰팡이」로 바꾸면 문맥 없이 서고, necrosis·propagation 정도만 쉬운 말로 대체하면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "01588fcd-6a07-4423-a1e7-49e86e6f942f",
+    "source_updated_at": "2026-09-15T12:49:12.527451+00:00",
+    "body_sha256": "73be4fb979138fad9047c11309e5875d3f6d201eae740f4cfbf26491df1ec1a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "조절 B세포가 기생충 방어를 오히려 무너뜨린다는 역설을 저자 요약에서 평이하게 풀어 주장-근거 구조가 남는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "B cells and antibodies play a",
+      "note": "저자 요약 문단은 떼어도 서지만 IL10·PI3KCD 같은 약어가 논지의 축이라 낱말 교체로는 V7 아래로 못 내린다."
+    }
+  },
+  {
+    "id": "015ee8ec-09e0-41ed-90aa-082ff91e65f4",
+    "source_updated_at": "2026-09-13T06:42:58.751048+00:00",
+    "body_sha256": "a60b3754ee5b5330348c46ab24e6782bf8523abfbda3be77490606751f08efdc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "19세 환자의 6년 지연 진단과 재발, 치료 성공이 시간순으로 이어져 서사 지문과 장문 지칭 재료가 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "long_reference",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 19-year-old female, hailing from Narsingdi,",
+      "note": "증례 서술 문단은 표 참조가 없어 그대로 떨어져 나오고 splenomegaly·amenorrheic 두셋만 풀어 써도 읽힌다."
+    }
+  },
+  {
+    "id": "0165fd19-117f-4099-99e1-a4d4b04c16a4",
+    "source_updated_at": "2026-09-13T07:44:28.162453+00:00",
+    "body_sha256": "b6bd11d45dfbe3055a98bb910e6ce1def1574d844de128d80ee70af8be95f226",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "최소침습 수술이 왜 근육 사이 틈을 알아야 하는지 도입부가 논지로 세우고, 고찰은 세 접근법을 물음 형식으로 견준다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Contrasting to open surgery, minimally invasive",
+      "note": "도입부는 떼어 써지지만 결과 절은 Fig 5A 화살표와 수치 표에 매여 있어 발췌 범위가 앞머리로 한정된다."
+    }
+  },
+  {
+    "id": "01663b47-7b99-4589-bddd-917ed6de6398",
+    "source_updated_at": "2026-09-13T06:09:55.510071+00:00",
+    "body_sha256": "322679b47b0bbb7727282513890c553114d1ce3367e333d135d17fccd4446050",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "뇌졸중 첫 4시간이라는 공백을 지목하고 반대쪽 반구의 시냅스 증가라는 뜻밖의 결과로 보상 기제를 주장한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As the second and third leading",
+      "note": "서론 첫 문단과 고찰의 diaschisis 단락은 그림 참조 없이 논지가 완결돼, hyperacute·penumbra 를 풀어 쓰면 고3 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "0178bcfd-16ee-4f6f-94ac-e5508772cd4b",
+    "source_updated_at": "2026-09-13T06:44:12.938044+00:00",
+    "body_sha256": "140b8c9e15b84fe565b0871f3ccfa2e3db0c5f23e197bfbb891511725a3db858",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "면역 냉감 종양이라는 난제를 세우고 전기장 부분절제를 더해 전신 효과를 얻었다는 주장-근거가 도입부와 고찰에 걸쳐 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Although cancer mortality rates have declined",
+      "note": "도입 첫 문단은 고유명사 없이 서지만 본론은 군 번호와 Fig 표 참조가 촘촘해 그 바깥으로는 발췌가 어렵다."
+    }
+  },
+  {
+    "id": "017c2d70-0f19-44d9-aab7-1db7f216b678",
+    "source_updated_at": "2026-09-15T12:49:19.807777+00:00",
+    "body_sha256": "acb4d7b3fd8e229fc3f505bcd03fcb5626574ea1e1bf3ef2b1e4d2cf71ddb06f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "임상시험이 놓치는 희귀 이상반응을 실사용 데이터로 잡는다는 논리가 서론과 고찰에 뚜렷하고 수치 주장 검증 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although mirtazapine has demonstrated good efficacy",
+      "note": "졸림·QT 연장을 다룬 고찰 단락은 ROR 수치를 걷어 내도 인과 설명이 남아 떼어 쓸 수 있다."
+    }
+  },
+  {
+    "id": "018d2e68-a4c7-4ebb-ab63-90ec6baad854",
+    "source_updated_at": "2026-09-13T06:27:57.957684+00:00",
+    "body_sha256": "8c3c097feac37b1fdfd129a3ccba40f4ba3d02fff71469f860069c74dae4a5f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "바이러스 침입이 수용체 서열 궁합에 달렸다는 도입부 설명이 교과서적으로 자족하고, 변이 누적이 숙주 폭을 넓힌다는 결론이 따라붙는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ability of a virus to",
+      "note": "서론 첫 문단은 인플루엔자 비교로 시작해 앞 문맥이 필요 없고, sialic acid 한 낱말만 풀면 고3 독해로 내려간다."
+    }
+  },
+  {
+    "id": "018f1305-a2aa-46fb-a153-4e551369809d",
+    "source_updated_at": "2026-09-13T05:58:16.409033+00:00",
+    "body_sha256": "5cbb1dda88b5ab8846cc4d1a53d590aec07bcbe4f6f83cbbcccab8e392adf800",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "social",
+    "why": "학회 보고 형식이지만 신식민주의와 형평이라는 주제를 세우고 네 가지 제언으로 닫는 한 편의 논설이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The metaphorical elephant in the room,",
+      "note": "신식민주의 단락은 학회명·인명을 지워도 논지가 그대로 서고 hegemonic·kleptocracy 두셋만 바꾸면 수능 밴드에 맞는다."
+    }
+  },
+  {
+    "id": "01b250f0-f3e7-47c1-ae82-56c59f858047",
+    "source_updated_at": "2026-09-15T12:49:29.139862+00:00",
+    "body_sha256": "00a40e8d92f9f03c54caee0286d6c56b318254cc3b75ac8f8e75419c4ed72cbf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "임신 중 고혈당이 산화 스트레스로 태반과 태아를 해친다는 기전 설명이 길게 이어져 원인-결과 재료가 넉넉하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Diabetes mellitus is one of the",
+      "note": "서론 통계 단락은 바로 떼어지지만 고찰은 식물 성분명 여섯 개가 논지를 떠받쳐 낱말을 바꾸면 뜻이 무너진다."
+    }
+  },
+  {
+    "id": "01c79aa6-6d5d-4f8d-904d-1082b3a25075",
+    "source_updated_at": "2026-09-15T12:49:36.673826+00:00",
+    "body_sha256": "7597d49e723957a36f60bdad1779695ebbf42667d11c772fc60b59cb3356f157",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "과도한 염증이 오히려 조직을 망가뜨린다는 틀을 세우고 바이러스 단백질 하나로 그 방아쇠를 지목하는 흐름이 저자 요약에 압축돼 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "ASF has caused huge economic losses",
+      "note": "저자 요약은 앞 문맥 없이 시작하지만 NLRP3·DDX3X·pyroptosis 가 문장마다 박혀 어휘 조정으로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "01cf7b9e-55d4-4e3c-8446-4e60d4c1979f",
+    "source_updated_at": "2026-09-15T12:49:37.655947+00:00",
+    "body_sha256": "eeaa842950ff4cf773199ef685d00c0fe79551762bdcd214e149f22d6f352728",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "환경 발암물질이 만든 반응성 대사물이 세포 밖으로 새어 나간다는 가설과 검증이 이어져 논지 한 편이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among reproductive diseases, breast cancer is",
+      "note": "서론 첫 문단은 유방암 병인의 다요인성을 설명해 자족하고 adduct 만 「달라붙은 흔적」으로 풀면 읽을 만하다."
+    }
+  },
+  {
+    "id": "01e0f561-131b-4fab-abcc-dfe95b59b1d3",
+    "source_updated_at": "2026-09-13T05:58:10.232725+00:00",
+    "body_sha256": "890c9cfad4793b99854c01b1de5b4b72b183e639b6fbd92267aa219809a79d07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "루푸스의 인지 저하에 항체 기전을 제안하고 상반된 연구들을 나란히 놓아 통념 교정형 전개가 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Increasingly, patients with systemic lupus erythematosus",
+      "note": "첫 두 단락은 용어풀이 상자 없이도 서고, 약어를 한 번씩 풀어 적으면 고3 독해 밴드에 얹을 수 있다."
+    }
+  },
+  {
+    "id": "01ec0ecc-4aff-4567-8f87-3dabe1b01a19",
+    "source_updated_at": "2026-09-23T21:04:30.667342+00:00",
+    "body_sha256": "5203d351a322d5877bdb33b25e770d69479663278e0331ef4b21fd2e4ec501e2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "같은 약의 자발보고 분석이되 성별·지역 편향과 적응증 교란을 스스로 따져 보는 대목이 있어 논증 재료가 된다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It should be emphasised that the",
+      "note": "자살 신호의 적응증 교란을 짚는 단락은 표를 안 봐도 서고 confounding 을 풀어 쓰면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "01eebd9b-d170-48fc-a582-388425a73415",
+    "source_updated_at": "2026-09-15T12:49:49.6866+00:00",
+    "body_sha256": "209cb365cf240988df452953fd3db53f04182be47b6779ec38e5637927084981",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "기존 모델이 세포를 홀로 떠도는 입자로 본다는 한계를 짚고 상호작용을 넣어야 한다는 주장으로 끌고 간다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The emergence of time-series single-cell RNA",
+      "note": "서론 두 문단은 수식 번호를 안 끌고 와 떼어지지만, 방법 절은 Eq(2) 참조가 문장마다 걸려 발췌가 앞부분으로 제한된다."
+    }
+  },
+  {
+    "id": "01ef9de8-c759-44a0-ad02-62883d466b4e",
+    "source_updated_at": "2026-09-15T12:49:51.008073+00:00",
+    "body_sha256": "7067dc8e12d4e82bc26fc914e76130f7e684ac177c8bf5296ea85ac3a96268b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "내재 내성이라는 고정된 뼈대 위에 후천 유전자가 드물게 얹힌다는 이분 구조를 세우고, 감시 편향을 스스로 깎아내리는 고찰이 길다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The geographic distribution of the analyzed",
+      "note": "감시 편향 단락은 유전자 이름 없이도 논지가 완결돼 그대로 떼어지고, surveillance·repository 만 풀면 읽힌다."
+    }
+  },
+  {
+    "id": "01f662c9-2adf-4aba-9cb4-8f1d50002100",
+    "source_updated_at": "2026-09-15T12:49:52.9958+00:00",
+    "body_sha256": "6a48ee600e044b8a9ff00bbe2a61cefe25735d6f41b3344023c8d2fb7459f9e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가설이 빗나간 음성 결과를 감추지 않고 측정 방식의 한계로 되짚는 대목까지 한 편의 논증으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Elevated pro-inflammatory cytokine signaling in the",
+      "note": "질병 행동을 설명하는 단락은 통계표를 안 끌고 와 자족하고 endotoxin·cytokine 두셋만 바꾸면 고2~고3에 맞는다."
+    }
+  },
+  {
+    "id": "020d163d-b6af-4ec9-bd08-9297c857f2e7",
+    "source_updated_at": "2026-09-13T05:58:47.528256+00:00",
+    "body_sha256": "d828ccaafae0985e17a98ca3c24fb9c9b927aaf687c358ff6b88a28eb6f957ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "드론 영상 건물 탐지가 농촌 행정을 어떻게 바꾸는지 도입부가 설명문으로 서고, 한계·전망 절이 반론을 스스로 단다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Building detection from drone imagery plays",
+      "note": "도입 첫 문단과 실패 사례 분석은 수식·표 없이 떨어져 나오고 cadastral 같은 낱말만 풀면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "020d6f94-1826-4986-a7a8-8dbca0586354",
+    "source_updated_at": "2026-09-15T12:50:01.464221+00:00",
+    "body_sha256": "e5cb39486c6665666040e5ec6f311d96ce92ca74a2165f07151ff30ca4e197cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "테구먼트라는 낯선 구조를 저자 요약이 먼저 그려 주고 그 단백질의 미지 기능을 묻는 물음으로 이어져 설명문이 성립한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The herpesvirus tegument is a subvirion",
+      "note": "저자 요약은 앞 문맥 없이 서지만 고찰은 단백질 약어가 논지의 뼈대라 어휘를 바꾸면 문장이 비어 버린다."
+    }
+  },
+  {
+    "id": "02203c2a-47a5-4616-b0b9-a11ce379adb2",
+    "source_updated_at": "2026-09-15T12:50:07.516252+00:00",
+    "body_sha256": "7b60cb6f1ee6bb2fa49d0431f5289d937c3db8e815f6683f3ca896b666242ce5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "사람 눈 검사와 계측 장비의 한계를 먼저 세우고 딥러닝 대안을 제시하는 도입부가 한 편의 설명문으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Materials across automotive, aerospace, construction, and",
+      "note": "도입 첫 문단은 모델 이름이 안 나와 그대로 떼어지고 delamination·eddy current 만 풀면 읽을 만하다."
+    }
+  }
+]

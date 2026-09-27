@@ -46,9 +46,9 @@ interface GateDetail {
 }
 
 const V: Record<string, { bg: string; fg: string }> = {
-  PASS: { bg: 'bg-[#2E7D5A]/10', fg: 'text-[#2E7D5A]' },
-  FAIL: { bg: 'bg-[#9C3A30]/12', fg: 'text-[#9C3A30]' },
-  WARN: { bg: 'bg-[#B5803A]/12', fg: 'text-[#B5803A]' },
+  PASS: { bg: 'bg-[color-mix(in_srgb,var(--memory-stable)_10%,transparent)]', fg: 'text-[var(--memory-stable)]' },
+  FAIL: { bg: 'bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)]', fg: 'text-[var(--memory-risk)]' },
+  WARN: { bg: 'bg-[color-mix(in_srgb,var(--memory-shaky)_12%,transparent)]', fg: 'text-[var(--memory-shaky)]' },
 }
 
 export function GateCheckClient({ books, articles }: { books: BookOpt[]; articles: ArticleOpt[] }) {
@@ -117,7 +117,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               }}
               className={`min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 font-display text-[13px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 kind === k
-                  ? 'border-[var(--p)] bg-[var(--p)]/10 text-[var(--p)]'
+                  ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--p)]'
                   : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:text-[var(--t1)]'
               }`}
             >
@@ -162,7 +162,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
           type="button"
           onClick={run}
           disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {loading ? <Loader2 size={14} className="animate-spin" /> : <ShieldCheck size={14} />}
           게이트 실행
@@ -170,7 +170,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
       </div>
 
       {error && (
-        <p role="alert" className="font-body text-[13px] text-[#9C3A30]">
+        <p role="alert" className="font-body text-[13px] text-[var(--memory-risk)]">
           {error}
         </p>
       )}
@@ -179,7 +179,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
         <div className="space-y-2">
           <p
             className={`rounded-[var(--r-md)] px-4 py-3 font-display text-[14px] font-[700] ${
-              safe ? 'bg-[#2E7D5A]/10 text-[#2E7D5A]' : 'bg-[#9C3A30]/10 text-[#9C3A30]'
+              safe ? 'bg-[color-mix(in_srgb,var(--memory-stable)_10%,transparent)] text-[var(--memory-stable)]' : 'bg-[color-mix(in_srgb,var(--memory-risk)_10%,transparent)] text-[var(--memory-risk)]'
             }`}
           >
             {safe
@@ -216,7 +216,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                   type="button"
                   onClick={loadDetails}
                   disabled={detailsLoading}
-                  className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[#9C3A30]/40 bg-[#9C3A30]/8 px-3 py-2 font-display text-[12px] font-[600] text-[#9C3A30] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#9C3A30]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#9C3A30] disabled:opacity-50"
+                  className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--memory-risk)_40%,transparent)] bg-[color-mix(in_srgb,var(--memory-risk)_8%,transparent)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--memory-risk)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[color-mix(in_srgb,var(--memory-risk)_15%,transparent)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--memory-risk)] disabled:opacity-50"
                 >
                   {detailsLoading ? <Loader2 size={13} className="animate-spin" /> : null}
                   상세 원인 보기 (문제 단어)
@@ -229,9 +229,9 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
               ) : (
                 <ul className="space-y-1.5">
                   {details.map((d, i) => (
-                    <li key={`${d.invariant}-${d.word}-${i}`} className="rounded-[var(--r-sm)] bg-[#9C3A30]/6 px-3 py-2">
+                    <li key={`${d.invariant}-${d.word}-${i}`} className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--memory-risk)_6%,transparent)] px-3 py-2">
                       <div className="flex items-baseline gap-2">
-                        <span className="rounded-[var(--r-sm)] bg-[#9C3A30]/12 px-2 py-1 font-mono text-[10px] text-[#9C3A30]">
+                        <span className="rounded-[var(--r-sm)] bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)] px-2 py-1 font-mono text-[10px] text-[var(--memory-risk)]">
                           {d.invariant}
                         </span>
                         <span className="font-display text-[14px] font-[700] text-[var(--t1)]">{d.word}</span>
@@ -239,7 +239,7 @@ export function GateCheckClient({ books, articles }: { books: BookOpt[]; article
                           <span className="font-body text-[12px] text-[var(--t2)]">{d.meaning_shown}</span>
                         )}
                       </div>
-                      <p className="mt-0.5 font-body text-[12px] text-[#9C3A30]">{d.issue}</p>
+                      <p className="mt-0.5 font-body text-[12px] text-[var(--memory-risk)]">{d.issue}</p>
                       {d.fix_hint && (
                         <p className="font-mono text-[10px] text-[var(--t2)]">→ 고침: {d.fix_hint}</p>
                       )}

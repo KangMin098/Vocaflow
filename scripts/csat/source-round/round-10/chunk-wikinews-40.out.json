@@ -1,0 +1,1022 @@
+[
+ {
+  "id": "1ad8ae57-6843-4bc1-9896-0ea49f4e76f5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "59b19480546d88bb34d43d0e24aa7e01e9425f1b90c53a3d0965afe11027c43b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "난민선 되돌려 보내기를 둘러싼 증언과 정부 입장, 국제기구의 법적 우려가 맞서 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The United Nations Refugee Agency (UNRA)",
+   "note": "유엔난민기구 문단은 되돌려 보내기가 난민협약 위반일 수 있다는 논거가 서지만 in breach of·obligations 같은 법률 어휘가 남는다."
+  }
+ },
+ {
+  "id": "1ade816e-8dc7-4aba-a6f6-9f3c7db93150",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e1b6ce2856f2eeaaa932b40091993bc50fc1c6161351de0029deb578689e370d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "전세 헬기 추락과 잇단 사고, 민간 항공기를 쓰는 까닭이 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Roads in Afghanistan are often difficult",
+   "note": "배경 문단은 길이 험해 러시아 항공기를 빌려 쓴다는 까닭 한 문장이라 떼기 쉬웠지만 앞 사건과 붙여야 뜻이 온전했다."
+  }
+ },
+ {
+  "id": "1ade8f7f-070b-48f0-ade1-549ae2635353",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9fef034813c168993eec35ddd4d9881782b6488013b93c827add364567e41b5f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "부통령 교체설과 캠프의 부인, 이전 소문이 이어져 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Biden, 68, previously confirmed to The",
+   "note": "이전 소문 문단은 교체설 → 본인 확인이라는 흐름이 서지만 첫 단락 끝이 「during the.」로 잘린 문장은 가공 때 고친다."
+  }
+ },
+ {
+  "id": "1ae055bb-f8f6-4467-82bf-30ff0ed402c5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a72ad7ae9dbe6c38682e880f4504eb771071165dd121391f0a1bfe299dcc9161",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "우주왕복선 발사와 임무 목표, 우박 피해로 인한 지연 경위가 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The mission, STS-117 has been dogged",
+   "note": "지연 문단은 우박 → 연료탱크 손상 → 수리 → 단열재 우려로 순서가 서서 insulation 만 풀면 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "1ae2216f-b157-4ff6-9da7-6aca9a5ba99f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e70cf1d495035cf8415def3b8be2b94fa651020aac551164b504d3064462238",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "에너지 장관 지명과 물리학자의 경력이 짧게 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chu has been the director of",
+   "note": "경력 문단은 노벨상 연구 내용(레이저로 원자 냉각)이 서서 trap atoms 를 풀어 쓰면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "1ae577b8-56b2-4b38-b014-87b5b77f3f46",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "976c9058a0e89567e5dfe3ee0e0e33f7126791791056aa2d31e86ab39ae3cdda",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "조류독감 확산 경로와 가금 산업 우려, 각국 조치가 이어져 요약·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "European health officials had expected wild",
+   "note": "예상 밖 경로 문단은 봄철 아프리카가 아니라 추위로 러시아에서 내려온 백조 탓이라는 인과가 서서 떼기 쉬웠다."
+  }
+ },
+ {
+  "id": "1ae98833-a0a5-49ae-ade8-57680f466a9a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d0cacea5fb051685e50f75f129f009b926c169ff2ae846e49f35ce637214595a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "도시 빈민가 아동의 현실을 다룬 보고서 요지가 한 편으로 서서 요지·주제 칸과 수치 검증 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "topic"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The report describes the effects of",
+   "note": "빈곤 영향 문단은 영양·위생·교육·폭력으로 이어지는 결과가 서서 vulnerability 만 풀면 요지 문항에 맞는다."
+  }
+ },
+ {
+  "id": "1aeeac82-52c2-43e5-a88a-aba5bb0151ac",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3d292253e39f2971fc8b7114a0ad1e985fe6b245a674f2f3bed0bfac5f74243e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "언론사 면허 취소 경고와 장관의 논리, 언론계 반응이 맞서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Shamu drew parallels with British and",
+   "note": "장관 반론 문단은 영미도 언론법이 가혹하다는 주장이 서지만 draconian·hypocritical 같은 낱말은 바꿔도 V6 에 머문다."
+  }
+ },
+ {
+  "id": "1af729b3-6866-4cea-bbef-be82690768cc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "935210d3ae6f5d3937efd082724c49178c391a75d444a823f4fd755ca892daa6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "카드 번호 대량 절도 기소와 해킹·판매·세탁 수법이 차례로 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the Justice Department, after",
+   "note": "수법 문단은 무선망 침입 → 정보 수집 → 서버 저장으로 순서가 서서 sniffer 를 풀어 쓰면 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "1af7d560-dba3-44a6-bc5c-688bb53671f2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8cc6a4de72edb5534404c1e9546e55f78cf6517ad26658894a71e2c36cb575c1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대선 뒤 부족 간 충돌과 강경 진압, 보도 통제가 이어져 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The clashes have been along tribal",
+   "note": "부족 대립 문단은 두 후보를 떠받친 부족과 발포 명령이 서지만 폭력 소재라 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "1b054d61-93f5-498f-8972-28277ef3e83a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "936b3f29f65514e98467153318f368bc6472192c725359a3912f3df08137663f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "성직자 자폭 암살과 종파 긴장, 뒤이은 소요가 이어져 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The death of Allama Hassan Turabi",
+   "note": "긴장 고조 문단은 종파 갈등 도시와 이전 암살 시도가 서지만 다음 단락의 시신 수습 묘사는 걷는다."
+  }
+ },
+ {
+  "id": "1b12397f-8a65-46bf-a39b-f6d4dbd1dfde",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7839a6707e7b6994ad9f9fcf17d2b6a581e9b707fbaaabb3389429373321a0c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "위증 판결과 그 발단이 된 총격 사건이 짧게 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The fight broke out in front",
+   "note": "총격 발단 문단은 모욕 가사 → 대면 → 싸움이라는 인과가 짧게 서서 entourage 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1b129213-03b3-4c60-911f-9915ae667ecd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3883fe36f1a69146e98b6a4c09ff3b383f645bc68640fdf9f85e8dad5015aa3a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "법원 앞 총기 난사의 경위가 순서대로 이어져 고2 이상 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The incident started when 30 shots",
+   "note": "시작 문단은 전날 밤 총격 → 사람을 밖으로 끌어내려는 매복이라는 경위가 서지만 총격 묘사 때문에 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "1b13d88a-bb99-44e8-9170-27066f15bf26",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ac5ead48e0574fc24d619292c2868057cb44247744072004129dc0d7851393af",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "방송사 웹사이트 차단 의혹과 인터넷 검열 관행이 짧게 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Iranian internet providers routinely block pornographic",
+   "note": "검열 관행 문단은 차단 대상과 이전 사례가 서서 짧지만 사건의 배경으로 떼어 쓰기 좋았다."
+  }
+ },
+ {
+  "id": "1b186c8a-6d2a-4d7d-9a90-a8ed72967f8e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "77d55424e4a0b7458fa819fb4e96132a1d765eaa37fe7d5af4ab1b52fc57b5bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "주가 폭락과 분석가들이 짚은 원인 셋이 이어져 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Analysts blamed the slide on a",
+   "note": "원인 문단은 과열·물가·경기 후퇴라는 원인 셋이 번호로 서지만 correction·GDP 같은 경제 용어가 밴드를 붙잡는다."
+  }
+ },
+ {
+  "id": "1b1b9478-722d-425a-b395-f31a40a1496a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "366f11ba471188aab5b352accd7412d1cd984fc712faf74d52af47e022a29ae2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "후보 반대 집회와 주최자 신상 공개·협박, 찬반 참가자의 목소리가 긴 글로 이어져 주장·장문 칸을 고2 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to KTUU, the two organizers",
+   "note": "신고 문단은 방송 진행자의 선동이 괴롭힘을 불렀다는 경찰 판단이 서지만 앞쪽 욕설 인용은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "1b218f37-bc6d-4b6b-b87c-02f3232ffd6f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "314becd9f8f7ac6dab8030e7da552fcc3a4ff1ee05831cc104ef50010bf19634",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "영국군 감축 발표와 그 까닭, 병력 추이가 이어져 내용 일치 칸과 시대 비교 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During combat operations in the spring",
+   "note": "병력 추이 문단은 4만6천 → 1만8천 → 8천5백으로 줄어든 흐름이 서서 수치만으로도 감축 맥락이 잡혔다."
+  }
+ },
+ {
+  "id": "1b283e65-209c-4864-a0fb-54af980cbbd1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "39d83b4befddd308d5b599f9a137d9c648b12a53c981c4af7b5ef8633e6bb17e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "송유관 개통과 미국이 지원한 까닭, 테러 우려가 짧게 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The countries are also concerned with",
+   "note": "테러 우려 문단은 두 문장뿐이라 첫 단락의 러시아·이란 우회 목적과 붙여야 사건이 섰다."
+  }
+ },
+ {
+  "id": "1b32041e-890f-49c3-a4fe-3da14a2a2f96",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "272c5a1037bacb1a8277d7a6f130891f52b9431816a0fb1638c81224808cf68b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "art",
+  "why": "미술관이 새 전시 두 개를 알리고 무료 관람을 안내하는 글이라 목적·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Admission to both exhibitions is free;",
+   "note": "관람 안내 문단은 무료 입장과 무료 버스를 알려 권유가 서지만 「아래 사진」 언급 문장은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "1b3808f8-3e3c-4667-b06f-fc700323dbe3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "948770806552de64868f0d01b288ff22d7e36c5ca13173222b68f7bd0c83292d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "위성 자료로 홍수·가뭄 강도와 기온의 상관을 밝힌 연구와 전문가 평가가 이어져 요지·주장 칸과 수치 검증 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "This classified 505 'wet' clusters and",
+   "note": "분류 문단은 2015년 뒤 극한 사건이 늘었다는 근거가 서지만 pluvial·cluster 같은 기후 용어와 위도 수치를 풀어야 해 밴드가 무겁다."
+  }
+ },
+ {
+  "id": "1b392616-2375-494e-868b-ccd0ab50dc60",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9bfcdef3b40b01dd5f47c5deaea76cf5cde5b6797e08366f5199032f4618fde6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "보석 기각을 기다리던 가족의 기대와 좌절, 판사의 판단 근거가 이어져 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The family feels frustrated and says",
+   "note": "가족 반응 문단은 도주한 적이 없다는 근거로 판결이 부당하다는 심경이 서서 flight risk 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1b3a1075-6a4c-43b6-9c9c-2fe0eacb10ba",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d1dcdacc0fee3c0f1499dd7633e6ad6d0a3d6d34115279fcc05a601c1f711aea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "여객기 이륙 직후 추락과 현장 상황이 이어져 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pakistan's private Geo Television station also",
+   "note": "추락 현장 문단은 밀밭·과수원·전선으로 위치가 서지만 앞 인용의 시신 묘사 때문에 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "1b44e861-2dc1-4e36-be76-e95bfe632dcc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a18af86ecbae0f8e3702dc0fee099bb5a2ad47ef44964943229eeb76ed41747d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "화산재 결항 뒤 승객 지원을 소홀히 한 항공사 벌금과 그 근거가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the civil aviation authority",
+   "note": "위반 문단은 숙박·식사 지원을 안 한 178건과 규정의 요구가 서서 mandatory 만 바꾸면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "1b48b4db-077e-4cab-948b-d6145fd343e7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3f33a4986e278cee5a79b9ceb25ebce5598413cd0858b4801b02c18734889de4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "홍수 피해 규모와 잇단 홍수, 당국의 경고가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The new flooding comes just weeks",
+   "note": "앞선 홍수 문단은 이웃 주의 제방 붕괴 피해와 「최악은 아직」 경고가 서서 embankment 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1b4b7b6f-fef0-42eb-8c1c-6c9ba1171aef",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "35cc4af88b9113942051a223836d795b016a9f10e6237443b8d8b27c64c0d8bb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "전 총리 피살 경위와 지지자 소요, 국내외 반응이 이어져 요약·장문·내용 일치 칸을 고1 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Several reports from witnesses say Bhutto",
+   "note": "피격 문단은 총격 → 자폭 순서가 서서 떼어 쓰기 쉬웠고 지지자 폭동과 욕설 구호 단락은 가공 때 줄인다."
+  }
+ }
+]

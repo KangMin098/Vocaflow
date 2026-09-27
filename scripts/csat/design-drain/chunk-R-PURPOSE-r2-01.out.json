@@ -1,0 +1,30 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-PURPOSE",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#18",
+      "roles": ["closing", "background", "speech_act", "support", "support", "support", "support", "support", "support", "closing", "closing"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "request_letter",
+      "selection": "짧은 예고문 하나가 뒤따르는 장소 · 기간 · 품목 설명을 참여 절차로 묶는 안내문이라, 부수 정보에 끌리지 않고 글 전체의 뼈대가 절차 안내임을 알아채야 목적이 잡힌다.",
+      "transform": "speech_act_verb",
+      "transform_note": "참여 방법을 알려 주겠다는 예고와 이어지는 절차 설명이 선지의 ‘기부 참여 방법을 안내하려고’로 화행 동사화되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#18",
+      "roles": ["background", "background", "background", "background", "speech_act", "speech_act", "closing", "closing"],
+      "alternatives": [{ "index": 5, "role": "support" }, { "index": 3, "role": "turn" }],
+      "pattern": "request_letter",
+      "selection": "등록 완료와 환불 불가 예치금 이야기로 환불 요구·항의 오독을 유도한 뒤 가능 여부를 묻는 문장을 한 번만 두어, 요구와 문의를 구별해야 목적이 잡히는 편지다.",
+      "transform": "speech_act_verb",
+      "transform_note": "셋째 주 프로그램으로 옮길 수 있는지 확인하고 싶다는 문장이 선지의 ‘참가 시기를 변경할 수 있는지 문의하려고’로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

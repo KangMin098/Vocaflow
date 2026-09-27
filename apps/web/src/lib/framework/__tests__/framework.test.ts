@@ -76,13 +76,7 @@ describe('축 — 면 · 단계 · 표면', () => {
     expect(new Set(surfaceNames).size).toBe(surfaceNames.length)
   })
 
-  it('최상위 표면은 4개다 (국외 관측 3~6 · 모바일 하단 탭에 들어가야 한다)', () => {
-    expect(SURFACE_ORDER).toHaveLength(4)
-    // 한 단어여야 탭에 들어간다
-    for (const s of SURFACE_ORDER) {
-      expect(SURFACES[s].name.trim().split(/\s+/), `${s} 는 한 단어여야 한다`).toHaveLength(1)
-    }
-  })
+  // 「최상위 표면은 4개 · 이름은 한 단어」 · 「레일 잠금 어휘 금지」 UX 제한 2건은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('단계는 통과한 면에서 파생된다 — 별도 상태 기계가 아니다', () => {
     expect(stageOf([])).toBe('met')
@@ -160,16 +154,6 @@ describe('축 — 면 · 단계 · 표면', () => {
 
     // NN/g: 최상위 6개 초과 금지. 레일이 늘어나는 것을 여기서 막는다.
     expect(NAV_GROUPS.length).toBeLessThanOrEqual(6)
-  })
-
-  it('레일은 막지 않는다 — 잠금 어휘가 단계 이름·설명에 없다', () => {
-    // `docs/LEARNING_FRAMEWORK.md` §4① — 자물쇠 UI 를 두지 않고, 잠김/불가/금지/차단 어휘를
-    // 쓰지 않는다. 번호를 붙이면 "순서 = 자격" 으로 미끄러지기 쉬워서 여기서 못 박는다.
-    const BANNED = /잠김|잠금|불가|금지|차단|먼저 해야|완료해야/
-    for (const g of NAV_GROUPS) {
-      expect(BANNED.test(g.label), `${g.label}: 잠금 어휘`).toBe(false)
-      expect(BANNED.test(g.says), `${g.label}: 잠금 어휘 — "${g.says}"`).toBe(false)
-    }
   })
 
   it('사이드바가 약속한 Game Lab 게임 수가 카탈로그와 같다 (문구 드리프트 차단)', () => {

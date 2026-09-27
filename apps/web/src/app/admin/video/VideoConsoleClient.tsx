@@ -26,14 +26,19 @@ import {
   type VideoConsole,
   type VideoRow,
 } from '@/lib/admin/video-console-shape'
+import type { RequestBoard } from '@/lib/admin/video-requests'
+
+import { RequestsPanel, type RequestPrefill } from './RequestsPanel'
+import { VideoActions } from './VideoActions'
 
 // 종류 순서는 `KIND_LABEL` 의 키 순서다 — **여기서 다시 적지 않는다.**
 // 손으로 적었더니 종류를 둘 더한 날 `/video` 에서 11편이 조용히 사라졌고, 이 화면의
 // 구성요소 탭도 같은 목록을 따로 갖고 있어 같은 방식으로 새 종류를 빠뜨리고 있었다.
 const ORDER = KIND_ORDER
 
-// 순서는 파이프라인 순서다 — 기획 → (제작) → 평가. 「현황」이 제작 관측이다.
-const TABS = ['현황', '기획', '평가', '구성요소', '수치 낡음', '내보내기'] as const
+// 순서는 파이프라인 순서다 — 요청 → 기획 → (제작) → 평가. 「현황」이 제작 관측이다.
+// 「요청」이 맨 앞인 이유: 이 화면에서 사람이 **결정하는** 곳은 거기뿐이다(나머지는 관측).
+const TABS = ['요청', '현황', '기획', '평가', '구성요소', '수치 낡음', '내보내기'] as const
 type Tab = (typeof TABS)[number]
 
 function pct(n: number, d: number): string {
@@ -113,6 +118,9 @@ export function VideoConsoleClient({
   queue,
   evaluation,
   plan,
+  requests,
+  initialTab = '요청',
+  prefill = null,
 }: {
   data: VideoConsole
   drift: EvidenceDrift[]
@@ -121,8 +129,14 @@ export function VideoConsoleClient({
   /** 평가 열이 아직 없으면 null — 같은 이유로 통째로 안 그린다. */
   evaluation: EvalSummary | null
   plan: PlanBoard
+  requests: RequestBoard
+  /** 처음 펼칠 탭. 테스트가 서버 렌더로 다른 탭을 보려고 쓴다 */
+  initialTab?: Tab
+  /** 「교체 요청」에서 넘어왔을 때 폼에 미리 채울 값 */
+  prefill?: RequestPrefill | null
 }) {
-  const [tab, setTab] = useState<Tab>('현황')
+  const [tab, setTab] = useState<Tab>(initialTab)
+  const waiting = requests.requests.filter((r) => r.phase === 'designed').length
 
   const stat = useMemo(() => {
     const total = data.rows.length
@@ -138,17 +152,25 @@ export function VideoConsoleClient({
     return { total, published, live, thumbs, captions, bytes, seconds, starts }
   }, [data])
 
-  const missing = data.issues.filter((i) => i.kind === 'missing')
-  const lost = data.issues.filter((i) => i.kind === 'lost')
-  const orphan = data.issues.filter((i) => i.kind === 'orphan')
-  const problems = data.issues.length
+  // 내린 편은 「안 만듦」이 아니다 — 일부러 뺀 것이다. 따로 센다.
+  // 요청 편은 구성요소 목록에 없으므로 「고아」가 아니다 — 요청이 주인이다.
+  const retiredIds = requests.retired
+  const requestVideoIds = new Set(requests.requests.map((r) => r.video_id).filter((v): v is string => v !== null))
+  const issues = data.issues.filter(
+    (i) => !retiredIds[i.id] && !(i.kind === 'orphan' && requestVideoIds.has(i.id)),
+  )
+  const retiredCount = Object.keys(retiredIds).length
+  const missing = issues.filter((i) => i.kind === 'missing')
+  const lost = issues.filter((i) => i.kind === 'lost')
+  const orphan = issues.filter((i) => i.kind === 'orphan')
+  const problems = issues.length
 
   return (
     <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
       <AdminPageHeader
         icon={Clapperboard}
         title="영상 공장"
-        description="플랫폼 구성요소 → PR 영상. 화면은 밀린 것을 보여 주고, 실행할 명령을 건넨다."
+        description="요청 → 기획 → 설계 → 검토 → 적용 → 평가. 사람은 요청과 검토를, 드레인과 공장이 나머지를 한다."
         actions={<AdminScreenHelp screen="video" tab={tab} />}
       />
 
@@ -167,6 +189,7 @@ export function VideoConsoleClient({
           >
             {t}
             {t === '현황' && problems > 0 ? ` · ${problems}` : ''}
+            {t === '요청' && waiting > 0 ? ` · 검토 ${waiting}` : ''}
           </button>
         ))}
       </nav>
@@ -176,6 +199,14 @@ export function VideoConsoleClient({
         <p className="mb-4 rounded-[var(--r-md)] border border-[var(--bde)] bg-[var(--error-light)] px-4 py-3 font-body text-[13px] text-[var(--error-ink)]">
           발행 기준 URL이 없습니다 — 학습자 화면에 영상이 <strong>한 편도 안 뜹니다</strong>.
           내보내기 탭의 마지막 단계(publish)를 돌리고 manifest를 커밋하세요.
+        </p>
+      )}
+
+      {tab === '요청' && <RequestsPanel board={requests} prefill={prefill} />}
+
+      {tab === '현황' && retiredCount > 0 && (
+        <p className="mb-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-2 font-body text-[13px] text-[var(--t2)]">
+          ⊘ 내린 편 {retiredCount} — 「안 만듦」으로 세지 않습니다. 구성요소 탭에서 되살릴 수 있습니다.
         </p>
       )}
 
@@ -542,6 +573,7 @@ export function VideoConsoleClient({
                         <th className="px-3 py-2 font-[600]">규격</th>
                         <th className="px-3 py-2 font-[600]">썸네일·자막</th>
                         <th className="px-3 py-2 font-[600]">재생</th>
+                        <th className="px-3 py-2 font-[600]">조치</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -557,7 +589,9 @@ export function VideoConsoleClient({
                               </span>
                             </td>
                             <td className="px-3 py-2 font-mono text-[12px]">
-                              {r.published ? (
+                              {retiredIds[r.id] ? (
+                                <span className="text-[var(--warning)]">⊘ 내림</span>
+                              ) : r.published ? (
                                 <span className="text-[var(--success)]">● 있음</span>
                               ) : (
                                 <span className="text-[var(--warning)]">◔ 없음</span>
@@ -600,6 +634,14 @@ export function VideoConsoleClient({
                             </td>
                             <td className="px-3 py-2 font-mono text-[12px] tabular-nums text-[var(--t2)]">
                               {starts === null ? '—' : starts}
+                            </td>
+                            <td className="px-3 py-1">
+                              <VideoActions
+                                videoId={r.id}
+                                published={r.published}
+                                retired={retiredIds[r.id] ?? null}
+                                compact
+                              />
                             </td>
                           </tr>
                         )

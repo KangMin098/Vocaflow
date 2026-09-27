@@ -1,0 +1,1924 @@
+[
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10657c3c-866a-4857-b05a-c68874e62de3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "999f8d892942e8a645fb94bb1c444d8268cce9e99dc0a81f181b1e9dfaa68ac6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "10대 섹스팅 처벌 완화 법안의 목적(성범죄자 등록 대신 계도)을 발의자 설명으로 풀어 주장·목적 칸을 채운다(고2 이상).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "purpose"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Senger says that sexting has become",
+          "note": "발의자 문단은 「불법인 줄 모르고 사진이 퍼진다」는 문제 제기가 서고 설문 수치를 걷어도 주장이 남았다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.509Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Illinois_House_lessens_penalty_for_sexting",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "106a77cd-55e9-47a0-a3cc-6c2b8e0c7563",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ef04250f9b6ea4cbda032fb70df3e8ceb301ea07746a7db264e35810ef790a62",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "항모 추가 배치와 후티 공격 재량 부여를 전하고 억지 효과 회의론을 붙여 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Becca Wasser, a senior fellow at",
+          "note": "전문가 회의론 문단은 「해군 주둔의 억지 효과는 재기 어렵다」 주장이 서고 deters·readiness 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.510Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/United_States_sends_second_aircraft_carrier_to_Middle_East%2C_extends_''Truman''_deployment",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.844,
+          "words": 154,
+          "english": 0.296
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "106dc9ca-0975-4a98-a11a-f92edee60236",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a13bdefcc64f10df28e041f9c2f0865a4b9cd6751f140e1233f674c1b7471742",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "브라질 여당의 의원 매수 폭로로 번진 정치 위기를 조사위 공방·여당 반박으로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Brazilian Senate and the Chamber",
+          "note": "조사위 문단은 정부의 저지 시도가 하원에서 실패하고 상원에서 계속되는 흐름이 서고 lobbying 만 풀었다."
+        },
+        "uses": [
+          "factual",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.510Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_denunciations_of_political_corruption_create_severe_political_crisis_in_Brazil",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10709822-b766-40e7-b4cb-7f2775785954",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d9090a19eaad6bee26e11f5e3e0fbe0b2e7dda72b6233757d1935a22fb12273",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "톨퍼들 순교자 나무의 나이 측정 소식에 노조 운동의 기원 이야기를 붙여 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There were six men in the",
+          "note": "순교자 문단은 가난한 농부→노조 결성→선서 금지법 체포→유배→석방 순서가 서고 낱말이 쉬웠다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.510Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Age_of_Britain's_Tolpuddle_Martyr_tree_discovered",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.469
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "1073b6d4-360b-4052-865a-7020f02db71f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "653ee533ca112d8f0fea0c82d8bb72bb4bf9bb81a78656df35b338868103616a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "살모넬라 땅콩 제품 대량 회수를 공장 실태·회사 부인·FDA 책임론으로 전해 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the FDA, peanut products",
+          "note": "오염 인지 문단은 FDA 주장과 회사 부인이 맞서 서고 곰팡이·바퀴벌레 사실로 뒷받침돼 contaminated 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.510Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Post-probe%2C_problematic_peanut_paste_products_pulled",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.36
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10752bc2-c07e-4dd9-a16f-591348f47eff",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e91bf27a1b4d21ea0f45358061fbb35a34a4f9f99253ab09ae3f13e81a03d286",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "캐나다 녹색당 대표 선거를 후보별 강점과 평가로 전해 내용일치 칸을 채우되 후보 목록 문단은 걷는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Josh Matlow of Earth Roots said:",
+          "note": "세 후보 비유 문단은 나무에 함께 묶일 사람·정책 토론할 사람·맥주 마실 사람 대비가 서서 후보 목록 없이도 읽혔다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.510Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/The_Green_Party_of_Canada_to_elect_new_leader",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "1076de71-0e2a-46ae-90bf-d3603c78fbe8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0b284cec12cdcc9670f2f345fa6f74acf74902a33326abd2a7c4ef0db8290e8d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "마하라슈트라 일회용 플라스틱 금지의 이유·벌금·유예 기간을 설명해 빈칸·목적·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "purpose"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Plastic pollution has led to the",
+          "note": "오염 문단은 배수구 막힘·해양 오염·동물 섭취를 이유로 들고 벌금 단계를 붙여 서서 blank 재료가 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India%3A_Maharashtra_plastic_ban_comes_into_force",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "107c7548-aa52-48db-a780-f9c5a51a60f9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a6994388972072e70451be7f75e9ae007eee43086b3aaef82edcf588126c6cb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "열대폭풍 대니엘 발생과 예상 경로에 「한 번의 폭풍이면 충분하다」는 경계 논리를 붙여 빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Even though the 2010 season seems",
+          "note": "경고 문단은 「조용한 해에도 앤드루 같은 한 방」 논리가 서서 빈칸 재료가 됐지만 인용이 닫히지 않아 다듬어야 했다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tropical_Storm_Danielle_forms_in_Atlantic_Ocean",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "107e23ad-ad46-49d8-913d-32e9aeb25897",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e290efb095d79ec2d4f34ab267043d0084739769592402d9ae367ac7d69283b1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "북극곰 크누트의 첫 생일을 어미 거부·인공 사육·크누트 열풍으로 이어 초등부터 쓸 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When Knut was born a year",
+          "note": "성장 문단은 어미 거부→사육사 손길→너무 커져 함께 못 놂이 순서로 서고 reared 만 raised 로 바꾸니 초등 밴드가 됐다."
+        },
+        "uses": [
+          "sequence",
+          "factual",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/German_polar_bear_Knut_turns_one_year_old",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.381
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "107fe008-e35f-45bc-a2d5-2c02c30a9e6d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1f849f03a56b4d4d88dc58ebb2806c72a9a43ab82bb9dda38ec8ee90b6bf4b4f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "캐나다 고정 선거일 법의 이전 관행·취지·예외를 설명해 주장·요약·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since confederation, a sitting government could",
+          "note": "기존 관행 문단은 「여론 좋을 때 선거」 관행이 고정 선거일의 까닭을 세워 writs 만 걷으면 요약 재료가 됐다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "structured"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fixed_election_dates_to_become_law_in_Canadian_federal_elections",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10802149-6af2-411b-b8db-1debce86c83e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d122f1fb312399bb7949fbf754407074588f4654e8fe19358eccd6639755dbc6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "테리 샤이보의 죽음을 급식관 제거를 둘러싼 법정·입법 공방의 순서로 전해 고3·성인 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Michael Schiavo argued before the courts",
+          "note": "급식관 문단은 제거→재삽입→법 제정→위헌→최종 제거 순서가 서서 순서 재료가 됐고 appeal 만 풀었다."
+        },
+        "uses": [
+          "sequence",
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Terri_Schiavo_dies",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.372
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "1083fb21-fcca-4143-b0de-a4073aa18f41",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cbdd735b2231f32fb03e49842931345024b564c6dfc2fb3350c8068e8b2b2467",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "literature",
+        "why": "금서 주간 행사와 도서 금지 시도 증가·사례를 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Attempts to ban books from library",
+          "note": "금서 시도 문단은 20% 증가·최다 도전 도서·책 소각 사례가 서고 challenged 뜻만 풀면 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/ALA_observes_banned_book_week",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.762,
+          "words": 147,
+          "english": 0.3
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "1091ceee-754e-490b-b930-85695a22bcc8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a71daa640b42b8d36e7429aa5c90a1ed228132b40bbd05cd237e29d35a6d608",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "고교 총격 사망을 분 단위 경위·체포·목격담으로 전해 내용일치 칸을 채우되 피 묘사가 있어 고3 이상.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Police have arrested Jamar B. Siler,",
+          "note": "체포 문단은 피의자·혐의·재판일로 서지만 목격 학생의 피 묘사 인용은 가공 때 걷어야 했다."
+        },
+        "uses": [
+          "factual",
+          "sequence"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Shooting_at_school_leaves_one_dead_in_Tennessee%2C_United_States",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "109cd493-1bd3-4cf8-958c-378809d110b1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b65f08aaa65be01c5be43490ee983ce4e6567789c5d85f769012f596f53f3c0c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "technology",
+        "why": "컴퓨텍스 와이맥스 전망 글이 보안 스캔들로 넘어가며 문장이 어색하고 빠진 말(\"\")까지 있어 가공 가능성이 애매하다.",
+        "slots": {
+          "ages": [
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "It's a real deal that the",
+          "note": "결론 문단을 떼어 보니 앞 보안 문단 없이는 뜻이 안 서고, p1 에 빈 인용부호(\"\")로 빠진 말이 있어 문장이 어색했다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_Computex_Preview%3A_WiMAX%2C_threat%3F_opportunity%3F",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10a3bf56-c053-4cbd-a8fe-900d7b552659",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5ee66f356de66195479c0b5d1493632363775ff061f8cab1da5afd2ebf757d50",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "FARC 의 도시 포위를 전하고 조직의 기원·자금원·테러단체 지정을 설명해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The FARC are a Marxist revolutionary",
+          "note": "FARC 소개 문단은 규모·기원·목표가 서서 배경 설명으로 떼어 쓰기 좋았고 낱말도 보통 수준이었다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/FARC_surround_Colombian_town",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10a49ac0-6332-46ed-8740-3c436d81d0cc",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b478bf295d33a263bb7e55d57f106c82f751f5fab89af50b5d9c9a2bf593c995",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "지진 조기경보 연구가 「끝나야 안다」는 캐스케이드 통념을 첫 P파로 반박하는 구조라 요지·빈칸·순서 칸을 두루 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to a traditional theory, called",
+          "note": "캐스케이드 모델 문단은 「끝나기 전엔 규모를 알 수 없다」 통념과 그 까닭이 서서 뒤집는 연구와 짝지어 쓸 수 있었다."
+        },
+        "uses": [
+          "argument",
+          "factual",
+          "structured",
+          "vocab"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Research_articles_predict_next_earthquake",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.362
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10a74602-030d-4d12-9638-844f3325705b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7a531056796c6e545b490b5df3a8e2a43a5525a78ac83149d1be0c2d904c7cf6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "부시를 히틀러에 빗댄 하원의원 발언과 해명·반발을 전해 성인 대상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ellison later clarified that he believes",
+          "note": "해명 문단은 한 문장뿐이라 비판 인용 문단과 묶어야 논란-해명-반박 흐름이 섰다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_congressman_causes_controversy_by_comparing_Bush_to_Hitler",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10afb4b2-e760-4195-962c-923715bc1d42",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be6da8729f1d6cb9c6b5e543f84082d6917252f2c47f937e0f66259479337077",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "짐바브웨 선거 개시를 여야 승리 주장과 유엔이 보고한 식량 원조 차별·관리 해임으로 전해 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The government recently withheld food aid",
+          "note": "식량 원조 문단은 유엔 보고 두 가지가 부정 선거 주장의 근거로 서서 withheld 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Voting_in_Zimbabwe_starts_amid_accusations_of_rigged_outcome",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.114,
+          "words": 176,
+          "english": 0.32
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10b6248d-799f-4b7b-900f-9c64ec752659",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31b70b06e473f5d57c1654f2ac70bb8409f83c2a3c3428c7bc7cfab47a3b48c4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "호주 경찰의 위키리크스 무혐의 판단과 총리의 발언 번복 논란을 전해 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Controversy had also been raised today",
+          "note": "길러드 번복 문단은 「불법」→「무책임」 표현 변경과 야당 비판이 서고 weasel out 만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_Federal_Police_say_Wikileaks_committed_no_crime",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10b63bd0-6d11-4d6f-b57a-6011ed161b91",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c5065a73cace67b20f0d22e7271918b59937b2a621d18502b463e7a428dce69",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "딩겔 의원의 50년 연속 재임 표창과 입법 기여를 짧게 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dingell has been instrumental in drafting,",
+          "note": "입법 문단은 멸종위기종법·환자권리법 기여가 서지만 Tucker Act 같은 이름은 걷어야 쉬웠다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_House_honors_Representative_John_Dingell",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.357,
+          "words": 112,
+          "english": 0.319
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10b6a405-7e56-48c5-94a5-9d71028ff91a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e5a3bd75096e79cfc990af17c45ea2542e6e1c8f7b0bd9a800f3dbe4e331722",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "로디 팬 총기 강도 사건을 보컬의 목격담과 팬 위로로 전해 심경·지칭·내용일치 칸을 채운다(총기 소재라 고2 이상).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "long_reference"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The girl that was held at",
+          "note": "보컬 인용 문단은 충격받은 팬과 사인 티셔츠에 안도한 팬이 대비돼 심경이 서고 낱말이 쉬웠다."
+        },
+        "uses": [
+          "sequence",
+          "mood",
+          "spoken",
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_Lordi_fans_mugged_while_manager_and_bodyguard_were_shot_at_in_Louisville%2C_US",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.401
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10b97cc2-da68-4164-9599-19507d03e702",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3199a85ed615f63fd305b09e9cdad43819248b1220c07ba83e4f5942a12dbaad",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "터키의 이라크 북부 쿠르드 반군 공습을 미국 입장·전과 발표·분쟁 배경으로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ankara had threatened to attack PKK",
+          "note": "배경 문단은 매복 공격→공습 위협→의회 승인이 서고 PKK 분쟁 기간 문장과 이어져 맥락이 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Turkey_carries_out_more_air_strikes_in_northern_Iraq",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.328
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10bd0891-9ae0-42c5-b231-e67cb014a2aa",
+    "revision": "2026-09-25T08:58:52.667935+00:00",
+    "body_sha256": "5073eddec6915d7a076a86fb9755eb9fdb93ece8075628146e334f7544c421f3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "성별을 남녀 둘로만 인정한 행정명령 내용과 성소수자 단체 반발·이전 X 여권 경위를 전해 성인 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The first passport with the \"X\"",
+          "note": "X 여권 문단은 2021년 도입과 소송 경위가 서서 이전 정책과의 대비가 됐고 intersex 등만 풀면 됐다."
+        },
+        "uses": [
+          "factual",
+          "argument",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_President_Trump_orders_government_recognize_male%2C_female_as_only_sexes",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.408
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10c07111-1982-4745-b9a0-1b3003731c4d",
+    "revision": "2026-09-25T08:47:47.318705+00:00",
+    "body_sha256": "fd7dc914a4d365f168ea446a14495c8cd0d948501a0b3912f017a9196286f219",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "메릴랜드 공항 근처 헬기·경비행기 공중 충돌 사고를 탑승자 피해와 조사로 전해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Federal Aviation Administration (FAA) said",
+          "note": "충돌 문단은 훈련 헬기와 경비행기 탑승 인원·생사가 대비로 서서 짧은 내용일치가 됐다."
+        },
+        "uses": [
+          "factual"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_injured%2C_three_dead_in_mid-air_collision_near_Maryland_airport",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.839,
+          "words": 137,
+          "english": 0.366
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-06-508Z",
+    "id": "10c1b134-fac7-44c6-b148-d50d9ff866f1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "93967d84b878e8b94c2af5cde38fdd9a96bc4e2a66a39ae188ca62dc8b63f929",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "열대폭풍 어네스토 상륙을 반가운 비와 돌발 홍수 경고로 대비해 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The storm system is moving quite",
+          "note": "기상학자 인용 문단은 빠른 이동·산지 지형→돌발 홍수→물에 들어가지 말라는 조언이 서서 쉬웠다."
+        },
+        "uses": [
+          "factual",
+          "spoken"
+        ],
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:06.511Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tropical_depression_Ernesto_hits_Carolina's_coast_in_U.S.",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

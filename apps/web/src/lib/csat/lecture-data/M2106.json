@@ -3576,7 +3576,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:8"
+            "id": "sentence:10"
           },
           "segments": [
             {
@@ -3605,7 +3605,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:9"
+            "id": "sentence:11"
           },
           "segments": [
             {
@@ -3747,7 +3747,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:9"
+            "id": "sentence:11"
           },
           "segments": [
             {
@@ -9655,7 +9655,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:25"
+            "id": "sentence:26"
           },
           "segments": [
             {
@@ -9684,7 +9684,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:17"
+            "id": "sentence:18"
           },
           "segments": [
             {
@@ -9713,7 +9713,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:9"
+            "id": "sentence:10"
           },
           "segments": [
             {
@@ -9854,7 +9854,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:17"
+            "id": "sentence:18"
           },
           "segments": [
             {
@@ -9875,7 +9875,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:17"
+            "id": "sentence:18"
           },
           "segments": [
             {
@@ -10063,7 +10063,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:15"
+            "id": "sentence:16"
           },
           "segments": [
             {
@@ -10092,7 +10092,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:14"
+            "id": "sentence:15"
           },
           "segments": [
             {
@@ -10257,7 +10257,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:27"
+            "id": "sentence:28"
           },
           "segments": [
             {
@@ -10278,7 +10278,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:27"
+            "id": "sentence:28"
           },
           "segments": [
             {
@@ -10477,7 +10477,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:13"
+            "id": "sentence:14"
           },
           "segments": [
             {
@@ -10510,7 +10510,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:11"
+            "id": "sentence:12"
           },
           "segments": [
             {
@@ -10647,7 +10647,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:21"
+            "id": "sentence:22"
           },
           "segments": [
             {

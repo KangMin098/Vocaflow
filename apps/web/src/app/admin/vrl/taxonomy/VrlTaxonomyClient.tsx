@@ -61,14 +61,14 @@ export function VrlTaxonomyClient({ data }: Props) {
               onClick={() => setTab(t.id)}
               className={`min-h-[44px] rounded-[var(--r-sm)] px-3 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-fast)] ${
                 active
-                  ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[var(--p)]/30'
+                  ? 'bg-[var(--bg)] text-[var(--t1)] shadow-[var(--sh-sm)] ring-1 ring-[color-mix(in_srgb,var(--p)_30%,transparent)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--t2)]'
               }`}
             >
               {t.label}
               <span
                 className={`ml-1.5 rounded-full px-2 py-1 font-mono text-[10px] font-[700] ${
-                  active ? 'bg-[var(--p)]/12 text-[var(--p)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
+                  active ? 'bg-[color-mix(in_srgb,var(--p)_12%,transparent)] text-[var(--p)]' : 'bg-[var(--bg3)] text-[var(--t2)]'
                 }`}
               >
                 {t.count}
@@ -161,7 +161,7 @@ function LevelsTable({ rows }: { rows: VrlTaxonomyData['levels'] }) {
                 className="border-b border-[var(--bd)] font-body text-[12px] text-[var(--t2)] hover:bg-[var(--bg2)]"
               >
                 <td className="py-2 pr-2 text-center">
-                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--p)]/10 font-display text-[11px] font-[700] text-[var(--p)]">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-display text-[11px] font-[700] text-[var(--p)]">
                     {l.level}
                   </span>
                 </td>
@@ -224,7 +224,7 @@ function TracksCardGrid({ rows }: { rows: VrlTaxonomyData['tracks'] }) {
             <h4 className="font-display text-[14px] font-[700] text-[var(--t1)]">
               {t.nameKo}
             </h4>
-            <span className="rounded-full bg-[var(--p)]/8 px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">
+            <span className="rounded-full bg-[color-mix(in_srgb,var(--p)_8%,transparent)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">
               {t.id}
             </span>
           </header>
@@ -269,7 +269,7 @@ function SimpleCardGrid({
             <h4 className="font-display text-[14px] font-[700] text-[var(--t1)]">
               {r.nameKo}
             </h4>
-            <span className="rounded-full bg-[var(--p)]/8 px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">
+            <span className="rounded-full bg-[color-mix(in_srgb,var(--p)_8%,transparent)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">
               {r.id}
             </span>
           </header>

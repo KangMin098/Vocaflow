@@ -1,0 +1,825 @@
+[
+ {
+  "id": "4469f6ce-9d9e-4f78-85b6-38b1dc9b9581",
+  "source_updated_at": "2026-09-25T07:39:37.50465+00:00",
+  "body_sha256": "3252e8b25fe9351602e4318a6624bdebbb670aff310243441f0efc9f15b023c5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "감귤 황룡병 세균의 이펙터가 숙주 전사인자를 분해시켜 면역을 무너뜨린다는 인과 사슬이 서론-고찰로 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Citrus Huanglongbing (HLB), also known",
+   "note": "유전자 약어(CsVOZ2·CsBTS1)를 「감귤 방어 단백질」로 바꾸면 서고, 실험 기법명은 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "4473c568-9391-4f9f-976a-2dd6b7c2455b",
+  "source_updated_at": "2026-09-25T07:39:38.554659+00:00",
+  "body_sha256": "4f757ca60b877c6a888474b013bd05be9ddaa7cfef3c3170b7bb3d14bb5cf0cb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "기후위험이 금융 고착을 거쳐 고탄소 기업의 회복력을 갉는다는 주장이 가설-검증-정책제언으로 한 편에 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As global climate risks intensify, corporations",
+   "note": "회귀계수 표와 변수 정의는 걷고 서론·결론의 논지만 남기면 된다."
+  }
+ },
+ {
+  "id": "447a6d27-4784-4f6b-8f5b-e22c88886754",
+  "source_updated_at": "2026-09-13T07:33:33.463335+00:00",
+  "body_sha256": "15421909e9a551f0fd47b399933ee9f6496e80958e7a2a45b87ce3426817f9de",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "유전자 변이로 장 통과시간이 길어진다는 예상 밖 결과를 통념과 대조해 설명하는 고찰 단락이 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Interestingly, we found a positive",
+   "note": "호르몬 약어를 풀어 쓰면 되고, 장비 사양 문단은 발췌 대상이 아니다."
+  }
+ },
+ {
+  "id": "447ba48d-8f1e-42ef-b1fc-6675b8762479",
+  "source_updated_at": "2026-09-13T07:15:27.744665+00:00",
+  "body_sha256": "924e89aa372ba97b479082895588f81d641d533ca042af58235b97644e842cf3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "척추가 전이 표적이 되는 까닭을 「씨앗과 토양」 가설로 세우고 면역세포 조성 차이로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Another leading theory is Paget",
+   "note": "면역세포 표지자 나열은 걷고 가설 소개 단락만 쓰면 문맥이 선다."
+  }
+ },
+ {
+  "id": "44854e21-feb4-4c03-80cc-af808a1a1cfb",
+  "source_updated_at": "2026-09-25T07:39:41.370966+00:00",
+  "body_sha256": "7a860deb252e7d31734623bf8dbd88a6d9f645f551e01f178fa10957a982477d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "효소의 반응 속도와 기질 친화도가 단백질 발현 변화의 방향을 정한다는 모형을 자료와 대조해 논증한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Bacteria exhibit remarkable plasticity in response",
+   "note": "수식이 문장 안에 박혀 있어 서론·고찰 첫 단락 외에는 떼어 내기 어렵다."
+  }
+ },
+ {
+  "id": "4488206f-4c28-4ce2-b9ae-a0a56159ae99",
+  "source_updated_at": "2026-09-13T07:33:49.798623+00:00",
+  "body_sha256": "a88966849056ac7773f3386be467a71a6d847ea7fce1f9dd118b63843f223485",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세포사 억제 단백질의 새 이형질 두 가지를 확인하고 기능 차이를 설명하는 흐름이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The homeostasis of tissues, organs",
+   "note": "서론의 세포사 균형 단락은 그대로 쓰이나 결과 절은 이형질 명칭 의존이 커 걷기 어렵다."
+  }
+ },
+ {
+  "id": "4489816f-0748-493a-b074-88e79b53727d",
+  "source_updated_at": "2026-09-15T14:55:07.694496+00:00",
+  "body_sha256": "35f02fc04710290adb4935c68ce6334b8d50945670ae28712ffdf7eac7cd21fc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "health",
+  "why": "동맥경화 자가포식 유전자 탐색 글로, 서론은 읽히나 결과 절이 데이터셋 번호와 알고리즘 약어 나열에 가깝다.",
+  "hold_reason": "processing-unclear",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Atherosclerosis is a long-standing inflammatory",
+   "note": "서론 한 단락은 서지만 본문 대부분이 GSE 번호·약어라 발췌 범위가 좁다."
+  }
+ },
+ {
+  "id": "4493535e-7d1b-4ce0-bb9c-d8a911be0aca",
+  "source_updated_at": "2026-09-13T07:43:15.849123+00:00",
+  "body_sha256": "483ac1b6367137719f48f449ab463b7959a78cb4cc52e1be63eceae90d659b52",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "황반 이동 수술의 5년 이상 경과를 추적해 시력 유지 여부를 판정하는 서사와 논지가 함께 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Age-related macular degeneration (AMD) remains",
+   "note": "환자별 시력 표는 걷고 배경·고찰만 남기면 한 편으로 읽힌다."
+  }
+ },
+ {
+  "id": "4493cb69-f145-40ab-adb4-dd1bdec8dbe1",
+  "source_updated_at": "2026-09-13T06:43:03.216652+00:00",
+  "body_sha256": "7039bb2f11604cc9b6344df0d83e948c2b184ec719313101cffc2777574a2bb9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "말 사료 구성이 기생충 배출과 장내 미생물을 함께 바꾼다는 가설을 실험으로 검증하고 대안 관리법까지 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Gastrointestinal helminths are widespread parasites",
+   "note": "세균 속명 목록을 걷어도 「구충제 의존을 줄이자」는 결론이 그대로 선다."
+  }
+ },
+ {
+  "id": "44a25dff-d4d5-488c-982f-de34ac4bef88",
+  "source_updated_at": "2026-09-15T14:55:12.000102+00:00",
+  "body_sha256": "20f36c06b8bd6526d2aae21c626adb902a4b5807a8903d55bfe78f1ac8c82544",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 항암 후보물질이 자가포식을 통해 타우 축적을 줄인다는 재활용 논지가 서론-고찰로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Tau is a soluble protein",
+   "note": "투여량·통계값은 걷히고 타우와 자가포식 설명 단락은 어휘만 낮추면 된다."
+  }
+ },
+ {
+  "id": "44a7ada6-71f0-4b3d-b5fe-828cb9869770",
+  "source_updated_at": "2026-09-13T06:30:20.596198+00:00",
+  "body_sha256": "93af9cd37864adc27db357f94377bbea4d6a6fb70dd2f4771de1ad15f1863369",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "충전재 함량이 다른 두 치과용 복합레진이 치수 줄기세포에 미치는 영향을 비교해 재료 선택의 근거를 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the ever-evolving field of",
+   "note": "단량체 약어는 「구성 성분」으로 바꾸면 되고 수치 표는 걷어도 비교 논지가 남는다."
+  }
+ },
+ {
+  "id": "44aa5184-8dc9-4f7c-ae9b-cb78199b1d4c",
+  "source_updated_at": "2026-09-25T07:39:45.478955+00:00",
+  "body_sha256": "1abb2f047dafa8d2f93d84b64153c503ab568a096ee725c23a50acdf2fa5e622",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "약물 유도체 탐색 계산 연구로, 본문 대부분이 화합물 번호와 결합에너지 수치 나열이라 떼어 낼 단락이 분명치 않다.",
+  "hold_reason": "processing-unclear",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Pyruvate kinase deficiency (PKD) is",
+   "note": "서론은 읽히지만 결과·고찰이 CHEMBL 번호 대조라 발췌 시 문맥이 끊긴다."
+  }
+ },
+ {
+  "id": "44b6d943-29c9-413d-a51a-bb316d2d0b7d",
+  "source_updated_at": "2026-09-13T06:47:15.616636+00:00",
+  "body_sha256": "f01c60552626d18b8a9b245bddeef9f3724099bf214c09c2bce41df4b72df1dc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "곰팡이 대사물이 루게릭병 관련 단백질의 독성 삼량체 형성을 줄인다는 발견을 구조와 실험으로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Amyotrophic lateral sclerosis (ALS) is",
+   "note": "잔기 번호와 결정학 수치를 걷으면 질환 배경·치료 전략 단락이 남는다."
+  }
+ },
+ {
+  "id": "44ba8e85-0da3-4a01-81a4-175a195e6179",
+  "source_updated_at": "2026-09-13T07:15:05.376866+00:00",
+  "body_sha256": "6715ae9f340777823f999be7b99da4936c627d3c50e0ebc286d4cf4294dda587",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "레닌이 억제되지 않아도 원발성 알도스테론증일 수 있다는, 진단 기준을 되짚는 논지가 고찰에 서 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Primary aldosteronism (PA), characterized by",
+   "note": "호르몬 수치 표는 걷히지만 진단 지표 약어가 많아 어휘 조정 폭이 크다."
+  }
+ },
+ {
+  "id": "44c2cd3f-eb6e-478e-959c-1cdcc4576e0c",
+  "source_updated_at": "2026-09-25T07:39:48.133775+00:00",
+  "body_sha256": "a9c413b3726dfb68450e5d779c99c7e5d06b66ebb86f10e9908ae9325b601a0c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "근친혼 자녀의 질환별 생존 격차와 사망 원인의 시기별 차이를 근거로 보건 정책을 제안하는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Consanguineous marriages, defined as unions",
+   "note": "통계 기법 절을 걷어도 서론과 결론의 주장·근거 구조가 그대로 남는다."
+  }
+ },
+ {
+  "id": "44cf971c-5b12-4aa2-83da-97c9d5b49034",
+  "source_updated_at": "2026-09-25T07:39:48.633955+00:00",
+  "body_sha256": "e84315d144feb37b04de385eff59a92339ec01d10db0b0f418916c7d02e4ed36",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "history",
+  "why": "화장된 유골의 성별 추정에서 단일 기준값보다 여러 측정을 합친 확률 모형이 낫다는 주장을 검증으로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The identification of anthropological parameters",
+   "note": "측정 변수 목록은 걷고 「왜 화장 유골은 어려운가」 단락을 쓰면 자족적이다."
+  }
+ },
+ {
+  "id": "44e80a49-3f55-4aab-a7d9-2b4a41178155",
+  "source_updated_at": "2026-09-13T07:30:13.592196+00:00",
+  "body_sha256": "b0b6cbada7dc1c70ca4c7d1110829fa8c2fe6136af943e962278edf1a6456d57",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "단백질의 한 부위가 바이러스의 신경 침입을 좌우한다는 발견과 그 백신 응용까지 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Few viruses routinely enter the",
+   "note": "고찰 첫 단락은 문맥 없이도 서고, 단백질 명칭 몇 개만 풀어 주면 된다."
+  }
+ },
+ {
+  "id": "44e86c6f-479c-4310-9736-e524a94988cf",
+  "source_updated_at": "2026-09-15T14:55:19.401166+00:00",
+  "body_sha256": "c585300e6e30b7a7a3b49462b18d8e1f09a0de51fdf75204886b2f2a0da3f577",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "표준 영상 검사 뒤 뼈 스캔이 놓친 골절을 더 찾아낸다는 결과를 외상 점수와 연결해 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Bone scintigraphy (BS) is one",
+   "note": "점수 체계 약어와 표가 많아 어휘 조정 없이는 고등 상위 밴드에 머문다."
+  }
+ },
+ {
+  "id": "44f67758-1030-464e-8ae7-f989189efbae",
+  "source_updated_at": "2026-09-13T07:39:13.252783+00:00",
+  "body_sha256": "5bce09d1b418eb924d93df4dbf9c025a95afdab61e45daa1fa398d4f957190ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "자가포식을 유전자·약물·운동 세 방식으로 높여 알츠하이머 병변과 기억 저하를 줄였다는 논지가 일관되게 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Alzheimer’s disease (AD) is a",
+   "note": "실험 계통 이름을 걷어도 「운동이 왜 도움이 되나」라는 결론 단락이 그대로 선다."
+  }
+ },
+ {
+  "id": "44fd3439-5424-4066-9474-2bb67a15181a",
+  "source_updated_at": "2026-09-13T07:06:49.569563+00:00",
+  "body_sha256": "4f1b6f06f856ebd5f376f0ece9a39032ef684d718b4aeba6fc5c3ac4944c0e4c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "열수분출공 요각류가 생활사가 달라도 해분마다 갈린 개체군을 이룬다는 발견을 지질 구조로 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Deep-sea hydrothermal vents are ephemeral",
+   "note": "학명과 유전 지표를 걷으면 서식 환경과 분산 방식 대조가 남는다."
+  }
+ }
+]

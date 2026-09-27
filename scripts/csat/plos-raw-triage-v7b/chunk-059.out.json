@@ -1,0 +1,834 @@
+[
+ {
+  "id": "2fb1674d-5794-4a21-a396-8908e075e5e2",
+  "source_updated_at": "2026-09-25T07:14:44.051239+00:00",
+  "body_sha256": "1b73e3e4ea4ef15bc3fa765e8abcf81d95a42f06783720e92a79f8bdd9c5c8af",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세균이 숙주세포 안에서 늘었다가 단백질분해효소로 빠져나온다는 논지를 고찰에서 한 편으로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Here, we identified the Fsr-regulated secreted",
+   "note": "균주 기호(ΔgelE·OG1RF)를 「이 효소가 없는 균」으로 바꾸면 서고, CFU 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "2fc22f7b-7512-42ef-86b4-e9ae8511bc2c",
+  "source_updated_at": "2026-09-25T07:14:47.697419+00:00",
+  "body_sha256": "5346aea5a7aa76dee4fda1bbf05bcf75677c6a3c02635b8ffe342fb7ceef6698",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "뇌 전체 시뮬레이션 모형에서 억제 가소성이 왜 필요한가를 서론과 고찰이 인과로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A key challenge, however, lies in",
+   "note": "수식과 그리스 문자 기호가 많아 문단 선택이 좁지만 서론 두 문단은 그대로 떼어 쓸 수 있다."
+  }
+ },
+ {
+  "id": "2fc8216a-d979-48aa-aa80-763729d4985e",
+  "source_updated_at": "2026-09-13T07:23:31.204531+00:00",
+  "body_sha256": "59f2df63d6e7b45225121620beae4bda2c737fa8d4ff8e00e0e9268c5e1f7bd0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "척수 손상 다리 재료로 거미줄을 시험했다가 이물반응이 나온 과정을 시간 순서로 서술한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Spider silk is an attractive material",
+   "note": "제품명과 시약 목록을 걷어내면 「기대와 다른 결과」라는 흐름이 선명해진다."
+  }
+ },
+ {
+  "id": "2fcd22f6-4fcd-4802-b391-58001a43a3dc",
+  "source_updated_at": "2026-09-25T07:14:49.447373+00:00",
+  "body_sha256": "ee4462f7777bbe740a2bcf2f237ce857c31c9c6d7bf55f46197b3d6d4f4388e1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "난자 동결이 번역-스플라이싱-유전자 활성화로 이어지는 연쇄를 하나의 인과 사슬로 제시한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Oocyte cryopreservation is a core technology",
+   "note": "유전자 이름이 촘촘해 어휘를 낮추기 어렵고, 서론과 결론 단락만 발췌 후보다."
+  }
+ },
+ {
+  "id": "2fdd8328-c5bb-4d4c-8330-042718fc7d72",
+  "source_updated_at": "2026-09-13T06:55:29.060044+00:00",
+  "body_sha256": "e5102364d546c3dae05a84d85f7e40d970b468164c8a0984fc5bc7394bd46f03",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "10년간 신생아 감염 병원체와 내성 변화를 추세로 읽고 그 원인을 고찰에서 따져 본다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The incidence of culture confirmed blood",
+   "note": "표의 연도별 수치는 걷어도 「그람음성균으로 옮겨 갔다」는 논지가 그대로 선다."
+  }
+ },
+ {
+  "id": "2feb3bbe-f588-434a-b25d-1745afe28752",
+  "source_updated_at": "2026-09-25T07:14:56.929238+00:00",
+  "body_sha256": "2a08321ada034981406d80f83b488517bf382b6d0f5eb831004a87f4ef76d364",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항생제 내성 세균의 유전체 분석 결과를 표현형 검사와 대조해 한계까지 밝힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Antimicrobial resistance (AMR) is a major",
+   "note": "유전자 약어가 본문 절반을 차지해 서론과 결론 밖으로는 가공이 어렵다."
+  }
+ },
+ {
+  "id": "2ffe3daf-63a5-45c0-a97d-83c43c34dc04",
+  "source_updated_at": "2026-09-25T07:30:23.56025+00:00",
+  "body_sha256": "cf66e0a08b793bde26c6d5c68263e838f9194d117ec7d2168cbf5c7bf1bd9493",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "사람만 감염된다고 여겨온 바이러스가 야생 설치류에도 감염된다는 통념 교정 구조다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is known that HEV-1 is",
+   "note": "종 이름을 「들쥐 한 종」으로 바꾸면 초반 단락이 통념-반증 구조로 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "3000493b-993d-4fb7-8c56-dcb56dcbef8d",
+  "source_updated_at": "2026-09-13T06:53:14.30203+00:00",
+  "body_sha256": "99e41d9dc48561f39899ac36a3107a3c1326991931206b083d5a88058227f162",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "약물 사용자의 소변에서 필수·독성 원소가 어떻게 달라지는지 원인 후보까지 따져 본다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Trace elements play crucial roles in",
+   "note": "원소 기호를 이름으로 풀면 중등 상단까지 내려가고, 표의 수치는 없어도 논지가 선다."
+  }
+ },
+ {
+  "id": "30036738-adcd-49d2-a87c-545f1fb772eb",
+  "source_updated_at": "2026-09-13T06:48:48.298226+00:00",
+  "body_sha256": "3a583706987db5a7bb92bdf03c7c732fe51c90bd79a1a3d4195e990451b2fd81",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "면역세포와 비면역세포가 같은 자극에 다르게 죽는다는 비교를 일관된 논지로 끌고 간다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The innate immune system serves as",
+   "note": "카스파제 번호가 문장마다 나와 어휘 조정 폭이 좁고 서론·고찰만 쓸 만하다."
+  }
+ },
+ {
+  "id": "30127c39-4594-4361-95b0-ea35e09c0d52",
+  "source_updated_at": "2026-09-25T07:30:26.452065+00:00",
+  "body_sha256": "361670c5e2748194e3fc7b7628a9d3bd164c42cf5320b6a4b786ea5ed988d763",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "돼지를 사람 대신 쓴 모형에서 특정 면역세포가 없을 때 반응이 어떻게 달라지는지 비교한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "While present understanding of influenza A",
+   "note": "유전자형 표기(CD1D-/-)를 풀어 써야 하고 수용체 서열 절은 통째로 버려야 한다."
+  }
+ },
+ {
+  "id": "302e054b-5fa2-45f6-bd0b-8d04c37e0dce",
+  "source_updated_at": "2026-09-13T07:16:23.127787+00:00",
+  "body_sha256": "a3629a7c879b4166ae42ef5d418b2f1db30cdfde581d73e1fab9ac90ed7fc671",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈장 속 한 물질의 비율로 초기 알츠하이머를 가른다는 주장과 한계를 함께 적는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Onset of Alzheimer’s disease (AD) symptoms",
+   "note": "장비 설정 절을 빼면 서론-고찰이 바로 이어지고 대조군 나이 차이라는 한계도 읽힌다."
+  }
+ },
+ {
+  "id": "3034dd3b-60a8-49e3-a32d-3e6f6d341013",
+  "source_updated_at": "2026-09-25T07:30:29.269771+00:00",
+  "body_sha256": "94602c3f72d7a79567ec967a2f2b46a8f227c1499199ecaef15eba86ddfd5793",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기능이 밝혀지지 않은 조절단백질 18종을 여러 스트레스 조건에서 한꺼번에 시험한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The bacterium S. Typhi is",
+   "note": "결과 절이 균주 번호 나열이라 떼어 낼 문단은 고찰의 유전자 중복 논의 정도로 좁다."
+  }
+ },
+ {
+  "id": "30358afe-1d93-4e4c-8150-b7c397e17c27",
+  "source_updated_at": "2026-09-25T07:30:29.705904+00:00",
+  "body_sha256": "d8becaa3e20e5a043ab741562a342db7764392927f8d3dc9daa5eb63ae2c1e6a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스 유전체의 시작 신호가 하나 더 있다는 발견과 그 이점을 차근차근 밝힌다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Enteroviruses cause over a billion infections",
+   "note": "서열 약어가 많아 저자 요약 단락이 사실상 유일한 발췌 후보다."
+  }
+ },
+ {
+  "id": "3035e43f-ed4d-409b-8f45-95e8fac03dfb",
+  "source_updated_at": "2026-09-13T07:04:52.852514+00:00",
+  "body_sha256": "4429e49c9e61f4bb11481927df0374e7b58342bb42cd67b2bdb3b5b6fdfacb14",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 종류 줄기세포를 같은 탈수초 모형에 넣어 효과가 갈린 이유를 고찰에서 따져 본다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Multiple sclerosis (MS) is an immune-mediated",
+   "note": "항체 목록을 걷어내면 「한쪽만 효과가 있었다」는 대조가 또렷해진다."
+  }
+ },
+ {
+  "id": "303671af-7df8-47c0-88fa-405ee9945018",
+  "source_updated_at": "2026-09-13T07:08:35.455329+00:00",
+  "body_sha256": "b3b65812e1535c669f4d1e85bf4681bb1de43a827c27502a23a3bcf78cd4b5a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "걷기 검사 뒤 1분 심박 회복이 예후를 가르는 기준값을 선행 연구와 나란히 견준다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The 6-minute walk test (6MWT)",
+   "note": "약어가 많지만 풀어 쓰면 고등 수준으로 내려가고, 표를 빼도 논지가 남는다."
+  }
+ },
+ {
+  "id": "30422ffe-9b89-4629-8838-40ca580932bb",
+  "source_updated_at": "2026-09-25T07:30:31.392461+00:00",
+  "body_sha256": "ffc6d712617b4c54e1dc7109da1ff42f22647e1bd9b6d4d4277f55bda6da1a22",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "같은 두 세균의 경쟁 결과가 균주와 산소 조건에 따라 뒤집힌다는 규칙을 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Microbial interactions are increasingly recognized as",
+   "note": "저자 요약이 규칙 한 줄로 정리돼 있어 그대로 도입 단락으로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "305548a5-8fb2-4519-9f82-f8c059f47c33",
+  "source_updated_at": "2026-09-25T07:30:33.049803+00:00",
+  "body_sha256": "c98455aa6ec519ddca15bf3ac1c99beb74de8209f8785ab7e0a8aee22ba6b1cb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "난민 가구의 극심한 필요를 부문별로 나누고 어떤 가구가 더 취약한지 근거로 잇는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Almost eight years since the mass",
+   "note": "기관 약어를 풀면 고1까지 내려가고, 비율 수치를 걷어도 논지와 결론이 선다."
+  }
+ },
+ {
+  "id": "30590587-468a-4999-9c3b-84a3fe160f6c",
+  "source_updated_at": "2026-09-15T14:45:15.321572+00:00",
+  "body_sha256": "13b4c13ce477486de2d13ca394b56474e1612463d63e9a10d8242c1eb999e50c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기생충이 간에서 면역을 눌러 두는 경로를 찾아 그 신호를 없앴을 때와 견준다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Alveolar echinococcosis (AE) is a severe",
+   "note": "저자 요약이 비유로 풀어 써 있어 발췌에 쓸 만하지만 본문은 표지자 이름이 빽빽하다."
+  }
+ },
+ {
+  "id": "305a932f-6846-4216-849c-092e85bc54a0",
+  "source_updated_at": "2026-09-13T06:44:45.519034+00:00",
+  "body_sha256": "79d0775b9e115a9557461a4ae17c8fe82531ad8bcf7465e8268bb4253e068739",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "심근경색 뒤 재활 운동이 혈관 부하와 심장 기능에 미친 변화를 전후로 견준다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Acute myocardial infarction (AMI) is the",
+   "note": "탄성도 계산식과 약어 표가 많아 서론과 고찰 앞부분 밖에서는 떼어 내기 어렵다."
+  }
+ },
+ {
+  "id": "305b78d2-5278-4c65-bef7-c89f8d851339",
+  "source_updated_at": "2026-09-15T14:45:15.564115+00:00",
+  "body_sha256": "5c697a8f0cf1eaa9ce5a0c51900ffda6a7112011f4c422ea3a13e660067aa647",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "한 항생제를 방광염 1차 약으로 써야 하는 이유를 부작용·내성·효과 순으로 논증한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "summary",
+    "blank",
+    "main_point"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nitrofurantoin, absorbed predominantly in the small",
+   "note": "절 제목이 곧 주장이라 논지 구조가 뚜렷하고 약 이름만 바꾸면 고2까지 내려간다."
+  }
+ }
+]

@@ -1,18 +1,10 @@
 // apps/web/src/lib/textbook/__tests__/source-operations.test.ts
 import { describe, expect, it } from 'vitest'
-import { buildSourceMetrics, buildSourceWorkQueue, sourceNextAction, SOURCE_QUEUES, type SourceQueue, type SourceOperationRow } from '../source-operations'
+import { buildSourceMetrics, sourceNextAction, SOURCE_QUEUES, type SourceQueue, type SourceOperationRow } from '../source-operations'
 
 const counts = Object.fromEntries((Object.keys(SOURCE_QUEUES) as SourceQueue[]).map(key => [key, 0])) as Record<SourceQueue, number>
 
 describe('source operations contract', () => {
-  it('keeps linked rejected items first and never treats overlapping queues as an additive backlog', () => {
-    const work = buildSourceWorkQueue({ ...counts, all: 50, p0: 4, quality: 12, content: 30, raw: 20 })
-    expect(work.map(item => item.id)).toEqual(['linked-rejected', 'quality', 'judgment', 'raw'])
-    expect(work[0]).toMatchObject({ priority: 'P0', kind: 'review', count: 4 })
-    expect(work.find(item => item.id === 'judgment')?.dependency).toContain('미절단 원본')
-    expect(work.reduce((sum, item) => sum + item.count, 0)).toBeGreaterThan(counts.all)
-  })
-
   it('defines denominator, provenance and scope for every displayed count', () => {
     const metrics = buildSourceMetrics({ ...counts, all: 100, eligible: 10, analyzed: 80, p0: 4 }, '2026-09-19T00:00:00Z')
     for (const key of Object.keys(SOURCE_QUEUES) as SourceQueue[]) {

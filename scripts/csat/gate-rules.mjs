@@ -140,6 +140,37 @@ export function purposeOf(row) {
 export const HARMFUL = new Set(['bias', 'doctrine', 'pseudoscience', 'obsolete-fact', 'polemic'])
 export const UNFIT = new Set(['reference', 'fragmentary', 'mixed'])
 
+/**
+ * **이 원문으로 어떤 교재를 만들 수 있는가** — 판정과 함께 받는 재료 표시 (2026-09-23 사용자 결정).
+ *
+ * ⚠️ **유형 코드를 직접 고르게 하지 않는다.** 유형 적합 = 재료 × 어수창 × 밴드인데,
+ *   어수창과 밴드는 기계가 이미 계산한다(`compose-unit.itemWordSpec` · `readability`).
+ *   읽어야만 아는 것은 **재료가 있는가** 하나뿐이다. 유형 코드를 고르게 하면 판정자에게
+ *   길이 판단을 다시 떠넘기게 되고, 그것이 2026-09-23 에 걷어낸 바로 그 실수다.
+ *
+ * ⚠️ **수능 목록이 아니다.** 아래 대응은 `textbook/market-spec.json` — 시중 영어 교재 **79종**
+ *   (94문서 · 5,229쪽 · 초등 6 · 중등 10 · 고등 30권)에서 실측한 표준 발문 41종이 매핑된
+ *   유형 16개와, 조립기의 초등 3종·문장 단위 유형이다.
+ */
+export const SOURCE_USES = new Set([
+  // 논지가 한 편으로 선다 → topic · title · main_point · claim · purpose · summary · blank
+  'argument',
+  // 단락·문장 경계가 뚜렷해 떼고 끼울 수 있다 → order · insert · irrelevant
+  'structured',
+  // 사건·절차가 시간순으로 이어진다 → long_reference · 서사형 지문
+  'sequence',
+  // 인물의 심경·분위기가 읽힌다 → mood
+  'mood',
+  // 확인 가능한 사실 진술이 여럿이다 → content_match
+  'factual',
+  // 문맥으로 뜻이 잡히는 어휘가 있다 → vocab_choice · 어휘 교재 · WordVault
+  'vocab',
+  // 문장이 정확해 어법 문항을 만들 수 있다 → grammar_choice · grammar_fix · blank_word · word_order
+  'grammar',
+  // 대화·구어체다 → 듣기 · 받아쓰기(Dictation) · 낭독(EchoMatch)
+  'spoken',
+])
+
 export const PURPOSE_RULE = {
   csat: {
     /**
@@ -216,6 +247,97 @@ export function decide({ purpose, verdict, genre, codes }) {
   if (blocking.length) return { publishable: false, blockedBy: blocking[0] }
   return { publishable: true, blockedBy: null }
 }
+
+/**
+ * **보관 판정 — 게시 가능 여부와 다른 축이다**(2026-09-23 사용자 결정).
+ *
+ * `decide()` 는 「지금 이 원문을 **그대로 게시할 수 있는가**」만 답한다. 그 답이 `false` 라고
+ * 버릴 것이라는 뜻이 아니다 — plos 원본 **31,220편은 전량 `oversize-raw` 로 게시가 막혀 있지만**
+ * 버릴 재고가 아니라 **추출을 기다리는 재고**다(실측 2026-09-23: 그 집합의 blockedBy·publishable 이
+ * 예외 없이 `oversize-raw`/false 하나였다). 두 축을 한 칸으로 읽었더니 「게시 불가」와 「미보관」이
+ * 구별되지 않아, **확보한 원문 전량에 보관 판정이 있느냐**는 물음에 답할 수가 없었다.
+ *
+ * ⚠️ **파생값이다 — 컬럼에 저장하지 않는다.** 저장하면 규칙을 고쳐도 데이터가 안 따라온다
+ *   (바로 아래 RULES_VERSION 주석의 2026-09-06 사고와 같은 형태). 감사·화면이 그때그때 계산한다.
+ *
+ * | 값 | 언제 | 왜 |
+ * |---|---|---|
+ * | `keep-pending-extraction` | `purpose:'raw'` | **클래스 규칙.** 자르지 않은 논문 전문이라 판정을 붙여도 게시가 열리지 않는다 — 여는 것은 판정이 아니라 추출(`plos-extract`)이고, 개별 판정은 추출된 발췌에 붙는다. 전문을 한 편씩 읽는 것은 같은 판정을 두 번 하는 일이다 |
+ * | `keep` | 내용 판정이 `use`·`narrative` | 사람이 본문을 읽고 남기기로 했다 |
+ * | `discard` | 내용 판정이 `reject` | 사람이 본문을 읽고 버리기로 했다 |
+ * | `undecided` | 그 외 | **이 값이 0이 아니면 관리 구멍이다** — 감사가 이 수를 찍는다 |
+ *
+ * `purpose` 를 verdict 보다 먼저 보는 이유: raw 는 verdict 가 있어도 게시가 안 열리므로
+ * 보관 사유가 「읽고 남겼다」가 아니라 「추출 대기」로 남아야 되짚을 수 있다.
+ *
+ * ⚠️ **raw 도 읽고 가른다**(2026-09-24 사용자 결정 — 위 표의 「클래스 규칙」을 뒤집었다).
+ *   판정 없이 전량을 `keep-pending-extraction` 으로 세면 감사의 `undecided` 가 0 으로 보여
+ *   **31,220편이 아무도 안 읽은 채 「보관」으로 셈해졌다.** 30편을 전문으로 읽어 보니 13편은 버릴 논문이었다.
+ *   raw 의 보관 판정은 `gate.retain`(본문 전문을 읽은 판정, `plos-raw-triage-export` · `kind:"retain"`)이 주고,
+ *   전문 판정(`gate.verdict`)이 있으면 그것도 받는다. 둘 다 없으면 `undecided` — 구멍으로 센다.
+ *   `retain` 은 **보관만** 가른다. 게시 적격은 여전히 발췌본의 전문 판정이 연다.
+ */
+export function retentionOf({ purpose, verdict, retain } = {}) {
+  // `retain` — 보관 판정(docs/source-check/criteria.md v1: keep·hold·discard). 옛 기록은 use·narrative·reject 를
+  //   담고 있으므로 둘 다 읽는다. 보관 판정이 있으면 **모든 소스에서** 그것이 이긴다(원천 단위 판정).
+  const r = retain === 'keep' || retain === 'use' || retain === 'narrative' ? 'keep'
+    : retain === 'discard' || retain === 'reject' ? 'discard'
+    : retain === 'hold' ? 'hold' : null
+  if (r === 'hold') return 'hold'
+  if (purpose === 'raw') {
+    const v = r ?? (verdict === 'reject' ? 'discard' : verdict === 'use' || verdict === 'narrative' ? 'keep' : null)
+    if (v === 'discard') return 'discard'
+    if (v === 'keep') return 'keep-pending-extraction'
+    return 'undecided'
+  }
+  if (r) return r
+  if (verdict === 'use' || verdict === 'narrative') return 'keep'
+  if (verdict === 'reject') return 'discard'
+  return 'undecided'
+}
+
+/**
+ * **파생물인가** — 원천에서 잘라 내거나 고쳐 쓴 행. 보관 판정(원천 단위 · criteria.md §1)의 대상이 아니다.
+ *
+ * 실측 2026-09-24: 원천으로 저장된 행 상당수가 수집 단계에서 이미 잘린 조각이었다 — europe_pmc 1,300 중 1,211
+ * (`#p1-2` 문단 발췌) · space_place 59 중 54 · storyweaver 136 중 77 · simple_wikipedia 99 중 59(`#lead` 도입부) ·
+ * frym `adapted` 피드(초록만). 회차 판정자가 이것들을 원천으로 받아 「원천 불완전」과 씨름했다(round-2 simple_wikipedia κ 0.44).
+ * 판정은 원천에 붙이고 파생물은 원천의 판정을 따른다. 원천이 저장돼 있지 않은 파생물은 수집기가 원천을 받아야 한다.
+ */
+export function derivativeKind({ source_id, feed_id, derived_from } = {}) {
+  // `csat_fit.derived_from` — 원천 우선 수집기·originals-backfill 이 파생물에 원천 행을 잇는다(2026-09-24).
+  //   있으면 그 kind 가 정본이다. frym 초록 행(`frym:<DOI>`)처럼 열쇠 모양으로는 못 가르는 것이 여기로 온다.
+  if (derived_from && typeof derived_from === 'object' && (derived_from.id || derived_from.source_id)) {
+    return typeof derived_from.kind === 'string' && derived_from.kind ? derived_from.kind : 'derived'
+  }
+  const id = String(source_id ?? '')
+  if (feed_id === 'plos-extract') return 'extract'
+  if (id.startsWith('adapt:')) return 'adapt'
+  if (/#lead/.test(id)) return 'lead'
+  if (/#p\d+-\d+$/.test(id)) return 'paragraphs'
+  if (feed_id === 'adapted') return 'adapted-feed'
+  return null
+}
+
+/** 보관 기록(`gate.retain`)에서 `retentionOf` 에 넘길 값 — 새 기록은 `retention`, 옛 기록은 `verdict`. */
+export const retainValueOf = (retain) => retain?.retention ?? retain?.verdict ?? undefined
+
+export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'hold', 'discard', 'undecided'])
+
+// ── 보관 판정 어휘 — 정본 docs/source-check/criteria.md §3 과 **같아야 한다**(judge-criteria.test 가 대조한다) ──
+
+/** 기준 버전. 판정 기록마다 남긴다 — 개정 뒤 재판정 대상을 이것으로 가른다. */
+export const CRITERIA_VERSION = 6
+export const RETENTION_VERDICTS = new Set(['keep', 'hold', 'discard'])
+export const HOLD_REASONS = new Set(['criteria-gap', 'processing-unclear', 'incomplete-source', 'borderline'])
+export const SLOT_AGES = new Set(['elem', 'mid', 'high1', 'high2', 'high3', 'adult'])
+export const SLOT_PURPOSES = new Set(['school', 'mock', 'csat', 'reading', 'vocab'])
+/** 시중 교재 표준 발문 41종이 대응하는 우리 유형 16종(`textbook/market-spec.json` typeCoverage). */
+export const SLOT_TYPES = new Set(['topic', 'title', 'main_point', 'claim', 'purpose', 'summary', 'blank', 'order', 'insert', 'irrelevant',
+  'content_match', 'mood', 'long_reference', 'vocab_choice', 'grammar_choice', 'grammar_fix'])
+/** 플랫폼 고유 유형의 원천 속성 — **잠정 [추론]**. 회차 실측으로 확정·폐기한다. */
+export const SLOT_PLATFORM = new Set(['audio', 'data-claim', 'myth-rebuttal', 'claim-evidence', 'then-now'])
+export const SLOT_LEVEL = /^V(?:[0-9]|1[01])$/
 
 /**
  * **규칙 판(版). 판정 결과를 바꾸는 수정을 하면 반드시 올린다.**

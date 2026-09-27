@@ -1,0 +1,858 @@
+[
+  {
+    "id": "7da3b8ea-ad3d-4a7e-af29-12c537200444",
+    "source_updated_at": "2026-09-25T05:33:15.842685+00:00",
+    "body_sha256": "6bd2ab7df4f7a515eec280db43594eee2be3e43dde3c9d504f8199e5153fe8f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "완화의료의 정의·장소·호스피스와의 차이를 설명하고 끝 문단에서 의료진과 상담하라 권해 주제·내용 일치·목적 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "purpose",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Palliative care is different from hospice",
+      "note": "호스피스와의 대조 문단은 앞 문맥 없이 서고 specialized·referral 을 special·doctor’s note 로 바꾸니 V4 로 내려갔다."
+    }
+  },
+  {
+    "id": "69b5d05c-9f23-469b-b412-f8751084fa1f",
+    "source_updated_at": "2026-09-25T05:35:59.34202+00:00",
+    "body_sha256": "581df7193e5ac2631ba37824389a043f26b2f3f47bd6e436c3713396c9698675",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "면역억제제 필요 → 드문 예외 환자 → 유전자 3개 패턴 발견 → 대규모 연구 필요로 흐름이 서서 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In rare cases, a transplant survives",
+      "note": "본문에 끼어든 용어 풀이 문구(“Stretches of DNA…”)를 걷어야 하고, immunosuppressants 를 anti-rejection drugs 로 바꾸니 V6 에 맞았다."
+    }
+  },
+  {
+    "id": "fa15ff26-a179-4074-b94a-d97dcb6b5ebd",
+    "source_updated_at": "2026-09-25T05:33:31.676702+00:00",
+    "body_sha256": "c45e789782b18184450d21a918ea51663e3f2be3c773025bbda311dc9965558e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "망막정맥 폐색의 원리·두 약 비교·5년 추적 결과가 차례로 이어져 내용 일치·순서 칸을 채우나 용어가 무겁다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The research team assessed participants five",
+      "note": "결과 문단은 서지만 macular edema·anti-VEGF 가 곳곳에 박혀 두세 낱말 치환으로는 밴드가 안 내려갔다."
+    }
+  },
+  {
+    "id": "44928e45-3709-4e0b-a082-b23e440494fa",
+    "source_updated_at": "2026-09-25T05:34:23.55331+00:00",
+    "body_sha256": "2cbaa2d2a8aaee86dfd7b212d4396556f21f47f81aca12ed093f767a6390d8cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기존 10% 권고 → 20% 감량 검증 → 통증·보행 개선이라는 가설-결과 구조가 한 편에 서서 요지·빈칸·요약 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Experts generally advise adults who are",
+      "note": "기존 권고와 새 가설 대비가 빈칸 자리로 좋았고 pharmacologic intervention 을 drugs 로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "a9f601c6-f6c5-42cf-958f-9c2a12960a2c",
+    "source_updated_at": "2026-09-25T05:34:58.816704+00:00",
+    "body_sha256": "bfb4bc2979e085b8b75b97ab53f7a032a89815731b25862b6c672d9e19beafec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저체온증 위험 설명 → 응급 대처 → 예방 수칙으로 이어지는 안내 본문이 서서 목적·요지·무관한 문장 칸을 채우고 끝의 징후 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "main_point",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anyone who spends much time outdoors",
+      "note": "여름에도 생긴다는 반전 문단이 잘 떨어졌고 끝의 Early/Later Signs 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "52c8fee2-7185-42a2-b790-247a09ae0660",
+    "source_updated_at": "2026-09-25T05:34:49.707856+00:00",
+    "body_sha256": "e500f4d404800571a2d8c25cc0737e40e6d4b1e14fcc6b198ec755d9f028f321",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "발 관리가 왜 필요한지와 운동·점검·청결 수칙을 권하는 짧은 안내가 서서 목적·요지 칸, 중등 읽기에 맞다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "main_point",
+        "irrelevant"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Foot problems are sometimes the first",
+      "note": "짧아서 떼기는 쉬웠고 circulatory disorders 를 blood flow problems 로 바꾸니 V3 까지 내려갔다."
+    }
+  },
+  {
+    "id": "30dcf685-fe52-44a8-9111-be3f70617e18",
+    "source_updated_at": "2026-09-25T05:33:09.113783+00:00",
+    "body_sha256": "ad8e073fab5941188cf2b40cb9ca77810a11772637af2a44f87fbfdff37f2ecc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "맹장염 증상·진단·치료 설명에 이어 광역학치료 연구가 소개돼 내용 일치·순서·문장삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wilson’s research focuses on a new",
+      "note": "PDT 원리 문단이 자족적이고 sterilize·perforated 를 clean·burst 로 바꾸면 V6 이 되며 끝의 증상 목록은 걷는다."
+    }
+  },
+  {
+    "id": "de40056f-d1a6-489e-a40d-7b4145586dc1",
+    "source_updated_at": "2026-09-25T05:34:08.734566+00:00",
+    "body_sha256": "2a34e73d7bbd4e09e79fc2a353f212b3d2be1ebe99885a2907b8b213493e4197",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "빛과 수면주기 설명 → 4만 3천 명 조사 → 17% 결과로 이어지는 연구 보도라 요지·빈칸·내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Your body uses light to control",
+      "note": "수면주기 원리 문단이 빈칸 자리로 좋았고 disrupt 를 upset 으로 바꾸니 V5 로 맞았다."
+    }
+  },
+  {
+    "id": "1c008c57-52c5-438a-9d34-66f89328ffc5",
+    "source_updated_at": "2026-09-25T05:35:02.609274+00:00",
+    "body_sha256": "b67382c31e772c0b2f66075e757d71026fee249ff02b3f8b3e5c760710d42341",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "알코올 사용장애 정의·진단 기준 변화·유병률·치료 부족을 차례로 보고해 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "They found that about 14% of",
+      "note": "수치 문단은 순위 나열이 아니라 치료 부족이라는 논지로 이어져 섰고 entrenched·impetus 치환으로 V6 이 됐다."
+    }
+  },
+  {
+    "id": "e4556d33-b179-49b4-a327-abda2e09984c",
+    "source_updated_at": "2026-09-25T05:33:43.707437+00:00",
+    "body_sha256": "d8497353920b03ebb42aaefec03bf76b7ea274af3bdb355c394db0d74467d26a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "하지불안증후군의 원인·네 핵심 증상·치료·철분 연구가 단계적으로 이어져 순서·문장삽입·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One is the urgent need to",
+      "note": "네 증상 열거는 First~Fourth 표지가 뚜렷해 순서 문항에 좋았으나 Wise Choices box 언급은 걷어야 한다."
+    }
+  },
+  {
+    "id": "42e201b1-a41f-4ece-8479-8263e1975b4f",
+    "source_updated_at": "2026-09-25T05:35:47.584599+00:00",
+    "body_sha256": "b82ba2ca9d24876992e9160f3db8c35a6f4a9d840e84c598c979878669d34bad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "바이러스-질병 연관설 → 반론 → 오염 기원 실험 → 결론의 통념 교정 구조가 뚜렷해 주제·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A series of experiments confirmed that",
+      "note": "실험 문단이 논증 흐름을 그대로 담았고 contamination 은 문맥으로 풀리며 regrown 을 grown again 으로 바꾸니 V6 이 됐다."
+    }
+  },
+  {
+    "id": "4e7ff9cc-dacd-4826-ae5d-15bea9d1798c",
+    "source_updated_at": "2026-09-25T05:35:12.6201+00:00",
+    "body_sha256": "2f73b9dd4bd8aaecfdabb311fea22ad514139190a089db1921908fbbb89448f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH가 독자에게 섬유근육통 심신요법 근거 목록을 읽고 의사와 상담하라 권하는 까닭(진단·치료 어려움)이 서서 목적 칸의 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fibromyalgia can be difficult to diagnose",
+      "note": "누가·누구에게·무엇을(목록 읽기·상담) 문단이 한 편으로 서고 balneotherapy 는 괄호 풀이로 걷으면 된다."
+    }
+  },
+  {
+    "id": "adf2ba1f-e8ea-406e-809b-8d69d2ec7f58",
+    "source_updated_at": "2026-09-25T05:33:34.878662+00:00",
+    "body_sha256": "7ee83736d11af8bc233c29c8bb587252d82423d99813e307330651d1b8218102",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "농촌 건강 격차의 원인(식품·운동·의료 인력)과 원격의료 대안·개인 대처를 논증하는 긴 글이라 주제·요지·순서·문장삽입 칸을 두루 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "order",
+        "insert",
+        "irrelevant",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many rural Americans, for example, live",
+      "note": "식품 접근 문단은 for example 만 걷으면 섰고 끝의 전화번호 목록 문단은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "3502a9ea-cb19-41f6-afd5-76a29260c69a",
+    "source_updated_at": "2026-09-25T05:34:43.023095+00:00",
+    "body_sha256": "9a28f828a56245f07eb8dbf0272ceaa4fc48809f2a5ee480e84a23515ce54e65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH가 스페인어권 독자에게 포털 이용과 뉴스레터 신청을 권하고 그 까닭(정보 과잉·질병 부담)을 앞 문단에 세워 목적 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For people looking for reliable health",
+      "note": "권유의 까닭 문단과 신청 안내가 한 편에 있어 목적 문항 모양이 바로 나왔고 disproportionally 를 more 로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "3379bcec-3364-49f4-b516-80ad3273a2b6",
+    "source_updated_at": "2026-09-25T05:33:00.725004+00:00",
+    "body_sha256": "acbb5c045a3bfc6f6fad1ec25f7b0d0d23d5a8cfc0156320f29793c1448367c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "선별검사의 이익과 위양성·과잉진단의 해를 대비하고 지침 변화를 설명하는 논지가 서서 요지·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sometimes, a screening test finds a",
+      "note": "과잉진단 문단이 빈칸 자리로 선명했고 끝의 검사 항목 목록과 출처 표기는 걷는다."
+    }
+  },
+  {
+    "id": "3f0b6a21-42f1-49a4-b287-acc5e261ca26",
+    "source_updated_at": "2026-09-25T05:34:15.344653+00:00",
+    "body_sha256": "5887f21f43b4d350f27ac145a4299e602302f779d5e07306cb6a155c30d90e0e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "공감각의 정의·유형·뇌 가설·연구 결과·기억 연구 전망이 이어지는 설명문이라 주제·제목·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "insert",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sathian’s lab uses imaging tests to",
+      "note": "촉각-시각 협업 문단이 앞 문맥 없이 섰고 끼어든 유전자 풀이 문구만 걷으면 되며 fundamental 치환으로 V5 가 됐다."
+    }
+  },
+  {
+    "id": "c392ee47-ce4c-4267-b351-5c9d972ff3ea",
+    "source_updated_at": "2026-09-25T05:33:58.924403+00:00",
+    "body_sha256": "cd3d1f8e615ecb3cdb8789555d6831f80276540b320d14841a4467f9ddef228b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "주사비의 증상·유발 요인·면역 원인 연구·치료를 차례로 설명해 내용 일치·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We’ve learned that rosacea is a",
+      "note": "면역 과민 문단은 끼어든 미생물 풀이 문구를 걷어야 했고 antimicrobial peptides 를 natural germ killers 로 바꾸니 V6 에 맞았다."
+    }
+  },
+  {
+    "id": "a0afe87a-e6b3-40fc-862a-00734d047bce",
+    "source_updated_at": "2026-09-25T05:33:27.818041+00:00",
+    "body_sha256": "b858cf93eb2d95847ccd5707c83f0a1c1da3545aae62427d446fcdf6220bcfd1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "권장 수면 → 4천 명 비교 → 행동·뇌 구조 차이 → 추가 연구 필요의 연구 보도가 서서 요지·요약 칸, 중등 읽기에도 맞다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The children who got less sleep",
+      "note": "비교 결과 문단이 자족적이고 insufficient·inhibition 을 not enough·self-control 로 바꾸니 V5 가 됐다."
+    }
+  },
+  {
+    "id": "8d450279-b289-414f-8bef-f0298b890617",
+    "source_updated_at": "2026-09-25T05:35:33.793959+00:00",
+    "body_sha256": "4288b34e40be9edabde3966cf9acb9a7eee98bbc1152ef2da76fd4a776168102",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH가 고관절 치환을 고민하는 독자에게 노인 건강 사이트의 새 항목을 보라고 권하고 결정이 어렵다는 까닭을 인용으로 세워 목적 칸 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Making a decision to have hip",
+      "note": "결정의 어려움 문단이 권유의 까닭을 세우고 URL 경로 문장은 걷어야 했으며 invasive 를 serious 로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "8a073414-6fe9-4762-b005-f5555b35985b",
+    "source_updated_at": "2026-09-25T05:35:01.131709+00:00",
+    "body_sha256": "a5a598c141f92661d26e4a89e1d4fabe34ecaf682189f39ccc80551dfec1adbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "평생 구강 관리 필요 → 충치·잇몸병·구강건조·구강암 설명 → 돌봄자 요령으로 이어져 요지·무관한 문장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "irrelevant",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Another common problem for older adults",
+      "note": "구강건조 문단은 떼기 쉬웠고 cavities·plaque 옆에 끼어든 풀이 문구를 걷어야 하며 끝의 수칙 목록도 걷는다."
+    }
+  }
+]

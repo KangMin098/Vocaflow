@@ -1,0 +1,644 @@
+{
+  "source": {
+    "url": "https://www.tines.com/stories/storyboard/",
+    "anchor": "[class*=\"StoryboardHeroAppContent\"]",
+    "method": "DOM getBoundingClientRect (playwright chromium)",
+    "measuredAt": "2026-09-20",
+    "note": "지시문은 캡처를 자로 재라고 했으나 같은 화면이 DOM 으로 있어 실측했다 — 값은 추정이 아니다."
+  },
+  "caveats": [
+    "대상은 실제 Tines 제품이 아니라 마케팅 페이지 히어로의 앱 목업이다.",
+    "앱 창 자체가 페이지 폭에 따라 줄어든다 — 절대 px 이 아니라 창 폭 대비 비율로 읽는다(ratios).",
+    "색은 사이트가 color(display-p3 …) 로 내보내므로 sRGB 근사 hex 다."
+  ],
+  "viewports": {
+    "375": {
+      "viewport": {
+        "key": "375",
+        "width": 375,
+        "height": 812
+      },
+      "frame": {
+        "width": 375,
+        "height": 380,
+        "cls": "page"
+      },
+      "derived": {
+        "topBarHeight": null,
+        "canvas": {
+          "x": 18,
+          "y": 0,
+          "w": 339,
+          "h": 380,
+          "bg": "#d1c7ff"
+        },
+        "leftRailWidth": 48.09,
+        "leftRailInset": {
+          "x": 32.19,
+          "y": 62.19,
+          "radius": "12px"
+        },
+        "leftPanelWidth": 337,
+        "leftPanelInset": {
+          "x": 19,
+          "y": 1,
+          "radius": "9px 9px 15px 15px"
+        },
+        "rightInspectorWidth": 18,
+        "rightCardWidth": null,
+        "rightCardInset": null,
+        "canvasInset": {
+          "top": 0,
+          "left": 18,
+          "right": 18,
+          "bottom": 0
+        }
+      },
+      "grid": {
+        "hostCls": "StoryboardHeroAppContent",
+        "painterCls": "RigidDotGrid",
+        "rect": {
+          "x": -320.65,
+          "y": -476,
+          "w": 1050,
+          "h": 1380
+        },
+        "backgroundSize": "auto",
+        "backgroundPosition": "50% 0%",
+        "backgroundColor": null,
+        "tile": {
+          "width": "7.199999999999999",
+          "height": "7.199999999999999",
+          "dotRadius": "0.3",
+          "fill": "rgba(51, 51, 51, 0.3)"
+        },
+        "backgroundImage": "url(\"data:image/svg+xml,%3Csvg%20width%3D'7.199999999999999'%20height%3D'7.199999999999999'%20viewBox%3D'0%200%207.199999999999999%207.199999999999999'%20fill%3D'rgba(51%2C%2051%2C%2051%2C%200.3)'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2"
+      },
+      "nodes": [],
+      "fontSizes": [
+        {
+          "size": "11px",
+          "weight": "500",
+          "count": 25
+        },
+        {
+          "size": "9.5px",
+          "weight": "600",
+          "count": 2
+        },
+        {
+          "size": "10px",
+          "weight": "500",
+          "count": 1
+        }
+      ],
+      "boxes": [
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroIllustration",
+          "x": 18,
+          "y": 0,
+          "w": 339,
+          "h": 380,
+          "bg": "#d1c7ff",
+          "borderWidth": 1,
+          "borderColor": "#9274f4",
+          "radius": "14px 14px 19px 19px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 19,
+          "y": 1,
+          "w": 337,
+          "h": 378,
+          "bg": "#ffffff",
+          "radius": "9px 9px 15px 15px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 19,
+          "y": 49,
+          "w": 337,
+          "h": 330,
+          "bg": "#fcf9f5"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 32.19,
+          "y": 62.19,
+          "w": 48.09,
+          "h": 246.06,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#e0dede",
+          "radius": "12px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 245.77,
+          "y": 339.08,
+          "w": 97.05,
+          "h": 26.73,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#e0dede",
+          "radius": "999px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent StoryboardHeroA",
+          "x": 39.23,
+          "y": 70.88,
+          "w": 34,
+          "h": 34,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#e5e5e5",
+          "radius": "8px"
+        },
+        {
+          "tag": "span",
+          "cls": "MultiplayerCursor",
+          "x": 11.13,
+          "y": 340.88,
+          "w": 26,
+          "h": 12,
+          "bg": "#d15c08",
+          "borderWidth": 1,
+          "borderColor": "#8a3701",
+          "radius": "12.8px"
+        },
+        {
+          "tag": "span",
+          "cls": "MultiplayerCursor",
+          "x": 278.13,
+          "y": 131.27,
+          "w": 26,
+          "h": 12,
+          "bg": "#7a56e0",
+          "borderWidth": 1,
+          "borderColor": "#542f9c",
+          "radius": "12.8px"
+        },
+        {
+          "tag": "span",
+          "cls": "MultiplayerCursor",
+          "x": 312.88,
+          "y": 385.88,
+          "w": 26,
+          "h": 12,
+          "bg": "#008b53",
+          "borderWidth": 1,
+          "borderColor": "#005d35",
+          "radius": "12.8px"
+        }
+      ],
+      "ratios": {
+        "topBarHeightOverFrameHeight": null,
+        "leftRailWidthOverFrameWidth": 0.128,
+        "leftPanelWidthOverFrameWidth": 0.899,
+        "rightInspectorOverFrameWidth": 0.048,
+        "canvasWidthOverFrameWidth": 0.904
+      },
+      "note": "이 뷰포트에서는 앱 창이 데스크톱과 다른 구성으로 접힌다(상단 바 없음) — 값을 데스크톱과 나란히 쓰지 않는다."
+    },
+    "1440": {
+      "viewport": {
+        "key": "1440",
+        "width": 1440,
+        "height": 900
+      },
+      "frame": {
+        "width": 1126,
+        "height": 622,
+        "cls": "StoryboardHeroAppContent"
+      },
+      "derived": {
+        "topBarHeight": 54,
+        "canvas": {
+          "x": 0,
+          "y": 54,
+          "w": 886,
+          "h": 568,
+          "bg": "#fcf9f5"
+        },
+        "leftRailWidth": 48.09,
+        "leftRailInset": {
+          "x": 13.19,
+          "y": 67.19,
+          "radius": "12px"
+        },
+        "leftPanelWidth": 200,
+        "leftPanelInset": {
+          "x": 66,
+          "y": 67.19,
+          "radius": "12px"
+        },
+        "rightInspectorWidth": 240,
+        "rightCardWidth": 211.5,
+        "rightCardInset": {
+          "x": 900.75,
+          "gapFromCanvas": 14.75
+        },
+        "canvasInset": {
+          "top": 54,
+          "left": 0,
+          "right": 240,
+          "bottom": 0
+        }
+      },
+      "grid": {
+        "hostCls": "StoryboardHeroAppContent",
+        "painterCls": "RigidDotGrid",
+        "rect": {
+          "x": -387.7,
+          "y": -812,
+          "w": 1750,
+          "h": 2300
+        },
+        "backgroundSize": "auto",
+        "backgroundPosition": "50% 0%",
+        "backgroundColor": null,
+        "tile": {
+          "width": "12",
+          "height": "12",
+          "dotRadius": "0.5",
+          "fill": "rgba(51, 51, 51, 0.3)"
+        },
+        "backgroundImage": "url(\"data:image/svg+xml,%3Csvg%20width%3D'12'%20height%3D'12'%20viewBox%3D'0%200%2012%2012'%20fill%3D'rgba(51%2C%2051%2C%2051%2C%200.3)'%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%3E%3Ccircle%20cx%3D'6'%20cy%3D'6'%20r%3D'0.5'%2F%3E%3C"
+      },
+      "nodes": [
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 622.81,
+          "y": 318.14,
+          "w": 250,
+          "h": 290.67,
+          "bg": "#ffffff",
+          "radius": "12px",
+          "borderWidth": 1,
+          "borderColor": "#e0dede"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 669.48,
+          "y": 365.84,
+          "w": 190.23,
+          "h": 47.28,
+          "bg": "#f9f6f3",
+          "radius": "12px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 900.75,
+          "y": 533.31,
+          "w": 211.5,
+          "h": 40.42,
+          "bg": null,
+          "radius": "9px",
+          "borderWidth": 1,
+          "borderColor": "#eeecea"
+        }
+      ],
+      "fontSizes": [
+        {
+          "size": "11px",
+          "weight": "500",
+          "count": 27
+        },
+        {
+          "size": "9.5px",
+          "weight": "600",
+          "count": 2
+        },
+        {
+          "size": "10px",
+          "weight": "500",
+          "count": 1
+        }
+      ],
+      "boxes": [
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 0,
+          "y": 54,
+          "w": 886,
+          "h": 568,
+          "bg": "#fcf9f5"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 622.81,
+          "y": 318.14,
+          "w": 250,
+          "h": 290.67,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#e0dede",
+          "radius": "12px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 66,
+          "y": 67.19,
+          "w": 200,
+          "h": 290,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#e0dede",
+          "radius": "12px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 900.75,
+          "y": 270.67,
+          "w": 211.5,
+          "h": 100,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "8.25px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 623.81,
+          "y": 532.25,
+          "w": 248,
+          "h": 75.56,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#e0dede"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 13.19,
+          "y": 67.19,
+          "w": 48.09,
+          "h": 379.81,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#e0dede",
+          "radius": "12px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 669.48,
+          "y": 365.84,
+          "w": 190.23,
+          "h": 47.28,
+          "bg": "#f9f6f3",
+          "radius": "12px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 900.75,
+          "y": 533.31,
+          "w": 211.5,
+          "h": 40.42,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "9px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 900.75,
+          "y": 181.03,
+          "w": 211.5,
+          "h": 32,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "8.25px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 900.75,
+          "y": 428.31,
+          "w": 211.5,
+          "h": 32,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "8.25px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 75.8,
+          "y": 76.98,
+          "w": 180.41,
+          "h": 28.09,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#b7a4ff",
+          "radius": "6px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 900.75,
+          "y": 91.39,
+          "w": 151.2,
+          "h": 32,
+          "bg": "#ffffff",
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "8.25px"
+        },
+        {
+          "tag": "span",
+          "cls": "StoryboardHeroAppContent",
+          "x": 635.91,
+          "y": 467.45,
+          "w": 114.22,
+          "h": 16.19,
+          "bg": "#ece8fd",
+          "radius": "4px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent",
+          "x": 1057.45,
+          "y": 91.39,
+          "w": 54.8,
+          "h": 32,
+          "bg": "#f9f6f3",
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "8.25px"
+        },
+        {
+          "tag": "span",
+          "cls": "StoryboardHeroAppContent StoryboardHeroA",
+          "x": 696.36,
+          "y": 574.48,
+          "w": 75.86,
+          "h": 22.33,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#e0dede",
+          "radius": "7px"
+        },
+        {
+          "tag": "span",
+          "cls": "StoryboardHeroAppContent",
+          "x": 1033.7,
+          "y": 541.81,
+          "w": 69.3,
+          "h": 23.42,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "999px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent StoryboardHeroA",
+          "x": 20.23,
+          "y": 75.88,
+          "w": 34,
+          "h": 34,
+          "bg": null,
+          "borderWidth": 1,
+          "borderColor": "#e5e5e5",
+          "radius": "8px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent StoryboardHeroA",
+          "x": 20.23,
+          "y": 153.75,
+          "w": 34,
+          "h": 34,
+          "bg": "#dce5f7",
+          "radius": "8px"
+        },
+        {
+          "tag": "span",
+          "cls": "StoryboardHeroAppContent",
+          "x": 634.81,
+          "y": 575.48,
+          "w": 56.05,
+          "h": 20.33,
+          "bg": "#f9f6f3",
+          "radius": "7px"
+        },
+        {
+          "tag": "span",
+          "cls": "StoryboardHeroAppContent",
+          "x": 75.8,
+          "y": 112.77,
+          "w": 45.23,
+          "h": 19.23,
+          "bg": "#f5f2fb",
+          "radius": "6px"
+        },
+        {
+          "tag": "div",
+          "cls": "StoryboardHeroAppContent StoryboardHeroA",
+          "x": 1084.25,
+          "y": 494.31,
+          "w": 28,
+          "h": 28,
+          "bg": "#f9f6f3",
+          "borderWidth": 1,
+          "borderColor": "#eeecea",
+          "radius": "8.25px"
+        },
+        {
+          "tag": "strong",
+          "cls": "StoryboardHeroAppContent",
+          "x": 910,
+          "y": 435.56,
+          "w": 44.31,
+          "h": 17.5,
+          "bg": "#ece8fd",
+          "borderWidth": 1,
+          "borderColor": "#d1c7ff",
+          "radius": "3.75px"
+        },
+        {
+          "tag": "strong",
+          "cls": "StoryboardHeroAppContent",
+          "x": 956.81,
+          "y": 435.56,
+          "w": 40.91,
+          "h": 17.5,
+          "bg": "#ece8fd",
+          "borderWidth": 1,
+          "borderColor": "#d1c7ff",
+          "radius": "3.75px"
+        },
+        {
+          "tag": "strong",
+          "cls": "StoryboardHeroAppContent",
+          "x": 1000.22,
+          "y": 435.56,
+          "w": 31.58,
+          "h": 17.5,
+          "bg": "#ece8fd",
+          "borderWidth": 1,
+          "borderColor": "#d1c7ff",
+          "radius": "3.75px"
+        },
+        {
+          "tag": "code",
+          "cls": "",
+          "x": 635.91,
+          "y": 452.78,
+          "w": 36.05,
+          "h": 14.03,
+          "bg": "#f9f6f3",
+          "radius": "4px"
+        },
+        {
+          "tag": "span",
+          "cls": "StoryboardHeroAppContent",
+          "x": 838.81,
+          "y": 574.64,
+          "w": 22,
+          "h": 22,
+          "bg": "#9274f4",
+          "radius": "6px"
+        },
+        {
+          "tag": "strong",
+          "cls": "StoryboardHeroAppContent",
+          "x": 1034.3,
+          "y": 435.56,
+          "w": 22.14,
+          "h": 17.5,
+          "bg": "#ece8fd",
+          "borderWidth": 1,
+          "borderColor": "#d1c7ff",
+          "radius": "3.75px"
+        }
+      ],
+      "ratios": {
+        "topBarHeightOverFrameHeight": 0.087,
+        "leftRailWidthOverFrameWidth": 0.043,
+        "leftPanelWidthOverFrameWidth": 0.178,
+        "rightInspectorOverFrameWidth": 0.213,
+        "canvasWidthOverFrameWidth": 0.787
+      }
+    }
+  }
+}

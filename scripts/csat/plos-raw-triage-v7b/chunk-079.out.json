@@ -1,0 +1,858 @@
+[
+ {
+  "id": "40bb7cf6-0bf1-4170-a443-3ee81f34c43e",
+  "source_updated_at": "2026-09-25T07:38:08.304563+00:00",
+  "body_sha256": "91e895528358cbc2d070ffdca1cc25ce59189b6e2473e6406781272c90382d7c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "중피세포 유래 소포가 ANG2를 전달해 혈관신생을 촉진한다는 주장을 서론과 고찰에서 근거와 함께 한 편으로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Angiogenesis is essential for the survival",
+   "note": "약어(EV·ANG2·TIE2)를 풀어 쓰면 서고, 그림 번호는 걷어야 한다."
+  }
+ },
+ {
+  "id": "40bbeaaf-46b1-479b-b021-517c4b8af355",
+  "source_updated_at": "2026-09-13T06:46:40.256216+00:00",
+  "body_sha256": "2af2e7152de521b445c969c9909727868951cb12dc5088ad016f84fcb03b1acb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "약용 식물을 입힌 상처 패치의 효과를 실험 경과와 함께 시간순으로 설명해 결론까지 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wounds cause discomfort and are more",
+   "note": "생화학 지표(hexosamine·uronic acid)를 「조직 성분」으로 바꾸면 내려가고, 그림 설명 문단은 걷는다."
+  }
+ },
+ {
+  "id": "40c5ed6b-6473-4efd-b70d-8de3e123a1ab",
+  "source_updated_at": "2026-09-25T07:38:09.67394+00:00",
+  "body_sha256": "4d6efe7b461cd55706878c1087a2bc3c4ec4f075945ade64b5f0ed2fd2e0b6c4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "「결합도는 높지만 조정도는 낮다」는 구조적 모순을 원인과 정책 제언으로 풀어 고찰이 한 편의 논지를 이룬다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The findings indicate that from 2017",
+   "note": "지명·지표 약어(THC·CHSC)와 수식 자리를 걷으면 논지가 남지만 방법 절의 수식 나열은 못 쓴다."
+  }
+ },
+ {
+  "id": "40cd3a26-38ce-414b-af2a-639bae08ae8b",
+  "source_updated_at": "2026-09-13T06:43:25.475342+00:00",
+  "body_sha256": "61ff95460b9d5ac8e77743dddfffc670bd2354cea787c52877ef826c84e45769",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 흡혈노린재 종의 용혈 활성 차이를 단백질 구성으로 설명하는 고찰이 근거를 갖춰 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Several studies have indicated that the",
+   "note": "학명과 단백질 ID가 촘촘해 어휘 조정만으로는 밴드가 크게 내려가지 않는다."
+  }
+ },
+ {
+  "id": "40cdd295-23d9-481d-8b81-8b85acd91f71",
+  "source_updated_at": "2026-09-25T07:38:10.175611+00:00",
+  "body_sha256": "677dac0494b1f0aea656fb5b2c94bebc2d16b617a8c1f0a11f1d2329f77d25c1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "예쁜꼬마선충 장과립이 아연 독성에 대응하는 두 경로를 대비해 결론까지 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Zinc is essential for various tissues",
+   "note": "유전자 이름(GLO-1·CDF-2·CDF-3)이 논지의 축이라 바꿔 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "40cfe7ec-860c-4742-94e3-094f630b1efa",
+  "source_updated_at": "2026-09-13T07:16:38.077498+00:00",
+  "body_sha256": "e10aa462d7377a44064dfdd5b0fb2a8dbfba4d095460a488a6c512bea78a7e17",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "초음파 자극이 운동피질에 효과를 내지 못한 음성 결과를 가설·반증 구조로 고찰에서 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While these data revealed no time-locked",
+   "note": "tUS·TMS·MEP 세 약어만 풀면 고찰 문단이 그대로 읽히고, 장비 설정 절은 걷는다."
+  }
+ },
+ {
+  "id": "40d44012-8987-462b-a02d-0b8fd90a6006",
+  "source_updated_at": "2026-09-13T07:17:36.201649+00:00",
+  "body_sha256": "afa9829f0e710a8d1fad75a2e54703a653b9647ccbafbb1299af0eb1b384c9c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "교과서가 그린 사다리 구조가 냉동전자단층촬영에서는 보이지 않았다는 점을 관찰과 해석으로 이어 붙인다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In textbooks, the two most prominent",
+   "note": "균주 이름과 변이 표기를 걷으면 「교과서 그림과 실제 관찰의 차이」라는 논지가 남는다."
+  }
+ },
+ {
+  "id": "40d815cd-26e1-4e7f-b6ef-58cce3f94a9a",
+  "source_updated_at": "2026-09-25T07:38:11.244212+00:00",
+  "body_sha256": "c8ade54ceb7ec22fb1c8cc2150b284402c65daf3fe7461f92fe6d564ab0314d4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "양식 어류 아가미에서 얻은 다제내성 대장균의 유전체를 내성·병원성 근거로 묶어 원헬스 논지로 맺는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The growing prevalence of antimicrobial resistance",
+   "note": "유전자·도구 이름 나열이 많아 서론과 결론 쪽 문단만 떼어 쓸 만하다."
+  }
+ },
+ {
+  "id": "40da4fcf-de51-4e25-984e-73f5bd5eea12",
+  "source_updated_at": "2026-09-25T07:38:11.943825+00:00",
+  "body_sha256": "d1b92c4512b5fbe32229630324b4c4c826865308cf0a52cca87e51f010eab5c4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "국제 뉴스가 양안 관계를 저정치에서 고정치 서사로 옮겨 왔다는 주장을 지표와 사례로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study reconceptualizes cross-Strait relations not",
+   "note": "지수 정의와 정치적 고유명사를 걷으면 「미디어가 현실을 구성한다」는 논지가 선다."
+  }
+ },
+ {
+  "id": "40db4a6f-e74d-4677-8a34-098e92edb01c",
+  "source_updated_at": "2026-09-13T06:43:49.20143+00:00",
+  "body_sha256": "723149262841eb894870dec321199eac905e60abcccda125a38f7e486bb2b2c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "노화에 따른 종아리 근력·힘줄 강성이 보행 안정성과 어떻게 연결되는지 가설과 결과를 대조해 짚는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Up to 35% of older adults fall",
+   "note": "역학 지표 약어(WBAM·MoS)를 「몸 전체 회전량」 「안정 여유」로 바꾸면 내려간다."
+  }
+ },
+ {
+  "id": "40dfd2f7-fa3d-4e0e-a568-1f43ffb0cc35",
+  "source_updated_at": "2026-09-15T14:53:24.678425+00:00",
+  "body_sha256": "18a7424b76315cdef143a144c0c282808125961168f96f6796b26cbe9e02e278",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당뇨 동반 말라리아 환자에서 기생충 밀도와 항체 반응이 함께 높았다는 결과를 기전 추론으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A key finding of this study",
+   "note": "항원 약어를 「백신 후보 단백질」로 묶으면 서고, 회귀계수 괄호는 걷는다."
+  }
+ },
+ {
+  "id": "40e52e0f-6e3b-48bd-9d81-6db537e81e39",
+  "source_updated_at": "2026-09-25T07:38:13.533563+00:00",
+  "body_sha256": "d48e94e9d604adcc1555931adc69664e0f01987f46ac08057d16c70b4e06e6be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "젊은 환자의 유방암 예후 악화를 융합유전자와 결손의 동시 발생으로 설명하는 논지가 고찰에서 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Early-onset breast cancer is consistently associated",
+   "note": "유전자 기호가 문장마다 박혀 있어 어휘 교체로 밴드를 낮추기 어렵다."
+  }
+ },
+ {
+  "id": "40e89aeb-9430-4610-a3a3-71000c6583cc",
+  "source_updated_at": "2026-09-25T07:38:13.920257+00:00",
+  "body_sha256": "8d710d7b113925df77147ba6246ea92b98dfbcc6c65136186153afd706bf4b20",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항암제 투여 노령 쥐에서 근손실과 아미노산 대사의 성별 차이를 가설-결과-해석으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cachexia is a complex metabolic body",
+   "note": "효소 약어(BCKD·LAT1)를 「분해 효소」 「운반체」로 바꾸면 고찰이 읽힌다."
+  }
+ },
+ {
+  "id": "40f0f29e-c049-4a94-af15-5d79cf3868f7",
+  "source_updated_at": "2026-09-13T06:58:49.045775+00:00",
+  "body_sha256": "ff498fc4f92e6d41acea35a3c02e7d21a30c69e7fbeea6dd67a5bf498f4d42e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수소 흡입이 인공심폐 중 혈관 내피 보호막 손상을 줄였다는 결과를 농도별 차이와 함께 해석한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cardiopulmonary bypass is an essential cardiovascular",
+   "note": "본문 가운데 큰 생리 수치 표가 박혀 있어 가공 때 표를 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "40f4ccb4-1ce5-4626-9a4a-f165c7ea0c8f",
+  "source_updated_at": "2026-09-25T07:38:15.38832+00:00",
+  "body_sha256": "a3dd955cc6ce46357fa9e052111f703cd22132c33b39ce3be5c1e4433e692a20",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "숙주 혈장 단백질이 벼룩 장 속 페스트균의 초기 생존을 돕는다는 발견을 실험 순서대로 짧게 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Yersinia pestis, the causative agent of",
+   "note": "저자 요약 문단이 그대로 도입부로 쓰일 만큼 자족적이다."
+  }
+ },
+ {
+  "id": "410cb521-266a-4764-b658-bab2fa6e8eee",
+  "source_updated_at": "2026-09-23T21:04:44.623418+00:00",
+  "body_sha256": "484074a7bb967f5f9b05a4f1c5aa0559d1ebcf9ad7a400b323e016b1f553f3d3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "「후성유전학」이라는 한 낱말이 두 학파에서 다르게 쓰인다는 문제를 제기하고 통합 가능성을 논증한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Unbeknownst to many, the same term",
+   "note": "그림 참조만 걷으면 한 편의 논설로 서는, 이 청크에서 가장 가공이 쉬운 글이다."
+  }
+ },
+ {
+  "id": "410de9e4-a117-47d5-9a15-97feca24336e",
+  "source_updated_at": "2026-09-15T14:53:31.114789+00:00",
+  "body_sha256": "2d4f3f3e78a4e6067294eb176826fe583cefe560162e802205c8b2569a21229e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "다발경화증 환자의 시신경 지름 감소를 대조군과 비교해 보고하고 선행 연구의 불일치까지 짚는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our findings indicate that relapse-free patients",
+   "note": "약어(OND·ONSD)를 「시신경 지름」으로 풀면 되고, 표 참조 줄은 걷는다."
+  }
+ },
+ {
+  "id": "4110a245-30fa-41f0-8dc8-d21bba90e572",
+  "source_updated_at": "2026-09-25T07:38:18.981535+00:00",
+  "body_sha256": "d8b1d15044c1b219eafad8791bd4bda1c1128c46227c2f4e3d362a94f3579ff9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "원격의료 연구 근거 자체가 소득 수준에 따라 불균등하다는 주장을 수치와 함의로 밀고 나간다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Few healthcare innovations have scaled as",
+   "note": "검색식 블록만 걷으면 논지가 온전하고, 어휘도 일반 시사 수준으로 내려간다."
+  }
+ },
+ {
+  "id": "411aa0ac-ab2b-4f77-96d8-c3384f342391",
+  "source_updated_at": "2026-09-13T07:06:19.737125+00:00",
+  "body_sha256": "214d70efe9cbcbbf85f67f7ec43d083d3480d4147d8f25571f0b35205dd7fb63",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "눈꺼풀과 깨물근 양쪽에서 신호를 받는 신경세포를 찾아 마커스 건 증후군의 기전 가설로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Marcus Gunn Syndrome is usually observed",
+   "note": "해부 명칭과 형광 표지 약어가 논지의 축이라 쉬운 말로 바꾸기 어렵다."
+  }
+ },
+ {
+  "id": "411b91ac-6ebb-4cb4-b621-938b01051b3d",
+  "source_updated_at": "2026-09-25T07:38:20.514708+00:00",
+  "body_sha256": "5b03b4f34414f0b2c948409de6dfc1788b189dce15ced2981ba71ad246f2c902",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "탄소 이화물 억제를 푸는 열쇠가 억제 단백질의 유비퀴틴화라는 결론을 실험 사슬로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In the present study, we provided",
+   "note": "유전자·균주 표기가 빽빽해 고찰 앞부분 말고는 떼어 쓰기 어렵다."
+  }
+ }
+]

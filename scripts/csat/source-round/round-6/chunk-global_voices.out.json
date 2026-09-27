@@ -1,0 +1,830 @@
+[
+  {
+    "id": "2c5e8d28-61b5-46d6-abe7-97158ee8780e",
+    "source_updated_at": "2026-09-25T07:12:44.517552+00:00",
+    "body_sha256": "b7350d59447ee6cd5070c5e1e04cf8839f7350b1bc72cd00415a95a7bbaa0f09",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "토지 경계 획정(Marco Temporal) 논쟁과 원주민 살해 증가를 잇는 중반 단락이 인과 논지를 세워 요지·빈칸·내용일치 칸을 채운다(포르투갈어 인용은 걷어 낸다).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Still, for years now, there has",
+      "note": "시한 이론 단락은 앞 문맥 없이 서고 demarcation·promulgation 을 바꾸면 V7 로 내려가며, 포르투갈어 원문 인용 제거가 필요하다."
+    }
+  },
+  {
+    "id": "b30bba67-d97b-4310-8378-b47584e7ee04",
+    "source_updated_at": "2026-09-25T07:13:01.191731+00:00",
+    "body_sha256": "a0d393d36bc9248b6fb2d9996b9dc08e663d8827dbd66fca4403002f2dfaf26a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "공동체 소유 데이터와 개인정보 보호 체계의 어긋남을 다룬 문답 단락이 주장-근거로 서서 주장·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Conventional data protection systems tend to",
+      "note": "문답 형식이지만 답변 단락만 떼면 자족적 논증이 되고 encroached·guardrails 교체가 쉬웠다."
+    }
+  },
+  {
+    "id": "aa18d312-39c6-4e65-81dd-b67959829e8a",
+    "source_updated_at": "2026-09-25T07:11:08.136737+00:00",
+    "body_sha256": "f90edf80c6db044f9a711ec4cfd2de408f7bd874e353dbd4c10b55acbe4acbe6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "광고→출국→여권 압수→매매로 이어지는 사기 구조 설명과 비용 수치 단락이 순서·내용일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Middlemen embed themselves in the same",
+      "note": "중개인 수법 단락은 고유명사(WhatsApp 등)를 일반화해도 흐름이 서고 complicit 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "599608b4-f63e-4eba-bfc1-76045ee8ab76",
+    "source_updated_at": "2026-09-25T07:12:25.558974+00:00",
+    "body_sha256": "eb6355cc42d4d3589a7427928fe27dbc75f659495d4413d859b08734b18e61d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "할머니 꿈에서 시작해 따돌림·축제·재봉으로 이어지는 인물 서사가 심경·장문·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "long_reference",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Her teenage years were difficult. In",
+      "note": "따돌림 단락은 인물 심경이 선명해 심경 문항으로 바로 쓰이고 역사 배경 단락은 걷어 낸다."
+    }
+  },
+  {
+    "id": "2d2e38ac-54dc-4632-8a5a-3e6737b5e41b",
+    "source_updated_at": "2026-09-25T07:12:41.03801+00:00",
+    "body_sha256": "6d8876e012a38756b132ec0a1099557716cb47da04b5cb795ac6cf3f47f60da0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "language",
+    "why": "역청 도로를 뚫고 나는 풀 비유로 언어 생존을 말하는 답변 단락이 요지·제목·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "title",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Suppose a recording is made today,",
+      "note": "비유 단락이 그 자체로 논지를 세우고 어휘는 이미 평이해 조정이 거의 필요 없다."
+    }
+  },
+  {
+    "id": "4b1c1297-367c-46b4-8b43-855caf26679b",
+    "source_updated_at": "2026-09-25T07:11:27.183116+00:00",
+    "body_sha256": "e3510f68f25c92b0bb490da19fabf0f7164f926fa2968791b8633867098414f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "얼굴 인식이 시위 참여를 사후 기록으로 바꾼다는 분석 단락과 역설 결론이 주제·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The technology’s significance lies less in",
+      "note": "사건 고유명사 없이도 감시의 성격 변화 논지가 서며 disperse·outlasts 를 바꾸면 V7 이다."
+    }
+  },
+  {
+    "id": "dd2db74b-7750-4403-bfb6-cd4657a8c207",
+    "source_updated_at": "2026-09-25T07:13:44.409112+00:00",
+    "body_sha256": "705310b14c9349e147d8699462ff9eb8a240c8606190a568c39143915fa5848a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "memoir",
+    "why": "국경 도하·난민촌·장학금 좌절로 이어지는 1인칭 회고가 심경·장문·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 2023, I got an opportunity",
+      "note": "장학금 단락은 무국적 때문에 기회를 놓친 사건이 스스로 서고 학살 묘사 단락은 제외한다."
+    }
+  },
+  {
+    "id": "70825b61-e120-429a-a8a7-a22e7671166d",
+    "source_updated_at": "2026-09-25T07:12:12.87121+00:00",
+    "body_sha256": "4699804449065ca3f531b1f9a6e9423304f7e1c829f3a6f83ba1ca8c2508b40b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "memoir",
+    "why": "카메라를 꺼내지 못한 기자의 목격 일지가 시간순으로 흘러 심경·장문·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I covered the 2015 earthquake, but",
+      "note": "기자의 심경 변화 단락이 앞 문맥 없이 서고 impermanence 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "197fdec8-d71e-4c74-aed4-1eaf31213d09",
+    "source_updated_at": "2026-09-25T07:11:06.349471+00:00",
+    "body_sha256": "a6c6d9500eda97a26f9a021d0f4df64f8b9a94975afb704fb173239a11c9ef10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사회 요구와 정치 운동이 합류한다는 야권 인사 발언 단락이 요지·내용일치 칸을 채우나 인용 위주다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the former minister, “The",
+      "note": "인용 발언 하나를 요지로 떼면 서지만 전체가 한쪽 진영 인용 나열이라 논지 단락 확보가 제한적이다."
+    }
+  },
+  {
+    "id": "a0c1b0de-164e-4445-88f2-9765e592dc66",
+    "source_updated_at": "2026-09-25T07:11:09.242623+00:00",
+    "body_sha256": "27d3da73855d29ed7409e4dd61ece29ac503b9e89d32850e1275830f55dac2ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "hold",
+    "genre": "social",
+    "why": "야블로코 지지 릴스를 하나씩 묘사하는 중반부가 실린 영상 없이는 뜻이 약하고 도입의 일방적 조소 어조도 있어 칸 판단이 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Russian voters are cynical: They know",
+      "note": "떼어 낼 만한 논지 단락은 마지막 한 단락뿐이고 나머지는 영상 캡션 묘사라 가공이 막혔다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "d5d76511-76ca-445b-bad3-629d388eda23",
+    "source_updated_at": "2026-09-25T07:13:16.444659+00:00",
+    "body_sha256": "711c2ac88dd577213f45e3de70de12e44023b31c49fec4801175a25b033fca28",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "보전이 사람 중심이어야 한다는 논지와 다섯 제안의 협약 단락이 주장·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For development to be peaceful, the",
+      "note": "보전 방식 논지 단락은 마사이 이름 없이도 서며 militarized·delisted 교체로 V6 가 된다."
+    }
+  },
+  {
+    "id": "bbdc87ee-d995-4bf9-bb9b-09bb3dc752b7",
+    "source_updated_at": "2026-09-25T07:13:35.361163+00:00",
+    "body_sha256": "6fcc19e7e2ad54e39c048a17eca55ab3b07bcbf88705c4a87b37329c702fe85f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "language",
+    "why": "언어는 쓰이는 맥락과 함께 사라진다는 농업·도시 이주 설명 단락이 요지·빈칸·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Language loss is never just about",
+      "note": "Hausa·Jalingo 를 일반화해도 인과가 서고 어휘 조정이 쉬웠다."
+    }
+  },
+  {
+    "id": "1c09b38a-ab87-48fd-9a96-ffa306d2abcc",
+    "source_updated_at": "2026-09-25T07:12:11.173972+00:00",
+    "body_sha256": "57371232eba7be4612c130b1c9d186fc409436d03fbb57744ef0d61d241f1b44",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "전통 스포츠의 변화를 누가 정하느냐는 물음으로 수렴하는 논증이 주제·제목·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cultural heritage is not simply something",
+      "note": "문화유산 단락이 고유명사 하나만 바꾸면 일반 논지가 되고 어휘도 평이하다."
+    }
+  },
+  {
+    "id": "ca9d96f0-dde3-4e2c-b820-5f224d621f54",
+    "source_updated_at": "2026-09-25T07:12:21.445711+00:00",
+    "body_sha256": "2c0fa9a7b85276f237b5b3254f25e0b15aa7af840861af3d90793337d775e094",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "어린 아이도 재난 긴장을 흡수한다는 통념 교정과 일상 붕괴의 정서 영향 단락이 요지·빈칸·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the shelters scattered around Caracas",
+      "note": "보호자들의 「어려서 모른다」 통념을 전문가가 뒤집는 단락이 그대로 서며 dysregulation 교체가 필요하다."
+    }
+  },
+  {
+    "id": "f202ed2b-1faf-4092-959a-436f0f2340f3",
+    "source_updated_at": "2026-09-25T07:12:17.036035+00:00",
+    "body_sha256": "2956fd75aa4676e8cb6c91c665fd2aa2e7dd7a9b1469df7b696d231a509bacca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "교육으로 기른 자기 주도성이 출산율 하락을 낳았다는 역설 논지가 주제·요지·빈칸·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "title",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "What is often missing from discussions",
+      "note": "결론 논지 단락은 앞 인터뷰 없이 서고 internalized·precedence 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "6b1b8ca9-d05b-43fe-90d5-6adf5020e800",
+    "source_updated_at": "2026-09-25T07:12:47.072804+00:00",
+    "body_sha256": "d4b4cc3e5a4f73924ec931a785c4a3be7acc124478f7ae21037a5cb9bdcb21e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "essay",
+    "why": "시민권은 당연하지 않고 결정의 결과라는 끝 두 단락의 성찰이 요지·주장·빈칸 칸을 채운다(앞부분은 기사 링크 소개).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Statelessness is important in its own",
+      "note": "연재 소개 단락은 링크에 기대 쓸 수 없지만 마지막 성찰 단락은 홀로 서고 어휘도 쉽다."
+    }
+  },
+  {
+    "id": "26be3a43-e6cd-4b88-b3a7-d6484c475267",
+    "source_updated_at": "2026-09-25T07:10:59.14136+00:00",
+    "body_sha256": "c0cde44507ce9b151919d3a4acd63e36baa90b35c03fc9e77bf88b381b5e54ae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "social",
+    "why": "위계적 운동에서 개인적·대중문화형 평화운동으로의 세대 변화를 대비한 단락들이 주제·요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many young Japanese find academic talks",
+      "note": "점심 시위 단락은 사람 이름을 걷어도 접근성 전략 논지가 서고 어휘가 평이하다."
+    }
+  },
+  {
+    "id": "384473b0-509a-4394-ad93-7110c4bf7219",
+    "source_updated_at": "2026-09-25T07:13:11.710141+00:00",
+    "body_sha256": "52ad497403d2cffc21abc0da38fc466caca5b987b89d0a5c49a62adacafa947c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "history",
+    "why": "류큐 병합과 동화 정책·기지 문제가 원주민 인정을 막는 구조를 설명한 역사 단락이 요지·내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Historically, the Ryūkyū Kingdom served as",
+      "note": "동화 정책 단락이 스스로 서며 tributary·annexed 교체가 필요하고 위성 사진 설명 단락은 제외한다."
+    }
+  },
+  {
+    "id": "9c679b61-7464-4db7-9a09-a6ba34ded306",
+    "source_updated_at": "2026-09-25T07:11:40.866882+00:00",
+    "body_sha256": "c01e5af08fd5c8c7ab59157b1b040c5052a7500ceaa1477e7afda0975e6d0423",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "news",
+    "why": "통계 뒤의 사람을 보이게 하는 것이 언론의 또 다른 책임이라는 결론 단락과 창간 경위가 요지·주장·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "order",
+        "purpose"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite this, Prison Agenda taught me",
+      "note": "언론관 단락은 매체 이름만 걷으면 자족적 논지가 되고 어휘 조정이 거의 없다."
+    }
+  },
+  {
+    "id": "0b6e714e-0888-4782-bee5-602b9dbbf48d",
+    "source_updated_at": "2026-09-25T07:11:05.157971+00:00",
+    "body_sha256": "a4743efea1ae9785eade49fc3877fe59b1e5bd9ae56e8a1b75858b6782df73b5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "art",
+    "why": "전사자를 성상에 넣어 전쟁에 신성한 의미를 입힌다는 해석 단락이 요지·빈칸 칸을 채우는 짧은 논평이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As Radio Liberty’s experts explain, this",
+      "note": "기증자 묘사 전통 대비 정치적 의미 논지가 서지만 appropriated·tributary 류 어휘 교체가 필요하다."
+    }
+  }
+]

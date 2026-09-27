@@ -38,6 +38,19 @@ export type SeedSource =
   // 2026-09-13 — 세 번째. 정본에 `europe_pmc` 가 들어왔는데 여기가 또 안 따라왔다.
   //    같은 테스트가 또 잡았고, 잡힌 채로 40분 넘게 브랜치에 남아 있었다.
   | 'europe_pmc'
+  // 내용 점검을 통과한 원문 4원천 (2026-09-23 · 117편 전문 판독 → 94편 확보 → 76편 적재).
+  //   ⚠️ 2026-09-23 에 정본(SourceKey)에만 넣고 여기를 안 채워서 `source-key-parity` 가
+  //   걸렸다 — 이 사본이 갈리면 `next build` 가 깨진다(2026-08-21 futurity 가 그랬다).
+  | 'olh'
+  | 'econstor'
+  | 'scielo'
+  | 'openalex'
+  // 소스GET 3차 (2026-09-25) — 정본 SourceKey 와 같이 간다(source-key-parity)
+  | 'global_voices'
+  | 'global_storybooks'
+  | 'gdl'
+  | 'eia_kids'
+  | 'nih_news_in_health'
 
 interface ArticleScore {
   total: number

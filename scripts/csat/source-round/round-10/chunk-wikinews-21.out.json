@@ -1,0 +1,920 @@
+[
+ {
+  "id": "144dd72b-de07-42a4-b5e9-8a7ef0f64792",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6689879525f2c35efe7ed963fb09edf798e097cae96caa64d22c9b5c72b6a9e2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "화물기 부품 낙하 → 피해 → 주민 증언 → 회사 해명·보상으로 이어지는 짧은 사건 보도로 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Rai Marinho, a representative for the",
+   "note": "회사 해명 문단은 이륙 직후 고장→우회 착륙→보상 순서가 서고 inclement 를 bad 로 바꾸니 V4 가 됐다."
+  }
+ },
+ {
+  "id": "145589bf-78e2-40b0-a455-247e9e0bbcc4",
+  "source_updated_at": "2026-09-25T08:57:53.744902+00:00",
+  "body_sha256": "0b1f5d5db457d9fb95618bfbdb536bdffd721565a00ef2dfe10fb70675a114b9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "베네딕토 16세의 사망·생애·자진 사임의 의미·각국 조문·장례 계획이 이어진 부고로 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Benedict, born in rural Germany in",
+   "note": "생애 문단은 연도순이라 순서 배열로 쓰기 좋고 theology 하나만 풀어 줬다."
+  }
+ },
+ {
+  "id": "145689ee-2c02-4180-9ab5-7afeccc41576",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4c9a2204f5701c49ce4de0d4d63fff11f9a97ea455d535ffa328034348354768",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "하루 동안의 폭탄 다섯 건을 지역별로 전한 뒤 16세기부터의 분리주의 배경을 붙여 내용 일치·무관한 문장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Recent violence in the southern provinces",
+   "note": "역사 배경 문단은 떼어 쓸 수 있으나 sultinate·sovereignty 같은 낱말과 지명이 몰려 어휘만 바꿔서는 밴드가 안 내려갔다."
+  }
+ },
+ {
+  "id": "14578305-4827-44d0-9cc7-bc4dc5c75753",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0502eb964d4487a62dc5ea09bb57a49a6e1f6aa27359c107348e9b78e7a450cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "오토바이 청소년 사망으로 시작된 교외 폭동의 피해·대통령 호소·2005년 전례가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "President Nicolas Sarkozy, who is on",
+   "note": "대통령 호소 문단은 짧게 서고 urged calm 을 asked people to stay calm 으로 바꾸니 쉬워졌다."
+  }
+ },
+ {
+  "id": "14584161-bbe1-4cdd-8719-1b2143145053",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "14a33f1d152bbf9b087e341b55ad529df0abb0b5418f0093045b66cbce8cc128",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "고철로 허위 신고된 전자폐기물 적발과 반송 조치에 전 세계 전자폐기물 통계를 붙여 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The contents of the containers were",
+   "note": "허위 신고 문단은 적발 이유와 처분이 한 문단에 모여 떨어지고 falsely declaring 만 풀었다."
+  }
+ },
+ {
+  "id": "145a2e48-a11c-40e8-87a1-482161eb2473",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "76950144500337104bd3a51f2aca358c251a77ff25c23b063f87fc9acecf4eab",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "신속항원검사 폭리의 법적 정의·수사 착수·처벌 경고·소비자 신고 사례가 이어져 내용 일치·목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Under Australian law, price gouging occurs",
+   "note": "폭리의 법적 정의 문단은 20% 기준이 분명해 내용 일치에 좋고 price gouging 을 selling at unfair prices 로 풀었다."
+  }
+ },
+ {
+  "id": "145d8103-9a88-407d-9ee7-08c86f89d4e8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b44766719b26e206b52eba9d86d1267bcced181246067cef0ab58a1d860874d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "노부부 보행자 사망 사고의 경위·이송·도로 통제·목격자 호소가 짧게 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An air ambulance reportedly attended the",
+   "note": "이송 문단은 부인과 남편의 사망 장소가 갈려 내용 일치 선택지가 되고 precaution 만 바꿨다."
+  }
+ },
+ {
+  "id": "14619d1e-50aa-4c12-bcb8-b3697a899b8a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6f0b23858a81e3d3cc2689a2727be05b262b22bae6d5010ea435c8062c827d93",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "장례 천막 자폭 공격의 피해와 하디타가 반군 거점에서 바뀐 배경이 짧게 서 고3·성인 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Haditha is a city in Iraq's",
+   "note": "하디타 배경 문단은 부족이 미군 편에 서 폭력이 줄었다는 인과가 서고 haven 을 safe place 로 바꿨다."
+  }
+ },
+ {
+  "id": "1465aed9-9c88-40b6-9abd-ee7749636cb1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "49af5c9cdd6f6779e5694076cdb2e0fae69896d74e1b0a925ef3e3245a6959f1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "매케인 승리·허커비 승복 연설·네바다 동시 경선과 대의원 박탈의 역설까지 전해 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In his concession speech, Huckabee vowed",
+   "note": "승복 연설 문단은 「정치는 사건이 아니라 과정」이라는 말이 있어 요지로도 쓸 만하고 falter 만 바꿨다."
+  }
+ },
+ {
+  "id": "146bbfd2-2270-409d-9750-1ad4e181efd0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b0e2340a2eefe3124bafabf7b366beab01cbaa9dbfabd92ce6956c98a98dfc5c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "education",
+  "why": "교사 포럼의 인종차별 게시글을 장관이 규탄한 경위와 OBE 논쟁 배경을 전하며 혐오 발언을 인용해 비판하므로 고3·성인 내용 일치 칸만 둔다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The PLATO website was established to",
+   "note": "OBE 논쟁 배경 문단은 혐오 인용 없이도 서서 이 문단을 골랐고, 나치 관련 인용 문단은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "146dd343-8c0f-4a6a-8b8c-050915cddc21",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "61645764bef8e255b6921281a7f47d49b88982e0ec59aa0bf1326f928c958b6b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "유로 급락의 원인으로 IMF 총재 발언·스트레스 테스트·국채 금리차를 짚는 인과 설명이라 요지·빈칸 칸을 성인 밴드로 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Adding to the Euro’s woes is",
+   "note": "스트레스 테스트 문단은 공개가 불안을 부를까 걱정한다는 논리가 서지만 capitalization·balance sheets 는 바꿀 말이 없었다."
+  }
+ },
+ {
+  "id": "146ea07e-a2f5-4a53-97da-48c22ac45816",
+  "source_updated_at": "2026-09-25T08:48:11.573682+00:00",
+  "body_sha256": "aae1a4dde7f6f382adb408c4e1d41d05b7a2c784f60c1f9f92b1ee7ea5920dcf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "AF447 실종의 마지막 교신·자동 고장 신호·수색·생존 가능성을 전해 내용 일치·순서 칸을 채우며 끝 전화번호 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a press communiqué, Air France",
+   "note": "난기류→전기 고장 신호 시각 문단은 순서가 분명하고 communiqué 를 statement 로 바꾸면 되며 전화번호 줄은 걷는다."
+  }
+ },
+ {
+  "id": "1470ff97-e104-4a26-8894-c88164950f27",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ca7eb99d21c48defc5693ec1c999a8b04c5d10286e2e3517983afd1795ebcfb1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "agriculture",
+  "why": "꽃 박람회 개막·연설·국제관·입장 안내를 전하지만 번역투 비문이 거의 모든 문장에 있어 고쳐 쓰지 않고는 문항 지문이 되는지 판단이 서지 않는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "According to TFDA, 2007 TIFE is",
+   "note": "입장 안내 문단을 고쳐 보니 「public people should enter with tickets」 등 문장마다 어법을 새로 써야 해 원문이 남지 않았다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "14728709-3be1-4bf3-b78a-b2baa4cca9d5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7a47554e979131b444d3e4b72e1d5f7cee611577523c72e63dbc74885c3aa5e1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "mixed",
+  "why": "육아직 남성·해킹·광고 규제·뭄바이 총격·오염 시럽 등 무관한 단신 다섯이 한 편으로 묶여 주제가 계속 바뀌는 혼합 원천이다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Apple Inc. has been told by",
+   "note": "광고 규제 단신 하나는 떼어지지만 한 편 단위로는 주제가 다섯 번 갈아엎혀 원천으로 보관할 수 없다."
+  }
+ },
+ {
+  "id": "147594db-9589-4c18-9d69-8b2e53df9f27",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "261f6cb25a8aa1f0a966e9e1ec6d15b2f02b6dc7b8246031a6d437d16b2b445f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "가자 봉쇄의 일시 해제와 UN 의 인도적 재앙 경고·병원 전력 문제·봉쇄 원인을 전해 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"Almost every part of the intensive",
+   "note": "중환자실 전력 인용 문단은 연료→발전소→병원의 인과가 서고 emanating 은 다른 문단이라 건드리지 않았다."
+  }
+ },
+ {
+  "id": "147ce44e-85af-410e-a24c-b9a1efbc4965",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "84dbe5a8922a9b5220f4370b0ecff4b3daa83a64c221bd6f1239138b23de11ba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "장제스 30주기 참배와 민진당 불참·국민당·친민당 대표의 대륙 방문 입장·묘소 처리 논의가 소제목별로 이어져 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During the rule of the Kuomintang",
+   "note": "참배가 점점 초라해진 과정 문단은 시대 변화가 서서 then-now 로도 보이며 forlorn 을 lonely 로 바꿨다."
+  }
+ },
+ {
+  "id": "14835bb4-64d7-4c35-bd14-8708c8da465c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a778687e68c9f78248e9bd774c2a521a13b216d0624c9a3084ddfd23ba0684a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "탈선 사고의 피해와 분기기 제한속도 초과라는 원인 분석·배제된 원인이 이어져 빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Preliminary investigation has revealed that the",
+   "note": "분기기 속도 문단은 120·50·108 km/h 대비로 원인이 서고 switch 를 풀어 설명하니 V4 로 읽혔다."
+  }
+ },
+ {
+  "id": "1484e49e-489d-45f8-9d77-2ef211696979",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "94e0ab5aeeda0244aa8de28aa118940affcfa9479741359120a0e58db236c136",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "지하철역 총격의 경위·희생자·체포·경찰 대책이 짧게 이어지는 사건 보도로 고등 이상 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The police officer and a passerby",
+   "note": "희생자 문단은 앞 목격 문단에 이어져야 서지만 한 문장 앞을 붙이면 떨어지고, 역 이름 줄바꿈은 가공 때 잇는다."
+  }
+ },
+ {
+  "id": "14857218-e0f9-4349-9079-5d17343519d9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8d78ebf2f3a34b804ca08ab718a26dcfa3c94f63b5314317f0f65439a9563baa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아이티 학교 붕괴의 피해·구조·증언과 8년 전 부분 붕괴·부실 보수 의혹으로 원인까지 이어져 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The school is reported to have",
+   "note": "과거 붕괴 문단은 주민 이주와 소유주의 부지 매입이라는 사건 흐름이 서고 improperly 만 풀었다."
+  }
+ },
+ {
+  "id": "1486610e-96b1-41e1-9840-d0c9a70eebc7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "dc8d8606f2054ec5d077452bcb660462ff42f62660fa9a9a6720c11c42b2b1e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "대만 동성혼 법안 통과·경쟁 법안·남은 한계·국민투표 반대·중국과의 대비가 이어져 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Legislative Yuan debated three competing",
+   "note": "세 법안 비교 문단은 「marriage」 명칭 선택과 남은 제한이 논지로 서고 counterparts 만 바꿨다."
+  }
+ },
+ {
+  "id": "14897c3b-51c6-4f75-8e9a-3bbde9d289d9",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "10422394115d92b8b41f43853912858a6cd3a860efc2f38344f2a660db74219a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "주 상원의원의 연인 폭행 유죄 판결과 양측 주장·증거·의원직 논란이 이어지나 폭력 증거 묘사가 구체적이라 성인 칸 내용 일치로 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Queens Supreme Court Justice William Erlbaum",
+   "note": "판사 단독 재판 문단은 떨어지지만 misdemeanor·felony 차이가 요지라 쉬운 말로 바꾸기 어렵다."
+  }
+ },
+ {
+  "id": "14939a56-6b51-40e9-b685-11c4436a6e4c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f31de9d734eb44ca917645945699f212d269d0084b9ad252be0a5ddd17d85d86",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "칠리 속 손가락 주장자 가택수색과 당사자 반발·웬디스의 자체 조사 결과가 맞서 주장·내용 일치 칸을 채우며 첫 줄 방송 캡션은 걷는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wendy's claims that their internal investigation",
+   "note": "웬디스 해명 문단은 공급망 조사로 반박하는 근거가 서고 credible 하나만 바꿨으며 첫 캡션 줄과 소문자 시작은 가공 때 고친다."
+  }
+ },
+ {
+  "id": "14981314-61a6-4e66-aadd-48ff4a960f98",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7807f3eaf94cd27511b637c348d29599ddcd4352931a874713cd9b29de03bed0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "82어 한 문단이 합병 금액·주당가·지분·위약금·생산능력 수치만 나열해 논지나 사건 흐름이 없는 내용 일치 한 칸짜리다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Arcelor would pay Severstal €130 million",
+   "note": "위약금 문장을 떼 보니 앞뒤가 모두 수치라 수치를 걷으면 남는 논지가 없었다."
+  }
+ },
+ {
+  "id": "149de907-4cf4-4d33-824e-c0204e157663",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d3cf9c8b0503e7e9476552e94da4ddf5837270aac6078a5cbad08dc64f5dc26b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "애나 니콜 스미스의 발견·응급처치·사망 확인·수사·회사 추모문이 이어져 순서·내용 일치와 심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Smith was taken by ambulance to",
+   "note": "구급대 발언 문단은 도착→심폐소생술→병원 인계 순서가 서고 unresponsive 를 not moving 으로 바꿨다."
+  }
+ },
+ {
+  "id": "14a019e2-03a9-4288-993f-959c2d09d0f8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b8714108797b56de6798d5a74760b942150f66a5a5c4e3772e5baee3f4c26835",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "식약청장 사형 선고의 이유(뇌물·부실 의약품 허가)와 연쇄 식품 사고·엄벌의 정치적 의도까지 인과가 서 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Zheng's harsh sentence may be the",
+   "note": "엄벌의 의도 문단은 국제 신뢰 회복이라는 해석이 빈칸 하나로 서고 credibility 를 trust 로 바꿨다."
+  }
+ }
+]

@@ -1,0 +1,49 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "length-recheck/v1",
+  "windows": [
+    {
+      "key": "school_sentence",
+      "label": "학교 문장",
+      "min": 6,
+      "max": 40
+    },
+    {
+      "key": "school_paragraph",
+      "label": "학교 문단",
+      "min": 40,
+      "max": 200
+    },
+    {
+      "key": "csat_short",
+      "label": "수능 짧은 지문",
+      "min": 90,
+      "max": 200
+    },
+    {
+      "key": "csat_long",
+      "label": "수능 장문",
+      "min": 260,
+      "max": 400
+    }
+  ],
+  "myOldBand": {
+    "min": 140,
+    "max": 200
+  },
+  "results": {
+    "args.me": {
+      "total": 382545,
+      "tooShort": 26640,
+      "aboveAll": 91837,
+      "between": 19897,
+      "byWindow": {
+        "school_sentence": 87326,
+        "school_paragraph": 124662,
+        "csat_short": 68313,
+        "csat_long": 33605
+      },
+      "oldBand": 31245
+    }
+  }
+}

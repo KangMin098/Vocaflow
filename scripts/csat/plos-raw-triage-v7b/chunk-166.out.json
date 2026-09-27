@@ -1,0 +1,425 @@
+[
+ {
+  "id": "7fec42b6-7154-4ad9-8394-a050378fdf82",
+  "source_updated_at": "2026-09-13T07:03:51.254698+00:00",
+  "body_sha256": "a7fbd0151dfc81fda65b558e01e88c98916b07a9c89aa17424dec5a85ea64d8b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 후성유전·표현형 가소성 설명 단락이 환경과 유전자 발현의 관계를 논지로 세워 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Phenotypic plasticity is the ability of",
+   "note": "「epigenetic」「genotype」를 쉬운 풀이로 바꾸면 서고, 모형 수식 절은 걷는다."
+  }
+ },
+ {
+  "id": "7ff030f4-c970-4c5f-ad0d-c646de382d40",
+  "source_updated_at": "2026-09-13T07:33:37.665909+00:00",
+  "body_sha256": "e905ce974ccdf0cca35b49eec0a4a76660ef08fff4a79a3e627aee93cb017a85",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론이 안압 상승 뒤 시냅스 변화와 신경교세포 역할을 원인-가설 흐름으로 잇고 고찰도 치료 함의로 맺어 요지·순서 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Glia cells are the most abundant",
+   "note": "단백질 약어(TSP2·SYN)를 「신호 단백질」로 바꾸면 신경교세포 역할 변화 논지가 남는다."
+  }
+ },
+ {
+  "id": "7ff6f0bf-3bce-4414-a9c1-a131773689c0",
+  "source_updated_at": "2026-09-13T06:51:46.608474+00:00",
+  "body_sha256": "a3db11be07acc0d0bf3315e6c3abe74212060664420a09ba19c41803e4730c65",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 식물 세포벽과 셀룰로스 합성 설명 단락이 구조-기능 흐름으로 이어져 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Plant cell walls are complex and",
+   "note": "CESA·CSC 약어를 걷고 「효소 복합체」로 바꾸면 되지만 용어 밀도가 높다."
+  }
+ },
+ {
+  "id": "7ff8316f-b032-4c8b-b22f-e34ba919e9fc",
+  "source_updated_at": "2026-09-13T07:45:49.695809+00:00",
+  "body_sha256": "30358dc0aca4c37fb1965f5bad0d5ca8171aa1471bed359a6d699eb2a8a6f56b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론이 긴 척추 유합의 부작용과 유연성 기반 선택의 필요를 대비해 논증하고 고찰이 한계를 짚어 주장·요지 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, this method entails relatively long",
+   "note": "「fusion block」「decompensation」을 풀어 쓰면 긴 고정의 장단점 논지가 선다."
+  }
+ },
+ {
+  "id": "7ff9273a-4c2f-40c2-bcc6-ae804220c1f9",
+  "source_updated_at": "2026-09-13T07:09:37.193939+00:00",
+  "body_sha256": "aa18265de733f3340f2072fde3ac8da72c3481b55144ddd45a8ec047dafee5c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론 첫 단락이 생체시계의 적응적 이점과 중추시계 구조를 설명문으로 세워 주제·제목·빈칸 칸을 채우고 고찰도 모체 신호 가설을 잇는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Most organisms are exposed to conditions",
+   "note": "「suprachiasmatic nuclei」를 「뇌의 중추 시계」로 바꾸면 중등 이상 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "7ffa8e94-cd90-470d-a57e-60c5551bfde7",
+  "source_updated_at": "2026-09-13T07:28:56.668073+00:00",
+  "body_sha256": "c86a8482a7531789dab387fff7e761cb016119ae610db1e919f158166612554c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론이 비타민 D의 뇌 기능 역할과 막 수용체 가설을 이유-가설 흐름으로 제시해 내용 일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This unique secosteroid hormone has significant",
+   "note": "「secosteroid」를 「호르몬」으로 바꾸면 서지만 고찰 뒷부분은 단백질 이름 나열이라 걷는다."
+  }
+ },
+ {
+  "id": "7ffa9d13-11eb-4968-804c-dabc4bd2c6d7",
+  "source_updated_at": "2026-09-13T07:38:49.238319+00:00",
+  "body_sha256": "6a260b8799f3c1f994d3d9ba9ccf8f6c1c024474d58e7923ea1e07c9ff7f836e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "본문 대부분이 유전자 클로닝·발현 수치 보고이고 떼어 낼 논지 단락은 양식업 배경 몇 문장뿐이라 가공 경로가 애매하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "P. monodon is a commercially important",
+   "note": "눈자루 절제의 부작용 → 세포주기 연구 필요로 이어지나 세 문장뿐이고 나머지는 수치 결과다."
+  }
+ },
+ {
+  "id": "8001cade-7593-4b3f-929d-bd148dc0e067",
+  "source_updated_at": "2026-09-15T15:23:49.69615+00:00",
+  "body_sha256": "b8e2ce73a2d23651bb480b0bb8a4aac2ff1de0cc353d054beb24593a9049390b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 근위축 원인과 치료 공백 설명, 고찰의 치료 표적 논지가 문제-해결 흐름으로 서서 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Skeletal muscle atrophy is a clinical",
+   "note": "「glucocorticoids」를 「스트레스 호르몬」으로 바꾸면 근손실 원인 설명이 선다."
+  }
+ },
+ {
+  "id": "800b8483-c3ad-4441-b219-a6a5725e5a04",
+  "source_updated_at": "2026-09-25T06:56:05.563422+00:00",
+  "body_sha256": "f9580f6ea8c47a7c79fe6a761f7ae6c95badd162672602b13c1cf6dd810f34ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저자 요약과 고찰이 통제 사업 뒤 드문 증상이 놓이기 쉽다는 논지와 진단 과정 사건을 이어 요지·순서·서사 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This case vividly illustrates an evolving",
+   "note": "「schistosomiasis」를 「기생충 감염」으로 바꾸면 흔한 병이 줄수록 오진이 는다는 논지가 선다."
+  }
+ },
+ {
+  "id": "8035a9eb-4f60-417b-ab7e-e702088ba472",
+  "source_updated_at": "2026-09-25T06:56:17.768153+00:00",
+  "body_sha256": "8d62aef89517ebccb2323ab07a7c9b09c2b6a2717c6f6cf702333aafadd38c94",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저자 요약이 간 혈관세포가 분비하는 단백질이 암 성장을 억제하는 과정을 단계적으로 설명해 요약·순서·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "summary",
+    "order",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hepatocellular carcinoma (HCC) is a major",
+   "note": "「lactylation」「autophagy」를 풀어 쓰면 두 과정 억제 흐름이 선다. 방법 절은 걷는다."
+  }
+ }
+]

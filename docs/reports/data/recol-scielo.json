@@ -1,0 +1,44 @@
+{
+  "source": "scielo_sza",
+  "n": 3000,
+  "byWindow": {
+    "csat_short_90_200": 1010,
+    "csat_long_260_400": 403,
+    "school_para_40_200": 1134,
+    "school_sent_6_40": 7
+  },
+  "coveredPct": 63.4,
+  "coveredPct_ofAllRecords": 51.4,
+  "covered": 1541,
+  "tooShort": 0,
+  "between": 863,
+  "above400": 26,
+  "spansPerLongDoc": 2.65,
+  "hss_only": {
+    "n": 1542,
+    "withAbstract": 1299,
+    "byWindow": {
+      "csat_short_90_200": 635,
+      "csat_long_260_400": 190,
+      "school_para_40_200": 684,
+      "school_sent_6_40": 1
+    },
+    "coveredPct": 67.4,
+    "covered": 875,
+    "tooShort": 0,
+    "between": 412,
+    "above400": 12,
+    "spansPerLongDoc": 3.17,
+    "abstract_present_pct": 84.2
+  },
+  "abstract_present_pct": 81.0,
+  "blockers": [],
+  "method": {
+    "endpoint": "https://articlemeta.scielo.org/api/v1/articles/?collection=sza",
+    "requests": 120, "httpOk": 120, "httpErrors": 0, "limit": 25,
+    "offsets": "0..58072 step 488 (index total 58105)", "duplicates": 0,
+    "denominator_note": "coveredPct is over records that carry an abstract (2430 all / 1299 hss); windows overlap and are counted independently",
+    "abstract_langs": {"en": 2424, "af": 6, "none": 570},
+    "meanWords_all": 204, "meanWords_hss": 200
+  }
+}

@@ -1,0 +1,2637 @@
+[
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "07e73274-bc65-492c-8a03-41cd039b0396",
+    "revision": "2026-09-25T07:28:44.040708+00:00",
+    "body_sha256": "8f62a0d91f7474161e9654193a4a51515025e831ce9ffd9d2d27d6f88c0d27ce",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.949Z",
+        "by": "chunk-llm",
+        "why": "고찰의 '둘로 가르는 분류는 단순하지만 단계별 독성을 가린다' 단락이 대조 논지로 서서 주장·빈칸·요약 칸을 채운다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:11.529Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "139ce795213d755eed299be7dd33b7888646ef2ad50bb42896da5cd182cc89fc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "spermatogenic 을 '세포 발달'로 일반화하니 이분 분류 대 다분류라는 논지가 소재와 떨어져 선다.",
+          "sample": "Beyond technical performance, the distinction between",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.949Z",
+        "by": "chunk-llm",
+        "why": "고찰의 '둘로 가르는 분류는 단순하지만 단계별 독성을 가린다' 단락이 대조 논지로 서서 주장·빈칸·요약 칸을 채운다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:11.529Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "139ce795213d755eed299be7dd33b7888646ef2ad50bb42896da5cd182cc89fc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "spermatogenic 을 '세포 발달'로 일반화하니 이분 분류 대 다분류라는 논지가 소재와 떨어져 선다.",
+          "sample": "Beyond technical performance, the distinction between",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "수작업 병리 판정의 한계를 세우고 객체검출 모델로 뒤집는 논지가 고찰 절에서 한 편으로 선다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The overall performance profile, characterized by",
+          "note": "고찰 첫 단락은 지시어를 걷으면 그대로 서지만 정자형성 단계·세정관 용어는 바꿔도 밴드가 안 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.601Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.949Z",
+          "by": "chunk-llm",
+          "why": "고찰의 '둘로 가르는 분류는 단순하지만 단계별 독성을 가린다' 단락이 대조 논지로 서서 주장·빈칸·요약 칸을 채운다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "claim",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:11.529Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "139ce795213d755eed299be7dd33b7888646ef2ad50bb42896da5cd182cc89fc"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "spermatogenic 을 '세포 발달'로 일반화하니 이분 분류 대 다분류라는 논지가 소재와 떨어져 선다.",
+            "sample": "Beyond technical performance, the distinction between",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:59.312Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "07fc7538-52d9-45bd-b184-f02a3937fbca",
+    "revision": "2026-09-25T07:28:47.970712+00:00",
+    "body_sha256": "dc4065f8cfb3585026721bd1bf52778f4eb838c427615ccb12d0b112a6b07fb5",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.951Z",
+        "by": "chunk-llm",
+        "why": "서론의 핑골리모드가 모든 수용체 아형을 건드려 부작용을 낸다는 단락이 문제-필요 구조로 서서 요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:15.567Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6496271af730af20a3567179f97c18c34a23cb9c5eb1afd594d134201922e73f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "subtype·selectivity 는 풀리지만 수용체 이름(S1PR1-5)을 걷으면 문장이 비어 밴드 낮추기가 어렵다.",
+          "sample": "It is noteworthy that current therapeutics",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.951Z",
+        "by": "chunk-llm",
+        "why": "서론의 핑골리모드가 모든 수용체 아형을 건드려 부작용을 낸다는 단락이 문제-필요 구조로 서서 요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:15.567Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6496271af730af20a3567179f97c18c34a23cb9c5eb1afd594d134201922e73f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "subtype·selectivity 는 풀리지만 수용체 이름(S1PR1-5)을 걷으면 문장이 비어 밴드 낮추기가 어렵다.",
+          "sample": "It is noteworthy that current therapeutics",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "다발경화증 치료제 개발 경위를 다룬 서론 단락이 약물 선택성 문제로 논지를 세워 발췌가 된다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "S1PRs play complex roles in multiple",
+          "note": "서론 셋째 단락은 떼어내도 서지만 결과 절은 잔기 번호 나열이라 가공 대상에서 제외해야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.604Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.951Z",
+          "by": "chunk-llm",
+          "why": "서론의 핑골리모드가 모든 수용체 아형을 건드려 부작용을 낸다는 단락이 문제-필요 구조로 서서 요지·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:15.567Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6496271af730af20a3567179f97c18c34a23cb9c5eb1afd594d134201922e73f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "subtype·selectivity 는 풀리지만 수용체 이름(S1PR1-5)을 걷으면 문장이 비어 밴드 낮추기가 어렵다.",
+            "sample": "It is noteworthy that current therapeutics",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:08:51.585Z",
+      "topicMargin": 12.33
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "080dbf2e-7d0d-4a6d-b544-ce8ce51089b0",
+    "revision": "2026-09-25T07:28:49.041289+00:00",
+    "body_sha256": "ca1c8cdda06d66dffa7d0a50a056b8984735427c21dc18746583d7d4bb635f77",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.951Z",
+        "by": "chunk-llm",
+        "why": "서론의 보조제(adjuvant) 어원과 작용 방식 단락, 고찰의 '면역 반응은 났는데 보호는 없었다' 결론이 요약·빈칸·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "summary",
+            "blank",
+            "main_point",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:15.683Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f2b6d2590598f6d5cd13e438258b69ba9d1a9dd2166a0711ae2ca5038b7910a2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "라틴어 어원 풀이가 있어 어휘 칸이 쉽고, antigen 만 풀면 앞 문맥 없이 선다(끝 문장 마침표만 빠짐).",
+          "sample": "Recombinant proteins often lack intrinsic immunostimulatory",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:09:41.951Z",
+        "by": "chunk-llm",
+        "why": "서론의 보조제(adjuvant) 어원과 작용 방식 단락, 고찰의 '면역 반응은 났는데 보호는 없었다' 결론이 요약·빈칸·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "summary",
+            "blank",
+            "main_point",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:15.683Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f2b6d2590598f6d5cd13e438258b69ba9d1a9dd2166a0711ae2ca5038b7910a2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "라틴어 어원 풀이가 있어 어휘 칸이 쉽고, antigen 만 풀면 앞 문맥 없이 선다(끝 문장 마침표만 빠짐).",
+          "sample": "Recombinant proteins often lack intrinsic immunostimulatory",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "보조제가 왜 필요한가를 정의와 기제로 설명한 서론 단락이 자족적이고, 면역은 섰는데 방어는 실패했다는 결론이 반전 구조를 준다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Recombinant proteins often lack intrinsic immunostimulatory",
+          "note": "adjuvant 어원 설명 단락은 어려운 낱말 두셋만 풀어도 읽히고, 항체 아형 기호는 걷어낼 수 있다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.606Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:09:41.951Z",
+          "by": "chunk-llm",
+          "why": "서론의 보조제(adjuvant) 어원과 작용 방식 단락, 고찰의 '면역 반응은 났는데 보호는 없었다' 결론이 요약·빈칸·요지 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "summary",
+              "blank",
+              "main_point",
+              "vocab_choice"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:15.683Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "f2b6d2590598f6d5cd13e438258b69ba9d1a9dd2166a0711ae2ca5038b7910a2"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "라틴어 어원 풀이가 있어 어휘 칸이 쉽고, antigen 만 풀면 앞 문맥 없이 선다(끝 문장 마침표만 빠짐).",
+            "sample": "Recombinant proteins often lack intrinsic immunostimulatory",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 15,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:22.763Z",
+      "topicMargin": 9
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "08183ddb-43fe-45cf-b5fd-13199afd5c6b",
+    "revision": "2026-09-25T07:28:49.794992+00:00",
+    "body_sha256": "6fd8bfba941570def6cd97f0cf85b5a021adc20623618d78e8251d564cbc5bae",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.614Z",
+        "by": "chunk-llm",
+        "why": "고찰의 화학 손상 모델 대비 RIP3 모델 장단점 단락이 대조 논지로 서서 주제·빈칸·순서 칸을 채운다(결과 절 일부는 빠져 있음).",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:16.935Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "814d3ea9d6f61cbeeb8f6fad45402dfc0330a34770a62badeb7273e19e39232f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "RIP3·RPE 약어를 '세포사 유전자'·'망막 세포층'으로 바꾸고 recapitulate→reproduce 로 고치니 급성 모델 대 만성 모델 대조가 섰다.",
+          "sample": "Compared with conventional chemically induced models,",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.614Z",
+        "by": "chunk-llm",
+        "why": "고찰의 화학 손상 모델 대비 RIP3 모델 장단점 단락이 대조 논지로 서서 주제·빈칸·순서 칸을 채운다(결과 절 일부는 빠져 있음).",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:16.935Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "814d3ea9d6f61cbeeb8f6fad45402dfc0330a34770a62badeb7273e19e39232f"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "RIP3·RPE 약어를 '세포사 유전자'·'망막 세포층'으로 바꾸고 recapitulate→reproduce 로 고치니 급성 모델 대 만성 모델 대조가 섰다.",
+          "sample": "Compared with conventional chemically induced models,",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "기존 급성 손상 모형이 사람의 만성 황반변성을 못 담는다는 문제 제기가 서론에서 분명히 서고 고찰이 그 한계를 되짚는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "A variety of experimental models have",
+          "note": "모형 비교 단락은 그림 참조 없이 서지만 RPE·necroptosis 표기는 대체어가 없어 밴드가 그대로다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.608Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:40.614Z",
+          "by": "chunk-llm",
+          "why": "고찰의 화학 손상 모델 대비 RIP3 모델 장단점 단락이 대조 논지로 서서 주제·빈칸·순서 칸을 채운다(결과 절 일부는 빠져 있음).",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "order"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:16.935Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "814d3ea9d6f61cbeeb8f6fad45402dfc0330a34770a62badeb7273e19e39232f"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "RIP3·RPE 약어를 '세포사 유전자'·'망막 세포층'으로 바꾸고 recapitulate→reproduce 로 고치니 급성 모델 대 만성 모델 대조가 섰다.",
+            "sample": "Compared with conventional chemically induced models,",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 5,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:47.739Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "082f365f-1637-4a25-9701-6fbfee28f512",
+    "revision": "2026-09-25T07:28:51.025956+00:00",
+    "body_sha256": "537cf83b0675ac4932a08ae094b8e92c89c963f0ac0812842086d8a593f9fb86",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.615Z",
+        "by": "chunk-llm",
+        "why": "고찰의 인공 타액 대 사람 타액 단락이 효소·면역 성분으로 차이를 설명하는 인과 논지라 요지·빈칸·무관한 문장 칸이 된다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:18.620Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "69ac005470f85f155067738c91bc9d7b162402745f1dbeaf4d1405ce9322f699"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "면역글로불린 목록을 걷고 proteolytic→protein-breaking, destabilize→weaken 으로 바꾸니 '사람 타액이 바이러스를 더 빨리 없앤다' 논지가 섰다.",
+          "sample": "In contrast, human saliva harbors a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.615Z",
+        "by": "chunk-llm",
+        "why": "고찰의 인공 타액 대 사람 타액 단락이 효소·면역 성분으로 차이를 설명하는 인과 논지라 요지·빈칸·무관한 문장 칸이 된다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:18.620Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "69ac005470f85f155067738c91bc9d7b162402745f1dbeaf4d1405ce9322f699"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "면역글로불린 목록을 걷고 proteolytic→protein-breaking, destabilize→weaken 으로 바꾸니 '사람 타액이 바이러스를 더 빨리 없앤다' 논지가 섰다.",
+          "sample": "In contrast, human saliva harbors a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "침이 왜 바이러스에 적대적인 환경인가를 성분별로 풀어낸 고찰 단락이 근거 둘 이상을 갖춘 설명문으로 선다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In contrast, human saliva harbors a",
+          "note": "인공 침과 사람 침을 대조하는 단락은 수치를 걷어도 대비가 남고 효소 이름 몇을 일반어로 바꿀 수 있었다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.610Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:40.615Z",
+          "by": "chunk-llm",
+          "why": "고찰의 인공 타액 대 사람 타액 단락이 효소·면역 성분으로 차이를 설명하는 인과 논지라 요지·빈칸·무관한 문장 칸이 된다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "blank",
+              "irrelevant",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:18.620Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "69ac005470f85f155067738c91bc9d7b162402745f1dbeaf4d1405ce9322f699"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "면역글로불린 목록을 걷고 proteolytic→protein-breaking, destabilize→weaken 으로 바꾸니 '사람 타액이 바이러스를 더 빨리 없앤다' 논지가 섰다.",
+            "sample": "In contrast, human saliva harbors a",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:21:59.419Z",
+      "topicMargin": 19.55
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "08353307-77b3-40d0-b414-bf2983077ca9",
+    "revision": "2026-09-25T07:28:52.242786+00:00",
+    "body_sha256": "e81ef4b9bf2fe705d099683b860a4501d37ed2da4ef0a3636e402fca8b8e465b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.616Z",
+        "by": "chunk-llm",
+        "why": "서론의 기계학습 해석 가능성 단락(블랙박스 한계→SHAP)이 문제-해결 구조로 서서 요지·빈칸 칸을 채운다; 나머지는 수치 나열.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:18.733Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "98ce73aab1271b0afc503d8db86bd5d223bcdbbb92bd36a29fac8cbf8ef7cd4e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "SHAP 명칭을 '설명 도구'로 일반화하고 elucidating→showing 으로 바꾸니 정확도와 해석 가능성의 긴장이 섰으나 단락이 짧아 앞 ML 단락과 붙여야 한다.",
+          "sample": "Despite the high accuracy levels achieved",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.616Z",
+        "by": "chunk-llm",
+        "why": "서론의 기계학습 해석 가능성 단락(블랙박스 한계→SHAP)이 문제-해결 구조로 서서 요지·빈칸 칸을 채운다; 나머지는 수치 나열.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:18.733Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "98ce73aab1271b0afc503d8db86bd5d223bcdbbb92bd36a29fac8cbf8ef7cd4e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "SHAP 명칭을 '설명 도구'로 일반화하고 elucidating→showing 으로 바꾸니 정확도와 해석 가능성의 긴장이 섰으나 단락이 짧아 앞 ML 단락과 붙여야 한다.",
+          "sample": "Despite the high accuracy levels achieved",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "기계학습 모형이 정확해도 변수 기여가 안 보인다는 문제와 해석 도구 도입이 서론에서 한 논지로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Machine learning (ML) offers a promising",
+          "note": "서론 둘째 단락은 약어를 풀어 쓰면 읽히고, 모형 이름 나열만 줄이면 한 단락으로 완결된다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.612Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:40.616Z",
+          "by": "chunk-llm",
+          "why": "서론의 기계학습 해석 가능성 단락(블랙박스 한계→SHAP)이 문제-해결 구조로 서서 요지·빈칸 칸을 채운다; 나머지는 수치 나열.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:18.733Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "98ce73aab1271b0afc503d8db86bd5d223bcdbbb92bd36a29fac8cbf8ef7cd4e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "SHAP 명칭을 '설명 도구'로 일반화하고 elucidating→showing 으로 바꾸니 정확도와 해석 가능성의 긴장이 섰으나 단락이 짧아 앞 ML 단락과 붙여야 한다.",
+            "sample": "Despite the high accuracy levels achieved",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:54.099Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "08374e41-752d-44ad-bdfe-64602270f845",
+    "revision": "2026-09-25T07:28:52.619626+00:00",
+    "body_sha256": "cea62fa9ae87523055878aa76992fb8f0b54d45d83545e20f3e1a56c76c85830",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.617Z",
+        "by": "chunk-llm",
+        "why": "결과 절이 첫 단락(선별 흐름)에서 끊기고 결과 본문·고찰·결론이 통째로 없다; 서론 뇌출혈 배경 단락만 떼어 쓸 수 있다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:18.761Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7db0627c1198a67e0620236a69fd067e04a4a6fe3b96b419627baf26f84b3561"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "parenchyma→brain tissue, arteriolosclerosis→hardened small vessels 로 바꾸니 원인·예후 설명은 서지만 원천 본문이 결과 도입에서 잘려 있다.",
+          "sample": "Spontaneous intracerebral hemorrhage (ICH) accounts for",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:40.617Z",
+        "by": "chunk-llm",
+        "why": "결과 절이 첫 단락(선별 흐름)에서 끊기고 결과 본문·고찰·결론이 통째로 없다; 서론 뇌출혈 배경 단락만 떼어 쓸 수 있다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:18.761Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7db0627c1198a67e0620236a69fd067e04a4a6fe3b96b419627baf26f84b3561"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "parenchyma→brain tissue, arteriolosclerosis→hardened small vessels 로 바꾸니 원인·예후 설명은 서지만 원천 본문이 결과 도입에서 잘려 있다.",
+          "sample": "Spontaneous intracerebral hemorrhage (ICH) accounts for",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "hold_reason": "incomplete-source",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고령 환자에서 나이 자체는 예후를 못 가른다는 통념 교정이 고찰 첫 단락에서 근거와 함께 제시된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The primary contribution of this study",
+          "note": "지표 약어(MAR·SIRI)가 논지의 주어라 걷어낼 수 없어 어휘 하향은 막혔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.613Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:40.617Z",
+          "by": "chunk-llm",
+          "why": "결과 절이 첫 단락(선별 흐름)에서 끊기고 결과 본문·고찰·결론이 통째로 없다; 서론 뇌출혈 배경 단락만 떼어 쓸 수 있다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:18.761Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7db0627c1198a67e0620236a69fd067e04a4a6fe3b96b419627baf26f84b3561"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "parenchyma→brain tissue, arteriolosclerosis→hardened small vessels 로 바꾸니 원인·예후 설명은 서지만 원천 본문이 결과 도입에서 잘려 있다.",
+            "sample": "Spontaneous intracerebral hemorrhage (ICH) accounts for",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "hold_reason": "incomplete-source",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:59.846Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "083e2bce-83a1-4175-9444-ec5353623a0d",
+    "revision": "2026-09-13T06:37:51.518704+00:00",
+    "body_sha256": "719c98cb2fc7ee5af20f884b16b1168f5e6e060c8c81104646eb84cbb4f6c673",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "겨냥한 세포만 표적하려던 도구가 뇌까지 표지해 실패했다는 전말이 고찰에서 한 편의 논지로 정리된다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Inhibitory spinal cord neurons expressing the",
+          "note": "본문에 그림 설명이 문단 사이에 섞여 있고 유전자 기호를 걷으면 논지가 무너져 발췌 전 정리가 필요하다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.615Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:57:06.693Z",
+      "topicMargin": 19.11
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "084a02b9-1d70-4b9a-a956-50a72f5d527a",
+    "revision": "2026-09-25T07:28:54.375095+00:00",
+    "body_sha256": "132c5dce75fc42d089c9b88d7d4d9f3d0b446140148bcae6ddd7d41825fb64f1",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.262Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 젖소 유방염이 항생제로 균은 잡지만 조직 손상은 되돌리지 못한다는 한계와 세포 노화 문제를 세워 요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:21.684Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b799f9c540545d09366a5ff06fd6fb8813884155eed41edc394ad177b3120a09"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "antimicrobial agents를 「항생제」, senescent를 「노화한」으로 바꾸면 V7로 내려오나 뒤 기전 절은 약어가 빽빽해 쓸 수 없다.",
+          "sample": "Bovine mastitis is one of the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.262Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 젖소 유방염이 항생제로 균은 잡지만 조직 손상은 되돌리지 못한다는 한계와 세포 노화 문제를 세워 요지·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:21.684Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b799f9c540545d09366a5ff06fd6fb8813884155eed41edc394ad177b3120a09"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "antimicrobial agents를 「항생제」, senescent를 「노화한」으로 바꾸면 V7로 내려오나 뒤 기전 절은 약어가 빽빽해 쓸 수 없다.",
+          "sample": "Bovine mastitis is one of the",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약이 감염에서 세포 노화까지의 사슬을 평이한 문장으로 잇고 있어 그대로 한 편의 설명문이 된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Staphylococcus aureus (S. aureus) is a",
+          "note": "저자 요약 단락은 떼어내면 바로 시작되고 효소 이름 두셋을 풀어 쓰면 밴드가 한 칸 내려갔다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.617Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:41.262Z",
+          "by": "chunk-llm",
+          "why": "서론 첫 단락이 젖소 유방염이 항생제로 균은 잡지만 조직 손상은 되돌리지 못한다는 한계와 세포 노화 문제를 세워 요지·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "main_point",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:21.684Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "b799f9c540545d09366a5ff06fd6fb8813884155eed41edc394ad177b3120a09"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "antimicrobial agents를 「항생제」, senescent를 「노화한」으로 바꾸면 V7로 내려오나 뒤 기전 절은 약어가 빽빽해 쓸 수 없다.",
+            "sample": "Bovine mastitis is one of the",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:50.341Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "084bbc07-12b6-439a-8980-1029086932f8",
+    "revision": "2026-09-25T07:28:55.204639+00:00",
+    "body_sha256": "92158860acbaa964cca41600783085c17027f264b726cd70cf1324460860b167",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.262Z",
+        "by": "chunk-llm",
+        "why": "결과·고찰 절이 기울기가 얕으면 고전 화학주성은 멈추지만 접촉 견인(TIM)은 이동을 이어 간다는 대비를 논증해 주제·빈칸·요약 칸을 채운다(수식 기호는 본문에서 빠져 있다).",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:21.766Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7fb3256c6cc31636a75a3032952cf09f59d3618bf7e0a9467cab1b43a437e7a8"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "빠진 수식 기호를 「기울기」로 채우면 대비 논지가 서지만 chemoattractant·nurse cell 등 용어 때문에 V8 아래는 어렵다.",
+          "sample": "In vivo chemoattractant gradients guiding collective",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.262Z",
+        "by": "chunk-llm",
+        "why": "결과·고찰 절이 기울기가 얕으면 고전 화학주성은 멈추지만 접촉 견인(TIM)은 이동을 이어 간다는 대비를 논증해 주제·빈칸·요약 칸을 채운다(수식 기호는 본문에서 빠져 있다).",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:21.766Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "7fb3256c6cc31636a75a3032952cf09f59d3618bf7e0a9467cab1b43a437e7a8"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "빠진 수식 기호를 「기울기」로 채우면 대비 논지가 서지만 chemoattractant·nurse cell 등 용어 때문에 V8 아래는 어렵다.",
+          "sample": "In vivo chemoattractant gradients guiding collective",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "집단 세포 이동을 왜 모형으로 다루는가를 저자 요약과 서론이 순서대로 세워 수식 없이도 논지가 남는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Collective cell migration plays a central",
+          "note": "방법 절은 수식이 자리표시자로 빠져 쓸 수 없고, 저자 요약·고찰만 발췌 대상이다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:41.262Z",
+          "by": "chunk-llm",
+          "why": "결과·고찰 절이 기울기가 얕으면 고전 화학주성은 멈추지만 접촉 견인(TIM)은 이동을 이어 간다는 대비를 논증해 주제·빈칸·요약 칸을 채운다(수식 기호는 본문에서 빠져 있다).",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:21.766Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "7fb3256c6cc31636a75a3032952cf09f59d3618bf7e0a9467cab1b43a437e7a8"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "빠진 수식 기호를 「기울기」로 채우면 대비 논지가 서지만 chemoattractant·nurse cell 등 용어 때문에 V8 아래는 어렵다.",
+            "sample": "In vivo chemoattractant gradients guiding collective",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:57.445Z",
+      "topicMargin": 10.999999999999998
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "0854a8fd-99ee-4b94-871f-23b2bfbfe750",
+    "revision": "2026-09-25T07:28:56.610788+00:00",
+    "body_sha256": "6d70d7c7f0ee3d063e9f9a86cfa16eb42db4a7e0dcf9df4ad60280b27b9dc141",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.263Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 모유가 영양을 넘어 하루 수백만 개의 면역세포로 아기 면역을 길러 준다는 설명을 세워 주제·내용 일치·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "title"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:21.876Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f7b69fb3d16d6f814c68c0d464b02282e567873905f9df37bbe60d97437eb6ea"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "leukocytes를 「백혈구」, lymphoid tissues를 「면역 기관」으로 바꾸고 수치를 걷으니 V6까지 내려간다.",
+          "sample": "Human milk is a dynamic fluid",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.263Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 모유가 영양을 넘어 하루 수백만 개의 면역세포로 아기 면역을 길러 준다는 설명을 세워 주제·내용 일치·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank",
+            "title"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:21.876Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "f7b69fb3d16d6f814c68c0d464b02282e567873905f9df37bbe60d97437eb6ea"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "leukocytes를 「백혈구」, lymphoid tissues를 「면역 기관」으로 바꾸고 수치를 걷으니 V6까지 내려간다.",
+          "sample": "Human milk is a dynamic fluid",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "모유 속 면역세포가 아기 면역을 어떻게 교육하는가라는 물음이 서론에서 서고 고찰 후반이 그 의미를 되짚는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Human milk is a dynamic fluid",
+          "note": "서론 첫 단락은 유전자 기호 없이 서지만 결과 절의 기여율 나열 구간은 통째로 버려야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.622Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:41.263Z",
+          "by": "chunk-llm",
+          "why": "서론 첫 단락이 모유가 영양을 넘어 하루 수백만 개의 면역세포로 아기 면역을 길러 준다는 설명을 세워 주제·내용 일치·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match",
+              "blank",
+              "title"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:21.876Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "f7b69fb3d16d6f814c68c0d464b02282e567873905f9df37bbe60d97437eb6ea"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "leukocytes를 「백혈구」, lymphoid tissues를 「면역 기관」으로 바꾸고 수치를 걷으니 V6까지 내려간다.",
+            "sample": "Human milk is a dynamic fluid",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:01.011Z",
+      "topicMargin": 10.98
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "0855d498-8688-4cf0-85fa-1e75b8314ce2",
+    "revision": "2026-09-13T06:19:48.769039+00:00",
+    "body_sha256": "26b41fea2d9ce81aca67f82cf5be4e8cc71e4e74ee7f88a71cc942a1e0960f7b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "discard",
+        "genre": "fragmentary",
+        "why": "표지 이미지 해설과 저작권 표기뿐이고 같은 두 문장이 반복돼 읽는 글이 아니다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Using data from 22 prospective",
+          "note": "그림을 봐야 뜻이 서는 캡션이라 떼어낼 단락 자체가 없다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.623Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:19.980Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-07-02-597Z",
+    "id": "086e5fad-af75-44b7-855f-bd783d2b20d5",
+    "revision": "2026-09-25T07:28:59.607756+00:00",
+    "body_sha256": "81711907f36c08c15c13fb2d91876bde4fb1670476cf3d896f93c4b15d6069d6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.265Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 우울·조현병·인지저하가 서로 얽혀 진단을 어렵게 하고 주관적 평가에 의존한다는 문제를 세워 주제·빈칸·무관한 문장 칸을 채운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:24.116Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4f0116711b04066cd6e5c36998b473fe3db5b0ca178c0df4453d2fd218236457"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "comorbidity를 「함께 앓음」, amyloid 문장을 걷으니 V7로 내려오고 연결 논지가 선다.",
+          "sample": "Depression, schizophrenia, and cognitive decline represent",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:19:41.265Z",
+        "by": "chunk-llm",
+        "why": "서론 첫 단락이 우울·조현병·인지저하가 서로 얽혀 진단을 어렵게 하고 주관적 평가에 의존한다는 문제를 세워 주제·빈칸·무관한 문장 칸을 채운다.",
+        "basis": "full",
+        "genre": "psychology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:51:24.116Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4f0116711b04066cd6e5c36998b473fe3db5b0ca178c0df4453d2fd218236457"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "comorbidity를 「함께 앓음」, amyloid 문장을 걷으니 V7로 내려오고 연결 논지가 선다.",
+          "sample": "Depression, schizophrenia, and cognitive decline represent",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "우울·조현병·인지저하가 서로 얽혀 있다는 서론의 문제 제기와 정적 연결성의 한계 비판이 하나의 논지로 이어진다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The brain operates as a modular",
+          "note": "고찰의 모듈 비유 단락은 전극 이름을 걷어도 서고 몇 낱말만 바꾸면 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:07:02.625Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:19:41.265Z",
+          "by": "chunk-llm",
+          "why": "서론 첫 단락이 우울·조현병·인지저하가 서로 얽혀 진단을 어렵게 하고 주관적 평가에 의존한다는 문제를 세워 주제·빈칸·무관한 문장 칸을 채운다.",
+          "basis": "full",
+          "genre": "psychology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "irrelevant"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:51:24.116Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4f0116711b04066cd6e5c36998b473fe3db5b0ca178c0df4453d2fd218236457"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "comorbidity를 「함께 앓음」, amyloid 문장을 걷으니 V7로 내려오고 연결 논지가 선다.",
+            "sample": "Depression, schizophrenia, and cognitive decline represent",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:30.312Z"
+    }
+  }
+]

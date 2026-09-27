@@ -1,0 +1,836 @@
+[
+ {
+  "id": "3c998c7b-1a1c-407f-a0fe-aea97b78b761",
+  "source_updated_at": "2026-09-25T07:36:15.735514+00:00",
+  "body_sha256": "f09760a363a955a95f89ac2afcfdb3c2fb0726b9c83c48bb08085e7c066687b8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "초파리 후각회로에서 세포표면 단백질 조합이 계통에 따라 정해진다는 논지를 고찰에서 두 단계 모델로 세우고 모기·개미 비교로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In this study, we comprehensively delineated the",
+   "note": "유전자 약어를 「세포표면 단백질」로 묶으면 논지는 서지만 목표 밴드까지는 내려가지 않는다."
+  }
+ },
+ {
+  "id": "3c9c71f4-8cb8-4094-b6eb-fbe72d68fa35",
+  "source_updated_at": "2026-09-13T07:33:46.405884+00:00",
+  "body_sha256": "08cb1a0e85a4681bc522ffb10955c3f771df8e2d75bb504c36ebe25e9cc809bb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "효소 절단 속도를 높여도 실제 조직·생체에서는 독소 효력이 커지지 않았다는 음성 결과를 고찰에서 단계별 율속 논의로 풀어낸다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Our results suggest that the cleavage",
+   "note": "고찰 문단은 떼어져도 서지만 본문 절반이 실험 프로토콜이라 발췌 지점이 한정된다."
+  }
+ },
+ {
+  "id": "3ca4d68b-44cc-4e81-a425-a887f40cdd7b",
+  "source_updated_at": "2026-09-25T07:36:16.603073+00:00",
+  "body_sha256": "c494594ddc2ecd1d7cb3813377241fa1f93ac945c669874baef73f366767caf5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "살모넬라의 분비장치가 장 상피 장벽을 무너뜨린다는 주장을 저자 요약과 고찰이 평이한 문장으로 정리하고 대조 실험으로 받친다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The intestinal lining forms a crucial",
+   "note": "저자 요약 문단은 균주 약어 두셋만 풀면 그대로 읽히는 설명문이 된다."
+  }
+ },
+ {
+  "id": "3cbb8727-ce23-4d30-a589-6b96bd790756",
+  "source_updated_at": "2026-09-25T07:36:19.82613+00:00",
+  "body_sha256": "83b93f77f4357160e45498be0a91380f4b887eed20b8163c37559795a5f01726",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "생물 데이터에 동역학 모형을 쓰는 까닭을 서론에서 통계적 상관과 대비해 논증하고 두 클루시아 종의 광합성 차이로 예시한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During CAM, stomatal opening occurs in",
+   "note": "CAM 광합성 설명 문단은 수식이 없어 떼기 쉬우나 방법 절은 수식 덩어리라 못 쓴다."
+  }
+ },
+ {
+  "id": "3ccd9b60-9d73-4bcc-b424-4982cff06219",
+  "source_updated_at": "2026-09-25T07:36:21.681663+00:00",
+  "body_sha256": "00f493fd424274c1c8679ac2da8ed24a38e150c4d0f40ba833b143e49b103301",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "약용식물 성분을 암 표적 억제제 후보로 제시하며 기존 합성 억제제의 내성·독성 한계와 견주는 논지가 서론과 고찰에 걸쳐 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Globally, cancer is still a major",
+   "note": "서론 첫 문단은 수치를 걷어도 논지가 남고, 결과 절의 화합물 번호 나열은 가공 때 뺀다."
+  }
+ },
+ {
+  "id": "3cd0abb7-1f8d-465b-87d1-f275a144d9db",
+  "source_updated_at": "2026-09-13T07:11:59.746219+00:00",
+  "body_sha256": "f30bbd9de531c2cfea54270cb397205568130053f5c3bb563ef5442e302db640",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "누수 칼륨 통로와 나트륨 누수 통로가 행동에 반대 방향으로 작용한다는 가설을 고찰이 선행 연구와 함께 세운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "K2P channels are key regulators of",
+   "note": "유전자 대립유전자 표기가 본문 대부분을 덮어 고찰 앞 두 문단 외에는 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "3cd41788-473e-48df-b11f-f8d0cad08f49",
+  "source_updated_at": "2026-09-13T07:02:33.68852+00:00",
+  "body_sha256": "49faf0555ad9c2477f377c97f93d147caf35e8dd7bf4ecf3767c49dbc6869e0e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "식이 항산화물질과 골다공증의 인과를 유전 변이로 따지는 설계를 설명하고 베타카로틴만 효과가 섰다는 결론을 근거와 함께 편다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "mock",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Osteoporosis is a highly prevalent disease",
+   "note": "서론과 고찰 모두 통계 기호를 걷어도 서고, 항산화·골밀도 어휘는 교체가 쉽다."
+  }
+ },
+ {
+  "id": "3cdbe9e1-3856-49aa-a953-73e306368024",
+  "source_updated_at": "2026-09-25T07:36:23.443123+00:00",
+  "body_sha256": "8928107247e546ee60c297011002b966b39d0c5fc0b0053cb52bb741759a0431",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "노화에 따른 보조효소 감소를 근거로 전구체 보충의 필요를 세우고 화학합성과 효소합성의 장단을 비교하는 논지가 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Research indicates that with increasing age",
+   "note": "서론 문단은 자족적이나 본문 중반의 배양·정제 절차는 수치 나열이라 발췌 대상이 아니다."
+  }
+ },
+ {
+  "id": "3cdccc3e-d14d-418c-86ec-3ec4074c70fb",
+  "source_updated_at": "2026-09-25T07:36:23.879094+00:00",
+  "body_sha256": "75607c02bae1bd36bc0b8d30ecb9202edfed67f8fcb20e6913be6cb1223746f2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "교모세포종 예후 예측에서 기존 등급 분류의 한계를 지적하고 단일세포 분석으로 표지자를 찾는 흐름이 서론과 고찰에 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Glioma, the most prevalent primary malignant",
+   "note": "서론은 떼어져 서지만 결과 절이 유전자 기호와 통계량 위주라 쓸 자리가 좁다."
+  }
+ },
+ {
+  "id": "3ce67eb3-7570-4e3a-a265-855969169fad",
+  "source_updated_at": "2026-09-25T07:36:24.284656+00:00",
+  "body_sha256": "8887321bc574c1c6a72409efdfb23f79957a7b6980096d8f87ff10255b7eed89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "수확 후 손실을 줄이는 식용 코팅의 원리를 단계적으로 설명하고 처리별 보존 효과를 대조해 결론을 낸다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "mock",
+    "school",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The edible coating technique refers to",
+   "note": "코팅 작용 기전 문단은 고유명사가 거의 없어 어휘 두셋만 바꾸면 고교 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "3ce7e5e6-4337-4d2c-968e-f7ef3c2a342a",
+  "source_updated_at": "2026-09-25T07:36:24.602455+00:00",
+  "body_sha256": "668a9c3cf3fa170b931b7f66b1d69cf247374f2f7058738a665c993c41095c8f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "종양 표지자 하나만으로는 생존을 못 가르고 영양·염증 지표와 합쳐야 예후가 갈린다는 주장을 환자 자료로 편다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Up to 85% of oncology patients",
+   "note": "영양불량과 치료 결과를 잇는 문단은 지표 약어만 풀면 선다."
+  }
+ },
+ {
+  "id": "3cea8a93-9ba0-4437-bd29-f7f0582a2aaa",
+  "source_updated_at": "2026-09-13T06:41:02.916639+00:00",
+  "body_sha256": "58149c853df8962b4688bb004450b2aacf2e48f4ea0dd514100dcba26331e133",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "근육 분화에서 히스톤 탈메틸화 효소의 역할을 다루지만 본문이 유전자 기호와 배양 절차로 채워져 떼어 낼 문단이 분명치 않다.",
+  "hold_reason": "processing-unclear",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Skeletal muscles are responsible for basic",
+   "note": "서론 두 문장 뒤부터 효소 이름 나열이라 기호를 걷으면 남는 논지가 없었다."
+  }
+ },
+ {
+  "id": "3cee64df-7958-4dec-b7aa-804511d03bdc",
+  "source_updated_at": "2026-09-25T07:36:24.994643+00:00",
+  "body_sha256": "d0a2bf56a830637bb19040c6d232acadac5c07dce7a305716a19f3ac1ea7ea88",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "내생균 대사산물을 항암 후보로 보는 까닭을 기존 치료의 내성·독성과 견주어 세우고 실험과 계산 결과로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The notable global prevalence of cancer",
+   "note": "서론 문단은 화합물 이름 없이도 서지만 결과의 GC-MS 목록은 쓸 수 없다."
+  }
+ },
+ {
+  "id": "3cfbfdba-f119-4dd5-a071-ab80ed6cb6f2",
+  "source_updated_at": "2026-09-25T07:36:25.773685+00:00",
+  "body_sha256": "c8f1d1ee216e3748bdd840ff19b27ee32ba31ac2bcc643c7655807a7b5e4fead",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "장내 유산균이 백신 효과를 끌어올린다는 주장을 저자 요약이 평이하게 정리하고 선행 백신 사례로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Leptospirosis, a widespread zoonotic disease, remains",
+   "note": "저자 요약은 표면분자 목록만 걷으면 한 편으로 서고, 결과 절의 지표 나열은 뺀다."
+  }
+ },
+ {
+  "id": "3d1e628e-d96a-467f-a367-0041a78f5c77",
+  "source_updated_at": "2026-09-25T07:36:27.377639+00:00",
+  "body_sha256": "34dc1aa905387be929771feecd6a3e01af976f4ad0cf17a4bf21b9922e66b52c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "food",
+  "why": "덜 쓰이는 맹그로브 열매에서 펙틴·비타민C를 얻는 가치를 논하고 가공이 아미노산을 떨어뜨린다는 결과까지 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Concomitantly, pectin: complex poly-saccharide mainly located",
+   "note": "펙틴 설명 문단은 수치를 걷어도 서지만 결론 문단은 측정값 나열이라 쓰지 않는다."
+  }
+ },
+ {
+  "id": "3d20cabb-9de5-46b2-af48-4589dfb40540",
+  "source_updated_at": "2026-09-15T14:51:29.604789+00:00",
+  "body_sha256": "1692ee1b2346f1d3cbe9e8699a6675e9c50bcca49375267a5ff6767d0d78506f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "여러 금속에 함께 노출될 때 갑상샘암 위험이 어떻게 달라지는지 개별 금속 효과와 대비해 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dietary exposure to Sn occurs primarily",
+   "note": "노출 경로를 설명하는 문단은 통계 모형 이름만 걷으면 서고, 원소 기호는 이름으로 바꾼다."
+  }
+ },
+ {
+  "id": "3d2abc77-8958-4714-a0cb-5b0981ddc55f",
+  "source_updated_at": "2026-09-25T07:36:28.771811+00:00",
+  "body_sha256": "3c5403d8ca5be40128db137ae49bd2c3865b249a8a515c71a5af0fa7ac85677c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "다시마 가공 부산물을 미결정 셀룰로스로 돌려쓰는 방안을 셀룰로스 구조 설명과 원료별 비교로 논증한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cellulose, the widespread renewable natural polymer",
+   "note": "셀룰로스 서론 문단은 자족적이고, 분석 장비 약어는 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "3d2b9fc4-8a02-460d-847a-fcc316464568",
+  "source_updated_at": "2026-09-25T07:36:29.260442+00:00",
+  "body_sha256": "9dde9a3617dac6b207e29bf0eca6cb0a551d2e9144bdfaa4b41053a1a10aab89",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기생충 감염이 간 섬유화로 가는 경로를 저자 요약이 순서대로 설명하고 조절 단백질의 상반된 선행 보고까지 대비한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Schistosomiasis is a neglected endemic and",
+   "note": "첫 서론 문단은 떼어져 서지만 이후는 단백질 약어가 촘촘해 밴드를 못 내린다."
+  }
+ },
+ {
+  "id": "3d2dc11c-ef47-43a9-b920-d51d35923881",
+  "source_updated_at": "2026-09-25T07:36:30.045327+00:00",
+  "body_sha256": "6073c10a2a991f390780571cf879d824f7309a52a69e96f82fbc0ffe21d99121",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "사람 눈 안에서 약물이 어떻게 퍼지고 빠지는지 모형으로 따지는 까닭을 실측 자료 부족과 함께 밝히고 한계도 명시한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neovascular eye diseases, including age-related macular",
+   "note": "질환과 혈관 생성 설명 문단은 수치를 걷어도 서고, 방정식 절은 발췌에서 뺀다."
+  }
+ },
+ {
+  "id": "3d40942d-dc90-4596-aee6-3e8a01d478f4",
+  "source_updated_at": "2026-09-13T07:34:59.856826+00:00",
+  "body_sha256": "26696e62e0b388e2e0db1000e6cc18f10f9ff4119007c5a4bc1c4e28fc2f01e8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "새 모기 매개 바이러스가 유럽으로 들어온 경위와 사람 신경계 감염 보고를 시간 흐름으로 잇고 신경세포 실험으로 받친다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The recent Zika virus (ZIKV) outbreak",
+   "note": "서론은 종 이름을 몇 개 걷으면 한 편의 설명문으로 서고 사건 흐름도 남는다."
+  }
+ }
+]

@@ -1,0 +1,982 @@
+[
+  {
+    "id": "400bdb2d-e2b3-48e8-98a8-e1affb08dfcd",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:49.665147+00:00",
+    "body_sha256": "5d663daaf2809e80ed32929c331f85111552d029b1fc952496c3e5fe07aabcd4",
+    "retention": "keep",
+    "genre": "health",
+    "why": "순환 호르몬 총량을 공통 척도로 놓고 수용체 친화도와 연결하는 논지가 고찰에서 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Placing diverse hormone families on",
+      "note": "고찰 마지막 단락은 수치 없이 서고, adiponectin 같은 고유명사는 일반어로 바꿀 수 있다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab",
+      "grammar"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "40297fb0-ea49-43eb-9191-ee0cad511cd2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:53:01.861161+00:00",
+    "body_sha256": "9d77bdbca3d6d1fb7bea0a650d778426d9fc121eaa7466d59d3172b6a851c015",
+    "retention": "keep",
+    "genre": "health",
+    "why": "아동 급성 코로나 스테로이드와 롱코비드 위험의 인과 추정 설계를 설명하는 논증 단락이 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the absence of clinical",
+      "note": "모의 임상시험 설계 설명 단락이 자족적이다. 표 참조 문구는 걷어야 한다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "402a4651-1e07-4fc9-9db6-12540d13f9fa",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:53.846625+00:00",
+    "body_sha256": "50b8d24f47a3bbb548564d591c24eee1c343bdd924c61c474e2417cc3992702f",
+    "retention": "keep",
+    "genre": "social",
+    "why": "남아공 지방정부의 환경법 준수 결정요인을 면담 인용과 함께 논지로 정리한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hierarchical governance is characterized by",
+      "note": "거버넌스 유형을 대조하는 단락이 앞 문맥 없이 서고, 라틴어식 낱말을 쉬운 말로 바꿀 수 있다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab",
+      "grammar"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "402c8acb-1d5d-46e5-bd7d-c4cd55fada9a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:50:39.340044+00:00",
+    "body_sha256": "d1a6b088df07d4a5139bd40b7032f812f9148cfb0745b2335f70f2e466738566",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "science",
+    "why": "주머니쥐 폐 발달 기술은 본문 중간에 대형 수치 표가 그대로 박혀 있어 떼어 낼 단락을 고르기 어렵다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "With birth, the lungs of",
+      "note": "고찰 첫 단락은 서지만 측정치 표가 본문에 섞여 발췌 경계가 불분명하다."
+    },
+    "uses": [
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "402df7ea-1825-484b-9ebc-840154dc8223",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:53:02.633811+00:00",
+    "body_sha256": "9996a98c3b4ffb958e752bd3c03767c9cf9930cc5aa30bb97b355023e89a25dc",
+    "retention": "keep",
+    "genre": "health",
+    "why": "심장 지방 두께가 전신 지방·염증 지표인지 묻는 문제 제기와 한계 논의가 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although EAT has beneficial physiological",
+      "note": "고찰의 기능 설명 단락은 수치 없이 서고, 사이토카인 나열은 가공 때 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "403394d5-99dc-4442-9589-88a7de909040",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:19:31.282105+00:00",
+    "body_sha256": "2bac9a980c29309322f221e5781b0708b1d988decda88f405e17415da5952fc8",
+    "retention": "keep",
+    "genre": "science",
+    "why": "두 유전자의 상호작용이 발달·노화·면역을 잇는다는 결론을 고찰이 한 논지로 묶는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The coordination of developmental programs",
+      "note": "고찰 도입 단락은 떼어 내도 서지만 유전자명이 많아 목표 밴드로 내리기 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "403610c9-d615-4537-bd3c-e6d28aecea23",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:54.64608+00:00",
+    "body_sha256": "ebdff664a124c227ee4992160a1859090ebbd2c01f091088f5df6dc6a1c47305",
+    "retention": "keep",
+    "genre": "health",
+    "why": "신속진단·유전형 검사·AI 예측을 묶은 항생제 관리 개선 주장이 서론과 고찰에서 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "purpose",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antimicrobial resistance (AMR) has emerged",
+      "note": "서론 첫 단락이 그대로 지문이 된다. 표 참조와 비용 수치는 걷는다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab",
+      "grammar"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "404af803-24bf-40e5-aefe-f2001485da7f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:24:48.420848+00:00",
+    "body_sha256": "0e9506c46f69434a866dd07a655903b8b7a9f9e8ec05c243679531ff83eefe4c",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "신속 매독 검사 평가로 본문 상당 부분이 민감도·역가 표여서 가공할 단락 선별이 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The diagnosis of syphilis, a",
+      "note": "고찰 도입은 문맥 없이 서지만 뒤로 갈수록 표 수치 인용에 의존한다."
+    },
+    "uses": [
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "404be873-16c0-4322-aadb-c4f5b9dfafce",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:56.51667+00:00",
+    "body_sha256": "85166d7977b2d381c766cfeee18c328d18602147c898d8e48ff7e9f82c5cfcd9",
+    "retention": "keep",
+    "genre": "health",
+    "why": "첨단 유도장비가 없는 현장에서 예측식이 안전장치가 된다는 논지가 고찰에서 분명하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Current international guidelines strongly advocate",
+      "note": "표준 기법의 한계를 설명하는 단락이 자족적이고 약어는 풀어 쓸 수 있다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "405b16a3-cd3d-4b6a-b8ab-b38d60f9a1b7",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:53:08.948839+00:00",
+    "body_sha256": "0cc70c60986aea07c9ad870650a59bde35ff9072ba75d65375e938e08f028851",
+    "retention": "keep",
+    "genre": "health",
+    "why": "포도당-림프구 비가 폐렴 사망 위험 지표가 되는 기전 설명이 고찰에서 한 흐름으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As effector cells, lymphocytes play",
+      "note": "림프구 감소 기전 단락은 표 없이 서고, 지표 약어만 바꾸면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "4069d65e-6258-4d1b-8ea3-6c306794103f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:58.024505+00:00",
+    "body_sha256": "a8788a42e03a8cfbb90afa35283d74ddf81f0f57f408a13458e74de17f67176e",
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "자기자비가 신체상을 거쳐 자기수용으로 이어진다는 구조를 개념 구분과 함께 논증한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fundamentally, self-love is an affective",
+      "note": "세 개념을 가르는 단락이 떼어 내도 서고 통계치가 없어 가공이 쉽다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab",
+      "grammar"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "4069f7f0-9b31-44c1-8cf6-d087ded1fc8c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:58.410984+00:00",
+    "body_sha256": "b160bccdf9679fe33524e0bd0a15dca1cb16ee5f037ca30a735372975e439ec4",
+    "retention": "keep",
+    "genre": "science",
+    "why": "세균 신호물질이 효과체 분비를 조절해 증상과 증식을 분리한다는 발견을 저자 요약이 평문으로 세운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Pseudomonas syringae is a bacterial",
+      "note": "저자 요약 단락은 자족적이나 유전자·단백질명이 많아 어휘 조정 폭이 좁다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "406f568e-b86e-4f5c-893a-19870b6d077d",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:37:59.443986+00:00",
+    "body_sha256": "93896a8bf16a9947c87bf3b436ff59a8b642b47b9ce047e70eb669793ecd69ab",
+    "retention": "keep",
+    "genre": "health",
+    "why": "초음파로 아밀로이드 배출을 돕는다는 가설과 뇌 폐기물 배출 경로 설명이 자족적으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mechanical pressure waves generated by",
+      "note": "음향 흐름 설명 단락이 그림 참조 없이 서고 약어를 풀면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "40707b50-d412-4aa9-bdee-b8a54d34fed9",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:38:00.407725+00:00",
+    "body_sha256": "ca0dca82a42e96d7a9349a9cca5ac1c5137607e87e5071313fd3c2afc8265d29",
+    "retention": "keep",
+    "genre": "health",
+    "why": "콜레스테롤이 혈압을 낮추는 역설을 식물스테롤 축적으로 설명하는 논지가 서론에서 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Sterols and fatty acids (FAs)",
+      "note": "서론 도입 단락은 떼어 내도 서지만 지질 약어가 많아 어휘 조정이 제한된다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "407599ec-1d0c-4341-bae3-d4c88b3c5f67",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:55:57.395146+00:00",
+    "body_sha256": "62555062034fc3f84679d596a017db8a8db6b260ce4354006e2f9f79c8540123",
+    "retention": "keep",
+    "genre": "health",
+    "why": "전통 처방 두 종의 항말라리아 효과를 약물내성 문제와 연결하는 논지가 서론·고찰에 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Drug resistance has become one",
+      "note": "고찰 도입은 자족적이지만 본문 중반은 성분 표라 발췌 때 걷어야 한다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "4076c3f5-762c-48c8-9667-adf497051c81",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:38:01.274432+00:00",
+    "body_sha256": "9ece1a86c464e1f0ff5870bf5e6854d784ef5c0c5ecb21432356e2e41b484184",
+    "retention": "keep",
+    "genre": "science",
+    "why": "공간 정보가 없으면 바이러스 전파 경로를 가릴 수 없다는 방법론 주장이 고찰에서 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The spread of viral infections",
+      "note": "서론 첫 단락이 그대로 서고, 수식 자리표시자는 발췌에서 제거해야 한다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "4086fd76-3430-4441-a1a8-360d597bed45",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:38:04.434209+00:00",
+    "body_sha256": "e25a9896a69bfe4d460e3118c90bda89be6301c7b3d55de2ea543e31e5f684d4",
+    "retention": "keep",
+    "genre": "climate",
+    "why": "토양탄소의 미래가 기후가 아니라 정책 경로에 달렸다는 주장을 시나리오 대비로 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The most significant finding is",
+      "note": "결론 단락이 그림 참조 없이 서고 시나리오 코드만 풀어 쓰면 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab",
+      "grammar"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "409806d1-ee73-494c-b8d0-1908edd4f78c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:53:18.337735+00:00",
+    "body_sha256": "992b641602bceea6a1ad9898b75e2dab4b3f2182fda3c555224532b439523291",
+    "retention": "keep",
+    "genre": "health",
+    "why": "손끝 채혈 검사가 투석실 현장 진단을 앞당길 수 있다는 필요성 논증이 서론에 서 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Point-of-care testing (PoCT) has gained",
+      "note": "현장검사 이점 단락은 자족적이고 약어를 풀면 어려움이 크게 줄어든다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "409b625c-28e9-4bf9-9469-55967691f52e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:38:06.159054+00:00",
+    "body_sha256": "63d837e604cf06f39ec64b77b80ad4a546b55a55f68f32ca5f0801c64f00250a",
+    "retention": "keep",
+    "genre": "education",
+    "why": "의사 역량 기준을 전문가만이 아니라 환자 관점에서 검증해야 한다는 공백 지적이 논지로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "claim",
+        "purpose",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The omission of the patient",
+      "note": "공백을 지적하는 단락이 통계 없이 서고 학술 어휘 몇 개만 바꾸면 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab",
+      "grammar"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  },
+  {
+    "id": "40ae4aa2-de1c-450a-8efb-28cdeedd208b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:38:06.952297+00:00",
+    "body_sha256": "a894998d4ec4a14f5b7761f809d2b9eeadac10fae90d287db8ef661d0d8f24d9",
+    "retention": "keep",
+    "genre": "science",
+    "why": "바이러스가 세포외소포를 이용해 면역을 피한다는 발견을 저자 요약이 평문으로 정리한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Human tumor viruses pose an",
+      "note": "서론 도입은 자족적이나 바이러스·유전자 약어가 많아 밴드 조정이 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 5,
+    "round": 4
+  }
+]

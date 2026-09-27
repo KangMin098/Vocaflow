@@ -1,0 +1,843 @@
+[
+ {
+  "id": "52b3444a-5bc7-4b44-b621-f520f0941c6d",
+  "source_updated_at": "2026-09-13T07:04:30.752075+00:00",
+  "body_sha256": "388d242530ee773fbb9c92d1308531229b3bd35dcfdc5428f83d53e23691c999",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "이산화탄소 농도 변화가 SREBP2 를 거쳐 콜레스테롤 합성을 조절한다는 논지를 서론과 고찰이 한 편으로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Alterations in CO2 levels (hypocapnia",
+   "note": "고찰 첫 문단은 그림 참조가 없어 그대로 떨어지고, SREBP2·ER 같은 약어를 「조절 단백질」로 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "52d09444-0d40-49ec-82ae-b78fe7d5bd71",
+  "source_updated_at": "2026-09-13T07:15:51.681809+00:00",
+  "body_sha256": "761d3c41ab66f1be26b2033cf512342e4940711ae3e7b9421588a23190a65449",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "다발성경화증 환자의 장내 곰팡이 구성이 다르다는 주장을 근거 여럿으로 잇고 고찰이 한계까지 밝힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a healthy state, there is",
+   "note": "세균과 곰팡이의 균형을 설명하는 고찰 문단은 속명을 「어떤 곰팡이」로 바꿔도 논지가 남는다."
+  }
+ },
+ {
+  "id": "52d7b185-fdf5-4057-b54d-92cc3edf368e",
+  "source_updated_at": "2026-09-25T07:29:57.367006+00:00",
+  "body_sha256": "5d458044354e70cc9b93903e9b77f194268228c484068179f99be375562e9a73",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고혈당이 자가포식을 망가뜨리고 지질대사와 악순환을 이룬다는 인과 사슬을 서론-고찰이 차례로 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The pathogenesis of DPN is",
+   "note": "서론의 발병 기전 문단은 도표 참조가 없어 떼기 쉬웠고, AGEs·RAGE 를 풀어 쓰면 읽힌다."
+  }
+ },
+ {
+  "id": "52f11a83-fa78-4232-90c5-87b4760cac5d",
+  "source_updated_at": "2026-09-25T07:29:59.177947+00:00",
+  "body_sha256": "c6d00545c205f11b3ff77fa9c6724d922835c5f5bfb861980cb47e997d433333",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "에스트로겐이 줄면 골격근이 위축되는 경로를 가설-검증-결론으로 잇고 고찰이 반대 보고까지 다룬다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Estrogen exerts its physiological effects through",
+   "note": "수용체 종류를 설명하는 고찰 문단이 자족적이고, 유전자 기호를 일반명으로 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "53086a8a-6013-4795-b0c0-4394a810e59a",
+  "source_updated_at": "2026-09-25T07:30:02.635703+00:00",
+  "body_sha256": "5b48119c1efeac4aa4642164dc321c51e58e890379845ffbcd3bdc1bf292202b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스 표면 단백질의 세 자리 결합이 감염 경과 전체를 좌우한다는 주장을 실험 결과로 단계적으로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "We previously reported that HVEM-/-",
+   "note": "고찰은 논지가 서지만 바이러스·수용체 약어가 촘촘해 몇 개만 바꿔서는 밴드가 잘 내려가지 않는다."
+  }
+ },
+ {
+  "id": "5312f18c-d5f6-46a4-a533-4185155748c1",
+  "source_updated_at": "2026-09-25T07:30:06.832477+00:00",
+  "body_sha256": "1c58162275c00a674ce33ba4e426b8a4401b465445f69a725179bb0a43b2936b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "약용 식물 추출물의 항암 가능성을 실험과 계산 분석으로 검토하고 한계를 길게 자인하는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cervical cancer remains one of",
+   "note": "고찰 도입과 한계 문단은 자족적이지만, 가운데 방법 절은 기기·시약 나열이라 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "5313ba55-e24a-43e2-b143-09fa1d903b46",
+  "source_updated_at": "2026-09-25T07:30:07.330966+00:00",
+  "body_sha256": "da7e55c1cac3fd3df714b29b821a2b79f231e378df52ac249e05e2b839103249",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "밀의 더위 견딤을 생리 지표와 유전 지도로 함께 설명하고 서론이 문제-접근을 분명히 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wheat (Triticum aestivum L.) is one",
+   "note": "서론은 떼어도 서지만 결과·고찰은 표지 기호가 빽빽해 수치를 걷어야 문단이 읽힌다."
+  }
+ },
+ {
+  "id": "532385d0-2ed0-4f2e-8a9a-e264863d6e79",
+  "source_updated_at": "2026-09-25T07:30:08.380422+00:00",
+  "body_sha256": "33ba26934ab6f77ee33d5ba0c14bad0e9380d6cbc1571ae029e2f4fb065ca889",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "항체의 두 결합 자리가 중화력을 만든다는 구조적 설명을 서론-고찰이 일관되게 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Multivalency is a key factor",
+   "note": "다가 결합을 설명하는 고찰 문단은 문맥 없이도 서지만 구조 용어가 많아 어휘 조정만으로는 한계가 있다."
+  }
+ },
+ {
+  "id": "532711c3-be72-43f5-aa19-eaf12c2095ed",
+  "source_updated_at": "2026-09-13T06:42:01.165036+00:00",
+  "body_sha256": "665875902cf6a8243171c051eb6506b71103028a3385b68adcbccae87108d414",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "방글라데시 해안의 염분 침입 원인과 물 이용 적합성을 원인-결과로 잇고 대책까지 논한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Globally, salinity intrusion is a pressing",
+   "note": "서론과 결론은 논지가 또렷하나 본문 가운데 표 데이터가 통째로 섞여 있어 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "5332206f-7797-467e-b7f5-1260f8002ee5",
+  "source_updated_at": "2026-09-25T07:30:10.554953+00:00",
+  "body_sha256": "d797b8a467759d19749d1120abebfa0e14e70d7a88c953381293e26bdbcf5648",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "전립선 수술의 새 술기가 기능 회복을 앞당긴다는 비교 결과를 고찰이 이유와 함께 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As is well documented, surgical treatments",
+   "note": "서론은 문맥 없이 서고, 해부 구조 약어를 풀어 쓰면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "53621930-0f77-4866-98b7-2fd8d37438a8",
+  "source_updated_at": "2026-09-13T07:12:11.607113+00:00",
+  "body_sha256": "27f4882916d349c6317df217da0870289dea3f1362dd59d1ac9444a0719e1ddd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유행 규모를 키웠으리라 본 돌연변이가 실제로는 영향이 거의 없었다는 가설-반증 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Here, we addressed the potential effect",
+   "note": "고찰 첫 문단이 가설과 결론을 함께 담아 떼기 좋고, 유전자 표기를 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "53622b85-a5d9-4a17-9fe3-fd27a2290048",
+  "source_updated_at": "2026-09-25T07:30:12.699429+00:00",
+  "body_sha256": "375425bd99d5ff63085f2d48e3267f478ae58557bb579882f286829ff30e2879",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기증자 혈색소의 예후 의미가 수혜자 상태에 따라 뒤집힌다는 상호작용을 가설과 한계까지 설명한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The central objective of this exploratory",
+   "note": "고찰의 해석 문단은 통계 수치를 걷어도 「맥락에 따라 달라진다」는 논지가 서고 문맥 참조가 없다."
+  }
+ },
+ {
+  "id": "5362f0b6-260a-40a9-9d37-0be72562d3da",
+  "source_updated_at": "2026-09-13T06:42:29.469158+00:00",
+  "body_sha256": "1579c8fd5430766be873de946ea3ef525ac57d3eee56bd279433a82be59311ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "당뇨 쥐의 장 운동 저하를 산화 스트레스로 설명하고 마늘기름의 개선 효과를 고찰이 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the present study, impaired small",
+   "note": "고찰 첫 문단은 자족적이고 효소 약어 두셋만 풀면 읽히나, 결과 절은 수치 나열이라 걷어야 한다."
+  }
+ },
+ {
+  "id": "53638777-7a23-4434-928c-00479c9e4e34",
+  "source_updated_at": "2026-09-15T15:02:06.308251+00:00",
+  "body_sha256": "23c44c8b0dd18a812fad4a0d96045926d1d28b913663c52b61345002c94af8be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세균이 지질 구조를 바꿔 면역 감지를 피한다는 회피 전략을 실험과 고찰로 일관되게 논증한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "For C. burnetii, an obligate intracellular",
+   "note": "고찰은 논지가 서지만 염증조절복합체 용어가 촘촘해 어휘 조정으로 밴드를 크게 낮추기 어렵다."
+  }
+ },
+ {
+  "id": "5367d6a4-c7c7-496f-adfa-c7b5c4f6f33a",
+  "source_updated_at": "2026-09-05T23:41:42.046967+00:00",
+  "body_sha256": "0b384a9752550f98f80851f1614290063eb546ee076f17fc6735aadabbfacaf2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 병기 체계의 한계와 새 체계의 차이를 짚어 평가하는 논평으로 한 편의 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The BCLC staging system is currently",
+   "note": "세 가지 차이를 나열한 문단이 그대로 한 지문 길이이고, 약어를 풀면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "5370cfa4-93ff-4f2e-b8de-3a1d1b7fe5bd",
+  "source_updated_at": "2026-09-25T07:30:14.108976+00:00",
+  "body_sha256": "6fcb1c0faafdd16c8257243c713234593896827937714f983dfe424598f82d6a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "골밀도 자동 측정법의 정확도와 한계를 비교 검증으로 논하고 성별·연령 차이까지 해석한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Osteoporosis (OP) is a skeletal disorder",
+   "note": "서론의 질환 설명 문단은 자족적이고, 결과 절의 회귀식 나열은 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "53713c8a-2d18-434e-b4fb-c378f1e07eea",
+  "source_updated_at": "2026-09-23T21:04:48.711528+00:00",
+  "body_sha256": "f56b3df59f53b3e6332772432d332e02e6f016bf128a9c220772339d3a84596c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소외된 열대병이 왜 이 지역에서 사라지지 않는지를 생태·제도 요인으로 엮어 주장한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "purpose",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The ecological and social conditions that",
+   "note": "각 문단이 주장과 근거를 갖춰 그대로 떨어지고, 지명을 줄이면 중등 상위까지 내려간다."
+  }
+ },
+ {
+  "id": "5375f1f3-1a1a-4bc3-977b-fb67103686fa",
+  "source_updated_at": "2026-09-15T15:02:09.320237+00:00",
+  "body_sha256": "0816146c954a0a784b7bb52fb6e2a70ec1114023a4aa799db668c3962259fd39",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수술로 갑상선 저하 모델을 만드는 방법을 다른 방식과 견주어 장단점까지 논하는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Various methods have been developed to",
+   "note": "모델 방식을 견주는 고찰 문단은 떼어도 서고, 호르몬 약어를 풀면 읽기 쉬워진다."
+  }
+ },
+ {
+  "id": "5379215b-2120-4e50-8be3-1ec2ea16a1bd",
+  "source_updated_at": "2026-09-15T15:02:10.113876+00:00",
+  "body_sha256": "01b2fc4cddd15a2a7c494b82bc9693f98b366da8451139d7ec73a29ab7853805",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "한 억제제가 염증 경로를 막아 미토파지를 늘린다는 기전을 실험 순서대로 잇고 기존 약과 비교한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Gout is a painful and complex",
+   "note": "고찰 첫 문단은 자족적이나 단백질 이름이 이어져 어휘 두셋 교체로는 밴드가 잘 내려가지 않는다."
+  }
+ },
+ {
+  "id": "5390703a-114a-4260-a928-2994d9cdb57e",
+  "source_updated_at": "2026-09-13T07:40:41.325425+00:00",
+  "body_sha256": "a83d74cf6d5c913d2ca385029e5284780d52163b25e3fa72098fe274eaab997c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "영상에서 보이는 림프절 모양이 바이러스 감염 여부·재발 양상과 이어진다는 논지를 선행 연구와 견주어 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although head and neck squamous",
+   "note": "고찰 도입 문단은 문맥 없이 서고, 지역 습관을 다룬 대목은 고유명사를 걷어도 논지가 남는다."
+  }
+ }
+]

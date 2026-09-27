@@ -11,14 +11,14 @@
 import React from 'react'
 
 import type { CoverageScene, DecayScene, ItemScene } from '../../spec/types'
-import { ACCENT, ACCENT_SOFT, DECAY, FONT, SURFACE, decayColor, retention } from '../../theme/palette'
-import type { AccentKey } from '../../spec/types'
+import { accentColor, accentSoft, DECAY, FONT, SURFACE, decayColor, retention } from '../../theme/palette'
+import type { Accent } from '../../spec/types'
 import { enterExit, progress, spread, transform } from '../motion'
 import { KO, Title, useFormat } from '../Frame'
 
 /* ── 커버리지 ─────────────────────────────────────────────────── */
 
-export const Coverage: React.FC<{ scene: CoverageScene; accent: AccentKey; duration: number }> = ({
+export const Coverage: React.FC<{ scene: CoverageScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -56,7 +56,7 @@ export const Coverage: React.FC<{ scene: CoverageScene; accent: AccentKey; durat
               key={i}
               style={
                 t.known
-                  ? { color: SURFACE.ink, backgroundColor: ACCENT_SOFT[accent], borderRadius: 4 }
+                  ? { color: SURFACE.ink, backgroundColor: accentSoft(accent), borderRadius: 4 }
                   : {
                       color: DECAY.risk,
                       borderBottom: `${Math.max(2, Math.round(3 * scale))}px solid ${DECAY.risk}`,
@@ -89,7 +89,7 @@ export const Coverage: React.FC<{ scene: CoverageScene; accent: AccentKey; durat
             fontWeight: 800,
             fontVariantNumeric: 'tabular-nums',
             fontSize: Math.round(88 * scale),
-            color: ACCENT[accent],
+            color: accentColor(accent),
             lineHeight: 1,
           }}
         >
@@ -107,7 +107,7 @@ export const Coverage: React.FC<{ scene: CoverageScene; accent: AccentKey; durat
 
 /* ── 망각 곡선 ────────────────────────────────────────────────── */
 
-export const Decay: React.FC<{ scene: DecayScene; accent: AccentKey; duration: number }> = ({
+export const Decay: React.FC<{ scene: DecayScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -166,7 +166,7 @@ export const Decay: React.FC<{ scene: DecayScene; accent: AccentKey; duration: n
       <svg width={W} height={H} style={{ maxWidth: '100%', overflow: 'visible' }}>
         {line(0.95, '0.95 안정', DECAY.stable)}
         {line(0.7, '0.70 위험', DECAY.risk)}
-        <path d={path} fill="none" stroke={ACCENT[accent]} strokeWidth={Math.round(5 * scale)} />
+        <path d={path} fill="none" stroke={accentColor(accent)} strokeWidth={Math.round(5 * scale)} />
         <circle cx={head.x} cy={head.y} r={Math.round(9 * scale)} fill={decayColor(head.r)} />
         {/* 자른 축임을 적는다 — 안 적으면 눈속임이 된다. */}
         <text
@@ -223,7 +223,7 @@ export const Decay: React.FC<{ scene: DecayScene; accent: AccentKey; duration: n
 
 /* ── 실제 문항 ────────────────────────────────────────────────── */
 
-export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: number }> = ({
+export const Item: React.FC<{ scene: ItemScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -243,8 +243,8 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
           fontFamily: FONT.display,
           fontSize: Math.round(22 * scale),
           letterSpacing: '0.04em',
-          color: ACCENT[accent],
-          backgroundColor: ACCENT_SOFT[accent],
+          color: accentColor(accent),
+          backgroundColor: accentSoft(accent),
           padding: `${Math.round(6 * scale)}px ${Math.round(14 * scale)}px`,
           borderRadius: Math.round(8 * scale),
           marginBottom: Math.round(20 * scale),
@@ -282,7 +282,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
                   fontSize: Math.round(30 * prose),
                   lineHeight: 1.6,
                   color: mark ? SURFACE.ink : SURFACE.inkMuted,
-                  borderLeft: `${Math.round(4 * scale)}px solid ${mark ? ACCENT[accent] : 'transparent'}`,
+                  borderLeft: `${Math.round(4 * scale)}px solid ${mark ? accentColor(accent) : 'transparent'}`,
                   paddingLeft: Math.round(14 * scale),
                   ...KO,
                 }}
@@ -299,7 +299,7 @@ export const Item: React.FC<{ scene: ItemScene; accent: AccentKey; duration: num
             marginTop: Math.round(28 * scale),
             fontFamily: FONT.english,
             fontSize: Math.round(34 * prose),
-            color: revealed ? ACCENT[accent] : 'transparent',
+            color: revealed ? accentColor(accent) : 'transparent',
             borderBottom: `${Math.round(3 * scale)}px solid ${SURFACE.border}`,
             display: 'inline-block',
             minWidth: Math.round(320 * scale),

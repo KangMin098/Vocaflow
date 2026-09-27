@@ -1,0 +1,832 @@
+[
+ {
+  "id": "66bc6223-f9b9-4645-a816-ec7d16cad1f7",
+  "source_updated_at": "2026-09-13T07:12:29.539977+00:00",
+  "body_sha256": "5bf33af7753f5f319852593b24fa808a954a1bd5db76194d20c92054ce3dd2b9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 개 암 조기 검진 필요성과 고찰의 위양성 비용·특이도 단락이 논지를 세워 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "High specificity is important because false",
+   "note": "유전체 약어(NGS·ctDNA)를 「혈액 검사」로 바꾸면 수치 없이도 위양성의 비용이라는 논지가 선다."
+  }
+ },
+ {
+  "id": "66bd6f17-dcb3-44f0-9fcf-baee115996a7",
+  "source_updated_at": "2026-09-15T15:11:32.419672+00:00",
+  "body_sha256": "3ba933d19eb64e37309e0472d1baa8a31c19dd55a506f4732bb16f886808f65e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 천식 악화와 바이러스 감염 관계 단락이 떼어 내도 서서 내용 일치·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Asthma is a prevalent respiratory condition",
+   "note": "exacerbation을 worsening으로 바꾸면 되나 본론 사이토카인 실험 단락은 약어가 많아 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "66bf0c36-b5e4-4c1c-83b7-4ba432c4450b",
+  "source_updated_at": "2026-09-13T07:08:04.967595+00:00",
+  "body_sha256": "89ecb268b4042bb77e02a7063cb43d7bbab911f429e403f5f2bc14ad6be59ee5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 조추출물이 단일 성분보다 효과가 컸다는 단락이 다른 활성 성분 가능성이라는 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although the amount of DPHD used",
+   "note": "화합물 이름을 「주성분」「추출물」로 바꾸면 추출물 대 단일 성분 비교 논지가 남는다."
+  }
+ },
+ {
+  "id": "66c6a59d-d814-413a-baa3-8c2705ffc46c",
+  "source_updated_at": "2026-09-25T07:35:02.994367+00:00",
+  "body_sha256": "d0c820be8a8a645c4db210e644e9581ccdc813baffaef1d9e221cff6a23a647e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 빈곤·접근성이 리슈마니아증 부담과 약제 내성을 키운다는 단락과 태국 증례 서사가 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Socioeconomic conditions remain fundamental determinants of",
+   "note": "종 이름을 「기생충」으로 걷으면 사회경제 요인과 내성 위험을 잇는 논지가 선다."
+  }
+ },
+ {
+  "id": "66c7ce75-d2a8-47ef-a1a0-144de2da5d87",
+  "source_updated_at": "2026-09-15T15:11:33.744116+00:00",
+  "body_sha256": "80c9f5851eaf243936415eae664658dd5b4f36cc9a7c9346ce580666a79d15f0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 뱀 교상 부담과 항독소 한계 단락이 새 보조 치료 필요성이라는 논지를 세워 주제·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Current clinical management relies predominantly on",
+   "note": "antivenom을 anti-venom medicine으로 풀면 효능 한계·부작용·비용 근거가 차례로 선다."
+  }
+ },
+ {
+  "id": "66de1030-95e8-4efd-bfea-c3b5ee855e5d",
+  "source_updated_at": "2026-09-25T07:35:03.831428+00:00",
+  "body_sha256": "4878fa7aac98d84e02431935ac30274232901957de57ce96f48f9e030d00eb08",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 고지대 급성 질환과 신장 취약성 단락이 떼어 내도 서서 내용 일치·주제 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Individuals who have lived in lowland",
+   "note": "hypobaric hypoxia를 thin air at high altitude로 바꾸면 고등 밴드로 내려간다."
+  }
+ },
+ {
+  "id": "66e55254-73a1-48fd-abf2-573fe0095fa0",
+  "source_updated_at": "2026-09-25T07:35:04.658557+00:00",
+  "body_sha256": "f88e4447a8e4d62734e1a6f7cdcb312ede180a5444949f87a9488942b0ad83dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 초음파와 MRI가 서로 다른 강점을 보완한다는 단락이 비교 논지를 세워 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "US allows rapid bedside assessment of",
+   "note": "PAS 약어를 「태반 이상」으로 풀면 두 영상 검사의 장단점 대조가 그대로 선다."
+  }
+ },
+ {
+  "id": "66f26ffd-fe38-4a0a-af0d-a2ec56a56729",
+  "source_updated_at": "2026-09-25T07:35:06.036688+00:00",
+  "body_sha256": "6c4285f2ad86d0c918248b5dcfe31abd2dbfd075752f992a1e25f1f9cf00cbfd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 야간 통증 발생 원인 추정 단락과 조기 평가 권고가 논지를 세워 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our univariable and multivariable analyses showed",
+   "note": "vaso-occlusive crisis를 painful crisis로 바꾸면 추위·수분·불안이라는 가능한 원인 나열이 선다."
+  }
+ },
+ {
+  "id": "66fa7928-97c2-4325-8509-4ebe251fa76e",
+  "source_updated_at": "2026-09-13T06:51:58.540433+00:00",
+  "body_sha256": "19e909d8ee8a15252e7bd6a85cb7584cba63a469d92c1ce0b868c8aed1c8afdf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 멘델 무작위 분석 원리 설명과 관찰 연구 한계 단락이 떼어 내도 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although traditional case-control or cross-sectional studies",
+   "note": "원문에 문법 오류가 많아 어법 칸은 달지 않고, 질환 약어를 풀면 연구 설계 비교 논지가 남는다."
+  }
+ },
+ {
+  "id": "670a5bca-72df-4662-8234-8852847cd57f",
+  "source_updated_at": "2026-09-13T07:38:07.917434+00:00",
+  "body_sha256": "50d2f11a1d0fae1c8918819384f85463e8d9adccff5ab071b2d41be6ab0628ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "본문 전체가 해마 시냅스 전기생리 측정이고 서론·고찰도 수용체 약어가 촘촘해 떼어 낼 단락이 애매하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "MHCI itself does not initiate intracellular",
+   "note": "MHCI·PirB·NMDAR 약어를 걷으면 논지가 남지 않아 가공 경로가 서지 않았다."
+  }
+ },
+ {
+  "id": "67161d69-0c84-4097-8ed0-8fcbe6a26ae7",
+  "source_updated_at": "2026-09-25T07:35:08.038217+00:00",
+  "body_sha256": "f507a7d43a7e2f22f564c865a168e73c5938adf5ba3440f30c1c407ddbaf1110",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 단일 혈당 측정보다 혈당 궤적이 대사 상태를 더 잘 보여 준다는 단락이 대조 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A one-time glucose reading may be",
+   "note": "trajectory를 pattern over time으로 바꾸면 한 번 측정과 추이 비교라는 논지가 고등 밴드에 선다."
+  }
+ },
+ {
+  "id": "67217411-8f5c-4371-ac03-fc8ed6bb1f67",
+  "source_updated_at": "2026-09-13T07:38:11.220686+00:00",
+  "body_sha256": "f502d2c96eee4c1331d589230b3af455fe7a2991d2a7e29a0cdb05120f07fdd2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 우주 비행 환경 요인과 중력 변화가 뇌 기능에 미치는 영향 단락이 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Life during spaceflight includes multiple stressful",
+   "note": "hypergravity를 stronger gravity로 바꾸면 우주 비행 스트레스 요인 설명이 떼어 내도 선다."
+  }
+ },
+ {
+  "id": "6729fa47-9921-42d5-9d11-67f86bbca1e3",
+  "source_updated_at": "2026-09-25T07:35:09.780896+00:00",
+  "body_sha256": "4b0794ccc058eda9f445c27f6a2bc7e969622631a8135eac9f565feeb00ff5ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 중피종 치료 한계와 새 약제 필요성 단락이 떼어 내도 서서 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Malignant mesothelioma developed in the pleural",
+   "note": "중피종 설명과 기존 치료 한계는 서지만 본론 신호 경로 단락은 약어가 많아 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "6731cfdb-7536-45e0-b85d-6a7e37e2c1dd",
+  "source_updated_at": "2026-09-13T07:41:57.623399+00:00",
+  "body_sha256": "4fa2a7f6134536e0651f9fdc95eec9417798dc56ad3d08bf3b4a4d83cd0686bf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 뇌 혈류 이상이 휴지기 fMRI 신호 해석을 왜곡할 수 있다는 단락이 주장을 세워 요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Based on the above studies, it",
+   "note": "BOLD·ALFF 약어를 「뇌 영상 신호」로 풀어야 하고 혈관 조절 순서 설명은 가공하면 순서 칸도 가능하다."
+  }
+ },
+ {
+  "id": "6733c583-8627-484b-b382-b595ba06fca9",
+  "source_updated_at": "2026-09-13T07:06:33.09807+00:00",
+  "body_sha256": "ae645cc5297bd5d3a111993cbf4ad7b68ef7330be5226c9b3ca8979b7d33515e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "본문이 닭 비장세포 유전자 발현표와 miRNA 분석이 대부분이고 서론 일반 단락도 약어가 촘촘해 애매하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Inflammation is a pivotal response within",
+   "note": "miRNA·사이토카인 약어를 걷으면 남는 논지가 얇아 가공 결과가 애매했다."
+  }
+ },
+ {
+  "id": "673b1354-4619-408e-b1dc-d17c473cfcc3",
+  "source_updated_at": "2026-09-13T07:41:39.750576+00:00",
+  "body_sha256": "93796713211491517d7cbb9dbbf6b0f4fe2d642b48e5c1b22636e1aeac6d4b78",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 알츠하이머병과 전신마취 위험 관계 단락이 떼어 내도 서서 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Administration of general anesthesia is a",
+   "note": "β-amyloid 설명은 걷어 내고 마취와 고령 환자 위험 단락만 쓰면 수치 없이도 선다."
+  }
+ },
+ {
+  "id": "6743fee5-0a9a-4355-a93d-5b73c9ae6dd7",
+  "source_updated_at": "2026-09-25T07:35:12.733157+00:00",
+  "body_sha256": "8d6ba1f1cb5a419387e8dfa31c07338e170216e2c49c92f2ea193b39b88c8ebf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 구리 킬레이트 치료 창을 다룬 단락이 과하면 결핍을 부른다는 논지를 세워 빈칸·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, the translation of this approach",
+   "note": "TTM을 「구리 제거 약」으로 바꾸면 필수 금속의 양면성 논지가 고등 밴드에 선다."
+  }
+ },
+ {
+  "id": "67481760-8f5e-4262-9b47-22a1e78f7b8e",
+  "source_updated_at": "2026-09-25T07:35:13.329511+00:00",
+  "body_sha256": "b4cd83c0a62863e5275a930e387646d55fbc690cc4962c46ffccf7330235ebb3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "서론의 일리 황토 산사태 위험과 기존 공법 한계, 친환경 MICP 대안 단락이 논지를 세워 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Currently, engineering improvements for loess primarily",
+   "note": "MICP를 bacteria-made cement로 풀면 기존 공법 비판과 대안 제시 흐름이 선다."
+  }
+ },
+ {
+  "id": "67552fe7-9031-454a-924d-bc0ea4c0ed2b",
+  "source_updated_at": "2026-09-25T07:35:15.768631+00:00",
+  "body_sha256": "07b52a45a18425aafd51c31517d84ca247466ba21ca58d8612d419700fced207",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "hold_reason": "processing-unclear",
+  "genre": "science",
+  "why": "본문이 ADP-리보실 유비퀴틴 생화학 실험이고 서론 일반 단락도 효소 약어가 촘촘해 떼어 낼 단락이 애매하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Ubiquitination is catalyzed in a three-step",
+   "note": "3단계 효소 연쇄 설명은 순서가 있으나 E1·E2·E3 약어를 걷으면 뜻이 흐려진다."
+  }
+ },
+ {
+  "id": "675b8f2b-54d5-4557-a2ad-fde01eb2f93d",
+  "source_updated_at": "2026-09-25T07:35:16.701656+00:00",
+  "body_sha256": "0519aa54a05409e14b9ac16fb9c635eabdbea0581f28e890365fe30bbae267a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "서론의 벌레잡이통풀 속 거미의 도둑 기생과 상호 이익 단락이 흐름을 세워 주제·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The coexistence between these organisms represents",
+   "note": "kleptoparasitism을 stealing prey로 바꾸면 거미와 식물의 관계 설명이 중등 이상에서 선다."
+  }
+ }
+]

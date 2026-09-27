@@ -1,0 +1,261 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "012",
+  "items": [
+    {
+      "id": "f54ab53a-2019-04-18T12:48:18Z-00003-000",
+      "sha256": "3a3e1e78f9ee7b6b7515e49262ec5848311c1a48007cfa4eb3cabc4077597896",
+      "verdict": "write",
+      "topic_ko": "결혼의 법적 인정은 무엇을 기준으로 삼아야 하는가",
+      "passage": "In nearly every country the law treats two people as married only once an official has entered their promise in a public record, though the promise itself came earlier. Supporters of that rule often say the record is merely practical, because the state must know who has accepted responsibility for a child and who may speak for whom in an emergency. The protections attached to the record are far wider than child care, since they cover property, medical decisions and support after a partner has died. Those protections are useful to any two adults who have agreed to share a life, whether or not a child is ever involved. A rule that hands them to some couples and refuses them to others is therefore doing something other than keeping a list; it is ranking private lives. Such ranking is exactly the kind of judgment that a state has no clear ground to make. The proper role of the law here is narrow: keep the record accurate, protect any child, and let the adults settle everything else between themselves.",
+      "claim": "Legal marriage should rest on the shared responsibility two adults accept, not on the kind of family the state expects them to produce."
+    },
+    {
+      "id": "f5624343-2019-04-18T16:41:24Z-00005-000",
+      "sha256": "05ded19a6ad68342d5e11f658786f5d73484a23e3ec0f0141d679fd2af31160f",
+      "verdict": "write",
+      "topic_ko": "여가 시간에 책 읽기가 화면 앞에 앉는 것보다 나은가",
+      "passage": "Books and games both fill empty hours, but the two are not equal in what they leave behind. A story on the page is built out of words alone, so every room and every face has to be supplied by the reader. That effort is itself a form of training, and it is the reason a long book feels demanding while a finished picture never does. A game hands the picture over complete, and the pleasure of it is real, yet the mind is mostly reacting to what a designer has already decided. Readers also meet ideas that were never aimed at them, because a chapter about a strange trade or a distant city can open an interest that lasts for years. Free time is limited, and an hour inside a demanding book usually returns more than an hour with a screen that was built to hold attention. Neither habit is harmful in itself, but if only one of the two can be protected, reading deserves the larger share of the evening.",
+      "claim": "Reading deserves the larger share of free time because it demands the work of imagination that games perform on the reader's behalf."
+    },
+    {
+      "id": "f5f3c668-2019-04-18T13:50:52Z-00002-000",
+      "sha256": "dd4a3394b79d8b50300cebafc9da05ace0e7571566bc82b53b2ec5b68d2c5c96",
+      "verdict": "write",
+      "topic_ko": "생각하는 마음이 몸과 분리되어 존재할 수 있는가",
+      "passage": "Many people are certain that some part of a person continues after the body has stopped, and the hope behind that belief is easy to respect. The evidence points the other way, because every feature of a mind that can be examined turns out to depend on the physical brain. Memory, language and even personality are altered when a small area of tissue is damaged, which suggests that these are products of the organ rather than guests inside it. A broken machine offers a rough comparison, since the pictures stored in a phone are not floating somewhere once the phone itself has been destroyed. The comparison is not perfect, of course, because nobody has ever claimed that a phone was aware of anything at all. If thought were truly separate from the body, injury to the body should leave thought untouched, and that has never once been observed in a hospital. The honest conclusion is that a life ends where the brain ends, and that whatever remains of a person is carried by the people who knew them.",
+      "claim": "Because every measurable feature of the mind depends on the brain, a person does not survive the body's death in any literal sense."
+    },
+    {
+      "id": "f60a54bf-2019-04-18T18:52:39Z-00004-000",
+      "sha256": "0122d15d6c57f2e306717b456ad6fcdaa83d6e71ef043cccc8648ee4e44ca459",
+      "verdict": "write",
+      "topic_ko": "환자 자신의 세포로 대체 조직을 기르는 연구를 허용해야 하는가",
+      "passage": "Methods that can grow a copy of a patient's own tissue are often treated as one frightening idea, but the possible uses differ enormously and the law should follow that difference. Tissue grown from the patient's own cells would remove the long wait for a matching donor, and it would also remove the risk that the body rejects what it has been given. Thousands of people are on waiting lists at any moment and many of them die there, so the benefit under discussion is not a distant one. Waiting does harm of its own, since a patient who fails slowly may become too weak for the operation that was promised. The fear that such work leads directly to copied human beings is understandable, yet it is an argument for careful limits rather than for a total ban. Research that has been pushed outside the law does not stop; it moves to places where nobody is watching and no record is kept. A clear rule that permits tissue work under supervision and forbids the rest is far safer than a ban written in panic.",
+      "claim": "Growing replacement tissue from a patient's own cells should be permitted under supervision rather than forbidden along with every other use of the technique."
+    },
+    {
+      "id": "f6793ee9-2019-04-18T16:33:21Z-00007-000",
+      "sha256": "7a3946bc27b8eeb54000a762fb0f6326bcd3bf789b5205fea51045a9be18522a",
+      "verdict": "write",
+      "topic_ko": "타고난 질병의 원인을 고치는 치료를 받아들여야 하는가",
+      "passage": "Some illnesses are written into a person's cells before birth, and until recently the only answer was to soften the symptoms year after year. A newer approach repairs the faulty instruction itself by placing a working copy inside the cells that need it, so that the body can do what it was always meant to do. Critics argue that such repair crosses a line, since it changes what a patient is rather than merely treating what a patient has. The objection deserves a hearing, but it is hard to explain to a family whose child is losing sight or strength while the discussion continues. Nobody is asking for a right to design children to order, and the treatments under discussion are aimed at illnesses that already have names. Medicine has always been a form of interference, and glasses, vaccines and surgery were each described as unnatural at the moment when they were new. If a treatment has been tested, is properly understood and is freely chosen, the discomfort of onlookers is a weak reason to withhold it.",
+      "claim": "A tested and freely chosen treatment that repairs an inherited fault should not be withheld because it makes onlookers uncomfortable."
+    },
+    {
+      "id": "f6793f65-2019-04-18T16:23:49Z-00002-000",
+      "sha256": "5d0f7b6e75708d3346f29e91e8fb628b98b81f767b9db4c8a605f6e7e3a9f688",
+      "verdict": "write",
+      "topic_ko": "새 치료법의 위험은 왜 실제보다 작게 알려지는가",
+      "passage": "Every new treatment arrives with a story attached, and the story is usually told by the people who have built it. That is one reason the risks of experimental medicine are so often smaller in print than they are in fact. A death that follows an experimental procedure is easy to record as natural, especially when the patient was already seriously ill, so the true count is discovered only when somebody goes back through the files. Results are also published by choice, since a trial that has gone well becomes an article while a trial that has gone badly is quietly set aside. Nor is the pattern limited to one field, because it appears wherever approval depends on figures that were gathered by the maker. Families who agree to such a procedure are told about hope in detail and about danger in summary, which is not informed consent in any serious sense. Full reporting of failures, including deaths that were first attributed to the illness itself, should be a condition of approval rather than a favor granted when the outcome is comfortable.",
+      "claim": "Reporting every failure and death from experimental treatment should be a condition of approval, because those who develop a treatment cannot be the only source of its risk record."
+    },
+    {
+      "id": "f6cb505e-2019-04-18T12:29:05Z-00002-000",
+      "sha256": "dac7d6976c4c563e8f8f7db0d49dee629e583d739007723f5c3e5a3b59858b55",
+      "verdict": "write",
+      "topic_ko": "큰 문제를 풀 때 과거와 미래 중 어디를 보아야 하는가",
+      "passage": "Any large problem demands a pair of different things, enough people who care to act and enough knowledge to act well. A frightening picture of the future supplies the first, because fear pulls strangers together more quickly than careful argument about the present. Yet a crowd still must decide what to do, and about the future no information exists at all, only guesses dressed as certainty. The record of the past offers the one place where the result of a decision can actually be read rather than merely imagined. It shows which repair lasted, which grand plan collapsed, and what the true cost turned out to be once the early excitement faded away. A society that studies past mistakes therefore gains something no prediction about the future can offer, namely evidence. The sound habit lets fear of the future raise the alarm, and lets the study of the past choose the answer.",
+      "claim": "Fear of the future can gather people to act, but only the record of the past can tell them what to do."
+    },
+    {
+      "id": "f7244144-2019-04-18T19:44:48Z-00003-000",
+      "sha256": "727550fbf9dd1d283106fe2d7b4b3a8e6e65babcd9aff6420a00a055dd55331d",
+      "verdict": "skip",
+      "skip_reason": "특정 개인을 지목해 그 사람의 신념을 따지는 글이라, 자족적 지문으로 다시 세울 일반 논지가 없다.",
+      "topic_ko": "특정 개인을 겨냥한 글"
+    },
+    {
+      "id": "f768b372-2019-04-18T17:32:52Z-00001-000",
+      "sha256": "b9bb2f6ef11db858cf74bcd57f33ee7b9e2b8afd295a3333dc2e17315944cb41",
+      "verdict": "write",
+      "topic_ko": "결혼 상대는 부모가 정해 주어야 하는가",
+      "passage": "Families have always held opinions about whom their children should marry, and in some places those opinions still settle the matter completely. Building such a system where it has never existed would be a mistake, and two plain reasons are enough to show why. The first is that a marriage chosen by somebody else removes the one thing that makes the daily work of marriage bearable, which is the knowledge that the choice was freely made. The second is that resistance is certain, because young adults who are told whom to marry will delay, refuse or simply leave, and the family that gave the order is left with less influence than before. A rule of this kind would also fall hardest on daughters, who in practice are the ones whose refusal is punished most heavily. Defenders answer that parents are calmer judges of character, and there is something in that, since strong affection can be blind. Advice, however, is available without control, and a parent who is trusted will be heard far more carefully than a parent who expects to be obeyed.",
+      "claim": "Marriages arranged by parents should not be introduced where they are not already customary, because the freedom of the choice is what sustains the marriage afterward."
+    },
+    {
+      "id": "f788467e-2019-04-18T15:05:59Z-00005-000",
+      "sha256": "d7e236422a7adc6553328437ad53b0fe21841c2aff2ed89cf39409cac76c0274",
+      "verdict": "write",
+      "topic_ko": "규율은 가정만의 몫인가, 학교도 나누어 져야 하는가",
+      "passage": "Nobody has more influence on a child's habits than the family at home, and a teacher cannot supply what is missing there. It does not follow from this that a school should stand aside from the same work during the hours a child spends there. A class of thirty is a small society, and a society without rules is not free but merely unsafe, because the loudest members take whatever they want. Children also need practice in accepting an instruction from somebody who does not love them, since most of adult life is spent among exactly such people. A rule that is applied to everyone equally teaches something a household cannot, because fairness is only visible where many children are measured by one standard. A school that corrects nothing is therefore not respecting the family; it is handing back a task that no family can perform inside a building it never enters. The sensible arrangement is a shared one, in which parents set the values and the school applies them steadily while the child is in its care.",
+      "claim": "Schools should share the work of discipline with families rather than leave it entirely to parents who cannot be present during the school day."
+    },
+    {
+      "id": "f78f4149-2019-04-18T17:49:23Z-00003-000",
+      "sha256": "bf9c1e65cd60ceb00e6ec78c2944705c5b25f43e03ce8907d693635ede04caeb",
+      "verdict": "write",
+      "topic_ko": "학교의 엄격한 복장 규정은 지킬 가치가 있는가",
+      "passage": "A strict dress rule at school promises to hold attention on the lesson and to mark every student as equal, yet the benefit fades fast. Whatever freshness a shared set of clothes carries wears off inside a term, after which the rule feels like a daily restriction and the pride it should build turns into steady complaint. Clothing also counts as one of the very few free decisions a student controls during the school day. Taking that away removes a quiet way of showing who a person is. The real worry behind such a rule covers far less ground than the rule itself, because what a school truly wants to prevent is a handful of shirts that attack a teacher or a classmate. A short list of forbidden items meets that aim, and it costs much less to defend and to enforce. A school should draw the limit where real harm appears and leave the rest of the choice alone.",
+      "claim": "A school should forbid only clothing that does real harm and leave the remaining choice to students."
+    },
+    {
+      "id": "f796651e-2019-04-18T15:18:04Z-00005-000",
+      "sha256": "6af593a3e990e349cf755cd97e6dd21f1184c7905861895d9c341ccc6e207629",
+      "verdict": "write",
+      "topic_ko": "학교는 앉아 있는 시간을 줄이고 몸을 쓰는 시간을 늘려야 하는가",
+      "passage": "School timetables treat sitting still as the normal condition of learning and treat movement as a break from it. That arrangement should be partly reversed, because the body is not a container for the brain but a condition of the brain's health. Studies of attention have found that a class which has just moved works better for the hour that follows, so time given to exercise is not simply subtracted from other subjects. The longer argument is stronger still, since habits formed at fourteen tend to hold, and the adults whose later illnesses are most expensive to treat are usually those who were never taught to enjoy moving at all. Exercise is also the rare school activity in which a student who struggles with books can succeed in front of the same classmates. Nothing in this requires that mathematics be abandoned in favor of running, and no serious proposal has ever asked for that. An extra hour of real activity each week, protected from the pressure of examinations, would cost very little and would be repaid for decades.",
+      "claim": "Schools should protect a guaranteed weekly hour of physical activity, because the health and attention it buys are not paid for by any loss in other subjects."
+    },
+    {
+      "id": "f89bdc44-2019-04-17T11:47:43Z-00079-000",
+      "sha256": "80c19ae279d8d548195087b41c01db049ae839185e11754bda37dbe1d064342c",
+      "verdict": "write",
+      "topic_ko": "헌법이 보장한 권리를 해석만으로 바꿀 수 있는가",
+      "passage": "A written constitution is valuable precisely because it is hard to change, and that value is lost if the meaning of its sentences can be reversed by argument alone. Courts must interpret, of course, since old words are constantly meeting situations that the people who wrote them never imagined. There is a difference, though, between reading a sentence carefully and turning it into its opposite, and a right that citizens have relied on for generations should not be removed in the second manner. If a society has genuinely changed its mind about such a right, the honest route is a formal amendment, which is slow, public and demanding by design. That slowness is not a fault; it is the guarantee that a rule protecting an unpopular group cannot be swept away during a single season of anger. Every generation believes that its own emergency is the exception that justifies a shortcut, and every generation has been wrong about that. Whatever the merits of the policy in question, the method matters, because a constitution that yields to clever reading protects nothing at all.",
+      "claim": "A constitutional right should be narrowed only by formal amendment, never by a reinterpretation that reverses the text while claiming to explain it."
+    },
+    {
+      "id": "f8a2755c-2019-04-18T14:34:51Z-00002-000",
+      "sha256": "3d79249673e2dc503656810274d75e587d8e6839155d7e728999f2f7d2bb4354",
+      "verdict": "write",
+      "topic_ko": "학교에 돈 관리 과목을 필수로 두어야 하는가",
+      "passage": "Every few years somebody proposes that schools should teach the management of money as a required subject, and the proposal sounds impossible to argue with. The difficulty is that most of the material cannot be used for a very long time after it has been taught. A lesson about saving for old age, delivered at sixteen, concerns a decision that is forty years away, and almost nothing survives a gap of that length. The skills that are needed sooner, such as keeping a simple account or working out what a loan really costs, are picked up quickly by anyone who has an income and a reason to care about it. Required subjects also carry a hidden message, because a topic that has been forced on a class is a topic many students decide to dislike. Meanwhile the hours must come from somewhere, and they are usually taken from subjects that are far harder to learn later without a teacher. A short practical course, offered to adults at the moment when the questions have become real, would do more good than a compulsory year offered when they are not.",
+      "claim": "Money management is better taught to adults at the moment they need it than as a required school subject delivered decades too early."
+    },
+    {
+      "id": "f8f0e495-2019-04-18T13:30:42Z-00003-000",
+      "sha256": "3c7f2f4061c386e7bf5e97f3700942da06551ebfb86fe84cd5917da5e394c53a",
+      "verdict": "write",
+      "topic_ko": "학교의 진짜 가치는 교과 지식에 있는가",
+      "passage": "Complaints that school is dull usually assume that its purpose is the delivery of facts, and measured in that way the complaint is often fair. The measure itself is the mistake. A school is the first place where a person has to work beside people who were not chosen, meet a deadline that was set by somebody else and settle a disagreement without walking away from it. These are the abilities that employers describe as rare, and they are practiced in corridors and group projects rather than in any lesson that carries a title. None of this appears on a report card, which is part of the reason the value of a school is so easy to underestimate from outside the gate. For children from homes with few connections, the building is also the most reliable route to a teacher, a team and an adult who will speak for them later. Boredom is a genuine problem and it is worth fixing, but it is a fault in the method of teaching rather than evidence that the institution has nothing to offer.",
+      "claim": "The main value of school lies in the social and working habits it forces on students, so boredom is a fault in the teaching rather than a case against school itself."
+    },
+    {
+      "id": "fad66533-2019-04-18T19:25:27Z-00004-000",
+      "sha256": "58bf31660ac649e982c9eb01e4e7a089b6f8e02448fcdf2514ebfb82bf72c0de",
+      "verdict": "write",
+      "topic_ko": "배움이 젊은 시절과 교실에 묶여야 하는가",
+      "passage": "Formal education is arranged as though learning were a stage of life that ends in the early twenties, after which a person simply applies whatever was stored. That picture was never accurate and it is now plainly false, because the tools of most trades are replaced several times within a single working life. A system built on the opposite assumption would look quite different, with short courses open at any age, credit given for work that was done outside a classroom, and fees low enough that a return to study is an ordinary decision rather than a gamble. The cost of such access is real, yet it is smaller than the cost of a population whose skills have quietly expired. Employers gain as well, since a worker who comes back for a short course is cheaper to keep than a replacement who must learn the whole trade. Countries that have kept adult study cheap report steadier employment through the very periods in which whole industries have disappeared. Learning should be treated as something a citizen comes back to, not as a door that closes at a fixed age.",
+      "claim": "Education should be built as something citizens return to throughout life rather than a single stage that ends in early adulthood."
+    },
+    {
+      "id": "faec40a-2019-04-18T15:15:24Z-00005-000",
+      "sha256": "fd34ed5c1c43e375ce46a448f087654b2a6bfeb771625317eb46448f53601b48",
+      "verdict": "write",
+      "topic_ko": "회복 가망이 없는 환자가 치료의 끝을 스스로 정할 수 있어야 하는가",
+      "passage": "When an illness has been judged beyond cure and the time that remains is expected to be short and painful, the question of how that time ends belongs to the patient. The strongest objection is that such a choice could be pressed upon people who are exhausted, poor or made to feel a burden, and that danger is entirely genuine. It is, however, an argument about safeguards rather than about the principle, and safeguards are available, including repeated requests, an independent medical opinion, a waiting period and a right to withdraw at any moment. The alternative to a legal route is not safety but concealment, since quiet decisions to stop treatment are already being made in hospitals without records or review. Only a procedure that has been written into law can be watched, counted and corrected when something has gone wrong. Every protection named here already operates in the places where such a law exists. Nobody would be required to use it, and a patient who wants every treatment continued to the last day would keep exactly that right.",
+      "claim": "A patient facing an incurable and painful illness should have a legally regulated say in how treatment ends, because the alternative is the same decision made without oversight."
+    },
+    {
+      "id": "fb899be6-2019-04-19T12:44:04Z-00012-000",
+      "sha256": "479c43027064746b8e5f5a3e613f0b450248e2c7e1a1fc8fbdc37920b0fe91f3",
+      "verdict": "write",
+      "topic_ko": "깊이 공부한 사람들이 실제 정치 권력을 가져야 하는가",
+      "passage": "Public problems have grown more tangled, yet the people who have spent their lives studying them are mostly kept at the edge of power, writing articles that officials may or may not read. That arrangement wastes the most useful knowledge a country owns. A scholar who has examined how prices move, how diseases spread or how conflicts begin can often see the second effect of a decision, and the second effect is usually the one that causes the damage. Politics, of course, demands talents that study does not supply, such as patience with disagreement and a feeling for what ordinary people will accept. Ordinary citizens gain as well, because advice that has been given inside a government can be questioned and corrected, while a published article can simply be ignored. The answer is therefore not to hand a government over to professors, but to give them posts in which advice carries real weight and can be tested against results. A state that keeps its best informed citizens permanently outside the room has chosen to be surprised by events it was warned about.",
+      "claim": "People who have studied public problems deeply should hold posts where their advice carries real weight, not merely the freedom to publish opinions."
+    },
+    {
+      "id": "fb8c5e83-2019-04-18T18:05:18Z-00004-000",
+      "sha256": "cb10f3c2ad28ca887a971cd017c74640f777d4f19677d106b916d761a481f0d4",
+      "verdict": "write",
+      "topic_ko": "가난한 이를 돕는 공적 지원은 사유 재산을 없애는 제도인가",
+      "passage": "Public assistance for people without an income is often described as a first step toward a system in which private property has been abolished. The description does not survive a moment of examination. A payment funded by taxation leaves ownership exactly where it was, since businesses are still privately held, wages are still negotiated between employer and worker, and the person who receives help is normally expected to look for a job. What has changed is only the destination of a portion of public revenue, and roads, courts and schools are funded in precisely the same manner without anybody calling them revolutionary. History supplies the test, because the countries with the largest welfare payments have also kept some of the busiest private markets in the world. The honest debate concerns how large such support should be and what should be required in return, and those are questions of degree that deserve real evidence. Attaching a frightening label to the whole idea ends that debate before it has begun, which may well be the purpose of the label.",
+      "claim": "Publicly funded assistance is a question of degree within a system of private ownership, not a step toward abolishing that ownership."
+    },
+    {
+      "id": "fbbf62d4-2019-04-18T11:31:15Z-00003-000",
+      "sha256": "f2ea852d045894af9d5faff199071262c0c59b52569e6a238a1e701a2c7561f5",
+      "verdict": "write",
+      "topic_ko": "투표권을 나이와 범죄 기록으로 제한하는 것이 옳은가",
+      "passage": "A democracy justifies itself by the claim that people who must live with a decision should have a voice in making it, so every exclusion from the vote has to be measured against that claim. Two of the most common exclusions, the removal of the vote from prisoners and the sharp line drawn at a fixed age, do not measure well. Prisoners remain subject to the laws of the country and most of them will return to ordinary life within a few years. Yet their opinion is cancelled for the whole of a sentence, as an extra punishment that no court has specifically imposed. The age limit is defended by pointing at poor judgment among the young, but poor judgment is spread fairly evenly across every age group and has never been used to disqualify anybody else. A lower age, together with real teaching about how public decisions are financed and enforced, would probably raise the quality of debate rather than lower it. The burden of proof belongs to those who would take a vote away, and it has not yet been carried.",
+      "claim": "The burden of justification lies with any rule that removes the vote, and neither imprisonment nor a fixed age limit has met it."
+    },
+    {
+      "id": "fc2f38d8-2019-04-18T12:17:49Z-00003-000",
+      "sha256": "bf8b468742db4686029cee2f4682ee4eda2d38dc207376c03052c8a0daf06eea",
+      "verdict": "write",
+      "topic_ko": "일정 소득 이상에게 기부를 의무로 해야 하는가",
+      "passage": "A required share of large incomes directed toward charitable work is usually rejected as an attack on generosity, since a gift that has been ordered is no longer a gift at all. The objection misses what such a rule would actually be for. Its purpose is not to make donors feel good about themselves but to fund the hospitals, shelters and schools that voluntary giving has never funded reliably, because donations rise and fall with the mood of the economy. Freedom is also damaged less than it appears, since the amount alone would be fixed while the choice of cause would remain entirely open, and that choice is where most givers feel their money means something. A duty of this kind is easier to defend than a simple rise in taxation, because the money never passes through a government office at all. Evidence about satisfaction points in the same direction, because people who give regularly report more contentment than those who never do. A firm floor under charitable funding, with the direction of the money left free, is a fair exchange.",
+      "claim": "A fixed charitable duty on large incomes, with the choice of cause left open, buys reliable funding at little real cost to freedom."
+    },
+    {
+      "id": "fd5843b7-2019-04-18T17:47:44Z-00005-000",
+      "sha256": "bf73c94b7dda904c777ff0b77a60a18dcba435ec3137e295bb52ac4ea3655abd",
+      "verdict": "write",
+      "topic_ko": "고학년 학생이 들을 과목을 스스로 고르게 해야 하는가",
+      "passage": "Students in their final two years of school are close to adulthood, yet in many systems they are still required to sit through ten subjects that were chosen entirely for them. Allowing older students to drop a limited number of those subjects would improve both their results and their health. Attention is finite, and a student who is preparing for a course in engineering gains very little from a shallow pass in three unrelated subjects while the hours that were needed for depth have quietly disappeared. The second gain is responsibility, because a timetable that has been assembled by the student is a timetable the student defends, and that habit is exactly what a university will demand a year later. Teachers benefit as well, since a room of students who have chosen to be there is a different room from one that has been filled by a rule. Some limit is obviously necessary, since basic work in language and number should stay compulsory for everybody whatever their plans are. Within that limit, choice should be widened rather than treated as a privilege for a few.",
+      "claim": "Older school students should be allowed to drop a limited number of subjects, because a timetable they have chosen is one they will defend."
+    },
+    {
+      "id": "fd65765b-2019-04-19T12:45:41Z-00008-000",
+      "sha256": "f2ba6fc7109903f486bf08d24cf9b266103cb4375efed0e088030dc70b9de5c8",
+      "verdict": "write",
+      "topic_ko": "이웃한 나라들이 대외 정책에서 한 목소리를 내야 하는가",
+      "passage": "A group of neighboring countries that have already joined their markets and their courts still speaks with a dozen voices whenever a crisis appears beyond its borders. That habit should end, and the reason has more to do with size than with sentiment. Alone, each member is a medium sized state whose objection can be safely ignored by any of the great powers; together the same members represent a market and a population that no government is able to dismiss. The cost of division is visible whenever a distant power talks to each member separately and secures a better bargain every single time. A single agreed position also protects the smaller members, whose interests are otherwise traded away in private conversations between the larger ones. Critics warn that a common line would silence national opinion, but nothing in a shared position prevents a country from arguing hard for its own view before the line has been settled. What is lost is the pleasure of complaining afterward, and what is gained is a reasonable chance of being heard at all.",
+      "claim": "Closely joined neighboring states should agree a single foreign position, because separately their objections can be ignored and their smaller members are traded away."
+    },
+    {
+      "id": "fd65765b-2019-04-19T12:45:41Z-00012-000",
+      "sha256": "9ff1b13b65b1143a32c9cf5fdedfbae374963f2eb8e8d93fafbd1ecee5176c5f",
+      "verdict": "write",
+      "topic_ko": "공동 대표 한 사람이 여러 나라의 외교를 실제로 묶어낼 수 있는가",
+      "passage": "Appointing one person to speak abroad for a union of states is often dismissed as a title without power, since armies and treaties remain firmly in national hands. The dismissal underestimates what the holder of a chair can quietly do. An officer who sets the agenda for the monthly meeting of foreign ministers decides which questions are discussed while they are still manageable, and that shaping is a real form of authority. A single representative also gives the group a permanent presence in the rooms where emergencies are handled, so its position is stated at the moment when it matters instead of three weeks afterward. Behind such a post sits a service of officials posted around the world, and a network of that size collects better information than most individual members could gather alone. None of this removes a national veto, so the fear that countries would be overruled by one officer mistakes influence for command. Power of this kind is quiet, but across a decade it turns a collection of separate opinions into something that deserves to be called a policy.",
+      "claim": "A single foreign representative with a permanent staff turns separate national opinions into a common policy, because agenda setting and constant presence are themselves forms of power."
+    },
+    {
+      "id": "fdc412af-2019-04-18T14:03:15Z-00005-000",
+      "sha256": "97e18e0285c73f956e3df55c031391189669bf69900b2e8400d56f1446e9b47b",
+      "verdict": "write",
+      "topic_ko": "기술로 시민이 정책 자체에 직접 투표하게 해야 하는가",
+      "passage": "Representative government was designed for a period when collecting the views of a whole country meant weeks of travel, and that limit has now disappeared. A system in which citizens could vote directly on major decisions, and not merely on the people who make them, is technically ordinary today. The counting is no longer the obstacle, since millions of secure payments are handled every hour without anybody calling the task impossible. The case for it is simple, because a government that has been chosen once every few years can claim consent for a general program but not for each surprising decision taken inside it. Frequent votes would also force the kind of public explanation that is currently offered only at elections, since a proposal that cannot be explained clearly would not pass. The obvious danger is a country governed by whatever mood happens to be loudest in a given week, which is why such votes should be reserved for large and slow questions. Used carefully, direct decisions would strengthen a system that many citizens have come to regard as closed to them.",
+      "claim": "Citizens should vote directly on a small number of large policy questions, because the technical barrier has gone and a single election cannot consent to everything that follows."
+    },
+    {
+      "id": "fe10ede9-2019-04-18T11:30:33Z-00004-000",
+      "sha256": "a0277a0024fab73d8f80385335a845b8b41486dd55667f0eb8343e33aef6bed1",
+      "verdict": "write",
+      "topic_ko": "무상 공교육 학교가 교복을 요구할 수 있는가",
+      "passage": "A public school system that requires a uniform has to answer a question that private schools never face, because attendance there is free and required by law. If a family cannot afford the necessary clothing, the requirement cannot simply be dropped on that family, so either the school pays or a child is punished for being poor. The sums involved are not small ones. A shirt, a pair of trousers and a jacket cost more than a hundred dollars in most towns, several sets are needed across a growing year, and in a district of ten thousand students the total becomes a serious line in the budget. The rule is also enforced against the people least able to argue with it, because the child without the correct jacket is the child who gets sent home. Supporters answer that uniforms reduce the visible distance between rich and poor children, and that effect is real, although it is achieved far more cheaply by simple rules about what may not be worn. Until the clothing is genuinely provided, a uniform rule in a free school is a charge on the families least able to pay it.",
+      "claim": "A free public school may not require a uniform unless it pays for that uniform, because the cost otherwise falls on the families least able to carry it."
+    },
+    {
+      "id": "fe4a18a-2019-04-18T12:00:04Z-00000-000",
+      "sha256": "c88e49c1fa05892da59aa2179c6cf909c800e067f76f3e80b07a3965e9911d14",
+      "verdict": "write",
+      "topic_ko": "공직을 측근으로 채우는 관행을 어떻게 볼 것인가",
+      "passage": "When a new leader fills public offices with personal supporters, the practice is defended as the natural reward of winning and the only way to get a program carried out. Neither defense holds for long. Government work is technical, and a tax office or a hospital service that has been handed to loyal amateurs makes expensive mistakes which no election result can undo. The second cost is slower and worse, because officials who owe their post to a person rather than to an examination will tell that person what he wishes to hear, and a leader surrounded by such advice is effectively blind. A country that replaces thousands of officials after every election also loses the memory of what was tried before and why it failed. A permanent tested service is not a barrier to a new program; it is the instrument that carries the program out, and it serves the next government just as faithfully. Voters do share the blame when they treat such appointments as a harmless habit, but the remedy is a rule about hiring rather than a hope that better candidates will appear.",
+      "claim": "Public offices should be filled by tested officials rather than personal supporters, because loyalty produces both costly errors and advice a leader cannot trust."
+    },
+    {
+      "id": "fe58773-2019-04-18T12:16:15Z-00000-000",
+      "sha256": "5df639dbd6108669a25d29ab26c49fea06ae5e9cfc46a1bb399fdd64e8ea92d2",
+      "verdict": "write",
+      "topic_ko": "학교 음악 활동에 예산을 더 써야 하는가",
+      "passage": "Arguments for school music usually begin and end with enjoyment, which is exactly why the subject is cut first whenever a budget is tight. A stronger case is available and it has been available for years. Learning an instrument trains the precise skills that the rest of the timetable simply assumes, since a student who reads music is decoding a written system in real time, and one who practices a difficult passage is discovering that improvement comes from repetition rather than from talent. A school band teaches something no ordinary classroom can, because the result depends on thirty people listening to each other and adjusting, and no amount of individual effort will rescue it. The instruments are the cheapest part of all this, because a school can lend the same ones out for twenty years. These habits are precisely the ones that employers describe as missing when they complain about young workers. Money spent on instruments and on teachers who can use them is therefore not a luxury but one of the cheapest forms of general education a school is able to buy.",
+      "claim": "School music deserves more funding because it trains attention, persistence and cooperation more cheaply than any subject taught for those purposes directly."
+    },
+    {
+      "id": "ff7991cd-2019-04-18T11:42:39Z-00000-000",
+      "sha256": "35f8fb13ad0c603bb8687d36cd0eadb019c70a16a799075991765258e0da6c60",
+      "verdict": "write",
+      "topic_ko": "거리 행진만으로 문제가 해결되는가",
+      "passage": "A large march is a powerful sight, and the people who organize one are right that attention has to be won before anything else can happen. It does not follow that a march, by itself, is a solution to the problem whose name it carries. Attention decays within days, while the officials who must actually change a rule are the same officials the following week, working in rooms that no crowd ever enters. A crowd is also easy to answer with silence, since an official who says nothing for two weeks will usually find that the pressure has moved somewhere else. Movements that have succeeded were therefore never only marches; they were marches followed by years of drafting, of testing cases in court and of attending meetings that nobody reports. Treating the demonstration itself as the achievement is comforting, and it is probably the reason so many campaigns end in disappointment despite enormous crowds. A march should be understood as the opening of the work rather than as proof that the work has already been done.",
+      "claim": "A demonstration is the beginning of political work rather than its completion, and campaigns that mistake the march for the result achieve nothing."
+    },
+    {
+      "id": "ffa3f420-2019-04-18T18:21:56Z-00002-000",
+      "sha256": "92f1466a51f37d1e642dd1285c9ab8e74b31e8dc47ce09103fed28baf64891d4",
+      "verdict": "write",
+      "topic_ko": "전국 대회의 마지막 무대에 오를 팀을 늘려야 하는가",
+      "passage": "A national championship that is decided by only two invited teams leaves an argument unsettled every single season, and the argument is always about the team ranked just below them. Expanding the final stage to four teams would settle that argument on the field, which is where such questions belong. The usual objection is that a longer final stage would drain meaning from the regular season, yet with well over a hundred teams competing, a pair of additional places can hardly turn the season into a formality. The opposite is far more likely, because a dozen teams would stay in genuine contention into the last month and the games between ranked sides would carry weight instead of deciding which minor final each team attends. Nothing in the change would force any team to play more than one extra match. Interest and income would both rise, since another round of serious matches is exactly what supporters want and what television is willing to pay for. A small expansion is the cheapest available repair to a system that each year declares a champion nobody can defend.",
+      "claim": "Expanding the championship stage from two teams to four would settle the annual dispute on the field and make the regular season more meaningful, not less."
+    },
+    {
+      "id": "ffa3f420-2019-04-18T18:21:56Z-00004-000",
+      "sha256": "e1334b6982c3010b676e164678cf7311e24efd260b0aaef10cc43d942bde0874",
+      "verdict": "write",
+      "topic_ko": "마지막 무대에 오를 팀 수를 늘리자는 요구를 받아들여야 하는가",
+      "passage": "Every season brings a demand to expand the final stage of the college championship, and every season that demand rests on the feelings of the team which finished just outside it. An expansion would not remove the complaint; it would only move the complaint to a different team. If four sides are invited, the fifth will insist that it was treated unfairly, and the same protest will arrive again at every later line. A line has to be drawn somewhere, and the team just below it will always believe that the drawing was wrong. Meanwhile the present arrangement is doing something valuable, since with only two places available a single defeat in the autumn really matters and the regular season stays tense from the opening week. Teams outside the leading pair are not forgotten either, because a long list of minor finals still gives most successful sides a reward worth playing for. A system that works well enough should not be rebuilt merely to answer an objection that no system could ever silence.",
+      "claim": "The two-team final should be kept, because expanding it moves the complaint to the next excluded team while weakening the regular season that decides everything."
+    },
+    {
+      "id": "fff376d4-2019-04-18T11:48:03Z-00000-000",
+      "sha256": "89eb6a49d2077262083a94e40c580228854b2ec07ddf3c980734700551a2cba5",
+      "verdict": "write",
+      "topic_ko": "돈 없는 사회가 가능한가",
+      "passage": "Proposals for a society without money assume that the thing to be removed is currency, when currency is only the visible record of something much older. As soon as two people exchange goods of unequal worth, a value has been assigned, and any object that everybody will accept in payment starts to work as money whatever it is called. Removing notes and coins would therefore not end the practice; it would move the practice to other goods, to favors owed, or to hours of labor, as has happened wherever official money has failed. Even a community that bans prices finds its members keeping a quiet account of who has helped whom. The underlying problem is not greed alone either, because a shared record of value is what allows a stranger to be paid, and strangers make up most of any economy. The reasonable aim is not abolition but repair, through rules that keep the record honest and prevent it from collecting in very few hands. A society can decide what money may buy, but it cannot decide to stop counting.",
+      "claim": "Money cannot be abolished because it is the record of value that lets strangers trade, so the realistic aim is to keep that record honest."
+    }
+  ]
+}

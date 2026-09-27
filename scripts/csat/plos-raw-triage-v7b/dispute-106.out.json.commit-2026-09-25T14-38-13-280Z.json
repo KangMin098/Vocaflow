@@ -1,0 +1,2017 @@
+[
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "56191339-ae7b-4afc-b71c-8dff6051a268",
+    "revision": "2026-09-15T15:03:22.792068+00:00",
+    "body_sha256": "3d8189acaac7e9a0958fd7842fc889af2687b96117f009690065a562ca47e02d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 셋째 단락(나트륨이 위 점막을 손상시키고 헬리코박터 정착을 돕는 기전)이 원인-결과 논지로 한 편을 이뤄 §3-1 주제·요지·빈칸 칸을 채우고 §3-2 가공이 되므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "High sodium intake promotes stomach carcinogenesis",
+          "note": "수치·약어를 걷으니 기전 셋이 차례로 이어지는 설명문이 되고, carcinogenesis·epithelial 두셋을 바꾸면 V8 까지 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.283Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:29.873Z",
+      "topicMargin": 1
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "562a90f1-b3e7-42d3-9e3b-32dfb1f99162",
+    "revision": "2026-09-15T15:03:24.339902+00:00",
+    "body_sha256": "dbf90438e6fad3228c800a378ead4ff21b4096052deb090451a883f519bfd133",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 넷째 단락(단백질이 세포질 표적을 포화시키면 남는 양이 핵으로 들어간다는 가설 → 대립유전자를 줄여 검증)이 가설-검증 흐름으로 서서 §3-1 요지·순서 칸을 채우므로 난도와 무관하게 keep(§0·§8).",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "We were interested in understanding why",
+          "note": "유전자 기호를 「두 단백질」로 바꾸면 논리는 서지만 splicing·stoichiometry 개념은 낱말 교체만으로 내려가지 않는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.284Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:02.586Z",
+      "topicMargin": 16.31
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "5640fd8f-ca84-4222-8bc3-e0e1f56fc38a",
+    "revision": "2026-09-25T06:56:39.644013+00:00",
+    "body_sha256": "54bef87c9be04ea71d06cc8eaa72b14017f49f6404acf3d3a3824bec2900cd80",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 끝 단락(체내 에스트라디올 농도로는 채널을 못 막지만 특정 변이는 저농도에도 막힐 수 있다)이 주장-단서 구조로 떼어져 §3-1 요지·요약 칸을 채우고, 돌연변이 코드 나열 단락은 가공 때 걷는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The physiological concentration of estradiol was",
+          "note": "농도 수치를 「아주 낮은 양」으로 바꾸면 논지가 서지만 본문 대부분은 잔기 번호 나열이라 쓸 단락이 적다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.284Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:03.840Z",
+      "topicMargin": 8.32
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "56425f77-4e69-4881-9fec-1860888445f5",
+    "revision": "2026-09-25T06:56:41.217371+00:00",
+    "body_sha256": "5bb16977ebd343571cc01f1b0bba662e209dbe4e8fe185608ef1d01b68326de8",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "5.2.5 절의 예외 분석(「myocardial infarction」과 「heart attack」처럼 글자가 다른 동의어를 모델이 못 묶는다)이 사례-설명으로 떼어져 §3-1 빈칸·요지·삽입 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "blank",
+            "main_point",
+            "insert",
+            "irrelevant",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Biomedical’s relatively low ACC may be",
+          "note": "모델 이름을 「우리 방법」으로 바꾸고 terminology·synonymy 를 풀면 동의어 문제를 다룬 설명문으로 선다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.285Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "기술·매체",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:37:03.524Z",
+      "topicMargin": 7.52
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "564b8498-63e5-4a5d-b790-99be4529a3b0",
+    "revision": "2026-09-25T06:56:42.825012+00:00",
+    "body_sha256": "b03f7608a2800dd34489d22d441f914451888a3bf4958eb24fa771c1e8e35c78",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "한계 절의 「적응증에 의한 교란」 단락(대량 수혈이 사망을 일으킨 것인지 수술 난도를 반영한 것인지 가를 수 없다)이 상관-인과 논증으로 서서 §3-1 요지·빈칸 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V9",
+            "V10",
+            "V11"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The retrospective design introduces the possibility",
+          "note": "약어(UMT·PSM)를 풀어 쓰니 상관과 인과를 가르는 논증이 되고, confounding 등을 바꾸면 V9 로 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.286Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T07:36:48.898Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "564fd592-e0da-437b-b3c9-7c62d76b434f",
+    "revision": "2026-09-25T06:56:45.870556+00:00",
+    "body_sha256": "a1a6f695bc94ef9aea836e64d2a944460497c8929a111088cb2f29707a6bc121",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "결론 둘째 단락(질정은 국소 효과가 강하지만 설하 투여가 간편·비침습이라 더 실용적)이 비교-권고 논지로 서서 §3-1 요지·주장 칸을 채우고, 출산 소재라 §8 에 따라 성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When routes of administration are considered",
+          "note": "약물명을 「약」으로 걷어도 두 투여 경로의 장단 비교가 서며, invasive·autonomy 두셋을 바꾸면 V9."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.286Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "사회·경제",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:16:07.945Z",
+      "topicMargin": 0.8499999999999996
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "565143dd-f307-4167-964a-ec3ab2d0e9a0",
+    "revision": "2026-09-13T06:58:06.398031+00:00",
+    "body_sha256": "e3659ed55d95291b25c474ccab3037d86c39392c78882caeaea470b3f9128a3b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "고찰의 메타분석 민감도 단락(연구 두 편이냐 세 편이냐로 결론이 「비일관」에서 「연관 가능」으로 바뀐 사례)이 통념-반례 구조로 떼어져 §3-1 요지·빈칸 칸과 myth-rebuttal 속성을 채우므로 keep, 본문 속 표 행은 가공 때 걷는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "claim",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When a limited number of studies",
+          "note": "인용 괄호와 OR 수치를 걷으니 「연구 수가 적으면 메타분석이 한 편에 휘둘린다」는 논지가 선다; 표 조각은 걷어야 한다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.287Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:22:31.065Z",
+      "topicMargin": 12
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "5652f758-3f7f-46e8-8e47-da49632b28e4",
+    "revision": "2026-09-25T06:56:48.490547+00:00",
+    "body_sha256": "0b19a2b0ed7521f7964592618fba982ceadcc3e8133e6c91814ae9ce8c20b476",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "서론 넷째 단락(dsRNA 는 빛·열에 쉽게 깨지고 비싸므로 값싸고 안정한 DNA 올리고가 대안)이 문제-해결 논지로 서서 §3-1 요지·빈칸·순서 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One of the main limitations in",
+          "note": "dsRNA·oligonucleotide 를 「유전 물질 조각」으로 풀면 약점→대안 흐름이 고2 밴드까지 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.288Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:57.193Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "565c5680-8eaa-4730-b0e1-4ca53ab9e69b",
+    "revision": "2026-09-13T06:27:28.046476+00:00",
+    "body_sha256": "e944d4550a7c05910044d27bd670a6252ebffb81255e75878a10a23c424da66c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "서론 중 옛 밀 품종 대목(개량 품종은 수확은 늘었지만 토착 미생물과 협력하는 능력을 잃었다)과 끝의 프라이밍 단락이 대조·설명으로 서서 §3-1 요지·빈칸·무관한 문장 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The cultivation of wheat started with",
+          "note": "품종명과 연도를 걷으니 「수확량을 좇은 품종 개량의 대가」라는 대조가 서고, 낱말 두셋 교체로 V8 이 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.290Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 20,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:44:01.938Z",
+      "topicMargin": 16.94
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "565c95fa-f431-4e01-85e4-4777551dbbaf",
+    "revision": "2026-09-13T06:29:08.119968+00:00",
+    "body_sha256": "3ee2de4c5a3ece3dc8f97a5c746217f959952b849ffbec9ee12bc42a56efdcb3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "결과 첫 절의 리포터 설계 설명(정상이면 잘려 빛이 안 나고, 절단 장치가 고장 나면 초록빛이 켜진다 → 그 빛으로 유전자를 선별)이 절차-논리로 떼어져 §3-1 순서·삽입 칸을 채우므로 난도와 무관하게 keep(§0).",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "insert",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Under normal conditions, the GFP signal",
+          "note": "유전자 기호를 「잘라 주는 복합체」로 바꾸면 논리는 서지만 snRNA·splicing 개념이 남아 밴드가 크게 내려가지 않는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.291Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 4,
+      "type": "R-BLANK",
+      "shape": 21,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:46:13.810Z",
+      "topicMargin": 17.32
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "56653cdc-b490-47c2-93e5-8545eb2fb3a5",
+    "revision": "2026-09-15T15:03:35.764621+00:00",
+    "body_sha256": "d63c26ace2a2712a475bb3e0dd1af6270a6ec77fc782a2f84028ffe69003357b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 두 단락(아이들이 눈을 비벼 피부 병변의 바이러스를 옮긴다; 과거 연구는 안과의가 아닌 의사가 봐서 유병률을 낮게 잡았다)이 원인 설명과 반박으로 서서 §3-1 요지·빈칸·주장 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "claim",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Pediatric patients are particularly prone to",
+          "note": "clade·MPXV 를 「이 바이러스」로 바꾸니 아이들의 눈 비비기→자가 감염 흐름이 쉬운 설명문이 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.291Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:37:50.138Z",
+      "topicMargin": 19.1
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "5667e43f-733d-4d33-9576-4f262635af3a",
+    "revision": "2026-09-15T15:03:36.161925+00:00",
+    "body_sha256": "2f75487fc1fa05df7906ebc15f87738c84498654d7b16d1f50710845d16401ac",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 둘째 단락(MRI 는 해상도가 좋지만 비싸고 접근이 어려워 흔하고 빠른 CT 로 지표를 찾았다)이 비교-선택 근거로 서서 §3-1 목적·요지·빈칸 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "MRI offers excellent soft-tissue resolution and",
+          "note": "질환 약어와 인명을 걷으면 두 영상 기법의 장단 비교가 서고, resolution·accessibility 를 바꾸면 V8."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.292Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 4,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:35.945Z",
+      "topicMargin": 13.780000000000001
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "5673fd3d-05b4-4c0d-8673-2782843623b3",
+    "revision": "2026-09-15T15:03:38.371106+00:00",
+    "body_sha256": "2cd495f3c72de39359b185c42dcddda5953df92cbb0625b8f4070095b984f5bc",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:44:33.766Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 둘째 단락(새 약이 기존 약과 같은 활성 물질로 바뀌므로 동물 자료 없이 승인됐고 그래서 이 연구가 필요하다)이 문제 제기-목적 논지로 서서 §3-1 목적·요지 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "purpose",
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Diroximel fumarate (DRF) is an oral",
+          "note": "약어를 풀면 「승인은 됐지만 기전은 모른다」는 논지가 서지만 면역 경로 단락들은 낱말 교체로 내려가지 않는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.292Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:44:33.766Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:51.653Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "56804c3b-cb08-4b76-8509-8e15d9d21884",
+    "revision": "2026-09-15T15:03:40.148025+00:00",
+    "body_sha256": "dc2b8587097ac2f49735126451ac91f17a25b6333e3be46d107dcc8633c49115",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 한계 단락(생쥐는 사람보다 효소가 열 배 적어 유전자를 없애도 효과가 덜 드러나므로 사람에게 옮기기 어렵다)이 전제-한계 논증으로 서서 §3-1 요지·빈칸·요약 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "summary",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It is important to emphasize that",
+          "note": "MPO 를 「이 효소」로 바꾸니 동물 실험을 사람에 옮길 때의 한계를 말하는 짧은 논증이 선다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.292Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:15:11.523Z",
+      "topicMargin": 11.32
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "568c4016-b830-4a36-8ef3-5b0220fa01de",
+    "revision": "2026-09-15T15:03:41.247646+00:00",
+    "body_sha256": "e165778bdc47b7cf8d9f155859da3d0d5fa72a09c9622c0433ed3f711c98a082",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 셋째 단락(표본이 작아 통계적으로 유의하지 않았어도 실패군 산모 전원이 고바이러스량이었다는 점은 임상적으로 중요하다)이 통계-임상 의미 대비로 서서 §3-1 요지·주장·빈칸 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Importantly, despite the small sample size",
+          "note": "HBV DNA 를 「바이러스 양」으로 바꾸면 「유의하지 않음 ≠ 중요하지 않음」 논지가 서고, 나머지 miRNA 단락은 가공 대상이 아니다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.293Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:03.355Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "56980b11-cd0b-4747-a451-41d0f1123cfa",
+    "revision": "2026-09-13T07:28:56.225282+00:00",
+    "body_sha256": "b47b3263fceb09c16dfcafafa48a5cd6ab244e5363cee7447d952f92fe5d8227",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론 첫 단락(인공관절 수술이 늘면 감염도 는다 → 바이오필름이 항생제를 막아 재감염률이 높다 → 새 약이 필요하다)이 문제 제기 흐름으로 서서 §3-1 주제·순서·빈칸 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "order",
+            "blank",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Primary arthroplasty, such as total knee",
+          "note": "수치와 약어를 걷으니 원인-결과가 이어지는 설명문이 되고, arthroplasty·biofilm 을 풀면 V8."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.293Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T11:20:50.557Z",
+      "topicMargin": 11.59
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "569959c9-01b6-4e2f-bbea-97fda8248e8e",
+    "revision": "2026-09-25T06:57:03.91968+00:00",
+    "body_sha256": "313492df08f29fba2494f673d57943e16bfe5184afac588a21ef9755a5bf79fc",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 넷째 단락(바이러스가 여러 단백질로 면역 경로 곳곳을 겹겹이 막아 하나가 실패해도 대비한다)이 비유 가능한 전략 설명으로 떼어져 §3-1 요지·요약 칸을 채우므로 난도와 무관하게 keep(§0).",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "HCMV has evolved a redundant and",
+          "note": "단백질 이름을 「여러 무기」로 묶으면 「겹겹의 방어 교란」 논지는 서지만 나머지 단락은 기호 나열이라 밴드가 잘 안 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.294Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:49.945Z",
+      "topicMargin": 14.590000000000002
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "569ae3dd-3719-41f4-8e9f-0c20a418df18",
+    "revision": "2026-09-25T06:57:05.010435+00:00",
+    "body_sha256": "683940b05e21f122a575fb3bac56fc6b28d31dce857a8c827935df7af3ce0453",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 보건체계 단락(대기 30분 미만·문자 알림·존중하는 태도가 복약 완수를 높인다)과 전통요법 신념 단락이 주장-근거 짝으로 서서 §3-1 요지·주장·빈칸·무관 문장 칸을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "irrelevant",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Health system performance factors such as",
+          "note": "오즈비를 「몇 배 더」로 바꾸니 근거가 둘 이상 붙은 주장문이 되고, adherence 를 풀면 V7 까지 내려간다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.294Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:03.909Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "569d00ec-5645-4257-b1a6-aacc19305253",
+    "revision": "2026-09-25T06:57:07.7162+00:00",
+    "body_sha256": "db27e592447bb9e09550e2e918ea4932c014579fc10aac2d882e040974da2253",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰 끝 단락(결합력이 적당히 약한 것이 오히려 다른 단백질에 덜 붙어 부작용을 줄이는 장점)이 통념 뒤집기 논지로 서서 §3-1 요지·빈칸 칸과 myth-rebuttal 속성을 채우므로 keep.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In addition, the moderate binding affinities",
+          "note": "Ki 수치와 화합물명을 걷으면 「강한 결합이 늘 좋은 건 아니다」 논지가 서고 affinity 를 풀면 V8."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.295Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:07.383Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-38-13-280Z",
+    "id": "56acc3ff-2de4-4c7d-b08c-8d9ff65bb67b",
+    "revision": "2026-09-25T06:57:10.790301+00:00",
+    "body_sha256": "d401520815c083cc80491852f66bb1435b9f7c48827e207c5ce9add3e0225f28",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:46:23.848Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 셋째 단락(개코원숭이 수컷이 암컷을 지켜 한 정자만 남는 조건이라 짝 선택이 교미 뒤에도 일어날 수 있다)이 가설-근거로 서서 §3-1 요지·순서 칸을 채우며, 생식 소재라 §8 에 따라 성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10",
+            "V11"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Olive baboon females mate with multiple",
+          "note": "cryptic female choice 를 풀어 쓰면 짝짓기 뒤 선택 가설이 서지만 소재상 성인 읽기 칸으로만 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:38:13.296Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:46:23.848Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 7,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:05.473Z"
+    }
+  }
+]

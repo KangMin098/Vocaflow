@@ -37,6 +37,7 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'analytics/event', why: '계측 수집 — 비로그인 방문자의 랜딩 이벤트를 받아야 한다' },
   { route: 'auth/callback', why: 'OAuth 콜백 — 로그인이 성립하기 전에 불린다' },
   { route: 'comics/pd/[slug]/info', why: '공개 만화 상세 정보 (비로그인 미리보기)' },
+  { route: 'search', why: '공개 헤더 전역 검색(DD-68) — 요청자 세션으로 조회해 RLS 가 걸러 낸 만큼만 돌려준다(익명은 단어 묶음이 빈다)' },
   { route: 'fit', why: '공개 진단 — 가치 확인 앞에 로그인을 두지 않는다 (CLAUDE.md D1)' },
   { route: 'lcp/process', why: 'pg_cron 워커 경로 — X-LCP-Token 으로만 연다' },
   {
@@ -58,8 +59,16 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   { route: 'csat/lecture', why: '기출 강의 대본 — 재생을 누른 학습자에게만(로그인 확인은 라우트 안)' },
   { route: 'csat/paper', why: '기출 문제지 해시 → 문항 번호 좌표(글자 없음) — 로그인 확인은 라우트 안' },
   {
+    route: 'csat/dev-paper',
+    why: '개발 서버 전용 로컬 기출 PDF — 프로덕션은 devPaperEnabled() 로 무조건 404, 개발에서도 로그인 확인은 라우트 안',
+  },
+  {
     route: 'csat/session/record',
     why: '기출 세션 — 본인 풀이 기록 읽기·올리기·지우기. 로그인 확인은 라우트 안, 쓰기는 RLS(본인 행만)',
+  },
+  {
+    route: 'csat/state',
+    why: '기출 해부 기록 사본(docs/csat/ia-design.md §3-1) — 본인 기록 읽기·쓰기·지우기. 로그인 확인은 라우트 안, 쓰기는 RLS(본인 행만)',
   },
   {
     route: 'csat/session/reveal',

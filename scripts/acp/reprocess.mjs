@@ -25,7 +25,14 @@ const commit = process.argv.includes('--commit')
 
 const { createClient } = await import('@supabase/supabase-js')
 const { analyzeArticle, computeLexicalNoise, normalizePunctuation, reflowSoftHyphens,
-        resolveArticleRegister, assessReadingLoad } = await import('@vocaflow/library-pipeline')
+        resolveArticleRegister, assessReadingLoad, releaseArticleVocab } = await import('@vocaflow/library-pipeline')
+/**
+ * `--keep-vocab` — 재분석한 글의 어휘 행을 **전부 남기는** 옛 동작.
+ * 기본은 V-Level 을 잰 뒤 발행 안 된 외부 글의 행을 걷는다(발행 글·가공 글은 남긴다) —
+ * docs/reports/lav-retention-2026-09-24.md §4 7단계. 게시·미리보기·조판은 없으면 다시 만든다.
+ */
+const keepVocab = process.argv.includes('--keep-vocab')
+let released = 0
 
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY,
   { auth: { persistSession: false } })
@@ -168,7 +175,12 @@ let list
 if (missingVocab) {
   // ① 후보 id 만 (좁다)
   const candidates = await idsOf((p) => {
-    const base = p.in('status', ['ready', 'published'])
+    // 7단계(2026-09-24): 발행 대기 글은 어휘 행이 **없는 것이 정상**이 됐다 — 그걸 채우면
+    //   걷어낸 행이 통째로 되살아난다. 행이 꼭 있어야 하는 발행 글·가공 글만 본다.
+    //   (옛 대상 전체가 필요하면 `--keep-vocab` 과 함께 돌린다.)
+    const base = keepVocab
+      ? p.in('status', ['ready', 'published'])
+      : p.or('status.eq.published,and(status.eq.ready,source.eq.original)')
     return since ? base.gte('created_at', since) : base
   })
   console.log(
@@ -256,6 +268,8 @@ for (const a of list) {
   const result = await analyzeArticle(a.id, norm)
   await db.rpc('compute_article_vrl', { p_article_id: a.id })
   await db.rpc('compute_article_syntax', { p_article_id: a.id })
+  // V-Level 을 쟀으니 행은 더 안 읽힌다 — 재분석은 상태를 안 바꾸므로 지금 상태로 판정한다.
+  if (await releaseArticleVocab(db, a.id, { status: a.status, source: a.source, keepAll: keepVocab })) released++
   const noise = computeLexicalNoise(bodyText)
   const { error: e } = await db.from('library_articles').update({
     cefr_level: result.cefr_level, cefr_confidence: result.cefr_confidence,
@@ -282,3 +296,4 @@ for (const a of list) {
 
 console.log(`\n\n  재분석 완료 ${done.toLocaleString()}편${failed ? ` · 실패 ${failed.toLocaleString()}` : ''}`)
 if (failed) console.log('  다시 돌리면 이어서 한다 — 재분석은 멱등이다.')
+console.log(keepVocab ? '  어휘 행: 전부 남김(--keep-vocab)' : `  어휘 행: ${released}편 걷음(발행·가공 글은 남김)`)

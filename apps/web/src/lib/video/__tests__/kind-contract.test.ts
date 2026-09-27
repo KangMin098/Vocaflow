@@ -18,7 +18,7 @@ import path from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
-import { KIND_LABEL, KIND_ORDER } from '../catalog'
+import { KIND_LABEL, KIND_ORDER, RULE_KIND_ORDER } from '../catalog'
 import { componentCountByKind, platformComponents } from '../components'
 
 const EVENTS_SRC = path.resolve(__dirname, '../../analytics/events.ts')
@@ -41,7 +41,7 @@ describe('종류 목록 — 정본', () => {
 describe('분모 — 구성요소 열거', () => {
   it('모든 종류가 구성요소를 하나 이상 갖는다 — 빈 종류는 영원히 안 채워진다', () => {
     const counts = componentCountByKind()
-    for (const k of KIND_ORDER) {
+    for (const k of RULE_KIND_ORDER) {
       expect(counts[k], `${k} 종류에 구성요소가 0개다`).toBeGreaterThan(0)
     }
   })

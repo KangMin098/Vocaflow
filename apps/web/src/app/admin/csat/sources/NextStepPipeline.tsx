@@ -89,6 +89,45 @@ function buildStages(panel: SourceEligibilityPanel): Stage[] {
   const drainable = Math.max(0, unjudged - structural)
   const backlog = panel.extractBacklog
 
+  /* 미판정이 **전부** 미절단 원본이면 게이트 드레인(①~③)은 0편을 처리한다.
+   *
+   * 실측 2026-09-24: 스냅샷이 다시 구워지며 이 상태가 됐고, 화면은 그대로 ①~③ 과
+   * `gate-book-export` 를 처방하고 있었다 — 관리자가 시키는 대로 돌리면 **0권**이 나온다.
+   * 같은 사고가 2026-09-06 에 있었고(기사 13,459 / 13,459) 그때 회귀를 박아 뒀는데,
+   * 잠근 것이 등급 줄의 문구뿐이라 **이 단계 목록은 그대로 남아 있었다.**
+   *
+   * 부분일 때와 전부일 때는 처방이 다르다 — 전부면 ①~③ 을 아예 내지 않는다.
+   * 「그중 N편은 게이트를 돌려도 안 풀린다」도 나머지가 있다는 뜻이라 여기서는 거짓이다. */
+  const allStructural = structural > 0 && drainable === 0
+
+  const extractStage: Stage = {
+    key: 'extract',
+    label: allStructural ? '① 발췌 경로' : '④ 발췌 경로',
+    count: structural || null,
+    note: allStructural
+      ? '미판정이 전부 미절단 원본이라 게이트로는 안 풀린다 — 자르기 전에는 무엇도 게시 불가다. 지금 할 일은 발췌뿐이다.'
+      // ⚠️ 「게이트를 돌려도 안 풀린다」는 **회귀가 문자 그대로 잠근 문구**다
+      //   (sources-screen.test.tsx §헛일을 시킨다). 줄이거나 고쳐 적으면 검사가 잡는다 —
+      //   그 문장이 없으면 관리자가 돌지 않을 배치를 돌리기 때문이다.
+      : '⚠️ 미절단 원본(purpose=raw)은 게이트를 돌려도 안 풀린다 — 자르기 전에는 무엇도 게시 불가다. ①~③ 을 돌리면 시간만 쓴다.',
+    command: 'pnpm dlx tsx scripts/csat/plos-extract.mjs',
+  }
+
+  const queueStage: Stage = {
+    key: 'queue',
+    label: allStructural ? '② 학령 분석' : '⑤ 학령 분석',
+    count: backlog ? backlog.pending : null,
+    note: backlog
+      // 「분석을 기다린다」도 회귀가 잠근 문구다(§이미 한 일을 다시 시킨다).
+      ? `발췌 ${backlog.total.toLocaleString()}편 중 ${backlog.analyzed.toLocaleString()}편만 분석이 붙었고 ${backlog.pending.toLocaleString()}편이 분석을 기다린다. 분석이 붙어야 조판 가능이 될 수 있다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.`
+      : '분석이 붙어야 조판 가능이 될 수 있다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.',
+    command: backlog
+      ? `pnpm dlx tsx scripts/acp/process-queue.mjs --feed ${backlog.feed} --commit --limit N`
+      : 'pnpm dlx tsx scripts/acp/process-queue.mjs --commit',
+  }
+
+  if (allStructural) return [extractStage, queueStage]
+
   return [
     {
       key: 'export',
@@ -111,28 +150,8 @@ function buildStages(panel: SourceEligibilityPanel): Stage[] {
       note: '⚠️ 검증을 건너뛰지 말 것 — gate-import 에는 어휘 검증이 하나도 없어 use+bias 같은 모순이 그대로 통과하고 차단 집계에도 안 잡힌다.',
       command: 'pnpm dlx tsx scripts/csat/gate-drain-validate.mjs',
     },
-    {
-      key: 'extract',
-      label: '④ 발췌 경로',
-      count: structural || null,
-      // ⚠️ 「게이트를 돌려도 안 풀린다」는 **회귀가 문자 그대로 잠근 문구**다
-      //   (sources-screen.test.tsx §헛일을 시킨다). 줄이거나 고쳐 적으면 검사가 잡는다 —
-      //   그 문장이 없으면 관리자가 돌지 않을 배치를 돌리기 때문이다.
-      note: '⚠️ 미절단 원본(purpose=raw)은 게이트를 돌려도 안 풀린다 — 자르기 전에는 무엇도 게시 불가다. ①~③ 을 돌리면 시간만 쓴다.',
-      command: 'pnpm dlx tsx scripts/csat/plos-extract.mjs',
-    },
-    {
-      key: 'queue',
-      label: '⑤ 학령 분석',
-      count: backlog ? backlog.pending : null,
-      note: backlog
-        // 「분석을 기다린다」도 회귀가 잠근 문구다(§이미 한 일을 다시 시킨다).
-        ? `발췌 ${backlog.total.toLocaleString()}편 중 ${backlog.analyzed.toLocaleString()}편만 분석이 붙었고 ${backlog.pending.toLocaleString()}편이 분석을 기다린다. 분석이 붙어야 조판 가능이 될 수 있다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.`
-        : '분석이 붙어야 조판 가능이 될 수 있다 — 결정론 경로라 LLM 비용이 없고 편당 약 5초다.',
-      command: backlog
-        ? `pnpm dlx tsx scripts/acp/process-queue.mjs --feed ${backlog.feed} --commit --limit N`
-        : 'pnpm dlx tsx scripts/acp/process-queue.mjs --commit',
-    },
+    extractStage,
+    queueStage,
   ]
 }
 

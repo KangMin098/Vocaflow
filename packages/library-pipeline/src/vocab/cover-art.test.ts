@@ -53,21 +53,7 @@ describe('계열 문법 — 서가에서 계열이 보인다', () => {
     expect(new Set(shapes).size).toBe(FAMILIES.length)
   })
 
-  it('전부 선화다 — 색을 담지 않는다 (색은 토큰이 정본)', () => {
-    for (const f of FAMILIES) {
-      const art = coverArtFor(f, 'k')
-      const blob = JSON.stringify(art)
-      expect(blob, `${f} 에 색 값이 들어 있다`).not.toMatch(/#[0-9a-f]{3,8}|rgba?\(|hsla?\(/i)
-    }
-  })
-
-  it('빈 도판을 내지 않는다 — 빈 표지는 그라디언트 상자와 같다', () => {
-    for (const f of FAMILIES) {
-      const art = coverArtFor(f, 'k')
-      expect(art.paths.length, `${f} 이 비었다`).toBeGreaterThanOrEqual(3)
-      expect(art.viewBox).toBe('0 0 212 172')
-    }
-  })
+  // 디자인 금지 검사 2건은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
   it('좌표가 판 밖으로 나가지 않는다 — 잘린 도판은 결이 깨진다', () => {
     for (const f of FAMILIES) {

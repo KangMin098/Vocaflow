@@ -1,0 +1,19 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-ORDER",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#36",
+      "roles": ["topic", "support", "example", "example", "support", "conclusion", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 8, "role": "support" }, { "index": 4, "role": "conclusion" }],
+      "pattern": "study_implication",
+      "selection": "랜드마크가 제 크기보다 크다는 역설적 주장 뒤에 실험 절차 · 발견 · 함의가 이어져, 절차가 발견을 낳고 발견을 요약 명사구가 되받는 연구 소개 구조라 블록 순서를 논리와 지시어로 가려야 한다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 발견을 가리키는 정관사 명사구가 앞의 실험 절차를, 비대칭을 되받는 지시 명사구가 앞의 발견을 요구한다.",
+      "cues": ["article", "pronoun", "logic", "repetition"],
+      "data_defect": null
+    }
+  ]
+}

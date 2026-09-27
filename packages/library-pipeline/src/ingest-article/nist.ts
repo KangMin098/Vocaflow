@@ -403,6 +403,8 @@ export async function ingestNistArticle(url: string): Promise<RawArticle> {
     // 미 연방정부 저작물. **표기는 지어내지 않고** usgs·noaa·factbook 이 이미 쓰는 문자열을
     //   그대로 쓴다(DB 실측 868행). 새 문자열을 만들면 `license_class` 매핑에서 조용히 빠진다.
     license: 'Public Domain (US Government)',
+    // 소스 단위 표기다 — 글 페이지에서 읽은 값이 아니다(권리 표지 evidence, DD-75).
+    license_evidence: 'collection-default',
     published_at: a.published_at ? new Date(a.published_at) : null,
     content: a.content,
     estimated_cefr: null,

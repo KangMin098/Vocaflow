@@ -268,7 +268,7 @@ function TaskGroup({ title, children }: { title: string; children: React.ReactNo
       <div className="border-b border-[var(--bd)] px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
         {title}
       </div>
-      <ul className="flex flex-col divide-y divide-[var(--bd)]/60">{children}</ul>
+      <ul className="flex flex-col divide-y divide-[color-mix(in_srgb,var(--bd)_60%,transparent)]">{children}</ul>
     </div>
   )
 }

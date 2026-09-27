@@ -1,0 +1,2887 @@
+[
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00a9c236-0346-4fc9-9490-5d15a6612b77",
+    "revision": "2026-09-25T07:08:26.256676+00:00",
+    "body_sha256": "438bf2e0676d0eb8b2eb4f48abc4c1069ec956387d07b01491a589243a330ed3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.551Z",
+        "by": "chunk-llm",
+        "why": "서론이 ToBRFV 저항 품종 부재에서 비유전적 대안 필요로 이어지고 한계 절까지 논지가 서서 주제·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:18.601Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "9950173bdab326fca5e53b0b4f152450f5334055aaa9bc86f762962128696c42"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "유전자 기호와 인용 괄호를 걷어도 문단이 서고 devastating·cultivars 를 쉬운 말로 바꾸면 밴드가 내려간다.",
+          "sample": "Tomato (Solanum lycopersicum L.) is among",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.551Z",
+        "by": "chunk-llm",
+        "why": "서론이 ToBRFV 저항 품종 부재에서 비유전적 대안 필요로 이어지고 한계 절까지 논지가 서서 주제·빈칸 칸을 채운다.",
+        "basis": "full",
+        "genre": "agriculture",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:18.601Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "9950173bdab326fca5e53b0b4f152450f5334055aaa9bc86f762962128696c42"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "유전자 기호와 인용 괄호를 걷어도 문단이 서고 devastating·cultivars 를 쉬운 말로 바꾸면 밴드가 내려간다.",
+          "sample": "Tomato (Solanum lycopersicum L.) is among",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "agriculture",
+        "why": "바이러스 저항성 육종의 한계를 세운 뒤 저온 플라스마를 대안으로 밀고 가는 서론·결론이 한 편의 논지를 이룬다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Tomato (Solanum lycopersicum L.) is among",
+          "note": "서론 첫 단락은 품종명만 걷으면 그대로 서지만, 결과부는 유전자 ID 나열이라 발췌가 서론·결론에 묶인다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.120Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.551Z",
+          "by": "chunk-llm",
+          "why": "서론이 ToBRFV 저항 품종 부재에서 비유전적 대안 필요로 이어지고 한계 절까지 논지가 서서 주제·빈칸 칸을 채운다.",
+          "basis": "full",
+          "genre": "agriculture",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:18.601Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "9950173bdab326fca5e53b0b4f152450f5334055aaa9bc86f762962128696c42"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "유전자 기호와 인용 괄호를 걷어도 문단이 서고 devastating·cultivars 를 쉬운 말로 바꾸면 밴드가 내려간다.",
+            "sample": "Tomato (Solanum lycopersicum L.) is among",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:41.431Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00ab889f-d8cb-4d60-9f14-647b4a341874",
+    "revision": "2026-09-25T07:08:33.823937+00:00",
+    "body_sha256": "52c3c457783fb6d4f4542c5f60acba2f816896f9fffab1f51ce23608801e476a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.553Z",
+        "by": "chunk-llm",
+        "why": "고찰 첫 문단이 낮은 FT3/FT4 비와 폐렴 위험의 연결 기제를 면역·근육·대사로 나누어 설명해 주장-근거 짝이 분명하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:20.347Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4db9a0a7d45539e058694b2f12d247c1e0bcfd234150709eace74b6ee5ce370d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "약어(iSAP·TFQI)를 풀어 쓰면 문단은 서지만 호르몬 지표 이름을 쉬운 낱말로 바꿀 길이 없어 밴드가 유지된다.",
+          "sample": "Our study identified a significant association",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.553Z",
+        "by": "chunk-llm",
+        "why": "고찰 첫 문단이 낮은 FT3/FT4 비와 폐렴 위험의 연결 기제를 면역·근육·대사로 나누어 설명해 주장-근거 짝이 분명하다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:20.347Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4db9a0a7d45539e058694b2f12d247c1e0bcfd234150709eace74b6ee5ce370d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "약어(iSAP·TFQI)를 풀어 쓰면 문단은 서지만 호르몬 지표 이름을 쉬운 낱말로 바꿀 길이 없어 밴드가 유지된다.",
+          "sample": "Our study identified a significant association",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "갑상선호르몬 민감도와 뇌졸중 후 폐렴을 잇는 기전 설명 단락이 수치 없이도 인과 가설로 읽힌다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Our study identified a significant association",
+          "note": "고찰의 면역·연하 기전 단락은 OR·CI 를 지우면 논지가 남는다. 결과부는 수치 나열이라 못 쓴다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.122Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.553Z",
+          "by": "chunk-llm",
+          "why": "고찰 첫 문단이 낮은 FT3/FT4 비와 폐렴 위험의 연결 기제를 면역·근육·대사로 나누어 설명해 주장-근거 짝이 분명하다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:20.347Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4db9a0a7d45539e058694b2f12d247c1e0bcfd234150709eace74b6ee5ce370d"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "약어(iSAP·TFQI)를 풀어 쓰면 문단은 서지만 호르몬 지표 이름을 쉬운 낱말로 바꿀 길이 없어 밴드가 유지된다.",
+            "sample": "Our study identified a significant association",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:27.623Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00b18271-cfb0-4499-8edd-2594543450c4",
+    "revision": "2026-09-25T07:08:35.534017+00:00",
+    "body_sha256": "f5e51e2487765082de16c02d9a11bbd1141e041dc3f737b1d7c1a7d63532b793",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.554Z",
+        "by": "chunk-llm",
+        "why": "서론이 소 럼피스킨병의 확산과 인터페론 방어 기제를 차례로 세워 배경 설명문으로 자족한다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:20.382Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "44613bd70a8e91e227c92bce293c99e9777f0386d9764a17b76e8a7778314d93"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "질병 확산 문단은 단백질 이름을 걷어도 서고 etiological agent·notifiable 을 쉬운 말로 바꾸면 내려간다.",
+          "sample": "Lumpy skin disease virus (LSDV), a member",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.554Z",
+        "by": "chunk-llm",
+        "why": "서론이 소 럼피스킨병의 확산과 인터페론 방어 기제를 차례로 세워 배경 설명문으로 자족한다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:20.382Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "44613bd70a8e91e227c92bce293c99e9777f0386d9764a17b76e8a7778314d93"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "질병 확산 문단은 단백질 이름을 걷어도 서고 etiological agent·notifiable 을 쉬운 말로 바꾸면 내려간다.",
+          "sample": "Lumpy skin disease virus (LSDV), a member",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약이 전문용어를 걷어낸 평문으로 바이러스 면역 회피 기전을 통째로 다시 말해 준다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Lumpy skin disease virus (LSDV) causes severe",
+          "note": "Author summary 단락은 떼어 내면 그대로 지문이 된다. 결과부는 단백질 약어가 문장마다 넷씩이라 손대기 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.123Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.554Z",
+          "by": "chunk-llm",
+          "why": "서론이 소 럼피스킨병의 확산과 인터페론 방어 기제를 차례로 세워 배경 설명문으로 자족한다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:20.382Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "44613bd70a8e91e227c92bce293c99e9777f0386d9764a17b76e8a7778314d93"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "질병 확산 문단은 단백질 이름을 걷어도 서고 etiological agent·notifiable 을 쉬운 말로 바꾸면 내려간다.",
+            "sample": "Lumpy skin disease virus (LSDV), a member",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 3,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:59.800Z",
+      "topicMargin": 17.47
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00bce2df-5b3a-42d0-a071-cac949867462",
+    "revision": "2026-09-25T07:08:44.261571+00:00",
+    "body_sha256": "148ce1ff5b2470957a8ea02c73c6512170dddc2e71aa2a0d027dddca6f2d5e32",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.555Z",
+        "by": "chunk-llm",
+        "why": "난황에서 외부 먹이로 넘어가는 전환을 시간 흐름으로 설명한 서론과 고찰이 순서·요지 칸을 함께 채운다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:21.910Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0e0ab3b5d8c19cf2d7ebe962c9abb2b3ffd61cc20ae4af2bb2d302a89f0f29c6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "전환 문단은 유전자 목록을 빼면 사건 흐름만 남아 떼기 쉽고 catabolism·ontogeny 를 바꾸면 내려간다.",
+          "sample": "During the development of Atlantic salmon",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.555Z",
+        "by": "chunk-llm",
+        "why": "난황에서 외부 먹이로 넘어가는 전환을 시간 흐름으로 설명한 서론과 고찰이 순서·요지 칸을 함께 채운다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:21.910Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0e0ab3b5d8c19cf2d7ebe962c9abb2b3ffd61cc20ae4af2bb2d302a89f0f29c6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "전환 문단은 유전자 목록을 빼면 사건 흐름만 남아 떼기 쉽고 catabolism·ontogeny 를 바꾸면 내려간다.",
+          "sample": "During the development of Atlantic salmon",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "난황에서 외부 먹이로 넘어가는 전환을 되돌릴 수 없는 사건으로 세우고 식욕·생체리듬 형성으로 풀어 간다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "During the development of Atlantic salmon",
+          "note": "서론 첫 두 단락은 학명만 풀면 중상위 지문 밴드로 내려온다. 결과부의 유전자 약어 표는 버린다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.124Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.555Z",
+          "by": "chunk-llm",
+          "why": "난황에서 외부 먹이로 넘어가는 전환을 시간 흐름으로 설명한 서론과 고찰이 순서·요지 칸을 함께 채운다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "order",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:21.910Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "0e0ab3b5d8c19cf2d7ebe962c9abb2b3ffd61cc20ae4af2bb2d302a89f0f29c6"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "전환 문단은 유전자 목록을 빼면 사건 흐름만 남아 떼기 쉽고 catabolism·ontogeny 를 바꾸면 내려간다.",
+            "sample": "During the development of Atlantic salmon",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:15.264Z",
+      "topicMargin": 12.34
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00e4266c-18e5-4e89-8352-bef6836b87ea",
+    "revision": "2026-09-25T07:08:51.379173+00:00",
+    "body_sha256": "809b6bc66ea383f8c95fadab967bdd12ce208d1890f7dd8267d420fda8b8abbd",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.557Z",
+        "by": "chunk-llm",
+        "why": "제목이 RETRACTED 로 시작하는 철회 논문이므로 기준의 차단 장르에 해당한다.",
+        "basis": "full",
+        "genre": "obsolete-fact",
+        "round": 4,
+        "slots": {
+          "ages": [],
+          "types": [],
+          "levels": [],
+          "platform": [],
+          "purposes": []
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:22.072Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b6a6378805ca5779ddbc6d250742ce49409a48ee87c40e0b1f35d73e64c4d905"
+        },
+        "retention": "discard",
+        "processing": {
+          "note": "서론 문단 자체는 떼어 낼 만하나 철회 논문이라 가공 결과를 쓸 자리가 없다.",
+          "sample": "Fetal growth restriction (FGR) is the",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.557Z",
+        "by": "chunk-llm",
+        "why": "제목이 RETRACTED 로 시작하는 철회 논문이므로 기준의 차단 장르에 해당한다.",
+        "basis": "full",
+        "genre": "obsolete-fact",
+        "round": 4,
+        "slots": {
+          "ages": [],
+          "types": [],
+          "levels": [],
+          "platform": [],
+          "purposes": []
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:22.072Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "b6a6378805ca5779ddbc6d250742ce49409a48ee87c40e0b1f35d73e64c4d905"
+        },
+        "retention": "discard",
+        "processing": {
+          "note": "서론 문단 자체는 떼어 낼 만하나 철회 논문이라 가공 결과를 쓸 자리가 없다.",
+          "sample": "Fetal growth restriction (FGR) is the",
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "discard",
+        "genre": "obsolete-fact",
+        "why": "제목이 RETRACTED 로 시작하는 철회 논문이라 기준 §5 의 차단 장르에 그대로 해당한다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Fetal growth restriction (FGR) is the",
+          "note": "철회본이므로 가공을 시도하지 않았다 — 내용이 읽히더라도 사실로 실을 수 없다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.126Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.557Z",
+          "by": "chunk-llm",
+          "why": "제목이 RETRACTED 로 시작하는 철회 논문이므로 기준의 차단 장르에 해당한다.",
+          "basis": "full",
+          "genre": "obsolete-fact",
+          "round": 4,
+          "slots": {
+            "ages": [],
+            "types": [],
+            "levels": [],
+            "platform": [],
+            "purposes": []
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:22.072Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "b6a6378805ca5779ddbc6d250742ce49409a48ee87c40e0b1f35d73e64c4d905"
+          },
+          "retention": "discard",
+          "processing": {
+            "note": "서론 문단 자체는 떼어 낼 만하나 철회 논문이라 가공 결과를 쓸 자리가 없다.",
+            "sample": "Fetal growth restriction (FGR) is the",
+            "detachable": false,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:47.703Z",
+      "topicMargin": 7.91
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00e4d0a6-9cce-46af-95f8-23279be07feb",
+    "revision": "2026-09-25T07:08:52.834871+00:00",
+    "body_sha256": "0da0bc85c0e6031b0f473245e2db0f8cd5335921cbf0cdc0305dfb19e7516f9b",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.557Z",
+        "by": "chunk-llm",
+        "why": "항상성과 신경조절이 같은 이온 채널을 두고 충돌한다는 문제 설정과 고찰의 교차점 설명이 주제·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:23.813Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "3aaa5c30c3c4b0b450bcd43c7318f6d4d8826e960150bb4e55f482e888340369"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 두 문단은 수식 없이 서지만 conductance·degeneracy 가 논지의 축이어서 쉬운 말로 바꾸기 어렵다.",
+          "sample": "Brain activity is continuously shaped by",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.557Z",
+        "by": "chunk-llm",
+        "why": "항상성과 신경조절이 같은 이온 채널을 두고 충돌한다는 문제 설정과 고찰의 교차점 설명이 주제·요지 칸을 채운다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:23.813Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "3aaa5c30c3c4b0b450bcd43c7318f6d4d8826e960150bb4e55f482e888340369"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 두 문단은 수식 없이 서지만 conductance·degeneracy 가 논지의 축이어서 쉬운 말로 바꾸기 어렵다.",
+          "sample": "Brain activity is continuously shaped by",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "항상성과 신경조절이라는 두 기제의 충돌을 문제로 세우고 해법 조건까지 끌고 가는 구조가 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Neurons must maintain stable activity while",
+          "note": "저자 요약과 고찰 앞부분은 수식 없이 선다. 본문 여러 단락에 [수식] 자리표가 박혀 있어 그 단락은 제외해야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.127Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.557Z",
+          "by": "chunk-llm",
+          "why": "항상성과 신경조절이 같은 이온 채널을 두고 충돌한다는 문제 설정과 고찰의 교차점 설명이 주제·요지 칸을 채운다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:23.813Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "3aaa5c30c3c4b0b450bcd43c7318f6d4d8826e960150bb4e55f482e888340369"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 두 문단은 수식 없이 서지만 conductance·degeneracy 가 논지의 축이어서 쉬운 말로 바꾸기 어렵다.",
+            "sample": "Brain activity is continuously shaped by",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:14.865Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00e6dc26-048d-4043-8620-8fa6e3ef348e",
+    "revision": "2026-09-25T07:08:54.84295+00:00",
+    "body_sha256": "904caa110ee6f5395f64cf1c8bd533c9741e97b191173af593d6d3c09d9e6fdf",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.558Z",
+        "by": "chunk-llm",
+        "why": "시멘트의 탄소 배출 문제에서 알칼리 활성 결합재와 터널 버럭 재활용이라는 해법으로 이어지는 서론이 논지로 선다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:23.855Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "39fe6aea04907e80bb5d4004234b26c5e035e7e00f73c731f92439e33a803c55"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "탄소 배출 문단은 수치 두 개만으로 서고 calcination·binder 를 바꾸면 밴드가 내려간다.",
+          "sample": "Cement production has been recognized as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.558Z",
+        "by": "chunk-llm",
+        "why": "시멘트의 탄소 배출 문제에서 알칼리 활성 결합재와 터널 버럭 재활용이라는 해법으로 이어지는 서론이 논지로 선다.",
+        "basis": "full",
+        "genre": "engineering",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:23.855Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "39fe6aea04907e80bb5d4004234b26c5e035e7e00f73c731f92439e33a803c55"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "탄소 배출 문단은 수치 두 개만으로 서고 calcination·binder 를 바꾸면 밴드가 내려간다.",
+          "sample": "Cement production has been recognized as",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "터널 버력 처리와 시멘트 탄소배출이라는 두 문제를 겹쳐 놓고 폐기물 기반 대체재를 답으로 제시하는 서론이 자족적이다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cement production has been recognized as",
+          "note": "서론 2~3단락은 규격 번호만 걷으면 환경 논지로 읽힌다. 실험·계산 절은 [수식] 자리표가 많아 못 쓴다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.129Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.558Z",
+          "by": "chunk-llm",
+          "why": "시멘트의 탄소 배출 문제에서 알칼리 활성 결합재와 터널 버럭 재활용이라는 해법으로 이어지는 서론이 논지로 선다.",
+          "basis": "full",
+          "genre": "engineering",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:23.855Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "39fe6aea04907e80bb5d4004234b26c5e035e7e00f73c731f92439e33a803c55"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "탄소 배출 문단은 수치 두 개만으로 서고 calcination·binder 를 바꾸면 밴드가 내려간다.",
+            "sample": "Cement production has been recognized as",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:04.049Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "00e7300f-121d-4907-b57e-093a8a5e4e94",
+    "revision": "2026-09-25T07:08:56.840045+00:00",
+    "body_sha256": "73cc1d5f8b0a702887ba58f3e5b2a7a3ceb33cb9b12b84022b30ccb0f794088e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.558Z",
+        "by": "chunk-llm",
+        "why": "보체가 지나치게 활성화되면 오히려 세균이 죽지 않는다는 역설을 저자 요약이 평이하게 세워 통념 교정 구조를 갖는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:23.894Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ce5b36ac09a94f1c3fe8a83e1d2b4562242b13f102a57217db194060be49fefd"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 문단은 그림 참조가 없어 그대로 한 편이 되고 complement·paradoxically 를 풀면 내려간다.",
+          "sample": "Antibiotic-resistant infections caused by Klebsiella",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.558Z",
+        "by": "chunk-llm",
+        "why": "보체가 지나치게 활성화되면 오히려 세균이 죽지 않는다는 역설을 저자 요약이 평이하게 세워 통념 교정 구조를 갖는다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:23.894Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ce5b36ac09a94f1c3fe8a83e1d2b4562242b13f102a57217db194060be49fefd"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 문단은 그림 참조가 없어 그대로 한 편이 되고 complement·paradoxically 를 풀면 내려간다.",
+          "sample": "Antibiotic-resistant infections caused by Klebsiella",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "면역이 강할수록 세균이 잘 죽는다는 통념을 역설적 결과로 뒤집어 보이는 구성이라 통념-반증 유형에 맞는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Antibiotic-resistant infections caused by Klebsiella pneumoniae",
+          "note": "저자 요약 단락 하나로 통념·반증·함의가 다 담겨 손댈 곳이 거의 없었다. 결과부 그림 번호는 걷어내야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.131Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.558Z",
+          "by": "chunk-llm",
+          "why": "보체가 지나치게 활성화되면 오히려 세균이 죽지 않는다는 역설을 저자 요약이 평이하게 세워 통념 교정 구조를 갖는다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:23.894Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ce5b36ac09a94f1c3fe8a83e1d2b4562242b13f102a57217db194060be49fefd"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약 문단은 그림 참조가 없어 그대로 한 편이 되고 complement·paradoxically 를 풀면 내려간다.",
+            "sample": "Antibiotic-resistant infections caused by Klebsiella",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 11,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:00.805Z",
+      "topicMargin": 11.29
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "010b5d28-d64d-430a-a2cc-3ca5c0f19feb",
+    "revision": "2026-09-25T07:09:04.070868+00:00",
+    "body_sha256": "8278c3b19690d2d7c98c7ded75f817d26b68a0007deca81c4f09f60fca5bef64",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.559Z",
+        "by": "chunk-llm",
+        "why": "알츠하이머 초기 병리가 내후각피질에서 시작한다는 배경과 신경 생성의 보상 가설이 고찰에서 한 논지로 묶인다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:25.646Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ad0b6a3d4fdeee7e91fc7dbc35f538b16156e802a402bdbb1215b671b6b57fc6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "첫 문단은 통계 한 줄로 시작해 떼기 쉬우나 해부 용어가 논지에 붙어 있어 어휘 하향이 어렵다.",
+          "sample": "As baby boomers age, Alzheimer's disease",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.559Z",
+        "by": "chunk-llm",
+        "why": "알츠하이머 초기 병리가 내후각피질에서 시작한다는 배경과 신경 생성의 보상 가설이 고찰에서 한 논지로 묶인다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:25.646Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ad0b6a3d4fdeee7e91fc7dbc35f538b16156e802a402bdbb1215b671b6b57fc6"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "첫 문단은 통계 한 줄로 시작해 떼기 쉬우나 해부 용어가 논지에 붙어 있어 어휘 하향이 어렵다.",
+          "sample": "As baby boomers age, Alzheimer's disease",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "퇴행 신호와 보상적 신경 가소성이 한 모델에서 함께 나온다는 대조 구도가 고찰에서 명확히 정리된다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As baby boomers age, Alzheimer’s disease",
+          "note": "서론 첫 단락과 「Relevance for humans」 절은 통계 인용만 정리하면 선다. 결과부는 F값·P값이 문장 절반이라 제외."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.132Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.559Z",
+          "by": "chunk-llm",
+          "why": "알츠하이머 초기 병리가 내후각피질에서 시작한다는 배경과 신경 생성의 보상 가설이 고찰에서 한 논지로 묶인다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:25.646Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ad0b6a3d4fdeee7e91fc7dbc35f538b16156e802a402bdbb1215b671b6b57fc6"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "첫 문단은 통계 한 줄로 시작해 떼기 쉬우나 해부 용어가 논지에 붙어 있어 어휘 하향이 어렵다.",
+            "sample": "As baby boomers age, Alzheimer's disease",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:17.884Z",
+      "topicMargin": 8.32
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "012b52a4-a9da-4f76-aaf4-3a8e1a94045d",
+    "revision": "2026-09-25T07:09:17.017513+00:00",
+    "body_sha256": "eb2f2ae751c6ee25956ac6eab683c5bafb1eb74c62db094cb27ac1eaac9a993a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.560Z",
+        "by": "chunk-llm",
+        "why": "염증 지표와 대사 지표가 서로 다른 경로를 재기에 합치면 예측이 좋아진다는 논지가 고찰에서 분명히 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:28.615Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5d3d815b52cc2b96782b5866574f5d6b1a449346e53e560a8ece6a385a636fae"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "상관 없음에서 상보성을 끌어내는 문단은 그대로 서지만 지표 약어가 많아 쉬운 말로 바꾸기 어렵다.",
+          "sample": "The negligible correlation between NLR and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.560Z",
+        "by": "chunk-llm",
+        "why": "염증 지표와 대사 지표가 서로 다른 경로를 재기에 합치면 예측이 좋아진다는 논지가 고찰에서 분명히 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:28.615Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "5d3d815b52cc2b96782b5866574f5d6b1a449346e53e560a8ece6a385a636fae"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "상관 없음에서 상보성을 끌어내는 문단은 그대로 서지만 지표 약어가 많아 쉬운 말로 바꾸기 어렵다.",
+          "sample": "The negligible correlation between NLR and",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "염증과 대사라는 두 축을 따로 보던 관행을 지적하고 결합 지표의 필요를 끌어내는 서론이 한 논지로 선다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Patients with ST-segment elevation myocardial infarction",
+          "note": "서론·고찰 앞부분만 문단으로 성립하고, 나머지는 OR·AUC 나열이라 쓸 수 있는 분량이 좁다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.133Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.560Z",
+          "by": "chunk-llm",
+          "why": "염증 지표와 대사 지표가 서로 다른 경로를 재기에 합치면 예측이 좋아진다는 논지가 고찰에서 분명히 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:28.615Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "5d3d815b52cc2b96782b5866574f5d6b1a449346e53e560a8ece6a385a636fae"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "상관 없음에서 상보성을 끌어내는 문단은 그대로 서지만 지표 약어가 많아 쉬운 말로 바꾸기 어렵다.",
+            "sample": "The negligible correlation between NLR and",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:09.292Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "012dfef7-fdf2-4a60-ac0f-723420c4b7c9",
+    "revision": "2026-09-25T07:09:20.705027+00:00",
+    "body_sha256": "ea080c66a66e20ced6aefde372b32ae7059c4a617f934289b123c83533ed440f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.561Z",
+        "by": "chunk-llm",
+        "why": "단일 지표의 한계에서 복합 지표로 넘어가는 고찰이 선행 연구와 대조되며 요지·내용 일치 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:29.967Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6946add611e96bb86819205ff0e92cda23ac216ad67e559d526e577b3549743e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "단일 지표 한계 문단은 AUC 수치를 빼도 논지가 서지만 검사 약어가 촘촘해 밴드가 내려가지 않는다.",
+          "sample": "Conventional single-parameter biomarkers remain widely used",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.561Z",
+        "by": "chunk-llm",
+        "why": "단일 지표의 한계에서 복합 지표로 넘어가는 고찰이 선행 연구와 대조되며 요지·내용 일치 칸을 채운다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:29.967Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6946add611e96bb86819205ff0e92cda23ac216ad67e559d526e577b3549743e"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "단일 지표 한계 문단은 AUC 수치를 빼도 논지가 서지만 검사 약어가 촘촘해 밴드가 내려가지 않는다.",
+          "sample": "Conventional single-parameter biomarkers remain widely used",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "적혈구 분포폭이 왜 염증·노화 지표가 되는지 기전을 여러 근거로 쌓아 올리는 서론 단락이 읽는 글로 성립한다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Red blood cell distribution width (RDW),",
+          "note": "해당 단락은 인명 인용을 지우면 설명문이 된다. 결과·표 대응 문단은 수치뿐이라 가공 대상이 아니다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.134Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.561Z",
+          "by": "chunk-llm",
+          "why": "단일 지표의 한계에서 복합 지표로 넘어가는 고찰이 선행 연구와 대조되며 요지·내용 일치 칸을 채운다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "content_match"
+            ],
+            "levels": [
+              "V9",
+              "V10"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:29.967Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6946add611e96bb86819205ff0e92cda23ac216ad67e559d526e577b3549743e"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "단일 지표 한계 문단은 AUC 수치를 빼도 논지가 서지만 검사 약어가 촘촘해 밴드가 내려가지 않는다.",
+            "sample": "Conventional single-parameter biomarkers remain widely used",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:25:52.809Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "013814b7-6e67-4783-aeb2-8306313b8015",
+    "revision": "2026-09-25T07:09:23.934824+00:00",
+    "body_sha256": "552bc96a3aac2eb0667d09ccd0158a4eeec8afc24aad8e32c32e96d1f37ab83c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.561Z",
+        "by": "chunk-llm",
+        "why": "바다 발생이 영양 도박이라는 통념을 알 속 색소체 구조로 뒤집는 구성이라 통념 교정과 주제 칸이 함께 선다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:30.042Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4b3f6ab252a677ca75e35e4641f05b283a7ae84ffd462bdfcc36c11200670406"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 문단은 인용 괄호만 걷으면 한 편이 되고 planktotrophy·detritus 를 풀면 고3 밴드에 든다.",
+          "sample": "The most common reproductive strategy amongst",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.561Z",
+        "by": "chunk-llm",
+        "why": "바다 발생이 영양 도박이라는 통념을 알 속 색소체 구조로 뒤집는 구성이라 통념 교정과 주제 칸이 함께 선다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:30.042Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4b3f6ab252a677ca75e35e4641f05b283a7ae84ffd462bdfcc36c11200670406"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 문단은 인용 괄호만 걷으면 한 편이 되고 planktotrophy·detritus 를 풀면 고3 밴드에 든다.",
+          "sample": "The most common reproductive strategy amongst",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "바다에서의 발생이 영양 도박이라는 전제를 세운 뒤 색소체 유래 물질이라는 뜻밖의 해답으로 뒤집는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The most common reproductive strategy amongst",
+          "note": "서론과 고찰 첫 단락은 학명·통계만 걷으면 그대로 완결된 논증이 된다 — 이 청크에서 가공이 가장 쉬웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.135Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.561Z",
+          "by": "chunk-llm",
+          "why": "바다 발생이 영양 도박이라는 통념을 알 속 색소체 구조로 뒤집는 구성이라 통념 교정과 주제 칸이 함께 선다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V8",
+              "V9"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:30.042Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4b3f6ab252a677ca75e35e4641f05b283a7ae84ffd462bdfcc36c11200670406"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 문단은 인용 괄호만 걷으면 한 편이 되고 planktotrophy·detritus 를 풀면 고3 밴드에 든다.",
+            "sample": "The most common reproductive strategy amongst",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 13,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:12:56.232Z",
+      "topicMargin": 6.58
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-32-116Z",
+    "id": "013eeffe-275e-41d6-80de-c109fabb675b",
+    "revision": "2026-09-25T07:09:26.036136+00:00",
+    "body_sha256": "cbe5de57e2f917fbbcd7bc51ca578ea334b1087187020c550836e1d60449e06c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.562Z",
+        "by": "chunk-llm",
+        "why": "북극 온난화가 유적을 지운다는 논지와 포경 노동자의 건강 기록이 나란히 서서 주제·요약·내용 일치 칸을 넓게 채운다.",
+        "basis": "full",
+        "genre": "history",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "then-now"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:30.093Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "54c6059e9c208cb888e577668370d097682e82224e377e253b19e0a27b3dbfbc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 문단은 지명·인용을 걷어도 인과가 남고 destabilise·periglacial 을 바꾸면 고2 밴드로 내려간다.",
+          "sample": "Rapid climate warming is transforming Arctic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:05.562Z",
+        "by": "chunk-llm",
+        "why": "북극 온난화가 유적을 지운다는 논지와 포경 노동자의 건강 기록이 나란히 서서 주제·요약·내용 일치 칸을 넓게 채운다.",
+        "basis": "full",
+        "genre": "history",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "then-now"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:48:30.093Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "54c6059e9c208cb888e577668370d097682e82224e377e253b19e0a27b3dbfbc"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 문단은 지명·인용을 걷어도 인과가 남고 destabilise·periglacial 을 바꾸면 고2 밴드로 내려간다.",
+          "sample": "Rapid climate warming is transforming Arctic",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "영구동토 해빙이 유적을 지우는 과정과 포경 노동자의 몸에 남은 흔적을 한 논지로 엮어 서술이 끝까지 이어진다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "then-now",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rapid climate warming is transforming Arctic",
+          "note": "서론·고찰 모두 지명만 남기고 떼어도 서며, 어휘도 두세 개만 바꾸면 고2 밴드로 내려온다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:32.137Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:05.562Z",
+          "by": "chunk-llm",
+          "why": "북극 온난화가 유적을 지운다는 논지와 포경 노동자의 건강 기록이 나란히 서서 주제·요약·내용 일치 칸을 넓게 채운다.",
+          "basis": "full",
+          "genre": "history",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "summary",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "then-now"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:48:30.093Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "54c6059e9c208cb888e577668370d097682e82224e377e253b19e0a27b3dbfbc"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 문단은 지명·인용을 걷어도 인과가 남고 destabilise·periglacial 을 바꾸면 고2 밴드로 내려간다.",
+            "sample": "Rapid climate warming is transforming Arctic",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:10:46.645Z"
+    }
+  }
+]

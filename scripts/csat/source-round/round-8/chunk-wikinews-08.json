@@ -1,0 +1,827 @@
+[
+ {
+  "id": "027bdde0-247c-4e3e-bf5e-e3cff6dda2f4",
+  "title": "US scientists create prototype of autonomous origami-inspired robot",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:49:37.598813+00:00",
+  "body_sha256": "00df8d2c392efd7e7b9c4f65e7484f83d804162798cc8219881336c625a87778",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 478,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2014-08-10T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/US_scientists_create_prototype_of_autonomous_origami-inspired_robot",
+     "year": 2014,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A research team from the Massachusetts Institute of Technology (MIT) and Harvard University's Wyss Institute for Biologically Inspired Engineering\n\nhas developed a robot that assembles itself within four minutes from a flat sheet into a 3D (three-dimensional) moving structure. Unlike previous self-folding machines, the robot can function autonomously. Science published the study this Friday.\n\nAlso on Friday, Science published a report of a Cornell University-led research team on applications of origami in design of programmable metamaterials.\n\nAs The Guardian reported, MIT–Harvard team lead author Sam Felton, a Harvard University Ph.D. candidate, priced the manufacturing equipment for the robot at $3,000, which could then make each individual unit — a 13cm-long, Transformer-like robot — for about $100.\n\nAs described by MIT researchers, the initially flat sheet consists of five layers: copper wires in the middle, then two layers of paper (above and below), and two outer layers of shape memory polymer.\n\nThe embedded heating circuits activate the robot's self-folding by heating shape memory polymers at the hinges.\n\nThe parameters defining the fold pattern which determines the final 3D shape are placement of the self-folding hinges, and the order of their triggering.\n\nFelton told about creation of the pattern: \"Cyclic folds are used by a software program called 'Origamizer' as building blocks to create any polyhedron. We've discovered that we can [...] create a wide variety of structures and machines.\"\n\nOnce the battery is attached to the design, the robot folds itself into the pre-determined shape and walks away, with motion of the four-legged robot controlled by the included microprocessor and two small motors synchronised by it.\n\nEach of the four legs has eight \"linkages\" which convert the force applied by a motor into motion.\n\n\"It lets you transfer just one degree of freedom into a whole complicated motion, all through the mechanics of the structure,\" says coauthor Erik Demaine, MIT professor of computer science and engineering.\n\nThe robot moved during testing at about 5.4 centimeters per second, over a pre-determined route, not just a straight line — without any outside assistance.\n\nMarc Lavine, a senior Science editor, suggested such robots might be put in place \"through a confined passageway, such as a collapsed building, after which they would assemble into their final form autonomously\".\n\nThe folding pattern studied by the Cornell-led research team is well-known in origami as Miura-ori, whose unusual engineering properties caught the attention of team member Chris Santangelo of the University of Massachusetts Amherst.\n\nCornell University lead author Jesse Silverberg commented on potential of origami-based engineering: \"When incorporated into more complex devices, these materials will enable on-the-fly transformation of mechanical function. We envision combining these origami-inspired materials with computer-controlled actuators to build more complex machines, such as hardening shells, locked-in joints and deployable barriers; and ultimately, this transformer technology will revolutionize the way we think about materials, moving them beyond their current static form, and revealing more functionality than what originally meets the eye\"."
+ },
+ {
+  "id": "027d48ef-c9a1-48b0-be09-49100f762b00",
+  "title": "1 dead, 13 injured in Dublin bus pursuit",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:08:31.667179+00:00",
+  "body_sha256": "0a8691a0fc95d1ddb7e6f57b7e18befef5d3c5a16b0ce24fa1126d3b04866033",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 211,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-05-07T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/1_dead%2C_13_injured_in_Dublin_bus_pursuit",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "One person is dead and 13 others, including 5 members of the Garda Síochána, Ireland's police force, are injured following the pursuit of a stolen bus throughout the south of Dublin city and county.\n\nA driver who was not authorised to take the vehicle early in the morning of May 7 stole the coach from the yard of private hire operator Dualway. The bus was later located at Dublin Heuston railway station by the coach company, where the driver attempted to run over the son of the owner of Dualway.\n\nThe driver then returned to the Dualway depot in Rathcoole in what developed in to a high speed pursuit involving up to 20 patrol cars and a police helicopter. The Gardaí fired several shots at the driver's tires in an attempt to stop the car, as well as laying tacks. The bus was driven down the wrong side of the N7 Naas road, where it collided with a number of cars, killing a female driver, and rammed five Garda patrol cars that were blocking the road. The driver was apprehended and arrested at the Dualway depot after crashing the bus.\n\nSections of the N7 as well as surrounding roads were closed following the incident for forensic examinations, and the Luas tram services were severely curtailed."
+ },
+ {
+  "id": "027d9b5e-9af9-4f21-a089-cec38bf34053",
+  "title": "Russian firefighting aircraft starts fires in Portugal",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:04:49.047315+00:00",
+  "body_sha256": "5c8c27d8189fdf19d5d945ec181abfefbfd7eeaee9f9b6291ecf7fbf631e57ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 464,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2006-07-08T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Russian_firefighting_aircraft_starts_fires_in_Portugal",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The Russian Beriev 200 airplane leased to the Portuguese Government suffered an accident last Thursday (July 6) afternoon, after one of its engines was damaged.\n\nThe accident occurred after a refueling operation at the dam of Aguieira, near Santa Comba Dão. As the aerial firefighting aircraft took off at the end of the refueling maneuver in the water - designated as 'scooping' - its \"left wing hit the top of the trees and the aircraft suffered some damage\" to its fuselage, said Colonel Anacleto dos Santos, director of the Cabinet of Prevention and Investigation of Accidents with Aircraft (GPIAA), to the Portuguese newspaper Correio da Manhã.\n\nWhile hitting the top of the trees, leaves and some wood entered the left engine, which didn't blow up, but that had to be turned off and the pilot was forced to release fuel for safety reasons. The release of the fuel started small wildfires across the area, reaching some houses, which were quickly extinguished by firefighters and helitack units of the GNR's Intervention, Protection and Rescue Group.\n\nThe airplane was able to do an emergency landing at the Monte Real Air Base, where it's currently operating from, thanks to the flight experience of one of the Russian pilots. When contacted by the Lusa news agency, National Service of Firefighters and Civil Protection, vice-president Lieutenant-Colonel Joaquim Leitão explained that the repairs will be made by the aircraft company and that all the parts necessary to repair the damages will have to come from Russia, by which the solution for the problem will take \"some days\".\n\nLieutenant-Colonel Leitão added that an investigation is in progress to analyse the circumstances under which the accident occurred. And when he was asked if the accident was caused by the limitations of the dam, given the dimensions of the aircraft, he said that the reconnaissance of the area had been performed before the scooping exercises began, and an operation officially kicks off when all the conditions are met.\n\nThe final report of the GPIAA will only be concluded in a few weeks but GPIAA director, Colonel Anacleto dos Santos, excluded two of the eventual causes of any aerial accident. \"The atmospheric conditions were not adverse and there are no indications of mechanical failure. Everything points to human error.\"\n\nOn board of the aircraft followed two Russian pilots - one of them still receiving formation - and an Portuguese pilot that was observing the operations.\n\nTwo years ago, the Italian authorities tested the Beriev in the same mission type. Having the Portuguese Government sent observers to evaluate the performance of the aircraft. However, some limitations were found in the performing of the Russian aircraft in Italy's wildfire scenarios. Having the Italian Civil Protection reached the conclusion that the Beriev 200 is not prepared to operate in mountainous terrain."
+ },
+ {
+  "id": "027dfd0d-47bd-4cef-affb-c1f5be3965db",
+  "title": "Palestine elected as G-77's presiding country, ambassador Riyad Mansour confirms",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:51:33.127018+00:00",
+  "body_sha256": "be6acf3dd8f7de31bfd098c7c449a91a2fbf22b3c73e1ead7f4db57017bff2a2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 167,
+   "v_level": 6,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2018-07-26T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Palestine_elected_as_G-77's_presiding_country%2C_ambassador_Riyad_Mansour_confirms",
+     "year": 2018,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "On Tuesday, Riyad Mansour, Palestine's ambassador to the United Nations, confirmed Palestine would preside next year over the UN's G-77 bloc of developing countries.\n\nWhile speaking to The New York Times, Mansour said, \"We will be negotiating on behalf of 135 countries\". Formed in 1964, Group of 77 now represents about 80% of the world population. Palestine is expected to take over presiding for 2019 in January. Currently, the presiding nation is Egypt.\n\nPalestine is an observer non-member state of the UN. In 2012, Israel and its ally the United States opposed promoting Palestine to \"observer\" status, and in 2015 both countries also opposed allowing Palestine to fly their flag at the UN.\n\nIsraeli ambassador to the UN Danny Danon criticised Palestine's presiding, saying, \"The goal of the Group of 77 originally was to facilitate the economic advancement of underdeveloped nations [...] It is unfortunate that it will now become a platform for spreading lies and incitement. This will not promote the G-77's goals, and encourages the Palestinians to not engage in negotiations for peace.\""
+ },
+ {
+  "id": "027ef9df-4b57-4a3b-99de-4d110be252cb",
+  "title": "British Airways launches three new weekly flights from Bucharest to London",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:47:16.557304+00:00",
+  "body_sha256": "4610919903134522804a610d502e4be4aa1f095eb78af22f91b92da3a3809a3a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 71,
+   "v_level": 2,
+   "cefr": "B1",
+   "has_audio": false,
+   "published_at": "2005-04-15T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/British_Airways_launches_three_new_weekly_flights_from_Bucharest_to_London",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Due to greater consumer demand, British Airways announced yesterday that it would run a further three flights weekly on the route from Bucharest (Henri Coandă International) to London (Gatwick). The Bucharest-London flights will run on Monday, Thursday and Saturday, while the return flights will run on Wednesday, Friday and Sunday. The extra flights will mean that British Airways will now fly from Bucharest to London, and back, ten times a week."
+ },
+ {
+  "id": "02801665-8caf-4b36-84ce-0a57b9c164f4",
+  "title": "Geneticists produce laser-activated killer mice",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:58:43.775318+00:00",
+  "body_sha256": "7c7a2c0b91f2a07f576e6c671a82d780e354d85996a04b4567503f7d851062ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "queued",
+   "words": null,
+   "v_level": null,
+   "cefr": null,
+   "has_audio": false,
+   "published_at": "2017-01-15T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Geneticists_produce_laser-activated_killer_mice",
+     "year": 2017,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "In research released on Thursday in Cell, scientists from Yale University report they managed to trigger instinctive hunting behavior in mice using optogenetics, a manner of priming cells within an organism's brain to switch on when exposed to a laser.\n\nThe research team used an engineered virus to target and alter specific sets of neurons. Then they fitted the mice with intracranial optical fibers so they could expose their brains to blue light at will. The system excited two different sets of neurons, both located in the amygdala, which is the part of the brain associated with emotion and aggression. One set stimulated prey pursuit behavior, such as stalking, and the other stimulated the animal to use its jaw and neck muscles. When exposed to the laser, the primed mice would first stalk and then pounce on and bite any object in their enclosure, even objects without any food scent or prey value, like sticks and bottle caps.\n\n\"We'd turn the laser on and they'd jump on an object, hold it with their paws and intensively bite it as if they were trying to capture and kill it,\" says lead investigator and Yale Associated Professor of Psychiatry Ivan de Araujo. The mice behaved normally at all other times.\n\nThe work was inspired by Araujo's desire to study natural feeding behavior, as opposed to animals passively munching on food pellets. The study covered many parts of the brain already known to be associated with feeding, and the results suggested some areas are associated with both hunting and feeding and others only with just one behavior. Stimulation of the periaqueductal gray (PAG) portion of the brain controlled stalking and stimulation of the reticular formation controlled biting. The researchers say this shows the amygdala is likely to control hunting and biting behavior across many or all jawed vertebrates. The experiments were funded by national research organizations in the United States and China and the government of Brazil.\n\nThe findings inspired comparisons by the research team and the press to zombies from The Walking Dead, especially since the behavior was more pronounced when the animals were hungry. Researchers noted the subjects did not attack any of the other mice. The scientists say this shows they were stimulating predatory behavior specifically and not making the animals generally more angry or aggressive.\n\nHowever, the study did not state whether the laser resembled the light of a full moon."
+ },
+ {
+  "id": "028385c7-0e6e-404b-8766-61b067413cb4",
+  "title": "Open source game Wesnoth reaches version 1.0",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:56:21.113113+00:00",
+  "body_sha256": "37360eda0a1a35e3f0aea7e8b870083181acbb3c1549efe04bda14f9ed4243ab",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 349,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2005-10-05T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Open_source_game_Wesnoth_reaches_version_1.0",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Although there are many open source games in development, few development teams have the motivation and expertise needed to mature their game from beta status, indicated by version numbers less than one (0.6, 0.7, etc...), to \"1.0\". This remarkable milestone was accomplished recently by the developers of the computer game Battle for Wesnoth. Wesnoth is a turn based strategy game set in a fantasy environment reminiscent of Tolkien's Lord of the Rings literature, featuring unit types like Elves, Dwarves, Orcs, and even tree people.\n\nDevelopment of the game began over two years ago when creator David White released the first development version, 0.1, on June 18, 2003. All code and contents of the game were released under the GNU GPL license, and all versions were distributed freely over the internet. The game was also packaged for various GNU/Linux distributions such as Debian and many others. Wesnoth's ability to run on Unix and Linux, Mac OSX and Microsoft Windows systems and solid playability earned it popularity among the open source community. The game drew not only players, but also programmers, artists, and campaign writers; developers who create stories and scenarios using the mechanics and art of the core Wesnoth engine. The quick pace of development and early popularity considerably increased the number of people working on the game in their free time and allowed it to reach a quality and completeness not often seen in GPL games.\n\n\"1.0\" contains several campaigns of varying length, in which you play alone against computer opponents. Wesnoth also offers various multiplayer modes, from a hot-seat mode for multiple players on one computer, to an online lobby where you can play games with players from all over the world. In this case, multiple players can either play in teams against others, or join a team against the computer opponent.\n\nThere is also a campaign server accessible from inside the game where players can download many additional user created campaigns, maps, and even units. Almost all aspects of the game are scriptable using an HTML-like language which allows users to easily create their own content and contribute it to the campaign server."
+ },
+ {
+  "id": "028ec631-4e28-4c5a-896b-29a7f16a8639",
+  "title": "O. J. Simpson sentenced to 15 years in prison",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:17:17.192259+00:00",
+  "body_sha256": "12f7cbfbd31af945e3004faf74c2dfe5099229fb23da0fdb1d1aee5627759855",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 283,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2008-12-06T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/O._J._Simpson_sentenced_to_15_years_in_prison",
+     "year": 2008,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Former United States football player O.J. Simpson was sentenced to prison for 15 years yesterday morning, on charges of kidnapping and armed robbery of two sports memorabilia dealers at a hotel in Las Vegas, Nevada. Simpson's accomplice in the crime, one Clarence Stewart, was also given a thirty-three year sentence. Both will be eligible for parole in five years.\n\nSimpson, aged 61, was arrested on twelve charges of kidnapping and armed robbery in which he and his accomplices used firearms to force two sports memorabilia dealers to give him several items that Simpson felt had been stolen from him.\n\nSimpson, seeming close to tears, told the court for the first time on Friday that he was very sorry, and that he was only attempting to recover family heirlooms.\n\n\"I realize now that I was stupid, I didn't mean to hurt anyone, I'm sorry, I'm sorry for all of it,\" he said.\n\nJudge Jackie Glass, however, described Simpson as arrogant and ignorant. \"Everything in this case was on tape and it was your own words that have brought you here because we heard it all and what came out on the tapes [gave] evidence in this case was overwhelming,\" she said. \"That was a violent event, guns were brought, at least one gun was drawn, the potential for harm in that room was tremendous,\" she continued. \"You knew what was going on there. I have to tell you now that it was much more than stupidity.\"\n\nSimpson will remain in solitary confinement for the entire period of the sentence due to his celebrity status. In total, Simpson will spend at least 9 years and as much as 33 years behind bars on a total of twelve charges."
+ },
+ {
+  "id": "0291b1d1-c2df-41e1-a5ec-40be2f5f195d",
+  "title": "Google launches Video Search",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T05:31:34.123731+00:00",
+  "body_sha256": "80153951490fa390b8bcb89bf3487cb2c66f1c1e831a0b6423a7c7893611b662",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 173,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2005-01-25T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Google_launches_Video_Search",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Screenshot: Google Video\n\nThe aggressive Internet search king is eyeing your television. Google Inc. today announced the launch of Google Video, a new free service which allows users to search thousands of television programs every day — everything from sports to dinosaur documentaries to news shows.\n\nGoogle Video currently covers eight television channels:\n\nABC (KGO)\n\nKQED\n\nKRON\n\nNBC (KNTV)\n\nPBS\n\nFox News\n\nC-SPAN\n\nC-SPAN2\n\nJust type in your search term, Google Video will search the closed captioning text of all the programs in the archive for relevant results. It allows users to have a look through short snippets of the text along with still images from the show. If a user provides their zip code, the site displays information on when the show will air next.\n\nGoogle is a U.S.-based search engine whose mission \"is to organize the world's information and make it universally accessible and useful\", according to the company's corporate web site. The largest search engine on the web, Google receives over 200 million queries each day through its various services."
+ },
+ {
+  "id": "0298f7a7-cd83-4031-bf0f-499029b47384",
+  "title": "Final report blames London passenger jet crash on ice",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:58:43.83992+00:00",
+  "body_sha256": "f47716e4e37a9f092d3653f38d8cadfab51228b69d747a350671f065f7117ab4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "queued",
+   "words": null,
+   "v_level": null,
+   "cefr": null,
+   "has_audio": false,
+   "published_at": "2010-02-10T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Final_report_blames_London_passenger_jet_crash_on_ice",
+     "year": 2010,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The United Kingdom's Air Accidents Investigation Board (AAIB) yesterday blamed a release of ice in the fuel system of a British Airways passenger jet as the cause of a crash two years ago at London's Heathrow Airport. from China was attempting to land when both engines lost almost all power – a condition called \"rollback\".\n\nThe exact phenomenon had never been previously identified, but it not only affected the British Airways jet two years ago but also a Delta Airlines jet above the United States later the same year. Both were Boeing 777 aircraft. That incident prompted the AAIB to collaborate with the US National Transportation Safety Board.\n\nBA 38 was approximately 43 seconds from touchdown when it experienced a dual engine rollback that was beyond the control of the flight crew. Captain Peter Burkill and co-pilot John Coward were later hailed as heroes for performing a successful crash landing 330 metres from the runway. The plane avoided nearby buildings and a road, leaving the landing gear deployed to act as shock absorbers.\n\nThe jet slid 372 metres after the crash, but all 136 passengers evacuated alive. 36 passengers and twelve crewmembers were injured, mostly suffering whiplash and one incurring a broken leg. The report concluded there was no time to alert the cabin crew or passengers to the situation developing in the cockpit.\n\nThe engine rollback was caused by ice forming in the fuel system; the ice came from water molecules existing as impurities in the fuel, and lined the fuel system. When extra fuel was pumped through to supply the engines for landing manoeuvres, the ice was dislodged.\n\nIt is believed to have then settled on a component called the fuel-oil heat exchanger, a dual-purpose component that runs oil pipes through the fuel system. The idea is to cool down hot oil and keep fuel warm to prevent freezing. As the result of previous safety recommendations from both the UK and US investigators Boeing and engine company Rolls-Royce have worked to redesign the part.\n\nEvery component of the aircraft complied with all relevant airworthiness standards, and the fuel also complied with the standards applying to it. Although ice problems have been known since the 1950s, sudden release problems were unheard of before the crash. The testing conducted as part of the investigation is thought to be unique and the aircraft experienced unusually low temperatures during the flight.\n\nA total of eighteen safety recommendations have been issued, of which nine came from an interim report and nine are new. Some of these apply to aircraft \"crashworthiness\" – the ability to withstand impact forces."
+ },
+ {
+  "id": "029bf51f-d9be-4041-9ee8-d238b7e766da",
+  "title": "Remote Assistance service of Windows OS vulnerable to attack",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:05:18.215973+00:00",
+  "body_sha256": "0118b0ede161c1f8f83c847975be13676a9bbc24108ee0709c1a6d9e09d96001",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 522,
+   "v_level": 5,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2005-07-19T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Remote_Assistance_service_of_Windows_OS_vulnerable_to_attack",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Until a patch is issued, Microsoft recommends that users close or block TCP port 3389, the port opened when the Remote Assistance service of its Microsoft Windows operating system (OS) is enabled. The Remote Assistance feature is a service of the OS that allows Internet Technology administrators of corporate workgroups remote access to other desktops to perform maintenance and other configuration tasks from their own computer. It can also be used by on-line tech support sites. A support assistant can go into a user’s machine, if the service is enabled, and themself make changes directly to another person's computer to resolve an issue.\n\nTo initialize the remote assistance feature, the user of the helper computer must first make a request of the user of the target computer. Compliance must be granted by the user of the target machine, which then fully opens the communication port of the target machine to the helper computer. The operator of the helper computer then has control of target computer to make changes at will. The user of the target machine can watch in a separate window the actions of the helper, and either party to the session can end it at any time.\n\nIn a telephone conversation with a Microsoft representative Tuesday, it was learned that work to develop a security patch is underway, but when it will be available is unclear. It was cited that a patch must work consistently across multiple platform versions of the OS.\n\nThe vulnerability, thought at first to affect only Windows XP SP2, is now believed to affect all current Windows editions, including Windows 2000, Windows XP SP1, Windows XP Professional x64, Windows Server 2003, Windows Server 2003 SP1, and Windows Server x64.\n\nThe Remote Desktop Protocol (RDP) is not enabled by default, however if the service is enabled, a Denial of Service attack could cause the OS to restart unexpectedly according to Microsoft, or experience buffer overflows according to Symantec. The RDP is enabled by default on Windows XP Media Center Edition.\n\nMicrosoft suggests users block TCP port 3389 (the port used by RDP) on their firewall, or disable Terminal Services or Remote Desktop if not required by the user. The remote desktop connections could also be secured using either Internet Protocol Security or a virtual private network connection until a patch is ready.\n\nTo disable Remote Assistance on a Windows XP Edition, the steps are:\n\nclick 'Start', right-click 'My Computer', select 'Properties'\n\nselect 'Remote' tab on top of the 'Systems Properties' window, clear checkbox that says \"Allow Remote Assistance invitations to be sent from this computer.\"\n\nclick 'Apply' button\n\nThe group, Internet Storm Center, detected spikes in scanning for port 3389 beginning July 6. Larger numbers of systems scanned were reported on July 13. Crackers may be scanning for vulnerable machines, the group said.\n\n\"It's a kernel vulnerability,\" said VP of engineering for Symantec Alfred Huger, \"so it will be difficult to exploit reliably. But he [the original discoverer] found the vulnerability with a commonly-used tool, so if he can find it, so can others. I don't think it will turn it into a large-scale worm, but then, some kernel vulnerabilities have ended up as just that, like the Witty worm.\""
+ },
+ {
+  "id": "02a598ad-13c0-427b-affe-8b21dae1572e",
+  "title": "New York City reaches $33 million strip search settlement",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:42:51.93649+00:00",
+  "body_sha256": "43d340c265c8ee2a4ba6344515e4209b6db4854ed783b99ab821f8d2bcdc019d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 192,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2010-03-23T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/New_York_City_reaches_%2433_million_strip_search_settlement",
+     "year": 2010,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "New York City settled a US$33 million (€24.3m, £21.8m) class-action lawsuit involving nearly 100,000 former and current prison inmates who were illegally strip-searched. This is the third strip-search court case in the past decade.\n\nThe plaintiffs included convicts who were charged with misdemeanors including trespassing, shoplifting, and failing to pay child support. The lawsuit was filed on behalf of the inmates by the Manhattan law firm Emery, Celli, Brinckerhoff & Abady. The lead lawyer, Richard Emery, said that \"The city knew [strip-searching] was illegal in 1986. They said it was illegal and they stopped in 2002, and they continued to pursue this illegal practice without justification. We hope this settlement constitutes some semblance of justice.\"\n\nThe plaintiffs claimed that both men and women were strip searched, and forced to show their genitals to corrections officers. Woman who were menstruating were not excluded from this practice, Emery said.\n\nOne of the plaintiffs, David Sanchez from the Bronx, said that after he was arrested for a drug-possession misdemeanor, an officer forced him to \"squat...grab my butt cheeks...run my fingers through my hair [and] through my mouth. I had to grab my genital area, and lift it for them.\""
+ },
+ {
+  "id": "02b00426-895a-464e-b009-ad55df2234ca",
+  "title": "Atlantis departs hangar ahead of August 28 launch",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:03:27.92904+00:00",
+  "body_sha256": "650a70e71dae700f3d2d85397f1f83807ed0687be5a05a1414b347f9fc164ef5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 154,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-07-24T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Atlantis_departs_hangar_ahead_of_August_28_launch",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The Space Shuttle Atlantis has entered final preparation for mission STS-115, and has begun movement from its hangar at the OPF, to the VAB, where it will be attached to its external tank and solid rocket boosters. The first motion occurred at 11:34 GMT (07:34 EDT)\n\nThis will be the third mission since the loss of the Space Shuttle Columbia on mission STS-107, and the first ISS assembly mission in four years. It will also be the first time Atlantis has flown since 2002.\n\nThe move, which is currently in progress, is expected to take about an hour. Rollout to the pad is scheduled for August 1st, ahead of an August 28th launch date. It is possible that these may be brought forward for an August 27th launch, which would make it the first time in NASA history a manned spaceflight has occurred earlier than originally scheduled.\n\nThe flight will deliver a truss and solar panels to the space station."
+ },
+ {
+  "id": "02b3f043-9104-4f76-9c64-c2ae88b54cc4",
+  "title": "20 people injured after stand collapse in the Carnival of Blacks and Whites in Colombia",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:58:45.985513+00:00",
+  "body_sha256": "0673343364db3a7d79f5ab48a38350dd51e9fe92c35e812aa56adc47e2db53d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 96,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-01-07T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/20_people_injured_after_stand_collapse_in_the_Carnival_of_Blacks_and_Whites_in_Colombia",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "At least 20 people were injured when a covered stand collapsed during a main parade in the Carnival of Blacks and Whites in the Colombian city of Pasto.\n\nAccording to the police, the stands were designed to support 500 people, but there were 700 on them. The intense rains might have also contributed to the collapse as the tents had become too heavy.\n\nThe Red Cross immediately helped all those affected. Most people presented minor injures although 3 people had to be referred to medical assistance centers.\n\nDespite the incident the parade continued along the main streets of the city."
+ },
+ {
+  "id": "02bb2441-6b2b-474f-b1bf-851e43430cf2",
+  "title": "Repeal of ministerial control of RU486 bill passes Australian House of Representatives",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:58:59.477523+00:00",
+  "body_sha256": "9a4c6d7e845acb318b43c917bef0ef2d1137451dc493d8c84d58f9ec43260e63",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 432,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-02-16T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Repeal_of_ministerial_control_of_RU486_bill_passes_Australian_House_of_Representatives",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The Australian House of Representatives have considered the bill regarding whether the Australian Health Minister Tony Abbott, or the Therapeutic Goods Administration (TGA) regulate the abortifacient mifepristone (RU486), and has passed the bill unamended.\n\nEarlier today, the Prime Minister John Howard (Australian Liberal Party, Bennelong) has spoken on the amendments earlier proposed by Jackie Kelly (Liberal, Lindsay) and Andrew Laming (Liberal, Bowman), speaking in favour of the Laming amendments and reiterating his support for Abbott, stating that he is the \"best friend that Medicare ever had\", Abbott's usual phrase he states in Question Time in support of the Government's handling of Medicare.\n\nHoward's counterpart, the Leader of the Opposition, Kim Beazley (Australian Labor Party, Brand), spoke in support of the bill in its unamended form, noting that it is \"simply commonsense that the minister does not have the scientific capacity\" to evaluate the drug, and reiterating that the bill is \"not really about Tony Abbott\". More controversially he however said that those with certain personal views such as Tony Abbott's conservative Catholic faith should not hold certain offices in Government, which drew criticism from the Government later in the debate noting that an earlier Labor Prime Minister of Australia John Curtin's pacificism was a strong wartime leader.\n\nLater, the Kelly amendments were put to the vote and were lost on the voices and in subsequent division with 49 agreeing to the amendments and 96 disagreeing. The vote on whether the bill should be read a second time 95 for to 50 against. In the consideration in detail stage, the Laming amendments were debated, but the vote on these amendments were lost with 56 supporting the amendments and 90 against them.\n\nThe bill as unamended was agreed to and passed the third reading on the voices, without having to resort to a vote.\n\nLarvatus Prodeo (LP) blogger \"Kate\" welcomed the decision, but warned that the abortion issue was far from settled. \"Personally, I think this is not only a good thing for women in Australia, but also demonstrates democratic processes at work. Now we can commence stoushing about whether or not the TGA should allow the drug into the country,\" she said.\n\nOne commenter on LP, Paul Norton, suggested that division over the issue would deepen in the next few years, and that people opposed to legalised abortion would become more vocal. \"I expect that the loud minority will become louder over the next couple of years, and more authoritarian and fanatical in their attempts to twist legislators’ and candidates’ arms, until State and Federal election results show that their loudness is directly proportional to their minority status amongst Australians.\""
+ },
+ {
+  "id": "02bd648f-3754-42ed-8980-2403ad09fd75",
+  "title": "Son of former US VP Al Gore arrested for drug possession",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:12:10.979655+00:00",
+  "body_sha256": "c1bed3eac751f36f8ee25a0a50616739a0746e8e19b75c8afd5d96cd2019b13d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 127,
+   "v_level": 6,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2007-07-05T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Son_of_former_US_VP_Al_Gore_arrested_for_drug_possession",
+     "year": 2007,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "On Wednesday morning at 2:15 a.m., PDT (UTC-7) the son of former Vice President Al Gore, Albert Gore III, was pulled over by Orange County Sheriff's Department in California for driving 100 mph (approximately 160 km/h) on the San Diego Freeway.\n\nThe deputy smelled marijuana in his car which, when searched, contained a small amount of marijuana along with the prescription drugs Valium, Xanax, Vicodin, and Adderall. Albert Gore III was arrested on suspicion of drug possession. He did not have prescriptions for any of the drugs found with him at the time of the arrest.\n\nGore was booked in Santa Ana. He was released on Wednesday at 2:00 p.m. PDT on a US$20,000 bond. Gore was previously arrested in 2003 for marijuana possession and in 2002 for suspected drunken-driving."
+ },
+ {
+  "id": "02c19aaa-438f-40ec-a361-3e45caff5f6b",
+  "title": "Suspects deny London bomb plot, say lawyers",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T08:08:46.603898+00:00",
+  "body_sha256": "f7418e720a6aa3817b5deb43ea166b2fec235c8be7b0d868a608b3d493ceba10",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 354,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-06-04T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Suspects_deny_London_bomb_plot%2C_say_lawyers",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The two brothers who were arrested on Friday regarding intelligence of a chemical bomb plot in East London have denied all the accusations, according to their lawyers.\n\nIn relation to the accusations of manufacturing a chemical device, Kate Roxburgh, Mohammed Abdul Kahar's lawyer, said \"(Kahar) says there's absolutely not a word of truth in any of it. He says the police are not going to find anything because there is nothing to find.\"\n\nKoyair's lawyer has denied his client has been involved in a terrorist plot.\n\nThe announcement comes after the dramatic events of Friday morning, where over 250 police officers were involved in a raid on a house in the Forest Gate area of the city. The raid took place after British security services received intelligence of a \"viable\" chemical device within the property.\n\nMohammed Abdul Kahar, aged 23, and his 20 year-old brother Abul Koyair were arrested in a dawn raid on Friday under the Terrorism Act after several weeks of surveillance by MI5. During the operation, Kahar was shot in the shoulder.\n\nEarly reports suggested that police were responsible for the injury, from which Kahar is now recovering. However, one source claims that it was actually Abul Koyair who pulled the trigger, accidentally wounding his brother in the panic - an allegation that Koyair has denied.\n\nThe brothers, who are both Muslim and of Bangladeshi origin, are being questioned today at London's high-security Paddington Green Police Station. Meanwhile, police officers are still searching the house for a device, which they believe to be a conventional explosive with added chemical components.\n\nDue to the ongoing investigations, there is still a large police presence at the residence, as well as a layer of sheeting surrounding the building. Despite the small yet ever-present chance of a chemical incident, other residents of the street have not been evacuated.\n\nIn response to safety fears, police said that \"nothing suspicious was found in an initial search of the house and that neighbours are not in danger.\"\n\nBBC News reported that Health Secretary Patricia Hewitt was \"keeping ministers informed\" about the unfolding situation but would not comment about specific points of the investigation."
+ },
+ {
+  "id": "02c729b7-9114-4eed-8e40-29162f29d6af",
+  "title": "Security alert shuts down West London",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:00:43.8747+00:00",
+  "body_sha256": "5cf1c9dcf37f2924a3b89c99c752fa9393e06a9e183af3114eefe69c1fdc5ce7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 77,
+   "v_level": 3,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2006-04-26T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Security_alert_shuts_down_West_London",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Several suspect packages were found in the Shepherds Bush area of West London this morning, which led to many roads in the area being closed, along with the Hammersmith and City tube line.\n\nThe area re-opened shortly afterwards, after Bomb Squad experts determined the packages were safe, and a woman walked into Hammersmith Police Station and admitted placing the packages as \"works of art\".\n\nPolice are still advising motorists to avoid the area, due to heavy traffic."
+ },
+ {
+  "id": "02c84c11-ae0b-4675-8891-584f7857d4a5",
+  "title": "Video game's secret sex scenes spark outrage",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:49:17.637849+00:00",
+  "body_sha256": "57b04b345757056c7bedfe2c9859abb27fa64e4b35a141da5ac4f368880af4b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 481,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2005-07-09T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Video_game's_secret_sex_scenes_spark_outrage",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The National Institute on the Media and the Family (NIMF), a media watchdog group based in Minneapolis, Minnesota issued a \"nationwide parental alert\" today. This came after finding out about hidden sex scenes in the popular video game Grand Theft Auto: San Andreas.\n\nThe game also has been criticised as being too violent. This is not limited to San Andreas: the entire series has come under fire for its content, mostly the last two games, Grand Theft Auto 3 and Grand Theft Auto: Vice City.\n\nThe sex scenes come in the form of a \"mini-game\" in which the player controls the male with the task of maximising his cohort's \"excitment.\" The hidden game in GTA: San Andreas is not advertised or easy to find but can be unlocked by modifying the game using a program which has been widely available on the Internet for weeks. But for NIMF and the Entertainment Software Ratings Board (ESRB), the organization which rates video games and rated GTA: San Andreas 'M' for Mature, the hidden mini-game came as a surprise. As such, the ESRB has launched an investigation into the matter.\n\nTo unlock the hidden sex mini-game on the Playstation 2 requires an Action Replay or Gameshark. These devices cannot transfer new content to a console but can enable content already contained on the game disc. The presence of this minigame on an unmodified retail version implies that it was created by the game's creators rather than hackers or the mod community.\n\nRockstar Games, the game's publisher, refused to comment on whether the sex scenes were inserted by their programmers. Rockstar Games has also said, \"We thoroughly support the work of the ESRB, and believe that it has an exemplary record of rating games and promoting understanding of video game content. We also feel confident that the investigation will uphold the original rating of the game, as the work of the mod community is beyond the scope of either publishers or the ESRB.\"\n\nIn the game the character may have girlfriends, and at a certain point in his stats he can entertain his girlfriend with some \"coffee\". However, the \"hot coffee\" modification unlocks the secret sex scenes after the two share a drink.\n\nThe sex scene portrays oral sex and coitus, but genitals are not shown. A video of the secret sex scene can be found here (warning: contains mature content).\n\nIt's interesting to note that modifying a video game's source code is a violation of the software licensing agreement. Rockstar announced that it may pursue legal proceedings against Action Replay, whose device enables the hacking of the console version of San Andreas. When it comes right down to it, its much easier (and quicker) to find free adult content on the internet, or download pornographic movies from a P2P network, than it is to crack a video game.\n\nRockstar Games may be subject to a Mandatory Recall."
+ },
+ {
+  "id": "02c9fe9d-92a5-47ac-91df-c58df98204be",
+  "title": "Brazil spots unknown tribe of indigenous people in Amazon jungle",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:46:27.517022+00:00",
+  "body_sha256": "01b7c9d22acad2d34e50a42bcd9362549245952a145d32424c035f7f5dfd5069",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 332,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2011-06-22T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Brazil_spots_unknown_tribe_of_indigenous_people_in_Amazon_jungle",
+     "year": 2011,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Brazil has located an isolated group of indigenous, uncontacted people in the Brazilian Amazon rainforest, the Brazilian National Foundation of Indians (FUNAI) announced today.\n\nFUNAI, a state agency, uses aerial expeditions to avoid impacting uncontacted people and invading their land. The agency's policy is to avoid maintaining any human contact with untouched tribes.\n\nClearings in the Javari river valley reservation were first identified by satellite; the group's existence was only verified later by air flights over the area. The flights established the existence of three clearings with four straw-roofed buildings, known as malocas, which may shelter over 200 Indians. Also visible were areas where crops such as bananas, maize and perhaps peanuts were apparently being grown.\n\nFUNAI's Javari valley coodinator told the Brazilian news agency Estado that both the croplands and the malocas \"are new\" and are estimated to have been used \"for at most one year\".\n\nAmorim said, \"[T]he Amazon region contains the majority of untouched tribes without any contact with the exterior in the World.\" And he said the recent findings highlight that the Javari valley holds, \"the greatest concentration of isolated groups in Amazonia\".\n\nThe newly identified group is located close to Brazil's border with Peru in the huge Vale do Javari reservation. Fourteen known uncontacted tribes have been spotted there and up to eight more are suggested by aerial evidence. Altogether, there are about 2,000 individuals in the reservation, according to Amorim.\n\nHe said that their culture and their very survival is threatened by illegal removal of the area's natural resources, as well as many other intrusions of civilization, but most of Brazil's indigenous groups have not changed their languages or traditions. FUNAI estimates that the recently discovered tribe likely belongs to the pano language group.\n\nBrazil's indigenous peoples have tenaciously fought for their legal right to reclaim their traditional lands which were allotted to them in Brazil's 1988 constitution stating that all indigenous ancestral lands were to have their boundaries clearly marked and returned to tribes within five years."
+ },
+ {
+  "id": "02ccdba4-0e7a-4906-b649-eb8876bdfbd9",
+  "title": "First Swahili office suite released in Dar es Salaam, Tanzania",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:45:58.796526+00:00",
+  "body_sha256": "5212a98dbd7d8a2f2fb071dfc897aa76725266186696d083eb6ab806a76ba48e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 800,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2005-03-04T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/First_Swahili_office_suite_released_in_Dar_es_Salaam%2C_Tanzania",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "On Monday, February 28, 2005, Jambo OpenOffice.org, the first Swahili office suite, was released at the University of Dar es Salaam in Tanzania. The office suite was translated from the English version of OpenOffice.org, an open source suite based on Sun Microsystems' StarOffice. Jambo OpenOffice.org was translated by a multinational team including Swedish and Spanish programmers, as well as linguists from the University of Dar es Salaam. Monday's release included builds for Linux and Windows.\n\nThe office suite has four components: a word processor, a spreadsheet, a presentation creator, and a drawing program. The translation effort required translating 18,000 English strings, made up of one or more words, many of which have previously had no direct Swahili equivalent. As part of the translation, the team developed a glossary of 1500 technical words in Swahili. The office suite also includes a spellchecker with a lexicon of 70,000 words.\n\nSwahili is not the only African language into which OpenOffice is being translated. According to Ethan Zuckerman, a fellow at Harvard University's Berkman Center for Internet and Society, OpenOffice is being translated into nine official languages of South Africa by Translate.org.za. The same organization is also supporting translation efforts to bring the software into the Rwandan language Kinyarwanda, and Hausa, a language spoken largely in Nigeria.\n\nSwahili is spoken by approximately 55 million people worldwide, predominantly in East African countries, including Tanzania and Kenya.\n\nInterview with the project coordinator\n\nReplies to questions from Pingswept by Alberto Escudero-Pascual, March 3, 2005\n\n> 1. Is the suite 100% translated to Swahili now?\n\nThe suite contains more than 99% of the strings in Swahili. The ones\n\nthat are left in English (less than 100 strings out of 18,000) will\n\nbe worked out in the next release. Yes, this release is fully functional\n\nin Swahili.\n\n> 2. What would people who speak only Swahili\n\n> do before Monday's release if they needed a\n\n> word processor? Are there any alternatives?\n\nNo alternatives. This is the first ever release of a word processor in Swahili.\n\n> 3. How widely do you expect the suite to be distributed?\n\n> What sort of IT infrastructure exists in East Africa?\n\nI \"expect\" the software to get installed in all the primary schools of\n\nthe country. I also expect the software to be installed in the main\n\nuniversities of the country and colleges. We have postive feedback\n\nfrom them but this is a rather \"political\" decision out of my (our)\n\ncontrol.\n\nThe secondary schools have compulsory English so they might not want\n\nto install it.\n\nEast Africa, ufff that is like asking what IT infrastructure is in the\n\nwhole Europe:-D\n\nIf you mean connectivity, all is satellite VSAT upstreams. Most of\n\nthe local loops in Dar are based on IEEE 802.11b. It is expensive for\n\nmost of the locals. But there is an Internet Exchange already in Dar es Salaam\n\nwhere the ISP peer together. Things will always get\n\nbetter. The software is placed in the IX.\n\nThe software will spread slowly, but I am sure that will spread.\n\n> 4. What next? How many words are there to translate\n\n> in a small Linux distribution like Knoppix?\n\nThe Tanzanian team will start translating OOo training documentation,\n\nand next they will work with Firefox. A Linux desktop might come next\n\nyear.\n\nI have no idea what will it take to translate Knoppix, but the\n\npriorities should be in getting first a couple of good tools as\n\nOpenOffice and Firefox and do loads and loads of training material in\n\nSwahili.\n\n> 5. How will future versions be compiled once you\n\n> return to Sweden?\n\nI have developed an almost automatic version to update JambOOo 1.1.3 in\n\nKiswahili. The UDSM has access to one of the build servers. I expect a\n\nnew release of JambOO, maybe 1.1.4 with all the bug corrections in six\n\nmonths. The next step is to migrate to OOo 2.0, I have no clear\n\npicture of how that will happen.\n\n> Will it all come through one copy of Visual Studio\n\n> in Dar es Salaam?\n\nNope, the Win32 version was developed entirely in Sweden and Spain during\n\nChristmas 2004. The new build system does not require Visual Studio\n\nto \"update\" the Swahili strings.\n\n> 6. How was the project funded? How can people contribute to this\n\n> project, or similar projects in the future?\n\nSIDA (Swedish International Cooperation Agency) has funded the\n\nUniversity of Dar es Salaam and the Institute of Kiswahili Research\n\nfor one full year. My company IT+46 also was funded by SIDA to support\n\nthe project technically.\n\nIT+46 has contributed 50% of its working-time at no cost to the project.\n\n> 7. What is the plan for IT +46?\n\nOur plan was to be in Tanzania only six months and handle all the\n\ntechnology and the training back to the university as we want them to\n\nkeep on with the development by themselves. Now, we are trying to find\n\nsimilar projects that need support. There are many languages out there\n\nafter all."
+ },
+ {
+  "id": "02cd62fc-0e5f-4584-94a9-6243b5623541",
+  "title": "Mary Barra appointed as General Motors chief",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:49:13.788955+00:00",
+  "body_sha256": "42251f945cb5f6bcbc38261dfe9710d7ce74cac6697313ba3004ccaa213f7e4b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 309,
+   "v_level": 4,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2013-12-10T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Mary_Barra_appointed_as_General_Motors_chief",
+     "year": 2013,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The United States's largest car manufacturer General Motors today named Mary Barra as its new chief executive.\n\nBarra, 51, will be the first woman to lead a firm in the American auto industry. She has been with General Motors for 33 years, and is currently the global head of product development.\n\nShe said in a statement: \"With an amazing portfolio of cars and trucks and the strongest financial performance in our recent history, this is an exciting time at today’s GM. I’m honored to lead the best team in the business and to keep our momentum at full speed.\"\n\nShe replaces Daniel Akerson, who was appointed by the government as both chief executive and chairman in 2009 during the company's bankruptcy. Akerson plans to stand down on January 15 following his wife's advanced cancer diagnosis.\n\nIn a message to employees, he said: \"I will leave with great satisfaction in what we have accomplished, great optimism over what is ahead and great pride that we are restoring General Motors as America’s standard bearer in the global auto industry.\"\n\nAkerson will also relinquish his chairman role, to be replaced by current director Theodore Solso. The company also announced head of finance Daniel Ammann as its new president.\n\nThe appointment comes just days after the US government sold the last of its shares in the company, losing around $9 billion on its initial bailout in 2008 that saw 61% of the firm coming under public ownership.\n\nGeneral Motors recovered from their bankruptcy a year after the appointment of Akerson, and re-entered the stock market in November 2010. It remains the largest car manufacturer in the United States, posting sales figures of $152 billion in 2012. It currently produces fifteen brands of vehicle in 37 countries.\n\nBarra holds a bachelor's degree in electrical engineering from Kettering University in Flint, Michigan, and was recently listed by Forbes as the 35th most powerful woman in the world."
+ },
+ {
+  "id": "02d23bff-902b-40a0-ba9a-825fee37df3e",
+  "title": "Wikinews interviews painter Pricasso on his art and freedom of expression",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:50:15.866269+00:00",
+  "body_sha256": "c8281a372624413d183777091e002c01d1d10ece07d2e4779202ae491c9ac7f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 2513,
+   "v_level": 5,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2015-10-12T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Wikinews_interviews_painter_Pricasso_on_his_art_and_freedom_of_expression",
+     "year": 2015,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "Wikinews interviewed Australian painter Pricasso on his unique artwork created using his penis, and how his art relates to freedom of expression and issues of censorship. He is to be featured at the upcoming adult entertainment event Sexpo Australia in Melbourne this November 5 to November 8.\n\nPricasso is the stage name of Australian painter Tim Patch, in a nod to the artist Picasso while using the word prick. Pricasso has been painting portraits using his penis for more than ten years.\n\nBased in Australia, Pricasso paints his artwork using his buttocks and scrotum in addition to his penis. According to 640 Toronto News, Pricasso markets himself as \"The World's Greatest Penile Artist\".\n\nHe is able to create 20 paintings in one day. Pricasso also practices other styles besides portraits, including landscape painting and nudes. Typically his portraits take him not more than 15 minutes to paint. He told Coconuts TV he chose to specialize in creating artwork in this manner because he felt it was a niche market.\n\nHis fanbase is international; Pricasso has journeyed to locations including the United States, Holland, Germany, Brazil, Mexico and China to paint portraits for people. Though he is willing to travel to display his talent, Pricasso told In Touch Weekly most of his income is Internet-based.\n\nWikinews interviewed Pricasso about his artwork and asked for his thoughts on topics of censorship and freedom of expression. We discussed what are considered appropriate forms of parody and satire of public figures — protected in the United States following the Supreme Court case Hustler Magazine v. Falwell.\n\nThe interview touched upon a 2013 conflict which arose on our sister site for images and media, Wikimedia Commons, when an image of a portrait of Wikipedia co-founder Jimmy Wales painted by Pricasso was uploaded to the site. Wales called it \"harassment\" and a succession of deletion discussions ensued. We asked Pricasso about this as well as the different reaction from former-Mayor of Cape Town Helen Zille, who called his painting of her part of a \"free society\" where artists \"exercise their freedom in unusual ways.\"\n\nPricasso, thanks for agreeing to do this interview with Wikinews.\n\nPricasso: Thanks for doing this, great questions.\n\nHow long have you been painting in this particular fashion?\n\nPricasso: I first tried it over 10 years ago and realised it would be possible with practice to get as good with it but in a slightly more impressionistic style than I could with a brush, and I really liked the results, of course at first I had to work out the paint formula and what to paint on which was done by trial and error — and then finding somewhere to practice, which was a problem until I was invited to become a member of a Bondage club in Brisbane, my first patron. There I realised that there were so many people with totally different views on what is acceptable in society, and were always protesting over most censorship issues.\n\nHow long can you paint with your penis at one time before it gets too tiring?\n\nPricasso: At most Sexpo's and Adult Expos I paint for 13 hours a day in half slots so I paint 20 plus paintings a day. When I am painting I have to concentrate hard and go into a meditative state; I don't notice much going on around me until I have finished.\n\nOther than your penis, what other parts of your body do you use in the painting process?\n\nPricasso: I quickly worked out that I could speed it up by using my testicles and butt cheeks to cover large areas in no time at all, but only recently do I paint the edges using my butt-crack, I call it the credit card swipe!\n\nHow did you come up with the name Pricasso?\n\nPricasso: That was the heading they christened me with in the Picture Magazine interview in 2006. I realised it was Gold and took out the website and trademark.\n\nWhat's the most positive reaction you've had to one of your paintings?\n\nPricasso: It is always satisfying to get applause when a painting is finished; at most adult shows this happened all the time; but I do like painting disabled people. I have painted several people with severe cerebral palsy and they are over the moon with the result; this gives me the most pleasure, as I do realise that they are still sexually active people and everyone should realise this.\n\nHave any of your paintings been featured in a gallery somewhere?\n\nPricasso: I have entered the Bald Archy Exhibition in Australia every year and sold a few. Also at an exhibition of politicians in Australia, and last November I went to Miami for the Art undressed exhibition and also painted 15 minute portraits there which was fun.\n\nDo you consider it a form of freedom of expression to create your artwork in the way you do with your penis?\n\nPricasso: When I first thought of the idea I was really thinking I could get invited to a few parties as the entertainment which I do regularly, but now I am getting a good style about my work and want to take it to the next level and be accepted as an innovator.\n\nIn 2008, prior to a Sexpo event in South Africa, you uploaded a video to the Internet of yourself painting a portrait of then-Mayor of Cape Town Helen Zille. Why did you decide to do this?\n\nPricasso: No particular reason on my behalf, it was the organisers of the Sexpo who got me to paint it mainly for publicity. But also to have a portrait on my stand, who people in Cape Town would relate to as I now know she is very popular and has a great sense of humour.\n\nMayor of Cape Town Helen Zille commented of your portrait painting of her: \"This is a free country. A free society throws up these kinds of people, who exercise their freedom in unusual ways. And if this is how he wants to do it, I must accept his constitutional right to do so.\" — what are your thoughts on her reaction?\n\nPricasso: Sounds a bit formal but that is how politicians usually talk, guarded and a totally correct response, the trouble is that if they spoke from the heart it might come back to bite them one day, but I did talk to one of her aides privately and she said they were all really impressed and loved the concept, I really should have offered to paint her too but I was probably flat out all day — I always am at the South African shows.\n\nMayor Zille further commented about the quality of your painting of her: \"[Pricasso] has achieved a good likeness and I can't imagine how he painted it without brushes or conventional equipment.\" — what do you think of this assessment?\n\nPricasso: Most people are impressed when they see it done, skeptical at first but after the initial shock they all usually stop to watch until I finish that particular painting, usually they take about 15 minutes.\n\nIf you could speak to Mayor Zille, what would you say to her about her reaction to your painting of her?\n\nPricasso: I would say I was impressed with her response, mostly girls are much more impressed than guys only a minority of guys I might add, lots of them love it and me too!! But in general she gave a responsible and educated reply and was not at all offended by the experience.\n\nIn 2011, one member of the Gold Coast Sculptors' Society quit in protest due to your participation in the 'Exotic Erotic' show — how do you feel when people react to your artwork in this way?\n\nPricasso: I guess I could say; This is a free country. A free society throws up these kinds of people, who exercise their dissaproval in various ways. And if this is how she wants to protest, I must accept her constitutional right to do so. There was that politically correct enough? Or maybe the silly old B***ch — but her reaction did get heaps of publicity for the show and they had record numbers coming through the doors so there was a silver lining.\n\nBut obviously it is a bit confronting and not everyone's cup of tea but if they could just see it before they get on their high horse they might have a different point of view.\n\nYou painted a portrait of Wikipedia co-founder Jimmy Wales in 2013; a picture and a video file of the making of this painting were uploaded to Wikipedia's sister site for images and media, Wikimedia Commons. Shortly thereafter, the files were nominated for deletion and a deletion discussion ensued — what are your thoughts on this discussion?\n\nPricasso: I did not think Wikipedia censored anything as on Jimmy Wales' Twitter account his banner heading is: \"Wikia guy. Free speech activist, entrepreneur.\" Either this is misleading in the very least or blatantly untrue.\n\nThe deletion discussion at Wikimedia Commons resulted in keeping the photograph of your portrait of Jimmy Wales, but deleting the video of your making-of-the-portrait — do you consider a video of your portrait painting to be offensive?\n\nPricasso: Not in the least; it's pure performance art.\n\nDuring the deletion discussion, Jimmy Wales commented ' What do you think of his response to your artwork? Do you feel your paintings constitute harassment?\n\nPricasso: Harassment is when one continually annoys someone, over and over again; I only painted the one painting of him and it to my mind was not offensive, I consider my work as satire just like late night TV, something that gives light relief to a serious subject. There are many examples of political cartoon images on Wikipedia, so why are they still up there or is it just the things Jimmy Wales doesn't like get taken down? By the way anyone who has not seen the offending Video can view it on Vimeo under Pricasso: I paint about 1000 portraits a year and get paid by the sitters or a close friend of them to do so. I had a request to paint a portrait, to do [this] portrait of Jimmy Wales with a video of me painting, by Russavia (who is an editor at Wikipedia), something I do all the time and I have great feedback as to how funny the videos are; I had no idea who Jimmy Wales was at the time of the request, but painted him only once so it can't be called Harassment. Is he just using his position of power to cut and censor... It took me a lot of effort and time to put this together so I was pretty upset. And would really like it to be republished next to the portrait as originally it was before Mr Wales had it removed.\n\n[Editor's note: Accusations of harassment focused on the uploader, rather than the artist; the successive heated discussions, over about six months, that ultimately led to the video's deletion from Commons may be read here. Jimmy Wales expressed his position elsewhere and did not directly participate in the discussions themselves.]\n\nHow do you compare the reactions by Mayor of Cape Town Helen Zille who said your portrait painting of her was a product of a \"free society\" and a reflection of how people \"exercise their freedom\" with the comment by Jimmy Wales calling the publication of your artwork \"harassment\" ? Which of these individuals do you feel is correct, Mayor Zille or Wales, and why?\n\nPricasso: I think Helen got it. They in South Africa are struggling with change from being suppressed to one of freedom as she said \"a free society\". Jimmy Wales on the other hand although promoting himself as The Free Speech Guy is censoring things he does not agree with and calling it Harassment, not a good look Jimmy!!\n\nI did put the video of Helen Zille being painted on YouTube. It was there for a few months but they too delete my work quite regularly so it's probably long gone.\n\nShe is an experienced politician and would weigh up the fors and against before she acted, obviously the fors had it.\n\nMr. Wales on the other hand has probably not seen a lot of my work; if he had he would know I do it for fun and not really to be taken too seriously, it's a comedy performance, but he could not see the unique talent of someone who has cornered the world market of penis portraits painting with no imitators for the past 10 years, so before too many people could have a small chuckle at his expense he had it deleted, I'm sure there would be many others who would like to remove things on Wikipedia but don't have the muscle to do so.\n\nHave you experienced censorship or attempts by others to limit your freedom of expression? How so, and what was your reaction?\n\nPricasso: As I said before YouTube is always deleting my videos when someone complains, sometimes even when there is no genitals visible. Once one was taken down because the guy I was painting had the word (fuck) on his tee shirt; I mean how many films have this word in the dialogue. Also in Macau at the adult show, the people who make the rules make me perform inside an enclosed area, and people are wary of coming in through the door so is a bit slow there; and the guys that run the show are so polite and passionate trying to change China slowly, making it more open, that I keep on returning year after year.\n\nDo you consider some of your art pieces to be forms of parody or satire of famous people?\n\nPricasso: Oh yes I love creating something topical and painting a spoof on famous people, and painting with a penis really lends itself to this form of art, but I just painted a normal portrait of Jimmy Wales, as I said before I had no idea who he was before I googled him. And found this heading [on] his Twitter account (seems to me he has a few double standards) \"Jimmy Wales Verified account ‪ @jimmy_wales You know, the ‪@Wikipedia and ‪@Wikia guy. Free speech activist, entrepreneur.\"\n\nAre you familiar with the U.S. Supreme Court case, Hustler Magazine v. Falwell ? How do you feel after reading about the unanimous decision protecting parody as a form of freedom of speech in that case?\n\nPricasso: Thanks for sharing that with me, I had no idea about this case and it's good to know that freedom of speech is alive and well in America. Actually I was a bit taken aback by the parody and slightly offended that I have been put in the same category, my painting is pure performance art and I don't go out of my way to offend. And I am totally against censorship. It's a shame the same is not true about Wikipedia and Mr. Wales.\n\nPricasso, thanks again for doing this interview with Wikinews, is there anything else you'd like to add?\n\nPricasso: Not at the moment. I'm exhausted! Thanks."
+ },
+ {
+  "id": "02d42070-e058-45a7-ab0f-3de4d6a293e5",
+  "title": "Iraq swears in first full-term government",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T07:01:32.93209+00:00",
+  "body_sha256": "c0819af9d06271757f721145ce0902ecf5dad69c8af859d8362988c51b545190",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 440,
+   "v_level": 6,
+   "cefr": "C1",
+   "has_audio": false,
+   "published_at": "2006-05-20T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "BY",
+    "license": "CC BY 2.5",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Iraq_swears_in_first_full-term_government",
+     "year": 2006,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "The Iraqi parliament approves the new government - the first first full-term government since the US-led invasion in 2003 - consisting of 37 ministers which now holds members from Kurdish, Shiite and Sunni sects including Foreign Minister Hoshivar Zebari (Kurd), Deputy Prime Minister Salam Zaubai (Sunni) and Oil Minister Hussain al-Shahristani (Shia).\n\nDue to disagreements the positions for the Interior, National Security and Defence Minister roles have been left vacant. For now the new Prime Minister, Nouri Maliki (Shia) is also taking the role of Interior Minister while Sunni Deputy Prime Minister Salam Zaubi will take the role of Defence Minister. Kurdish Deputy Prime Minister Barham Saleh has taken the role of acting National Security Minister. The mixed Cabinet of Sunni, Shiite and Kurdish sects also includes two women, the Human Rights Minister Wijdan Mikaeil and Women's Affairs Minister Fatin Abdel-Rahman.\n\nSeveral members of the Sunni factions led a walk-out before the approval of the new Cabinet after their proposal to postpone the event was turned down.\n\nMr Maliki hopes that people not associated with any or Iraq’s militia groups will fill these positions.\n\nBritish Prime Minister Tony Blair so far has hailed the progress as “a very, very crucial change in Iraq”. The news has also prompted a response from the new Italian Prime Minister - \"Italy supports Iraq in this direction\", Romano Prodi, Italian Prime Minister - after Mr Romano said he would propose the withdrawal of Italy's 2,600 troops in Iraq.\n\nIn the following speech to the 275-seat assembly by Prime Minister Nouri Maliki announced that his government will focus on the issues of stability and security by working with the occupying forces, putting in place new laws to break up militias and integrate them into the federal forces. In his speech Mr. Maliki also mentioned other issues such as terrorism and \"an objective timetable\" for multinational forces to leave Iraq.\n\nThere are mixed feelings about whether the formation of the new government can bring peace amongst the religious factions. Many people hope however that these are the first steps to quell the resent escalating sectarian violence that has spread across the country. Some of the recent violence includes a bomb blast in a predominately Shia precinct of Baghdad, a suicide bomb attack on a police station in Qaim and numerous accounts of dumped bodies bearing evidence of torture and execution. Hundreds of people have been killed and even more have fled their homes since the bombing of a Shiite shrine in February 2006 in fear of more sectarian violence.\n\nSunni politicians have made allegations that death squads are operating as part of the security forces and are to blame for many of the killings."
+ },
+ {
+  "id": "02d5588b-6b0b-41f7-8a76-cd05bc17b59d",
+  "title": "Twenty-five children injured in bus-truck collision in Florida",
+  "source": "wikinews",
+  "feed_id": null,
+  "source_updated_at": "2026-09-25T06:48:48.47401+00:00",
+  "body_sha256": "9a35b14522ddac92c43b1d36bbff80dc71a9ad923420b88be50b3bfa87c77b8b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "hints": {
+   "status": "ready",
+   "words": 127,
+   "v_level": 3,
+   "cefr": "B2",
+   "has_audio": false,
+   "published_at": "2005-06-12T00:00:00+00:00",
+   "rights": {
+    "v": 1,
+    "class": "PD",
+    "license": "Public Domain",
+    "evidence": "collection-default",
+    "attribution": {
+     "url": "https://en.wikinews.org/wiki/Twenty-five_children_injured_in_bus-truck_collision_in_Florida",
+     "year": 2005,
+     "author": null
+    },
+    "needsResolution": true
+   }
+  },
+  "content": "A truck collided with a bus on Friday, seriously injuring five children and one adult, authories have said. The bus was taking 25 children of immigrant workers to an amusement arcade.\n\n\"The more seriouslly hurt youngsters have suffered broken bones and head injuries\", said Fire-Rescue deputy Steve Delai. One young boy and a 30 year old were in intensive care at Delray Medical Center late Friday, officials have reported.\n\nTwo other children were in a stable condition, while conditions for the other two seriouslly injured children were not available.\n\n\"It appears that the bus was in the center lane and the tractor-trailer was in the right lane. For some reason the bus got into the path of the tractor-trailer,\" A Florida Highway Patrol officer told a local television station."
+ }
+]

@@ -65,7 +65,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
   return (
     <section
       aria-label="사전 데이터 품질 종합"
-      className="from-[var(--p)]/8 relative overflow-hidden rounded-[var(--r-xl)] border border-[var(--p)]/20 bg-gradient-to-br via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
+      className="from-[color-mix(in_srgb,var(--p)_8%,transparent)] relative overflow-hidden rounded-[var(--r-xl)] border border-[color-mix(in_srgb,var(--p)_20%,transparent)] bg-gradient-to-br via-[var(--bg)] to-[var(--bg)] p-6 shadow-[var(--sh-sm)]"
     >
       {/* ── 헤더 ── */}
       <header className="mb-4 flex items-start justify-between gap-3">
@@ -153,7 +153,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
               key={r.id}
               className={`flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3 transition-shadow duration-[var(--dur-normal)] ${
                 isMinScore && r.status === 'critical'
-                  ? 'shadow-[0_0_16px_rgba(239,68,68,0.18)] ring-2 ring-[var(--error)]'
+                  ? 'shadow-[0_0_16px_color-mix(in_srgb,var(--error)_18%,transparent)] ring-2 ring-[var(--error)]'
                   : ''
               }`}
             >
@@ -226,7 +226,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
 
       {/* 장식: 우상단 광택 */}
       <div
-        className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[var(--p)]/10 blur-2xl"
+        className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-[color-mix(in_srgb,var(--p)_10%,transparent)] blur-2xl"
         aria-hidden
       />
     </section>

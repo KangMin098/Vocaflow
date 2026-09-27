@@ -1,0 +1,821 @@
+[
+  {
+    "id": "04eba564-6d61-413c-a9ca-1d269b4b92ba",
+    "source_updated_at": "2026-09-15T12:54:38.972062+00:00",
+    "body_sha256": "9f3c3d2e0065c9360569dedf7729f9263947bf1f53ce5f6cec41e8b1126861f7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "지중해 석호 해양 열파 모의 실험에서 소형 플랑크톤 우세와 영양 단계 연쇄를 논증으로 풀어내 고찰 단락이 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A widespread trend in response to",
+      "note": "온난화 시 소형 식물플랑크톤 우세 단락은 종명만 걷으면 지시어 없이 그대로 선다."
+    }
+  },
+  {
+    "id": "051477da-4064-4a5e-995e-14eb7c786b41",
+    "source_updated_at": "2026-09-15T12:55:00.57517+00:00",
+    "body_sha256": "134643829543eeb0a8660eddddd790a851a0358b7bd77558d505a013673e2d16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "녹색 합성이 왜 기존 화학 합성을 대체하는가라는 문제 제기가 서론에 분명해 지문 한 편이 나온다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "blank",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In response, green synthesis has",
+      "note": "결과 절은 수치 나열이라 못 쓰지만 서론 두 단락은 장비명만 빼면 독립한다."
+    }
+  },
+  {
+    "id": "05201b10-7c1f-4280-9e0f-f88a8c52ae3a",
+    "source_updated_at": "2026-09-15T12:55:11.081333+00:00",
+    "body_sha256": "f2f5b4d3a91644b19920d8452a91cc0cf6fb091c8bb8b7fd5a49e70337246c89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "지속균 개념을 세우고 혈청 저항·탐식 결과로 치료 실패를 설명하는 고찰이 주장-근거 구조를 갖췄다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Persisters are cells with a",
+      "note": "균주 코드(S45·4SA(2))를 「한 분리주」로 바꾸면 논지는 서지만 어휘는 내려가지 않는다."
+    }
+  },
+  {
+    "id": "052650dc-7c85-4cb5-8302-f29be9a6d260",
+    "source_updated_at": "2026-09-23T21:04:31.425373+00:00",
+    "body_sha256": "2801d70b39bdb481602073bb025d6ef5e807c53881ee001d3bacf52dd5606b05",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "「벌거벗은 RNA 는 불가능하다」는 통념을 세우고 값싼 전기천공으로 뒤집는 구조라 통념 교정형으로 곧바로 쓰인다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "claim",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Localized delivery of naked RNA",
+      "note": "LNP·mRNA 정도만 남기고 제품명을 걷으면 고3 밴드까지 내려온다."
+    }
+  },
+  {
+    "id": "052f75f1-8fde-4b2c-92ef-9f1ac88a5405",
+    "source_updated_at": "2026-09-15T06:43:51.267786+00:00",
+    "body_sha256": "86fd3e8bf8f0b42154f6bd6e42ede1cebbe15ba13dd7f2eaee9803ffd87077f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "위축성 위염이 위암 전 단계라는 배경과 한약 복합물의 미생물총 가설이 서론에서 하나의 물음으로 모인다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Chronic atrophic gastritis (CAG) is",
+      "note": "결과·고찰은 백분율 덩어리라 서론과 결론 단락만 살아남는다."
+    }
+  },
+  {
+    "id": "055ad272-3d22-4106-aaf7-6fe5cbf05df4",
+    "source_updated_at": "2026-09-15T13:22:14.220674+00:00",
+    "body_sha256": "0388839b4cfc4ed33224816297e4cdeb3b9682605065e6199d78568b7ad7e09e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "변이 회피라는 문제를 세우고 에피토프 재표면화라는 해법을 제시하는 서론·고찰이 주장-근거로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "New seasonal outbreaks fueled by",
+      "note": "변이 계통명이 너무 많아 두세 낱말 교체로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "055b84e0-0939-4f6a-9db8-cc34e18ba084",
+    "source_updated_at": "2026-09-15T13:22:20.640082+00:00",
+    "body_sha256": "2189341049ba03d605b2e4e08e8f0945cb71bc6d933488166a6a65f63a1ac9e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "social",
+    "why": "자원 제한 환경의 산모 사망이 입원 초기에 몰린다는 발견과 농촌 거주 같은 사회적 요인을 잇는 논지가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The finding that rural residency",
+      "note": "농촌 거주 단락은 통계 기호를 빼면 사회 지문으로 그대로 선다."
+    }
+  },
+  {
+    "id": "056fefba-7167-4890-a9f0-34de9aab0a04",
+    "source_updated_at": "2026-09-15T13:22:33.984895+00:00",
+    "body_sha256": "be90b1bae229c45ae1e8ff577a771dad16f3c502ddd82c6cb08c8ce135314e3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "방치된 열대병의 치료 한계를 짚고 계산 기반 약물 탐색을 대안으로 세우는 종설이라 산문 흐름이 끝까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "purpose",
+        "summary",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Current treatments face several challenges",
+      "note": "치료 한계 단락은 약명 하나만 남겨도 논지가 유지된다 — 이 청크에서 가장 가공이 쉬웠다."
+    }
+  },
+  {
+    "id": "05773b62-7272-413c-9a90-5e9614d5550a",
+    "source_updated_at": "2026-09-15T13:22:39.286449+00:00",
+    "body_sha256": "8569bc0680dc5c2b710299d96f3714f177f76b41b374391ca32f059cb8907981",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "탈진 운동이 인지 속도를 떨어뜨린다는 전제에서 급성 보충 효과를 묻는 설계가 서론 한 편으로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Exhaustive exercise imposes acute metabolic",
+      "note": "VO2·Stroop 만 풀어 쓰면 고2 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "057c1d2b-8fd2-4de8-a52c-e6a898ff3574",
+    "source_updated_at": "2026-09-15T13:22:45.866181+00:00",
+    "body_sha256": "3eeae105280eaf8eadf187572adbaef986e99858d4fbc6420f4d67a7c6ea5f07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "m6Am·PCIF1·Wnt 표기가 문장마다 박혀 있어 떼어 낸 단락이 용어 목록처럼 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Emerging evidence has elaborated the",
+      "note": "SNP 번호와 유전자명을 걷으면 남는 문장이 없어 자족 여부를 정하지 못했다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "058369b7-a127-4814-807a-18955e282869",
+    "source_updated_at": "2026-09-13T07:05:11.189042+00:00",
+    "body_sha256": "bc8fe1ac2eea0a14911b9432ac1314806704360631e801f72bcb825bcbd2342c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "사람 장 발생 연구라는 틀은 좋으나 본문 대부분이 유전자형·클러스터 서술이라 가공 가능한 단락을 고르지 못했다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Studying the spatial and temporal",
+      "note": "서론 첫 단락만 독립하고 나머지는 분석 절차 서술이라 판단이 갈렸다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "058a5ffe-9cea-4072-8599-0b571d30683a",
+    "source_updated_at": "2026-09-13T06:25:17.852299+00:00",
+    "body_sha256": "5726d01c9686bbc0058db954ee04b9f4696141750fa29cd965a2ab0a28c3ca69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "간흡충 감염과 고지방·과당 식이가 신장 질환으로 이어지는 경로를 하나의 인과 사슬로 설명한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chronic kidney disease (CKD) is",
+      "note": "서론의 위험 요인 단락은 태국 지역명을 빼도 그대로 성립한다."
+    }
+  },
+  {
+    "id": "0593cf89-f498-4244-b2ea-17a1e1ce5403",
+    "source_updated_at": "2026-09-15T13:23:09.211425+00:00",
+    "body_sha256": "77c8b2ad3da7c97fef9912c2fb342f53ec4681ac1f113fd35f0a63fa6a5a262d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "경구·정맥·국소 스테로이드 세 투여법의 반응을 가르는 비교 구조라 내용 일치 재료가 풍부하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The oral administration of corticosteroids",
+      "note": "치료 배경 단락은 떨어지지만 눈물샘 해부 용어가 남아 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "05962a01-652e-47a9-8700-ae37a3d2d2e7",
+    "source_updated_at": "2026-09-15T13:23:12.305044+00:00",
+    "body_sha256": "ef18af662d2dfd10358a444728827dc1b69a33f6bf5c4c458467b51eea1cef81",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "진드기 매개 감염의 치명적 합병증을 조기에 가려내자는 목적이 저자 요약까지 일관되게 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Severe fever with thrombocytopenia syndrome",
+      "note": "저자 요약 단락 자체가 이미 일반 독자용이라 손댈 곳이 적었다."
+    }
+  },
+  {
+    "id": "0598f345-fcf9-4a58-b3a9-b63409f4f7aa",
+    "source_updated_at": "2026-09-15T13:23:18.857625+00:00",
+    "body_sha256": "bcc959f372e3975e9b539843b968077120b36606741ff593201efcbbb891deff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "코로나 단백질분해효소 억제제를 엔테로바이러스로 돌려쓰는 재창출 논리가 고찰에서 단계적으로 전개된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In this study, we leveraged",
+      "note": "효소 이름이 논지의 핵심이라 낱말 교체로 내릴 수 없다."
+    }
+  },
+  {
+    "id": "05a24fcb-30c7-4bb1-b3b0-5428d69820d0",
+    "source_updated_at": "2026-09-15T13:23:28.189661+00:00",
+    "body_sha256": "f35c32f9228199d481bd1462e0eaaf55c61c2a15108f6ac4f054ef4def62d889",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "뇌졸중 후 운동 회복을 두 자극 기법으로 맞붙인 비교라 대조 구조와 사실 진술이 함께 나온다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Stroke remains one of the",
+      "note": "서론 부담 단락은 약어표를 안 봐도 읽혀 고2 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "05b5ba82-a44f-423d-adec-95ea4a44ccad",
+    "source_updated_at": "2026-09-13T07:10:17.5715+00:00",
+    "body_sha256": "33ed826e176561b3a17951b5201f05e01905ff434736b740b6389257c2bd1aba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "영상 질감 분석이 양성·악성 구분에 기대만큼 보태지 못했다는 부정적 결론을 정직하게 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Myxoid soft tissue tumors (STTs)",
+      "note": "한계 단락이 논지를 요약해 줘 떼기 쉬웠으나 영상 용어가 그대로 남는다."
+    }
+  },
+  {
+    "id": "05be756d-3249-4193-822e-9af75541132c",
+    "source_updated_at": "2026-09-13T07:18:19.346936+00:00",
+    "body_sha256": "b94d245e0bcb41db180e0c7af59f50466c2a9fa0cf466b2d9b09a7ef38aeb7e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "중심립 수 조절이라는 물음은 분명하나 1만 어 대부분이 유전자형 조합 서술이라 발췌 단위를 정하지 못했다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Centrioles are small cylindrical-shaped protein",
+      "note": "서론 첫 단락은 훌륭히 독립하지만 이후 단락은 돌연변이 표기 없이는 뜻이 서지 않는다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "05c87044-e800-4f72-8483-5af3811ab786",
+    "source_updated_at": "2026-09-15T13:24:15.835165+00:00",
+    "body_sha256": "b82b07c18a298073751efcbac56bf546f46a2ecf7cfffea3263d8455a302768f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "바이러스 단백질이 식물 방어를 꺾어 매개 곤충을 끌어들인다는 삼자 관계가 한 편의 이야기로 전개된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During virus infection, plants mount",
+      "note": "고찰 첫 단락이 논지를 통째로 담고 있어 이 청크에서 가장 짧은 손질로 지문이 됐다."
+    }
+  },
+  {
+    "id": "05c87aeb-7554-49ee-9f07-59e934fffc95",
+    "source_updated_at": "2026-09-13T07:01:56.033061+00:00",
+    "body_sha256": "abad904a5219e5f952986bb1c06a75d2b59d7266a81633db439cfc5f8d41b732",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "해당과정 상류 효소가 망막 혈관 장벽 유지에 각기 다르게 기여한다는 비교 논지가 결론까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Under normal physiological conditions, the",
+      "note": "혈액-망막 장벽 설명은 독립하지만 효소 약어가 논지의 축이라 어휘 조정 여지가 없다."
+    }
+  }
+]

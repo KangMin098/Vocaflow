@@ -18,6 +18,15 @@ import { useState } from 'react'
 import { unbenchedDimensions } from '@vocaflow/library-pipeline/textbook-evaluation'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import {
+  StageFailures,
+  StageFrame,
+  type FailureRow,
+  type StageBlock,
+} from '@/components/admin/csat/StageFrame'
+import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
+
+const STAGE = FACTORY_STAGES.find((s) => s.id === 'market')!
 import type { BenchFile, BenchPublisher } from '@/lib/csat/factory-bench'
 import {
   MIN_ATTEMPTS_FOR_ACCURACY,
@@ -50,7 +59,7 @@ function PublisherCard({ p, target }: { p: BenchPublisher; target: number }) {
         </div>
         <span
           className="rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
-          style={{ background: `${k.color}1F`, color: k.color }}
+          style={{ background: `color-mix(in srgb, ${k.color} 12.2%, transparent)`, color: k.color }}
           title={k.hint}
         >
           {k.label}
@@ -142,7 +151,7 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
         <span className="font-body text-[11px] text-[var(--t3)]">기출 문항 시도</span>
         <span
           className="font-mono text-[20px] font-[700] tabular-nums"
-          style={{ color: usable ? '#2E7D5A' : '#9C3A30' }}
+          style={{ color: usable ? 'var(--memory-stable)' : 'var(--memory-risk)' }}
         >
           {n == null ? '못 잼' : n.toLocaleString()}
         </span>
@@ -185,26 +194,112 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
   )
 }
 
-export function MarketClient({ warehouse, volume, target, platform, loadError }: MarketView) {
+export function MarketClient({ warehouse, volume, benchAgeDays, target, platform, loadError }: MarketView) {
   const [mode, setMode] = useState<'volume' | 'warehouse'>(volume ? 'volume' : 'warehouse')
   const bench = mode === 'volume' ? volume : warehouse
 
+  // ── ② 막힌 것 ──────────────────────────────────────────────────────
+  // ⚠️ 이 공정이 막히는 이유는 **생산이 아니라 증거**인 경우가 많다. 어떤 출판사는 잰 축만으로
+  //   낼 수 있는 최대 지수(`reachableMax`)가 이미 목표보다 낮다 — 그때는 아무리 만들어도
+  //   지수가 안 올라가고, **그 출판사의 정답해설을 코퍼스에 넣는 것**이 다음 일이다.
+  //   그 둘을 안 가르면 관리자가 없는 문제를 고치러 간다.
+  const pubs = bench?.publishers ?? []
+  const evidenceBlocked = pubs.filter((p) => !p.targetReachable)
+  const belowTarget = pubs.filter((p) => p.overallIndex != null && p.overallIndex < target)
+  const staleDays = benchAgeDays
+
+  const blocks: StageBlock[] = [
+    {
+      what: `목표 지수 ${target.toFixed(3)} 미달 출판사`,
+      count: bench ? belowTarget.length : null,
+      unmeasuredReason: loadError ?? '벤치마크 리포트를 못 읽었다',
+    },
+    {
+      what: '증거가 모자라 판정 자체가 불가능한 출판사 — 생산으로는 안 풀린다',
+      count: bench ? evidenceBlocked.length : null,
+      unmeasuredReason: loadError ?? '벤치마크 리포트를 못 읽었다',
+    },
+    {
+      // 관측이 없으면 「종이가 못 하는 것을 우리는 한다」는 설계도지 사실이 아니다.
+      what: '학습자 관측 (기출 문항 풀이 횟수) — 없으면 플랫폼 우위를 주장할 근거가 없다',
+      count: platform.itemAttempts,
+      unmeasuredReason: platform.itemAttemptsError ?? undefined,
+    },
+  ]
+
+  const failureRows: FailureRow[] = [...evidenceBlocked, ...belowTarget]
+    .filter((p, i, arr) => arr.findIndex((x) => x.publisher === p.publisher) === i)
+    .slice(0, 10)
+    .map((p) => ({
+      id: p.publisher,
+      label: p.publisher,
+      tags: [
+        p.targetReachable ? '지수 미달' : '증거 부족',
+        `${p.axesMeasured}/${p.axesTotal}축`,
+        `표본 ${p.docs}권`,
+      ],
+      says: p.targetReachable
+        ? `지수 ${p.overallIndex?.toFixed(3) ?? '못 잼'} — 생산으로 올린다`
+        : `잰 축만으로는 최대 ${p.reachableMax?.toFixed(3) ?? '못 잼'} 이라 목표를 못 넘는다. 못 잰 축: ${p.gaps.join(' · ') || '—'}`,
+    }))
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">② 기획 — 시장 대비 우위</h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">
-            시중: 시장조사 · 경쟁교재 분석 · 상품기획
-          </p>
-        </div>
-        <AdminScreenHelp screen="csat-strategy" />
-      </div>
+    <StageFrame
+      stage={STAGE}
+      status={judgeStage([
+        {
+          label: '구속 출판사 지수',
+          num: bench?.bindingIndex ?? null,
+          den: null,
+          unit: 'index',
+          target,
+          unmeasuredReason: loadError ?? '벤치마크 리포트를 못 읽었다',
+        },
+      ])}
+      help={<AdminScreenHelp screen="csat-strategy" />}
+      blocks={blocks}
+      commands={[
+        {
+          cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/market-benchmark.mjs --per-publisher',
+          why: '출판사별로 따로 잰다 — 합본 평균은 쪽수 가중이라 특정 출판사에 지는 것을 감춘다',
+          writes: true,
+        },
+        {
+          cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/gen-benchmark-report.mjs',
+          why: '리포트의 생성 블록을 갱신한다 — 문서에 숫자를 손으로 적지 않기 위해서',
+          writes: true,
+        },
+      ]}
+      approvalNote={
+        '이 화면의 값은 DB 가 아니라 docs/reports 의 커밋된 JSON 에서 온다 — 사람이 위 명령을 돌려야 갱신되고, 그 명령은 리포트 파일을 덮어쓴다.'
+      }
+      failures={
+        <StageFailures
+          title="지고 있는 출판사 — 왜 지는가"
+          total={bench ? evidenceBlocked.length + belowTarget.length : null}
+          rows={failureRows}
+          emptyNote={
+            bench
+              ? '목표 지수를 못 넘는 출판사가 없다.'
+              : '벤치마크 리포트를 못 읽었다 — 0건이 아니다.'
+          }
+        />
+      }
+    >
+      {staleDays != null && staleDays >= 7 ? (
+        <p
+          role="status"
+          className="break-keep rounded-[var(--r-md)] border border-[var(--memory-shaky)] bg-[var(--bg)] p-3 font-body text-[12px] text-[var(--memory-shaky)]"
+        >
+          ⚠ 이 수치는 {staleDays}일 전 리포트다 — 사람이 벤치마크를 다시 돌려야 갱신된다. 그동안
+          쌓인 재고는 여기 안 들어 있다.
+        </p>
+      ) : null}
 
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -223,7 +318,7 @@ export function MarketClient({ warehouse, volume, target, platform, loadError }:
               title={MODE_KO[m].hint}
               className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50 ${
                 mode === m
-                  ? 'border-[var(--p)] bg-[var(--p)]/10 font-[600] text-[var(--t1)]'
+                  ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-[600] text-[var(--t1)]'
                   : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
               }`}
             >
@@ -274,6 +369,6 @@ export function MarketClient({ warehouse, volume, target, platform, loadError }:
           자료를 코퍼스에 넣는 것이 유일한 길이다. 자료 위치는 memory 의 「시중 교재 PDF」 항목에 있다.
         </p>
       </section>
-    </div>
+    </StageFrame>
   )
 }

@@ -29,7 +29,7 @@
 // 388개가 아니라 **규칙이 틀렸다**는 뜻이다 — 이 저장소가 「루프 애니메이션 금지」로 정당한
 // 로더 20곳을 걸었을 때 배운 것이다. 그래서 기계가 확실히 가를 수 있는 하나만 잡는다.
 
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdtempSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -70,8 +70,29 @@ type Scanner = { scanFile: (file: string) => Hit[]; walk: (dir: string, out?: st
  *     쓰므로 이 스캐너에는 OFFSET 한 건으로 잡힌다(정당한 사용인데도 셈에 든다 — 다음에 스캐너가
  *     헬퍼 경유를 구분하게 만드는 편이 낫다).
  * 그래서 예산만 210 으로 옮기고, **다음 회차에 이 두 파일을 고치는 것**을 남긴다(올리지 말 것).
+ *
+ * ── 210 → 216 (2026-09-23 · DD-74 · DD-78) ───────────────────────────
+ * ⚠️ **여섯 중 다섯이 정본 헬퍼(`pagedSelect`·`pagedSelectIn`) 경유다** — 위 +1 과 같은 종류다.
+ *   헬퍼가 내부에서 `.range()` 를 쓰므로 **올바르게 쓴 자리도 이 스캐너에 잡힌다.**
+ *     · `lib/csat/review-defects.ts` +2 — ⑦ 검수가 `csat_item_reviews` 를 직접 읽게 한 것(DD-74).
+ *       그전에는 읽는 웹 코드가 0곳이라 revise 501 · fail 159 가 어느 화면에도 없었다.
+ *     · `scripts/textbook/item-state-sync.mjs` +2 — 검수 판정에서 문항 상태를 파생하는 드레인.
+ *     · `lib/csat/item-state.ts` +1 — **이 회차의 `row-cap-lies` 수정**이다. `.limit(5000)` 이었는데
+ *       PostgREST 응답은 1,000행에서 끊기므로 「5,000에 닿으면 경고」가 **영영 안 울리고**
+ *       1,001번째부터 조용히 적은 수를 정확한 수처럼 적고 있었다 → 헬퍼로 끝까지 읽는다.
+ *   나머지 +1 은 다른 세션 몫이다(`csat/source-scorecard-export.mts`).
+ *
+ * ⚠️ **이 번호가 헬퍼를 쓸 때마다 오르는 것이 문제다.** 위 2026-09-20 항목이 이미 같은 말을
+ *   적어 두었다 — 「다음에 스캐너가 헬퍼 경유를 구분하게 만드는 편이 낫다」. 올바른 사용이
+ *   예산을 먹으면, 정작 막아야 할 **직접 `.range()` 루프**(items.ts 7 · resolve.ts 11)가
+ *   같은 숫자 안에 숨는다. 그 분리가 다음 회차의 실제 할 일이고, **그 전에는 올리지 말 것.**
+ *
+ * ── 216 → 207 (2026-09-26 · CSAT 통합 빚 상환) ───────────────────────────
+ * `lib/csat/items.ts` 3곳과 `lib/csat/dissect-catalog.ts` 2곳의 OFFSET 호출을
+ * 고유 키 커서로 바꿨다. 실제 `.range()` 다섯 곳을 없애자 넓은 스캐너 창이 이웃 조회까지
+ * 같은 OFFSET 으로 세던 네 후보도 함께 사라졌다. 깨끗한 LF 체크아웃 실측 207.
  */
-const BASELINE = 210
+const BASELINE = 207
 
 let scanner: Scanner
 
@@ -100,12 +121,40 @@ describe('OFFSET 페이징 예산', () => {
       const byFile = new Map<string, number>()
       for (const h of hits) byFile.set(h.file, (byFile.get(h.file) ?? 0) + 1)
       const worst = [...byFile].sort((a, b) => b[1] - a[1]).slice(0, 8)
+
+      /*
+       * **가장 최근에 바뀐 파일**도 함께 낸다 (2026-09-23).
+       *
+       * 예산이 210 → 211 로 1 늘었을 때, 위 「파일별 상위」 는 11건짜리 옛 파일들만
+       * 보여 준다 — **한 건 늘린 새 파일은 상위 8에 절대 안 들어온다.** 그래서 늘어난
+       * 원인을 찾으려고 커밋을 손으로 바이섹트해야 했다(실측: 원인은 그날 새로 생긴
+       * 스크립트 한 줄이었다). 「늘었다」 만 말하고 **어디서** 늘었는지 안 말하는 경고는
+       * 고치는 사람에게 일거리를 넘길 뿐이다. 수정 시각 역순이면 그 줄이 맨 위에 온다.
+       */
+      const recent = [...byFile.keys()]
+        .map((f) => {
+          let mtime = 0
+          try {
+            // ⚠️ 스캐너가 주는 `file` 은 **cwd(= apps/web) 기준**이다 — 저장소 밖 스크립트는
+            //    `../../scripts/…` 로 온다. REPO_ROOT 에 이으면 저장소 바깥을 가리켜
+            //    전부 ENOENT 가 되고, 정작 찾으려던 **새 파일이 맨 뒤로 밀린다**(첫 판이 그랬다).
+            mtime = statSync(resolve(process.cwd(), f)).mtimeMs
+          } catch {
+            // 스캔 뒤 사라진 파일 — 순서만 뒤로 민다.
+          }
+          return { f, mtime }
+        })
+        .sort((a, b) => b.mtime - a.mtime)
+        .slice(0, 6)
+
       throw new Error(
         `OFFSET 페이징이 ${BASELINE} → ${hits.length} 로 늘었다.\n` +
           `뒤 페이지가 앞을 다시 훑으므로 표가 커지면 반드시 느려진다 — 이 저장소에서\n` +
           `같은 이유로 네 개의 명령이 죽었다(가장 큰 것은 656,988행 · 657페이지).\n` +
           `고유한 열(대개 pk)로 커서를 잡으면 산출물은 같고 깊이 비용이 사라진다.\n` +
-          `파일별 상위:\n${worst.map(([f, n]) => `  ${n}  ${f}`).join('\n')}`,
+          `파일별 상위:\n${worst.map(([f, n]) => `  ${n}  ${f}`).join('\n')}\n` +
+          `가장 최근에 바뀐 파일(여기부터 본다):\n` +
+          `${recent.map(({ f }) => `  ${byFile.get(f)}  ${f}`).join('\n')}`,
       )
     }
     expect(hits.length).toBeLessThanOrEqual(BASELINE)

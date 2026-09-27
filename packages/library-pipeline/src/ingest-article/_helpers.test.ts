@@ -91,3 +91,29 @@ describe('엔티티 디코딩 — 이중 인코딩과 URL (실측 2026-08-19)', 
     expect(a).toBe(b)
   })
 })
+
+/* 이름 있는 엔티티 — 2026-09-23. 제목 2,548편(전부 plos)이 `&ndash;` `&rsquo;` 를 글자 그대로
+ * 달고 화면에 나왔다. 활자 엔티티가 표에 없었기 때문이다.
+ * **아래 둘째 것이 이 테스트의 본체다**: 엔티티처럼 생겼지만 아닌 것을 건드리면 안 된다. */
+describe('decodeEntities — 이름 있는 엔티티', () => {
+  it('활자·라틴·그리스 엔티티를 푼다', () => {
+    expect(decodeEntities('Best-first search&ndash;based approach')).toBe('Best-first search–based approach')
+    expect(decodeEntities('the model&rsquo;s output')).toBe('the model’s output')
+    expect(decodeEntities('&ldquo;quoted&rdquo;')).toBe('“quoted”')
+    expect(decodeEntities('P&eacute;rez and M&uuml;ller')).toBe('Pérez and Müller')
+    expect(decodeEntities('&beta;-catenin and TGF-&alpha;')).toBe('β-catenin and TGF-α')
+    expect(decodeEntities('37&deg;C &plusmn; 2')).toBe('37°C ± 2')
+  })
+
+  it('엔티티가 아닌 것은 **그대로 둔다**', () => {
+    // 실측에서 정규식에 걸렸던 것들 — 전부 본문에 있어야 할 글자다.
+    for (const kept of ['&ARM;', '&MS;', '&Japan;', '&Huangjiu;', '&O1;', '&S2;', '&RCG;', '&A;', '&Y;', '&c;']) {
+      expect(decodeEntities(`x ${kept} y`)).toBe(`x ${kept} y`)
+    }
+  })
+
+  it('이미 푼 글자를 다시 풀지 않는다', () => {
+    expect(decodeEntities('search–based')).toBe('search–based')
+    expect(decodeEntities('R&D')).toBe('R&D')
+  })
+})

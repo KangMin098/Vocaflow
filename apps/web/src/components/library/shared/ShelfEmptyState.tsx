@@ -24,9 +24,7 @@
 
 'use client'
 
-import Link from 'next/link'
-import { AlertTriangle, ArrowRight, RotateCcw } from 'lucide-react'
-import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { SpotState, type SpotArt } from '@/components/ui/SpotState'
 
 export interface ShelfEmptyStateProps {
   /** 'empty' = 재고가 없다 · 'filtered' = 조건이 걸렀다 · 'error' = 못 읽었다 */
@@ -42,14 +40,13 @@ export interface ShelfEmptyStateProps {
   actionLabel?: string
 }
 
-const TONE_ICON = {
-  empty: Gwonjeom,
-  filtered: Gwonjeom,
-  error: AlertTriangle,
-} as const
-
-import { Illustration } from '@/components/illustrations/Illustration'
-import { ILLO_03_SHELF_FILTER_ZERO } from '@/components/illustrations/generated/illo-03-shelf-filter-zero'
+// DD-68 · tines-mapping §14 — 참조 빈 결과 문법(가운데 소품 · 세리프 제목 · 알약). 세 경우가 **다른 그림**이다:
+//   비었다 = 빈 책장 · 조건이 걸렀다 = 돋보기 · 못 읽었다 = 뽑힌 플러그(서가가 빈 게 아니라는 것을 그림도 말한다)
+const TONE_ART: Record<NonNullable<ShelfEmptyStateProps['tone']>, SpotArt> = {
+  empty: 'empty-shelf',
+  filtered: 'search',
+  error: 'offline',
+}
 
 export function ShelfEmptyState({
   tone = 'empty',
@@ -60,56 +57,14 @@ export function ShelfEmptyState({
   onAction,
   actionLabel,
 }: ShelfEmptyStateProps) {
-  const Icon = TONE_ICON[tone]
-  const isError = tone === 'error'
-
   return (
-    <div
-      // 오류는 그냥 상태가 아니다 — 스크린리더가 끼어들어 읽어야 한다.
-      role={isError ? 'alert' : 'status'}
-      className="flex flex-col items-start gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--bd)] bg-[var(--bg)] p-6"
-    >
-      {tone === 'filtered' ? (
-        // 삽화(사전 #3) — 「이 조건의 책이 없다 → 범위를 넓힌다」. 빈 서가·오류 톤은 아이콘 그대로(03-system §3-9)
-        <Illustration asset={ILLO_03_SHELF_FILTER_ZERO} decorative />
-      ) : (
-      <span
-        aria-hidden
-        className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--r-full)]"
-        style={
-          isError
-            ? { backgroundColor: 'var(--error-light)', color: 'var(--error-ink)' }
-            : { backgroundColor: 'var(--warning-light)', color: 'var(--warning-ink)' }
-        }
-      >
-        <Icon size={18} strokeWidth={2} />
-      </span>
-      )}
-      <h3 className="font-display text-[15px] font-[700] text-[var(--t1)] break-keep">{title}</h3>
-      <p className="max-w-[46ch] font-body text-[13px] leading-[1.7] text-[var(--t2)] break-keep">
-        {body}
-      </p>
-      <div className="flex flex-wrap items-center gap-2">
-        {ctaHref && ctaLabel && (
-          <Link
-            href={ctaHref}
-            className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            {ctaLabel}
-            <ArrowRight size={13} aria-hidden />
-          </Link>
-        )}
-        {onAction && actionLabel && (
-          <button
-            type="button"
-            onClick={onAction}
-            className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:cursor-not-allowed disabled:opacity-50"
-          >
-            <RotateCcw size={13} aria-hidden />
-            {actionLabel}
-          </button>
-        )}
-      </div>
-    </div>
+    <SpotState
+      art={TONE_ART[tone]}
+      role={tone === 'error' ? 'alert' : 'status'}
+      title={title}
+      body={body}
+      primary={ctaHref && ctaLabel ? { href: ctaHref, label: ctaLabel } : undefined}
+      secondary={onAction && actionLabel ? { onClick: onAction, label: actionLabel } : undefined}
+    />
   )
 }

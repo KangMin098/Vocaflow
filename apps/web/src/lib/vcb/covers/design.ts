@@ -211,6 +211,22 @@ export interface CoverMeta {
   /** 어떤 검색어로 찾았나 — 나중에 왜 이 그림인지 되짚을 유일한 단서 */
   query: string
   family: CoverFamily
+  /** 에디션 표지 — AI 생성 정사각 도판(scripts/vcb/editions). 있으면 서가 선반이 이것을 건다. */
+  edition?: EditionCover
+}
+
+/** `cover_image_meta.edition` — edition-import.mjs 가 적는다. */
+export interface EditionCover {
+  /** public 경로 — `/covers/vocab/editions/<slug>.webp` */
+  src: string
+  /** 화풍 키(scripts/vcb/editions/edition-styles.mjs STYLES) */
+  style: string
+  /** 표지 위쪽 면에 앉는 제목의 글자색 */
+  title_ink: 'light' | 'dark'
+  model: string
+  generated_at: string
+  /** 캐시 무효화 — 다시 그리면 바뀐다 */
+  v: number
 }
 
 /**
