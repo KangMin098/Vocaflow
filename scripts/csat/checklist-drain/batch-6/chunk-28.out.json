@@ -15,8 +15,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Although prohibition of alcohol in the",
   "note": "유타 가정 양조 합법화 경위와 찬반 의원 발언이 원인·반응으로 이어져 요지·내용일치·순서 칸을 채운다",
@@ -62,8 +62,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Cities like San Antonio, Texas, a",
   "note": "기지 폐쇄 발표에 지역이 경제 타격을 걱정하고 도시마다 득실이 갈린다는 흐름이 선다",
@@ -108,8 +108,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The U.S. identified the new Al-Qaeda",
   "note": "새 지도자 신원 발표와 전임자 사망 시점만 이어지고 나머지는 이름·인용 되풀이라 연결이 가늘다",
@@ -152,8 +152,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Google officially launched the new Google",
   "note": "구글 화성 지도의 세 보기 방식과 자료 출처를 늘어놓는 특징 나열이 중심이라 연결이 하나뿐이다",
@@ -197,8 +197,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The World Bank boss would first",
   "note": "세계은행 총재 순방 일정과 방문 이유 한 가지만 이어지고 나머지는 행선지 나열이라 가늘다",
@@ -243,8 +243,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "After Ottawa passed Bill C-19 allowing",
   "note": "총기 등록부 폐지→퀘벡 소송→항소심 번복→대법원 상고로 사건이 순서대로 이어져 순서·내용일치 칸이 선다",
@@ -289,8 +289,8 @@
    "vocabAdjustable": true,
    "factsMany": false,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "I would like to see a",
   "note": "후보가 자기 입장(종교 원칙·비례대표제)을 이유와 함께 밝히는 인터뷰로 한쪽 입장이며 동성애 관련 주장은 가공 때 걷고 성인 칸만 둔다",
@@ -332,8 +332,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The scientist noted that the Chilean",
   "note": "칠레 지진이 자전축을 옮긴 이유 두 가지와 피겨 선수 비유로 원인·설명이 이어져 요지·내용일치 칸을 채운다",
@@ -380,8 +380,8 @@
    "vocabAdjustable": false,
    "factsMany": false,
    "stereotypeCore": false,
-   "strippedRemains": false,
-   "gap": false
+   "gap": false,
+   "strippedRemains": false
   },
   "sample": "On Wednesday at 11.36 p.m, an",
   "note": "나라마다 지진 시각·규모만 바뀌어 네 줄 되풀이되고 문장 사이 연결이 전혀 없다",
@@ -421,8 +421,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Track work has been ongoing since",
   "note": "칠십 년 만의 버링턴 여객 열차 개통을 선로 공사·운행 계획·주지사 반응으로 이어 내용일치 칸이 선다",
@@ -468,8 +468,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The average family household earning is",
   "note": "자유당 후보가 녹색 전환 세금 공약의 이유와 효과를 설명하는 인터뷰로 주장·근거가 이어진다",
@@ -515,8 +515,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The improvements in digital technology have",
   "note": "디지털 위조 증가가 원인이 되어 새 10달러권 보안 기능을 더했다는 인과가 서 요지·내용일치 칸을 채운다",
@@ -563,8 +563,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Medical instruments were also found in",
   "note": "나치 안락사 희생자 집단 매장지 발견과 증거·수사 전망이 이어지며 죽음 소재라 고교 이상 칸만 둔다",
@@ -609,8 +609,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "This is the latest of a",
   "note": "미국-캐나다 목재 분쟁에서 판정·반응·다음 협상이 순서대로 이어져 요지·순서 칸을 채운다",
@@ -655,8 +655,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Currently under New Zealand law it",
   "note": "뉴질랜드 저작권 법안 개정 내용과 그에 대한 인터넷협회 비판이 이유와 함께 이어진다",
@@ -701,8 +701,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Bill C-31 allowed voters to wear",
   "note": "투표소 얼굴 가림 금지 법안의 발의 이유·기존 규정·당사자 반론이 이어지는 보도로 양쪽 입장이 실린다",
@@ -746,8 +746,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "At about 2:30 a.m. EDT (06:30",
   "note": "식당 총격 경위·피해·목격담·용의자 체포가 시간순으로 이어지며 폭력 소재라 고교 이상 칸만 둔다",
@@ -792,8 +792,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Lawrie had entered the store planning",
   "note": "강도 살인 경위와 선고·양측 발언이 시간순으로 이어지며 마약·살인 소재라 고교 이상 칸만 둔다",
@@ -838,8 +838,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "After widespread outrage on talkback radio,",
   "note": "국기 반입 금지→총리 반발→주최 측 철회→관객 국기 착용으로 원인·반응이 이어진다",
@@ -886,8 +886,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Stock indexes worldwide rose on Friday,",
   "note": "버냉키 발언이 원인이 되어 세계 증시가 오르고 분석가 해석과 트리셰의 경고가 뒤따른다",
@@ -931,8 +931,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Attempts by the Church of Scientology",
   "note": "사이언톨로지 영상 유출→삭제 요청→어나니머스 시위→영화 패러디로 사건이 이어진다",
@@ -977,8 +977,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The Minister also called for the",
   "note": "외무장관 성명과 녹색당 의원의 위선 비판 반응 한 번만 이어져 연결이 가늘다",
@@ -1023,8 +1023,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "The FDIC has said that it",
   "note": "주가 폭락·예금 인출이 원인이 되어 은행이 관리 체제에 들고 이관 절차·고객 안내가 뒤따른다",
@@ -1068,8 +1068,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Hawaii County Mayor Harry Kim declared",
   "note": "허리케인 접근에 비상사태 선포·휴교·대피가 대비 절차로 이어지나 위치·풍속 수치 문단은 가공 때 걷는다",
@@ -1114,8 +1114,8 @@
    "vocabAdjustable": true,
    "factsMany": true,
    "stereotypeCore": false,
-   "strippedRemains": true,
-   "gap": false
+   "gap": false,
+   "strippedRemains": true
   },
   "sample": "Workers at the plant noticed a",
   "note": "유량 차이 발견→카메라로 균열 확인→가동 중단으로 절차가 이어지고 재처리 논쟁 배경이 붙는다",
