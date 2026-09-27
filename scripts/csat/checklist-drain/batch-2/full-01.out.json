@@ -1,0 +1,599 @@
+[
+  {
+    "id": "06290245-4d41-457e-9dac-ac123560df37",
+    "source_updated_at": "2026-09-27T01:12:42.518394+00:00",
+    "body_sha256": "a5bf2be2049a52b4bdcec1b2e4f5b5062ed2b1b0512ed1b3a4e7dc42989f43c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "에르도안이 프랑스 상원의 아르메니아 학살 부정 처벌 법안을 규탄했다는 반응과, 하원 통과 뒤 대통령 서명만 남았다는 다음 절차가 두 문단으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Turkish Prime Minister Recep Tayyip Erdogan has",
+      "note": "criminalising·consent 를 punishing·approval 로 바꾸면 V7 로 내려가고, 두 문장이라 문항용으로는 사실 보기가 빠듯하다."
+    }
+  },
+  {
+    "id": "13031006-5ea8-4d05-b2aa-2d97782502c8",
+    "source_updated_at": "2026-09-27T01:12:41.871518+00:00",
+    "body_sha256": "f43d2e171e5abe564121034bbfbe6aa52ac5cffd9c058a473b16a458c4edce62",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "호르무즈 해협 통과 함대가 EU 이란 원유 금수·이란의 봉쇄 위협과 맞물린다는 배경(원인)을 잇고 세계 원유 35% 통과 사실로 맺어 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A six-strong flotilla of United States,",
+      "note": "flotilla·embargo 를 group of warships·ban 으로 바꾸면 V7 로 내려가고, 고유명사를 걷어도 긴장 고조라는 사건이 선다."
+    }
+  },
+  {
+    "id": "18798c79-289e-4b41-a549-179ecea9d86d",
+    "source_updated_at": "2026-09-27T01:12:38.776934+00:00",
+    "body_sha256": "c8e62508959215543fe53424f898d16e730687c771558028e14cfaf828ad6cd2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "취임위원회가 200달러 이상 기부자 명단 공개를 투명성 조치로 내세우고, 기부자 구성과 모금액을 부시 2004년 기록과 대비하는 흐름이 세 문단으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Presidential Inaugural Committee says it",
+      "note": "둘째 문단의 「Logging ontowill」은 링크가 빠진 잔재라 가공 때 걷어야 하고, unprecedented·moguls 를 new·rich owners 로 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "29a80555-3b80-4197-ac2e-16135060df37",
+    "source_updated_at": "2026-09-27T01:12:40.844043+00:00",
+    "body_sha256": "ae7e4e4bb675fb1151f63493288edaf5f9d256f911aadec0a919127f4b4bdea7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모·진앙 뒤에 피해 없음·경보 없음이라는 결과, 두 시간 뒤 여진, 작년 크라이스트처치 지진과 「불의 고리」 배경이 이어져 수치 나열을 넘는 사건 흐름으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The earthquake struck late in the",
+      "note": "결과·여진·배경 문장이 있어 사건이 서지만 첫 문단은 수치뿐이라, 지문으로 쓸 때는 둘째·셋째 문단을 중심에 둔다."
+    }
+  },
+  {
+    "id": "2e4cf923-2a74-40a6-802b-ff8525eae5f4",
+    "source_updated_at": "2026-09-27T01:12:43.824154+00:00",
+    "body_sha256": "842f1ef9f5cec48fbef204d95f28f8812f3da24c3438af93415e9e0d0f2f7825",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프랑스 병사 네 명 피살 뒤 조기 철수를 경고했던 사르코지가 아프간 전투 임무를 1년 앞당겨 끝낸다는 결과로 원인-결과가 두 문단으로 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Speaking yesterday after a meeting with",
+      "note": "두 문단을 시간순(피살 → 경고 → 발표)으로 다시 놓으면 쉬워지고, withdrawal 을 leaving 으로 바꾸면 V6 대로 내려간다."
+    }
+  },
+  {
+    "id": "3c6ecc4b-1e1f-4fd2-b7c0-9a409f436402",
+    "source_updated_at": "2026-09-27T01:12:41.871518+00:00",
+    "body_sha256": "da88068a1cf20358ab486cb312ff57cf76eb0a91c80d1ed49cb6f45bb8ddc785",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "울워스 파산으로 일자리를 잃은 2만4천 명이 보상 싸움에서 이겨 60일치 급여를 받는다는 원인-결과가 한 문장 안에서 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three years after British retailer Woolworths",
+      "note": "한 문장짜리 단신이라 문항 보기를 만들 사실은 다섯 개 남짓이 한계이고, compensation 을 money for the loss 로 풀면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "46c18dba-d5bb-4105-8eba-e59e6582346e",
+    "source_updated_at": "2026-09-27T01:12:41.871518+00:00",
+    "body_sha256": "bd011cde850903cdaed0ca77d947dc8825b2c63aae4b4d597d33e8498b07d172",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "영국 실업률·청년 실업률·구직수당 청구자 수가 문장마다 수치만 바뀌어 되풀이되고 그 까닭이나 반응을 잇는 사건이 없어 수치 나열 단신으로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The UK's unemployment rate has reached",
+      "note": "떼어 내면 퍼센트와 인원만 남고 원인·반응 문장이 없어 논지나 사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "60a90b68-ced1-442c-a142-be4c2f615d8f",
+    "source_updated_at": "2026-09-27T01:12:38.776934+00:00",
+    "body_sha256": "7ea8d945d74c7f50be43436b0c5bbf6e15d66f23ec111b97210af866c220bfae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "space",
+    "why": "16년간 별 스물넉 개의 움직임을 추적해 은하 중심 초대질량 블랙홀을 확인했다는 방법-발견 연결과 은하 형성에서의 역할이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 16-year study was performed using",
+      "note": "「four million times bigger than the Sun」은 질량을 크기로 잘못 쓴 표현이라 가공 때 more massive 로 고쳐야 하고, 어휘는 쉬워 V5 대까지 내려간다."
+    }
+  },
+  {
+    "id": "83217d5d-a10c-4cb3-9f9c-da648bdf8196",
+    "source_updated_at": "2026-09-27T01:12:41.871518+00:00",
+    "body_sha256": "f46533b06df6bbd7b6f5f7695d9719789930a059842d4126d6b95ec341f503ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카노 동시 공격 사망자 178명이 늘 전망이라는 결과에 보코하람의 목적과 남북 내전 우려라는 배경이 이어지며, 폭력이 중심이라 고등 이상 칸으로만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The confirmed death toll of 178",
+      "note": "co-ordinated·sophisticated·provoke 를 planned·advanced·start 로 바꾸면 V7 로 내려가고, 사망자 묘사는 수치에 그쳐 구체적이지 않다."
+    }
+  },
+  {
+    "id": "838edd90-7e6e-4cea-87fd-26fba5c8d555",
+    "source_updated_at": "2026-09-27T01:12:43.159858+00:00",
+    "body_sha256": "78759101c727c7a6528e56a13d08cf3c87cb33b0c63f51aab07ec7db3d9e30c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "믹 재거가 다보스 행사에서 빠진 사건과 「정치적 도구로 쓰였다」는 불만(이유)이 두 문단으로 이어져 반응이 있는 단신으로 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cutting short his visit to the",
+      "note": "political football 같은 관용 표현이 있어 어휘 칸 재료가 되고, allegiances 를 views 로 바꾸면 V6~V7 에 맞는다."
+    }
+  },
+  {
+    "id": "95f926ce-4650-46d6-b6df-a4f9b3383e81",
+    "source_updated_at": "2026-09-27T01:12:41.871518+00:00",
+    "body_sha256": "d01cd2b5419730c6d97644ac739aba57e422f8d04f7f6ac5664513fa0e8087e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무슬림형제단이 샤리아 입법보다 경제·빈곤을 우선하겠다는 방침을 정책위원 인용으로 까닭까지 밝히고 의석 비율로 맺어, 주장-이유가 이어진 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Improving the economy and fighting poverty,",
+      "note": "인용문이 방침의 이유를 직접 말해 떼어 내도 서고, legislating·policymaker 를 making laws·leader 로 바꾸면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "a0d67182-3f5f-4ddc-af98-d765ad59919e",
+    "source_updated_at": "2026-09-27T01:12:41.871518+00:00",
+    "body_sha256": "befbca99fb8207e983be2b1518f3b4b5478894ba0669a2960d8588ba8821a004",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "영국 기업 이익 경고 건수가 3분기 51건에서 4분기 88건으로 늘었다는 수치 두 문장뿐이고 원인·반응 문장이 없어 수치 나열로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Profit warnings from firms within the",
+      "note": "두 문장 모두 건수만 전하고 둘째 문장은 문법도 어긋나(warnings profits were) 떼어 낼 사건이 없었다."
+    }
+  },
+  {
+    "id": "c6f15159-85da-4bee-adea-e3ee9a89ef8d",
+    "source_updated_at": "2026-09-27T01:12:43.159858+00:00",
+    "body_sha256": "c454616a5b2a2e1cf08f1d08dcbc6aab358b9239f4427995235b2f8a85cca6d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "국경없는의사회가 고문 피해자를 다시 고문받게 치료하는 일을 거부해 리비아 구금시설에서 철수한다는 원인-결정-인용이 이어지며, 고문 소재라 고등 이상 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Medicins Sans Frontieres (MSF) have announced",
+      "note": "둘째 문장 「due to facing treating」은 어법이 깨져 가공 때 고쳐야 하고, 인용문이 철수 이유를 분명히 말해 사건이 선다."
+    }
+  },
+  {
+    "id": "c7f96ac0-bfcd-4146-9b64-444cb158f84c",
+    "source_updated_at": "2026-09-27T01:12:43.159858+00:00",
+    "body_sha256": "84ffd774a840c9c509ebbc7da38a3ef9361c96f24d3bfab84dba69d5ea9fc128",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "캐머런이 다보스에서 EU 에 과감한 성장책을 촉구하며 금융거래세를 「광기」로, 규제를 경쟁력의 약점으로 비판한 연설 요지가 이어져 주장이 선 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Speaking at the World Economic Forum",
+      "note": "Achilles heel·madness 같은 비유가 어휘 칸 재료가 되고, transactions tax·competitiveness 를 풀어 쓰면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "d41d29a5-1d17-4a55-bedd-a94eaddeb798",
+    "source_updated_at": "2026-09-27T01:12:42.518394+00:00",
+    "body_sha256": "71804d620015eb2b31873af240b43d76f0a6251dbc6e98c4d7a3ac8c4f8bd533",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하디타 민간인 24명 살해 재판에서 우터리치가 감형 합의로 가벼운 혐의만 인정해 실형을 피할 수 있다는 재판 결과가 이어지며, 살해 소재라 고등 이상 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "United States Marine Corp staff sergeant",
+      "note": "「this may see Wuterich may serve」 중복을 고쳐야 하고, plea bargain·dereliction 같은 법률어가 많아 쉬운 말로 바꿔도 V7 아래로는 어렵다."
+    }
+  },
+  {
+    "id": "f20ed78b-9408-45c4-aeb1-ff62ac7c7795",
+    "source_updated_at": "2026-09-27T01:12:43.824154+00:00",
+    "body_sha256": "28b2512291614a50023d5635a87d55fb8ee8352c2f2fe971c0484ef2ee0bb4d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미국·필리핀 방위협력 확대 논의와 옛 기지 재설치 계획은 없다는 단서를 미국의 아시아 전략 전환·남중국해 분쟁이라는 배경(원인)과 이어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States and the Philippines",
+      "note": "enhanced·strategic focus 를 closer·attention 으로 바꾸면 V7 로 내려가고, 기지 이름을 걷어도 논의라는 사건이 선다."
+    }
+  }
+]
