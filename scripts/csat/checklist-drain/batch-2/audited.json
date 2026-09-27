@@ -1,0 +1,14 @@
+[
+ {
+  "id": "a0d67182-3f5f-4ddc-af98-d765ad59919e",
+  "source": "wikinews",
+  "checklist": "discard",
+  "rule": "linkNone"
+ },
+ {
+  "id": "c6f15159-85da-4bee-adea-e3ee9a89ef8d",
+  "source": "wikinews",
+  "checklist": "keep",
+  "rule": "keep"
+ }
+]
