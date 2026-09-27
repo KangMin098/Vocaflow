@@ -1,0 +1,1070 @@
+[
+  {
+    "id": "2a0f3bfb-eae7-4dbd-8a19-ba0e2218b562",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0b24731076479e919276132747b242a3e0a19d405cbaf1beddd31169f512554b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "도서전의 장소·기간·25회째·전국적 인지도·39개 판매상·포스터 작가가 한 행사 소개로 이어져 내용 일치 칸 하나를 채운다(첫 문장·조직자 이름이 빠진 링크 흔적은 가공 때 복원).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The antique and old books fair",
+      "note": "둘째 문단은 앞 문맥 없이 서지만 「Organized by in collaboration」처럼 링크 이름이 빠진 자리를 채워야 한다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2a290fca-506b-4ad6-a61b-6f8dce5027d9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "538b235f13591285d350d01eecf30d171dc2ea9f7e4a0c3e052aca1e18809a3c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "피격 → 회복 중 → 당국의 배후 지목과 장관 발언 → 쉬리의 2008년 선거 탄압 배경으로 사건과 반응이 이어져 고등 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The chief of the Zimbabwe Air",
+      "note": "짧지만 한 편이 그대로 서고, assailant·masterminded·intimidation 을 attacker·planned·threats 로 바꾸면 V5 로 내려간다."
+    },
+    "uses": [
+      "factual",
+      "vocab"
+    ]
+  },
+  {
+    "id": "2a2b6220-f511-4fbd-9bf2-a5bc73064f7f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "66327c1395fae5bebe48b95a0ec11ee944f890d6233bffb31ef8ab6c9cbfeb2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "티셔츠 판매로 FARC·PFLP 를 후원한다는 회사 측 주장과 콜롬비아 외무장관의 항의가 맞서는 보도라 내용 일치·요약 칸을 채운다(「In fact ... terrorist activities」 논평 문장은 걷는다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anna Duever, Fighters and Lovers PR",
+      "note": "회사 측 발언 문단과 장관 반응 문단을 이으면 양쪽 입장이 서지만, 기자의 단정 문장과 오타(masacres·destinated)는 고쳐야 한다."
+    },
+    "uses": [
+      "factual",
+      "argument"
+    ]
+  },
+  {
+    "id": "2a3a1ba7-7528-4ca2-a35a-2e5573e83038",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c99074a4375d2d1c11d3cd1894aeddae3d2222ce155f1eaced707f2aba2b6159",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "랄 마스지드 교전 사상자 → 강경 성직자들의 납치와 목적 → 내무장관의 투항 권고로 원인·결과·반응이 이어져 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There is a standoff at Lal",
+      "note": "세 문단이 한 사건으로 서며 hard-line·impose·surrender 정도만 풀면 된다 — 사망 소재라 연령은 고1 이상."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2a5c75f2-b011-4e2f-8f10-0e6ca30f3295",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30adc0bbec244642a3bee3c2265c4f0a861c911c79937d3532f4728ba1d427cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "슈퍼 화요일을 앞둔 후보별 유세지·지지 선언·광고비 추정·키즈의 풀뿌리 선거운동이 까닭과 함께 서술돼 내용 일치 칸을 채운다(후보 동선 나열 부분이 길다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Most of the candidates are raising",
+      "note": "광고비 문단은 떼어지지만 후보 이름을 걷으면 동선 나열이라 논지가 남지 않는다 — 내용 일치로만 쓴다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2a9449c0-8a03-429a-860a-39f71b486287",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea1febdbae2d195af5b20d0be84fcae0fbc9eaacf3980188e4744d7bdd66cd05",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연정 협상에서 모기지 이자 공제 유지와 임대료 규제를 맞바꾼 타협·난민 사면 등 양보와 교환의 인과가 한 편에 서서 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The parties announced their plans on",
+      "note": "타협 문단은 정당 약칭을 「한 좌파 정당」으로 바꿔도 교환 구조가 서고, concession·marginal rate 를 풀면 V7 까지 내려간다."
+    },
+    "uses": [
+      "factual",
+      "structured"
+    ]
+  },
+  {
+    "id": "2a9935c4-3d0d-4e5f-9146-2c8c79f4a0fe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54cd1543e7fa10c44dd81e6242f8907d097370f8a14696fab628ffa0add98f57",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "보안 때문에 미뤄진 아프간 방문이 깜짝 발표로 이뤄지고 여성 교육·소규모 창업 현장을 방문하는 목적이 본인 발언으로 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bush would arrive in Kabul on",
+      "note": "셋째 문단이 방문 일정과 목적으로 혼자 서고 plight·solidarity 두 낱말만 바꾸면 중등 밴드에 가깝다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2a9ad6bf-37d5-4581-8b96-acdaf93fa7c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e1d0ba0d10553d355d0ac49428c995c6caf6096b7f3d6db459ab76fc7fd887ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미사일 발사 뒤 두 정보원이 발사 방향을 두고 엇갈리는 진술과 1998년 이후 시험 발사 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The sources, however, dispute where those",
+      "note": "엇갈린 두 진술 문단이 앞 문장 한 줄만 붙이면 서고, battery·possession 을 풀면 된다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2a9dd0be-1c4a-4f3f-a805-ad4e9b67cdc6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b78a89474ee93c1f78eefcd95a28ccf7328e9375ec076abc26b8384137bc4c90",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모·시각·진앙·감지 도시·보름 사이 두 번째라는 수치와 지명만 있고 피해·대응 등 문장 사이를 잇는 사건이 없어 짧은 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "An earthquake, measured at 6.7 on",
+      "note": "떼어 내기는 되지만 수치·지명을 걷으면 「지진이 났다」 한 문장만 남아 문항이 서지 않는다."
+    }
+  },
+  {
+    "id": "2ac09aca-340f-4552-8d77-42723f2d779b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "876ef0adc2b1e31d4d17b607beb02b2d9923e88bcade48050da1cbda2f8e3987",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미국의 공세 강화 결정 → 이번 주 네 번째 드론 공격 → 사망자 신원 → 미군 미확인으로 원인·결과·반응이 이어져 고등 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The drones struck the North Waziristan",
+      "note": "둘째 문단이 원인과 사건을 함께 담아 혼자 서며, insurgents·offensive 를 fighters·attacks 로 바꾸면 된다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2ac5fcea-6928-41d6-abb6-507d52a22226",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "781ab016db7dbff0abd7431a0bd69cd30a66a93973fd0b3249810666707dd9c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하자레의 단식 → 옴부즈맨 법안이 약하다는 근거 → 부패 스캔들 배경 → 대중 호응으로 주장과 근거가 한 편에 서서 주제·요지·요약·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Participants in the nationwide campaign called",
+      "note": "법안이 약한 이유 두 가지(집행 수단·수사권 부재)와 요구가 한 문단에 서고, ombudsman·entrenched 를 풀면 V6 로 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured",
+      "vocab"
+    ]
+  },
+  {
+    "id": "2ac7038c-b21c-4c87-b2db-78f15ed34e93",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f6659de4e25b36450db02bfe1c781360e900b2bddae7acf0628e8fd09a0593fe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "조류독감 사망 확인 → 정부 금지를 어긴 가금 사육 → 두 번째 감염 의심 사례와 치료 → WHO 집계로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 30 year old Egyptian woman",
+      "note": "짧은 전문이 그대로 서며 NAMRU 같은 기관명은 「미 해군 연구소」로 줄이면 된다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2acfc67f-51f4-4a01-9f80-8a27fcad86b2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37331527d8f3a2b4b143f13ea12f0b8c8ca23fc88ac5b7c3629ccce96e925d55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "캐럴 행사 중 총성 → 직원이 차에서 총알 자국 발견 → 어린이가 있었다는 교회의 우려로 사건과 반응이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During a Christmas carols event at",
+      "note": "둘째 문단부터 앞 문맥(인종 폭력 언급) 없이 서며 patrons·shells 만 바꾸면 된다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "2add4559-1f5f-4f85-b254-4a62454f1934",
+    "source_updated_at": "2026-09-25T08:53:25.565788+00:00",
+    "body_sha256": "ea8db2ac1120fd9b3eb08e86f071a160575ae5849b1ed5dc66495082825301d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "톰 페티의 사망 경위와 출생·밴드·음반 판매·명예의 전당·연기 경력·가족이 인물 소개 한 편으로 이어져 인물 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Petty, born in Gainesville, Florida in",
+      "note": "둘째 문단이 인물 소개 지문으로 혼자 서고, 가족 문단은 이름 나열이라 걷는다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "2af7af4d-2add-4c36-bd77-1d909b1b3df8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6543a05ef232c193203877f4513feef4ab6b56d1581927969f27141c170766db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "아이폰의 기능 소개와 Apple TV 가 콘텐츠를 저장하지 않고 컴퓨터에서 재생해 정리가 쉬워진다는 방식 차이가 서서 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today Apple also released their Media",
+      "note": "Apple TV 문단은 「저장 대신 연결」이라는 차이와 그 이점까지 혼자 서며, 2007년 발표라 시대 비교 칸 후보다."
+    },
+    "uses": [
+      "factual",
+      "argument"
+    ]
+  },
+  {
+    "id": "2afd4fdc-f805-4d51-a466-724377519f85",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5cf396df15169ca18ec05ffd1955aa4c0f7a797383996b174496cab05a5ca798",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인터넷 카페 주변 무장 경찰 작전을 목격자가 폭발물 처리 차량·주민 대피 지시·원격 로봇 순서로 전하는 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Houst Monfaradi, a witness at the",
+      "note": "목격자 발언이 중복·말줄임표로 이어져 있어 간접화법으로 정리해야 하지만 사건 순서는 선다."
+    },
+    "uses": [
+      "factual",
+      "sequence",
+      "spoken"
+    ]
+  },
+  {
+    "id": "2b287dba-f3c9-4fbd-b796-9def915b566b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa5916ceecddcec97853982392659cadef7d0b6622a9f6c9cb04ba229afe2946",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "문해·수리 순위 나열이 길지만 「문해력이 사회 이동의 장벽이 아니다(미국과 대조)」·「표준화 시험이 1970년대 이후 거의 안 바뀐 탓」이라는 해석 문단이 있어 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Australian data said adult literacy",
+      "note": "사회 이동 문단은 순위 없이도 대조 논지가 서지만, 나머지 대부분은 순위·백분율 나열이라 가공 때 걷는다."
+    },
+    "uses": [
+      "factual",
+      "argument"
+    ]
+  },
+  {
+    "id": "2b39cec5-68d6-45a1-83cb-9c50a305d4d7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c6fa9f4378e318d497decf2ff6d7d449ca1399c8a57960c20101b3b06641cd7c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "병사 납치에 대응한 작전 → 다리·발전소 공격과 민간인 단전 → 양측 발언과 정착민 피살로 사건·반응이 이어지는 보도라 고2 이상 내용 일치 칸이다(무장 선동 발언은 맥락과 함께 인용).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In other operations a helicopter attack",
+      "note": "발전소 공격 문단은 원인·결과(70만 명 단전)가 혼자 서며, 살해 문단은 연령 칸을 고2 이상으로 묶어야 한다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2b517f0c-398a-4bab-a623-3fb508d7ce33",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bc2708952d853b57f7eb7b333c8bc282d4f3f38b60abd2b56b739927b601af5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "독일·프랑스 2분기 0.3% 성장으로 경기침체 종료 → 유로존 전체는 -0.1% → 이코노미스트 전망 → 증시 상승으로 결과와 반응이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The GDP of both France and",
+      "note": "짧은 전문이 그대로 서며 GDP·indices 정도만 풀면 되고, 수치가 많아 대비 문항을 만들기 쉽다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2b570664-8f0e-46e0-a4b2-10cf3662c32a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "691636f57255eaf8f9387a91ec1a6600f8691d208101b87ba62ef004cd0cc7f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "「히드로늄 이온은 서로 밀어낸다」는 가정을 전산 모형 결과가 뒤집고 특정 농도에서만 짝을 짓는다는 조건까지 서서 주제·제목·빈칸·내용 일치 칸과 통념 교정 후보를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hydronium ions form whenever an acid",
+      "note": "둘째 문단은 가정→반증이 두 문장으로 서지만 hydronium·cation·aggregates 는 풀어도 전문어가 남아 V8 아래로는 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ]
+  },
+  {
+    "id": "2b6f5a80-e10c-49b3-a234-2bf7b21fe50b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ebf7f8e100560331c63bbeba708e23c86de40d2590cf0b5cfc52b45f866d931c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "타이베이 게임쇼 개막 → 경제부 장관의 산업 성장 발언 → 대만산 게임 홍보용 경진대회 → 고아 돕기 자선 행사 → 관람객 수로 행사 소개가 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Not only did officials and executives",
+      "note": "자선 문단은 혼자 서지만 장관 발언처럼 어색한 영어(「the grown up of gaming industry」)는 고쳐 써야 한다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2b74b73c-de9b-447e-917a-f17d804f99ca",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f1e41e575ff041ecfcac8c3328642da16d0951648380d56add4715c3beb59af9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "심슨 가족의 첫 HD 방송과 1989년 이후 첫 영구적 오프닝 변경을 이전 변형·영화 선례와 대비해 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This will be the first major",
+      "note": "오프닝 변경 문단이 혼자 서며, letterbox·720p 같은 방송 용어 문단은 걷는다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2b7c59ee-ed84-4d9a-bd2d-62f563084bbb",
+    "source_updated_at": "2026-09-25T08:56:38.47006+00:00",
+    "body_sha256": "b266ed4059a80b71cb5ee5ebeea4b23c0954e9220beae5e3d7fe5a92c5244250",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "반 헤일런의 사망과 투병, 투핸드 태핑 연주법·데뷔 앨범 성공·「Eruption」에 대한 동료 평가가 인물 소개로 이어져 인물 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eddie Van Halen was known for",
+      "note": "연주법·밴드 문단이 혼자 서고 harmonics·certified Diamond 를 풀면 되며 RIAA 등 약칭은 걷는다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "2b90eed9-76fc-4f19-95ed-79bea303a8c6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7e75d35e6d498f9ecf6b02abf07effb4247a055faef1f250c2718486b3680dc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "존 메이저의 「앵글로색슨 생활 방식」·추방 옹호 발언과 이를 비판하는 칼럼을 함께 옮긴 보도로 한쪽 입장 발언이 중심이라 선동이 아니며 고2 이상 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In addition Sir John has come",
+      "note": "추방 옹호 문단은 앞 인용 없이 서지 않아 첫 문단 인용과 묶어야 하고, 크리켓 비유 같은 기자 논평은 걷는다."
+    },
+    "uses": [
+      "factual",
+      "argument"
+    ]
+  },
+  {
+    "id": "2b9d819a-ff0b-4e48-aa05-f4af1bbb3621",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "364541f404455ee869309c98d805ab9de6bd88af0288979664ff1f23f4b0c5b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "차량 폭탄 폭발로 11명 부상 → 군의 보안 강화 성명 → 대통령의 정상회의 불참과 대화 호소 → 야당 지도자 발언으로 사건과 반응이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The explosion was caused by a",
+      "note": "원인·피해 문단과 반응 문단이 짧게 서며 inhabited·abused 두 낱말만 풀면 된다."
+    },
+    "uses": [
+      "factual"
+    ]
+  }
+]

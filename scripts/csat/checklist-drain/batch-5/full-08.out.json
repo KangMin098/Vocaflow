@@ -1,0 +1,937 @@
+[
+  {
+    "id": "2cc60fe1-9545-4968-96a7-3ee1b2c073b0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "568fff9898a0206694bcdd5158882980ed4211d6044337318d30cb43e466691d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "보수당 후보 인터뷰로 한쪽 입장이지만 문답마다 주장과 이유가 서고, 지역 3대 현안·비례대표 개혁 의견 문단이 주장·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "What do you feel are the",
+      "note": "현안 문답 한 쌍은 앞 문맥 없이 서고 deplorable→terrible, alleviate→ease 로 바꾸면 V5 로 내려가며, 끝의 느낌표 연발 비난 문단은 걷는다."
+    }
+  },
+  {
+    "id": "2cc7d14e-7f2d-4209-ac9c-d10782796b4c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd4ef498f31244048e40cd000be95dc70c22db8f445124222232ddc8cec9a0b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "차관 제공→도로 노선→자금 출처·서명→완공 시한으로 사건이 이어지는 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "China has loaned Ethiopia US$349",
+      "note": "첫 두 문단만으로 사건이 서고 beneficiaries→receivers 정도만 바꾸면 되며, 서명자 이름은 걷어도 흐름이 남는다."
+    }
+  },
+  {
+    "id": "2ccf06ad-55fa-4af6-8358-68955d4c7c5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "61efc06bf80a1d51982c3eef8737b157e1ab7c0b504bcf3132014e6de7cd430f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "social",
+    "why": "무소속 후보 인터뷰로 한쪽 입장 보도지만 「2001년 이후 온난화 멈춤」「과학자 자료 조작」 같은 틀린 과학 주장을 반론 없이 사실처럼 싣는데, 인터뷰 속 의사과학을 기준이 가르지 않는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Is the Carbon Pollution Reduction Scheme",
+      "note": "배출권 문답은 떼어지지만 논지 자체가 반증된 기후 주장에 기대 있어 걷으면 주장이 서지 않는다."
+    }
+  },
+  {
+    "id": "2cd136f3-a76d-4cad-8676-d67ea2427aac",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dcac1bbb4f4618116b31d3f62cb12436b5b0fb7f68e7f62fc478f71b776e96c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "첫 퀴어 퍼레이드 개최와 주최자 인터뷰로 CSD 이름의 유래·지역 태도 차이 문단이 서서 내용 일치와 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pride parades are called CSDs",
+      "note": "CSD 유래·지역 태도 문단은 혼자 서고 대괄호 교정은 풀어 쓰면 되며, 둘째 문단의 현수막 통계 문장은 어색해 걷는다."
+    }
+  },
+  {
+    "id": "2cd84f25-204e-4c12-b5ba-0c4a7f95adf7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75481e57100a87ff73d960bf203763d9a72c65b2a534cb84ea8f09d50fc14fa2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연쇄살인범 유죄 평결을 재판 기간→평결→형량→남은 기소로 이어 쓴 단신이라 폭력 소재로 고등 이상 칸만 두고 내용 일치를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Robert Pickton, one of Canada's most",
+      "note": "피해자 이름 나열 문장을 걷어도 평결·형량·남은 절차 흐름이 서고 apprehended→arrested 로 쉽게 바뀐다."
+    }
+  },
+  {
+    "id": "2ce0633b-a84b-4a8a-ac72-b18b8c65684f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "176bd3237bde6ce1502ad21490feac9afe5bbe1ec1a128d5e7d7cdae237fbf96",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "technology",
+    "why": "두 문장짜리 단신으로 합의서 공개→SCO 소송 파급 가능성의 연결은 있으나 배경 없이는 법률 고유명사뿐이라 내용 일치 칸이 설지 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The 1994 settlement agreement between",
+      "note": "고유명사·법조문을 걷으면 남는 사실이 「합의서가 공개됐다」 하나뿐이고 successor in interest 같은 법률어는 바꿀 말이 마땅치 않다."
+    }
+  },
+  {
+    "id": "2ce57b52-9b7b-41c5-932c-14e8495dc54b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f5b76e7fe3b7aa4616a1212ffdac5f07d86bf82c77c0fa6e55f25dcf582666d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "저작권 신고로 유튜브 계정 정지→위키백과 해당 절 삭제→삭제 요약문→단체 자체 표기와의 모순으로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In September Kent Hovind's Creation Science",
+      "note": "첫 문단은 혼자 서고 whitewashing→hiding 정도로 바꾸면 되며, 앞 보도(As previously reported) 참조는 걷는다."
+    }
+  },
+  {
+    "id": "2ce6c559-bb86-4f34-9058-4b62c761caee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "25d865821dcf922a83534a956b72e55d733c92d2dae32ceee4c60dbfe71cf528",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "food",
+    "why": "샌드위치 가게 2호점 개점을 본점과의 차이·영업 전망·위생 지적 대응으로 이어 쓴 지역 기사라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Key differences between the original store",
+      "note": "차이점 문단은 혼자 서고 unification→combining, cited→warned 로 바꾸면 V4 로 내려가며 주소 번지는 걷는다."
+    }
+  },
+  {
+    "id": "2d0043ad-ae38-47cf-a089-3a1a4d0e4765",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7cbab631f0142ab48a8bf67c7c866ef72fba4bec44e8afbe461b996631e02613",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "1만 1천 명 감원 발표→사장이 밝힌 이유(비용 아닌 매출)→외주 업체 재고용 전망으로 원인과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The president commented that the move",
+      "note": "이유 문단은 혼자 서고 net neutral 인용을 걷으면 V4 로 내려가며 회사 이름은 줄여도 흐름이 산다."
+    }
+  },
+  {
+    "id": "2d12f939-1c0b-4d07-be55-f2e6c864970f",
+    "source_updated_at": "2026-09-25T09:15:58.94028+00:00",
+    "body_sha256": "797727186fe69795c1df11b880a5dbd934d714d4cc609776aa9bcdb6718cf6cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부시-클라크 회담을 두 정상의 발언과 태평양 협력·자유무역 교착으로 나눠 쓴 외교 기사라 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Prime Minister also said that",
+      "note": "마지막 문단은 혼자 서고 fractious→divisive 로 바꾸면 되지만, 중간 인용부호가 깨진(``) 문장은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "2d1402e2-9a3a-4a65-ae80-f642feebe72b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94dd81019a390aaf24ace7d4ad8af657fffc6fac3e5d4f2923c38e5d73930b86",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "연차총회 개최지·주기·터키의 두 번째 개최에 IMF 부총재의 회의 의의 인용이 이어져 날짜 나열에 그치지 않아 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "These meetings are held outside Washington,",
+      "note": "셋째 문단과 인용만으로 서며 둘째 문단의 비문(which is held)은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "2d23ecc1-2def-42c3-82b6-690f13ab5494",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ccf9b60c2025acd76a791bb794aac46b74c4e3ec21fc8cb4c978893ec87dd4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쿠데타 뒤 임명된 총리가 인도네시아 방문 중 계엄 해제 요청을 신중히 검토하겠다고 한 경위가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Whilst on a visit to Indonesia,",
+      "note": "첫 두 문단으로 사건과 배경이 서고 junta→military government, privy councilor 걷기로 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "2d31029f-8963-47e7-9dd1-e22fbb1873bc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80ef154c125dd10aafaf21161e7276a25f5fc6a9f5c81f0150b01b52208978c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "art",
+    "why": "전시 개막 단신이 마지막 「Pinchuk wrote:」 뒤 인용이 통째로 빠진 채 끝나 글이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Over 70 statuettes of characters from",
+      "note": "둘째·셋째 문단은 혼자 서지만 예고한 수집가 글이 없어 원천을 다시 받아야 한다."
+    }
+  },
+  {
+    "id": "2d32d38f-e5d8-4b71-8ee6-e25a441dd7b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a9d3726049e705262eabddcc50c7289201513cfc06b53e199cb9285612011b5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오르테가-하메네이 회담의 반미 발언을 옮긴 보도로 한쪽 입장이지만 기자가 워싱턴의 반응·이념 차이를 맥락으로 달아 발언 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Ortega's visit to Iran came as",
+      "note": "마지막 문단은 혼자 서지만 antithetical·couched·supplant 가 겹쳐 두세 낱말 교체로는 V6 아래로 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "2d32d6df-cbc7-48d5-b43f-98db08b689ce",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e7b0cad8c245379f5d390e950e9d1ba8fd94ae8df6f4eb9418e095971f77f0f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하원이 요청액보다 적은 암트랙 예산을 통과→적자 노선 폐지 조항 삭제→상원 승인 남음으로 다음 절차까지 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States House of Representatives",
+      "note": "한 문단 전체가 혼자 서고 appropriations→spending, mandate→require 로 바꾸면 V4~V5 로 내려간다."
+    }
+  },
+  {
+    "id": "2d420bb3-d2ae-45c3-a718-690e7c7c6bc1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea5e70b098f74d3d7e9ca7d88d1a62ccefd19e3a1abf10bab37995776ed1c442",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버스 폭탄 폭발→사상자 신원→반군 소행 추정과 군정 배경으로 이어지는 사건 기사라 폭력 소재로 고등 칸만 두고 내용 일치를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bombing was blamed on insurgents,",
+      "note": "끝 문단은 혼자 서고 insurgents→rebels, junta→military rulers 로 바꾸면 되며 시각·거리 수치는 걷어도 된다."
+    }
+  },
+  {
+    "id": "2d4f46a4-5235-4c1f-8c76-bab6d88372bd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e24f12dccedbfdc83e562ec0b95407b53e4cd7c939f727aa935bbfa12d301d23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "런던 폭탄 테러 다음 날 교통 복구 상황 기사로 노선·도로 폐쇄 목록이 절반이지만 복구·혼잡통행료 중단·자전거 증가 문단이 사건을 이어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Twenty-four hours after a series of",
+      "note": "첫 문단·혼잡통행료·자전거 문장은 이어 붙여 서고, 지하철 노선·도로 번호 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "2d5b9f37-e733-4f2e-a162-b1dc50fff712",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1ea42aa06b756a81914fa8d0227375a9505668680b844c28edde82b0c2828df4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "바르사의 알카세르 영입과 무니르 임대를 이적료·경력·등번호로 이어 쓴 이적 기사라 내용 일치 칸 하나를 채운다(인용 한 곳은 비어 있다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Munir graduated from Barça 's youth academy",
+      "note": "무니르 문단은 혼자 서지만 「Alcácer said,.」처럼 인용이 빠진 문장과 hood 오타는 가공 때 걷고 고친다."
+    }
+  },
+  {
+    "id": "2d68a50b-7486-40d9-938f-9cab1b92cf2a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d21e4336a686b4d1f22675742df1ad7e0961d40acd103f96921442cfed8c7413",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "은행 국유화→영국 예금자 손실→테러법 자산 동결 비난→파운드 하락으로 인과가 이어지고 대구 전쟁 역사 문단까지 서서 요지·요약·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The last time the two nations",
+      "note": "대구 전쟁 문단은 앞 문맥 없이 사건 순서로 서고 trawlers→fishing boats, came to a head→peaked 로 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "2d9bccc5-85a4-4d48-b9dd-56f5d893c40e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fe23e5dabc82f6d561aedc43ec45aa6fee4f4409f12247f08673e1914c3e48b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "성 패트릭 날 세계 각지의 행사를 나라별로 잇되 스위스 기념비 유래·도쿄 퍼레이드 시작처럼 까닭이 붙어 이름 나열에 그치지 않아 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A memorial to the Flight of",
+      "note": "백작 도주 기념비 문단은 이유까지 혼자 서고 dedicated→set up 으로 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "2da0a0ee-0e14-4302-9391-66c24869e623",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cd47eb43a4075b429a0d33dbc2223b6502bd08b0d838ac8b324de36e833fb539",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "합병 발표→새 회사 구조와 CEO→8,800명 감원→노조 반발로 결과와 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, 8,800 employees, or roughly 10%",
+      "note": "감원 문단은 However 만 걷으면 서고 personnel→workers, holding→lab 으로 바꿔 V4~V5 에 맞는다."
+    }
+  },
+  {
+    "id": "2dade14f-2cb4-4681-b8c4-9bcaa302408b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5922e5cc02c62168b7bdebbe93e749a32aae34a4e5d60d72fd72e8a5efa4f3dc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "미사일로 보인 비행운 영상에 국방부가 설명을 못 하자 전문가들이 곡률에 따른 착시·항공기 비행운으로 반박하는 구조라 요지·요약·빈칸·내용 일치와 통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some say that there was no",
+      "note": "착시 설명 문단은 혼자 서고 plume→cloud, curvature→curve 로 바꾸면 V5 이며 사이트 이름을 걷어도 논지가 선다."
+    }
+  },
+  {
+    "id": "2dc24611-077a-4876-88c0-26f8319dd3bd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f01edc421e3424b53022aefdd615607eeb1f4c55d41bb43d081a22a5637dff6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "핀란드 최고 제작비 앨범의 비용 내역·녹음 과정·보컬 교체·발매 직후 판매로 이어지는 음악 기사라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Half of this cost was incurred",
+      "note": "둘째 문단은 this cost 를 the album's cost 로 바꾸면 혼자 서고 incurred→spent 로 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "2dd503cf-d236-4172-9ab8-1b9f57e5e707",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "52f8262f5d2fa2e0590c4705b5cb25a7e2520c914697b06ffac6ad9410ad9554",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알카에다 선전 영상이 인터넷에 올라온 사실과 그 화면·문구를 전하는 보도로 선전을 미화하지 않고 옮겨 고등 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ad reportedly shows digitally altered",
+      "note": "둘째 문단은 혼자 서고 motorcade→line of cars 로 바꾸면 되지만 사건이 게시 하나뿐이라 문항 폭은 좁다."
+    }
+  },
+  {
+    "id": "2dd86d96-2e7d-44e2-81a0-c0101edb7889",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a82082a4f7f3eadb2f03995c727c587a56c3de9eee8fd754bd3e190a2dd6e5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "결선 결과→양측 연설→관심을 끈 이유(필리버스터 저지 60석)→미네소타 재검표로 이어져 필리버스터 설명 문단까지 서서 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The election was widely watched because",
+      "note": "필리버스터 문단은 혼자 서고 terminate filibusters→end long debates, supermajority 풀어 쓰기로 V5 에 맞는다."
+    }
+  }
+]
