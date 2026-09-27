@@ -14,9 +14,11 @@ import {
   checkExternalEvidence,
   checkImplements,
   checkNewItem,
+  checkTaxonomyIds,
   checkTransition,
   type NewItemInput,
 } from '@/lib/knowledge/rules'
+import { listTaxonomy } from '@/lib/knowledge/server'
 
 export interface ActionResult<T = unknown> {
   ok: boolean
@@ -25,6 +27,9 @@ export interface ActionResult<T = unknown> {
 }
 
 const LINK_KINDS = ['implements', 'contrasts', 'complements', 'condition_variant', 'duplicate_candidate'] as const
+
+/** 동시 저장에서 진 쪽이 보는 문장 — 화면도움말(knowledge-item cautions)이 같은 문장을 인용한다. */
+const STALE_STATUS_ERROR = '그 사이 다른 사람이 상태를 바꿨습니다 — 새로 고친 뒤 다시 판단하세요'
 
 function db(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -72,12 +77,17 @@ export async function setItemStatusAction(
     const from = item.status as ItemStatus
     const rule = checkTransition({ from, to, reason, evidenceCount: await evidenceCount(client, itemId) })
     if (!rule.ok) return rule
-    const { error: e2 } = await client
+    const { data: changed, error: e2 } = await client
       .from('knowledge_items')
       .update({ status: to, status_reason: reason.trim() || null, updated_by: who })
       .eq('id', itemId)
       .eq('status', from) // 그 사이 다른 사람이 바꿨으면 덮지 않는다
+      .select('id')
     if (e2) return { ok: false, error: `저장 실패: ${e2.message}` }
+    // 조건부 UPDATE 는 0행이어도 오류가 없다 — 바뀐 행이 없으면 성공이라고 말하지 않는다
+    if (!changed || changed.length === 0) {
+      return { ok: false, error: STALE_STATUS_ERROR }
+    }
     refresh(String(item.slug))
     return { ok: true }
   } catch (e) {
@@ -91,6 +101,9 @@ export async function createItemAction(input: NewItemInput): Promise<ActionResul
     if (!isLayer(input.layer)) return { ok: false, error: '알 수 없는 층입니다' }
     const rule = checkNewItem(input)
     if (!rule.ok) return rule
+    // 분류 ID 는 클라이언트를 믿지 않는다 — 최신 스냅샷 분류에 실제로 있고 차원이 맞는지 서버에서 본다
+    const taxonomyRule = checkTaxonomyIds(input.skillIds, input.conditionIds, await listTaxonomy())
+    if (!taxonomyRule.ok) return taxonomyRule
     const { error } = await db()
       .from('knowledge_items')
       .insert({

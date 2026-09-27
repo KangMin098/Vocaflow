@@ -1,6 +1,6 @@
 // apps/web/src/lib/knowledge/__tests__/rules.test.ts
 import { describe, expect, it } from 'vitest'
-import { checkExternalEvidence, checkImplements, checkNewItem, checkTransition } from '../rules'
+import { checkExternalEvidence, checkImplements, checkNewItem, checkTaxonomyIds, checkTransition } from '../rules'
 
 describe('checkTransition', () => {
   it('검토 중 → 채택은 근거가 있어야 한다', () => {
@@ -29,6 +29,30 @@ describe('checkNewItem', () => {
     expect(checkNewItem({ ...base, layer: 'essence', skillIds: [] }).ok).toBe(false)
     expect(checkNewItem({ ...base, layer: 'essence', skillIds: ['skill-reading', 'skill-vocab'] }).ok).toBe(false)
     expect(checkNewItem({ ...base, layer: 'essence', skillIds: ['skill-reading'] }).ok).toBe(true)
+  })
+})
+
+describe('checkTaxonomyIds', () => {
+  const TAX = [
+    { id: 'skill-reading', dimension: 'skill' },
+    { id: 'age-high', dimension: 'age' },
+    { id: 'exam-suneung', dimension: 'exam' },
+  ]
+  it('있는 ID · 맞는 차원만 통과', () => {
+    expect(checkTaxonomyIds(['skill-reading'], ['age-high', 'exam-suneung'], TAX).ok).toBe(true)
+  })
+  it('없는 ID 는 거부 — 본질도 가짜 영역 하나로 통과하지 못한다', () => {
+    expect(checkTaxonomyIds(['skill-made-up'], [], TAX).ok).toBe(false)
+  })
+  it('차원이 바뀐 값은 거부', () => {
+    expect(checkTaxonomyIds(['age-high'], [], TAX).ok).toBe(false)
+    expect(checkTaxonomyIds([], ['skill-reading'], TAX).ok).toBe(false)
+  })
+  it('중복 거부', () => {
+    expect(checkTaxonomyIds(['skill-reading', 'skill-reading'], [], TAX).ok).toBe(false)
+  })
+  it('분류를 못 읽었으면 통과시키지 않는다', () => {
+    expect(checkTaxonomyIds([], [], []).ok).toBe(false)
   })
 })
 

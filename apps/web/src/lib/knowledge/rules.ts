@@ -58,6 +58,32 @@ export function checkNewItem(input: NewItemInput): RuleResult {
   return { ok: true }
 }
 
+const CONDITION_DIMENSIONS = ['age', 'proficiency', 'exam', 'process', 'question'] as const
+
+/**
+ * 분류 ID 검증 — 영역(skill_ids)은 skill 차원, 조건(condition_ids)은 나머지 다섯 차원에 **실제로 있는** ID 만.
+ * knowledge_items 의 text[] 는 FK 를 걸 수 없으니(스냅샷 분류는 batch 단위) 쓰기 전에 여기서 막는다.
+ * 분류를 못 읽었으면(빈 목록) 통과시키지 않는다 — 검증할 수 없는 것을 검증된 것처럼 저장하지 않는다.
+ */
+export function checkTaxonomyIds(
+  skillIds: string[],
+  conditionIds: string[],
+  taxonomy: { id: string; dimension: string }[]
+): RuleResult {
+  if (taxonomy.length === 0) return { ok: false, error: '분류 축을 읽지 못해 영역·조건을 검증할 수 없습니다' }
+  const dimOf = new Map(taxonomy.map((t) => [t.id, t.dimension]))
+  if (new Set(skillIds).size !== skillIds.length || new Set(conditionIds).size !== conditionIds.length) {
+    return { ok: false, error: '같은 영역·조건을 두 번 골랐습니다' }
+  }
+  const badSkill = skillIds.find((id) => dimOf.get(id) !== 'skill')
+  if (badSkill) return { ok: false, error: `영역이 아닌 값입니다: ${badSkill}` }
+  const badCondition = conditionIds.find(
+    (id) => !(CONDITION_DIMENSIONS as readonly string[]).includes(dimOf.get(id) ?? '')
+  )
+  if (badCondition) return { ok: false, error: `조건이 아닌 값입니다: ${badCondition}` }
+  return { ok: true }
+}
+
 /** implements 는 한 층 위로만 (공부법→방법론→원리→본질). DB 트리거와 같은 규칙. */
 export function checkImplements(from: Layer, to: Layer): RuleResult {
   return LAYER_RANK[from] === LAYER_RANK[to] + 1
