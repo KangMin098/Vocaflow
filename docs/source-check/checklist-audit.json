@@ -44,6 +44,29 @@
     }
    },
    "wrong": []
+  },
+  {
+   "batch": 4,
+   "date": "2026-09-27",
+   "criteria_version": 8,
+   "bySource": {
+    "nasa": {
+     "audited": 1,
+     "auditedKeep": 1,
+     "wrongKeep": 0
+    },
+    "space_place": {
+     "audited": 1,
+     "auditedKeep": 1,
+     "wrongKeep": 0
+    },
+    "openstax": {
+     "audited": 2,
+     "auditedKeep": 1,
+     "wrongKeep": 0
+    }
+   },
+   "wrong": []
   }
  ]
 }
