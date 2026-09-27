@@ -1,0 +1,913 @@
+[
+  {
+    "id": "04c9be08-cb3b-4470-bf49-003c211b074e",
+    "source_updated_at": "2026-09-27T18:08:28.35339+00:00",
+    "body_sha256": "734c88b8cef1288ed7eb46ce3e587dfe8a476343e04b3a3cd27456df84272a5d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "복권 당첨권이 청구됐다 → 검증되면 월요일 지급 → 당첨자가 공개 여부를 정한다는 다음 절차가 첫 단락에서 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A winning EuroMillions lottery ticket, worth",
+      "note": "당첨 번호 나열과 끝의 「Related news」 잔재는 걷고, claimed→validated 를 쉬운 말로 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "0b8a0761-0e66-4871-b80d-8a5a8798db43",
+    "source_updated_at": "2026-09-27T18:08:35.015846+00:00",
+    "body_sha256": "c0b69d0eb97a132b5d0da0e8b446b80cdd71aaa027e6ec9399c3021f584f7c3a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카터가 극북부 석권을 주장하고 그 근거로 여론조사를 댄 첫 단락에서 주장-근거가 이어져 짧지만 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Its founder claims Katter's Australian Party",
+      "note": "「not not all that interested」 오타를 고치고 preferences(선호 배분)를 풀어 써야 한다 — 선거 제도 배경 없이는 둘째 문장이 약하다."
+    }
+  },
+  {
+    "id": "0c8649f9-8c19-4d13-bbfc-25fa8c0933d5",
+    "source_updated_at": "2026-09-27T18:08:30.311987+00:00",
+    "body_sha256": "8a54f7a7ec621c720d3a3e746685604da7edf9a35bf0a75063ec94c65c2da047",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "르와인 부고는 사망 소식 한 문장 뒤에 AP·CNN 재직 연도만 이어져 문장 사이를 잇는 사건이 없는 경력 나열이라 칸이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "American journalist Frances Lewine, who served",
+      "note": "떼어 내기는 되지만 이름·연도를 걷으면 남는 사건이 없다."
+    }
+  },
+  {
+    "id": "13d1577d-61f3-4383-8434-7bbd75b49317",
+    "source_updated_at": "2026-09-27T18:08:27.090744+00:00",
+    "body_sha256": "ecf6fa44d43dc920324cb50de401983eaabd449b7c94d76dc9f0e8a995337f23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "링컨셔 차량 충돌 단신이 사고 경위 → 사망·부상 → 경찰의 정보 비공개와 부상 정도 발표로 반응까지 이어져 내용 일치 칸이 선다(사망 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One person has been killed and",
+      "note": "「occupents」 오철자를 고치고 도로·시각을 걷어도 사고-결과-경찰 반응이 선다."
+    }
+  },
+  {
+    "id": "182aa24e-2eab-4f6c-9592-4461a83ef296",
+    "source_updated_at": "2026-09-27T18:08:30.956467+00:00",
+    "body_sha256": "b14f1de820f0c0a578f85d84841fc218f871ef32768ed4f995779372828fe07a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "히스 레저 사망 보도가 추정 사인 → 가정부의 발견 경위 → 출연작으로 이어지는 한 꼭지라 내용 일치 칸이 서되, 약물 과다·나체 발견 묘사 때문에 고2 이상만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to police in New York",
+      "note": "「naked body」 등 발견 장면 묘사는 가공 때 걷어낸다 — 걷어도 사망·발견·경력이 선다."
+    }
+  },
+  {
+    "id": "1f2fd788-7c1d-4b40-b874-bad1a1d7e6ac",
+    "source_updated_at": "2026-09-27T18:08:23.793536+00:00",
+    "body_sha256": "7d65983172b2be51f8a37873d703f9d035e621c4fa25b56579ee98fc78b42dca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "글래스고 라디오 진행자 피살 사건이 피고 출석 → 혐의 → 피해자·발견 경위 → 답변 거부·구금으로 절차가 이어져 내용 일치 칸이 선다(살인 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A man has appeared in a",
+      "note": "remanded in custody·agony aunt 를 풀어 쓰면 되고, 고유명사를 걷어도 법정 절차 흐름이 남는다."
+    }
+  },
+  {
+    "id": "2ce61186-4d8e-41cb-86b9-aa3b7d30db01",
+    "source_updated_at": "2026-09-27T18:08:33.614878+00:00",
+    "body_sha256": "62ae8b642d4a3d6e41356c48e67ad41a9e5a277786f8242dabbeec95f7177fbf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "디 스테파노 부고가 2004년 폭행 → 혼수 → 86세 사망이라는 원인 연결을 문장으로 이어 가 30어 남짓이지만 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Giuseppe Di Stefano, Italian tenor died",
+      "note": "세 문장이라 선지를 많이 못 만든다 — 원인 사슬은 선다."
+    }
+  },
+  {
+    "id": "358bdf36-2528-4e8e-9f8b-8a6e84fcfca0",
+    "source_updated_at": "2026-09-27T18:08:33.614878+00:00",
+    "body_sha256": "4042769a52c19e26b7011260260ad35086232e92cea342be727fe94f0e13f3f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "젤닉 부고는 이름·직함과 사망, 장례 일정 한 줄뿐이라 문장 사이를 잇는 사건 없이 이름·일정만 남아 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Joseph Zelnik, editor of the Cape",
+      "note": "이름과 일정을 걷으면 남는 내용이 없다."
+    }
+  },
+  {
+    "id": "3cacaa2a-e9eb-475a-940d-ae8a4f7480b2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80af52c05fa782f2997704c922f0261d1e0683b06508f03435ea12afde17d650",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프라우드 보이스 평결 기사가 유죄 평결 → 혐의별 결과 → 페촐라만 선동 공모 불일치·폭행 유죄라는 대조로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tarrio, Nordean, Biggs and Rehl were",
+      "note": "seditious conspiracy·hung jury 를 풀어 쓰면 V6 가능 — 둘째 단락의 혐의 나열은 줄인다."
+    }
+  },
+  {
+    "id": "3cad3308-ab4f-43d6-b520-0942d1b34685",
+    "source_updated_at": "2026-09-27T18:08:30.311987+00:00",
+    "body_sha256": "6673d4f112f59ff02062d18e250a049f797d89516726ee72c9e49315afe83aa7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "플레셰트 부고는 호흡부전 사망과 2006년 폐암 치료 두 문장이라 사인 연결이 암시에 그쳐, 사건 연결로 볼지 경력·병력 나열로 볼지 갈린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Suzanne Pleshette, known for her regular",
+      "note": "출연작을 걷으면 두 사실만 남고 둘 사이 인과는 본문이 말하지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "3cdbbab8-d1e1-4b07-b092-7f2f4129c91f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75be548afb68303602f9ed6a79eaa7f195c4feeefbf68946da2ff1a18feecf0b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "100달러 노트북 기사가 누가 만드는지 → 목적(디지털 격차 해소) → 원가를 낮추려 오픈소스를 쓴다는 이유로 이어져 주제·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The project aims to allow children",
+      "note": "사양 수치(500MHz 등)는 걷어도 목적-수단이 서고, digital divide 에 풀이를 달면 V4."
+    }
+  },
+  {
+    "id": "3cde9bb3-b0a3-4e53-85f0-f529345d2977",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80a6b98db878bc6b6e5fe9eb96e4eeb245672f21c705024e21aa91529c93ee1f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "넬슨 부고가 1969년 연설 → 1970년 첫 지구의 날 → 1995년 훈장으로 생애 사건을 시간순으로 이어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He created the concept of an",
+      "note": "cardiovascular failure 를 heart failure 로 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "3ce4d13e-f0e1-4baa-bdc8-6dddb1ba06f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1687fe9f0df4291c7bda8fae6d39f3a5f6b03cd49489d44d2d2fc0a37506e6e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "폴란드 총선 출구조사 기사는 두 단락이 득표율 나열이고 마지막 단락만 두 당 의석이 개헌선에 3석 모자란다는 결과를 말해, 득표율 나열 폐기와 결과 연결 보관 사이에 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "PO and PiS, both of which",
+      "note": "마지막 단락은 떼어지지만 앞의 수치를 빼면 「3석 모자람」의 무게가 안 선다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "3cf1d77b-3382-4807-a3df-48423cfc3042",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a9fe3d505f3575d4d6627fa0c8056e10eb30195baa49ef9d61c3d8a024dfe7e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "클린턴 경선 중단 발표 → 지지자 이메일의 오바마 축하 → 오바마의 반응으로 사건과 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Clinton campaign has announced that",
+      "note": "presumptive nominee·suspend 를 풀어 쓰면 V4 로 내려가고, 66어라 선지 수가 적다."
+    }
+  },
+  {
+    "id": "3cf76403-9284-45a4-af2a-b471e6bae037",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80a79659f725df233fdb81d8d98e69c55374c3e33395036462e351a69c39e757",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "태국 정부가 반정부 집회 호소를 사회 혼란 위협으로 보고 사이트 차단을 검토 → 위성방송 중단 보도로 원인·조치가 이어져 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The report claims that a document",
+      "note": "Sondhi/Sondi 표기가 섞여 통일해야 하고, instigator 를 cause 로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "3d098df2-58e9-4760-8c2d-a033d69dbc26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8f5f365a2bd4e8c32ffae02b7ed28e4feff6a565ac5dd47545180ba035797748",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "아카데미 연기상 네 부문을 유럽 배우가 휩쓸었다는 첫 문장 아래 수상자별 사례가 받쳐 주는 구조라 수상자 이름 나열이 아니라 주제·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As English-Irish actor Daniel Day-Lewis took",
+      "note": "「enterpreneur」 오철자를 고치고, 인물 이름을 걷으면 국적-수상의 대응만 남아 주제문은 유지된다."
+    }
+  },
+  {
+    "id": "3d138545-6d1f-40f0-9523-9b163cd99fb7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "211ee0f35fcc52bcad0be97a814d5a19fb80882c7b4124d79fa6d7dbf90a6734",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시드니 30A 시위가 경찰의 오페라하우스 앞 불허 → 수주 협의 → 커스텀스 광장 합의로 이어지고 주최 측 발언은 한쪽 입장 인용이라 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plans for the mass gathering",
+      "note": "「Howard¹s」 깨진 문자와 긴 인용을 줄이면 불허-협의-합의 흐름이 순서 문항으로 잘 떨어진다."
+    }
+  },
+  {
+    "id": "3d265ef4-08f6-4bf3-94c9-6d0450e80e66",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc464c42d0442366a9fe1a4cac55cdcd35427af490179694f953099489dac5fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "시복 절차의 뜻 → 통상 5년 대기 → 이번 면제와 마더 테레사 선례 → 교구 절차로 설명이 이어지고 교리를 사실로 내세우지 않아 내용 일치·빈칸 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Usually there is a five year",
+      "note": "beatification·canonization 에 풀이를 달고 santification 오철자를 고치면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "3d284f31-4eeb-4516-8b93-6a5891196e41",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6d3c70fbf036ad43454421cb2c2114fa153436eda3072f092d46cd5f3c02590f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "중국 남부 폭우 기사가 피해 → 제방 붕괴로 악화 → 계속될 예보 → 열파와 한랭전선이 만나 비가 시작됐다는 원인으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The rains started when a heat",
+      "note": "exacerbating·inclement 를 worsening·bad 로 바꾸면 V4 이고 도시명 오철자(Congqing)는 걷는다."
+    }
+  },
+  {
+    "id": "3d28ead2-fbee-4fc0-a237-e4a8852fc939",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e96aad9fc65fb10f222cd0ee44c324850e27863c8a62d582c1cad538fdb7e021",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "독일 GDP 감소 기사가 감소폭 → 수출·투자 급감이라는 원인 → 이코노미스트 반응 → 다른 유럽 국가 비교로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to official figures, Germany's economy",
+      "note": "contracted·consecutive 를 shrank·in a row 로 바꾸면 V5 — 수치는 선지 재료로 남긴다."
+    }
+  },
+  {
+    "id": "3d40f807-2355-47c3-9a29-df5c7e93f75f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "02fdd31d958fdcaf6df66063c78863f90a06ca501373ef6916e44159be9ba13d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유출된 NATO 보고서가 폭력 증가와 자살폭탄 감소·주민 제보 증가를 대조하며 치안 인식을 전해 수치 속에 대조 흐름이 있어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The document shows a sharp increase",
+      "note": "마지막 단락의 「unrelated leak case」 인용은 다른 사건이라 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "3d43172f-2099-42ca-8120-ffeebcb69ab0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2528f5edd0c604647a76ceec94770462e5133f1ad6f93ae1492e65f482d41e48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뉴욕 택시 과다요금 기사가 교외 요금 설정이라는 수법 → 규모 → 시장의 처벌 발언 → 노조의 기술 오류 반론으로 양쪽 반응이 이어져 내용 일치·요약 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The New York Taxi Workers Alliance",
+      "note": "「past 26」 뒤 낱말(months)이 빠져 보충해야 하고, 요금 수치를 걷어도 고발-반론 구조가 선다."
+    }
+  },
+  {
+    "id": "3d4b6bc2-5930-4ed7-b5a6-73b512be7c33",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2692013f7e2cf14286cffb5776dae07a69e9670eeae000294689d563127707c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "목사 후보의 교회 시설 선거 이용 → 같은 달 코네티컷의 두 번째 정교분리 논란 → 오하이오 대형교회 고발로 같은 쟁점의 사례가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The MacLean controversy also comes on",
+      "note": "「districtand」「meetings.In」 붙은 낱말을 떼야 하고, tax-exempt·partisan 을 풀어 쓰면 V6."
+    }
+  },
+  {
+    "id": "3d784a50-a14b-4417-af7b-d181c6b37a13",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0e97a7e99227dfa844df93f7d2795251d2e2d8ea3134a51cac2acaac457458a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "IBM 의 인도 60억 달러 투자 기사가 발표 → 이전 투자·경쟁사와 비교 → 일자리 효과 → 향후 계획으로 이어져 내용 일치 칸이 선다(첫 문장 주어만 빠짐).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "IBM is currently the largest multinational",
+      "note": "첫 문장이 주어 「IBM」 없이 시작해 제목에서 보충해야 한다 — 그 밖은 끊김 없이 선다."
+    }
+  },
+  {
+    "id": "3d93ce30-e3bd-4669-979e-cef6aee14348",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f099ba0b644e32efb4277294a14f6b42c54f73821ae138158f822d46c54c103",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산호세 시장 기소 → 자진 출두·보석 → 쓰레기 계약 수사 배경 → 기자회견·심리 일정으로 절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ron Gonzales, the mayor of San",
+      "note": "indicted·surrendered 를 charged·turned themselves in 로 바꾸면 V5."
+    }
+  }
+]
