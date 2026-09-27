@@ -86,7 +86,9 @@ function linesOf(items) {
       s += it.str
       end = it.x + it.w
     }
-    return s.replace(/\s+$/, '')
+    // NUL(U+0000)은 유니코드 대응이 없는 기호 글리프다(요약문 40번의 ↓ 화살표 등). Postgres 텍스트가
+    // 받지 못해 적재가 `unsupported Unicode escape sequence` 로 통째로 멈춘다(2026-09-28 실측) — 지운다
+    return s.replace(/\u0000/g, '').replace(/\s+$/, '')
   })
 }
 
