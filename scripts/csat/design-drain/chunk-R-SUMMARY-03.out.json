@@ -1,0 +1,96 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-SUMMARY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2021#40",
+      "roles": ["topic", "support", "support", "support", "support", "example", "support", "example", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "topic" }, { "index": 0, "role": "background" }],
+      "pattern": "myth_rebuttal",
+      "selection": "정치권력을 곧 지배·강제로 보는 서구의 통념을 아마존 원주민 사례와 인류학자 인용으로 반박하는 글이라, 통념과 반박을 한 문장으로 갈라 적는 요약문 유형에 맞는다.",
+      "transform": "negation_flip",
+      "transform_note": "(B)는 ‘강제력 관념은 보편이 아니다’라는 부정 진술이 요약문의 부정어 뒤 ‘한결같은(uniform)’으로 바뀐 것이고, (A)는 그 통념을 남의 문화에 대는 일이 ‘잘못되었다’로 판정한 것이다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2020#40",
+      "roles": ["background", "topic", "example", "turn", "support", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "topic" }, { "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "코끼리 인사의 형태·강도가 유대의 세기와 떨어진 기간이라는 두 변수를 함께 반영한다는 글이라, 요약문의 두 칸에 두 변수를 나눠 넣게 하기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 ‘떨어져 있던 기간’이 ‘얼마나 오래 떨어져(parted) 있었나’로, (A)는 ‘친밀도·유대의 세기’가 ‘사회적으로 얼마나 묶여(tied) 있나’로 같은 수준에서 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#40",
+      "roles": ["background", "support", "example", "topic", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "support" }],
+      "pattern": "cause_effect",
+      "selection": "사람이 현재의 산출을 선호한다는 전제에서 화석연료의 시간적 우위라는 결론으로 가는 인과 구조라, 원인과 결과를 두 칸으로 나누는 요약문에 알맞다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 화석연료가 재생에너지보다 갖는 ‘시간적 우위’가 ‘더 경쟁력 있다’로, (A)는 ‘현재 소비·수익 선호’가 ‘즉각적인 산출’로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2018#40",
+      "roles": ["topic", "example", "support", "turn", "support", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "topic" }, { "index": 0, "role": "background" }],
+      "pattern": "cause_effect",
+      "selection": "같은 분야 사람과의 온라인 교류가 정보를 지나치게 걸러 새로운 착상을 줄인다는 인과를 실제 서가 탐색과 대비하는 글이라, 원인(정보원 제한)과 결과(뜻밖의 발견 감소)를 두 칸에 담게 한다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 서가 탐색의 ‘예측 가능한 발견과 놀라운 발견의 혼합’ 중 놀라운 쪽이 ‘뜻밖의(unexpected)’로, (A)는 ‘다양성을 없앤다’가 ‘제한한다’로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2017#40",
+      "roles": ["topic", "support", "example", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 5, "role": "example" }, { "index": 0, "role": "background" }],
+      "pattern": "general_specific",
+      "selection": "관광의 환경 영향을 주민들이 제각각 다르게 본다는 주장을 긍정·부정 반응 사례와 연구로 받치는 글이라, 차이와 그 요인을 한 문장에 모으는 요약문에 맞는다.",
+      "transform": "compression",
+      "transform_note": "(B)는 일부 주민의 긍정 반응과 다른 주민의 우려라는 여러 문장이 ‘서로 다른(dissimilar) 태도’로 합쳐졌고, (A)는 환경 피해를 관광 탓으로 ‘돌리다’가 ‘평가하다(weigh)’로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2016#40",
+      "roles": ["topic", "support", "example", "example", "example", "example", "conclusion", "conclusion"],
+      "alternatives": [{ "index": 6, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "실적 평가는 개인이 통제할 수 없는 상황 요인을 걸러 봐야 한다는 원칙을 판매 불황 사례로 구체화하는 글이라, 원칙을 요약문 두 칸으로 되받게 한다.",
+      "transform": "compression",
+      "transform_note": "(A)는 ‘모두의 실적을 끌어내리는 넓은 경제적 요인’과 불황 사례가 ‘상황적(contextual)’ 한 낱말로 압축됐고, (B)는 ‘수치에만 의존하다’로 사례의 교훈을 받는다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2015#40",
+      "roles": ["background", "support", "support", "topic", "support", "example", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "플라톤과 톨스토이의 ‘예술 효과는 확실하다’는 주장을 전환 뒤 반박하는 통념-반박 글이라, 양보절(주장)과 주절(실제)로 가르는 요약문 형식과 맞아떨어진다.",
+      "transform": "paraphrase",
+      "transform_note": "(B)는 ‘반응의 강도와 형태가 사람마다 크게 다르다’가 ‘다르다(differ)’로, (A)는 두 사람이 가정한 확실한 효과가 ‘피할 수 없는’으로 옮겨졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#40",
+      "roles": ["topic", "example", "example", "support", "support", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "general_specific",
+      "selection": "로볼링 기법을 정의한 뒤 두 이론(자기지각 · 인상관리)으로 효과를 설명하는 글이라, 두 설명을 or 로 나란히 두 칸에 받게 하는 요약문에 알맞다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 원래 조건에 동의한 행동에서 진지한 관심을 추론해 추가 비용을 견딘다는 과정이 결정을 ‘정당화하다’로 올라갔고, (B)는 무책임한 소비자라는 인상을 피하는 것이 ‘체면(face)’으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

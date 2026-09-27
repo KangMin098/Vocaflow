@@ -1,0 +1,229 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-SUMMARY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2206#40",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "나무 심기의 사회·정치적 의미를 영국 귀족 사례로 풀면서 소유의 영속 선언과 애국 행위라는 두 기능을 겹쳐 놓아, 두 기능을 각 칸에 담는 요약에 맞다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 소유 주장의 영속성을 ‘지속되는’으로, 결정 칸 (B)는 애국 행위로 여겨졌다는 진술을 충성의 ‘표현(드러냄)’으로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#40",
+      "roles": [
+        "example",
+        "example",
+        "example",
+        "example",
+        "support",
+        "turn",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "background"
+        }
+      ],
+      "pattern": "study_implication",
+      "selection": "미국 설문 연구를 소개한 뒤 사람들이 저마다 고립감을 느끼지만 사실 모두가 같은 걱정을 한다는 함의로 맺는 글이라, 믿음과 실제의 대비를 두 칸에 담는다.",
+      "transform": "negation_flip",
+      "transform_note": "(A)는 물질주의가 사회적 가치 추구를 가로막는다는 믿음을 ‘추구하는’으로, 결정 칸 (B)는 개인적 양가감정처럼 느껴지나 남들도 같은 생각이라는 발견을 ‘흔한’ 걱정으로 뒤집어 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2106#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "화석화가 환경 조건에 좌우된다는 원인에서 화석 수·출현 시기를 곧이곧대로 읽을 수 없다는 결과를 끌어내는 인과 글이라, 원인과 결과를 두 칸에 나눈다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 시기·장소에 따라 화석화에 유리한 여건이 다르다는 진술을 ‘환경적’ 조건으로, (B)는 개체 수·출현 시기를 단정할 수 없다는 여러 문장을 ‘밝혀낼’ 수 없다로 끌어올렸다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#40",
+      "roles": [
+        "background",
+        "support",
+        "turn",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "지속가능성이라는 말이 처음엔 겉치레 홍보어였다가 뒤에 진지하게 쓰이게 된 변화를 시간 순으로 대조한 글이라, 전후 두 시기를 두 칸에 담는다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 친환경으로 보이고 싶지만 실제로 바꿀 뜻은 없던 이들을 ‘~인 척했다’로, (B)는 폐기물·배출 감축을 맡긴 실제 조치를 생각을 ‘실현하다’로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#40",
+      "roles": [
+        "topic",
+        "example",
+        "example",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "지역 연결망과 세계적 연결망을 결속력·정보·범위에서 맞세우는 대조 글이라, 한쪽의 약점과 다른 쪽의 이점을 두 칸에 담는다.",
+      "transform": "negation_flip",
+      "transform_note": "(A)는 외부와 연결이 없다는 결핍 진술을 ‘느슨한’ 유대로, (B)는 새 정보의 꾸준한 유입에서 이익을 얻는다는 진술을 ‘이익을 얻다’로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#40",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "turn",
+        "support",
+        "turn",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "공연 예술이 외부 지원 의존으로 경제적으로 불안정하지만 일회적 현장 경험의 매력으로 관객을 붙든다는 대비를 담아, 어려움과 지속을 두 칸에 나눈다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 경제적으로 불안정해진다는 진술을 재정적 ‘어려움’으로, 결정 칸 (B)는 매혹의 힘을 유지한다는 진술을 관객을 ‘확보한다’로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "concession",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "합성 성분이 더 해롭다는 통념을 먼저 내놓고 제조 과정의 통제성과 천연 성분의 변동성으로 반박하는 글이라, 반박 근거와 통념에 대한 태도를 두 칸에 담는다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 정밀하게 통제된 제조와 잘 정의된 조성을 ‘예측 가능성’으로, (B)는 통념이 늘 맞지는 않다는 첫 문장을 통념에 ‘이의를 제기하다’로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "example",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "여러 과학을 한꺼번에가 아니라 차례로 익히면 업적이 가능하다는 주장과 그 뇌의 원리를 이어 설명하는 글이라, 방법의 효과와 원리를 두 칸에 담는다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 평범한 재능도 주목할 업적을 낼 수 있다는 진술을 ‘가능하게 한다’로, (B)는 새 학습을 위한 공간이 충분히 남는다는 진술을 여지를 ‘남긴다’로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#40",
+      "roles": [
+        "background",
+        "topic",
+        "support",
+        "support",
+        "turn",
+        "concession",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "concession"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "장인정신이 산업 사회와 함께 사라졌다는 통념을 반박하고 오래 지속된 욕구임을 밝힌 뒤 그 발전을 막는 조건들로 넘어가, 지속성과 방해 요인을 두 칸에 담는다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 오래 지속되는 기본 욕구라는 진술을 ‘지속되어 왔다’로, (B)는 사회 조건이 방해하고 경쟁 압력이 약화한다는 진술을 발전을 ‘제한하다’로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "contrast",
+      "selection": "과학적 설명에 관한 두 견해(최소 일반화로 통합 · 인과 기제 규명)를 차례로 제시하는 대조 글이라, 두 견해의 핵심을 한 칸씩 담는다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 최소한의 일반화 수를 ‘가장 적은’ 원리로, 결정 칸 (B)는 개별 현상에서 흘러나오는 일반화의 설명을 규칙성을 낳는 일반 ‘패턴’으로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

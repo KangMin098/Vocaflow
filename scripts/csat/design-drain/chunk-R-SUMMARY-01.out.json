@@ -1,0 +1,249 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.3",
+  "type": "R-SUMMARY",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#40",
+      "roles": [
+        "background",
+        "background",
+        "background",
+        "topic",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "problem_solution",
+      "selection": "제약 산업이 돈 되는 병에만 자원을 쏟는 문제를 먼저 깔고 인공지능이 그 불균형을 줄인다는 해결로 넘어가는 글이라, 문제와 해결 두 축을 한 문장에 담는 요약문에 맞다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 지문이 되풀이한 ‘방치된 병’의 방치를 같은 뜻의 명사(무시)로, (B)는 ‘방치된 집단’을 ‘의료를 덜 받아 온 집단’으로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#40",
+      "roles": [
+        "background",
+        "background",
+        "support",
+        "support",
+        "example",
+        "topic",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "순수 문학과 장르물·만화의 인물 재등장을 대조하고, 오랜 연재 속 인물 변화까지 이어지는 두 단계 논지라 두 칸 요약으로 대조와 변화를 함께 묻기 좋다.",
+      "transform": "compression",
+      "transform_note": "(A)는 ‘후속 작품에 다시 나오는 일이 드물다’를 재등장 동사로, (B)는 여러 작가 손을 거치며 크게 달라진다는 여러 문장을 ‘변형’ 한 낱말로 압축했다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 4,
+          "role": "support"
+        }
+      ],
+      "pattern": "cause_effect",
+      "selection": "기술 실업이 소득 분배와 일의 의미라는 두 층위를 함께 무너뜨린다는 인과 구조라, 경제적 결과와 정서적 결과를 각각 한 칸에 담게 할 수 있다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 성장의 열매를 일자리로 나눠 가진다는 진술을 ‘부의 분배’로, (B)는 일에서 느끼는 성취감을 ‘정서적 보상’으로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "동물의 한 소리 한 메시지 원리와 인간 언어의 제한된 소리 조합 원리를 맞세운 대조 글이라, 대조의 양쪽을 두 칸에 나눠 담기 좋다.",
+      "transform": "paraphrase",
+      "transform_note": "(A)는 하나의 소리가 하나의 메시지를 뜻한다는 원리를 ‘나타낸다’로, (B)는 서른에서 마흔 개 정도로 제한된 소리를 ‘유한한’으로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#40",
+      "roles": [
+        "background",
+        "concession",
+        "topic",
+        "example",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "경제 성장으로 기근을 막으려는 경향을 먼저 소개하고 일부 인정한 뒤 직접적 공공 지원이 핵심이라고 반박하는 글이라, 양보와 주장을 두 칸에 맞세우기 좋다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 성장의 기여를 부정할 수 없다는 양보를 ‘다소 유익한’으로, (B)는 사례국들의 진짜 성과가 직접 지원에 있다는 진술을 ‘결정적인’ 역할로 끌어올렸다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2409#40",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "example",
+        "support",
+        "example",
+        "topic",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "역사 소설이 기록이 부족한 과거를 되살리며 대중과 역사가 모두에게 배울 거리를 준다는 주장을 인용과 사례로 쌓은 글이라, 한계와 가치를 두 칸에 담는 요약에 맞다.",
+      "transform": "inference",
+      "transform_note": "(A)는 기록 부족·증거 부족이라는 진술을 ‘불충분한’ 증거로 옮겼고, 결정 칸 (B)는 이해를 ‘풍부하게 한다’가 지문에 직접 없고 배울 수 있다는 결론에서 복원해야 한다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#40",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "진화가 완벽한 적응이 아니라 조상에게서 물려받은 특성에 제약된다는 일반 원리를 척추동물·코알라 사례로 구체화한 글이라, 요약문에서 특성이 적응을 막는다는 역설을 묻기 좋다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 조상의 특성이 이후 진화를 제약하고 코알라가 유칼립투스 없이 못 산다는 사례를 적응의 ‘장애물’로, (B)는 사는 환경을 ‘주변 환경’으로 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2309#40",
+      "roles": [
+        "background",
+        "background",
+        "concession",
+        "turn",
+        "topic",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "디자이너 개인의 개성을 중시하는 통념을 인정한 뒤 대규모 사업에서는 관리와 조직이 그만큼 중요하다고 뒤집는 글이라, 조건과 능력을 두 칸에 묻기 좋다.",
+      "transform": "abstraction",
+      "transform_note": "(A)는 작은 물건과 대규모 사업의 구분을 사업의 ‘규모’로, (B)는 창의적 관리자 역할과 관리 조직을 팀 환경을 ‘조율하는’ 능력으로 끌어올렸다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2306#40",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "example",
+        "example",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 1,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "기술이 몸은 움직이지 않게 하면서 이동성과 권력은 키운다는 역설, 그리고 이동의 권리에서 밀려난 계층을 맞세운 글이라, 역설과 사회적 문제를 두 칸에 담는다.",
+      "transform": "compression",
+      "transform_note": "(A)는 몸이 수동적 용기가 되어 대부분 쉰다는 진술을 ‘필요한’ 움직임이 줄었다로, 결정 칸 (B)는 엘리트와 배제된 이들의 대비를 사회적 ‘불평등’ 한 낱말로 압축했다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2209#40",
+      "roles": [
+        "background",
+        "support",
+        "support",
+        "support",
+        "concession",
+        "turn",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "topic"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "컴퓨터의 정보 처리 장점을 길게 인정한 뒤 「그러나」로 관점을 줄인다는 약점으로 뒤집는 글이라, 장점과 약점을 두 칸에 나누는 요약문에 맞다.",
+      "transform": "negation_flip",
+      "transform_note": "(A)는 정보 문제를 해결했다는 장점을 ‘유능한’으로, 결정 칸 (B)는 관점을 줄이고 맥락을 잃게 한다는 부정 진술을 ‘포괄적인’ 판단을 방해한다로 뒤집어 옮겼다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}
