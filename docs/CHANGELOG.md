@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 4·5 적재 — 기준 v8 첫 배치**(2026-09-27 · DB: `gate.retain` 1,066행 · migration 0): 배치 4 space_place·openstax·nasa 66편 keep 60 · hold 2 · discard 4(바로 확정 64.5%) — 비논문 작은 원천 셋 끝. 배치 5 wikinews 1,000편 keep 973 · hold 15 · discard 12(바로 확정 **81.8%**, 배치 3 76.4%). v8 로 `gap` 보류 2.2% → 0.1%. 감사 누적 wikinews 체크리스트 keep 71편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 15,776(wikinews).
 - **판정 기준 v8**(2026-09-27 · DB 0 · migration 0): 체크리스트 배치 3 의 `gap` 14편 중 8편이던 두 자리를 기준에 적었다 — §5 `polemic` 은 글 자체의 선동만(취재원이 자기 입장을 말하는 인터뷰·보도는 보관) · §8 노골적 성 묘사·비속어 글도 `adult` 칸(떼어 낼 문단이 없으면 폐기). 전문 판정이 이미 이렇게 판정하던 것을 판정자가 기준에서 찾게 해 `gap` 보류(전문 판정 비용)를 줄인다. 인용 빠짐 손상은 wikinews 0.15%라 개정하지 않음. `CRITERIA_VERSION` 8 · checklist-draft 안내 추가.
 - **체크리스트 배치 3 적재 — wikinews 일반 기사 500편**(2026-09-27 · DB: `gate.retain` 500행 · migration 0): 바로 확정 363(감사 밖 475편 중 76.4% — 단신 48~57%보다 높다) · 전문 판정 137 → 합계 keep 483 · hold 8 · discard 9. 감사 누적 wikinews 체크리스트 keep **30편 · 오판 0** — 원천 끄기 판단선(30편)에 처음 닿았고 wikinews 는 체크리스트 경로 유지. 판정자 기준 공백 표시: 한쪽 정치 인터뷰의 polemic 여부 · 노골적 성인 인터뷰(전문 판정은 §8 대로 성인 칸만 두고 보관). 재실행 변경 0.
 - **단신 「가는 연결」 규칙 재측정 — 풀지 않는다**(2026-09-27 · DB 0 · 추가 판정 0): `scripts/csat/checklist-exp/thin-rule.mjs`. `linkThin`→keep 후보 5종이 단신 473편에서 오판 8.4~9.9%, 실험 v2(모집단 가중)에서 20~43% — 3% 기준에 모두 못 든다. 규칙 유지 · 기록 `docs/reports/checklist-exp-20260926.md`.

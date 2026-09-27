@@ -67,6 +67,19 @@
     }
    },
    "wrong": []
+  },
+  {
+   "batch": 5,
+   "date": "2026-09-27",
+   "criteria_version": 8,
+   "bySource": {
+    "wikinews": {
+     "audited": 50,
+     "auditedKeep": 41,
+     "wrongKeep": 0
+    }
+   },
+   "wrong": []
   }
  ]
 }
