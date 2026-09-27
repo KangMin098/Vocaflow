@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **단신 「가는 연결」 규칙 재측정 — 풀지 않는다**(2026-09-27 · DB 0 · 추가 판정 0): `scripts/csat/checklist-exp/thin-rule.mjs`. `linkThin`→keep 후보 5종이 단신 473편에서 오판 8.4~9.9%, 실험 v2(모집단 가중)에서 20~43% — 3% 기준에 모두 못 든다. 규칙 유지 · 기록 `docs/reports/checklist-exp-20260926.md`.
 - **체크리스트 배치 2 적재 — 다시 쪼갠 꼭지 29편**(2026-09-27 · DB: `gate.retain` 29행 · migration 0): 바로 확정 13(48.1%) · 전문 판정 16 → 합계 keep 27 · discard 2(수치만 되풀이되는 실업률·이익 경고 단신). 감사 누적 wikinews 25편(체크리스트 keep 15) 오판 0. 재실행 변경 0.
 - **덜 쪼갠 Wikinews Shorts 꼭지 8행 다시 쪼개기**(2026-09-27 · 판정 기준 v7 §8 · DB: 꼭지 원천 29행 추가 · 부모 8행 `derived_from.kind=digest` · migration 0): 체크리스트 배치 1의 「덜 쪼갠 모음」 보류 8행 전부. 원인 둘 — 2012년 1월 형식은 「Sources」 줄이 없고(6행), `'Sources` 처럼 따옴표 붙은 줄을 못 알아봤다(1행). 빈 줄은 꼭지 경계가 아니라서(한 꼭지가 두세 문단) 에이전트가 본문을 읽고 경계를 `scripts/csat/source-get/wikinews-shorts-resplit.json` 에 적고 `wikinews-shorts-resplit.mjs --commit`(해시 결속 · CAS · 재실행 변경 0 확인)으로 적용. `wikinews-shorts-split.mjs` 는 이제 그 형식을 자동으로 쪼개지 않고 이름만 알린다(`needsManualSplit`) · 따옴표 줄·머리말 처리 · 회귀 4.
 - **체크리스트 배치 1 적재 — Wikinews Shorts 꼭지 444편 보관 판정**(2026-09-27 · DB: `gate.retain` 444행 · migration 0): 체크리스트 바로 확정 keep 238(56.5%) · 전문 판정 206 → 합계 keep 389 · hold 27 · discard 28. 감사 23편(체크리스트 keep 14편) 오판 0 — 원장 `docs/source-check/checklist-audit.json` 첫 항목. 단신은 「가는 연결」 보류 150편 중 134편을 전문 판정이 keep 으로 봐 확정률이 실험(87~90%)보다 낮다. 재실행 변경 0 확인.
