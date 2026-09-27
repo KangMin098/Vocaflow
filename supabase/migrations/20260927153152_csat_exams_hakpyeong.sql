@@ -1,4 +1,4 @@
--- supabase/migrations/20260927150000_csat_exams_hakpyeong.sql
+-- supabase/migrations/20260927153152_csat_exams_hakpyeong.sql
 --
 -- 교육청 전국연합학력평가(학평)를 기출 분석 체계에 **보조·검증 집합**으로 들인다.
 --
