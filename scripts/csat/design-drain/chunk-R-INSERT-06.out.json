@@ -107,7 +107,6 @@
     {
       "id": "2014B#39",
       "roles": [
-        "background",
         "topic",
         "support",
         "example",
@@ -119,7 +118,7 @@
       ],
       "alternatives": [
         {
-          "index": 1,
+          "index": 0,
           "role": "conclusion"
         }
       ],
@@ -132,12 +131,11 @@
         "connective",
         "logic"
       ],
-      "data_defect": "0번 문장이 발문 끝 조각(곳은?)이라 실제 주어진 문장은 1번이 됐다 — 발문·지문 분할 잡음."
+      "data_defect": null
     },
     {
       "id": "2014A#39",
       "roles": [
-        "background",
         "example",
         "background",
         "example",
@@ -156,7 +154,7 @@
         "repetition",
         "logic"
       ],
-      "data_defect": "0번 문장이 발문 끝 조각(곳은?)이고 1번 문장 앞에 배점 표기가 붙어 있다 — 발문·지문 분할 잡음."
+      "data_defect": null
     }
   ]
 }
