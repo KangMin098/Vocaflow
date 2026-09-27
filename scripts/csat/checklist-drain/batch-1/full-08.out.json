@@ -1,0 +1,856 @@
+[
+  {
+    "id": "dc81dcba-8e35-4feb-a5a2-676be5391394",
+    "source_updated_at": "2026-09-26T12:50:53.735416+00:00",
+    "body_sha256": "26afc5c2d24e0914286fc4b3c6bacf448682cfd7ffeb0d1018850121a82ce942",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "아키하바라 난동 부상자 중 B형 간염 의심자 발표 → 혈액 접촉자는 검사받으라는 권고로 이어져 내용 일치·목적 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The police announced on Monday that",
+      "note": "rampage 를 attack 으로 바꾸면 중등 밴드로 내려가고, 발표 → 권고 연결이 두 문장으로 선다."
+    }
+  },
+  {
+    "id": "dd24ad01-2494-424a-baa8-938a922867a7",
+    "source_updated_at": "2026-09-26T12:51:08.496895+00:00",
+    "body_sha256": "86056d700c920c01c775407afe31cb5134a8575c7530218c76c8208c5ac5fa2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "파운드 환율·유로 대비·FTSE 하락 폭만 되풀이되고 문장 사이를 잇는 원인·반응이 없어 수치 나열 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The British pound sterling was down",
+      "note": "떼어 내도 수치 세 개뿐이라 논지나 사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "ddb32a3b-f056-49fe-8337-aeababb7ed9f",
+    "source_updated_at": "2026-09-26T12:50:51.211207+00:00",
+    "body_sha256": "464e34b005fed29b239524506cd8470bc9d7a2ce5075be0a18fc8f85f34bef0f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "history",
+    "why": "스톤헨지가 왕가 묘지였다는 연구 주장 한 줄과 그 부연뿐이라 원인·반응·다음 절차의 연결이 있다고 보기 애매하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A recently released study has claimed",
+      "note": "두 문장이 같은 주장을 반복할 뿐이라 내용 일치 선지를 둘 이상 세우기 어려웠다."
+    }
+  },
+  {
+    "id": "de79ea08-f063-4a24-98b1-35547e62ed22",
+    "source_updated_at": "2026-09-26T12:50:56.408681+00:00",
+    "body_sha256": "63bdd3684204e2dafeed658815e0f4ae7a5db6c55d17c55050eec4ef6199dd08",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "소말리아 경찰서 공격 → 경찰서장·민간인 사망 → 목격자 증언으로 사건이 이어져 내용 일치 칸이 선다(폭력 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The attack took place in a police",
+      "note": "지명(Alamada·Mogadishu)을 걷어도 공격-피해-증언 흐름이 남고 grenades 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "dfb63755-542d-4fc9-8a47-9a93f55f5b63",
+    "source_updated_at": "2026-09-26T12:51:23.672878+00:00",
+    "body_sha256": "d2cdfc7b1028a35007d244b58b631ffd65441365752a5d216315f2de42e76c0d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — 파키스탄 탈레반 지도자 사망 단신과 허리케인 펠리시아 하와이 접근 단신이 한 행에 묶여 있다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Pakistani intelligence service sources state that",
+      "note": "무관한 두 꼭지와 'Sources 잔재가 섞여 한 원천으로 가공할 수 없었다 — 꼭지 분할이 먼저다."
+    }
+  },
+  {
+    "id": "e0992fb1-8f71-4ac9-b839-cdd2d48e1938",
+    "source_updated_at": "2026-09-26T12:50:47.877159+00:00",
+    "body_sha256": "c510f1bac61b06c3947e75599d4baa346fd9a6341e06af2a50d9d315f872c439",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "영국 성장 둔화·예측치 하회 발표에 서비스업 0.6% 증가라는 대조가 Despite 로 이어져 경제 단신 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Office of National Statistics (ONS)",
+      "note": "quarter on quarter 같은 통계 용어를 풀어 써야 하고, 인용이 줄바꿈으로 끊겨 가공 때 붙여야 한다."
+    }
+  },
+  {
+    "id": "e1e192b2-f58d-47ec-b14e-45d7993809a5",
+    "source_updated_at": "2026-09-26T12:52:02.506476+00:00",
+    "body_sha256": "ca913d83468aee9b4e119dc8515b8553461d0b67c11cbcca1df9494570c38b6d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "뉴저지 소나무 숲 화재 발생 지점 → 사망자 없이 2,500가구 대피 → 뇌우 경보로 원인·결과·다음 절차가 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In New Jersey, United States, 18,000",
+      "note": "aerial bombing base·ablaze 두 낱말을 바꾸면 중등 밴드로 내려가고 흐름이 짧게 선다."
+    }
+  },
+  {
+    "id": "e1e8a64c-93e2-4769-9be4-eeaebee0d391",
+    "source_updated_at": "2026-09-26T12:51:11.76022+00:00",
+    "body_sha256": "a1c7945e229ffcf03b8119a1da37fb4a182f3d568f7d29555cb56fb7c3f19bcc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "루이지애나 2선거구 개표 결과가 첫 베트남계 하원의원 탄생과 스캔들 현직의원 낙선이라는 결과로 이어진 한 문장 단신이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Republicans experienced another victory late Saturday,",
+      "note": "한 문장이 길어 쪼개야 하고 heralding·incumbent 를 풀어도 선지는 두세 개가 한계다."
+    }
+  },
+  {
+    "id": "e340f8a7-5b01-4cd3-971e-1e4205c168f4",
+    "source_updated_at": "2026-09-26T12:51:42.499826+00:00",
+    "body_sha256": "c3421f8fb16340bbf41cb63da5cababa3f7bef10cb8ce994301a9b91dc5ea5d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바그다드 연쇄 폭탄 사상자 → 차량 폭탄 두 대와 도로변 폭탄 → 건물 화재로 사건 경과가 이어진다(사망 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 90 people were killed",
+      "note": "세 문장이 짧고 쉬워 거의 손대지 않고 떼어 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "e6323dd0-24a4-40c6-b73d-b3350b1f6019",
+    "source_updated_at": "2026-09-26T12:50:58.428661+00:00",
+    "body_sha256": "e85dc20a2ae9b069f27b843c900193808827807d0320af1f134bfa59aff38d93",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "다크 나이트 5억 달러 돌파를 타이타닉 기록과 견주고 1위는 못 넘을 전망·트로픽 선더에 밀림으로 비교가 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "'The Dark Knight', the 2008 film",
+      "note": "it's 오기를 고치면 되고, 두 영화 비교 구조라 내용 일치 선지가 쉽게 섰다."
+    }
+  },
+  {
+    "id": "e69ec71e-b28c-4f19-be6c-b9225cfe1990",
+    "source_updated_at": "2026-09-26T12:51:48.975528+00:00",
+    "body_sha256": "3587a4af10ce481639678b467fccd3a95e1fc9c7df484570f09f037d2b7a1aab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "대법원 6대3 결정이 관타나모 수감자의 인신보호 청구 불가라는 결과로 이어져 원인-결과 한 쌍이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The US Supreme Court majority opinion",
+      "note": "habeas corpus·Military Commissions Act 는 풀어 써야 해서 어휘 조정만으로는 밴드가 안 내려갔다."
+    }
+  },
+  {
+    "id": "e6e39e63-a451-48d0-a52f-ffbe9422d001",
+    "source_updated_at": "2026-09-26T12:51:43.800668+00:00",
+    "body_sha256": "acc65153113db9b43e2fc83b2af01ccfb09ba78d1707be84d048931d7b6bcecb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이란의 이라크 안보회의 참석 전망 → 회의 일정·미이란 첫 고위 접촉·의제·참가국으로 다음 절차가 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iran will probably participate in a",
+      "note": "인물 이름을 걷어도 회의 개요가 남고, 첫 문장의 줄바꿈 끊김만 붙이면 된다."
+    }
+  },
+  {
+    "id": "e87522cc-8a1f-4463-a3a5-8347f2c4fe45",
+    "source_updated_at": "2026-09-26T12:51:37.340228+00:00",
+    "body_sha256": "3e24613f91afb303fb6056c552d3cf62184f8af3609a50af1f256c8592a78bbc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — 하디타 해병 유죄 인정·프랑스 아르메니아 학살 부정 처벌법·파푸아뉴기니 산사태 세 꼭지가 한 행이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "United States Marine Corp staff sergeant",
+      "note": "서로 무관한 단신 셋에 머리 안내문까지 붙어 있어 한 원천으로 판정할 수 없었다."
+    }
+  },
+  {
+    "id": "e8909c13-8a01-4b7c-ad47-ba59d7be379e",
+    "source_updated_at": "2026-09-26T12:51:34.120377+00:00",
+    "body_sha256": "0de7dca691cfa2ddb8b84effe67cd40d236d81ebdd5d34b5dc39fdc68a33b65e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "호킹 신간의 주장(우주 창조에 신이 필요 없다)과 공저자의 한정 발언이 이어져 주장·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In British theoretical physicist Stephen Hawking's",
+      "note": "주장과 공저자의 단서가 짝을 이뤄 요지 선지가 서지만 종교 소재라 발문을 중립으로 둬야 한다."
+    }
+  },
+  {
+    "id": "ea2273e6-b6e7-4c73-97c9-12e6dbba790d",
+    "source_updated_at": "2026-09-26T12:51:43.152649+00:00",
+    "body_sha256": "cc7027910b465a657b130ce13864ad7bb5e5ffb95ec9179f3377a99ee4cbb6e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "climate",
+    "why": "브랜슨의 온실가스 제거 상금 한 문장뿐이라 목적 구절은 있으나 이어지는 사건이 없어 보관 최소선이 애매하다.",
+    "slots": {
+      "ages": [
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Billionaire entrepreneur Richard Branson has a",
+      "note": "한 문장이라 내용 일치 선지를 둘 이상 세울 사실이 없었다."
+    }
+  },
+  {
+    "id": "ea93e5e2-dc47-429f-886a-ea625dae7cf1",
+    "source_updated_at": "2026-09-26T12:51:43.152649+00:00",
+    "body_sha256": "303f8e51d5a570a7913d14a8fdfb8434e12fef669f8a9192b07450b43afc899e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모스크바 이륙 중 전용기 추락 → 승무원 전원 생존 → 초기 오보(저먼윙스 에어버스)로 사건과 보도 경과가 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Bombardier Challenger corporate jet crashed",
+      "note": "기종명을 걷어도 추락-생존-오보 흐름이 남아 사실 확인 선지가 쉽게 섰다."
+    }
+  },
+  {
+    "id": "eb4095d9-c9aa-41d5-b6be-200724655add",
+    "source_updated_at": "2026-09-26T12:51:16.396833+00:00",
+    "body_sha256": "56ee6a3094dba5ea274671b60fde02bdfeb67d26c3e9c31d3a69d90b822266b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "타임워너의 에이도스 지분 매입 주식 수·지분율·날짜만 되풀이되고 매입의 까닭이나 반응이 없어 수치 나열이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Eidos Interactive announced that Time Warner",
+      "note": "떼어 내면 주식 수와 비율만 남아 사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "ec158d10-a491-4377-9c94-6a9e5e907ef7",
+    "source_updated_at": "2026-09-26T12:51:35.40702+00:00",
+    "body_sha256": "b72671ffcb28e4a3735cd112120917999976d79ccdde18393c39543054122899",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "키프로스 대통령이 리비아 정상회의 중 병이 나 카자흐스탄 방문을 취소했다는 원인 → 결과가 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The President of Cyprus Dimitris Christofias",
+      "note": "이름을 the President 로 줄이면 원인-결과가 짧게 서고 어휘는 쉽다."
+    }
+  },
+  {
+    "id": "ed79d047-32ce-4d59-aaf4-e022ef47c229",
+    "source_updated_at": "2026-09-26T12:51:54.148026+00:00",
+    "body_sha256": "d634cc49193383335d2c5d269d7d4cdc8773f7138d1f1ff26db0f59fd0d97410",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "초등 1학년이 주머니에서 코카인 봉지를 발견 → 겁이 나 교사에게 알렸다는 반응이 이어진다(마약 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A bag of cocaine worth around",
+      "note": "짧고 쉬워 그대로 쓸 수 있지만 선지가 두세 개로 한정된다."
+    }
+  },
+  {
+    "id": "ed832be3-4f9e-4781-975e-88667ce17696",
+    "source_updated_at": "2026-09-26T12:50:47.209075+00:00",
+    "body_sha256": "8c0176f1b3bf7d16cc4f8a609bfe83df536e5f7e0f94d7c949b1ca4106788b1e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "시카고 주말 총격 수치와 당일 총격 두 건만 있고 「계속된다」 외에 문장을 잇는 사건이 약해 수치 나열과 경계다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Following a weekend where Chicago saw",
+      "note": "떼어 내면 사상자 수 나열이 대부분이라 흐름이 서는지 판단이 갈렸다."
+    }
+  },
+  {
+    "id": "edfc61f0-0f69-4325-a252-a6d8cacd3f57",
+    "source_updated_at": "2026-09-26T12:52:18.653842+00:00",
+    "body_sha256": "e3df098451badfc4ea9e52b03a8b3c361f1b253f1847e227bb0a0d06b834c71c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "두 신문이 어느 후보를 지지했는지 이름만 바뀌어 나열되고 까닭·반응이 없어 이름 나열 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The Des Moines Register, an Iowa",
+      "note": "떼어 내면 신문-후보 짝 넷뿐이라 사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "eecffbfd-7610-4356-928d-48ae4a91d3ae",
+    "source_updated_at": "2026-09-26T12:51:09.15035+00:00",
+    "body_sha256": "a11674842d8e50f69f9b84abde0d51bb33f11be92c14a3cd14197203fe261aab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "베네치아 22년 만의 홍수 — 강풍이 바닷물을 밀어 조위 상승 → 경보에도 예측 못 해 주민이 놀람 → 역대 기록 비교로 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Water stood more than 150 centimetres",
+      "note": "센티미터·인치 수치를 한 단위로 정리하면 원인·반응 문단이 중등 밴드로 섰다."
+    }
+  },
+  {
+    "id": "ef7af08e-850b-47b5-b169-adf3d5c97999",
+    "source_updated_at": "2026-09-26T12:51:05.792856+00:00",
+    "body_sha256": "4f06e9d6379bfcb7b41ba14f00db62b900d934c24231cda596eaefaf3fcb0718",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "세계 최고령자 에드나 파커의 사망과 출생·기네스 인정 경위·역대 순위가 이어져 인물 단신 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Edna Parker, who became the world",
+      "note": "gerontologist·super centenarian 을 풀면 쉬워지고 인정 경위가 한 흐름으로 섰다."
+    }
+  },
+  {
+    "id": "f6e8afbc-f93f-4869-99ed-c82d25c2ced3",
+    "source_updated_at": "2026-09-26T12:52:10.226249+00:00",
+    "body_sha256": "3b3cefefc1be09002e243ddb55fa2c85b9187575e972dc3d5891433be9c07ff3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "과도정부가 탁신 귀국을 허용 → 변호인이 자산 압류에 불복하러 곧 귀국한다고 밝혀 다음 절차가 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Ousted prime minister Thaksin Shinawatra may",
+      "note": "끝의 Related 잔재를 걷고 직함을 줄여야 하며 ousted·coup 등은 고2 이상 밴드로 남는다."
+    }
+  },
+  {
+    "id": "f94b0c83-7d9c-4c14-9d3c-520c3f8fc637",
+    "source_updated_at": "2026-09-26T12:51:37.967512+00:00",
+    "body_sha256": "09642873d48b94e5bab6eb7d98cb21bf5d522d9ea418fade76f757ef5b286b6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — 국경없는의사회 리비아 철수·재거 다보스 불참·캐머런 연설·파푸아뉴기니 쿠데타·호주 시위가 한 행이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Medicins Sans Frontieres (MSF) have announced",
+      "note": "무관한 단신 다섯이 묶여 있어 한 원천으로 가공·판정할 수 없었다 — 꼭지 분할이 먼저다."
+    }
+  }
+]

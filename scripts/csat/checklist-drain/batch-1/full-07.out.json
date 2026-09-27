@@ -1,0 +1,878 @@
+[
+  {
+    "id": "bcf7bc26-6f63-4e0e-929d-a8eb3b7a09f9",
+    "source_updated_at": "2026-09-26T12:51:02.483077+00:00",
+    "body_sha256": "41c9730f44e92f868c9ed55574194e2ae8cb43e433ea552dad961025c3b5cad6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "규제 철폐 → 위원의 논평 → 관료주의 비판이라는 배경이 앞 두 단락에서 이어져 내용 일치·주제 칸이 선다(뒤 품목 나열은 걷는다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The European Commission, the executive branch",
+      "note": "executive branch→government body, knobbly→bumpy, deregulation→change 로 바꾸니 V5 로 내려가고, 셋째 단락 품목 나열은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "c0967583-d135-4c82-bccf-7d985227d84d",
+    "source_updated_at": "2026-09-26T12:52:13.47144+00:00",
+    "body_sha256": "841463fdc0be2a7a7996d76138aaa05c4007d08dc30855915e31e500ef33061b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "검사를 받음 → 점수 → 최연소 회원이 됨으로 사건이 이어지고 가족 배경이 붙어 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A one-year old girl, Georgia",
+      "note": "「one-year old」와 「two years, nine months」가 어긋나고 「first oldest ever」가 비문이라 가공 때 고쳐야 하며, educational psychologist→child expert 로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "c0bc2f00-0314-469e-826d-39c968e150c4",
+    "source_updated_at": "2026-09-26T12:50:42.926232+00:00",
+    "body_sha256": "a1a0585f0084b82f87beac760de5c19c2fd69acc79eb2a1d7eaa4a0126a3cc26",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모·거리·시각만 세 문장에 바뀌어 되풀이되고 원인·피해·반응이 없어 짧은 단신 최소선(연결)에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "An earthquake has hit the sea",
+      "note": "숫자를 걷으면 「바다에서 지진이 났다」 한 줄만 남아 논지·사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "c22e1d9f-8f7c-46c8-9cde-46dd2c389074",
+    "source_updated_at": "2026-09-26T12:51:15.072379+00:00",
+    "body_sha256": "ab2d7144740d218b8d2963afcf8f7014d0a3ba286ec12b01622b94fc5d618e85",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "모바일 투표법 통과 → 인증 칩이 필요하다는 다음 절차 → 지난 선거의 온라인 투표라는 배경이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Parliament of Estonia has passed",
+      "note": "authorized→approved, parliamentary→national 로 바꾸면 V5 이고, 짧아 두 단락 그대로 한 지문이 된다."
+    }
+  },
+  {
+    "id": "c2f79f93-fb38-49f8-8eed-7f6e6cd90b0b",
+    "source_updated_at": "2026-09-26T12:50:47.209075+00:00",
+    "body_sha256": "61f79314943fd67e86a633b9f63b856a35740813f0793d77f9a7a51d0160b553",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "고양이 사체가 든 병 발견 → 수사 중 세 문장뿐이라 「다음 절차」 연결은 있으나 원인·결과가 없고 소재만 끔찍해 칸이 서는지 갈린다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Bottle's containing cat body parts have",
+      "note": "첫 낱말부터 비문(Bottle's)이고 확인할 사실이 셋뿐이라 내용 일치 선택지 다섯을 만들 재료가 모자란다."
+    }
+  },
+  {
+    "id": "c3ef8865-877e-491b-92ae-bd8dab254ce9",
+    "source_updated_at": "2026-09-26T12:51:03.133954+00:00",
+    "body_sha256": "0e416d5b4ae40d3c225545c12fef3ad1c32941ba2dffa048abbfc1c91286d260",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버스·트럭 충돌 → 사망 66명·부상자 치료 → 행선지와 사고 지점이 이어지는 사고 단신이라 내용 일치 칸(고1 이상)을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 66 people are dead",
+      "note": "collided→crashed, bound for→going to 로 바꾸면 V5 이고, 마지막 「badly burned」 묘사는 가공 때 걷을 수 있다."
+    }
+  },
+  {
+    "id": "c50279b8-0e7d-4d83-9b00-c1ec00c675c6",
+    "source_updated_at": "2026-09-26T12:51:52.228362+00:00",
+    "body_sha256": "d37b8e4569114de9148da74458a65b402410ba873cf0753c65fbda17358a568c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "젊은 층을 끌려는 목적 → 메뉴 변경 → 아침 메뉴 계획 → 과거 실패로 이유와 경과가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Number 3 fast food chain",
+      "note": "revamps→changes, frosty's→desserts 로 바꾸면 V4 이고, 상표 이름을 걷어도 「회사가 젊은 손님을 위해 메뉴를 바꾼다」가 선다."
+    }
+  },
+  {
+    "id": "c5d6bd3e-aaa5-463a-8508-21f9bb617ab3",
+    "source_updated_at": "2026-09-26T12:51:35.40702+00:00",
+    "body_sha256": "419467306cfd42e84bfe0f33236a911fe26bed985627b43d4128ff15aeac9f3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "서류 요구 → 망치 공격 → 테이저 사용 → 사망 → 장관 해명 → 사인 조사로 원인·반응·다음 절차가 모두 이어져 내용 일치 칸(고1 이상)을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An immigrant from Mali has died",
+      "note": "첫 문장 「shot twice」와 본문 「Tasered twice」가 어긋나 가공 때 맞춰야 하고, obliged→forced, inquiry→investigation 로 바꾸면 V6."
+    }
+  },
+  {
+    "id": "c7f8a0e3-467e-4418-ac16-a129bd71cf8e",
+    "source_updated_at": "2026-09-26T12:51:50.311488+00:00",
+    "body_sha256": "4218b4919c91bb315f1013ce82bd191f63e569f045a88c83e837b5742aefb3b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "방문자 이름·장소·참석 인원·강연료만 문장마다 바뀌고 모금 행사의 까닭이나 결과가 없어 이름·수치 나열 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Tuesday, former U.S. President Bill Clinton",
+      "note": "이름과 수치를 걷으면 「누가 어디서 연설했다」만 남아 사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "c8398ac4-2256-48f6-aaef-75e589fd394e",
+    "source_updated_at": "2026-09-26T12:51:24.354019+00:00",
+    "body_sha256": "f812e14b92170b569445f1a194eb77d1db01412e3f096bd73e6e789001168685",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "history",
+    "why": "원폭 64주년 추모식 → 시장의 핵군축 촉구 → 총리의 비핵 원칙 재확인 → 히로시마 식으로 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A ceremony was held in Nagasaki",
+      "note": "commemorate→remember, disarmament→getting rid of weapons, reiterated→repeated 로 바꾸니 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "c89a6791-3eff-4e0b-a209-8a141ef6f144",
+    "source_updated_at": "2026-09-26T12:51:27.656224+00:00",
+    "body_sha256": "f332fba78be823c07c9b131052497cc4b736945c4bc6cb77f2a4de16081e9b33",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "긴급 원조 약속 → 그 까닭인 식량 위기 수치 → 담당 장관의 우려로 원인과 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ireland has pledged €1.35 million in",
+      "note": "pledged→promised, quell→ease 로 바꾸면 V5 이고, 금액을 걷어도 「원조 → 이유 → 우려」가 선다."
+    }
+  },
+  {
+    "id": "c8ccd0e6-0f9a-471f-96ee-2cec2f495db1",
+    "source_updated_at": "2026-09-26T12:51:02.483077+00:00",
+    "body_sha256": "14e89c955b7337407b5b4b423161b3182dcc64c4585fc7eb5e31a57dd0ada59f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "art",
+    "why": "1파운드에 산 꽃병 → 방송 전문가 조언 → 경매에서 고가 낙찰 → 랄리크 작품 확인으로 원인과 결과가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A vase purchased at a car boot",
+      "note": "car boot sale→yard sale, auction 은 두고 designer 설명을 붙이면 V4 이고 짧아 그대로 한 지문이 된다."
+    }
+  },
+  {
+    "id": "c90235ad-af6c-4611-982c-df5bde52d513",
+    "source_updated_at": "2026-09-26T12:50:54.400659+00:00",
+    "body_sha256": "383d8c759e1e517daa035c75b380b0d4408578495fc6ecb05b40228fe600b061",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "미성년자 성관계 영상 혐의 → 양측 부인 → 무죄 평결 → 유죄였다면의 형량으로 이어지나 소재가 성범죄라 성인 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "R. Kelly, a popular American R&B",
+      "note": "charges→accusations, convicted→found guilty 로 바꾸면 V6 이나 소재 때문에 학령 칸은 달지 않는다."
+    }
+  },
+  {
+    "id": "ca06438a-8e1e-4fad-a99a-1594243887b6",
+    "source_updated_at": "2026-09-26T12:51:44.474308+00:00",
+    "body_sha256": "bd58803b82e39a5e173ceffe455a98cda8c370191ca03f8dcdab044844a86e14",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "드리안드라 93종을 방크시아로 합침 → 종 수가 80에서 173으로 늘어남이라는 결과와 이름 유래가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The national body for scientific research",
+      "note": "「w:genus」 위키 표기와 「been been」 중복을 걷어야 하고, endemic→found only, merged→joined 로 바꾸면 V6."
+    }
+  },
+  {
+    "id": "cc368e3a-8660-4da9-ac87-2d869e01992c",
+    "source_updated_at": "2026-09-26T12:51:41.850515+00:00",
+    "body_sha256": "90b417de3ec95843ab6cbd3fb0c11ea299d60578b1cd02bd6168f1bbb333ca41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "art",
+    "why": "「절규」 낙찰 → 예상가와 실제가 비교 → 이전 최고가 기록과 비교로 기록 경신의 근거가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One of the most recognized paintings in",
+      "note": "iconic→famous, projected→expected 로 바꾸면 V5 이고, 수치 비교가 「기록을 깼다」는 사건을 뒷받침해 나열에 그치지 않는다."
+    }
+  },
+  {
+    "id": "cc8d0060-b734-4b60-bfca-1f78c8cb17a1",
+    "source_updated_at": "2026-09-26T12:51:29.59922+00:00",
+    "body_sha256": "16319081aa87efba6d7bd1737feddf22a1e9b04af452f2534017306717bca497",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "대통령 계좌 사기 사건 → 법원이 대통령 편을 듦 → 1유로 배상으로 결과가 이어지지만 두 문장뿐이라 내용 일치 칸 하나만 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A French court ruled in favor of",
+      "note": "fraudsters→criminals, damages→payment 로 바꾸면 V5 이나, 확인할 사실이 적어 다른 단신과 묶어 쓰는 편이 낫다."
+    }
+  },
+  {
+    "id": "cd7c95ba-1793-4483-9ed7-7783f4d22492",
+    "source_updated_at": "2026-09-26T12:52:00.57117+00:00",
+    "body_sha256": "827ed91bd3a5adcdd4f1eaa138944b20aff3a7f29cf717790d1623d3ed401f63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "헤롯 무덤 발견 발표와 발견 장소·거리 두 문장뿐이고 발견 경위·의미·반응이 없어 이름·장소 나열 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The Hebrew University of Jerusalem announced",
+      "note": "고유명사와 거리를 걷으면 「무덤을 찾았다」 한 줄만 남는다."
+    }
+  },
+  {
+    "id": "cd917a29-7e0f-4e56-a0fe-2ddcfc5c669b",
+    "source_updated_at": "2026-09-26T12:51:23.672878+00:00",
+    "body_sha256": "30ff684696f77f34171ebe845bb3e39368e41f78ed29f3a5ecd2000c47a215ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "예상보다 나은 실업 수치 → 대통령의 경제 회복 주장 → 근거인 노동통계국 발표로 원인과 반응이 이어져 내용 일치·주장 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Buoyed by better then expected unemployment",
+      "note": "「then」→than 오기와 짝 안 맞는 따옴표를 고쳐야 하고, buoyed→encouraged, catastrophe→disaster 로 바꾸면 V6."
+    }
+  },
+  {
+    "id": "cdfc7b46-de1d-40b8-b751-a60bc80e4007",
+    "source_updated_at": "2026-09-26T12:51:45.123189+00:00",
+    "body_sha256": "96aef83a5916dc2bcb6cfb40f5c9b5af94ef11b51ed32a973350ebe40e8bf4b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "유로존 가입 신청 → 서한 발송 → 마스트리흐트 기준 충족 보고서 요청이라는 다음 절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malta has formally applied to join",
+      "note": "둘째 문장이 한 문장으로 길어 둘로 쪼개고 convergence report→progress report, mechanism→process 로 바꾸면 V7."
+    }
+  },
+  {
+    "id": "d1ace22c-bd03-4e01-bb5a-3cbd702cc0a7",
+    "source_updated_at": "2026-09-26T12:52:17.377556+00:00",
+    "body_sha256": "cc25eb5f0f81a74c3b2bebb93faafe93326bf263279583ebdf228c80d13f8c74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "culture",
+    "why": "본문 대부분이 사운드트랙 참여자·출연진 이름 나열이고 끝 단락의 영화 설정(장기 부전 → 이식 → 못 갚으면 회수)만 이어져 나열 단신인지 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The movie is set in 2056,",
+      "note": "떼어 낼 만한 것은 마지막 두 문장뿐인데 영화 제목 없이는 시작하지 못하고, 이름 목록을 걷으면 한 편 분량이 남지 않는다."
+    }
+  },
+  {
+    "id": "d2fb8659-d1f1-4611-97f9-057640c9950f",
+    "source_updated_at": "2026-09-26T12:52:10.226249+00:00",
+    "body_sha256": "2d1acfde592067c7dc8387c10b13d41cf0cc94ef4cba084b6030c26d1a8809d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "테러 위협 경고 → 해협이 세계 교역 40%를 지나는 까닭 → 해적은 줄었으나 가스선 탈취 우려로 주장과 이유가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Royal Malaysian Police Inspector-General Musa Hassan said",
+      "note": "commandeered→taken over, incidences→cases, maritime→sea 로 바꾸면 V6 이고, 인명을 걷어도 경고와 까닭이 선다."
+    }
+  },
+  {
+    "id": "d327ebdf-2060-4312-83ec-59d1ba84f4ab",
+    "source_updated_at": "2026-09-26T12:52:12.135818+00:00",
+    "body_sha256": "ae57760453d0309b6d4e2da37acdf8336d9babe8fe38727aed9982aa2445fb87",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "조류독감 사망 보도 → 2005년 이후 첫 사망 → 다른 감염자 넷으로 사건의 의미와 경과가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 20-year-old man from Ha Tay",
+      "note": "strain→type, state-run media→government news 로 바꾸면 V5 이고 H5N1 은 bird flu 로 풀어 쓴다."
+    }
+  },
+  {
+    "id": "d82c5757-a760-4922-bf73-b23bb02425a1",
+    "source_updated_at": "2026-09-26T12:51:47.030494+00:00",
+    "body_sha256": "fc95dad64fa6412d389ee1e070dd280b12cd72306b2905e2aa04eebd12a03e31",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "첫 인쇄 1,200만 부 → 이전 기록과 비교 → 누적 판매 → 출간일로 기록 경신의 근거가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "12 million copies of Harry Potter",
+      "note": "immensely→very, first printing→first print run 으로 바꾸면 V4 이고, 수치가 많지만 「기록을 깬다」는 한 사건에 묶여 있다."
+    }
+  },
+  {
+    "id": "d951eae4-be1e-41d5-8259-e9b7ca964a57",
+    "source_updated_at": "2026-09-26T12:51:50.948159+00:00",
+    "body_sha256": "de808a5e83b66fa984761e2d550c2224c06a9bdbec7be741ca609d61339a3fbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "history",
+    "why": "잔 다르크 유물로 여겨짐 → 검사 → 이집트 미라 유해로 드러남 → 교회 인증과 박물관 소장으로 통념을 뒤집는 흐름이 서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Scientists who studied relics that were",
+      "note": "첫 문장 주어가 「Scientists … have turned out to be forgeries」로 꼬여 relics 를 주어로 고쳐야 하고, relics→old objects, forgeries→fakes 로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "da695f45-758b-4887-ab09-b48cdd9f525a",
+    "source_updated_at": "2026-09-26T12:51:59.269535+00:00",
+    "body_sha256": "7a95e9122f60846335ece28e6a181bfb0d55b48fa3bc75214d66a580c0f6429c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "마약 밀매 등 유죄 → 선고 예정 → 죄목별 형량 → 2004년 석방과 2006년 체포 경위로 결과와 다음 절차가 이어져 내용 일치 칸(고1 이상)을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Manitoba Hells Angels member Ian Grant, who",
+      "note": "「convicted … was found guilty」가 겹쳐 첫 문장을 고쳐야 하고, trafficking→selling, organized crime→gang crime 으로 바꾸면 V6."
+    }
+  }
+]

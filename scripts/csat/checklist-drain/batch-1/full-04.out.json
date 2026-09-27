@@ -1,0 +1,904 @@
+[
+  {
+    "id": "5cc49e2e-10a4-45f9-b6b4-f7c234b83d47",
+    "source_updated_at": "2026-09-26T12:50:47.209075+00:00",
+    "body_sha256": "ac142e89cb797d0baebf63ab5408c677453d074b5042709afabfd11059f15743",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "이라크 주둔 미군 지휘관의 폭력 중단 촉구와 사드르에게 한 요청 두 문장뿐이라 원인·결과·반응으로 이어지는 사건이라 보기 애매해 내용 일치 칸이 서는지 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "A US commander in Iraq today",
+      "note": "두 문장이 같은 발언의 반복이라 고유명사를 걷으면 사실이 두 개도 남지 않는다."
+    }
+  },
+  {
+    "id": "5cfcb942-08e4-4b6b-9acc-400d0c2fb833",
+    "source_updated_at": "2026-09-26T12:52:11.501731+00:00",
+    "body_sha256": "d237172441bfdc0d3c523e2c6adf6aa4e78424c6be8cb3cfa03a2f462de9377b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하마스의 아바스 청사 장악 → 아바스 부재 → 파타 대원 도주가 한 사건으로 이어져 짧은 단신 최소선을 넘고 고등 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hamas has said that their forces",
+      "note": "compound→building, fled→ran away 로 바꾸면 V5 로 내려가고 세 문장이 한 사건으로 선다."
+    }
+  },
+  {
+    "id": "5e4c9325-99fe-473b-b1f9-c0dcdc65235d",
+    "source_updated_at": "2026-09-26T12:51:05.124928+00:00",
+    "body_sha256": "fd451c4f206455f09c407be5c01567658dbf890363409de418b16e34db9f4d89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "V P 싱 전 총리 사망 → 사인 → 정부의 7일 국장 애도(반응) → 약력으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vishwanath Pratap Singh, the former Prime",
+      "note": "renal failure→kidney failure, state mourning→national mourning 으로 바꾸면 쉬워지고 사망·반응·약력이 한 편으로 선다."
+    }
+  },
+  {
+    "id": "603d5430-2a0d-4656-9d66-c34f9e2ee891",
+    "source_updated_at": "2026-09-26T12:50:47.209075+00:00",
+    "body_sha256": "38c23de0351f508e29dbbb05d346883f0e3d6e7c772fcce159a21768e3848947",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "포트리 지하 폭발 → 인근 건물 대피라는 결과가 문장으로 이어져 짧은 사실 단신 기준(§3-2)대로 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There has been an underground explosion",
+      "note": "두 문장뿐이라 선지 거리가 적다 — evacuation→people had to leave 로 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "6119d433-621b-4851-8b73-d5790041b64f",
+    "source_updated_at": "2026-09-26T12:51:11.76022+00:00",
+    "body_sha256": "89d9b5d2d986fe8600200ac1303ee66483bbc81a386756c51081e24c4cb4001e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가나 대선 — 현 대통령의 두 임기 제한 퇴임이 선거의 까닭이고 접전 전망·세 후보 소개가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The people of Ghana, a country",
+      "note": "「shown of」 오타와 후보 나열 문장은 가공 때 다듬는다 — contenders→candidates 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "645075ea-8fdf-4f12-82e0-89cfedc06790",
+    "source_updated_at": "2026-09-26T12:51:20.998278+00:00",
+    "body_sha256": "521bca1b9412542ae2057d52651dbb0a25ed4e8af2d35270155503175d3910b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "본문이 AP·ČTK 기사 제목과 매체·날짜 두 줄의 출처 목록뿐이라 읽는 글이 아니고 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Associated Press. Former KKK leader ordered",
+      "note": "출처 표기만 있어 떼어 낼 문단도 사건 흐름도 없다."
+    }
+  },
+  {
+    "id": "6529b6f8-f400-4453-95ea-cb8961dd34e5",
+    "source_updated_at": "2026-09-26T12:51:10.452949+00:00",
+    "body_sha256": "9bbec042a780a2d86f8210aac20a61760b97ca069303e794b00bdace1849a447",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "팔루자 차량 폭탄 두 건 → 경찰 초소·주택 피해 → 2003년 이후 수니파 저항 배경이 이어져 고등 이상 내용 일치 칸을 채운다(폭력 소재라 중등 칸 없음).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to local police, two suspected",
+      "note": "detonated→exploded, totaled→destroyed 로 바꾸면 쉬워지고 사건·피해·배경 세 단락이 선다."
+    }
+  },
+  {
+    "id": "6580d020-ce0f-4b79-95ed-58efe57f5094",
+    "source_updated_at": "2026-09-26T12:51:38.61178+00:00",
+    "body_sha256": "d8e6eaffaef3b3b6fc91b599d024ae49faf51752f7208f02aa8bd495780fe1ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — ACTA 서명 항의 사임 · 사르코지의 아프간 철군 앞당김 · 미국-필리핀 국방 협력 세 단신이 한 행에 묶여 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Rapporteur to the European Parliament Kader",
+      "note": "꼭지 하나(ACTA)는 사임→폴란드 항의→집행위 해명으로 혼자 서지만 모음을 쪼개야 판정할 수 있다."
+    }
+  },
+  {
+    "id": "6596cbeb-da20-4e46-9c5a-56f042862b6e",
+    "source_updated_at": "2026-09-26T12:52:09.58383+00:00",
+    "body_sha256": "561277dee3336dba7827cc91d4c3caa9a9b84f21684ae2144211028722e30cbe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "사이클론 고누 사망자 수를 이란·오만 나라별로 되풀이할 뿐 원인·반응 문장이 없고 끝이 「Related」 잔재라 칸 하나 수치 나열에 그친다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "At least 61 people died in",
+      "note": "수치를 걷으면 「사이클론이 사람을 죽였다」 한 줄만 남아 논지·사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "67711304-0c0b-4632-991b-703bf8b636de",
+    "source_updated_at": "2026-09-26T12:51:04.454958+00:00",
+    "body_sha256": "07813e1b719629bfe1a282e8044edce95ac33ef7b89ca6d92b20721a7a14c3f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뭄바이 총격 → 경찰의 테러 판단(반응) → 식당·역·병원·호텔 일곱 곳 공격 전개가 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to local reports, 10 people",
+      "note": "머리의 「1903 UTC」 시각 표기는 걷는다 — gunmen→attackers 정도로 V5 까지 내려간다."
+    }
+  },
+  {
+    "id": "68370f71-03c8-49a2-9e4b-b7607b1dd477",
+    "source_updated_at": "2026-09-26T12:51:52.228362+00:00",
+    "body_sha256": "2238f9a00b123526cca5fceda57cec60f901f61960e76a59a35815b30a6425d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "로마 성주간 — 성목요일·성금요일 예식 → 어젯밤 십자가의 길 → 오늘밤·부활절 미사로 시간순이 이어져 내용 일치 칸을 채운다(종교 행사 보도라 교리 제시가 아니다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thousands of Catholic pilgrims are celebrating",
+      "note": "commemorating→remembering, recited→prayed 로 바꾸면 쉬워지고 요일 순서가 그대로 문항 근거가 된다."
+    }
+  },
+  {
+    "id": "68964143-366d-44e6-bb2d-635461a1d49c",
+    "source_updated_at": "2026-09-26T12:52:09.58383+00:00",
+    "body_sha256": "19e724fde1cc4a942759903a9bfd008d73314d647e5e3b0536c9cef8fb97ab9a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "브루나이 공주 혼례 — 공개 예식 → 목요일 서약 → 내일 술탄의 연회로 이어지는 두 주 잔치 흐름이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The newlywed daughter of Brunei Sultan",
+      "note": "lavish→grand, culmination→final event, steeped in→full of 로 바꾸면 V6 까지 내려간다."
+    }
+  },
+  {
+    "id": "6ce619ff-daef-4689-ba22-614668bcc16e",
+    "source_updated_at": "2026-09-26T12:52:07.644348+00:00",
+    "body_sha256": "b3ce5380e1fed50528ace3f764a9337e50f17737c9e73e3a6f4e8d76568db477",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "베트남 타이빈성 토네이도 피해에 지역 관리의 「20년 새 가장 강한」 발언(반응)이 붙어 짧은 단신 최소선을 넘고 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A tornado ripped through several villages",
+      "note": "ripped through→hit, fiercest→strongest 로 바꾸면 중등 밴드로 내려가고 피해+반응 두 문장이 선다."
+    }
+  },
+  {
+    "id": "6d519b73-ac4c-401d-b947-dd18458b26e9",
+    "source_updated_at": "2026-09-26T12:52:14.784228+00:00",
+    "body_sha256": "7766d0d500d6d7620dfa39d03599496ef783fd7f7c5f76f6dbd1e17ceb615ff4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "소니의 PS3 80GB 판 출시 · 60GB 판 가격 인하 발표 → 판매가 두 배로 늘 것이라는 경영자 전망(반응)이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On July 9, 2007, Sony Computer",
+      "note": "가격 인하→판매 기대의 인과가 있어 서고, at a minimum→at least 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "6dae9d7e-9c21-4783-b255-a42321fcdade",
+    "source_updated_at": "2026-09-26T12:51:05.124928+00:00",
+    "body_sha256": "eac7db8696e799fbeb8f7d79fb4ca63735367f27abb672eb5fa119fc8837226f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "미국 소비지출·신규주택 판매·실업수당 청구의 퍼센트와 건수만 문장마다 바꿔 되풀이해 사건 연결이 없는 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "United States consumer spending dropped one",
+      "note": "수치를 걷으면 「지표가 나빠졌다」 외에 남는 논지가 없고 세 문단이 서로 잇지 않는다."
+    }
+  },
+  {
+    "id": "6de82316-cab3-481d-ad2b-4af810fcfec6",
+    "source_updated_at": "2026-09-26T12:51:17.710544+00:00",
+    "body_sha256": "fb037b7a1b7acd1c55a60693a7989146b1bc0fc3c7f308de0d3adc8bcd6dd5b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "도요타 11월 판매 22% 감소가 며칠 전 71년 만의 첫 연간 적자 예측과 이어져(배경→결과) 짧은 단신 최소선을 넘고 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Japanese automobile manufacturer Toyota has",
+      "note": "manufacturer→company, decrease→drop 으로 바꾸면 쉬워지나 문장이 셋뿐이라 선지 거리가 적다."
+    }
+  },
+  {
+    "id": "6ecc4eb4-4c99-49c6-b233-d7fc5f8fd562",
+    "source_updated_at": "2026-09-26T12:51:36.05907+00:00",
+    "body_sha256": "e2d88ab82d0491b83f68211a34eeefbde471814731bb860a4881fd9bc68ae6b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — 런던데리 폭탄 · 코닥 파산 신청 · 깅리치 사생활 공방 · 돌체앤가바나 홍콩 사과 · 뉴질랜드 지진 다섯 단신이 한 행에 섞여 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Italian luxury goods brand Dolce &",
+      "note": "돌체앤가바나 꼭지는 금지→항의→사과로 혼자 서지만 모음을 쪼개야 꼭지별로 판정할 수 있다."
+    }
+  },
+  {
+    "id": "6fd74ebb-5743-4f41-b6fb-56b4f20fdf9b",
+    "source_updated_at": "2026-09-26T12:52:08.933254+00:00",
+    "body_sha256": "071f56f0616aa23bd3a3c25aeb3f24b92623a0d7c715f52ccce0d04c2c63a957",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "나라티왓 총격 한 건은 매복 경위가 서지만 뒤는 폭탄·매복·총격 부상자 수만 바꿔 나열해 사건 단신인지 수치 나열인지 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Two men were fatally shot today",
+      "note": "첫 두 문장만 떼면 서지만 사실이 두셋뿐이고 나머지는 부상자 수 나열이라 걷으면 남는 게 적다."
+    }
+  },
+  {
+    "id": "7059a78d-436a-475a-8ea5-3047546010f6",
+    "source_updated_at": "2026-09-26T12:50:56.408681+00:00",
+    "body_sha256": "cd2df65873c24fe27ab7261c4fe5478a9cc44d67e9382351b2ebc5a2b7c73666",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경찰견 로비가 모르는 이에게 구조돼 건강히 부대로 돌아갔다는 발견→구조→복귀 흐름이 서서 중등 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A K-9 dog, aged 10, was",
+      "note": "K-9→police, Belgian Malinois 걷기, lbs 수치 걷기로 초등 밴드까지 내려가고 사건 순서가 남는다."
+    }
+  },
+  {
+    "id": "70f7d7a3-a9e7-4750-889b-69bdb47a3a41",
+    "source_updated_at": "2026-09-26T12:51:22.983366+00:00",
+    "body_sha256": "cd715a3052547bb7900df3f9d661b24077870bd8b5c9159dfe962e7d416659af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "헬만드에서 영국 공수대원 셋이 특수부대 지원 중 도로변 폭탄으로 숨진 경위와 8월 첫 주 ISAF 전사자 누계가 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three British paratroopers of 1st Battalion",
+      "note": "부대명은 걷고 improvised explosive devices→roadside bombs 로 바꾸면 쉬워지며 경위→누계가 선다."
+    }
+  },
+  {
+    "id": "71237dba-a40b-498b-87b1-cd3c420fdead",
+    "source_updated_at": "2026-09-26T12:52:03.140711+00:00",
+    "body_sha256": "b0ef9e3122e957e8cb1a7a29ded46ee639109ce45159ee1f5fd063ce00f40757",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "던커크 경비행기 추락 — 왼쪽 엔진 이상 우려 → 던커크 착륙 시도 → 숲에 추락 → FAA·NTSB 조사로 원인과 다음 절차가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The pilot was concerned about the",
+      "note": "원인 문단이 뚜렷해 떼어 쓰기 쉽고 en route→flying, onboard 정리로 V5 까지 내려간다."
+    }
+  },
+  {
+    "id": "71e568fd-f1b8-4baa-ac33-1de3edc62f2e",
+    "source_updated_at": "2026-09-26T12:52:07.002932+00:00",
+    "body_sha256": "5657816ac6fbda1c322b3d2d44a97d9e0beefd7ff391654e5cfdb12057a8d5b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "말레이시아 총리 재혼 소식에 2005년 아내 사별 경위와 신부의 관저 감독 경력이 이어져 인물 사실 여럿으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malaysian Prime Minister Abdullah Ahmad Badawi",
+      "note": "widower→had lost his wife 로 풀면 쉬워지고 사별→재혼의 이유 흐름이 선다."
+    }
+  },
+  {
+    "id": "74584a08-b8e4-4eb4-9050-999645426619",
+    "source_updated_at": "2026-09-26T12:52:14.112797+00:00",
+    "body_sha256": "cc38d03337e62c9bbec755bd0e91d570ea37911861b6c505c2427d0ea5cedbd1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "science",
+    "why": "VIRGO 간섭계가 중력파를 시험한다는 한 줄과 협력 기관 이름 나열 한 줄뿐이라 사건·설명 연결이 있는지 애매하고 문법 오류도 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The European laser interferometer (VIRGO) is",
+      "note": "기관 이름을 걷으면 「중력파를 시험한다」 한 문장만 남아 사실이 서지 않는다."
+    }
+  },
+  {
+    "id": "74fbf667-8310-4196-8afa-9f90f4b346c4",
+    "source_updated_at": "2026-09-26T12:51:15.072379+00:00",
+    "body_sha256": "3d02fbc14493898c3aa9c71d0509d7d9803e9d4a0b573f6580e52418c4225726",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — 오바마 취임식 기부자 공개 꼭지와 은하 중심 초대질량 블랙홀 확인 꼭지가 한 행에 섞여 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "American and German astronomers have detected",
+      "note": "블랙홀 꼭지는 발견→16년 관측 방법→게재 예정으로 혼자 서지만 취임식 꼭지는 「Logging ontowill」 링크 잔재가 있다."
+    }
+  },
+  {
+    "id": "753680ac-87a6-4c1d-bde5-15dfe35d9a4c",
+    "source_updated_at": "2026-09-26T12:50:53.735416+00:00",
+    "body_sha256": "48682cadb95992ec53a0811ea7f04b08379166fe8e622fd2e44569c0a77c486f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "news",
+    "why": "바지선 세 척이 예인선에서 풀려 다리에 부딪혔다는 인과는 있으나 「the bridge」가 앞 문맥 없이 가리키고 두 문장뿐이라 칸이 설지 애매하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three barges that were loaded with",
+      "note": "「the bridge」가 어느 다리인지 없어 떼어 내면 지시가 걸리고 사실이 셋뿐이다."
+    }
+  }
+]

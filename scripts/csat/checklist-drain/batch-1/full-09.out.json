@@ -1,0 +1,222 @@
+[
+  {
+    "id": "fae3211d-b859-4583-a948-dd6178cf1e46",
+    "source_updated_at": "2026-09-26T12:50:52.93877+00:00",
+    "body_sha256": "13eee192b6fbbc100ef61d640a1bc2788386ac700b07672b90d5f90c15f9e6b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "철로 자재 171톤 절도 → 경찰이 충돌 위험을 경고 → 범인이 유죄를 인정하는 사건 흐름이 세 문장으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police have claimed that the theft",
+      "note": "짧은 한 문단이라 그대로 떼어지고, pleaded guilty→admitted, struck→hit 로 바꾸면 한 밴드 내려간다."
+    }
+  },
+  {
+    "id": "faf93dc4-27c4-42fa-b363-2501c496d261",
+    "source_updated_at": "2026-09-26T12:52:03.780111+00:00",
+    "body_sha256": "6f9ed25a41f3f859bfd8b021a514d1c6ba3d3d69950dfa82fba9bd152a8868b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스노버드 곡예기 추락과 조종사 사망 → 에어쇼 연습 중이었다는 경위 → 목격자 진술로 사건이 이어져 내용 일치 칸을 채운다(사망 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Canadian Snowbirds jet crashed east",
+      "note": "고유명사를 걷어도 추락-연습-목격 흐름이 서고, plumes→clouds, demonstration flying team→air show team 으로 쉽게 내려간다."
+    }
+  },
+  {
+    "id": "fb5c4098-371a-479a-ab76-92c717af51ad",
+    "source_updated_at": "2026-09-26T12:51:46.388859+00:00",
+    "body_sha256": "a1fa67c6ce2a838e78aadcfd628cc538028474cdd047d2f6ad2ff405d6469562",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "에티오피아에서 납치된 영국 대사관 직원 다섯이 풀려나 떠났고 대우가 좋았다고 말했다는 결과·반응이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Five British embassy workers who were",
+      "note": "두 문장뿐이지만 사건과 반응이 이어지고, 끝의 빈 「Related news」 머리는 잔재라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "fbf23714-1be2-4814-9309-602bebd96343",
+    "source_updated_at": "2026-09-26T12:50:47.209075+00:00",
+    "body_sha256": "ae1822bcb1e939e24bb0940fc300c9247f90bc2f56758324f185da2f41ae8647",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "라마디 검문소 공격으로 해병 둘이 죽고 셋이 다쳤으며 그 공격이 차량 자폭 테러였다는 결과와 원인이 두 문장으로 이어져 내용 일치 칸을 채운다(고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An attack on a U.S. Marine",
+      "note": "detonated→set off, wounded→injured 로 바꾸면 쉬워지나 두 문장이라 만들 수 있는 문항은 내용 일치 하나뿐이다."
+    }
+  },
+  {
+    "id": "fd90aa8f-8ab7-4e28-a445-f73bbc248a4d",
+    "source_updated_at": "2026-09-26T12:52:08.933254+00:00",
+    "body_sha256": "068125160843531926e62e1debbbf1626bb6827b32418427e0a5bf265df911d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "말레이시아 총리의 재혼 소식에 전 부인 사별 경위와 새 부인의 이력이 배경으로 이어져, 이름 나열이 아닌 사건 설명으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Malaysian Prime Minister Abdullah Ahmad Badawi",
+      "note": "고유명사가 많지만 결혼-사별-신부 이력 흐름은 남고, widower→had lost his wife, official residence→home 으로 쉽게 풀린다."
+    }
+  },
+  {
+    "id": "ff41c4ee-352d-4a41-b438-4462f3f51b88",
+    "source_updated_at": "2026-09-26T12:51:46.388859+00:00",
+    "body_sha256": "18b18186ba3dea99eaf79980e8cf0bc2f628bb63e1b0cc22463fab641c6d3259",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "미국 서브프라임 대출업체 도산과 연쇄 부도 우려가 원인으로 제시되고 아시아·오세아니아 증시 하락 수치가 결과로 이어져 원인-결과 흐름으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Asian and Oceanic stock markets fall",
+      "note": "둘째 문단은 지수 수치만이라 원인 문장이 논지를 지탱하고, sub-prime mortgage lenders→risky home-loan companies, defaults→unpaid loans 로 바꿀 수 있다; 끝 「Related news」 머리는 걷는다."
+    }
+  }
+]

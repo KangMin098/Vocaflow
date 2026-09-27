@@ -1,0 +1,870 @@
+[
+  {
+    "id": "9de55390-3fed-4ba9-92ac-b2225446cd53",
+    "source_updated_at": "2026-09-26T12:51:43.800668+00:00",
+    "body_sha256": "4c0c4d3e2ca6c3d1d8569a08afecf8a67dbd2c3605c10c2370c206581937a58d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "피카소 그림 두 점 도난 단신은 한 사건의 작품명·날짜·가격만 이어 적고 원인·반응·다음 절차가 없어 사실 단신 최소선 경계라 보류한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Two paintings by renowned Spanish",
+      "note": "고유명사·날짜·금액을 걷으면 「도난당했다」 한 줄만 남아 문장 사이 연결이 서지 않는다."
+    }
+  },
+  {
+    "id": "9f4735ba-faca-4f0b-b026-caac73104ea3",
+    "source_updated_at": "2026-09-26T12:51:47.677986+00:00",
+    "body_sha256": "e5974ae37e144de5668624f693365d50c82c2f3c8964715c45e5eba7ae0794e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "금괴 도난 단신이 훔침 → 넷째 공범 차로 도주 → 전시 중이던 박물관이라는 사건 흐름을 두 문장에 이어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On March 18 at about",
+      "note": "exhibit→display 정도만 바꾸면 중등 밴드로 내려가고, 엔화 금액은 숫자만 남겨도 사건이 선다."
+    }
+  },
+  {
+    "id": "9fb7b178-906f-40ec-8702-440f97bae9d3",
+    "source_updated_at": "2026-09-26T12:52:07.644348+00:00",
+    "body_sha256": "b34855edccf362792281d33ef9581fff78e6677856a7b99b3e57a24a0aec6053",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "필리핀 상원 선거 한 문장 단신은 의석수 나열이 대부분이고 「야당이 상원을 장악」이라는 결과 한 마디만 있어 득표 나열 폐기선과의 경계라 보류한다.",
+    "slots": {
+      "ages": [
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "With results of the Philippine",
+      "note": "한 문장뿐이라 수치를 걷으면 결과 한 구절만 남고 문항을 걸 문장이 모자란다."
+    }
+  },
+  {
+    "id": "a0cba8a6-c10e-4fc1-a842-098e553578fb",
+    "source_updated_at": "2026-09-26T12:50:45.90684+00:00",
+    "body_sha256": "497eb6bb04a2a84fcdd0f650b23b4dc5ac2c60291861235fcbac43d0fd67158a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "news",
+    "why": "A303 사고 단신은 사고 → 양방향 폐쇄 → 도로청 발표로 이어지지만 마지막 인용이 쉼표로 끝나 문장 도중에 잘렸으므로 불완전 원천으로 보류한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There has been a serious",
+      "note": "사고→폐쇄 흐름은 서지만 인용 뒤 발화자·후속 문장이 잘려 끝맺음을 만들어야 한다."
+    }
+  },
+  {
+    "id": "a223da5d-bf81-45fc-aea3-e545dd193078",
+    "source_updated_at": "2026-09-26T12:51:36.703642+00:00",
+    "body_sha256": "361cede3f443e746ad4c190f8f2e8bcac797733530669dabaf341a880436b68f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "호르무즈 함대·리비아 NTC 사임·나이지리아 공격·이집트 무슬림형제단·영국 실업률·울워스 보상 등 무관한 단신 여럿이 한 행에 있는 덜 쪼갠 모음이라 보류한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A six-strong flotilla of United",
+      "note": "호르무즈 꼭지 하나는 혼자 서지만 모음 행 전체로는 주제가 여러 번 갈아엎혀 꼭지 분리가 먼저다."
+    }
+  },
+  {
+    "id": "a2e7405d-6ae6-4572-8fdf-64af756cb0b8",
+    "source_updated_at": "2026-09-26T12:51:16.396833+00:00",
+    "body_sha256": "ec17dd0cc09cd8ca215b14e7c763e910062f8935f477dae055739ee2d1940191",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "태국 총리 선출 단신이 의회 특별투표 결과와 전임 총리가 법원 판결로 물러난 까닭을 셋째 문장에서 이어 원인이 서므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The former Democrat Party's opposition",
+      "note": "obliged to step down→had to resign, special vote→extra vote 로 바꾸니 고1 밴드에 맞고 표수를 걷어도 선출 경위가 선다."
+    }
+  },
+  {
+    "id": "a49e5cb2-20ed-4ec8-b595-9445a864ce70",
+    "source_updated_at": "2026-09-26T12:51:17.710544+00:00",
+    "body_sha256": "4b4ba9213e9794ea1416d2b879d6777787ec8b1dde01d562aa15a0214664aaa2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "매도프 폰지 사기로 14억 달러를 잃은 펀드 매니저의 자살 단신은 손실과 죽음이 이어지지만 둘째 단락의 자해 묘사가 구체적이어서 성인 칸만 달아 보관한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Rene-Thierry Magon de la Villehuchet, the",
+      "note": "첫 단락만 떼면 손실→죽음 연결이 서고, 수면제·손목 묘사가 있는 둘째 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "a695bee9-237b-4e21-9794-36c172075acb",
+    "source_updated_at": "2026-09-26T12:51:15.072379+00:00",
+    "body_sha256": "786bdaae84649ec2987777954cbca7fe9c34f5e488813da10a40e8615bb5acf2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콜롬비아 마약왕 몬토야 미국 인도 단신이 인도 → 12개 혐의 → 유죄 시 형량 → 카르텔 배경으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Diego Montoya, who is alleged",
+      "note": "money laundering·fugitives 를 풀어 쓰면 고2 밴드로 내려가고 인도→재판 절차가 고유명사 없이도 선다."
+    }
+  },
+  {
+    "id": "a72af4a5-6624-481c-891f-f765554d4653",
+    "source_updated_at": "2026-09-26T12:51:29.59922+00:00",
+    "body_sha256": "d30b125a29371088efb636d7e49488c49037046533bc7c7c4c8736b736b374f8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "클레이 애니메이션 개척자 클로키의 부고가 지병으로 인한 사망이라는 원인과 검비라는 대표작을 이어 두 문장이 짧게나마 연결되므로 쉬운 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Art Clokey, a pioneer in",
+      "note": "머리의 이름 줄과 오타(well know)를 고치고 chronic disease→long illness 로 바꾸면 중등 밴드로 선다."
+    }
+  },
+  {
+    "id": "a97a3ed9-7e5d-4e72-8831-f62e74b2690c",
+    "source_updated_at": "2026-09-26T12:51:01.8032+00:00",
+    "body_sha256": "602df5f2badf1430d3f33d741ed004e9fc6e67cf05d492e1f23f0c172d9b996a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "영란은행 물가보고서가 영국 경제의 경기후퇴 진입을 판단하고 인용과 내년 2% 위축 전망으로 뒷받침해 한 주장이 서므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Bank of England today",
+      "note": "recession→economic slowdown, contract→shrink 로 바꾸니 뜻이 유지되고 판단→예측 흐름이 짧게 선다."
+    }
+  },
+  {
+    "id": "a9ebb0c0-29c9-465a-9cb9-ce4be849007e",
+    "source_updated_at": "2026-09-26T12:51:07.832092+00:00",
+    "body_sha256": "51972fc972548c5fa987318a149f555cd5e32790ac58edd4e85891ab6e69e9dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "루마니아 총선 단신은 정당마다 득표율과 투표율만 바꿔 되풀이하고 문장 사이를 잇는 사건이 없어 득표율 나열로 보아 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The Democratic Liberal Party (PD-L)",
+      "note": "수치를 걷으면 「승리 주장, 아직 비공식」만 남아 사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "aa6e21e5-f1f7-40aa-b417-afb1a11d2d03",
+    "source_updated_at": "2026-09-26T12:52:04.419842+00:00",
+    "body_sha256": "643a03a2d203f8e7b87d27ca4087d81a21576a1c6af4098d9564195a95aefe09",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미국의 파키스탄 대테러 지원금이 무샤라프의 순찰 축소 뒤에도 그대로 나간다는 사실과 군 관계자의 비판 인용이 반응으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The New York Times reports",
+      "note": "coalition support funds 를 설명구로 풀면 고2 밴드로 가고 지급→순찰 축소→비판 흐름이 선다."
+    }
+  },
+  {
+    "id": "ad78ff58-5f3b-4222-9791-217a639a6b97",
+    "source_updated_at": "2026-09-26T12:50:52.93877+00:00",
+    "body_sha256": "1eae167806df45af3b8b0052b410336468df1c4a7490480658815cbf0194b6d6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "독일 국방장관이 아프간 주둔이 10년까지 갈 수 있다고 말하고 철수 조건(아프간군의 자립)을 둘째 문장에서 붙여 이유가 이어지므로 짧은 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Franz Josef Jung, the German",
+      "note": "manage the incidents→keep the country safe 로 고치니 조건 관계가 더 분명해지고 두 문장이 혼자 선다."
+    }
+  },
+  {
+    "id": "ad95603f-f264-4d6a-b83f-8300a0e1655c",
+    "source_updated_at": "2026-09-26T12:52:14.112797+00:00",
+    "body_sha256": "6e7eff45d9530ba3219c1d061bc5c584de7573a9e75bd9819091abe299c326c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "space",
+    "why": "마스 익스프레스의 새 사진 → 설명되지 않은 지형 논의 → 바람·빙하 침식 가설로 이어져 관찰과 해석이 연결되므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The space probe Mars Express",
+      "note": "According some theories 같은 어법 오류를 고치고 aeolian 을 걷으면 관찰→가설 흐름이 고1 밴드로 선다."
+    }
+  },
+  {
+    "id": "af2dbfdc-eceb-4cd6-9618-c98a3652a1bf",
+    "source_updated_at": "2026-09-26T12:51:57.360092+00:00",
+    "body_sha256": "7eff7bb604c6e19769e76375fefebdfbe8c654dd6cde39b5986b80299c09dd73",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사우디 경찰의 무장 조직원 172명 체포 단신이 체포 → 계획 내용 → 내무부 대변인의 준비 단계 설명으로 반응이 이어져 고1 이상 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Saudi police have arrested 172",
+      "note": "zero hour 를 the exact time 으로 풀고 겹치는 인용 하나를 걷으면 사건과 반응이 짧게 선다."
+    }
+  },
+  {
+    "id": "b3c28307-a332-4541-a7ae-6b8af41b49f2",
+    "source_updated_at": "2026-09-26T12:51:43.152649+00:00",
+    "body_sha256": "4f95bd382dbdce5af56e0afed21bde325bc6bcba6b6ebd63d3a34a74dbc11dbe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "필라델피아 총격 단신이 사망·부상 뒤 경찰 진입에 범인이 스스로 쏜 결말로 사건이 이어지므로 폭력 소재는 고1 이상 칸으로 제한해 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A gunmen shot dead three",
+      "note": "「A gunmen」 어법 오류를 고치고 범인 이름을 걷어도 총격→경찰 진입→자해 흐름이 선다."
+    }
+  },
+  {
+    "id": "b55d3748-ede4-49d2-b627-0e27487a049f",
+    "source_updated_at": "2026-09-26T12:52:01.861891+00:00",
+    "body_sha256": "14af60b088ecedf301c811f1f0fd3068c565b1d8ffd55400a97f575bd7debfbf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "S4C 의 웨일스어 어린이 채널 검토 단신이 10주 공청회 → 예산·승인 조건 → 디지털 전용 → 설립 배경으로 단락이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Channel Four Wales, known as",
+      "note": "consultations→public meetings, devoted to→only for 로 바꾸니 중등 상단까지 내려가고 단락 경계가 뚜렷하다."
+    }
+  },
+  {
+    "id": "b59a6fed-ebc2-4e17-81be-332e05c74d6e",
+    "source_updated_at": "2026-09-26T12:51:39.254156+00:00",
+    "body_sha256": "236863be5a3d5bd78fadb7571cd2a1a303b345ca7aed0082dd33bb844199e88c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "science",
+    "why": "보스토크 호수 첫 접촉 단신이 호수의 고립·크기·위치를 설명한 뒤 둘째 단락에서 연구가 남극사와 극한 미생물 발견으로 이어질 수 있다는 까닭을 대 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Russian scientists say they have",
+      "note": "subglacial→under the ice, microorganisms→tiny living things 로 바꾸니 중등 밴드로 내려가고 까닭 단락이 혼자 선다."
+    }
+  },
+  {
+    "id": "b77590eb-6895-4362-8cdf-47f2a140be20",
+    "source_updated_at": "2026-09-26T12:51:48.975528+00:00",
+    "body_sha256": "55b729c204424a560c18306c083f5be1f67f8c9722ba18a876fa2baeb847f87f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "주노상 단신은 넬리 퍼타도의 수상 부문과 다른 수상자 이름·시상식 연혁을 늘어놓을 뿐 문장 사이를 잇는 원인·반응이 없어 수상자 나열로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Canada's major music awards weekend",
+      "note": "수상 부문·이름을 걷으면 「시상식이 열렸다」만 남아 사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "b7e12e48-d170-4f4c-b550-b3e0b4b7811a",
+    "source_updated_at": "2026-09-26T12:51:49.632507+00:00",
+    "body_sha256": "3cddeb4beb0267ef52d571b3ba4467440818eb7a9520ae91c1037f2eb40d13a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "아시아 증시 단신이 한미 FTA 영향 고민 → 제조업 둔화 우려 현실화 → 그래도 미국 시장 안정으로 대형주 매수라는 원인과 결과를 인용으로 이어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In early action, Asian and",
+      "note": "「fears … actually came true」와 「However」의 대비가 전문 시황 용어(large-cap)에 묶여 있어 낱말 몇 개로는 밴드가 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "b9735f69-12d7-4b26-bccb-1c6a2f442696",
+    "source_updated_at": "2026-09-26T12:51:24.354019+00:00",
+    "body_sha256": "12a2838f1875495a16e7d1c6351aac6f5b261c0c1e1511196aa2fc3e4604d1bd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "헬만드 영국 병사 사망 단신은 사망 한 줄에 이달 다섯 명·2001년 이후 196명이라는 누적 수치만 붙어 결과인지 수치 나열인지 경계라 보류한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "A British soldier of 2nd",
+      "note": "부대명·지명·누적 수치를 걷으면 사망 사실 한 줄만 남아 문장 사이 연결이 약하다."
+    }
+  },
+  {
+    "id": "ba49bdac-0550-4dac-b2ce-a43a397565e7",
+    "source_updated_at": "2026-09-26T12:52:01.217374+00:00",
+    "body_sha256": "84b1db472bd87817fe9dc41dc7f461fb9a15b32bb6acbf3fca93f5926a9a101e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바그다드 미국 대사관이 박격포 공격 증가 때문에 직원에게 방탄복 착용을 명했고 그 명령이 계약직 넷이 숨진 공격 다음 날 나왔다는 원인이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Due to a rising number",
+      "note": "mortar based attacks→shelling attacks, unprotected→unsafe 로 바꾸니 고1 밴드에 맞고 원인→명령 흐름이 선다."
+    }
+  },
+  {
+    "id": "ba993399-44fb-4b1e-affb-1216aedd0a59",
+    "source_updated_at": "2026-09-26T12:51:10.452949+00:00",
+    "body_sha256": "37bfcda0b51963d93c7ec1ea8f02ee1e68a71f11b03a7333ae9347202826fd2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "남극 윌헬미나만 유람선 좌초 단신이 좌초 → 연료 유출·침수 상황 → 근처 여객선이 구조하러 가는 다음 절차로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Argentine Navy reported that",
+      "note": "run aground→got stuck, stranded vessel→stuck ship 로 바꾸니 중등 밴드로 내려가고 세 단락 순서가 뚜렷하다."
+    }
+  },
+  {
+    "id": "bb3f62f2-f8c0-4658-bade-39dcd60bcc05",
+    "source_updated_at": "2026-09-26T12:51:58.633059+00:00",
+    "body_sha256": "f7ebf27f6227f131cac1ea8ddd23acbb764b672402bf4d9aefd76d64895265ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스코틀랜드 의회 선거 단신이 SNP 제1당 → 한 석 차이 → 연정 필요 → 새 투표 방식이 무효표를 늘린 까닭까지 단락별로 이어져 내용 일치·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following yesterday's parliamentary election, the",
+      "note": "머리의 「Please also see a full article」 줄은 걷고, spoilt papers→invalid ballots 로 바꾸니 투표 방식→혼란→무효표 인과가 선다."
+    }
+  },
+  {
+    "id": "bcbfb619-7701-41cb-ba5a-627056ef8510",
+    "source_updated_at": "2026-09-26T12:50:54.400659+00:00",
+    "body_sha256": "c3e6f34de8aaf16904adf019ae11130a30c8c086f2e9daa3d136aadb69dd5ffe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "츠방기라이 재체포 단신이 체포 → 세 시간 뒤 석방 → 결선 투표를 앞두고 한 주에 네 번 체포됐다는 맥락으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Morgan Tsvangirai has been arrested",
+      "note": "중복 마침표를 고치고 incumbent→current, detention→holding 으로 바꾸니 고1 밴드에 맞고 선거 맥락이 선다."
+    }
+  }
+]

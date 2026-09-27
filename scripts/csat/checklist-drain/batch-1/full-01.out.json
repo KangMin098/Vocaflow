@@ -1,0 +1,892 @@
+[
+  {
+    "id": "00f331b1-8cf6-48a0-8c30-fc43b596ba57",
+    "source_updated_at": "2026-09-26T12:51:23.672878+00:00",
+    "body_sha256": "23b9fa5ef105be9d89b57f88d47d11a53789344b9d8efc7ee33ac87979ef1321",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "광고 수입 붕괴·34억 달러 손실(원인) → 전 매체 유료화 발표(결과) → 머독의 '저널리즘을 살린다' 발언(반응)이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a move championed by its",
+      "note": "championed→backed, fiscal→financial 로 바꾸니 V6 까지 내려간다; 인물·회사명을 걷어도 '손실→유료화' 흐름이 선다."
+    }
+  },
+  {
+    "id": "011f3e47-1cf5-49bb-a737-ec8d3d85efb9",
+    "source_updated_at": "2026-09-26T12:52:16.733934+00:00",
+    "body_sha256": "422730c72925747e86ef3d6ccb7dc65e1c66c13a70126b15ded22c79bee07a57",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "앞의 '(Serbian)' 잔재를 걷으면 칼럼니스트의 사망 → 원인(유방암·44세) → 마지막 칼럼 게재로 문장이 이어져 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today also marked the death of",
+      "note": "'Today also marked' 는 앞 꼭지를 가리키므로 'Dina Rabinovitch died today' 로 고쳐야 떨어진다; succumbed→died 로 쉬워진다."
+    }
+  },
+  {
+    "id": "0457bcdc-1506-42d0-8e40-26cdf20ae22b",
+    "source_updated_at": "2026-09-26T12:52:06.355183+00:00",
+    "body_sha256": "311f5456f4753ead13fbcf99889d7e47bd56dcd09288a304266bcc5646ee5be6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "호두 추출물 치료제 개발 주장 → 효과 지속 시간 인용 → 40명 시험 결과·원료량으로 연구 사실이 이어져 성인 대상 내용 일치 칸을 채운다(소재상 고3·성인만).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Researchers at University of Malaya say",
+      "note": "소재가 성기능 치료라 연령을 성인 쪽으로 제한; volunteers→people, alternative→substitute 로 바꿔 보니 V6 가능."
+    }
+  },
+  {
+    "id": "052194a5-fe31-4ba1-9a2d-65519b3324df",
+    "source_updated_at": "2026-09-26T12:51:34.767805+00:00",
+    "body_sha256": "12d0f8712f3f183f849cb9e42d03588763a52673e5799a8afcd16b4d2a41e283",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "비밀투표로 총리를 뽑는 절차 → 8대7 승리 → 전임자 교체·두 번째 임기로 선출 절차가 문장으로 이어져 이름·득표만의 나열을 넘어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Maatia Toafa has been declared the",
+      "note": "이름을 걷으면 '의회 비밀투표로 선출·한 표 차' 절차만 남아 얇지만 선다; runner up→second-place 로 바꿨다."
+    }
+  },
+  {
+    "id": "06358ad1-3708-4125-b023-67c76fd54361",
+    "source_updated_at": "2026-09-26T12:52:19.921006+00:00",
+    "body_sha256": "5ca2f8f08f8c8878ae1680af80f4721e986981f93b04f4fb64c3b9ab02005cfa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "형수에게 입맞춘 남성이 태형·벌금을 받았다(처벌) → 여자의 오빠가 신고했다(경위)로 두 문장이 사건으로 이어져 성인 읽기 자료의 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Bangladesh man who kissed his",
+      "note": "두 문장뿐이라 문항은 내용 일치 하나가 한계; whiplashes→lashes 로 바꾸면 V5, 체벌 소재라 중등 칸은 달지 않는다."
+    }
+  },
+  {
+    "id": "06a5e558-d27c-4039-a3d3-8db9ff07a09d",
+    "source_updated_at": "2026-09-26T12:51:22.289305+00:00",
+    "body_sha256": "cf6468d8d6fce6d6a408713aa688ce9fe4e455b8dc463d2f7cee6fc54db44b8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "교황 중동 방문의 정치적 난관 예고 → 팔레스타인 총리에게 한 공감 발언 인용 → 난민촌·주거 문제라는 맥락으로 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While in the Middle East, Pope",
+      "note": "인용의 aspirations→hopes, spiral→cycle 로 바꾸니 V6; 마지막 문장이 어색해 가공 때 다듬어야 한다."
+    }
+  },
+  {
+    "id": "06c286a8-1392-435b-896a-25e39135c10c",
+    "source_updated_at": "2026-09-26T12:52:14.112797+00:00",
+    "body_sha256": "ebe6b67f21fa391a901ad1c24a700336a0ce8ca15bb51daccd2975064ad24172",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "머리의 'External links VIRGO' 잔재를 걷으면 유료 서비스 종료(예고대로) → 7월 2일부터 무료 전환 → 공사 중·보관 영상은 이용 가능으로 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "CNN has shut down its CNN",
+      "note": "잔재 두 줄만 걷으면 바로 떨어진다; announcement 날짜를 걷어도 '유료→무료 전환' 사건이 선다."
+    }
+  },
+  {
+    "id": "0809e4a5-43e5-4093-8186-5d49034ed714",
+    "source_updated_at": "2026-09-26T12:51:47.677986+00:00",
+    "body_sha256": "2fa528969967c6f080ab17daa0ecd99a8c817bd2c30f2290aee6268bdc40b112",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "염소 트럭 자폭 공격(원인) → 유독가스로 민간인 350명 발병·사망(결과)이 이어지는 폭력 단신이라 고1 이상 칸의 내용 일치로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three different suicide bombers blew up",
+      "note": "noxious→harmful, sickened→made ill 로 바꿔 V5~6; 폭력 소재라 elem·mid 는 달지 않는다."
+    }
+  },
+  {
+    "id": "0b12292f-7426-46c8-8356-c14834c56dd1",
+    "source_updated_at": "2026-09-26T12:50:48.527443+00:00",
+    "body_sha256": "ad9433fe5180d490ba5a473d11db032d8bfb0f75b3835fd292897ecc426ff6b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "이란 대통령의 파키스탄·인도 방문 목적(가스관 협의) → 서명 임박 보도로 두 문장이 이유·다음 절차로 이어져 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mahmoud Ahmadinejad, the president of Iran,",
+      "note": "두 문장이라 매우 얇다; 수치 괄호를 걷고 supply→provide energy to 로 풀면 V5."
+    }
+  },
+  {
+    "id": "0b7a34f8-ab08-48d7-bb66-fb624fa3fe4a",
+    "source_updated_at": "2026-09-26T12:52:00.57117+00:00",
+    "body_sha256": "661362a0720500b95bd6058c857f34ef63d42415cf760a1080bc92b91b66d6f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "에너지부 장관의 리버모어 연구소 운영 계약 발표 → 컨소시엄 구성 → 55년 만의 운영자 교체 의미를 밝힌 인용으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In Washington DC, Department of Energy",
+      "note": "컨소시엄 회사 이름 다섯을 걷어도 사건은 서지만 consortium·contractor·national security 는 바꾸기 어려워 V7 아래로는 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "0d95b8f7-819b-4072-9460-c558f492b6b3",
+    "source_updated_at": "2026-09-26T12:51:28.953462+00:00",
+    "body_sha256": "0a58c8ea15def711ebaeb329c9b6051dc64eb07d9a1544c52752c88c2633998c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "수리남 초대 대통령 부고로 사망일·나이·재임기간·출생지가 문장마다 바뀌어 되풀이될 뿐 문장을 잇는 사건이 없어 수치·이름 나열로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Johan Ferrier, the first president of",
+      "note": "이름·연도를 걷으면 남는 게 없다 — 사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "0dec0fa6-a338-44d5-ab5b-cfd96a8bd9b3",
+    "source_updated_at": "2026-09-26T12:52:17.377556+00:00",
+    "body_sha256": "cb6416f861703742a7e161ec2fc4e58df534798961bfe5a6a286558f22119c30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "매클린스가 올해의 인물로 수감된 콘래드 블랙을 뽑음 → 선정 이유를 밝힌 편집부 인용 → 특집호 구성·발매로 이어져 내용 일치와 인용 속 태도 파악 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Canadian news magazine Maclean's has chosen",
+      "note": "인용의 comported→behaved, detractors→critics, grudgingly→unwillingly 로 바꿔 보니 V7 까지 내려간다."
+    }
+  },
+  {
+    "id": "0e6102aa-8c9c-4562-ac26-039ffc1d7abd",
+    "source_updated_at": "2026-09-26T12:51:52.868423+00:00",
+    "body_sha256": "724d358404ba6de64b6b3d214b83af06ac775c21666f1a11fce5102294d3f329",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "도로변 폭탄이 차량을 쳐(원인) 병사 여섯이 숨졌고(결과) ISAF 가 신원을 밝히지 않았다(반응)는 흐름에 ISAF 설명이 붙어 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Six soldiers with the International Security",
+      "note": "casualties→dead, incident→attack 으로 바꿔 V5; 전사 소재라 elem·mid 는 달지 않는다."
+    }
+  },
+  {
+    "id": "0ed8ccde-24c7-429c-a65d-2bc28de6528b",
+    "source_updated_at": "2026-09-26T12:50:42.926232+00:00",
+    "body_sha256": "e1aa28446436173097c26bc4dae88f204244cf3cbf8825ab1cb5980b7b15370a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모 4.6·이시가키섬까지 15km·도쿄까지 1935km 로 규모와 거리만 있고 피해·대응 같은 다음 사건이 없어 짧은 단신 최소선에 못 미쳐 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "An earthquake has hit the sea",
+      "note": "수치를 걷으면 '바다에서 지진이 났다' 한 문장만 남는다."
+    }
+  },
+  {
+    "id": "1176b07b-99a0-44b2-87bf-15cff4ce8730",
+    "source_updated_at": "2026-09-26T12:52:16.733934+00:00",
+    "body_sha256": "8bcb597ff3a0a1281153e430920bdc75281a3af3d4643c74b3f27902ee5a8965",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "유고 골키퍼 므르쿠시치의 부고로 사망일·장소·나이·1950 월드컵 대표 경력만 나열되고 문장 사이 사건 연결이 없어 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Yugosloav football (soccer) goaltender Srđan Mrkušić",
+      "note": "이름·연도·장소를 걷으면 사건이 남지 않는다."
+    }
+  },
+  {
+    "id": "12fc2c6c-cfec-416f-b5a2-0acf243bc0ab",
+    "source_updated_at": "2026-09-26T12:51:21.648999+00:00",
+    "body_sha256": "5a337bc2e7c7a5c56a286957198d71c30e556bb1e347f43deaa9733f32b6e0b5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "신종플루 확진 2,532건·입원 104명·나라별 사망자 수로 문장마다 수치만 바뀌어 되풀이되고 원인·대응 문장이 없어 수치 나열로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The US Centers for Disease Control",
+      "note": "수치를 걷으면 '미국에 신종플루 확진이 늘었다' 외에 사건이 없다(H1H1 오타도 있다)."
+    }
+  },
+  {
+    "id": "13bab427-c25f-4568-b6d1-ffb94cb96f62",
+    "source_updated_at": "2026-09-26T12:51:05.792856+00:00",
+    "body_sha256": "22a71b63ed572829d3416af3a2b38a7282f990c5e681e1bc2eab90c2b26d73e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "머리의 ']' 잔재를 걷으면 스웨이지의 췌장암 간 전이 → 작별 인사 → 5월 공개·촬영 마침 → 보도 경위로 사건이 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The disease pancreatic cancer, which affects",
+      "note": "'National Inquirer' 출처를 걷어도 선다; farewells→goodbyes, apparent→seeming 으로 V5~6."
+    }
+  },
+  {
+    "id": "1443d9c6-6b20-4871-a50e-9e038fd75e37",
+    "source_updated_at": "2026-09-26T12:52:09.58383+00:00",
+    "body_sha256": "23a8455da27603487932ef92ca9733ed85543c6e4ed7f0162191c343f29a4d86",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "나흘 폭우(원인) → 홍수·산사태로 66명 사망(결과) → 농경지·가옥 파괴와 59만 명 대피(피해·대응)로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Four days of heavy rains in",
+      "note": "성 이름·헥타르 수치를 걷어도 인과가 선다; hectares→fields, evacuate→leave 로 V5."
+    }
+  },
+  {
+    "id": "14a251cf-09b0-4648-8565-f9d5bd209b42",
+    "source_updated_at": "2026-09-26T12:52:11.501731+00:00",
+    "body_sha256": "3a65a40a2ebaf52e43af54710d23373608e5df22d26ea6c09063af6e0e0db983",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "축구 경기 중 폭탄 폭발로 경찰 14명 부상 → 화분 속 폭탄을 휴대전화로 터뜨린 경위 → 중상자 수로 사건이 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A bomb blast during a soccer",
+      "note": "끝의 'Related' 잔재를 걷는다; detonated→set off 로 바꿔 V5, 폭력 소재라 elem·mid 제외."
+    }
+  },
+  {
+    "id": "15aa24bd-32dc-4590-b22f-755f4e7c110f",
+    "source_updated_at": "2026-09-26T12:50:51.211207+00:00",
+    "body_sha256": "877e4a8d7fc0bbdd0525f13895e26d2d9b044e29e0d5efb7f53110d17c43c5aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "영국 보건노동자들이 정부 임금안을 거부 투표했다(결과) — 3년 8% 인상안이 강한 반대에 부딪혔다(까닭)로 두 문장이 반응으로 이어져 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "UK health workers have voted to",
+      "note": "두 문장이라 얇다; faced strong opposition→many workers opposed 로 풀면 V4~5."
+    }
+  },
+  {
+    "id": "15b87648-41d9-4c0a-b90c-36a15c515720",
+    "source_updated_at": "2026-09-26T12:52:03.140711+00:00",
+    "body_sha256": "4dd3bc2304e8d5e68f7963c91fba81debb32496446728bc4e675ef3148b1d8be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "소니의 PSP 스토어 계획 발표 → 게임 직접 구매·PS1 게임 이용 기능 → 분석가의 새 기기 추측으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sony have announced that a PlayStation",
+      "note": "약어 괄호와 펌웨어 설명을 걷어도 '스토어→직접 내려받기' 흐름이 선다; firmware 는 걷는다."
+    }
+  },
+  {
+    "id": "1705c234-dcda-48d9-bf21-5ab6daf17d6f",
+    "source_updated_at": "2026-09-26T12:51:48.975528+00:00",
+    "body_sha256": "af1a66d7e4168333f41113cd4f4b3a01576f7585bb2ff1fb36a25c7ec0c41842",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "핵과학자 벨리호프의 '핵무기 보유는 반인륜 범죄' 주장 칸은 서지만 첫 인용의 'they'(핵무기를 만들 수 있다는 나라)가 본문 어디에도 없어 가공 때 무엇으로 채울지 판단이 서지 않는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In an interview with Reuters, Russia's",
+      "note": "'they' 가 가리키는 나라가 본문에 없어 원문 밖 정보를 넣지 않고는 첫 인용이 서지 않는다; 둘째 인용만 떼면 주장 한 줄뿐이다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "17af52ac-dc64-4c21-9328-acb498aaf218",
+    "source_updated_at": "2026-09-26T12:51:27.005783+00:00",
+    "body_sha256": "b88461d83fdeff5721e1ea7331b602075a5bce63291dbe0480e83dc526b4fb53",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "여당의 승리 주장 → 카마 재선 전망·5년 임기 → 4월 임명 뒤 첫 선거 → 57석 중 29석 필요라는 절차로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Botswana's Democratic Party (BDP) is claiming",
+      "note": "의석 수를 걷어도 '승리 주장→재선→임명 뒤 첫 선거' 흐름이 선다; appointed→chosen 으로 V5."
+    }
+  },
+  {
+    "id": "1ad2b0fc-abc6-454f-967f-2496ca921211",
+    "source_updated_at": "2026-09-26T12:51:12.435862+00:00",
+    "body_sha256": "396a8fe4c2648b1a874bd5b42a63805396643fc347891e73d12e0598113726a6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "멸종위기 원숭이 스무 마리 발견 → 새끼 셋이 번식의 증거라는 해석 → 발견 전 250마리 미만이던 배경으로 이유가 이어져 초등~성인 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Biologists from Fauna and Flora International",
+      "note": "단체명을 걷고 critically endangered→very rare, indication→sign 으로 바꾸니 V4 까지 내려간다."
+    }
+  },
+  {
+    "id": "1b79e6d9-f279-476b-9693-7eb07ee795f1",
+    "source_updated_at": "2026-09-26T12:52:18.007986+00:00",
+    "body_sha256": "510aa5886989c41239039c7ff68d32bf22ddb624cfd9a618b2f22122c2a48213",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "오대호·뉴잉글랜드 도로 결빙 → 폭풍 경보 → 적설량 → 경찰의 '집에 머물라' 권고와 시계 악화로 원인·대응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Highways near the Great Lakes and",
+      "note": "주 이름·인치 수치를 걷어도 '결빙→경보→귀가 권고' 흐름이 선다; slick→slippery, visibility→how far you can see 로 V4~5."
+    }
+  }
+]

@@ -1,0 +1,944 @@
+[
+  {
+    "id": "3e3b2385-8050-4923-ad5c-2da7f2294376",
+    "source_updated_at": "2026-09-26T12:52:12.135818+00:00",
+    "body_sha256": "8d35e5a77f25e836fdb3f08f82238c44704e0f61a083b606dfc864cb78fdb89c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "태국 남부 체포 소식 뒤에 교사 아들 피살·학교 방화가 「also」로 병렬만 되고 문장 사이 사건 연결이 약해 단신 보관선 경계다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Police in southern Thailand said today",
+      "note": "세 사건이 나열만 돼 고유명사를 걷으면 사건 흐름이 서지 않았다; insurgency·gunned down 은 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "40cd0b8e-6e71-4512-8950-6bd8491f7b8a",
+    "source_updated_at": "2026-09-26T12:52:19.921006+00:00",
+    "body_sha256": "104becadbc88578e0e06c573fc377b8a07bb50840cf5fe97b7b0e7ea9f92c8aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "1,000명 감원 발표 → 비용 절감이라는 목적 → 분석가의 환영·인용이 이어져 원인·반응이 선다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anglo-Dutch mediagroup Reed Elsevier has announced",
+      "note": "axed→cut, programme 인용을 풀어 쓰면 V6 로 내려가고 회사명을 걷어도 감원-목적-반응이 선다."
+    }
+  },
+  {
+    "id": "414744b3-2421-4506-aa3b-97ddc3a40688",
+    "source_updated_at": "2026-09-26T12:51:32.823018+00:00",
+    "body_sha256": "954621011237a3506e07313d84598b4719ebe057e2d5fda408617c3062e692df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아바스·네타냐후 정기 회담 합의와 2년 만의 직접 협상이라는 배경이 이어져 사건과 맥락이 한 편에서 선다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Palestinian President Mahmoud Abbas and Israeli",
+      "note": "인명이 많지만 「두 지도자가 격주로 만나기로 했다」는 사건은 남고 thereafter 등은 쉽게 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "43e1043b-1e80-4787-a8a7-ef27dd603c20",
+    "source_updated_at": "2026-09-26T12:51:50.311488+00:00",
+    "body_sha256": "16f9fa5667d3070724995a07accd0c67a4d8bbbeb795c9cbf64dd66e3dc1e3c9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "펠로시의 시리아 방문 회담 의제와 부시 행정부의 비판(고립 정책을 흔든다는 이유)이 반응으로 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "President Bashar al-Assad met with Nancy",
+      "note": "undermining·isolation 을 풀어 쓰면 내려가고, 방문-회담-비판의 반응 고리가 걷은 뒤에도 남는다."
+    }
+  },
+  {
+    "id": "45024706-4ea9-452f-b32b-bae6842cefee",
+    "source_updated_at": "2026-09-26T12:51:22.983366+00:00",
+    "body_sha256": "8b4441da361b50bc2fd7603258f7eb56d4b7857d9f49e8b8191abe854f37eb1f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "남편 마약 체포 → 집에서 각성제 발견 → 배우 실종 → 아들 발견으로 원인·결과가 이어지는 단신이며 마약 소재라 고등 이상 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The son of missing Japanese actress",
+      "note": "사건 순서가 뚜렷해 순서 배열로도 쓸 수 있고 stimulants→drugs 정도로 어휘가 내려간다."
+    }
+  },
+  {
+    "id": "45533f1b-01f6-4491-8752-10785a44f490",
+    "source_updated_at": "2026-09-26T12:51:19.719338+00:00",
+    "body_sha256": "75653b110f6a3bf21be674c9573076b70333b523853143e1b6c0e2b0a0fc76de",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "파산 보호 신청 실패 → 영국 법인 법정관리 → 란드스방키의 10억 파운드 추심이 결과로 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Baugur, the Icelandic retail giant, has",
+      "note": "문장 중간 줄바꿈은 합치면 되나 administration·creditors 같은 금융 용어가 핵심이라 바꾸면 뜻이 흐려졌다."
+    }
+  },
+  {
+    "id": "47901313-2427-4e10-9190-d4d9ce71cc3d",
+    "source_updated_at": "2026-09-26T12:51:15.072379+00:00",
+    "body_sha256": "b28d6258381ad57d57d99d5ab2e9867b12a8b8915ef355467301f144a4dcba0a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "핀업 모델 베티 페이지의 사망과 사인(심장마비 합병증)·출생·경력이 부고로 이어지나 플레이보이 경력이 있어 성인 칸만 단다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bettie Page, a model who became",
+      "note": "문장이 쉬워 complications 만 바꾸면 되지만 사실 나열에 가까워 내용 일치 외 유형은 안 나왔다."
+    }
+  },
+  {
+    "id": "48732a24-aefc-44b8-8b06-ac1ec2f07923",
+    "source_updated_at": "2026-09-26T12:52:20.553539+00:00",
+    "body_sha256": "a79f37125f7f033a15227b8cd7cfd8958557b5d2b85c81f43a7ffea8e4e37407",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "적 세력 강화로 재건이 늦어지고 주민 압박이 커졌다는 이유가 네덜란드군 공세 개시와 이어져 원인-행동이 선다(전쟁 소재 고등 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Dutch army started, in co-operation",
+      "note": "대변인 인용이 원인을 설명해 문장삽입 자리가 생기고 offensive·rebuilding 은 쉽게 풀린다."
+    }
+  },
+  {
+    "id": "4a4c8031-b855-4095-89b9-09af91fa55a8",
+    "source_updated_at": "2026-09-26T12:50:54.400659+00:00",
+    "body_sha256": "1a873fddf7e289424e802acd588529eadbeb5e13c7c2a3a4f868e5a5a55d9d7a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "space",
+    "why": "디스커버리호 착륙과 STS-124 임무가 일본 실험 모듈 키보 부품을 우주정거장에 전한 결과가 이어진다(짧은 내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Space Shuttle Discovery landed at 11:15",
+      "note": "두 문장뿐이라 유형은 내용 일치 하나지만 착륙-임무 성과가 이어지고 experimental 정도만 바꾸면 중등 밴드다."
+    }
+  },
+  {
+    "id": "4b955bee-5e2c-4698-9771-f32bd2679478",
+    "source_updated_at": "2026-09-26T12:51:03.783896+00:00",
+    "body_sha256": "087e83b1a19fad4144684119bd0b39aed2cf31c37e47abbb9db992a7d8026422",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "짐바브웨 콜레라 단신이 사망자 53·누적 366·환자 8,887 같은 수치만 바꿔 되풀이하고 원인·대응 문장이 없다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The United Nations says that a cholera",
+      "note": "수치를 걷으면 「콜레라가 번졌다」 한 줄만 남아 논지·사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "4bc1b65d-d6c0-4ac5-860b-9472f4710745",
+    "source_updated_at": "2026-09-26T12:51:11.113043+00:00",
+    "body_sha256": "83b851e49aed2e65e677df5c24ed0be6e7bba720def911dcd496f04f35d3fba1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "캐나다군 3명 전사로 누적 100명에 이르렀다는 결과와 사령관 발언·2011년 철수 일정(다음 절차)이 이어진다(전쟁 소재 고등 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three Canadian soldiers were killed by",
+      "note": "casualties→deaths 로 바꾸면 되고 사건-누적-철수 계획의 흐름이 이름을 걷어도 남는다."
+    }
+  },
+  {
+    "id": "4d807a7e-7da2-401b-8f51-41af0624cf4d",
+    "source_updated_at": "2026-09-26T12:50:44.593585+00:00",
+    "body_sha256": "ede11980aa5110dceef5762bb2795e19118c754196c13c05254da829116ad836",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "살타 인근 지진 단신이 규모·거리·시각만 적고 피해·반응 등 이어지는 사건이 없는 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "An earthquake has hit the region",
+      "note": "규모·거리·시각을 걷으면 「지진이 났다」만 남아 가공할 사건이 없었다."
+    }
+  },
+  {
+    "id": "4dddea52-dad9-4666-ad77-52081b7f5f70",
+    "source_updated_at": "2026-09-26T12:51:23.672878+00:00",
+    "body_sha256": "da27a4967fddee976013e8224b7b7897c03359327be5d797b52715d75905cb84",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폐렴으로 며칠 남지 않았다는 이유로 대열차강도 비그스가 인도적 석방됐고 생일·범행 46주년과 겹친다는 반응이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Great train robber Ronnie Biggs has been",
+      "note": "compassionate grounds·infamous 가 문맥으로 잡혀 어휘 문항 재료가 되고 풀어 쓰면 V6 이다."
+    }
+  },
+  {
+    "id": "4f8a6661-e040-41c1-b76e-49b02259b208",
+    "source_updated_at": "2026-09-26T12:50:57.779061+00:00",
+    "body_sha256": "50d0587a02cc9a08886c61e04b5596e382ee459a0372fe94a4aa17a51bbb5afc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "감비아 6.5% 성장 전망의 원인(농업 반등·서비스·건설)을 보고서 인용으로 밝혀 원인-결과가 이어진다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Central Bank of The Gambia has",
+      "note": "뒤 단락의 통화량 수치는 걷어도 성장 전망과 이유가 서고 rebound·output 은 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "5040a1f2-944e-4c08-8358-e1561cf62286",
+    "source_updated_at": "2026-09-26T12:52:09.58383+00:00",
+    "body_sha256": "c16780c1ae188ac10e3c08561f87a3e34918b093a0ac8e7dd664741ace2928cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "부시의 코소보 독립 촉구 발언과 그 인용 두 문장뿐이라 이유·반응·다음 절차가 없어 단신 보관선 경계에 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "U.S. President George W. Bush said",
+      "note": "인용이 앞 문장을 되풀이할 뿐이어서 걷으면 한 문장만 남았고 breakaway 는 쉽게 바꿀 수 있었다."
+    }
+  },
+  {
+    "id": "50931946-b9dd-49fb-93e4-910fb6d8c490",
+    "source_updated_at": "2026-09-26T12:51:51.589421+00:00",
+    "body_sha256": "454ce6250726d49d462a1a17008a9667a31e48fd8de7914086ff7cb5a7d62c7c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카르자이가 탈레반과 화해 협상을 인정하면서도 인질 석방 거래는 배제했다는 대비가 두 문단으로 선다(내용 일치 칸).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Afghan President Hamid Karzai acknowledged in",
+      "note": "끝의 「Related news」 머리는 사이트 잔재라 가공 때 걷고, reconciliation 은 peace deal 로 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "530e3362-f12d-4fdf-9bcb-1a965fc05553",
+    "source_updated_at": "2026-09-26T12:51:18.365102+00:00",
+    "body_sha256": "52f66050fe8ba8c3485d3cc47c0565bd05bb2dd72a176e6ddda7a096a6259327",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "슬로바키아 유로 도입과 16번째 나라·환율, EU 위원의 의미 부여 인용, 유로 10주년이 이어져 사건과 반응이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The European country of Slovakia will",
+      "note": "인용의 [...] 생략을 정리하고 tremendous external shocks 를 풀면 V6 로 내려가며 통화 교체 사실이 선다."
+    }
+  },
+  {
+    "id": "53d93908-fe2d-4da3-a277-d2cedb5c2759",
+    "source_updated_at": "2026-09-26T12:51:41.217319+00:00",
+    "body_sha256": "c8e528b017fedcc1adc4366163cf5ac4f39b8643db4e1acb865afe5850cdecd6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "좌초 → 암초 때문에 구조선·구명정 불가 → 헬기 구조 → 이중선체로 오염 방지 전망까지 원인·결과·다음 조치가 촘촘하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Italian cargo tanker Gelso M",
+      "note": "사건 순서가 분명해 순서·삽입 문항이 나오고 reefs·double hull 만 풀면 중등 밴드도 된다."
+    }
+  },
+  {
+    "id": "552c4290-f544-4e65-bdb6-042e1f25b81b",
+    "source_updated_at": "2026-09-26T12:50:42.926232+00:00",
+    "body_sha256": "47736e271134ab0a110d77e26d2f1917babf7305b3f62f7ef42a421e3d907d38",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "반다해 지진 단신이 규모 4.9와 거리 두 가지 수치뿐이라 이어지는 사건이 하나도 없다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The Banda Sea has been hit",
+      "note": "두 문장이 규모와 거리만 말해 수치를 걷으면 남는 내용이 없었다."
+    }
+  },
+  {
+    "id": "56558b0e-e3de-404d-8f34-0c3bf6c17212",
+    "source_updated_at": "2026-09-26T12:51:06.444482+00:00",
+    "body_sha256": "a1205f55d276621b16e8e440eb029a907ad96a0cd783d1c0711107bf33c5013a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 모스크 자폭 공격이 의회의 미군 철수 협정 승인 하루 뒤라는 맥락과 철수 일정으로 이어진다(죽음 소재라 고등 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A suicide bomber blew himself up",
+      "note": "공격 묘사는 간결하고 철수 일정 단락이 맥락을 세워 withdrawing·timetable 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "566c7162-aa7f-4b43-8631-f1b0a845c0d6",
+    "source_updated_at": "2026-09-26T12:50:48.527443+00:00",
+    "body_sha256": "cf6d059ce8eb421e1720bd34a0338013f4f430d0a079fb3c9398a4c027cc343f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "부시의 중동 3국 방문 날짜와 예정 일정만 있고 방문 이유·결과·반응이 없는 일정 공지다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "George W. Bush, the president of",
+      "note": "나라 이름·날짜를 걷으면 「방문한다」만 남아 사건 연결이 서지 않았다."
+    }
+  },
+  {
+    "id": "568fda70-5e20-4e74-9bca-3f33f0452aed",
+    "source_updated_at": "2026-09-26T12:52:18.653842+00:00",
+    "body_sha256": "35105981e88788a8dec77013167b89a2e4eb5ff65bee3fc18d97863c14c170fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "오하이오 주 의뢰 연구가 투표기가 보안 표준에 못 미친다는 근거로 기계를 비판했다는 주장-근거가 짧게 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A just-published, two-month study conducted in",
+      "note": "on behest of 는 어색해 at the request of 로 바꾸고 보고서 인용이 비판의 이유를 담아 논지가 남는다."
+    }
+  },
+  {
+    "id": "591530c3-c55a-410f-abc1-2cc91b4f4626",
+    "source_updated_at": "2026-09-26T12:52:18.007986+00:00",
+    "body_sha256": "4dcd9dfdd5e81e7787cbda4e6263bee3142934d700851d91c360ead41353e325",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "리버풀 시의원 행태를 동유럽 신생 민주국가만 못하다고 본 감사 결론이 회의 참관 → 4점 만점에 1점 평가로 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Kingdoms Audit Commission has concluded",
+      "note": "fledgling 을 new 로 바꾸면 내려가고 결론-근거-평가 결과가 기관명을 걷어도 선다."
+    }
+  },
+  {
+    "id": "5b678e1f-63cf-4063-bd47-4b4039979a12",
+    "source_updated_at": "2026-09-26T12:50:56.408681+00:00",
+    "body_sha256": "9d1b95a8c1e0c14280f719ec365ab1d68e3e4676ea9c24b842786f07114be31e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아이들이 수영하다 개울에서 뼈를 발견 → 사람 뼈가 아니라 개·사슴 등 동물 뼈로 밝혀졌다는 사건 반전이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some bones that were found in",
+      "note": "발견-판정 순서가 분명하고 trestle·mammal 만 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "5be66068-7204-427e-a8e9-b4a535751348",
+    "source_updated_at": "2026-09-26T12:52:05.719182+00:00",
+    "body_sha256": "d9b3329dab55f875d9c437c817105706eb3b6eaeb554b7099bce753c5ffb9a2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "대통령 무제한 연임을 허용한 개헌과 경제 호황 업적·공정 선거 부재가 대비를 이뤄 사건과 평가가 한 편에서 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A new constitution for Kazakhstan, which",
+      "note": "overwhelmingly·deemed 를 바꾸면 V6 이고, 업적과 비민주성의 대비가 주제 문항 재료가 된다."
+    }
+  }
+]

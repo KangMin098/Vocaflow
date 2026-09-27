@@ -1,0 +1,894 @@
+[
+  {
+    "id": "1b8206d1-0254-4671-80fa-e2350ac807d3",
+    "source_updated_at": "2026-09-26T12:50:41.493679+00:00",
+    "body_sha256": "5b24046fd65a87faa88c352d4bbd5beec5ba124cedae763a4d68a0cb4a3d48ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "통가 지진 단신은 규모·시각·위치 세 수치만 이어지고 피해·반응·후속 절차가 한 문장도 없어 칸을 채울 연결이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "An earthquake with a magnitude of",
+      "note": "규모·시각·위치를 걷으면 남는 사건이 없다 — 수치 나열뿐이다."
+    }
+  },
+  {
+    "id": "1c1f08a1-e300-4718-a458-98b847263526",
+    "source_updated_at": "2026-09-26T12:50:58.428661+00:00",
+    "body_sha256": "06269fb2ceaa854be7319aff1767cc386c7f2776bfdcc565a1f0c9e010eaf1b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "ARD 푸틴 인터뷰 조작 의혹 → 절반 이상 삭제 보도 → 방송사 부인으로 의혹과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ARD, a German television channel allegedly",
+      "note": "allegedly·manipulated 를 said to·changed 로 바꾸면 V5 로 내려가고, 의혹-부인 구조는 이름을 걷어도 선다."
+    }
+  },
+  {
+    "id": "1c5a00f7-9efd-4630-ae90-d052ebf2e16e",
+    "source_updated_at": "2026-09-26T12:51:48.975528+00:00",
+    "body_sha256": "4b96030b2bdaa924823ba68de9c2b7ba50e46ba554ccce34c07f4b596ca07526",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "history",
+    "why": "포클랜드 침공 25주년이 추모 행사이자 주권 주장 재천명의 기회라는 두 문장이 기념일의 의미를 이어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today marks the 25th anniversary of",
+      "note": "Today 를 날짜로 바꾸면 떼어 내지고 reiterate·sovereignty 를 restate·control 로 바꿔 V5 가 된다 — 다만 두 문장이라 문항 수가 적다."
+    }
+  },
+  {
+    "id": "1e68daaa-240e-4b7b-9484-87531acb9162",
+    "source_updated_at": "2026-09-26T12:51:18.365102+00:00",
+    "body_sha256": "fa605f894ef5f1ef3415a1e6ef8d87b19390f75b7f9903eb594f3f0cde2bc3b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "위키뉴스 스페인어판 4000번째 기사 단신은 기사 수·시각·순위만 되풀이되고 사건의 원인·반응이 없어 수치 나열에 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Wikinoticias, the Spanish edition of Wikinews,",
+      "note": "편집판 이름과 기사 수를 걷으면 남는 논지나 사건 흐름이 없다."
+    }
+  },
+  {
+    "id": "209656b9-1fb0-4601-a70f-6102eaddf243",
+    "source_updated_at": "2026-09-26T12:52:19.921006+00:00",
+    "body_sha256": "c8e18a2ede79abe115e74e7a6df3e6b9c1ccdc4e7c83b3fb4bbef9494cd7fc76",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "history",
+    "why": "나치 전범 자이페르트가 2000년 궐석 유죄 → 캐나다 송환 → 나폴리 체포로 이어지는 절차가 서서 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nazi war criminal Michael Seifert was",
+      "note": "extradited·in absentia 를 sent back·without being present 로 바꾸면 V6 로 내려간다 — 살인 언급이라 고등 이상만."
+    }
+  },
+  {
+    "id": "24b3a860-cbbe-4715-9562-b3c742915d71",
+    "source_updated_at": "2026-09-26T12:51:54.148026+00:00",
+    "body_sha256": "e9f68bb060d2cfa9a0a0227fa9a6803258012fa4d059b4f6a27f049844764f97",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "앰네스티가 이라크 사형 증가를 비판하며 불공정 재판·TV 자백을 근거로 들고 이라크 당국이 반박하는 주장-근거-반응 구조가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since mid 2004, Iraq has sentenced",
+      "note": "reintroduction·abolition 을 bringing back·ending 으로 바꾸면 V6 가 되고, 수치를 걷어도 「세계 흐름과 반대」 논지가 선다."
+    }
+  },
+  {
+    "id": "25239bc2-8f8d-4260-a263-570bccfa0f65",
+    "source_updated_at": "2026-09-26T12:51:47.677986+00:00",
+    "body_sha256": "23d00876e630c27ded88deeaea6e3770c4a63dc09d1fc5b2392fec0e734770f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "마이크로소프트가 검색 점유율을 늘리려 기업에 검색당 보상을 주는 프로그램을 내놓고 추적 방식까지 설명해 목적-수단 흐름이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an effort to boost its",
+      "note": "enrolling·browser helper object 를 joining·small program 으로 바꾸면 V6 가 되고, 금액을 걷어도 「돈을 주고 사용자를 산다」는 요지가 선다."
+    }
+  },
+  {
+    "id": "27416361-7aeb-4c0a-84a2-e17f5eefbc09",
+    "source_updated_at": "2026-09-26T12:51:45.750976+00:00",
+    "body_sha256": "484d139dad8ad90f6c3f7cb2d6a0d4d42de57d16a7644abc30acf532b21929ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "터키 법원이 유튜브 차단을 푼 까닭이 문제 영상을 지웠기 때문이라는 원인-결과가 두 문장으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Friday, Türk Telekom was informed",
+      "note": "끝의 「Related news」 잔재는 가공 때 걷고 disputed·row 를 argued-over·fight 로 바꾸면 V5 다 — 길이가 짧아 문항은 한두 개다."
+    }
+  },
+  {
+    "id": "2847139a-4a6a-4c9b-bbb7-0831c667c8a7",
+    "source_updated_at": "2026-09-26T12:51:22.289305+00:00",
+    "body_sha256": "7f21c961670473976ff9c88db38ebb0fc981542bfa9cfcb005fe6dbce37d4d76",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "H1N1 이 태국에서 동남아 첫 확진 → 중국 첫 환자 → 접촉자 추적으로 이어지는 확산과 후속 절차가 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two travelers returning from Mexico to",
+      "note": "tested positive·come into contact 를 had the virus·met 로 바꾸면 V5 로 내려가고 국가명을 걷어도 확산-추적 흐름이 선다."
+    }
+  },
+  {
+    "id": "2adb8d09-2318-41a7-b3b8-c36126b9734c",
+    "source_updated_at": "2026-09-26T12:52:03.140711+00:00",
+    "body_sha256": "76815a4abc285cf65d4e13caffdf9e6f7ad16cd08a1499cb6dece453ef7b6b58",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "닌텐도 4월 NPD 판매 단신은 기종별 순위와 판매 대수만 되풀이하고 뒤 절반은 판매량 표라 순위·수치 나열로만 칸을 채운다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Nintendo dominated NPD sales for the",
+      "note": "순위와 대수를 걷으면 원인·반응이 한 문장도 남지 않는다 — 뒤 목록은 표다."
+    }
+  },
+  {
+    "id": "2b4d60e5-92a8-4d36-929c-e953c763ff66",
+    "source_updated_at": "2026-09-26T12:51:33.469816+00:00",
+    "body_sha256": "c70cc1adacdd7a87588f3a263e2002a45ae9eb997eda70d0bb945d42e092f01c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "북서항로 유조선 좌초(유출 없음·마을 보급 연료)에 같은 해역 크루즈선·다른 유조선 좌초가 이어져 해역의 잇단 사고라는 흐름이 서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "No oil is reported leaking from",
+      "note": "aground·uncharted 를 stuck·unmapped 로 바꾸면 V6 가 되고, 배 이름을 걷어도 「북극 항로의 잇단 좌초」가 선다."
+    }
+  },
+  {
+    "id": "2b9d6542-5f76-4975-958f-c90425fb0f00",
+    "source_updated_at": "2026-09-26T12:51:47.030494+00:00",
+    "body_sha256": "62d5ac2b45a014de314f84eb6fa67d03f73174f221f6092db10d0d8afd33fc6f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "카드게임 원작 TV 시리즈 Chaotic 방영 소식과 카드 코드로 온라인에서 겨루는 방식 설명이 서서 내용 일치 칸을 채우고, 끝의 동명 리얼리티 언급은 무관한 문장 재료다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The series helps viewers learn game",
+      "note": "카드캡터 사쿠라·브리트니 스피어스 곁가지는 가공 때 걷거나 무관한 문장으로 쓰고, encouraged·access 를 told·use 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "2dd3cb04-5e5e-4816-8e0e-e7f67514a8a5",
+    "source_updated_at": "2026-09-26T12:50:50.52421+00:00",
+    "body_sha256": "03ef2f9c30936ae057d8302fb476f1ac301e3c6357b01c90569e902171d387c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "해리포터 배우 롭 녹스 피살 단신은 동생을 지키다 찔렸다는 원인-결과가 있으나 한 문장뿐이라 짧은 단신 최소선의 「문장 사이 연결」에 걸리는지 갈린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "18-year old actor Rob Knox, who",
+      "note": "한 문장에 역할·개봉·장소가 몰려 쪼갤 수는 있으나 문항 둘을 세울 사실이 부족하다."
+    }
+  },
+  {
+    "id": "2e5927b0-6bff-42f9-bb7b-fb71451d6914",
+    "source_updated_at": "2026-09-26T12:51:35.40702+00:00",
+    "body_sha256": "623bcdafd2227be2844c1d9032263c2de1745876c71f503c45ce448ba72bff36",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "모니첼리 감독이 전립선암 치료 중 병실에서 투신 → 병원 발표 → 1950~60년대 대표작으로 이어지는 부고가 서서 성인·고3 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Italian film director Mario Monicelli has",
+      "note": "자살 방법 묘사(창밖 투신)가 구체적이라 가공 때 완화하고 연령을 고3·성인으로 제한한다 — 어휘는 이미 쉽다."
+    }
+  },
+  {
+    "id": "2fe75392-8c4c-447d-b303-efbb88ac534f",
+    "source_updated_at": "2026-09-26T12:50:43.931384+00:00",
+    "body_sha256": "e741520e3bf627ca9ddc9c4104e78cc29b03eada0811f7bdbe5915429a7a422b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "수마트라 남부 해역 지진 단신은 규모·도시까지 거리·시각만 나열하고 피해나 대응이 없어 수치 나열 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "An earthquake has hit the sea",
+      "note": "거리 두 개와 규모를 걷으면 「지진이 났다」 한 마디만 남는다."
+    }
+  },
+  {
+    "id": "2ff3c70e-95e4-4b51-9b15-84996888a0bd",
+    "source_updated_at": "2026-09-26T12:51:05.124928+00:00",
+    "body_sha256": "1c4805af83c22cbbaf0ed7a00d4804f56d36e28b5b74baa71ae381f205758322",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "EU 집행위 2000억 유로 경기부양안이 재원 분담 → 기대 효과(소비·신뢰) → 쓰임새(직업훈련·에너지·저공해차)로 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is hoped that the plan",
+      "note": "stimulate·allocated 를 boost·given 으로 바꾸면 V6 가 되고, 금액을 걷어도 「일자리를 지키려는 계획」 논지가 선다."
+    }
+  },
+  {
+    "id": "3014c95d-2827-432c-92ce-6172ef02b4b9",
+    "source_updated_at": "2026-09-26T12:51:19.719338+00:00",
+    "body_sha256": "3a7652510c3e1d1f8591c1b120d8ded8c23a7b02da04235a90f2242647c95fc2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "라인하트 판사가 동성 부부 복지 동등 대우와 결혼보호법 위헌을 판결했으나 개별 행정 분쟁이라 선례가 안 된다는 판결-한계 흐름이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "U.S. Court of Appeals Judge Stephen",
+      "note": "unconstitutional·precedent 를 against the constitution·example for later cases 로 바꾸면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "303edd17-351d-4a25-89b2-3bf9c94ac123",
+    "source_updated_at": "2026-09-26T12:51:11.113043+00:00",
+    "body_sha256": "e6c2c9315fdadd09cc53c67d09ee5f7f03dc0a87d04deeca6512e6f1400abe41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "BMW 월 판매가 경기 둔화로 소비가 줄어 4분의 1 넘게 떨어졌다는 원인-결과 첫 문단이 서서, 뒤의 브랜드별 감소율과 함께 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The global monthly sales of German",
+      "note": "원인 문장은 서지만 뒤 두 문단은 감소율 나열이라 가공 때 줄이고, subsidiary 를 company 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "310fa075-262a-44db-bca0-88a28299fb6b",
+    "source_updated_at": "2026-09-26T12:51:13.756874+00:00",
+    "body_sha256": "14c412bd13c0a164da91333923cb87fa3aa008aa9c7f28682212f2550d9d63db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "오피스디포가 매장 112곳 폐쇄·2200명 감원을 발표하자 주가가 12% 올랐다는 발표-시장 반응이 있어 지역별 수치 나열을 넘어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States office supplies company",
+      "note": "지역별 폐쇄 수 문단은 걷고 발표와 주가 반응만 남기면 서며 slash 를 cut 으로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "317fed93-af38-49bc-a45e-e7fc7643fa75",
+    "source_updated_at": "2026-09-26T12:51:01.15165+00:00",
+    "body_sha256": "37d112d542f77df80b27db12abe1a8cf38a67929f8a045d08d19071698df0c75",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "글렌로시스 보궐선거에서 접전 예상을 깨고 노동당이 크게 이긴 까닭으로 총리 유세와 높은 투표율을 드는 결과-원인 구조가 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Opinion polls had predicted a close",
+      "note": "turnout·margin 을 number of voters·gap 으로 바꾸면 V6 가 되고, 이름을 걷어도 「예상과 다른 결과와 그 까닭」이 선다."
+    }
+  },
+  {
+    "id": "32905c1c-8269-4a1a-b5d3-9cead6e0366d",
+    "source_updated_at": "2026-09-26T12:51:34.767805+00:00",
+    "body_sha256": "22aeceec2be307a39d218d41303fec9b9f82c8897b547e141914fb0a8f075676",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "biography",
+    "why": "파키스탄 정치인 이크발 부고는 사망 원인과 대통령·총리 추모가 있으나 본문 대부분이 역임한 장관직 이름 나열이라 「이름만 되풀이」 폐기선과 갈린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Former Pakistani politician Rao Sikandar Iqbal",
+      "note": "직함 목록을 걷으면 「67세에 신부전으로 숨졌고 추모가 이어졌다」 두 마디만 남는다."
+    }
+  },
+  {
+    "id": "32f6a9f1-d9ab-47e4-951c-fd08983848b9",
+    "source_updated_at": "2026-09-26T12:52:12.807802+00:00",
+    "body_sha256": "74cdfdd46f8a004bbffee977f929c2e9c4a908210e97a43d594c90b0c1dee789",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "테헤란 남쪽 규모 5.6 지진에 쿰 주민이 겁에 질려 거리로 뛰쳐나왔으나 피해는 없었다는 반응·결과가 이어져 수치 단신을 넘어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nearer to the epicenter, in the",
+      "note": "epicenter 를 center of the quake 로 바꾸면 V4 까지 내려가고 주민 반응 문장이 사건을 잇는다."
+    }
+  },
+  {
+    "id": "37576bcf-a300-4f36-a0de-4da064b26b71",
+    "source_updated_at": "2026-09-26T12:51:19.719338+00:00",
+    "body_sha256": "4d79b868e1588dae6a4c03976397527c9fd687f3c51801c9e838903723ec7f05",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "국유화된 RBS 가 금융위기 전 사외이사 7명을 해임한 배경으로 280억 파운드 손실과 보너스 비판을 드는 사건-배경 연결이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The troubled Royal Bank of Scotland,",
+      "note": "non-executive directors·credit crunch 를 outside board members·financial crisis 로 바꾸면 V7 이 된다 — 두 문장이라 문항은 적다."
+    }
+  },
+  {
+    "id": "3b00b5d4-7b5d-4d88-8e76-c9ed8b1f18ca",
+    "source_updated_at": "2026-09-26T12:51:53.510134+00:00",
+    "body_sha256": "8da7152dafea448606c8b61cdc02ff221986f9881f22f80d6dc39adca4199a68",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "덜 쪼갠 모음 — NATO 미사일 방어 회의 꼭지와 호주 머리-달링 유역 가뭄·관개 경고 꼭지가 무관하게 한 행에 붙어 있어 꼭지별로 다시 쪼개야 한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meetings are underway at NATO headquarters",
+      "note": "두 꼭지는 각각 혼자 서지만(미사일 방어 입장 차 · 가뭄 경고) 한 행으로는 한 원천 판정이 안 된다."
+    }
+  },
+  {
+    "id": "3d08e5e4-8e08-40af-ba0f-9fb097798b5d",
+    "source_updated_at": "2026-09-26T12:50:42.926232+00:00",
+    "body_sha256": "a7ef776ba623d262964416e9c1fb972b575ef3a1b7b424c111e9425469798f81",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "엘살바도르 해역 규모 4.3 지진 단신은 규모와 두 도시까지 거리만 적고 사건의 결과·반응이 없어 수치 나열에 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The area off the coast of",
+      "note": "거리·규모를 걷으면 남는 문장이 없다."
+    }
+  }
+]

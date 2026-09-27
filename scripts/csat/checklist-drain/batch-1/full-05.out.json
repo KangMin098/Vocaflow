@@ -1,0 +1,900 @@
+[
+  {
+    "id": "76017b36-6137-40ed-aee3-ab6dc03b1974",
+    "source_updated_at": "2026-09-26T12:51:19.034464+00:00",
+    "body_sha256": "66401424c453c5c94a254fb28dc65d7d08e59eb0188ba42bc5c7b7be7681a695",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아시아나 벌금 단신이 벌금(결과) ← 유족 지원 불이행(원인) ← 연방법 규정 → 닷새 지연으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "South Korea-based Asiana Airlines was fined",
+      "note": "promptly→quickly, abide by→follow 로 바꾸면 V6 로 내려가고, 둘째 단락 사고 경위는 배경 문장으로 붙는다."
+    }
+  },
+  {
+    "id": "78b4a2d0-8797-41c9-b06a-3911b615c8b1",
+    "source_updated_at": "2026-09-26T12:51:13.101168+00:00",
+    "body_sha256": "11865776c710242bac6d43520cc350cd7a429bbe6105edb727f7efbf7a514a68",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "MV Faina 해적 단신이 해적의 주장 → 인용 → 우크라이나 외무부의 반응으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An anonymous pirate told the AFP",
+      "note": "seized→taken, captors→kidnappers 로 바꾸면 쉬워지나 세 단락뿐이라 문항은 내용 일치 하나가 한계다."
+    }
+  },
+  {
+    "id": "78d06357-1400-4213-8726-446cb30fb383",
+    "source_updated_at": "2026-09-26T12:51:01.8032+00:00",
+    "body_sha256": "a184d3233755618fbdcccc8abe29eba69e2f9ef7ee03955d00da45083c333791",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미 상원 개표 단신이 세 주의 남은 절차(개표·재검표 이유·결선 일정)를 다음 절차로 이어 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Counting continues today, as candidates",
+      "note": "끝의 「Related news」 잔재는 걷고, run-off·recount 는 문맥에서 풀린다 — 주별 일정 나열에 가까워 칸은 하나뿐이다."
+    }
+  },
+  {
+    "id": "7df5644f-aee1-4fa2-ab5f-55288fe4c2ae",
+    "source_updated_at": "2026-09-26T12:51:09.15035+00:00",
+    "body_sha256": "f662f05c0a9b98a3c0ee95c3f920d86ad30cbc66fcc24cc2fc965ddb4879fcf9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "BA·콴타스 합병 검토 발표 → 성사 보장 없다는 단서 → 두 회사 주가 반응으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "British Airways, the flag carrier of",
+      "note": "flag carrier·dual-listed company 를 national airline·a company listed in two places 로 풀면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "7e3a36cd-c44f-4710-a38e-98ecf78cbd0f",
+    "source_updated_at": "2026-09-26T12:52:05.719182+00:00",
+    "body_sha256": "438a0aab5204be4a1f997751fb38ce4c73c21c176758ea9274d46dc30f7d7c98",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "미중 전략경제대화 단신은 참석 장관 수·영접자·대표단장·면담 일정 등 이름과 일정만 이어져 사건·원인·반응 연결이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "This week the United States and",
+      "note": "이름을 걷으면 「회담이 열린다」 한 문장만 남아 논지·사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "809e32d9-d48e-4f83-872b-798500160c61",
+    "source_updated_at": "2026-09-26T12:51:13.756874+00:00",
+    "body_sha256": "5181fa6529104e05e5da5d6a910f44fa6bb6e3c0508357f091834083bd7d50ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "파운드화 사상 최저 단신이 하락 사실 → 1년 전 대비 수치 → 패리티 전망(반응)으로 이어지고 parity 가 문맥에서 풀려 어휘 칸도 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The British pound sterling fell to",
+      "note": "descending→dropping, speculate→guess 로 바꾸면 쉬워지고, 환율 수치 둘은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "80b820d7-affa-4b50-a305-29da68d128c7",
+    "source_updated_at": "2026-09-26T12:51:47.030494+00:00",
+    "body_sha256": "58f369a6db314b5e36741b8f7a4454959754bb0e32954a656d21aa363e6f8e5e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "해리 포터 프랑스 우표 단신은 요금별 도안 목록과 우표 발행국 나열이 본문의 대부분이라 사건·이유 연결이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Photos of the Harry Potter movie",
+      "note": "요금·도안 목록과 국가 목록을 걷으면 첫 문장 하나만 남는다."
+    }
+  },
+  {
+    "id": "816fd33a-913f-4a64-a69b-2335d05f42cd",
+    "source_updated_at": "2026-09-26T12:52:15.415857+00:00",
+    "body_sha256": "774d4926cd344078486888ce470697f12aca86a9f7306b210deedbe572506903",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "빈 라덴 현상금 두 배 표결이 표결 결과 → 배경 보도(알카에다 재건)라는 이유로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States Senate has voted",
+      "note": "bounty→reward, execute→carry out 로 바꾸면 V6, 셋째 문장의 빠진 낱말(September 11 attacks)은 가공 때 채운다."
+    }
+  },
+  {
+    "id": "842e7969-291f-48ef-b8d0-0179460c0d04",
+    "source_updated_at": "2026-09-26T12:52:00.57117+00:00",
+    "body_sha256": "5d0c8858cfaf20d64d723f7b3964bd829fcd3865a88e7e1af506524e8f6b5355",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "MEND 공격 단신이 공격(원인) → Eni 생산 중단(결과) → 추가 파괴 예고 인용으로 이어져 고2 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Attacks by Movement for the Emancipation",
+      "note": "무장단체 위협 인용이 있어 연령은 고2 이상으로 두고, pseudonym→fake name 으로 바꾸면 V6 가 된다."
+    }
+  },
+  {
+    "id": "860cb647-551c-47f5-9e8f-79da542311ad",
+    "source_updated_at": "2026-09-26T12:51:22.983366+00:00",
+    "body_sha256": "38385f623330e13e4a141d932ccaca52673055d7114e2afaff1b3c146dbacbac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "중·인 국경 협상 단신이 협상 개시 → 1962년 전쟁의 불신 탓에 양보가 어렵다는 이유 → 협상 틀 마련 목표로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "India and China have begun the",
+      "note": "concessions→giving ground, lingers→remains 로 바꾸면 V6, 공동의장 이름 문장은 걷어도 된다."
+    }
+  },
+  {
+    "id": "870168ef-4ee0-4672-8931-7d3cec7da7c6",
+    "source_updated_at": "2026-09-26T12:52:11.501731+00:00",
+    "body_sha256": "5ce3f1f87dd267b459436131c2580cd446dee34cf0240047c0402858d27ba412",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "미얀마 조류독감 단신이 발병 보고 → 닭 1천 마리 살처분(대응) → 4월 이후 첫 발병으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An outbreak of H5N1, the avian",
+      "note": "slaughtered→killed, livestock official→farm official 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "87cb05bd-c586-4729-9479-08a4500198fb",
+    "source_updated_at": "2026-09-26T12:51:41.850515+00:00",
+    "body_sha256": "5d67912423275ccbf5aa7688e086cf1c9d9f3c421e97d500dd69d2958cdc2d4a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "hold",
+    "genre": "news",
+    "why": "새턴 V 총격 단신은 훼손 → 부상자 없음 → 용의자 추정의 세 문장뿐이라 연결은 얇게 있으나 내용 일치 문항을 세울 진술이 모자라 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Saturn V on display at",
+      "note": "떼어 내기는 쉽지만 진술이 셋뿐이라 선택지 다섯을 세울 사실이 부족하다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "89457d84-f4a1-4987-a52e-5af0df211ff3",
+    "source_updated_at": "2026-09-26T12:51:50.311488+00:00",
+    "body_sha256": "714e42524b43c5533f7d2c977e24fbcc228be96443e3272cf59b71798efd4252",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오바마 1분기 모금 단신이 모금액 발표 → 경쟁자 클린턴과의 비교(같은 지명 경쟁) → 온라인 기부 비중으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Illinois Senator Barack Obama announced today",
+      "note": "앞의 「Google cache」 잔재는 걷고, on par with→equal to 로 바꾸면 쉬워지나 수치 비중이 커 칸은 하나다."
+    }
+  },
+  {
+    "id": "894980b0-8dff-4443-91ff-3db645552e10",
+    "source_updated_at": "2026-09-26T12:51:50.311488+00:00",
+    "body_sha256": "d771aae2c0a039ec948534394d9a8005ea04fcf1c6c900534128791cfeba3a46",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이란 외교관 면담 단신이 면담 예정 → 일정 미정 → 억류 경위(미군이 반군 연루로 봄)로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reports say that Iranian diplomats will",
+      "note": "insurgency→armed rebellion, detained→held 로 바꾸면 V5~6 이 되고 세 문장이 원인으로 이어진다."
+    }
+  },
+  {
+    "id": "8bcece1d-332d-4843-be3d-acf35b0fc820",
+    "source_updated_at": "2026-09-26T12:52:08.287282+00:00",
+    "body_sha256": "6ea2c84ad5a279217d533241ef9fd435682696dad122207411a2980c88b6595e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "필리핀 버스 폭탄 단신이 폭발·사상자 → 그 주 앞서 미 대사관의 경고라는 맥락으로 이어져 고1 이상 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A bomb aboard a bus parked",
+      "note": "지명 오기(Minandao→Mindanao)는 가공 때 고치고, 두 단락뿐이라 칸은 내용 일치 하나다."
+    }
+  },
+  {
+    "id": "8d34748c-3f31-4cf7-ae97-a6c876d9b593",
+    "source_updated_at": "2026-09-26T12:51:50.948159+00:00",
+    "body_sha256": "28149146a0a9deb4e90bcd79e2a11e75b437db4da80ea41bea228ec0215f8e8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "7·7 런던 폭탄 공모 기소 단신이 기소 → 추가 용의자 수색 → 사건 배경(사상자)으로 이어져 고2 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prosecutors in the United Kingdom filed",
+      "note": "conspiracy→secret plan 으로 바꾸고 피고 이름·나이를 걷어도 기소 사건이 선다."
+    }
+  },
+  {
+    "id": "91783259-ec6a-40e2-b625-862d6b7fb0f9",
+    "source_updated_at": "2026-09-26T12:51:09.15035+00:00",
+    "body_sha256": "54c81aaaf6305dafb1f28de5136e5108884eb44e09d0df7e8f7f8ed03fc44624",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "미국 신문 광고수입 단신은 전체 18% 감소·지면 광고액·온라인 광고액이 문장마다 수치만 바뀌어 되풀이되고 원인·반응이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "According to figures released by the",
+      "note": "수치를 걷으면 「광고수입이 줄었다」 한 줄만 남는다."
+    }
+  },
+  {
+    "id": "9200a3c3-7344-4a12-814b-f97705d56276",
+    "source_updated_at": "2026-09-26T12:51:03.133954+00:00",
+    "body_sha256": "b45717c6756e6b8111574f49bfceb9087a4121f385aa5f5ecd2b51af8fb22a9e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모술 헬기 추락 단신이 전선 충돌(원인) → 병사 2명 사망(결과) → 최근 잇단 추락의 하나라는 맥락으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Saturday, 2 US soldiers were",
+      "note": "기종명 OH-58 Kiowa Warrior 는 걷어도 되고, 두 문장뿐이라 문항은 짧은 내용 일치에 그친다."
+    }
+  },
+  {
+    "id": "961585ea-3e1b-4a95-9c89-827d0e0a9f0a",
+    "source_updated_at": "2026-09-26T12:50:48.527443+00:00",
+    "body_sha256": "1ca894302633f98758cddb978badd1dc310932e2bd5bedb4d6311d68e819de2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "브리스틀 택시 파업 예고 단신이 시의회 새 규정(원인) → 하루 파업 → 추가 파업 예고로 이어져 짧지만 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Taxi drivers in Bristol, United Kingdom",
+      "note": "두 문장이 원인·순서로 이어져 떼어 내기 쉽고, regulations→rules 로 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "9818bd1e-bbab-4f3d-934a-ed85098c7ce4",
+    "source_updated_at": "2026-09-26T12:51:05.124928+00:00",
+    "body_sha256": "b5ea174ac8b4a0f9ff05b73047e2226c61497d8223a3fca9760ea66a23c35266",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "플로리다 동성 입양 금지 위헌 판결이 판결 → 주 검찰 항소(반응) → 판사 인용 → 1977년 입법 배경으로 이어져 순서·삽입·내용 일치 칸까지 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A family court judge in Miami",
+      "note": "plebiscite→public vote, impoverishment→poverty 로 바꾸면 V7, 네 단락이 순서 문항에 맞게 갈린다."
+    }
+  },
+  {
+    "id": "9a791df2-9616-4d14-82d1-c27e7e8f4758",
+    "source_updated_at": "2026-09-26T12:51:31.538313+00:00",
+    "body_sha256": "ac8ba53e1d8ab0c6b1eda4c779badf8f3d2dd2a082d86f6582251e27b2e63ec1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "FDA 사후피임약 ella 승인 단신이 승인 → 처방 전용 조건 → 일상 피임용이 아니라는 단서 → 제조·판매사로 이어져 고2 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The US FDA (Food and Drug",
+      "note": "성·피임 소재라 연령은 고2 이상으로 두고, contraceptive→birth control 로 바꾸면 V6 가 된다."
+    }
+  },
+  {
+    "id": "9ac3af54-242a-4ea6-bb10-d5b4816b13fe",
+    "source_updated_at": "2026-09-26T12:52:03.140711+00:00",
+    "body_sha256": "397deb5d6521522521d92826298c5f8b9e2f1b3ef016bb58d9228b8c9a91823e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "핀란드 성평등 임금 여론조사 단신이 찬성률 → 여성 비중 높은 간호직 인상 지지 → 인구밀집 지역 경향 → 여성 다수 내각으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to a poll commissioned by",
+      "note": "조사기관 이름을 걷고 predominantly→mostly 로 바꾸면 V6, 수치가 많지만 간호직 문장이 이유를 댄다."
+    }
+  },
+  {
+    "id": "9b769b0a-facf-432c-9e40-8381c64055a4",
+    "source_updated_at": "2026-09-26T12:50:47.209075+00:00",
+    "body_sha256": "12f0d29b3f13f890b9ac8bb9d99588a9c17ea46dbcb0aa35ad276aef799fda62",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "샌안토니오 갱 추격 단신은 추격 사실·요일·총기·도시 위치만 덧붙여 결과·원인·반응이 없어 사건 흐름이 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A gang in San Antonio chased",
+      "note": "셋째 문장은 도시 설명이라 걷으면 결말 없는 한 사건 문장만 남는다."
+    }
+  },
+  {
+    "id": "9cc3699e-3550-4cb3-99e0-14b13d3f425c",
+    "source_updated_at": "2026-09-26T12:52:11.501731+00:00",
+    "body_sha256": "ae2aa1864697f3aabb14d5d8006be2448cc1041004632c446caaa3a5c929cb2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "health",
+    "why": "인도네시아 조류독감 사망 단신이 사망 확인 → 병든 닭을 잡아 요리했다는 원인 인용 → 최다 사망국이라는 맥락으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 29-year-old man in Riau was",
+      "note": "slaughtered→killed, strain→type 로 바꾸면 V5, 원인 인용이 문장 사이를 잇는다."
+    }
+  },
+  {
+    "id": "9cc9be3c-7ccb-46d8-8be7-10a8d8c7535d",
+    "source_updated_at": "2026-09-26T12:51:03.133954+00:00",
+    "body_sha256": "9163201965ccb5d4ae41b03273d7354d1da57f75d81e59c784079591ce581fcc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알래스카 상원 개표 단신이 격차 확대 → 최종 개표 일정 → 부재자표 확인 때문에 개표 연기(이유) → 스티븐스 유죄 판결 맥락으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After Friday's counts, Democratic Party candidate",
+      "note": "끝의 「Related news」 인용 줄은 걷고, incumbent→current senator 로 바꾸면 V6 가 된다."
+    }
+  }
+]
