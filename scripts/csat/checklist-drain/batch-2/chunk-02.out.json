@@ -1,0 +1,14 @@
+[
+ {"id":"d41d29a5-1d17-4a55-bedd-a94eaddeb798","answers":{"blocked":null,"needsVisual":false,"truncated":false,"listOnly":false,"linkage":"thin","mainPoint":true,"narrative":false,"notice":false,"detachable":true,"standsAlone":true,"vocabAdjustable":true,"factsMany":true,"stereotypeCore":false,"gap":false,"strippedRemains":true},
+  "sample":"United States Marine Corp staff sergeant","note":"형량 협상으로 가벼운 죄목을 인정해 실형을 피할 수 있다는 인과 하나가 중심이고 둘째 문장은 배경뿐이라 연결이 가늘다; manslaughter·dereliction·plea bargain 을 풀면 V6 쯤으로 내려온다.",
+  "record":{"genre":"news","slots":{"ages":["high1","high2","high3","adult"],"purposes":["mock","reading"],"types":["content_match"],"levels":["V6","V7"],"platform":[]}}},
+ {"id":"db57c0b4-31e3-4fbf-ac94-e57709e99a8f","answers":{"blocked":null,"needsVisual":false,"truncated":false,"listOnly":false,"linkage":"strong","mainPoint":true,"narrative":false,"notice":false,"detachable":true,"standsAlone":true,"vocabAdjustable":true,"factsMany":true,"stereotypeCore":false,"gap":false,"strippedRemains":true},
+  "sample":"Newt Gingrich refutes claims by his","note":"전처의 폭로 → 후보의 부인(반응) → 경선 직전 시점 → 사실이면 과거 비판과 모순(함의)으로 이어진다; refutes·pillorying·allegations 를 바꾸면 V7 쯤이다.",
+  "record":{"genre":"news","slots":{"ages":["high2","high3","adult"],"purposes":["mock","reading"],"types":["content_match"],"levels":["V7","V8"],"platform":[]}}},
+ {"id":"f20ed78b-9408-45c4-aeb1-ff62ac7c7795","answers":{"blocked":null,"needsVisual":false,"truncated":false,"listOnly":false,"linkage":"thin","mainPoint":true,"narrative":false,"notice":false,"detachable":true,"standsAlone":true,"vocabAdjustable":true,"factsMany":true,"stereotypeCore":false,"gap":false,"strippedRemains":true},
+  "sample":"The United States and the Philippines","note":"국방 협력 논의와 기지 불계획은 대조일 뿐이고 전략 전환·영유권 주장이라는 배경(이유) 연결 하나만 있어 가늘다; enhanced·strategic 정도만 바꾸면 V6 쯤이다.",
+  "record":{"genre":"news","slots":{"ages":["high1","high2","high3","adult"],"purposes":["mock","reading"],"types":["content_match"],"levels":["V6","V7"],"platform":[]}}},
+ {"id":"f8340763-f0bc-44b5-b896-70be76c40f39","answers":{"blocked":null,"needsVisual":false,"truncated":false,"listOnly":false,"linkage":"strong","mainPoint":true,"narrative":false,"notice":false,"detachable":true,"standsAlone":true,"vocabAdjustable":true,"factsMany":true,"stereotypeCore":false,"gap":false,"strippedRemains":true},
+  "sample":"Abdul Hafiz Ghoga, the vice-chair of","note":"시위 → 사임(결과) → 사임의 변(반응) → 불만의 까닭(옛 충성파·개혁 속도·지역 소외)이 이어진다; discontent·prominence·sidelined 를 바꾸면 V7 쯤이다.",
+  "record":{"genre":"news","slots":{"ages":["high1","high2","high3","adult"],"purposes":["mock","csat","reading"],"types":["content_match","topic"],"levels":["V7","V8"],"platform":[]}}}
+]
