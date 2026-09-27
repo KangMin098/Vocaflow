@@ -110,11 +110,13 @@ describe('실제 스냅샷 — 자유도 기준선', () => {
   /**
    * ⚠️ **회귀 방향만 잠근다.** 정확한 수를 박으면 드레인이 문항을 만들 때마다 시험이
    *   깨진다 — 그건 좋은 변화다. 그래서 "이보다 나빠지면 실패" 로 둔다.
-   *   기준선 2026-09-15: 단일유형 23/66 = 34.8% · 혼합권 18권.
+   *   기준선 2026-09-24: 단일유형 20/66 = 30.3% · 혼합권 4권.
+   *   gutenberg 퇴출 뒤 스냅샷을 다시 구운 커밋(856a544b)의 실제 모수다. 스냅샷만
+   *   바꾸고 2026-09-15 기준을 남겨 CI가 깨졌으므로 같은 측정 시점으로 맞춘다.
    */
-  it('기준선 아래로 떨어지지 않는다 (2026-09-15: 23/66 · 18권)', () => {
-    expect(view.index.soloOk).toBeGreaterThanOrEqual(23)
-    expect(view.index.mixVolumes).toBeGreaterThanOrEqual(18)
+  it('기준선 아래로 떨어지지 않는다 (2026-09-24: 20/66 · 4권)', () => {
+    expect(view.index.soloOk).toBeGreaterThanOrEqual(20)
+    expect(view.index.mixVolumes).toBeGreaterThanOrEqual(4)
   })
 
   it('가장 좁은 밴드를 집어낸다', () => {

@@ -9,8 +9,8 @@
 
 import React from 'react'
 
-import type { AccentKey, ClosingScene, HookScene, StatementScene } from '../../spec/types'
-import { ACCENT, ACCENT_SOFT, FONT, SURFACE } from '../../theme/palette'
+import type { Accent, ClosingScene, HookScene, StatementScene, VoiceStyle } from '../../spec/types'
+import { accentColor, accentSoft, FONT, SURFACE } from '../../theme/palette'
 import { enterExit, transform } from '../motion'
 import { KO, hasHangul, useFormat, voiceFont } from '../Frame'
 
@@ -18,7 +18,7 @@ import { KO, hasHangul, useFormat, voiceFont } from '../Frame'
  * "사람이 말하는 자리" 의 표시.
  *
  * 영어는 기울여서, 한글은 **왼쪽 세로선**으로 나타낸다 — 한글에는 이탤릭이라는 장치가 없고,
- * 억지로 기울이면 시스템 고딕이 찌그러진 가짜 이탤릭이 나온다(CLAUDE.md 「한글에 Lora」 금지).
+ * 억지로 기울이면 시스템 고딕이 찌그러진 가짜 이탤릭이 나온다. 이것은 **기본값**이다 — 장면의 `voice` 로 바꿀 수 있다(DD-66).
  */
 const VoiceLine: React.FC<{
   text: string
@@ -26,12 +26,13 @@ const VoiceLine: React.FC<{
   scale: number
   color: string
   rule: string
-}> = ({ text, size, scale, color, rule }) => {
+  voice?: VoiceStyle
+}> = ({ text, size, scale, color, rule, voice }) => {
   const ko = hasHangul(text)
   return (
     <div
       style={{
-        ...voiceFont(text),
+        ...voiceFont(text, voice),
         fontSize: size,
         lineHeight: 1.3,
         color,
@@ -45,7 +46,7 @@ const VoiceLine: React.FC<{
   )
 }
 
-export const Hook: React.FC<{ scene: HookScene; accent: AccentKey; duration: number }> = ({
+export const Hook: React.FC<{ scene: HookScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -58,10 +59,11 @@ export const Hook: React.FC<{ scene: HookScene; accent: AccentKey; duration: num
     <div style={{ opacity: e.opacity, transform: transform(e) }}>
       <VoiceLine
         text={scene.line}
+        voice={scene.voice}
         size={Math.round(84 * scale)}
         scale={scale}
         color={SURFACE.ink}
-        rule={ACCENT[accent]}
+        rule={accentColor(accent)}
       />
       {scene.sub ? (
         <div
@@ -71,7 +73,7 @@ export const Hook: React.FC<{ scene: HookScene; accent: AccentKey; duration: num
             marginTop: Math.round(24 * scale),
             fontFamily: FONT.body,
             fontSize: Math.round(34 * scale),
-            color: ACCENT[accent],
+            color: accentColor(accent),
             ...KO,
           }}
         >
@@ -84,7 +86,7 @@ export const Hook: React.FC<{ scene: HookScene; accent: AccentKey; duration: num
 
 export const Statement: React.FC<{
   scene: StatementScene
-  accent: AccentKey
+  accent: Accent
   duration: number
 }> = ({ scene, accent, duration }) => {
   const { scale, frame } = useFormat()
@@ -129,8 +131,8 @@ export const Statement: React.FC<{
           display: 'inline-block',
           fontFamily: FONT.mono,
           fontSize: Math.round(22 * scale),
-          color: ACCENT[accent],
-          backgroundColor: ACCENT_SOFT[accent],
+          color: accentColor(accent),
+          backgroundColor: accentSoft(accent),
           padding: `${Math.round(8 * scale)}px ${Math.round(16 * scale)}px`,
           borderRadius: Math.round(8 * scale),
           ...KO,
@@ -142,7 +144,7 @@ export const Statement: React.FC<{
   )
 }
 
-export const Closing: React.FC<{ scene: ClosingScene; accent: AccentKey; duration: number }> = ({
+export const Closing: React.FC<{ scene: ClosingScene; accent: Accent; duration: number }> = ({
   scene,
   accent,
   duration,
@@ -155,10 +157,11 @@ export const Closing: React.FC<{ scene: ClosingScene; accent: AccentKey; duratio
     <div style={{ opacity: e.opacity, transform: transform(e) }}>
       <VoiceLine
         text={scene.line}
+        voice={scene.voice}
         size={Math.round(60 * scale)}
         scale={scale}
         color={SURFACE.ink}
-        rule={ACCENT[accent]}
+        rule={accentColor(accent)}
       />
       <div
         style={{
@@ -170,7 +173,7 @@ export const Closing: React.FC<{ scene: ClosingScene; accent: AccentKey; duratio
           fontWeight: 700,
           fontSize: Math.round(34 * scale),
           color: SURFACE.inverted,
-          backgroundColor: ACCENT[accent],
+          backgroundColor: accentColor(accent),
           padding: `${Math.round(16 * scale)}px ${Math.round(30 * scale)}px`,
           borderRadius: Math.round(10 * scale),
           ...KO,

@@ -1,0 +1,1488 @@
+[
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "df3b7837-1205-4103-a93e-94068bbf679a",
+    "revision": "2026-09-25T04:01:36.405206+00:00",
+    "body_sha256": "534f2e53cfcbb2882a695d2d2599c40732027491c1b89128e662c5520588676b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "fiction",
+        "why": "달걀→막대→이엉→소로 이어지는 누적 교환 서사는 서지만 결말이 '줄 게 없으니 신부를 주겠다'로 사람을 대가로 치르는 것이 요지라 고정관념 기준으로 갈린다.",
+        "slots": {
+          "ages": [
+            "mid"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, there was",
+          "note": "신부를 대가로 주는 결말을 걷어내면 속담 요지가 서지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.116Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0085_an-egg-for-bride-wealth.md",
+          "year": null,
+          "author": "Nambi Sseppuuya Community Resource Centre"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "df81fc8a-c48f-432f-9c40-0d57b3cc2a97",
+    "revision": "2026-09-25T04:02:32.306143+00:00",
+    "body_sha256": "7a6baa65ff33a00837bcdc137f804f756ed75e2cd4ea7a4503830e3dc0fadc47",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "요리를 돕기 싫은 아난시가 여덟 다리를 각 냄비에 묶었다가 한꺼번에 당겨져 다리가 가늘어진 유래담으로 초등~중등 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab",
+            "school"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "insert"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, there was",
+          "note": "세 집 반복을 둘로 줄이면 순서 문항이 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.116Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0329_lazy-anansi.md",
+          "year": null,
+          "author": "Ghanaian folktale"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "df92c1d6-bba1-4b01-8a97-838da975465f",
+    "revision": "2026-09-25T04:01:43.164924+00:00",
+    "body_sha256": "c08da57e8e7298defadc8c7228d01ab43386965115c7c916e4b6947951655585",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "게으른 와망에가 추운 밤엔 집을 짓겠다 노래하다 해가 뜨자 말을 바꾸는 흐름이 이어져 초등 요지·순서 칸 최소선을 넘는다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, there was",
+          "note": "×4 표기와 끊긴 쉼표를 손질해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0116_wamange-the-weak-man.md",
+          "year": null,
+          "author": "Monica Tulina"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e0149dcb-8d00-4716-bccd-9c3c508b383a",
+    "revision": "2026-09-25T04:02:31.630707+00:00",
+    "body_sha256": "05e94bb4948deb5d06efee42379b7858d6d9b6f31fb6dbfd4adc2c9ebce9ccd3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "부모 모두에게 사랑받는 소녀를 데려가던 거인이 '말하는 자루'라 부르자 소녀의 노래로 사람이 알아채 구하는 설화로 초등 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time there was",
+          "note": "장작은 어디 있냐는 반복이 순서 단서가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0326_the-talking-bag.md",
+          "year": null,
+          "author": "Caroline Lentupuru"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e0353a42-7cb3-496b-b85c-5cb0f8a32604",
+    "revision": "2026-09-25T04:02:34.802045+00:00",
+    "body_sha256": "957c11ba6a5d055b5c1ce1d352976b5f0d62b2abfe272463a511ff6f027e189d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "누나와 시내에 간 시포가 축구화를 사서 서둘러 경기장에 닿는 순서가 이어져 초등 최소선을 넘는다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V0",
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Sipho goes to town with his",
+          "note": "'Why are they in such a hurry' 질문 문장은 평서로 바꾼다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "CC-BY-NC",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0339_new-shoes.md",
+          "year": null,
+          "author": "Clare Verbeek, Thembani Dladla, Zanele Buthelezi"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e04477c0-1bbf-49b8-9198-2498b3625cf5",
+    "revision": "2026-09-25T04:01:51.333693+00:00",
+    "body_sha256": "3fe2bee83c8bf822865b912349f70b92eb79697b70f44d2a935279fea74a144c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "바람에 날린 모자를 달이 써 보고 엄마가 달이 보냈다며 새 모자를 주는 흐름과 슬픔→기쁨 심경이 있어 초등 심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "All of us went to the",
+          "note": "끝의 독자 질문 두 줄은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0149_the-moon-and-the-cap.md",
+          "year": null,
+          "author": "Noni"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e0c98865-8208-4cd9-968f-f4842c5055bd",
+    "revision": "2026-09-25T04:02:17.414875+00:00",
+    "body_sha256": "c6fbeb11f15033709703d18ee7772c40ea9e730567f8fd1a2caf0291e18e1ce7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "못생겨 외면받던 소년이 노파의 얼굴을 핥아 주고 숲에서 뿌리만 가져오라는 당부를 참다 음식에 무너지는 서사로 중등 이상 순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "order",
+            "mood",
+            "long_reference"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, there was",
+          "note": "외모로 따돌림받는 전제는 비판 없이 깔려 있어 가공 때 표현을 다듬고, 반복 호출 단락은 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0260_the-boy-who-nobody-loved.md",
+          "year": null,
+          "author": "Phumy Zikode"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e0de69ef-5afc-4537-85a1-269fa8f9a87c",
+    "revision": "2026-09-25T04:02:21.262839+00:00",
+    "body_sha256": "2bd5720f1900b4c04e41c29e7739dcbd89a690b9611e4dafffc8d9ddd06aa3e8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "친구 넷이 각자 좋아하는 놀이를 소개한 뒤 '나는 그걸 다 좋아해 함께 한다'는 이유로 이어져 초등 어휘 칸 최소선에 걸친다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "vocab"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V0",
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "My name is Simo. I have",
+          "note": "병렬 문장이 많아 어휘 교재 용도로만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0277_friends.md",
+          "year": null,
+          "author": "Zimbili Dlamini, Hlengiwe Zondi"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e1567b0e-5547-4fb1-9f81-bcae4bb137f5",
+    "revision": "2026-09-25T04:02:37.648645+00:00",
+    "body_sha256": "e891a6d7e3d3230094a5e838ef51522225a33ae7b087a3353684216b812a6809",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "게으른 토끼가 하이에나의 곡식을 훔치다 끈끈이 덫에 걸려 우정이 끝나는 인과가 이어져 초등~중등 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "main_point"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time there lived",
+          "note": "'이웃이 게을러 굶는다'는 토끼의 핑계는 인물 대사라 그대로 둔다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0351_friends-become-enemies.md",
+          "year": null,
+          "author": "Kennedy Amandu"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e1ce3966-3d52-4b49-b156-f399a1a60c29",
+    "revision": "2026-09-25T04:01:44.525818+00:00",
+    "body_sha256": "870ed3f42b7ef18b4903a0a56a09d9a97d99b2fa77167cae3acb0984e3f07874",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "fragmentary",
+        "why": "'Thuli has short hair' 식으로 인물마다 머리 모양을 적은 그림 캡션 나열이라 그림 없이 뜻이 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Thuli has short hair. Anna has",
+          "note": "캡션 나열이라 가공할 연결이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "CC-BY-NC",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0120_hair.md",
+          "year": null,
+          "author": "Clare Verbeek, Thembani Dladla, Zanele Buthelezi"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e27f90d5-5731-43a2-81c6-cb6843fb356c",
+    "revision": "2026-09-25T04:02:00.569698+00:00",
+    "body_sha256": "189f9a62fa426130eee30b2a865d6eaf8accc762fedbebe2bb3064dc1184d671",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "목걸이를 찾으러 돌아간 안나가 말하는 개에게 붙잡혀 일하다 머리카락 세 올로 속이고 탈출하는 서사로 초등~중등 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab",
+            "school"
+          ],
+          "types": [
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A long time ago, three girls",
+          "note": "'or I'll bite you' 반복이 순서 단서로 쓸 만하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0187_anna-and-the-three-hairs.md",
+          "year": null,
+          "author": "Tessa Welch"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e3317045-e66e-49c7-a62d-f6dce457c627",
+    "revision": "2026-09-25T04:01:39.600578+00:00",
+    "body_sha256": "ad11daf7d119861f08f17a5bbf17ca4a9d058fb5d77bf99fd7e0179b8de34477",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "새벽에 나일강에서 고기를 잡아 시장에 파는 어부 자카가 바람과 잃은 낚싯바늘로 공쳤지만 새 바늘로 내일을 기대하는 흐름이 있어 초등 심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This is Jaaka the fisherman from",
+          "note": "짧지만 실망→희망 심경 변화가 분명하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0100_jaaka-the-fisherman.md",
+          "year": null,
+          "author": "Tom Sabwa, Children's Development Center at Masese"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e3510528-8a72-4717-8c07-65001b92bc21",
+    "revision": "2026-09-25T04:01:51.79181+00:00",
+    "body_sha256": "419fa58613a52d65fb2212b6e0811392551780edcdb921f50f2ad0fded28fbce",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "fragmentary",
+        "why": "구름·더위·바람에 대한 질문 조각과 말줄임표로 끝나 문장 사이 연결도 끝맺음도 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Clouds are a big sign of",
+          "note": "대소문자·문장부호가 깨진 조각이라 가공이 막혔다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0151_weather.md",
+          "year": null,
+          "author": "Clark Ness"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e3d96e73-5f2d-4fd9-a859-728a14d877d2",
+    "revision": "2026-09-25T04:02:06.460213+00:00",
+    "body_sha256": "d4c856452d47d35ea55a70ecb15d02c551b958eeffb5e626e7c77abd9f32dc78",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "머리를 숨기고 자는 닭의 비밀을 '밤에 머리를 떼어 둔다'고 속인 수탉과 이를 믿은 토끼 가족의 서사가 열린 결말로 이어져 중등 순서·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "blank"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, there was",
+          "note": "끝의 질문은 결말 추론 문항으로 바꿀 수 있고, 함축된 죽음 때문에 초등 칸은 뺐다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0213_rooster-and-hare.md",
+          "year": null,
+          "author": "Geoffrey Thiiru"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e409e2bb-3844-4daf-99f4-4713f4c6012e",
+    "revision": "2026-09-25T03:34:50.709825+00:00",
+    "body_sha256": "19c6ddb3392fcef6db5e82a419977a813696a91768de55941a73ab0729bc3cbc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "소매치기 마토메의 손이 가방에 끼어 승객들이 경비를 부르고 감옥에 가는 인과가 이어져 초등~중등 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time there was",
+          "note": "시제 혼용(see/called)과 철자(Gaurd)를 손질해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0020_pickpocketer.md",
+          "year": null,
+          "author": "Kate Nkwane"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e448ef4e-dbbe-47ae-afb7-ef14d1a45565",
+    "revision": "2026-09-25T04:02:33.56534+00:00",
+    "body_sha256": "f504df6d31ba47d23732975dd9329b2abff9c2887e067f806688ee5047456feb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "도마뱀이 개구리 꼬리에 줄을 매 나무 위로 끌다 꼬리가 떨어져 개구리가 꼬리를 잃은 유래가 인과로 이어져 초등 순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The frog and the lizard were",
+          "note": "인용부호와 대소문자 오류가 많아 손질해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0334_the-frog-and-the-lizard.md",
+          "year": null,
+          "author": "Nabune Beatres"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e5c5bb47-684c-42af-b72e-f0d93dc6d844",
+    "revision": "2026-09-25T04:02:33.963599+00:00",
+    "body_sha256": "d1f061bad5580a528a6cdfcc94708558fbfaadddc1df2f66c21cca4ac356e3a1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "memoir",
+        "why": "날마다 함께 놀던 친구 무토니가 어느 날 학교에 오지 않고 어른이 되어서도 그리워하는 회고로 초등~중등 심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Every morning when I woke up",
+          "note": "상실의 심경이 끝 문장에 모여 심경 문항이 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0335_the-friend-i-miss.md",
+          "year": null,
+          "author": "Ursula Nafula"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e66dd674-c901-492b-809e-5f88205bb6c0",
+    "revision": "2026-09-25T04:01:35.129631+00:00",
+    "body_sha256": "a796b29912f5235873dc6f3e40148f900a637464f8c5a6b4d93072cfeb517443",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "엄마가 젖을 짜고 조조가 소를 먹이고 놀고 책 읽고 잠드는 하루 순서가 이어져 초등 최소선을 넘는다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "vocab",
+            "reading"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V0",
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Jojo is a young boy. Jojo",
+          "note": "Jojo living 등 어법 오류를 손질해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0079_jojo-and-cow.md",
+          "year": null,
+          "author": "Isiira Patrick"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e6ae1831-3248-4aad-92b5-005545804f43",
+    "revision": "2026-09-25T04:02:40.831699+00:00",
+    "body_sha256": "e2fbbace6c48c679a31ae3ff7dfdfa48ca82fc99ad4de052f5f258d9abece26d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "잠베지강 수영 경주에서 진 마리아가 친구를 밀쳐 사과하고 벌을 받지만 친구가 다시 겨루자며 용서하는 서사로 초등~중등 요지·심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "mood",
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It was a bright sunny Sunday",
+          "note": "두 번의 경주 반복을 줄이면 지문 길이가 맞는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "unknown",
+        "license": "unknown",
+        "evidence": "none",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0366_swimming-in-the-zambezi.md",
+          "year": null,
+          "author": "Imelda Lyamine, Albius Chunga Mulisa, Maria Simasiku, Florence Habayemi Shitaa"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e708b525-d216-4cd1-a2c1-829b97377327",
+    "revision": "2026-09-25T04:01:34.497771+00:00",
+    "body_sha256": "2011400544888e8fd5206a195980cddc56f30228fb339faddc9550b405447100",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "새총으로 코뿔새를 쫓아 잡아 히랴가나에게 주는 사냥 순서가 이어지나 끝의 설명이 산만해 중등 순서 칸 정도만 채운다.",
+        "slots": {
+          "ages": [
+            "mid"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "As I was moving in Buŋaanga",
+          "note": "괄호 속 Namupongera 같은 현지 맥락은 걷어내야 하고 끝 단락은 흐름이 약하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0076_the-hornbill.md",
+          "year": null,
+          "author": "Bukheye Mulongo Christopher"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e73b3e9b-2434-4480-9f73-6f7609589b09",
+    "revision": "2026-09-25T04:02:31.437369+00:00",
+    "body_sha256": "2caf1a9f55af775a9696cdc5566c04f35c989956dd082e6e89b6bcaf57ce1ef0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "fiction",
+        "why": "부지런한 쥐와 구걸하는 개구리 이야기가 '농업부가 낱알만 먹으라는 법을 냈다'로 비약해 개구리가 옥수수를 못 먹게 된 인과가 서는지 애매하다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "In the past, rat and frog",
+          "note": "문장 경계가 무너져 있고 결말의 인과가 이해되지 않았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0325_rat-and-frog.md",
+          "year": null,
+          "author": "Bubaali Primary School"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e7697239-c709-49cb-b4b5-9b45ced7daa9",
+    "revision": "2026-09-25T04:01:48.900331+00:00",
+    "body_sha256": "89f494d04222a4d99a21395ac6b1be9169a65d27336e330e834a8b53609aac63",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "몸속 '악어'에 빗댄 병을 매일 약과 좋은 음식으로 재우며 친구들과 지내는 아이의 이야기로 약 복용·면역의 비유가 서서 초등~중등 요지·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "mood",
+            "content_match"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hello, I'm Ntombi. I'm a little",
+          "note": "옮지 않는다는 안심 문장이 요지라 요지 문항이 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0139_crocodile-in-my-body.md",
+          "year": null,
+          "author": "Val Morris"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e8b7effd-6194-4bc4-8e45-e3f4c3c788ae",
+    "revision": "2026-09-25T04:02:31.807842+00:00",
+    "body_sha256": "95168a8a5a5d2a114b4081b110e2fc968b65e244c0430b7cf5768a03dedcc88b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "하나~아홉 동물이 물 마시러 모이다 사자가 으르렁거리고 코끼리와 함께 마시는 순서가 이어져 초등 어휘(수) 칸 최소선을 넘는다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V0",
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "One elephant is going to drink",
+          "note": "수 세기와 동물 어휘 교재로만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0327_counting-animals.md",
+          "year": null,
+          "author": "Zanele Buthelezi, Thembani Dladla, Clare Verbeek"
+        },
+        "needsResolution": false
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e975059a-a23e-4e09-8326-b092c70fcc19",
+    "revision": "2026-09-25T04:02:10.926625+00:00",
+    "body_sha256": "ac4bb573478127de7d55dd3142937c110823bc8876decdd0a91a8c1c22cb7cd5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "'축구는 남자만'이라던 학교에서 안디스와가 결원 자리에 뛰어 골을 넣어 여학생도 뛰게 되는 흐름으로 편견 극복 요지가 서서 초등~중등 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Andiswa watched the boys play soccer.",
+          "note": "고정관념을 뒤집는 구조라 그대로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "CC-BY-NC",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0234_andiswa-soccer-star.md",
+          "year": null,
+          "author": "Eden Daniels"
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-06-113Z",
+    "id": "e9a03c59-4600-4301-bbc3-3f0245b75e2d",
+    "revision": "2026-09-25T04:01:25.977205+00:00",
+    "body_sha256": "727c792a5a0f7bdb9dce2eb090fc24a0589c172e7371cb9a80dbf73288e7bbd5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "깊은 연못의 두 뱀이 번개로 본 땅의 아름다움에 이끌려 올라오며 첫 남자와 여자가 되는 창조 설화로 초등~중등 순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Long long ago when the earth",
+          "note": "묘사 어휘(coils, pierced)가 어휘 문항에 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:06.117Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://github.com/global-asp/asp-source/blob/master/en/0039_first-man-and-first-woman.md",
+          "year": null,
+          "author": "Southern African Folktale"
+        },
+        "needsResolution": false
+      }
+    }
+  }
+]

@@ -55,7 +55,7 @@ export const VCB_PRESETS: VcbPreset[] = [
     title: '레벨별 V-Level',
     description: '진단 V-Level 기반 자기 레벨 단어장. Krashen i+1 학습 최적.',
     persona: '진단 완료 사용자',
-    accent: '#8B5CF6',
+    accent: '#007A78',
     variants: [
       {
         id: 'v-level-tier-beginner',
@@ -269,7 +269,7 @@ export const VCB_PRESETS: VcbPreset[] = [
     title: '테마 전문',
     description: '의학·문학·금융·뉴스·여행 전문 단어장.',
     persona: '전문 분야',
-    accent: '#A855F7',
+    accent: '#4A4744',
     variants: [
       {
         id: 'theme-medical',

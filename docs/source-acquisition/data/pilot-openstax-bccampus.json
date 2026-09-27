@@ -1,0 +1,1395 @@
+{
+  "contract": "pilot/v1",
+  "pilot_date": "2026-09-24",
+  "scope": "읽기 전용 파일럿 · DB 쓰기 0 · 표본 합계 20(원천당 10) · 라이선스 메타 스캔은 본문 수확이 아니므로 표본 상한과 별도로 전수(OpenStax 129 · BCcampus 212)",
+  "evidence_tag_rule": "[측정: …] 은 이 파일럿이 직접 호출·계산한 값 · [문헌: URL] 은 발행자가 내건 문서 · [추론] 은 판정에 쓰지 않음",
+  "sources": [
+    {
+      "name": "OpenStax (Rice University)",
+      "homepage": "https://openstax.org/",
+      "type": "대학 교양 교과서 발행사 · 자체 발행(애그리게이터 아님)",
+      "repo_adapter": "packages/library-pipeline/src/ingest/openstax.ts",
+      "repo_adapter_finding": "어댑터 첫 주석이 \"라이선스: 모든 OpenStax 교과서는 CC BY 4.0\" 이고 license 폴백 기본값도 CC-BY-4.0 이다 — 실측과 어긋난다(아래 g0). formatLicense() 는 NC-SA 문자열을 읽을 줄은 알지만, license_name 이 없을 때 CC-BY-4.0 으로 떨어진다. 수확을 재개하기 전에 고쳐야 할 자리 [측정: 파일 직접 읽음].",
+      "access": {
+        "list_endpoint": "https://openstax.org/apps/cms/api/v2/pages/?type=books.Book&limit=200 → 200 · meta.total_count 129 [측정]",
+        "detail_endpoint": "https://openstax.org/apps/cms/api/v2/pages/<id>/ → license_name · license_version · license_url · publish_date · authors · book_state",
+        "service_page_endpoint": "https://openstax.org/books/<slug>/pages/<page-slug> → window.__PRELOADED_STATE__.content.book.license (서비스 화면이 실제로 렌더하는 값)",
+        "body_endpoint": "https://openstax.org/apps/archive/<archiveVersion>/contents/<bookId>@<version>:<pageId>.json → content(HTML)",
+        "notes": [
+          "과제 지시문의 `?type=books.Book` 200 확인은 재현됐다 [측정].",
+          "`fields=` 파라미터에 license_name 등을 넣으면 400 이다 — 상세 엔드포인트를 따로 불러야 한다 [측정].",
+          "`/apps/archive/<ver>/contents/<book_uuid>.json`(버전 없음)은 404. `<bookId>@<version>:<pageId>.json` 형식만 200 [측정].",
+          "User-Agent 는 Vocaflow-LCP/2.0 (research; https://vocaflow.app) — 저장소 어댑터와 동일, 위장 없음"
+        ]
+      },
+      "sampling": {
+        "n_units": 10,
+        "unit": "책(권) — 권마다 본문 섹션 1개를 받아 G2·G3 을 쟀다",
+        "strategy": "인문 3(철학·세계사·작문) · 사회 4(사회학·정치·경제·인류학) · 과학 3(통계·생물·천문). live 영어판에서 과목이 겹치지 않게 골랐다.",
+        "fetch_failures": 0,
+        "books": [
+          {
+            "slug": "introduction-philosophy",
+            "title": "Introduction to Philosophy",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2022-06-15",
+            "revised": "2026-04-23T18:25:58+00:00",
+            "sections_in_book": 126,
+            "sample_section": "Developing Good Habits of Mind",
+            "sample_chars": 10490
+          },
+          {
+            "slug": "world-history-volume-1",
+            "title": "World History, Volume 1: to 1500",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2023-04-19",
+            "revised": "2026-04-23T18:26:38+00:00",
+            "sections_in_book": 171,
+            "sample_section": "Early Civilizations",
+            "sample_chars": 12765
+          },
+          {
+            "slug": "writing-guide",
+            "title": "Writing Guide with Handbook",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2021-12-21",
+            "revised": "2026-04-23T18:26:39+00:00",
+            "sections_in_book": 229,
+            "sample_section": "Spotlight on … Academia",
+            "sample_chars": 4037
+          },
+          {
+            "slug": "introduction-sociology-3e",
+            "title": "Introduction to Sociology 3e",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2021-06-03",
+            "revised": "2026-07-20T22:12:58+00:00",
+            "sections_in_book": 243,
+            "sample_section": "Ethical Concerns",
+            "sample_chars": 6557
+          },
+          {
+            "slug": "american-government-4e",
+            "title": "American Government 4e",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2025-07-23",
+            "revised": "2026-04-23T18:25:31+00:00",
+            "sections_in_book": 204,
+            "sample_section": "The Ratification of the Constitution",
+            "sample_chars": 22294
+          },
+          {
+            "slug": "principles-economics-3e",
+            "title": "Principles of Economics 3e",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2022-12-14",
+            "revised": "2026-07-09T19:18:08+00:00",
+            "sections_in_book": 419,
+            "sample_section": "Confronting Objections to the Economic Approach",
+            "sample_chars": 12909
+          },
+          {
+            "slug": "introduction-anthropology",
+            "title": "Introduction to Anthropology",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2022-02-23",
+            "revised": "2026-04-23T18:25:52+00:00",
+            "sections_in_book": 201,
+            "sample_section": "Reaching for an Insider’s Point of View",
+            "sample_chars": 13325
+          },
+          {
+            "slug": "introductory-statistics-2e",
+            "title": "Introductory Statistics 2e",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2023-12-13",
+            "revised": "2026-07-07T17:29:05+00:00",
+            "sections_in_book": 200,
+            "sample_section": "Stem-and-Leaf Graphs (Stemplots), Line Graphs, and Bar Graphs",
+            "sample_chars": 5772
+          },
+          {
+            "slug": "biology-2e",
+            "title": "Biology 2e",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2018-03-28",
+            "revised": "2026-07-22T15:15:41+00:00",
+            "sections_in_book": 495,
+            "sample_section": "Carbohydrates",
+            "sample_chars": 13965
+          },
+          {
+            "slug": "astronomy-2e",
+            "title": "Astronomy 2e",
+            "cms_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "service_page_license_url": "http://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "publish_date": "2022-03-09",
+            "revised": "2026-07-21T19:11:32+00:00",
+            "sections_in_book": 404,
+            "sample_section": "The Universe on the Large Scale",
+            "sample_chars": 4936
+          }
+        ]
+      },
+      "g0": {
+        "verdict": "표본 10/10 이 CC BY-NC-SA 4.0 → **전원 R3(재저작)**. 원문 확보(R1) 0권.",
+        "method": "두 개의 독립 엔드포인트를 대조했다 — CMS 상세(발행사 내부 메타)와 서비스 페이지가 실제 렌더하는 라이선스 객체. 10/10 이 일치했다 [측정].",
+        "sample_license_distribution": {
+          "CC BY-NC-SA 4.0": 10,
+          "CC BY 4.0": 0,
+          "CC BY-SA": 0,
+          "CC BY-NC": 0,
+          "CC BY-ND": 0,
+          "CC0": 0,
+          "other": 0,
+          "unreadable": 0
+        },
+        "full_catalog_distribution_129_books": {
+          "note": "129권 전수의 CMS 상세를 읽었다 [측정: 2026-09-24]. 본문은 받지 않았다.",
+          "by_license": {
+            "CC BY-NC-SA 4.0": 80,
+            "CC BY 4.0": 38,
+            "NONE": 11
+          },
+          "by_license_and_state": {
+            "CC BY-NC-SA 4.0 | live | en": 70,
+            "CC BY 4.0 | retired | en": 33,
+            "CC BY-NC-SA 4.0 | deprecated | en": 2,
+            "NONE | retired | en": 1,
+            "CC BY-NC-SA 4.0 | unlisted | en": 8,
+            "CC BY 4.0 | deprecated | en": 1,
+            "CC BY 4.0 | live | en": 3,
+            "NONE | live | es": 10,
+            "CC BY 4.0 | live | es": 1
+          }
+        },
+        "live_english_only": {
+          "total": 73,
+          "by_license": {
+            "CC BY-NC-SA 4.0": 70,
+            "CC BY 4.0": 3
+          },
+          "cc_by_share_pct": 4.1,
+          "cc_by_titles": [
+            {
+              "slug": "introduction-intellectual-property",
+              "publish_date": "2021-02-22",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            },
+            {
+              "slug": "physics",
+              "publish_date": "2020-03-26",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            },
+            {
+              "slug": "statistics",
+              "publish_date": "2020-03-27",
+              "license_url": "https://creativecommons.org/licenses/by/4.0/"
+            }
+          ]
+        },
+        "retired_cc_by": {
+          "count": 33,
+          "연식": "2012-06 ~ 2020-09 [측정: publish_date]",
+          "caution": "은퇴판은 CC BY 로 남아 있지만 연식이 G1-2 의 위험이다. 이 파일럿은 은퇴판 본문을 받지 않았다 — 표본 상한 때문이다."
+        },
+        "old_belief_check": {
+          "claim": "\"OpenStax 는 CC-BY\" (저장소 어댑터 주석 · 일반 통념)",
+          "measured": "거짓. live 영어 73권 중 CC BY 는 3권(4.1%), NC-SA 가 70권(95.9%)이다 [측정].",
+          "repo_record_check": "docs/reports/sources-discovery-v3.md §5 의 \"전 라이브러리 NC-SA 전환 · live 84권 중 CC BY 4권\" 기록은 방향이 맞다. 오늘 실측으로 live 영어 73권 중 CC BY 3권(+ 스페인어 1권 = 4권)이다 — 기록과 일치한다 [측정].",
+          "cms_vs_page_mismatch": "같은 기록이 경고한 \"CMS 가 11% 틀린다\"는 이번 표본 10권에서는 재현되지 않았다(불일치 0/10). 다만 표본이 전부 NC-SA 라 CC BY 쪽 불일치를 볼 기회가 없었다 — 반증이 아니다."
+        },
+        "g0_4_dropouts": {
+          "sample": 0,
+          "full_catalog": 11,
+          "who": [
+            "college-physics-courseware",
+            "cálculo-volumen-1",
+            "cálculo-volumen-2",
+            "cálculo-volumen-3",
+            "física-universitaria-volumen-2",
+            "física-universitaria-volumen-3",
+            "introducción-estadística",
+            "introducción-estadística-empresarial",
+            "precálculo-2ed",
+            "química-2ed",
+            "química-comenzando-átomos-2ed"
+          ],
+          "note": "11권 중 10권이 스페인어판, 1권이 은퇴한 courseware 다. 라이선스 필드가 null 이라 G0-4(추적 불가) 탈락이다 [측정]."
+        },
+        "license_url_live": "[측정: https://creativecommons.org/licenses/by-nc-sa/4.0/ · by/4.0/ · by-sa/4.0/ · by-nc/4.0/ 모두 200 · by/4.0/legalcode.en 200]",
+        "fields_complete": "표본 10/10 에 author(기관+개인) · year(publish_date) · source_url · license_raw 전부 존재 — G0-4 탈락 없음 [측정]."
+      },
+      "g1": {
+        "verdict": "채우는 슬롯 = 주로 A(가중치 0). **우선순위 없음.** 다만 표본 절반이 A 무리의 문체 기준(고유명사 0)과 어긋난다 — 아래.",
+        "register_human_read": {
+          "expository_A": [
+            "introduction-philosophy",
+            "biology-2e",
+            "principles-economics-3e",
+            "writing-guide",
+            "astronomy-2e"
+          ],
+          "expository_with_named_actors": [
+            "american-government-4e",
+            "world-history-volume-1",
+            "introduction-anthropology",
+            "introduction-sociology-3e"
+          ],
+          "procedural_worked_example": [
+            "introductory-statistics-2e"
+          ],
+          "note": "갈래는 사람(이 에이전트) 판독이다. 10/10 이 설명문이며 논증문은 0편이다 — 교과서는 결론을 가르치지 주장을 다투지 않는다."
+        },
+        "B_slot_check": {
+          "question": "통계·도표 해설 섹션이 B 무리(가중치 1.00)를 채우는가?",
+          "answer": "아니다 — 제목은 있지만 내용이 도표 해설 지문이 아니다.",
+          "numbers": [
+            "introductory-statistics-2e 의 200섹션 중 도표·데이터 표제가 33섹션(16.5%) [측정: TOC 표제 정규식].",
+            "그중 하나(2.1 Stem-and-Leaf Graphs …)를 실제로 읽으니 산문 문단 8개 중 도표를 말로 설명하는 문단은 1개(39어)뿐이고, 나머지는 작도 절차 지시와 연습문제용 수치 나열이다 [측정: 본문 판독].",
+            "같은 섹션의 정제 잔존율 62.4% · 6~40어 문장 비율 37.2% — 표본 10개 중 최저다(다른 9개는 69.6~94.9%) [측정]."
+          ],
+          "conclusion": "기출 「도표」 유형은 자료를 **읽어 주는** 산문이고, 통계 교과서는 자료를 **만드는 법**을 가르치는 절차문이다. 표제로 세면 33섹션이지만 슬롯을 채우는 것은 문단 단위로 극소수다."
+        },
+        "years": "2018-03 ~ 2025-07 (표본 10권 publish_date) · 개정 반영일(revised)은 전부 2026 [측정] — 고어체·낡은 사실 위험 없음",
+        "A_style_mismatch": {
+          "benchmark": "A 추론형: 고유명사 중앙 0 · 0개인 지문 52~79%",
+          "measured_prose_paragraph_zero_proper_pct": {
+            "american-government-4e": 0,
+            "astronomy-2e": 33.3,
+            "biology-2e": 80,
+            "introduction-anthropology": 31.3,
+            "introduction-philosophy": 69.2,
+            "introduction-sociology-3e": 30,
+            "introductory-statistics-2e": 37.5,
+            "principles-economics-3e": 69.2,
+            "world-history-volume-1": 27.8,
+            "writing-guide": 75
+          },
+          "finding": "철학 69.2% · 경제 69.2% · 작문 75% · 생물 80% 는 A 대역에 든다. 그러나 정치 0% · 세계사 27.8% · 사회학 30% · 인류학 31.3% 는 A 대역 밖이고, 고유명사 밀도가 6.03~8.66/100어로 오히려 **B 대역(2.26~15.63)** 에 든다 [측정].",
+          "caution": "이것은 갈래가 B 라는 뜻이 아니다 — 사람·기관·제도의 이름이 많은 설명문일 뿐이다. 기계 지표만으로 B 슬롯에 넣으면 안 된다(criteria G3 경고)."
+        }
+      },
+      "g2": {
+        "verdict": "가공 비용 = 중(>50% · 사실상 재저작). 라이선스가 R3 이므로 애초에 경 가공은 선택지가 아니다.",
+        "cases": [
+          {
+            "id": "OS-1",
+            "source": "openstax",
+            "book": "introduction-philosophy",
+            "section": "2.3 Developing Good Habits of Mind",
+            "url": "https://openstax.org/books/introduction-philosophy/pages/2-3-developing-good-habits-of-mind",
+            "devices": [
+              "앞 문맥 지시어 \"these biases\"",
+              "전방참조 \"The strategies outlined below\"",
+              "상호참조 \"covered in Chapter 1\"",
+              "2인칭 교과서 호명 \"you ... a better philosopher\""
+            ],
+            "before": "One of the ways to respond to cognitive biases is to develop good habits of mind. There are no quick fixes or easy solutions to cognitive biases. Remember, these biases are a result of the way the brain works. Nevertheless, metacognition and critical reflection, as well as good mental habits, can help combat these natural tendencies in thought that otherwise leads us astray. The strategies outlined below can help you become a better philosopher. You should compare them with the methods philosophers use to arrive at truth, covered in Chapter 1.",
+            "after": "Cognitive bias has no quick fix. A bias is not a lapse of effort but a by-product of the way the mind ordinarily works, which is why resolving to think harder does not dislodge one. What can be built instead is a habit: the practice of watching a conclusion form, asking why it already feels obvious, and holding it open until the reasoning behind it has been stated aloud. Such a habit does not remove the tendency to reason badly. It makes the tendency visible early enough to be corrected, and that is a different and more modest kind of remedy.",
+            "words_before": 91,
+            "words_after": 101,
+            "lcs_words": 14,
+            "modification_rate": 0.861,
+            "cost_grade": "중(>50% · 사실상 재저작)"
+          },
+          {
+            "id": "OS-2",
+            "source": "openstax",
+            "book": "world-history-volume-1",
+            "section": "2.1 Early Civilizations",
+            "url": "https://openstax.org/books/world-history-volume-1/pages/2-1-early-civilizations",
+            "devices": [
+              "외부 링크 학습장치 3문장 중 2문장(TEDx Talk · Poverty Point website · \"Look especially at History and Artifacts\")",
+              "고유명사 5개(Göbekli Tepe · Turkey · Poverty Point · Louisiana · United States)"
+            ],
+            "before": "Hunter-gatherer cultures also built large structures, such as the monumental architecture at Göbekli Tepe in southeast Turkey and at Poverty Point in Louisiana in the United States. Listen to this TEDx Talk lecture by the archaeologist who excavated at Göbekli Tepe to find out more about the site. You can learn more about the Poverty Point culture by exploring the Poverty Point website. Look especially at “History and Artifacts.”",
+            "after": "Hunter-gatherers also built on a monumental scale. At one upland site in the ancient Near East, and at another beside a river in North America, people who did not farm raised stone enclosures and earthworks that must have taken many hands and many seasons to finish. Work of that size is usually read as evidence of settled life, since a population has to stay in one place long enough to finish it. These builders did not stay. They moved with the seasons and returned, which means the monument came before the village rather than after it.",
+            "words_before": 71,
+            "words_after": 96,
+            "lcs_words": 13,
+            "modification_rate": 0.865,
+            "cost_grade": "중(>50% · 사실상 재저작)"
+          }
+        ],
+        "light_edit_control": [
+          {
+            "id": "OS-1L",
+            "book": "introduction-philosophy",
+            "license_path": "R3(경 가공은 법적으로 쓸 수 없음 — 비용 대조용)",
+            "before": "One of the ways to respond to cognitive biases is to develop good habits of mind. There are no quick fixes or easy solutions to cognitive biases. Remember, these biases are a result of the way the brain works. Nevertheless, metacognition and critical reflection, as well as good mental habits, can help combat these natural tendencies in thought that otherwise leads us astray. The strategies outlined below can help you become a better philosopher. You should compare them with the methods philosophers use to arrive at truth, covered in Chapter 1.",
+            "after": "One way to respond to cognitive biases is to develop good habits of mind. There are no quick fixes or easy solutions, because these biases are a result of the way the brain works. Nevertheless, metacognition and critical reflection, as well as good mental habits, can help combat the natural tendencies in thought that otherwise lead us astray.",
+            "ops": [
+              "교과서 호명 2문장 삭제",
+              "상호참조 \"Chapter 1\" 삭제",
+              "앞 문맥 지시어 \"these biases\" 1회 유지 가능(같은 문단 안에서 선행어 확보)"
+            ],
+            "words_before": 91,
+            "words_after": 58,
+            "lcs_words": 54,
+            "modification_rate": 0.407,
+            "cost_grade": "중"
+          }
+        ],
+        "textbook_device_removability": {
+          "question": "학습목표·연습문제·상호참조를 걷어낼 수 있는가?",
+          "answer": "걷어내진다. 문제는 걷어낸 뒤 남는 양이다.",
+          "numbers": [
+            "표본 10섹션의 40어 이상 산문 문단 중 학습장치·상호참조 표지를 가진 비율: american-government-4e 17.2% · astronomy-2e 33.3% · biology-2e 40% · introduction-anthropology 0% · introduction-philosophy 7.7% · introduction-sociology-3e 0% · introductory-statistics-2e 37.5% · principles-economics-3e 7.7% · world-history-volume-1 22.2% · writing-guide 0% [측정]",
+            "world-history-volume-1 의 한 문단(71어)은 4문장 중 3문장이 외부 링크 안내(TEDx · 웹사이트 · \"Look especially at …\")였다 — 걷어내면 내용 1문장이 남는다 [측정: 본문 판독].",
+            "정제 잔존율(40어 이상 산문 낱말 ÷ 전체 낱말)은 62.4~96.1%, 중앙 90.9% [측정]."
+          ]
+        },
+        "proper_noun_survival": "world-history 문단에서 고유명사 5개(Göbekli Tepe · Turkey · Poverty Point · Louisiana · United States)를 일반명사로 바꿔도 \"농경하지 않은 집단이 기념비적 구조물을 세웠다\"는 논지는 남는다. 다만 어느 유적인지가 사라져 검증 가능성이 떨어진다 [측정: 가공 실행]."
+      },
+      "g3": {
+        "english_gate": "10/10 통과 (라틴문자 ≥0.70 ∧ 기능어 ≥0.15) [측정]",
+        "latin_ratio_range": [
+          0.847,
+          0.975
+        ],
+        "function_word_ratio_range": [
+          0.316,
+          0.385
+        ],
+        "per_book": {
+          "american-government-4e": {
+            "chars": 22294,
+            "words": 3497,
+            "paragraphs": 49,
+            "latin_ratio": 0.965,
+            "function_word_ratio": 0.371,
+            "english_verdict": "english",
+            "sentences": 196,
+            "sentences_6_40": 155,
+            "sent_6_40_pct": 79.1,
+            "sent_words_median": 16,
+            "para_words_median_all": 66,
+            "prose_paragraphs_40plus": 29,
+            "para_words_median_prose": 112,
+            "window_school_para_40_200": 28,
+            "window_csat_short_90_200": 17,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 8.66,
+            "prose_para_proper_median": 7.41,
+            "prose_para_zero_proper_pct": 0,
+            "device_marker_para_pct": 18.4,
+            "device_marker_prose_para_pct": 17.2,
+            "keep_pct_prose_words": 95.3
+          },
+          "astronomy-2e": {
+            "chars": 4936,
+            "words": 800,
+            "paragraphs": 19,
+            "latin_ratio": 0.95,
+            "function_word_ratio": 0.379,
+            "english_verdict": "english",
+            "sentences": 46,
+            "sentences_6_40": 32,
+            "sent_6_40_pct": 69.6,
+            "sent_words_median": 17,
+            "para_words_median_all": 35,
+            "prose_paragraphs_40plus": 9,
+            "para_words_median_prose": 68,
+            "window_school_para_40_200": 9,
+            "window_csat_short_90_200": 4,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 6.38,
+            "prose_para_proper_median": 2.2,
+            "prose_para_zero_proper_pct": 33.3,
+            "device_marker_para_pct": 31.6,
+            "device_marker_prose_para_pct": 33.3,
+            "keep_pct_prose_words": 91.1
+          },
+          "biology-2e": {
+            "chars": 13965,
+            "words": 2087,
+            "paragraphs": 50,
+            "latin_ratio": 0.95,
+            "function_word_ratio": 0.357,
+            "english_verdict": "english",
+            "sentences": 153,
+            "sentences_6_40": 125,
+            "sent_6_40_pct": 81.7,
+            "sent_words_median": 13,
+            "para_words_median_all": 16,
+            "prose_paragraphs_40plus": 20,
+            "para_words_median_prose": 74.5,
+            "window_school_para_40_200": 19,
+            "window_csat_short_90_200": 7,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 0.86,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 80,
+            "device_marker_para_pct": 34,
+            "device_marker_prose_para_pct": 40,
+            "keep_pct_prose_words": 89.8
+          },
+          "introduction-anthropology": {
+            "chars": 13325,
+            "words": 1946,
+            "paragraphs": 35,
+            "latin_ratio": 0.972,
+            "function_word_ratio": 0.326,
+            "english_verdict": "english",
+            "sentences": 109,
+            "sentences_6_40": 91,
+            "sent_6_40_pct": 83.5,
+            "sent_words_median": 18,
+            "para_words_median_all": 18,
+            "prose_paragraphs_40plus": 16,
+            "para_words_median_prose": 107,
+            "window_school_para_40_200": 16,
+            "window_csat_short_90_200": 11,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 6.58,
+            "prose_para_proper_median": 3.32,
+            "prose_para_zero_proper_pct": 31.3,
+            "device_marker_para_pct": 2.9,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 91
+          },
+          "introduction-philosophy": {
+            "chars": 10490,
+            "words": 1690,
+            "paragraphs": 35,
+            "latin_ratio": 0.975,
+            "function_word_ratio": 0.377,
+            "english_verdict": "english",
+            "sentences": 95,
+            "sentences_6_40": 85,
+            "sent_6_40_pct": 89.5,
+            "sent_words_median": 17,
+            "para_words_median_all": 11,
+            "prose_paragraphs_40plus": 13,
+            "para_words_median_prose": 130,
+            "window_school_para_40_200": 13,
+            "window_csat_short_90_200": 9,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 1.78,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 69.2,
+            "device_marker_para_pct": 5.7,
+            "device_marker_prose_para_pct": 7.7,
+            "keep_pct_prose_words": 92.3
+          },
+          "introduction-sociology-3e": {
+            "chars": 6557,
+            "words": 945,
+            "paragraphs": 25,
+            "latin_ratio": 0.959,
+            "function_word_ratio": 0.316,
+            "english_verdict": "english",
+            "sentences": 48,
+            "sentences_6_40": 43,
+            "sent_6_40_pct": 89.6,
+            "sent_words_median": 18,
+            "para_words_median_all": 10,
+            "prose_paragraphs_40plus": 10,
+            "para_words_median_prose": 90,
+            "window_school_para_40_200": 10,
+            "window_csat_short_90_200": 5,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 6.03,
+            "prose_para_proper_median": 5.13,
+            "prose_para_zero_proper_pct": 30,
+            "device_marker_para_pct": 4,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 90.7
+          },
+          "introductory-statistics-2e": {
+            "chars": 5772,
+            "words": 857,
+            "paragraphs": 66,
+            "latin_ratio": 0.847,
+            "function_word_ratio": 0.385,
+            "english_verdict": "english",
+            "sentences": 148,
+            "sentences_6_40": 55,
+            "sent_6_40_pct": 37.2,
+            "sent_words_median": 0,
+            "para_words_median_all": 1,
+            "prose_paragraphs_40plus": 8,
+            "para_words_median_prose": 53.5,
+            "window_school_para_40_200": 8,
+            "window_csat_short_90_200": 2,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 3.38,
+            "prose_para_proper_median": 1.77,
+            "prose_para_zero_proper_pct": 37.5,
+            "device_marker_para_pct": 31.8,
+            "device_marker_prose_para_pct": 37.5,
+            "keep_pct_prose_words": 62.4
+          },
+          "principles-economics-3e": {
+            "chars": 12909,
+            "words": 2082,
+            "paragraphs": 27,
+            "latin_ratio": 0.973,
+            "function_word_ratio": 0.37,
+            "english_verdict": "english",
+            "sentences": 103,
+            "sentences_6_40": 84,
+            "sent_6_40_pct": 81.6,
+            "sent_words_median": 18,
+            "para_words_median_all": 13,
+            "prose_paragraphs_40plus": 13,
+            "para_words_median_prose": 112,
+            "window_school_para_40_200": 9,
+            "window_csat_short_90_200": 4,
+            "window_csat_long_260_400": 3,
+            "proper_noun_per_100w": 2.07,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 69.2,
+            "device_marker_para_pct": 7.4,
+            "device_marker_prose_para_pct": 7.7,
+            "keep_pct_prose_words": 96.1
+          },
+          "world-history-volume-1": {
+            "chars": 12765,
+            "words": 1981,
+            "paragraphs": 41,
+            "latin_ratio": 0.962,
+            "function_word_ratio": 0.346,
+            "english_verdict": "english",
+            "sentences": 111,
+            "sentences_6_40": 94,
+            "sent_6_40_pct": 84.7,
+            "sent_words_median": 16,
+            "para_words_median_all": 20,
+            "prose_paragraphs_40plus": 18,
+            "para_words_median_prose": 89.5,
+            "window_school_para_40_200": 17,
+            "window_csat_short_90_200": 8,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 6.21,
+            "prose_para_proper_median": 1.72,
+            "prose_para_zero_proper_pct": 27.8,
+            "device_marker_para_pct": 19.5,
+            "device_marker_prose_para_pct": 22.2,
+            "keep_pct_prose_words": 90.9
+          },
+          "writing-guide": {
+            "chars": 4037,
+            "words": 660,
+            "paragraphs": 15,
+            "latin_ratio": 0.965,
+            "function_word_ratio": 0.37,
+            "english_verdict": "english",
+            "sentences": 39,
+            "sentences_6_40": 37,
+            "sent_6_40_pct": 94.9,
+            "sent_words_median": 14,
+            "para_words_median_all": 12,
+            "prose_paragraphs_40plus": 4,
+            "para_words_median_prose": 153,
+            "window_school_para_40_200": 4,
+            "window_csat_short_90_200": 4,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 1.97,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 75,
+            "device_marker_para_pct": 6.7,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 87.1
+          }
+        },
+        "window_yield_total": {
+          "school_para_40_200": 133,
+          "csat_short_90_200": 71,
+          "csat_long_260_400": 3,
+          "note": "문단을 그대로 세었다(이어붙이기 없음). 260~400 창은 10섹션에서 3개뿐이고 전부 principles-economics-3e 에서 나왔다 — 교과서 문단은 짧다 [측정]."
+        }
+      },
+      "verdict": {
+        "overall": "원문 확보 불가 — 표본 전원 R3. 재저작 입력으로만 쓸 수 있다.",
+        "route": "R3 (NC 계열 · 상업 이용 불가 · 표현 사용 금지)",
+        "source_value": "Σ(슬롯 × 결손 가중치) = 0 — 채우는 슬롯이 A(가중치 0)뿐이다. 가공 비용은 중(>50%). **우선순위 없음.**",
+        "r1_usable_books": 0,
+        "r1_usable_in_full_catalog": {
+          "live_english": 3,
+          "titles": [
+            "introduction-intellectual-property",
+            "physics",
+            "statistics"
+          ],
+          "caveat": "셋 중 둘이 STEM(physics · statistics)이고 하나가 법률 절차 서술(introduction-intellectual-property)이다. 셋 다 A 무리이거나 수식·절차 밀집이라 결손 슬롯을 안 채운다 [측정: 표제·앞선 저장소 기록].",
+          "not_sampled": "이 3권의 본문은 받지 않았다 — 표본 20 상한을 지켰다."
+        },
+        "recommendation": "수확 대상에서 내린다. 저장소 어댑터의 \"모든 OpenStax 는 CC BY\" 주석과 CC-BY-4.0 폴백은 고치거나 어댑터를 비활성화한다 — 지금 돌리면 NC-SA 책에 CC-BY 라벨이 붙는다."
+      }
+    },
+    {
+      "name": "BCcampus Open Education (opentextbc.ca)",
+      "homepage": "https://opentextbc.ca/",
+      "type": "공공 OER 발행·호스팅 네트워크 (Pressbooks 멀티사이트)",
+      "access": {
+        "list_endpoint": "https://opentextbc.ca/wp-json/pressbooks/v2/books?per_page=10&page=N → 200 · x-wp-total 212 [측정]",
+        "per_book_chapters": "https://opentextbc.ca/<slug>/wp-json/pressbooks/v2/chapters?per_page=10&page=N → title · content.rendered · license(term id 배열)",
+        "per_book_license_terms": "https://opentextbc.ca/<slug>/wp-json/wp/v2/license?per_page=30 → term id ↔ slug(cc-by · cc-by-sa · cc-by-nc-sa · public-domain · all-rights-reserved …)",
+        "notes": [
+          "per_page 는 1~10 만 허용된다. 11 이상은 400 rest_invalid_param [측정].",
+          "collection.bccampus.ca 는 SPA 이고 wp-json 이 없다(404) — 라이선스는 opentextbc.ca Pressbooks API 에서 읽었다 [측정].",
+          "장 단위 license 는 term **id 배열**로 오고, id 는 **책마다 다르다**. 책 사이트의 license 택소노미를 같이 받아야 뜻이 생긴다 [측정].",
+          "User-Agent 위장 없음 (OpenStax 와 동일 문자열)"
+        ]
+      },
+      "sampling": {
+        "n_units": 10,
+        "unit": "책(권) — 권마다 장 1개를 받아 G2·G3 을 쟀다",
+        "strategy": "인문 3(영문학·캐나다사·근대철학) · 사회 3(사회학·법집행윤리·기초통계) · 과학 2(생물·지질) · 실용 1(식품안전) · 성인문해 독본 1. 라이선스도 섞었다(CC BY 9 + NC-SA 1).",
+        "fetch_failures": 0,
+        "books": [
+          {
+            "slug": "introductiontosociology3rdedition",
+            "name": "Introduction to Sociology – 3rd Canadian Edition",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2023",
+            "wordCount": 480271,
+            "chapters_total": 92,
+            "sample_chapter": "7.1 How is Society Possible?",
+            "sample_chars": 20066
+          },
+          {
+            "slug": "preconfederation",
+            "name": "Canadian History: Pre-Confederation",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2015",
+            "wordCount": 240845,
+            "chapters_total": 134,
+            "sample_chapter": "5.1 Introduction",
+            "sample_chars": 1523
+          },
+          {
+            "slug": "englishliterature",
+            "name": "English Literature: Victorians and Moderns",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2014",
+            "wordCount": 460276,
+            "chapters_total": 213,
+            "sample_chapter": "Biography",
+            "sample_chars": 3534
+          },
+          {
+            "slug": "biology",
+            "name": "Concepts of Biology - 1st Canadian Edition",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2015",
+            "wordCount": 280368,
+            "chapters_total": 100,
+            "sample_chapter": "11.1 Homeostasis and Osmoregulation",
+            "sample_chars": 16200
+          },
+          {
+            "slug": "physicalgeology2ed",
+            "name": "Physical Geology - 2nd Edition",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2019",
+            "wordCount": 205681,
+            "chapters_total": 128,
+            "sample_chapter": "2.1 Electrons, Protons, Neutrons, and Atoms",
+            "sample_chars": 3270
+          },
+          {
+            "slug": "introductorybusinessstatistics",
+            "name": "Introductory Business Statistics with Interactive Spreadsheets - 1st Canadian Edition",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2015",
+            "wordCount": 44900,
+            "chapters_total": 8,
+            "sample_chapter": "Chapter 4. Hypothesis Testing",
+            "sample_chars": 32493
+          },
+          {
+            "slug": "foodsafety",
+            "name": "Food Safety, Sanitation, and Personal Hygiene",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2015",
+            "wordCount": 14526,
+            "chapters_total": 10,
+            "sample_chapter": "Preventing Foodborne Illness",
+            "sample_chars": 22187
+          },
+          {
+            "slug": "abealfreader1",
+            "name": "BC Reads: Adult Literacy Fundamental English - Reader 1",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2015",
+            "wordCount": 4248,
+            "chapters_total": 9,
+            "sample_chapter": "Val&#8217;s Garden",
+            "sample_chars": 895
+          },
+          {
+            "slug": "ethicsinlawenforcement",
+            "name": "Ethics in Law Enforcement",
+            "book_license_code": "CC BY",
+            "book_license_url": "https://creativecommons.org/licenses/by/4.0/",
+            "copyrightYear": "2015",
+            "wordCount": 57815,
+            "chapters_total": 51,
+            "sample_chapter": "6.1 Noble Cause Corruption",
+            "sample_chars": 2355
+          },
+          {
+            "slug": "modernphilosophy",
+            "name": "Modern Philosophy",
+            "book_license_code": "CC BY-NC-SA",
+            "book_license_url": "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+            "copyrightYear": "2013",
+            "wordCount": 180248,
+            "chapters_total": 9,
+            "sample_chapter": "René Descartes (1596–1650)",
+            "sample_chars": 181501
+          }
+        ]
+      },
+      "g0": {
+        "verdict": "표본 10권 중 **책 라벨 기준 9권이 CC BY/PD(R1)**. 장 단위로 재확인하면 **8권이 확정 R1**, 1권은 장별 선별 필요, 1권은 R3.",
+        "sample_license_distribution_book_level": {
+          "CC BY": 9,
+          "CC BY-NC-SA": 1
+        },
+        "chapter_level_recheck": {
+          "why": "criteria G0-1: 컬렉션 라벨을 그대로 믿지 않는다. Pressbooks 는 장마다 라이선스를 덮어쓸 수 있다.",
+          "measured": [
+            {
+              "id": 440,
+              "slug": "introductiontosociology3rdedition",
+              "name": "Introduction to Sociology – 3rd Canadian Edition",
+              "book_license_code": "CC BY",
+              "chapters_counted": 92,
+              "chapter_license_tally": {
+                "(inherit book)": 92
+              }
+            },
+            {
+              "id": 22,
+              "slug": "preconfederation",
+              "name": "Canadian History: Pre-Confederation",
+              "book_license_code": "CC BY",
+              "chapters_counted": 134,
+              "chapter_license_tally": {
+                "cc-by-nc-sa": 32,
+                "(inherit book)": 79,
+                "cc-by-sa": 23
+              }
+            },
+            {
+              "id": 27,
+              "slug": "englishliterature",
+              "name": "English Literature: Victorians and Moderns",
+              "book_license_code": "CC BY",
+              "chapters_counted": 213,
+              "chapter_license_tally": {
+                "(inherit book)": 60,
+                "public-domain": 153
+              }
+            },
+            {
+              "id": 96,
+              "slug": "biology",
+              "name": "Concepts of Biology - 1st Canadian Edition",
+              "book_license_code": "CC BY",
+              "chapters_counted": 100,
+              "chapter_license_tally": {
+                "cc-by": 100
+              }
+            },
+            {
+              "id": 298,
+              "slug": "physicalgeology2ed",
+              "name": "Physical Geology - 2nd Edition",
+              "book_license_code": "CC BY",
+              "chapters_counted": 128,
+              "chapter_license_tally": {
+                "cc-by": 128
+              }
+            },
+            {
+              "id": 45,
+              "slug": "introductorybusinessstatistics",
+              "name": "Introductory Business Statistics with Interactive Spreadsheets - 1st Canadian Edition",
+              "book_license_code": "CC BY",
+              "chapters_counted": 8,
+              "chapter_license_tally": {
+                "(inherit book)": 8
+              }
+            },
+            {
+              "id": 106,
+              "slug": "foodsafety",
+              "name": "Food Safety, Sanitation, and Personal Hygiene",
+              "book_license_code": "CC BY",
+              "chapters_counted": 10,
+              "chapter_license_tally": {
+                "(inherit book)": 10
+              }
+            },
+            {
+              "id": 88,
+              "slug": "abealfreader1",
+              "name": "BC Reads: Adult Literacy Fundamental English - Reader 1",
+              "book_license_code": "CC BY",
+              "chapters_counted": 9,
+              "chapter_license_tally": {
+                "(inherit book)": 9
+              }
+            },
+            {
+              "id": 77,
+              "slug": "ethicsinlawenforcement",
+              "name": "Ethics in Law Enforcement",
+              "book_license_code": "CC BY",
+              "chapters_counted": 51,
+              "chapter_license_tally": {
+                "(inherit book)": 51
+              }
+            },
+            {
+              "id": 6,
+              "slug": "modernphilosophy",
+              "name": "Modern Philosophy",
+              "book_license_code": "CC BY-NC-SA",
+              "chapters_counted": 9,
+              "chapter_license_tally": {
+                "(inherit book)": 9
+              }
+            }
+          ],
+          "headline": "preconfederation(책 라벨 CC BY)의 134장 중 **55장(41.0%)이 더 엄격한 장 라이선스**를 달고 있다 — NC-SA 32장 · SA 23장. 책 라벨만 보면 41% 를 잘못 가져간다 [측정: 134장 전수].",
+          "opposite_case": "englishliterature(책 라벨 CC BY)는 213장 중 153장(71.8%)이 public-domain 으로 표시돼 있다 — 수록된 문학 원문 자체다. 이쪽은 라벨보다 **느슨**하다(R0) [측정: 213장 전수].",
+          "clean": "나머지 8권은 장 라이선스가 전부 책 라벨과 같거나 비어 있다(상속) [측정]."
+        },
+        "full_catalog_distribution_212_books": {
+          "note": "212권 전수의 Pressbooks 메타를 읽었다 [측정: 2026-09-24]. 본문은 표본 10권만 받았다.",
+          "by_license_books": {
+            "CC BY": 138,
+            "CC BY-NC-SA": 37,
+            "CC BY-NC": 14,
+            "Public Domain": 1,
+            "All Rights Reserved": 10,
+            "CC BY-SA": 10,
+            "CC BY-NC-ND": 2
+          },
+          "by_license_words": {
+            "CC BY": 8236908,
+            "CC BY-NC-SA": 4123635,
+            "CC BY-NC": 518062,
+            "Public Domain": 65007,
+            "All Rights Reserved": 27847,
+            "CC BY-SA": 144386,
+            "CC BY-NC-ND": 11552
+          },
+          "in_catalog_english": {
+            "books": 141,
+            "words": 10868357,
+            "by_license_books": {
+              "CC BY": 98,
+              "CC BY-NC-SA": 28,
+              "Public Domain": 1,
+              "CC BY-NC": 9,
+              "CC BY-SA": 5
+            }
+          },
+          "r1_total": {
+            "books": 139,
+            "words": 8301915,
+            "in_catalog_english_books": 99,
+            "in_catalog_english_words": 7163462
+          }
+        },
+        "task_brief_check": {
+          "claim": "과제 지시문: \"BCcampus 131권 · 8.2M어\"",
+          "measured": "네트워크 전체는 212권 13.13M어다. **CC BY 만 세면 138권 8.24M어** — 지시문의 8.2M 은 CC BY 부분집합의 값과 사실상 같다. 권수 131 과 138 의 차이는 집계 시점 또는 카탈로그 경계로 보인다 [측정]."
+        },
+        "g0_4_dropouts": {
+          "full_catalog_no_year": 33,
+          "full_catalog_no_author": 8,
+          "cc_by_books_failing_g0_4": 21,
+          "note": "CC BY 138권 중 21권이 연도 또는 저자 결락으로 G0-4 탈락이다 → 실사용 가능 CC BY 는 117권 [측정]. 표본 10권은 전부 필드가 찼다."
+        },
+        "license_url_live": "[측정: 표본이 쓴 deed URL 4종 모두 200 · by/4.0/legalcode.en 200]"
+      },
+      "g1": {
+        "verdict": "대부분 A(가중치 0)지만 **B·C 를 채우는 갈래가 실제로 있다** — 이것이 두 원천을 가른다.",
+        "register_human_read": {
+          "expository_A": [
+            "introductiontosociology3rdedition",
+            "biology",
+            "physicalgeology2ed",
+            "ethicsinlawenforcement",
+            "modernphilosophy"
+          ],
+          "procedural_practical_B": [
+            "foodsafety"
+          ],
+          "data_instruction": [
+            "introductorybusinessstatistics"
+          ],
+          "biography_C": [
+            "englishliterature"
+          ],
+          "graded_narrative_C_and_초중등": [
+            "abealfreader1"
+          ],
+          "mixed": [
+            "preconfederation"
+          ],
+          "note": "갈래는 사람 판독이다."
+        },
+        "B_slot_check": {
+          "question": "실용문·데이터 기술이 B 무리(가중치 1.00)를 채우는가?",
+          "findings": [
+            "foodsafety(CC BY · 14,526어 · 10장)는 절차·주의사항·작업지시로 된 **실용문**이다. 표본 장에서 40어 이상 산문 문단이 27개 나왔다 — 표본 20개 중 두 번째로 많다 [측정].",
+            "⚠️ 그러나 문체가 B 기준과 어긋난다: 고유명사 0.96/100어(B 기준 2.26~15.63) · 0개인 문단 85.2%(B 기준 0~17%) · 문단 어수 중앙 59(B 기준 91~136) [측정]. 사람·기관 이름이 없는 실용문이기 때문이다.",
+            "introductorybusinessstatistics(CC BY)의 표본 장에서 수치를 말로 기술하는 문단이 43개 중 11개(25.6%)다 — OpenStax 통계(8개 중 4개, 그러나 전부 작도 예제)와 달리 서술 비중이 있다 [측정]."
+          ],
+          "conclusion": "B 슬롯은 **갈래로는 있고 문체로는 미달**이다. 기출 B 무리(안내문·내용일치)의 고유명사 밀도는 사람·기관 이름에서 오는데, 교과서 실용문에는 그 이름이 없다. 문체를 맞추려면 가공에서 이름을 **넣어야** 한다 — 확보가 아니라 창작이다."
+        },
+        "C_slot_check": {
+          "question": "C 장문 서사(가중치 0.51)를 채우는가?",
+          "findings": [
+            "englishliterature(CC BY · 460,276어 · 213장)에 **\"Biography\" 장이 24개** 있고 전부 책의 CC BY 를 상속한다(장 override 없음) [측정: 213장 전수].",
+            "표본으로 받은 Biography 장은 557어 · 고유명사 15.62/100어 · 0개인 문단 0% — C 기준(고유명사 4.25 · 0개인 지문 0%)의 0% 조건에 맞고 밀도는 높다 [측정].",
+            "같은 책의 나머지 153장은 public-domain 으로 표시된 문학 원문이다 — R0 경로이고 C·초중등 서사 후보다 [측정].",
+            "BC Reads 성인문해 독본 6권(Reader 1~6)은 전부 CC BY, 합계 41,668어의 **창작 서사**다. 표본(Val's Garden · 180어)은 1인칭 시간순이고 고유명사 1.67/100어, 문장 중앙 12어다 [측정]. 어수는 C 창(260~400)에 못 미치고 초6~중1 창(62~84)에 맞는다.",
+            "같은 시리즈 Course Pack 6권을 더하면 12권 136,466어다 [측정]."
+          ]
+        },
+        "years": "2008 ~ 2025 (표본 10권 copyrightYear 2013~2023) [측정] — 고어체 위험 없음. 단 englishliterature 의 PD 장 153개는 19세기 원문이므로 G1-2 를 따로 걸어야 한다.",
+        "canada_bias": "표본 10권 중 4권이 캐나다 맥락(preconfederation · introductiontosociology3rdedition · physicalgeology2ed(BC 지질) · foodsafety(BC 규정))이다. 고유명사·제도명이 캐나다에 묶여 있어 한국 학습자용으로는 치환이 필요하다 [측정: 본문 판독]."
+      },
+      "g2": {
+        "verdict": "두 갈래로 갈린다 — **경 가공(R1 용)은 수정량 45.8~45.9%(중)**, 재저작은 81.0~88.4%(중, 사실상 재저작).",
+        "method": "수정량 = 1 − LCS(낱말열 before, after) ÷ max(len_before, len_after). 삭제도 변경으로 센다.",
+        "cases": [
+          {
+            "id": "BC-1",
+            "source": "bccampus",
+            "book": "foodsafety",
+            "section": "Preventing Foodborne Illness — Cooling",
+            "url": "https://opentextbc.ca/foodsafety/chapter/preventing-foodborne-illness/",
+            "devices": [
+              "전방참조 \"one or more of the following methods\" → 뒤따르는 9항 목록",
+              "단위 병기 \"(4 L/1 gal.)\" \"4°C (40°F)\"",
+              "2인칭 작업지시 \"you can\""
+            ],
+            "before": "Even in modern walk-in coolers, large cuts of meat will not cool down properly. Neither will whole poultry. Even large pots (4 L/1 gal. or more) of soup, stews, gravy, etc., can take a day or more to cool to 4°C (40°F). However, you can cool these foods down quickly by using one or more of the following methods depending on the type of food being cooled:",
+            "after": "A large cut of meat does not cool properly, even in a cold room built for the purpose, and neither does a whole bird. A pot of soup of four litres or more can take a day or longer to fall to four degrees. Depth is the reason. Heat leaves a dense mass only through its surface, so the centre stays warm long after the outside feels cold, and the hours in between are exactly the hours in which bacteria multiply. The remedy follows from the cause: divide the food, spread it shallow, and the same fridge that failed will cool it in an hour.",
+            "note": "전방참조는 원문 뒤 9항 목록의 1항(shallow pans)을 읽어 해소했다 — 문단 하나만으로는 풀리지 않았다.",
+            "words_before": 70,
+            "words_after": 105,
+            "lcs_words": 20,
+            "modification_rate": 0.81,
+            "cost_grade": "중(>50% · 사실상 재저작)"
+          },
+          {
+            "id": "BC-2",
+            "source": "bccampus",
+            "book": "introductiontosociology3rdedition",
+            "section": "7.1 How is Society Possible?",
+            "url": "https://opentextbc.ca/introductiontosociology3rdedition/chapter/7-1-how-is-society-possible/",
+            "devices": [
+              "전방참조 \"We will discuss ... later in the chapter\"",
+              "상호참조 \"(see Chapter 1. An Introduction to Sociology)\"",
+              "고유명사 Simmel",
+              "앞 문맥 의존 \"the question\""
+            ],
+            "before": "We will discuss Simmel’s formal sociology later in the chapter. In general, the solution to the question — How is society possible? — differs depending on the level of analysis used to pose the question. Excluding the global for the time being (see Chapter 1. An Introduction to Sociology), sociologists describe group behaviour at three levels of social interaction: micro, meso, and macro.",
+            "after": "What holds a society together has no single answer, because the answer changes with the scale at which the question is asked. Ask it of two people talking and it turns on how they take turns and read each other’s signals. Ask it of a workplace or a congregation and it turns on how many separate roles are kept in step at once. Ask it of a whole country and it turns on institutions that outlast everyone inside them. Sociologists work at all three scales and treat them as different questions rather than rival answers.",
+            "note": "세 층위의 내용은 같은 절의 뒤 두 문단(micro · meso 설명)에서 끌어왔다 — 문단 하나만으로는 「micro/meso/macro」라는 이름표만 남는다.",
+            "words_before": 61,
+            "words_after": 95,
+            "lcs_words": 11,
+            "modification_rate": 0.884,
+            "cost_grade": "중(>50% · 사실상 재저작)"
+          }
+        ],
+        "light_edit_cases": [
+          {
+            "id": "BC-2L",
+            "book": "introductiontosociology3rdedition",
+            "license_path": "R1",
+            "before": "We will discuss Simmel’s formal sociology later in the chapter. In general, the solution to the question — How is society possible? — differs depending on the level of analysis used to pose the question. Excluding the global for the time being (see Chapter 1. An Introduction to Sociology), sociologists describe group behaviour at three levels of social interaction: micro, meso, and macro.",
+            "after": "How is society possible? The solution to the question differs depending on the level of analysis used to pose the question. Leaving the global scale aside, sociologists describe group behaviour at three levels of social interaction: micro, meso, and macro.",
+            "ops": [
+              "전방참조 문장 1개 삭제",
+              "상호참조 괄호 삭제",
+              "앞 문맥 의존 \"the question\" → 질문을 앞에 세워 자족화"
+            ],
+            "words_before": 61,
+            "words_after": 40,
+            "lcs_words": 33,
+            "modification_rate": 0.459,
+            "cost_grade": "중"
+          },
+          {
+            "id": "BC-1L",
+            "book": "foodsafety",
+            "license_path": "R1",
+            "before": "Even in modern walk-in coolers, large cuts of meat will not cool down properly. Neither will whole poultry. Even large pots (4 L/1 gal. or more) of soup, stews, gravy, etc., can take a day or more to cool to 4°C (40°F). However, you can cool these foods down quickly by using one or more of the following methods depending on the type of food being cooled:",
+            "after": "Even in modern walk-in coolers, large cuts of meat will not cool down properly. Neither will whole poultry. Even large pots of soup, stews, or gravy, four litres or more, can take a day or more to cool to four degrees Celsius. These foods can be cooled down quickly by placing them in shallow pans no deeper than five centimetres, left uncovered and not stacked, so that cold air reaches every side.",
+            "ops": [
+              "단위 병기 풀어쓰기",
+              "전방참조 해소(뒤 목록 1~3항을 문장으로 흡수)",
+              "2인칭 작업지시 → 평서"
+            ],
+            "words_before": 70,
+            "words_after": 72,
+            "lcs_words": 39,
+            "modification_rate": 0.458,
+            "cost_grade": "중"
+          }
+        ],
+        "light_edit_reading": "경 가공의 45.8~45.9% 는 대부분 **삭제**다(교과서 장치 문장 제거). 남은 출력의 낱말 중 원문에서 순서대로 온 것이 BC-2L 33/40(82.5%) · BC-1L 39/72(54.2%)다 — 즉 경 가공 산출물은 **여전히 원문의 표현**이고, 그래서 R1 라이선스가 반드시 필요하다 [측정].",
+        "forward_reference_cost": "두 경 가공 모두 **문단 하나만으로는 전방참조가 안 풀렸다** — BC-1L 은 뒤따르는 9항 목록, BC-2L 은 뒤 두 문단을 읽어야 했다. 문단 단위 자동 추출로는 자족성 조건을 못 맞춘다 [측정: 가공 실행]."
+      },
+      "g3": {
+        "english_gate": "10/10 통과 [측정]",
+        "latin_ratio_range": [
+          0.923,
+          0.978
+        ],
+        "function_word_ratio_range": [
+          0.3,
+          0.449
+        ],
+        "per_book": {
+          "abealfreader1": {
+            "chars": 895,
+            "words": 180,
+            "paragraphs": 6,
+            "latin_ratio": 0.952,
+            "function_word_ratio": 0.3,
+            "english_verdict": "english",
+            "sentences": 27,
+            "sentences_6_40": 16,
+            "sent_6_40_pct": 59.3,
+            "sent_words_median": 6,
+            "para_words_median_all": 29.5,
+            "prose_paragraphs_40plus": 1,
+            "para_words_median_prose": 55,
+            "window_school_para_40_200": 1,
+            "window_csat_short_90_200": 0,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 1.67,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 100,
+            "device_marker_para_pct": 0,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 30.6
+          },
+          "biology": {
+            "chars": 16200,
+            "words": 2549,
+            "paragraphs": 49,
+            "latin_ratio": 0.978,
+            "function_word_ratio": 0.382,
+            "english_verdict": "english",
+            "sentences": 125,
+            "sentences_6_40": 120,
+            "sent_6_40_pct": 96,
+            "sent_words_median": 18,
+            "para_words_median_all": 15,
+            "prose_paragraphs_40plus": 19,
+            "para_words_median_prose": 123,
+            "window_school_para_40_200": 18,
+            "window_csat_short_90_200": 12,
+            "window_csat_long_260_400": 1,
+            "proper_noun_per_100w": 0.27,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 100,
+            "device_marker_para_pct": 4.1,
+            "device_marker_prose_para_pct": 10.5,
+            "keep_pct_prose_words": 88.2
+          },
+          "englishliterature": {
+            "chars": 3534,
+            "words": 557,
+            "paragraphs": 6,
+            "latin_ratio": 0.923,
+            "function_word_ratio": 0.341,
+            "english_verdict": "english",
+            "sentences": 30,
+            "sentences_6_40": 27,
+            "sent_6_40_pct": 90,
+            "sent_words_median": 17,
+            "para_words_median_all": 96,
+            "prose_paragraphs_40plus": 4,
+            "para_words_median_prose": 98,
+            "window_school_para_40_200": 3,
+            "window_csat_short_90_200": 3,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 15.62,
+            "prose_para_proper_median": 13.91,
+            "prose_para_zero_proper_pct": 0,
+            "device_marker_para_pct": 0,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 94.4
+          },
+          "ethicsinlawenforcement": {
+            "chars": 2355,
+            "words": 384,
+            "paragraphs": 8,
+            "latin_ratio": 0.961,
+            "function_word_ratio": 0.398,
+            "english_verdict": "english",
+            "sentences": 19,
+            "sentences_6_40": 17,
+            "sent_6_40_pct": 89.5,
+            "sent_words_median": 18,
+            "para_words_median_all": 17.5,
+            "prose_paragraphs_40plus": 3,
+            "para_words_median_prose": 108,
+            "window_school_para_40_200": 3,
+            "window_csat_short_90_200": 2,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 1.3,
+            "prose_para_proper_median": 0.93,
+            "prose_para_zero_proper_pct": 33.3,
+            "device_marker_para_pct": 0,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 85.2
+          },
+          "foodsafety": {
+            "chars": 22187,
+            "words": 3627,
+            "paragraphs": 162,
+            "latin_ratio": 0.94,
+            "function_word_ratio": 0.315,
+            "english_verdict": "english",
+            "sentences": 253,
+            "sentences_6_40": 201,
+            "sent_6_40_pct": 79.4,
+            "sent_words_median": 11,
+            "para_words_median_all": 16.5,
+            "prose_paragraphs_40plus": 27,
+            "para_words_median_prose": 59,
+            "window_school_para_40_200": 27,
+            "window_csat_short_90_200": 4,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 0.96,
+            "prose_para_proper_median": 0,
+            "prose_para_zero_proper_pct": 85.2,
+            "device_marker_para_pct": 4.9,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 48.8
+          },
+          "introductiontosociology3rdedition": {
+            "chars": 20066,
+            "words": 3176,
+            "paragraphs": 37,
+            "latin_ratio": 0.958,
+            "function_word_ratio": 0.381,
+            "english_verdict": "english",
+            "sentences": 156,
+            "sentences_6_40": 126,
+            "sent_6_40_pct": 80.8,
+            "sent_words_median": 18,
+            "para_words_median_all": 70,
+            "prose_paragraphs_40plus": 22,
+            "para_words_median_prose": 155,
+            "window_school_para_40_200": 20,
+            "window_csat_short_90_200": 14,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 1.89,
+            "prose_para_proper_median": 0.77,
+            "prose_para_zero_proper_pct": 36.4,
+            "device_marker_para_pct": 16.2,
+            "device_marker_prose_para_pct": 9.1,
+            "keep_pct_prose_words": 95.4
+          },
+          "introductorybusinessstatistics": {
+            "chars": 32493,
+            "words": 5270,
+            "paragraphs": 82,
+            "latin_ratio": 0.957,
+            "function_word_ratio": 0.376,
+            "english_verdict": "english",
+            "sentences": 280,
+            "sentences_6_40": 214,
+            "sent_6_40_pct": 76.4,
+            "sent_words_median": 18,
+            "para_words_median_all": 45,
+            "prose_paragraphs_40plus": 43,
+            "para_words_median_prose": 98,
+            "window_school_para_40_200": 39,
+            "window_csat_short_90_200": 22,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 2.39,
+            "prose_para_proper_median": 1.05,
+            "prose_para_zero_proper_pct": 41.9,
+            "device_marker_para_pct": 17.1,
+            "device_marker_prose_para_pct": 18.6,
+            "keep_pct_prose_words": 91.2
+          },
+          "modernphilosophy": {
+            "chars": 181501,
+            "words": 32580,
+            "paragraphs": 272,
+            "latin_ratio": 0.967,
+            "function_word_ratio": 0.449,
+            "english_verdict": "english",
+            "sentences": 708,
+            "sentences_6_40": 369,
+            "sent_6_40_pct": 52.1,
+            "sent_words_median": 35,
+            "para_words_median_all": 87,
+            "prose_paragraphs_40plus": 179,
+            "para_words_median_prose": 163,
+            "window_school_para_40_200": 121,
+            "window_csat_short_90_200": 77,
+            "window_csat_long_260_400": 25,
+            "proper_noun_per_100w": 1.75,
+            "prose_para_proper_median": 0.55,
+            "prose_para_zero_proper_pct": 43.6,
+            "device_marker_para_pct": 0.4,
+            "device_marker_prose_para_pct": 0.6,
+            "keep_pct_prose_words": 95.9
+          },
+          "physicalgeology2ed": {
+            "chars": 3270,
+            "words": 535,
+            "paragraphs": 14,
+            "latin_ratio": 0.933,
+            "function_word_ratio": 0.398,
+            "english_verdict": "english",
+            "sentences": 48,
+            "sentences_6_40": 35,
+            "sent_6_40_pct": 72.9,
+            "sent_words_median": 10.5,
+            "para_words_median_all": 13.5,
+            "prose_paragraphs_40plus": 5,
+            "para_words_median_prose": 94,
+            "window_school_para_40_200": 5,
+            "window_csat_short_90_200": 3,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 2.43,
+            "prose_para_proper_median": 1.19,
+            "prose_para_zero_proper_pct": 20,
+            "device_marker_para_pct": 35.7,
+            "device_marker_prose_para_pct": 80,
+            "keep_pct_prose_words": 85.8
+          },
+          "preconfederation": {
+            "chars": 1523,
+            "words": 221,
+            "paragraphs": 10,
+            "latin_ratio": 0.967,
+            "function_word_ratio": 0.321,
+            "english_verdict": "english",
+            "sentences": 15,
+            "sentences_6_40": 14,
+            "sent_6_40_pct": 93.3,
+            "sent_words_median": 12,
+            "para_words_median_all": 10,
+            "prose_paragraphs_40plus": 1,
+            "para_words_median_prose": 152,
+            "window_school_para_40_200": 1,
+            "window_csat_short_90_200": 1,
+            "window_csat_long_260_400": 0,
+            "proper_noun_per_100w": 10.86,
+            "prose_para_proper_median": 6.58,
+            "prose_para_zero_proper_pct": 0,
+            "device_marker_para_pct": 10,
+            "device_marker_prose_para_pct": 0,
+            "keep_pct_prose_words": 68.8
+          }
+        },
+        "window_yield_total": {
+          "school_para_40_200": 238,
+          "csat_short_90_200": 138,
+          "csat_long_260_400": 26,
+          "note": "260~400 창 26개 중 25개가 modernphilosophy(NC-SA · 원문이 17~18세기 철학 저작)에서 나왔다. R1 책에서 나온 260~400 창은 biology 1개뿐이다 [측정]."
+        },
+        "device_marker_range": "0% ~ 80% (physicalgeology2ed 가 80% — 지질 교재는 그림 참조가 문단마다 있다) · 중앙 4.6% [측정]",
+        "keep_pct_range": "30.6% ~ 95.9% · 중앙 87.0%. 최저는 abealfreader1(독본이라 문단이 40어 미만) · foodsafety 48.8%(목록 항목이 많다) [측정]"
+      },
+      "verdict": {
+        "overall": "확보 가능 — 그러나 **우선순위는 채우는 슬롯으로 갈린다.**",
+        "route": "R1 (표본 8권 확정 · 1권 장별 선별 · 1권 R3)",
+        "r1_usable_books_in_sample": 8,
+        "r1_usable_in_full_catalog": {
+          "book_label_cc_by_or_pd": 139,
+          "after_g0_4_fields": 117,
+          "in_catalog_english_cc_by_or_pd": 99,
+          "words_in_catalog_english_r1": 7163462,
+          "caveat": "⚠️ 이 숫자들은 **책 라벨** 기준이다. 표본 10권 중 1권에서 장 41% 가 더 엄격했으므로, 전량을 R1 으로 세면 과대계상이다. 장 단위 검증을 전량에 돌리기 전에는 권수로 약속하지 않는다."
+        },
+        "source_value": {
+          "A_설명문_본체": "가중치 0 — 대부분의 권수·어수가 여기 있다. 수확해도 결손이 안 준다.",
+          "B_실용문": "가중치 1.00 이지만 문체 미달(고유명사 0.96/100어) — 확보가 아니라 이름을 넣는 창작이 필요하다.",
+          "C_전기_서사": "가중치 0.51 — **실제로 있다.** englishliterature Biography 24장(CC BY) + PD 문학 원문 153장(R0) + BC Reads 독본 6권 41,668어(CC BY)."
+        },
+        "recommendation": "BCcampus 를 \"교과서 원천\"으로 다루면 가치 0 이다. **책이 아니라 갈래로 뽑으면** C 슬롯 공급이 된다 — Biography 장·PD 문학 원문·성인문해 독본 세 묶음. 다음 단계는 212권의 **장 단위** 라이선스+표제 전수(본문 수확 없이 가능)로 이 세 묶음의 실제 크기를 재는 것이다."
+      }
+    }
+  ],
+  "cross_source_license_table": {
+    "note": "두 원천의 라이선스 분포 — 책 단위 · 전수 메타 [측정: 2026-09-24]",
+    "openstax_129": {
+      "CC BY-NC-SA 4.0": 80,
+      "CC BY 4.0": 38,
+      "NONE": 11
+    },
+    "openstax_live_english_73": {
+      "CC BY-NC-SA 4.0": 70,
+      "CC BY 4.0": 3
+    },
+    "bccampus_212": {
+      "CC BY": 138,
+      "CC BY-NC-SA": 37,
+      "CC BY-NC": 14,
+      "Public Domain": 1,
+      "All Rights Reserved": 10,
+      "CC BY-SA": 10,
+      "CC BY-NC-ND": 2
+    },
+    "bccampus_in_catalog_english_141": {
+      "CC BY": 98,
+      "CC BY-NC-SA": 28,
+      "Public Domain": 1,
+      "CC BY-NC": 9,
+      "CC BY-SA": 5
+    }
+  },
+  "headline_answers": {
+    "R1 로 쓸 수 있는 권수 (표본 20)": "OpenStax 0 / 10 · BCcampus 8 / 10 (장 단위 재확인 후) = 합계 8 / 20",
+    "R1 로 쓸 수 있는 권수 (전수 메타 · 책 라벨 기준)": "OpenStax live 영어 3 / 73 · BCcampus 139 / 212 (G0-4 필드까지 보면 117)",
+    "B 무리를 채울 수 있는 섹션": "표본 20 중 갈래로는 2(foodsafety · introductorybusinessstatistics), 문체 기준까지 통과한 것은 **0**",
+    "C 무리를 채울 수 있는 것": "BCcampus 에서 확인 — Biography 24장(CC BY) · PD 문학 원문 153장 · BC Reads 독본 6권 41,668어(CC BY)",
+    "교과서라는 갈래의 결론": "20/20 이 설명문 또는 절차문이다. 논증문 0. A 무리(가중치 0)가 본체이고, 결손 슬롯은 교과서 본문이 아니라 **교과서에 딸린 전기·독본·수록 원문**에서 나온다."
+  },
+  "limits": [
+    "표본은 원천당 10권, 권당 섹션 1개다. G2·G3 의 모든 수치는 그 **20개 섹션**의 값이지 권 전체·원천 전체의 값이 아니다.",
+    "라이선스 분포표만 전수(OpenStax 129 · BCcampus 212)다. 본문은 받지 않았으므로 분포표는 **발행자 메타의 값**이고, 장 단위 override 는 BCcampus 표본 10권(총 754장)에서만 확인했다.",
+    "못 잰 것: OpenStax live CC BY 3권과 은퇴 CC BY 33권의 본문 — 표본 20 상한을 지키느라 받지 않았다. 따라서 \"CC BY OpenStax 가 쓸 만한가\"는 이 파일럿이 답하지 않는다.",
+    "못 잰 것: BCcampus 212권 전량의 장 단위 라이선스. preconfederation 의 41% 불일치가 얼마나 흔한지 모른다 — 1/10 표본이다.",
+    "못 잰 것: 어휘 대역(NGSL+NAWL 밖 비율). 낱말 목록 로더를 돌리지 않았다.",
+    "못 잰 것: 260~400 창의 이어붙이기 산출. 문단을 그대로 셌을 뿐 연속 문단을 이어 창을 만들지 않았다 — 실제 산출은 이보다 많다.",
+    "못 잰 것: BCcampus Biography 24장·PD 153장·독본 6권의 실제 문체 지표. 각 묶음에서 1개씩만 봤다.",
+    "고유명사 밀도는 대리 지표다(문장 중간 대문자 정규식). 소제목이 문단으로 잡히면 과대 계상된다.",
+    "수정량은 LCS 기반이라 **삭제에 민감**하다. 같은 문단을 다른 정의(예: 편집거리)로 재면 값이 달라진다.",
+    "갈래 판정·가공은 사람(이 에이전트) 판독이다. 기계 지표가 아니며 다른 판독자와 어긋날 수 있다.",
+    "DB 에 아무것도 쓰지 않았다. Supabase 질의 0건.",
+    "수확 정직성: 분석·저장한 본문은 20개(OpenStax 섹션 10 + BCcampus 장 10)다. 다만 BCcampus 의 chapters 엔드포인트는 기본으로 content.rendered 를 함께 돌려주므로, 책당 첫 10장이 응답에 실려 왔다(책당 1장만 저장·분석). 장 라이선스 전수(754장)는 _fields=id,slug,license 로 본문 없이 받았다 [측정]."
+  ]
+}

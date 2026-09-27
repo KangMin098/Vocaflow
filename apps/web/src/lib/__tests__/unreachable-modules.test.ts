@@ -31,8 +31,12 @@ const SRC = resolve(__dirname, '..', '..')
 /**
  * 도달 불가 상한. **실측으로만 내린다.**
  * 2026-08-30: 49 → (v1 대시보드 6 · 목업 2 · 낡은 supabase 미들웨어 1 삭제) → 40
+ * 2026-09-23: 40 → 42 로 늘어 있었다. 원인은 새로 만든 것이 아니라 **교체**다 —
+ *   `/hub` 재설계(48abd571)가 옛 관문 부품을 렌더에서 걷으면서 `home/NextWordsStrip` ·
+ *   `home/TodayPlanCard` · `lib/learner/gateway` 셋이 아무도 안 부르는 상태로 남았다
+ *   (같은 일은 `hub-portal-query` + `portal/*` 가 한다). 셋을 지우고 상한을 39로 내린다.
  */
-const MAX_UNREACHABLE = 40
+const MAX_UNREACHABLE = 39
 
 /**
  * import 로는 안 닿지만 **설정이 부르는** 파일 — 죽은 코드가 아니다.

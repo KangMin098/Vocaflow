@@ -1,0 +1,530 @@
+[
+  {
+    "id": "00a9c236-0346-4fc9-9490-5d15a6612b77",
+    "source_updated_at": "2026-09-25T07:08:26.256676+00:00",
+    "body_sha256": "438bf2e0676d0eb8b2eb4f48abc4c1069ec956387d07b01491a589243a330ed3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "바이러스 저항성 육종의 한계를 세운 뒤 저온 플라스마를 대안으로 밀고 가는 서론·결론이 한 편의 논지를 이룬다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tomato (Solanum lycopersicum L.) is among",
+      "note": "서론 첫 단락은 품종명만 걷으면 그대로 서지만, 결과부는 유전자 ID 나열이라 발췌가 서론·결론에 묶인다."
+    }
+  },
+  {
+    "id": "00ab889f-d8cb-4d60-9f14-647b4a341874",
+    "source_updated_at": "2026-09-25T07:08:33.823937+00:00",
+    "body_sha256": "52c3c457783fb6d4f4542c5f60acba2f816896f9fffab1f51ce23608801e476a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "갑상선호르몬 민감도와 뇌졸중 후 폐렴을 잇는 기전 설명 단락이 수치 없이도 인과 가설로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our study identified a significant association",
+      "note": "고찰의 면역·연하 기전 단락은 OR·CI 를 지우면 논지가 남는다. 결과부는 수치 나열이라 못 쓴다."
+    }
+  },
+  {
+    "id": "00b18271-cfb0-4499-8edd-2594543450c4",
+    "source_updated_at": "2026-09-25T07:08:35.534017+00:00",
+    "body_sha256": "f5e51e2487765082de16c02d9a11bbd1141e041dc3f737b1d7c1a7d63532b793",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 전문용어를 걷어낸 평문으로 바이러스 면역 회피 기전을 통째로 다시 말해 준다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lumpy skin disease virus (LSDV) causes severe",
+      "note": "Author summary 단락은 떼어 내면 그대로 지문이 된다. 결과부는 단백질 약어가 문장마다 넷씩이라 손대기 어렵다."
+    }
+  },
+  {
+    "id": "00bce2df-5b3a-42d0-a071-cac949867462",
+    "source_updated_at": "2026-09-25T07:08:44.261571+00:00",
+    "body_sha256": "148ce1ff5b2470957a8ea02c73c6512170dddc2e71aa2a0d027dddca6f2d5e32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "난황에서 외부 먹이로 넘어가는 전환을 되돌릴 수 없는 사건으로 세우고 식욕·생체리듬 형성으로 풀어 간다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the development of Atlantic salmon",
+      "note": "서론 첫 두 단락은 학명만 풀면 중상위 지문 밴드로 내려온다. 결과부의 유전자 약어 표는 버린다."
+    }
+  },
+  {
+    "id": "00e4266c-18e5-4e89-8352-bef6836b87ea",
+    "source_updated_at": "2026-09-25T07:08:51.379173+00:00",
+    "body_sha256": "809b6bc66ea383f8c95fadab967bdd12ce208d1890f7dd8267d420fda8b8abbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "discard",
+    "genre": "obsolete-fact",
+    "why": "제목이 RETRACTED 로 시작하는 철회 논문이라 기준 §5 의 차단 장르에 그대로 해당한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Fetal growth restriction (FGR) is the",
+      "note": "철회본이므로 가공을 시도하지 않았다 — 내용이 읽히더라도 사실로 실을 수 없다."
+    }
+  },
+  {
+    "id": "00e4d0a6-9cce-46af-95f8-23279be07feb",
+    "source_updated_at": "2026-09-25T07:08:52.834871+00:00",
+    "body_sha256": "0da0bc85c0e6031b0f473245e2db0f8cd5335921cbf0cdc0305dfb19e7516f9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "항상성과 신경조절이라는 두 기제의 충돌을 문제로 세우고 해법 조건까지 끌고 가는 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neurons must maintain stable activity while",
+      "note": "저자 요약과 고찰 앞부분은 수식 없이 선다. 본문 여러 단락에 [수식] 자리표가 박혀 있어 그 단락은 제외해야 한다."
+    }
+  },
+  {
+    "id": "00e6dc26-048d-4043-8620-8fa6e3ef348e",
+    "source_updated_at": "2026-09-25T07:08:54.84295+00:00",
+    "body_sha256": "904caa110ee6f5395f64cf1c8bd533c9741e97b191173af593d6d3c09d9e6fdf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "터널 버력 처리와 시멘트 탄소배출이라는 두 문제를 겹쳐 놓고 폐기물 기반 대체재를 답으로 제시하는 서론이 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cement production has been recognized as",
+      "note": "서론 2~3단락은 규격 번호만 걷으면 환경 논지로 읽힌다. 실험·계산 절은 [수식] 자리표가 많아 못 쓴다."
+    }
+  },
+  {
+    "id": "00e7300f-121d-4907-b57e-093a8a5e4e94",
+    "source_updated_at": "2026-09-25T07:08:56.840045+00:00",
+    "body_sha256": "73cc1d5f8b0a702887ba58f3e5b2a7a3ceb33cb9b12b84022b30ccb0f794088e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "면역이 강할수록 세균이 잘 죽는다는 통념을 역설적 결과로 뒤집어 보이는 구성이라 통념-반증 유형에 맞는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antibiotic-resistant infections caused by Klebsiella pneumoniae",
+      "note": "저자 요약 단락 하나로 통념·반증·함의가 다 담겨 손댈 곳이 거의 없었다. 결과부 그림 번호는 걷어내야 한다."
+    }
+  },
+  {
+    "id": "010b5d28-d64d-430a-a2cc-3ca5c0f19feb",
+    "source_updated_at": "2026-09-25T07:09:04.070868+00:00",
+    "body_sha256": "8278c3b19690d2d7c98c7ded75f817d26b68a0007deca81c4f09f60fca5bef64",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "퇴행 신호와 보상적 신경 가소성이 한 모델에서 함께 나온다는 대조 구도가 고찰에서 명확히 정리된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As baby boomers age, Alzheimer’s disease",
+      "note": "서론 첫 단락과 「Relevance for humans」 절은 통계 인용만 정리하면 선다. 결과부는 F값·P값이 문장 절반이라 제외."
+    }
+  },
+  {
+    "id": "012b52a4-a9da-4f76-aaf4-3a8e1a94045d",
+    "source_updated_at": "2026-09-25T07:09:17.017513+00:00",
+    "body_sha256": "eb2f2ae751c6ee25956ac6eab683c5bafb1eb74c62db094cb27ac1eaac9a993a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "염증과 대사라는 두 축을 따로 보던 관행을 지적하고 결합 지표의 필요를 끌어내는 서론이 한 논지로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Patients with ST-segment elevation myocardial infarction",
+      "note": "서론·고찰 앞부분만 문단으로 성립하고, 나머지는 OR·AUC 나열이라 쓸 수 있는 분량이 좁다."
+    }
+  },
+  {
+    "id": "012dfef7-fdf2-4a60-ac0f-723420c4b7c9",
+    "source_updated_at": "2026-09-25T07:09:20.705027+00:00",
+    "body_sha256": "ea080c66a66e20ced6aefde372b32ae7059c4a617f934289b123c83533ed440f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "적혈구 분포폭이 왜 염증·노화 지표가 되는지 기전을 여러 근거로 쌓아 올리는 서론 단락이 읽는 글로 성립한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Red blood cell distribution width (RDW),",
+      "note": "해당 단락은 인명 인용을 지우면 설명문이 된다. 결과·표 대응 문단은 수치뿐이라 가공 대상이 아니다."
+    }
+  },
+  {
+    "id": "013814b7-6e67-4783-aeb2-8306313b8015",
+    "source_updated_at": "2026-09-25T07:09:23.934824+00:00",
+    "body_sha256": "552bc96a3aac2eb0667d09ccd0158a4eeec8afc24aad8e32c32e96d1f37ab83c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "바다에서의 발생이 영양 도박이라는 전제를 세운 뒤 색소체 유래 물질이라는 뜻밖의 해답으로 뒤집는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The most common reproductive strategy amongst",
+      "note": "서론과 고찰 첫 단락은 학명·통계만 걷으면 그대로 완결된 논증이 된다 — 이 청크에서 가공이 가장 쉬웠다."
+    }
+  },
+  {
+    "id": "013eeffe-275e-41d6-80de-c109fabb675b",
+    "source_updated_at": "2026-09-25T07:09:26.036136+00:00",
+    "body_sha256": "cbe5de57e2f917fbbcd7bc51ca578ea334b1087187020c550836e1d60449e06c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "영구동토 해빙이 유적을 지우는 과정과 포경 노동자의 몸에 남은 흔적을 한 논지로 엮어 서술이 끝까지 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rapid climate warming is transforming Arctic",
+      "note": "서론·고찰 모두 지명만 남기고 떼어도 서며, 어휘도 두세 개만 바꾸면 고2 밴드로 내려온다."
+    }
+  }
+]

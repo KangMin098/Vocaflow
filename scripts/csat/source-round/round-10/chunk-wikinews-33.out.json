@@ -1,0 +1,999 @@
+[
+ {
+  "id": "186ec40b-a1e8-4fc2-91fb-bb562f27def0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5474021d42a99eb45aaa0ea3da85d9392636a46fa9e33e3b1795ab490861b63b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "복귀 합의 → 미국 반응 → 재개 일정으로 이어지는 짧은 기사 전체가 내용 일치·제목 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "title",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "United States President George W. Bush",
+   "note": "부시 발언 문단은 인용을 요약하면 서지만 enforce·resumption 두 낱말은 쉬운 말로 바꿔야 V5 에 앉는다."
+  }
+ },
+ {
+  "id": "186fcc9e-3d19-4891-9265-918d46bd2b92",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "67364f92405d1dc0f7d88bf953279fdd61f06dd055faf47391e57fffe808865b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "병사 귀환과 소년 오인 사살, 주민 분노가 한 사건으로 묶여 내용 일치·심경 칸이 되지만 죽음이 중심이라 고2 이상만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood",
+    "title"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The military's National Investigation Service is",
+   "note": "조사 문단은 NATO 성명 인용을 간접화법으로 바꾸면 경고 사격 경위가 홀로 서고, 사망 묘사 때문에 고2 이상으로만 둔다."
+  }
+ },
+ {
+  "id": "187b8e11-fbbb-4964-948c-48937e6ca46e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4b46389ef045138bba916c12b4f5ab762d406d786e58328330ed00aff2e9b4ab",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "폭력 사태 뒤 총파업과 경찰 발포 허가까지 사건 흐름이 서서 내용 일치·제목 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "title"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Shops are closed and traffic is",
+   "note": "파업 확산 문단은 주 이름만 걷으면 도시 마비 상황이 그대로 서서 가공이 쉬웠다."
+  }
+ },
+ {
+  "id": "187ddd65-3401-4813-8ab0-8cd211eb5da2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ac1271dc33ab6a4ed3b1a1cca0a58ffe4f1014a35411a6990953f0544e47d85d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "공식 설명과 유출 영상의 충돌이라는 대조가 셋째 단락에서 서서 요약·내용 일치 칸을 연다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary",
+    "title"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The attack led to the death",
+   "note": "공식 보고서와 영상이 어긋나는 문단은 대조 구조가 분명하지만 collateral damage 같은 군사 용어가 밴드를 붙잡는다."
+  }
+ },
+ {
+  "id": "1881f642-c66b-47e9-8f9a-f7b751033af6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e0c716e59764712389ddb5bccaa5918dec591c528b6758683e6032f80c245d1b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "증차 필요 → 입찰 후보 → 재정 분담으로 단락이 뚜렷해 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is not currently known whether",
+   "note": "에든버러 전차 입찰 문단은 회사명을 걷어도 남는 차량 재활용 사정이 서서 순서 문항으로 자르기 좋았다."
+  }
+ },
+ {
+  "id": "18837125-a9cf-4a54-8d86-e4020784b93f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8ea9a024ebf60c76156678242ffef9517c49d7f24454048b9f31a6cbcf18ee36",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "실종 전 FBI 요원을 둘러싼 양국 확인·부인이 둘째 단락에 모여 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Iran has not confirmed the U.S.",
+   "note": "스위스 대사관 중개 문단은 두 나라 사이 외교 관계가 없다는 사정이 서지만 인명·기관을 걷으면 사건 자체가 흐려진다."
+  }
+ },
+ {
+  "id": "18896bfa-621f-4e2d-a0c3-5c6d502178e8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bb2af11556a3360ab271ae7e9e36d7badeee5a32aa8cc2160da5fadd6fa6cd05",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "석방 결정과 찬반 반응, 유죄 논란이 한 편에 맞서 있어 주장·요약·내용 일치 칸을 고2 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "title",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The conviction remains controversial. Last year",
+   "note": "유죄 논란 문단은 유족 단체 간 입장 차가 한 문단에 서지만 circumstantial·posthumously 같은 말이 V6 아래로는 안 내려간다."
+  }
+ },
+ {
+  "id": "188a16d5-9e35-405a-8d6a-be5ffdeb0d15",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "522fb2c5779f99368467008ffab8972fdb9c2e6bd019063751d5f616633557f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "허리케인의 등급 상승과 진로 예보가 짧게 이어져 중등부터 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "title"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The storm formed just a few",
+   "note": "급성장 문단은 예보관 인용을 걷어도 며칠 새 5등급이 된 사실이 서고 intensifying 만 바꾸면 중등으로 내려간다."
+  }
+ },
+ {
+  "id": "1890448f-4db4-4a7e-9d5c-754ed8bb2b6d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0db638eb6a96cab380e8350c6780149cf28accb033b75a7dbb7000a35163d92c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "art",
+  "why": "펑크 밴드 공연 현장의 분위기와 멤버 근황이 묘사돼 분위기·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "No material from their last two",
+   "note": "공연 묘사 문단은 곡명을 걷어도 분위기가 살아나지만 mugging·subdued 같은 구어적 표현을 풀어야 해 밴드 조정이 까다롭다."
+  }
+ },
+ {
+  "id": "18954fcb-9d83-4e44-9329-a0d390fa89f8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "de7c9f556d7351315483b187699d7f4e98bbf619163a879ce52b138fe0f59c43",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "헬만드 작전의 규모와 목적이 셋째 단락에 정리돼 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Troops reportedly met only isolated pockets",
+   "note": "작전 목적 문단은 보급로 차단·민심 확보·선거 치안 세 목적이 나란히 서서 떼어 내기 쉬웠다."
+  }
+ },
+ {
+  "id": "189b7b22-4333-4790-9513-97914306d8dc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4147c862d34165859ceb18686d73fb964d1aebf387d0e87dd84c9801bc9885b8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "캐머런의 리비아 방문과 치안 지원 약속이 앞 세 단락에서 서서 내용 일치 칸을 채운다(끝 단락은 무관).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "David Cameron pledged that Britain would",
+   "note": "훈련 지원 약속 문단은 서지만 마지막 로커비 수사 단락은 주제가 달라 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "189df5c4-6204-4a58-a688-4434104f9571",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5d24b5e1a3f22e1a481497c279a8f865c03af6ba5c35a4da2a857767ae859ecf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "포털 제휴 교체와 광고 시장 전망이 이어져 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chief executive of Yahoo!7, Ian Smith,",
+   "note": "온라인 광고 비중 문단은 호주와 비교하는 수치 두 개로 서며 advertising market 정도만 풀면 된다."
+  }
+ },
+ {
+  "id": "189edacc-e53b-47ca-be68-e7b2ac026880",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7687977712be8802748d269b74992def4babe1db77258ec81431ebda382b1c03",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "스팸 금지법 통과와 찬반 근거가 짧게 맞서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Critics are also damning the act,",
+   "note": "비판 문단은 스팸 대부분이 해외발이라는 근거 하나로 효과 의문을 세워서 주장-근거 짝으로 바로 쓸 수 있었다."
+  }
+ },
+ {
+  "id": "18ae363a-18a1-44e0-a24c-63577da9fa27",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a470b89628e04521e07b2c9fe83e4524c523f55898f7f785348eae2782c01db6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "예산 삭감 → 본부 매각 검토 → 아쉬움 표명으로 짧은 인과가 서서 내용 일치·제목 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "title"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They are trying to reduce their",
+   "note": "예산 삭감 문단은 건물 이름을 걷어도 비용 절감 때문에 본부를 옮긴다는 인과가 서서 쉬웠다."
+  }
+ },
+ {
+  "id": "18b166c2-0ffb-456d-ad39-3b84bd7bc16a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "16805420a0cb8de5a128a5283ab27d17fb152a5ac7cf04363d2821c1b1eefb29",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "본문 전체가 지지율 숫자와 조사 기관 나열이라 내용 일치 칸 하나도 수치 나열뿐이어서 보관 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "This is the largest lead Barack",
+   "note": "리드 폭 문단을 떼어 보니 여론조사 수치 비교만 남고 사건이나 논지가 없어 칸을 세울 수 없었다."
+  }
+ },
+ {
+  "id": "18b66867-71d1-4994-81bc-04f1107a9801",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5aba15ee0e6d80da41833cc4f6e27cf39cc6166f7b1e6814723bfbc8eab6bdfe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "10대 폭탄범 선고와 감경 논리가 둘째~넷째 단락에서 서서 폭력 소재라 고2 이상 내용 일치 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The sentence was the highest allowed",
+   "note": "선고 감경 사유 문단은 변호인 주장이 서지만 mitigation 같은 법률 용어를 풀어야 해 V5 아래는 어렵다."
+  }
+ },
+ {
+  "id": "18c9237e-e2f8-47b2-b5e6-c00f6fb41a21",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "dcb56ab3dedc3b15b568054dcb18f990a33d853a2e403dc52aa3bc839e65ae99",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "납치에서 구출까지 사건 순서가 여섯째 단락 전후로 이어져 순서·내용 일치 칸을 고1 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Kanako and her kidnappers had been",
+   "note": "목격자 신고 → 전화 추적 → 체포로 이어지는 문단은 순서가 선명하고 옷차림 묘사 단락은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "18c9ce97-b7fa-47ca-bc8e-18ff57ce71de",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e58ba4d2955ba9befeb66d49e2ec3d4aa8d798ce6af78792d4566ec50ec14cd9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "적조의 원인과 영향을 설명하는 둘째 단락이 자족적이어서 주제·내용 일치·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Red tide is caused by a",
+   "note": "적조 원인 문단은 조류 번식 → 독소 → 물고기·사람 피해로 설명이 이어져 neurotoxin 만 바꾸면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "18ceb7f7-9809-4907-bcee-d1dd2c811d3e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ab120f81261644e8adf9305acd29380b1c37899185866851d358a2db484b06c2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "교통 안내원 사망 사고의 경위와 목격 증언이 이어져 심경·내용 일치 칸을 고1 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After the accident occurred, Gibson was",
+   "note": "목격자 증언 문단은 아이들 반응이 생생하지만 사고 묘사가 구체적이어서 연령 칸을 고1 이상으로 묶었다."
+  }
+ },
+ {
+  "id": "18d70d56-8bc5-4604-a4db-b7999132496e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ef10add24f439680350b11083034fcb79deb4cf5e28d0c0c7fbfc7ee7b635349",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "총리 불참을 전하는 기사가 여러 곳에서 논평조로 기울어 있어 편향 여부가 기준으로 갈리지 않는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Harper seems to have made a",
+   "note": "마지막 문단의 「관행처럼 무시한다」는 평가가 기사 틀 밖의 논평이라 걷으면 남는 것이 참석자 명단뿐이었다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "18d90571-0efa-47a4-aa31-a44932b22311",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0814f6c814ea6a0325eacd5d6cbd96718c80eede13f7cebbb9943908ce1bbc41",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "평화 협정 체결과 분쟁 배경 단락이 긴 글로 이어져 요약·장문 칸을 채우되 성폭력 서술 때문에 고3·성인만 단다.",
+  "slots": {
+   "ages": [
+    "adult",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Many aid agencies working in Darfur",
+   "note": "구호 기관 문단은 우기 전 평화가 필요하다는 까닭이 서지만 중간의 합의 조항 목록과 성폭력 서술은 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "18da0f8e-e868-4be3-a621-a5da81085c8c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7b75c14e666f97b490de117007e66372593968ecd626c0ceb135a586c331f6e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아동 살해 용의자 송환과 자백·알리바이 대립이 짧게 서서 고2 이상 내용 일치 칸만 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "In a press conference on Wednesday,",
+   "note": "기자회견 자백 문단은 인용만 남아 인물 이름을 걷으면 사건이 흐려지고 아동 살해 소재라 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "18db8f4c-f544-45b3-b23d-adb67ff652d7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e8ae33777fca71a53a065d8539d3957f8089146960408b51386ad8c2c4be39f8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "햄버거 체인 매출 순위와 금액 나열이 본문 전부라 내용 일치 칸조차 수치 나열뿐이어서 보관 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Since 2006, the restaurant business has",
+   "note": "업계 재편 문단을 떼어 보니 매출 순위와 증가율 숫자만 남아 논지로 세울 수 없었다."
+  }
+ },
+ {
+  "id": "18dd16a6-5932-4519-bb03-1816a92ea507",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bfdf87fded45163606a97c0cadbd36904af16f29e8610cce5c25f81a5af70bd3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "결선 투표 경위와 언론의 「신임투표」 해석 단락이 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Much of the media has treated",
+   "note": "보궐선거를 대통령 신임투표로 보는 문단은 해석이 서지만 referendum·gerrymander 같은 정치 용어가 밴드를 붙잡는다."
+  }
+ },
+ {
+  "id": "18dda028-1a6c-44fa-8ca0-d90649c70eeb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b7b2ca17926e5b193e106231973a558d0e421ae413005d5d3e9869cd4343cb44",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "공습 민간인 사망을 두고 현지 관리·적십자·미국 측 진술이 모여 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A spokeswoman for the ICRC said",
+   "note": "적십자 현장 문단은 증언을 간접화법으로 바꾸면 민간인 피해 확인이 서지만 시신 묘사 때문에 고2 이상만 단다."
+  }
+ }
+]

@@ -1,0 +1,308 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "001",
+  "items": [
+    {
+      "id": "10978723-2019-04-18T20:03:28Z-00000-000",
+      "sha256": "561ba21097fd5c58702d61a90ed0c7aafaadde283380cd154d91a8e0eaf866ce",
+      "verdict": "skip",
+      "skip_reason": "특정 가족 형태를 깎아내리는 편향 논지 — 교재 지문으로 부적합",
+      "topic_ko": "동성 결혼과 가족 형태"
+    },
+    {
+      "id": "10fd74ed-2019-04-18T19:09:17Z-00004-000",
+      "sha256": "6740820905f11fb96ec2435c825b6e70b9fc9fc0f74ae71fe7d185d77e5e774e",
+      "verdict": "skip",
+      "skip_reason": "TV 게임쇼 진행 규칙 논의 — 지문 소재로 부적합",
+      "topic_ko": "퀴즈쇼 답변 형식"
+    },
+    {
+      "id": "119cd859-2019-04-18T15:31:20Z-00007-000",
+      "sha256": "95e46125234b374db6084a540e9c4014287d88a0918bc9088c40bffb8583309e",
+      "verdict": "skip",
+      "skip_reason": "신의 존재를 부정하는 종교 논쟁 — 교재 지문으로 부적합",
+      "topic_ko": "신의 존재"
+    },
+    {
+      "id": "11bf0be8-2019-04-15T20:22:57Z-00010-000",
+      "sha256": "314a42a5f369b21d507872a3b519b32971bf14a1a0495f4fdd46ea149efbccc3",
+      "verdict": "write",
+      "topic_ko": "반론권은 오류를 고치되 보도 전체를 흔드는 무기가 되어서는 안 된다",
+      "passage": "A long report that exposes harm done by a powerful company is rarely perfect in every detail, and one wrong date is not proof that the whole account was false. A company with skilled lawyers can nevertheless demand equal space on the front page for its complaint. Readers are then taught, slowly and without noticing, that a careful investigation and an angry denial deserve the same weight. The loss falls on the public rather than on the paper, because slow and expensive reporting is the only steady check on institutions that answer to nobody else. An editor who knows that every difficult article will be answered on equal terms learns to commission easier ones, so the reports that matter most are never begun at all. A fair rule would require a correction that matches the size of the mistake, rather than a reply designed to shake confidence in the parts that were accurate. Accuracy and accountability are both worth defending, but they are not served by a remedy that punishes the reporting instead of the error.",
+      "claim": "A legal right of reply should correct the error that was made without handing the subject of a report a weapon against everything else in it."
+    },
+    {
+      "id": "11ced6b1-2019-04-18T19:28:30Z-00001-000",
+      "sha256": "6026e91780ef065305991c6ae889e45d24f4ca7d0d72263b1f2e36b70760eaf7",
+      "verdict": "write",
+      "topic_ko": "핵심 과목의 능력별 반편성은 큰 학교가 실제로 해낼 수 있는 가장 공정한 방식이다",
+      "passage": "A school that teaches hundreds of students at once cannot build a separate timetable for every learner, so some form of grouping is unavoidable. Critics answer that sorting children into levels labels them early, yet the alternative puts the quickest and the slowest in one room, where one group grows bored and the other quietly falls behind. When a lesson is matched to what a group already understands, the teacher can hold a pace that keeps most of the class working, and weaker students are helped before the gaps harden into failure. Perfect placement is impossible in any case. Subjects are taught at the same hour, so a child who is strong in language and weak in numbers cannot sit in two rooms at once. What matters is that the groups are reviewed often and that movement between them is treated as normal rather than as a rare favor. Sorting by ability in the core subjects is therefore not an insult to anyone; it is the only honest answer to a timetable that will never stretch.",
+      "claim": "Grouping students by ability in the core subjects is the fairest arrangement that a large school can actually deliver."
+    },
+    {
+      "id": "1335cc75-2019-04-18T12:07:57Z-00007-000",
+      "sha256": "ad296f1e515c8cc597e9e47dba9723b741f6db3265b40d6944d04206f0d74b84",
+      "verdict": "skip",
+      "skip_reason": "신 존재 증명을 둘러싼 종교 논쟁 — 교재 지문으로 부적합",
+      "topic_ko": "과학과 신 존재 증명"
+    },
+    {
+      "id": "137919fb-2019-04-18T17:51:50Z-00004-000",
+      "sha256": "0dd5a0997e9344d1ba2f36c38d5f19b5ed2493077d4b2a3944c44d9d8ac8d192",
+      "verdict": "write",
+      "topic_ko": "전면 감세가 오히려 세수를 늘린다는 주장",
+      "passage": "Lower taxes on income leave more money with the people who start and expand businesses, and that money rarely sits still for long. Most small firms are taxed at the personal rate rather than the company rate, so a cut in personal tax is in practice a cut for the shops and workrooms on every ordinary street. When those owners keep more of what they earn, the usual response is to hire another worker, replace worn equipment, or open a second branch. Each new job creates a new taxpayer. The state then collects from wages that would never have been paid if the firm had stayed as small as it was. Critics reply that the rich simply save the difference, but savings are lent onward to other companies and become investment rather than idle cash. A tax system that is lighter at every level is therefore not a gift to the wealthy; it is the cheapest way to widen the base from which public money is drawn.",
+      "claim": "Cutting income tax at every level, including the top, widens the base from which public revenue is collected."
+    },
+    {
+      "id": "13dc6176-2019-04-18T17:48:03Z-00002-000",
+      "sha256": "13967eb598a0a3a967c3ef5cd687ca12c3e585f191733be00d3cfb3dee21b8fc",
+      "verdict": "write",
+      "topic_ko": "총기의 전면 금지가 안전을 보장하지 못하는 이유",
+      "passage": "A law that removes guns from households which obey the law is aimed at the wrong people, because anyone determined to kill will find a weapon whatever the statute says. Illegal markets already supply drugs in every country that has banned them. There is little reason to expect that metal objects will prove harder to carry across a border than chemicals. The family that obeys the rule is left with nothing, while police officers, however dedicated, are spread across wide areas and arrive minutes after the danger has begun. Those minutes are exactly when a household stands alone, and the promise of help that is on the way is no help at all. Supporters of a ban point to countries where such rules were followed by fewer deaths, yet those societies differ in wealth, borders, and policing, so the comparison proves less than it seems. Careful checks on who may buy would reach the actual danger without stripping protection from people who have broken nothing.",
+      "claim": "A total ban on private guns would disarm the people who were never the danger while leaving the determined attacker untouched."
+    },
+    {
+      "id": "1506919b-2019-04-18T12:15:14Z-00000-000",
+      "sha256": "6030e48c1176840d78f3baba63b426270fae31c3339a449ff6d9e7f4ecf51a55",
+      "verdict": "write",
+      "topic_ko": "가정에서 배우는 교육이 어떤 아이에게는 교실보다 나은 이유",
+      "passage": "A classroom is designed for the average learner, and the child who is far ahead in one subject and behind in another is pulled along at a single speed. Teaching at home removes that limit, since a parent can spend three days on a hard idea and then move quickly through material that was understood at once. The familiar claim that such children are cut off from others is weaker than it sounds, because their contact with people is chosen rather than assigned by a birth date. A child who joins a music group, a sports club, and a project for the elderly meets people of many ages. That mixture is wider than a room of thirty who happen to share a birth year. Learning at home is also free of the fixed timetable, so a visiting exhibition, a long illness, or a family journey can be absorbed rather than counted as weeks that were lost. Where parents have the time and the patience, an education shaped around one child is not a retreat from the world but another road into it.",
+      "claim": "For some learners an education built around one child at home serves better than a classroom built around the average."
+    },
+    {
+      "id": "1506919b-2019-04-18T12:15:14Z-00001-000",
+      "sha256": "a15d1bdefd9255f32b0645250d1b462812be085d37b3b79cbfd192be3af3289d",
+      "verdict": "write",
+      "topic_ko": "가정 학습이 놓치기 쉬운 생활 습관과 사회성",
+      "passage": "A school teaches more than its subjects, because the bell, the deadline, and the crowded room train habits that appear on no lesson plan. A student who studies at home decides when the day begins and may drift into working two afternoons a week, which is not how any workplace has ever been run. Employers expect people to arrive at a fixed hour and to finish tasks that were never chosen by them. Those expectations are learned early or learned painfully late. The social cost is real as well, since a large building forces a young person to deal with others who are difficult, unfamiliar, or simply not friends. Learning to argue politely with a stranger and to accept an adult who is not a parent is training that a kitchen table cannot easily supply. Where the family holds no qualification in the subjects being taught, the risk is larger still, and there is no second teacher in the house to notice what has been missed.",
+      "claim": "Learning at home leaves many students without the habits of time and the social practice that a school day supplies."
+    },
+    {
+      "id": "15292856-2019-04-18T16:35:06Z-00008-000",
+      "sha256": "26441df8fe044da55505a3cd6d95027be7e364c3aaf681e85de463c9b81c654a",
+      "verdict": "write",
+      "topic_ko": "성장은 이전 지출이 아니라 투자에서 온다는 주장",
+      "passage": "Money left with people who have already built something tends to return to production, while money handed out to be spent chases the same goods that are sitting on the shelf. That difference matters, because an economy grows when new plants, tools, and skills are added, not when more cash pursues a supply that has not moved. Heavy regulation is defended as protection, yet each new rule is paid for by the customer in the final price. The firms that survive the paperwork are the large ones that could always afford it. Competition rather than supervision is what forces a company to cut its price and improve its goods, and competition is weakened every time the cost of starting a business rises. Payments to the poorest are humane and sometimes necessary, but they share out what already exists instead of creating more of it. A policy that rewards saving and investment is therefore the surer road to wages that actually rise.",
+      "claim": "An economy grows through investment by those who earn and risk money, not through cash that is handed out to be spent."
+    },
+    {
+      "id": "16a4b238-2019-04-18T18:54:29Z-00002-000",
+      "sha256": "9358bac2280fd866e1b9de8a9bfbe4f7d80f79ceca35ef8e5616a77a136c73d6",
+      "verdict": "write",
+      "topic_ko": "대학의 교양 필수 과목은 선택으로 바뀌어야 한다",
+      "passage": "A student who pays for a degree in accounting or engineering is told that required classes in art and music will produce a complete person, but that promise is rarely tested. Those subjects were already offered for years at school, where broad exposure belongs, and repeating them at a far higher price is hard to defend to anyone paying the bill. A degree is chosen because it leads somewhere, and an hour spent on a course with no link to that goal is an hour taken from the field the student came to study. Defenders reply that distant subjects train flexible thinking. Writing, statistics, and philosophy do that work as well, and they sit far closer to what a graduate will actually be asked to do. The honest reform is not to abolish breadth but to let it be chosen from a wide list, since a course that is freely taken is far more likely to be remembered. Requirements written for an older and smaller university have become a quiet tax on the students least able to pay it.",
+      "claim": "Universities should let students choose their broadening courses rather than repeat subjects already studied at school."
+    },
+    {
+      "id": "17293fc9-2019-04-18T13:25:26Z-00002-000",
+      "sha256": "69b609f1b7812028fd3f0f89aec4faae79af73e9b1d10c3fb85621d052a349bf",
+      "verdict": "skip",
+      "skip_reason": "비디오 게임 공략 순서 논의 — 지문 소재로 부적합",
+      "topic_ko": "게임 생존 전략"
+    },
+    {
+      "id": "17293fc9-2019-04-18T13:25:26Z-00004-000",
+      "sha256": "fe2bddfdbb286de2e3fe93ae4c8151f6205211fe27d90c01e7cd060ce7a23bf6",
+      "verdict": "skip",
+      "skip_reason": "비디오 게임 공략 순서 논의 — 지문 소재로 부적합",
+      "topic_ko": "게임 생존 전략"
+    },
+    {
+      "id": "1733c338-2019-04-18T12:35:44Z-00002-000",
+      "sha256": "7afab2681fdb59c27f319d307a36e42b344c195147b93d1cce61be3488ff69e3",
+      "verdict": "write",
+      "topic_ko": "숙제는 평균적인 학생을 위해 유지되어야 한다",
+      "passage": "Some students master a subject during the lesson itself and never open a book at home, and their experience is often offered as proof that homework is pointless. The argument fails because a school day serves the whole room, and the average student needs a second meeting with an idea before it becomes secure. Practice spread across several evenings turns a rule that was merely followed in class into knowledge that survives until the following year. The familiar complaint about a lack of time is usually a complaint about the order in which time was spent, since sport, screens, and rest are placed first and study is given whatever remains. Students who plan an evening before it disappears generally discover that the missing hour was there all along. Homework should be short, purposeful, and marked by the teacher who set it. The answer to bad homework is better homework rather than none at all.",
+      "claim": "Homework should remain because school policy must serve the average student rather than the few who succeed without practice."
+    },
+    {
+      "id": "1855619c-2019-04-19T12:45:56Z-00006-000",
+      "sha256": "28d7e3606f91cfdba63589701a81c2632c831205887fd55e4e844e212bc86aa6",
+      "verdict": "write",
+      "topic_ko": "시골의 별장 소유가 지역에 주는 이익과 중과세의 한계",
+      "passage": "Holiday houses in the countryside are blamed for the rise in local prices, yet the money that follows them is what keeps many small places alive. Building, cleaning, repairing, and supplying those houses are jobs in areas where steady work has been scarce for a generation. The shops and clinics that survive on that trade serve the permanent residents as well. A heavier property tax would be unlikely to slow the buying, since people who can afford a second house can usually afford the extra charge, and the cost is often added to the asking price instead. The deeper cause lies in the cities, which have grown crowded and dirty, so families with money go looking for air and space somewhere else. A policy that made urban life greener and quieter would ease the pressure on rural land far more effectively than a fine aimed at the buyers. Punishing the visitors is easier than repairing the cities, but only one of the two would actually work.",
+      "claim": "Taxing country second homes more heavily would not lower prices and would strip away the trade that keeps small places alive."
+    },
+    {
+      "id": "1855619c-2019-04-19T12:45:56Z-00016-000",
+      "sha256": "4d155d8ef72e203119442f36c0f251fa2a308a55f2a86577d80dad24e915f6cb",
+      "verdict": "write",
+      "topic_ko": "주택 문제는 소유 규제가 아니라 공급 허가로 풀어야 한다",
+      "passage": "Tight control of the housing market is presented as a defense of ordinary families, but its first effect is to stop the building that those families need. When returns are capped and rules multiply, investors go elsewhere and new homes are never started. The shortage that caused the anger then grows worse than it was before. Telling people what they may do with property they have earned also weakens the reason to work and save, which is a strange foundation for a policy meant to spread wealth more widely. The movement of people from the countryside into the cities has been under way for more than a century, and cheap housing is as scarce in the city as in any village. Where permission to build is slow and uncertain, prices climb no matter who is blamed, and countries that grant permission quickly have far fewer of these arguments. A government that is serious about housing should reform the whole system rather than single out one small group of owners.",
+      "claim": "Housing shortages are eased by making building easier, not by controlling what owners may do with property they have earned."
+    },
+    {
+      "id": "187d22de-2019-04-18T19:55:28Z-00005-000",
+      "sha256": "3d0b95ba3161c9085989eae4ef4ad9b7e5e9bb88550bb0f40adb56e4229b12aa",
+      "verdict": "write",
+      "topic_ko": "단일세율이 복잡한 세법보다 공정할 수 있다는 주장",
+      "passage": "A tax code that runs to thousands of pages is not a monument to fairness; it is a map of the places where money can be hidden. Every exception was written for somebody, and the people with the best advisers are the ones who know how to reach them. That is why very large incomes are often taxed at a lower real rate than ordinary ones. A single rate applied to all income, with those exceptions swept away, would close the routes of escape and force the wealthy to pay the share the law already claims to demand. It would also save the enormous number of hours that citizens and officials now spend on forms, checks, and quarrels about which rule applies to which case. Honest people are fined every year for small mistakes in rules that almost nobody can read, and that alone would be reason enough to simplify. A system that can be understood by the person who pays it is more likely to be obeyed and far more likely to be trusted.",
+      "claim": "A single rate applied to all income, with the exceptions removed, would be simpler, harder to escape, and fairer than the present code."
+    },
+    {
+      "id": "18db7777-2019-04-18T14:30:36Z-00003-000",
+      "sha256": "904457c5986f830f381aab4d366bd0cf76940837d307ba78f9c5e2c1eeaf21c5",
+      "verdict": "write",
+      "topic_ko": "학교가 강제하는 과목은 줄이고 선택과 실용 과목을 늘려야 한다",
+      "passage": "Before the final years of school a student has almost no say in what is studied, and the timetable is filled with subjects chosen by law rather than by interest or by need. A young person with no talent for drawing is still graded on it, while nothing in the week explains how to cook a meal, read a contract, or manage a wage. The usual defense is that a broad education produces a rounded adult, yet nobody becomes rounded through a required grade in a subject that is quietly hated. Pressure is the real result, because every compulsory course brings its own homework and its own test, and the load is already heavy enough to cost sleep. A better arrangement would keep a small core of language, mathematics, and science, and let the remaining hours be chosen from a wide list that includes practical skills. Interest is the strongest teacher there is, and a school that ignores it wastes both the hours and the student.",
+      "claim": "Schools should keep a small compulsory core and let the remaining hours be chosen, including practical subjects."
+    },
+    {
+      "id": "19146337-2019-04-18T16:16:09Z-00006-000",
+      "sha256": "a5f0b9b59a9dc3044eb34a963b7a10aae76eb825d7aac64c74ffdf0a09f619d9",
+      "verdict": "write",
+      "topic_ko": "운전 가능 연령을 열네 살로 낮추자는 제안에 대한 반론",
+      "passage": "Allowing children of fourteen behind the wheel would hand the least experienced drivers the most demanding task that ordinary life offers. Crashes are already among the leading causes of death for people in their late teens, and the reason is not ignorance of the rules but judgment that is still being formed. A driver has to guess what a hidden car will do, decide within half a second, and resist the wish to impress a friend in the next seat. Those abilities arrive with age rather than with lessons. There is also the plain question of money, since a person too young to hold a job cannot pay for training, tests, insurance, and fuel, so the cost would land on parents who are stretched already. Where young people genuinely need to travel, buses, trains, and bicycles answer the need without placing a heavy machine in the hands of a child. An age limit is not a punishment; it is an admission that certain risks are far better delayed.",
+      "claim": "Lowering the driving age to fourteen would raise the number of deaths and place costs on those least able to carry them."
+    },
+    {
+      "id": "19233c6a-2019-04-18T19:32:58Z-00000-000",
+      "sha256": "4897b71139de45dc5fd783f7fff0ea84913ef2cff8bc6a0ab5d5dd1ef287f5b8",
+      "verdict": "skip",
+      "skip_reason": "개인을 향한 종교적 훈계와 지옥 언급 — 교재 지문으로 부적합",
+      "topic_ko": "종교적 훈계"
+    },
+    {
+      "id": "197beaca-2019-04-18T11:28:59Z-00001-000",
+      "sha256": "d60c1dc305aad29a4a8392e1394df6c0ebb4109852c13d63c6f0d9fcc0e2977f",
+      "verdict": "write",
+      "topic_ko": "교사를 무장시키는 정책이 학교를 더 위험하게 만드는 이유",
+      "passage": "Placing a gun in every classroom is offered as protection, yet it changes what a school is long before it has stopped a single attack. Teachers are trusted with children because their work is teaching, and that trust does not transfer to a skill which takes trained officers months to learn and constant practice to keep. A weapon stored in a building full of children is also a weapon that can be found, stolen, or reached in a moment of rage, and schools are not free of rage. Staff quarrel, students threaten, and a teacher who has just been dismissed still walks the halls until the term ends. Each of those ordinary situations turns more dangerous when a loaded gun is close by. In the noise and smoke of a real attack, armed adults running toward the sound are as likely to be mistaken for the attacker as to stop one. Safety is bought more cheaply with locked doors, trained guards, and staff who notice a troubled student early.",
+      "claim": "Arming teachers adds new danger to a school instead of removing the danger it was meant to answer."
+    },
+    {
+      "id": "1a171bff-2019-04-18T18:49:53Z-00003-000",
+      "sha256": "fd02aa35dbda85dac49228285bc1802302e4efd62b8e1d1c1eb154d862a98ba2",
+      "verdict": "write",
+      "topic_ko": "국기를 태우는 항의가 효과적인 수단이 아닌 이유",
+      "passage": "Burning a national flag is defended as powerful speech, yet the effect it produces is almost never the effect that was intended. The people who cheer were convinced long ago, and those who had not decided see only an insult to something their families were once asked to die for. Anger, rather than attention to the argument, is what fills the room afterward, and the cause is remembered as the one that burned the cloth instead of the one that made a case. A speech, a march, or a patient piece of writing can carry exactly the same complaint and still leave the listener willing to hear it. Protesters reply that comfort was never the point and that a protest is meant to disturb, which is true, but disturbance is useful only when it moves somebody. A method that hardens every critic and wins no new supporter should be judged a failure by the very people who keep choosing it.",
+      "claim": "Burning a national flag is a poor form of protest because it wins no new support and hardens everyone who was not already convinced."
+    },
+    {
+      "id": "1af4c39c-2019-04-18T15:33:55Z-00003-000",
+      "sha256": "9047bf194a340c3c2a3ba91ed8959b710060d4704c924edd829ae558de7927a8",
+      "verdict": "skip",
+      "skip_reason": "미성년자가 포함된 연애 연령차 논의 — 교재 지문으로 부적합",
+      "topic_ko": "연애에서의 나이 차"
+    },
+    {
+      "id": "1b4638e1-2019-04-18T16:05:43Z-00001-000",
+      "sha256": "8ab7994aa18de4f86a66cccf2564889917b5f05adc11a292b54925d61b08b39c",
+      "verdict": "write",
+      "topic_ko": "먹기 위해 사는 삶과 잘 살기 위해 먹는 삶",
+      "passage": "To eat in order to live sounds joyless until the phrase is read properly, because living well, and not merely staying alive, is the point of the meal. A body that has been fed with some care holds the energy for walking, climbing, playing, and the ordinary work that fills a good day, and those hours are where the pleasure actually lies. The opposite habit, in which eating becomes the main event, has spread with cheap food that is built to be hard to stop eating. The bill for it arrives later as illness and as years that were lost. None of this argues for a dull plate, since a shared table is among the oldest pleasures there is and a cook who takes trouble is offering a gift. The real question is whether the meal supports the rest of life or quietly replaces it. Food chosen with attention, eaten with others, and set aside once enough has been taken serves the body and the evening at the same time.",
+      "claim": "Food should support a full life rather than become the main business of it."
+    },
+    {
+      "id": "1bc432b8-2019-04-18T17:10:28Z-00003-000",
+      "sha256": "0b62f2406ed8ed342af56e28697737b6760b578c7fd032c5233ce20305e003ba",
+      "verdict": "write",
+      "topic_ko": "도로를 민간에 맡기면 비용이 내려간다는 주장",
+      "passage": "Roads feel free only because the charge has been hidden, since a large share of the price of fuel is already tax and the average driver pays for the road every month without noticing it. Once that is understood, the real question is whether the same money would buy more if the work were handed to private firms competing for the contract. A service supplied by the state is a monopoly by definition. A monopoly collects its money whether the surface is smooth or broken, which removes every reason to improve. A company that has to attract drivers must offer a better road at a lower price or watch those drivers take another route. Critics warn that private owners would charge whatever they pleased, but that fear assumes a single owner rather than several, and competition is exactly what the present arrangement lacks. Paying directly for what is used would also end the old practice of charging people for roads they will never travel on.",
+      "claim": "Roads managed by competing private firms would cost drivers less than a state monopoly that is paid whether the surface is good or bad."
+    },
+    {
+      "id": "1cc75d8f-2019-04-18T16:42:21Z-00002-000",
+      "sha256": "78898b4eccb8583d8ca4637394e35e1ecd2b33cccffd1c7d2b5ca751e43a3905",
+      "verdict": "write",
+      "topic_ko": "윤리에 옳고 그름이 존재하는가",
+      "passage": "Right and wrong will not shrink into private taste, however widely the custom of one place differs from the custom of another. Every society that has lasted draws a line somewhere, and the line falls in much the same region. Taking a life for pleasure, or seizing what another household needs to eat, brings punishment in every corner of the world. A habit counted as good manners in one town and rudeness in the next belongs to custom, and custom truly does shift with the map, yet the deep limits refuse to shift with it. If each person simply followed whatever felt right at the moment, the weak would depend entirely on the mood of the strong, which is the very condition that law exists to end. Shared limits also let a stranger trust a stranger, and no market, school or friendship lasts without that trust. Custom varies while the core holds, which is why ethics offers real answers rather than a list of opinions.",
+      "claim": "Moral standards cannot be reduced to private taste, because every lasting society draws the same core limits."
+    },
+    {
+      "id": "1cd5895f-2019-04-18T19:33:50Z-00005-000",
+      "sha256": "1cf4655dbecf78ad2b13495e6fb4b741fbd3da0061df7cc0a979c750027863c4",
+      "verdict": "write",
+      "topic_ko": "전쟁은 마지막 수단이어야 한다 — 개시의 최소 조건",
+      "passage": "War is the one decision that cannot be corrected once it has begun, so the conditions for starting one should be far stricter than for anything else a government does. The first condition concerns public understanding, because a whole society sends its soldiers into the field. A war that the people never accepted gets abandoned halfway, which serves nobody at all. The second is capacity, since an army already stretched across other duties cannot open a second front without leaving its own borders thin, and promising what cannot be delivered is not a strategy. A third is honest measurement of the other side, because a state with hundreds of thousands of trained soldiers is a different problem from a broken country with none. None of this means that force is never justified, and there are crimes that nothing except force has ever stopped. It means that the burden of proof rests on the side proposing the war, and that the burden was made heavy on purpose.",
+      "claim": "A country should begin a war only when the public understands the cause and the means to fight it genuinely exist."
+    },
+    {
+      "id": "1d8d4ff1-2019-04-15T20:24:16Z-00010-000",
+      "sha256": "4ed5ea554a977bf8b91dabbb330b25a6a8cda68a83718d32bb38280f558f9b6d",
+      "verdict": "write",
+      "topic_ko": "직업훈련 확대가 기술 격차를 메우는가",
+      "passage": "Pushing young people away from broad study and toward narrow training would not close the skills gap that employers describe. Employers ask for a pair of very different things: technical knowledge in fields such as building and machine design, and general strength in writing, speaking and clear thought. The second kind already grows inside an ordinary degree, because the only way to learn to write and speak well is to write and speak for years under correction. The subject of the essay matters far less than the practice itself, so a course in history or in art works as a frame for that practice rather than as a waste of it. Where employers can state plainly what a young worker must be able to do, a university can fold such demands into courses that already exist. Building a whole education system around a short list of current jobs would trade a broad and lasting benefit for a narrow one. The jobs of the next decade may not want it at all.",
+      "claim": "Pushing students away from broad degrees and toward narrow training would not close the skills gap that employers describe."
+    },
+    {
+      "id": "1d986d8f-2019-04-18T16:43:45Z-00004-000",
+      "sha256": "b62ef06eb28fd1881d7b431e3abf261c74d6223ec982846e23fb3c3260f92890",
+      "verdict": "skip",
+      "skip_reason": "전 인류 살해가 목표인 게임 기획안 — 교재 지문으로 부적합",
+      "topic_ko": "게임 기획"
+    },
+    {
+      "id": "1daf7dad-2019-04-18T17:21:21Z-00006-000",
+      "sha256": "74c5d99b919492cd950404f84e22dccefe84e46a8d7160bd020b879429d2ca02",
+      "verdict": "write",
+      "topic_ko": "타인에게 닿지 않는 행동에는 도덕적 무게가 없다는 주장",
+      "passage": "Not every human action carries moral weight, and treating each small choice as a question of right and wrong drains those words of any force. A person who fetches bread from the corner store helps nobody and harms nobody, and the street afterward stands exactly as it stood before. If a deed is judged by the pain or the pleasure it produces, then a deed that produces neither belongs outside the scale altogether. Critics answer that every action has some distant effect, which is true in the sense that everything touches everything, yet an effect too small for anyone to notice cannot be the ground of praise or blame. A rule stretched that far also becomes useless in daily life, because a person who must weigh the virtue of tying a shoe has no attention left for the choices that genuinely matter. Saving moral judgment for actions that reach other people is what keeps the judgment sharp.",
+      "claim": "Actions that reach nobody else carry no moral weight, and treating every small choice as a moral matter empties the word of meaning."
+    },
+    {
+      "id": "1daf7dad-2019-04-18T17:21:21Z-00007-000",
+      "sha256": "18728d699b0fb4f69047e36de7c9d3b26c054da0979ab8a6ba6fd4ebaf2c0249",
+      "verdict": "write",
+      "topic_ko": "모든 행동에는 도덕적 결과가 따른다는 주장",
+      "passage": "Every action leaves a mark somewhere, and the fact that the mark is invisible to the person acting is no evidence that it was never made. A short trip to the shop uses a road that others share and money that came from somebody. It also spends time that was taken from everything else which might have been done instead. If a deed is judged by the pleasure or the pain it produces, the calculation has to include how long the effect lasts, how many people it reaches, and what follows from it later. Those measures rarely come to zero, because human beings are tied to each other by work, custom, and daily contact that nobody planned. Small effects also add up, since a habit of carelessness that harms nobody on any single day has, by the end of a year, shaped a careless person. Calling ordinary acts morally empty is therefore convenient rather than true, and the convenience is exactly what makes the idea dangerous.",
+      "claim": "Every action produces some pleasure or pain for somebody and therefore carries moral weight."
+    },
+    {
+      "id": "1ed1d876-2019-04-15T20:24:20Z-00012-000",
+      "sha256": "99296ef39f8237db9caadab5321cd2b9c0288f224c68daa0a5f06e7226e3840b",
+      "verdict": "write",
+      "topic_ko": "학술 연구의 번역을 공공이 지원해야 하는 이유",
+      "passage": "Paying for research to be translated into the languages of poorer countries is attacked as a favor that removes the reason to learn a global language, but the two things never really compete. Anyone who hopes to work abroad, publish, or join a project across borders still faces the same pressure to master that language, and a translated article does nothing to lift it. What translation changes is who can reach the knowledge at all. The readers of research are not only scholars but students, nurses, farmers, engineers, and officials who will never write a paper of their own. Expecting a whole population to learn a foreign language before it may read about its own crops, water, or diseases is not a serious plan for anything. The cost of translation is small beside the cost of producing the research, and knowledge that no local reader can open has been only half delivered. Wider access is the cheapest return available on money that has already been spent.",
+      "claim": "Public funding for translating research into widely spoken local languages spreads knowledge without weakening the reason to learn a global language."
+    },
+    {
+      "id": "2000b563-2019-04-18T11:20:41Z-00000-000",
+      "sha256": "27bc7350a03c71ff07094d5b77756abc2031c8072e7b5b26f5cdc66413024cce",
+      "verdict": "skip",
+      "skip_reason": "아동의 성적 동의 연령 논의 — 교재 지문으로 부적합",
+      "topic_ko": "아동 성교육과 동의 연령"
+    },
+    {
+      "id": "20407edd-2019-04-18T15:45:01Z-00008-000",
+      "sha256": "29beac89fc2f0d8a47112cdae79ebd93491b6f7f9bb848b28bb50aa50dd9b795",
+      "verdict": "write",
+      "topic_ko": "충분히 지능적인 기계에 인격을 인정해야 하는가",
+      "passage": "If a machine could think, remember, plan, and feel exactly as a person does, the question of what it was built from would stop being the important one. Rights have never rested on material; they rest on the fact that a being can suffer, can want things, and can be wronged when those wants are brushed aside. The usual reply is that a machine only follows the instructions it was given, yet a human brain also runs on rules that nobody chose, and no one treats that as a reason to deny it standing. What matters is whether the answers come from inside the system rather than being copied from a stored list. That is a question about behavior instead of about metal. Refusing to ask it in advance is risky, because a society that recognizes a mind only after mistreating it has already done the harm. Setting the test now, while the case is still imagined, is far safer than settling it in a hurry afterward.",
+      "claim": "A machine whose thought and feeling fully match a human being should be granted the standing of a person, whatever it is made from."
+    },
+    {
+      "id": "20c310f3-2019-04-18T16:16:29Z-00001-000",
+      "sha256": "6376f3d501fe92101549b4ade38bba1a9209097f0f5389254dc9b10bf56c5719",
+      "verdict": "write",
+      "topic_ko": "총기 금지가 옳은 방향이라는 주장",
+      "passage": "The fact that an illegal market would keep selling guns is not a reason to leave the legal market open, because no law has ever stopped every violation of it. What a ban changes is the ordinary case: the weapon bought in an afternoon by somebody who is frightened, drunk, or briefly desperate, and who would never have approached a criminal seller. Most shootings are not planned by hardened dealers in violence; they are sudden, they happen at home, and they turn deadly only because a gun was within reach. Raising the effort and the risk required to obtain one removes precisely those deaths, which is why societies with strict rules bury far fewer of their young. The claim that an armed population guards freedom against its own government has also aged badly. A modern state commands forces that no collection of private owners could seriously face. A ban is no cure for violence, but it is the difference between a quarrel that ends in shouting and a quarrel that ends in a grave.",
+      "claim": "Making guns illegal would cut everyday deaths even though an illegal market would survive."
+    },
+    {
+      "id": "216d8bf6-2019-04-18T16:36:32Z-00003-000",
+      "sha256": "14c00b7d046195e1ec8b44db86e91fb88b965a3736b5ea01b862c484b18dc05d",
+      "verdict": "write",
+      "topic_ko": "양육은 성인의 권리가 아니라 아이에게 지는 책임이다",
+      "passage": "The ability to bring a child into the world is not the same thing as a right to raise one, because the interest that counts belongs to the child and not to the adult. Raising a child means food, shelter, safety, and the slow teaching of how to live among other people. All of it is owed to someone who never asked to be born. Where those duties are unmet the damage is never private, since a neglected child carries the cost into school, into work, and very often into the next generation. This does not mean that officials should decide who may become a parent, because that power has been abused everywhere it was granted. It means that support, training, and early help belong inside the arrangement from the beginning, and that society must be willing to step in when a child is genuinely in danger. A right described with no matching duty is not a right at all; it is a wish wearing a stronger name.",
+      "claim": "Parenting should be treated as a responsibility owed to the child rather than an unconditional right held by the adult."
+    },
+    {
+      "id": "2199b625-2019-04-18T11:25:06Z-00005-000",
+      "sha256": "fbced071baaa6dcde5e62458c368abd82ae6c7af807283b4bf34d9e99d25b2e0",
+      "verdict": "write",
+      "topic_ko": "군사비의 일부를 우주 탐사와 기술로 돌리자는 제안",
+      "passage": "Money spent on weapons buys safety only while those weapons sit unused, and the same sum spent on exploring space buys knowledge that keeps paying long after the program has closed. Satellites now carry the storm warnings that save towns along the coast. The materials, medical machines, and computing methods built for flight were sold back into ordinary life at a profit. A second gain is political, because great scientific projects are among the very few things that rival nations have built together while distrusting each other on the ground. Shared work of that kind does not erase a quarrel, but it creates habits, contacts, and reasons to keep talking that no army has ever supplied. Critics will answer that a nation which disarms invites attack, and no serious proposal would leave a country undefended or its soldiers unpaid. Shifting part of the budget from stores that are meant never to be opened toward instruments used every single day is a careful bargain rather than a dream.",
+      "claim": "Moving a large share of military spending into space research would buy more lasting security than the weapons it replaces."
+    },
+    {
+      "id": "228a1f7f-2019-04-18T18:15:41Z-00009-000",
+      "sha256": "5e031c6ce4cd30566272426098bb3a38531ae9734e67cfe0cbcb023c3aba53ee",
+      "verdict": "write",
+      "topic_ko": "복지를 공공근로로 대체하자는 주장",
+      "passage": "Abandoning people who cannot find work is both cruel and expensive, because poverty that is left alone returns as crime, as illness, and as children who begin life far behind. The question is not whether help should exist but what shape it should take, and payment in exchange for useful work is better for everyone than payment for nothing at all. Roads, parks, forests, public records, and care for the old all need hands. A program that pays people to do that work turns a pure cost into something the public can see and use. The habit of working is itself part of the benefit, since a routine kept every morning is far easier to carry into a private job than a routine that was lost years ago. Those who are genuinely unable to work, and students with real financial need who have no hours left beside their classes, should be paid without conditions. For everyone else, aid that has been earned is steadier, easier to defend in public, and less damaging than money handed over for free.",
+      "claim": "Public aid should generally be paid in exchange for useful work rather than handed over with nothing asked in return."
+    }
+  ]
+}

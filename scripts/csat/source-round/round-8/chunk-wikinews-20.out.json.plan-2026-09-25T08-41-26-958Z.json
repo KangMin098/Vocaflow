@@ -1,0 +1,1863 @@
+[
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0619c442-9c62-438e-9be5-dafc777e05a4",
+    "revision": "2026-09-25T06:55:19.090467+00:00",
+    "body_sha256": "9db28c4e589fa497c0fa0b0191c06b8244946e4b51d5d604929826347211c240",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "암스트롱이 화성 유인 탐사가 아폴로보다 쉽다고 본 발언과 그 이유(3단락)가 주장-근거로 서서 주제·주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"It will be expensive, it will",
+          "note": "인용 속 괄호 보충만 걷으면 발언과 근거가 그대로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.961Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Manned_mission_to_Mars_at_least_20_years_away%2C_easier_than_first_trip_to_Moon",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.523,
+          "words": 199,
+          "english": 0.447
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "061c0885-36c0-45e9-969d-c2d7ef46399c",
+    "revision": "2026-09-25T07:00:23.180814+00:00",
+    "body_sha256": "a48b42ff68c19b3c0633a2ccb00678c8eb390aa00fe48012b5af98e7d7372429",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아부그라이브 폐쇄 계획과 그 감옥의 고문·학대 역사가 사건 흐름으로 이어져 고1 이상 내용 일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "United States army officers stated that",
+          "note": "학대·처형 언급이 있어 연령을 고등 이상으로 제한했다; 계획 단락은 쉽게 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.963Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/USA_leaving_Abu_Ghraib",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "061df728-3919-4adc-9758-f51bb1e86930",
+    "revision": "2026-09-25T08:28:53.418765+00:00",
+    "body_sha256": "91acfc222fe9ba435bcfcb3ab5441186bacc48754f8d9db6ef626e6bc475cb3a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "오스틴 국세청 건물 비행기 충돌 경위(방화→이륙→충돌→구조)가 시간순으로 서서 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Federal officials say the plane owner",
+          "note": "자살 공격이라 고등 이상; 도로명·시각을 걷어도 사건 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.963Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Plane_crashes_into_office_block_in_Austin%2C_Texas",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0626427e-556f-4fc9-ad72-7fa3520ce7fe",
+    "revision": "2026-09-25T08:08:14.029633+00:00",
+    "body_sha256": "ce19899e77616d07af3417577014b434382f92a61574455c8bad5881b80da1c6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "인도국립은행 파업이 연금 합의로 끝난 짧은 기사로, 협상→합의→복귀가 이어져 읽기 자료 내용 일치 칸 하나는 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Negotiations between the State Bank of",
+          "note": "90어 남짓이라 문단 하나가 곧 전체다; 환율 수치는 걷어도 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.963Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/State_Bank_of_India_employee_strike_settled",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.211,
+          "words": 95,
+          "english": 0.348
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0627fab7-156a-4464-9c91-02bd1b9334ec",
+    "revision": "2026-09-25T06:59:12.166941+00:00",
+    "body_sha256": "774a8564a8f549b3a0b5af40f81f5b96382d2b2d898a26092d0be23a05806a73",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "랜싯 구강암 논문이 조작으로 드러난 경위(발표→후속 연구 계획→조작 의혹→조사위)가 서서 연구 부정 주제·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In October 2005, the Norwegian researcher",
+          "note": "연구자 이름을 걷어도 발표→조작 발각의 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.963Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Lancet_cancer_study_a_hoax",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.076,
+          "words": 197,
+          "english": 0.401
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "062b26e3-c518-420c-a6cd-428b771c1ae3",
+    "revision": "2026-09-25T08:15:44.56867+00:00",
+    "body_sha256": "1e2c6d8a3ba2d7d136480ba7ef31b99487d713899a94fe6c46f33685de482697",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "세르비아 폴란드 관광버스 사고의 원인 추정(졸음·정비 불량 의혹)과 도로 안전 배경 단락이 내용 일치·문장 삽입 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are also allegations that the",
+          "note": "사망 묘사가 있어 고등 이상; 정비 불량 의혹 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.963Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Six_die_as_bus_carrying_Polish_tourists_crashes_in_Serbia",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.438
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "062b4e61-d260-4948-ac79-e484cf0c43cd",
+    "revision": "2026-09-25T07:52:20.87356+00:00",
+    "body_sha256": "e60e08dd3f277406807290c542f635556f42e35367acd66341d9ce1b096aaf94",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "올리비아 로드리고 신곡 1위 데뷔 기사로 차트 기록과 축하 반응이 이어져 중등 이상 읽기 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On Monday, Billboard magazine announced that",
+          "note": "스트리밍 수치가 많지만 첫 단락 차트 설명은 수치 없이도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.964Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Olivia_Rodrigo's_song_good_4_u_debuts_at_No_1_on_US_Billboard_Hot_100_chart",
+          "year": 2021,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "063271ce-7a73-4233-b493-5d16ee3f029f",
+    "revision": "2026-09-25T06:47:00.447403+00:00",
+    "body_sha256": "bf4c355b8f3eca2d41c85de2148109a92b02277912ab6155794414be6906304b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "이라크전 명예훈장 수훈 병사의 전투 경위가 시간순으로 길게 서서 고등 이상 내용 일치·순서·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Smith's death occurred while leading a",
+          "note": "전투·사살 묘사가 구체적이라 고1 이상으로 제한; 부대 명칭은 걷어도 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.964Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_Iraq_Medal_of_Honor_recipient_receives_memorial_headstone_at_Arlington",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.361
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0636aef1-b4f2-466e-9280-99a45ab77084",
+    "revision": "2026-09-25T08:31:23.369802+00:00",
+    "body_sha256": "c3caafb2188dc40be0cf61e9de6ada983957cf82fcf6d0e2f7b1d893ff47eb1b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "야주시티 EF4 토네이도 피해 기사로 경로·피해·구호가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The tornado moved along a path",
+          "note": "피해 규모 수치가 많으나 구호 단락과 개요 단락은 수치를 줄여도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.964Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mississippi_tornado_kills_at_least_ten",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "06374588-d9bf-4faa-ae65-a3cbbc70cbaf",
+    "revision": "2026-09-25T07:34:20.701968+00:00",
+    "body_sha256": "04c5e2fb43ed8e4c670362fe1a01772e9648e6b526735b5f55218cdec9ed91d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "리먼브러더스 구제 시도(매각 실패→인수 협상→정부 불개입 원칙)가 흐름으로 서서 금융위기 내용 일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Lehman Brothers, a major American investment",
+          "note": "경영진 이름 나열 단락은 걷고 앞 세 단락만 써도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.964Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Work_on_Lehman_Brothers%E2%80%99_rescue_to_continue_over_weekend",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.413
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "06382a6b-bc45-4d12-a9b1-434b95abc771",
+    "revision": "2026-09-25T07:46:31.64444+00:00",
+    "body_sha256": "6d0527032b8fe9985893d04202664e30fb970722ffb879598fd1b4976cacfb66",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "NASA와 전 우주비행사가 달 카메라 소유권을 두고 각자 근거를 대는 구조라 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mitchell, 80, claims that he had",
+          "note": "양측 주장 단락 둘이 뚜렷해 떼어 쓰기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.964Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._space_agency_NASA_sues_ex-astronaut",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.405
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "06388f4b-d277-4b8b-95e5-e20989000ee3",
+    "revision": "2026-09-25T06:48:16.814149+00:00",
+    "body_sha256": "c68e4aca6dbf8e50f34c6d5e54210dd8bb7df30f3eb56f1bd4915064179e64c7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "폭스뉴스 시청자 반감 기사로 경쟁사 대비·원인 설명이 서서 내용 일치 칸을 채운다; 끝의 월별 수치 목록은 가공 때 걷는다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Ratings for cable news stations have",
+          "note": "출처가 당파적 블로그라 주장 검증 소재로도 쓸 수 있고, 월별 목록 없이 앞 두 단락이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.964Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fox_News_viewership_drops_by_half_in_6_months",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.339
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "063c95d4-b7f4-4326-aa74-a4932d41043c",
+    "revision": "2026-09-25T08:03:26.895245+00:00",
+    "body_sha256": "2ab297f4b5606e514c069a24d523432cc054a321ea8bf50e297720983fe89951",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "전직 신부 아동 성범죄 선고와 보스턴 교구 추문의 맥락을 잇는 짧은 기사라 성인 읽기 자료 내용 일치 칸만 둔다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Former Roman Catholic priest Paul Shanley",
+          "note": "성범죄 소재라 성인 칸으로만 제한; 두 단락이 선고→배경으로 이어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ex-priest_Shanley_sentenced_to_12-15_years_for_child_rape",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.505,
+          "words": 109,
+          "english": 0.346
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "063e3e69-8939-4ea1-ab26-8cfec1e38fb8",
+    "revision": "2026-09-25T06:46:52.891407+00:00",
+    "body_sha256": "5286a5ebe4943a5b0e4c2a78716441655f32f904d50832e6e037a1bfaf7688d3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "세 부위 재접합 수술을 받은 소년이 결국 발을 다시 절단한 경위와 의사의 설명이 이유로 이어져 내용 일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The operation to re-attach three limbs",
+          "note": "의사 인용 단락이 원인 설명을 담아 쉽게 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Triple_limb-reattachment_fails_-_boy_loses_foot",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 180,
+          "english": 0.42
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0642fad1-10b6-47bf-85c9-012ba0ac1843",
+    "revision": "2026-09-25T07:58:46.918779+00:00",
+    "body_sha256": "bf9aafdc6862d88c7b39145f127f7096cf13181f76ce580847b0cd055777a8a0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "내전 뒤 다마스쿠스 국립박물관 재개관과 유물 반출·복원 경위가 서서 문화유산 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The war in Syria, which has",
+          "note": "마지막 외교 회담 단락은 주제가 달라 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Syria's_National_Museum_re-opens_after_six_years_of_civil_war",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "06438390-4496-4d01-b2e1-c07a55202419",
+    "revision": "2026-09-25T07:46:01.425135+00:00",
+    "body_sha256": "bc5611c849e9742ee1976a80c3a787930c629b675047ab43532e9dd14e94edea",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "아이슬란드 국민투표의 아이스세이브 상환 거부를 두고 찬반 양측 근거가 대비돼 주장·요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The latest repayment plan took two",
+          "note": "재무장관과 총리의 상반된 해석 단락 둘이 짝으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iceland_voters_reject_deal_to_repay_billions_to_UK%2C_Dutch",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0648869d-0053-4bdb-83df-82a2df507157",
+    "revision": "2026-09-25T08:14:10.695643+00:00",
+    "body_sha256": "69ff85d82771a39f675c3e27470eb4245f72355e719753dc20217c0ca7e3f10d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "작가 조합 파업의 잠정 합의 소식이 한 단락으로 서서 읽기 자료 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Saturday, February 10th, marked the day",
+          "note": "짧아서 문단 전체가 곧 표본; 연도가 없어 시점 보충이 필요하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tentative_Agreement_Reached_In_Writer's_Strike",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.545,
+          "words": 88,
+          "english": 0.402
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "064bdce3-258b-4430-abdd-b18ffe1ea8bf",
+    "revision": "2026-09-25T06:46:37.562627+00:00",
+    "body_sha256": "061d861ca9627bc4bbc4b843ce77451403000abdc6761fbec73853c2bedf9c17",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "인도네시아 니아스 지진이 규모에 비해 피해가 적었던 이유와 구조 상황이 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Over 270,000 died following last year's",
+          "note": "전년 쓰나미와 비교한 둘째 단락이 떼기 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Monday_night's_Indonesian_quake_toll_appears_less_than_first_feared",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0650e44f-7082-4ab2-a2b0-7dc4aa24a581",
+    "revision": "2026-09-25T07:43:40.078416+00:00",
+    "body_sha256": "29fb538edc417ce635204de2e00ad47624385280fe9a6cc23da72b4daa632b83",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "바누아투 지진과 쓰나미 경보 발령→해제 흐름이 서서 내용 일치 칸이 된다; 첫 단락 거리 나열은 걷는다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The tsunami warning was cancelled an",
+          "note": "경보 해제 단락이 거리 수치 없이도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Vanuatu_hit_by_7.2_magnitude_earthquake",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.407
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0652fa06-f77b-4f70-84be-f5129ed6b942",
+    "revision": "2026-09-25T07:58:46.963052+00:00",
+    "body_sha256": "32ffab79b4b6268452786744329e734e8d7e71d52ad14305a1458709f275f9c5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "텍사스 사형 집행 기사로 범행·재판·약물 조달 문제가 이어지나 살해 묘사가 구체적이라 성인 칸만 둔다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Diaz was put on death row;",
+          "note": "약물 조달 끝 단락만 떼면 고등도 가능하나 범행 묘사 때문에 성인으로 제한했다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Texas_executes_Arturo_Diaz_after_US_Supreme_Court_refuses_to_intervene",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "06557053-b621-4adc-9dc7-92282fd928c1",
+    "revision": "2026-09-25T08:35:07.20793+00:00",
+    "body_sha256": "fcde63eebf05647bdce279462ef6c2a8580f1cfa63dc779ced65eb2cb671f779",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "상하이 고층 아파트 화재의 경위·원인 증언·조사가 서서 내용 일치·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Two nearby buildings were evacuated, and",
+          "note": "용접 불꽃 증언 단락이 원인 설명으로 쉽게 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/At_least_53_killed%2C_over_90_injured_in_Shanghai_apartment_fire",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.326
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "065bc4c6-e345-4379-a0c9-91501d9e401d",
+    "revision": "2026-09-25T07:10:42.141688+00:00",
+    "body_sha256": "3b96330882bae0019da93bd2ca9313822960d6ce69dfcacf9524ea018f099c14",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "싱가포르·조호르 홍수와 간척 사업 원인 논란이 이어져 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Recent flooding of the Johor river",
+          "note": "「w:Johor」 위키 표기 잔재는 가공 때 걷는다; 간척 논란 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/January_floods_wreak_havoc_in_Singapore",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "065bfdac-b632-464b-bb05-c4732ce75291",
+    "revision": "2026-09-25T08:24:01.853262+00:00",
+    "body_sha256": "a4582c66606c0c3b96d74bc560c7ccdf457860d25164c4c1aea3890f71bc9708",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "필리핀 폭우 산사태 사망과 구조 난항이 이어지는 짧은 기사라 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rescue efforts were hampered because roads",
+          "note": "구조 난항 단락이 원인→결과로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/At_least_160_killed_by_landslides_in_the_Philippines",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.357,
+          "words": 168,
+          "english": 0.407
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "066070dc-1214-431b-a643-050ebdf0b098",
+    "revision": "2026-09-25T07:01:08.698097+00:00",
+    "body_sha256": "a0ee27cc41ea8c73e95156df19332f15d58df3123ec9299cdf3a7d3ebf3cec61",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하원 후보 청원 소송이 절차 규정(7일 전 제기) 때문에 기각된 경위가 이유로 서서 내용 일치 칸 하나가 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The case centered on objections to",
+          "note": "기각 이유 단락이 이름 없이도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Judge_throws_out_petition_case_against_Patrick_Murphy_in_PA_Congressional_race",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.229,
+          "words": 153,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-26-958Z",
+    "id": "0662f879-ab73-4f0d-b3ca-7684bcefa781",
+    "revision": "2026-09-25T07:40:37.536901+00:00",
+    "body_sha256": "3f1b6ddb674bb3f3e91a4f515189c49d26e15d913d1d7540db1f928e00efb99d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "허리케인 아이다 상륙과 등급 설명·향후 경로 예보가 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ida's winds had reached 75 mph",
+          "note": "사피어-심프슨 척도 설명 단락이 어휘 칸으로도 쓸 만하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:26.965Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hurricane_Ida_comes_ashore_in_Nicaragua",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 180,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

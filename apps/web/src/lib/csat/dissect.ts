@@ -24,7 +24,19 @@ export interface DissectionCatalog extends LearnerCatalog {
   families: string[]
   audit: { total: number; fields: Record<string, number>; excluded: { id: string; missing: string[] }[] }
 }
-export interface Prediction { item: string; type: string; step: 1 | 2 | 3; hit: boolean; at: number; family?: string }
+export interface Prediction {
+  item: string; type: string; step: 1 | 2 | 3; hit: boolean; at: number; family?: string
+  /** 어디서 남겼나 — 'theater' 는 출제 사고 화면의 공개 게이트(`lib/csat/reveal-gate.ts`). 없으면 해부 세션 */
+  source?: 'theater'
+  /** 게이트에서 고른 근거 문장(0-기반) · 정답 선지 · 확신도(1~5). null 은 「모르겠어요」 */
+  sentence?: number | null
+  choice?: number | null
+  confidence?: number
+  /** 설계 주석 예측(주제문 문장 · 구조 패턴 · 정답 표현 변환) — `lib/csat/design.ts` 의 라벨 */
+  topic?: number
+  pattern?: string
+  transform?: string
+}
 export interface DissectionDraft { phase: 'scan' | 'predict1' | 'compare1' | 'predict2' | 'compare2' | 'predict3' | 'compare3' | 'blueprint' | 'formula'; selection: string | null; answers: { step: number; hit: boolean; selection: string }[] }
 export interface Formula { tag: string; text: string; type: string; sources: string[] }
 export interface DissectionRecord {
@@ -38,6 +50,10 @@ export interface DissectionRecord {
   formulas: Formula[]
   queue: { tag: string; source: string; due: number }[]
   completed: { id: string; at: number }[]
+  /** 해설 극장에서 연 문항(가장 최근 시각 하나씩) — 넓이 · 재방문 판정용(ia-design §2-5) */
+  views?: { id: string; at: number }[]
+  /** 마지막으로 고친 시각 — 기기 ↔ 서버 병합의 기준(continuity.mergeDissection) */
+  updatedAt?: number
 }
 export function emptyDissectionRecord(seed: number): DissectionRecord {
   return { version: 1, seed, onboarded: false, predictions: [], formulas: [], queue: [], completed: [] }
@@ -84,7 +100,9 @@ export function composeDissection(catalog: DissectionCatalog, record: Dissection
       last(a) - last(b) || Number(cached.includes(b.exam_id)) - Number(cached.includes(a.exam_id)) || b.exam_id.localeCompare(a.exam_id) || a.no - b.no)
     // Reserve a due sibling before picking the comparison pair; otherwise the pair can consume it.
     const reserved = due.flatMap(q => items.filter(i => i.formulaTag === q.tag && i.id !== q.source))[0]
-    const available = items.filter(i => i.id !== reserved?.id)
+    // 복습이 걸린 세트에서는 그 복습의 **원래 문항**도 뺀다 — 한 세트 안에서 외운 문항을 다시 보면 복습이 아니다(ia-design S6)
+    const reservedSource = reserved ? due.find(q => q.tag === reserved.formulaTag && q.source !== reserved.id)?.source : undefined
+    const available = items.filter(i => i.id !== reserved?.id && i.id !== reservedSource)
     const candidates = tag ? available.filter(i => i.formulaTag === tag) : available
     for (const first of candidates) {
       for (const second of available.filter(i => i.id !== first.id && i.topic !== first.topic)) {

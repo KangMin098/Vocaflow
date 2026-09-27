@@ -164,7 +164,7 @@ function UsersView({ data }: { data: VrlUsersData }) {
                   </td>
                   <td className="px-3 py-2 text-[var(--t2)]">{u.segment ?? '—'}</td>
                   <td className="px-3 py-2 text-center">
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--p)]/10 font-display text-[11px] font-[700] text-[var(--p)]">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-display text-[11px] font-[700] text-[var(--p)]">
                       {u.currentVLevel ?? '—'}
                     </span>
                   </td>

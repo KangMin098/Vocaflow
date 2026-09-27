@@ -1,0 +1,841 @@
+[
+ {
+  "id": "53908f22-28c3-4d8c-9982-67fd569136af",
+  "source_updated_at": "2026-09-13T06:55:35.296036+00:00",
+  "body_sha256": "738a31b94ebee90beac28b4d810c2f0683778a925f78f754878a0588ed9ba7fa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "알츠하이머 유전자 발현 지도와 동물 모델을 순위로 대조하는 논지가 고찰에서 한 편으로 서고, 「GFAP 모델과 AD의 일치」 절이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In this study we present new",
+   "note": "유전자 약어(APP/PS1·GFAP)를 「특정 유전자 변이 쥐」로 바꾸면 서고, 순위표는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "5398d354-646a-4459-94e4-02b5b802c7d7",
+  "source_updated_at": "2026-09-15T15:02:13.17718+00:00",
+  "body_sha256": "e464c3a98cf23cf5ea26e043ef0c94ce6e355e75a4082a13909f9bd6fc190aa7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "결핵약 SQ109를 곰팡이 감염 치료로 다시 쓰는 과정이 발견-검증-동물실험 순서로 이어져 고찰 단락이 그대로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cryptococcal infection is a top-ranked",
+   "note": "MIC·FICI 같은 수치를 「약효 지표」로 바꾸면 서고, 약물 재창출이라는 논지는 고유명사를 걷어도 남는다."
+  }
+ },
+ {
+  "id": "539ecc2e-f8e5-44ae-a496-ad3ec9f4f886",
+  "source_updated_at": "2026-09-13T06:42:45.752778+00:00",
+  "body_sha256": "af89efc95b07384ee1f4ef9ca5e18e91b4f28f7adcf9832693366629a214fe6a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "이첨판막 환자의 혈류 시뮬레이션에서 기존 「낮고 흔들리는 전단응력」 가설이 관찰과 어긋난다고 반박하는 대목이 고찰에 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The data indicate that BAVs generate",
+   "note": "WSS·OSI 약어는 풀어 쓸 수 있으나 표 네 개와 수식은 가공 때 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "53ac0e8a-ac0b-4aae-9ac8-229a1f82dd23",
+  "source_updated_at": "2026-09-13T06:23:31.332675+00:00",
+  "body_sha256": "ec7e91a25eb560e1ef3068534016c7638e010ec40083a5f30295c5051b112dd5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "뇌 연결망이 고정된 임계점이 아니라 각성 변화에 따라 임계 구간을 떠돈다는 대안 가설을 제시하고 모형 비교로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Spontaneous brain activity is richly",
+   "note": "모형 약어(MFM·FCD)를 「뇌 모형」·「연결망 변화」로 바꾸면 도입 단락이 그대로 선다."
+  }
+ },
+ {
+  "id": "53b40c40-4e57-40cb-b70d-1048306c8a6b",
+  "source_updated_at": "2026-09-13T07:18:52.454357+00:00",
+  "body_sha256": "35db19b9ca051d3605df853b41f8e900d545b91c571cf7fa46e9714bca076778",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "누에 유전자 BmPMFBP1을 없앤 수컷이 불임이 되는 경위를 관찰 순서대로 밝히고 포유류 동명 유전자와의 차이까지 따진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Spermatogenesis is both an interesting",
+   "note": "정자 두 종류(eupyrene·apyrene)만 우리말로 풀면 서론이 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "53c5ce9e-ef51-4d89-aea3-7f8af542500d",
+  "source_updated_at": "2026-09-13T07:38:58.965955+00:00",
+  "body_sha256": "b57895ada038bd13c41f4d843ec05e031e00025a53f9cf3988feef8861d07d90",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "청신경 재생을 위한 나노섬유 지지체 이식이 세포 생존 실패로 끝난 경위와 그 해석을 고찰에서 솔직히 정리한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Efforts to regenerate the auditory nerve",
+   "note": "재료·세포주 이름을 걷어도 「길을 내 줘야 신경이 제자리로 간다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "53c797f9-1ff4-456d-aa3d-2feac84c4057",
+  "source_updated_at": "2026-09-25T07:30:22.826979+00:00",
+  "body_sha256": "a5ef035559689b1600e3d959eb8b4794c282db4a10af34695cd69b33303d9373",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "한 환자에게서 나온 두 집락이 형태 변이가 아니라 서로 다른 균주였다는 진단상의 착각을 사례로 짚는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A key diagnostic challenge revealed by",
+   "note": "유전자 좌위 번호 나열은 걷고, 고찰의 진단 한계 단락만 남기면 한 편으로 선다."
+  }
+ },
+ {
+  "id": "53ca8ebd-06cc-45f8-ae7f-8d31d311ba33",
+  "source_updated_at": "2026-09-13T07:18:26.040748+00:00",
+  "body_sha256": "b928ddc52d4a3c6a31165f697b6acd5d10d6c30dab6137f95c5728765d6d109b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "리슈만편모충의 프로필린이 세포주기 G1-S 전환과 방추 방향에 관여한다는 결론을 단백질 상호작용과 전사체로 이어 붙인다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Profilin is a ubiquitous actin-binding",
+   "note": "고찰 앞머리의 다른 원생동물 비교 단락만 떼면 서고, 결과 절은 표 의존이라 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "53dd399b-3fc7-4135-82d7-ac3de2142191",
+  "source_updated_at": "2026-09-15T15:02:19.596503+00:00",
+  "body_sha256": "c8b70b99da291ca4c738a5d34e4af6b09244d3c2a0117a1bbfae00e0cafc915f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈장 동맥경화지수와 당뇨 전단계의 관계를 폐경 여부와 함께 따져 위험이 가장 높은 집단을 가려낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Prediabetes, characterized by blood glucose",
+   "note": "오즈비와 신뢰구간을 걷어도 「폐경 뒤 지질 관리」라는 논지가 남는다."
+  }
+ },
+ {
+  "id": "53e45be2-5056-45b6-8cc2-ef1180b3e3be",
+  "source_updated_at": "2026-09-13T07:06:33.157874+00:00",
+  "body_sha256": "c49d51e4781e836bdf2f568051e5ef1959c6affc5409f304716f17216bf35635",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "과산화수소로 만든 방광염 모델에 TGF-β 억제제를 써서 배뇨 이상과 섬유화가 함께 줄어드는 경로를 밝힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Systemic administration of a TGF-beta",
+   "note": "유전자 이름(Trpa1·Krt6a)을 「통증 수용체」·「각질 단백질」로 바꾸면 고찰이 읽힌다."
+  }
+ },
+ {
+  "id": "53e86d10-832c-484b-b4a7-fe8b40064937",
+  "source_updated_at": "2026-09-25T07:30:25.082919+00:00",
+  "body_sha256": "6e5a1c9fe6ee7ccdb43fefac9a201e6f3943ccd9a5aacf908045f15e787baf63",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "뇌 대식세포가 중추신경을 떠나 말초로 이동한다는 것을 나노입자 표지로 보이고 면역특권 통념을 되짚는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Historically, the CNS has been considered",
+   "note": "세포 수치 표기가 깨져 있어 수치 문장은 걷어야 하고, 결론 단락은 그대로 선다."
+  }
+ },
+ {
+  "id": "53f866e8-81c4-425d-a180-1f3955760e96",
+  "source_updated_at": "2026-09-13T07:17:45.716456+00:00",
+  "body_sha256": "9c1986fabdb6327a553a37dc639b9e09f4abda820162d443afabae1b5b37154a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "운동으로 생기는 장 손상에 어떤 보충제가 실제로 듣는지 연구 27편을 갈래별로 견주고 한계까지 적는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Gastrointestinal disturbances are common amongst",
+   "note": "본문 가운데의 대형 요약표는 통째로 걷어야 하고, 고찰의 보충제별 단락은 그대로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "540c2d17-d226-4cf1-8e17-78bfe975511a",
+  "source_updated_at": "2026-09-25T07:30:28.017956+00:00",
+  "body_sha256": "3948bb8270f90f32b9038bd3df4da5f55ff8a2ce43b669761ffb3adeedc196c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "감기 코로나바이러스의 작은 유전자 하나가 오히려 병을 눅였다는 대비를 메르스 유전자와 나란히 놓아 보인다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Accessory proteins are the least conserved",
+   "note": "바이러스주 이름(J2.2·JHM)을 「실험용 쥐 바이러스」로 묶으면 고찰 앞부분이 한 편으로 선다."
+  }
+ },
+ {
+  "id": "540c6f5f-2441-42a8-b18f-a1201cc500d4",
+  "source_updated_at": "2026-09-25T07:30:28.543886+00:00",
+  "body_sha256": "22e7abdf8ac6708dbbb1a6f3a2c5e3c669893762903eaa8f52c9414c09f82e12",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "특정 NK세포를 아홉 달 넘게 없앤 원숭이에서 만성기 바이러스가 조금 늘어, 그 세포의 몫을 가늠하게 한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Natural killer cells are innate immune",
+   "note": "수용체 이름(KIR3DL01)을 「특정 면역 수용체」로 바꾸면 서론과 고찰이 이어진다."
+  }
+ },
+ {
+  "id": "5424660c-f4d5-4800-b748-b9fbdbf71530",
+  "source_updated_at": "2026-09-13T07:06:12.029099+00:00",
+  "body_sha256": "cbd1e39664427b7b0ccdfaabd65b100affc8591980aababdaa31e8b9dabd3f23",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "감염 이력이 있는 사람은 추가 접종으로 항체가 덜 오르지만 최종 수준은 비슷해진다는 결과를 시간순으로 보인다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although a single dose of the",
+   "note": "변이 이름과 배수 수치를 걷어도 「이미 걸린 사람은 덜 오른다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "5434e1de-6edc-4ae1-a246-e97bf25dd9ae",
+  "source_updated_at": "2026-09-25T07:30:30.948653+00:00",
+  "body_sha256": "0ef014a4c8f1cdf8f6ca4e8f8a9070318f903e86c64156e03d26caa894b8acb4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "잠비아 한 병원의 신생아 가사 위험요인으로 자간증과 태아 곤란증을 짚고 예방 가능한 지점을 제시한다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Birth asphyxia, defined as the failure",
+   "note": "오즈비 괄호만 걷으면 서론과 고찰이 중등 상위 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "543dc3c7-9fab-4f1f-8888-79ce75b9adf6",
+  "source_updated_at": "2026-09-25T07:30:31.709484+00:00",
+  "body_sha256": "645a6e4bfcbae542b8db17c9092c3b127cb7125cdf16aa309140b2f5fa3674f7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "성인 기도 이물의 처치를 유연내시경 우선으로 두고 실패 시 단계별로 올리는 판단 순서를 사례와 함께 정리한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Airway foreign-body aspiration in adults",
+   "note": "원문에 쉼표 뒤 띄어쓰기가 빠진 곳이 많아 가공 때 문장 부호를 손봐야 한다."
+  }
+ },
+ {
+  "id": "5443e213-7e72-44d1-9ffa-70ee40f77fc1",
+  "source_updated_at": "2026-09-25T07:30:33.417312+00:00",
+  "body_sha256": "1d869c944d5849dc2b1771dd52dd85ef5fd335aa36ed9544b01692d2e2068a60",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 질환이 같은 기전을 공유한다는 앞선 주장이 보정 뒤 남지 않았다고 스스로 물리고 가설 수준으로 낮춘다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "This study evaluated cross-disease transcriptomic",
+   "note": "통계 용어(FDR·메타분석)가 촘촘해 고찰 앞 두 단락 말고는 밴드를 낮추기 어렵다."
+  }
+ },
+ {
+  "id": "54440f31-a385-4954-9f98-faa1bf265886",
+  "source_updated_at": "2026-09-25T07:30:33.783582+00:00",
+  "body_sha256": "a4922ac3b5f47ce8b035d0276aea4417033cd5fd2b780dc189cd319d9e00da05",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "완화의료 환자의 예후 지표 열둘을 한자리에서 견주어 대사 지표 하나가 앞선다는 결론을 낸다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "TyG-BMI likely outperforms single-domain markers",
+   "note": "AUC 나열 문단은 걷고 고찰의 기전 설명 단락만 쓰면 한 편으로 선다."
+  }
+ },
+ {
+  "id": "5448afd5-fe87-4a66-8afc-7956a7861ac2",
+  "source_updated_at": "2026-09-25T07:30:34.328625+00:00",
+  "body_sha256": "bffef7f54a6aa73c10eeb9c2f29b26e72e979580e17a50cab910048b0244f120",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "막 관통 부위가 없는데도 세포막에 붙는 수용체가 아메바의 운동과 포식을 좌우한다는 발견을 구조와 기능으로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Entamoeba histolytica is a human intestinal",
+   "note": "저자 요약 단락이 이미 쉬운 말이라 그 부분은 손대지 않아도 밴드가 내려간다."
+  }
+ }
+]

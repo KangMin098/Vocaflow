@@ -1,0 +1,1050 @@
+[
+ {
+  "id": "0ea9de3a-dbbc-4702-b450-ea1fef628dcd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "59e6ce1667eff714c8f79c044dc8ac0a10a9ffce5bcb2373b7947e4725435d22",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "친·반정부 집회의 대비와 PAD 의 의회 포위 명분·총리 반박을 이어 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ensconced in the Government House compound",
+   "note": "PAD 행진 이유 문단은 「개헌이 탁신 복권용」 주장과 총리 부인이 대립해 서고 Ensconced·rehabilitate 를 바꾸니 V6 이 됐다."
+  },
+  "uses": [
+   "factual",
+   "argument",
+   "structured"
+  ]
+ },
+ {
+  "id": "0eab10ba-0cfa-4460-9400-ea565ce0f003",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "66c5eb740f46c5622f19e18c3e8032fe4d4773ff7dd6076848691fc8790357c8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "중국이 선물한 판다의 출산을 인공수정 경위와 양안 관계 맥락으로 전해 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The cub, born out of an",
+   "note": "인공수정 문단은 선물 판다→자연 교배 실패→인공수정→밤샘 관찰로 순서가 서고 insemination 하나만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence",
+   "structured"
+  ]
+ },
+ {
+  "id": "0eb06a46-f04b-4f93-ac7c-33e753a202a0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5b3d4f90577eee27891a859416b315d9563fc2b5bcf0315dda6a6464bd4ff60c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "세차장 총격을 카르텔 폭력의 확산 맥락으로 전하지만 시신 묘사가 있어 고2 이상 내용일치 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This slaying is the third major",
+   "note": "연쇄 살인 비교 문단은 피 묘사 없이 「조용한 휴양 주에 번진 마약 폭력」이 서서 쓸 수 있었고 battleground 만 바꿨다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ebad259-96e6-43cd-9398-2a5d29b69408",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f76116712331b66185e20142eea6b8c14e1056dd476921b8742dd6702cf9722a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "현직 NDP 후보의 서면 인터뷰로 출마 이유·사표 통념 반박 답변이 주장 칸을 채우나 선거 홍보라 성인 읽기 위주다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "I think the biggest wall the",
+   "note": "「NDP 에 표를 버리지 말라」 통념 반박 답변은 득표 수치를 걷어도 주장이 서고 disenfranchised 만 바꾸면 됐다."
+  },
+  "uses": [
+   "argument",
+   "spoken",
+   "factual"
+  ]
+ },
+ {
+  "id": "0ebb8987-3a89-4b88-9450-941f32c37d62",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9878ca747d197f58704369a0db712879391ea5af8e95a03b5d3626518c1516b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "그랜드캐니언 인공 홍수의 목적·인과(댐→퇴적 소실→멸종)와 환경단체·공원장 비판을 갖춰 요약·빈칸·주장 칸을 두루 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "blank",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After the dam was built in",
+   "note": "댐 이후 문단은 계절 홍수 중단→퇴적물 부족→어종 멸종의 인과가 한 문단에 서고 sediment·tributaries 만 풀면 됐다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "structured",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0ebf7aed-7af0-47ea-93b6-48671a5a7259",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0db03ecc7630f79efd30ee796e634ba5cb321f1ec2340c201fcac96673332394",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "교차로 전복 사고의 경위와 과태료 처분을 시간순으로 전해 짧은 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Naperville police reported that Pavitra Durgam,",
+   "note": "사고 경위 문단은 좌회전→끼어들기→회피→충돌 순서가 선명하고 swerved·yield 는 문맥으로 잡혀 쉬웠다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0ec5f429-201d-48fd-917e-476816b3f0d2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2c5bd4a30258aa02b6f4c2a07eb5211b442e9e3c6a93fc0b28af315f00c86412",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "시리아 탄약고 폭발을 사상자와 폭염·가스 누출 원인설로 전해 내용일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The blast, which occurred at 4:30",
+   "note": "원인 문단은 폭염설과 가스 누출설을 나란히 세워 시각 표기만 걷으면 원인 추정 구조가 섰다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ecfead9-f1ab-40f3-835f-f11186a6bff8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "aef83103d9ba17d255ecbd8616a73212b928c5a3170bbad3fab8ef85ca5478a0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "이란 사법수장의 이슬람 사법 모델 발언과 투석형 유예의 실상을 대비해 고3·성인 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ayatollah Shahroudi received the attention of",
+   "note": "투석형 유예 문단은 「개혁가로 주목 → 유예 → 실제로는 종료」의 반전이 서지만 형벌 소재라 연령을 올렸다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ed0454a-b106-46be-9690-976c47fea38d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6d933b4963a25e3c6fca76506730f1b5debe159f0631f8cfc4ebd64d7631ee5c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "루뱅 무단점거자 퇴거 항의 시위를 시각별로 추적한 장문 서사로 장문 칸 재료지만 욕설 구호가 있어 성인 칸만 단다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The protesters marched through the city's",
+   "note": "행진 문단은 욕설 구호가 들어 있어 구호 인용을 걷어야 했고 그 뒤로는 시간순 충돌 흐름이 온전했다."
+  },
+  "uses": [
+   "sequence",
+   "factual"
+  ]
+ },
+ {
+  "id": "0ed5eeaa-7727-4c8f-8889-8745dd3e6ffa",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6cad0a6055a226e2939c09cc09810d46a7f8567d372f682673a92c0dd4cd8100",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "에볼라 백신 효능 연구와 FDA 우선심사권 제도를 풀어 설명해 빈칸·삽입·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This might not be the only",
+   "note": "우선심사권 문단은 제도 목적→양도 가능→매각가로 설명이 서고 incentive·voucher 는 문맥으로 풀려 빈칸 재료가 됐다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "vocab",
+   "structured"
+  ]
+ },
+ {
+  "id": "0edda77b-74d5-4742-9748-87eb85051868",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d21c3051e93d7258ff9f6a75e77fbbce9f5e203a9d71ba374cc7e18b565f8b57",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "스위스 노동절 시위의 요구와 충돌 규모를 전해 짧은 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Protesters in Geneva demand reform regarding",
+   "note": "도시별 요구 문단은 제네바·취리히 요구가 대비되지만 짧아서 첫 문단의 반대 대상과 묶어야 뜻이 넉넉했다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ede6abb-c09a-4e09-8149-07937cb80cdb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a6dd869b9af90b5be2e269c4295b31f76c13e5ec01aa48476c40e19c1f045aca",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "윈도 XP SP1 지원 종료를 출시 이력과 소송에 따른 재출시로 설명해 내용일치 칸 하나를 채운다(2006년 사실이라 시점 표기 필요).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Windows XP SP1 was released on",
+   "note": "SP1 이력 문단은 출시→기능→소송으로 재출시 순서가 서고 VM·utility 같은 용어만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0ee14558-8176-4bfc-ad9d-18df3eb928d8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b0ea8843f7cf9fe88020325424aae0325b7e1e0f3ff8f523bb5e703b675c4b56",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "살해된 소녀 가족에 대한 전화 해킹 합의금 제안을 해킹 경위·사과·폐간으로 이어 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "UK newspaper The Guardian revealed the",
+   "note": "해킹 폭로 문단은 음성메시지 삭제로 「살아 있다는 착각」을 준 경위가 서고 낱말이 이미 쉬웠다."
+  },
+  "uses": [
+   "factual",
+   "sequence"
+  ]
+ },
+ {
+  "id": "0eeda540-20ed-4ff9-a36f-809b467f9305",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "30dce5c5b1775754d73ace40e4ca43c93604e363b289c809a11e0f235ed5eaa1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "블러드 다이아몬드 재판의 캠벨 증언을 검찰 의도와 증언 장면으로 전해 지칭·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Campbell said in her testimony, \"When",
+   "note": "증언 문단은 밤중 방문→주머니 선물→아침 대화로 장면이 서서 mens rea 같은 법률어가 없는 부분만 골랐다."
+  },
+  "uses": [
+   "factual",
+   "sequence",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0ef008c8-0177-4a86-9445-feefaad7c627",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9cbe0247ef5cabdaf54a253be4cc4c13e394cdfa6ab4ad92497db0331cfe6912",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "보스턴 터널 천장 붕괴 사망 사고를 에폭시 고정 실패라는 원인과 함께 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The panels are designed to be",
+   "note": "원인 문단은 금속봉과 에폭시 접착이 버티도록 설계됐으나 실패했다는 인과가 두 문장에 섰다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ef62bcb-4ac7-4520-be54-a0abb413a9e2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ac850980a32b96682de1fd796b83fcda3915497340376c84587a9d4c67cdd5ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "콩고 유엔 평화유지군 매복 사망을 전하는 짧은 기사로 내용일치 칸을 채우되 민족 일반화 인용 한 구절은 걷는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "At least eight UN peacekeepers have",
+   "note": "첫 사건 문단만 쓸 만했고 둘째 문단의 「Lendus 는 그냥 죽인다」 인용은 특정 민족 일반화라 가공 때 걷어낸다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0ef7cc7f-b8f9-4055-951d-8b3ec9d375ca",
+  "source_updated_at": "2026-09-25T08:48:01.381783+00:00",
+  "body_sha256": "a8ed541b2cf5e317d00bed3ffd1376cb013929d927560b0e3faf667b64bcadb3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "「가장 검열당한 감독」 보티에의 부고를 식민주의 고발 작품·투옥·단식으로 엮어 전기형 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In 1950 he was imprisoned in",
+   "note": "투옥 문단은 무단 촬영→압수→남은 필름으로 제작→상영 금지가 한 흐름으로 서고 salvaged 만 바꾸면 됐다."
+  },
+  "uses": [
+   "sequence",
+   "factual",
+   "vocab"
+  ]
+ },
+ {
+  "id": "0efd03ec-396e-43cf-9e30-df619da72d7b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "17b553b58bb7c8049d6a58bf6829df9240c36fe89faa870af9911f2cdff2953b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "토렌트 추적 사이트가 영화사 소송에 방어하겠다는 기사로 소송 경위와 인기 급증 까닭이 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Loki Torrent, a site that tracks",
+   "note": "소송 문단은 날짜 줄 없이 시작해 피소→방어 기금 모금→MPAA 단속 맥락이 서고 infringement 만 풀면 됐다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0efe1bf8-f99e-4f25-83f1-d4b1f5e39cb0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "050917807f9307e6683dd1bcce2bd4a64be2daeac0036ad3ba88445556e48328",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "부시의 이라크 전략 연설과 민주당·전문가 반론을 맞세워 주장·요약 칸을 채운다(전쟁 소재라 고3 이상).",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As was expected, Bush did not",
+   "note": "철군 시한 문단은 「시한은 테러범에 보상」 주장과 의회 요구가 맞서 서지만 참수 언급 구절은 걷어야 했다."
+  },
+  "uses": [
+   "argument",
+   "factual",
+   "spoken",
+   "structured"
+  ]
+ },
+ {
+  "id": "0f05deed-d0d2-4616-93af-08911dd4ba39",
+  "source_updated_at": "2026-09-25T08:58:10.869903+00:00",
+  "body_sha256": "14629b174b69001e2135fda5a4c21659af763037d0ef34a3b412bd11faf34ede",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "WSJ 기자 간첩 혐의 구금을 러시아 측 주장과 미·EU 반박으로 맞세워 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The FSB acknowledged Gershkovich had valid",
+   "note": "FSB 입장 문단은 러시아 측 세 인용이 「현행범」 주장으로 모여 서고 caught red-handed 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "argument",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0f06474e-be17-4edf-8bc0-d43506f3c19b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "064545ab90d6759639a93fa96d8b560ef048ab04f7c6ad58f1fe54ed73694fe0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "발리 나인 마약 사건 피고 변호인의 기소 적법성 도전과 어머니 지지를 전해 내용일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Stephens' mother, Michelle, was in court",
+   "note": "어머니 문단은 짧은 인용으로 지지 심경이 서고 앞 문단 없이도 아들 재판이라는 맥락만 붙이면 됐다."
+  },
+  "uses": [
+   "factual",
+   "mood",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0f0f6ab5-4606-466e-a45c-12d0d297f015",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "37baaac2760b06ce8a0c511bb97bd329fee670cd5e94102cf631ebf22f422ed2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "크루즈 사이언톨로지 영상 유출과 삭제 시도의 역효과를 교단 용어·인용과 함께 전해 성인 읽기·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Attorney Mark Stephens of London-based firm",
+   "note": "변호사 논평 문단은 「삭제 시도가 오히려 뉴스를 만들었다」는 역설이 서고 copyrights·foresee 만 풀면 됐다."
+  },
+  "uses": [
+   "factual",
+   "argument",
+   "spoken"
+  ]
+ },
+ {
+  "id": "0f11631f-eb43-46d3-a618-7b31275e6396",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2beb2aad42c0618aa11e9a089a7f2db764e011e2bb82b59e88ad024251ef063a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "망명한 전 차드 대통령의 궐석 사형 선고를 재판 절차 문제와 과거 학살 혐의로 전해 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The trial, which began on Tuesday,",
+   "note": "재판 문단은 3일 궐석 재판·변호 없음·변호인 반발이 서서 절차 공정성 쟁점이 드러났다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0f11dcac-2d5a-41b4-a236-944ff3ab0a58",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "19ea29edf314b6118e93aac171fd7ac71a33390d9f0dbab79f3eb69ed677c338",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "세계 최대 태양광 발전소 계획을 금액·면적·출력 수치로만 나열해 내용일치 칸 하나를 수치 나열로 채우는 데 그친다.",
+  "slots": {
+   "ages": [
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The Victorian Government will contribute $50",
+   "note": "분담금 문단을 떼어 보니 금액·기금 이름 나열뿐이라 수치를 걷으면 남는 논지나 사건이 없었다."
+  },
+  "uses": [
+   "factual"
+  ]
+ },
+ {
+  "id": "0f12bc2a-f391-4a17-86d2-1c6b97cda844",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "00fc01f18d79b52489e639db20a3e0ba8110fd776578eda8b61589757b28216a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "미·러 스파이 맞교환을 교환 대상과 간첩망 적발 경위로 전해 내용일치 칸을 채우되 이름 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The US arrested the ten spies",
+   "note": "간첩망 문단은 민간인 부부로 위장한 장기 첩보 활동이 서고, 가운데 이름 목록 문단들은 가공 때 걷었다."
+  },
+  "uses": [
+   "factual"
+  ]
+ }
+]

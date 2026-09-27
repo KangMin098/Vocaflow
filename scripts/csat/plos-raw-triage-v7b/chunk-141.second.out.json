@@ -1,0 +1,867 @@
+[
+ {
+  "id": "71d20394-d59a-4614-8247-28bef7eea00d",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:11:34.721099+00:00",
+  "body_sha256": "222c09f5c06ce7b704dfab49ec64f40621281cf344b0e0524729cec85545ea06",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 기저막·NPNT 소개와 고찰의 대식세포 회복기 해석이 이어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Macrophages infiltrate the lung during both",
+   "note": "약어(BALF·NPNT)를 풀어 쓰면 회복기 대식세포 역할 논지가 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71d5d40f-c33a-4c79-8465-a7be44989cbb",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:04:15.879394+00:00",
+  "body_sha256": "fb2a29bb2fd4be24ef1fbae37700777df7e1b5c7bf8242ba05bfb6bfad9e0c79",
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 「학습 전 분리인가, 경험 후 분리인가」 두 가설 대비와 고찰 결론이 대조 구조로 주제·요지 칸에 맞는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Zebra finches learn to sing through",
+   "note": "노래 학습 단계 설명 문단은 VTA 약어만 걷으면 독립한다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71d65598-34e8-4092-a786-73bc46feaf3e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:49:39.556151+00:00",
+  "body_sha256": "fb0ca9846085365e028cc7a270e14b4ba820e2b76b06791e05dd3465e298e2d0",
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 불완전 고주파 절제와 열 스트레스 위험 논의가 원인-결과로 이어져 요지·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The thyroid gland is a relatively",
+   "note": "해부학 제약→불완전 절제 흐름이 분명하고 수치는 걷어도 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71d7b1f5-4742-418e-9c3e-9a13efd395eb",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:39:55.527244+00:00",
+  "body_sha256": "6ed55a416de87b00e47c927738e8c0a0ada2247c4ba2a2ddec8938547df595dd",
+  "retention": "keep",
+  "genre": "science",
+  "why": "갈조류 푸코이단의 황산화 정도가 활성의 유일한 결정 요인은 아니라는 결과 절 논지가 요지·빈칸 칸이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although sulphation is often considered a",
+   "note": "종명·IC50 수치를 걷으면 「황산화는 중요하지만 유일하지 않다」 논지가 남는다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71e1abef-4d39-402e-85b5-ff6b36fe9169",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:17:03.067645+00:00",
+  "body_sha256": "57fe976b4b12a00c0fbe377341a552d24eb905342391f502e190b2956994baa2",
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 분자 모방·무질서 단백질 설명과 결론의 「모방 펩타이드가 숙주 기능을 바꾸지 못할 수 있다」가 요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Microorganisms might exhibit molecular mimicry with",
+   "note": "전문어(IDPR·MoRF)가 많아 두세 개 풀어도 V8 이하로 내리기 어렵다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71eace72-e153-4d74-89b7-a9a675703963",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:39:56.665401+00:00",
+  "body_sha256": "c3bd9b1144a54c4bdf946f0846592d873c47548d91d1b45aff5c633f8a98a679",
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 고지대 돼지 뇌하수체 적응 질문과 고찰의 「분비보다 조직 유지 우선」 해석이 요지·요약 칸이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Functional enrichment analyses collectively revealed a",
+   "note": "경로명 나열을 걷고 「에너지 절약 전략」 문장만 남기면 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71ed5289-2901-4abf-912e-1ffa74ad263e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:40:18.19155+00:00",
+  "body_sha256": "5393ee586dc1701bf4cce07990a524f8fa259983fbbe5d66e49779ec63416952",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 척수 손상 유형 설명과 고찰의 저체온 요법 논쟁 문단이 순서·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "insert",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The therapeutic benefits of inducing hypothermia",
+   "note": "저체온 효과가 논쟁적인 두 이유가 명시돼 떼어도 자족한다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71f62ede-adc2-4d08-86e5-712500850f12",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:42:33.092438+00:00",
+  "body_sha256": "fca538e8d46e9f05a43b2e82f228db1d60ef11fe3d2323e8472835f3fd3198a8",
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 능동 감각·자기 움직임 신호 억제 개념과 고찰 요약이 주제·빈칸 칸에 맞는다(방법 절 수식은 제외).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "During active sensation, movement attenuates the",
+   "note": "「재구심 신호」 같은 용어를 풀면 촉각 억제 논지가 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "71fd7358-1ffb-4778-9a2f-96ed20ea2c6e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:39:58.10727+00:00",
+  "body_sha256": "705d425fa126560cefed10e60fe9c6ed5f57011e287717f5f26a32904dcf4175",
+  "retention": "keep",
+  "genre": "science",
+  "why": "초록·고찰의 세포 키랄성 정의와 분화에 따른 방향 역전 발견이 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chirality is fundamentally defined as the",
+   "note": "키랄성 정의 문단은 떼어도 서고 세포주 이름만 걷으면 된다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "720e4236-c22d-4ccd-946e-e92bd618f3f0",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:26:17.358487+00:00",
+  "body_sha256": "c226752588ae9268a94501afbfd91febafefb35a684f640a28b7910819f340a7",
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 도시 폐수와 항생제 내성 확산 논지와 정책 함의 절이 주장·요지 칸을 채운다(결과 표는 제외).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Aquatic ecosystems are recognized as hotspots",
+   "note": "하천→농작물·식수 전파 경로가 문장으로 이어져 떼기 쉽다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "72365111-6d5b-4dfc-bf54-ca35f827c6f1",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T15:17:04.610697+00:00",
+  "body_sha256": "6fb012564ab0591a2b40aa165217280cfd9e600df8144bcc83f3004c0d7c0310",
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 나노초 전기 펄스가 약물 내성을 우회하는 원리 문단이 원인-결과 논지로 요지·빈칸 칸이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As a physical ablation energy, nsPEF",
+   "note": "막 파괴는 내성 기전으로 피할 수 없다는 논지가 수치 없이 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "723c8d93-b05e-495a-b91d-b77b1652e975",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:56:53.225984+00:00",
+  "body_sha256": "65e53996c766f1b87ec84d64418e75b5d60eed48ed48894b943b5d84cd617ecc",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 기생충 분비물이 숙주 면역을 조절한다는 설명과 고찰 문단이 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Unlike intra-cellular parasites which reside inside",
+   "note": "분비물이 숙주와의 소통 수단이라는 비유가 있어 가공이 쉽다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "72404975-1f8e-4be6-aeb7-b8eb56589f5d",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:02.838556+00:00",
+  "body_sha256": "dcb4db73ec7121f1bb8c496912ba6941daec374f0fafa9d28d81be8f7a4458b6",
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 필수 아미노산 결핍과 콜라겐 합성 연결 해석이 추론 흐름으로 요지·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Essential amino acids originate from diet",
+   "note": "소화 효소 부족→흡수 감소 인과가 짧게 이어져 자족한다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "724087e3-9563-465a-abef-4c36b4d91986",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:03.282307+00:00",
+  "body_sha256": "ca9e698b044c33e42df81383de7dc7a8efec402a2b9212bdb014eff44f8faf28",
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 팔미토일화와 골지 분류 설명과 고찰의 리소좀 융합 해석이 요약·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Palmitoylation is a reversible post-translational lipid",
+   "note": "효소 이름이 많아 어휘를 몇 개 바꿔도 밴드 하향 폭이 작다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "72602ffc-cae1-4a59-b841-09ea3b193441",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T06:42:12.347049+00:00",
+  "body_sha256": "e54543a58c600035640784d3d266ddea3b7474ef3eaa3b659c78703457387ca1",
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 맹그로브 생태 가치와 고찰의 오염 부지 균류 다양성 감소 논의가 주제·요지 칸이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mangrove forests are regarded as blue",
+   "note": "청색 탄소·방파 역할 설명이 쉬워 서론 문단이 그대로 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "72635343-c116-4b69-83cf-3f0d6e5409f6",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:05.784637+00:00",
+  "body_sha256": "15447518a192dda130f59f1f4d9fad139d3c67793db8080d383fca4e065f96e3",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 야간 인공조명·미세먼지와 심혈관 질환 문제 제기와 고찰 기전 문단이 요지 칸이다(본문 일부 문장 결함은 가공 때 걷는다).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Light pollution suppresses melatonin secretion via",
+   "note": "멜라토닌 억제→항산화 약화 흐름은 서나 동물 실험 수치는 걷어야 한다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "726367c1-b64e-45be-8dfd-cb6eb1c77a22",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T15:17:09.974496+00:00",
+  "body_sha256": "b8e48ed6a2a17c85f25b69e8df3fed2b242055bc05da166744b45dd7957b6aea",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 죽상경화 염증과 SGLT2 억제제 소개 문단이 주제·빈칸 칸을 채운다(유전자 목록 절은 제외).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Serving as a new class of anti-diabetic",
+   "note": "약물 도입 문단은 약어를 풀면 서지만 결과 절은 유전자 나열이다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "726a081a-c063-4fa1-b855-48cefa84fe3e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:07.234996+00:00",
+  "body_sha256": "bf5f2cee1beb21ffbf84f7ab7a00097129f953f07939770a3525b7a4d3388437",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 바이러스 감염과 장기 신경 후유증 문제 제기와 고찰의 해마 손상 해석이 요지·빈칸 칸이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Viral infections may lead to persistent",
+   "note": "서론 첫 문단은 고유명사 없이도 논지가 선다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "7274f9cb-a7eb-4391-b1ec-0f96c35b7267",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:08.692191+00:00",
+  "body_sha256": "966a8fe937a466279e41ad5e899120d7d4aa3699ddff19496d963c5c3ae37771",
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "서론의 우울증 이질성과 바이오마커 부재 문제, 고찰의 개인 맞춤 정밀 정신의학 논지가 주장·요지 칸이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The heterogeneity of depression has long",
+   "note": "「일률적 진단에서 하위유형으로」 대비가 뚜렷해 떼기 쉽다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ },
+ {
+  "id": "728490ed-3c06-4982-93c4-9695836252e5",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:40:10.083666+00:00",
+  "body_sha256": "7f61415eab7ef32c9e3b4a65d95e9d951864e00a636d6cec3e2dc2634433a460",
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 바이러스 감염 중 항생제 남용이 내성을 키운다는 논지와 고찰 문단이 주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The overuse of antibiotics, both in",
+   "note": "항생제 남용→내성 증가 인과가 일반 독자 수준으로 서술돼 있다."
+  },
+  "criteria_version": 6,
+  "round": 4
+ }
+]

@@ -1,0 +1,833 @@
+[
+  {
+    "id": "330b414f-5a9d-44a1-9604-00bf37389f6a",
+    "source_updated_at": "2026-09-25T07:31:48.768873+00:00",
+    "body_sha256": "6c6e1715c7eb5fc05f1eb79bafb492b9e9a81a16ae35dae5759440efe679759e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "미세아교세포 두 소집단이 같은 상류 신호로 함께 조절된다는 논지를 서론-고찰이 한 편으로 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Microglial activation in AD plays a dual",
+      "note": "유전자 약어(NEUD-MDL·Trem2)를 「특정 면역세포 집단」으로 바꾸면 논지가 서고, 수치는 걷어도 된다."
+    }
+  },
+  {
+    "id": "331fa9ba-217e-44fc-a27e-a4fdfbbd90b7",
+    "source_updated_at": "2026-09-25T07:31:52.990644+00:00",
+    "body_sha256": "40fefa92c2703c9fafef67a2086c590628855d70e67bc9fcd16241b4649822ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "나이와 적혈구 분포폭이 외상성 뇌손상 사망률에 각각 어떻게 작용하는지 매개 관계로 풀어 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Age is a well-established prognostic determinant",
+      "note": "고찰의 노화-염증 문단은 HR 수치를 빼도 인과 설명이 남는다."
+    }
+  },
+  {
+    "id": "33229085-cf39-4ede-82e5-65a70b9d4dcf",
+    "source_updated_at": "2026-09-13T07:16:38.953448+00:00",
+    "body_sha256": "3b1be2d1d6490919e0bca994e823286b3fb9543d9d04e694a18e19751dc724e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "감염 초기의 과도한 면역물질이 오히려 세균 정착과 폐 섬유화를 돕는다는 역설을 실험 순서대로 밝힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NTM can cause persistent infection and progressive",
+      "note": "균주명과 그림 번호가 문장마다 끼어 있어 걷어내는 손질이 필요하지만 논지는 남는다."
+    }
+  },
+  {
+    "id": "332955e8-212a-402b-b9e0-24d866295258",
+    "source_updated_at": "2026-09-13T07:35:07.63952+00:00",
+    "body_sha256": "461428c6ef276173258c942288f6f532c124821a3b0c275ef4a5c5889cb6ab7c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "심근 비대에서 칼륨 전류가 부위마다 다르게 줄어 부정맥이 생긴다는 설명이 고찰에서 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Under normal conditions, K+ channels are heterogeneously",
+      "note": "전기생리 기호(I to,f·V 1/2)가 논지의 뼈대라 쉬운 낱말로 못 바꾼다 — 성인 읽기 자료 칸만 남는다."
+    }
+  },
+  {
+    "id": "3341a9ff-af4f-4e7f-b11a-d3030ee4e66a",
+    "source_updated_at": "2026-09-25T07:31:54.91693+00:00",
+    "body_sha256": "774ff3d707d7d2f2b698a81c1864866ed623ce3f6f4f9070d6e773b91809cf24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "눈과 안와를 MRI로 자동 분할해 표준 지도를 만든 과정과 그 임상적 쓸모를 논지 있게 설명한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the World Health Organization (WHO)",
+      "note": "서론의 「눈 영상 기술의 한계」 문단은 지표 약어를 빼도 그대로 서는 설명문이다."
+    }
+  },
+  {
+    "id": "33428988-fb94-4dc5-8883-a48eef633ccd",
+    "source_updated_at": "2026-09-25T07:31:55.301458+00:00",
+    "body_sha256": "6757bd92a5c32536b66cc9abc4c741ae60f933c1375f18f26a04156bdc5d8e92",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "우울증 약을 패혈증 보조 치료로 돌려 쓴 무작위 시험의 결과와 한계를 차분히 짚는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the search for such therapies,",
+      "note": "「약물 재창출」 문단이 수치 없이도 완결돼 발췌가 쉽다."
+    }
+  },
+  {
+    "id": "336d07d7-8e40-4b65-93fd-457543156509",
+    "source_updated_at": "2026-09-25T07:32:00.907509+00:00",
+    "body_sha256": "3927b86deeb4a8f20346624e5226bf4742b5d64624abfeb8917c4645d1e680a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "주혈흡충 수컷의 생식 조절 수용체를 찾아 암수 상호작용까지 설명하며, 평이한 저자 요약을 따로 싣는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Research of the reproductive biology of schistosomes",
+      "note": "Author summary 절이 이미 쉬운 말로 다시 쓴 판이라 그대로 발췌 후보가 된다."
+    }
+  },
+  {
+    "id": "337d8d0a-3d2a-4fbe-a0f2-a7deab640db2",
+    "source_updated_at": "2026-09-13T07:41:47.64326+00:00",
+    "body_sha256": "a3eb9f9ad09422ba363e053151aae211d4b724a906f26e080f0f48ec3cfe0a1a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "장수 유전자를 과발현시키면 신경세포 분화는 늘고 성숙은 줄어든다는 엇갈린 결과를 단계별로 해석한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "About 3000–4000 new potential neurons are",
+      "note": "고찰 첫 문단은 숫자 두엇만 남기고 표지 단백질 이름을 걷으면 중등 상위까지 내려간다."
+    }
+  },
+  {
+    "id": "337f4c88-6846-4fe8-aed3-bc56157a2145",
+    "source_updated_at": "2026-09-13T06:05:30.260137+00:00",
+    "body_sha256": "9e86f748fb17b332d172d4282bd4481c4a3035fe6c0469c7e6bd159769cbdd66",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "기존 면역치료 표지자 하나만으로는 부족하다는 문제 제기와 보완 표지자 제안이 한 편의 논증으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our results suggest that CD274 (PD-L1) expression",
+      "note": "초록이 본문 앞에 한 번 더 통째로 반복돼 발췌 전에 한쪽을 지워야 한다."
+    }
+  },
+  {
+    "id": "339e40e0-5efc-4f91-9035-fbba499caf56",
+    "source_updated_at": "2026-09-13T06:46:19.096077+00:00",
+    "body_sha256": "3910adaa335bac1000fd228c51e0c33b2789df58da7910f67c7b298adc35d3b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "장알균의 항생제 내성을 조절하는 세 유전자가 서로 맞물려 작동한다는 것을 유전학과 생화학으로 가른다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Enterococci are commensal members of the gastrointestinal",
+      "note": "서론 첫 문단은 서지만, 결과 절은 균주 기호가 논지의 뼈대라 어휘를 낮출 수 없다."
+    }
+  },
+  {
+    "id": "33bf6b73-e892-419e-8d1e-1902e24acd3e",
+    "source_updated_at": "2026-09-13T06:25:52.757057+00:00",
+    "body_sha256": "98f3cd05cd43d9170b2cea163347dc5d01c7b84bb1bf27870877bf0a18faa2da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "죽순 부산물을 곰팡이로 발효해 반추동물 사료로 바꾸는 과정과 그 효과를 단계별로 설명한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bamboo shoots, cherished culinary delights in tropical",
+      "note": "서론의 폐기물 문제 제기는 표를 다 걷어도 서고, 효소명 두엇만 바꾸면 고1 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "33cf9914-4d19-4452-833f-51b21190797b",
+    "source_updated_at": "2026-09-25T07:32:07.60687+00:00",
+    "body_sha256": "4eb4e11cb8c1f0aefe1b5507cc7d9791192174e1ce9403883dfe0230401f83ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "요산 분해 효소의 면역 거부 문제를 세포 안에서 분해하는 방식으로 우회한다는 설계 논리가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hyperuricemia, defined as a serum uric acid",
+      "note": "고찰의 「수송-분해」 설계 설명은 그림 번호만 지우면 한 문단으로 완결된다."
+    }
+  },
+  {
+    "id": "33df1117-608e-4c10-91ff-b96711f4e363",
+    "source_updated_at": "2026-09-25T07:32:09.390437+00:00",
+    "body_sha256": "fc51b6a7b53f58e0dfe78d58b67ea08c3359ad81f39fcb54d90f9414ac50c266",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "중금속 해독제의 구조와 분해 경로를 계산과 질량분석으로 함께 규명하며, 약의 유래를 서론이 이야기로 푼다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "During World War II, the University of",
+      "note": "서론의 개발사 문단만 떼면 서지만, 결과 절은 수식이 「[수식]」로 빠져 있어 그대로는 못 쓴다."
+    }
+  },
+  {
+    "id": "33e20728-096f-499d-9393-094c9e669f6c",
+    "source_updated_at": "2026-09-13T06:43:57.245928+00:00",
+    "body_sha256": "ac0b0a10d44934b6fa8bef06bbc2ceac7e31c43fb811adfbcb4a1a37de96df1e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "갑상선암 세포에서 한 유전자를 눌렀을 때 증식·이동이 어떻게 달라지는지 실험 순서대로 보고한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thyroid cancer, particularly papillary thyroid carcinoma (PTC),",
+      "note": "고찰은 서지만 결과 절이 그림 설명문과 뒤섞여 있어 발췌 전에 갈라내야 한다."
+    }
+  },
+  {
+    "id": "33e28a68-18ed-4023-bd29-2691152c1a96",
+    "source_updated_at": "2026-09-13T05:59:20.477032+00:00",
+    "body_sha256": "a0aff5c1db78ee60a95197a3f26f991c1a31e6ef9bbf0dc28fdf83cafb8fe108",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "논지는 서지만 초록과 결과의 효과크기 값이 괄호만 남고 빠져 있어 수치 근거를 확인할 수 없다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Arthritis comprises a heterogeneous group of inflammatory",
+      "note": "「distinguishing inflammatory arthritis from OA ()」처럼 값이 빠진 자리가 초록·결과 전반에 있다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "33e2fd5b-84fe-4782-aee8-eff3873750bb",
+    "source_updated_at": "2026-09-25T07:32:10.575898+00:00",
+    "body_sha256": "6b950b436868e0ac2e24d17c1713d7dbbb91b03ebff21992f62a3050b89e1ca3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "항생제 내성에 맞서 원하는 성질의 항균 펩타이드를 만들어 내는 생성 모형의 설계와 검증을 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antibiotics, which are capable of inhibiting",
+      "note": "서론과 고찰은 그대로 서지만 방법 절은 수식이 「[수식]」로 빠져 있어 발췌 대상에서 뺀다."
+    }
+  },
+  {
+    "id": "33e8a239-bdcd-4314-8860-6af0073a2e6b",
+    "source_updated_at": "2026-09-25T07:32:12.302469+00:00",
+    "body_sha256": "6e605318f1cef8dfdbb6dae6575220b275998e860bbf1baf01b7e670924a5fc6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "항암제 내성과 상피-간엽 전이가 같은 것이 아님을 이식 실험으로 갈라 보이는 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chemoresistance remains a significant challenge in the",
+      "note": "고찰의 「줄기성과 내성」 문단은 표지 유전자 이름을 걷어도 대비 구조가 남는다."
+    }
+  },
+  {
+    "id": "33ee8231-9939-4458-8bba-06dd1b762cc3",
+    "source_updated_at": "2026-09-25T07:32:13.412418+00:00",
+    "body_sha256": "57b542086d199ecb37422371ce494ecc5f4b3b45f56e043c025751c746bd796d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "들쥐 암컷이 짝을 만나거나 교미했을 때 보상 회로의 시냅스가 어떻게 달라지는지 조건별로 대비한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prairie voles (Microtus ochrogaster) are socially monogamous",
+      "note": "세 집단 비교 구조가 뚜렷해 순서·빈칸 문항으로 쓰기 좋고, 가시 분류 용어만 풀어 주면 된다."
+    }
+  },
+  {
+    "id": "33f400e6-b945-40ac-8372-d82f57bef0ae",
+    "source_updated_at": "2026-09-25T07:32:14.740958+00:00",
+    "body_sha256": "b71883b04036b5b4901740c2701c3186c817226b80adbda9858a3f0a0a3cc2d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "뇌종양이 면역 보체를 어느 단계까지만 켜 두는지 데이터로 보이고 치료 표적 제안까지 논증한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A defining challenge of GBM is its",
+      "note": "서론의 면역 회피 설명은 유전자 기호를 걷어도 서고, 고찰은 찬반 두 전략을 나란히 놓아 대비가 분명하다."
+    }
+  },
+  {
+    "id": "34019ade-2127-42e9-b246-e5e4fbfff3d2",
+    "source_updated_at": "2026-09-13T07:39:09.691111+00:00",
+    "body_sha256": "379074d1adb7ac8baec21c70e36f74b79c6de49a6f86aaef85259d15e88e70c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "미세아교세포가 손상 신호를 칼슘 파동으로 주고받을 때 어떤 물질과 수용체가 쓰이는지 하나씩 배제해 간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ICWs appear to be a widespread phenomenon",
+      "note": "후보를 하나씩 지워 가는 고찰 구조가 그대로 논증 지문이 되고, 수용체 기호만 바꾸면 된다."
+    }
+  }
+]

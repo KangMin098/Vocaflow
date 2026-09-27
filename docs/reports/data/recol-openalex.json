@@ -1,0 +1,61 @@
+{
+  "out": {
+    "source": "openalex_ah",
+    "n": 2400,
+    "usable_abstracts": 1968,
+    "byWindow": {
+      "csat_short": 982,
+      "csat_long": 202,
+      "school_para": 1232,
+      "school_sent": 114
+    },
+    "coveredPct": 78.5,
+    "tooShort": 0,
+    "between": 358,
+    "above400": 65,
+    "spansPerLongDoc": 2.66,
+    "broken_abstract_pct": 18,
+    "license_distribution": {
+      "cc-by": 347408,
+      "cc-by-nc-nd": 133581,
+      "cc-by-nc": 96045,
+      "cc-by-sa": 77524,
+      "public-domain": 67179,
+      "other-oa": 64959,
+      "cc-by-nc-sa": 35137,
+      "cc-by-nd": 10135,
+      "mit": 1
+    },
+    "blockers": []
+  },
+  "detail": {
+    "unusable_total": 432,
+    "unusable_breakdown": {
+      "no_abstract": 208,
+      "position_gaps": 3,
+      "position_collisions": 0,
+      "lt10_words": 51,
+      "non_english": 27,
+      "spam_seo": 143
+    },
+    "reconstruction_failures": 262,
+    "content_pollution": 170,
+    "jats_tag_records": 0,
+    "records_with_multiword_tokens": 0,
+    "coveredPct_of_all_sampled": 64.4,
+    "wc": {
+      "min": 10,
+      "p10": 63,
+      "median": 160,
+      "p90": 283,
+      "max": 1490
+    },
+    "covered_count": 1545,
+    "long_docs": 65,
+    "long_spans_total": 173,
+    "est_usable_of_347408": 284875,
+    "est_covered_of_347408": 223644,
+    "license_population_total": 5497702,
+    "license_listed_sum": 831969
+  }
+}

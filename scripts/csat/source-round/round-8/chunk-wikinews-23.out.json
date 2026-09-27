@@ -1,0 +1,984 @@
+[
+ {
+  "id": "071c1bf4-bdb0-4c0f-a277-f832f81eb6ac",
+  "source_updated_at": "2026-09-25T08:09:38.635524+00:00",
+  "body_sha256": "a7c447a313ed3d7cccfdd486e5ad4e14b82b63df94422acafd040f2cb6b2103d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "모스크바 시장 폭탄 테러의 경위(가방 두고 도주→폭발)와 인종 범죄 수사가 이어져 고등 이상 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Around 10:30 AM, Vietnamese and Chinese",
+   "note": "사망자 묘사가 있어 고등 이상; 둘째 단락이 시간순으로 떼기 쉽다."
+  }
+ },
+ {
+  "id": "071e7c9b-8145-45eb-9941-8574100686b2",
+  "source_updated_at": "2026-09-25T08:11:47.068072+00:00",
+  "body_sha256": "e1b31894862bc586db15b14a1a780b4b705ba3ff3eceb775f6f4edccff03dbc5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "전사자 어머니 신디 시핸이 반전 운동을 그만두며 쓴 글의 절망과 이유가 인용으로 살아 심경·주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "mood",
+    "claim",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"…When I started to hold the",
+   "note": "「attention whore」 같은 표현은 가공 때 걷고 사직 이유 인용 단락을 쓴다."
+  }
+ },
+ {
+  "id": "0720b571-fd55-427c-98dc-bcf627725b22",
+  "source_updated_at": "2026-09-25T06:46:32.824448+00:00",
+  "body_sha256": "8b3929f52fb3f32b688998c27135eb4b3236f7ae28e2c8030d6aafd2c4e30053",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "런던 교외에서 주민을 덮친 대형 동물 사건과 경찰 수색·영국 대형 고양이 목격담이 이어져 순서·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Police organized a search in the",
+   "note": "마지막 목격 증가 단락이 통념-증거 구조로 떨어진다."
+  }
+ },
+ {
+  "id": "0721c1d6-4462-42e0-a7ec-1f1640f31f51",
+  "source_updated_at": "2026-09-25T07:58:47.752052+00:00",
+  "body_sha256": "f7379884424cf37d124e64b3fba58e3d551633cdbbeb33f3b97de05d553762cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "유럽사법재판소가 영국의 중국산 저가 수입 방치를 판결한 근거(최저가 지표 미사용·통제 부실)와 영국의 반박이 서서 주장·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The ECJ concluded the UK had",
+   "note": "기관 약어가 많아 풀어 써야 하지만 판결 근거 단락은 선다."
+  }
+ },
+ {
+  "id": "07228fd1-7d5a-4fff-8540-d3ffaff0e436",
+  "source_updated_at": "2026-09-25T07:37:03.992754+00:00",
+  "body_sha256": "6b40e6d6c9fc939a0fd103260dcc116b0812a83a37ee3e917cd6a2a303258fed",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "엠브라에르의 대규모 감원 발표와 수요 급감 이유·정부 반발이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The company described the decision as",
+   "note": "회사 설명 인용 단락이 이유를 담는다; 주가 수치는 걷는다."
+  }
+ },
+ {
+  "id": "07293d19-e58c-464c-8d08-782f8dce1a83",
+  "source_updated_at": "2026-09-25T07:33:22.90817+00:00",
+  "body_sha256": "d71250cef0b86462825dd4fd3837122819bb0b0d162c1cc097606de055ab1ad8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "science",
+  "why": "한국 KSTAR 토카막의 첫 플라스마와 핵융합 연구에서의 역할·자기장 봉입 원리가 설명으로 서서 주제·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "KSTAR requires 30 supercooled (-268°C) superconducting",
+   "note": "초고온 플라스마를 자기장으로 가두는 셋째 단락이 설명문으로 좋다."
+  }
+ },
+ {
+  "id": "072f1621-c984-4580-b1b5-732616557062",
+  "source_updated_at": "2026-09-25T07:58:47.801036+00:00",
+  "body_sha256": "7fd42652a4e530cde7d03cc64e6f356a04a205ca132e530fd0ccfe7ed51156d1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "레너드 펠티에 가석방 거부와 이를 두고 검찰·FBI와 지지자 측 주장이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A statement from the FBI released",
+   "note": "살인 사건 소재라 고등 이상; 양측 주장 단락이 짝으로 떨어진다."
+  }
+ },
+ {
+  "id": "073025b0-d504-4b5a-a9f5-8b90d87b98de",
+  "source_updated_at": "2026-09-25T08:04:25.534368+00:00",
+  "body_sha256": "5a12bdcbe3492a38dba1f2db1897e4e370cafc95436b2b79cc68f80da1aea38a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "암스테르담 반부시 시위 기사로 시위 규모와 시위대의 근거가 이어져 읽기 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many protesters consider Bush personally responsible",
+   "note": "고문 언급이 있어 고등 이상; 짧은 두 단락이 전부다."
+  }
+ },
+ {
+  "id": "07334bae-d153-4fef-838c-c432ec9dfb89",
+  "source_updated_at": "2026-09-25T07:05:53.704002+00:00",
+  "body_sha256": "b35d56a911a473f1ae10cac9b94d064a1bbf705dc8677a2bc39f265f53874fd0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "호주 첫 국내 테러 유죄 판결과 새 반테러법 적용이 이어지는 짧은 기사라 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Lodhi is the first person to",
+   "note": "「violent jihad」 판사 인용은 맥락 설명과 함께 둔다."
+  }
+ },
+ {
+  "id": "07344b56-77b3-46a9-9a21-ea294b775af3",
+  "source_updated_at": "2026-09-25T08:16:19.365771+00:00",
+  "body_sha256": "0114495dfc82cb0df66acdf3cf56c5a038a478043efa87a264a909da47fa5b58",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "파키스탄군이 영공을 넘은 미군 헬기에 사격한 경위와 양국 긴장이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A senior Pakistani security official described",
+   "note": "파키스탄 관리의 경위 인용이 순서 재료로도 쓰인다."
+  }
+ },
+ {
+  "id": "07396149-70da-4017-b982-feb15b1abfd2",
+  "source_updated_at": "2026-09-25T08:11:09.58948+00:00",
+  "body_sha256": "f837c1d9f8fe5f7c62bf1455062b5323f8416a334ff1554be9dac8769b8630a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "캐나다 대법원이 무기한 구금 반테러법을 위헌으로 판결한 내용과 그 법의 문제가 서서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The CSIS security certificates have caused",
+   "note": "피구금자 이름 나열 끝 단락은 걷는다."
+  }
+ },
+ {
+  "id": "0739c1d9-bbf4-4e24-88b8-23175ff92a5b",
+  "source_updated_at": "2026-09-25T07:45:39.184181+00:00",
+  "body_sha256": "a82de3d96719febc9401498cb3609c4f1dd5cdc88e3452bb0406cf0aac125134",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아랍연맹의 리비아 비행금지구역 요청과 회원국의 우려·서방의 조건이 대비돼 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to onlookers, some members of",
+   "note": "회원국 우려 단락이 이유 구조로 떨어진다."
+  }
+ },
+ {
+  "id": "0741ce3b-b10d-409c-9ab2-c5d4dfe70b28",
+  "source_updated_at": "2026-09-25T07:28:20.312656+00:00",
+  "body_sha256": "f13dd39dffbdda5053621d5bd2acaf26a5c653de066f640fca6756190e47d0e4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "부시의 중동 순방 목표(팔레스타인 국가 정의)와 일정이 발언으로 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"It's to give them confidence and",
+   "note": "국가 정의가 첫걸음이라는 인용 단락이 요지로 선다."
+  }
+ },
+ {
+  "id": "07435989-0770-4cdd-bd8d-9ec9aaf4ae99",
+  "source_updated_at": "2026-09-25T07:58:47.923256+00:00",
+  "body_sha256": "139af37b65e65db4396afbf5a1c2c54bdfaae4b508b1a6c09cb67701e7ba03f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "시리아 개입을 두고 두 학자가 문답으로 여론·의회 역할을 논하는 인터뷰라 주장·요약 칸을 채우고 구어 재료도 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "TS: Ultimately, I believe that the",
+   "note": "문답 형식이라 한 답변 단락(전쟁 피로)을 떼면 논지가 선다."
+  }
+ },
+ {
+  "id": "074681a2-cde7-40fd-8966-39bb02ca1e7d",
+  "source_updated_at": "2026-09-25T07:36:38.578293+00:00",
+  "body_sha256": "72f6e885ac0796ae4d7c031e2d7bf84d6423e05b93d6b4aae7f15eec5e36e923",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "키프로스가 무기 실은 선박을 억류한 경위와 정부의 신중한 태도가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On Friday, authorities in Cyprus said",
+   "note": "대통령 발언 인용 단락이 떼기 쉽다."
+  }
+ },
+ {
+  "id": "0746f1bf-6e27-4cf6-9f31-74ef51c85072",
+  "source_updated_at": "2026-09-25T08:14:26.547752+00:00",
+  "body_sha256": "bd35aed23ef3cedfa5108aeb7e45204b8b910280c07cc599a6526ee044cf7243",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "바스크 지방의원 피살 뒤 스페인 총리와 야당 대표가 선거 운동을 멈추고 ETA를 규탄한 발언이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "\"Those who carried out this attack",
+   "note": "피살 사건 자체 설명이 없어 가공 때 한 줄 보충이 필요하다."
+  }
+ },
+ {
+  "id": "074833dc-1b9f-4d55-9cd3-593b69e709d9",
+  "source_updated_at": "2026-09-25T07:50:19.485897+00:00",
+  "body_sha256": "e9c7995ca82a6f04982ef8af82a98d868ec523bbe1b9d15a1ef06046947869c9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "피지에서 침몰한 여객선의 사고와 스코틀랜드·뉴질랜드를 거친 이력이 시간순으로 서서 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Built in Norway, in service from",
+   "note": "선박 이력 단락이 시간순 순서 문항으로 좋다."
+  }
+ },
+ {
+  "id": "07498b35-7c56-49bc-a07c-b014c5ce0e25",
+  "source_updated_at": "2026-09-25T07:35:44.528813+00:00",
+  "body_sha256": "94410428005075964f3298d8eb23646e4dbcefeed2b95f8f81dd28770f1a62a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "영국 소매업체 울워스와 MFI의 파산 경위와 고용·경쟁에 미칠 영향이 서서 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Now the entirety of MFI is",
+   "note": "분석가 전망 단락이 단기-중기 대비를 담아 떼기 좋다."
+  }
+ },
+ {
+  "id": "07525ba4-0aca-4a9e-8e36-d8c00136cb67",
+  "source_updated_at": "2026-09-25T07:45:04.631733+00:00",
+  "body_sha256": "12276021521c07d5b18d208667d51d9ffcb531d3ee7f1f2dc26039b7797aeba8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "sports",
+  "why": "매몰됐던 칠레 광부가 뉴욕 마라톤을 완주하고 남긴 소감이 살아 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "mood",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"It was worthwhile for me to",
+   "note": "「나 자신과 싸웠다」 인용 단락이 심경 문항에 맞는다."
+  }
+ },
+ {
+  "id": "075de62a-7f56-44a1-a027-1576a087f064",
+  "source_updated_at": "2026-09-25T07:23:25.890711+00:00",
+  "body_sha256": "0a2d122145ac5b78d4fb2ba6479860bbe3bbe94fa2101ac4ca66c5d10c0236a1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "hold",
+  "genre": "news",
+  "why": "아라파트 HIV·독살설을 여러 출처 주장으로 늘어놓고 동성애를 추문의 전제로 깔아 편견(bias) 폐기와 보도 보관 사이에서 갈린다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Arafat died on November 11, 2004",
+   "note": "주장들을 걷으면 사실로 남는 것이 사망 일시뿐이라 가공이 애매하다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "075f1c1a-3d5a-4c53-8afb-2b167126d14e",
+  "source_updated_at": "2026-09-25T07:39:59.11102+00:00",
+  "body_sha256": "237701ade5afddd63791eed92d9b0bbb1324cf2827690ffe63b77ff032e88ed6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "오렌지의 아이폰 판매 계약이 O2 독점을 끝내고 가격 경쟁을 부를 것이라는 전망이 서서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Orange's entry could prove fruitful for",
+   "note": "가격 경쟁 전망 단락이 이유 구조로 떨어진다."
+  }
+ },
+ {
+  "id": "0760b23a-26ce-4be2-a2e6-d1d984d35105",
+  "source_updated_at": "2026-09-25T07:58:48.014897+00:00",
+  "body_sha256": "e64a466ccbed7f6cccb7e16e040edf287abb12c5fe84b5085433cb7950fd1792",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "전직 교도관의 수감자 성폭행 기소 기사로 혐의와 수사 경위가 짧게 이어져 성인 읽기 내용 일치 칸만 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The District Attorney's Office noted the",
+   "note": "성범죄 소재라 성인으로 제한; 혐의 목록 단락은 줄인다."
+  }
+ },
+ {
+  "id": "0760cfea-9f9f-4ed1-8fdc-15e07b68f66b",
+  "source_updated_at": "2026-09-25T07:23:03.946754+00:00",
+  "body_sha256": "79473dcfc4f4379f9512cdf63fafe480106b178daed81f88ecf649852978c1ce",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "남북 2차 정상회담 발표와 1차 회담·정전 상태 배경이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The two countries last held the",
+   "note": "배경 단락이 짧아 한국 학습자에게 친숙한 소재로 쉽게 떨어진다."
+  }
+ },
+ {
+  "id": "07619311-fa0b-4cef-ab95-459d9d002fb6",
+  "source_updated_at": "2026-09-25T08:11:30.98376+00:00",
+  "body_sha256": "3b374f0686f6a2d72f907bb16907bd1fa214758ab9c577ceab3232777c002c75",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "파키스탄 내무장관을 노린 자폭 공격과 목격자 증언이 이어져 고등 이상 읽기 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the Daily Times: “Sherpao",
+   "note": "사망자 다수 소재라 고등 이상; 목격 증언 단락이 떨어진다."
+  }
+ },
+ {
+  "id": "076311c0-d19a-42e2-ad94-e9ec1700d77d",
+  "source_updated_at": "2026-09-25T07:14:47.938069+00:00",
+  "body_sha256": "f1dbd7bf50d83f12fafee488079828605f042ddd2a8944123ac5725ab1b333e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "국제우주정거장 컴퓨터 고장으로 셔틀 임무 연장을 검토하는 경위와 산소 여유·귀환 선택지가 서서 삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is not known what caused",
+   "note": "재부팅이 통하지 않았다는 원인 단락이 떼기 쉽다."
+  }
+ }
+]

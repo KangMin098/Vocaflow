@@ -1,0 +1,522 @@
+[
+ {
+  "id": "4d534df3-ad55-4a3b-955d-6e2079d1da0d",
+  "source_updated_at": "2026-09-25T07:27:37.327951+00:00",
+  "body_sha256": "16bbfd3662391dc9d353cb20234bdf0affd6e44396e04cc8c2fe112cbae0f5d1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "history",
+  "why": "기후 변동이 1912~1949년 중국 남북 페스트에 다르게 작용했다는 논지를 고찰 4-1~4-3이 근거와 함께 잇는다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "summary", "blank", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence", "data-claim"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Time-coupling analysis reveals the critical",
+   "note": "q값·성 이름 나열을 걷어도 「강수 급변 뒤 1~2년 유행」 인과가 남는다."
+  }
+ },
+ {
+  "id": "4d5569ec-0843-4842-a6a5-e441deaf1522",
+  "source_updated_at": "2026-09-25T07:27:37.754257+00:00",
+  "body_sha256": "8623d5f21591df6276192c15069885b88c6c2db2341d3cd1e559e1d831be29ff",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "짧은 DNA 조각이 오미크론에만 듣는다는 발견을 가설-검증-반증 순으로 서술해 한 편의 논증이 선다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "order", "content_match"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Innate immunity serves as the first",
+   "note": "서론 셋째 단락은 약어(PRR·TLR)를 「감지 단백질」로 바꾸면 독립해서 읽힌다."
+  }
+ },
+ {
+  "id": "4d7e8ffc-9bc8-40d4-ae98-8d31b2fe64db",
+  "source_updated_at": "2026-09-25T07:27:39.475924+00:00",
+  "body_sha256": "47aa9c37b80e752d8b4c38096f26dca720a4a3fa7f6f850597563cfa3f5ba0bd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고령자 RSV 감시 공백이라는 문제 제기와 계절성·동반질환 해석이 고찰에서 하나의 주장으로 모인다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "summary", "content_match", "blank"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence", "data-claim"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "RSV epidemics demonstrate marked geographic variation",
+   "note": "신뢰구간·aPR 수치를 걷어도 「열 기준 감시가 고령 환자를 놓친다」는 흐름이 남는다."
+  }
+ },
+ {
+  "id": "4d84dc5f-f5e3-46ce-b4ae-1007e1a66f6b",
+  "source_updated_at": "2026-09-13T06:35:50.221844+00:00",
+  "body_sha256": "afacabe84e82402133f2e9a513feae89c06c8c2d9f86918c1247ba705d97b7ad",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "원격진료가 약물사용장애 환자에게 특히 이로운가를 당뇨 대조군과 견주어 따지는 사회과학 논증문이다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "claim", "summary", "blank"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite telehealth's potential advantages, we identify",
+   "note": "고찰의 「신중해야 할 이유」 단락은 표 참조 없이 그대로 선다."
+  }
+ },
+ {
+  "id": "4d8f1a7f-56c3-4837-8722-40c9b1c52f99",
+  "source_updated_at": "2026-09-25T07:27:40.227393+00:00",
+  "body_sha256": "972f2107d684e11d35979c2ed12854ac72c465e29106ee0db32691251542b972",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "빈대가 왜 자연 상태에서 샤가스병을 옮기지 않는가를 흡혈·배변 행동 관찰로 설명하는 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": ["high1", "high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "long_reference", "content_match", "blank"],
+   "levels": ["V5", "V6"],
+   "platform": ["claim-evidence", "myth-rebuttal"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The distinctively different feeding and defecation",
+   "note": "흡혈 536초·배변 79초라는 구체 관찰이 남아 서사형 지문으로도 쓰인다."
+  }
+ },
+ {
+  "id": "4d9dd192-ef5d-4932-a7a4-3fcddc5a84de",
+  "source_updated_at": "2026-09-25T07:27:41.036639+00:00",
+  "body_sha256": "3f35470cf9b765b4b5e72159f4cfeccf3648aeca3e0f9f1283707bcd9513c8f6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 숙주 유전자를 통째로 끄면서도 일부만 살려 둔다는 역설을 실험 순서대로 풀어낸다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "order"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Epstein-Barr virus establishes lifelong latent infection",
+   "note": "유전자 약어가 빽빽해 서론 첫 두 단락 밖에서는 어휘 조정이 어렵다."
+  }
+ },
+ {
+  "id": "4da2d195-7448-43d9-8cab-2c183e8668b9",
+  "source_updated_at": "2026-09-25T07:27:41.502244+00:00",
+  "body_sha256": "0bf48702d18e1bda6db53c2eb8400fb9141f840ecb99f28e4185c9ce8a9890a8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기생충이 숙주에서 못 얻는 물질을 스스로 만들어야 한다는 점을 약물 표적 논의로 잇는 서론이 자족적이다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "content_match"],
+   "levels": ["V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The transition from a free-living to",
+   "note": "효소 약어를 「합성 효소」로 바꾸면 기생 생활사 논지가 그대로 선다."
+  }
+ },
+ {
+  "id": "4dab0dda-154b-4a68-8e39-8666627df74c",
+  "source_updated_at": "2026-09-25T07:27:43.440686+00:00",
+  "body_sha256": "180eef38dbaf0a57c88c0363017e9cc593117ef5ba92a21327bde30cb025d6c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "중환자실 근력저하에서 기계적 자극 감지가 핵심인지 묻고 가설이 기각되는 과정을 서론-결론이 잇는다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "claim", "blank"],
+   "levels": ["V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The majority of critically ill patients",
+   "note": "초록은 약어 덩어리라 못 쓰고, 서론 첫 세 단락만 발췌 대상이다."
+  }
+ },
+ {
+  "id": "4db767bf-8401-40c5-8a06-4cee9811c4d0",
+  "source_updated_at": "2026-09-13T06:30:22.674536+00:00",
+  "body_sha256": "b147ea87624c573836ebd73c40f372cfa77ba7731900316537aba736f265f687",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "값싼 심전도로 심부전 유형을 가를 수 있는가라는 물음과 하루 주기 성능 차이 해석이 고찰에서 논지로 선다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "summary", "blank", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Electrocardiography serves as a valuable adjunct",
+   "note": "하이퍼파라미터 표는 통째로 걷어야 하고, 서론·고찰만 쓸 수 있다."
+  }
+ },
+ {
+  "id": "4dd0ebe5-c9f5-4557-838f-22609dee6d59",
+  "source_updated_at": "2026-09-25T07:27:48.139723+00:00",
+  "body_sha256": "2a6dea77effd177ab3e61a5a848dc9d133eb1a4a4673add8616c7a59dcfae7f9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "같은 라임병인데 왜 어떤 환자만 전신으로 퍼지는가를 세균 표면 단백질 변이로 설명하려는 논지가 뚜렷하다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "blank", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Lyme disease is an emerging infectious",
+   "note": "저자 요약 단락은 단백질 이름만 「표면 단백질」로 바꾸면 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "4ddc407a-77d4-4f3d-8cb9-76025e998d05",
+  "source_updated_at": "2026-09-13T06:50:02.930779+00:00",
+  "body_sha256": "142fdc8e98eea37b0d49fe197ca42f92af8f69df0cb16c358dbf08584c469565",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세포가 죽음으로 가는 마지막 관문을 한 단백질이 막아 암이 된다는 가설을 세우고 검증 실험으로 잇는다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "claim", "blank"],
+   "levels": ["V7", "V8"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "An intriguing possibility is that TTLL12",
+   "note": "고찰의 「마지막 관문」 단락은 독립하나 항체·시약 이름이 많아 어휘 하향이 어렵다."
+  }
+ },
+ {
+  "id": "4de6a972-08ac-4cd4-8a14-0727522f081c",
+  "source_updated_at": "2026-09-15T14:59:16.958342+00:00",
+  "body_sha256": "a0577f358cec3ff7df03faad362cc070f5bb050a771a91cf194c1b69da7125ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "관 하나로 검사와 시술을 함께 하면 몇 분을 줄이고 그 몇 분이 왜 중요한가를 자원 제약 맥락으로 잇는다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "claim", "summary", "blank"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While the 7-minute reduction in FluTD",
+   "note": "비용 절감 단락은 환율·품목명을 걷어도 「적은 시간이 큰 차이」 논지가 남는다."
+  }
+ },
+ {
+  "id": "4dec75d2-ef5d-420b-a247-c7a2e7894862",
+  "source_updated_at": "2026-09-08T05:53:19.850771+00:00",
+  "body_sha256": "dbee50165eb266c263ee8271ced830387c2266e7c8e70e757703bb3e30e87752",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "식물은 움직일 수 없어 2차 대사로 스트레스를 견딘다는 원리를 재배 약재 품질 문제와 연결한다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "blank", "summary", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Plants cannot move and often face",
+   "note": "고찰의 「식물이 왜 살아남는가」 단락은 효소 약어만 풀면 중등 상위까지 내려간다."
+  }
+ },
+ {
+  "id": "4ded03c1-59b5-432f-94d5-de91dda7cccc",
+  "source_updated_at": "2026-09-13T07:42:01.445452+00:00",
+  "body_sha256": "cee659325cfc162f08e2f551ddd5b4aa9e2538b04aa0b4fc431844c60ae5c0a4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "시냅스가 줄었는데 오히려 방출이 늘었다는 뜻밖의 결과를 보상 가설로 풀어 가는 고찰이 자족적이다.",
+  "slots": {
+   "ages": ["high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "content_match"],
+   "levels": ["V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "To our surprise, we observed augmented",
+   "note": "유전자 표기(tardbp Y220X)가 문장마다 들어 있어 어휘 하향이 막힌다."
+  }
+ },
+ {
+  "id": "4dfc3737-3452-4467-a50c-c9a0cda042dc",
+  "source_updated_at": "2026-09-15T14:59:18.945415+00:00",
+  "body_sha256": "cca53b84ed9c302d6e8abcacc9725a46bc1ab1b08b3c60f4a5f0c0a89c22bc5e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "가뭄·염분·중금속이 식물에 같은 방식으로 해를 끼친다는 서론의 설명이 한 편의 글로 선다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "reading"],
+   "types": ["topic", "blank", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Climate change brings about various environmental",
+   "note": "유전자 번호 나열(HanMATE18/34)은 걷어야 하고 서론 첫 두 단락만 쓸 만하다."
+  }
+ },
+ {
+  "id": "4e080f1a-e5ea-4dac-87b4-f1d236b59305",
+  "source_updated_at": "2026-09-25T07:27:53.124443+00:00",
+  "body_sha256": "e8835c82bbb4e0d526cd2d11f08e5290b88899580c798daca00e64cdabcfb706",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "education",
+  "why": "팬데믹이 교사의 효능감·기술 활용 격차를 소득 수준에 따라 어떻게 벌렸는가를 이론틀로 묶어 논한다.",
+  "slots": {
+   "ages": ["high1", "high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "school", "reading"],
+   "types": ["topic", "claim", "summary", "blank", "irrelevant"],
+   "levels": ["V5", "V6"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The COVID-19 pandemic served as a",
+   "note": "약어(TE·JS·UIT)만 풀어 주면 고1 밴드까지 내려가는 드문 인문·교육 지문이다."
+  }
+ },
+ {
+  "id": "4e1b9abf-af9d-40db-ab08-fe1ba4b8a066",
+  "source_updated_at": "2026-09-25T07:27:55.990422+00:00",
+  "body_sha256": "4f5f6fcaaa87de8aae94a70f484a2b48936bd57df7519aa07b46cbdf09f413dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "친환경 합성이 정말 값싸고 나은가라는 통념 점검을 은 나노입자 비교로 세우는 서론이 논증형이다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "claim", "blank", "content_match"],
+   "levels": ["V6", "V7"],
+   "platform": ["myth-rebuttal", "claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As humanity endeavors to mitigate pollution",
+   "note": "고대 은 사용 사례 단락이 도입으로 좋고, 장비 이름은 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "4e2e100a-d75d-4fa3-9382-2275b5f4dedd",
+  "source_updated_at": "2026-09-25T07:27:56.84225+00:00",
+  "body_sha256": "3b84d60f16884d80488c0b664617b31643ab9af21e18eb9614f57de30edc61a8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "새 항생제를 만드는 대신 기존 약을 짝지어 쓰자는 주장을 내성 확산 통계와 실험으로 뒷받침한다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "claim", "blank", "summary"],
+   "levels": ["V6", "V7"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Antimicrobial resistance has emerged as a",
+   "note": "약물 약어(ERV·AMK)를 풀어 쓰면 서론 두 단락이 그대로 지문이 된다."
+  }
+ },
+ {
+  "id": "4e3013b3-6645-435c-9fee-f2eacb841bab",
+  "source_updated_at": "2026-09-15T14:59:26.038894+00:00",
+  "body_sha256": "f0d51885a421855affa545063200cd1e1cdbd14a065cd22daba78e187fa29c04",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수술 뒤 회복실 산소 공급 방식을 바꾸면 폐 합병증이 주는지 무작위 비교로 답하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": ["high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "content_match", "summary"],
+   "levels": ["V6"],
+   "platform": ["data-claim"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Esophageal cancer surgery frequently leads to",
+   "note": "수치 대비가 뼈대라 내용 일치 쪽이 맞고, 논지형으로 쓰려면 다시 써야 한다."
+  }
+ },
+ {
+  "id": "4e33e9ea-e200-4d29-98a4-6c54709c0ac5",
+  "source_updated_at": "2026-09-25T07:27:57.207098+00:00",
+  "body_sha256": "3e8493951f71008a3c1c81f8397ba02c8589403150363bb09faa1b60583d2428",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "도시 안에서 불이익이 한곳에 겹친다는 문제의식을 취약성 지표 설계로 잇는 서론이 자족적이다.",
+  "slots": {
+   "ages": ["high1", "high2", "high3", "adult"],
+   "purposes": ["csat", "mock", "reading"],
+   "types": ["topic", "claim", "summary", "blank"],
+   "levels": ["V5", "V6"],
+   "platform": ["claim-evidence"]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Health inequalities in cities arise from",
+   "note": "칼리의 구(comuna) 번호만 걷으면 도시 불평등 일반론으로 읽힌다."
+  }
+ }
+]

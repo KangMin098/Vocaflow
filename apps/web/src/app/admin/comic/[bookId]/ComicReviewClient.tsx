@@ -162,7 +162,7 @@ export function ComicReviewClient({
           {vLevel != null && (
             <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[11px] text-[var(--t2)]">V{vLevel}</span>
           )}
-          <Link href={`/admin/comic/${bookId}/drain`} className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `${ACCENT}55`, color: ACCENT }}>
+          <Link href={`/admin/comic/${bookId}/drain`} className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[700]" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 33.3%, transparent)`, color: ACCENT }}>
             <Cpu size={12} /> 드레인 관측 →
           </Link>
         </div>
@@ -214,7 +214,7 @@ export function ComicReviewClient({
                   className="inline-flex items-center gap-2 whitespace-nowrap rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700] transition-all"
                   style={
                     active
-                      ? { backgroundColor: m.tone, color: '#fff' }
+                      ? { backgroundColor: m.tone, color: 'var(--on-semantic)' }
                       : done
                         ? { color: m.tone, backgroundColor: `color-mix(in srgb, ${m.tone} 12%, transparent)` }
                         : { color: 'var(--t3)', backgroundColor: 'var(--bg2)' }
@@ -242,7 +242,7 @@ export function ComicReviewClient({
               <ChevronRight size={14} className="shrink-0 text-[var(--t2)]" />
               <span
                 className="inline-flex items-center gap-1.5 rounded-[var(--r-full)] px-3 py-1 font-display text-[12px] font-[700]"
-                style={{ backgroundColor: STAGE_META.failed.tone, color: '#fff' }}
+                style={{ backgroundColor: STAGE_META.failed.tone, color: 'var(--on-semantic)' }}
               >
                 <XCircle size={12} /> {STAGE_META.failed.label}
               </span>
@@ -354,7 +354,7 @@ export function ComicReviewClient({
 
       {/* QC 상세 — 어떤 컷/규칙이 실패했는지 (발행/보완 판단 근거) */}
       {(verbatimN > 0 || ruleN > 0) && (
-        <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[var(--memory-shaky)]/40 bg-[color-mix(in_srgb,var(--memory-shaky)_7%,transparent)] p-4">
+        <div className="flex flex-col gap-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--memory-shaky)_40%,transparent)] bg-[color-mix(in_srgb,var(--memory-shaky)_7%,transparent)] p-4">
           {verbatimN > 0 && (
             <div>
               <p className="mb-1 font-display text-[12px] font-[700] text-[var(--memory-risk)]">정본 불일치 {verbatimN}건</p>
@@ -384,7 +384,7 @@ export function ComicReviewClient({
 
       {/* 단어장 정합 — 발행 차단은 아니지만, 고아 단어는 만화→FSRS 승계가 끊긴 상태라 고쳐야 한다 */}
       {!vocabUnknown && orphanN > 0 && vocabIntegrity && (
-        <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--memory-shaky)]/40 bg-[color-mix(in_srgb,var(--memory-shaky)_7%,transparent)] p-4">
+        <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--memory-shaky)_40%,transparent)] bg-[color-mix(in_srgb,var(--memory-shaky)_7%,transparent)] p-4">
           <p className="font-display text-[12px] font-[700] text-[var(--memory-shaky)]">
             챕터 단어장에 없는 단어 {orphanN}개 (표면화 {vocabIntegrity.total} · 일치{' '}
             {vocabIntegrity.matched})
@@ -494,7 +494,7 @@ function Btn({
       className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border px-4 py-2 font-display text-[12px] font-[700] transition-all disabled:opacity-40"
       style={
         primary
-          ? { backgroundColor: ACCENT, color: '#fff', borderColor: ACCENT }
+          ? { backgroundColor: ACCENT, color: 'var(--on-p)', borderColor: ACCENT }
           : { color: tone ?? 'var(--t2)', borderColor: 'var(--bd)', backgroundColor: 'var(--bg)' }
       }
     >

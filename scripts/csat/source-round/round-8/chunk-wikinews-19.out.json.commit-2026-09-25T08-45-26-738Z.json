@@ -1,0 +1,1824 @@
+[
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05c3e7de-080e-4915-a2ea-e2646abbebad",
+    "revision": "2026-09-25T08:10:45.474603+00:00",
+    "body_sha256": "1a837e315445f7fd18d5ed5aeaf1a89e255ffe2db81c8471a1d7986bb6e80be2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "탈레반 고위 지휘관 공습 사망 발표와 「큰 손실」 평가, 탈레반의 생존 주장·미군의 확인 지연 해명이 맞서 고1 이상 내용 일치·주장 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Taliban spokesman Qari Yousef Ahmadi, however,",
+          "note": "사망 주장과 부인, 확인 지연 이유가 한 문단에 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.741Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Taliban_leader_Mullah_Akhtar_Mohammad_Osmani_killed_in_airstrike",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.218,
+          "words": 193,
+          "english": 0.418
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05c3fc26-71cb-4cf8-a0b0-6ebc3319d0a0",
+    "revision": "2026-09-25T07:51:34.841068+00:00",
+    "body_sha256": "48f89e97616533cf030a4db4d5cd33c0bf4807dfa0e2c59a45e357804b8fc102",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고대 화성 지하에서 방사선 분해로 생긴 수소가 미생물을 먹여 살릴 수 있었다는 연구와 세 단계 추정 방법, 지구 지하 생태계 비교가 이어져 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In subterranean environments on Earth called",
+          "note": "광합성 대신 전자를 얻는 생태계 문단이 떼어지고 radiolysis·reductants 를 풀면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.742Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Study_suggests_Mars_hosted_life-sustaining_habitat_for_millions_of_years",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.327
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05c55347-566b-453f-bafe-13234412886d",
+    "revision": "2026-09-25T07:48:43.078321+00:00",
+    "body_sha256": "f0430b06819f9d42af489aaf19aa0020871552f4c59f2fff334026f998d7a400",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "우루과이 상원의 동성혼 합법화 표결과 「자유와 정의」 논거, 결혼 최소 연령 상향 등 함께 바뀌는 규정이 이어져 주장·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rafael Michelini, a senator that supports",
+          "note": "자유·정의 두 근거가 한 인용에 짝으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.742Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Uruguay_Senate_gives_green_light_for_same-sex_marriage",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.384
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05cd2ad3-d15a-41ea-a914-efa709cebd88",
+    "revision": "2026-09-25T07:31:52.156661+00:00",
+    "body_sha256": "0107b220c7d66016d72e67b27e608155add8d7929154a434cacd536f81a41811",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "사이클론 나르기스 피해를 키운 두 요인(경보 무시·맹그로브 파괴)과 아시아 사이클론이 약해도 더 치명적인 이유가 논지로 서서 주제·요지·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mohanty says that the Atlantic coast",
+          "note": "대서양 대 아시아 해안 대비 문단이 원인 설명으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ignored_warnings_'worsened'_situation_in_Myanmar",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05d0301d-c0e0-461b-9e16-c87eedf79036",
+    "revision": "2026-09-25T07:02:52.894433+00:00",
+    "body_sha256": "d0ba57780161e1c16d35247f054246f30f765e1f8606e92f94f8c330164b2f68",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "원시림 목재칩 수출에 반대하는 집회와 반대 논거(공공 자원 희생·보조금·조림지 대체 가능)가 이어져 주장·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The protesters sought to highlight the",
+          "note": "다른 나라는 조림지를 쓴다는 대비가 주장의 근거로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rally_in_Australian_forests_to_oppose_woodchip_industry",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05d0d8f6-1b3d-4948-b2cb-91f960cc39c7",
+    "revision": "2026-09-25T07:37:34.415516+00:00",
+    "body_sha256": "b0e1c723d94df366fbc3c2f55ef9c2a553983036a9cd491b6606d9957a9482e1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "새벽 토네이도로 마을과 100년 된 교회가 무너진 피해와 주민·신도의 말이 이어져 심경·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Eleven homes and businesses were damaged",
+          "note": "「교회는 사람들이라 여기 있다」 인용이 심경 재료로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tornadoes_rampage_through_Mississippi",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05dc87aa-e170-4652-8c6f-1d26932d96d9",
+    "revision": "2026-09-25T07:52:56.90945+00:00",
+    "body_sha256": "b7e4703bc5364abe88b92106fd28cc3fe6704261fcce5eb69b1de4b1434a583c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "예멘 내전 양측의 유엔 중재 포로 교환 경과와 석방자, 이전 협상과 대리전 배경이 이어져 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "March negotiations near Bern, Switzerland produced",
+          "note": "협상→교환→추가 회담 순서가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Prisoner_exchange_in_Yemen_ends_after_freeing_over_800",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.292
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05e5e09e-4798-4667-8612-6b36ff584ca9",
+    "revision": "2026-09-25T08:09:17.348919+00:00",
+    "body_sha256": "01b50ffffcdb62ac786939b0f28fadcddac44b9c87dbcaf12100f113037f0b1a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "여섯 차례 경고에도 유엔 감시 초소가 폭격된 경위와 「고의」 대 「실수」를 두고 유엔·이스라엘·각국이 맞선 반응이 길게 이어져 고2 이상 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Irish Foreign Minister Dermot Ahern said",
+          "note": "소제목 조각(「Prime Minister」 등)을 걷고 반응을 줄여야 하며 양측 입장 대비는 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Despite_6_warnings_Israel_bombed_and_killed_4_UN_observers",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05e5e9b3-5ab8-4adc-a914-62b90a140738",
+    "revision": "2026-09-25T07:52:33.422156+00:00",
+    "body_sha256": "4510cfe1eb94d46718169ca3bd83cb349d8184b14f2cdd1cc3cefefcfbff13ae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "글래스고 기후 합의가 석탄 감축을 처음 명시했지만 개도국 반발로 「폐지」가 「감축」으로 약해진 경위와 1.5도 목표 논쟁이 논지로 서서 주제·요지·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Though it was initially planned for",
+          "note": "개도국의 빈곤 퇴치 논리가 약화의 이유로 한 문단에 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Glasgow_Climate_Pact_deal_struck%3B_nations_to_reduce_coal_usage",
+          "year": 2021,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.359
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05e8943e-7911-4fa7-94dd-e7d3faa323ac",
+    "revision": "2026-09-25T07:55:14.195557+00:00",
+    "body_sha256": "779592eaea84d2f66b8de1fdfa83303400012ca19b86f9cfeb23f8daf15cfeac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "배우 겸 가수의 테마파크 공연 소식과 경력, 공원 개장 소식이 이어진 짧은 기사로 쉬운 내용 일치 칸 하나가 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Romano has performed Belle in Beauty",
+          "note": "경력 나열에 가까워 논지는 없고 사실 확인 문항만 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_attends_Christy_Carlson_Romano_concert_in_Sesame_Place",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.545,
+          "words": 154,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05eb86f9-c2f7-4cf2-b6dc-4cc29770ca9b",
+    "revision": "2026-09-25T08:11:53.358711+00:00",
+    "body_sha256": "008c67272c141a3666ca35df3dd81dd354e6ed0f36e9ad28abceb94ba68359ba",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "원격 지뢰 폭발로 군인이 숨진 사건과 PKK 배후 지목, 군 지휘부의 대응 성명이 이어진 짧은 고1 이상 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At least 3 soldiers of the",
+          "note": "폭발→후송→성명 순서가 짧게 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Land_mine_explodes_in_Siirt%2C_Turkey_killing_three_soldiers%2C_injuring_six_others",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.556,
+          "words": 108,
+          "english": 0.377
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05ef83e4-4805-48e6-bec5-b19d0570ca6c",
+    "revision": "2026-09-25T07:53:32.67858+00:00",
+    "body_sha256": "8670fbbc173aa3a58bb7f109ebcb8876b64d9963389996c172639e4320109c41",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "트레일러 사고로 핫도그 수천 개가 고속도로에 쏟아진 경위와 갈퀴·로더까지 동원한 청소, 소방대장의 「핫도그는 미끄럽다」 입담이 이어져 쉬운 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cleanup efforts extended into the late",
+          "note": "청소 과정 문단이 순서대로 서고 재미가 있어 중등 읽기에 맞다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Several_people_hospitalized_after_thousands_of_hotdogs_spill_following_collision_on_interstate_in_Pennsylvania",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05f0825b-d0d5-4d14-9e13-e19104f50a69",
+    "revision": "2026-09-25T07:31:38.960025+00:00",
+    "body_sha256": "e4b287f461b32e6c12bf550bf62e28cf95f3e801ad9349bd9b8493133b51e7f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "mixed",
+        "why": "브리스톨 택시 파업·가스관 협상·부시 순방·아내 살해 유죄 평결 등 무관한 단신이 「Sources」 줄과 섞여 한 편의 글로 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "A jury in California, United States,",
+          "note": "살해 평결 단신 하나만 떼면 다섯 문장이라 원천 단위로는 가공할 것이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts%3A_April_28%2C_2008",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.614,
+          "words": 197,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05f66e37-0d3e-4bcc-ae3b-0bc3a2a6bd1d",
+    "revision": "2026-09-25T07:34:00.425947+00:00",
+    "body_sha256": "9fb39b370fd4a960265c01b8068aa294d3bf5b7d8517c540c8e39ad80dcf18f6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "가톨릭 기숙학교 과거 성학대 의혹의 수사 확대와 경찰·교장의 대응이 이어져 내용 일치 칸이 되지만 학대 묘사가 구체적이라 성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Police have appealed for victims to",
+          "note": "경찰·학교 대응 문단은 서지만 피해 묘사 문단은 걷어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oldest_Catholic_boarding_school_in_Australia_at_centre_of_child-sex_claims",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "05f7bd0e-803c-41e9-ae63-0cced389b636",
+    "revision": "2026-09-25T07:51:37.913269+00:00",
+    "body_sha256": "1d1d5c4d44983b4c02341792f797afd77c13fc4fcbc5b8603c6bb53747d3ddef",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "브렉시트 합의안 의회 토론 시작과 메이 총리의 「탁자를 쳤다면 더 잘했다 할 것」 발언이 이어져 짧은 내용 일치·심경 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In a statement to the House",
+          "note": "총리 인용이 협상의 고충을 드러내 심경 문항 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_Parliament_begins_debate_on_Brexit_deal",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.268,
+          "words": 164,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "0601e9d6-3e03-4313-96e1-b964026eb7d2",
+    "revision": "2026-09-25T07:06:57.478547+00:00",
+    "body_sha256": "b5f8d610982aa869cb8455e547bd6f0d70ca81af4be29a2a6b5123719d38faf9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "포경 수술이 성병 감염을 절반으로 줄인다는 25년 추적 연구와 찬반 학회·인권 단체 입장이 맞서 주장·주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The current study has made some",
+          "note": "연구 결과→학회 반대→입장 재검토 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_study_finds_circumcision_cuts_STD_infection_rate",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "06036f7c-ea6c-43b9-83fa-b1b52733d79c",
+    "revision": "2026-09-25T07:05:16.342404+00:00",
+    "body_sha256": "c8d417a2fa343eca2a46ca281f2aa88997c3d1ccfb134e8932d4dbdcb766620f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "연쇄살인 현장 수색에 투입된 인력이 상담을 받은 사실과 감염 우려에 따른 안전 조치가 이어져 성인 칸의 내용 일치 하나가 된다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "\"Water and soil analysis had to",
+          "note": "수색 안전 조치 문단은 서지만 사건 배경이 참혹해 성인 칸만 단다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Searchers_of_pig_farm_for_pig_digested_human_remains_receive_counseling",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.938,
+          "words": 162,
+          "english": 0.409
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "0608081b-48ee-4804-91ce-1277bf4e7a17",
+    "revision": "2026-09-25T05:30:30.55432+00:00",
+    "body_sha256": "1b6849ddd1af1de602e0c0a40bbc38040a4b0b198d6a1225aef8b0f7c8362706",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "바호주 집행위원장이 정치 위기 속 포르투갈 헌법 국민투표를 권하지 않은 발언과 조기 총선 경위가 이어져 고2 이상 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Barroso was the former Prime Minister",
+          "note": "인물 관계가 얽혀 걷으면 맥락이 흐려진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/E.C._President_does_not_advise_Portuguese_referendum_in_light_of_current_crisis",
+          "year": 2004,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "06082477-d657-481b-850f-9c2d2c0ad00a",
+    "revision": "2026-09-25T06:50:22.364238+00:00",
+    "body_sha256": "0dc11343d21b13ad52dade8747c4baad07953dbcc91b35fe8cd39593951a2489",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "자전거로 30일 만에 캐나다를 횡단해 케냐 고아원 기금을 모은 사연과 거리에서 자란 설립자의 이야기가 이어져 내용 일치·심경 칸이 된다(지명 하나가 빠져 있다).",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "MCF, or Mully Children's Family, was",
+          "note": "설립자 사연 문단이 앞 문맥 없이 서고 끝의 기부 안내 줄은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cyclist_crosses_Canada_in_30_days_for_orphans",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.319,
+          "words": 188,
+          "english": 0.344
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "0608d079-1716-4318-92c4-5021910dd3a7",
+    "revision": "2026-09-25T08:06:16.548746+00:00",
+    "body_sha256": "cf24349bceb139416b60841407ef95375061f75bda9fa01df0256223fc24caf9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "콜롬비아 헌재의 대통령 연임 허용 판결과 절차 하자 논쟁, 지지·반대 인사들의 평가가 길게 이어져 고2 이상 주장·요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Uribe's opponents consider that the reform",
+          "note": "반대 논거 문단은 서지만 뒤의 인사별 인용 나열은 걷어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Colombian_Constitutional_Court_passes_presidential_re-election",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.408
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "06094652-3ca5-4ed4-8b2a-9b7001fa3d4f",
+    "revision": "2026-09-25T06:56:20.658529+00:00",
+    "body_sha256": "f557d9ed4edcfae35c1814e5e2fc17f183ff186e6161081a04b71779a9ec4424",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "사형수와 가족의 마지막 포옹을 불허한 싱가포르의 논리와 호주 외무장관의 반박, 사형 반대 집회가 이어져 고1 이상 주장·심경·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "mood",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In response, Australia’s Foreign Minister, Alexander",
+          "note": "「가장 큰 불안정은 생명을 빼앗기는 것」 반박이 주장으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.744Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/No_final_embrace_for_condemned_man",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.397
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "060c8b2f-8fb3-40d6-a9eb-610d95a2efe7",
+    "revision": "2026-09-25T06:55:03.295242+00:00",
+    "body_sha256": "972b8cf68f3a2a0421489905870d38c294800689b5dfdcfd41799ee4c1113e14",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "사우디의 블로그·사진 공유 사이트 차단과 필터링 방식, 국경없는기자회의 우려, 일부 복구가 이어져 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the past, the ISU had,",
+          "note": "과거 부분 차단과 이번 전면 차단 대비가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.744Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Saudi_Arabia_blocks_access_to_Blogger%2C_Flickr%2C_LiveJournal",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.263,
+          "words": 190,
+          "english": 0.316
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "060d49ab-138f-4602-a42f-54f8062d369b",
+    "revision": "2026-09-25T08:31:26.321743+00:00",
+    "body_sha256": "dddaf71a1d96b02cb16dc8901260d754aadf8ba0261c50c9e21edd84a7f3aecc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "다르푸르 부족과 남수단군 충돌 사망과 누가 먼저 공격했는지를 두고 엇갈린 양측 주장이 짧게 서서 고1 이상 내용 일치·주장 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The South Sudanese army, however, responded",
+          "note": "물·목초지를 찾던 중이라는 배경과 반박이 짝으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.744Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Spokesman%3A_At_least_55_dead_after_violence_in_Darfur%2C_Sudan",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.226,
+          "words": 124,
+          "english": 0.352
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "0612c86e-caf6-440b-9671-28a71ee50b79",
+    "revision": "2026-09-25T08:18:38.279781+00:00",
+    "body_sha256": "e44a8a09c2bee2dbc94cdfddecae354a8cfae65da3e9256ce3d752c0a81b595a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "news",
+        "why": "필리핀 전직 경찰의 간첩죄 감형 판결 기사로 「판결문 해당 부분은 다음과 같다」고 예고한 인용이 통째로 없고 살인 사건·첩보 경위가 뒤엉켜 받은 본문이 중간에서 끊겼다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "\"While Aragoncillo was an active participant",
+          "note": "감형 이유(능동 대 수동 역할) 문단은 서지만 빠진 인용 뒤로 흐름이 끊긴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.744Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Court_of_Appeals_reduces_sentence_for_former_Philippines_officer_in_spy_case",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.308
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-45-26-738Z",
+    "id": "061426ec-b573-4f8e-bf9d-666a54e72d5f",
+    "revision": "2026-09-25T08:38:36.332703+00:00",
+    "body_sha256": "0f1851e4797f4d2bd6c55bb99285998c971637288a3c6704f982d777859e1800",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "해킹 집단의 닌텐도 서버 침입과 고객 정보 무사, 해커의 트윗, 같은 해 소니 연쇄 해킹이 이어져 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Recently, LulzSec has claimed responsibility for",
+          "note": "소니 세 차례 공격이 시간순이라 순서 재료로도 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:45:26.744Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/LulzSec_attacks_Nintendo_server",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.416
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

@@ -1,0 +1,792 @@
+[
+  {
+    "id": "176354af-a898-4a28-a41c-cd6e5757aa2a",
+    "source_updated_at": "2026-09-13T07:43:46.00133+00:00",
+    "body_sha256": "3afe045d82540d78d2d93c6208b7c138c99e1fe45b70b3b0857bc27d9c1703c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "소아 조기비만의 유전 요인을 단일유전자 통념에서 희귀 CNV 부담으로 옮기는 논지가 서론과 고찰에 서 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Early-onset overweight (body mass index",
+      "note": "서론 첫 단락은 유전자명을 걷으면 서지만 결과부는 표 나열이라 못 쓴다."
+    }
+  },
+  {
+    "id": "17639fbb-3e59-44b0-b654-deba3b177780",
+    "source_updated_at": "2026-09-13T07:47:17.419531+00:00",
+    "body_sha256": "8ad4518740c060acc16417fe30e18e42af3e9added6c566cf1c9ad766ea688d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "행동 차이가 없는데도 뇌 지표만 달라진다는 대비를 고찰이 한 편의 논지로 정리한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The apolipoprotein E-4 allele is",
+      "note": "약어가 촘촘해 낱말 치환만으로는 밴드가 내려가지 않았다."
+    }
+  },
+  {
+    "id": "176627b0-25a0-4a1f-b32d-c16da35d0206",
+    "source_updated_at": "2026-09-13T06:56:31.817371+00:00",
+    "body_sha256": "9e69567b7ef64a3223a9c25db797b0dd8514de79935cfb2fda872d9ebff9c1f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "임신 간내담즙정체와 자녀 신경발달의 연관을 형제·사촌 비교로 좁혀 가는 추론이 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Intrahepatic cholestasis of pregnancy is the",
+      "note": "고찰의 한계 단락은 수치를 걷어도 논지가 남아 발췌가 쉬웠다."
+    }
+  },
+  {
+    "id": "17672cf4-4812-430e-bbb9-c17eea2cc5fb",
+    "source_updated_at": "2026-09-15T14:26:28.992235+00:00",
+    "body_sha256": "ca7db04f4f1c233255e0ec39c484899453a2b81b1e011015ff62f1e7baea7e24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "같은 병리면 같은 치료를 쓴다는 원리를 세우고 공통 표적 여섯으로 받치는 구조가 고찰 앞머리에 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Sepsis and COVID-19 are two pandemic",
+      "note": "유전자 약칭이 문장마다 박혀 어휘 조정으로는 내려가지 않는다."
+    }
+  },
+  {
+    "id": "1769a729-af03-4c80-983f-c230574c0918",
+    "source_updated_at": "2026-09-15T14:26:30.036432+00:00",
+    "body_sha256": "7fc0682c1a0956228be5023e9a817ab4eb6f7f43577bf73716a13759b357e9fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "수술 전 약을 끊을지에 대한 상반된 선행 연구를 세운 뒤 자료로 판정하는 흐름이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cardiac surgery remains a crucial treatment",
+      "note": "서론 둘째 단락은 수치 없이도 쟁점이 그대로 선다."
+    }
+  },
+  {
+    "id": "17754d51-9903-48c4-a6a7-87c15e7d6ec3",
+    "source_updated_at": "2026-09-13T07:19:23.666962+00:00",
+    "body_sha256": "c97042ec8fe12586a00431d9c370098aad563ada4e05194884c1a49d488f9010",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "중환아 상태 변동을 엔트로피로 재는 착상과 그 임상 해석이 고찰에서 자족적으로 설명된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "More than one-third of children who",
+      "note": "엔트로피 해석 단락은 수식을 빼도 뜻이 살아 지문이 됐다."
+    }
+  },
+  {
+    "id": "1781896a-4115-4c95-9c2d-8aa304959cc5",
+    "source_updated_at": "2026-09-05T23:07:33.987905+00:00",
+    "body_sha256": "61934b9a2a526c91e298abebb6002430fe28c6e3a1cb05d5bb4d080f8f46d946",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "결핵균 지질이 곰팡이 대응 대식세포를 무디게 한다는 가설-검증 구도가 서론과 고찰에 갖춰져 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Aspergillus fumigatus is a ubiquitous airborne",
+      "note": "고유명과 시약명을 걷으면 문장이 비어 자족성이 약했다."
+    }
+  },
+  {
+    "id": "178df29d-e44e-409d-ab44-ef309febc94b",
+    "source_updated_at": "2026-09-23T21:04:35.169949+00:00",
+    "body_sha256": "2c6868bbb37482c32dcb530941b1bffa2182c22e83043a0665897f3a274c9c7d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "간섬유화의 원인을 알 침착이 아니라 유충 이동기 내피세포 변화로 옮기려는 전환이 초록과 고찰에 분명하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Schistosomiasis is a zoonotic parasitic disease",
+      "note": "저자 요약 단락만 떼면 읽히나 본문 단락은 약어 밀도가 너무 높다."
+    }
+  },
+  {
+    "id": "17a38739-2e88-4da2-9c86-76333090e982",
+    "source_updated_at": "2026-09-13T06:25:04.758428+00:00",
+    "body_sha256": "e4305ada922e28f3df6e0263d2d9bc3309480d51bf3f5be88e8e04ed59a36e42",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "열대 기후에서도 비타민 D 결핍이 흔하다는 통념 깨기와 유전형 결과가 고찰에서 맞물린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Preeclampsia is a pregnancy-specific complication symptomized",
+      "note": "유전형 표기를 뺀 고찰 앞 단락은 낱말 두셋만 바꿔도 밴드가 내려갔다."
+    }
+  },
+  {
+    "id": "17ae255d-0ee2-4ce3-9b02-2ebd8c36e44d",
+    "source_updated_at": "2026-09-13T06:59:46.500931+00:00",
+    "body_sha256": "4e2f5ba7c5ab45cf89dfbe26d206c60763b1d202e67ba197b48468bd28fa283f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "묘지 침출이 지하수를 거쳐 주민 건강에 닿는 인과를 단계적으로 밟아 정책 권고까지 간다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many urbanised and rural communities rely",
+      "note": "서론과 결론은 화학 기호 없이도 논지가 서서 가장 다루기 쉬웠다."
+    }
+  },
+  {
+    "id": "17bd1848-b395-4021-9e7c-a4d94ed6668b",
+    "source_updated_at": "2026-09-15T14:26:54.399768+00:00",
+    "body_sha256": "20552dbc7d699a61d223fea003203dbe9049de1d1ba0e2999eb75d8e3dc544f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "고찰이 길게 논하는 유비퀴틴체·세포이동 결과 절이 본문에 없고 결과부에 두 소제목만 남아 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The kidneys possess the intrinsic ability",
+      "note": "서론은 떼어지나 근거 절이 없어 발췌 판단이 막혔다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "17c193d4-9d12-44c8-9f5d-b7716a38f526",
+    "source_updated_at": "2026-09-15T14:26:55.542456+00:00",
+    "body_sha256": "4f2b4a4a1033ee5550642f81818dd752fac6bff438f57de37105bbd12a7ded99",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "악액질 연구가 놓쳐 온 섬유아세포 유래 소포로 초점을 옮기는 논지가 서론과 고찰에 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cancer-associated cachexia is a multifactorial and",
+      "note": "고찰 첫 단락은 분자 이름만 일반어로 바꾸면 그대로 읽힌다."
+    }
+  },
+  {
+    "id": "17c2395a-e4c1-4d0e-baf9-18405dab232f",
+    "source_updated_at": "2026-09-13T06:48:47.396209+00:00",
+    "body_sha256": "17dbcc59fda43dc978d1ba6e199d43674d51b4e7da991e697f65ad9e2c4bfa99",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "실험동물 감염 감시라는 현실 문제에서 재조합 항원 설계로 넘어가는 목적-방법-결과의 선이 분명하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The surveillance of laboratory animals for",
+      "note": "서론은 자족적이나 결과부는 프라이머와 수율 표가 대부분이라 못 쓴다."
+    }
+  },
+  {
+    "id": "17cf50c4-17cd-40ee-b026-38d5007c6c54",
+    "source_updated_at": "2026-09-13T06:54:49.844339+00:00",
+    "body_sha256": "d2e68bacef8950bd307cf3e8671f10b85044b4b6d436e60e879d1fc19cdd84cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "회복기 병원 노인 절반이 근감소증이라는 실측과 체질량·둔부둘레의 역설적 보호 효과 논의가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The proportion of older adults worldwide",
+      "note": "역설을 다룬 단락은 진단 약어를 풀면 고2 밴드까지 내려갔다."
+    }
+  },
+  {
+    "id": "17eb8264-656e-47af-bd58-8f97d39c7bb5",
+    "source_updated_at": "2026-09-13T07:20:37.663295+00:00",
+    "body_sha256": "6f0ea749c9c1844fe2dbce96571f7525712b77218ff6d23dd4fc739b105f5009",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "유전자 제거 선별에서 찾은 단백질이 늦게 침투하는 바이러스들의 공통 관문임을 단계적으로 좁혀 간다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "As obligate intracellular parasites, viruses are",
+      "note": "서론 첫 단락만 떼어지고 이후는 시약·약어가 문장을 채워 가공이 어렵다."
+    }
+  },
+  {
+    "id": "17ed81cc-21f7-47ea-a24b-af0eca401055",
+    "source_updated_at": "2026-09-15T14:27:07.365542+00:00",
+    "body_sha256": "8eff8f218a8c23c6fa14b6e05303a56713ca6dea3e9aaf6d0fc45aa33b4f7823",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "고찰이 다루는 수면 행동 실험 결과 절이 없이 결과부가 두 소제목뿐이라 예고한 절이 빠졌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sleep is a fundamental and highly",
+      "note": "서론은 읽히지만 근거 절이 빠져 보관 여부를 정하지 못했다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "180abce5-13ad-4d05-9a8d-9ab000edef4c",
+    "source_updated_at": "2026-09-15T14:27:15.209241+00:00",
+    "body_sha256": "a6a225e5ed2ad8940b3a205c7d8d6aaa2ce90a44ed783f316e9f6445c20942dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "절 번호가 2.1에서 2.7로, 3.1에서 3.3으로 건너뛰어 스스로 예고한 방법·결과 절이 빠져 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Machine learning has become an essential",
+      "note": "서론과 한계 단락은 쓸 만한데 중간 절 결손이 걸린다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "18191559-aad9-47de-878e-2b653db98253",
+    "source_updated_at": "2026-09-15T14:27:21.871256+00:00",
+    "body_sha256": "693585e35f8ae39c23986b25c684a68d3da14821521885652785872f53a7de2a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "초록이 예고한 유선 조직 결과 절이 없이 간 결과만 실려 고찰이 가리키는 절이 통째로 빠졌다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Coordinated changes in maternal metabolism and",
+      "note": "서론은 떼어지나 대응하는 결과 절이 없어 판단을 미뤘다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "18215343-d519-44fe-b836-f405d0a2da91",
+    "source_updated_at": "2026-09-15T14:27:24.327942+00:00",
+    "body_sha256": "6246efb3a56233fff670fcee8a3e2c0de873de8665dc96343f407c349d4b2fdf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "고찰이 언급하는 기능 실험과 생존 모델 결과 절이 없고 결과부에 유전자 선별 한 절만 남아 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Wilms tumor is a pediatric embryonal",
+      "note": "서론만으로는 주장을 받칠 근거 단락을 고를 수 없었다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "182c836b-3ebd-4567-88a1-5f5ae9c6043c",
+    "source_updated_at": "2026-09-15T14:27:31.860983+00:00",
+    "body_sha256": "224b0249c0de09fcbc8fc04f29e9ee7c49bc41c01fe85b9bb564b7778015ddb1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "방법 절이 소제목만 남고 본문 없이 끊겨 글이 중간에서 잘렸다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hereditary hemorrhagic telangiectasia is a currently",
+      "note": "저자 요약은 읽히나 본문 말미가 잘려 완결성을 확인하지 못했다."
+    },
+    "hold_reason": "incomplete-source"
+  }
+]

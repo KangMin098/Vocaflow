@@ -1,0 +1,173 @@
+{
+  "R": {
+    "pls": {
+      "n": 35,
+      "byWindow": {
+        "csat_short": 0,
+        "csat_long": 0,
+        "school_para": 0,
+        "school_sent": 0
+      },
+      "coveredPct": 0,
+      "tooShort": 0,
+      "between": 0,
+      "above400": 35,
+      "dist": {
+        "min": 467,
+        "p10": 561,
+        "p25": 677,
+        "median": 791,
+        "p75": 837,
+        "p90": 846,
+        "max": 983
+      },
+      "spansPerLongDoc": 4.51,
+      "spansTotal": 158
+    },
+    "plsParas": {
+      "n": 998,
+      "byWindow": {
+        "csat_short": 45,
+        "csat_long": 0,
+        "school_para": 240,
+        "school_sent": 557
+      },
+      "coveredPct": 79.2,
+      "tooShort": 208,
+      "between": 0,
+      "above400": 0,
+      "dist": {
+        "min": 1,
+        "p10": 4,
+        "p25": 7,
+        "median": 17,
+        "p75": 38,
+        "p90": 63,
+        "max": 158
+      },
+      "spansPerLongDoc": 0,
+      "spansTotal": 0
+    },
+    "ftRegular": {
+      "n": 35,
+      "byWindow": {
+        "csat_short": 0,
+        "csat_long": 0,
+        "school_para": 0,
+        "school_sent": 0
+      },
+      "coveredPct": 0,
+      "tooShort": 0,
+      "between": 0,
+      "above400": 35,
+      "dist": {
+        "min": 773,
+        "p10": 813,
+        "p25": 912,
+        "median": 971,
+        "p75": 991,
+        "p90": 1022,
+        "max": 1352
+      },
+      "spansPerLongDoc": 5.69,
+      "spansTotal": 199
+    },
+    "apiAll": {
+      "n": 991,
+      "byWindow": {
+        "csat_short": 38,
+        "csat_long": 8,
+        "school_para": 188,
+        "school_sent": 109
+      },
+      "coveredPct": 29.9,
+      "tooShort": 0,
+      "between": 3,
+      "above400": 692,
+      "dist": {
+        "min": 26,
+        "p10": 39,
+        "p25": 87,
+        "median": 796,
+        "p75": 954,
+        "p90": 989,
+        "max": 1300
+      },
+      "spansPerLongDoc": 5.01,
+      "spansTotal": 3469
+    },
+    "apiReview": {
+      "n": 698,
+      "byWindow": {
+        "csat_short": 1,
+        "csat_long": 6,
+        "school_para": 1,
+        "school_sent": 0
+      },
+      "coveredPct": 1,
+      "tooShort": 0,
+      "between": 0,
+      "above400": 691,
+      "dist": {
+        "min": 150,
+        "p10": 618,
+        "p25": 766,
+        "median": 910,
+        "p75": 977,
+        "p90": 993,
+        "max": 1300
+      },
+      "spansPerLongDoc": 5.02,
+      "spansTotal": 3468
+    },
+    "apiProto": {
+      "n": 293,
+      "byWindow": {
+        "csat_short": 37,
+        "csat_long": 2,
+        "school_para": 187,
+        "school_sent": 109
+      },
+      "coveredPct": 98.6,
+      "tooShort": 0,
+      "between": 3,
+      "above400": 1,
+      "dist": {
+        "min": 26,
+        "p10": 32,
+        "p25": 36,
+        "median": 45,
+        "p75": 66,
+        "p90": 101,
+        "max": 407
+      },
+      "spansPerLongDoc": 1,
+      "spansTotal": 1
+    }
+  },
+  "licSeen": {
+    "https://creativecommons.org/licenses/by/4.0": 12,
+    "https://creativecommons.org/licenses/by-nc/4.0": 35,
+    "https://creativecommons.org/licenses/by-nc-nd/4.0": 6
+  },
+  "plsHist": {
+    "800-899": 15,
+    "700-799": 9,
+    "600-699": 5,
+    "900-999": 2,
+    "400-599": 4
+  },
+  "paraHist": {
+    "6-39": 550,
+    "0-5": 208,
+    "40-89": 195,
+    "90-140": 41,
+    "141-200": 4
+  },
+  "counts": {
+    "ftDocs": 35,
+    "pls": 35,
+    "reg": 35,
+    "plsParas": 998
+  }
+}

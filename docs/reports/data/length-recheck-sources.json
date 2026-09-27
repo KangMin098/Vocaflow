@@ -1,0 +1,288 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "length-recheck/v1",
+  "windows": [
+    {
+      "key": "school_sentence",
+      "label": "학교 문장",
+      "min": 6,
+      "max": 40
+    },
+    {
+      "key": "school_paragraph",
+      "label": "학교 문단",
+      "min": 40,
+      "max": 200
+    },
+    {
+      "key": "csat_short",
+      "label": "수능 짧은 지문",
+      "min": 90,
+      "max": 200
+    },
+    {
+      "key": "csat_long",
+      "label": "수능 장문",
+      "min": 260,
+      "max": 400
+    }
+  ],
+  "myOldBand": {
+    "min": 140,
+    "max": 200
+  },
+  "results": {
+    "ccby-eco": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 8,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "ccby-fee": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 8,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "ccby-pdr": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 7,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 1,
+        "csat_short": 1,
+        "csat_long": 0
+      },
+      "oldBand": 1
+    },
+    "ccby-well": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 7,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 1,
+        "csat_short": 1,
+        "csat_long": 0
+      },
+      "oldBand": 1
+    },
+    "eco-cochrane": {
+      "total": 14,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 8,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 6,
+        "csat_short": 2,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "eco-econpapers": {
+      "total": 10,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 0,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 10,
+        "csat_short": 10,
+        "csat_long": 0
+      },
+      "oldBand": 5
+    },
+    "eco-econstor": {
+      "total": 30,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 0,
+      "between": 2,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 3
+      },
+      "oldBand": 14
+    },
+    "eco-iza": {
+      "total": 7,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 0,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 7,
+        "csat_short": 3,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "oaj-olh": {
+      "total": 900,
+      "missing": 165,
+      "tooShort": 5,
+      "aboveAll": 17,
+      "between": 109,
+      "byWindow": {
+        "school_sentence": 48,
+        "school_paragraph": 522,
+        "csat_short": 411,
+        "csat_long": 38
+      },
+      "oldBand": 208
+    },
+    "oaj-openalex": {
+      "total": 50,
+      "missing": 0,
+      "tooShort": 1,
+      "aboveAll": 7,
+      "between": 9,
+      "byWindow": {
+        "school_sentence": 3,
+        "school_paragraph": 26,
+        "csat_short": 20,
+        "csat_long": 4
+      },
+      "oldBand": 12
+    },
+    "oaj-scielo": {
+      "total": 1100,
+      "missing": 188,
+      "tooShort": 0,
+      "aboveAll": 6,
+      "between": 300,
+      "byWindow": {
+        "school_sentence": 5,
+        "school_paragraph": 466,
+        "csat_short": 426,
+        "csat_long": 136
+      },
+      "oldBand": 282
+    },
+    "obk-au": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 7,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 1,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "obk-libre": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 6,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 2,
+        "csat_short": 2,
+        "csat_long": 0
+      },
+      "oldBand": 2
+    },
+    "obk-obp": {
+      "total": 8,
+      "missing": 0,
+      "tooShort": 0,
+      "aboveAll": 8,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "obk-rebus": {
+      "total": 8,
+      "missing": 2,
+      "tooShort": 0,
+      "aboveAll": 6,
+      "between": 0,
+      "byWindow": {
+        "school_sentence": 0,
+        "school_paragraph": 0,
+        "csat_short": 0,
+        "csat_long": 0
+      },
+      "oldBand": 0
+    },
+    "recol-econstor": {
+      "total": 3075,
+      "missing": 471,
+      "tooShort": 1,
+      "aboveAll": 42,
+      "between": 332,
+      "byWindow": {
+        "school_sentence": 29,
+        "school_paragraph": 2035,
+        "csat_short": 1742,
+        "csat_long": 165
+      },
+      "oldBand": 865
+    },
+    "recol-olh": {
+      "total": 4000,
+      "missing": 853,
+      "tooShort": 22,
+      "aboveAll": 92,
+      "between": 479,
+      "byWindow": {
+        "school_sentence": 199,
+        "school_paragraph": 2146,
+        "csat_short": 1737,
+        "csat_long": 214
+      },
+      "oldBand": 904
+    },
+    "recol-openalex": {
+      "total": 2400,
+      "missing": 232,
+      "tooShort": 37,
+      "aboveAll": 139,
+      "between": 362,
+      "byWindow": {
+        "school_sentence": 150,
+        "school_paragraph": 1268,
+        "csat_short": 996,
+        "csat_long": 215
+      },
+      "oldBand": 574
+    }
+  }
+}

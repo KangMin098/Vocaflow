@@ -1,0 +1,957 @@
+[
+ {
+  "id": "0491de68-49b8-4190-a8a3-c57792cb3ea5",
+  "source_updated_at": "2026-09-25T07:25:28.541845+00:00",
+  "body_sha256": "98bc63b246e441d4cb0a77aed64c02ede3cb7d2e9d0915969242a4da903171c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아프간 국제안보지원군 연장 결의에서 러시아가 기권한 이유(나토 치하 문구)와 일본 급유 논란의 연결이 설명돼 고2 이상 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Media reports indicate this section of",
+   "note": "결의문 인용이 길고 딱딱해 어휘를 바꿔도 V7 아래로는 잘 안 내려간다."
+  }
+ },
+ {
+  "id": "049412e0-88ae-435c-b872-89e95574e067",
+  "source_updated_at": "2026-09-25T07:51:45.530435+00:00",
+  "body_sha256": "eb9af3afed6108d4206b048ff00e0d9efae469ae685ffc8d922b68b8239a6511",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "science",
+  "why": "달리는 공룡의 진동이 날갯짓을 낳았다는 가설을 모델·로봇·타조 실험으로 검증하고 반론과 경쟁 가설까지 제시해 주제·빈칸·순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While current consensus among scientists says",
+   "note": "「나무에서 활공」 대 「땅에서 달리기」 두 가설 대비 문단이 따로 서고 vertebrates·theropod 를 풀면 V6."
+  }
+ },
+ {
+  "id": "04974227-a025-4f7f-afa3-f40c6de1d8c6",
+  "source_updated_at": "2026-09-25T07:25:44.505481+00:00",
+  "body_sha256": "3d618b884a634c1cd4d85e08e2ed290eb0faf256680b4a13a997042b83148878",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "울프슨이 「결혼의 전통은 변화」라며 네 가지 변화와 시민결합 반대 논거를 차례로 펴는 인터뷰로 주장·요지·빈칸 칸과 구어 재료가 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "EW: The defining tradition of marriage",
+   "note": "인터뷰 답변 한 덩이를 떼면 주장-근거가 서고, 부부 강간 사례 언급이 있어 고2 이상 칸만 단다."
+  }
+ },
+ {
+  "id": "049a07d7-8583-4880-9bd2-dc3944889b62",
+  "source_updated_at": "2026-09-25T06:48:48.126676+00:00",
+  "body_sha256": "d1cbd4fd622f7c37b8da682635ce0053530fe077eee027e9a0f209e3cba8eb2e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "음베키 대통령의 주마 부통령 해임 경위와 반응, 이후 당내 복권 반전이 시간순으로 이어져 내용 일치·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The President has called this one",
+   "note": "해임→지지 반응→당내 복권 반전 흐름이 인명 없이도 선다."
+  }
+ },
+ {
+  "id": "049b9a6b-85b0-48c4-99ac-7f9eb43c8b9d",
+  "source_updated_at": "2026-09-25T07:51:13.207799+00:00",
+  "body_sha256": "91c0247b2f46e38a7d226cd9d460930c0c19685f4599e3d85bd798eb97158aba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "와이파이 WPA2 취약점 KRACK 공개와 책임 있는 공개 절차·기기별 영향·패치 일정이 사실로 이어져 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The study papers, which were submitted",
+   "note": "비공개 검토→업체 통보→패치 순서 문단이 떼어지고 vulnerability 등은 문맥으로 잡힌다."
+  }
+ },
+ {
+  "id": "04a65ba0-69e7-4e5c-a5c0-b680f7a4fafc",
+  "source_updated_at": "2026-09-25T08:04:08.716084+00:00",
+  "body_sha256": "2c283ddaecf174468328867daa4335cca483b371ca9eb6d51221e884b84f75bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "국제우주정거장 11차 승무원 발사와 관제소장의 「박봉의 낭만가들」 발언, 교대 일정이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "They were given a heartfelt send-off",
+   "note": "끝 줄의 방송 시청 안내는 걷어야 하고, 발언 인용 문단은 앞 문맥 없이 선다."
+  }
+ },
+ {
+  "id": "04a857a1-fe48-4087-a623-9c0b3eb60515",
+  "source_updated_at": "2026-09-25T07:39:00.841452+00:00",
+  "body_sha256": "daa7530234f553dd3603283a471387586c64ac10075a32abcfc8017cc36f9f86",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이란 선거 후 소요 속 금요 설교가 정책 발언 무대가 된 맥락과 라프산자니의 행보를 둘러싼 추측이 설명돼 고2 이상 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Over the past several weeks since",
+   "note": "인물·직함이 많아 걷으면 맥락이 약해지고 사형 언급이 있어 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "04a93fdf-48fd-4cca-8f63-a35e58ba9d4e",
+  "source_updated_at": "2026-09-25T08:04:33.808954+00:00",
+  "body_sha256": "ffb973b233ea402127530bc9f2d1cf1c2e7cf76b0432cb6614c1dbbb8e29242f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "제노바 G8 시위대 학대 혐의로 경찰이 재판에 넘겨진 경위와 공소시효 문제가 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Meanwhile, the police have been charged",
+   "note": "학대 묘사 문단을 빼고 기소→시효 만료 우려 문단만 써도 사건이 선다."
+  }
+ },
+ {
+  "id": "04a972de-dde8-4fc3-a87d-671a762feef5",
+  "source_updated_at": "2026-09-25T07:26:17.218888+00:00",
+  "body_sha256": "83ff2dbb01060f9b64a9bb9abd2745af5a0c0e6efc2697d2504882f44630664f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "아마존 원클릭 특허 재심사 결과와 재심 청구 경위, 특허 취득부터 반스앤노블 소송까지의 연혁이 이어져 내용 일치·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Amazon filed the patent application for",
+   "note": "연혁 문단이 날짜 순서라 순서 문항으로 떼어지고 injunction 을 풀면 V6."
+  }
+ },
+ {
+  "id": "04aa2bd9-4258-4613-9429-8de646cee060",
+  "source_updated_at": "2026-09-25T07:08:50.524658+00:00",
+  "body_sha256": "07ec7025795fb8e728dd2d59a6c14a30ec14ad98a57a6416fd75aa155351859c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "장관의 「개」 발언 의혹을 두고 당사자·야당·장관의 입장이 차례로 나와 짧은 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Stronach, a feminist, said the comment",
+   "note": "93어로 짧지만 의혹→반발→부인→사과 요구 흐름이 선다."
+  }
+ },
+ {
+  "id": "04abc2f8-9b70-412d-9fdb-8073b921cc5f",
+  "source_updated_at": "2026-09-25T07:45:39.821658+00:00",
+  "body_sha256": "ccf94d200ebfd1b34052c2c32506bffe7a84951e389908eddac3b7ecd9b76692",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "매닝 처우를 「어리석다」고 한 대변인 발언이 논란→대통령 답변→사임으로 이어지는 경위가 시간순이라 내용 일치·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Crowley made the comments last week",
+   "note": "발언→논란→사임 인과가 뚜렷해 순서 배열로 자르기 쉽다."
+  }
+ },
+ {
+  "id": "04af6061-73cb-4353-b258-e0e4739e3448",
+  "source_updated_at": "2026-09-25T07:26:37.321969+00:00",
+  "body_sha256": "86a241ba091c880c5f52f3a9b27b8b4df81a11a002ccb10faab45d79a425fec2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "technology",
+  "why": "질문·답변 모두 비문이 많아 뜻을 따라가기 어렵고 홍보성 답변뿐이라 가공해도 채울 칸이 남지 않는다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Claire: Every Internet user knows \"Wikipedia",
+   "note": "답변 문장을 고치면 원문이 거의 남지 않아 가공이 성립하지 않았다."
+  }
+ },
+ {
+  "id": "04b28f32-75d9-433f-a0bb-a0daa92c445f",
+  "source_updated_at": "2026-09-25T08:15:51.393463+00:00",
+  "body_sha256": "279de2833947446934f0eeefc4911151d06a61517eb538f5b66c33a4bba35132",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "B-52 괌 추락 경위와 수색 범위·생존 가능성 발언이 이어진 짧은 기사로 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The aircraft had been headed for",
+   "note": "부대명을 걷어도 비행 목적→추락→수색 흐름이 선다."
+  }
+ },
+ {
+  "id": "04b4693f-2d69-4bba-a176-81d04dad9f81",
+  "source_updated_at": "2026-09-25T07:46:31.181221+00:00",
+  "body_sha256": "65dbd49f467c7e6c35a566f860ef4982ae32a0443702ec787d232561700ecf98",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "우주 쓰레기 근접으로 승무원이 탈출선에 대기한 경위와 평소 회피 절차, 과거 사례가 이어져 내용 일치·삽입 칸이 된다(거리 수치 일부가 빠져 있다).",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Under normal circumstances and had mission",
+   "note": "수치가 빠진 두 문장(「within of」「over in length」)은 가공 때 고치거나 걷는다."
+  }
+ },
+ {
+  "id": "04b6deb5-9200-4ece-b2cd-34ca1497fcd6",
+  "source_updated_at": "2026-09-25T07:25:27.203466+00:00",
+  "body_sha256": "c82f1bd92b8065158455f6d05ecf2387e1f38080a464ed2808c2c18a42205ed5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "관타나모의 캐나다 청소년 억류를 두고 변호인·인권단체·법학자가 「소년병」·「규칙 없는 전쟁」 논리로 비판해 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Perhaps International Law professor Darryl Robinson",
+   "note": "「쏘면 전쟁, 맞쏘면 범죄」 역설 문단이 떼어져 빈칸 재료가 된다."
+  }
+ },
+ {
+  "id": "04bba7e5-c22f-455d-90a3-77d603b45cba",
+  "source_updated_at": "2026-09-25T06:57:29.932304+00:00",
+  "body_sha256": "a57f1638b7ac6b5e6c4aff181c923e3877a7249f5b7db60fe1e9788e6028f550",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "콜롬비아 축제 세 곳의 일정·공연자·행사 목록을 소제목별로 늘어놓은 행사 안내라 읽는 글의 흐름이 없고 문장도 비문이 많다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "This is the Feria of Pasodoble,",
+   "note": "일정 목록을 걷으면 남는 서술이 없어 가공이 되지 않았다."
+  }
+ },
+ {
+  "id": "04bbd964-c3ff-47d8-8c75-3743354f2dc7",
+  "source_updated_at": "2026-09-25T07:31:52.453666+00:00",
+  "body_sha256": "e035b9483269f93e91fd19b5e7649b05d6fee972001b48b57fbea6cd03a97e79",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "정유 공장 화재 원인(수소화 분해기 기름 누출)과 가동 지연 전망이 이어져 짧은 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A spokesman for Ineos, who operate",
+   "note": "hydrocracker 설명 문장이 들어 있어 용어를 풀면 원인 서술이 선다."
+  }
+ },
+ {
+  "id": "04bf57ca-9743-4780-a44a-9c22d23f4876",
+  "source_updated_at": "2026-09-25T07:44:32.791641+00:00",
+  "body_sha256": "cde00838ed9652466f7ab850f09ac6afb4e2ff438c6f236473f2edfea289b7ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "art",
+  "why": "반 고흐 그림의 두 번째 도난과 1978년 첫 도난·회수, 작품 설명이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This is the second time the",
+   "note": "짧고 사실이 뚜렷해 중등 내용 일치로 바로 쓸 수 있다."
+  }
+ },
+ {
+  "id": "04c41a8d-dacc-4c11-8cdf-c3b8e5a429be",
+  "source_updated_at": "2026-09-25T07:25:20.998193+00:00",
+  "body_sha256": "23b9be1babee67cd9c79d9ced7dfd2eec82cd318a3c830295413e654c9065c29",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "착륙장치 사고가 녹슨 볼트의 너트 풀림에서 시작된 설계 결함이라는 예비 보고와 정비 책임론의 반전이 인과로 서서 요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The SLV does not specifically address",
+   "note": "「정비 실수」 추정을 뒤집는 문단이 따로 서고 끝의 주가 문단은 걷는다."
+  }
+ },
+ {
+  "id": "04c4d8a5-73f9-4914-8af6-90db98ff2852",
+  "source_updated_at": "2026-09-25T08:15:19.241945+00:00",
+  "body_sha256": "b5e6631bd8f0e85e4e6ed50dba32c914c847603e7ad9af31a11ad40d8adbb1a5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "칼리닌그라드 수리 중 화물선 폭발의 피해·보상·용접 규정 위반 조사가 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Vysotski himself has indicated that serious",
+   "note": "원인 추정 문단(가스 버너로 볼트를 달굼)이 떼어져 인과가 선다."
+  }
+ },
+ {
+  "id": "04c6a95b-0571-4e38-b34c-e7b047175dba",
+  "source_updated_at": "2026-09-25T08:11:49.349953+00:00",
+  "body_sha256": "a70a8560aee0f01c511ca2dd5d2058a1f815200acc5d1074ba7aa9c6e14d5001",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "개종자 리나 조이의 신분증 종교 삭제 소송 패소 경위와 헌법상 종교 자유·샤리아 법의 충돌, 소수 의견이 논지로 서서 요지·심경·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "mood",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But under Sharia law, Muslims are",
+   "note": "법원 절차 순서가 뚜렷하고 apostasy 하나만 풀면 V6로 내려간다."
+  }
+ },
+ {
+  "id": "04c8668f-adbc-4ecf-8490-ca58ff51308b",
+  "source_updated_at": "2026-09-25T06:58:16.608796+00:00",
+  "body_sha256": "c4f65319b6588c3f7bb7eb0334671638afd9e7ecd4f5381649cc6480161d1218",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "화재 사망자 수 은폐를 의심한 시위와 제보자 추적, 인권 전문가의 박해 우려가 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Some human rights experts warn that",
+   "note": "구호 중 폭력적 문구는 가공 때 걷고 시위→조사→우려 흐름만 쓴다."
+  }
+ },
+ {
+  "id": "04caf319-bac1-4a33-9202-4a5b701db514",
+  "source_updated_at": "2026-09-25T07:58:45.445082+00:00",
+  "body_sha256": "f9b0e23432eb05e5918d0cd4eb9a2896e98f30c94ca6993d2c0a6df6952e1130",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "잭슨 사망 소식에 따른 사이트 과부하와 가짜 사망 보도가 생성 사이트에서 퍼진 경위·반복 사례가 이어져 주제·내용 일치·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The hoaxes originated on a web",
+   "note": "가짜 뉴스 생성 원리 문단이 떼어져 매체 문해 주제로 선다."
+  }
+ },
+ {
+  "id": "04ce2c87-fd91-452c-8aaf-92f5526ea97a",
+  "source_updated_at": "2026-09-25T07:58:45.48879+00:00",
+  "body_sha256": "1b9d6f0680b74e1bc7ebc68eb98a9edcdccc14fb16aed4815890507f93760654",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "과적 여객선 전복의 경위와 원인(폭풍 없음·과적) 진술이 이어진 짧은 기사로 인과가 드러나 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Reports suggest that the boat capsized",
+   "note": "원인 진술 문단이 짧게 서고 지명만 걷으면 된다."
+  }
+ },
+ {
+  "id": "04d207d7-f30f-48b3-ad5b-cb96b892f4c8",
+  "source_updated_at": "2026-09-25T07:46:02.918445+00:00",
+  "body_sha256": "bd3fed6290786e283e3a2432a7a45a68dda911a8d130c82f86563cd876425e58",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "가가린 첫 유인 비행 50주년과 우주 경쟁 배경, 우주정거장 기념 메시지·재현 영화가 이어져 내용 일치 칸과 시대 비교 재료가 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Gagarin's flight lasted 108 minutes, just",
+   "note": "1961년 비행과 2011년 재현 촬영이 한 글에 있어 시대 대조가 쉽다."
+  }
+ }
+]

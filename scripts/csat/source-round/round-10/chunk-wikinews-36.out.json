@@ -1,0 +1,995 @@
+[
+ {
+  "id": "198fa785-539d-42f3-81c3-23f402f28af3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a86b358c35d01fb1d24e37ca51bace7323ea2b15cbd661c122ee12115c8c5413",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "야당의 부정선거 주장과 근거, 감시단·선관위의 반론이 긴 글로 맞서 주장·요약·장문 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Voter turnout nationwide was 45%, but",
+   "note": "투표율 문단은 95% 넘는 투표소와 이중 표기 무효표라는 부정 근거가 서지만 franchise·tabulation 류 선거 어휘는 V6 아래로 잘 안 내려간다."
+  }
+ },
+ {
+  "id": "19901b5e-db97-4509-ac3c-6bf848623f53",
+  "source_updated_at": "2026-09-25T08:55:16.959343+00:00",
+  "body_sha256": "dcba25d8bbcf014edf0bde8388694002de8835513c3e729630d3ed2575014198",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "해임과 사임이라는 엇갈린 설명, 정책 이견 배경이 이어져 내용 일치·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Reportedly, Trump and Bolton have been",
+   "note": "갈등 문단은 북한·이란·탈레반 정책 이견이 서서 인명 둘만 남기면 떼어 쓰기 쉬웠다."
+  }
+ },
+ {
+  "id": "19914f73-5889-4c02-9482-8bccfa7552b0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "dfe85d570a0b530ef620698a9eedc134ab0eec5f78043c79f5dbae583f90c284",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "정부군 공세와 사상자를 두고 양측 주장이 엇갈리는 전황 기사라 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Neither of the reports can be",
+   "note": "확인 불가 문단은 관측단 철수로 양측 주장을 검증할 수 없다는 사정이 서지만 displaced·enclave 같은 말이 남는다."
+  }
+ },
+ {
+  "id": "19958607-dac5-4268-8831-08485f06f731",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ddc02406c7f76c697aaf61da44b3ca1528c8c68d167a1de6741fe223d5a80d23",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "마약 사건 뇌물 의혹 수사의 앞 절반이 서서 장문·내용 일치 칸을 채우되 뒤는 사법 부패 사례 나열이라 앞부분만 쓴다.",
+  "slots": {
+   "ages": [
+    "adult",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The PDEA has accused the suspect's",
+   "note": "뇌물 제의 문단은 3백만 → 2천만 → 5천만 페소로 오른 제안이 서지만 기관 약어가 많고 뒤쪽 사법 부패 사례·설문 표 조각은 가공 때 걷어야 한다."
+  }
+ },
+ {
+  "id": "199cdd19-6293-4a49-b040-308de2e23115",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "06f2d8b280bfe5d918084d56702a1d7445506414d6ac7aebd9789fc3813cf65c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "유출 여론조사 기사에 미국이 얻은 것이 없다는 기자 논평이 섞여 있어 일방 논박인지 기준으로 가르기 어렵다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Many Iraqis resent the damage that",
+   "note": "주민 정서 문단은 출처 없는 「많은 이라크인」 서술이라 조사 수치를 걷으면 근거 없이 한쪽 해석만 남았다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "199e2b1b-8407-44d0-a74a-5f42e64fe25f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c857a9800bc741d5a3cf434daba99789ebf9c5328c27a1f2d9a6934ea0cc54a9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "여객선 침몰과 구조 경위, 잦은 해난 사고의 원인이 이어져 내용 일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The cause of the incident is",
+   "note": "원인 문단은 정비 부실·단속 느슨·과적·날씨라는 해난 사고 원인 넷이 나란히 서서 inclement 만 바꾸면 됐다."
+  }
+ },
+ {
+  "id": "199e3a69-9697-44c1-9b3d-e532bfbce95a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "121560ee87b19dbd706762a932b2b2022b265e61cfe0ddfec6ce6ae9a2ec54d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "농촌 산업단지 조성 계획과 그 목적이 끝 단락에서 서서 목적·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The county capital, Arad, with a",
+   "note": "도청 소재지 문단은 산업을 농촌으로 옮기려는 의도가 서서 precinct 를 area 로 바꾸면 V5 에 앉는다."
+  }
+ },
+ {
+  "id": "19a30bcc-ee0f-4fe1-83f0-f07e84413061",
+  "source_updated_at": "2026-09-25T08:55:25.671658+00:00",
+  "body_sha256": "f58b2fd977979af9e2e4963c9e07ad404f52c14eacb314ee9b1ca9d5989ba4ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "명예살인 판결과 피해자의 삶, 법 개정이 이어져 요약·내용 일치 칸을 채우되 살해 소재라 고2 이상만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since Baloch's death, Pakistan's laws about",
+   "note": "법 개정 문단은 용서받아도 최소 25년이라는 변화가 서서 떼어 내기 쉬웠지만 명예살인 소재라 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "19a567d0-54ce-4f89-aec5-95bc29861ac3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "16cf0d277400c768897f58e59d111ef1f380acb0b4e38a428a237037ddcfa844",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "무기 전시회 개막 행사가 순서대로 묘사되고 연설 요지가 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A musical performance by the KPA",
+   "note": "행사 문단은 공연 → 무술 시범 → 비행 순서가 서서 sternum·flypast 만 풀면 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "19aad8fe-288f-4b8e-8753-7c6c3a9ab8c2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5a9c1c4bd26c4ccf651403aa06d6d15f77aed5fa5ae661a703c6bdcea93af534",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "사고 경위와 투병 사실 공개, 해명이 이어져 심경·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to Migden, doctors diagnosed her",
+   "note": "투병 비공개 문단은 동정을 원치 않았다는 까닭이 서서 인명을 걷어도 심경이 읽힌다."
+  }
+ },
+ {
+  "id": "19afc34e-300b-4e55-bbda-417aa79ba83f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7e2baf854656b632aa7aad74f2681847661a8e59cfd64cca8162d01f81e063f7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "부정 투표 조사 결과와 대통령 측 불복이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "President Karzai has refused to accept",
+   "note": "불복 문단은 득표율이 50% 아래로 떨어져 교착에 빠졌다는 흐름이 서지만 runoff·deadlock 은 바꿔도 V6 에 머문다."
+  }
+ },
+ {
+  "id": "19b4b47a-5f13-464e-95ea-34ae7b76c6ed",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "008d6ae81a05568402d3fe059fea38c5441ee122b36db64752e5647747d6e09c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "건물 폭발 붕괴의 피해와 원인 추정이 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Most sources give the cause as",
+   "note": "원인 문단은 가스 누출 신고 → 폭발 → 지하 화재로 이어져 떼어 내기 쉬웠고 자살 시도 언급은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "19baff45-fb5f-4ba5-b139-d2eaf39a612b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "58b1c06dbba681be4dc5f85d6abc0f51d464c1e1c48e87284fbd310ff3f51cc4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "본문 대부분이 줄바꿈으로 조각난 법안 조문 인용이고 설명은 한 문장이라 읽는 글이 서지 않는다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Using an open format for documents",
+   "note": "열린 형식의 이점 문단은 한 문장뿐이고 나머지는 줄마다 끊긴 법안 조문이라 떼어 낼 글이 남지 않았다."
+  }
+ },
+ {
+  "id": "19c510e9-42b4-4476-ac94-244d62fd20a0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "dc347d3fc8a04047c0e95eec8017e5d426061941e978d4f18c8407ccd28b45de",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "총리 사퇴 시한 발표와 그 압력의 까닭, 당내 반응이 이어져 요약·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Demands that Blair announce his resignation",
+   "note": "사퇴 요구 문단은 이스라엘 지지·부시 추종·지지율 하락이라는 까닭 셋이 서서 precipitous 만 바꾸면 됐다."
+  }
+ },
+ {
+  "id": "19c8e43b-6454-40c0-8611-a6536b0ec48a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "99abc9d7f81ea9d25c271d1421e5d7daf0304d7fdf669b5c1968e205a6e454c1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "청소년 처형을 두고 인권 단체와 이란 당국 주장이 맞서지만 처형·성 묘사가 구체적이라 고3·성인 칸만 단다.",
+  "slots": {
+   "ages": [
+    "adult",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Iranian officials have complained that the",
+   "note": "이란 관리 반박 문단은 언론이 나이를 부각한다는 주장이 서지만 처형 방식·성범죄 서술이 얽혀 있어 성인·고3 칸으로만 둔다."
+  }
+ },
+ {
+  "id": "19c9b85e-2e8a-4a92-8eb5-a958a7892ab8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a41bb7572053d82736cb4945d6d5d235a44dabe49b91cc263f96774c64f6182d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "경비행기가 아파트에 충돌한 짧은 사고 기사라 고1 이상 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The plane appears to have hit",
+   "note": "충돌 각도 문단은 한 문장이라 떼기는 쉬우나 사건을 세우려면 앞 문단 사망 사실을 함께 붙여야 했다."
+  }
+ },
+ {
+  "id": "19cac8a5-9b58-4f5f-8b69-9ff8921a4b09",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3aea443c62b3d078dacf3c74491bc7ca75c56ce9e6d6f889a9968d2327e1da93",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "미사일 방어 참여 발언과 정부·야당·여론의 반응이 맞서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Canadian public is adamantly opposed",
+   "note": "여론 문단은 국민과 여당까지 반대했다는 사정이 서서 adamantly 만 바꾸면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "19ce1e9d-da1c-41d9-bcea-d72d831d998d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b1049f300d30c00c30b3e094f45f97e04dc4a78b8074fd61897be469775e3262",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "지지율 1위 소식과 그 전의 부진·반등 과정이 차례로 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Gingrich's 2012 presidential campaign had a",
+   "note": "부진 문단은 5월 발언 → 빚 보도 → 참모 사퇴 → 1% 지지로 순서가 서지만 정치 관용어가 많아 밴드 조정은 어렵다."
+  }
+ },
+ {
+  "id": "19d3bfbf-55be-4936-abc3-4e054e1484ee",
+  "source_updated_at": "2026-09-25T08:55:29.397307+00:00",
+  "body_sha256": "c807b5e007ab6997db334372fff3814bcc3f370d6323390bc442a6e91dadc7c0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "드러머의 출생부터 밴드 결성·이주·은퇴까지 생애가 시간순으로 이어져 순서·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ginger Baker was born Peter Edward",
+   "note": "유년 문단은 책상 두드리기 → 파티에서 첫 연주 → 「나는 드러머다」로 이어져 일화가 서서 가공이 쉬웠다."
+  }
+ },
+ {
+  "id": "19d6535d-fc69-4c60-a987-866e660a2e68",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "56e3e15027b90ae0407177312b2a7c3e094b31b01f49712684909c27e798abbe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "헬기 격추 경위와 목격 증언, 무장세력의 주장이 이어져 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Witnesses near the scene and police",
+   "note": "목격 문단은 두 대가 호위 중 공격받아 한 대가 추락했다는 경위가 서서 인용 없이도 읽혔다."
+  }
+ },
+ {
+  "id": "19d8d7a0-5197-4499-b275-e62be9460433",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9911d4c4fe09dbf95a1402674cc7cca52d05b45b1f3e5850959e5a3f671b9abf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "의료 대마 환자 구금 기사가 당사자 측 주장만 사실처럼 싣고 있어 일방 논박인지 기준으로 가르기 어렵다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "In particular, he relates how he",
+   "note": "베타차단제 문단은 당사자·아내 전언만으로 교도소를 비난해 반대 측 설명을 걷으면 주장만 남았다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "19d908c2-851d-4de9-9a22-0c08e5b48a1b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "991f2ed0ffbf7db15d73171e4aa4ea3fa40516dbfef0da98d993ffdfab01f173",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "구조견 복제 계획과 에세이 공모, 경매 방식이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Trakr, the 15 year old German",
+   "note": "구조견 문단은 병든 개와 수상 경력이 서서 degenerative neurological disorder 만 풀면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "19dc5d7d-a994-4057-94e4-8b828d89a547",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f709913b2c9d17ecda6aaedc96416cb2bc6e6599e5097dc18a0ca85beea30300",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "비상착륙의 원인과 전투기 호위, 승객 검사가 짧게 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A 59-year-old woman from Vermont, evidently",
+   "note": "소동 문단은 폐소공포증 승객이 제지됐다는 원인이 서서 claustrophobia 하나만 풀면 됐다."
+  }
+ },
+ {
+  "id": "19de85eb-93db-487c-a2d5-2872923b25a5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4bad39fe7469c45714359038aaa5aa5bd8e19ecb20ea8909acfd2a09d7314412",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "열차 충돌과 잇단 사고에 따른 해임·투자 계획이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In August the director of rail",
+   "note": "앞선 사고 문단은 책임자 해임과 안전 규제 비판이 서서 떼어 쓰기 쉬웠고 첫 문장이 불완전한 것은 가공 때 고친다."
+  }
+ },
+ {
+  "id": "19df9fe3-f130-4e30-923c-3b546ffbd677",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "36f620d59206625813f7da6e5e2a8a164a4211c3effb99342f1ab0f412349670",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "팬 대회의 비용·후원·전시·지역 경제 효과를 두루 다룬 긴 탐방 기사라 장문·분위기·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood",
+    "long_reference",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Money isn't the only explanation, though.",
+   "note": "사교 문단은 1년에 한 번 친구를 만나는 자리라는 까닭이 서서 떼어 내기 좋았지만 성인 풍문 언급과 가발 시위 대목은 가공 때 걷는다."
+  }
+ }
+]

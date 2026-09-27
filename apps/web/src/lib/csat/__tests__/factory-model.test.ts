@@ -126,7 +126,11 @@ describe('lineCompletion', () => {
 
 describe('FACTORY_STAGES — 공정 정본', () => {
   it('ord 가 1부터 빈틈 없이 이어진다', () => {
-    expect(FACTORY_STAGES.map((s) => s.ord)).toEqual([1, 2, 3, 4, 5, 6, 7, 8])
+    // 칸 수를 박지 않는다 — 공정이 늘 때마다 이 줄을 고치면 검사가 「지금 몇 칸인가」를
+    // 지킬 뿐 **빈틈 없음**을 안 지킨다(⑨ 운영·개정을 더하며 실제로 그렇게 됐다).
+    expect(FACTORY_STAGES.map((s) => s.ord)).toEqual(
+      FACTORY_STAGES.map((_, i) => i + 1),
+    )
   })
 
   it('id 가 중복되지 않는다 — 레지스트리 키로 쓰인다', () => {

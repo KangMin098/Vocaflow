@@ -1,0 +1,227 @@
+[
+  {
+    "id": "63e839c2-6a87-4b8a-9d3d-dbf7f5004008",
+    "source_updated_at": "2026-09-13T06:45:18.258848+00:00",
+    "body_sha256": "19f81ad0908201484bf2c50967ee783eee4437a5da979f808e8f85641e2878de",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 「항균 작용 방식」 절이 두 펩타이드의 선택성과 세포독성 차이를 논지로 잇는다 — 내용 일치·요약 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "These results present both brevicidine and",
+      "note": "약어(MIC·LPS)와 균주명을 「세균 외막」 같은 말로 바꾸면 서고, 수치를 걷어도 선택적 작용 논지가 남는다."
+    }
+  },
+  {
+    "id": "63f38956-07b1-4d13-b967-827f5bbca8b6",
+    "source_updated_at": "2026-09-25T07:33:34.741517+00:00",
+    "body_sha256": "7fd0059eda30fb19551fde29d92c9cce3a5eaf93b545a3027d03dfdeb4ce277f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론과 고찰이 소변 단백체 진단의 가능성과 한계(농도 보정 부재)를 대비해 논지를 세운다 — 주제·요지 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Urine-based diagnostics are becoming increasingly popular",
+      "note": "UroSEEK 등 고유명과 수치를 걷고 proteomics를 「단백질 분석」으로 바꾸면 비침습 진단 논지가 선다."
+    }
+  },
+  {
+    "id": "63f75c7c-b667-4161-8a9e-1839ed8beef3",
+    "source_updated_at": "2026-09-13T07:20:35.153117+00:00",
+    "body_sha256": "84d605591f2929c0af53a37a496ceab5ed63d32dbaf3a4350f3a4a530e6550d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰이 급성 신장 손상과 장기 행동 문제의 관련성 및 연령별 차이의 이유를 단락별로 설명한다 — 요지·순서 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "More is expected socially and behaviorally",
+      "note": "AKI·SM 약어를 풀고 「externalizing」을 「공격적 행동」으로 바꾸면 연령 차이 설명 단락이 따로 선다."
+    }
+  },
+  {
+    "id": "63f78d57-0880-45f2-807f-06529034d2dd",
+    "source_updated_at": "2026-09-13T06:44:07.179086+00:00",
+    "body_sha256": "ab2c082d3cde5ed545650dd697f05b46dbb371ddda2c4fd2e9a498d5e16b10e2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "서론과 고찰이 잔류성 유기오염물 혼합물의 뼈 발달 영향과 단일 물질 연구의 한계를 논지로 잇는다 — 주제·빈칸 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Monitoring programs mostly consider each compound",
+      "note": "화합물 약어를 「오염 물질」로 묶고 zebrafish 수치를 걷으면 혼합물로 봐야 한다는 논지가 남는다."
+    }
+  },
+  {
+    "id": "63fd1d03-c0ef-4649-a237-ce6fcc0297d9",
+    "source_updated_at": "2026-09-13T07:42:36.147357+00:00",
+    "body_sha256": "65a469bd322241d29f03951940cbfa7c3018c500070c5d4c17b8be2a87bcb2ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰이 원인 불명 체중 감소의 장기 추적 결과로 기존 통념(초기 음성이면 안심)을 수정한다 — 요지·주장 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several physiological and psychosocial factors may",
+      "note": "노인 체중 감소 원인 단락은 수치 없이 서고 xerostomia·polypharmacy 두세 낱말만 바꾸면 된다."
+    }
+  }
+]

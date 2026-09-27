@@ -230,15 +230,17 @@ export function EvidenceInspector({
             {item.bodyOk ? '✓ 추출 본문 정상' : '△ 추출 본문 검토 필요'} ·{' '}
             {item.quoteLocated ? '인용 대조 일치' : '인용 대조 불일치'}
           </p>
-          <a
-            className={s.button}
-            href={source.paperUrl ?? source.listUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {source.paperUrl ? '공식 문제지 열기' : '공식 자료 안내 열기'}
-            <ExternalLink size={14} aria-hidden />
-          </a>
+          {source.paperUrl ?? source.listUrl ? (
+            <a
+              className={s.button}
+              href={(source.paperUrl ?? source.listUrl) as string}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {source.paperUrl ? '공식 문제지 열기' : '공식 자료 안내 열기'}
+              <ExternalLink size={14} aria-hidden />
+            </a>
+          ) : null}
           {source.reason ? (
             <p className={s.muted}>{source.reason} · 안내에서 해당 회차를 확인하세요.</p>
           ) : null}

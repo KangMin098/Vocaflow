@@ -1,0 +1,998 @@
+[
+ {
+  "id": "728bea1c-99be-4b14-82a7-14bd99dd0ca2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "dc491bb10eb909f68dd16e4265f73a304e874977eeb6dd218afdd96951a8ddbc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "체중 증가 요인 → 칼로리 적자·식단·활동·습관 순의 설명 본문이 요지·빈칸 칸을 채우고 끝의 팁 목록은 가공 때 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "To lose weight, you need to",
+   "note": "칼로리 제한과 활동을 함께 하라는 문단은 인용 이름을 걷어도 서고 restriction을 cutting으로 바꾸니 V5로 내려갔다."
+  }
+ },
+ {
+  "id": "72a159e8-820c-445e-b8ff-9fbe2f78169c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f3a487c0983c8323a5626d493b95a75f4e6c7e32fca0e7441cc25b18daf0a951",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈전 발생 → 폐색전 위험 → 위험군 → 예방 행동으로 이어지는 설명문이라 주제·내용일치 칸을 채우며 끝 증상 목록만 걷으면 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Deep vein clots—especially those in the",
+   "note": "혈전이 폐로 옮겨 가는 인과 문단이 단독으로 서고 lodges·embolism만 풀어 쓰면 되었다."
+  }
+ },
+ {
+  "id": "735b8d62-7dd6-41c0-9066-c56280f71114",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "816781286976e4efe5f0e0fa2b1b89392771553954a5f05a86251a2a5141fe53",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "짧지만 목소리 이상 신호 → 원인 → 회복 → 보호 수칙이 차례로 이어져 중등·고1 주제·순서 칸이 선다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Voice problems can arise if you’ve",
+   "note": "원인 나열 문단이 교사 예시와 이어져 짧아도 서며 larynx 하나만 풀면 중등 밴드가 된다."
+  }
+ },
+ {
+  "id": "74b02c99-71ba-4f8d-8d19-15cf998dfd7a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "caf74c0a07db3a0f9833d8fe25214388c303e41b0e8ad86bce2967806d7cde85",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "조기 진단의 어려움 → 앱 개발 → 475명 검증 수치 → 후속 연구로 흐르는 연구 소개라 주제·내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The app was tested in 475",
+   "note": "검사 정확도 수치 문단은 앞 문단의 앱 소개 없이 시작해 the app을 A new tablet app으로 고쳐야 했다."
+  }
+ },
+ {
+  "id": "74ef5bcc-38dd-4f92-919b-31aa340a11dd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "30647e0c53b561b20bd23ae211ae87aef7a6865a9877d727cf3cd7faa390370e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미생물 공동체라는 관점(한 균이 아니라 군집)과 곰팡이-세균 협력 연구가 논지로 서서 주제·빈칸·순서 칸을 넉넉히 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Koo’s team has shown that some",
+   "note": "곰팡이와 세균이 서로 먹이를 주는 협력 문단은 Koo를 researchers로 바꾸니 서고 공생 인과가 빈칸 소재가 된다."
+  }
+ },
+ {
+  "id": "75047d38-95ac-49dd-b93a-814f144d8ef3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9e461d83b24604229cb0dbfa3f7d6fd6517d04ca600d4fd408cdd2023cc03657",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH가 학교 관계자·부모에게 당뇨 학생 지침서 이용을 권하는 공지로 누가·누구에게·무엇을이 서서 목적 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The guide urges parents to notify",
+   "note": "부모에게 학교 통보·관리계획 수립을 권하는 문단이 공지 목적을 그대로 담고 끝의 주소·전화번호는 걷었다."
+  }
+ },
+ {
+  "id": "754f0148-48d1-49af-9889-c69dfc888a57",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e80e319fb1d295e6a4b790f00cfba92a2efd9d5bcc3f3642a64cc523a4c56181",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "NIH가 표적치료 임상시험 NCI-MATCH 참가자를 모집하며 자격·절차를 알리는 공지라 §3-2 기관 공지 최소선을 넘어 목적 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Volunteers are needed for this nationwide",
+   "note": "참가 자격 문단이 모집 공지의 핵심이고 lymphoma를 a blood cancer로 바꾸면 되며 전화번호 문단은 걷는다."
+  }
+ },
+ {
+  "id": "759bf964-7aec-4070-b58f-994ce04e8b33",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "642bf93e3eda5d9bac0e657edb44fefd899b09025a8b4608ba539f4c7428e89e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "원거리 간병인에게 NIH 소책자를 권하는 짧은 안내로 대상과 권유 까닭이 서서 목적 칸을 채우며 끝 주소는 가공 때 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Anyone, anywhere can be a long-distance",
+   "note": "원거리 돌봄의 예를 드는 문단이 소책자 권유의 까닭을 세우고 URL 문단만 걷으면 공지문 틀이 남는다."
+  }
+ },
+ {
+  "id": "76caf708-fe39-4a99-93ff-7fa9e920c020",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e649d22951563bae8d02ca01a744116146aa947f04a82de9f00261b2101acd78",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "뇌성마비 웅크린 보행 → 외골격 개발 → 7명 시험 결과 → 전망 순의 연구 소개라 주제·내용일치·순서 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Seven children, ages 5 to 19",
+   "note": "7명 시험 결과 문단은 the device만 a robotic leg brace로 풀면 서고 수치가 내용일치 선지가 된다."
+  }
+ },
+ {
+  "id": "76e312cc-1f24-494e-a5a3-86423607b4c0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "88cdefcd5e0ca67e00ed15e5b1e2d1e109b8d012da6aad42f92698835997fb9d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "보충제는 식품으로 규제돼 효능·안전 승인이 없다는 주장을 규제·표시·약물 상호작용 근거로 받치는 대담 발췌라 주장·요지 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Even though manufacturers don’t have to",
+   "note": "허용 표현과 금지 표현의 경계를 다룬 문단은 대괄호 편집을 걷어도 논지가 서고 대비 구조가 빈칸에 좋다."
+  }
+ },
+ {
+  "id": "7728344b-49b2-47d2-84d8-d2cc80fc87dc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ca9618e211595a7b061af36f1b3eaf5cfbc1d0dde0fc17e1680d8cf8aa327a2b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "설탕 자체는 나쁘지 않으나 과다 섭취가 문제이고 감미료 효과는 불확실하다는 논지가 연구 근거와 함께 서서 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "De Araujo and others have been",
+   "note": "설탕과 감미료가 뇌 보상회로에 다르게 작용한다는 문단은 인명을 researchers로 바꿔도 서고 reward circuitry만 풀면 된다."
+  }
+ },
+ {
+  "id": "77d1f838-35d4-4cff-8f6f-d9939cdfab8a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a563dc38debba767efcfb9f660fdd5ed5220341804a4fa50870394c9573b7f77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "부종의 정의 → 일시적 원인 → 질환 신호 → 치료로 이어지는 설명 본문이 주제·내용일치 칸을 채우고 팁 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In a disease called congestive heart",
+   "note": "심부전·간·신장으로 체액이 고이는 인과 문단이 단독으로 서며 congestive를 빼도 뜻이 유지됐다."
+  }
+ },
+ {
+  "id": "794e92a6-7130-40ff-b80d-e1c39339fa3c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "40e1021a87780369b8bb4f308edc2bead791bdb0eb5886ba794d0268ed5f132c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "가끔의 역류와 질환 GERD를 빈도로 가르고 원인이 산 과다가 아닌 근육 약화라는 연구로 맺는 설명문이라 주제·빈칸 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dr. Michael Raymond Ruggieri, Sr., of",
+   "note": "위산 과다가 아니라 괄약근 약화가 원인이라는 문단은 통념 교정 구조라 인명을 걷으니 빈칸 지문으로 곧바로 섰다."
+  }
+ },
+ {
+  "id": "7958953e-6bae-43cf-a022-b78e443780e1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "eca36cc709267262627c8e6a03687729d048df7423282dd149df0f07c26faf39",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "science",
+  "why": "말할 때 나오는 비말이 에어로졸이 되는 원리와 레이저 실험을 설명하는 과학자 대담이라 주제·빈칸 칸이 서고 구어 인터뷰 형식도 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On the other hand, if you",
+   "note": "P·B 입술 비말과 모음 비말의 부피 대비 문단은 On the other hand를 걷고 앞 문단 요약 한 줄을 붙여야 섰다."
+  }
+ },
+ {
+  "id": "79eb6bf0-a8df-45b4-a125-82133a5de140",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f78c319aa559d65290ddb1241c71125da2a86c6933ff019b09a7c17221a97409",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "또래 영향이 건강 행동을 퍼뜨리고 우정의 질·동반 반추가 정서를 가른다는 논지가 연구와 함께 서서 요지·빈칸·무관한 문장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But it’s the quality of those",
+   "note": "우정의 양보다 질이라는 문단은 앞 문단 없이도 대조가 서서 빈칸 지문으로 바로 쓸 수 있었다."
+  }
+ },
+ {
+  "id": "7ab3747c-c34a-4b56-853d-d148f1e531cb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8557f05ac9ef33cf88774fb257d19f777f86176a4ebc924d8036cf5f02908514",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "보이지 않는 가정 유해물 납·곰팡이·라돈을 원인·영향·대처 순으로 설명하고 시민과학 사례가 붙어 주제·순서·문장삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But few households test for radon.",
+   "note": "라돈 검사를 늘리려 학생을 시민과학자로 훈련시킨 문단은 Hahn을 researchers로 바꾸면 사건처럼 서고 mitigate만 풀면 된다."
+  }
+ },
+ {
+  "id": "7b7c17af-3341-4fb9-ad34-282487faffdf",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d122db1efbe202de3146357555b0c244f90f606f268cf2eba43932626d211c39",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "임상연구 참여를 권하며 자원자의 역할·동의 절차·IRB 보호를 설명하는 기관 안내로 목적·요지 칸이 서고 끝 사이트 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "purpose",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Both types of volunteers are needed,",
+   "note": "환자·건강 자원자가 모두 필요한 까닭을 한 문장으로 세우는 문단이 짧아 빈칸 핵심 문장 후보가 되었다."
+  }
+ },
+ {
+  "id": "7bea885c-a177-499b-b9cb-68202d2f48a4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "27f8825dcad8ee29f87bdd20d09df012e8d3a1685cd8943d3d3c934bb966d207",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "소아과에서 성인 진료로 옮길 때 몇 해에 걸쳐 준비하라는 권고가 절차와 까닭으로 서서 목적·요지 칸을 채우고 URL 줄은 걷는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "purpose",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“Children need to have a couple",
+   "note": "자녀가 진료 참여를 연습해야 한다는 인용 문단은 따옴표를 풀어 간접화법으로 바꾸니 요지 문단이 되었다."
+  }
+ },
+ {
+  "id": "7c2a9ed9-7069-491a-b231-3afef95aca4b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "21ad82baf6f4110c5c0331fd76b649c01131d58bdf6a053ed784badd29e08769",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "긍정 정서가 기술로 길러진다는 주장을 뇌 보상회로·명상·자기확인 연구 근거로 받치는 글이라 요지·빈칸·요약 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "“In general, if you tell people",
+   "note": "건강 조언에 방어적이 되는 사람 문단은 자기확인 연구와 이어져 인명을 걷어도 서고 빈칸 소재로 좋았다."
+  }
+ },
+ {
+  "id": "7c5316a7-d67c-4ecb-b256-6da845e00145",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f58c8adb802187d79f5e0f9a4793ba86c5f5051d35a45de00928257e10ae475e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "탈수 신호 → 장기 영향 연구 → 적정 수분량 → 연구자 일화로 이어지는 설명문이라 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dmitrieva has changed her own drinking",
+   "note": "연구자가 스스로 물 1리터를 들고 다니게 된 문단은 일화로 서서 서사형 예시로 쉽게 떼어졌다."
+  }
+ },
+ {
+  "id": "7c77c18d-dbe6-4991-8055-0b13d367d7e4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "36b39e52212417d78bcf63b398ec0c01eb224c63d04d59d2dfa8670373a3dc31",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "골다공증은 여성 질환이라는 통념을 남성 위험·과소 진단 근거로 교정하는 짧은 글이라 주제·빈칸 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A fracture after age 50 is",
+   "note": "남성이 골절 뒤에도 덜 검사받는다는 문단이 여성 질환이라는 통념을 뒤집는 핵심이라 단독 빈칸으로 섰다."
+  }
+ },
+ {
+  "id": "7d6cdd26-2f41-4e8e-ae07-5fc5aeecc76e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e80081760f32902b9d1289508bac8a4a753b18fea97507d8fe6602c0aad79b64",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "노인을 돌보는 사람에게 구강 관리를 돕는 방법을 권하는 짧은 안내로 대상·행동·까닭이 서서 목적·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "purpose",
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "If older adults need help, remember",
+   "note": "tell-show-do 절차 문단이 순서로 이어져 짧아도 서고 disposable 하나만 풀면 중등 밴드가 된다."
+  }
+ },
+ {
+  "id": "7d9eb17a-7628-4f3d-8175-0c74bff4a7ac",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2ed2be1ede9593c88116f39dcbbccbf70b178b7a6f2c1920baa5a36c1e8d2859",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "갑상선의 역할 → 저하·항진 → 원인 → 진단·치료 → 임신·암으로 이어지는 설명 본문이 주제·내용일치 칸을 채우고 증상 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Thyroid disorders can be hard to",
+   "note": "진단이 어려운 까닭 문단은 인명을 걷어도 서며 subtle·fatigue 둘을 바꾸니 V5 수준이 되었다."
+  }
+ },
+ {
+  "id": "7de532bb-4ae7-409f-9af4-e7cf9f06c619",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1c8de1852ab249191e1d147ee5b6de9acb80b8fce2a2eed76f658bc845747bdb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "의학적 이유가 없으면 39주까지 기다리라는 주장을 태아 발달·합병증·산모 위험 근거로 받치는 글이라 주장·요지·빈칸 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Those last few weeks can make",
+   "note": "마지막 몇 주의 뇌·폐 발달 수치 문단이 주장 근거로 단독으로 서고 전문어는 거의 없었다."
+  }
+ },
+ {
+  "id": "7dffa0a6-b63a-471c-969d-4655735ae4c4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "412e4a673ab4b9eab808d47c35b7322bfabe589549c23355833009c93ef7f057",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "정기 산동 안검사를 권하는 까닭과 검사 네 단계가 순서대로 이어져 주제·순서 칸이 서며 끝의 영상 안내·팁 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "A visual acuity test detects how",
+   "note": "시력검사 절차 문단은 순서로 잘 떼어지나 dilated·tonometry 같은 검사명이 핵심이라 바꾸면 뜻이 흐려졌다."
+  }
+ }
+]

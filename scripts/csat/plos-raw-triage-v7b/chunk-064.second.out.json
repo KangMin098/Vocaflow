@@ -1,0 +1,1044 @@
+[
+  {
+    "id": "330b414f-5a9d-44a1-9604-00bf37389f6a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:31:48.768873+00:00",
+    "body_sha256": "6c6e1715c7eb5fc05f1eb79bafb492b9e9a81a16ae35dae5759440efe679759e",
+    "retention": "keep",
+    "genre": "health",
+    "why": "알츠하이머 신경염증에서 미세아교세포 소집단이 함께 조절된다는 고찰의 논지가 한 편으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Microglial activation in AD plays",
+      "note": "고찰 단락은 앞 문맥 없이 서지만 Trem2 같은 유전자명이 많아 밴드를 내리기 어렵다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "331fa9ba-217e-44fc-a27e-a4fdfbbd90b7",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:31:52.990644+00:00",
+    "body_sha256": "40fefa92c2703c9fafef67a2086c590628855d70e67bc9fcd16241b4649822ec",
+    "retention": "keep",
+    "genre": "health",
+    "why": "적혈구 분포폭이 나이와 사망률을 매개한다는 주장과 근거가 고찰에서 분명히 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "RDW, a measure of the",
+      "note": "수치를 걷어내도 노화-염증-예후 논지가 남아 어휘 두세 개 교체로 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33229085-cf39-4ede-82e5-65a70b9d4dcf",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:16:38.953448+00:00",
+    "body_sha256": "3b1be2d1d6490919e0bca994e823286b3fb9543d9d04e694a18e19751dc724e1",
+    "retention": "keep",
+    "genre": "health",
+    "why": "감염 초기 IL-17A가 오히려 균 정착을 돕는다는 통념 뒤집기 구조가 고찰에 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "IL-17 is known to",
+      "note": "고찰 첫 단락은 떼어내도 서지만 균주명과 실험 약어가 촘촘해 하향이 막힌다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "332955e8-212a-402b-b9e0-24d866295258",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:35:07.63952+00:00",
+    "body_sha256": "461428c6ef276173258c942288f6f532c124821a3b0c275ef4a5c5889cb6ab7c",
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "health",
+    "why": "심근 비대와 부정맥 논지는 있으나 전류 기호 표기가 문장마다 박혀 발췌가 어렵다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Currently, the decrease in",
+      "note": "I to,f · I Kur 같은 첨자 표기를 걷어내면 문장의 주어가 사라진다."
+    },
+    "uses": [
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "3341a9ff-af4f-4e7f-b11a-d3030ee4e66a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:31:54.91693+00:00",
+    "body_sha256": "774ff3d707d7d2f2b698a81c1864866ed623ce3f6f4f9070d6e773b91809cf24",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "눈 MRI 자동 분할과 아틀라스 구축의 필요성과 한계를 고찰에서 한 편의 논증으로 편다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "order",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Manual segmentation has traditionally been",
+      "note": "수동 분할의 한계를 짚는 단락은 고유명사를 걷어도 논지가 서고 어휘 교체가 쉽다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33428988-fb94-4dc5-8883-a48eef633ccd",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:31:55.301458+00:00",
+    "body_sha256": "6757bd92a5c32536b66cc9abc4c741ae60f933c1375f18f26a04156bdc5d8e92",
+    "retention": "keep",
+    "genre": "health",
+    "why": "기존 약을 새 용도로 돌려 쓴다는 재활용 전략을 도입부가 주장-근거로 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the search for",
+      "note": "약물 재배치 단락은 수치 없이도 서고 SSRI 같은 낱말만 풀어 주면 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "336d07d7-8e40-4b65-93fd-457543156509",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:00.907509+00:00",
+    "body_sha256": "3927b86deeb4a8f20346624e5226bf4742b5d64624abfeb8917c4645d1e680a8",
+    "retention": "keep",
+    "genre": "science",
+    "why": "수컷 생식 연구가 뒤처졌다는 문제 제기와 수용체 규명이 고찰에서 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Typically, platyhelminths are hermaphroditic",
+      "note": "고찰 첫 단락은 자족적이나 유전자 약어가 밀집해 목표 밴드로 못 내린다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "337d8d0a-3d2a-4fbe-a0f2-a7deab640db2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:41:47.64326+00:00",
+    "body_sha256": "a3eb9f9ad09422ba363e053151aae211d4b724a906f26e080f0f48ec3cfe0a1a",
+    "retention": "keep",
+    "genre": "science",
+    "why": "장수 유전자가 성체 신경생성 단계마다 다르게 작용한다는 논지가 고찰에 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "About 3000-4000 new potential",
+      "note": "고찰 서두는 수치 한 줄만 다듬으면 독립 지문이 되고 어휘 교체도 통한다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "337f4c88-6846-4fe8-aed3-bc56157a2145",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:05:30.260137+00:00",
+    "body_sha256": "9e86f748fb17b332d172d4282bd4481c4a3035fe6c0469c7e6bd159769cbdd66",
+    "retention": "keep",
+    "genre": "health",
+    "why": "단일 표지자로는 면역치료 반응을 못 가른다는 주장이 고찰에서 근거와 함께 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Our results suggest that",
+      "note": "논지는 명확하지만 유전자 기호가 문장 주어로 쓰여 하향 여지가 적다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "339e40e0-5efc-4f91-9035-fbba499caf56",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:46:19.096077+00:00",
+    "body_sha256": "3910adaa335bac1000fd228c51e0c33b2789df58da7910f67c7b298adc35d3b6",
+    "retention": "keep",
+    "genre": "science",
+    "why": "같은 오페론의 두 산물이 서로 반대로 내성을 조절한다는 논지가 고찰에 정리돼 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "GlmR has been identified",
+      "note": "고찰 첫 단락은 떼면 서지만 균주·유전자 표기가 많아 성인 칸에 한정된다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33bf6b73-e892-419e-8d1e-1902e24acd3e",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:25:52.757057+00:00",
+    "body_sha256": "98f3cd05cd43d9170b2cea163347dc5d01c7b84bb1bf27870877bf0a18faa2da",
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "죽순 부산물을 곰팡이로 발효해 사료로 되살린다는 문제-해결 구조가 도입부에 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "order",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bamboo shoots, cherished culinary delights",
+      "note": "도입부는 표와 무관하게 논지가 서고 lignocellulose 정도만 풀면 중등까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33cf9914-4d19-4452-833f-51b21190797b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:07.60687+00:00",
+    "body_sha256": "4eb4e11cb8c1f0aefe1b5507cc7d9791192174e1ce9403883dfe0230401f83ec",
+    "retention": "keep",
+    "genre": "health",
+    "why": "요산 분해효소의 면역원성 문제를 세포 안 분해로 우회한다는 주장이 고찰에서 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Immunogenicity is the most",
+      "note": "면역원성 단락은 실험 기호 없이 논지가 서서 어휘 두세 개만 바꾸면 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33df1117-608e-4c10-91ff-b96711f4e363",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:09.390437+00:00",
+    "body_sha256": "fc51b6a7b53f58e0dfe78d58b67ea08c3359ad81f39fcb54d90f9414ac50c266",
+    "retention": "keep",
+    "genre": "history",
+    "why": "2차 대전 해독제의 개발사와 독성 한계를 도입부가 시간순 서술로 풀어낸다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "order",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During World War II",
+      "note": "역사 단락은 계산 결과와 독립적이고 chelating 같은 낱말만 풀면 고1까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33e20728-096f-499d-9393-094c9e669f6c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:43:57.245928+00:00",
+    "body_sha256": "ac0b0a10d44934b6fa8bef06bbc2ceac7e31c43fb811adfbcb4a1a37de96df1e",
+    "retention": "keep",
+    "genre": "health",
+    "why": "갑상선암 재발 문제와 새 표적 필요성을 고찰 도입이 논증으로 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thyroid cancer, particularly papillary",
+      "note": "고찰 첫 단락은 실험 기호가 없어 그대로 떨어지고 어휘 교체도 잘 먹는다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33e28a68-18ed-4023-bd29-2691152c1a96",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T05:59:20.477032+00:00",
+    "body_sha256": "a0aff5c1db78ee60a95197a3f26f991c1a31e6ef9bbf0dc28fdf83cafb8fe108",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "값싼 열화상이 비싼 영상 검사를 보완한다는 주장을 도입부가 근거와 함께 편다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Infrared thermography offers a rapid",
+      "note": "도입 단락은 효과크기 표를 걷어도 논지가 서고 어휘 하향이 쉽다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33e2fd5b-84fe-4782-aee8-eff3873750bb",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:10.575898+00:00",
+    "body_sha256": "6b950b436868e0ac2e24d17c1713d7dbbb91b03ebff21992f62a3050b89e1ca3",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "항생제 개발 정체와 항균 펩타이드 대안이라는 문제-해결 논지가 도입부에 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Antibiotics, which are capable of",
+      "note": "도입 두 단락은 수식 없이 서고 resistance 계열 낱말만 풀면 밴드가 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33e8a239-bdcd-4314-8860-6af0073a2e6b",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:12.302469+00:00",
+    "body_sha256": "6e605318f1cef8dfdbb6dae6575220b275998e860bbf1baf01b7e670924a5fc6",
+    "retention": "keep",
+    "genre": "health",
+    "why": "항암제 내성과 상피-간엽 전이의 관계가 단순하지 않다는 반론이 고찰에서 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "EMT is a well-known",
+      "note": "상반된 선행 보고를 대는 단락은 자족적이나 세포주 이름이 많아 하향이 막힌다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33ee8231-9939-4458-8bba-06dd1b762cc3",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:13.412418+00:00",
+    "body_sha256": "57b542086d199ecb37422371ce494ecc5f4b3b45f56e043c025751c746bd796d",
+    "retention": "keep",
+    "genre": "science",
+    "why": "사회적 경험이 뇌 가소성을 바꾼다는 논지가 고찰에서 단계별 근거로 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "order",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prairie voles are socially monogamous",
+      "note": "들쥐 소개 단락은 통계 표기 없이 서고 어휘 교체로 고2까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "33f400e6-b945-40ac-8372-d82f57bef0ae",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:32:14.740958+00:00",
+    "body_sha256": "b71883b04036b5b4901740c2701c3186c817226b80adbda9858a3f0a0a3cc2d9",
+    "retention": "keep",
+    "genre": "health",
+    "why": "종양이 보체 조절 단백질을 늘려 면역을 피한다는 주장을 도입부가 근거와 함께 편다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The complement system comprises a",
+      "note": "보체 작동 원리 단락은 유전자 기호 없이 서서 어휘 두세 개만 바꾸면 된다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "34019ade-2127-42e9-b246-e5e4fbfff3d2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:39:09.691111+00:00",
+    "body_sha256": "379074d1adb7ac8baec21c70e36f74b79c6de49a6f86aaef85259d15e88e70c6",
+    "retention": "keep",
+    "genre": "science",
+    "why": "세포 밖 뉴클레오타이드가 신호 물질로 쓰인다는 통념 갱신이 도입부에 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The intracellular roles of nucleotides",
+      "note": "find-me 신호를 설명하는 도입부는 자족적이고 어휘 교체도 통한다."
+    },
+    "uses": [
+      "argument",
+      "structured",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  }
+]

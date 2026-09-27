@@ -1,0 +1,417 @@
+[
+ {
+  "id": "728e83c6-7d12-4008-b35d-f5e5289242ab",
+  "source_updated_at": "2026-09-25T07:40:10.950373+00:00",
+  "body_sha256": "b42ffe68621e38e47233c0b289fac6930167e8dbbaa27777ccc039f66df6b470",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "LPS 유발 인지장애와 항염 약물의 작용을 서론-고찰로 잇고, 고찰의 「행동검사 해석」 단락이 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neurodegenerative ailments are characterized by neuronal",
+   "note": "약어(LPS·NF-κB)를 「염증 유발 물질」로 바꾸면 서고, 통계 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "728f6a29-4063-43fe-b0d0-1bc71e3e72db",
+  "source_updated_at": "2026-09-13T07:05:57.784683+00:00",
+  "body_sha256": "2776e1039187653ba6b30044fca0cc20ad3675f3d932b5d6363a5a560f4c113c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "광견병 바이러스와 숙주 억제 단백질의 상호작용을 통념-반증 구조로 풀고, 고찰 첫 단락이 앞 문맥 없이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "BST2 is a host antiviral protein",
+   "note": "세포주 이름과 실험 기호는 걷히지만 단백질 약어는 한 번 풀어 줘야 한다."
+  }
+ },
+ {
+  "id": "72936f4e-0c01-47b4-9ae3-95e6b4939d77",
+  "source_updated_at": "2026-09-06T00:07:32.986511+00:00",
+  "body_sha256": "06589d815f82524f8bc0d348a7e5a571b353004fdf993deb706014c5c6b0b714",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "외상 후 응고장애를 「소생술 탓」이라는 통념에서 「손상 자체의 생리」로 뒤집는 논설이라 한 편으로 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "claim",
+    "summary",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A decade ago, the notion was",
+   "note": "인용 표시만 걷으면 그대로 지문이 되고, 의학 용어 두셋만 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "7296e084-eae9-4ac1-9b81-55bb8080eb76",
+  "source_updated_at": "2026-09-13T06:26:28.556968+00:00",
+  "body_sha256": "2df15b564fbd8f277f0b87f23afe1a6a5aebda752d301daf1a02eec3e304141e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "교정 장치가 부르는 법랑질 탈회 문제와 항균 접착제 해법을 서론-고찰로 잇고, 서론 단락이 배경 설명으로 자족한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Enamel demineralization is a common complication",
+   "note": "본문 중반이 실험 절차·수치라 서론과 고찰 앞부분만 쓸 수 있다."
+  }
+ },
+ {
+  "id": "729d4247-e0b1-43c5-b670-48060eb75138",
+  "source_updated_at": "2026-09-25T07:40:13.825134+00:00",
+  "body_sha256": "5765d1323f64d3cf7a166b9c833701d325b3dd13326369799b27cec98ea18e79",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 세포를 떼어내 옮겨 다니게 만든다는 기전을 저자 요약과 고찰이 사건 흐름으로 설명한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The adherent cells undergoing KSHV lytic",
+   "note": "유전자·변이 표기가 문장마다 박혀 있어 어휘 조정만으로는 밴드가 크게 안 내려간다."
+  }
+ },
+ {
+  "id": "729e65e5-b66d-433c-a058-f5439c408f8f",
+  "source_updated_at": "2026-09-13T07:37:39.192219+00:00",
+  "body_sha256": "692791cc1d0a60893b0886a77a1c4d0dc3606f10050a34ad45dfa96c0625359c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "시신경 손상 후 신경절세포 사멸과 약물의 항염 보호 효과를 원인-결과로 잇고, 서론이 배경으로 자족한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Traumatic optic neuropathy (TON) is a",
+   "note": "표지 단백질 약어를 「염증 지표」로 묶으면 서론·고찰이 읽힌다."
+  }
+ },
+ {
+  "id": "72a7755e-317b-4556-aff5-4dd21777f360",
+  "source_updated_at": "2026-09-25T07:40:15.101565+00:00",
+  "body_sha256": "1f26e2bb7f7c6687e3640aa2329d1b794ada43c579bfb6b34ba268538699f9aa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "옷 갈아입기 같은 일상 동작이 심부전 환자에게 주는 생리 부담을 가설-검증-간호 함의로 잇는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Heart failure (HF) is a progressive",
+   "note": "서론과 임상 함의 단락은 수치를 걷어도 논지가 서고, 결과 절은 표 의존이라 뺀다."
+  }
+ },
+ {
+  "id": "72b379d7-4dd2-4ac5-87c1-1454dd2bad0e",
+  "source_updated_at": "2026-09-13T06:55:35.325229+00:00",
+  "body_sha256": "d57d5fa8aefb965e3036092819d5009a94f0f7263f39dfa2432c752462224a72",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "굶주림이라는 환경 변화가 감수분열 재조합 위치를 바꾼다는 주장을 가설-실험-진화적 의미로 잇는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Meiotic recombination between homologous chromosomes is",
+   "note": "서론 첫 단락과 고찰 마지막 진화 논의는 서지만 유전자명 표기가 많아 조정 폭이 좁다."
+  }
+ },
+ {
+  "id": "72cc6b3e-f897-456f-b40e-a5c54896f8a5",
+  "source_updated_at": "2026-09-25T07:40:19.35884+00:00",
+  "body_sha256": "866e411ceae5372d54f6ec1e89e463d83fc8195310b183321bfb02425c3a2315",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "키위 병해와 저항성 유전자군의 역할을 서론에서 산업·병해 맥락으로 풀어 한 편의 설명으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Kiwifruit (Actinidia deliciosa) is a climacteric,",
+   "note": "본문 대부분이 분석 도구 나열이라 서론 두세 단락과 고찰 앞부분만 쓸 수 있다."
+  }
+ },
+ {
+  "id": "72ef1d86-3f35-4cc6-8776-446e13d83b4c",
+  "source_updated_at": "2026-09-13T07:09:01.248556+00:00",
+  "body_sha256": "65012e2aacbcfca82cc23737d8053e997f03e598d2f7226165599f18fb35fe0c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전자 편집으로 스플라이싱을 막아 항암제 내성을 만든 과정을 가설-검증으로 잇고, 고찰의 대체 스플라이싱 설명 단락이 자족한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Alternative splicing is a means by",
+   "note": "서열·클론 표기가 촘촘해 고찰의 개념 설명 단락만 떼어 쓰는 편이 낫다."
+  }
+ }
+]

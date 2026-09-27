@@ -1,0 +1,433 @@
+[
+ {
+  "id": "11e5317d-4713-498e-b057-39cf206123e9",
+  "source_updated_at": "2026-09-25T07:32:47.523165+00:00",
+  "body_sha256": "cf79287fd0c332e410b5b92286fc2132045afa130b02386abef71224db8141b7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "질소 침착이라는 환경 변화 제시 후 구조 대 대사 두 가설을 세우고 실측으로 대사 쪽을 고르는 논지가 서론·고찰에 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Like drought in soil, atmospheric nitrogen",
+   "note": "서론 첫 단락은 지시어 없이 떼어지나 gm·gsc 약어가 본문 전체를 덮어 결과 절은 쓰기 어렵다."
+  }
+ },
+ {
+  "id": "120f9158-ef27-44bd-8977-fb0af48818c2",
+  "source_updated_at": "2026-09-25T07:32:49.402482+00:00",
+  "body_sha256": "a7a2bfa332090c94826297c34970a2975a8cf39c9234f7a528c9e761abf52c37",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "비만-간암 연결 고리를 대사물질로 찾는 물음과 두 방법(관찰·멘델 무작위화)의 불일치까지 한 편으로 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While it is well-known that adiposity",
+   "note": "Author summary 단락은 고유명사·수치를 걷어도 논지가 서고 낱말 두셋만 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "1245301c-b2a7-4c40-a10a-3784126aafb0",
+  "source_updated_at": "2026-09-25T07:32:53.293073+00:00",
+  "body_sha256": "9575ad79138bdce9cb6e3d036bf9b64f96b62a3f2c65ab3227df3a81f621682b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "콜롬비아에 말 알부민 제제가 없다는 문제 제기부터 소수 개체 예비 투여까지 절차와 이유가 이어져 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In Colombia there is not any",
+   "note": "서론의 문제 제기 단락은 그대로 서지만 결과 절은 배치 번호·농도 나열이라 쓸 것이 없다."
+  }
+ },
+ {
+  "id": "12954ec5-0eb9-4580-b98a-557db144148a",
+  "source_updated_at": "2026-09-25T07:32:59.515648+00:00",
+  "body_sha256": "26667e9ac31ac880d0daf78ed73649b89bf69bdcb7e3019a99830d729b57a915",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "통설(RPA 결합이 체크포인트 개시에 필수)을 세운 뒤 단독 결손은 약하고 두 부위 동시 변이라야 신호가 사라진다는 반증 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Genome integrity is constantly challenged by",
+   "note": "서론 첫 단락은 유전자명 없이도 서지만 결과 절의 ∆30·DEE15,24 표기가 많아 어휘 조정으로는 밴드가 안 내려간다."
+  }
+ },
+ {
+  "id": "129cb9da-b9bf-4700-8e6b-776d77a5f53e",
+  "source_updated_at": "2026-09-25T07:33:01.089655+00:00",
+  "body_sha256": "b135b0680083824ab6677a1d3962e8bfb9845ca11fee4472e94afb8b7d4436c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "이식 생체재료가 면역을 어떻게 건드리는지 물음을 세우고 휴지기 촉진·자극 후 억제라는 양방향 결론으로 닫는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Following implantation, macrophages are rapidly recruited",
+   "note": "서론의 대식세포 극성화 단락은 앞 문맥 없이 시작되고 M1/M2 표기만 풀면 읽힌다."
+  }
+ },
+ {
+  "id": "12a88f81-cf7c-48d1-8bef-7c52e22bfa68",
+  "source_updated_at": "2026-09-25T07:33:02.387086+00:00",
+  "body_sha256": "60a879c0320e12f5b5ef97a6a6481987063d0618f40eb70d1fb92d5cc61bb033",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "빈혈마다 EPO가 기대와 어긋난다는 수수께끼를 세우고 최소 모형으로 유형별 이유를 가르는 설명이 한 편으로 완결된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The number of red blood cells",
+   "note": "Author summary 와 서론 되먹임 설명 단락이 수식 없이 떨어져 나오고 낱말 조정도 잘 먹는다."
+  }
+ },
+ {
+  "id": "12b6f038-e2b1-498b-8500-12628dbd2f08",
+  "source_updated_at": "2026-09-25T07:33:03.845539+00:00",
+  "body_sha256": "a2fd6d91ec5dbc4eab69836ba63eb71fb8a367045d6590a53cb75145d9cf903b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "생체표지자가 무엇인지, 발견 단계 연구가 어디까지 말할 수 있는지 서론·고찰에서 스스로 한계를 세워 논지를 만든다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Importantly, biomarker research is not only",
+   "note": "서론의 생체표지자 정의 단락은 잘 서지만 결과 절은 암종 약어 나열이라 통째로 버려야 한다."
+  }
+ },
+ {
+  "id": "12eeef72-514e-48c6-a897-f204727dd701",
+  "source_updated_at": "2026-09-25T07:33:10.832015+00:00",
+  "body_sha256": "70838ecf6a7f11e1f9818555b77bfa48fc4cb6c711d1c522780e00e3042d291e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 MenB 백신의 제조·변이 한계를 세우고 원형 RNA 플랫폼이 그 한계를 어떻게 피하는지로 논지가 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Circular RNA is a type of",
+   "note": "Author summary 와 circRNA 설명 단락이 그림 참조 없이 서고 약어 두셋만 풀면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "1301db98-c60f-4382-b590-e9e49f7df033",
+  "source_updated_at": "2026-09-25T07:33:12.807635+00:00",
+  "body_sha256": "5fcfac25f3c2ba68d62a923f52a1f4ebeaf70d234350bca48a69794d875d2780",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "리스테리아의 감염 경로와 항생제 내성 문제를 세운 뒤 식물 플라보노이드를 대안으로 놓는 서론이 자족적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Foodborne pathogens cause significant illness by",
+   "note": "서론은 사실 진술이 여럿이라 쓸 만하나 결과 절 전체가 CID 번호와 kcal 값 순위라 가공 대상이 아니다."
+  }
+ },
+ {
+  "id": "1331e4a0-552b-4151-8fb3-edc79bd3b1c9",
+  "source_updated_at": "2026-09-25T07:33:15.628545+00:00",
+  "body_sha256": "19606fb05e3a0c0871c9ef58f83902d7bf05be5c18d22dfdc774f11d7914b09d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항생제 이전 시대 부검 조직이라는 자료의 희소성과 1차·2차 결핵의 구분을 설명으로 세워 연구 필요를 끌어낸다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Human tissue remains the only truly",
+   "note": "고찰의 인체 조직 희소성 단락은 앞 문맥 없이 서고 단백질명을 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "13560606-2cc6-496d-9976-3009b66efc84",
+  "source_updated_at": "2026-09-25T07:33:18.738446+00:00",
+  "body_sha256": "94a981c23bdc752e9a23cffe290fa8e74543407110f77291c9509309236d1e31",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "두 경로가 만나는 지점으로 지목돼 온 인산화 자리가 실제로는 거의 영향이 없더라는 부정 결과를 논지로 세운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Serrated colorectal cancers account for about",
+   "note": "서론의 톱니형 대장암 단락만 떼어지고, 결과 절은 WT/KI 유전자형 표기가 문장마다 있어 못 쓴다."
+  }
+ }
+]

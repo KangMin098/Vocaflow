@@ -1,0 +1,821 @@
+[
+  {
+    "id": "19437a08-184c-4ce4-841e-c792cce8a365",
+    "source_updated_at": "2026-09-05T23:07:50.506445+00:00",
+    "body_sha256": "2aec79c1f0c2eb46dcf0ef8268caa4f72ac037f8273ddd3d0131eb368df30bb4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "양수색전증 연구를 두고 통념·정의 차이·역인과 비판까지 한 편의 논평으로 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Owing to its uncertain etiology, varying",
+      "note": "치료 개입과 생존의 역인과를 지적한 단락은 고유명사만 걷으면 그대로 논증 지문이 된다."
+    }
+  },
+  {
+    "id": "196e9d6a-739d-4110-8d40-1877f54ea98c",
+    "source_updated_at": "2026-09-13T07:41:51.324545+00:00",
+    "body_sha256": "ff0b44293fa92d337158e6b841a5a936422c9161a7d20d5967db79fc7b5310ba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "균핵 형성과 산화 스트레스의 관계를 서론에서 세우고 고찰에서 대사물별로 되짚는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Rhizoctonia solani is a notorious phytopathogenic",
+      "note": "서론 첫 단락은 떼어도 서지만 결과부는 화합물명 나열이라 어휘 하향이 막힌다."
+    }
+  },
+  {
+    "id": "198caed6-431a-4cb4-9f1e-5e562ed2422d",
+    "source_updated_at": "2026-09-13T07:32:42.324312+00:00",
+    "body_sha256": "0b12cc90df61e64e986a4d1c340c76c71aac428e60b15963f32fabf2832bd6c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "출혈성 쇼크에서 바소프레신 고갈이라는 가설을 세우고 미토콘드리아 지표로 검증하는 흐름이 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nearly 130,000 people die of unintentional",
+      "note": "도입부 통계 단락은 수치를 남긴 채로도 서고, 의학 용어 두세 개만 풀면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "199a80df-d8be-45d5-8d87-e8cd29af5f3f",
+    "source_updated_at": "2026-09-15T14:29:39.872127+00:00",
+    "body_sha256": "20f70ff2c7d5e4edb6a6c7a78b98d983f57abcc55680c212482a17dbc232c31e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "engineering",
+    "why": "4절 본문이 수식 예고 문장에서 끊기고 예고된 5절이 통째로 빠진 채 6절 결론으로 건너뛴다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "With the rapid development of global",
+      "note": "서론은 떼이지만 본문이 중간에서 잘려 근거가 이어지지 않아 가공 판단을 못 한다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "19bfc3c5-acf9-4f96-bf1a-8b8eff95e777",
+    "source_updated_at": "2026-09-13T07:15:31.817607+00:00",
+    "body_sha256": "f8c87b37c00c6bdf9b0bb472f9147776816e990334fda08952fc683d8dc827da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "ALS와 자가면역질환의 공존이 단순 우연인지를 묻고 생존분석으로 답하는 구조가 자족적이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Amyotrophic lateral sclerosis (ALS) is a",
+      "note": "고찰의 ESR-생존 역설 단락은 표 없이도 논지가 서고 약어 몇 개만 풀면 읽힌다."
+    }
+  },
+  {
+    "id": "19c4d85f-1099-4049-8568-c28edb68b5eb",
+    "source_updated_at": "2026-09-13T07:39:12.294284+00:00",
+    "body_sha256": "eb3e8c2081ecf89f50d10175ffa34e8b7281478c1c00acea7abfb8ccee7af806",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "일본 첫 SCA10 가계를 인류 이동 가설과 잇는 고찰이 사례 보고를 하나의 논지로 묶는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order",
+        "long_reference"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Spinocerebellar ataxia type 10 (SCA10) is",
+      "note": "고찰 단락은 떼어 쓸 수 있으나 유전자·반복서열 표기가 많아 어휘 하향이 어렵다."
+    }
+  },
+  {
+    "id": "19c94b40-8df0-4b96-85c1-d58172a7fc1a",
+    "source_updated_at": "2026-09-15T14:29:59.108197+00:00",
+    "body_sha256": "99b371c63216b835cddd00a899b0ce9b4abd9e9a945c3b8b627f286c07155ab1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "혈관내피의 음전하를 인공판막에 재현한다는 착상과 전압 선택 근거가 서론·고찰에서 차례로 제시된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The vascular endothelium naturally maintains blood",
+      "note": "내피 글리코칼릭스 단락은 그림 없이 서지만, 결과절에 혈액학 수치 서술이 빠져 표에 기대는 부분이 있다."
+    }
+  },
+  {
+    "id": "19cb335f-91f0-412f-86f1-5b4e20b47a8c",
+    "source_updated_at": "2026-09-15T14:30:00.415706+00:00",
+    "body_sha256": "98facc4c31dbe573eb5dd8fc3524c4c64d3b47d00ae0265e539158f428897b49",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "결과절이 첫 소절 하나만 남고 예고된 나머지 실험 소절들이 통째로 빠진 채 고찰로 넘어간다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Staphylococcus aureus is a major human",
+      "note": "서론·고찰만으로도 논지는 읽히지만 결과가 비어 근거 대조형 가공은 판단이 안 된다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "19ce0058-679e-4a43-a7e4-c6e2b1a0c1fd",
+    "source_updated_at": "2026-09-13T07:18:38.033285+00:00",
+    "body_sha256": "d529f81f0a9e4457ceef38f5aacfbcdc30ebb67f090f3bf235c70ca90b1f32b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가축 병원체의 인수공통 가능성을 수단 환자 표본으로 확인하고 마이크로바이옴 차이까지 잇는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mycobacterium avium subsp. paratuberculosis (MAP) is",
+      "note": "우유·환경을 통한 노출을 설명한 고찰 단락은 균주명을 일반어로 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "19d6f7e7-7db3-4f27-b084-f25fb3859583",
+    "source_updated_at": "2026-09-15T14:30:09.544673+00:00",
+    "body_sha256": "0df1557990d8736edf7d7454e880fa61fe164439c0ca3a9970ff440fe6ca39b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "생물지리학과 군집생태학의 단절을 문제로 세우고 세 연구축으로 나눠 전개하는 논설이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Biogeography and ecological research have traditionally",
+      "note": "늑대 재도입·호수 영양단계 단락은 떼어도 완결되고 전문 용어가 적어 가장 쉽게 가공된다."
+    }
+  },
+  {
+    "id": "19d76b95-58b9-4e4e-ad38-abc85ba7dff1",
+    "source_updated_at": "2026-09-13T06:00:04.069009+00:00",
+    "body_sha256": "53ce3d9d5f44dc1480bbc6202a21bfd750afc3242eb9ee57d383663ab9e641b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "결과절이 등록·기저특성에서 끊기고 예고한 혈역학·통증·CRP 결과 서술이 본문에 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Osteogenesis imperfecta (OI), an autosomal dominant",
+      "note": "서론은 떼어 쓸 만하나 결과가 비고 초록이 두 번 중복돼 본문 상태를 믿기 어렵다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "19ec9818-b2a0-4a61-889d-a449d5cc2377",
+    "source_updated_at": "2026-09-15T14:30:30.48482+00:00",
+    "body_sha256": "99b9e766848baedefe0ac266d53eb30c3b1bdd44e80e6de1252bd3f0d64d5671",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "당화가 빠진 NS1이 소포체에 갇혀 바이러스 조립을 막는다는 기전을 단계별로 쌓아 올린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The genus Orthoflavivirus (family Flaviviridae) comprises",
+      "note": "고찰 단락은 떼이지만 변이체 표기와 그림 번호가 촘촘해 지시어를 걷어내기 어렵다."
+    }
+  },
+  {
+    "id": "19eea8d1-5536-458a-bb9c-d051d0f2cca2",
+    "source_updated_at": "2026-09-13T07:20:30.353898+00:00",
+    "body_sha256": "4db2babc4d9426c0f9bd6d46154ceb470c29551bd96c02073189c94c6e14a904",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "항레트로바이러스 치료가 샤가스병 재활성화를 막는지를 묻고 기생충 부하로 답한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chagas disease is caused by Trypanosoma",
+      "note": "전파 경로를 설명한 서론 단락은 환자 코드 표와 떨어져 있어 그대로 떼어 쓸 수 있다."
+    }
+  },
+  {
+    "id": "19f234a1-5fab-413b-b98b-09338a068b78",
+    "source_updated_at": "2026-09-15T14:30:39.946226+00:00",
+    "body_sha256": "4cbf8c14bb11dcf8009604681d3f2f8cb06c67f53d7cf9e197abd54f401670e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "비타민 C가 위장관 부작용은 못 줄였으나 혈소판 감소는 완화했다는 엇갈린 결과를 정직하게 논증한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chemotherapy-induced side effects can substantially compromise",
+      "note": "선행연구가 엇갈리는 이유를 따진 고찰 단락은 수치를 빼도 논지가 남는다."
+    }
+  },
+  {
+    "id": "19f35044-9917-4685-972d-d42121fdfab6",
+    "source_updated_at": "2026-09-15T14:30:44.955635+00:00",
+    "body_sha256": "7857852e65ed9a2389c9f55843fae0310e873fb1f802d008dd1a15cc02d24313",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "이유 스트레스와 장벽 투과성을 연결하고 초유·부티르산 두 첨가물을 나란히 비교한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The intestinal barrier is a functional",
+      "note": "자연 이유와 산업 이유를 대비한 고찰 단락은 문단 하나로 완결돼 가장 쓰기 좋다."
+    }
+  },
+  {
+    "id": "19f86d53-d1bf-436c-b8a3-2b52cb55a3f0",
+    "source_updated_at": "2026-09-15T14:30:49.824533+00:00",
+    "body_sha256": "83bbe1d2a498e4206ce64bb8834899e7d317379dab9aa495101bd81e1cebcc7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "전통 약재인 목타르를 항산화·항균으로 검증하고 지속가능한 채취 문제까지 언급한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Mediterranean basin is a globally",
+      "note": "서론은 떼어도 서지만 결과·도킹 절은 화합물명과 잔기 번호라 어휘 조정이 통하지 않는다."
+    }
+  },
+  {
+    "id": "19fc45c6-5340-4ee4-a728-dc7cd227af37",
+    "source_updated_at": "2026-09-15T14:30:55.301853+00:00",
+    "body_sha256": "968237506aa3f73f8edfe8dda9447ad9bf4371d138fb218e1eeb10b865e9720b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "선행 연구가 당뇨 없는 집단에서 null이었던 점을 문제로 삼아 대규모 표본으로 뒤집는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chronic kidney disease (CKD) is estimated",
+      "note": "한계를 열거한 단락은 신뢰구간을 걷어도 주장-반론 구조가 그대로 남는다."
+    }
+  },
+  {
+    "id": "1a008ae4-5eb6-40d6-b9df-8aff52b603c9",
+    "source_updated_at": "2026-09-13T06:40:33.153699+00:00",
+    "body_sha256": "02462647e3540442f832c486984e7fa8dfda2fc37ce4382ef1d14406e1b216c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "적설 감소가 \"더 따뜻한 세계의 더 차가운 토양\"을 만든다는 역설을 축으로 삼은 종설이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In temperate and mountain ecosystems, seasonal",
+      "note": "눈의 단열 효과를 설명한 2절 단락은 표를 참조하지 않아 그대로 지문이 된다."
+    }
+  },
+  {
+    "id": "1a0e07f7-1faf-4c67-ae80-1d846a7a6bdc",
+    "source_updated_at": "2026-09-13T07:32:39.625222+00:00",
+    "body_sha256": "ce67bf6596700ac772cd6f922923dfb4ab097cc162e0bb0340b0705d4e74a1ae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "별아교세포가 도파민 잔해를 치운다는 가설을 세우고 일곱 단계의 기전으로 정리해 맺는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "There is increasing evidence suggesting that",
+      "note": "고찰 마지막 요약 단락은 순서형 재료로 좋으나 항체·표지자 약어가 많아 하향이 막힌다."
+    }
+  },
+  {
+    "id": "1a1d4985-5076-4a5c-83ec-46fb024ea57c",
+    "source_updated_at": "2026-09-08T05:35:41.790308+00:00",
+    "body_sha256": "1219591e4cabf933b3c008e13c83b8a424db5ff898fd1596da4d21b2fe6f3e8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "용량과 투여 경로가 제각각이라 비교가 안 된다는 문제를 세우고 네 조건을 맞대어 표준안을 고른다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heart failure (HF) is a syndrome",
+      "note": "고용량의 천장 효과를 따진 고찰 단락은 수치를 빼도 인과 추론이 남아 논증 지문으로 쓸 수 있다."
+    }
+  }
+]

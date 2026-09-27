@@ -178,7 +178,7 @@ export function AlertTriage({
             onClick={() => setFilter(f.key)}
             className={`inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-full)] border px-3 py-1 font-display text-[11px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
               filter === f.key
-                ? 'border-[var(--p-hover)] bg-[var(--p)]/10 text-[var(--p-hover)]'
+                ? 'border-[var(--p-hover)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--p-hover)]'
                 : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]'
             }`}
           >

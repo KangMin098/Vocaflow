@@ -1,0 +1,1769 @@
+[
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "117c12b6-edbf-46b5-8046-987ee980b9f6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e32431939b6369cc6657ba5ceb2c17385cd16c0f96863f5e6cb02bbd369396c1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "도서전 개막·양국 우호 발언·기증·회담 주제가 사실로 이어져 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Brazilian delegation donated 400 complete",
+          "note": "기증·행사 문단은 섰지만 행사 종류 나열이 길어 서너 개만 남기고 handiwork 를 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.240Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Brazil_opens_XIV_International_Fair_of_Books_in_Cuba",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "117c47f8-f977-4451-9433-cf0f0d46deb6",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d9a72e6992d305b2bfead9356ba584484cbb60f46868ede412eedb5f2a98d43",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "변이 확인과 WHO 의 「속단 이르다」 반론이 맞서고 변이 기전 설명 단락이 있어 주제·삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The mutation has been found in",
+          "note": "헤마글루티닌 문단은 변이→결합력→위험의 인과가 서고 haemagglutinin 은 괄호 풀이로 돌리니 V6 이었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Turkish_teens_died_of_mutated_strain_of_bird_flu",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.385
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "117c7669-30fc-4792-b421-2cfa0729aa38",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0062c2b29806a5752570423faf42a191671289f41025c6fd5af92bff3acc35c6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "백악관 야유 사건·기소·과거 전력·표현의 자유 변론이 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wenyi's court-appointed lawyer, David Bos, challenged",
+          "note": "변호인 문단은 표현의 자유 논리가 수정헌법 인용과 이어져 섰고 innocuous 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Woman_arrested_for_heckling_Chinese_President_Hu_at_White_House",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.36
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "117ec21d-c329-4213-93a1-dd63de85c3a2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0be70eaf340879213acc2be12719590ce7362d52de08dd14bf9fc0ae4d04213b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "81어 전체가 예비투표 득표율 순위와 투표수 나열뿐이라 내용 일치 칸조차 수치 나열로만 채워져 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Earlier, a malfunctioning voting machine used",
+          "note": "수작업 개표 문단을 떼니 한 문장뿐이고 나머지는 득표율 순위라 논지·사건 흐름이 서지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Presidential_elections%3A_Mitt_Romney_wins_Iowa_straw_poll",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.651,
+          "words": 86,
+          "english": 0.321
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11801ee9-bad5-499a-a572-ddf94e1585d1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "06cf729cf9fddfe7f01e32bc2f510e8d7edfa2551c80865b37ad13e8d42bbb24",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "여학생 하차 사건과 교통국장의 사과·징계가 인과로 이어져 내용 일치·목적 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The 64-year old driver, an eleven",
+          "note": "운전사 징계 문단은 사과의 까닭을 담아 섰고 reiterate·ejected 두 낱말을 바꾸니 V4 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Transit_chief_apologises_to_girls_kicked_off_bus_for_kissing",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.122,
+          "words": 98,
+          "english": 0.408
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11812d5f-8eaa-4333-a153-ae264d4579a8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4d511356e6482856795c576f0f61fcc3eabfa8f1f743957e59db074b886df6f2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "CD 굽기 기능 프린터의 기능·가격·출시 일정 사실이 여럿이라 중등 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The P450 is a small, portable",
+          "note": "기능 문단은 사양 나열이 많아 편집 기능 두셋만 남겨야 했고 intuitive 는 easy 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Lexmark_releases_printer_with_built-in_CD_burner",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11848ca2-0cd0-4720-9002-564729f65fbb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8e118c2b60d13a8a0fa891e7aea20c5bd1a98b95bf27f8fbd32e690cd71356ae",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "저가·시장·정부 정책이라는 인터넷 확산 원인이 단락별로 제시돼 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Estonia's Internet boom has also been",
+          "note": "정부 정책 문단은 무선망 계획과 인용으로 섰고 emulate·outstripped 는 앞 문단 것이라 이 문단은 조정할 게 적었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Estonia_becomes_European_leader_in_Internet_usage",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "118a8431-aae9-4e5c-8fda-a6e6504fa8c1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb9cd632f2676575dbcb4c2405e9800af3fec8e13fc709be013ceac5d5e31985",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "첫 조류독감 확인·살처분·비상 대응이 단락별로 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "India's animal husbandry and health authorities",
+          "note": "비상 계획 문단은 타미플루 비축까지 담아 섰고 contingency 만 plan 으로 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_bird_flu_cases_registered_In_Maharashtra%2C_India",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.398
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "118a84ed-4aab-4a9b-baa2-03f44bef3282",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "29adb091214a478bcbcbf755d300df792eea4a1c8e4d9a9529efaf87cf2b672d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "news",
+        "why": "파트와 보도에 교리 단정 문장과 와하비 종파에 대한 일방적 서술이 섞여 doctrine·bias 여부가 갈리므로 보류한다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The Commission Secretary Mansur Escudero says",
+          "note": "사무총장 문단은 섰지만 교리 문구(「Islam advocates peace」)를 기사 목소리로 단정하고 셋째 단락은 와하비 비난으로 주제가 바뀌어 걷기 애매했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bin_Laden_banished_from_Islam_in_Iberia",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "1196fca2-6e80-49bd-9911-aaaff4d95782",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e964ccdbf31b84823c5b70554a70032f4a81af4b041a3eb5a3f6def80d5e5e24",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "processing-unclear",
+        "genre": "sports",
+        "why": "경기 결과와 인터뷰는 있으나 본문 영어가 비문투성이이고 끝이 수상 목록이라 가공으로 설지 애매하다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In the main race, due to",
+          "note": "본경기 문단은 문법 오류(took the leading 등)가 많아 고쳐 쓰는 양이 원문을 넘었고 끝의 수상자·팀 목록은 걷어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_Tour_de_Taiwan_Stage_8%3A_A_great_ending_for_John_Murphy",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.296
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "1198c92e-ea9c-4cc4-b03b-de9de34933d1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a9786e64b64bd48e49878adad47228b217479d5b3f28d7e33ab91e76742d95a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "달 탐사선의 궤도 진입·체류 기간·충돌 탐사체 투하 순서가 이어져 중등 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It will stay in this orbit",
+          "note": "궤도 체류 문단은 It 을 위성 이름으로 바꾸면 섰고 descent 만 바꾸니 V4 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India's_moon_craft_reaches_final_lunar_orbit",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.25,
+          "words": 112,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "119b209c-365f-4c33-8d42-d754ed31e094",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e90843af8da27e868abe2d7cf8c0ed62e144e4a3842c257fceb81b5e9d986026",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "토지 점거 캠프 습격 사건과 운동 단체의 목적·방식 배경이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The MST is an ideologically diverse",
+          "note": "MST 설명 문단은 줄바꿈이 깨져 있어 이어 붙여야 했고 equitable redistribution 을 풀면 V5 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Brazilian_Landless_Workers_Movement_(MST)_attacked_in_Minas_Gerais",
+          "year": 2004,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "119c6ee8-5024-4cf5-b754-06fdb54a10b7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "45b811602ce9db87334284a9da4f305e412b1ed19e679f9760591f9013209dc1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "개를 벌로 문 남자의 체포와 그 이유가 짧게 인과로 서서 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The man — Mount Lee Lacy, age",
+          "note": "이유 문단은 처벌 방식과 계기를 담아 섰고 defecating 을 바꾸면 됐으나 전체가 70어라 두 문단을 함께 써야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_bites_dog%2C_charged_with_animal_cruelty",
+          "year": 2004,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "119ceda5-09a4-44fc-8b8a-b4bc07493ba4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3b0945fe447d44e1ea29304170f3cf13f2bebedb9ee10bad5bea284665dbf766",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "기후변화가 아동 영양실조를 늘린다는 보고서 주장과 수확·칼로리 근거, 투자 제언이 이어져 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The report says that in 2050",
+          "note": "밀 수확 감소 문단은 수치 주장이 인과로 이어져 섰고, 첫 문장의 빠진 낱말(’s impact)은 가공 때 채워야 한다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Report_says_global_warming_may_cause_25m_malnourished_children_by_2050",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11a0d344-d61b-4c79-b2aa-58d029582d84",
+    "revision": "2026-09-25T08:48:16.975941+00:00",
+    "body_sha256": "57c0a2f733bc932d2ac96477abf3d0e4bd71bdbd3a26840c6b8f011fce265a7c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "10대 실종과 수색 경위가 사실로 이어지나 자살 암시가 중심이라 연령을 고2 이상으로 제한한 내용 일치 칸만 둔다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Yañez was suffering from depression due",
+          "note": "가족 증언 문단은 섰지만 자살 암시가 중심이라 고2·성인 칸으로만 두었고 distressed 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.241Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Teenager_disappears_in_Pichilemu%2C_Chile",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.229,
+          "words": 153,
+          "english": 0.357
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11a160ec-8991-4829-a4f1-00fcb4419935",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4914ccb50a30ab05ae05e2dbe89ea28fd25026cdc4ee76e3b9e780cf9209fe52",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대리석 판 낙하와 교통 통제, 전문가의 원인 설명이 이어져 삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "As investigations continue, an expert has",
+          "note": "전문가 문단은 원인 추정과 드문 사고라는 판단이 섰고 susceptible 을 바꾸니 V4 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Marble_slab_falls_off_skyscraper_in_Toronto",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 8.5,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11a860dd-de6a-456c-b2bf-5594fe7b29f2",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44d2d173c686b6c2b6714390c527f4a19bde2b9802790745931351e461732711",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "경기부양책 합의 내용과 양당의 양보·평가 인용이 이어져 요약·주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The stimulus deal was an unusual",
+          "note": "초당적 합의 문단은 양당 양보 내용을 이어 받아 섰고 concessions·provision 두 낱말을 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/President_Bush%2C_Congress_agree_on_economic_stimulus_package",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11afac34-4115-4d92-8453-ed6dc196b059",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e19ee9413b311d690e8456d8534bd86ffd2ab77d1e0f84d5a0ba03b50f7696f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "의문사 발견·수사·용의자 석방 경위가 사실로 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Forensic investigators were on the scene",
+          "note": "수사 경과 문단은 체포·석방·구금 규정이 이어져 섰고 pending 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gibraltar_police_investigate_suspicious_death",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.442
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11b14f92-3a94-4b37-8917-698f5004cb03",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d13dfb0cfc1d7477c6611a758efc81581b58ff04280227d4637b30771e38b83",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "초고층 건물 반대 시위의 이유·유네스코 경고와 찬성 측 경제 논리가 맞서 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The demonstrators were protesting against the",
+          "note": "반대 이유 문단은 스카이라인 훼손 논리가 서고 supertall 만 풀면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/3%2C000_protest_plan_to_construct_skyscraper_in_St_Petersburg%2C_Russia",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.348,
+          "words": 138,
+          "english": 0.366
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11b16b33-5b01-40e1-a372-b90d7eebf55b",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bf93da23e3e1bb4fe476d89baf079436145210a016cd0e04b0df49efa0daac7c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "개 독감 확산 사실에서 종간 전파가 조류독감의 위험을 보여 준다는 논지로 나아가 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The spread of a horse flu",
+          "note": "말→개 전파를 조류독감에 빗댄 문단은 논지가 한 편으로 서서 빈칸에 좋았고 transmit 외엔 조정할 게 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Dog_flu_spreads_across_the_US",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.415
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11b68fab-ae2e-45d6-a5e6-6bf93626e669",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f77738bb6bdd7c5f705bbecc4f7d1fb2d2d8dc4f224440b1feba1739139312e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "비무장 비행 제안과 그리스 측 부인, 회의 방문 사실이 이어져 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Greek Foreign Ministry spokesman Giorgos Koumoutsakos",
+          "note": "그리스 반응 문단은 모의 공중전 보도를 받아 섰지만 인명·지명이 많아 둘만 남겼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Turkey's_Army_chief_proposes_unarmed_flights_over_Aegean_Sea",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.011,
+          "words": 183,
+          "english": 0.281
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11b8adc6-3493-49b0-8a39-5c9e0c84b0cd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc0760f6de78899c9743d449af476610f2c16c32226a7f7a0a78163cc5789880",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "의사당 신경가스 테러 계획 적발 경위와 보안 취약 지적이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The plot was discovered by authorities",
+          "note": "적발 경위 문단은 암호 해독→조직 식별 순서가 서고 decipher·encrypted 를 풀면 V5 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_authorities_may_have_detected_nerve_gas_attack_plans",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.79,
+          "words": 167,
+          "english": 0.379
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11b8defe-e99b-47bf-9a21-476a3cdb8353",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4fb2a0903aa2b0d5ed4b0806037b370d35e940112d5652da951b377199d863a5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "자발적 비닐봉지 감축 성과와 비닐이 환경에 끼치는 해악의 근거가 한 편으로 이어져 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Plastics have been widely used in",
+          "note": "분해 기간·매립량 문단은 수치 근거로 해악을 세워 섰고 landfill·disposed 를 바꾸니 V5 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australia_saves_three_billion_plastic_bags_from_circulation",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11bfe6f8-19b4-44d3-b4c2-79264d1ca3ff",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b766a1dcd0fcbe9f27fb1a32f4c88de91c1a84505bcf344af551784228d97142",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "상점 총격으로 아이가 다친 사건의 기소·경위·현상금 사실이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Both victims are Sri Lankan but",
+          "note": "사건 경위 문단은 추격→피신→총격 순서가 섰으나 아동 피해라 고2 이상으로 두었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Man_charged_with_two_counts_of_attempted_murder_in_south_London%2C_England",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.383,
+          "words": 188,
+          "english": 0.33
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-10-239Z",
+    "id": "11c74afa-3bed-4bbb-909b-17b15985b76f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0512e937255767af273052527650278859e4d0a769d9d3c8ecd23773e4586739",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "훈련병력 철수 요청과 그 배경인 주권 논란이 인과로 이어져 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The impending withdrawal of troops highlights",
+          "note": "긴장 배경 문단은 철수의 까닭을 빈라덴 작전과 주권 논란으로 설명해 섰고 impending·sovereignty 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:10.242Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_military_to_withdraw_military_trainers_from_Pakistan",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

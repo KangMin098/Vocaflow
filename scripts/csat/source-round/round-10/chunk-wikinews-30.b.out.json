@@ -1,0 +1,940 @@
+[
+ {
+  "id": "17875f8b-3572-426e-8c61-324dafacc53a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0954b5042bffed76a5258dac31df38f381cf016a0c1d859141e785b06df46e18",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "외계행성 탐사위성 TESS 발사와 달 중력을 이용한 궤도·통과 관측법·케플러와의 비교가 설명돼 요지·빈칸·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "TESS is slated to enter a",
+   "note": "달과 위성이 춤추듯 당기는 궤도 비유 문단이 빈칸 자리로 좋았고 geosynchronous 만 걷었다."
+  }
+ },
+ {
+  "id": "178d8d5c-b8fd-4e50-8925-274cdf8c6bdc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "641b233c18beb15b38da8e887bd7a474a90895636f30b29b7ba2909c50db4048",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "상원 원내대표 선출 사실과 후임·하원 지도부 이름 나열뿐이라 논지·사건 흐름이 없어 내용 일치 칸 하나로도 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Reid won the position as the",
+   "note": "공화당 다수 사실을 떼어 보니 이름과 직책만 남아 이어질 사건이나 까닭이 없었다."
+  }
+ },
+ {
+  "id": "179091c5-7424-4086-8d43-0cb31512dc11",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "61541b3c5216a7b9877a49734f06253cdb1a05619af1b24146357a456283d9b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "시금치 대장균 오염의 원인을 인근 목장 분뇨와 멧돼지 이동으로 추적하는 흐름이 서서 요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The infected cattle manure was found",
+   "note": "멧돼지가 울타리를 뚫고 다녔다는 관찰 문단이 전파 경로 추론의 근거라 떼어도 섰고 manure 만 풀었다."
+  }
+ },
+ {
+  "id": "179133ea-5f5b-4d97-bb55-bea9cb400ad1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ea29d4000844f39ac81172a92f3c7d4da47957877f3b64ffb629be8f6c312b7a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "산불 방화범 현상금과 추가 방화, 불길 확산·폭염 경보가 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Earlier this morning the Dwellingup fire,",
+   "note": "강풍에 저지선이 뚫린 경과 문단이 사건 흐름을 담아 섰고 containment lines 만 풀었다."
+  }
+ },
+ {
+  "id": "1792827f-2e30-4943-8fa4-e80f561ed2a8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f27b9c23925aabac7b239678895ee232622083b93e1a2478188c713f0651638",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "health",
+  "why": "신체 비활동이 흡연만큼 치명적이라는 보고와 그 비교에 대한 반론이 함께 서서 주장·요지·빈칸과 주장-근거 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, BBC News Online reported the",
+   "note": "흡연 비교를 반박하는 문단이 앞의 주장과 대조돼 요약 문항에 맞았고 sedentary 를 inactive 로 바꿨다."
+  }
+ },
+ {
+  "id": "1792b632-b2a0-4164-bb8f-960f15a158aa",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2ff36f811910678cf27e9b6e06377fd2d5af5bb651f086d7f47cf9577e5d4676",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "무기고 폭발의 피해 규모·원인(합선)·도심 무기 보관 관행의 기원·구호 과제가 이어져 내용 일치·순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The storage of arms in city",
+   "note": "도심 무기 보관이 냉전기 관행에서 비롯됐다는 설명 문단이 원인 논지로 서서 요지 문항 근거가 되었다."
+  }
+ },
+ {
+  "id": "1794fee0-5838-4dd2-b368-7ca240f143a8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0e637fc61167a3b3dc6b8af4775393e0c67e0525ff1da12023a0df1b6290bbae",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "위키백과 전용 검색엔진 출시와 검색 결함·베타 해명·소속 소문 부인이 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Some media outlets have reported that",
+   "note": "재단·위키아 연관설을 부인하는 문단이 사실 진술로 떼어도 서고 affiliation 만 풀었다."
+  }
+ },
+ {
+  "id": "1798f40a-eb0a-44d7-9564-1a7c404ec979",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a56422f5babd6962d76658f41ff3195c0b4a1cd87684699a20adbe0c0d361558",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "전투기 추락과 조종사 탈출, 조사 착수·목격 증언이 짧게 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The pilot, who ejected safely, was",
+   "note": "조종사 상태와 단독 탑승 사실이 한 문단이라 인명을 걷어도 내용 일치가 섰다."
+  }
+ },
+ {
+  "id": "179aa921-a450-4688-bf3c-1213964296ef",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5e74ba376a27baac6c3c153b2044bfe3d730817d6d59f2751e7dd799ce9cbd31",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "energy",
+  "why": "포스마크 냉각계 고장 뒤 원자로 셋을 멈춘 경과와 위험도를 둘러싼 엇갈린 평가가 이어져 내용 일치·주장-근거 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Last week's incident at the Forsmark",
+   "note": "합선→예비 발전기 넷 중 둘 고장→나머지로 버팀이 순서대로라 순서 문항이 되었다."
+  }
+ },
+ {
+  "id": "179c7de6-a69d-44a1-b9e0-a21be1b654f3",
+  "source_updated_at": "2026-09-25T08:56:33.12582+00:00",
+  "body_sha256": "f74b0942be908b71baa956a27b746729ff9f0e45f5b9dffb9c23b96a3f7361fe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "흉기 테러 사건의 경과와 용의자 배경, 경찰의 단독범 판단이 이어져 내용 일치 칸이 되나 소재상 고2 이상으로 둔다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The head of the UK's counter",
+   "note": "대테러 책임자의 판단 문단은 폭력 묘사 없이 서서 이 문단을 중심으로 가공했다."
+  }
+ },
+ {
+  "id": "179d444f-b67c-4e20-8af2-cfb776e929c7",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "286ad5b1c132cc09e1fb32ff58828792e2d95445a192b1d0ed0aa6d9d5fe97ee",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "mixed",
+  "why": "파운드 폭락·오피스디포 폐점·블라고예비치 사임 요구 세 단신이 「Sources」 머리와 섞여 주제가 중간에 갈린다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The United States office supplies company",
+   "note": "둘째 단신만 떼면 서지만 원천 단위로는 서로 무관한 세 글이라 한 편으로 가공할 수 없었다."
+  }
+ },
+ {
+  "id": "179d4ac0-89f9-4e92-a794-09305c64e949",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2b316a7259ff09e5b3973a4e390446b33e6058cc00e0d2363923c31fbfe86a61",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "친탁신 정당의 출구조사 우세와 쿠데타 이후 경과, 연정 가능성이 이어져 내용 일치·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In September 2006 a bloodless military",
+   "note": "쿠데타→정당 해산→망명→새 정당 결성이 시간순이라 순서 문항 근거가 되었다."
+  }
+ },
+ {
+  "id": "179fd788-18c4-41b5-94ae-00bc0f245c06",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "843386e71185178f9f202f297d8569441003b5b2f9e6d3f023dc166d5abdcd77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "더블린 프라이드의 기록적 참가와 군 제복 참가, 비범죄화·동성혼 합법화의 역사가 이어져 내용 일치와 시대 비교 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Homosexuality was decriminalised in the Irish",
+   "note": "1993년 비범죄화와 2015년 국민투표가 연도로 이어져 시대 비교가 섰고 decriminalised 만 풀었다."
+  }
+ },
+ {
+  "id": "17a31a6e-9149-408a-a8b0-890c4ac86ef1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6500c5755c943e787e6a38478fcfda641221aac4412f5e8fd55878f1b52f42b0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "중국·파키스탄 자유무역협정 체결과 교역 3배 전망, 관세 철폐·방산 협력이 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pakistani commerce minister, Humayoun Akhtar said",
+   "note": "5년 안 무관세라는 문단이 협정 내용을 요약해 떼어도 섰고 bilateral 만 풀었다."
+  }
+ },
+ {
+  "id": "17aabae1-8491-4d51-8e93-0b6fa69cf029",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e8e1f3d129abdcd92ba415f5126bc23e67f487ea067367e5c4572ecc12bc4cb6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대통령의 성폭행 관련 발언 부인과 기자의 반박, 여성 인권 운동 배경이 이어져 내용 일치 칸이 되나 소재상 성인 칸으로 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In recent times, Pakistan has seen",
+   "note": "여성 인권 단체의 성장과 부족 관행 비판 문단은 발언 인용 없이도 서서 이 문단으로 가공했다."
+  }
+ },
+ {
+  "id": "17ac886d-efe4-45d6-aa06-3c804219408b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8f1f558cdcbcde711622bbbd1f55d509f2cf1ec1f9f875801158cc325cdc8d72",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "기상 악화로 열리지 않은 물개 사냥을 본 듯 쓴 기자의 해고와 언론계 유사 사례·평가가 이어져 요지·내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The story in question was about",
+   "note": "실제로 열리지 않은 사냥을 썼다는 문단이 사건의 핵심을 담아 떼어도 섰지만 사냥 묘사 인용은 걷었다."
+  }
+ },
+ {
+  "id": "17aefcb8-3b71-4ee0-a36b-017dc4a3b223",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1c3a1b6addc4bcdb5358fc7ab0706fa0386c629b674d8fcc47710bc62c69a382",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "헤이그의 군·외교 경력과 레이건 저격 당시 「내가 통제한다」 발언 논란·해명이 이어져 내용 일치·순서 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In his own defense, Haig later",
+   "note": "발언을 국민 안심용이었다고 해명한 문단은 앞 인용을 한 줄로 요약해 붙이니 섰고 usurping 은 없앴다."
+  }
+ },
+ {
+  "id": "17b3ee22-009f-421b-8365-6a542c5c2c6a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1c0e5ac84ac7218d10db24d0e7d557845d42f58ba5f07b68b77af04479090be5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "석방된 인질의 귀국과 무력에 대한 짧은 소감뿐이라 한 편으로 설 사건·논지가 있는지 판단이 갈린다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "\"I do not believe that a",
+   "note": "소감 인용을 간접화법으로 바꿔 보니 누가 왜 구출했는지 배경이 본문에 없어 문항 근거가 부족했다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "17b4ffb5-c883-4271-a21a-72cfeb8ae249",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5330281d1dba67835f101554b7eb628a9d787577fe08438bef07e58d34bb70d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "상원의원 폭행 재판에서 검찰·변호인이 같은 혈흔 증거를 달리 해석하는 공방이 서서 주장-근거·내용 일치 칸이 된다(성인 칸).",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On cross-examination, Tacopina queried New York",
+   "note": "스위치 혈흔을 변호인이 사고 주장의 근거로 쓰는 문단은 대립 구조가 선명해 떼어도 섰다."
+  }
+ },
+ {
+  "id": "17b7f8d1-2f6d-4bdb-b930-409a0a5a205d",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4017d77815887e25120fdac2fffc98b0dc86f3b3170f141cef366a0607d471bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "교통 딱지 할당 메모 유출과 불이익 목록, 야당 비판·경찰 해명이 이어져 주장-근거·내용 일치 칸이 된다(목록은 문장으로 풀어 씀).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Simon Power, Law and Order spokesman",
+   "note": "장관 답변과 유출 메모가 어긋난다는 비판 문단이 대립의 근거라 떼어도 섰고 incentives 만 풀었다."
+  }
+ },
+ {
+  "id": "17c03cea-c4a2-4654-8399-fd119eb70378",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b0cc1b7e15ff84125ed4f99ffa0e70f599f79f36b248ac7a8b6f1488d84f0435",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대사관에서 폭발물 흔적이 나온 남성의 구금과 비자 취소 경위, 본인 부인이 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It has been reported that Khan",
+   "note": "비자 취소 통보로 대사관에 불려 온 경위 문단은 표기 찌꺼기 ]] 만 지우면 섰다."
+  }
+ },
+ {
+  "id": "17c58884-95a7-4901-8498-2039fab4afd3",
+  "source_updated_at": "2026-09-25T08:48:12.200953+00:00",
+  "body_sha256": "ac71594eca8c6a800ae9e0f7af151ee4e5688150758b345107131b670251b149",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아카풀코 군-마약 조직 총격전의 경과와 압수 무기, 관광 타격 배경이 이어져 내용 일치 칸이 되나 폭력 소재라 고2 이상으로 둔다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Drug related violence has damaged tourism",
+   "note": "폭력과 독감이 관광 수입을 깎았다는 배경 문단은 교전 묘사 없이 서서 이 문단으로 가공했다."
+  }
+ },
+ {
+  "id": "17cdd35d-c81c-468f-9199-82acd0b1b39f",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a74c0278304c990a17503e4241b8a6db68f223ee4cfa4c30352b8964453827e9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "여진 피해와 사망자·이재민 규모, 1980년 지진과의 비교가 이어져 내용 일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The aftershock caused two apartment blocks",
+   "note": "아파트 붕괴와 로마까지 느낀 흔들림이 한 문단이라 떼어도 섰고 masonry 를 stones 로 바꿨다."
+  }
+ },
+ {
+  "id": "17cdd413-0f70-4b3e-ad70-0b9a5ade7ad4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "381bb1cd9bfb3c2961f170a61adfaa15cf64a545ad87d9dd9c08a75bc2ce0659",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "우주에서 딸의 탄생 소식을 들은 우주비행사 이야기가 기상곡·귀환 일정으로 이어져 내용 일치·심경 칸이 된다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "school",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood",
+    "order"
+   ],
+   "levels": [
+    "V2",
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Onboard Atlantis this morning, the crew",
+   "note": "아내가 고른 노래로 깨우는 장면이 소식과 이어져 초등 최소선인 사건 연결을 갖췄다."
+  }
+ },
+ {
+  "id": "17d004cb-a751-429d-ad4b-8e514e3bf0af",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0699b713ace21063cae5040ec9242c6ff0924276a077d7d82dd60d19f7af02a3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "15세 소년이 거리에서 흉기에 숨진 사건과 수사 상황이 짧게 이어져 내용 일치 칸이 되나 소재상 성인 칸으로 둔다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A post mortem released today showed",
+   "note": "부검 결과 문장은 사건 요지를 담지만 인상착의 문단은 가공 때 걷어 인종 묘사를 남기지 않는다."
+  }
+ }
+]

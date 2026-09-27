@@ -28,6 +28,9 @@ import {
   loadPlan,
   loadVideoConsole,
 } from '@/lib/admin/video-console'
+import { loadRequestBoard, type RequestBoard } from '@/lib/admin/video-requests'
+
+import type { RequestPrefill } from './RequestsPanel'
 
 import { VideoConsoleClient } from './VideoConsoleClient'
 
@@ -35,7 +38,26 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = { title: '영상 공장' }
 
-export default async function AdminVideoPage() {
+/**
+ * 「교체 요청」 링크(`?replace=<id>`) → 요청 폼에 채울 값.
+ * 분야는 대상 종류를 품은 첫 분야, 요청 편이면 그 요청의 분야. 못 찾으면 null(폼은 비어서 뜬다).
+ */
+function replacePrefill(board: RequestBoard, id: string | undefined): RequestPrefill | null {
+  if (!id) return null
+  const target = board.targets.find((t) => t.key === id)
+  if (target) {
+    const domain = board.domains.find((d) => d.enabled && d.target_kinds.includes(target.kind))
+    return domain ? { domainId: domain.id, targetKey: id, targetLabel: target.label, mode: 'replace' } : null
+  }
+  const req = board.requests.find((r) => r.video_id === id)
+  return req ? { domainId: req.domain_id, targetKey: id, targetLabel: req.target_label, mode: 'replace' } : null
+}
+
+export default async function AdminVideoPage({
+  searchParams,
+}: {
+  searchParams: { replace?: string }
+}) {
   await requireAdmin('/admin/video')
 
   const db = createAdminClient()
@@ -46,6 +68,8 @@ export default async function AdminVideoPage() {
     loadEvaluation(db),
     loadPlan(db),
   ])
+  // 요청 대상은 기획 보드와 같은 출처 — 그래서 plan 을 받은 뒤에 읽는다
+  const requests = await loadRequestBoard(db as never, plan)
 
   return (
     <VideoConsoleClient
@@ -54,6 +78,8 @@ export default async function AdminVideoPage() {
       queue={queue}
       evaluation={evaluation}
       plan={plan}
+      requests={requests}
+      prefill={replacePrefill(requests, searchParams.replace)}
     />
   )
 }

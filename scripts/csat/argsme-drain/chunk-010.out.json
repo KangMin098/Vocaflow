@@ -1,0 +1,316 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "010",
+  "items": [
+    {
+      "id": "d04713bf-2019-04-18T18:38:03Z-00000-000",
+      "sha256": "f104cf7ce1878ebc452cac3bd3b922d9f77160ca978e5b6f75f02ff2392e07db",
+      "verdict": "write",
+      "topic_ko": "모순이라는 비난은 낱말이 아니라 근거를 따라가야 성립한다",
+      "passage": "Accusations of contradiction are common in moral arguments, and they often rest on words rather than on reasons. A person who defends the life of a child before birth and still accepts the death penalty is not automatically confused. The two positions rest on different grounds, because one case concerns someone who has done nothing and the other concerns someone a court has judged guilty of serious harm. Dictionaries are useful for keeping a discussion honest, yet they were written to record how people use words, not to settle moral questions. Anyone who wants to prove that a belief fights itself must trace the reasons behind each part of it and show that those reasons cannot both be held. Pointing at a shared label and declaring the matter finished is an easy escape that proves nothing at all. Careful argument moves more slowly than a clever attack, and it is also the only method that can show whether a position truly stands.",
+      "claim": "A charge of contradiction is only proved by tracing the reasons behind each belief, never by appealing to the meaning of a shared label."
+    },
+    {
+      "id": "d0870de5-2019-04-18T13:41:35Z-00005-000",
+      "sha256": "56544de77a806bdc70492b27f73cf6608921521eea943ea7bc156c871340093c",
+      "verdict": "write",
+      "topic_ko": "투표권의 나이 제한은 원칙이 아니라 습관에 기대고 있다",
+      "passage": "Voting rights are handed out at a fixed age, and the line is defended on the ground that younger people lack the knowledge to use them. That test is never applied to everyone, because many adults who vote cannot name their own representatives or explain the policies they support. If poor knowledge were truly the reason for exclusion, the rule would have to remove a great many adults as well. No country is willing to do that, which suggests the reason offered is not the reason that operates. Taxes are raised as a second ground, yet adults with no job and no property pay neither income tax nor property tax and still keep the vote. What remains after both reasons fall is habit, and habit is a weak foundation for a right as basic as this one. A fairer system would open the door to any young citizen who can show understanding through a simple public test.",
+      "claim": "Age alone is a poor test for the right to vote, and young citizens who can show understanding should be allowed to take part."
+    },
+    {
+      "id": "d1c3c434-2019-04-18T17:00:14Z-00001-000",
+      "sha256": "89a70484798c3f88ef76301326b19924e269bd3d2c31cf7828e44dd2bb39e0ac",
+      "verdict": "write",
+      "topic_ko": "추위와 어둠은 실체가 아니라 결핍을 가리키는 이름이다",
+      "passage": "Ordinary speech treats cold and darkness as things that arrive and spread, and careful study shows that neither one exists on its own. Heat is a form of energy that can be measured, added, and moved from place to place. What people call cold is simply the condition of a body that holds very little of that energy. The same pattern holds for light, which can be split into colors and examined with instruments, while darkness offers nothing at all for an instrument to record. A room is called dark because the amount of light inside it is low, so every measure of darkness turns out to be a measure of light. Words that name an absence are convenient in daily speech, and they become confusing once they are treated as forces with power of their own. Clear thinking about nature therefore begins by asking which of two opposite terms names something real and which names only a lack.",
+      "claim": "Cold and darkness name the absence of heat and light rather than forces of their own, and treating them as real things confuses the study of nature."
+    },
+    {
+      "id": "d2cf3d6f-2019-04-18T15:13:53Z-00002-000",
+      "sha256": "3c09317d207df39782b23429ace26def8d014ca7ce44ec6022a7dfc2436840c3",
+      "verdict": "write",
+      "topic_ko": "죽음이 확실한 환자에게는 법이 정한 안전한 선택지가 있어야 한다",
+      "passage": "Patients who face a certain and painful death sometimes ask for something the law refuses to give, and that refusal deserves a serious answer. Strong drugs can reduce pain, yet some patients stop taking them because the treatment leaves them asleep and unable to speak with the people they love. When the end is near and medicine has been used up, the remaining choice is not between life and death but between two ways of dying. A legal and careful procedure would let doctors, patients, and families agree in advance, so that nobody has to act alone or in secret. Families would also gain the chance to say goodbye, which is lost whenever a death arrives suddenly in an empty room. Rules can be strict without being cruel, since repeated requests and independent medical opinions would protect anyone who is uncertain. A right that governs so much of an ordinary life ought to reach its final hour as well.",
+      "claim": "A carefully regulated medical death should be legal for patients whose suffering can no longer be relieved."
+    },
+    {
+      "id": "d2f4b1cd-2019-04-17T11:47:27Z-00187-000",
+      "sha256": "2e1d3b14a0a1cf827fc8c41069d87d13f851893c32f8639d7f7c4b2a3faaa205",
+      "verdict": "write",
+      "topic_ko": "법적 보호는 결혼이라는 하나의 문이 아니라 실제 공동생활에 붙어야 한다",
+      "passage": "Legal partnership carries a long list of practical protections, including hospital visits, shared property, inheritance, and the right to speak for someone who cannot speak. Those protections matter to many pairs of people who share a household, and the list is not limited to couples who plan to raise children. Two elderly sisters who have lived together for decades have the same practical needs as anyone else in the country. Two old friends who care for each other through illness are in exactly the same position. A state that offers such protection through one narrow door alone leaves many households without help for no clear public reason. The fair answer is to attach the protections to the fact of shared life and mutual support, which any government can confirm through a simple public record. Rules built in that way treat citizens equally while leaving every household free to describe its own bonds in whatever words it prefers.",
+      "claim": "Legal protections should follow shared life and mutual support rather than being reserved for one narrow form of household."
+    },
+    {
+      "id": "d338fbb2-2019-04-18T17:36:41Z-00005-000",
+      "sha256": "a976a0c8369d43955195c004b9b14ed5816e951fb098c546b75129027293018b",
+      "verdict": "write",
+      "topic_ko": "과학이 할 수 있는 일과 실제로 해낼 일은 다른 질문이다",
+      "passage": "Claims about the limits of science usually mix two very different questions, and the mixture hides what is really at stake. The first question asks whether the methods of science are able in principle to reach every part of nature. The second asks whether those methods will ever finish the task that has been set for them. A car with a full tank and a sound engine can reach a distant city, yet a crash on the road can still prevent the journey. The failure of the journey says nothing about the power of the car, and the same distinction applies here. Measurement and testing have met no proved wall in front of them, so the answer to the first question appears to be yes. Human effort can be interrupted by war, poverty, or disaster, and the honest position is therefore confident about method and modest about outcome.",
+      "claim": "Science is capable in principle of explaining every part of nature, although human effort may never carry that work to completion."
+    },
+    {
+      "id": "d3482828-2019-04-18T19:48:08Z-00000-000",
+      "sha256": "86aaa7388f501a9d363d75f4418b303fbed63f6dc970ea1c2de8513cae4fbd01",
+      "verdict": "write",
+      "topic_ko": "생물을 똑같이 복제하면 개체 차이가 사라져 집단 전체가 위험해진다",
+      "passage": "Copying living things on a large scale is described as a safe way to raise food and supply medicine, and the practice carries a cost that appears only later. Fields planted with identical copies hold no defense in reserve, because defense in nature comes from the small differences that let some individuals survive what kills the rest. A single insect or disease that breaks through one plant can therefore break through every plant in the field. Whole harvests have been lost in exactly this way, and the loss arrives suddenly rather than by degrees. Animal copies raise a second problem, since they often carry health faults from birth and would make an already uncertain medical practice even less reliable. Variety is not a decoration on the natural world; it is the store of answers that living populations hold against threats nobody has predicted. Any program that shrinks that store trades a small immediate gain for a danger which grows with every season.",
+      "claim": "Large scale copying of plants and animals removes the natural variety that protects populations, so its promised benefits are outweighed by the risk."
+    },
+    {
+      "id": "d41ff3d6-2019-04-19T12:45:36Z-00012-000",
+      "sha256": "54ef408509cd3bad6a176c4775364ee051e813b7f57236665f1480f5aceb1028",
+      "verdict": "write",
+      "topic_ko": "학교 인터넷 차단기는 의도보다 훨씬 넓게 막아 학습을 방해한다",
+      "passage": "Filters on school networks are defended as a narrow tool that blocks violent and adult material, and the description does not match what the tools actually do. Blocking is performed by machines that search for patterns in addresses and text, and machines have no sense of purpose or context. News sites are shut out because their reports describe violence, although those reports are exactly the material that a history lesson needs. Word matching produces stranger results, since a forbidden string of letters can sit inside an innocent term and close the door on a page about mathematics. Teachers then lose lesson time asking for exceptions, and many simply avoid the material rather than wait for permission. Students meanwhile learn that the school network is an obstacle rather than a library, which is the opposite of the intended lesson. A better design would block only material that is clearly harmful and would let a teacher open any page at once when the class requires it.",
+      "claim": "School filters block far more than the harmful material they target, so teachers should be able to open any page a lesson requires."
+    },
+    {
+      "id": "d42ecd4e-2019-04-19T12:45:46Z-00019-000",
+      "sha256": "88a201f9d7a8837ba6dc09400a61aae93387a9e1520a4d19365f2a35889cc3a4",
+      "verdict": "write",
+      "topic_ko": "동물 보호의 기준은 인간의 수치심이 아니라 관찰이 주는 실제 피해다",
+      "passage": "Arguments about privacy for animals usually begin with a comparison to human habits, and the comparison leads the discussion in the wrong direction. People hide birth, mating, and waste behind closed doors, while most animals do these things in the open and show no sign of shame. That difference is offered as proof that animals place no value on being left alone, and shame and privacy are not the same thing. Many species hide their young, cover their tracks, and abandon a nest that has been touched by a stranger. Such behavior shows that being watched can cost an animal its safety, whatever the creature may or may not feel about it. The question worth asking is therefore not whether animals feel embarrassed, but whether constant observation changes how they live and harms them. Where cameras and visitors disturb feeding or breeding, restraint is owed to the animals themselves, and where no harm follows the case for restraint is weak.",
+      "claim": "Protection from observation is owed to animals wherever being watched harms them, not because they share human feelings of shame."
+    },
+    {
+      "id": "d46ce11-2019-04-18T18:00:05Z-00002-000",
+      "sha256": "0a9c0b8ffb2dc934866175feaeb467710170409d76397484e8afbec7d651ed68",
+      "verdict": "write",
+      "topic_ko": "연애 수업은 비용이 크고, 교실이 잘 가르칠 수 있는 종류의 기술도 아니다",
+      "passage": "Proposals to add lessons on dating to the school timetable are presented as a small change, and the true cost appears as soon as the details are examined. A new subject needs trained teachers, materials, and room in a day that is already full. Public schools are expensive to run before anything is added, and the money for the extra hours has to be taken from somewhere. Either the school day grows longer, which means less sleep for students, or another subject loses time that it cannot spare. The skills at stake are also unlike the skills that classrooms teach well, since they are learned through practice with friends rather than through instruction and tests. Clubs, teams, and ordinary social life already supply that practice, and they supply it without a grade attached to the result. Limited money and limited hours are better spent on subjects that students have no other way of meeting.",
+      "claim": "Schools should not teach dating as a subject, because the hours and money it would consume are better spent on knowledge students cannot gain elsewhere."
+    },
+    {
+      "id": "d52df6d-2019-04-18T11:22:11Z-00002-000",
+      "sha256": "e7e32193924098fc5c471f72f8f64d99ac6ee1236a842b21de9b35b1315599a9",
+      "verdict": "write",
+      "topic_ko": "장기 기증은 거부할 자유를 남긴 채 기본값으로 삼는 것이 옳다",
+      "passage": "Thousands of patients wait each year for an organ that never arrives, while organs that could have saved them are buried or burned. Current systems ask people to sign a card in advance, and most citizens who say they support donation never complete that step. The supply therefore stays far below the need, and the gap is measured in lives rather than in forms. A better rule would treat donation as the default and would let anyone refuse in a simple recorded way at any moment. Such a rule respects choice, because refusal remains free and easy, while it removes the delay that quietly destroys the chance to help. Countries that have moved in this direction report much higher rates of donation, and families are still consulted before any surgery begins. A body cannot be harmed after death, a living patient can be saved, and a policy that weighs those two facts honestly should lean toward the living.",
+      "claim": "Organ donation should be the legal default, with a free and simple right of refusal, because the present system leaves preventable deaths uncounted."
+    },
+    {
+      "id": "d5debbb8-2019-04-18T12:59:48Z-00004-000",
+      "sha256": "2ae0828adbef3bf3216afb461cab01d232add05cc014607819c66b89ddb18d2f",
+      "verdict": "write",
+      "topic_ko": "신 존재 물음은 검증 가능성 밖에 있으므로 과학 수업의 주제가 아니다",
+      "passage": "Science classes exist to teach a method that depends on evidence which anyone can gather, check, and challenge. A question can enter that room only if some observation could count for it and some other observation could count against it. Without that condition no test is possible, and a subject that cannot be tested has nothing for the method to work on. The existence of a creator, as the idea is normally described, sits outside those limits, because believers and doubters expect the same world and read it differently. Teaching the question as though laboratory work could settle it would give a false picture of both sides. Students would also leave with a confused idea of what evidence actually does, which is a heavier cost than any single lesson is worth. The question remains important, and a class on religion and philosophy is the proper place for it, where arguments are judged by reasoning rather than by measurement.",
+      "claim": "The existence of a creator cannot be tested by observation, so it belongs in a class on religion and philosophy rather than in science."
+    },
+    {
+      "id": "d5f4c59e-2019-04-18T12:01:10Z-00001-000",
+      "sha256": "54f026855c0b0d9356d0ceceadf94604f3546359232d0b07d71dee01492a6520",
+      "verdict": "write",
+      "topic_ko": "어린 선수의 몸과 뇌는 아직 형성 중이므로 충돌 종목은 제한해야 한다",
+      "passage": "Contact sports for young children are defended as training in courage and teamwork, and the record of injuries tells a harder story. Millions of injuries are recorded each year in these games, and the ones that involve the head are the most worrying of all. A growing brain recovers slowly, and repeated small blows can leave effects that appear many years after the final season. Bones and joints are still forming at that age, so one hard collision can produce a problem that returns for decades and costs a family a great deal in medical care. The harm is not only physical, since children placed on lower teams often decide that they have failed at something their friends can do easily. Practice also competes with schoolwork, and the hours lost are the hours that were needed for reading and rest. Versions of the same games without contact keep the exercise, the teamwork, and the pleasure while removing the part that causes the damage.",
+      "claim": "Contact should be removed from organized sport for children under twelve, since the same games without it keep every benefit and drop the injuries."
+    },
+    {
+      "id": "d686e01-2019-04-18T14:47:36Z-00005-000",
+      "sha256": "89ebe5e4b0aa77c9af62c1c3061b7f6f9cc6f2662372492f5103e482346d1e9f",
+      "verdict": "write",
+      "topic_ko": "숙제는 이해도 측정과 반복 연습이라는 두 가지 일을 수업시간보다 잘한다",
+      "passage": "Homework is often described as wasted time, and the description ignores two jobs that it performs better than anything else in the school day. The first job is measurement, because a teacher who marks pages produced at home without assistance can see which students have understood a topic and which have only followed along. Class hours are short and crowded, so that signal rarely appears while a lesson is running. Without it the next lesson is built on guesses, and the students who are lost stay lost for weeks. The second job is practice, since knowledge met only once is easily lost, and returning to it at home fixes the material far more firmly. A third benefit follows quietly from both, as students who plan their own evenings learn to manage time and keep promises without a teacher standing nearby. The real task is to keep the amount reasonable rather than to remove a tool that does work no classroom hour can replace.",
+      "claim": "Homework should be kept and kept moderate, because it measures understanding and fixes learning in ways that classroom hours cannot."
+    },
+    {
+      "id": "d68721f-2019-04-18T11:59:11Z-00000-000",
+      "sha256": "28ce72fc1b4cf3e6d990bc6f2c97e8aa010acefa5869fe81017c977ac41f83cc",
+      "verdict": "write",
+      "topic_ko": "숙제의 가치는 교사가 없는 자리에서 혼자 부딪혀 보는 데 있다",
+      "passage": "The value of homework is easiest to see in what it takes away rather than in what it adds. During a lesson a teacher is present, questions are answered at once, and a student can follow a path that somebody else has already cleared. At home that support is gone, and the learner has to face the material alone, decide where the difficulty lies, and find a way through it. That struggle is uncomfortable, and it is also the moment when understanding changes from something borrowed into something owned. Free schooling gives every child access to such moments, an opportunity that in many parts of the world still has to be bought. The effort spent on it returns a habit of independent work that lasts long after the particular subject has been forgotten. Judging homework only by how pleasant an evening feels therefore misses the point of the exercise entirely.",
+      "claim": "Homework earns its place because it forces independent struggle with material, which is where borrowed understanding becomes a learner's own."
+    },
+    {
+      "id": "d79ed912-2019-04-19T12:47:47Z-00009-000",
+      "sha256": "f9b1a00d3fb263e0c919c597b3dfa86ee88222e719be06100e86d85d9f741a41",
+      "verdict": "write",
+      "topic_ko": "복제는 절도와 다르며, 음악가의 보상은 다른 근거로 논해야 한다",
+      "passage": "Calling an unpaid download a theft borrows a word that does not fit the act it describes. Theft removes an object from an owner who is then left without it, while a copied song remains exactly where it was. The original can still be sold, played, and heard by everyone else, so nobody has been left without the thing they held. Economists describe such goods as neither rival nor closed, and music has always behaved that way, since a tune heard on the radio stays in the memory without anyone losing it. The moral claim that an author should be named is not broken by copying either, because listeners sort their collections by the name of the musician and repeat it constantly. None of this proves that musicians deserve nothing, and a fair system of payment is certainly needed. The case for it has to rest on the value of the work rather than on a word borrowed from an unrelated crime.",
+      "claim": "Copying music is not theft in any ordinary sense, so the case for paying musicians must rest on the value of their work instead."
+    },
+    {
+      "id": "d79ed912-2019-04-19T12:47:47Z-00010-000",
+      "sha256": "d8bdab23926054afe7467c8ca3006902a372b3ca893ab2e3512aeed39cd0602e",
+      "verdict": "write",
+      "topic_ko": "창작물의 이용 조건을 정할 권리는 만든 사람에게 있다",
+      "passage": "A song does not appear by accident; it is the product of skill, time, and expense, and the person who made it holds a claim on how it travels. That claim is what allows a musician to ask for something in return, whether the price is money or simply a promise that the author will always be named. Exchange on agreed terms is the ordinary basis of every market that has ever worked. Nobody expects a baker or a builder to hand over the work first and let the receiver decide afterwards what it was worth. Taking a recording without permission removes that step, so the decision about payment passes from the creator to the listener. Small individual acts add up to a system in which new work is much harder to fund, and the loss falls on future listeners as well as on present artists. Respecting the terms set by the maker is therefore a condition of keeping the music coming at all.",
+      "claim": "Creators hold the right to set the terms on which their work is shared, and taking music without permission destroys that right."
+    },
+    {
+      "id": "d83696a-2019-04-15T20:24:33Z-00009-000",
+      "sha256": "60ca4f929f4a5b9402cd0db9a4b4c5fcd1e188e5e2b1bb88dd933fe7a1af6da7",
+      "verdict": "write",
+      "topic_ko": "석유 수입을 기금에 넣는다고 오염이 줄지는 않는다",
+      "passage": "Money earned from oil can be locked away in a fund that no serving official may touch, and supporters present that design as a protection for future citizens. A fund is normally instructed to earn the largest possible return, which is a financial goal and not an environmental one. Nothing in that arrangement discourages dirty production, and the incentive may in fact run the other way. A larger flow of oil means a larger fund, so the cheapest route to a bigger balance is to spend as little as possible on protecting the land. The argument also assumes that leaders feel tied to the people they govern, an assumption that fails wherever elections are weak or absent. Rulers in such places expect to remain in power for decades and therefore expect to enjoy the returns themselves, which turns the fund into a reward rather than a restraint. Saving the money may be wise, and only rules about production and cleaning can protect the country the money comes from.",
+      "claim": "A protected oil fund does not by itself reduce pollution, because only direct rules on production and cleaning can do that."
+    },
+    {
+      "id": "d9807bbe-2019-04-18T15:13:35Z-00002-000",
+      "sha256": "c4a67c183bb7921748cd88e6dbd2c06d2fd762dc1e6a2ff4f7e4ea50edb0e8f4",
+      "verdict": "write",
+      "topic_ko": "금지는 죽음을 막지 못하고 더 외롭고 위험한 죽음을 만든다",
+      "passage": "A ban on assisted death does not remove the wish to die; it removes every safe and open way of acting on it. People who have decided that their suffering cannot be borne stop taking their medicine, refuse food, or act alone and violently. Each of those routes is worse than the one the law forbids, and each of them is happening now. Secrecy also blocks the checks that matter most, since nobody examines whether the person was depressed, pressured by relatives, or simply mistaken about the medical facts. A regulated procedure would put exactly those checks in place, requiring repeated requests, independent doctors, and a fixed waiting period before anything is done. Relatives would be present rather than kept away, and the death would happen in the open where it can be recorded and reviewed. A law that cannot prevent the outcome should at least govern how it happens, because the alternative is not fewer deaths but lonelier ones.",
+      "claim": "Assisted death should be legal and regulated, because prohibition produces the same deaths without any of the protections that regulation would supply."
+    },
+    {
+      "id": "d9a39432-2019-04-18T15:36:54Z-00003-000",
+      "sha256": "1c70a77f3649325a070c8dc9f5aa7a19dcf472ac6c3c5e410a6a1147abbc8113",
+      "verdict": "write",
+      "topic_ko": "동물실험은 대체 수단이 없는 경우로 좁히는 중간 규칙이 옳다",
+      "passage": "A complete ban and a complete freedom are both poor answers to the problem of testing medicine on animals. The case for testing rests on a real fact: treatments never tried in a living body carry risks that no dish of cells can reveal, and human volunteers would face those risks instead. The case against it rests on an equally real fact, since the creatures used can suffer, and suffering that serves no purpose cannot be excused by a benefit to another species. Two real facts of that kind point toward a middle rule rather than toward either extreme. The proper policy is therefore to permit testing only where no other method can answer the question being asked. Such a rule has teeth if every proposal must show which alternatives were examined, and if the number of animals and the pain allowed are checked by people outside the laboratory. Progress in computer models and grown tissue keeps narrowing the set of cases, and the rule should narrow along with it.",
+      "claim": "Testing on animals should be permitted only where no alternative method can answer the question, under limits set by reviewers outside the laboratory."
+    },
+    {
+      "id": "d9f50d86-2019-04-18T15:17:33Z-00005-000",
+      "sha256": "db7a911b8c4c427a858bb848188aa7556c3d933b5d7378e7a0c5feb67c159225",
+      "verdict": "write",
+      "topic_ko": "생의 마지막 방식을 정하는 권한은 국가가 아니라 환자에게 있다",
+      "passage": "Few decisions belong more clearly to a person than the way in which a life ends, and few are governed by rules as unclear as the ones that apply today. A patient with months to live and a disease that will slowly remove memory and speech faces a future no drug can make comfortable. Telling such a patient that the state has already chosen is not protection; it replaces a private judgment with a rule that knows nothing about the case. Strict conditions can answer the fear of abuse, since a law may demand repeated requests, a fixed waiting time, and agreement from doctors with no interest in the outcome. Hospitals in countries with clear rules report that most patients who obtain permission never use it. That result suggests the comfort lies in holding the choice rather than in exercising it, which is an argument for granting it widely. A settled national law would end the present silence, in which practice varies by hospital and families are left to guess.",
+      "claim": "The manner of a dying person's own ending should be decided by that person under a clear national law, not left to silence and local practice."
+    },
+    {
+      "id": "da07cc61-2019-04-18T20:03:47Z-00005-000",
+      "sha256": "3ac22c114da317d7931a4f3b3618066eb36cfbe401f0688098349b7f028260be",
+      "verdict": "write",
+      "topic_ko": "다수의 반대는 법적 권리를 거부할 근거가 되지 못한다",
+      "passage": "Public disapproval is frequently offered as a reason to refuse legal recognition to couples of the same sex, and popularity has never been a sound test of a legal right. Laws that followed majority feeling once excluded many groups from marriage, property, and voting, and every one of those exclusions is now regarded as an error. Rights matter precisely in the cases where a group is small and unpopular, because a majority needs no protection from itself. The practical effects of refusal fall on real households, which lose hospital access, shared property, and the security that a recognized bond provides. Young people in such families also learn that a part of who they are must stay hidden, and the damage this does has been recorded in study after study. A state that grants recognition loses nothing that other families already hold, since no marriage becomes weaker when another one is allowed. The burden of proof therefore rests on those who would keep the door closed.",
+      "claim": "Legal recognition of same sex couples should not depend on majority approval, because rights exist precisely to protect unpopular minorities."
+    },
+    {
+      "id": "daece1b3-2019-04-18T15:26:39Z-00000-000",
+      "sha256": "aed653fd1e93c6b3c62fc557ae6e657ba33568d93fa6572785b25dbb221be9d8",
+      "verdict": "write",
+      "topic_ko": "법적 인격의 기준은 인간처럼 일하는 능력이 아니라 고통 받는 능력이다",
+      "passage": "Arguments against treating other animals as persons usually list the things they cannot do: hold a job, handle money, or stand trial in a court. The list proves less than it appears to, because human beings who can do none of those things are still treated as persons with full protection. Infants hold rights that nobody proposes to remove, and so do adults whose minds have been damaged by illness or accident. The ability to reason and to earn therefore cannot be the real test, whatever the list of missing skills suggests. What the law actually protects is the capacity to suffer and to have a life that can go well or badly, and many animals clearly possess it. That does not mean a monkey should vote or sign a contract, since rights are always shaped to fit the creature that holds them. It means the question deserves a better answer than a list of human tasks the animal was never going to perform.",
+      "claim": "Legal protection should follow the capacity to suffer rather than the ability to work or reason like a human being."
+    },
+    {
+      "id": "db035a1f-2019-04-19T12:45:53Z-00011-000",
+      "sha256": "369c8a1f78b2da675f9d3b18037b0d31947a4755a21b949ee1af862e4305ac5a",
+      "verdict": "write",
+      "topic_ko": "가격 신호는 줄일 수 없는 소비에는 통하지 않아 규제가 더 공정하다",
+      "passage": "Price is a weak lever against the kind of energy use that ordinary households have no way to avoid. Homes still have to be heated and lit, meals still have to be cooked, and a parent who drives children to school before work will keep driving when fuel costs more. What changes instead is the rest of the family budget, so holidays, clothing, and small pleasures are cut while the amount of energy burned stays almost the same. The weight of that adjustment falls hardest on families with no spare money, while richer households simply pay and carry on exactly as before. A measure with that pattern is unfair as well as slow, and unfair measures lose the public support they need to survive. Changes that would genuinely help, such as warmer walls or a cleaner car, demand a large payment now in return for savings spread across many years. Rules that apply to everyone avoid both problems, because they place the duty on producers and builders rather than on the household budget.",
+      "claim": "Regulation is fairer and faster than carbon pricing, because households cannot cut the energy they most depend on however high the price rises."
+    },
+    {
+      "id": "db035a1f-2019-04-19T12:45:53Z-00012-000",
+      "sha256": "33ec42fa1ed055264aeb5a4180c65e1737395f83b23285151af316cbdb2af792",
+      "verdict": "write",
+      "topic_ko": "가격 방식은 선택을 남기면서 기존 설비까지 즉시 움직인다",
+      "passage": "A price on pollution leaves the decision with the household, while a rule takes the decision away and tells every family to live in the same manner. That difference matters for consent as much as for cost, since measures that feel forced lose public support and are reversed by the next government. Under a charge on fuel and power, one family moves closer to work, another takes the train, and a third replaces an old heating system. Each of them picks the change that costs it least, and the total reduction is reached for the smallest possible sacrifice. Rules, by contrast, are normally written for new cars, new homes, and new machines, so they have no effect at all on the far larger stock that people already own. More than a decade can pass before that stock is replaced and the promised reduction arrives, and the air does not wait for it. A price reaches every owner immediately, which is why it lowers emissions sooner even when the written rules look stricter.",
+      "claim": "Putting a price on pollution cuts emissions sooner than regulation and leaves households free to choose how they change."
+    },
+    {
+      "id": "db035a1f-2019-04-19T12:45:53Z-00014-000",
+      "sha256": "e50c3d3af939bd4b7cd9ca3500aa54b76dc99c08080d302eb1859e5b4e498649",
+      "verdict": "write",
+      "topic_ko": "감축 비용이 지역마다 달라, 가격 방식이 돈을 가장 효과적인 곳으로 보낸다",
+      "passage": "The cost of keeping a ton of pollution out of the air is not the same everywhere, and that simple fact should decide how the money is spent. Factories, homes, and vehicles in wealthy countries have already been improved so many times that a further small gain there requires an enormous sum. Older equipment elsewhere produces far more waste for every unit of output, so a modest payment can replace it and prevent many times as much harm. A rule written by one government reaches only what lies inside its own borders, and it treats every reduction within them as equally worthwhile. A price behaves differently, because money follows the cheapest reductions wherever they happen to be, and the same budget therefore buys a much larger result. Faster progress at lower cost also means less damage to employment and trade, which keeps the effort politically alive for the decades it will take. The flow of investment from richer places to poorer ones is not a fault in that system; it is one of the reasons to prefer it.",
+      "claim": "A price on pollution buys far greater reductions than regulation because it sends money to wherever cutting emissions costs least."
+    },
+    {
+      "id": "db06427c-2019-04-18T11:49:34Z-00000-000",
+      "sha256": "86926913a0db80b6ac58297dcd7eef64a05a6eab579b0e31b81d9dfb7956612d",
+      "verdict": "skip",
+      "skip_reason": "논증이 없는 인사말 마무리 글이며 실명 이용자와 특정 정치인을 전제해 자족적 지문으로 쓸 수 없다."
+    },
+    {
+      "id": "dba9dbea-2019-04-18T17:00:17Z-00002-000",
+      "sha256": "3cef708cd775c5be13f477421aa76e9419fcdb452f1bf7542d8510d9efcb4f58",
+      "verdict": "write",
+      "topic_ko": "봉사는 의무화해야 평소 선택하지 않던 학생에게 닿는다",
+      "passage": "Service that is left entirely to choice reaches only the students who would have volunteered anyway, and the ones who would gain most never sign up. A requirement removes that filter, and the experience it forces is often the first contact a young person has with hospitals, shelters, or the daily lives of elderly neighbors. Such contact changes plans, because many students who spend an afternoon in a clinic discover an interest that no lesson could have produced. The complaint that the work involves difficult people is strange, since dealing with difficult people is a permanent feature of every job and every team. Learning to work beside someone unpleasant, without the option of walking away, is a skill that employers value highly. Schools teach it rarely, and a required afternoon supplies exactly the practice that a classroom cannot arrange. A small number of compulsory hours is therefore a modest price for an experience that is very hard to obtain in any other way.",
+      "claim": "Community service should be required of students, because voluntary schemes never reach the young people who would benefit most from it."
+    },
+    {
+      "id": "dccfa15-2019-04-15T20:22:41Z-00018-000",
+      "sha256": "786b639e4cd4cc870a5d07a4cf54c1acf98582470e62361128e2a51cfbdda695",
+      "verdict": "write",
+      "topic_ko": "국가가 유일한 고용주라는 근거는 이제 특별 규정을 정당화하지 못한다",
+      "passage": "One argument for giving public employees special legal protection rests on the claim that the state is their only possible employer. The claim was stronger in the past than it is today, because services that once had a single provider have been opened to competing firms in many countries. Telephones, power, and transport now operate as ordinary markets, and the list of true single providers keeps getting shorter. Where one remains, a government worried about the imbalance can open that field in the same way rather than build a separate body of rules around it. The claim also ignores how far professional skill travels between employers, since a public lawyer, a nurse, or an engineer can move into private practice without starting again. Workers with such skills are not trapped, and the possibility of departure gives them the ordinary strength that any skilled employee carries into a negotiation. Special legal treatment therefore needs a fresh defense, because the usual one no longer describes the market it was designed for.",
+      "claim": "The claim that public workers face a single employer no longer holds, so it cannot by itself justify special bargaining rules for them."
+    },
+    {
+      "id": "dd5372fa-2019-04-18T11:37:37Z-00002-000",
+      "sha256": "b1a246bf526c5195e518caf44cbb64e1da7a6532dd1297442bdf06e6f436eea5",
+      "verdict": "write",
+      "topic_ko": "서로 독립된 여러 관측이 같은 결론, 곧 둥근 지구를 가리킨다",
+      "passage": "The shape of the planet is not a matter of opinion, because several independent observations point to the same answer. A distant ship disappears from the bottom upward as it moves away, and it returns to view when the observer climbs a hill. That happens only if the surface between the two points curves, and it happens on every ocean in the world. Gravity supplies a second reason, since it pulls every part of a large body toward the center, and any flat shape of that size would collapse into a ball under its own weight. Every large object that scientists have examined in space has taken the same form, and no exception has ever been recorded. Photographs from above the atmosphere show the curve directly, while ships and aircraft have crossed the surface in every direction without meeting an edge. An explanation that requires each of these results to be false separately is far weaker than the single explanation that fits them all.",
+      "claim": "Independent lines of evidence agree that the planet is round, and no account that treats each of them as an error can match that agreement."
+    },
+    {
+      "id": "dde03838-2019-04-18T15:39:50Z-00002-000",
+      "sha256": "ddd58d709b8b5c6d856c25993c1077f19ff07910c9f1fcbfd6024c4ec244fbba",
+      "verdict": "write",
+      "topic_ko": "학교의 불량식품 금지는 선택을 빼앗지 않으면서 하루 한 끼를 지킨다",
+      "passage": "A rule against junk food at school is attacked as an attack on choice, and the objection misses what the rule actually does. Students remain free to eat whatever they like on every other occasion in their lives, and inside school they still choose among the healthy meals on offer. Schools already decide what appears on the menu, so an argument built on choice would equally forbid a school from serving one dish rather than another. The real effect of the rule is narrow and useful, because one meal in the day is protected and a child who eats badly at home eats one bad meal fewer. Habits formed at that age often last for decades, and a place that teaches the value of health while selling the opposite in its own hall teaches very little. Waste does not increase either, since meals prepared for a settled menu are easier to plan than meals competing with whatever students carry in. A narrow rule with a clear benefit deserves better than an objection borrowed from a larger quarrel.",
+      "claim": "Schools should ban junk food because the rule protects one meal a day without removing any choice that students genuinely had."
+    },
+    {
+      "id": "dde1a370-2019-04-19T12:46:18Z-00007-000",
+      "sha256": "c57e4591915e1d24a25417be7fdf7f425d225f06aa3c68a632e1cadef835a965",
+      "verdict": "write",
+      "topic_ko": "부모 동의를 조건으로 붙이면 한 교실에 서로 다른 두 부류의 학생이 생긴다",
+      "passage": "A proposal to allow physical punishment wherever parents agree to it sounds careful, and the condition attached creates the very problem it was meant to avoid. Agreement will never be complete in a class of thirty, so some families will accept the practice while others refuse it outright. If nothing may happen without agreement from everyone, the rule changes nothing at all and the whole exercise is pointless. If punishment is applied only to some children, the school has created two classes of pupils under one roof with openly different rights. Children notice such differences immediately, and those outside the rule may behave worse precisely because they know the heaviest response cannot reach them. The teacher meanwhile has to answer the same bad behavior in two different ways in front of everyone, which destroys any appearance of fairness. A measure that divides a classroom in this manner will produce more disorder than it removes.",
+      "claim": "Physical punishment conditional on parental consent should be rejected, because it splits a single class into two groups with different rights."
+    },
+    {
+      "id": "e01eff2d-2019-04-19T12:45:26Z-00029-000",
+      "sha256": "255244565222455c634c36e7f190231a2d75cf13d8ad67d851324648301c95e7",
+      "verdict": "write",
+      "topic_ko": "자연스러움을 근거로 든 반대는 현대 의학의 관행과 일관되지 않는다",
+      "passage": "An appeal to nature is the most common objection to equal legal status for couples of the same sex, and it is also the least consistent. Medicine has interfered with natural birth for a century, both to prevent it and to assist it, and those treatments are widely accepted. They are accepted because they improve the lives of the people who choose them, which is a standard about welfare rather than about nature. If the natural pattern were truly the test, the same objection would fall on every treatment of that kind, and almost nobody is willing to argue for that conclusion. The rule that actually operates in modern law asks whether a measure raises the welfare of citizens without taking anything from anyone else. Recognition passes that test easily, and fears that the population will fall have no ground, since the couples in question were never going to produce children under any legal arrangement. What recognition changes is only the security of households that already exist.",
+      "claim": "Objections from nature cannot survive the medical practices modern societies already accept, so same sex couples should hold equal legal status."
+    },
+    {
+      "id": "e0a676b3-2019-04-18T15:38:14Z-00004-000",
+      "sha256": "939a59230d6c99380f0a93e38e0bdd4cd52dc1af5e2a8a7ccb9d3b8cf2d224cc",
+      "verdict": "write",
+      "topic_ko": "복지 급여는 일자리로 이어지는 다리여야 하므로 노동·훈련과 묶는 것이 옳다",
+      "passage": "Support from the state was designed as a bridge across a bad period rather than as a destination, and the design works only if the bridge leads somewhere. A payment that arrives whether or not the person looks for employment weakens the very pressure that moves people back toward the labor market. Long absence from work is damaging in itself, because skills fade, contacts disappear, and every additional month makes the next interview harder to pass. A duty to work or to train in exchange for support keeps those skills alive and gives the person a recent record that an employer can read. The duty must of course be fitted to the individual, and those with serious physical or mental difficulty need genuine help rather than a task invented for them. Training, part time work, and supported employment can all satisfy the condition, so the rule need not be harsh to be real. For everyone else an exchange of effort for support is fairer to the taxpayer and better for the person receiving it.",
+      "claim": "Welfare payments should be tied to work or training, because the condition protects both the taxpayer and the skills of the person receiving support."
+    },
+    {
+      "id": "e0c0a0a9-2019-04-18T15:41:23Z-00004-000",
+      "sha256": "e7a692245cc8772d8ba3960496c44b569863c9c50b5595f6591611d2ee094167",
+      "verdict": "write",
+      "topic_ko": "합법 구매만 겨냥한 규제는 실제 범죄에 쓰이는 공급을 건드리지 못한다",
+      "passage": "Debates about guns usually stop at the question of whether rules should exist, and the harder question is which rules can actually be enforced. A system that records every legal sale reaches the buyers who walk into a shop and fill in a form, and those buyers are not the ones who commit most armed crime. Weapons used in such crime are mainly stolen, borrowed, or sold privately, and none of those routes passes a counter where a record could be made. A government that wants to reduce the harm therefore has to work on the hidden supply itself. Tracing recovered weapons, punishing illegal sale, and watching the small number of dealers who feed the trade would all reach it directly. Measures aimed only at lawful purchase place cost and delay on people who were never the problem, and they produce numbers that look impressive while the flow continues. Policy of this kind should be judged by the damage it prevents rather than by the records it creates.",
+      "claim": "Gun policy should target the hidden supply of weapons used in crime, because rules aimed at lawful buyers leave that supply untouched."
+    },
+    {
+      "id": "e2d0281b-2019-04-18T17:28:40Z-00003-000",
+      "sha256": "9ecdacc76cf085ef4b62b5256a4efbaa6d94b412191b4efdeaa6d9e8f08aea93",
+      "verdict": "write",
+      "topic_ko": "차 안의 아이는 동의한 적이 없으므로 차내 흡연은 금지되어야 한다",
+      "passage": "An adult who smokes accepts a known risk, and a child sitting in the same car has accepted nothing at all. Smoke does not stay with the person holding the cigarette; it fills the space and is breathed by everyone inside, and the space inside a car is very small. The level of smoke there rises far above anything found in a room, so even a short journey delivers a great deal of it to a passenger. The passenger most affected is also the one least able to object, since a young child may not understand the harm and may be afraid to ask an adult to stop. Lungs continue developing throughout childhood, and damage done while that tissue is forming produces disease that appears many years later. Freedom to harm oneself is a serious value, and it ends at the point where the harm lands on somebody else. A child placed in the back seat by an adult is exactly such a person, which is why the law should draw the line there.",
+      "claim": "Smoking should be prohibited in vehicles carrying children, because the harm falls on a passenger who never consented and cannot escape."
+    },
+    {
+      "id": "e3b9f8b-2019-04-18T16:33:58Z-00004-000",
+      "sha256": "e70fc028e5468e51d0ff87c2d111045574c0130a1620610ba4f190d1a92a49ef",
+      "verdict": "write",
+      "topic_ko": "법정 최저임금의 급격한 인상은 초심자의 일자리를 먼저 없앤다",
+      "passage": "A higher legal wage looks like the simplest way to help low paid workers, and the simplicity hides the cost of the measure. The wage a job can pay is limited by the value that the job produces, so a sharp rise pushes employers to cut hours, raise prices, or replace the position with a machine. The workers who lose in that adjustment are the youngest and the least experienced, which is exactly the group the change was meant to help. A first job also matters far beyond the pay it offers, since entry positions teach habits and build the record that leads to better work later. Removing them closes the bottom step of a ladder and leaves people standing where no employer can see them. Help delivered through the tax system reaches poor households directly, and it does so without making any worker too expensive to employ. Wages can rise safely as skill and output rise, so policy is wiser to attack the causes of low productivity than to order a number upward.",
+      "claim": "The legal minimum wage should not be raised sharply, because the jobs it destroys belong to the inexperienced workers it was meant to help."
+    },
+    {
+      "id": "e3d17c02-2019-04-18T16:07:02Z-00003-000",
+      "sha256": "8b68b31911137e80969c7f6552f341b868b76662cc11262183cd0e0a845a4d27",
+      "verdict": "write",
+      "topic_ko": "단원별 평가는 한 번의 학년말 시험보다 배움에 더 이롭다",
+      "passage": "Testing a year of work in a single examination concentrates everything that matters into one morning, and that design harms learning long before the morning arrives. Material studied months earlier has to be recovered all at once, so students spend enormous evenings on review in the weeks beforehand. Research on study time shows that hours beyond a moderate amount actually lower the results they were meant to raise. Tests spread through the year remove that pile, because each one covers a small body of material that was taught recently and can be prepared in an ordinary evening. Sleep and free time survive under such a timetable, and both of them are strongly connected to the results students finally achieve. Frequent tests also return information while the course is still running, so a weakness found in October can be repaired instead of merely recorded in June. A final judgment built from many measurements is both fairer and more accurate than one built from a single hour.",
+      "claim": "Assessment by frequent unit tests serves learning better than a single end of year examination."
+    },
+    {
+      "id": "e3f93a3a-2019-04-15T20:22:23Z-00009-000",
+      "sha256": "7bfb916575b7e3b2a2cc46d176499a14ae0eff5a8a9ae0d920ce758819732517",
+      "verdict": "write",
+      "topic_ko": "졸업생 과세는 과장된 소득 전제 위에 서 있고 대학의 목적도 뒤튼다",
+      "passage": "Paying for universities through a special tax on those who attend them rests on an estimate of future earnings that rarely matches reality. Average starting pay for new graduates sits far below the figures used in such proposals, and only a small share of them ever reaches the higher level those figures assume. Whole professions that require a degree, including teaching, nursing, and much of public service, may never cross that line at any stage of a career. A charge designed around high earnings therefore falls most heavily on people whose work pays least, which is an odd result for a public policy. The scheme also changes what a university is for, since a system funded by later salary treats study as an investment and nothing else. Anyone who came for another reason is quietly discouraged, and an older student returning to learn rather than to earn has no place in that calculation. The loss falls on more than that single student, because a country needs places where learning is valued for itself.",
+      "claim": "Funding universities through a tax on graduates rests on inflated income assumptions and reduces education to a search for salary."
+    }
+  ]
+}

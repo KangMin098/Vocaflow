@@ -11,9 +11,14 @@
 import {
   SERIES_CATALOG,
   SERIES_ITEMS_PER_VOLUME,
-  type SeriesDef,
   type SeriesId,
 } from '@vocaflow/library-pipeline/textbook-series-catalog'
+import type {
+  SeriesGap,
+  SeriesIntent,
+  SeriesLifecycle,
+  SeriesOrigin,
+} from '@vocaflow/library-pipeline/textbook-series-lifecycle'
 
 /** 한 권의 상태 — **다음에 할 일**로 가른다. */
 export type VolumeStatus =
@@ -65,8 +70,19 @@ export interface SeriesRow {
   brand: string
   question: string
   accent: string
-  status: SeriesDef['status']
-  nextStep: string | null
+  /**
+   * **실측에서 고른 생애 자리.** 못 쟀으면 null — 「아직 안 찍었네」로 읽히는 값을
+   * 대신 넣지 않는다(`series-lifecycle.ts` 머리말의 사고).
+   */
+  lifecycle: SeriesLifecycle | null
+  /** 사람이 정한 뜻. 생애와 다른 축이다 — 뜻은 `active` 인데 생애가 `planned` 일 수 있다. */
+  intent: SeriesIntent
+  /** 왜 이 시리즈가 생겼는가 — 계기 · 근거 · 날짜. */
+  origin: SeriesOrigin
+  /** 지금 이 시리즈에서 할 한 걸음. `nextActionOf()` 하나가 소유한다. */
+  nextAction: string
+  /** 나갔지만 옛 규격으로 찍힌 권. 못 쟀으면 null. 0 보다 크면 생애가 `revising` 이다. */
+  stale: number | null
   marketSeries: number
   marketExamples: readonly string[]
   volumes: VolumeCell[]
@@ -78,8 +94,18 @@ export interface SeriesRow {
 
 export interface SeriesCatalogView {
   rows: SeriesRow[]
-  /** 우리 시리즈 / 시장 시리즈. 이 화면의 분모다. */
+  /**
+   * 우리 시리즈 / 시장 시리즈. 이 화면의 분모다.
+   * `shipping` 은 **조판 기록에서 센 수**이고 카탈로그 상수에서 오지 않는다.
+   */
   counts: { shipping: number; defined: number; market: number }
+  /**
+   * 시장에 있는데 우리에게 없는 자리 — **다음 유형의 후보.**
+   *
+   * 이 목록이 빈 날은 오지 않는다(시장은 계속 늘어난다). 그래서 품목 화면에는 늘
+   * 다음 할 일이 있고, 공장이 「완료」로 초록이 되는 자리가 구조적으로 없다.
+   */
+  gaps: SeriesGap[]
   /** 재고를 언제 센 값인가 (ISO). 못 읽었으면 null — 신선도를 주장하지 않는다. */
   inventoryAt: string | null
   /** 만들지 않는 것과 그 이유 — 죽은 칸을 격자에 그리는 대신 한 줄로 적는다. */
@@ -93,10 +119,9 @@ export const NOT_MAKING: { name: string; why: string }[] = [
     name: '기출',
     why: '평가원 저작물이라 학습자 경로로 못 낸다 — 파는 것은 기출 분석이지 기출이 아니다',
   },
-  {
-    name: '내신',
-    why: '학교 교과서 본문이 있어야 하는데 그것은 출판사 저작물이다 — 우리 경로는 BYO 뿐이라 미리 찍는 상품이 아니다',
-  },
+  // ⚠️ **내신은 여기 없다** (옮김 2026-09-23 · DD-76). 같은 사실을 두 목록이 적고 있었다 —
+  //   여기와 시장 칸 표의 `school` 행(`SCHOOL_SERIES_BLOCKED`). 시장 칸 쪽이 **분모와 함께**
+  //   적으므로(내신 0/1) 그쪽 하나만 남긴다. 사실 하나에 자리 하나다.
   {
     name: '개인 맞춤',
     why: '종이가 못 하는 유일한 칸인데 관측이 없어서 못 짠다 — 문항 시도 기록 위에서만 만들어진다',

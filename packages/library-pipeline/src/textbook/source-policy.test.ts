@@ -23,10 +23,14 @@ describe('canonical source policy', () => {
     expect(evaluateSource({ ...good, articleVLevel: 4 }, context).grade).toBe('blocked')
     expect(evaluateSource({ ...good, articleVLevel: 4, cefrLevel: 'B1' }, context).status).toBe('eligible')
   })
-  it('windows alone are candidates; item linkage is not approval', () => {
+  // 2026-09-23 결정: 길이는 원문 적격 기준이 아니다 — 발췌는 교재 생성 단계의 별도 공정이고
+  // 유형마다 창이 다르다. `excerptStatus` 는 그대로 남지만 **차단이 아니라 관찰**이다.
+  it('length is observed, not gated; excerptStatus still tells the excerpt queue apart', () => {
     const input = { ...good, wordCount: 3000, excerptWindows: 5 }
-    expect(evaluateSource(input)).toMatchObject({ grade: 'excerpt-blind', excerptStatus: 'candidate' })
-    expect(evaluateSource({ ...input, hasItems: true })).toMatchObject({ status: 'conditional', excerptStatus: 'item-linked' })
+    expect(evaluateSource(input)).toMatchObject({ grade: 'usable', excerptStatus: 'candidate' })
+    expect(evaluateSource({ ...input, hasItems: true })).toMatchObject({ grade: 'usable', excerptStatus: 'item-linked' })
+    expect(evaluateSource({ ...input, excerptWindows: null })).toMatchObject({ grade: 'usable', excerptStatus: 'missing' })
+    expect(evaluateSource(input).blockers).not.toContain('excerpt_not_materialized')
   })
   it.each([{ syntaxScore: NaN }, { articleVLevel: 12 }, { cefrLevel: 'X' }, { wordCount: -1 }])('invalid analysis never passes: %j', bad => {
     const r = evaluateSource({ ...good, ...bad })

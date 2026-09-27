@@ -31,20 +31,20 @@ describe('브랜드 캔버스 검증', () => {
     expect(BRAND_FAMILIES).toEqual(['list', 'structure', 'corpus', 'delivery', 'unique'])
   })
 
-  it('**색 값을 담을 수 없다** — hex 는 어느 자리에 있든 걸린다', () => {
-    const p = validateBrandCanvas(ok({ seriesLine: '목록 #2E7D5A 계열' }))
-    expect(p.some((x) => x.message.includes('색 값'))).toBe(true)
+  // 「색 값을 담을 수 없다」 · 「rgb()·hsl() 도 막는다」 제한은 DD-66(사용자 결정 2026-09-21)으로 풀었다.
+  it('글자 자리에 색 표기가 섞여도 받는다 — 색 값 금지는 없다', () => {
+    expect(validateBrandCanvas(ok({ seriesLine: '목록 #2E7D5A 계열' }))).toEqual([])
+    expect(validateBrandCanvas(ok({ grain: '축적과 질서 rgb(1,2,3)' }))).toEqual([])
   })
 
-  it('rgb()·hsl() 도 막는다 — hex 만 막으면 우회로가 남는다', () => {
-    for (const v of ['rgb(1,2,3)', 'rgba(1,2,3,.5)', 'hsl(1 2% 3%)']) {
-      const p = validateBrandCanvas(ok({ grain: `축적과 질서 ${v}` }))
-      expect(p.some((x) => x.message.includes('색 값'))).toBe(true)
+  it('색 자리는 역할 이름이나 CSS 색 값을 받는다', () => {
+    for (const v of ['#2E7D5A', 'rgb(1,2,3)', 'rgba(1,2,3,.5)', 'hsl(1 2% 3%)', 'oklch(0.6 0.1 150)']) {
+      expect(validateBrandCanvas(ok({ palette: { ink: v, paper: 'paper', accent: 'accent' } })), v).toEqual([])
     }
   })
 
-  it('색 자리에 값 대신 **역할 이름**을 요구한다', () => {
-    const p = validateBrandCanvas(ok({ palette: { ink: 'navy' as never, paper: 'paper', accent: 'accent' } }))
+  it('역할도 색 값도 아닌 글자는 막는다 — 오타면 표지가 색을 잃는다', () => {
+    const p = validateBrandCanvas(ok({ palette: { ink: 'nvay', paper: 'paper', accent: 'accent' } }))
     expect(p.some((x) => x.field === 'palette.ink')).toBe(true)
   })
 
@@ -79,7 +79,12 @@ describe('브랜드 캔버스 검증', () => {
   })
 })
 
-describe('색은 늘 토큰에서 푼다', () => {
+describe('색 풀기 — 역할은 토큰에서, 색 값은 그대로', () => {
+  it('색 값을 적은 자리는 적힌 그대로 돌려준다 (DD-66)', () => {
+    const c = resolveBrandColors(ok({ family: 'structure', palette: { ink: '#123456', paper: ' oklch(0.9 0.02 90) ', accent: 'accent' } }), 'light')
+    expect(c).toEqual({ ink: '#123456', paper: 'oklch(0.9 0.02 90)' })
+  })
+
   it('규격이 아니라 듀오톤 표가 색을 준다', () => {
     const light = resolveBrandColors(ok({ family: 'structure' }), 'light')
     const dark = resolveBrandColors(ok({ family: 'structure' }), 'dark')

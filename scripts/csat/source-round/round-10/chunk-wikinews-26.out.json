@@ -1,0 +1,946 @@
+[
+ {
+  "id": "16229a73-5d9b-4016-88fb-9091de63380a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e2c917dd76fb171da2613cd6626c6f5310f07e8a1497c0863a2464dc920780c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "상원 철야 표결 기사는 표결 경과·양당 공방으로 서지만 끝 단락이 「주별 표결 내역은 다음과 같다:」로 예고만 하고 목록이 없어 끊긴 원천이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After the motion failed, Reid proposed",
+   "note": "Reid 제안-McConnell 반대 단락은 떼면 절차 갈등이 서지만 cloture·filibuster 를 풀어 쓰지 않으면 V6 아래로 못 내려간다."
+  },
+  "hold_reason": "incomplete-source"
+ },
+ {
+  "id": "1625c104-9bc4-4241-828c-aa1449a20822",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "b4893f65f263ff087bfb23da1d8acecbce46dd208f0bb14dbec66700de4667b9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "태풍 진로 예보 → 1959년 태풍과 같은 경로 → 주민 대비로 이어지는 네 단락이 짧지만 인과가 서서 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although Melor is unlikely to cause",
+   "note": "마지막 단락은 Melor 이름만 「the storm」으로 바꾸면 앞 문맥 없이 서고 landfall 하나만 풀면 중등 밴드다."
+  }
+ },
+ {
+  "id": "16286348-f642-4e28-94ca-96aec4b7c812",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "523b34d848d1a8c0d297dae73ffc1b427130a1dea25949df521442d452072385",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "시위 첫 무력 진압 → 통금·집회 금지 → 호주 외교장관 자제 촉구로 사건이 이어져 고등 이상 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Myanmar authorities have imposed a curfew",
+   "note": "통금 단락은 지명 몇 개만 걷어도 탄압 조치가 서고 disperse·curfew 를 바꾸면 V5 로 내려가지만 폭력 소재라 고등 이상으로 둔다."
+  }
+ },
+ {
+  "id": "162de513-ddf6-4785-89e2-099df63d576a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3036c93a2a686c54129fc4bea7054c5040d98f9a3fba43e9b5502a36cef612db",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "국왕 친정 선포 → 통신 차단 → 국제 비판·반군 총파업 호소로 흐르는 장문이 장문 지칭·내용일치 칸을 채운다(인도 성명 단락은 인용 부호가 어지럽다).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "long_reference",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "All telephone lines and mobile telephone",
+   "note": "통신 차단 단락은 떼어도 서지만 국제 반응 단락은 insurgency·autocracy 같은 낱말이 얽혀 두세 개 바꿔도 V6 에 머문다."
+  }
+ },
+ {
+  "id": "162f8055-f872-4419-815c-c83e1a151bf6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4b1763a15ffcb6339b40938dff185e64ed0461a92e2905293ebfc2bb4b16428f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "입원 → 암 투병 → 수상 하루 뒤 사망으로 시간 흐름이 선 부고 기사라 내용일치·서사 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pavarotti's death came only one day",
+   "note": "수상 단락은 「the tenor」 지칭만 정리하면 홀로 서고 recipient·abroad 정도라 V4 로 쉽게 맞춘다."
+  }
+ },
+ {
+  "id": "162fb10d-5892-4c41-970d-a439c07f7ba3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "f957b4151d87a60957d50343f9cdfde375f45155eca037a03913dc61955ec926",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "인수가 인상에도 Yahoo 가 더 높은 값을 원해 철회했다는 인과와 「전술일 수 있다」는 관측이 주제·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Microsoft had previously wanted to takeover",
+   "note": "인수 동기 단락은 Google 과의 경쟁이라는 이유가 서고 금액을 걷어도 논지가 남아 V5 에 맞다."
+  }
+ },
+ {
+  "id": "1634edaf-2b07-4703-9786-4ea7205146f6",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7759d5896c53f99f4a11d4b69d7160ec0448c5744ca481beb39e386b1276aa71",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "체포 영장 집행 → 총격 → 사망·부상 경과가 시간순으로 이어진 사건 기사로, 총상 묘사가 구체적이라 고2 이상 내용일치 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Eight law enforcement officials arrived at",
+   "note": "진입 단락은 사건 흐름이 서지만 「body bag」 인용과 총상 부위는 가공 때 걷어야 해서 연령 칸을 고2 이상으로 묶었다."
+  }
+ },
+ {
+  "id": "1635474c-55e5-4490-af34-b45addfc64bd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "1d99d81c2e11eae18db47780df85a1258ccdeefd62a472eb584b6c46361d9c4b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "코드명에서 Vista 로 이름을 바꾼 까닭(명료함)과 출시 일정이 짧게 서서 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Brad Goldberg, the general manager of",
+   "note": "이름 의도 단락은 고유명사를 걷어도 「명료함을 전하려 한다」가 서고 interim 하나만 바꾸면 V3 다."
+  }
+ },
+ {
+  "id": "16377953-fb3a-4089-8711-142f3c2eb0a0",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fb5dcce983f979a97abaef04e48d160da753c81458c677a9166ba37820b7295d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대통령 왕릉 안장 반대 시위와 감독 Wajda 의 반론, 관계자 해명이 찬반 구도를 이뤄 주장·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Polish film director Andrzej Wajda voiced",
+   "note": "Wajda 인용 단락은 「평범하고 좋은 사람이나 왕들 곁은 아니다」 논지가 홀로 서서 주장 문항으로 바로 쓸 만하다."
+  }
+ },
+ {
+  "id": "163ab4fe-eee9-4c89-8b7a-65bbbee20190",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "0d683ab1defeb1aee5a73a8e7b8154610e4a7af59134b70e0761f0b44a9ea6cc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "education",
+  "why": "학생의 표현의 자유 인식 조사 결과 → 재단 경고 → 교육이 효과적이라는 결론으로 논지가 서서 요지·요약·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the study, teaching of",
+   "note": "교육 효과 단락은 앞 문맥 없이 「가르치면 고쳐지지만 지금은 못 가르친다」가 서고 redressing 하나만 바꾸면 V5 다."
+  }
+ },
+ {
+  "id": "16406f2a-8604-4a10-b89c-57d0bba1417c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "d50b149381d5b1cdbb8d579d554271bc90eaa58b5d7e57338f05dbf29b6d2cf1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "진통 → 의사 승객의 도움 → 급행 전환 → 역 도착 전 출산으로 사건이 순서대로 흘러 순서·서사 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sarker boarded the Manhattan-bound PATH train",
+   "note": "탑승 단락은 역 이름만 걷으면 「가진통인 줄 알았다 → 의사가 돕는다 → 급행으로 바꾼다」가 그대로 서서 가공이 쉬웠다."
+  }
+ },
+ {
+  "id": "1642e7b9-685c-48e0-adde-92bc7a38ff09",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "bd59b114b10238683888054701bfdb907e072ef1b248aa5c4bd0d09d40a77053",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "세 단락이 분기 투자액·증가율·환산 금액 나열뿐이라 떼어 낸 문단에 논지나 흐름이 없어 내용일치 한 칸도 보관 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Total investment in Ireland was €42.11m",
+   "note": "투자액 단락은 통화 환산을 걷으면 숫자 두 개만 남아 문항으로 세울 문장이 없었다."
+  }
+ },
+ {
+  "id": "1648d29e-0304-4204-affc-9e47490ff53c",
+  "source_updated_at": "2026-09-25T08:59:04.200924+00:00",
+  "body_sha256": "cbff30eb89048e531c0f79b8e8c549ef55ed5c4e7320eda0b486c4e867d0b98d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "90어 총격 속보는 도주·부상·제보 요청이 있으나 첫 문장 문법이 깨지고 사건 뒤 이야기가 없어 칸을 세울지 갈린다.",
+  "slots": {
+   "ages": [
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V3"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Police are asking the public to",
+   "note": "제보 요청 단락은 홀로 서지만 dashcam 목록뿐이라 사건 설명과 붙여도 내용일치 선택지 셋을 만들기 어려웠다."
+  },
+  "hold_reason": "borderline"
+ },
+ {
+  "id": "164aea4a-5a4c-4501-ade1-ebec556f75d1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "61560d832447802dcdaf4208af8328430035cc62ef86ea3b5bbe0b17a79e0560",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "무사 귀환 → 전국 중계·고향 축하 → 평화 목적 해명·애국 교육 의도로 이어져 내용일치·무관한 문장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "irrelevant",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The space program is hoped to",
+   "note": "우주 계획 목적 단락은 한 문장이라 앞의 평화 목적 단락과 붙여야 논지가 서지만 instill·cultivate 만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "16512eea-c468-471a-a50d-2a669eea8cf5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "a6df2bafd676ec763d194fa47405617cb726f783e3812c75a9bdd2d67e8c0b77",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "두 후보 출마 선언과 각자의 이력·전망, 캐나다 전체에 미칠 파장으로 서는 정치 기사라 내용일치·장문 칸을 채운다(끝의 갱신 안내 두 줄은 잔재).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Duceppe has been a successful leader",
+   "note": "Duceppe 단락은 서지만 separatist·portfolio·leadership bid 가 겹쳐 두세 낱말을 바꿔도 V6 아래로는 안 내려갔다."
+  }
+ },
+ {
+  "id": "16545d5d-01e1-45bd-8bc5-f61c875d0d47",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "cd9c1f77030a7c2c03bad5b77b77c2659229f31fa70195c537c7f2491aee4510",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "쓰레기로 오인된 시신 발견과 개봉일 우연이 사건의 전부인 짧은 기사로, 혈흔 묘사가 있어 성인 내용일치 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Speculation has risen around the case",
+   "note": "추측 단락은 개봉일과 사망의 우연만 말해 홀로 서지만, 핵심 사실은 시신 묘사 단락에 있어 가공 폭이 좁았다."
+  }
+ },
+ {
+  "id": "1656b57c-da50-4890-b4aa-70717f9345ff",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "43b12dae2b7464a51c42b93767df9507455a28ee9107de5f96d0c7cd217036c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "화장실 화재 → 승객 사망 → 본선 운행 차질·대체 버스로 이어지는 사고 기사라 고1 이상 내용일치 칸을 채운다(인용이 줄바꿈으로 둘로 갈렸다).",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The fire has caused serious disruption",
+   "note": "운행 차질 단락은 앞 문맥 없이 서고 scrambled·disruption 두 낱말만 바꾸면 V4 로 내려간다."
+  }
+ },
+ {
+  "id": "165837b5-dc73-49df-b0a1-29ab25c672a1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "95fda13db9bf7e0cabf0aa721b309b868c8e7fefd02c3335c4a1b285323110f2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "space",
+  "why": "발사 성공 → 단열재 탈락 관찰 → 손상 가능성 낮다는 해명이 이어져 콜럼비아 사고 맥락과 함께 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Around 3 minutes into the launch,",
+   "note": "단열재 단락은 「떨어졌지만 걱정할 시점 뒤였다」가 서고 insulation·external tank 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "165a3769-3766-4d1c-9ab3-f0b11ac29599",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "2e133cd0d733e8af2f5ab1eb87bbf84a84d81df801bd2657d0f2484a99d2a4a4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "만평 게재 → 대사 요구 거절 → 불매 운동·표현의 자유 논쟁으로 인과가 긴 글로 서서 고2 이상 장문·주제 칸을 채운다(편향 어휘는 가공 때 걷는다).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "long_reference",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "A debate ensued over the following",
+   "note": "논쟁 단락은 서지만 「grossly overstated」·「obviously」 같은 기자 판단을 걷어야 하고 blasphemy·taboo 는 바꾸기 어려워 V6 에 머문다."
+  }
+ },
+ {
+  "id": "165a79bc-825d-4065-957c-be58dfd48991",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "57c3fe73268190aabd4b83d2424e83cc1729c337acae7fc3cd023d587fbd1b2a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "이용 급증 통계 뒤 「광고 기회가 늘 것」이라는 통념을 「규모 비용·서로 안 듣는 사용자」로 뒤집어 요지·빈칸·통념 교정 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "csat",
+    "mock"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Because users of these sites visit",
+   "note": "광고 단락은 「the argument goes … However, in reality」 구조가 그대로 빈칸 문항이 되고 inventory 하나만 풀면 V6 다."
+  }
+ },
+ {
+  "id": "165dffb2-b1f6-4842-ac0d-79c881e04f91",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e98bd6a69417bb72c9cca34024477257110b0b2a7698a16eff31555c6d486542",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "차 도난이 아이 납치로 번졌다가 펑크 난 타이어와 행인의 의심으로 끝나는 사건이 순서대로 흘러 순서·서사 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "order",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to news reports, the vehicle",
+   "note": "타이어 단락은 운전자 인종 표시(「a white female」)를 걷어도 언어 차이로 의심한 흐름이 서서 가공 때 그 구절을 뺀다."
+  }
+ },
+ {
+  "id": "16627da5-6f3b-4f8a-97bd-f89b289b2edd",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9e3ffe72e9e1fb94c7f9b183d63202f6d1572933662fde0e658354005ba0e33b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "89어 두 단락이 토론 시청자 수와 1차 득표율 수치뿐이라 논지·사건 흐름 없이 수치 나열로만 칸을 채워 보관 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The second round of popular voting",
+   "note": "결선 단락은 날짜와 득표율 두 개를 걷으면 남는 문장이 없어 문항으로 세우지 못했다."
+  }
+ },
+ {
+  "id": "166335d2-3ba6-4de8-a9de-52994f9cf1fc",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9fd7fe7d8b960053112f282d06b5e3bf78e012b704452034f6d9e174771c439f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "산불 피해 규모 → 소방관 부상과 서장의 「더 잃을 뻔했다」 평가 → 저녁 강풍 설명으로 이어져 내용일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Of the 1,400 firefighters tending the",
+   "note": "서장 인용 단락은 연료와 바람 때문에 피해가 컸을 것이라는 인과가 서고 tending·fuel 만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "166432f2-77f8-4fdc-9c23-c59ccc337f60",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "3f2db005f873f5e674c36a8a0845b3c9c070f3a125c6356263991f975d7a4b20",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "런던 밖 시청자와 가까워지려고 빅벤 화면을 뺀다는 이유와 편성 변천이 짧게 서서 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The ITV news returned in 2001",
+   "note": "편성 변천 단락은 연도만 이어져 약하지만 첫 단락의 이유와 붙이면 내용일치 선택지 넷이 나온다."
+  }
+ },
+ {
+  "id": "166a13f3-d327-415e-a24e-0630a0d1b5c4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "55b6559c846824331b2c1d1b9ab11897132174321faa70d310794144227e85c3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "재선 반대 집회에서 민병대 발포로 사망자가 났다는 두 단락 속보로, 경위가 짧게 서서 고1 이상 내용일치 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The defeated candidate, Mir Hossein Mousavi,",
+   "note": "낙선 후보 단락은 금지를 어기고 연설했다는 사건이 서지만 contravention 을 바꿔도 배경 설명 없이는 이란 선거 맥락이 비었다."
+  }
+ }
+]

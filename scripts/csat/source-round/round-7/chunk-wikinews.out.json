@@ -1,0 +1,754 @@
+[
+  {
+    "id": "5bfe766c-922a-4579-a522-32a393b02648",
+    "source_updated_at": "2026-09-25T07:44:39.886751+00:00",
+    "body_sha256": "a03074de71dc5c46e6a2c3910bd921bc456b5b80c0f020d244a773bed8466cba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "종영 → 마지막 인사 → 후속 프로그램 순서가 네 단락에서 이어져 고1~고2 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "GMTV, a breakfast television programme broadcast",
+      "note": "첫 단락은 고유명사를 걷어도 「17년 만의 종영」 사건이 서고, perseverance·lynchpins 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "5bcbed1d-a6a2-4658-82ca-016344069191",
+    "source_updated_at": "2026-09-25T06:47:12.920743+00:00",
+    "body_sha256": "368f2b16e95a8034907553a96212dc5e21a4745f71cc3a1893548f828b55179b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "실업률 최저라는 통계와 불완전고용이 여전히 높다는 반대 수치를 맞세운 첫·끝 단락이 내용 일치·빈칸과 수치 주장 검증 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The still-large under-employed category defined",
+      "note": "불완전고용 정의·2001 연구 단락은 떼어도 논지가 서지만 각주 숫자 잔재를 걷어야 한다."
+    }
+  },
+  {
+    "id": "ad491c77-ba76-49ae-ad0c-3dc114bd2c55",
+    "source_updated_at": "2026-09-25T07:00:03.35738+00:00",
+    "body_sha256": "2c1daf3486739f6edddfdac9efd27341ae75e28cb1be430fb128ee7fcff67ee7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 방문과 통합정부 압박 발언을 정리한 기사로, 인물별 발언 단락이 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "On the formation of a united",
+      "note": "발언 인용이 중심이라 인물 이름을 걷으면 누가 무엇을 말했는지 흐려진다 — 이름은 남겨야 한다."
+    }
+  },
+  {
+    "id": "2e8f96dc-0c05-45a8-b04d-f7c8d33302b7",
+    "source_updated_at": "2026-09-25T08:03:45.007931+00:00",
+    "body_sha256": "da6bf56c8866877e8adabf41ba7fb8c047108b059614cd9fc2d87e779e8facaf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시위 진압과 새 내무장관의 무력 경고, 동원 집회 증언이 사건 흐름으로 이어져 고등 내용 일치 칸을 채운다(진압 묘사로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Elsewhere in Bishkek, approximately 10,000 people",
+      "note": "친정부 집회가 강요였다는 학생 증언 단락은 독립적으로 서고 coerced·sealed off 를 쉽게 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "a32e2e0b-17ba-439e-9800-29126383bff0",
+    "source_updated_at": "2026-09-25T08:01:27.719156+00:00",
+    "body_sha256": "278908cfd8db2fb5f90c681b60fd846deccc00fd1ebecdcc9f6311deb6f5b054",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "강도살인 유죄 판결과 주민들의 추격, 경찰의 감사 발언이 순서대로 흘러 고1 이상 내용 일치·순서 칸을 채운다(살인이 소재라 중등 칸은 달지 않는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The court was told how smokers",
+      "note": "주민들이 범인을 막으려던 단락은 이름 없이도 사건이 서고, tackle·offender 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "706fe358-6f26-48dd-8eec-c0939badb8bc",
+    "source_updated_at": "2026-09-25T08:00:26.006729+00:00",
+    "body_sha256": "0d28bd1ebcb44b7b748ebfe67634838b9cb4ed2541566beac7ac8145517cf858",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "캠퍼스 총격의 발생·대응 시각·범인 신상을 다룬 기사로 시간순 단락이 내용 일치 칸을 채우나 부상 묘사가 구체적이라 성인 칸으로 한정한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "News about the shooting emerged at",
+      "note": "대학 공지 → 휴강 → 총격 확인의 시간순 단락이 떼기 쉽고, 희생자 이름 목록은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "e9c03be4-fc34-4e9b-8d37-3bf32823470a",
+    "source_updated_at": "2026-09-25T08:04:19.319381+00:00",
+    "body_sha256": "d46dcfde8fd5db39055257fa4ce2378b7de8ae0ac0b59751f51b5c83cd44ab89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "두 단락의 짧은 외교 기사지만 원조 약속과 첫 이스라엘 방문이라는 사실이 이어져 중등~고1 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Putin was on a four day",
+      "note": "둘째 단락은 방문 순서와 「역사적 첫 방문」이 독립적으로 서며 high level 등만 풀면 V3 대다."
+    }
+  },
+  {
+    "id": "90d98d02-f9ca-4990-8e1e-39cb4e82a13c",
+    "source_updated_at": "2026-09-25T06:47:10.727578+00:00",
+    "body_sha256": "53062c14afa71e81f6c5fa37c445c3da24c4aa8042e711a6b4849f2f91012eb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "딜레이 윤리 의혹을 두고 공화당 내부 비판과 옹호를 맞세운 긴 기사로 주장-근거 짝과 고3 내용 일치 칸이 있으나 일부 논평조 문장은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "DeLay and his supporters contended that",
+      "note": "검사가 정치적이라는 주장과 「민주당원을 더 기소했다」는 반박이 한 단락에 서지만 고유명사가 많아 어휘보다 인물 정리가 과제다."
+    }
+  },
+  {
+    "id": "ba6afaf0-8065-4597-bbf0-293007137fc7",
+    "source_updated_at": "2026-09-25T08:01:55.039417+00:00",
+    "body_sha256": "1f8aeee545121d61b4097ecb2d62d43df09709c303bf4a30c5cedcf613e0908e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "그라나도의 부고에서 오토바이 여행 → 쿠바 이주 → 무장혁명관 이견으로 이어지는 생애 흐름이 순서·제목·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The politically active Jiménez met Ernesto",
+      "note": "여행 단락은 이름 둘만 남기면 서고 destitute·indigenous 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "d47a6ca1-d795-407b-b0f2-df39ebb8a527",
+    "source_updated_at": "2026-09-25T06:46:02.299477+00:00",
+    "body_sha256": "35b9b677621040c530a79f79a35de997d2cbf007e4176fb4f8ffeba00a24b3c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "에버스 유죄 평결과 증언 대립, 소송 파장이 이어진 기사로 고2 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ebbers who took the stand in",
+      "note": "본인 부인과 CFO 증언이 맞서는 단락이 독립적으로 서고 lenient·prosecution 을 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "be58827b-6e3c-4a20-a301-75678fe432f7",
+    "source_updated_at": "2026-09-25T08:01:59.170843+00:00",
+    "body_sha256": "ea26ea418d6e3445a4a9ca24c4c789980820f1dbc5d8c5a1b8e2017abe3d5196",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "케네디 사인 발표와 가족 성명·의회 추모가 이어져 가족의 심경이 읽히는 성명 단락이 고등 내용 일치·심경 칸을 연다(죽음·중독 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "They also spoke of the tributes",
+      "note": "가족 성명 단락은 자랑과 감사의 심경이 서고 tributes 만 풀면 된다."
+    }
+  },
+  {
+    "id": "6d16959a-1404-49c6-8ccd-81e61b1e8747",
+    "source_updated_at": "2026-09-25T08:00:23.489279+00:00",
+    "body_sha256": "b62d53f74820a826cf99ff8c0d9c1a4b6e0a802ddd46c7c2ab87f6cbbd72bf3f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "검문소 자폭 공격을 네 단락으로 전한 짧은 기사로 공격 경위가 이어져 고1 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police officers were having lunch inside",
+      "note": "경찰복을 입은 공격자가 들어와 폭발했다는 경위 단락은 서지만 분량이 짧아 다른 기사와 묶어야 문항이 된다."
+    }
+  },
+  {
+    "id": "f400000d-227d-43a4-bee3-7d7dc1d8d525",
+    "source_updated_at": "2026-09-25T07:39:22.033249+00:00",
+    "body_sha256": "3a9fe8b2f7d57ff245b1d887151023d0a946405aa778e0c15d97e134004ca045",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "풍력 공장 폐쇄의 원인(인허가 난항으로 수요 부족)과 점거 농성·반발이 단락별로 갈려 고2 이상 빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vestas attribute the shutdown of the",
+      "note": "폐쇄 원인 단락이 인과로 서고 attribute·nationalisation 을 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "852f7b73-bdf3-4136-a176-828af1829587",
+    "source_updated_at": "2026-09-25T08:00:46.3974+00:00",
+    "body_sha256": "aa95d147e8c99e5d25a16d48ead9eb35f1d793d7b1530ad8203a43a32b462c65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공중급유기 입찰 재실시 권고와 GAO 가 든 오류 여섯 가지가 주장-근거 짝을 이뤄 고3 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The 69 page GAO decision was",
+      "note": "오류 목록은 떼기 쉬우나 인용문 줄바꿈 잔재를 이어 붙여야 하고 조달 용어는 바꾸기 어렵다."
+    }
+  },
+  {
+    "id": "eac86e75-efe5-4777-b705-40deeef52302",
+    "source_updated_at": "2026-09-25T07:28:58.967906+00:00",
+    "body_sha256": "37022581ef4946621cc388feaf2b07495128d985b7e6540a551df526b195ea5a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "구글이 MS 의 야후 인수를 인터넷 개방성 위협으로 본다는 주장이 짧게 서서 고3 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The hostile bid by Microsoft to",
+      "note": "개방성·혁신 원칙이라는 주장이 한 단락에 서고 hostile bid·proprietary 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "457fdb05-fc84-4716-88ff-aac0f071fdf1",
+    "source_updated_at": "2026-09-25T05:32:11.757384+00:00",
+    "body_sha256": "7f24bf07daeeeff3c2709c74f6862f028ad59b28bdc78b81894b8872c91eefa9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭우 → 댐 붕괴 → 구조 작전 → 고립으로 이어지는 재난 기사가 고1 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 148 m (485 ft) long",
+      "note": "댐 붕괴 원인 단락이 독립적으로 서고 overwhelmed 만 풀면 V4 다."
+    }
+  },
+  {
+    "id": "77ce172b-285a-4358-ae6b-95f74a2e5508",
+    "source_updated_at": "2026-09-25T07:30:08.218679+00:00",
+    "body_sha256": "4435665f21c31622e0b8361bd736af04c9613f011f7b3e692c9162b7a2566a26",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "케보키언 출마 선언에 대한 측근·경쟁 캠프·검사의 엇갈린 반응이 단락별로 갈려 고2 이상 내용 일치 칸을 채운다(조력사 소재).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oakland County prosecutor Dave Gorcyca, whose",
+      "note": "검사의 「관심 끌기」 평가 단락이 서고 limelight·legitimate 를 풀면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "ad6f1fb2-972b-407d-90ee-568102e5f649",
+    "source_updated_at": "2026-09-25T08:09:43.415354+00:00",
+    "body_sha256": "9380732a276699cea64354b30608c5f8d3cfaf4c85a21107d5ebb8354456c425",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산불 진화 헬기 추락과 승무원 무사를 전한 짧은 기사로 산불 경과 → 추락 → 무사가 이어져 중등 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since mid-August, the forest fires have",
+      "note": "산불 경과 단락은 지명을 걷어도 서고 어휘가 이미 쉬워 거의 손댈 것이 없다."
+    }
+  },
+  {
+    "id": "05c55347-566b-453f-bafe-13234412886d",
+    "source_updated_at": "2026-09-25T07:48:43.078321+00:00",
+    "body_sha256": "f0430b06819f9d42af489aaf19aa0020871552f4c59f2fff334026f998d7a400",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "social",
+    "why": "동성혼 법안 통과와 「자유와 정의」라는 찬성 논리, 혼인 연령 변경이 이어져 고2 이상 내용 일치·요지 칸과 시대 비교 속성을 갖는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As well as legalising marriage for",
+      "note": "혼인 최저 연령이 14·12세에서 16세로 바뀌는 단락이 독립적으로 서고 in-vitro 만 풀면 된다."
+    }
+  },
+  {
+    "id": "3300087f-c704-436e-b065-16faf305cad3",
+    "source_updated_at": "2026-09-25T06:46:05.094138+00:00",
+    "body_sha256": "7b85910ee57e0e7738f95518eb9bc820ef63cffedbb35f90e67784477ed3107a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 7,
+    "retention": "keep",
+    "genre": "news",
+    "why": "투견 공격 사망과 견주에 대한 첫 과실치사 기소가 사건 → 여론 → 기소 흐름으로 이어져 고1 이상 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Public outcry over the death of",
+      "note": "여론이 기소를 이끈 단락이 인과로 서고 manslaughter·negligent 를 풀면 V4 에 가깝다."
+    }
+  }
+]

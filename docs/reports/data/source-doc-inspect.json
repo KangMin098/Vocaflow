@@ -1,0 +1,1996 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "source-doc-inspect/v1",
+  "n": 117,
+  "docs": [
+    {
+      "id": "olh:28752",
+      "source": "olh",
+      "words_raw": 7064,
+      "words_prose": 7022,
+      "keep_pct": 99.4,
+      "english_ratio": 0.387,
+      "yield": {
+        "school_sentence": 217,
+        "school_paragraph": 39,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:28335",
+      "source": "olh",
+      "words_raw": 5641,
+      "words_prose": 5593,
+      "keep_pct": 99.1,
+      "english_ratio": 0.312,
+      "yield": {
+        "school_sentence": 175,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:23236",
+      "source": "olh",
+      "words_raw": 4464,
+      "words_prose": 4463,
+      "keep_pct": 100,
+      "english_ratio": 0.34,
+      "yield": {
+        "school_sentence": 146,
+        "school_paragraph": 24,
+        "csat_short": 24,
+        "csat_long": 11
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:16974",
+      "source": "olh",
+      "words_raw": 9992,
+      "words_prose": 9928,
+      "keep_pct": 99.4,
+      "english_ratio": 0.391,
+      "yield": {
+        "school_sentence": 288,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:17390",
+      "source": "olh",
+      "words_raw": 1561,
+      "words_prose": 1560,
+      "keep_pct": 99.9,
+      "english_ratio": 0.362,
+      "yield": {
+        "school_sentence": 49,
+        "school_paragraph": 9,
+        "csat_short": 9,
+        "csat_long": 4
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:14947",
+      "source": "olh",
+      "words_raw": 664,
+      "words_prose": 660,
+      "keep_pct": 99.4,
+      "english_ratio": 0.396,
+      "yield": {
+        "school_sentence": 19,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:27275",
+      "source": "olh",
+      "words_raw": 9358,
+      "words_prose": 9336,
+      "keep_pct": 99.8,
+      "english_ratio": 0.332,
+      "yield": {
+        "school_sentence": 282,
+        "school_paragraph": 52,
+        "csat_short": 52,
+        "csat_long": 25
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:25789",
+      "source": "olh",
+      "words_raw": 9966,
+      "words_prose": 9923,
+      "keep_pct": 99.6,
+      "english_ratio": 0.379,
+      "yield": {
+        "school_sentence": 317,
+        "school_paragraph": 54,
+        "csat_short": 54,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:20178",
+      "source": "olh",
+      "words_raw": 11674,
+      "words_prose": 11658,
+      "keep_pct": 99.9,
+      "english_ratio": 0.367,
+      "yield": {
+        "school_sentence": 383,
+        "school_paragraph": 63,
+        "csat_short": 63,
+        "csat_long": 30
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:18652",
+      "source": "olh",
+      "words_raw": 8075,
+      "words_prose": 8072,
+      "keep_pct": 100,
+      "english_ratio": 0.389,
+      "yield": {
+        "school_sentence": 260,
+        "school_paragraph": 44,
+        "csat_short": 43,
+        "csat_long": 20
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:15355",
+      "source": "olh",
+      "words_raw": 8579,
+      "words_prose": 8573,
+      "keep_pct": 99.9,
+      "english_ratio": 0.366,
+      "yield": {
+        "school_sentence": 252,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:14957",
+      "source": "olh",
+      "words_raw": 986,
+      "words_prose": 969,
+      "keep_pct": 98.3,
+      "english_ratio": 0.364,
+      "yield": {
+        "school_sentence": 32,
+        "school_paragraph": 6,
+        "csat_short": 5,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:28543",
+      "source": "olh",
+      "words_raw": 6428,
+      "words_prose": 5953,
+      "keep_pct": 92.6,
+      "english_ratio": 0.306,
+      "yield": {
+        "school_sentence": 197,
+        "school_paragraph": 32,
+        "csat_short": 32,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:18423",
+      "source": "olh",
+      "words_raw": 10560,
+      "words_prose": 10546,
+      "keep_pct": 99.9,
+      "english_ratio": 0.38,
+      "yield": {
+        "school_sentence": 340,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 27
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:20012",
+      "source": "olh",
+      "words_raw": 5820,
+      "words_prose": 5718,
+      "keep_pct": 98.2,
+      "english_ratio": 0.351,
+      "yield": {
+        "school_sentence": 174,
+        "school_paragraph": 32,
+        "csat_short": 31,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:17534",
+      "source": "olh",
+      "words_raw": 8234,
+      "words_prose": 8234,
+      "keep_pct": 100,
+      "english_ratio": 0.38,
+      "yield": {
+        "school_sentence": 254,
+        "school_paragraph": 45,
+        "csat_short": 45,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:11753",
+      "source": "olh",
+      "words_raw": 8172,
+      "words_prose": 8121,
+      "keep_pct": 99.4,
+      "english_ratio": 0.35,
+      "yield": {
+        "school_sentence": 229,
+        "school_paragraph": 45,
+        "csat_short": 43,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:14966",
+      "source": "olh",
+      "words_raw": 768,
+      "words_prose": 768,
+      "keep_pct": 100,
+      "english_ratio": 0.333,
+      "yield": {
+        "school_sentence": 19,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:25600",
+      "source": "olh",
+      "words_raw": 9942,
+      "words_prose": 9931,
+      "keep_pct": 99.9,
+      "english_ratio": 0.362,
+      "yield": {
+        "school_sentence": 287,
+        "school_paragraph": 55,
+        "csat_short": 54,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:24525",
+      "source": "olh",
+      "words_raw": 8123,
+      "words_prose": 8114,
+      "keep_pct": 99.9,
+      "english_ratio": 0.403,
+      "yield": {
+        "school_sentence": 257,
+        "school_paragraph": 43,
+        "csat_short": 43,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:18200",
+      "source": "olh",
+      "words_raw": 7854,
+      "words_prose": 7825,
+      "keep_pct": 99.6,
+      "english_ratio": 0.337,
+      "yield": {
+        "school_sentence": 189,
+        "school_paragraph": 45,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:17373",
+      "source": "olh",
+      "words_raw": 4694,
+      "words_prose": 4682,
+      "keep_pct": 99.7,
+      "english_ratio": 0.389,
+      "yield": {
+        "school_sentence": 150,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:10624",
+      "source": "olh",
+      "words_raw": 8552,
+      "words_prose": 8542,
+      "keep_pct": 99.9,
+      "english_ratio": 0.364,
+      "yield": {
+        "school_sentence": 275,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:14967",
+      "source": "olh",
+      "words_raw": 8620,
+      "words_prose": 8500,
+      "keep_pct": 98.6,
+      "english_ratio": 0.345,
+      "yield": {
+        "school_sentence": 243,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:28765",
+      "source": "olh",
+      "words_raw": 6013,
+      "words_prose": 6012,
+      "keep_pct": 100,
+      "english_ratio": 0.337,
+      "yield": {
+        "school_sentence": 168,
+        "school_paragraph": 34,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:23979",
+      "source": "olh",
+      "words_raw": 8347,
+      "words_prose": 8316,
+      "keep_pct": 99.6,
+      "english_ratio": 0.261,
+      "yield": {
+        "school_sentence": 285,
+        "school_paragraph": 44,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:17501",
+      "source": "olh",
+      "words_raw": 6072,
+      "words_prose": 6053,
+      "keep_pct": 99.7,
+      "english_ratio": 0.358,
+      "yield": {
+        "school_sentence": 180,
+        "school_paragraph": 32,
+        "csat_short": 32,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:18564",
+      "source": "olh",
+      "words_raw": 3107,
+      "words_prose": 3102,
+      "keep_pct": 99.8,
+      "english_ratio": 0.387,
+      "yield": {
+        "school_sentence": 86,
+        "school_paragraph": 18,
+        "csat_short": 17,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:11042",
+      "source": "olh",
+      "words_raw": 6784,
+      "words_prose": 6784,
+      "keep_pct": 100,
+      "english_ratio": 0.36,
+      "yield": {
+        "school_sentence": 191,
+        "school_paragraph": 38,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "olh:14953",
+      "source": "olh",
+      "words_raw": 11994,
+      "words_prose": 11944,
+      "keep_pct": 99.6,
+      "english_ratio": 0.311,
+      "yield": {
+        "school_sentence": 371,
+        "school_paragraph": 64,
+        "csat_short": 64,
+        "csat_long": 31
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/341150",
+      "source": "econstor",
+      "words_raw": 8836,
+      "words_prose": 8324,
+      "keep_pct": 94.2,
+      "english_ratio": 0.269,
+      "yield": {
+        "school_sentence": 268,
+        "school_paragraph": 46,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/341294",
+      "source": "econstor",
+      "words_raw": 7748,
+      "words_prose": 7620,
+      "keep_pct": 98.3,
+      "english_ratio": 0.339,
+      "yield": {
+        "school_sentence": 234,
+        "school_paragraph": 42,
+        "csat_short": 40,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/341449",
+      "source": "econstor",
+      "words_raw": 8387,
+      "words_prose": 7462,
+      "keep_pct": 89,
+      "english_ratio": 0.309,
+      "yield": {
+        "school_sentence": 247,
+        "school_paragraph": 40,
+        "csat_short": 40,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/341753",
+      "source": "econstor",
+      "words_raw": 6774,
+      "words_prose": 6645,
+      "keep_pct": 98.1,
+      "english_ratio": 0.278,
+      "yield": {
+        "school_sentence": 216,
+        "school_paragraph": 36,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/341967",
+      "source": "econstor",
+      "words_raw": 11515,
+      "words_prose": 10816,
+      "keep_pct": 93.9,
+      "english_ratio": 0.339,
+      "yield": {
+        "school_sentence": 323,
+        "school_paragraph": 60,
+        "csat_short": 59,
+        "csat_long": 28
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342004.2",
+      "source": "econstor",
+      "words_raw": 4080,
+      "words_prose": 3717,
+      "keep_pct": 91.1,
+      "english_ratio": 0.312,
+      "yield": {
+        "school_sentence": 114,
+        "school_paragraph": 20,
+        "csat_short": 20,
+        "csat_long": 10
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342011",
+      "source": "econstor",
+      "words_raw": 11375,
+      "words_prose": 9976,
+      "keep_pct": 87.7,
+      "english_ratio": 0.317,
+      "yield": {
+        "school_sentence": 313,
+        "school_paragraph": 53,
+        "csat_short": 53,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342086",
+      "source": "econstor",
+      "words_raw": 8961,
+      "words_prose": 2525,
+      "keep_pct": 28.2,
+      "english_ratio": 0.223,
+      "yield": {
+        "school_sentence": 84,
+        "school_paragraph": 14,
+        "csat_short": 13,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "정제 후 28% 만 남는다 — 본문이 아니라 표·서지다"
+    },
+    {
+      "id": "econstor:10419/342099",
+      "source": "econstor",
+      "words_raw": 4674,
+      "words_prose": 3970,
+      "keep_pct": 84.9,
+      "english_ratio": 0.356,
+      "yield": {
+        "school_sentence": 125,
+        "school_paragraph": 21,
+        "csat_short": 21,
+        "csat_long": 10
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342212",
+      "source": "econstor",
+      "words_raw": 7486,
+      "words_prose": 7006,
+      "keep_pct": 93.6,
+      "english_ratio": 0.357,
+      "yield": {
+        "school_sentence": 218,
+        "school_paragraph": 38,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342288",
+      "source": "econstor",
+      "words_raw": 8610,
+      "words_prose": 7916,
+      "keep_pct": 91.9,
+      "english_ratio": 0.328,
+      "yield": {
+        "school_sentence": 265,
+        "school_paragraph": 42,
+        "csat_short": 41,
+        "csat_long": 20
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342332",
+      "source": "econstor",
+      "words_raw": 9951,
+      "words_prose": 9018,
+      "keep_pct": 90.6,
+      "english_ratio": 0.293,
+      "yield": {
+        "school_sentence": 303,
+        "school_paragraph": 49,
+        "csat_short": 49,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342356",
+      "source": "econstor",
+      "words_raw": 10011,
+      "words_prose": 9413,
+      "keep_pct": 94,
+      "english_ratio": 0.334,
+      "yield": {
+        "school_sentence": 314,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 24
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342437",
+      "source": "econstor",
+      "words_raw": 6800,
+      "words_prose": 5472,
+      "keep_pct": 80.5,
+      "english_ratio": 0.285,
+      "yield": {
+        "school_sentence": 182,
+        "school_paragraph": 29,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342595",
+      "source": "econstor",
+      "words_raw": 893,
+      "words_prose": 401,
+      "keep_pct": 44.9,
+      "english_ratio": 0.235,
+      "yield": {
+        "school_sentence": 13,
+        "school_paragraph": 2,
+        "csat_short": 2,
+        "csat_long": 1
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342616",
+      "source": "econstor",
+      "words_raw": 7038,
+      "words_prose": 6092,
+      "keep_pct": 86.6,
+      "english_ratio": 0.318,
+      "yield": {
+        "school_sentence": 188,
+        "school_paragraph": 33,
+        "csat_short": 32,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342788",
+      "source": "econstor",
+      "words_raw": 6732,
+      "words_prose": 5870,
+      "keep_pct": 87.2,
+      "english_ratio": 0.271,
+      "yield": {
+        "school_sentence": 192,
+        "school_paragraph": 32,
+        "csat_short": 32,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342821",
+      "source": "econstor",
+      "words_raw": 10255,
+      "words_prose": 9538,
+      "keep_pct": 93,
+      "english_ratio": 0.34,
+      "yield": {
+        "school_sentence": 317,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 25
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342958",
+      "source": "econstor",
+      "words_raw": 6759,
+      "words_prose": 6150,
+      "keep_pct": 91,
+      "english_ratio": 0.334,
+      "yield": {
+        "school_sentence": 200,
+        "school_paragraph": 33,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/342985",
+      "source": "econstor",
+      "words_raw": 8829,
+      "words_prose": 7477,
+      "keep_pct": 84.7,
+      "english_ratio": 0.348,
+      "yield": {
+        "school_sentence": 247,
+        "school_paragraph": 40,
+        "csat_short": 40,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343005",
+      "source": "econstor",
+      "words_raw": 9795,
+      "words_prose": 8851,
+      "keep_pct": 90.4,
+      "english_ratio": 0.311,
+      "yield": {
+        "school_sentence": 288,
+        "school_paragraph": 47,
+        "csat_short": 47,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343019",
+      "source": "econstor",
+      "words_raw": 6718,
+      "words_prose": 6390,
+      "keep_pct": 95.1,
+      "english_ratio": 0.398,
+      "yield": {
+        "school_sentence": 204,
+        "school_paragraph": 35,
+        "csat_short": 35,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343036",
+      "source": "econstor",
+      "words_raw": 7161,
+      "words_prose": 7037,
+      "keep_pct": 98.3,
+      "english_ratio": 0.383,
+      "yield": {
+        "school_sentence": 222,
+        "school_paragraph": 39,
+        "csat_short": 38,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343157",
+      "source": "econstor",
+      "words_raw": 9573,
+      "words_prose": 9052,
+      "keep_pct": 94.6,
+      "english_ratio": 0.314,
+      "yield": {
+        "school_sentence": 289,
+        "school_paragraph": 50,
+        "csat_short": 49,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343311",
+      "source": "econstor",
+      "words_raw": 5113,
+      "words_prose": 4709,
+      "keep_pct": 92.1,
+      "english_ratio": 0.3,
+      "yield": {
+        "school_sentence": 158,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343325",
+      "source": "econstor",
+      "words_raw": 8659,
+      "words_prose": 7275,
+      "keep_pct": 84,
+      "english_ratio": 0.272,
+      "yield": {
+        "school_sentence": 240,
+        "school_paragraph": 39,
+        "csat_short": 39,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343823",
+      "source": "econstor",
+      "words_raw": 8090,
+      "words_prose": 6927,
+      "keep_pct": 85.6,
+      "english_ratio": 0.346,
+      "yield": {
+        "school_sentence": 217,
+        "school_paragraph": 38,
+        "csat_short": 37,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343861",
+      "source": "econstor",
+      "words_raw": 13359,
+      "words_prose": 9370,
+      "keep_pct": 70.1,
+      "english_ratio": 0.349,
+      "yield": {
+        "school_sentence": 298,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 24
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343882",
+      "source": "econstor",
+      "words_raw": 2890,
+      "words_prose": 2510,
+      "keep_pct": 86.9,
+      "english_ratio": 0.284,
+      "yield": {
+        "school_sentence": 83,
+        "school_paragraph": 14,
+        "csat_short": 13,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "econstor:10419/343905",
+      "source": "econstor",
+      "words_raw": 3846,
+      "words_prose": 2899,
+      "keep_pct": 75.4,
+      "english_ratio": 0.341,
+      "yield": {
+        "school_sentence": 92,
+        "school_paragraph": 16,
+        "csat_short": 16,
+        "csat_long": 7
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0256-01002009000100001",
+      "source": "scielo",
+      "words_raw": 4800,
+      "words_prose": 4593,
+      "keep_pct": 95.7,
+      "english_ratio": 0.357,
+      "yield": {
+        "school_sentence": 123,
+        "school_paragraph": 26,
+        "csat_short": 24,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0038-23532009000100021",
+      "source": "scielo",
+      "words_raw": 3403,
+      "words_prose": 3221,
+      "keep_pct": 94.7,
+      "english_ratio": 0.334,
+      "yield": {
+        "school_sentence": 107,
+        "school_paragraph": 18,
+        "csat_short": 18,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2222-34362016000400003",
+      "source": "scielo",
+      "words_raw": 6131,
+      "words_prose": 5585,
+      "keep_pct": 91.1,
+      "english_ratio": 0.352,
+      "yield": {
+        "school_sentence": 175,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2074-77052016000200011",
+      "source": "scielo",
+      "words_raw": 3276,
+      "words_prose": 3174,
+      "keep_pct": 96.9,
+      "english_ratio": 0.352,
+      "yield": {
+        "school_sentence": 96,
+        "school_paragraph": 17,
+        "csat_short": 17,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0256-95072018000200001",
+      "source": "scielo",
+      "words_raw": 7384,
+      "words_prose": 7266,
+      "keep_pct": 98.4,
+      "english_ratio": 0.351,
+      "yield": {
+        "school_sentence": 214,
+        "school_paragraph": 40,
+        "csat_short": 39,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2221-40702019000100010",
+      "source": "scielo",
+      "words_raw": 6169,
+      "words_prose": 6115,
+      "keep_pct": 99.1,
+      "english_ratio": 0.361,
+      "yield": {
+        "school_sentence": 186,
+        "school_paragraph": 34,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2223-03862021000100004",
+      "source": "scielo",
+      "words_raw": 7626,
+      "words_prose": 7568,
+      "keep_pct": 99.2,
+      "english_ratio": 0.364,
+      "yield": {
+        "school_sentence": 241,
+        "school_paragraph": 41,
+        "csat_short": 41,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1815-74402007000100002",
+      "source": "scielo",
+      "words_raw": 2537,
+      "words_prose": 2508,
+      "keep_pct": 98.9,
+      "english_ratio": 0.344,
+      "yield": {
+        "school_sentence": 80,
+        "school_paragraph": 13,
+        "csat_short": 13,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1753-59132023000600002",
+      "source": "scielo",
+      "words_raw": 4813,
+      "words_prose": 4765,
+      "keep_pct": 99,
+      "english_ratio": 0.368,
+      "yield": {
+        "school_sentence": 153,
+        "school_paragraph": 26,
+        "csat_short": 26,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2410-79722017000300005",
+      "source": "scielo",
+      "words_raw": 6468,
+      "words_prose": 6050,
+      "keep_pct": 93.5,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 193,
+        "school_paragraph": 33,
+        "csat_short": 33,
+        "csat_long": 16
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1996-20962025000200007",
+      "source": "scielo",
+      "words_raw": 9677,
+      "words_prose": 9675,
+      "keep_pct": 100,
+      "english_ratio": 0.311,
+      "yield": {
+        "school_sentence": 330,
+        "school_paragraph": 52,
+        "csat_short": 52,
+        "csat_long": 25
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2071-31852025000100024",
+      "source": "scielo",
+      "words_raw": 5660,
+      "words_prose": 5427,
+      "keep_pct": 95.9,
+      "english_ratio": 0.328,
+      "yield": {
+        "school_sentence": 186,
+        "school_paragraph": 30,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1560-683X2025000100033",
+      "source": "scielo",
+      "words_raw": 6140,
+      "words_prose": 5858,
+      "keep_pct": 95.4,
+      "english_ratio": 0.328,
+      "yield": {
+        "school_sentence": 170,
+        "school_paragraph": 33,
+        "csat_short": 31,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2225-71602025000100011",
+      "source": "scielo",
+      "words_raw": 5399,
+      "words_prose": 5399,
+      "keep_pct": 100,
+      "english_ratio": 0.368,
+      "yield": {
+        "school_sentence": 164,
+        "school_paragraph": 30,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2309-737X2025000200005",
+      "source": "scielo",
+      "words_raw": 6634,
+      "words_prose": 6433,
+      "keep_pct": 97,
+      "english_ratio": 0.259,
+      "yield": {
+        "school_sentence": 216,
+        "school_paragraph": 35,
+        "csat_short": 34,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0256-01002009000100003",
+      "source": "scielo",
+      "words_raw": 5698,
+      "words_prose": 4980,
+      "keep_pct": 87.4,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 153,
+        "school_paragraph": 27,
+        "csat_short": 27,
+        "csat_long": 13
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0038-23532008000600021",
+      "source": "scielo",
+      "words_raw": 1158,
+      "words_prose": 978,
+      "keep_pct": 84.5,
+      "english_ratio": 0.366,
+      "yield": {
+        "school_sentence": 31,
+        "school_paragraph": 6,
+        "csat_short": 5,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2222-34362016000400004",
+      "source": "scielo",
+      "words_raw": 6097,
+      "words_prose": 5788,
+      "keep_pct": 94.9,
+      "english_ratio": 0.377,
+      "yield": {
+        "school_sentence": 193,
+        "school_paragraph": 31,
+        "csat_short": 31,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2074-77052016000200007",
+      "source": "scielo",
+      "words_raw": 3881,
+      "words_prose": 3837,
+      "keep_pct": 98.9,
+      "english_ratio": 0.395,
+      "yield": {
+        "school_sentence": 106,
+        "school_paragraph": 22,
+        "csat_short": 21,
+        "csat_long": 10
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0256-95072018000200002",
+      "source": "scielo",
+      "words_raw": 10118,
+      "words_prose": 10038,
+      "keep_pct": 99.2,
+      "english_ratio": 0.38,
+      "yield": {
+        "school_sentence": 267,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2221-40702019000100005",
+      "source": "scielo",
+      "words_raw": 6602,
+      "words_prose": 6530,
+      "keep_pct": 98.9,
+      "english_ratio": 0.355,
+      "yield": {
+        "school_sentence": 203,
+        "school_paragraph": 35,
+        "csat_short": 35,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2223-03862021000100005",
+      "source": "scielo",
+      "words_raw": 6905,
+      "words_prose": 6745,
+      "keep_pct": 97.7,
+      "english_ratio": 0.369,
+      "yield": {
+        "school_sentence": 212,
+        "school_paragraph": 37,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1815-74402007000100004",
+      "source": "scielo",
+      "words_raw": 4891,
+      "words_prose": 4578,
+      "keep_pct": 93.6,
+      "english_ratio": 0.369,
+      "yield": {
+        "school_sentence": 144,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1753-59132023000600013",
+      "source": "scielo",
+      "words_raw": 4840,
+      "words_prose": 4668,
+      "keep_pct": 96.4,
+      "english_ratio": 0.352,
+      "yield": {
+        "school_sentence": 144,
+        "school_paragraph": 25,
+        "csat_short": 25,
+        "csat_long": 12
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2410-79722017000200001",
+      "source": "scielo",
+      "words_raw": 8602,
+      "words_prose": 8319,
+      "keep_pct": 96.7,
+      "english_ratio": 0.361,
+      "yield": {
+        "school_sentence": 257,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1996-20962025000200026",
+      "source": "scielo",
+      "words_raw": 9362,
+      "words_prose": 9346,
+      "keep_pct": 99.8,
+      "english_ratio": 0.358,
+      "yield": {
+        "school_sentence": 296,
+        "school_paragraph": 51,
+        "csat_short": 51,
+        "csat_long": 24
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2071-31852025000100021",
+      "source": "scielo",
+      "words_raw": 8007,
+      "words_prose": 7323,
+      "keep_pct": 91.5,
+      "english_ratio": 0.296,
+      "yield": {
+        "school_sentence": 254,
+        "school_paragraph": 39,
+        "csat_short": 38,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S1560-683X2025000100042",
+      "source": "scielo",
+      "words_raw": 6047,
+      "words_prose": 5663,
+      "keep_pct": 93.6,
+      "english_ratio": 0.268,
+      "yield": {
+        "school_sentence": 189,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S2225-71602025000100010",
+      "source": "scielo",
+      "words_raw": 8143,
+      "words_prose": 8099,
+      "keep_pct": 99.5,
+      "english_ratio": 0.384,
+      "yield": {
+        "school_sentence": 271,
+        "school_paragraph": 44,
+        "csat_short": 44,
+        "csat_long": 21
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "scielo:S0256-01002009000100004",
+      "source": "scielo",
+      "words_raw": 4601,
+      "words_prose": 4447,
+      "keep_pct": 96.7,
+      "english_ratio": 0.372,
+      "yield": {
+        "school_sentence": 145,
+        "school_paragraph": 24,
+        "csat_short": 24,
+        "csat_long": 11
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:0",
+      "source": "openalex",
+      "words_raw": 6336,
+      "words_prose": 5706,
+      "keep_pct": 90.1,
+      "english_ratio": 0.327,
+      "yield": {
+        "school_sentence": 183,
+        "school_paragraph": 31,
+        "csat_short": 31,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:1",
+      "source": "openalex",
+      "words_raw": 29584,
+      "words_prose": 26271,
+      "keep_pct": 88.8,
+      "english_ratio": 0.2,
+      "yield": {
+        "school_sentence": 747,
+        "school_paragraph": 144,
+        "csat_short": 143,
+        "csat_long": 68
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:3",
+      "source": "openalex",
+      "words_raw": 7620,
+      "words_prose": 7409,
+      "keep_pct": 97.2,
+      "english_ratio": 0.35,
+      "yield": {
+        "school_sentence": 206,
+        "school_paragraph": 41,
+        "csat_short": 40,
+        "csat_long": 20
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:4",
+      "source": "openalex",
+      "words_raw": 3404,
+      "words_prose": 3084,
+      "keep_pct": 90.6,
+      "english_ratio": 0.296,
+      "yield": {
+        "school_sentence": 99,
+        "school_paragraph": 16,
+        "csat_short": 16,
+        "csat_long": 8
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:7",
+      "source": "openalex",
+      "words_raw": 10010,
+      "words_prose": 9804,
+      "keep_pct": 97.9,
+      "english_ratio": 0.042,
+      "yield": {
+        "school_sentence": 243,
+        "school_paragraph": 56,
+        "csat_short": 56,
+        "csat_long": 26
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 4.2%)"
+    },
+    {
+      "id": "openalex:8",
+      "source": "openalex",
+      "words_raw": 2915,
+      "words_prose": 2600,
+      "keep_pct": 89.2,
+      "english_ratio": 0.357,
+      "yield": {
+        "school_sentence": 84,
+        "school_paragraph": 14,
+        "csat_short": 14,
+        "csat_long": 6
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:9",
+      "source": "openalex",
+      "words_raw": 6661,
+      "words_prose": 5726,
+      "keep_pct": 86,
+      "english_ratio": 0.351,
+      "yield": {
+        "school_sentence": 178,
+        "school_paragraph": 30,
+        "csat_short": 30,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:10",
+      "source": "openalex",
+      "words_raw": 10824,
+      "words_prose": 4781,
+      "keep_pct": 44.2,
+      "english_ratio": 0.33,
+      "yield": {
+        "school_sentence": 112,
+        "school_paragraph": 27,
+        "csat_short": 27,
+        "csat_long": 13
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:11",
+      "source": "openalex",
+      "words_raw": 12912,
+      "words_prose": 12282,
+      "keep_pct": 95.1,
+      "english_ratio": 0.053,
+      "yield": {
+        "school_sentence": 333,
+        "school_paragraph": 69,
+        "csat_short": 68,
+        "csat_long": 32
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 5.3%)"
+    },
+    {
+      "id": "openalex:13",
+      "source": "openalex",
+      "words_raw": 6751,
+      "words_prose": 6612,
+      "keep_pct": 97.9,
+      "english_ratio": 0.348,
+      "yield": {
+        "school_sentence": 187,
+        "school_paragraph": 36,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:15",
+      "source": "openalex",
+      "words_raw": 6399,
+      "words_prose": 5730,
+      "keep_pct": 89.5,
+      "english_ratio": 0.353,
+      "yield": {
+        "school_sentence": 178,
+        "school_paragraph": 31,
+        "csat_short": 30,
+        "csat_long": 15
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:17",
+      "source": "openalex",
+      "words_raw": 9012,
+      "words_prose": 8929,
+      "keep_pct": 99.1,
+      "english_ratio": 0.023,
+      "yield": {
+        "school_sentence": 229,
+        "school_paragraph": 50,
+        "csat_short": 50,
+        "csat_long": 23
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 2.3%)"
+    },
+    {
+      "id": "openalex:18",
+      "source": "openalex",
+      "words_raw": 6999,
+      "words_prose": 6743,
+      "keep_pct": 96.3,
+      "english_ratio": 0.07,
+      "yield": {
+        "school_sentence": 200,
+        "school_paragraph": 38,
+        "csat_short": 37,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 7.0%)"
+    },
+    {
+      "id": "openalex:20",
+      "source": "openalex",
+      "words_raw": 7176,
+      "words_prose": 6556,
+      "keep_pct": 91.4,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 196,
+        "school_paragraph": 37,
+        "csat_short": 36,
+        "csat_long": 17
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:22",
+      "source": "openalex",
+      "words_raw": 1428,
+      "words_prose": 1298,
+      "keep_pct": 90.9,
+      "english_ratio": 0.292,
+      "yield": {
+        "school_sentence": 42,
+        "school_paragraph": 7,
+        "csat_short": 7,
+        "csat_long": 3
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:24",
+      "source": "openalex",
+      "words_raw": 16042,
+      "words_prose": 15274,
+      "keep_pct": 95.2,
+      "english_ratio": 0.027,
+      "yield": {
+        "school_sentence": 477,
+        "school_paragraph": 81,
+        "csat_short": 81,
+        "csat_long": 39
+      },
+      "types_covered": 4,
+      "verdict": "reject",
+      "reject_reason": "영어가 아니다(기능어 2.7%)"
+    },
+    {
+      "id": "openalex:25",
+      "source": "openalex",
+      "words_raw": 5543,
+      "words_prose": 5277,
+      "keep_pct": 95.2,
+      "english_ratio": 0.316,
+      "yield": {
+        "school_sentence": 167,
+        "school_paragraph": 29,
+        "csat_short": 29,
+        "csat_long": 14
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:28",
+      "source": "openalex",
+      "words_raw": 3712,
+      "words_prose": 3500,
+      "keep_pct": 94.3,
+      "english_ratio": 0.368,
+      "yield": {
+        "school_sentence": 110,
+        "school_paragraph": 19,
+        "csat_short": 19,
+        "csat_long": 9
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:30",
+      "source": "openalex",
+      "words_raw": 10684,
+      "words_prose": 10257,
+      "keep_pct": 96,
+      "english_ratio": 0.347,
+      "yield": {
+        "school_sentence": 288,
+        "school_paragraph": 57,
+        "csat_short": 56,
+        "csat_long": 27
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:32",
+      "source": "openalex",
+      "words_raw": 7573,
+      "words_prose": 7297,
+      "keep_pct": 96.4,
+      "english_ratio": 0.363,
+      "yield": {
+        "school_sentence": 229,
+        "school_paragraph": 39,
+        "csat_short": 39,
+        "csat_long": 19
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:33",
+      "source": "openalex",
+      "words_raw": 1633,
+      "words_prose": 1599,
+      "keep_pct": 97.9,
+      "english_ratio": 0.313,
+      "yield": {
+        "school_sentence": 43,
+        "school_paragraph": 9,
+        "csat_short": 9,
+        "csat_long": 4
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:34",
+      "source": "openalex",
+      "words_raw": 955,
+      "words_prose": 772,
+      "keep_pct": 80.8,
+      "english_ratio": 0.226,
+      "yield": {
+        "school_sentence": 22,
+        "school_paragraph": 4,
+        "csat_short": 4,
+        "csat_long": 2
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:35",
+      "source": "openalex",
+      "words_raw": 1601,
+      "words_prose": 1295,
+      "keep_pct": 80.9,
+      "english_ratio": 0.284,
+      "yield": {
+        "school_sentence": 42,
+        "school_paragraph": 7,
+        "csat_short": 7,
+        "csat_long": 3
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:37",
+      "source": "openalex",
+      "words_raw": 8989,
+      "words_prose": 8591,
+      "keep_pct": 95.6,
+      "english_ratio": 0.356,
+      "yield": {
+        "school_sentence": 273,
+        "school_paragraph": 46,
+        "csat_short": 45,
+        "csat_long": 22
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:40",
+      "source": "openalex",
+      "words_raw": 444,
+      "words_prose": 331,
+      "keep_pct": 74.5,
+      "english_ratio": 0.209,
+      "yield": {
+        "school_sentence": 10,
+        "school_paragraph": 2,
+        "csat_short": 2,
+        "csat_long": 1
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:41",
+      "source": "openalex",
+      "words_raw": 13186,
+      "words_prose": 6992,
+      "keep_pct": 53,
+      "english_ratio": 0.237,
+      "yield": {
+        "school_sentence": 221,
+        "school_paragraph": 37,
+        "csat_short": 37,
+        "csat_long": 18
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    },
+    {
+      "id": "openalex:42",
+      "source": "openalex",
+      "words_raw": 1347,
+      "words_prose": 1048,
+      "keep_pct": 77.8,
+      "english_ratio": 0.337,
+      "yield": {
+        "school_sentence": 33,
+        "school_paragraph": 6,
+        "csat_short": 6,
+        "csat_long": 3
+      },
+      "types_covered": 4,
+      "verdict": "inspect",
+      "reject_reason": null
+    }
+  ]
+}

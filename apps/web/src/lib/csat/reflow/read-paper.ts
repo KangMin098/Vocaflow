@@ -10,7 +10,7 @@
 // 그 그림은 이 탭의 메모리에만 둔다 — 기기에 남기는 것은 글과 해시뿐이다(C7).
 
 import { detectAnchors, examIdFromText } from './detect'
-import { fragsOfContent } from './pdf-frags'
+import { fragsOfContent, hlinesOfOps } from './pdf-frags'
 import { REFLOW_VERSION, reflowExam } from './reflow'
 import type { CachedPaper, PageFrags, ReflowAnchors, ReflowBox, ReflowItem } from './types'
 
@@ -22,6 +22,7 @@ type PdfDoc = {
 type PdfPage = {
   getViewport: (o: { scale: number }) => { width: number; height: number; transform: number[] }
   getTextContent: () => Promise<{ items: unknown[] }>
+  getOperatorList: () => Promise<{ fnArray: number[]; argsArray: unknown[] }>
   render: (o: { canvasContext: CanvasRenderingContext2D; viewport: unknown; transform?: number[] }) => {
     promise: Promise<void>
   }
@@ -52,7 +53,10 @@ async function framesOf(doc: PdfDoc): Promise<PageFrags[]> {
     const page = await doc.getPage(p)
     const vp = page.getViewport({ scale: 1 })
     const content = await page.getTextContent()
-    pages.push({ p, w: vp.width, h: vp.height, frags: fragsOfContent(content.items) })
+    // 빈칸은 그린 선이다 — 선을 함께 모아야 reflow 가 빈칸을 복원한다(REFLOW_VERSION 2)
+    const { OPS } = await import('pdfjs-dist')
+    const lines = hlinesOfOps(await page.getOperatorList(), OPS)
+    pages.push({ p, w: vp.width, h: vp.height, frags: fragsOfContent(content.items), lines })
   }
   return pages
 }

@@ -1,0 +1,1841 @@
+[
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "043a4af0-9f57-4988-b99f-a515f6a8296e",
+    "revision": "2026-09-25T07:00:37.817285+00:00",
+    "body_sha256": "d5703192972e46e9ce8d2298500d859ea4f76bb7d9fd1a1493ecbcb451900498",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "배스커스트 쇼 차량 사고 경위 → 부상자 → 주민의 오랜 보행 안전 경고와 건널목 요원 배치까지 사건이 이어져 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ten people have been injured at",
+          "note": "연령·시각 수치를 걷어도 사고 → 대응 → 안전 문제 제기 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.894Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ten_people_injured_as_elderly_driver_hits_crowd_at_Australian_show",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "043af191-0b09-4e91-99eb-ca82c4bcd725",
+    "revision": "2026-09-25T07:13:01.321984+00:00",
+    "body_sha256": "f1d6c7b4099360bd7a9399be768abcde925f29d62561669c9843eb8bfe51b4f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "공동 통화 지지율 조사와 뉴질랜드 총리의 금리 주권 우려 인용이 짧게나마 찬반 구도를 세워 내용 일치·요지 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A recent survey has shown that",
+          "note": "짧아 요지 문항은 한 문단이 한계지만 우려의 이유가 인용 속에 분명하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australians_and_News_Zealanders_increasingly_support_shared_currency",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.698,
+          "words": 149,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "043fba13-7cfb-48fb-8c7b-688ceb743021",
+    "revision": "2026-09-25T07:43:25.919405+00:00",
+    "body_sha256": "f546ca9daa4c0d6b8860f12e03ffa4b1ed1fbbb1090516a30b2f234205de361e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "해적에게 잡힌 유조선 선원이 안전실에 숨고 특수부대가 탈환한 경위와 소말리아 해적 현황이 사건으로 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Russian special forces aboard the Marshal",
+          "note": "교전·사망 묘사가 짧아 고1 이상 칸이면 되고 선박명만 걷으면 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russian_forces_storm_oil_tanker_seized_by_Somali_pirates%2C_crew_freed",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.389,
+          "words": 167,
+          "english": 0.362
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "044389b9-8a57-4dfe-800a-eeb162f8562f",
+    "revision": "2026-09-25T08:10:52.880404+00:00",
+    "body_sha256": "1d0e8271dcb28aeca08bf4467ac83d099290bc0fcf57afd29e1b93ddf81b05e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "에스퍼런스 새 5천 마리 폐사의 원인 가설(독성 습지·가뭄·조류 번식)과 배제된 원인이 차례로 나와 주제·빈칸·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deaths could be a result",
+          "note": "가뭄→조류 번식 가설 문단을 떼면 원인 추론이 서고 organochlorins 등 2~3개 낱말만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Toxic_wetlands_may_be_cause_of_thousands_of_bird_deaths_in_Western_Australia",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "04457ab1-e093-4b01-9168-29c8b0e68c2d",
+    "revision": "2026-09-25T06:59:07.149331+00:00",
+    "body_sha256": "e52c8dadf3dbc3a86e7758e022f54fcfaca285576df71ead8ba5ed17485eaf30",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "파푸아뉴기니 벌목이 부패로 지속 불가능하다는 보고서의 주장과 근거(법 미집행·노동 수입·수출 구조), 해법 제시가 논지로 서서 요지·주장·빈칸 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While the PNG Government does have",
+          "note": "기관 이름을 걷어도 「법은 있으나 집행이 없다」는 논지가 서고 bereft·nexus 를 바꾸면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Corruption_blamed_for_Papuan_rainforest_destruction",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "0446727a-cf11-4e61-b297-b2356e5f0501",
+    "revision": "2026-09-25T07:33:13.938501+00:00",
+    "body_sha256": "a1c17136988dbc9f4a2c3c368e1d2d38dcb9019e99c8a60ba9a88639e7d53d19",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "붕괴한 다리 재건의 마지막 구간 설치 절차(주조→바지선 운반→크레인 거치→콘크리트 타설)가 순서로 이어져 순서·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The remaining seven-foot gap will be",
+          "note": "공정 순서가 뚜렷해 순서 배열 문항으로 자르기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Minneapolis_I-35W_bridge_spans_Mississippi_River",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.173,
+          "words": 162,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "044ce30b-7221-4f82-bee1-bbfcfdafd190",
+    "revision": "2026-09-25T07:27:54.960608+00:00",
+    "body_sha256": "8d6ba4fb34a8a23443fb6bd5e490b19c7b8e9dc25d503aa59dc583554cc73887",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하루 온라인 모금 기록과 자원봉사자 조직·보스턴 차 사건 기념 행사가 사건으로 엮여 내용 일치 칸 하나를 채운다(수치만의 나열은 아니다).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "The fund raising campaign, which was",
+          "note": "수치를 걷으면 자원봉사 조직 모금이라는 사건은 남지만 논지는 얇다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.895Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_presidential_candidate_Ron_Paul_breaks_online_fundraising_record",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.813,
+          "words": 187,
+          "english": 0.363
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "045c1306-f20b-42f7-9ea6-58747beded59",
+    "revision": "2026-09-25T06:54:38.675181+00:00",
+    "body_sha256": "dc66c0dcdcc85c9e796c7b034c013f5a1b9c944b3bfee5ef5a43854e3176e451",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "칠리 속 손가락 허위 소송이 유죄 인정으로 끝나기까지 증거 추적과 체포 경위가 시간순으로 이어져 내용 일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wendy’s aggressively pursued evidence to counter",
+          "note": "법률 용어(plea bargain, in lieu of bail) 몇 개를 풀면 V5로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wendy%E2%80%99s_finger_pointers_plead_guilty_of_crime",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.367
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "046d51f8-0cfa-4c9b-bf95-933a40c0d15c",
+    "revision": "2026-09-25T07:26:12.482148+00:00",
+    "body_sha256": "38ecd295745156fb2d957757744aa0857762e409b7bb1cab981005202a0044bb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "히드로 공항 두 여객기 날개 접촉 사고의 결과·원인·후속 조치가 세 문장으로 이어져 짧은 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The two planes, a British Airways",
+          "note": "65어로 짧지만 부상 없음→원인→점검 순서가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_planes_collide_at_London's_Heathrow_airport",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.97,
+          "words": 67,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "04720f8d-bb8a-4c02-bf65-a2130985576d",
+    "revision": "2026-09-25T08:03:43.890459+00:00",
+    "body_sha256": "7a9f1d37202d2c46601b364744747d1ae8238a60259f912dfd1df24270dbd5d6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "쇼핑센터 폭탄 폭발의 인명 피해·설치 시점 추정·건물 피해가 이어진 짧은 기사로 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Three people are dead and five",
+          "note": "폭력 소재라 고1 이상으로 두고 단위만 고치면 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Explosion_near_Beirut_kills_three%2C_injures_five",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.762,
+          "words": 84,
+          "english": 0.305
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "0473dc75-6b4d-4c1f-804d-25aad9dc0575",
+    "revision": "2026-09-25T08:06:36.301071+00:00",
+    "body_sha256": "91839729f815908c3490dab11e28333ffaef9d8019390d65b24625ef1c2a94b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "전 부통령의 강간 혐의 기소·보석과 재판 중 당직 자진 정지가 48어 안에서 이어져 짧은 고1 이상 내용 일치 칸 하나를 채운다(짧다는 것만으로 버리지 않는다).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Former deputy president of South Africa,",
+          "note": "두 문단뿐이라 기소→보석→당직 정지 세 사실이 전부지만 앞 문맥 없이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_South_African_official_Jacob_Zuma_charged_with_rape",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 50,
+          "english": 0.429
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "04749884-d1af-4995-97fc-d9c1e7e3e7fe",
+    "revision": "2026-09-25T07:27:45.469584+00:00",
+    "body_sha256": "a04d1a0467bba70985aa2a55a3a7d418f4b9b7a461c3e2cf42216c1f7d760c24",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "폴란드 조류독감 두 발생지와 살처분·방역 구역 설정 조치가 이어져 짧은 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One of the outbreaks was on",
+          "note": "지명을 걷어도 발생→살처분→방역 구역 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_outbreak_of_H5N1_Avian_Flu_virus_reported_in_Poland",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.556,
+          "words": 108,
+          "english": 0.38
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "0478a4a0-0a23-4e13-a110-0c137079746c",
+    "revision": "2026-09-25T06:56:34.207696+00:00",
+    "body_sha256": "ab6eeac44eb2d402319c5b709c14e6952b33adedeff2872ea4006bec04d41e6c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "대니얼 크레이그의 제임스 본드 캐스팅 발표와 경력·촬영 계획이 사실 진술로 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "British actor Daniel Craig has been",
+          "note": "작품명 나열 문단은 걷고 캐스팅 소감 문단을 쓰면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Daniel_Craig_to_be_new_James_Bond",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.229,
+          "words": 153,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "047913b0-44b6-4283-bf10-1b8ae8db1323",
+    "revision": "2026-09-25T08:43:14.710113+00:00",
+    "body_sha256": "0f3b1adc09e341f753196f995f623a5d4cabccaacd0ba0534b035dcd77d3d895",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "뭄바이 테러 공모자 선고와 사전 정찰의 역할, 인도-파키스탄 관계 긴장이 이어져 고1 이상 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Mumbai attackers arrived via boat",
+          "note": "테러 소재라 고1 이상 칸만 달고, 단체명을 걷어도 사건이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mumbai_2008_attack_plotter_sentenced_to_35_years",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.07,
+          "words": 172,
+          "english": 0.343
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "047d692d-b665-4c53-bfe4-f5f9ab0a96a1",
+    "revision": "2026-09-25T07:29:41.410735+00:00",
+    "body_sha256": "1b506063df689428efb4f7a454a4c3dd07eee6f6dd105bd22b7cec1a07193ca3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "마이크로소프트 서비스 장애 발생과 회사 사과문·미확정 복구 시점이 이어져 짧은 내용 일치 칸과 공식 사과문 어휘 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Users worldwide are reporting that they",
+          "note": "사과문 인용이 그대로 어휘 재료가 되고 inconvenience 등은 문맥으로 잡힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Microsoft_Network_users_experience_international_outage",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.897,
+          "words": 116,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "04842651-543f-4507-8c85-1cb819a1f136",
+    "revision": "2026-09-25T07:58:45.154878+00:00",
+    "body_sha256": "f246d9042d6eb7c9797a083897e41e2486a3769c27b105d5bd4172e197f8273a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "아우슈비츠 생존자가 전직 경비원을 용서하면서도 책임은 묻는다는 대비와 「처벌보다 재판 자체」라는 발언이 논지를 세워 주제·요지·심경·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "mood",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Kor is amongst a number of",
+          "note": "용서와 법적 책임의 구분이 한 문단에 서고 accessory·co-plaintiffs 를 풀면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Holocaust_survivor_publicly_forgives_93-year-old_Auschwitz_guard_during_his_trial",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.33
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "048520a5-3fe1-4fc9-beda-8591e413352b",
+    "revision": "2026-09-25T07:42:23.46709+00:00",
+    "body_sha256": "35c01328c7efb09f7371b4d7c79fd321e68c2b6c213234d03d7e4036fe622b54",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "워싱턴 폭설의 적설량 예보·교통 마비·1922년 니커보커 폭풍 비교·사망 사고가 단락별로 갈라져 내용 일치·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Forecasters say this could be the",
+          "note": "1922년 폭풍과 비교하는 문단이 따로 서서 시대 비교 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.896Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Major_snowstorm_sweeps_across_Eastern_US",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "04853c1b-6180-433c-b307-bfeb153f1104",
+    "revision": "2026-09-25T08:32:37.713336+00:00",
+    "body_sha256": "15758a8d4969dde7fee32a3b735d09b0d4f4e1e47695fe417b2d4a98a40969f5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "바그다드 중앙은행 자폭·총격 공격의 경위와 사망자 수 엇갈림, 의회 개원 전날이라는 맥락이 이어져 고1 이상 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The attack began when several suicide",
+          "note": "폭력 소재라 고1 이상으로 제한, 경위 문단은 앞 문맥 없이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/At_least_fifteen_dead_in_Iraq_after_gunmen_attack_central_bank",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.147,
+          "words": 136,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "0485cf02-df7b-40db-9582-fefbf7c17faa",
+    "revision": "2026-09-25T07:35:28.741495+00:00",
+    "body_sha256": "62fdb40c8d1156d8526cd9a14f74d4998839e820d4d962dc1cc42539094b95f1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "찬드라얀 1호의 달 궤도 진입 절차(점화→타원 궤도→원궤도 하강→충돌 탐사선 분리)가 순서로 이어져 순서·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The lunar orbit insertion (LOI) began",
+          "note": "궤도 수치를 걷어도 단계 순서가 서고 trajectory·elliptical 을 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Indian_spacecraft_Chandrayaan-1_enters_moon_orbit",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.358
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "048861a7-e69a-4b60-b048-317c28f05cdc",
+    "revision": "2026-09-25T07:44:35.009152+00:00",
+    "body_sha256": "774740368bccd37e01cd74e2f1b393056ad415bea304915d9752d9b55ab71280",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "담배가 애벌레 침을 감지해 포식 곤충을 부르는 다단계 방어와 이를 확인한 실험·「애벌레가 스스로 경찰을 부른다」는 역설이 논지로 서서 주제·빈칸·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The phenomenon starts with the recognition",
+          "note": "이성질체 용어를 「냄새 분자」로 바꾸면 인식→신호→포식자 흐름이 V6에 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tobacco_attracts_predators_with_chemicals_in_response_to_caterpillars%2C_a_study_finds",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.392
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "0489ffe7-0fe0-43d3-b5b1-cfc0c95ae123",
+    "revision": "2026-09-25T07:26:47.121887+00:00",
+    "body_sha256": "7742ac906fe7bf900ad0d5ed96ff8ce4c9f9018aa7426b19901203656821d473",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "sports",
+        "why": "앞 단락은 비문이 많아 사건 흐름을 따라가기 어렵고 뒤 절반은 경기 결과·대진 목록뿐이라 가공해도 채울 칸이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The key factors of errors decided",
+          "note": "이닝 서술 문장이 비문이라 고치면 원문이 남지 않았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Baseball_teams_from_Taiwan_and_Japan_battled_same_day_in_different_places",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "048a9b89-ae98-4c0f-9cb7-cf8183a36a40",
+    "revision": "2026-09-25T07:43:21.332003+00:00",
+    "body_sha256": "be13dc8689f5b61bafaebe642bdf8db1da2b0252eec53ad9e165639a5af0aead",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "두 항공사 합병 발표와 과거 결렬 경위, 지분·본사 이전과 휴스턴 일자리 우려가 이어져 내용 일치·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The two airlines failed to reach",
+          "note": "결렬→재협상→대등 합병 구조가 요약 문항으로 떼어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Continental_and_United_Airlines_to_merge",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "048c0e74-c286-4149-a373-b94a6db6613a",
+    "revision": "2026-09-25T07:28:24.694644+00:00",
+    "body_sha256": "c46665926a634b25fb8cb687941e2a38b3acb69050c67417818ec5ed17f0e6ca",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "위키미디어 홍보 책임자 교체 발표와 인수인계 기간·경력·근무지 사실이 이어져 성인 읽기용 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "\"The goal is to give Jay",
+          "note": "경력 나열 문단은 걷어야 하고 남는 것은 인사 발표 사실뿐이라 얇다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jay_Walsh_named_Wikimedia_Foundation_Head_of_Communications",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.128,
+          "words": 195,
+          "english": 0.349
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "048c13dc-f9b4-437f-ac8a-af5c105b14b9",
+    "revision": "2026-09-25T07:06:34.295319+00:00",
+    "body_sha256": "f3bbfa17a7a4cbf725ae2a71aa6b8aedbc282d807ee10b1ce715da83ffc514b6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "브래지어 체인 기록 도전은 실패했지만 유방암 기금을 모은 과정과 모금 방법이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wanakafest managed to collect $10,000 for",
+          "note": "기록 수치를 걷어도 「실패했지만 모금 성공」 구도가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wanaka%2C_New_Zealand_attempts_bra_chain_record",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.356
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-44-40-892Z",
+    "id": "048f0f95-5064-4122-a98e-68fcf344c986",
+    "revision": "2026-09-25T08:04:38.740079+00:00",
+    "body_sha256": "0b4e230780a227cc5e7ba8ff6abd1beac37ecc5e1d1ca1a7de27deb83d3e1373",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "군 모병 불허 대학의 연방 지원 박탈을 두고 국방부·의원·예일대의 입장(차별 금지 정책)이 맞서 요지·주장·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sterns claims that Yale University is",
+          "note": "솔로몬 수정안 설명을 한 줄로 줄이면 예일대의 반론 문단이 따로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:44:40.897Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Department_of_Defense_denies_federal_funding_to_schools_that_ban_military_recruiting",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

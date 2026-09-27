@@ -1,0 +1,346 @@
+[
+  {
+    "id": "04339151-4162-4571-8479-fd478a8d78d1",
+    "source_updated_at": "2026-09-25T07:27:05.888568+00:00",
+    "body_sha256": "db90ea01e9460fa7eaa84c66c14b131b209ce886322365e6889d24042827d561",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 고찰이 「아메바 포식이 포유류 병원성을 빚었다」는 가설을 근거로 세워 한 편의 논지가 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A fundamental problem in the field",
+      "note": "저자 요약 단락은 앞 문맥 없이 서지만 phagocytic·phagosome 같은 핵심어가 대체 불가라 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "0437d057-2e0b-487a-9cb2-f82e0254ae01",
+    "source_updated_at": "2026-09-25T07:27:06.3198+00:00",
+    "body_sha256": "ff921eb396696c8dcca290c539b0e20fa023650679b94fb07175fbd54d1a88ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰이 「높은 AUC에도 임상 적용은 이르다」는 주장을 이질성·검증 부족·출판 편향 세 근거로 받쳐 준다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A primary driver of the observed",
+      "note": "discrimination·calibration 두어 낱말만 풀어 쓰면 고3 밴드로 내려오고 숫자를 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "044b1a89-3649-40bc-ab14-608462808e63",
+    "source_updated_at": "2026-09-25T07:27:09.035895+00:00",
+    "body_sha256": "1238d0ff9c6ee53572734b80de08f2b30d78cce5f65899302d01f02cbe22c9f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론이 LLM 환각·전문 용어 이해 한계를 문제로 세우고 자기반성 순환을 해법으로 제시하는 구조가 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Despite their promise, applying LLMs to",
+      "note": "도전 과제를 세 가지로 나열한 단락은 그대로 떼어지나 지식그래프·개체명 인식 용어가 남아 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "045f84ad-50ae-4592-b9b7-0952d8d9b601",
+    "source_updated_at": "2026-09-25T07:27:12.182963+00:00",
+    "body_sha256": "375184c42a8150786487b7a84515bb2d1711ac58f2cfea89220983b7896a2565",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 통합효소·인타좀을 일상어로 풀어 크기가 탐색 속도를 늦춘다는 결론까지 자족적으로 전달한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Retroviruses insert their genetic material into",
+      "note": "저자 요약만 떼면 바로 읽히지만 결과·고찰 본문은 약어와 완충액 조건이 촘촘해 가공 대상에서 빠진다."
+    }
+  },
+  {
+    "id": "0469ef3d-dba3-4a68-b2f5-f5f2a55a0a1a",
+    "source_updated_at": "2026-09-25T07:27:12.8274+00:00",
+    "body_sha256": "2c787700e9309824d5f8f92b12b733a4152c13f683a0aa2da8c7429246d58db3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "도입부가 자기 측정의 장점을 전기 기록과 대비해 세우고 결론에서 초가산 반응의 조건 의존성으로 닫는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Multisensory integration represents a fundamental neural",
+      "note": "도입 첫 단락은 독립적이나 방법 절이 수식 자리표시자로 끊겨 있어 그 구간은 발췌에 못 쓴다."
+    }
+  },
+  {
+    "id": "047948c0-49cd-4def-9b36-fb3f96ec19fc",
+    "source_updated_at": "2026-09-15T12:53:06.277589+00:00",
+    "body_sha256": "6b37f98a2b6e57b35f2853a81e4b06cd2085533dd8c0a799073828da4d39926d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "결과가 3.3에서 3.5로 건너뛰어 방법에서 예고한 피드포워드 루프 구성 절(3.4)이 통째로 빠져 있다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "For numerous decades, lung cancer is",
+      "note": "도입부는 떼어지지만 나머지는 유전자·CpG 식별자 나열이고 인용·저작권 블록이 본문 중간에 섞여 있다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "04ab67ce-93d6-4109-ab47-cb38b4ab73fd",
+    "source_updated_at": "2026-09-25T07:27:19.311513+00:00",
+    "body_sha256": "6c4a5fc2ee82c0520661f71eb37ef0a03ccf73c97256a70c94d7a6d9b926569f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "food",
+    "why": "합성 보존료의 문제 제기에서 천연 정유 조합·나노에멀션 필름 검증까지 문제-해결 흐름이 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "purpose",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bacterial contamination remains a significant threat",
+      "note": "서론 첫 단락은 정유 이름을 걷어도 논지가 서고 preservative·spoilage 정도만 바꾸면 고2 밴드에 든다."
+    }
+  },
+  {
+    "id": "04b0a53a-a035-4260-badb-bfab71feb0b2",
+    "source_updated_at": "2026-09-25T07:27:19.994193+00:00",
+    "body_sha256": "d37a3d0df9be90e1f860ffbdbb33a11173bb39ea6a80ddea15d29adb8aff2243",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "history",
+    "why": "연대기 기록과 지층·저항 탐사를 맞대어 흑사병 집단 매장지를 찾아가는 과정이 시간순 서술로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "order",
+        "insert",
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Black Death (1346–1353) at the",
+      "note": "역사 배경 단락은 지명을 걷어도 사건 흐름이 남고 어려운 낱말이 지층 용어에 몰려 있어 교체가 쉽다."
+    }
+  }
+]

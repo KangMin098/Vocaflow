@@ -23,7 +23,7 @@ import {
   SERIES_CATALOG,
   SERIES_ITEMS_PER_VOLUME,
 } from '@vocaflow/library-pipeline/textbook-series-catalog'
-import { MARKET_UNITS_PER_BOOK } from '@vocaflow/library-pipeline'
+import { ITEMS_PER_UNIT, MARKET_UNITS_PER_BOOK } from '@vocaflow/library-pipeline'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
@@ -37,6 +37,7 @@ import {
   type OrderView,
   type OrderVolume,
 } from './order-model'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 /**
  * 저장소 뿌리 — `docs/reports/` 가 있는 곳까지 올라간다.
@@ -98,11 +99,14 @@ export async function loadOrderView(): Promise<OrderView> {
     db.from('csat_types').select('id, name'),
     db.from('csat_type_reports').select('type_id, status'),
     // 유형별 기출 문항 수 — 802행이라 그대로 세어 접는다(집계 RPC 를 새로 만들 이유가 없다).
-    db.from('csat_items').select('id, type_id'),
+    db.from('csat_items').select('id, type_id').not('id', 'like', `${HAKPYEONG_ID_PREFIX}%`),
     // 유형별 분석 수는 문항을 거쳐야 나온다(분석 표에 type_id 가 없다). 2,234행이라 그대로 읽는다.
-    db.from('csat_item_analyses').select('item_id').eq('status', 'published'),
-    db.from('csat_analysis_reviews').select('id', { count: 'exact', head: true }),
-    db.from('csat_exams').select('id, kind'),
+    db.from('csat_item_analyses').select('item_id').eq('status', 'published').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`),
+    db
+      .from('csat_analysis_reviews')
+      .select('id, csat_item_analyses!inner(item_id)', { count: 'exact', head: true })
+      .not('csat_item_analyses.item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`),
+    db.from('csat_exams').select('id, kind').eq('organizer', 'kice'),
     db.from('textbook_volume_renders').select('series, step'),
   ])
 
@@ -205,6 +209,15 @@ export async function loadOrderView(): Promise<OrderView> {
     //   여기서 20 같은 수를 손으로 적으면 화면이 시키는 명령과 조판기가 실제로 찍는 권이
     //   달라진다(그 상수가 근거 없이 20이었던 사고는 `scorecard.ts` 머리말에 적혀 있다).
     unitsPerBook: MARKET_UNITS_PER_BOOK.median,
+    itemsPerUnit: ITEMS_PER_UNIT,
+    unitsRange: {
+      min: MARKET_UNITS_PER_BOOK.min,
+      p25: MARKET_UNITS_PER_BOOK.p25,
+      median: MARKET_UNITS_PER_BOOK.median,
+      p75: MARKET_UNITS_PER_BOOK.p75,
+      max: MARKET_UNITS_PER_BOOK.max,
+    },
+    seriesList: SERIES_CATALOG.map((s) => ({ id: s.id, brand: s.brand, accent: s.accent, kind: s.kind })),
     inventoryAt: inv.ok ? inv.refreshedAt : null,
     loadError: inv.ok ? null : `재고를 못 읽었다: ${inv.error}`,
   }

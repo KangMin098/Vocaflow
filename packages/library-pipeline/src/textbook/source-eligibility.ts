@@ -37,8 +37,15 @@ import { CURRICULUM_GATE, type SchoolLevel } from './curriculum'
 import { PASSAGE_WORDS, READING_LEVEL_BANDS } from './readability'
 import { cefrFitsBand } from './assemble-unit'
 
-/** 판정 규격 버전. 자가 바뀌면 올린다 — 적재된 판정이 어느 자로 매겨졌는지 알아야 한다. */
-export const ELIGIBILITY_SPEC_VERSION = 3
+/**
+ * 판정 규격 버전. 자가 바뀌면 올린다 — 적재된 판정이 어느 자로 매겨졌는지 알아야 한다.
+ *
+ * 4 (2026-09-24): V6+ 의 CEFR 상한 B2 → C1(`assemble-unit.UPPER_BAND_MAX_CEFR` · 실측 근거는 그 주석).
+ * ⚠️ DB 함수 `csat_source_is_eligible` · `csat_source_is_gradeable` 이 `policy_version` 을 **숫자로 고정**해 읽는다.
+ *   버전을 올린 캐시를 적재하기 **전에** 두 함수가 새 버전을 받게 하는 마이그레이션이 먼저다 —
+ *   순서가 뒤집히면 재적재하는 동안 적재된 행이 전부 부적격으로 읽혀 서빙·채점이 끊긴다.
+ */
+export const ELIGIBILITY_SPEC_VERSION = 4
 
 /**
  * 등급 — **다음에 할 일**로 가른다.
@@ -250,7 +257,10 @@ export function evaluateSource(
   if (analysisStatus !== 'complete') blockers.push(`analysis_${analysisStatus}`)
   if (contentStatus === 'unjudged') blockers.push(row.gatePurpose === 'raw' ? 'raw_content_unjudged' : 'content_unjudged')
   if (cefrStatus === 'above-band') blockers.push('cefr_above_band')
-  if (excerptStatus === 'candidate' || excerptStatus === 'missing') blockers.push('excerpt_not_materialized')
+  // ⚠️ `excerptStatus` 는 **관찰이지 차단이 아니다**(2026-09-23). 원문이 지문 창보다 길다는 것은
+  //   결함이 아니라 원문의 정상 상태다 — 자를 자리를 정하는 것은 교재 생성 단계의 일이다.
+  //   예전에는 여기서 `excerpt_not_materialized` 를 차단으로 밀어 넣어, 장문 창에 그대로 맞는
+  //   22,209편까지 `excerpt-blind` 로 묶었다. 남겨 둔 이유는 발췌 큐를 세기 위해서다.
   if (!isComposable(base.grade)) blockers.push(`base_${base.blockedBy ?? base.grade}`)
   if (row.gatePublishable == null) blockers.push('publication_gate_missing')
   if (row.outsidePct == null) warnings.push('vocabulary_unmeasured')
@@ -264,10 +274,10 @@ export function evaluateSource(
     blockedBy = 'judgement'
     reason = blockers.join(' · ')
   } else if (blockers.length && isComposable(grade)) {
+    // `excerpt-blind` 로 떨어뜨리던 갈래는 2026-09-23 에 사라졌다 — 길이는 더 이상 차단이 아니다.
     grade = blockers.some(x => ['content_rejected', 'harmful_genre', 'cefr_above_band', 'source_not_ready'].includes(x)) ? 'blocked' :
-      analysisStatus !== 'complete' ? 'unknown' : contentStatus === 'unjudged' ? 'unjudged' :
-        blockers.includes('excerpt_not_materialized') ? 'excerpt-blind' : 'blocked'
-    blockedBy = grade === 'excerpt-blind' ? 'format' : grade === 'unknown' ? 'analysis' : 'judgement'
+      analysisStatus !== 'complete' ? 'unknown' : contentStatus === 'unjudged' ? 'unjudged' : 'blocked'
+    blockedBy = grade === 'unknown' ? 'analysis' : 'judgement'
     reason = blockers.join(' · ')
   }
   const status = blockers.length === 0 ? (grade === 'excerpt' ? 'conditional' : 'eligible') :
@@ -418,35 +428,26 @@ export function judgeSource(row: SourceEligibilityInput): SourceEligibility {
   }
   axes.push({ axis: 'judgement', pass: true, detail: `판정 ${row.gateVerdict}` })
 
-  // ── ⑥ 규격 ────────────────────────────────────────────────────────
+  // ── ⑥ 규격 — **원문 적격의 축이 아니다** (2026-09-23 사용자 결정) ───
+  // 여기서 재던 것은 수능 지문 창(`PASSAGE_WORDS` 100~200) 하나였다. 그런데 원문은 지문이
+  // 아니다 — 원문에서 지문을 뜨는 것은 **교재 생성 단계의 별도 공정**이고, 그 공정은 이미
+  // 유형마다 다른 창을 쓴다(`compose-unit.itemWordSpec`):
+  //
+  //   초등 3종 0~∞(지문 없음) · 문장 단위 6~40 · 학교 문단 40~200 · 수능 일반 90~200 · 장문 260~400
+  //
+  // 한 창으로 원문을 거르면 나머지 유형의 재료가 통째로 사라진다. 실측 2026-09-23 —
+  // 내용이 수용된 44,893편 중 **22,209편이 장문 창(260~400)에 자르지 않고 그대로 맞는데도**
+  // `excerpt-blind`(조판 불가)로 세어지고 있었고, **108편은 학교 문단 창(40~200)에 맞는데도**
+  // 하한 100어에 걸려 `blocked/format` 으로 영구 탈락해 있었다.
+  //
+  // 그래서 길이는 **막지 않고 적기만 한다.** 자를 자리를 정하는 일은 발췌 공정의 몫이고,
+  // 그 결과는 `excerptStatus` 로 관찰만 한다(`evaluateSource`).
   const words = row.wordCount ?? 0
-  if (words < PASSAGE_WORDS.min) {
-    axes.push({ axis: 'format', pass: false, detail: `${words}어 — 창 하한 ${PASSAGE_WORDS.min} 미만` })
-    // 짧은 글은 자를 수도 이을 수도 없다. 되돌릴 수는 있다(다시 수확하면 된다).
-    return done('blocked', 'format', `${words}어 — 지문으로 쓰기에 짧다`, true)
-  }
-  if (words > PASSAGE_WORDS.max) {
-    // ⚠️ **순서가 중요하다.** 문항 보유를 먼저 본다 — 그것이 조판이 실제로 인쇄하는 것이고,
-    //   그 지문은 만들 때 유형·학년별 시중 어수창(`itemWordSpec`)을 이미 통과했다.
-    //   `make.windows` 는 아무도 안 읽는 열이라 **혼자서는 근거가 못 된다.**
-    if (row.hasItems === true) {
-      axes.push({ axis: 'format', pass: true, detail: `${words}어 — 규격에 맞게 잘린 문항 보유` })
-      return done('excerpt', null, `${words}어 · 문항이 붙어 있다 — 잘린 지문이 이미 있다`, true)
-    }
-    const w = row.excerptWindows ?? 0
-    if (w > 0) {
-      axes.push({ axis: 'format', pass: true, detail: `${words}어 — 발췌창 ${w}개(문항 없음)` })
-      return done('excerpt', null, `${words}어 · 발췌창 ${w}개 — 자를 자리는 적혀 있다`, true)
-    }
-    axes.push({ axis: 'format', pass: false, detail: `${words}어 — 잘린 지문도 자를 자리도 없다` })
-    return done(
-      'excerpt-blind',
-      'format',
-      `${words}어인데 문항도 발췌창도 없다 — 어디를 자를지 아무도 정하지 않았다`,
-      true
-    )
-  }
-  axes.push({ axis: 'format', pass: true, detail: `${words}어 — 창 안` })
+  axes.push({
+    axis: 'format',
+    pass: null,
+    detail: `${words}어 — 길이는 원문 적격 기준이 아니다(유형별 발췌가 정한다)`,
+  })
 
   // ── ⑦ 어휘 ────────────────────────────────────────────────────────
   // 본문을 재야 나오는 값이라 대개 없다. **없으면 통과가 아니라 미측정으로 적는다.**

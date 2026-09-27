@@ -1,0 +1,831 @@
+[
+ {
+  "id": "71d20394-d59a-4614-8247-28bef7eea00d",
+  "source_updated_at": "2026-09-13T07:11:34.721099+00:00",
+  "body_sha256": "222c09f5c06ce7b704dfab49ec64f40621281cf344b0e0524729cec85545ea06",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰 끝 문단(NPNT 결손이 초기 염증이 아니라 회복기 대식세포 잔류에 관여)을 떼어 보니 논지가 서서 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our findings showed that postnatal deletion",
+   "note": "NPNT·Cre+ 같은 약어를 풀어 쓰면 회복기 가설 흐름은 그대로 남는다."
+  }
+ },
+ {
+  "id": "71d5d40f-c33a-4c79-8465-a7be44989cbb",
+  "source_updated_at": "2026-09-13T07:04:15.879394+00:00",
+  "body_sha256": "fb2a29bb2fd4be24ef1fbae37700777df7e1b5c7bf8242ba05bfb6bfad9e0c79",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 두 가설(경험으로 분리 vs 유전적 결정)과 고찰의 결론 문단이 대조 구조로 떨어져 순서·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "insert"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One possibility is that a single",
+   "note": "VTA·Area X 약어를 '뇌 부위'로 바꾸면 두 가설 대조가 앞 문맥 없이 선다."
+  }
+ },
+ {
+  "id": "71d65598-34e8-4092-a786-73bc46feaf3e",
+  "source_updated_at": "2026-09-13T06:49:39.556151+00:00",
+  "body_sha256": "fb0ca9846085365e028cc7a270e14b4ba820e2b76b06791e05dd3465e298e2d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰 중 갑상선 고주파 절제가 불완전하면 암세포 이동을 오히려 부추길 수 있다는 단락이 자족적 논지로 서서 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The thyroid gland is a relatively",
+   "note": "해부 구조 설명과 불완전 절제 위험이 인과로 이어져 낱말 몇 개만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "71d7b1f5-4742-418e-9c3e-9a13efd395eb",
+  "source_updated_at": "2026-09-25T07:39:55.527244+00:00",
+  "body_sha256": "6ed55a416de87b00e47c927738e8c0a0ada2247c4ba2a2ddec8938547df595dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 만성질환·합성 억제제 한계 → 해조류 유래 대안 흐름이 떨어져 목적·주제 칸을 채우고, 결과·고찰은 IC50 수치 나열이라 가공 때 걷는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Chronic diseases such as diabetes mellitus",
+   "note": "서론 두 문단은 서지만 본문 대부분이 수치 비교라 쓸 수 있는 문단이 적다."
+  }
+ },
+ {
+  "id": "71e1abef-4d39-402e-85b5-ff6b36fe9169",
+  "source_updated_at": "2026-09-13T07:17:03.067645+00:00",
+  "body_sha256": "57fe976b4b12a00c0fbe377341a552d24eb905342391f502e190b2956994baa2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 분자 모방이 자가면역을 일으키는 원리 문단이 떨어져 설명문으로 서고 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Microorganisms might exhibit molecular mimicry with",
+   "note": "MoRF·SLiM 등 약어가 많아 첫 두 문단만 쓰고 나머지는 걷어야 한다."
+  }
+ },
+ {
+  "id": "71eace72-e153-4d74-89b7-a9a675703963",
+  "source_updated_at": "2026-09-25T07:39:56.665401+00:00",
+  "body_sha256": "c3bd9b1144a54c4bdf946f0846592d873c47548d91d1b45aff5c633f8a98a679",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 두 돼지 품종(고지대·저지대) 대비와 단일세포 분석의 장점 문단이 떨어져 대조·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Conventional bulk RNA sequencing, predicated on",
+   "note": "벌크 대 단일세포 대비는 비유로 풀면 목표 밴드로 내려가지만 품종 이름은 걷는다."
+  }
+ },
+ {
+  "id": "71ed5289-2901-4abf-912e-1ffa74ad263e",
+  "source_updated_at": "2026-09-13T06:40:18.19155+00:00",
+  "body_sha256": "5393ee586dc1701bf4cce07990a524f8fa259983fbbe5d66e49779ec63416952",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 척수 손상 다섯 유형과 저체온이 치료 시간을 벌어 준다는 단락이 인과로 이어져 요지·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Hypothermia, when administered early post-contusive SCI",
+   "note": "저체온의 효과와 한계를 함께 말해 주장-근거 구조가 선다."
+  }
+ },
+ {
+  "id": "71f62ede-adc2-4d08-86e5-712500850f12",
+  "source_updated_at": "2026-09-13T07:42:33.092438+00:00",
+  "body_sha256": "fca538e8d46e9f05a43b2e82f228db1d60ef11fe3d2323e8472835f3fd3198a8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 능동 감각 중 자기 움직임 신호를 억제하는 원리 단락이 떨어져 설명문으로 서고, 모형 수식 절은 가공 때 걷는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "During active sensation, movement attenuates the",
+   "note": "reafferent 같은 용어를 풀면 '자기 움직임은 걸러 내고 접촉은 전한다'는 논지가 선다."
+  }
+ },
+ {
+  "id": "71fd7358-1ffb-4778-9a2f-96ed20ea2c6e",
+  "source_updated_at": "2026-09-25T07:39:58.10727+00:00",
+  "body_sha256": "705d425fa126560cefed10e60fe9c6ed5f57011e287717f5f26a32904dcf4175",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰의 테이프 방식 장점과 두 가지 한계를 말하는 단락이 떨어져 요지·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "insert",
+    "irrelevant"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "There are several other methods for",
+   "note": "PDMS 등 고유명사를 걷어도 장점-한계 구조가 그대로 남는다."
+  }
+ },
+ {
+  "id": "720e4236-c22d-4ccd-946e-e92bd618f3f0",
+  "source_updated_at": "2026-09-13T06:26:17.358487+00:00",
+  "body_sha256": "c226752588ae9268a94501afbfd91febafefb35a684f640a28b7910819f340a7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 폐기물 관리 부재가 항생제 내성을 퍼뜨린다는 단락과 끝의 정책 함의 단락이 떨어져 주장·요지 칸을 채우고, 표·유전자 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The evident insufficiency of proper waste",
+   "note": "정책 함의 문단은 약어가 적어 낱말 두세 개만 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "72365111-6d5b-4dfc-bf54-ca35f827c6f1",
+  "source_updated_at": "2026-09-15T15:17:04.610697+00:00",
+  "body_sha256": "6fb012564ab0591a2b40aa165217280cfd9e600df8144bcc83f3004c0d7c0310",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 방광암 치료법별 장단점 단락이 대조 구조로 떨어져 주제·빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Current treatments for bladder cancer mainly",
+   "note": "수술·면역·방사선·화학요법 비교가 문장마다 이어져 순서 문항으로 자르기 쉽다."
+  }
+ },
+ {
+  "id": "723c8d93-b05e-495a-b91d-b77b1652e975",
+  "source_updated_at": "2026-09-13T06:56:53.225984+00:00",
+  "body_sha256": "65e53996c766f1b87ec84d64418e75b5d60eed48ed48894b943b5d84cd617ecc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰 첫 단락의 대식세포가 염증을 일으키고 다시 가라앉히는 과정이 시간순으로 이어져 순서·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On exposure to pathogens or other",
+   "note": "ESP·TLR 약어가 없는 문단이라 그대로 떼어 쓸 수 있다."
+  }
+ },
+ {
+  "id": "72404975-1f8e-4be6-aeb7-b8eb56589f5d",
+  "source_updated_at": "2026-09-25T07:40:02.838556+00:00",
+  "body_sha256": "dcb4db73ec7121f1bb8c496912ba6941daec374f0fafa9d28d81be8f7a4458b6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 췌장 효소 부족이 단백질 흡수와 필수 아미노산 감소로 이어진다는 인과 단락이 떨어져 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "order"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Essential amino acids originate from diet",
+   "note": "인과 사슬이 짧게 이어져 소화 효소 용어만 풀면 된다."
+  }
+ },
+ {
+  "id": "724087e3-9563-465a-abef-4c36b4d91986",
+  "source_updated_at": "2026-09-25T07:40:03.282307+00:00",
+  "body_sha256": "ca9e698b044c33e42df81383de7dc7a8efec402a2b9212bdb014eff44f8faf28",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 팔미토일화와 헌팅턴병의 연결 단락과 고찰의 리소좀 기능 장애 논지가 떨어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "A growing amount of evidence suggests",
+   "note": "효소 약어가 많아 고찰 한 문단만 골라 용어를 풀어야 한다."
+  }
+ },
+ {
+  "id": "72602ffc-cae1-4a59-b841-09ea3b193441",
+  "source_updated_at": "2026-09-13T06:42:12.347049+00:00",
+  "body_sha256": "e54543a58c600035640784d3d266ddea3b7474ef3eaa3b659c78703457387ca1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "서론의 맹그로브가 탄소를 저장하고 곰팡이가 분해자로 일한다는 단락이 떨어져 설명문으로 서고 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mangrove forests are regarded as blue",
+   "note": "생태 설명이 쉬워 밴드를 내리기 쉽지만 물리화학 표는 걷는다."
+  }
+ },
+ {
+  "id": "72635343-c116-4b69-83cf-3f0d6e5409f6",
+  "source_updated_at": "2026-09-25T07:40:05.784637+00:00",
+  "body_sha256": "15447518a192dda130f59f1f4d9fad139d3c67793db8080d383fca4e065f96e3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 미세먼지·야간 인공조명이 심혈관 질환 위험을 높인다는 단락이 떨어져 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cardiovascular diseases (CVDs) are the leading",
+   "note": "고찰 일부에 출처 없는 시범 사업 수치와 문장 도중 끊긴 조각이 있어 서론·결론만 쓴다."
+  }
+ },
+ {
+  "id": "726367c1-b64e-45be-8dfd-cb6eb1c77a22",
+  "source_updated_at": "2026-09-15T15:17:09.974496+00:00",
+  "body_sha256": "b8e48ed6a2a17c85f25b69e8df3fed2b242055bc05da166744b45dd7957b6aea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 죽상경화증 부담과 당뇨약의 심혈관 이득 단락이 떨어져 목적·요지 칸을 채우고, 유전자·경로 목록은 걷는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Serving as a new class of",
+   "note": "EMPA-REG 같은 시험 이름을 걷어도 '당뇨약이 혈관도 지킨다'는 논지가 선다."
+  }
+ },
+ {
+  "id": "726a081a-c063-4fa1-b855-48cefa84fe3e",
+  "source_updated_at": "2026-09-25T07:40:07.234996+00:00",
+  "body_sha256": "bf5f2cee1beb21ffbf84f7ab7a00097129f953f07939770a3525b7a4d3388437",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 바이러스 감염이 오래가는 신경 증상을 남긴다는 단락이 떨어져 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Viral infections may lead to persistent",
+   "note": "웨스트나일 등 예시 이름을 걷어도 '감염 뒤 기억 손상이 남는다'는 논지가 선다."
+  }
+ },
+ {
+  "id": "7274f9cb-a7eb-4391-b1ec-0f96c35b7267",
+  "source_updated_at": "2026-09-25T07:40:08.692191+00:00",
+  "body_sha256": "966a8fe937a466279e41ad5e899120d7d4aa3699ddff19496d963c5c3ae37771",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "고찰의 오메가3 보충 시험이 엇갈린 것은 이질성 때문이고 하위 유형별 처방이 답이라는 단락이 주장-근거로 서서 주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Previous research has established a link",
+   "note": "PUFA를 '필수 지방산'으로 풀면 통념 교정 흐름이 그대로 남는다."
+  }
+ },
+ {
+  "id": "728490ed-3c06-4982-93c4-9695836252e5",
+  "source_updated_at": "2026-09-25T07:40:10.083666+00:00",
+  "body_sha256": "7f61415eab7ef32c9e3b4a65d95e9d951864e00a636d6cec3e2dc2634433a460",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 바이러스 감염 중 항생제 남용이 내성을 키운다는 단락이 떨어져 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The overuse of antibiotics, both in",
+   "note": "'resistome' 같은 용어를 풀면 뎅기·코로나 예시로 논지가 선다."
+  }
+ }
+]

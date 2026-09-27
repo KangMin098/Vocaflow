@@ -77,7 +77,7 @@ const ALLOW = [
 for (const c of BLOCK) test(`BLOCK  ${c.split('\n')[0]}`, () => assert.ok(explain(c).length > 0, `막혀야 한다: ${c}`))
 for (const c of ALLOW) test(`ALLOW  ${c.split('\n')[0]}`, () => assert.deepEqual(explain(c), [], `통과해야 한다: ${c}`))
 
-// ── D4: 두 도구의 실제 훅 입력 형식으로 CLI 를 돌린다 (exit 2 = 차단 · 0 = 통과) ──────────────
+// ── D4: 두 도구의 실제 훅 입력 형식으로 CLI 를 돌린다 ────────────────────────────────
 import { spawnSync } from 'node:child_process'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -88,9 +88,16 @@ const hook = (agent, payload) =>
 
 const DESTRUCTIVE = ['rm -rf ./__probe__', 'git push --force origin x', 'cat apps/web/.env.local']
 const claudePayload = (command, tool = 'Bash') => ({ session_id: 's', hook_event_name: 'PreToolUse', tool_name: tool, tool_input: { command } })
-// Codex: Bash 는 tool_input.command 문자열, 옛 shell 도구는 argv 배열
+// Codex 훅은 unified exec 도구도 정규화된 `Bash` 이름과 command 문자열로 전달한다.
 const codexPayload = (command) => ({ session_id: 's', hook_event_name: 'PreToolUse', turn_id: 't', cwd: '.', model: 'm', tool_name: 'Bash', tool_use_id: 'u', tool_input: { command } })
 const codexShellPayload = (command) => ({ hook_event_name: 'PreToolUse', tool_name: 'shell', tool_input: { command: ['bash', '-lc', command] } })
+const assertCodexDeny = (result) => {
+  assert.equal(result.status, 0)
+  const output = JSON.parse(result.stdout)
+  assert.equal(output.hookSpecificOutput?.hookEventName, 'PreToolUse')
+  assert.equal(output.hookSpecificOutput?.permissionDecision, 'deny')
+  assert.match(output.hookSpecificOutput?.permissionDecisionReason ?? '', /\[agents\/guard\] 차단 \(codex\)/)
+}
 
 for (const c of DESTRUCTIVE) {
   test(`D4 claude Bash 차단: ${c}`, () => {
@@ -101,10 +108,9 @@ for (const c of DESTRUCTIVE) {
   test(`D4 claude PowerShell 차단: ${c}`, () => assert.equal(hook('claude', claudePayload(c, 'PowerShell')).status, 2))
   test(`D4 codex Bash 차단: ${c}`, () => {
     const r = hook('codex', codexPayload(c))
-    assert.equal(r.status, 2)
-    assert.match(r.stderr, /\[agents\/guard\] 차단 \(codex\)/)
+    assertCodexDeny(r)
   })
-  test(`D4 codex shell(argv) 차단: ${c}`, () => assert.equal(hook('codex', codexShellPayload(c)).status, 2))
+  test(`D4 codex shell(argv) 차단: ${c}`, () => assertCodexDeny(hook('codex', codexShellPayload(c))))
 }
 
 test('D4 일상 명령과 셸이 아닌 도구는 통과', () => {

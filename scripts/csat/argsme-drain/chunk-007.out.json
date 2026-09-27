@@ -1,0 +1,312 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "007",
+  "items": [
+    {
+      "id": "896ccb00-2019-04-18T18:23:36Z-00000-000",
+      "sha256": "d314b476ccc3f7461e4117fe52a5af77533ce4cfe6cda691906c9a6c6d2240fe",
+      "verdict": "write",
+      "topic_ko": "선의 의미는 악의 존재에 기대는가",
+      "passage": "A world that contained nothing but kindness would not be praised by the people living inside it, because kindness there would simply be ordinary. A word such as generous has force only when the selfish act it rules out remains a real possibility for the person who is choosing. Moral advice would also be pointless in such a place, since every available road would lead to the same harmless result. People are admired for a good deed precisely because a cruel deed was open to them and was refused. Evil has therefore been useful in an unexpected way, since it supplies the contrast that allows goodness to be seen, named and taught. If that contrast were removed, decent behaviour would sink into routine, and nobody would have any reason to notice it. Good and evil are better understood as a pair than as enemies, and neither of them can carry meaning alone.",
+      "claim": "Good conduct can only be recognised and praised because evil remains a real possibility."
+    },
+    {
+      "id": "89e52114-2019-04-17T11:47:41Z-00258-000",
+      "sha256": "8e0a58b39d96a2e166a2e27aac9a01a71b8ebdadfd4f3c781ade1afa377c0584",
+      "verdict": "write",
+      "topic_ko": "단일 공공 의료보험 전환의 비용",
+      "passage": "Replacing private insurance with a single public health plan is often described as a simple change in who pays the bills, yet the switch itself would be expensive. An entire industry would disappear almost overnight, and the clerks, agents and office workers who depend on it would lose their jobs within a single year. Some of them would be hired by the new public offices, but many others would wait a long time for work that matches their skills. Every patient record would also have to be entered again into one national system, and such projects have always cost far more time and money than their planners promised. These costs are not a reason to reject public health care, since the present system wastes money in its own quiet ways. They are a reason to treat the transition as a separate task with its own budget, staff and timetable. A reform that ignores the painful middle years will be judged by those years rather than by its final result.",
+      "claim": "A switch to a single public health plan must be budgeted as a long and costly transition, not as a simple change of payer."
+    },
+    {
+      "id": "89eb9d8b-2019-04-18T17:43:09Z-00003-000",
+      "sha256": "6a2ae41d89d08d12fe6d964921bacb62b10e57435f7b03e2901d981c247cdaf6",
+      "verdict": "write",
+      "topic_ko": "동물실험은 대체 기술이 있는 곳에서 중단해야 한다",
+      "passage": "Testing new medicines on animals was once the only way to learn whether a treatment would harm a human body, but that situation has changed. Human cells can now be grown in a laboratory and arranged into small pieces of living tissue that react to a drug much as a real organ does. These models answer the question that matters most, since a result taken from human cells sits closer to a patient than a result taken from a mouse. Cost is the objection raised most often, and the new equipment is indeed expensive to buy. The comparison is unfair, though, because equipment is bought once while animals have to be fed, housed, transported and replaced for as long as the work continues. A method that is both more accurate and cheaper over time should not be delayed by the price of its first year. Animal experiments deserve to be ended wherever a tested alternative already exists.",
+      "claim": "Animal experiments should end wherever a tested laboratory alternative already exists."
+    },
+    {
+      "id": "8b8ba0f7-2019-04-18T11:26:14Z-00001-000",
+      "sha256": "0adb53d28d8a34fea41e1d2a7610d92e9bb399e030c9096fa9848d0b10b8c2aa",
+      "verdict": "write",
+      "topic_ko": "오판 가능성과 사형제 폐지",
+      "passage": "No legal system has ever reached perfect accuracy, and reviews of old cases suggest that a small share of the prisoners sentenced to death were later shown to be innocent. A mistake in an ordinary trial can be answered with an apology, a release and payment, but an execution closes every door that correction needs. A state which keeps this punishment therefore accepts, in advance, that some of its citizens will be killed for crimes they did not commit. Life in prison without release protects the public just as completely, because a person held behind those walls cannot harm anyone outside them. It also leaves room for new evidence, which has freed prisoners decades after their trials ended. The argument does not rest on sympathy for the guilty, since it rests instead on the certainty that courts are run by people and that people are sometimes wrong. A punishment that cannot be undone has no place in a system that has been wrong before.",
+      "claim": "Because courts make mistakes that cannot be undone after an execution, life imprisonment should be the heaviest penalty a state can impose."
+    },
+    {
+      "id": "8c275064-2019-04-18T16:22:13Z-00003-000",
+      "sha256": "14217f084ab4972372ff69227512b19437f48aab32c36f596116d773f19ad1c1",
+      "verdict": "write",
+      "topic_ko": "군용급 총기 규제와 자기방어용 총기의 구분",
+      "passage": "A law that lets an adult keep a small weapon at home for protection is not the same as a law that lets anyone buy a weapon built for war. The first serves a purpose that most citizens accept, while the second puts battlefield firepower into shops, schools and streets where nobody has been trained to respond. Permits, safety courses and background checks make the difference visible, since a buyer who has been checked and trained is far less dangerous than one who has been neither. Police forces already draw this line for themselves by limiting which officers may carry which weapons and under what conditions. If a trained officer accepts such limits, an untrained shopper has no strong claim to a heavier gun than the officer has been given. Weapons designed to kill many people quickly belong with the armies that were trained to use them. Restricting them is not a ban on self defence, since it is a decision about how much damage a single angry moment should be able to do.",
+      "claim": "Weapons built for war should be restricted even where ordinary self defence weapons are allowed."
+    },
+    {
+      "id": "8c7c3f4b-2019-04-18T19:22:23Z-00006-000",
+      "sha256": "da18810d287a05ebd8427953a0268359d5d669d2c620a283ebbc6d1f0dd3c361",
+      "verdict": "skip",
+      "skip_reason": "논증이 아니라 가치 질문 16개 나열이라 재저작할 논지가 없다.",
+      "topic_ko": "토론용 질문 목록"
+    },
+    {
+      "id": "8c7c3f4b-2019-04-18T19:22:23Z-00008-000",
+      "sha256": "2fc500a6e62173a90e830218c2b4013ea08f5587b9085a402cc2cd06088ae4d2",
+      "verdict": "skip",
+      "skip_reason": "가치 충돌 질문 나열뿐이어서 주장도 근거도 없다.",
+      "topic_ko": "토론용 질문 목록"
+    },
+    {
+      "id": "8c7cc650-2019-04-18T18:28:20Z-00006-000",
+      "sha256": "8801cefa29743a5720cb65a3463830287440c53d7d90a1b7c650265676361c6d",
+      "verdict": "skip",
+      "skip_reason": "실존 정치인 지지 여부를 묻는 문답표라 자족적 지문으로 옮길 내용이 없다.",
+      "topic_ko": "정치 성향 문답표"
+    },
+    {
+      "id": "8ca47073-2019-04-18T16:33:46Z-00001-000",
+      "sha256": "823a68d26123184df2ca80fa7875c8b53164ab22efa2f43283e6b759aa1193c9",
+      "verdict": "write",
+      "topic_ko": "숙제를 줄이면 스트레스가 줄어드는가",
+      "passage": "Reducing the amount of homework is often presented as the obvious cure for student stress, yet stress does not follow the size of the pile. One student treats three pages as an easy evening while another loses sleep over a single page, since the pressure comes from character, confidence and everything else happening at home. A rule which cuts the workload for everyone therefore helps only the students whose difficulty was the quantity, and it does nothing at all for the rest. Homework in a reasonable amount has a value that is easy to forget while complaining about it, since a lesson understood in class is often only half learned until it has been used alone. Practice at home also builds habits of planning and patience that no classroom hour can teach directly. The better response to stress is help with time, method and worry, delivered to the students who actually need it. Cutting homework for all is a cheap gesture that trades real learning for the appearance of care.",
+      "claim": "Cutting homework for everyone does not remove student stress and gives up learning that practice at home provides."
+    },
+    {
+      "id": "8cfb61d3-2019-04-18T16:06:15Z-00001-000",
+      "sha256": "777fa5ebbc9cc76f82e2df1c88b32346dbf50aae9aef453b46c1745e174ada83",
+      "verdict": "write",
+      "topic_ko": "다수결과 침해할 수 없는 권리",
+      "passage": "Counting votes is a fair way to settle most public questions, but a vote alone offers no protection to the person who happens to stand on the losing side. In a system where the majority decides everything, a citizen holds a right only as long as most neighbours approve of the way that right is used. Speech which annoys the crowd, a faith that few people share, or an unpopular way of life would then depend on permission that can be withdrawn at any election. A constitution that places certain rights beyond the reach of any vote removes that fear, and it does so without weakening the ordinary power of the majority to govern. Such limits have often been attacked as undemocratic, yet they protect the very freedoms that make an election meaningful in the first place. A crowd that can silence its critics will soon stop hearing the arguments a vote is supposed to weigh. Majority rule works best when it has been fenced in by rights the majority cannot touch.",
+      "claim": "Majority rule works best when certain rights have been placed beyond the reach of any vote."
+    },
+    {
+      "id": "8d064d0e-2019-04-19T12:46:54Z-00003-000",
+      "sha256": "f0438ffd96c91a32a29321a150e885c8159eabda7314e6810478c74c8b7218af",
+      "verdict": "write",
+      "topic_ko": "식량 위기 전에 작물 연구에 투자해야 하는 이유",
+      "passage": "Food is wasted in enormous quantities today, and that waste is often used as proof that better crops are unnecessary. The comparison is mistaken, because the surplus of one decade tells nothing about the supply of the next, and the number of people to be fed keeps rising while farmland does not. Crops improved in a laboratory may or may not turn out to be the right answer to that pressure, and the honest position is that too little research has been done to say. Research is exactly what settles such a question, and it takes many years, so it has to begin long before any shortage arrives. A country that waits until its shelves are empty will be choosing between hunger and a technology nobody has had time to test properly. Paying for this work now commits nobody to planting the results, since a tool can be developed and then left unused. The cost of preparing a solution that is never needed is far smaller than the cost of needing one that was never prepared.",
+      "claim": "Research into improved crops must be funded before a shortage arrives, because research cannot be produced quickly when it is suddenly needed."
+    },
+    {
+      "id": "8e22f6d3-2019-04-18T18:50:48Z-00004-000",
+      "sha256": "1eb5690414828b9716b35c527410f9ea164416d601432fb38a6bcde76d64f714",
+      "verdict": "write",
+      "topic_ko": "자유가 낳는 무질서는 감수할 가치가 있는가",
+      "passage": "Freedom does produce disorder, and a society that protects it will always look messier than one that does not. That untidiness buys something no orderly system can supply on its own, namely a life owned by the person who lives it rather than by a timetable that somebody else has written. Under a government that removes choice, the days become identical, work is assigned, opinions are issued, and nothing is left to look forward to except the repetition of yesterday. Order of that kind does not actually remove problems, since it replaces open ones, which can be argued about and fixed, with hidden ones that nobody may mention. Mistakes made by free people are visible and can be corrected by the same freedom that produced them. A quiet society is not the same as a healthy one, and silence is often the loudest evidence that something has gone badly wrong. The disorder of freedom is the price of a life worth having, and it has always been a bargain.",
+      "claim": "The disorder that freedom produces is a price worth paying, because ordered life without choice removes what makes living worthwhile."
+    },
+    {
+      "id": "8ecf486e-2019-04-18T16:43:38Z-00006-000",
+      "sha256": "2f42943fe6f561450a4a69dd3ce8aace0b27da350548689686b6db6711802b1c",
+      "verdict": "write",
+      "topic_ko": "윤리 규범은 상황에 따라 조정되어야 한다",
+      "passage": "Moral rules are frequently taught as though a single list could settle every case, yet the lists that guide a doctor, a soldier and a judge are not the same. Each of those roles faces different dangers, and a rule which protects people in one setting can cause harm when it is carried unchanged into another. The same is true across a single life, because beliefs formed in childhood have been tested by experiences that a child could not imagine. Adjusting a moral code in the light of such experience is not weakness, since it is the only way a person learns anything from what has happened. This does not mean that every answer is as good as any other, because cruelty remains cruelty however it has been explained. It means that good judgement lives in the fit between a principle and a situation rather than in the principle alone. A person who refuses to revise anything will eventually apply an old rule to a problem it was never built for.",
+      "claim": "Good moral judgement lies in fitting a principle to a situation, so an ethical code should be revised as experience grows."
+    },
+    {
+      "id": "8f9a96bf-2019-04-19T12:45:07Z-00038-000",
+      "sha256": "aae330d224d1a83ec4b94b5251420d363afc3cd11dda47ac68f968eb1b85bcd2",
+      "verdict": "write",
+      "topic_ko": "우주에 생명이 우리뿐이라는 주장의 부담",
+      "passage": "The number of stars that can be counted with modern instruments runs into the hundreds of billions, and each of those stars may hold planets of its own. Against a background that large, the claim that living things appeared exactly once, on a single small world, is a very strong claim and needs very strong support. Nothing that has been learned about life supplies that support, because the chemical materials which living cells are built from have been found spread widely through space. Researchers have also discovered planets at the right distance from their star for liquid water, which is the condition most often treated as necessary. None of this proves that life exists elsewhere, and a careful reader should resist the jump from possible to certain. It does show where the burden of proof now lies, since loneliness in such a crowded universe would itself demand an explanation. Until that explanation appears, the reasonable expectation is that life has arisen more than once.",
+      "claim": "Given the size of the universe and the wide spread of the materials life needs, the burden of proof now falls on the claim that life arose only once."
+    },
+    {
+      "id": "8fb9ef31-2019-04-18T17:30:23Z-00003-000",
+      "sha256": "4467903a17c81db67939481ffacb55d896f105b54c01b7c9a277797fdbc08dc6",
+      "verdict": "write",
+      "topic_ko": "결혼 전 동거는 합리적 준비인가",
+      "passage": "Sharing a home with a partner before marriage is often attacked as a shortcut that weakens commitment, but the practice answers a question no engagement can answer on paper. Daily life together reveals habits, tempers and small selfishness that courtship hides, and those details decide whether two people can live in peace for decades. Couples who discover such a mismatch after moving in have been spared a marriage that would have ended in a far more painful way. A wedding is a promise rather than a test, and a promise made without the information is weaker instead of stronger for having skipped it. The objection that living together shows a lack of seriousness confuses the form of a relationship with its content, since seriousness appears in how the partners treat each other. Love has never been proved by a ceremony alone, and nobody is obliged to marry in order to share a kitchen. A trial of ordinary life is the most honest preparation that a lasting marriage can have.",
+      "claim": "Living together before marriage is an honest preparation, because daily life reveals what a courtship cannot."
+    },
+    {
+      "id": "90fbdc0-2019-04-15T20:22:45Z-00009-000",
+      "sha256": "f59c5b6effa81f55d635dd4b0685e03b3b0a261998bdad88fc6e09239f96ed84",
+      "verdict": "write",
+      "topic_ko": "신문이 여전히 하는 일 — 고르지 않은 것을 만나게 하기",
+      "passage": "A printed newspaper looks slow and wasteful beside a screen that delivers headlines within seconds of an event, yet the older form still does something the screen does not. Spread across its pages are reports on farming, courts, foreign cities and local schools, arranged by editors who judged that a reader ought to meet them. A reader who selects every article personally gradually builds a narrower world, meeting the same subjects and the same opinions with increasing frequency. The newspaper interrupts that habit, and a story nobody would have chosen is often the one which changes an opinion or starts an interest. Papers are not read from front to back either, so the freedom that screens advertise has been available in print all along. Publishers have shown that they can adapt as well, changing page sizes and designs to suit readers who now travel while they read. What deserves defending is not the paper itself but the edited mixture it carries, which no personal feed has learned to replace.",
+      "claim": "What deserves defending is not printed paper but the edited mixture a newspaper carries, which a personal feed has not replaced."
+    },
+    {
+      "id": "915f4c2b-2019-04-17T11:47:43Z-00107-000",
+      "sha256": "8bc2bfbb204b6b503bad9b047c5163673017a00ee25ca198418c079c471bbc34",
+      "verdict": "write",
+      "topic_ko": "권리 목록 한가운데의 조항은 어떻게 읽어야 하는가",
+      "passage": "When a constitution lists the freedoms of ordinary citizens, each item on that list should be read in the same spirit as the items around it. A document which opens by protecting a person's speech and belief, and later protects a person's home from search, is plainly concerned with individuals throughout. It would be a strange piece of writing that slipped a single clause into the middle of such a list and meant it to protect only a branch of the state. Readers who take that view usually arrive at it by cutting one sentence in half and then studying the half that suits them. Context is the ordinary tool for settling what a phrase means, and the context here points in one direction only. A right buried in a list of individual rights, addressed to the same people, was almost certainly meant for those people. The burden falls on anyone who wants to read one clause against the grain of every clause beside it.",
+      "claim": "A clause standing inside a list of individual rights should be read as protecting individuals, unless strong reasons show otherwise."
+    },
+    {
+      "id": "91b0e72f-2019-04-18T16:35:42Z-00007-000",
+      "sha256": "9cc11d9e2f8b5c59adcf6d1f2364a88e66ac83f6a5a401effdecc355cb7fe0ed",
+      "verdict": "write",
+      "topic_ko": "노화는 법칙이 아니라 고칠 수 있는 기계장치인가",
+      "passage": "Death has always been treated as a fixed feature of being alive, but the reasons people die of old age are turning out to be biological processes rather than a law of nature. Cells collect damage, tissues repair themselves less well with each passing decade, and the brain finally fails. Every one of those steps is a physical event that can be studied and, in principle, slowed. Researchers have already slowed several of them in animals, which shows that the process bends when the right part of it has been touched. If the decline of the brain could be halted, the rest of the body would become a problem for engineers rather than a limit, and a human life could continue for a very long time. Nothing here promises a date, and war, poor funding or simple accidents could stop the work for a century. The claim worth defending is narrower and still remarkable, because aging has been shown to be a mechanism, and mechanisms are the kind of thing that science eventually repairs.",
+      "claim": "Aging has turned out to be a set of biological mechanisms, and mechanisms are the kind of thing science eventually learns to repair."
+    },
+    {
+      "id": "91b35e99-2019-04-18T18:40:09Z-00005-000",
+      "sha256": "34f5670881a8bafa8daaa35d9599992d2063d477c4f4c4903820832e1821a191",
+      "verdict": "write",
+      "topic_ko": "평행우주라는 말은 애초에 성립하는가",
+      "passage": "Talk of parallel worlds borrows a word from geometry and then uses it far from the place where it means anything exact. Two lines are parallel when they run side by side in a space that contains both of them, and the whole force of the term depends on that shared space. A universe, in the sense of everything that exists, extends in every direction and has no outside, so there is no larger room in which two of them could lie side by side. Pictures of bubbles floating next to each other quietly supply that missing room and then present it as a discovery rather than as the assumption it is. Scientists who propose other worlds are usually describing something much stranger than a second bubble beside the first one. The popular image is not a simplification of their idea, since it is a different idea, and it collapses as soon as the word parallel has been taken seriously.",
+      "claim": "The popular picture of parallel universes fails because the word parallel needs a shared space that a universe by definition does not have."
+    },
+    {
+      "id": "91fee513-2019-04-17T11:47:31Z-00000-000",
+      "sha256": "fcee421daab62a5b0be170e2dcb79daa57bca4eb85527d08fa32e254af865d3a",
+      "verdict": "write",
+      "topic_ko": "공적 자금으로 보도를 지원해야 하는가",
+      "passage": "News gathering benefits far more people than the ones who pay for it, since a report on a corrupt official protects every citizen in that city rather than only the buyer of the paper. Goods of that shape have never been supplied in sufficient quantity by sale alone, which is why schools, roads and defence are paid for out of taxes. The commercial model that once funded reporting has collapsed, advertising has moved elsewhere, and newsrooms have been cut in every country where the numbers have been examined. What disappears first is the slow local work nobody clicks on and everybody depends upon, such as attendance at council meetings and courts. Public money can support that work without control over its content, as independent public radio and research grants have shown for decades. The fear of political interference is reasonable and should shape the design of such support rather than block it entirely. A society that pays to teach its children can afford to pay for the information those children will need as voters.",
+      "claim": "Reporting is a public good and should be supported with public money, under rules that protect it from political control."
+    },
+    {
+      "id": "9386db89-2019-04-18T18:42:09Z-00003-000",
+      "sha256": "66900014ea5cb75ad4b70ec634af7f0115b10e250724fb301827f0a09a2b5540",
+      "verdict": "write",
+      "topic_ko": "고통을 끝낼 선택은 환자에게 있는가",
+      "passage": "A patient whose illness is certain to kill within weeks, and whose pain no longer answers to treatment, is not being protected by a law that forbids a quiet end. The protection such a law offers is only the appearance of safety, while the cost is measured in days of suffering that the patient has asked repeatedly to stop. Calling the request suicide misses what has happened, because the choice here lies between two deaths rather than between death and a future. Decisions about that final stretch belong to the person living through it, supported by the doctors and the family who understand the medical facts. Careful rules can require a settled wish, a second opinion and a waiting period, so that a passing mood is never mistaken for a decision. Every other serious medical choice already rests on the consent of the patient, and there is no reason for the last one to be different. Compassion that insists on watching a hopeless patient suffer has stopped being compassion.",
+      "claim": "A dying patient whose pain cannot be relieved should be allowed to choose a quiet end under careful rules."
+    },
+    {
+      "id": "9386dc43-2019-04-18T17:39:00Z-00002-000",
+      "sha256": "3c605d244267550964609a21c1dc36fdd23fe0494375d245d448b48a44bd0721",
+      "verdict": "write",
+      "topic_ko": "존엄과 통증 조절의 한계",
+      "passage": "Dignity at the end of life is usually described as good care, but for some patients it means being allowed to decide when a hopeless struggle ends. Medicine has become remarkably good at controlling pain, and yet doctors themselves admit that a minority of cases resist every drug available. For those patients the choice is not between suffering and comfort, because it lies between a few more days of agony and a calm departure at a chosen hour. Leaving the decision with the patient, and with the family who has watched the illness, keeps it where the knowledge and the love actually are. Doctors should never be required to take part against their conscience, and a law which permits assistance can protect them as carefully as it protects patients. The fear that such permission will be abused deserves strict rules rather than a blank refusal that punishes the people whose need is real. A system able to prolong life has an obligation to consider what it is prolonging.",
+      "claim": "Because pain relief fails in a minority of dying patients, the patient and family should hold the decision about when the struggle ends."
+    },
+    {
+      "id": "93d701a3-2019-04-19T12:45:03Z-00018-000",
+      "sha256": "931843a710da21362f150ed03a8899bda437170498113c87a7bceb4d5ebda5f2",
+      "verdict": "write",
+      "topic_ko": "수형자 대상 비동의 의학실험은 허용될 수 있는가",
+      "passage": "Proposals to test drugs on prisoners who have been sentenced to death return whenever medical research runs short of volunteers, and they always rest on the same calculation. The argument holds that a life already forfeited might as well produce a benefit for the public, and that the numbers therefore favour the experiment. What the calculation leaves out is consent, which is not a formality attached to research but the rule that separates a patient from an object of study. A prisoner cannot give it freely, because every answer has been offered to the authority that controls his food, his visits and possibly the date of his death. History records what follows when that rule has been suspended for a group judged unworthy of it, and the list of victims has never stopped at the first group. Protecting the consent of the least popular people in a society is how the protection is kept real for everyone else. Research that can proceed only by setting consent aside has already failed the test which matters most.",
+      "claim": "Research that can proceed only by setting consent aside has already failed the test that matters most."
+    },
+    {
+      "id": "93d9c5c7-2019-04-18T12:00:34Z-00000-000",
+      "sha256": "ab51436909d4fbe8329d9bbf20e2938a788d78f3f958ebdb0c5a28c59527ad0d",
+      "verdict": "write",
+      "topic_ko": "자율주행차가 생명의 가치를 점수로 매겨도 되는가",
+      "passage": "Some engineers propose that a self-driving car facing an unavoidable crash should choose its victim by comparing the value of the lives in front of it. Any such comparison requires a score for each person, and a score requires somebody to decide which facts about a human being count and how much. Age, health, occupation and record would all be candidates, and every choice among them would bury a judgement about whose life matters inside a piece of code that nobody outside the company reads. Scores of that kind would also invite abuse, since whoever controls the numbers controls who is sacrificed, and a low rating could be arranged. The honest alternative is a simple public rule, such as braking hard and holding the lane, applied to everyone without regard to who is standing there. Such a rule will sometimes produce a worse outcome than a perfect judge would have chosen, and it remains preferable because no perfect judge exists. Machines should be forbidden to rank human lives, not because ranking is difficult, but because the task was never theirs.",
+      "claim": "Self-driving cars should follow a simple public crash rule rather than rank the lives in front of them."
+    },
+    {
+      "id": "95f9633a-2019-04-18T19:37:10Z-00004-000",
+      "sha256": "edde80ea0ca15d0248269860c5be49e434d0bbd793892ad15e7725488cc06b77",
+      "verdict": "skip",
+      "skip_reason": "토론 플랫폼의 판정 규칙 자체를 다루어 지문으로 자족할 수 없다.",
+      "topic_ko": "토론 사이트 승패 규칙"
+    },
+    {
+      "id": "961aef53-2019-04-18T18:42:29Z-00001-000",
+      "sha256": "8fba291e1d81de47e1b351625c57c8ef3ac62b58382a52a00599ba2bb1aa3e02",
+      "verdict": "write",
+      "topic_ko": "인터넷만으로 깊은 지식에 이를 수 있는가",
+      "passage": "Information copied off a screen within seconds tends to leave the mind just as quickly, while material worked through in a book is held far longer. The difference lies in effort rather than in the paper, because following an argument across chapters forces a reader to hold earlier points in mind and to connect them. Searching online rewards the opposite habit, as the answer arrives already separated from the reasoning that produced it and can be copied without being understood. None of this makes the network an enemy of learning, since it reaches sources no library could hold and updates them daily. The mistake is to let speed replace depth, and a student who never reads anything long will collect facts without ever building a structure to keep them in. Serious study asks for both tools, with the screen used for range and the book used for patience. A habit of reading at length is what turns gathered information into knowledge that remains.",
+      "claim": "Serious study needs both the network and long reading, because information collected quickly is not yet knowledge."
+    },
+    {
+      "id": "9679ee11-2019-04-15T20:22:22Z-00016-000",
+      "sha256": "1bcb2247fe8f8135b59d6efe3db2939cd57ed0d6dd73c5df623087b496829e8b",
+      "verdict": "write",
+      "topic_ko": "오염 총량 제한이 탄소세보다 나은 이유",
+      "passage": "A tax on pollution and a limit on total pollution both aim to make dirty production expensive, but they place the cost in different hands. A tax is easy to see and therefore easy to blame, and firms have every reason to raise their prices and point at the government when customers complain. Energy and food are goods that families cannot simply stop buying, so a charge passed along in this way lands hardest on the households with the least room to adjust. A fixed limit on the gases released, with permits that companies buy and sell among themselves, keeps the pressure where the decisions are actually made. Firms hold the power to change equipment, fuel and process, while a customer can only pay the bill or go cold. There is a further advantage in certainty, since a limit fixes the quantity of pollution while a tax merely guesses at the price which would reduce it. Policy should aim at the parties who can change the outcome rather than at the ones who are easiest to charge.",
+      "claim": "A tradable limit on pollution is preferable to a pollution tax because it keeps the cost with the firms that can actually change the outcome."
+    },
+    {
+      "id": "9691a118-2019-04-18T13:10:26Z-00002-000",
+      "sha256": "96190a922454a223773b6f8d9e62e64a2120239ab7371430b1f7c26477085200",
+      "verdict": "write",
+      "topic_ko": "병역 등록 명부는 모두를 포함하거나 폐지되어야 한다",
+      "passage": "A national register of young adults exists for one purpose, which is to supply names quickly if a country ever has to call citizens into military service. Defenders of the present arrangement insist that registering and being called are separate matters, and in a narrow sense they are right. The separation does not survive the obvious question, because a list that would never be used for a call would have no reason to exist at all. Once that has been admitted, a register including only half of the young population becomes hard to justify in any country whose armed forces are already open to all of its citizens. Either the duty belongs to every adult of that age, or the whole exercise has become a ritual which should be retired and replaced with honest recruitment. Keeping it in its present form asks one group to accept an obligation that another group has been excused from without explanation. Consistency is the least that a law about shared duty owes to the people it binds.",
+      "claim": "A registration list for military service should either cover every young adult or be abolished, because half a list cannot be justified."
+    },
+    {
+      "id": "96da146c-2019-04-18T16:38:14Z-00001-000",
+      "sha256": "753335552c5b113cf7738797af6fdf1fd8e15589e4bd8c6cfd0229bf73f3cd1c",
+      "verdict": "write",
+      "topic_ko": "속도와 개별 지도라는 온라인 학교의 강점",
+      "passage": "Critics of online schooling picture a student cramming a week of lessons into a single afternoon and learning almost nothing from the rush. The picture describes a possibility rather than the design, because the same flexibility lets a quick student move ahead and a slower one spend three days on a difficult chapter. Fixed classroom hours force the opposite compromise, since one pace has to be chosen for thirty children whose speeds are not the same. Saved time also has ordinary uses, such as a family journey or a medical appointment, which a rigid timetable turns into lost lessons. Individual attention is the second advantage, as a teacher working with one student can find the exact point where an explanation failed. Quality naturally depends on choosing a school whose courses have been properly approved, and a careless choice will produce a poor result in any system. Judged on what it actually offers, learning at home suits many students better than a classroom built for an average child.",
+      "claim": "Learning at home suits many students better than a classroom, because it matches pace and attention to the individual learner."
+    },
+    {
+      "id": "972995-2019-04-18T17:50:55Z-00000-000",
+      "sha256": "cc078428838e5e17a75c4099853c5ec3a4b9da8ea832e78b7b3f50261663ff6f",
+      "verdict": "write",
+      "topic_ko": "아무것도 확실히 알 수 없다는 주장의 자기모순",
+      "passage": "The claim that nothing can ever be known with complete certainty sounds modest, and it collapses as soon as it has been turned upon itself. If the statement is completely certain, then at least one thing has been known with complete certainty, and the statement has destroyed itself in the act of being stated. If it falls short of complete certainty, then some possibility remains that a person somewhere could know something for sure, which is exactly what the statement denies. Either branch leaves the speaker worse off, and no careful wording moves the argument onto safer ground. A more modest version survives the test by dropping the word nothing and speaking of most claims instead. That version keeps the useful warning about human error without pretending to an authority which it has just declared impossible. Sweeping doubt has to leave itself outside the sweep, and once it does so it is no longer sweeping.",
+      "claim": "The claim that nothing can be known with complete certainty defeats itself and must be narrowed to survive."
+    },
+    {
+      "id": "974cbf4f-2019-04-18T18:06:44Z-00001-000",
+      "sha256": "b0f79cb76b8d5f258ac9e55099720dcf16a404a0731c8bc4cc4deb6deb09c172",
+      "verdict": "write",
+      "topic_ko": "고래와 돌고래에게만 법적 권리를 주는 것이 옳은가",
+      "passage": "Campaigns to grant legal rights to whales and dolphins rest on the intelligence and the social life of those animals, which are genuinely remarkable. The trouble begins with the principle, because intelligence and social life are matters of degree and are shared, in smaller measure, by elephants, crows and pigs. A law which protects two families of sea animals while leaving similar creatures unprotected therefore states a rule that it does not follow. Such a rule invites endless argument about which species should be added next, and the line will be redrawn wherever public affection happens to fall rather than where the evidence points. Stronger protection against cruelty, capture and noise can be given to these animals under laws that already exist, without inventing a category nobody can defend. Rights language also brings duties that have not been thought through, since a right held by a whale must be claimed by somebody against somebody else. Better treatment is the goal worth pursuing, and it does not require a new legal status to reach it.",
+      "claim": "Whales and dolphins deserve stronger protection under existing law rather than a special legal status that the stated principle cannot support."
+    },
+    {
+      "id": "9b47c7ab-2019-04-18T13:35:31Z-00002-000",
+      "sha256": "edc6f1b8cee28fda418216c8d61de5f8d7932328c2e76206d773ec2b70272a81",
+      "verdict": "write",
+      "topic_ko": "부유한 집 자녀는 게으른가",
+      "passage": "Children raised in wealthy homes are often accused of laziness, as though an inheritance quietly removes the desire to work. The accusation fails a simple test, because idleness appears at every income level and takes whatever support happens to be available. A young person living on family money and a young person living on public payments have made the same choice, and only the source of the money differs. If the habit were produced by comfort, it would be rare among people who have none, and it plainly is not. Wealth does change what laziness looks like, since a rich household can absorb an idle adult for years without any public notice. That is an argument about who pays rather than about who is lazy, and the two questions have been confused for a long time. Character is not handed out according to a bank balance, and the lazy rich were most likely going to be lazy anywhere.",
+      "claim": "Idleness is not produced by wealth, since it appears at every income level and merely draws on whatever support is available."
+    },
+    {
+      "id": "9b4816b5-2019-04-18T16:04:48Z-00002-000",
+      "sha256": "24c3d751f841e0496fecc219bba4621b09e0bee2a62f29af26b22b2233343bdb",
+      "verdict": "skip",
+      "skip_reason": "특정 집단을 향한 차별적 단정과 근거 없는 출산율 주장이라 교재 지문으로 부적합하다.",
+      "topic_ko": "동성 결혼 반대 주장"
+    },
+    {
+      "id": "9b73c5e1-2019-04-18T11:45:21Z-00001-000",
+      "sha256": "d495040fd06cbc05ff13e240b1828a168879b8c971ae40d6a22e3da55c3a27b0",
+      "verdict": "write",
+      "topic_ko": "교복은 빈부 차이를 교실에서 지운다",
+      "passage": "Schools that serve families of very different incomes face a problem on the days when pupils choose their own clothes. Expensive brands and worn second-hand coats appear side by side in the same classroom, and children read that difference instantly and comment on it without mercy. Teachers report that attendance drops on such days, which is a measurable sign that some pupils would rather miss lessons than be seen. A uniform removes the display at its source, and it does so every morning without requiring a single child to be brave. Programs against bullying are worth running, yet they work slowly and depend on a teacher noticing what has usually been said out of hearing. Uniforms cost money too, which is a real objection and an argument for school funds rather than against the policy itself. A rule that lets every pupil enter the building looking like everyone else buys a kind of equality no lesson can deliver.",
+      "claim": "School uniforms are justified because they remove a daily display of family income that anti-bullying programs cannot reach."
+    },
+    {
+      "id": "9beb42aa-2019-04-18T19:46:35Z-00003-000",
+      "sha256": "303f8d2ced9226b615c245aed477ba0884b1a731a3f99c60f7cfddc4371c766d",
+      "verdict": "write",
+      "topic_ko": "초등 과정의 미술·음악은 왜 지켜야 하는가",
+      "passage": "Art and music are the first subjects cut when a school budget shrinks, on the assumption that they matter less than reading and mathematics. Young children are the very learners for whom those subjects do the most, since skills of the hand and the ear are absorbed far more easily before the teenage years. A pupil who has drawn and played an instrument from the age of seven arrives at later competition with years of practice that cannot be gained quickly afterwards. Studies of school programs have also linked regular music practice with gains in attention and memory, which then show up in subjects nobody would think to cut. There is an economic answer to the economic objection as well. Design, film, games and music employ large numbers of adults whose training started in a school room. Removing these classes does not save the cost, since it moves the cost to a later stage where it is paid in talent that was never developed.",
+      "claim": "Art and music classes should be protected in primary school, because the skills they build are hardest to acquire later and feed real careers."
+    },
+    {
+      "id": "9beef021-2019-04-18T12:49:22Z-00002-000",
+      "sha256": "02980e4165d8f938a8f59552e2f2ddff93baa3495de022837fba5e2aef9da960",
+      "verdict": "write",
+      "topic_ko": "국가의 실수와 사형 — 치료가 필요한 사람들",
+      "passage": "Every argument for executing criminals assumes a court which knows exactly what it is doing, and courts are run by tired people working with incomplete evidence. Errors in ordinary cases are corrected later, sometimes after many years, and the possibility of correction is the quiet foundation of the whole system. An execution removes that foundation, and a state which has admitted mistakes in every other part of its work claims perfection in the one place where perfection would be needed. Prison already achieves the practical goal, since a person held for life cannot repeat the crime and has been punished severely by any honest measure. Many of the people who reach such a sentence have been seriously ill for years, and treatment inside a secure hospital answers the danger more completely than a death does. None of this excuses what was done or asks the family of a victim to forgive it. It asks the state to meet a standard higher than the one it condemns, and killing a prisoner has never met that standard.",
+      "claim": "A state that admits error everywhere else cannot claim the perfection that an execution would require."
+    },
+    {
+      "id": "9c26bc68-2019-04-18T16:13:50Z-00003-000",
+      "sha256": "cc79a3382ff81bbcdd9e14a5a186b3b1ad032eb743c65cb2707977ca360ca840",
+      "verdict": "write",
+      "topic_ko": "자료와 도구의 측면에서 본 온라인 학습",
+      "passage": "Doubts about learning online usually start with the reliability of what a student finds there, and the doubt is fair when a single unchecked page has been treated as a source. The answer is the size of the library rather than a retreat from it, because a claim can be compared against dozens of other sources within minutes. A printed textbook allows no such comparison, since it presents one account, printed years earlier, and a reader has no easy way to test it. Equipment favours the same side, as a laptop weighs less than a stack of books and holds material no school bag could carry. Work saved in a file also survives the journey home, while a sheet of paper handed out in class is lost by somebody before the week ends. Time is the last advantage, because lessons that arrive without a bus ride give back an hour which most students spend on sleep they badly need. Traditional classrooms retain real strengths, and yet on tools, sources and time the comparison has clearly shifted.",
+      "claim": "On sources, equipment and time, online learning now compares favourably with the traditional classroom."
+    },
+    {
+      "id": "9e06bf1e-2019-04-18T20:01:22Z-00003-000",
+      "sha256": "157e14837a74c92c6a5d740d9bed50d2bf49380a12e4fce4a136a6907272f286",
+      "verdict": "skip",
+      "skip_reason": "특정 웹사이트의 카테고리 개편 요청이라 일반 독자에게 자족하지 않는다.",
+      "topic_ko": "토론 사이트 게시판 개편 요청"
+    },
+    {
+      "id": "9e81cfe-2019-04-15T20:24:17Z-00021-000",
+      "sha256": "05db94142a9a4b58314917ceab37ea236520c1e08d74a0585bf298f9b72b8ae6",
+      "verdict": "write",
+      "topic_ko": "국가 채무를 갚을 의무는 왜 유지되어야 하는가",
+      "passage": "A loan is a promise, and the promise is what makes lending possible at all, since money has been handed over today in the expectation of return tomorrow. Private borrowers secure that promise with property, and a household which stops paying eventually loses the house it pledged. Governments borrow on a similar basis, offering the assets of the state and, behind them, the ability to raise money from taxpayers for as long as the country exists. Forgiveness of such debts is therefore not a gift from nobody, because it is a transfer of loss to the savers, pension funds and foreign lenders who supplied the money. A government that escapes its obligations also discovers that the next loan costs far more, since lenders price the risk they have just been shown. Hardship can justify delaying a payment or lowering its rate, and those tools keep the promise alive while making it bearable. Cancelling a debt outright breaks the promise every future borrower will need.",
+      "claim": "Government debts should be rescheduled rather than cancelled, because cancellation moves the loss onto lenders and raises the cost of every future loan."
+    }
+  ]
+}

@@ -1,0 +1,1882 @@
+[
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "4f1c295a-646e-48e7-98c2-7b35f7e29838",
+    "revision": "2026-09-25T07:13:32.787905+00:00",
+    "body_sha256": "9fb58ece9990fd45eebe4bc4a0735d799303c266337f298e5f5b0a0967fb18c5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "카자흐스탄 노동법 개정이 겉치레에 그치고 노조 등록 요건·점검표 38항·파업 요건 2/3가 노동자 보호를 막는다는 논지를 노조 지도자·변호사 증언으로 뒷받침해 고3·성인 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This article was written by Almas",
+          "note": "'The Entrepreneurial Code requires businesses' 인용 단락은 짧고 자족적이라 내용일치 문항에 알맞다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.256Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/04/courts-and-unions-fail-to-protect-workers-in-kazakhstan/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "55bf7405-ff48-4985-b0bc-816e903bf648",
+    "revision": "2026-09-25T07:11:02.548063+00:00",
+    "body_sha256": "b5f58eeb77af17683300a2cc49a22a23905da208fe50d4a7e00135abc9f935c6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "2024 7월 봉기가 정부는 바꿨지만 제도 개혁은 더디다는 논지를 낙관도 조사 71%→42%와 폐지된 칙령 수치로 대비해 '정부 교체≠민주주의'를 세워 고2·고3 요지·빈칸·제목 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "title",
+            "summary",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On August 5, 2024, thousands of",
+          "note": "'A protest can topple a government quickly' 단락은 수능형 빈칸 단락으로 그대로 쓸 만했다; 벵골어 원문 인용은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.257Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/24/bangladesh-protests-can-change-governments-but-can-they-strengthen-democracy/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.325
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "57dba5fe-2457-4dbe-98df-dbc0760b2189",
+    "revision": "2026-09-25T07:13:18.084117+00:00",
+    "body_sha256": "c619073baf933756f5c6dfa8769713c0835f8e86c2fe9084558295929c01c83e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "우크라이나 로마인의 참전과 차별, 영토 없이 문화로 이어지는 타타르인의 정체성을 나란히 놓아 '고향은 지도 위 선이 아니다'는 논지를 세워 고2·고3 요지·대조 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "An image from a documentary about",
+          "note": "'This dispersion has shaped how many Tatars understand belonging' 단락은 떼어도 서는 요지 단락이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.257Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/07/what-does-home-mean-for-people-with-no-single-territory-connecting-them/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.294
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "5d438ebd-fa2e-4687-be74-5426e37ab708",
+    "revision": "2026-09-25T07:11:21.42153+00:00",
+    "body_sha256": "bf27397e54b2de37223c078c9629eb721f9bdac7196df9cd547e08415b394e5c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "art",
+        "why": "2022 침공 뒤 러시아 거리 예술이 직접 저항→은유→망명·국가 주문 벽화로 갈라진 변화를 시간순으로 짚어 고3·성인 순서·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Editor’s note: This article is based",
+          "note": "'A post shared by' 인스타그램 임베드 줄과 욕설 인용은 걷어내야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.258Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/17/street-art-in-russia-is-dead-and-the-country-is-full-of-monumental-war-art/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "666215fa-3aaa-4f13-a26b-806ae7ff3f2d",
+    "revision": "2026-09-25T07:13:05.79843+00:00",
+    "body_sha256": "ef0a31321d644c286d6a9f9796f9b6d14b09bce2699de861100d01cd73a59917",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "memoir",
+        "why": "탈레반 치하에서 세제·플라스틱 사업을 연 아프간 여성이 감시·체포를 겪은 1인칭 회고로 여성 권리 박탈의 실상과 절망의 심경이 드러나 고1~고3 심경·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "mood",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This article was written by Arezo",
+          "note": "'In 2023, I started my business' 이후 단락이 사건 흐름이라 심경 문항에 알맞다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.258Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/12/what-it-is-like-to-run-a-business-as-a-woman-in-taliban-controlled-afghanistan/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.434
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "686c2d98-32d9-4ed2-baea-8816584b9010",
+    "revision": "2026-09-25T07:12:22.755245+00:00",
+    "body_sha256": "a20001f911eedc707eb330c09a1e71c16a7b3b6b488cecf3a002b4cc4391c590",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "신장 면화품질 조례의 추적 바코드가 2018 토지 '삼권분치'·팡후이쥐 공작대와 맞물려 위구르 농민의 땅과 노동을 통제한다는 논증을 관영 문서로 뒷받침해 고3·성인 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "summary",
+            "main_point",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A new regulation took effect in",
+          "note": "'China’s new barcode and traceability system should not be confused with accountability' 단락이 요지이고 빈칸 문항으로 바로 뒤집힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.258Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/28/chinas-new-cotton-law-deepens-control-over-uyghur-farmers-land-and-labor/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.29
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "68d6ffde-291f-4be7-806d-7b4f1c158f34",
+    "revision": "2026-09-25T07:12:31.498238+00:00",
+    "body_sha256": "ed0e519681391f29d9f92d6774090b61bda8790b4d1b6ca58fbadca03d3089e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "미얀마 상류 광산의 비소·중금속이 콕강을 오염시키자 태국 원주민 공동체가 평화 행진으로 국경을 넘는 협력과 책임을 요구하는 흐름이 서서 고2·고3 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Communities demand action as Kok River",
+          "note": "'Because these rivers cross national boundaries' 단락은 떼어도 인과가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.258Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/24/poisoned-waters-indigenous-communities-fight-to-protect-thailands-kok-river/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.272
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "6b1b8ca9-d05b-43fe-90d5-6adf5020e800",
+    "revision": "2026-09-25T07:12:47.072804+00:00",
+    "body_sha256": "d4b4cc3e5a4f73924ec931a785c4a3be7acc124478f7ae21037a5cb9bdcb21e9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "essay",
+        "why": "편집자가 무국적의 다양한 원인(편견·국가 해체·관료제·권위주의)을 정리하며 시민권을 당연하게 여기지 말자고 주장하는 에세이로 고2·고3 요지·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A group of people holding their",
+          "note": "마지막 단락 'Citizenship isn’t automatic' 이 요지라 빈칸·주장 문항이 쉽다; 링크 소개 문장은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.258Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/19/the-invisible-crisis-that-strips-people-of-citizenship/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.438
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "703962f0-6683-4f42-b1da-fd01fdba96a1",
+    "revision": "2026-09-25T07:13:43.429118+00:00",
+    "body_sha256": "8ce2e51ecd2f0420bdb2e817d927a6caf06df01c96b797997598b5ce9c6c14e5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "독일·파나마·미얀마의 국적 박탈 역사에서 니카라과가 반대자를 '조국 배신자'로 무국적화하는 현재까지를 이어 시민권이 억압 도구가 된다는 논지를 세워 고3·성인 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Feature image created by Global Voices",
+          "note": "patria/apátrida 어휘 대비 단락은 어휘 문항 재료로 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.259Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/07/30/weaponizing-citizenship-silencing-dissent-in-nicaragua/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "70825b61-e120-429a-a8a7-a22e7671166d",
+    "revision": "2026-09-25T07:12:12.87121+00:00",
+    "body_sha256": "4699804449065ca3f531b1f9a6e9423304f7e1c829f3a6f83ba1ca8c2508b40b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "memoir",
+        "why": "홍수 다음 날 현장에 간 사진기자가 시신과 유족 앞에서 카메라를 들지 못한 심경을 적은 일기로 심경이 선명하나 시신 묘사가 구체적이라 고3·성인 칸으로만 보관한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This story, written by photojournalist Suman",
+          "note": "'I sat looking at these scenes' 단락이 심경 문항 재료이고 시신 묘사 단락은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.259Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/31/nepal-floods-reporters-diary-august-27-2026/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.436
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "70efe2ab-469e-47bd-aed4-ba0532e8969f",
+    "revision": "2026-09-25T07:12:00.968707+00:00",
+    "body_sha256": "7c1bb79d8640a0552e09986f42328ad5679835376cdcac13083cc211b2774daf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "방글라데시 출산휴가가 120일로 늘었지만 교대 10~14시간의 봉제 노동자에게 보육은 여전히 막혀 있다는 논지를 두 노동자 증언과 ILO 수치·베트남·캄보디아 비교로 세워 고2·고3 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In April 2026, Bangladesh’s Parliament amended",
+          "note": "'The breastfeeding room was always there' 인용이 요지를 한 문장으로 보여 빈칸 문항이 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.259Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/04/maternity-leave-is-expanding-in-bangladesh-but-garment-workers-still-struggle-for-childcare/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.327
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "748c9761-05f1-42c7-90f3-fd4c496a84f3",
+    "revision": "2026-09-25T07:11:43.733715+00:00",
+    "body_sha256": "bcdf659a42d29ce3635074d39e352e8304b718ad25de276ebe401cc4a2cfada2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "콜롬비아 페레이라 지진으로 일세 하숙집에 살던 사람들이 공원에 내몰리고 행정에서 보이지 않는 과정을 세 인물의 이야기로 따라가 고1~고3 심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "mood",
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Without an official figure, volunteers estimate",
+          "note": "펠릭스 단락('People came here giving away tents')이 심경 문항에 알맞다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.259Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/11/pay-by-the-day-living-in-pereira-the-forgotten-survivors-of-colombias-earthquake/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.376
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "756bca82-678c-449f-b0dd-6c46157de1f8",
+    "revision": "2026-09-25T07:11:29.486967+00:00",
+    "body_sha256": "f707789df68f6ac1dae7ff304c92ef298b49e0ca20703b3be2ffad0ae533e661",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "멜버른 367 콜린스가 옥상에 30년 넘게 둥지를 트는 매 부부를 웹캠으로 지켜보는 온라인 공동체의 반응을 전해 중등~고1 내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A female peregrine at takeoff. Image",
+          "note": "임베드 게시물이 빠진 소개 문장('was thrilled on Mastodon')은 걷어내야 하고 '본능' 댓글 단락이 쓸 만하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.259Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/14/nest-flix-peregrine-falcons-become-streaming-stars-of-the-34th-floor-in-australia/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "75e1339e-5dc6-408f-bd41-d507438c5840",
+    "revision": "2026-09-25T07:11:58.107817+00:00",
+    "body_sha256": "fa8b2eebded1d43a695a0a13ea0e5400a10c7788494ef2230b619683bcc63855",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "주거권 회의에 참석한 나이지리아 인권 언론인이 강제 퇴거를 인권 문제로 보고 공동체가 스스로 기록하는 '반(反)지식'이 필요하다고 말하는 인터뷰로 고2·고3 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Kehinde Adegboyega, co-founder and executive director",
+          "note": "'housing is not simply about having a physical structure' 답변 단락은 떼어도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/05/the-people-who-live-in-cities-must-have-a-say-in-how-they-are-shaped-notes-from-the-common-city-conference/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.319
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "775e8dbd-eaa3-4282-9726-bbd49ec49a13",
+    "revision": "2026-09-25T07:12:28.852666+00:00",
+    "body_sha256": "9106f311f9b2afb93f1c94cd760801aca04cd192c77465094c010db34fc430df",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "약속한 카풀라나를 주지 않은 영부인에 대한 여성 시위에서 전통 옷감이 최루가스 방패이자 저항의 상징이 된 과정을 짚어 고3·성인 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A stack of capulanas. Photo taken",
+          "note": "'The capulana is central to Mozambiquan cultural identity' 단락이 요지 단락이고 끝의 질문 나열은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/25/mozambique-women-capulana-dresses-and-police-violence-stand-out-at-nampula-protests/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.317
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "81dad22d-7e58-447d-9234-413e03802ac9",
+    "revision": "2026-09-25T07:12:26.664052+00:00",
+    "body_sha256": "2c88efa60f709815d0e16ee8d6cd83a028fcf3d16d3e8e8b60e736fea8ce022e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "호주에 H5N1이 들어오자 쇠푸른펭귄 백신 접종이 시작되고 SNS의 반백신 '쿠커' 반응과 그 낱말의 유래가 이어져 고1~고3 내용일치·어휘 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "vocab_choice",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The arrival of H5N1 bird flu",
+          "note": "'little penguins are flightless, live in colonies' 인용 단락은 이유 설명이 분명해 떼어 쓰기 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/26/thousands-of-little-penguins-will-be-vaccinated-against-bird-flu-down-under/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.338
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "842d7c7a-8fc0-4eb0-bd87-6083ef02ee76",
+    "revision": "2026-09-25T07:12:04.67708+00:00",
+    "body_sha256": "5709e3ecc0afca0993b360f3949047e31c058f705e623e375b0a820e2e036fa3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "health",
+        "why": "가나 전통 약초 시장과 식물의약연구센터를 소개하며 약초가 '강력한 치료제'라는 서술과 '문가에 두면 나쁜 사람을 막는다'는 영적 주장까지 검증 없이 실어 의사과학 차단과 보관 사이에서 갈린다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The traditional medicine market in Ghana,",
+          "note": "연구자의 '전통 지식을 과학으로 검증한다' 단락만 떼면 서지만 전체 논조가 치료 효능을 단정한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/03/indigenous-plants-offer-ghanaians-an-alternative-to-costly-western-medicine/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.411
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "8c141860-4271-4f4d-8187-4cbf168267b8",
+    "revision": "2026-09-25T07:13:41.192381+00:00",
+    "body_sha256": "286215598f69439ade40490a1292b5772e03ce6fdd533e549e53355ed05a61d5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "어려서 서류 없이 브라질로 온 마리아가 40년 만에 법원 판결로 체류와 무국적 인정을 받은 사례에서 무국적의 원인·규모·국제 대응으로 넓혀 고2·고3 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Digital illustration created on Canva Pro",
+          "note": "'Statelessness is considered one of the most severe forms' 단락은 떼어도 서는 정의 단락이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/07/31/in-brazil-court-ruling-sheds-light-on-the-story-of-an-undocumented-and-stateless-woman/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.384
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "8f8bc6a0-08a6-42cd-820f-8f00d38aa542",
+    "revision": "2026-09-25T07:11:33.394688+00:00",
+    "body_sha256": "afb9a16cf4e441010714488b0283a0e76f7ee9af41ff773510b63c5e27c48541",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "1791 부아카이망 의식에서 시작된 아이티 노예 해방 투쟁과 235주년 기념 행사의 '제2의 부아카이망' 호소를 잇는 글로 역사 흐름이 서지만 고문 묘사가 구체적이라 고3·성인 칸으로 보관한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The night of August 14, 1791,",
+          "note": "낙인·절단 형벌 단락과 반기독교 구호는 가공 때 걷어내고 봉기 경과 단락을 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/13/what-the-commemoration-of-the-235th-anniversary-of-bois-caiman-means-for-haitis-memory-and-future/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "96f034ee-20be-4f98-83d9-e5ef6e7514e0",
+    "revision": "2026-09-25T07:12:55.68807+00:00",
+    "body_sha256": "82446b30807352a484511e7183fad84f570cf139720b16358f7039adb8b1116d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "콩고 동부 우비라에서 석 달 새 성폭력 1,100건이 기록된 위기에 시민사회·법 개정·심리 지원이 어떻게 대응하는지를 전해 성인 칸으로만 보관한다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Icicongo originally published this article by",
+          "note": "성폭력이 주제의 중심이라 성인 칸으로 제한했고 프랑스어 원문 인용은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.260Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/16/escalation-of-sexual-violence-raises-alarm-in-the-democratic-republic-of-the-congo/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.227
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "9bd81333-21e8-46a2-a073-c3dd7463f957",
+    "revision": "2026-09-25T07:13:31.027234+00:00",
+    "body_sha256": "902cbaafd149d163ad120a8f5c4c44d7b8934f03931233c5460745d7d542295a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "memoir",
+        "why": "아시리아인 필자가 시멜레 학살·사이포 제노사이드에서 여성들의 피해가 기록에서 지워진 '삼중의 침묵'을 가족사와 함께 논증하는 에세이로 성인 요지·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "mood"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "I was 11 years old the",
+          "note": "성폭력·학살 서술이 구체적이라 성인 칸만 달았고 렘킨 인용 단락은 떼어도 서는 논증이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.261Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/05/the-anatomy-of-erasure-indigenous-assyrian-women-and-forgotten-genocide/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "9d63ea41-1585-47d0-9b50-181c7237d07c",
+    "revision": "2026-09-25T07:11:30.99923+00:00",
+    "body_sha256": "2258e00a3197dcb67c532198a8dc0a3906caeccf51b2d849747d840696fc9839",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "essay",
+        "why": "8월 원주민 특집 글들을 엮어 '누가 결정하는가'라는 물음 하나로 인정·토지·언어·지식 문제를 정리하는 종합 에세이로 고2·고3 요지·주장·제목 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "title",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are 476 million Indigenous people",
+          "note": "'All of these stories raise the original question' 단락이 요지이고 사례 나열은 요약 문항 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.261Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/14/who-is-responsible-for-protecting-and-preserving-indigenous-cultures/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "a0c1b0de-164e-4445-88f2-9765e592dc66",
+    "revision": "2026-09-25T07:11:09.242623+00:00",
+    "body_sha256": "27d3da73855d29ed7409e4dd61ece29ac503b9e89d32850e1275830f55dac2ab",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "러시아 총선에서 반전 구호를 건 야블로코당을 청년들이 사과 밈으로 지지했지만 두 주 만에 법원이 후보 자격을 박탈한 과정을 전해 고3·성인 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "From September 18 to 20, 2026,",
+          "note": "틱톡 캡션 나열 단락은 걷어내고 'There was a wave of unofficial support' 단락을 중심으로 뗀다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.261Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/21/russian-tiktokers-wanted-to-vote-for-an-anti-war-agenda-putins-farce-elections-did-not-allow-that/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.433
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "a308489f-754c-4dc8-810d-bd7493dbf6c2",
+    "revision": "2026-09-25T07:13:02.744306+00:00",
+    "body_sha256": "22638257c8e1dae4fa213bc1d57e44fd19f2be883fc5a1124d12fa937b6e7dc1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "콩고 동부 피란 여성들이 일거리를 찾다 성폭력을 당하는 실태를 피해자 증언·법 조항·자립 지원으로 전하나 피해 진술이 구체적이라 성인 칸으로만 보관한다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This article by Katembo Mbuto Victoire",
+          "note": "샤를린 피해 진술 단락은 걷어내고 자립 지원 단락 위주로 가공해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.261Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/08/13/conflict-displaced-women-facing-growing-risk-of-sexual-violence-in-eastern-drc/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-36-254Z",
+    "id": "aa18d312-39c6-4e65-81dd-b67959829e8a",
+    "revision": "2026-09-25T07:11:08.136737+00:00",
+    "body_sha256": "f90edf80c6db044f9a711ec4cfd2de408f7bd874e353dbd4c10b55acbe4acbe6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "왓츠앱 구인 광고→캄보디아 도착→여권 압수→사기 작업장 매매로 이어지는 '사이버 노예' 수법을 사례와 비용 수치로 설명해 고2·고3 순서·내용일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This report features interviews and infographics",
+          "note": "'The scam is pretty straightforward' 문장이 순서 문항 뼈대가 되고 dalal 같은 현지어만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:36.261Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 3.0",
+        "evidence": "page",
+        "attribution": {
+          "url": "https://globalvoices.org/2026/09/22/technology-facilitated-trafficking-how-bangladeshi-migrants-become-victims-of-recruitment-in-cambodia/",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": false
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.397
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

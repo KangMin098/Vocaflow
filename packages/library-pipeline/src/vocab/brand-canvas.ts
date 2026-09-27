@@ -12,25 +12,31 @@
 // 아트보드에서 계열 다섯의 표지 규격을 그려 확정하고, 그 결과를 이 타입으로 받아 적재한다.
 // 사람이 캔버스에서 값을 바꾸면 다시 내보내 같은 문으로 들어온다.
 //
-// ── 절대 규칙: 색을 값으로 적지 않는다 ──────────────────────────────
+// ── 색: 역할 이름 또는 색 값 ─────────────────────────────────────────
 // 이 저장소는 같은 사고를 두 번 겪었다 — 교재 조판기가 자기 팔레트를 따로 갖고 있어 다섯
 // 항목이 전부 토큰과 어긋났고(`textbook/brand.ts`), 단어장 표지도 듀오톤 색 10개를 손으로
 // 적어 두었다가 그중 둘만 토큰의 사본이었다(`covers/design.ts`).
 //
-// **그래서 캔버스는 hex 를 담을 수 없다.** 담으면 `validateBrandCanvas` 가 거절한다.
-// 담는 것은 **역할 이름**(`ink`·`paper`·`accent`)뿐이고, 실제 색은 `FAMILY_DUOTONE` 과
-// `CATALOG_PALETTE` 가 토큰에서 읽는다. 토큰이 바뀌면 브랜드도 따라 바뀐다.
+// 역할 이름(`ink`·`paper`·`accent`)을 적으면 실제 색은 `FAMILY_DUOTONE` 과 `CATALOG_PALETTE` 가
+// 토큰에서 읽는다(토큰이 바뀌면 따라 바뀐다). **색 값(hex · rgb() · hsl())을 직접 적어도 된다** —
+// 그 자리는 토큰을 따라가지 않고 적은 값 그대로 쓴다(DD-66 으로 색 값 금지 해제).
 
 import { FAMILY_DUOTONE, type CoverFamily } from './brand'
 
 /** 계열 다섯 — `blueprints.ts` 의 `family` 와 같은 눈금이다. */
 export const BRAND_FAMILIES = Object.keys(FAMILY_DUOTONE.light) as CoverFamily[]
 
-/** 표지에서 색이 하는 일. 값이 아니라 **자리 이름**이다. */
+/** 표지에서 색이 하는 일 — 자리 이름. */
 export type PaletteRole = 'ink' | 'paper' | 'accent' | 'spine' | 'plate'
 
-/** 서체도 이름으로만 — 값은 `CATALOG_FONTS` 가 토큰에서 읽는다. */
+/** 캔버스 색 자리에 올 수 있는 것 — 역할 이름, 또는 CSS 색 값 그대로. */
+export type PaletteColor = PaletteRole | (string & {})
+
+/** 서체 역할 — 값은 `CATALOG_FONTS` 가 토큰에서 읽는다. */
 export type FontRole = 'english' | 'body' | 'mono'
+
+/** 서체 자리에 올 수 있는 것 — 역할 이름, 또는 CSS `font-family` 값 그대로(DD-66). */
+export type FontChoice = FontRole | (string & {})
 
 export interface VocabBrandCanvas {
   family: CoverFamily
@@ -67,9 +73,9 @@ export interface VocabBrandCanvas {
     /** 도판 위 글자가 읽히도록 덮는 정도(0~1). */
     scrimStrength: number
   }
-  /** 색 — **역할 이름만.** hex 를 넣으면 검증에서 걸린다. */
-  palette: Record<'ink' | 'paper' | 'accent', PaletteRole>
-  typography: { display: FontRole; body: FontRole; numerals: FontRole }
+  /** 색 — 역할 이름 또는 CSS 색 값(hex · rgb() · hsl()). */
+  palette: Record<'ink' | 'paper' | 'accent', PaletteColor>
+  typography: { display: FontChoice; body: FontChoice; numerals: FontChoice }
   /** Claude Design 캔버스 주소 — 사람이 손으로 다듬는 자리. 없을 수 있다. */
   canvasUrl: string | null
   designedAt: string
@@ -104,8 +110,9 @@ export const BRAND_COVER_GRID = {
   scrimStrength: 0.35,
 } as const satisfies VocabBrandCanvas['coverGrid']
 
-/** hex·rgb·hsl 어느 형태든 **색 값**이면 잡는다. */
-const COLOR_VALUE = /#[0-9a-f]{3,8}\b|\b(rgba?|hsla?)\s*\(/i
+/** 문자열 전체가 CSS 색 값(hex · rgb() · hsl() · hwb() · lab() · lch() · oklab() · oklch() · color())인가. */
+const COLOR_VALUE = /^(#[0-9a-f]{3,8}|(rgba?|hsla?|hwb|lab|lch|oklab|oklch|color)\([^()]*\))$/i
+export const isColorValue = (v: unknown): v is string => typeof v === 'string' && COLOR_VALUE.test(v.trim())
 
 export interface BrandCanvasProblem {
   field: string
@@ -154,36 +161,21 @@ export function validateBrandCanvas(input: unknown): BrandCanvasProblem[] {
     problems.push({ field: 'coverGrid.scrimStrength', message: '0~1 이어야 한다' })
   }
 
-  /*
-    색 값 금지 — 이 검사가 이 파일의 존재 이유다. 캔버스 어디에든 hex/rgb 가 들어오면
-    그 순간 토큰이 정본이 아니게 되고, 토큰을 고쳐도 서가가 따라오지 않는다.
-  */
-  const walk = (v: unknown, path: string): void => {
-    if (typeof v === 'string') {
-      if (COLOR_VALUE.test(v)) {
-        problems.push({ field: path, message: '색 값을 담을 수 없다 — 역할 이름만 (토큰이 정본)' })
-      }
-      return
-    }
-    if (Array.isArray(v)) { v.forEach((x, i) => walk(x, `${path}[${i}]`)); return }
-    if (v && typeof v === 'object') {
-      for (const [k, x] of Object.entries(v)) walk(x, path ? `${path}.${k}` : k)
-    }
-  }
-  walk(c, '')
-
+  // 색 값 금지 검사는 DD-66 으로 삭제했다 — 색 자리는 역할 이름이나 색 값을 받는다.
+  // 빈 값·오타(둘 다 아닌 문자열)는 여전히 막는다: 표지가 색을 잃는다.
   const ROLES: PaletteRole[] = ['ink', 'paper', 'accent', 'spine', 'plate']
   for (const k of ['ink', 'paper', 'accent'] as const) {
-    const role = c.palette?.[k]
-    if (!role || !ROLES.includes(role)) {
-      problems.push({ field: `palette.${k}`, message: `역할 이름이어야 한다 (${ROLES.join('·')})` })
+    const v = c.palette?.[k]
+    if (!v || !(ROLES.includes(v as PaletteRole) || isColorValue(v))) {
+      problems.push({ field: `palette.${k}`, message: `역할 이름(${ROLES.join('·')}) 또는 CSS 색 값(hex · rgb() · hsl() · oklch() 등)이어야 한다` })
     }
   }
+  // 서체는 역할 이름이든 `font-family` 값이든 받는다(DD-66). 빈 값만 막는다.
   const FONTS: FontRole[] = ['english', 'body', 'mono']
   for (const k of ['display', 'body', 'numerals'] as const) {
     const f = c.typography?.[k]
-    if (!f || !FONTS.includes(f)) {
-      problems.push({ field: `typography.${k}`, message: `서체 역할이어야 한다 (${FONTS.join('·')})` })
+    if (typeof f !== 'string' || f.trim() === '') {
+      problems.push({ field: `typography.${k}`, message: `서체 역할(${FONTS.join('·')}) 또는 font-family 값이 비었다` })
     }
   }
   if (c.designedBy !== 'claude-design') {
@@ -213,7 +205,9 @@ export function resolveBrandColors(
     (`CATALOG_PALETTE`)의 자리라 여기서 풀 수 없다. 그래서 그 셋이 오면 자연스러운 짝으로
     떨어뜨린다 — 표지가 사라지는 것보다 낫다.
   */
-  const pick = (role: PaletteRole, fallback: 'ink' | 'paper'): string =>
-    role === 'ink' || role === 'paper' ? duo[role] : duo[fallback]
+  const pick = (v: PaletteColor, fallback: 'ink' | 'paper'): string => {
+    if (isColorValue(v)) return v.trim() // 색 값은 적힌 그대로(DD-66)
+    return v === 'ink' || v === 'paper' ? duo[v] : duo[fallback]
+  }
   return { ink: pick(canvas.palette.ink, 'ink'), paper: pick(canvas.palette.paper, 'paper') }
 }

@@ -1,0 +1,1794 @@
+[
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "027bdde0-247c-4e3e-bf5e-e3cff6dda2f4",
+    "revision": "2026-09-25T07:49:37.598813+00:00",
+    "body_sha256": "00df8d2c392efd7e7b9c4f65e7484f83d804162798cc8219881336c625a87778",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "평판에서 4분 만에 스스로 접혀 걷는 종이접기 로봇의 층 구조·접힘 원리·응용 전망이 설명돼 과학 설명문 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once the battery is attached to",
+          "note": "배터리 연결 뒤 접혀 걸어가는 단락이 자족적이고 linkage·polymer 는 쉬운 말로 바꿀 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.094Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_scientists_create_prototype_of_autonomous_origami-inspired_robot",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.307
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "027d48ef-c9a1-48b0-be09-49100f762b00",
+    "revision": "2026-09-25T08:08:31.667179+00:00",
+    "body_sha256": "0a8691a0fc95d1ddb7e6f57b7e18befef5d3c5a16b0ce24fa1126d3b04866033",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "더블린 도난 버스의 역주행 추격전과 사망 사고·체포가 시간순으로 이어져 사건 서사·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The driver then returned to the",
+          "note": "추격 단락 하나에 사건의 전개가 다 들어 있어 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/1_dead%2C_13_injured_in_Dublin_bus_pursuit",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.414
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "027d9b5e-9af9-4f21-a089-cec38bf34053",
+    "revision": "2026-09-25T07:04:49.047315+00:00",
+    "body_sha256": "5c8c27d8189fdf19d5d945ec181abfefbfd7eeaee9f9b6291ecf7fbf631e57ef",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "산불 진화기가 급수 뒤 나무에 걸려 연료를 버리다 도리어 불을 낸 경위와 인적 과실 결론이 인과로 서서 서사·내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "title"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While hitting the top of the",
+          "note": "아이러니한 인과가 명확하나 마지막 이탈리아 시험 단락은 비문이라 다듬어야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Russian_firefighting_aircraft_starts_fires_in_Portugal",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.386
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "027dfd0d-47bd-4cef-affb-c1f5be3965db",
+    "revision": "2026-09-25T07:51:33.127018+00:00",
+    "body_sha256": "be6acf3dd8f7de31bfd098c7c449a91a2fbf22b3c73e1ead7f4db57017bff2a2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "팔레스타인의 G-77 의장국 선출과 이스라엘 대사의 비판이 맞서 짧은 외교 기사로 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "While speaking to The New York",
+          "note": "G-77 설명 단락이 배경을 자족적으로 준다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Palestine_elected_as_G-77's_presiding_country%2C_ambassador_Riyad_Mansour_confirms",
+          "year": 2018,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.714,
+          "words": 175,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "027ef9df-4b57-4a3b-99de-4d110be252cb",
+    "revision": "2026-09-25T06:47:16.557304+00:00",
+    "body_sha256": "4610919903134522804a610d502e4be4aa1f095eb78af22f91b92da3a3809a3a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "부쿠레슈티-런던 노선 주 3회 증편 요일만 적은 71어 운항 공지라 사건 흐름도 논지도 없어 채울 칸이 없다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Due to greater consumer demand, British",
+          "note": "요일·횟수 나열뿐이라 떼어도 문항 재료가 남지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_Airways_launches_three_new_weekly_flights_from_Bucharest_to_London",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.225,
+          "words": 71,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02801665-8caf-4b36-84ce-0a57b9c164f4",
+    "revision": "2026-09-25T07:58:43.775318+00:00",
+    "body_sha256": "7c7a2c0b91f2a07f576e6c671a82d780e354d85996a04b4567503f7d851062ec",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "광유전학으로 편도체 신경을 자극해 쥐의 사냥 행동을 켠 실험 방법·결과·해석이 이어져 과학 설명문 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The findings inspired comparisons by the",
+          "note": "다른 쥐를 공격하지 않았다는 단락이 ‘분노가 아닌 포식 행동’ 논지를 자족적으로 세운다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Geneticists_produce_laser-activated_killer_mice",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "028385c7-0e6e-404b-8766-61b067413cb4",
+    "revision": "2026-09-25T06:56:21.113113+00:00",
+    "body_sha256": "37360eda0a1a35e3f0aea7e8b870083181acbb3c1549efe04bda14f9ed4243ab",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "오픈소스 게임 웨스노스가 베타를 넘어 1.0에 이른 드문 성취를 개발 과정·공동체 참여로 설명해 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Development of the game began over",
+          "note": "개발 공동체 확장 단락이 인과로 선다; GPL 등 용어는 풀어 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Open_source_game_Wesnoth_reaches_version_1.0",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.313
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "028ec631-4e28-4c5a-896b-29a7f16a8639",
+    "revision": "2026-09-25T08:17:17.192259+00:00",
+    "body_sha256": "12f7cbfbd31af945e3004faf74c2dfe5099229fb23da0fdb1d1aee5627759855",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "O.J. 심슨의 무장 강도 선고와 사과·판사의 반박이 대비돼 법정 서사와 심경·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Judge Jackie Glass, however, described Simpson",
+          "note": "판사 발언 단락이 ‘어리석음 이상’이라는 판단을 근거와 함께 담는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/O._J._Simpson_sentenced_to_15_years_in_prison",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.405
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "0291b1d1-c2df-41e1-a5ec-40be2f5f195d",
+    "revision": "2026-09-25T05:31:34.123731+00:00",
+    "body_sha256": "80153951490fa390b8bcb89bf3487cb2c66f1c1e831a0b6423a7c7893611b662",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "자막 텍스트로 TV 방송을 검색하는 구글 비디오의 작동 방식이 설명돼 중등 이상 내용 일치 칸 하나를 채운다; 채널 목록은 걷는다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Just type in your search term,",
+          "note": "‘Screenshot’ 캡션과 채널 목록을 걷으면 검색 원리 단락이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Google_launches_Video_Search",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "0298f7a7-cd83-4031-bf0f-499029b47384",
+    "revision": "2026-09-25T08:28:38.371322+00:00",
+    "body_sha256": "f47716e4e37a9f092d3653f38d8cadfab51228b69d747a350671f065f7117ab4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "히스로 BA38 불시착을 연료계통 얼음이 떨어져 엔진 출력이 준 탓으로 밝힌 조사 결론과 원리가 이어져 인과 설명·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The engine rollback was caused by",
+          "note": "첫 단락에 편명이 빠진 흔적이 있으나 얼음 형성 인과 단락은 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Final_report_blames_London_passenger_jet_crash_on_ice",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.326
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "029bf51f-d9be-4041-9ee8-d238b7e766da",
+    "revision": "2026-09-25T08:05:18.215973+00:00",
+    "body_sha256": "0118b0ede161c1f8f83c847975be13676a9bbc24108ee0709c1a6d9e09d96001",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "윈도 원격 지원 취약점의 작동 방식·영향 범위·대처가 설명되지만 절차 단계가 섞여 고3·성인 내용 일치 칸만 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "To initialize the remote assistance feature,",
+          "note": "원격 지원 작동 단락은 떼어도 서나 클릭 절차 목록은 걷어야 하고 용어 조정이 어렵다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Remote_Assistance_service_of_Windows_OS_vulnerable_to_attack",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.403
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02a598ad-13c0-427b-affe-8b21dae1572e",
+    "revision": "2026-09-25T07:42:51.93649+00:00",
+    "body_sha256": "43d340c265c8ee2a4ba6344515e4209b6db4854ed783b99ab821f8d2bcdc019d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "뉴욕시가 불법 알몸 수색 집단소송을 3,300만 달러로 합의한 경위와 변호인 주장이 서지만 수색 묘사가 구체적이라 성인 칸만 연다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The plaintiffs included convicts who were",
+          "note": "원고 진술 단락은 걷고 변호인 인용 단락만 쓰면 인권 논지가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_York_City_reaches_%2433_million_strip_search_settlement",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.612,
+          "words": 196,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02b00426-895a-464e-b009-ad55df2234ca",
+    "revision": "2026-09-25T07:03:27.92904+00:00",
+    "body_sha256": "650a70e71dae700f3d2d85397f1f83807ed0687be5a05a1414b347f9fc164ef5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "아틀란티스호가 격납고를 떠나 발사 준비에 들어간 일정과 컬럼비아 사고 뒤의 의미가 짧게 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This will be the third mission",
+          "note": "OPF·VAB 약칭은 풀어야 하지만 일정 흐름은 분명하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Atlantis_departs_hangar_ahead_of_August_28_launch",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.375,
+          "words": 160,
+          "english": 0.433
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02b3f043-9104-4f76-9c64-c2ae88b54cc4",
+    "revision": "2026-09-25T06:58:45.985513+00:00",
+    "body_sha256": "0673343364db3a7d79f5ab48a38350dd51e9fe92c35e812aa56adc47e2db53d2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "콜롬비아 카니발 관람석 붕괴를 정원 초과와 비에 젖은 천막 무게로 설명한 짧은 기사라 원인 파악 내용 일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the police, the stands",
+          "note": "500명 설계에 700명이라는 원인 문장이 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/20_people_injured_after_stand_collapse_in_the_Carnival_of_Blacks_and_Whites_in_Colombia",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 100,
+          "english": 0.406
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02bb2441-6b2b-474f-b1bf-851e43430cf2",
+    "revision": "2026-09-25T06:58:59.477523+00:00",
+    "body_sha256": "9a4c6d7e845acb318b43c917bef0ef2d1137451dc493d8c84d58f9ec43260e63",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "RU486 규제권을 장관에서 기관으로 옮기는 법안의 의회 논쟁과 표결·찬반 논평이 이어져 고3·성인 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Howard's counterpart, the Leader of the",
+          "note": "비즐리 발언 단락이 ‘과학 역량’ 논지를 담지만 표결 수치 단락은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Repeal_of_ministerial_control_of_RU486_bill_passes_Australian_House_of_Representatives",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 1.5,
+          "words": 200,
+          "english": 0.365
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02bd648f-3754-42ed-8980-2403ad09fd75",
+    "revision": "2026-09-25T08:12:10.979655+00:00",
+    "body_sha256": "c1bed3eac751f36f8ee25a0a50616739a0746e8e19b75c8afd5d96cd2019b13d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "앨 고어 아들의 과속 적발과 약물 소지 체포·보석이 순서대로 전해져 고1 이상 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deputy smelled marijuana in his",
+          "note": "약품명 나열은 걷어도 사건이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.095Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Son_of_former_US_VP_Al_Gore_arrested_for_drug_possession",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.154,
+          "words": 130,
+          "english": 0.398
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02c19aaa-438f-40ec-a361-3e45caff5f6b",
+    "revision": "2026-09-25T08:08:46.603898+00:00",
+    "body_sha256": "f7418e720a6aa3817b5deb43ea166b2fec235c8be7b0d868a608b3d493ceba10",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "화학 폭탄 음모 혐의 형제가 혐의를 부인하고 급습·총상 경위가 엇갈리는 보도가 이어져 고1 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mohammed Abdul Kahar, aged 23, and",
+          "note": "총상 경위가 엇갈린다는 단락이 불확실성 표현 학습에 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Suspects_deny_London_bomb_plot%2C_say_lawyers",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02c729b7-9114-4eed-8e40-29162f29d6af",
+    "revision": "2026-09-25T07:00:43.8747+00:00",
+    "body_sha256": "5cf1c9dcf37f2924a3b89c99c752fa9393e06a9e183af3114eefe69c1fdc5ce7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "셰퍼즈부시 수상한 꾸러미가 ‘예술 작품’이었다는 반전으로 끝나는 77어 단신이라 중등 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The area re-opened shortly afterwards, after",
+          "note": "짧지만 폐쇄-확인-자백 순서가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Security_alert_shuts_down_West_London",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.896,
+          "words": 77,
+          "english": 0.321
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02c84c11-ae0b-4675-8891-584f7857d4a5",
+    "revision": "2026-09-25T06:49:17.637849+00:00",
+    "body_sha256": "57b04b345757056c7bedfe2c9859abb27fa64e4b35a141da5ac4f368880af4b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "GTA 숨은 성행위 미니게임을 두고 감시단체 경보·등급기관 조사·제작사 해명이 맞서 성인 대상 주장·내용 일치 칸만 연다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "To unlock the hidden sex mini-game",
+          "note": "‘영상은 여기서’ 외부 링크 문장과 논평조 문장은 걷어야 하며 제작사 해명 단락이 떼기 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Video_game's_secret_sex_scenes_spark_outrage",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02c9fe9d-92a5-47ac-91df-c58df98204be",
+    "revision": "2026-09-25T07:46:27.517022+00:00",
+    "body_sha256": "01b7c9d22acad2d34e50a42bcd9362549245952a145d32424c035f7f5dfd5069",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "브라질이 위성·항공으로 비접촉 부족을 확인한 방법과 접촉 회피 정책·생존 위협이 설명돼 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "FUNAI, a state agency, uses aerial",
+          "note": "접촉 회피 정책 단락이 이유와 함께 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Brazil_spots_unknown_tribe_of_indigenous_people_in_Amazon_jungle",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.333
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02ccdba4-0e7a-4906-b649-eb8876bdfbd9",
+    "revision": "2026-09-25T06:45:58.796526+00:00",
+    "body_sha256": "5212a98dbd7d8a2f2fb071dfc897aa76725266186696d083eb6ab806a76ba48e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "첫 스와힐리어 오피스 번역의 규모·용어집 개발과 확산 전망을 전한 기사·문답으로 언어 주제 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The office suite has four components:",
+          "note": "1만8천 문자열 번역 단락은 선다; 문답 부분은 줄바꿈이 깨져 이어 붙여야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_Swahili_office_suite_released_in_Dar_es_Salaam%2C_Tanzania",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02cd62fc-0e5f-4584-94a9-6243b5623541",
+    "revision": "2026-09-25T07:49:13.788955+00:00",
+    "body_sha256": "42251f945cb5f6bcbc38261dfe9710d7ce74cac6697313ba3004ccaa213f7e4b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "메리 바라가 미국 자동차 업계 첫 여성 CEO가 된 인사와 GM 구제금융·회생 배경이 이어져 인물 기사 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "title"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Barra, 51, will be the first",
+          "note": "첫 여성 CEO 단락이 제목 문항의 중심이 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mary_Barra_appointed_as_General_Motors_chief",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.407
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02d23bff-902b-40a0-ba9a-825fee37df3e",
+    "revision": "2026-09-25T07:50:15.866269+00:00",
+    "body_sha256": "c8281a372624413d183777091e002c01d1d10ece07d2e4779202ae491c9ac7f3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "art",
+        "why": "성기로 초상을 그리는 화가 인터뷰가 표현의 자유·검열 논점을 담지만 성적 묘사와 욕설이 문답 대부분에 깔려 성인 칸으로도 가공 가능성이 갈린다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Pricasso: Sounds a bit formal but",
+          "note": "질레 시장과 웨일스 반응 비교 문답만 떼면 자유-검열 대비가 서지만 성적 전제를 걷으면 맥락이 사라진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_painter_Pricasso_on_his_art_and_freedom_of_expression",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02d42070-e058-45a7-ab0f-3de4d6a293e5",
+    "revision": "2026-09-25T07:01:32.93209+00:00",
+    "body_sha256": "c0819af9d06271757f721145ce0902ecf5dad69c8af859d8362988c51b545190",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이라크 첫 정식 정부의 종파 안배 내각 구성과 공석·퇴장·치안 과제가 이어져 고2 이상 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are mixed feelings about whether",
+          "note": "종파 폭력 전망 단락이 떼어도 서고 장관 이름은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraq_swears_in_first_full-term_government",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.257
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-41-16-092Z",
+    "id": "02d5588b-6b0b-41f7-8a76-cd05bc17b59d",
+    "revision": "2026-09-25T06:48:48.47401+00:00",
+    "body_sha256": "9a35b14522ddac92c43b1d36bbff80dc71a9ad923420b88be50b3bfa87c77b8b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이민 노동자 자녀를 태운 버스와 트럭 충돌 사고의 부상 상황과 경위 추정이 짧게 서서 중등 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"It appears that the bus was",
+          "note": "철자 오류(seriouslly·authories)만 고치면 쉬운 사고 기사로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:41:16.096Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Twenty-five_children_injured_in_bus-truck_collision_in_Florida",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.426,
+          "words": 129,
+          "english": 0.346
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

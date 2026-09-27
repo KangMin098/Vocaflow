@@ -44,12 +44,5 @@ describe('composerSetWhy — 학습자 말로 옮긴 근거', () => {
     expect(composerSetWhy('something-new', 10, {}).length).toBeGreaterThan(0)
   })
 
-  it('어느 문구에도 압박 어휘를 쓰지 않는다 (CLAUDE.md 학습 UX 금지)', () => {
-    const all = ['unlock', 'recycle', 'book-companion', 'chapter-companion', 'x'].map((b) =>
-      composerSetWhy(b, 100, {}),
-    )
-    for (const why of all) {
-      expect(why).not.toMatch(/잠김|불가|금지|차단|실패|부족/)
-    }
-  })
+  // 디자인·UX 금지 검사 1건(압박 어휘 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 })

@@ -830,7 +830,7 @@ function ResultScreen({
   // 격려 메시지 — 공감 피드백
   const encouragement =
     stats.accuracy >= 90
-      ? '훌륭한 흐름이에요. 스크립트을 깊이 이해하셨네요.'
+      ? '훌륭한 흐름이에요. 스크립트를 깊이 이해하셨네요.'
       : stats.accuracy >= 70
         ? '탄탄한 회상이었어요. 오답은 곧 익숙해질 거예요.'
         : '괜찮아요, 인지적 분투는 기억을 단단하게 만들어요.'
@@ -985,7 +985,7 @@ function ResultScreen({
           <div className="mt-8">
             <NextActionCard
               recommendation={recommendation}
-              prelude="이 스크립트을 잘 다뤘어요. 다음으로 어떤 학습을 해볼까요?"
+              prelude="이 스크립트를 잘 다뤘어요. 다음으로 어떤 학습을 해볼까요?"
             />
           </div>
         )}

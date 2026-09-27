@@ -8,7 +8,7 @@ import { composeDissection, recordDecision, type DissectionCatalog, type Dissect
 import { cropOf } from '@/lib/csat/reflow/read-paper'
 import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
 import type { CachedPaper } from '@/lib/csat/reflow/types'
-import { cachedExamIds, loadDissectionRecord, saveDissectionRecord, loadPaper } from '@/lib/csat/session/store'
+import { cachedExamIds, loadSyncedDissectionRecord, saveDissectionRecord, loadPaper } from '@/lib/csat/session/store'
 import { PaperDrop } from './PaperDrop'
 import { ItemScreen } from './ItemScreen'
 import { AnalysisReading } from './AnalysisReading'
@@ -27,16 +27,32 @@ export function SessionRunner({ catalog, initial, formulaTag, explore, resume }:
   const [memoryOnly, setMemoryOnly] = useState(false)
   const startCounts = useRef({ predictions: 0, formulas: 0, families: new Set<string>() })
   const saves = useRef(Promise.resolve())
+  // 이 세트의 세 번째 문항이 **복습**(같은 공식의 다른 문항)인가 — 시작 · 끝을 한 번씩 센다(ia-design §5)
+  const review = useRef<{ started: boolean; done: boolean } | null>(null)
   useEffect(() => {
     let alive = true
-    void Promise.all([loadDissectionRecord(), cachedExamIds(REFLOW_VERSION)]).then(([rec, cached]) => {
+    void Promise.all([loadSyncedDissectionRecord().then(r => r.record), cachedExamIds(REFLOW_VERSION)]).then(([rec, cached]) => {
       if (!alive) return
       recordRef.current = rec; setRecord(rec)
       startCounts.current = { predictions: rec.predictions.length, formulas: rec.formulas.length, families: new Set(rec.predictions.flatMap(p => p.family ? [p.family] : [])) }
       if (explore) { const siblings = catalog.items.filter(i => i.type_id === catalog.items.find(i => i.id === explore)?.type_id); setSlots(siblings); setIndex(Math.max(0, siblings.findIndex(i => i.id === explore))); const inspected = { ...rec, inspected: [...new Set([...(rec.inspected ?? []), explore])] }; recordRef.current = inspected; setRecord(inspected); saves.current = saves.current.then(async () => { if (!await saveDissectionRecord(inspected)) setMemoryOnly(true) }); return }
       const fromUrl = (resume && rec.active ? rec.active.items : initial).map(id => catalog.items.find(i => i.id === id)).filter((i): i is DissectionItem => Boolean(i))
       const valid = fromUrl.length === 3 && new Set(fromUrl.map(i => i.id)).size === 3 && new Set(fromUrl.map(i => i.type_id)).size === 1 && fromUrl[0].topic !== fromUrl[1].topic
-      setSlots(valid ? fromUrl : composeDissection(catalog, rec, Date.now(), cached, formulaTag))
+      const now = Date.now()
+      const chosen = valid ? fromUrl : composeDissection(catalog, rec, now, cached, formulaTag)
+      const last = chosen[2]
+      const isReview = Boolean(last && rec.queue.some(q => q.due <= now && q.tag === last.formulaTag && q.source !== last.id))
+      // 세트 시작은 **세션이** 센다 — 시작 버튼이 홈 · Today · 내 기록 · 이어서 판으로 흩어졌다(ia-design §2).
+      // 이어서(resume)로 연 세트는 새 시작이 아니다.
+      if (chosen.length && !(resume && rec.active && valid) && !review.current) {
+        const exams = new Set(chosen.map(i => i.exam_id))
+        track({ name: 'csat_session_started', props: { size: chosen.length, review: isReview, needed: [...exams].filter(e => !cached.includes(e)).length, cached: [...exams].filter(e => cached.includes(e)).length } })
+      }
+      if (isReview && !review.current) {
+        review.current = { started: true, done: false }
+        track({ name: 'csat_review_started', props: { size: 1, substituted: true } })
+      }
+      setSlots(chosen)
       if (resume && rec.active && valid) { setIndex(rec.active.index); setPairSeen(rec.active.pairSeen); setLoci(rec.active.loci) }
     })
     return () => { alive = false }
@@ -69,7 +85,14 @@ export function SessionRunner({ catalog, initial, formulaTag, explore, resume }:
   if (!current) {
     const predictions = record.predictions.slice(startCounts.current.predictions)
     const families = [...new Set(predictions.flatMap(p => p.family ? [p.family] : []))].filter(f => !startCounts.current.families.has(f))
-    return <section className={styles.finish} data-testid="finish"><p className={styles.eyebrow}>오늘의 해부</p><h1>출제자의 수를<br />한 번 더 읽었어요.</h1><p>예측 {predictions.filter(p => p.hit).length}/{predictions.length} 적중 · 공식 +{record.formulas.length - startCounts.current.formulas} · 새 계열 {families.length}</p>{memoryOnly && <p role="status">기기 저장이 막혀 이번 창을 닫으면 기록이 사라져요.</p>}<Link href="/csat" className={styles.primary}>홈으로</Link><Link href="/csat/dissect" className={styles.textButton} onClick={() => window.location.assign('/csat/dissect')}>한 유형 더</Link></section>
+    if (review.current && !review.current.done) { review.current.done = true; track({ name: 'csat_review_done', props: { size: 1, substituted: true } }) }
+    const nextDue = record.queue.map(q => q.due).filter(d => d > Date.now()).sort((a, b) => a - b)[0]
+    return <section className={styles.finish} data-testid="finish"><p className={styles.eyebrow}>오늘의 해부</p><h1>출제자의 수를<br />한 번 더 읽었어요.</h1><p>예측 {predictions.filter(p => p.hit).length}/{predictions.length} 적중 · 공식 +{record.formulas.length - startCounts.current.formulas} · 새 계열 {families.length}</p>
+      {/* 다음 할 일 — 끝 화면이 막다른 곳이 되지 않게(ia-design §2-4 · 중단 이유 S5 · S11) */}
+      <div data-testid="finish-next">
+        {families.length ? <p>새로 만난 함정 계열: {families.slice(0, 4).join(' · ')}</p> : null}
+        <p>{nextDue ? `다음 복습: ${Math.max(1, Math.round((nextDue - Date.now()) / 86400000))}일 뒤 — 같은 설계를 가진 다른 문항으로 물어요.` : '잡힌 복습이 없어요. 헷갈린 문항은 「헷갈려요」로 남기면 3일 뒤 다른 문항으로 다시 물어요.'}</p>
+      </div>{memoryOnly && <p role="status">기기 저장이 막혀 이번 창을 닫으면 기록이 사라져요.</p>}<Link href="/csat" className={styles.primary}>홈으로</Link><Link href="/csat/dissect" className={styles.textButton} onClick={() => window.location.assign('/csat/dissect')}>한 유형 더</Link></section>
   }
   const reflow = paper && paper !== 'missing' ? paper.items.find(i => i.no === current.no) : null
   const transferSource = record.queue.find(q => q.due <= Date.now() && q.tag === current.formulaTag && q.source !== current.id)

@@ -1,0 +1,249 @@
+[
+  {
+    "id": "0c84523b-fa74-474f-829b-fe1bb89e129d",
+    "source_updated_at": "2026-09-25T07:30:43.691632+00:00",
+    "body_sha256": "61bf9863f75ec7d6b01fd8a126fbb50f70c451ba6c883662d444e250dcbdbff9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "배경 절의 인공신경망 설명 단락과 고찰의 한계 단락이 떼어 읽히는 설명문이라 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Artificial intelligence (AI) has gained relevance",
+      "note": "신경망 원리 단락은 앞 문맥 없이 서고 multidimensional·hierarchical 을 쉬운 말로 바꾸면 V7 에 맞는다."
+    }
+  },
+  {
+    "id": "0c8cacfc-1b68-4818-9efb-b9ae5e7cb4e7",
+    "source_updated_at": "2026-09-25T07:30:45.576436+00:00",
+    "body_sha256": "cca1ee41b2a8c0f046e5bab6c4aa8aea2b6c52309978f3fe4204b59f28fe528a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 첫 단락(특발성 폐섬유증의 경과·치료 한계·바이오마커 필요)이 문제 제기 구조로 서서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Idiopathic Pulmonary Fibrosis (IPF) is a",
+      "note": "서론 첫 단락은 수치를 걷어도 논지가 서고, 결과·고찰은 유전자 이름 나열이라 쓰지 않는다."
+    }
+  },
+  {
+    "id": "0cc2f8a0-f709-40d2-a1a2-3ec9fc1750df",
+    "source_updated_at": "2026-09-25T07:30:48.997008+00:00",
+    "body_sha256": "2000942220258b8f64f45f08589c4d5a40c6c8131a1cbdc21c367b50998f024a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 둘째 단락이 갑상선암은 가볍다는 통념을 삶의 질·파산율 근거로 뒤집어 주장·빈칸·통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "irrelevant",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Over the past several decades, the",
+      "note": "통념-반증 흐름이 뚜렷해 떼기 쉽고 malignancy·prevailing 을 바꾸면 V6 까지 내려간다."
+    }
+  },
+  {
+    "id": "0cc86c09-9906-419f-8f3e-d713f9e4f744",
+    "source_updated_at": "2026-09-25T07:30:49.480494+00:00",
+    "body_sha256": "57f5878609577bca6e7db17c6a9b1c159553989adbf497aaaf6e1d74c313b808",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰에서 기생충이 침입 전에 이미 무장한다는 단락이 비유와 근거로 논지를 세워 주제·제목·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meanwhile, the transcriptional response of the",
+      "note": "첫 낱말 Meanwhile 만 걷으면 서고, ROP·RON 약어를 걷어도 pre-arms 논지가 남는다."
+    }
+  },
+  {
+    "id": "0ce0a27b-12d7-4700-bea7-b52b7423c777",
+    "source_updated_at": "2026-09-25T07:30:50.699999+00:00",
+    "body_sha256": "f34ddd4aff842d16817366ea89797a6f98391dd38045e7d0733b011dddfe14c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 셋째 단락(임상시험 표본의 한계로 실사용 자료가 필요하다)이 한 편의 논증으로 서서 요지·빈칸·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While all marketed drugs are subject",
+      "note": "약 이름 없이도 논지가 서고 comorbidities·inherently 를 바꾸면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "0cfe7fb7-98c3-4363-b820-ffbf7ae0b4a9",
+    "source_updated_at": "2026-09-25T07:30:53.788667+00:00",
+    "body_sha256": "1b5e0c95d363dbbc18addd6ab194d291d01031fb714548ba95e0c9c1c4d823a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 바이러스 이온통로 단락과 고찰 끝 두 단락이 발견의 의미를 설명해 주제·빈칸 칸은 채우나 약어가 많다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Accumulating evidence shows that viroporins, which",
+      "note": "viroporin·inflammasome 같은 핵심어는 바꾸면 논지가 사라져 어휘 조정으로 V7 아래로는 못 내린다."
+    }
+  }
+]

@@ -1,0 +1,736 @@
+[
+ {
+  "id": "10718c8d-330c-43a3-917f-7dec0dca0943",
+  "source_updated_at": "2026-09-15T14:09:41.355553+00:00",
+  "body_sha256": "68febc6b08b38d285a9c5952648e81713641f417c3e1cb730354060fbd568c2e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "살모넬라 하위집단이 서로 역할을 나눠 협력한다는 논지가 고찰 절에서 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "To establish a replicative niche inside",
+   "note": "서론 첫 단락은 지시어 없이 떼어지나 SPI-2·SsrB 같은 고유 약어가 남아 밴드를 못 내린다."
+  }
+ },
+ {
+  "id": "107a3e43-7249-4f03-983e-6875626af19d",
+  "source_updated_at": "2026-09-15T14:09:48.251171+00:00",
+  "body_sha256": "6576389ced53804499500b7074250f2fbe3d10ddd3707dfa40fb2fee23e892b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "용균성 파지와 용원성 파지의 생활사 대비를 세우고 생물막 구조로 승패가 갈린다고 논증한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Temperate and obligately lytic (virulent) phages",
+   "note": "두 전략의 대비 단락은 lytic/lysogenic 두 낱말만 풀어 주면 자족한다."
+  }
+ },
+ {
+  "id": "108561af-b8b1-4e99-a821-f33fadb1517d",
+  "source_updated_at": "2026-09-13T06:57:27.228343+00:00",
+  "body_sha256": "a43e613d7b6624c23efddf5aefe22d78dfce43d367c11824de03d1aadb0e7cfc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "폐경·당뇨가 겹친 심장 기능 저하를 GPER 작용제가 되돌린다는 가설-검증 흐름이 고찰에 온전히 있다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Type 2 diabetes (T2D), in particular",
+   "note": "서론 도입은 떼어지지만 Sirt1/3·UCP2 약어가 촘촘해 두세 낱말 교체로는 안 내려간다."
+  }
+ },
+ {
+  "id": "10ad39af-376c-48c2-80f0-d01db11a07f3",
+  "source_updated_at": "2026-09-15T14:10:02.564781+00:00",
+  "body_sha256": "a552f6dad7130756da766dae708a90f30e09a0a6d4f0fcba155d19ed2b54adfe",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "수면 개선이 발작 억제보다 먼저 온다는 시간 순서 주장을 근거와 한계까지 갖춰 편다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The bidirectional relationship between sleep and",
+   "note": "수면-뇌전증 악순환 단락은 약물명만 일반어로 바꾸면 고3 밴드로 내려온다."
+  }
+ },
+ {
+  "id": "10bb5f09-e187-4318-bf6a-b77b0e9bec13",
+  "source_updated_at": "2026-09-13T07:11:15.688336+00:00",
+  "body_sha256": "e197e032760fe2b70421e8e1e38bbfd661641702a50760465ae7889052f4cf40",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기존 분석이 열잡음에 묻힌다는 문제 제기에서 새 위상 기법 제안까지 서론이 한 편의 논증이다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Identifying structural features associated with macromolecular",
+   "note": "서론은 자족하나 본문 대부분이 수식·파라미터라 발췌 가능한 구간이 앞쪽에 한정된다."
+  }
+ },
+ {
+  "id": "10c04d78-dc43-4e8e-bd88-560beb609198",
+  "source_updated_at": "2026-09-15T14:10:12.303078+00:00",
+  "body_sha256": "9c411a388f7eb400ea17ea20759eafc067a33a8ca1cfcb87fea80e0dbdde958e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 NF-κB 중심 설명이 불완전하다고 짚고 JAK1-STAT1 축을 대안으로 세우는 반증형 구조다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our results prompt a re-evaluation of",
+   "note": "통념 재검토 단락은 통째로 떼어져 논지가 서고 경로명 두엇만 바꾸면 읽힌다."
+  }
+ },
+ {
+  "id": "10cc9c66-779d-4a46-a132-1f1f9eaf9827",
+  "source_updated_at": "2026-09-13T07:06:37.698172+00:00",
+  "body_sha256": "f54474e42f99079a7a5439f772b57fca5ad4febdd07afca9bd81bee4652d4958",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "백신 부작용이 우연이 아니라 접종 전 면역 상태에 달렸다는 주장을 사람·생쥐 근거로 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite the remarkable efficacy of mRNA",
+   "note": "고찰 첫 단락은 접종 주저·반응원성이라는 일상 주제라 어휘 조정이 쉽다."
+  }
+ },
+ {
+  "id": "10cd89da-4c57-4d91-85bb-67cc0c5aaa30",
+  "source_updated_at": "2026-09-15T14:10:22.973694+00:00",
+  "body_sha256": "fb81c4d6103d46c54153f21319eb78a4a9e3efc03a315b5a201d515cbc663f63",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "백신주 기준을 야외 분리주에 그대로 쓰면 안 된다는 안전 논지가 고찰에서 분명히 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Brucella remains a significant zoonotic pathogen",
+   "note": "저자 요약은 가열=조리, 포름알데히드=접착이라는 비유가 있어 그대로 쓸 만하다."
+  }
+ },
+ {
+  "id": "10dbba06-f931-47be-addc-5e0d5ddda2e9",
+  "source_updated_at": "2026-09-15T14:10:24.696657+00:00",
+  "body_sha256": "fe3be57c379c6e1b212820023398e244887bcf791aef889d2edf03e7a0b7a4f5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "조산과 세포 노화를 잇는 가설을 세우고 TWIST1 하나로 좁히는 과정이 논지로 이어진다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The proper formation and function of",
+   "note": "태반·노화 배경 단락만 떼면 서지만 결과 절은 유전자 기호 나열이라 지문이 안 된다."
+  }
+ },
+ {
+  "id": "10e64367-5e31-4a86-91c6-f1deaf951211",
+  "source_updated_at": "2026-09-15T14:10:35.08883+00:00",
+  "body_sha256": "5197dca6079f1f0c9d4841846b0bb7a7f7824e67440bcab052947584ad7ed626",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈관 투과성 조절 단백질을 줄이면 폐 손상이 준다는 가설과 검증이 한 흐름으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In humans, SARS-CoV-2 infection presents a",
+   "note": "동물모델 선택 이유를 설명하는 단락이 앞 문맥 없이도 읽히고 어휘도 무난하다."
+  }
+ },
+ {
+  "id": "10f51642-9951-4b58-999d-f629d86a73e8",
+  "source_updated_at": "2026-09-15T14:10:42.605428+00:00",
+  "body_sha256": "89424fb0580bbdff1ecb324cc6c0b3078c1ef748e17eaf6549260750d0671ad2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전자를 따로 보지 말고 상호작용망에서 보라는 방법론 주장이 서론과 고찰에 일관된다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Studying the association between these genes",
+   "note": "단백질망 관점을 설명하는 단락은 자족적이며 embedding 같은 용어만 풀면 된다."
+  }
+ },
+ {
+  "id": "11072996-b2cf-4bd0-9cb1-7c4a3b433746",
+  "source_updated_at": "2026-09-23T21:04:33.744238+00:00",
+  "body_sha256": "579b97db87c9d4c5929c25e61c0c082140d341bae6a9c2964c75ce70b0d8eee1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "hold",
+  "genre": "health",
+  "why": "본문 곳곳에서 수치와 연령 구간이 빠진 채 「rates %」 「aged years」처럼 문장이 끊겨 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "ACM represents a preventable form of",
+   "note": "고찰 첫 단락은 논지가 서지만 결과 절은 값이 빠진 문장이 섞여 그대로 쓸 수 없다."
+  },
+  "hold_reason": "incomplete-source"
+ },
+ {
+  "id": "1117e33e-9686-46ed-9a7e-101dbe8cab72",
+  "source_updated_at": "2026-09-15T14:10:58.664218+00:00",
+  "body_sha256": "e3a7c11cddb2a6ea6072e8f113ef418e8794db6346ee5007669ebab08cc8637d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "어류에 RIG-I가 없다는 결손을 다른 수용체가 메운다는 보상 가설이 한 편으로 전개된다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Owing to the imperfect development of",
+   "note": "고찰 도입은 떼어져 서지만 유전자 약어 밀도가 높아 두세 낱말 교체로는 안 내려간다."
+  }
+ },
+ {
+  "id": "1154df71-dba5-4b49-a7de-c9a2ab12b6ef",
+  "source_updated_at": "2026-09-13T07:09:16.636006+00:00",
+  "body_sha256": "c99ecaf8cbc311fcdb90eb006603b809e6a06dad8f034f56ba9bc47c0cc1dec4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "항생제 내성 문제 제기에서 식물 내생균 탐색이라는 해법으로 넘어가는 논지가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Antimicrobial resistance is one of the",
+   "note": "고찰 첫 단락은 내성·천연물이라는 일반 주제라 고3 밴드까지 조정이 된다."
+  }
+ },
+ {
+  "id": "115848a9-7ad4-4f88-8f15-a7952b9643ab",
+  "source_updated_at": "2026-09-23T21:04:33.840152+00:00",
+  "body_sha256": "6df58d06a4d83300e717cb1245446c49351fc1f60630f7592e220a59b3c48e38",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "단일 지표보다 지표 묶음이 질병 활성도를 잘 가른다는 주장이 고찰에서 근거와 함께 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Interferon-γ (IFN-γ) is a pivotal cytokine",
+   "note": "서론은 자족하나 결과 절 전체가 민감도·특이도 수치라 발췌 구간이 앞뒤로 한정된다."
+  }
+ },
+ {
+  "id": "1172ee0e-cffe-499c-8c5e-a4d8a1f86b05",
+  "source_updated_at": "2026-09-13T06:57:55.165009+00:00",
+  "body_sha256": "3329909f12b4dae92baea6d209d8c089b4cf00b5f517f6a328ad3bb755a883a9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "파킨슨병 신경세포 사멸을 세포자멸사가 아닌 철 의존 사멸로 다시 보자는 관점 전환이 서론에 있다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the past, the degenerative death",
+   "note": "서론의 관점 전환 단락은 자족하지만 결과 절은 그림 설명과 유전자 이름뿐이다."
+  }
+ },
+ {
+  "id": "1176d040-2110-462f-8522-02d8aa82e686",
+  "source_updated_at": "2026-09-08T05:33:26.442632+00:00",
+  "body_sha256": "ed00ced50879b786598e3eff5836bb647e51b838c0765ea5c9b93d2d302435bd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "초록이 통째로 두 번 실리고 세포사멸 설명 문장이 중복·파손돼 그대로 떼어 쓸 수 없다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Cancer is a complex, multifactorial disease",
+   "note": "서론 첫 단락은 읽히지만 바로 뒤 문단에 같은 문장이 반쯤 잘린 채 되풀이된다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "1177a71a-7c05-4c59-97e8-810359dcb24a",
+  "source_updated_at": "2026-09-15T14:11:25.68821+00:00",
+  "body_sha256": "aea7be3def781f0dfad0f3b00331a4d1a048976e21405299373b13d509be594f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항우울제를 결핵 치료 보조로 쓰는 근거를 미토콘드리아-염증소체 연결로 설명하는 논증이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Therapies that leverage host signalling pathways",
+   "note": "고찰 첫 단락은 앞 문맥 없이 서고 내성 회피라는 일반 논지가 남는다."
+  }
+ },
+ {
+  "id": "1177d152-1b35-4f8a-be34-d8ffb197e785",
+  "source_updated_at": "2026-09-13T06:59:23.18988+00:00",
+  "body_sha256": "7eaa3b1b679f39974f711a9f006fa327d02bd1a0b4b347cdb3505b5c283aac51",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 3,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 약의 한계를 짚고 나노 운반체로 용해도를 높인다는 해결 구조가 서론·고찰에 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nanotechnology offers a new frontier in",
+   "note": "나노 전달체의 이점을 설명하는 단락은 수치가 적어 고3 밴드로 조정하기 쉽다."
+  }
+ }
+]

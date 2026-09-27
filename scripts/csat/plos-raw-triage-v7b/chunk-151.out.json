@@ -1,0 +1,402 @@
+[
+ {
+  "id": "797d72f6-6414-47a9-b226-374f622129dd",
+  "source_updated_at": "2026-09-13T07:09:18.678976+00:00",
+  "body_sha256": "fda6957a1054d2cee98164b547cb135a5e98aa91204514c6d0b86f1ecfc56464",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 「역학 지식이 환자 수 기록에만 의존한다」 단락이 계통 분석의 필요성을 논지로 세워 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "As in most limited resource countries,",
+   "note": "계통·약제 약어를 「결핵균 유형」으로 바꾸면 공중보건 논지가 선다."
+  }
+ },
+ {
+  "id": "7985303c-d538-431a-9801-0f2fe3c18d40",
+  "source_updated_at": "2026-09-13T06:43:34.292516+00:00",
+  "body_sha256": "71308e04c61c39054d1d068873f48ed36e8e5c8f030bf2e648ec748daac35ec6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 설피리드 용량별 대사 효과 비교 단락이 고용량 해로움과 저용량 이득을 대조해 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Sulpiride is used as an antipsychotic",
+   "note": "용량 수치를 「높은/낮은 용량」으로 바꾸면 대조 논지가 선다."
+  }
+ },
+ {
+  "id": "798579e0-78f3-4f9a-8d90-6fefe811a22f",
+  "source_updated_at": "2026-09-13T06:49:59.176509+00:00",
+  "body_sha256": "948c7facf084edf53261bb9bd18a81895d00ec80d412d7b7b9ec3071ef8a7eaa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰의 「지방산 자원을 둘러싼 병원균과 숙주의 줄다리기」 단락이 한 편의 논지로 서서 주제·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since adequate fatty acid resources are",
+   "note": "효과단백질 이름(LegK7 등)을 걷고 「세균 단백질」로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "799874c8-0b02-4dba-b1d9-191659501fe0",
+  "source_updated_at": "2026-09-25T07:28:58.263691+00:00",
+  "body_sha256": "365bff115c582acc1ab9c963876e8861acce57a7c7dfc6c4d381d977715597df",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "discard",
+  "genre": "science",
+  "why": "화강암 연대·원소 비율 수치와 판별도 해설이 본문 전부라 떼어 낼 논지 단락이 없어 채울 칸이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Early Yanshanian post–orogenic extension may have",
+   "note": "지질 전문어가 문장마다 겹쳐 목표 밴드로 내릴 수 없었다."
+  }
+ },
+ {
+  "id": "799cb3b2-43a6-4319-a811-4c4aa79ad961",
+  "source_updated_at": "2026-09-13T06:29:48.01904+00:00",
+  "body_sha256": "5a84c8b05f953028ccd1287a7744d4e52688ad7b8e7089b9bd60a9536460e2cf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 솔리톤 정의 단락(모양·속도를 유지하는 파동)이 수식 없이 서서 내용 일치·어휘 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Solitons, also known as invariant or",
+   "note": "나머지 본문은 수식이라 이 단락 하나만 가공 대상이다."
+  }
+ },
+ {
+  "id": "79a4dfa1-b57b-43de-94af-5385fee03a25",
+  "source_updated_at": "2026-09-15T15:20:51.653144+00:00",
+  "body_sha256": "d3773a02b3ba85e9af8b1be01dda9e9171cd523be60753b889369c5b95fd28ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론 첫 단락이 골관절염 부담·기존 치료 한계·조기 진단 필요를 인과로 이어 주제·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Unfortunately, existing therapies for OA remain",
+   "note": "통계 수치를 걷어도 「치료 한계 → 조기 진단」 흐름이 남는다."
+  }
+ },
+ {
+  "id": "79acd9d3-1189-4c1e-b4ec-6b8886aaf0be",
+  "source_updated_at": "2026-09-25T07:28:59.384521+00:00",
+  "body_sha256": "0f3611219c6b92aff0765b69044818f469ea48730163f663f96e81ac0eb028dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 비장 역할·당뇨 면역 염증 단락이 신경병증의 면역 배경을 설명해 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "insert"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The spleen is the largest secondary",
+   "note": "약어(DPN·T2DM)를 풀어 쓰면 단락이 선다."
+  }
+ },
+ {
+  "id": "79b7c317-7f98-4207-b280-7e030c46fcf8",
+  "source_updated_at": "2026-09-25T07:29:02.103644+00:00",
+  "body_sha256": "ca399131d22c60e71e72613913d179642a0641b75e68f8aed4d040727b2bfe61",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 「대사가 히스톤 변형과 유전자 발현에 영향을 준다」 단락이 가설을 세워 주제·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Metabolic processes affect histone modifications and",
+   "note": "효모 유전자 이름을 걷고 「효소」로 바꾸면 흐름이 남는다."
+  }
+ },
+ {
+  "id": "79c55d18-1d54-4e4f-b32f-2f2328bacbf2",
+  "source_updated_at": "2026-09-13T07:40:57.079625+00:00",
+  "body_sha256": "7ae2e61c6d0ab9eeb792ad88c2e1f49d14d74d078b5c206024e7cfc56bdad7b1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론의 치료적 저체온 단락이 외부 냉각의 한계(떨림·혈류 재배치)를 이유로 이어 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Therapeutic hypothermia may be achieved by",
+   "note": "온도 수치를 걷어도 「방법 → 몸의 방어 → 한계」 흐름이 선다."
+  }
+ },
+ {
+  "id": "79d32f9b-9b86-483c-9046-92b46cc55564",
+  "source_updated_at": "2026-09-15T15:20:58.044137+00:00",
+  "body_sha256": "e61f82b25ae052b09360002308ed58304a4143360145c0700041b4e41aa8c235",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "서론 첫 단락이 폐섬유증의 진행·진단 어려움·치료 한계를 이어 새 표지자 필요를 세워 주제·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Diagnosing IPF presents substantial challenges, primarily",
+   "note": "약물 이름을 「항섬유화 약」으로 바꾸면 논지가 선다."
+  }
+ }
+]

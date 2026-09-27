@@ -169,6 +169,9 @@ describe('열쇠 — 규약 모양을 지킨다', () => {
     expect(isCanonicalSourceKey('voa', 'voa:ewolkz')).toBe(false) // DB 249행이 이 꼴이었다
     expect(isCanonicalSourceKey('voa', 'voa:7953499')).toBe(true)
     expect(isCanonicalSourceKey('frym', 'frym:10.3389/frym.2023.1055909')).toBe(true)
+    // 전문 원천 행(초록 행이 원본 열쇠를 차지해 따로 둔다 · 2026-09-24)
+    expect(isCanonicalSourceKey('frym', 'frym-full:10.3389/frym.2023.1055909')).toBe(true)
+    expect(isCanonicalSourceKey('frym', 'frym-fulltext:10.3389/frym.2023.1055909')).toBe(false)
   })
 
   it('발췌 열쇠는 원본과 다른 행이 되고, 원본 열쇠로 되돌릴 수 있다', () => {

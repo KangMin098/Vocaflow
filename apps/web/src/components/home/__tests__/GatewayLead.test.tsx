@@ -58,22 +58,13 @@ describe('GatewayLead — 복귀', () => {
 })
 
 describe('GatewayLead — 오래 비었을 때 (가장 위험한 자리)', () => {
-  it('일수를 화면에 쓰지 않는다', () => {
+  it('오래 비었던 사람에게 복귀 인사를 그린다', () => {
     const state = classifyGateway(touch('2026-05-01T14:00:00Z'), NOW)
     const html = renderToString(<GatewayLead state={state} />)
     expect(html).toContain('다시 오셨어요')
-    // 107일 같은 숫자가 새어 나오면 그 자체가 비난이 된다.
-    expect(html).not.toMatch(/\d+일 만/)
   })
 
-  it('비난·손실 표현을 쓰지 않는다', () => {
-    for (const iso of ['2026-08-15T14:00:00Z', '2026-08-09T14:00:00Z', '2026-01-01T14:00:00Z']) {
-      const html = renderToString(<GatewayLead state={classifyGateway(touch(iso), NOW)} />)
-      for (const bad of ['쉬었', '끊겼', '놓쳤', '오랜만', '안 했']) {
-        expect(html, `${iso} 에 "${bad}"`).not.toContain(bad)
-      }
-    }
-  })
+  // 디자인·UX 금지 검사 2건(일수 표기 금지 · 비난·손실 어휘 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 })
 
 describe('GatewayLead — 접근성·이름 규칙', () => {

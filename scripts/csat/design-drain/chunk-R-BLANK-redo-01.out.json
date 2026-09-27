@@ -1,0 +1,130 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "redo": true,
+  "items": [
+    {
+      "id": "M2706#32",
+      "roles": ["background", "topic", "support", "example", "support", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "비언어 행동을 읽어야 한다는 조언을 편 뒤 프로이트 인용으로 사람은 속을 숨기지 못한다는 관찰로 옮겨 가, 빈칸이 앞 조언이 아니라 바로 앞 인용의 함의를 받는지 가려야 하는 글이다.",
+      "transform": "negation_flip",
+      "transform_note": "비밀을 지킬 수 없고 몸으로 새어 나온다는 인용의 부정 진술이, 어렵다는 틀 속의 대상 행위인 속마음 감추기로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#32",
+      "roles": ["topic", "example", "example", "support", "example", "support", "example"],
+      "alternatives": [{ "index": 3, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "작가는 얼굴을 묘사하지 않았는데 독자는 묘사를 받은 듯 느낀다는 착각 하나를 여러 작가의 사례로 되풀이해, 마지막 사례의 빈칸에 사실이 아니라 느낌 쪽을 채워야 하는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "첫 문장의 얼굴을 묘사했다는 인상이 정답에서 그가 어떻게 생겼는지 정확히 들었다는 느낌으로 같은 수준에서 다시 말해졌다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#31",
+      "roles": ["background", "topic", "support", "example", "example", "example", "example", "support", "support"],
+      "alternatives": [{ "index": 7, "role": "background" }],
+      "pattern": "myth_rebuttal",
+      "selection": "빛에 끌린다는 통념을 빈칸 문장이 부정하고, 뒤의 두 가설이 벗어나려다 오히려 붙잡히는 과정을 풀어 써서, 시도와 결과를 구별해야 답이 서는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "혼란에 빠져 빛 주위를 맴돌며 빠져나오지 못한다는 뒤 문장들의 서술이 한 낱말의 갇힘으로 올라갔다.",
+      "cues": [],
+      "data_defect": "마지막 두 문장(현관 불빛 주위를 도는 나방이 익숙하다는 문장과 그 비행이 목적 없어 보인다는 문장)이 지문 끝에 붙어 있으나 내용상 도입부 문장으로 보여 문장 순서가 원문과 다를 가능성이 있다 — PDF 대조 필요."
+    },
+    {
+      "id": "M2406#31",
+      "roles": ["background", "concession", "turn", "example", "support", "topic", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "topic" }, { "index": 1, "role": "background" }],
+      "pattern": "contrast",
+      "selection": "먹고사는 필요는 남는다는 양보 뒤에 소비가 생존보다 생활양식의 문제로 옮겨 간다는 대조를 세워, 빈칸이 음식 자체의 성질이 아니라 그 대조의 한쪽 항을 받아야 하는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "경험·상징·윤리 소비와 생활양식이라는 구체 진술들이 물질이 아닌 측면이라는 상위 개념으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2206#32",
+      "roles": ["background", "topic", "example", "example", "support", "support"],
+      "alternatives": [{ "index": 0, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장의 인용 정의를 둘째 문장이 풀어 쓰는 자리에 빈칸을 두고 뒤에는 같은 말의 예시만 붙여, 이미 읽은 정의를 다른 말로 옮길 수 있는지만 재는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "해로운 즐거운 활동에 지나치게 빠질 핑계라는 정의가, 그 정보가 지금의 활동을 덜 매력적으로 만든다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#32",
+      "roles": ["background", "topic", "support", "support", "concession", "support", "support", "support", "example"],
+      "alternatives": [{ "index": 3, "role": "topic" }, { "index": 6, "role": "concession" }],
+      "pattern": "general_specific",
+      "selection": "비판적 사고를 통제가 아니라 해방이라고 규정한 뒤 불완전하게 가져도 무엇을 해 주는지를 빈칸에 묻고, 뒤에서 감정에 끌려 사는 삶의 부담을 풀어 써서 방향을 잠근 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "정신의 해방이라는 앞 진술이 자극에 끌려다니는 부담에서 사람을 풀어 준다는 동사구로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#32",
+      "roles": ["background", "support", "support", "support", "support", "topic", "support"],
+      "alternatives": [{ "index": 4, "role": "example" }],
+      "pattern": "cause_effect",
+      "selection": "도시가 언어·취향 변화를 이끄는 까닭을 네 문장에 걸쳐 쌓고 빈칸 문장이 그 인과를 이유절로 한 번에 되받게 해, 바로 앞 조건문을 옮길 수 있는지 재는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "가장 많은 사람이 가장 많은 다른 사람과 듣고 말하는 곳이라는 조건이 다른 사람들에게 가장 많이 노출시킨다는 말로 바뀌었다.",
+      "cues": [],
+      "data_defect": "3번 문장의 낱말 하나가 줄바꿈 하이픈이 남은 채 둘로 끊겨 있다(전염 가능한이라는 형용사) — 뜻 파악에는 지장 없음."
+    },
+    {
+      "id": "2021#34",
+      "roles": ["topic", "support", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "성공적 통합을 긍정형으로 두 번 정의한 뒤 빈칸만 부정 결론문의 조건절에 두어, 정의를 뒤집은 상태를 채워야 하는 부호 셈을 요구하는 글이다.",
+      "transform": "negation_flip",
+      "transform_note": "초점이 기술에서 교육 목적으로 옮겨 가면 통합된다는 진술이, 초점이 여전히 기술 자체에 머무는 반대 상태로 뒤집혔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#33",
+      "roles": ["topic", "support", "support", "support", "support", "support", "conclusion"],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "유산을 현재의 요구에 따라 골라지고 다시 버려지는 자원으로 그린 뒤 결론 빈칸에 그 선택과 폐기를 한 구로 묶게 해, 지문 명사를 그대로 담은 선지를 걸러야 하는 글이다.",
+      "transform": "compression",
+      "transform_note": "과거에서 선별되고 현재가 바뀌면 버려진다는 여러 문장이 기억만큼 망각에 관한 것이라는 한 구로 압축됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2019#31",
+      "roles": ["example", "example", "example", "example", "topic", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 4, "role": "support" }],
+      "pattern": "study_implication",
+      "selection": "벨기에 국왕 서거 기억 연구를 소개하고 많이 공유될수록 기억이 굳는다는 함의를 끌어낸 뒤, 마지막 빈칸에 그 비교 구문을 형용사 하나로 옮기게 한 글이다.",
+      "transform": "compression",
+      "transform_note": "공유가 많을수록 더 고정된다는 비교 구문이 되풀이되는이라는 형용사 하나로 압축됐다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2014B#35",
+      "roles": ["background", "background", "support", "turn", "topic", "support", "conclusion"],
+      "alternatives": [{ "index": 5, "role": "topic" }],
+      "pattern": "cause_effect",
+      "selection": "과학은 본래 말하지 않으며 남에게 말하는 순간 과학이 아니게 된다는 등식을 앞에 두고, 과학자가 수사로 돌아서는 행위의 의미를 빈칸에서 한 걸음 추상화하게 한 글이다.",
+      "transform": "abstraction",
+      "transform_note": "남에게 말하면 더는 과학이 아니고 정확성을 흐린다는 진술이 과학자를 규정하는 지적 행동 규범을 어긴다는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

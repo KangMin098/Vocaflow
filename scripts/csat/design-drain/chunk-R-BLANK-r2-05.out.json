@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "2025#34",
+      "roles": ["topic", "example", "example", "example", "example", "example", "concession", "support"],
+      "alternatives": [{ "index": 7, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "첫 문장에 일반 주장을 비워 두고 야구·악보·법 규칙 세 사례를 같은 틀로 늘어놓아, 사례들이 공통으로 가리키는 상위 원리를 스스로 뽑아내야 풀리는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "경기·음악·회사·법적 역할을 ‘만들어 낸다’는 사례별 진술이 선지에서 ‘역할과 관행을 세워 생산적 활동을 돕는다’는 일반 원리로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2025#33",
+      "roles": ["background", "background", "topic", "example"],
+      "alternatives": [{ "index": 1, "role": "support" }],
+      "pattern": "myth_rebuttal",
+      "selection": "무료 소프트웨어가 마법처럼 보인다는 인상을 세운 뒤 통념의 격언으로 뒤집는 구조라, 앞 문장의 거래 구조(내 시간이 팔린다)를 되짚어야 빈칸이 채워진다.",
+      "transform": "paraphrase",
+      "transform_note": "광고 산업이 내 깨어 있는 시간을 사서 남에게 판다는 앞 문장이 선지에서 ‘팔리는 상품은 바로 너’라는 격언형으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#34",
+      "roles": ["background", "topic", "support", "example", "support", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "빈칸이 앞머리 주장에 있고 확정 근거가 맨 끝 열거에 있어, 중간의 회의 장면·주차 사례를 지나 개인의 이동 방식이라는 축을 끝까지 추적하게 만든 글이다.",
+      "transform": "abstraction",
+      "transform_note": "통근·주차·안전 감각 같은 개별 항목과 운전·보행·교통카드 이용이 선지에서 ‘어떻게 이동하는가’라는 상위 개념으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#33",
+      "roles": ["example", "example", "example", "topic", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }],
+      "pattern": "study_implication",
+      "selection": "얼굴 표정 실험과 르브룅의 그림을 소개한 뒤 ‘맥락 없이는 감정이 확정되지 않는다’는 함의로 넘어가는 글이라, 놀라운 점이 곧 결여된 점이라는 연결을 복원해야 한다.",
+      "transform": "inference",
+      "transform_note": "맥락이 빠져 감정이 확정되지 않는다는 진술에서, 그러니 그림들을 서로 바꿔도 잃을 게 없다는 결과를 논리로 이끌어 내야 정답이 된다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#32",
+      "roles": ["background", "background", "turn", "topic", "support", "support"],
+      "alternatives": [{ "index": 2, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "음향 디자이너와 작곡가를 대조해 작곡가가 익숙한 악보를 쓴다고 한 뒤 양보절로 그 효과를 반전시키는 글이라, 뒤 두 문장에서 수혜 주체가 관객임을 확인해야 한다.",
+      "transform": "abstraction",
+      "transform_note": "익숙함이 관객을 편안한 자리에 놓고 낯선 세계로 이끈다는 두 문장이 선지에서 ‘관객의 영화 진입을 돕는다’는 한 구로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2024#31",
+      "roles": ["background", "background", "background", "topic", "support", "conclusion", "support"],
+      "alternatives": [{ "index": 5, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "읽기의 대상이 그림·지도·화면으로 넓어져 읽기가 더 복잡한 해석이 되었다는 논지를 부정형 문장으로 다시 맺어, 부정되는 대상이 무엇인지를 가려야 하는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "예전 아이들이 인쇄된 글자에만 주목하던 읽기와 ‘문장이 말하는 것’의 층위가 선지에서 ‘낱말 알아보기’라는 개념으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#34",
+      "roles": ["background", "concession", "topic", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 2, "role": "turn" }],
+      "pattern": "myth_rebuttal",
+      "selection": "시간 분할이 대체로 괜찮다고 양보한 뒤 기후 문제에서는 책임을 가린다고 뒤집고, 마지막을 ‘X가 아니라 Y다’ 정정 구문으로 맺어 부정되는 X를 Y의 반대편에서 복원하게 만든 글이다.",
+      "transform": "inference",
+      "transform_note": "현실이 가려져 책임 문제가 떠오르지 않는다는 Y 의 반대편, 곧 사실을 보고도 책임을 부인한다는 내용은 지문 어디에도 없어 정정 구문의 논리로만 채워진다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2023#33",
+      "roles": ["background", "topic", "example", "example", "example", "support", "conclusion"],
+      "alternatives": [{ "index": 5, "role": "example" }],
+      "pattern": "general_specific",
+      "selection": "빈칸이 예시가 보여 줄 결과를 미리 요약하는 자리이고, 물 운반 벌의 대칭 사례(짧을 때·길 때)를 모두 접어야 군집 수준의 조절이 보이는 글이다.",
+      "transform": "abstraction",
+      "transform_note": "하역 시간에 따라 동료를 모으거나 물 모으기를 그만두어 물 수집이 조절된다는 진술이 선지에서 ‘군집이 일손을 조절한다’는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#33",
+      "roles": ["background", "topic", "support", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "example" }],
+      "pattern": "study_implication",
+      "selection": "오스트롬의 공유자원 관리 조건을 소개하며 핵심 권리를 비웠는데, 통념(자유 이용·이윤·사유화)과 반대로 사용자가 규칙에 관여해야 한다는 함의를 뒤 문장들에서 확인해야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "사용자가 스스로 규정을 만들고 민주적 결정 절차에 참여해야 한다는 뒤 문장들이 선지에서 ‘규칙 변경 결정에 참여한다’로 같은 수준에서 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2022#32",
+      "roles": ["topic", "support", "example", "example", "support", "turn"],
+      "alternatives": [{ "index": 5, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "‘주제 선택뿐 아니라 ~도’ 구조로 첫 문장을 비우고 제시 방식의 구체 사례를 뒤에 깔아, 새 주어로 등장한 제시 방식을 빈칸의 재진술로 알아보게 만든 글이다.",
+      "transform": "abstraction",
+      "transform_note": "로고·짧은 인용·빠른 화면 전환·친근한 말투 같은 제시 방식 사례들이 선지에서 ‘언어적·시각적 어법과 말 거는 방식’으로 묶였다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

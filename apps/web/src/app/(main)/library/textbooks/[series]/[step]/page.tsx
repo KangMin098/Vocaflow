@@ -157,8 +157,12 @@ export default async function TextbookVolumePage({
 
   // 목차·미리보기는 **조판된 결과**에서만 나온다(`volume-contents.json`).
   // 없으면 절을 통째로 빼고 이유를 적는다 — 빈 자리를 "준비 중" 으로 채우지 않는다.
-  const contents = contentsOf(v.vLevels)
-  const contentsIssue = contentsProblem(v.vLevels)
+  //
+  // ⚠️ **시리즈를 반드시 넘긴다.** 2026-09-23 까지 V레벨만 넘겨서, 계단이 겹치는
+  //   어휘·구문 권이 **독해 권의 목차를 자기 것으로 인쇄했다**(실측: `/library/textbooks/vocab/5`
+  //   가 20단원 120문항짜리 권인데 화면은 10단원 60문항의 독해 목차를 적었다).
+  const contents = contentsOf(v.seriesId, v.vLevels)
+  const contentsIssue = contentsProblem(v.seriesId, v.vLevels)
 
   const { prev, next } = neighborsOf(shelf.volumes, v.step)
   const stage = stageOf(v.schoolBand)

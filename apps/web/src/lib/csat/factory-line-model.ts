@@ -91,6 +91,8 @@ export const TYPE_KO: Record<string, string> = {
 // `passageGateBands`. 판정 근거를 목록이 아니라 **게이트의 metric** 에 뒀으므로, S5 에
 // `coverage` 가 붙는 날 자동으로 지문 밴드가 된다.
 
+import type { ItemStateView } from './item-state-model'
+
 /* ───────────────────────── ⑤ 집필 ───────────────────────── */
 
 export interface AuthorCell {
@@ -105,6 +107,14 @@ export interface AuthorView {
   total: number | null
   /** 사다리가 쓰는 (유형, V-Level) 조합. 그 밖의 재고는 **지금 어느 권에도 안 실린다**. */
   ladderCells: { type: string; vLevel: number }[]
+  /**
+   * **막힌 문항** — csat_item_state 에서 파생한 수.
+   *
+   * ⚠️ 재고 매트릭스는 「몇 개 있나」만 말한다. 그중 **못 쓰는 것**은 다른 축이고,
+   *   그 축이 없던 동안 관리자는 막힌 문항 292개를 재고로 세고 있었다(DD-74).
+   *   못 읽었으면 available:false — 「0개」와 다르다.
+   */
+  itemState: ItemStateView
   loadError: string | null
   /**
    * 재고를 **언제 센 값**인지 (ISO). 30분마다 갱신되는 집계표에서 읽으므로 지금 값이
@@ -170,8 +180,48 @@ export interface ReviewView {
 
 /* ───────────────────────── ⑧ 조판 ───────────────────────── */
 
+/* ───── ⑧ 조판 — 발행 상태와 학습자 도달 (2026-09-23 · DD-74) ───── */
+//
+// ⚠️ **「찍혔다」와 「내보내도 된다」가 한 사실로 뭉쳐 있었다.** 실측 2026-09-23:
+//   19권 전부 `auto_passed = auto_total` · `failed_checks` 전 행 NULL · 카탈로그 「냈음」인데,
+//   그중 한 권(Vocaflow Vocab Advanced)의 3인 검수는 **1 / 60** 이었고 공개 URL 로 열려 있었다.
+//   게이트가 없어서가 아니라 **게이트를 지난 흔적을 남길 자리가 없어서**다.
+//
+// 상태를 담을 곳: `textbook_volume_renders.colophon.publish` — **jsonb 라 마이그레이션이
+// 필요 없다**(AGENTS.md §🤖: 「jsonb 에 키를 더하면 마이그레이션 불필요 — 통째로 덮지 말고
+// 기존 값을 읽어 키 하나만 더한다」). 컬럼으로 올리는 것은 `20260923060200` 초안이고
+// 승인되면 그쪽이 정본이 된다. 그때까지 읽는 쪽은 **둘 다** 본다.
+
+/** 발행 판정. 없으면 `null` — 「찍히기만 했다」이고 「반려됐다」와 다르다. */
+export interface VolumePublish {
+  status: 'rendered' | 'review' | 'approved' | 'published' | 'withdrawn'
+  /** review·withdrawn 인 이유. 없으면 null 이고 화면이 「사유 없음」이라 적는다. */
+  reason: string | null
+  at: string | null
+  by: string | null
+}
+
+/** 그 권이 학습자에게 실제로 닿는가 — **세 조건이 다 서야 한다.** */
+export interface VolumeReach {
+  /** 매대 라우트. 시리즈·단이 있어야 만든다(지어내지 않는다). */
+  href: string | null
+  /** 그 시리즈의 목차 스냅샷이 구워져 있는가. 없으면 상세면에 목차 절이 안 나간다. */
+  hasContents: boolean
+}
+
 export interface PressVolumeRow {
   band: number
+  /** 어느 시리즈의 권인가. 계단이 겹치므로(독해 5단 · 어휘 5단 · 구문 5단이 전부 V5) 밴드만으로는 권이 안 정해진다. */
+  series: string
+  /** 발행 판정 — `colophon.publish`. 없으면 null(「찍히기만 했다」 · 「반려됐다」와 다르다). */
+  publish: VolumePublish | null
+  /** 3인 검수에서 막힌 문항 수. 조판기가 잰 값에서 파생한다. 못 쟀으면 null. */
+  personaBlocked: number | null
+  /** 자동 검사 통과 / 전체. 전체가 0 이면 **검사가 안 돈 것**이고 「통과」가 아니다. */
+  autoPassed: number
+  autoTotal: number
+  /** 학습자 도달 경로. */
+  reach: VolumeReach
   volumeTitle: string | null
   step: number | null
   schoolBand: string | null
@@ -206,4 +256,58 @@ export interface PressView {
     fonts: { english: string; body: string; mono: string }
   }
   loadError: string | null
+}
+
+/* ───────────────────────── ⑥ 해설 ───────────────────────── */
+//
+// **이 화면은 2026-09-23 까지 없었다** (DD-69: ⑥ 해설 9/22 — 파이프라인 최저).
+// 메뉴에는 칸이 있었는데 `href` 가 부모를 가리키고 「준비 중」 배지가 붙어 있었다.
+//
+// 없던 이유로 적혀 있던 것은 「유형별 해설 보유율은 `answer_key->>explanation_ko` 를 유형마다
+// 훑어야 하고 그 컬럼에 인덱스가 없어 5~8초씩 걸린다 → 집계 RPC 가 필요한데 마이그레이션이라
+// 승인 대기」였다. **그 판단이 낡았다** — 필요한 집계는 이미 `textbook_shelf_inventory_mv`
+// (20260831090000)에 (유형 × 수준 × 문항 수 × 해설 수)로 들어 있고, `loadDcpInventory` 가
+// 그것을 1.2초에 읽는다. 마이그레이션 없이 만들 수 있었던 화면이 그 문장 하나 때문에
+// 한 달 넘게 안 만들어졌다.
+
+/** 해설 한 칸 — (유형 × 수준). `items` 가 0 이면 그 칸은 애초에 없는 것이다. */
+export interface ExplainCell {
+  type: string
+  vLevel: number
+  items: number
+  explained: number
+  /** 사다리가 실제로 쓰는 칸인가 — 밖의 구멍은 급하지 않다(어느 권에도 안 실린다). */
+  inLadder: boolean
+}
+
+export interface ExplainView {
+  cells: ExplainCell[]
+  items: number | null
+  explained: number | null
+  /** 집계표를 마지막으로 갱신한 시각(ISO). 못 읽었으면 null — 신선도를 주장하지 않는다. */
+  inventoryAt: string | null
+  /**
+   * 그 시각을 사람 말로 — **서버에서 계산해 넘긴다.**
+   *
+   * ⚠️ 화면에서 계산하지 않는다. 시계를 클라이언트가 읽으면 서버 렌더와 값이 갈려
+   *   하이드레이션이 어긋나고, 이 저장소는 「로직 안에서 시계를 읽지 않는다」를 규칙으로 둔다
+   *   (고정 날짜 픽스처가 시간이 지나며 저절로 떨어진다 — AGENTS.md 「하지 말 것」).
+   */
+  inventoryNote: string | null
+  loadError: string | null
+}
+
+/** 해설이 모자란 칸 — 많은 순서로. 사다리 안을 먼저 세운다(그쪽이 곧 학습자에게 간다). */
+export function explainGaps(v: Pick<ExplainView, 'cells'>): ExplainCell[] {
+  return v.cells
+    .filter((c) => c.items > c.explained)
+    .sort((a, b) => {
+      if (a.inLadder !== b.inLadder) return a.inLadder ? -1 : 1
+      return b.items - b.explained - (a.items - a.explained)
+    })
+}
+
+/** 「몇 문항에 해설이 없나」 — 못 쟀으면 null 이고 0 이 아니다. */
+export function explainMissing(v: Pick<ExplainView, 'items' | 'explained'>): number | null {
+  return v.items == null || v.explained == null ? null : v.items - v.explained
 }

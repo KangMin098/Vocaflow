@@ -179,7 +179,7 @@ export function LibriVoxAudioPanel({
                   도서 챕터 ↔ 보이스 챕터 매핑 보기 ({chapters.length})
                 </button>
                 {showList && (
-                  <ul className="max-h-[320px] divide-y divide-[var(--bd)]/50 overflow-y-auto px-1 pb-1">
+                  <ul className="max-h-[320px] divide-y divide-[color-mix(in_srgb,var(--bd)_50%,transparent)] overflow-y-auto px-1 pb-1">
                     {chapters.map((ch) => (
                       <li key={ch.idx} className="flex items-center gap-2 px-2 py-2">
                         <button

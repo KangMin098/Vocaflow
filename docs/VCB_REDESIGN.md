@@ -740,7 +740,9 @@ A1·A7 축에서 겪은 것과 같은 문제이고, 같은 답을 쓴다: **이 
 | **Claude Design** | 캔버스에서 규격 확정 → `chunk-NN.out.json` | — |
 | `brand-drain-import.mts --commit` | `curation_query.brand` 키를 **더한다** | ✅ 같은 출력으로 몇 번을 돌려도 같다 |
 
-### 규격은 색 값을 담을 수 없다
+### 규격은 색 값을 담을 수 없다 — DD-66(2026-09-21)으로 해제
+
+> **현행**: 색 자리는 역할 이름(토큰을 따라감)이나 CSS 색 값(적은 값 그대로)을 받고, 서체 자리는 역할 이름이나 `font-family` 값을 받는다. 아래는 해제 전 규칙의 기록이다.
 
 `validateBrandCanvas` 가 hex·rgb·hsl 을 **어느 자리에 있든** 거절한다. 담기는 것은
 역할 이름(`ink`·`paper`·`accent`)뿐이고 실제 색은 `FAMILY_DUOTONE` 이 토큰에서 읽는다.

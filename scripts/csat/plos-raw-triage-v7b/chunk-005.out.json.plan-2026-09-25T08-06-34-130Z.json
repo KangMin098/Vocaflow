@@ -1,0 +1,2310 @@
+[
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "02c84781-cc8c-4ef3-9c13-46a408322a39",
+    "revision": "2026-09-25T07:12:33.772653+00:00",
+    "body_sha256": "444d2d2e76271c2f0c3d75d9da6df2afaf704ad4013180017a945e441180e899",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.530Z",
+        "by": "chunk-llm",
+        "why": "EEG 신호의 잡음·개인차라는 문제를 세우고 자질 추출과 조건부 생성모형으로 답하는 논지가 서론과 고찰에 한 편으로 이어진다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:07.352Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1d3e8d8905fa5ce8cd462aa551aa162cace49f2dcce8dcb7159050ba429ac638"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 둘째~셋째 단락은 지시어 없이 떼어지고 논지가 서지만, STFT·Hurst 같은 지표 이름을 쉬운 말로 바꾸면 문장이 비어 V6 아래로는 못 내린다.",
+          "sample": "EEG provides a non-invasive method to",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.530Z",
+        "by": "chunk-llm",
+        "why": "EEG 신호의 잡음·개인차라는 문제를 세우고 자질 추출과 조건부 생성모형으로 답하는 논지가 서론과 고찰에 한 편으로 이어진다.",
+        "basis": "full",
+        "genre": "technology",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:07.352Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "1d3e8d8905fa5ce8cd462aa551aa162cace49f2dcce8dcb7159050ba429ac638"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 둘째~셋째 단락은 지시어 없이 떼어지고 논지가 서지만, STFT·Hurst 같은 지표 이름을 쉬운 말로 바꾸면 문장이 비어 V6 아래로는 못 내린다.",
+          "sample": "EEG provides a non-invasive method to",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "서론의 「EEG 신호는 잡음이 많고 개인차가 커서 특징 추출이 중요하다」 단락이 문제-해법 논지로 떼어져 주제·빈칸 칸을 채운다. 방법·수식 절은 쓰지 않는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "However, EEG signals are inherently noisy",
+          "note": "인용 괄호와 약어를 걷으면 논지는 서지만 non-stationary·pre-processing 등 전문어를 바꾸면 뜻이 흐려져 밴드를 내리기 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.135Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.530Z",
+          "by": "chunk-llm",
+          "why": "EEG 신호의 잡음·개인차라는 문제를 세우고 자질 추출과 조건부 생성모형으로 답하는 논지가 서론과 고찰에 한 편으로 이어진다.",
+          "basis": "full",
+          "genre": "technology",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:07.352Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "1d3e8d8905fa5ce8cd462aa551aa162cace49f2dcce8dcb7159050ba429ac638"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 둘째~셋째 단락은 지시어 없이 떼어지고 논지가 서지만, STFT·Hurst 같은 지표 이름을 쉬운 말로 바꾸면 문장이 비어 V6 아래로는 못 내린다.",
+            "sample": "EEG provides a non-invasive method to",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 4,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:25:06.297Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "02d13d8e-224e-4c1a-b5c7-244148dee02e",
+    "revision": "2026-09-25T07:12:37.752658+00:00",
+    "body_sha256": "d43853f0d221f1130f7c9bd5425b0ccde259ec80388991f152eccfa7a97eb5cf",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.531Z",
+        "by": "chunk-llm",
+        "why": "이집트에 없던 혈청형이 들어오며 생긴 면역 공백을 시간순으로 설명하고 교차방어 부재를 수치로 못 박는 서론·고찰이 자족적이다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "then-now"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:07.424Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "3486ba122a57965a5746cc0f2090a098bb79e055afb2ad57f9c2cbd3ccc798f1"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 그대로 지문이 되고 serotype·incursion 정도만 바꾸면 V6 로 내려간다 — 약어 목록 블록만 잘라 내면 된다.",
+          "sample": "Foot-and-mouth disease (FMD) is a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.531Z",
+        "by": "chunk-llm",
+        "why": "이집트에 없던 혈청형이 들어오며 생긴 면역 공백을 시간순으로 설명하고 교차방어 부재를 수치로 못 박는 서론·고찰이 자족적이다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "order",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "then-now"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:07.424Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "3486ba122a57965a5746cc0f2090a098bb79e055afb2ad57f9c2cbd3ccc798f1"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 단락은 그대로 지문이 되고 serotype·incursion 정도만 바꾸면 V6 로 내려간다 — 약어 목록 블록만 잘라 내면 된다.",
+          "sample": "Foot-and-mouth disease (FMD) is a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 「현장 관찰은 SAT2 백신의 교차 보호를 시사했으나 실험실 r1 값이 이를 뒤집었다」 단락이 통념-반증 구조로 서고 서론의 구제역 전파 단락이 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A key objective of this study",
+          "note": "serotype→virus type, cross-reactive immunity→shared protection 으로 바꾸고 r1 수치를 빼니 「기대와 달리 교차 보호가 없었다」 논지가 그대로 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.138Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.531Z",
+          "by": "chunk-llm",
+          "why": "이집트에 없던 혈청형이 들어오며 생긴 면역 공백을 시간순으로 설명하고 교차방어 부재를 수치로 못 박는 서론·고찰이 자족적이다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "content_match",
+              "order",
+              "summary"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence",
+              "then-now"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:07.424Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "3486ba122a57965a5746cc0f2090a098bb79e055afb2ad57f9c2cbd3ccc798f1"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 단락은 그대로 지문이 되고 serotype·incursion 정도만 바꾸면 V6 로 내려간다 — 약어 목록 블록만 잘라 내면 된다.",
+            "sample": "Foot-and-mouth disease (FMD) is a",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:39.237Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "02d905a1-a557-4a99-af72-08776ed5ed18",
+    "revision": "2026-09-25T07:12:43.230458+00:00",
+    "body_sha256": "6d5314f43ce55848c11cd264293ec4aebabf8b0f391d9bb6b4a196bfa551f55c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.533Z",
+        "by": "chunk-llm",
+        "why": "술전 기관삽관과 감염의 연관을 제시한 뒤 중증도 교란 가능성으로 스스로 한계를 다는 고찰·한계 단락이 논증으로 완결된다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:09.748Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ee8494baff7d09ea84b006220a27efb1863387b0df21950a97902f4b3ffda306"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "한계 단락은 떼어 놓아도 「연관은 인과가 아니다」라는 논지가 그대로 서고, 약어 서넛만 풀면 V6 대로 내려간다.",
+          "sample": "First, confounding by indication represents a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.533Z",
+        "by": "chunk-llm",
+        "why": "술전 기관삽관과 감염의 연관을 제시한 뒤 중증도 교란 가능성으로 스스로 한계를 다는 고찰·한계 단락이 논증으로 완결된다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:09.748Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ee8494baff7d09ea84b006220a27efb1863387b0df21950a97902f4b3ffda306"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "한계 단락은 떼어 놓아도 「연관은 인과가 아니다」라는 논지가 그대로 서고, 약어 서넛만 풀면 V6 대로 내려간다.",
+          "sample": "First, confounding by indication represents a",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "한계 절의 「수술 전 삽관은 원인이 아니라 중증도의 표지일 수 있다」 단락과 ICU 체류-감염의 양방향 관계 단락이 상관·인과 구별 논지로 서서 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "First, confounding by indication represents a",
+          "note": "「First,」와 HAI 약어를 걷고 confounding→hidden third factor, endotracheal intubation→breathing tube 로 바꾸면 인과 주의 논지가 자족적으로 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.139Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.533Z",
+          "by": "chunk-llm",
+          "why": "술전 기관삽관과 감염의 연관을 제시한 뒤 중증도 교란 가능성으로 스스로 한계를 다는 고찰·한계 단락이 논증으로 완결된다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "claim",
+              "content_match",
+              "summary"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:09.748Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ee8494baff7d09ea84b006220a27efb1863387b0df21950a97902f4b3ffda306"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "한계 단락은 떼어 놓아도 「연관은 인과가 아니다」라는 논지가 그대로 서고, 약어 서넛만 풀면 V6 대로 내려간다.",
+            "sample": "First, confounding by indication represents a",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:01.466Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "02dbaf47-8535-42d9-915c-1ededf2a0ce8",
+    "revision": "2026-09-25T07:12:45.773956+00:00",
+    "body_sha256": "bfc7ec8339e24d4848337f55e3222339dca08cb30f2b2d6421d944c514e7f42e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.533Z",
+        "by": "chunk-llm",
+        "why": "생물학적 제제 이전과 이후의 결핵 빈도가 비슷하다는 사실을 지역 유행도로 설명하고 약제별 차이까지 견주는 고찰이 한 편의 글이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:09.775Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "8b119e1bd27222cca8f03fbd8de57a739d8e58791cf2cfeb8a5ae1e8ab48b54d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "건선 환자에서 결핵이 적은 이유를 따지는 단락은 수치를 걷어도 인과 설명이 남아 그대로 빈칸 문항이 된다.",
+          "sample": "The occurrence of TB observed in",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.533Z",
+        "by": "chunk-llm",
+        "why": "생물학적 제제 이전과 이후의 결핵 빈도가 비슷하다는 사실을 지역 유행도로 설명하고 약제별 차이까지 견주는 고찰이 한 편의 글이다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:09.775Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "8b119e1bd27222cca8f03fbd8de57a739d8e58791cf2cfeb8a5ae1e8ab48b54d"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "건선 환자에서 결핵이 적은 이유를 따지는 단락은 수치를 걷어도 인과 설명이 남아 그대로 빈칸 문항이 된다.",
+          "sample": "The occurrence of TB observed in",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「선별 검사가 엄격해지자 약물 간 결핵 위험 차이가 사라졌다」(대만 전후 비교) 단락이 시대 비교·주장-근거로 서고 지역 결핵 부담 단락이 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "then-now",
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Another factor to consider is the",
+          "note": "첫 문장을 「One factor…」로 바꾸고 약물 이름을 「a newer drug」로 줄이니 「검사 관행이 위험 판단을 바꾼다」 논지가 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.140Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.533Z",
+          "by": "chunk-llm",
+          "why": "생물학적 제제 이전과 이후의 결핵 빈도가 비슷하다는 사실을 지역 유행도로 설명하고 약제별 차이까지 견주는 고찰이 한 편의 글이다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match",
+              "blank"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:09.775Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "8b119e1bd27222cca8f03fbd8de57a739d8e58791cf2cfeb8a5ae1e8ab48b54d"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "건선 환자에서 결핵이 적은 이유를 따지는 단락은 수치를 걷어도 인과 설명이 남아 그대로 빈칸 문항이 된다.",
+            "sample": "The occurrence of TB observed in",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 1,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:38:32.572Z",
+      "topicMargin": 17.83
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "03055a26-4c93-44ea-b033-848b46831ef7",
+    "revision": "2026-09-25T07:13:04.958663+00:00",
+    "body_sha256": "dc485274538f5b923175b935f4e2dc70d776fa148d032a22ff47f6227d0a7a47",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.535Z",
+        "by": "chunk-llm",
+        "why": "빵집에서 말이 막히는 장면으로 열고 유전·신경망·사회 맥락으로 물음을 넓히는 구성이 이 청크에서 가장 지문에 가깝다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "order",
+            "insert",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:15.088Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ad4f7c47bb289366f20f7946544ca8d4df86b4fed16813d0edcac572891dd803"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "도입 장면은 그대로 서사 지문이 되고, 자연회복을 다룬 절은 용어 두셋만 바꾸면 V5 까지 내려간다 — 가장 손이 덜 간다.",
+          "sample": "You are at your favorite bakery,",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.535Z",
+        "by": "chunk-llm",
+        "why": "빵집에서 말이 막히는 장면으로 열고 유전·신경망·사회 맥락으로 물음을 넓히는 구성이 이 청크에서 가장 지문에 가깝다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "order",
+            "insert",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V5",
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:15.088Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ad4f7c47bb289366f20f7946544ca8d4df86b4fed16813d0edcac572891dd803"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "도입 장면은 그대로 서사 지문이 되고, 자연회복을 다룬 절은 용어 두셋만 바꾸면 V5 까지 내려간다 — 가장 손이 덜 간다.",
+          "sample": "You are at your favorite bakery,",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "빵집 장면으로 여는 도입, 노래할 때는 말더듬이 사라지는 현상, 사회적 맥락 단락 등 교양 설명문 단락이 많아 주제·빈칸·순서·삽입·심경 칸을 두루 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "insert",
+            "irrelevant",
+            "mood",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Besides the preserved ability to sing,",
+          "note": "「Besides…sing」을 떼고 neuromodulator 문장을 한 줄로 줄이니 「혼잣말은 유창하고 청중 앞에서 더듬는다」 논지가 쉽게 섰다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.141Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.535Z",
+          "by": "chunk-llm",
+          "why": "빵집에서 말이 막히는 장면으로 열고 유전·신경망·사회 맥락으로 물음을 넓히는 구성이 이 청크에서 가장 지문에 가깝다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high1",
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "main_point",
+              "order",
+              "insert",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V5",
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "myth-rebuttal",
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "school",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:15.088Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ad4f7c47bb289366f20f7946544ca8d4df86b4fed16813d0edcac572891dd803"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "도입 장면은 그대로 서사 지문이 되고, 자연회복을 다룬 절은 용어 두셋만 바꾸면 V5 까지 내려간다 — 가장 손이 덜 간다.",
+            "sample": "You are at your favorite bakery,",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:36:33.508Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "0318ebc2-b2c6-4b07-82c2-569b336a6802",
+    "revision": "2026-09-25T07:13:14.412395+00:00",
+    "body_sha256": "3d9e0869f81fd45d2ab776bdd8c2f0ec0b97328abe74c1ccae2e61cc65baa555",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.536Z",
+        "by": "chunk-llm",
+        "why": "소아암에 새 약을 만들 여력이 없다는 문제에서 기존 약 재배치로 넘어가는 서론의 논지가 고찰 결론까지 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "purpose",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:17.371Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "75986ad69d358e2f82a6713eff095869576a4567e54b742f8c565340f08c55ae"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 두 단락은 약 이름을 걷어도 「드문 소아암의 약 개발이 왜 막히나」가 남아 목적·주제 문항에 바로 쓰인다.",
+          "sample": "Retinoblastoma (RB) is the most common",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.536Z",
+        "by": "chunk-llm",
+        "why": "소아암에 새 약을 만들 여력이 없다는 문제에서 기존 약 재배치로 넘어가는 서론의 논지가 고찰 결론까지 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "purpose",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:17.371Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "75986ad69d358e2f82a6713eff095869576a4567e54b742f8c565340f08c55ae"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 첫 두 단락은 약 이름을 걷어도 「드문 소아암의 약 개발이 왜 막히나」가 남아 목적·주제 문항에 바로 쓰인다.",
+          "sample": "Retinoblastoma (RB) is the most common",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 「병용 약물 조합은 체계적 탐색이 아니라 직관과 경험으로 정해져 왔다」 단락이 문제 제기 논지로 서서 주제·빈칸 칸을 채우고, 나머지는 실험 절차라 쓰지 않는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "main_point"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In addition to combining chemotherapy with",
+          "note": "약물 이름과 RB 약어를 걷고 synergistic→working better together 로 바꾸면 「조합은 직관이 아닌 체계적 탐색으로」 논지가 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.143Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.536Z",
+          "by": "chunk-llm",
+          "why": "소아암에 새 약을 만들 여력이 없다는 문제에서 기존 약 재배치로 넘어가는 서론의 논지가 고찰 결론까지 이어진다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "purpose",
+              "claim",
+              "summary"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:17.371Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "75986ad69d358e2f82a6713eff095869576a4567e54b742f8c565340f08c55ae"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 첫 두 단락은 약 이름을 걷어도 「드문 소아암의 약 개발이 왜 막히나」가 남아 목적·주제 문항에 바로 쓰인다.",
+            "sample": "Retinoblastoma (RB) is the most common",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 6,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:28.552Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "0321c2ca-17ed-40be-895d-97a90e56edb0",
+    "revision": "2026-09-25T07:13:17.402765+00:00",
+    "body_sha256": "53f83607d888f1d4ffaee890b29022a84216fec7eb269385255584fcab890b0e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.536Z",
+        "by": "chunk-llm",
+        "why": "각막이 맑아져도 황반이 나쁘면 시력이 안 돌아온다는 결론이 짧은 고찰 안에서 근거와 함께 닫힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:18.495Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "2a73b954a2a0c99d99cc4b0c0743eee3e855123610a17f6b0fdd4896928787d0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 단락은 떼어져 서지만 전체가 2,016어로 짧고 안과 용어 밀도가 높아 한 지문 분량을 뽑으면 그게 거의 전부다.",
+          "sample": "Although fewer studies have focused on",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.536Z",
+        "by": "chunk-llm",
+        "why": "각막이 맑아져도 황반이 나쁘면 시력이 안 돌아온다는 결론이 짧은 고찰 안에서 근거와 함께 닫힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:18.495Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "2a73b954a2a0c99d99cc4b0c0743eee3e855123610a17f6b0fdd4896928787d0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 단락은 떼어져 서지만 전체가 2,016어로 짧고 안과 용어 밀도가 높아 한 지문 분량을 뽑으면 그게 거의 전부다.",
+          "sample": "Although fewer studies have focused on",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "짧은 논문이지만 고찰의 「각막이 맑아져도 황반 질환이 있으면 시력 회복이 제한된다」 단락과 결론이 요지 한 줄로 서서 요지·요약 칸을 채운다. 결과 절은 수치 나열이다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Consistent with previous reports, our findings",
+          "note": "논지는 서지만 단락이 짧아 지문 길이를 채우려면 서론·결론을 이어 붙여야 한다. corneal opacity→cloudy cornea 로 바꾸기는 쉬웠다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.143Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.536Z",
+          "by": "chunk-llm",
+          "why": "각막이 맑아져도 황반이 나쁘면 시력이 안 돌아온다는 결론이 짧은 고찰 안에서 근거와 함께 닫힌다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:18.495Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "2a73b954a2a0c99d99cc4b0c0743eee3e855123610a17f6b0fdd4896928787d0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 단락은 떼어져 서지만 전체가 2,016어로 짧고 안과 용어 밀도가 높아 한 지문 분량을 뽑으면 그게 거의 전부다.",
+            "sample": "Although fewer studies have focused on",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:24.339Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "0340dedc-8722-444f-99bf-66832b95e30e",
+    "revision": "2026-09-25T07:13:34.031015+00:00",
+    "body_sha256": "90e48454bed598fafa2d9b8b87f675ea31698541985ca9d46bbdea5208e9e2c9",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.538Z",
+        "by": "chunk-llm",
+        "why": "협동조합 관리 행위가 성과 유형을 가른다는 논지는 있으나 「Genes drivers bifurcate cooperatives」처럼 문장 자체가 비표준 영어라 어법·어휘 재료로 쓸 수 있는지가 갈린다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:19.638Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "dae9410829b27974cb076558837d0937e9d8ed7658c4d05c7da461228ea64d2e"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "서론 단락은 떼어져 논지가 서지만 실제로 낱말을 바꿔 보니 원문 문장이 먼저 어긋나 있어 어휘 조정 전에 문장 재작성이 필요했다 — 기준이 언어 품질을 다루지 않아 보류.",
+          "sample": "As a significant economic organizational form,",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.538Z",
+        "by": "chunk-llm",
+        "why": "협동조합 관리 행위가 성과 유형을 가른다는 논지는 있으나 「Genes drivers bifurcate cooperatives」처럼 문장 자체가 비표준 영어라 어법·어휘 재료로 쓸 수 있는지가 갈린다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:19.638Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "dae9410829b27974cb076558837d0937e9d8ed7658c4d05c7da461228ea64d2e"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "서론 단락은 떼어져 논지가 서지만 실제로 낱말을 바꿔 보니 원문 문장이 먼저 어긋나 있어 어휘 조정 전에 문장 재작성이 필요했다 — 기준이 언어 품질을 다루지 않아 보류.",
+          "sample": "As a significant economic organizational form,",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "「사례」 절의 Gaoshanyao 협동조합 이야기(계획·자금 조달·지역 평판)가 사건 흐름과 논지를 함께 갖고, 정책 제언 단락이 주장 칸을 채운다. 방법·회귀 절은 쓰지 않는다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Effective high-level management practices within cooperative",
+          "note": "조합 이름을 「a village cooperative」로 바꾸고 200,000 yuan 을 빼도 「관리 역량이 성과를 만든다」 사례 흐름이 선다. 원문 영어가 어색한 문장이 있어 다듬어야 한다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.144Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.538Z",
+          "by": "chunk-llm",
+          "why": "협동조합 관리 행위가 성과 유형을 가른다는 논지는 있으나 「Genes drivers bifurcate cooperatives」처럼 문장 자체가 비표준 영어라 어법·어휘 재료로 쓸 수 있는지가 갈린다.",
+          "basis": "full",
+          "genre": "social",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:19.638Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "dae9410829b27974cb076558837d0937e9d8ed7658c4d05c7da461228ea64d2e"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "서론 단락은 떼어져 논지가 서지만 실제로 낱말을 바꿔 보니 원문 문장이 먼저 어긋나 있어 어휘 조정 전에 문장 재작성이 필요했다 — 기준이 언어 품질을 다루지 않아 보류.",
+            "sample": "As a significant economic organizational form,",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "processing-unclear",
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:19:43.719Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "0376182b-4b6a-4240-8ccb-dbeca163b666",
+    "revision": "2026-09-25T07:13:48.002173+00:00",
+    "body_sha256": "333e8f8e35789bd526173e3ad0a7d134cecbc07e2a0c09ce210438a0028f6d8a",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.539Z",
+        "by": "chunk-llm",
+        "why": "심해에 가장 흔한 원생생물인데 아는 것이 거의 없다는 대비로 열고 식물·조류 세포벽을 분해한다는 가설로 잇는 서론이 한 편으로 선다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "purpose",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:23.434Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "dadf53300c6ef3ff9648e80d55488effd7ee7cbb0c6ae6e38eb3aec2c426ba31"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 세 단락은 그대로 과학 교양 지문이 되고, 본문 나머지는 원심·항체 프로토콜이라 발췌에서 잘라 낸다.",
+          "sample": "Diplonemids are unicellular, heterotrophic eukaryotes, which",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.539Z",
+        "by": "chunk-llm",
+        "why": "심해에 가장 흔한 원생생물인데 아는 것이 거의 없다는 대비로 열고 식물·조류 세포벽을 분해한다는 가설로 잇는 서론이 한 편으로 선다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "purpose",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:23.434Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "dadf53300c6ef3ff9648e80d55488effd7ee7cbb0c6ae6e38eb3aec2c426ba31"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 세 단락은 그대로 과학 교양 지문이 되고, 본문 나머지는 원심·항체 프로토콜이라 발췌에서 잘라 낸다.",
+          "sample": "Diplonemids are unicellular, heterotrophic eukaryotes, which",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론의 「심해에 가장 흔한 원생생물인데도 거의 알려지지 않았다」 단락과 결론의 「탄수화물이 없어도 분해 효소를 만드는 이유」 물음이 연구 물음형 논지로 서서 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "title"
+          ],
+          "levels": [
+            "V9",
+            "V10"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Despite their importance, our knowledge of",
+          "note": "「Despite their importance」의 their 를 diplonemids 로 풀고 axenic cultures→lab cultures 로 바꾸니 떼어진다. 본문 대부분은 단백질 목록이라 쓸 단락은 두셋이다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.146Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.539Z",
+          "by": "chunk-llm",
+          "why": "심해에 가장 흔한 원생생물인데 아는 것이 거의 없다는 대비로 열고 식물·조류 세포벽을 분해한다는 가설로 잇는 서론이 한 편으로 선다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "purpose",
+              "blank"
+            ],
+            "levels": [
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:23.434Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "dadf53300c6ef3ff9648e80d55488effd7ee7cbb0c6ae6e38eb3aec2c426ba31"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 세 단락은 그대로 과학 교양 지문이 되고, 본문 나머지는 원심·항체 프로토콜이라 발췌에서 잘라 낸다.",
+            "sample": "Diplonemids are unicellular, heterotrophic eukaryotes, which",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 8,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:26.501Z",
+      "topicMargin": 32.47
+    }
+  },
+  {
+    "runId": "2026-09-25T08-06-34-130Z",
+    "id": "0377a1f6-4265-472c-8f7a-e92e3785e20c",
+    "revision": "2026-09-25T07:13:50.577913+00:00",
+    "body_sha256": "dac15bdc3159c7bbebd6f7cb9e7ca36a40d81b6dd30ef655f88b52a29844bf04",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.540Z",
+        "by": "chunk-llm",
+        "why": "암 통계와 시르투인의 역할을 세운 뒤 곰팡이 대사산물을 계산으로 걸러 본다는 서론의 흐름이 근거와 함께 닫힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:23.506Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6da0be1c59964d8d88b21e3cc9d4646383c31588ae74c88eaeb09db8120c30c9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 두 단락은 떼어도 서지만 결과·고찰이 MSID 번호와 결합에너지 나열이라 그 절은 발췌 대상이 못 된다.",
+          "sample": "Recent global projections from GLOBOCAN 2022",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T00:34:09.540Z",
+        "by": "chunk-llm",
+        "why": "암 통계와 시르투인의 역할을 세운 뒤 곰팡이 대사산물을 계산으로 걸러 본다는 서론의 흐름이 근거와 함께 닫힌다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "purpose",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:49:23.506Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "6da0be1c59964d8d88b21e3cc9d4646383c31588ae74c88eaeb09db8120c30c9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 두 단락은 떼어도 서지만 결과·고찰이 MSID 번호와 결합에너지 나열이라 그 절은 발췌 대상이 못 된다.",
+          "sample": "Recent global projections from GLOBOCAN 2022",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "health",
+        "why": "본문 대부분이 잔기 번호·결합 에너지 나열이고, 서론의 「컴퓨터 설계가 신약 탐색을 앞당긴다」 단락만 얇게 서며 고찰이 결과(P-gp 기질 여부)와 어긋나 보관 여부가 갈린다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "topic"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Computer-aided drug design (CADD) approach for",
+          "note": "떼어 보니 CADD 장점과 천연물 출처를 두 문장씩 말하고 끝나 논지가 한 지문으로 서기에 얇다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:06:34.147Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T00:34:09.540Z",
+          "by": "chunk-llm",
+          "why": "암 통계와 시르투인의 역할을 세운 뒤 곰팡이 대사산물을 계산으로 걸러 본다는 서론의 흐름이 근거와 함께 닫힌다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "purpose",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:49:23.506Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "6da0be1c59964d8d88b21e3cc9d4646383c31588ae74c88eaeb09db8120c30c9"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 두 단락은 떼어도 서지만 결과·고찰이 MSID 번호와 결합에너지 나열이라 그 절은 발췌 대상이 못 된다.",
+            "sample": "Recent global projections from GLOBOCAN 2022",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": false
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:01.117Z"
+    }
+  }
+]

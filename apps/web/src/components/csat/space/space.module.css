@@ -1,0 +1,901 @@
+/* apps/web/src/components/csat/space/space.module.css
+ *
+ * 기출 작업 공간 — 참조(Tines 3B) **앱 화면**의 판면.
+ * 참조의 골격 네 층을 그대로 옮긴다: ① 좌측 레일 ② 무늬 띠 + 명령 상자 ③ 탭 줄 ④ 한 줄이 한 작업인 표.
+ * 색은 전부 토큰이다(스킨을 끄면 지면 팔레트로 돌아간다 — `?skin=off`).
+ * 한글은 `word-break: keep-all`(AGENTS I7 — 없으면 390px 에서 낱말이 쪼개진다).
+ */
+
+.root {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--t1);
+  word-break: keep-all;
+}
+
+.root :is(a, button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+@media (min-width: 900px) {
+  .root {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+/* ── ① 좌측 레일 ───────────────────────────────────────────────────────────
+   참조는 아이콘 + 라벨 한 줄짜리 항목을 두 무리로 나누고, 그 아래 「Spaces」 목록을 둔다.
+   폰에서는 레일이 가로로 눕는다(세로로 두면 첫 화면이 목록만으로 찬다). */
+.rail {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 12px 10px 24px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--bg);
+}
+
+@media (min-width: 900px) {
+  .rail {
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+    overflow-y: auto;
+    border-bottom: 0;
+    border-right: 1px solid var(--bd);
+  }
+}
+
+.mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--t1);
+}
+
+.markGlyph {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  background: var(--ju);
+  color: var(--on-ju);
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 10px 4px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--t3);
+}
+
+.railItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 34px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--t2);
+  font-size: 13px;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+
+.railItem:hover {
+  background: var(--bg3);
+  color: var(--t1);
+}
+
+.railItem[aria-current='true'],
+.railItem[aria-pressed='true'] {
+  background: var(--tint-lavender);
+  color: var(--tint-lavender-ink);
+  font-weight: 600;
+}
+
+.railItem svg {
+  flex-shrink: 0;
+}
+
+.railCount {
+  margin-left: auto;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--t3);
+}
+
+.divider {
+  height: 1px;
+  margin: 2px 10px;
+  background: var(--bd);
+}
+
+.railScroll {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+/* 폰에서는 레일이 **가로로 눕는다.**
+   ⚠️ 세로로 두면 첫 화면이 레일만으로 찬다 — 실측(390px · 2026-09-23): 회차 29줄 때문에
+      레일이 734px 을 먹고 무늬 띠가 798px 아래로 밀렸다. 「열자마자 표」가 사라진다.
+      그래서 한 줄짜리 가로 스크롤 띠로 바꾸고, 무리 사이는 세로 획으로 가른다. */
+@media (max-width: 899px) {
+  .rail {
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+  }
+
+  .rail > * {
+    flex-shrink: 0;
+  }
+
+  .mark {
+    padding-right: 4px;
+  }
+
+  .group {
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .groupHead {
+    display: none;
+  }
+
+  .railScroll {
+    flex-direction: row;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .railItem {
+    min-height: 44px;
+    white-space: nowrap;
+  }
+
+  .divider {
+    width: 1px;
+    height: 20px;
+    margin: 0 4px;
+  }
+}
+
+
+/* ── 상단 줄 ───────────────────────────────────────────────────────────────
+   참조는 가운데에 알약 하나(초대 아바타 + 행동)를 띄우고 오른쪽에 도구 아이콘을 둔다.
+   우리 알약은 초대가 아니라 **이 공간이 무엇을 세고 있는지**다. */
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+}
+
+.topPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin-inline: auto;
+  padding: 0 14px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  background: var(--bg2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* 폰에서는 연도 범위를 접는다 — 접지 않으면 알약이 두 줄로 접히고 머리가 흔들린다(실측 390px). */
+.topPillWide {
+  display: none;
+}
+
+@media (min-width: 560px) {
+  .topPillWide {
+    display: inline;
+  }
+}
+
+.topPill b {
+  color: var(--t1);
+  font-weight: 700;
+}
+
+.topLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+}
+
+.topLink:hover {
+  background: var(--bg3);
+  color: var(--t1);
+}
+
+.canvas {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0 16px 48px;
+}
+
+/* ── ② 무늬 띠 + 명령 상자 ─────────────────────────────────────────────────
+   띠는 장식이 아니라 **지금 표에 있는 것의 그림**이다(space-model.patternShapes).
+   높이는 참조 실측 비율(창 폭 대비 약 1:7)을 따라 clamp 로 준다. */
+.band {
+  position: relative;
+  height: clamp(196px, 17vw, 240px);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  background: var(--bg2);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.bandArt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 띠 아래쪽만 옅게 덮는다 — 판이 올라타는 자리에서 무늬가 끊기지 않게 잇는 층이다.
+   ⚠️ 처음에는 위아래를 22~62% 로 덮었는데 무늬가 통째로 바래서 참조의 쨍한 띠와 달라졌다
+      (실측 2026-09-23). 명령 상자는 제 바탕(--bg)을 갖고 있어 덮개로 대비를 벌 필요가 없다. */
+.bandVeil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, color-mix(in srgb, var(--bg) 45%, transparent));
+}
+
+.prompt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: min(560px, calc(100% - 32px));
+  transform: translate(-50%, -50%);
+}
+
+/* 뒷장 — 참조의 상자는 두 장이 겹쳐 있다(뒷장에 질문, 앞장에 입력). */
+.promptBack {
+  margin: 0 14px;
+  padding: 7px 14px 15px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  border-bottom: 0;
+  background: var(--bg2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.promptCard {
+  margin-top: -8px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  box-shadow: var(--sh-soft);
+  overflow: hidden;
+}
+
+.promptInput {
+  width: 100%;
+  min-height: 62px;
+  padding: 14px 16px 6px;
+  border: 0;
+  background: transparent;
+  color: var(--t1);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+}
+
+.promptInput::placeholder {
+  color: var(--t3);
+  opacity: 0.85;
+}
+
+.promptInput:focus {
+  outline: none;
+}
+
+.promptFoot {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 8px 12px;
+}
+
+.promptChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--t2);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.promptChip:hover {
+  background: var(--bg3);
+}
+
+.promptChip[aria-pressed='true'] {
+  background: var(--tint-lavender);
+  border-color: transparent;
+  color: var(--tint-lavender-ink);
+}
+
+.promptGo {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ju);
+  color: var(--on-ju);
+  cursor: pointer;
+}
+
+.promptGo:disabled {
+  background: var(--bg3);
+  color: var(--t3);
+  cursor: default;
+}
+
+/* ── ③ 판 — 띠 위로 조금 올라타 앉는다(참조와 같은 겹침) ───────────────── */
+.panel {
+  position: relative;
+  z-index: 2;
+  margin-top: -12px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--t2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tab:hover {
+  background: var(--bg3);
+}
+
+.tab[aria-selected='true'] {
+  background: var(--bg3);
+  color: var(--t1);
+}
+
+.tabCount {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--tint-lavender);
+  color: var(--tint-lavender-ink);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.tabsRight {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  min-height: 44px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--t2);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.tabsRight:hover {
+  background: var(--bg3);
+  color: var(--t1);
+}
+
+/* 채움 현황 — 탭 줄 오른쪽 버튼이 여는 한 줄짜리 서랍. 표를 밀지 않고 위에 얹힌다. */
+.gauges {
+  display: grid;
+  gap: 10px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--bd);
+  background: var(--bg2);
+}
+
+@media (min-width: 720px) {
+  .gauges {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.gauge {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--t2);
+}
+
+.gauge b {
+  font-family: var(--font-mono), monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--t1);
+  font-variant-numeric: tabular-nums;
+}
+
+.gaugeBar {
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--t1) 12%, transparent);
+  overflow: hidden;
+}
+
+.gaugeFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ju);
+}
+
+/* ── ④ 표 ─────────────────────────────────────────────────────────────────
+   표를 grid 로 짠다 — 열 폭을 한 곳에서 정하고, 좁은 화면에서는 머리를 접고
+   행이 두 줄로 눕는다(모바일에서 가로 스크롤을 만들지 않는다). */
+.tableHead,
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px 16px;
+  padding: 12px 16px;
+  align-items: center;
+}
+
+@media (min-width: 1100px) {
+  .tableHead,
+  .row {
+    grid-template-columns: minmax(0, 2.6fr) minmax(0, 0.9fr) minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+}
+
+.tableHead {
+  padding-block: 9px;
+  border-bottom: 1px solid var(--bd);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--t3);
+}
+
+.tableHead span:not(:first-child) {
+  display: none;
+}
+
+@media (min-width: 1100px) {
+  .tableHead span:not(:first-child) {
+    display: block;
+  }
+}
+
+.row {
+  border-bottom: 1px solid color-mix(in srgb, var(--bd) 55%, transparent);
+  text-align: left;
+  width: 100%;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--bg2);
+}
+
+.row[aria-expanded='true'] {
+  background: var(--bg2);
+}
+
+.rowName {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.tile {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.rowTitle {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--t1);
+  line-height: 1.35;
+}
+
+.rowMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--t3);
+  font-variant-numeric: tabular-nums;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.dotOff {
+  background: color-mix(in srgb, var(--t1) 30%, transparent);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.cell {
+  font-size: 12px;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.cellLabel {
+  display: inline;
+  color: var(--t3);
+}
+
+@media (min-width: 1100px) {
+  .cellLabel {
+    display: none;
+  }
+}
+
+.recentCell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.recentBar {
+  flex: 1;
+  min-width: 40px;
+  max-width: 88px;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--t1) 12%, transparent);
+  overflow: hidden;
+}
+
+.recentFill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--t1) 45%, transparent);
+}
+
+.exampleChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 0 9px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.exampleNone {
+  font-size: 11px;
+  color: var(--t3);
+}
+
+/* 펼친 줄 — 참조 상세 화면의 바닥 카드 넷을 한 줄 안으로 접었다. */
+.drawer {
+  display: grid;
+  gap: 10px;
+  padding: 4px 16px 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--bd) 55%, transparent);
+  background: var(--bg2);
+}
+
+@media (min-width: 900px) {
+  .drawer {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 96px;
+  padding: 12px 14px;
+  border-radius: var(--r-lg);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.stepHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.stepNum {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: color-mix(in srgb, currentColor 16%, transparent);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.stepBody {
+  color: inherit;
+  opacity: 0.88;
+}
+
+.stepLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  margin-top: auto;
+  min-height: 32px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, currentColor 12%, transparent);
+  font-size: 11px;
+  font-weight: 700;
+  color: inherit;
+}
+
+.stepLink:hover {
+  background: color-mix(in srgb, currentColor 20%, transparent);
+}
+
+.empty {
+  padding: 40px 16px 48px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--t3);
+}
+
+.emptyReset {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 8px;
+  padding: 0 14px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--t2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.foot {
+  padding: 14px 4px 0;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--t3);
+}
+
+.foot p {
+  max-width: 62em;
+}
+
+/* 문장 밖으로 뺀 링크 — 44px 하한(접근성 절대 규칙). 문장 안에 두면 13px 짜리 표적이 된다. */
+.footLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 4px;
+  padding: 0 14px;
+  border: 1px solid var(--bd);
+  border-radius: 999px;
+  color: var(--t2);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.footLink:hover {
+  background: var(--bg3);
+  color: var(--t1);
+}
+
+/* ── 참조(3B) 메인 화면의 색 · 서체 (2026-09-24) ───────────────────────────
+   앱 스킨의 크림 · 보라 대신 참조 값으로 **이 화면 안에서만** 토큰을 덮는다.
+   회색 페이지 위에 레일이 투명하게 놓이고, 오른쪽이 큰 흰 카드 하나다(띠 · 탭 · 표가 그 안에 있다).
+   띠 색(보라 · 분홍 · 초록)은 `PatternBand` 의 격자 변형이 쥔다. */
+.root {
+  --bg: #ffffff;
+  --bg2: #f7f7f8;
+  --bg3: #efeeec;
+  --bd: #e8e7e4;
+  --t1: #18181b;
+  --t2: #56565c;
+  --t3: #8e8e94;
+  --p: #7c5cfa;
+  --ju: #18181b;
+  --success: #16a34a;
+  --tint-lavender: #efeafd;
+  --tint-lavender-ink: #5b3fd6;
+  --font-sans: var(--font-admin-sans), 'Pretendard', system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  --font-serif: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-ko-display: var(--font-sans);
+  --font-mono: var(--font-admin-mono), ui-monospace, monospace;
+  background: #faf9f7;
+  font-family: var(--font-sans);
+  letter-spacing: -0.005em;
+}
+.rail { background: transparent; }
+@media (min-width: 900px) {
+  .rail { border-right: 0; }
+}
+.markGlyph { background: var(--t1); color: #fff; }
+.railItem { color: var(--t1); font-weight: 400; }
+.railItem[aria-current='true'],
+.railItem[aria-pressed='true'] { background: var(--bg3); color: var(--t1); }
+.topPill { background: #fdf3e7; border: 1px dashed #f0b27a; color: #7a4b1c; font-weight: 500; }
+.topPill b { color: #5b3510; }
+.canvas {
+  margin: 0 14px 14px 0;
+  padding: 0;
+  background: var(--bg);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  overflow: hidden;
+}
+@media (max-width: 899px) {
+  .canvas { margin: 0; border-radius: 0; border-width: 1px 0 0; }
+}
+.band { border-radius: 0; background: #f3f3f3; }
+.bandVeil { display: none; }
+.promptBack { background: var(--bg2); }
+.promptCard { box-shadow: 0 1px 3px rgba(0, 0, 0, .06); }
+.promptGo { background: #8e8e94; }
+.promptChip[aria-pressed='true'] { background: var(--bg3); color: var(--t1); }
+.panel { margin-top: -14px; border-width: 1px 0 0; border-radius: 14px 14px 0 0; }
+.tab[aria-selected='true'] { background: var(--bg2); box-shadow: inset 0 0 0 1px var(--bd); }
+.tabCount { background: var(--bg3); color: var(--t2); }
+.gaugeFill { background: var(--t1); }
+
+/* ── 메뉴 접기(유형별 · 회차별) — ia-design §1-1 ───────────────────────────── */
+.railFold > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 6px; min-height: 36px; }
+.railFold > summary::-webkit-details-marker { display: none; }
+.railFold > summary:hover { color: var(--t1); }
+.foldIcon { margin-left: 4px; transition: transform var(--dur-normal) var(--ease); }
+.railFold[open] .foldIcon { transform: rotate(180deg); }
+.mark:hover { background: var(--bg3); }
+.railItem[aria-current='page'] { background: var(--bg3); color: var(--t1); font-weight: 600; }
+.tableHead[hidden] { display: none !important; }

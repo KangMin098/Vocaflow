@@ -1,0 +1,965 @@
+[
+ {
+  "id": "00c0b055-51e6-40ff-a8dc-08ddde223306",
+  "source_updated_at": "2026-09-25T05:31:57.805087+00:00",
+  "body_sha256": "edd4bb415f07b08ff100e19b658dc485e977e4802c023fa5067beac0b7a86707",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "회색늑대 보호 등급 하향이 과학·법에 근거하지 않았다는 법원 판결과 환경단체 대표의 발언이 이어져 요지·내용일치 칸이 서고 시대 비교 재료가 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Government's plans to reclassify the",
+   "note": "일부 지역 회복으로 전체 보호를 약화할 수 없다는 판결 단락이 자족적이고 reclassify 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "00c1965f-83c6-4a13-a7e4-442522b6b328",
+  "source_updated_at": "2026-09-25T07:46:57.730247+00:00",
+  "body_sha256": "5d6fe56de201b8bed84c492abd608638e5892df83f19125372ba5ea1216b8d6f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "대선 후보에게 「호머 심슨」 이름의 후원금이 들어온 해프닝과 캠프의 확인 과정이 짧게 이어져 중등 이상 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Huff Post discovered the July",
+   "note": "발견→캠프 반응→확인 약속의 흐름이 한 단락에 있고 어휘가 V4~5 다."
+  }
+ },
+ {
+  "id": "00cc31b8-09c4-479e-9073-1e404d1c6808",
+  "source_updated_at": "2026-09-25T06:58:08.425339+00:00",
+  "body_sha256": "4a232dda4fae87c881231439e9399a4ca0a368bbe13a9b7c2c9b0a2a53ce52be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "베네수엘라 야당 지도자가 파업 선동으로 15년형을 받은 소식과 도피·귀국·체포 경위, 차베스와의 대립 배경이 이어져 내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "While Ortega had initially fled Venezuela",
+   "note": "줄바꿈이 흐트러져 있으나 도피→귀국→체포 경위가 이어지고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "00cd8274-4a6c-4c87-96a8-136a828afecd",
+  "source_updated_at": "2026-09-25T08:16:15.289471+00:00",
+  "body_sha256": "f0768aac7c89ecc7594c5df7f85f9319b4146395349d1fb32b210360ef48a4d6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "서안 정착촌 방화범이 아이를 찌른 뒤 정착민들이 팔레스타인 마을을 보복 공격한 연쇄 사건과 양측 주장이 이어져 내용일치 칸이 서고 폭력 소재라 고1 이상이다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An unknown Palestinian man began setting",
+   "note": "방화→아이 부상→보복의 순서가 한 단락에 서고 retribution 만 풀면 V4 다."
+  }
+ },
+ {
+  "id": "00ce2efb-6205-4517-b999-e642d70f9e7d",
+  "source_updated_at": "2026-09-25T08:09:05.556205+00:00",
+  "body_sha256": "e73e9b45d6dd2c7453f63ba67d42b54981a92844f103f5f15687044da68c0c62",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "인도 아그니-3 미사일 시험 발사 경과와 사거리·크기·이전 모델과의 차이가 이어져 내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The missile took off vertically into",
+   "note": "발사→재진입→낙하와 추적 장비 단락이 자족적이고 telemetric 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "00ce307c-2d99-4f16-89c0-1becfb28fdcd",
+  "source_updated_at": "2026-09-25T08:16:16.04141+00:00",
+  "body_sha256": "7552cbd2f1499caae89645ead444d56f19f3278ddbfb648b15cabd5297e2b9f3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "history",
+  "why": "1950년 미시간호 여객기 실종 희생자 유해가 무표지 묘에 묻혔다는 연구자의 발견과 유족 사연·추모비 제막이 이어져 내용일치·심경 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Van Heest Said of the victims'",
+   "note": "89세 유족의 부탁 인용이 심경 문항이 되고 befell 만 바꾸면 V4~5 다."
+  }
+ },
+ {
+  "id": "00d1e90d-8ff2-4386-8875-36928340c529",
+  "source_updated_at": "2026-09-25T07:12:33.758358+00:00",
+  "body_sha256": "812e058fff7b96be732da9b77bec056055ef6d473203b4ff60ea50867fbac119",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "mixed",
+  "why": "위키뉴스 단신 모음은 포클랜드 기념일·관타나모 판결·핵무기 발언·주노상·우크라이나 의회 해산이 「Sources」 머리만 남긴 채 섞여 주제가 계속 갈아엎힌다.",
+  "slots": {
+   "ages": [
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "Today marks the 25th anniversary of",
+   "note": "꼭지 하나는 떼어지지만 각 꼭지가 두세 문장이라 한 편의 글로 서지 않는다."
+  }
+ },
+ {
+  "id": "00d351ae-c620-4634-b1b9-3ae8ce7d3d2c",
+  "source_updated_at": "2026-09-25T07:37:00.611784+00:00",
+  "body_sha256": "9c98f4969f8e7a6f6adb3797309e41d783ea04a69891a2cff61361f451682579",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "과들루프 한 달 총파업이 폭력으로 번져 노조원이 숨진 사건과 프랑스 정부의 대응이 짧게 이어져 내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Guadeloupe is an overseas department of",
+   "note": "해외 영토 설명과 임금 요구 단락이 자족적이고 어휘가 V4 다."
+  }
+ },
+ {
+  "id": "00da426b-7a27-4648-9d2f-e0aa8dedbd16",
+  "source_updated_at": "2026-09-25T08:13:34.554286+00:00",
+  "body_sha256": "07e6955610b04609c862f4edd1c063d906edbb8249af2930f46c5acdbf7830ae",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "유출된 관타나모 운영 절차서가 진본임을 미군이 확인하고 수감자 처우를 해명하는 발언이 이어져 내용일치 칸이 서고 고문 의혹 맥락이라 고2 이상이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "\"It is important to understand that",
+   "note": "운영 절차서는 상황에 따라 바뀐다는 인용 단락이 서지만 군사 행정어가 많다."
+  }
+ },
+ {
+  "id": "00e30860-dab0-4822-8bb4-6f16e665e6df",
+  "source_updated_at": "2026-09-25T06:48:53.445543+00:00",
+  "body_sha256": "e2774be5126015fe6ab6f46087d44dcb9fea2866261e8cf4b899a4057820ed29",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이라크 주재 이집트 대사 납치 사건과 이집트 정부의 호소, 이전 외교관 납치·대사 파견 배경이 이어져 내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Egyptians in Iraq are no strangers",
+   "note": "작년 외교관 납치 사례 단락이 자족적이고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "00e4fe1c-ebc9-465c-8556-16521a3240fb",
+  "source_updated_at": "2026-09-25T07:33:37.040336+00:00",
+  "body_sha256": "e85b8e19a2296ad7a25f0ab406c1d7eef4b714ae4fee23716cc44db9253f27db",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "타이베이 리눅스 포럼 단신은 문법이 흐트러진 행사 소개와 주최 기관·제품 이름 나열이라 떼어 낼 논지·사건 흐름이 없다.",
+  "slots": {
+   "ages": [
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "As several required functions from business",
+   "note": "문장 구조가 깨져 있어 어휘를 바꿔도 뜻이 선 단락이 되지 않는다."
+  }
+ },
+ {
+  "id": "00e7669b-f17f-4502-99c8-d72665db01cf",
+  "source_updated_at": "2026-09-25T06:47:36.69617+00:00",
+  "body_sha256": "c9a364889d080328d3f70b86e0270207d14049a0a33cfef32dac9c565b31d0fc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "보잉이 에어캐나다·에어인디아에서 대형 주문을 받은 이유로 연료 효율을 드는 대목이 있어 수치 사이에 인과가 서고 내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Air India says the new fuel-efficient",
+   "note": "연료 절감이 주문의 결정 요인이라는 단락이 자족적이고 어휘가 V4 다."
+  }
+ },
+ {
+  "id": "00e9c960-1382-4f2d-bdc4-b3fdc34a58d4",
+  "source_updated_at": "2026-09-25T07:04:53.011865+00:00",
+  "body_sha256": "9faf833a878145ffbe274fe18033152af1be6a550cbe4926a4252872c9064136",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "온타리오 주 로고 교체에 야당이 청원 사이트로 반발하는 논쟁과 양측 주장이 서서 주장·내용일치 칸이 된다; 「picture can be seen here」 문장은 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"You just don't arbitrarily tamper with",
+   "note": "로고 교체가 예산 낭비라는 야당 대표 발언 단락이 주장 근거로 서고 pork barrellers 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "00f15cde-909f-48db-8de9-e3cfa5b8dd2a",
+  "source_updated_at": "2026-09-25T07:32:17.568843+00:00",
+  "body_sha256": "6951be13a2d69bf3ce3092727ee2d6a577d334c17f494ced4c8895188c1c5314",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "몰도바 휴대전화 가입자 단신은 증가율·보급률·사업자별 가입자 수 나열뿐이라 떼어 낼 논지·사건 흐름이 없고 내용일치 칸 하나만 수치로 채운다.",
+  "slots": {
+   "ages": [
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "The first million of mobile telephony",
+   "note": "연도별 가입자 수 문장은 수치를 걷으면 남는 것이 없다."
+  }
+ },
+ {
+  "id": "00f2b631-4540-42b5-94e6-be511cfaf06f",
+  "source_updated_at": "2026-09-25T07:37:41.024665+00:00",
+  "body_sha256": "b5a081959b254d058ff97e2a2d013ea445aeddcf7de2756cac06cdd496e082d5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "유로비전 우승자 루슬라나 인터뷰로 음악 교육·후출 전통·재생에너지·인신매매 캠페인·정계 경험 답변이 각각 자족적이라 구어 읽기·내용일치·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ruslana: The thing is that I",
+   "note": "의회에서 재생에너지 사업을 하다 나온 경험 답변이 자족적이고 괄호 보충을 정리하면 V4 다."
+  }
+ },
+ {
+  "id": "00f82acb-ea9c-4c1c-a2b9-3fb34ce2a00d",
+  "source_updated_at": "2026-09-25T07:58:42.496928+00:00",
+  "body_sha256": "24874fd54797291b1ce7f8859956aaf2d506fbb552f45432d59d442d4ad1404c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "사우디 아람코 시설 드론 공격과 생산 차질 규모, 후티·미국의 상반된 책임 주장, 예멘 내전 배경이 이어져 내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Reuters, citing anonymous sources, reported both",
+   "note": "생산 차질 규모 단락이 자족적이고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "00fc4760-eb4a-413d-93d8-383e40e96472",
+  "source_updated_at": "2026-09-25T08:05:42.092965+00:00",
+  "body_sha256": "11348ddafef80d9064165e0594034ecee57222caf799b642079616922709fcaa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "모 몰럼 전 북아일랜드 장관의 부고와 블레어·동료의 평, 성금요일 협정에서의 역할이 짧게 이어져 인물 내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mo Mowlam was central to the",
+   "note": "협정에서의 역할과 인기 단락이 자족적이고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "010016da-d056-4629-bd41-249a253b211d",
+  "source_updated_at": "2026-09-25T07:58:42.587231+00:00",
+  "body_sha256": "dabb33a5f07913c84cd0d4e22270baeebeba9626f4ca772be78621856eb5b167",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "텍사스 유밸디 초등학교 총격으로 아동 18명이 숨진 사건과 범인·지역 정보·과거 총격 사건 비교가 이어져 내용일치 칸이 서고, 아동 사망 소재라 고1 이상 칸만 단다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The attack is the deadliest school",
+   "note": "샌디훅 이후 최악이라는 비교 단락은 서지만 사건 자체가 무거워 어휘 조정만으로 연령이 내려가지 않는다."
+  }
+ },
+ {
+  "id": "01004c30-af7b-48cd-831b-15ccb86eb34e",
+  "source_updated_at": "2026-09-25T07:34:32.391682+00:00",
+  "body_sha256": "d234eb2b63e0c123807c91665085df68116940d5cefe1d5bf293fbbbfafe3d71",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아덴만에서 그리스 화물선이 납치된 사건과 해운업계의 해군 파견 호소·누적 납치 통계가 이어져 내용일치·요지 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"The shipping industry's plea is in",
+   "note": "방치하면 희망봉 우회로 물가가 오른다는 호소 단락이 인과로 서고 irretrievably 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "0100e912-fe48-40ee-a767-9e68306c16a4",
+  "source_updated_at": "2026-09-25T08:07:31.34636+00:00",
+  "body_sha256": "766f0d44c09f48bba8e5fb25aff45fe736088754fd8ab31c6055e8e2ed2dae18",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "자유당 대선 후보였던 해리 브라운의 부고로 경력·저서와 금값 상승 예측이 짧게 이어져 인물 내용일치 칸이 된다; 책 제목 목록은 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "His writings focused largely on supporting",
+   "note": "저술의 초점과 금값 예측 단락이 짧게 서고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "01043cae-f38b-4e02-8e4d-c181741bbde6",
+  "source_updated_at": "2026-09-25T07:43:23.402012+00:00",
+  "body_sha256": "5908aeb8c4e0429dc22f471b228755055c8fdff84b1da9111b9b03a8e7a3f52e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "그리스 구제금융이 다른 나라 위기를 막지 못할 것이라는 우려로 유로가 1년 만의 최저치로 떨어졌다는 인과가 서서 내용일치 칸이 되고 시대 비교 재료다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The euro is losing strength as",
+   "note": "그리스 부도 위기와 유로 약세의 인과 단락이 자족적이고 defaulting 만 풀면 V5 다."
+  }
+ },
+ {
+  "id": "01048aed-2a2a-4eaf-808c-1e784bd40816",
+  "source_updated_at": "2026-09-25T05:31:13.310112+00:00",
+  "body_sha256": "b26c26d3ec71025b02bcfbed592a42510e08ee53695df605393d7c1fda4a9835",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "미 특수부대가 이란 핵 표적을 탐색하는 비밀작전을 벌였다는 허시 보도와 국방부 반박이 이어져 내용일치 칸이 서고 시대 비교 재료다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The Pentagon has strongly criticised the",
+   "note": "국방부 반박 단락은 서지만 innuendo 같은 낱말은 바꿔도 뜻이 흐려진다."
+  }
+ },
+ {
+  "id": "010c387e-d96c-4664-b559-3421fa55facf",
+  "source_updated_at": "2026-09-25T07:09:17.389474+00:00",
+  "body_sha256": "0ab3d899c6a726c50e572464eb42ea959959d8b54371b1b0f6aa515535815db3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "하퍼 총리가 인권 문제를 굽히지 않겠다며 후진타오와의 회담을 둘러싼 중국의 번복에 대응하는 과정이 서서 주장·내용일치 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"I think Canadians want us to",
+   "note": "무역보다 가치를 앞세운다는 발언 단락이 주장으로 서고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "011125f2-2eca-41a3-8671-3046ed33dd3b",
+  "source_updated_at": "2026-09-25T07:58:42.633209+00:00",
+  "body_sha256": "fa7c0ea417c0d96ab9cab3ad023016db380a57a6f83793cef94ecc0fc66db5cd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "북한 장거리 미사일 발사를 위성 발사라 주장한 것과 한·일·미의 규탄, 안보리 소집이 이어져 내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The launch occurred at 09:31am local",
+   "note": "발사 탐지와 규탄·안보리 소집 단락이 자족적이고 어휘가 V5 다."
+  }
+ },
+ {
+  "id": "0111658f-92e7-446d-b3e8-5796ec57ecbc",
+  "source_updated_at": "2026-09-25T06:46:20.033886+00:00",
+  "body_sha256": "ec2e2942376313a572918ec772a6259bc4c8562df1053bae96c353769a3cc4e5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "science",
+  "why": "중이온 충돌기에서 만든 불덩이가 블랙홀처럼 행동했다는 계산과 위험하지 않다는 설명이 이어져 주제·내용일치 칸이 되고 시대 비교 재료다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Scientists have reassured the public that",
+   "note": "존재 시간이 극히 짧아 위협이 아니라는 단락이 자족적이고 cataclysmic 만 풀면 V5~6 이다."
+  }
+ }
+]

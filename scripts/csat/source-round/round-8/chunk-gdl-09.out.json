@@ -1,0 +1,946 @@
+[
+  {
+    "id": "affa667d-781d-431f-a228-24a84f01c8fe",
+    "source_updated_at": "2026-09-25T04:03:23.303693+00:00",
+    "body_sha256": "66c7a71c9b137528e60cf8d8ee4eaa403879372c39b1287a28b9d422dfc1b33a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "무지개새 뷰티가 불길에 뛰어들어 아이와 할아버지를 구하고 깃털 색을 잃지만 브레이브로 불리는 인과가 초등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time, Grandpa Prak",
+      "note": "화재 구조 단락이 앞 문맥 없이 서고 scorched 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "b2443e00-cc9d-4ece-95a6-6e74b9e91662",
+    "source_updated_at": "2026-09-25T04:03:08.98673+00:00",
+    "body_sha256": "1954fdebc59688e5fffe40d725958f9ebc37d6fb88b4ffc7810217e3ff659686",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "잡힌 친구 마우를 빌루와 칼루아가 불 끄기·유령 흉내 작전으로 구해 내는 사건 흐름이 초등 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three cat friends lived together in",
+      "note": "작전 실행 단락이 순서 문항으로 좋고 도둑질 미화는 가공 때 먹이 찾기로 누그러뜨린다."
+    }
+  },
+  {
+    "id": "b3b8286d-ee65-4ab2-96ba-63fff4486157",
+    "source_updated_at": "2026-09-25T04:03:36.25741+00:00",
+    "body_sha256": "751a9dbda8d301d5311e423d30c4787b905d784c19cd2395e1913a9066c28b40",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "바람에 날린 마스크가 갈매기·고래·물고기에게 쫓기다 나뭇가지 돛으로 돌아오는 반복 여정이 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Masky's Night of AdventureWritten by Neehal",
+      "note": "첫 줄의 작가·삽화가 표기는 걷어내고 반복 구조로 순서 문항을 만든다."
+    }
+  },
+  {
+    "id": "b3f732c4-65d9-43de-bee3-c581d9e9216d",
+    "source_updated_at": "2026-09-25T04:03:50.210671+00:00",
+    "body_sha256": "812597b304f20fdc704db31b7d39a07b0ffbaaeeefbc3c9948c46fcc0715012c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "혼자 놀려던 니타가 동생과 다투다 함께 블록 비행기를 완성하는 심경 전환이 초등 심경·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Nita and Panha are excited. Their",
+      "note": "다툼→좌절→협력 흐름은 서지만 Nita starts thinking 처럼 그림 의존 줄이 있다."
+    }
+  },
+  {
+    "id": "b56ce01c-a406-4b54-8133-eacc8763e8fb",
+    "source_updated_at": "2026-09-25T04:03:02.61476+00:00",
+    "body_sha256": "6d971503c0180361b73f7538f9787c1b9e9f1022073bb773a9f7db2e8456cc30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "memoir",
+    "why": "휠체어를 탄 암바르가 하루 일과·따돌림·재활을 말하고 엄마 편지로 음악을 찾는 결말이 중등 이상 심경·요지·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "mood",
+        "main_point",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I am Ambar. Aama and Aattho",
+      "note": "엄마 편지 단락이 독립 글로 서고 apparently 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "b5f82a97-1064-405a-83a7-910b923480a9",
+    "source_updated_at": "2026-09-25T04:03:03.967275+00:00",
+    "body_sha256": "51c8d0bd6e20ffa643c1f827161c6f0affa37e9278ce14b0ddff0c16d3d1becd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "말을 배운 닭의 근거 없는 경고에 온 마을이 도망치다 속았음을 깨닫는 우화가 초중등 요지·순서·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "blank"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ONCE UPON A TIME in a",
+      "note": "닭의 마지막 반박 단락이 요지(말한다고 안다는 뜻 아님)로 빈칸에 좋다."
+    }
+  },
+  {
+    "id": "b6050b5d-af3c-4a58-958d-2bec8d08e5a5",
+    "source_updated_at": "2026-09-25T04:03:07.947441+00:00",
+    "body_sha256": "15bb7cad0dae601c6173206b388d4e4e1022c07b9c1b9180d14b7513b614e90d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "춤추던 하마가 동물마다 쫓겨나 울다 메뚜기와 함께 춤추게 되는 반복·전환 구조가 초등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Hippo wants to dance. She jumps",
+      "note": "장면마다 쫓겨나는 이유가 이어지고 끝의 말줄임은 그림책 결말이라 그대로 둔다."
+    }
+  },
+  {
+    "id": "b7087080-5451-4789-b06a-0f88f50dcb11",
+    "source_updated_at": "2026-09-25T04:03:30.081266+00:00",
+    "body_sha256": "0758d76f90411da2ddece461d2a60d36bf8e23d833b9a0ef87d6b8b891d6f910",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "사자춤을 배우러 온 말라가 고된 훈련과 북 연주를 거쳐 북잡이의 중요성을 깨닫는 흐름이 중등 요지·순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "With a little trot, Mala excitedly",
+      "note": "북 연습 단락이 깨달음을 담아 떼어도 서고 profusely·mesmerized 를 바꾼다."
+    }
+  },
+  {
+    "id": "b88f298f-aa3b-4107-9482-45ff6dc20103",
+    "source_updated_at": "2026-09-25T04:02:46.173876+00:00",
+    "body_sha256": "09c2227bcc6a6dc6c535f3177c278ed6aad252c11578644ec3cf7ff7499a922f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "모국어의 날 전날 엄마의 설명과 샤히드 미나르 참배, 첫 벵골어 낱말 쓰기가 이어져 초중등 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "“Asha, do you know what day",
+      "note": "끝의 모국어의 날 설명 단락이 독립 설명문으로 선다(19 52 띄어쓰기만 고친다)."
+    }
+  },
+  {
+    "id": "b9b2f5a3-2b99-46b4-a624-8a3813933d98",
+    "source_updated_at": "2026-09-25T04:03:46.62811+00:00",
+    "body_sha256": "2690d0c9112566d226c1c7992677717675edcc4e552acb47363cdac763f8e7f7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "돕겠다고 나선 메훙이 묻지 않고 도와 모두를 화나게 하다 먼저 물어야 함을 배우는 교훈 흐름이 초등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mehung likes to watch his friends",
+      "note": "원숭이 구조 장면은 그림 의존이라 한 줄 보충해야 흐름이 선다."
+    }
+  },
+  {
+    "id": "b9c128f0-7476-45eb-a7ef-8e1e32afd976",
+    "source_updated_at": "2026-09-25T03:34:54.11986+00:00",
+    "body_sha256": "28dad5114326932ac3b2b49f8408325a89c3ef5c7ac96fa4c5b2bc23ef256bf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "memoir",
+    "why": "아이들이 쫓다 죽게 한 새끼 두루미를 어미 두루미가 애도하는 회고가 죽음이 교훈 중심이라 고1 이상 심경·요지 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "mood",
+        "main_point",
+        "order",
+        "long_reference"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The large pond on the south-eastern",
+      "note": "애도 장면 단락이 심경 문항으로 강하고 pell-mell·bereft 정도를 바꾸면 된다."
+    }
+  },
+  {
+    "id": "ba6fd277-667d-4a2d-9496-2037712349cc",
+    "source_updated_at": "2026-09-25T04:03:38.958612+00:00",
+    "body_sha256": "17fd80c4bdb9fb6ca3573ad8bbefeb3e2e4a7f6c37e6c42600b2a165fb5d4975",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "제멋대로 꾸미던 아카라가 인테리어 디자이너에게 고객의 필요부터 묻는 법을 배워 할머니 방을 고치는 과정이 중등 요지·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Akara stomped into the room she",
+      "note": "디자이너 조언 단락(누구를 위해 무엇을 원하나)이 요지로 떼어진다."
+    }
+  },
+  {
+    "id": "bb9304fc-4b60-4da0-a5c5-471d6adffc3f",
+    "source_updated_at": "2026-09-25T04:03:13.834126+00:00",
+    "body_sha256": "8c4e3d94602489555756c180aa33a60f88d8ae0b6b8c088ce980d438a4ce4f9e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "연날리기 축제를 준비하는 화자의 연 만들기 세 규칙과 축제 노트가 초등 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I have a BIG blister on",
+      "note": "연 만들기 세 규칙 단락이 절차 순서로 떼기 쉽다."
+    }
+  },
+  {
+    "id": "bbe581ad-6b16-44d5-a3de-5186da0d15af",
+    "source_updated_at": "2026-09-25T04:02:58.830115+00:00",
+    "body_sha256": "435abd8e3de45ce86e26c09a75aad29d01372e2f291ce9a10f96280e9fc984d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "괴롭힘에 도시락을 뺏기던 사막여우 루벨이 전학 뒤 친구와 악취 폭탄으로 괴롭힌 여우를 물리치는 흐름이 초중등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Things were not okay in Hills",
+      "note": "이사 결심 단락의 심경이 뚜렷하지만 비문(his heart beat… will throw)을 다듬어야 한다."
+    }
+  },
+  {
+    "id": "bc227e34-7419-42ca-a786-3dd878035e30",
+    "source_updated_at": "2026-09-25T03:34:53.158261+00:00",
+    "body_sha256": "081d9505549617c7fd5ba7a694f77bf071e080575b07218fbfc03c656e4ff1a9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "수줍은 코뿔소가 술래가 되어 동물들을 차례로 찾고 뿔 위의 도마뱀까지 찾아 수줍음을 벗는 흐름이 초등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rhino is very shy. She always",
+      "note": "동물별 숨은 곳 단락이 반복돼 내용일치 문항이 쉽다."
+    }
+  },
+  {
+    "id": "bc319165-0237-4ce5-999d-07f7a290e2b7",
+    "source_updated_at": "2026-09-25T04:03:04.969689+00:00",
+    "body_sha256": "c5344f145acc7f342f33e482cef8f792669486420e03065cfcc9e967f7a4afe8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "hold",
+    "genre": "fiction",
+    "why": "질소 쌍둥이가 산소를 속여 웃음 가스가 되는 원소 이야기인데 말풍선·번호·Hydro Gen 라벨이 본문에 섞여 흐름이 끊긴다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The twins, Azote One and Azote",
+      "note": "말풍선 조각(We take her glasses … 1 2 3)을 걷으면 사건이 이어지는지 판단이 애매하다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "bcbe157e-5e1f-44b6-a043-7dc52d5ff419",
+    "source_updated_at": "2026-09-25T04:02:52.935622+00:00",
+    "body_sha256": "0f114e88bae49960a16a441283d0e82eac922d36542de16260cfc2aa9e8405d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "엄마를 찾는 알을 양이 데리고 다니다 악어 새끼로 부화해 어미를 찾아 주는 긴 여정이 초중등 순서·장문·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "long_reference",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One morning a sheep was enjoying",
+      "note": "여우 떼 습격 단락이 떼어도 서고 인물 지칭이 분명해 장문 지칭에 좋다."
+    }
+  },
+  {
+    "id": "be17232c-6446-4219-8a6f-e4e1da758ccd",
+    "source_updated_at": "2026-09-25T04:03:10.953145+00:00",
+    "body_sha256": "b1b7d5d25732c42a3e80f95b258f8bd6eda0d698dfe5554cd3aa358fb87178df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "poetry-drama",
+    "why": "강아지가 고양이 울음을 흉내 내려는 네 연짜리 동시라 차단 장르 운문이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Puppy saw Kitten,With just a \"Miaow\",Get",
+      "note": "운문 행이라 산문 가공이 안 된다."
+    }
+  },
+  {
+    "id": "bf6afcbf-e0b5-401f-b465-adeec4f64d5f",
+    "source_updated_at": "2026-09-25T04:03:33.43818+00:00",
+    "body_sha256": "94d03e9436c2dad4be083550aa49539df0464c7c2aa5ccf6198e5763f2151fdd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "남매 문답 운문 뒤의 FIND OUT MORE 와 우유 실험 단락이 빛의 산란으로 하늘이 푸른 까닭을 설명해 중등 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sister, sister, I wonder...What do you",
+      "note": "운문부는 빼고 설명·실험 단락만 쓰면 산란 설명문으로 선다."
+    }
+  },
+  {
+    "id": "c0d32f06-7b37-4be9-ac63-8f061ae7a508",
+    "source_updated_at": "2026-09-25T04:03:07.080061+00:00",
+    "body_sha256": "42a57ba304ba5ee4e50ea44db5dda11736342710f08635525ea381adec706090",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "세 염소가 차례로 다리를 건너 큰 염소가 트롤을 물리치는 반복 서사가 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Here are the three goats: one",
+      "note": "반복 구조가 뚜렷해 순서 배열에 바로 쓴다."
+    }
+  },
+  {
+    "id": "c108c6f7-dafd-45ad-b030-ab9eb6cc7c1e",
+    "source_updated_at": "2026-09-25T04:03:04.486418+00:00",
+    "body_sha256": "4e0533bcb1b08352e78b67d6b1b4725f3e00796263de35bcde55524ef1be57a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "세입자 후보 쥐·생쥐·햄스터가 하수처리장 일을 자랑하다 강에 빠진 할머니를 외면하는 우화가 중등 요지·순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When Granny Nel's children grew up",
+      "note": "하수처리 단계(거름망·분해조·기름 분리)가 사실 정보로도 쓰인다."
+    }
+  },
+  {
+    "id": "c618496d-99fa-4f7b-9f9a-e864660d0deb",
+    "source_updated_at": "2026-09-25T04:03:47.580474+00:00",
+    "body_sha256": "d3ad049d088eecc4557a4bdfc87e1d63d3f1761d6b56d12fd5b9e665f6ba3282",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "정전된 휴일에 조용히 숨·심장·배 소리를 차례로 들어 보는 흐름이 이유와 순서로 이어져 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Today I am not going to",
+      "note": "끝의 짝 맞추기 활동은 걷어내고 의성어는 줄인다."
+    }
+  },
+  {
+    "id": "c678b8db-cf3c-4473-93f3-bde1ceac654f",
+    "source_updated_at": "2026-09-25T04:03:38.308731+00:00",
+    "body_sha256": "22786a87c626cc2de6d4e210fc347f4df1c7c5f0c4dc8656b9bbc254255b29ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "처음 공원에 간 투미가 미끄럼틀·그네·모래놀이를 하며 친구를 사귀는 하루가 순서로 이어져 초등 순서·대화 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order"
+      ],
+      "levels": [
+        "V1"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tumi Goes to the ParkWritten by",
+      "note": "작가 표기 줄을 걷으면 짧은 대화 서사로 선다."
+    }
+  },
+  {
+    "id": "c7c8d6d3-6b6f-4dfc-9d6c-af39665c934f",
+    "source_updated_at": "2026-09-25T04:03:03.772053+00:00",
+    "body_sha256": "bf5450fc4c7b9187b6bb72199f151f57cb7fb405037070b9549ac7afec8925ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "배에서 떨어진 릴리가 상어·아귀·오징어를 피하고 돌고래 도움으로 진주를 얻어 바다를 좋아하게 되는 모험이 초중등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was a beautiful, sunny day.",
+      "note": "두려움→호기심 심경 전환 단락이 떼어진다."
+    }
+  },
+  {
+    "id": "c91cbd9e-4130-428c-b7db-db7734489f43",
+    "source_updated_at": "2026-09-25T04:03:49.303738+00:00",
+    "body_sha256": "e5e09e0b9c8d037f499265d8658f39ba8ba2f386db2def9f28b5c1f2670d6647",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "「구름은 ~할 수 있다. 나는 구름이 좋다」를 네 번 되풀이한 특징 나열이라 문장 사이 연결이 없어 초등 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Clouds can bring rain. I like",
+      "note": "서로 무관한 특징 문장의 반복이라 사건·이유·순서가 없다."
+    }
+  }
+]

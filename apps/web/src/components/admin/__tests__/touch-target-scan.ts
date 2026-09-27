@@ -198,10 +198,49 @@ function skipTemplate(src: string, start: number): number {
  */
 export function collectClassConstants(source: string): Map<string, string> {
   const map = new Map<string, string>()
-  const re = /^const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:\r?\n\s*)?(['"`])((?:\\.|(?!\2)[\s\S])*?)\2/gm
+  const re = /^(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=\s*(?:\r?\n\s*)?(['"`])((?:\\.|(?!\2)[\s\S])*?)\2/gm
   let m: RegExpExecArray | null
   while ((m = re.exec(source)) !== null) map.set(m[1], m[3])
   return map
+}
+
+/**
+ * **공유 부품 키트**(`components/ui/tines-kit.ts`)의 클래스 칸을 `BTN.primary` 같은
+ * 점 경로 이름으로 푼다 (2026-09-23).
+ *
+ * 왜 필요한가: 팝업 재작업(DD-68 · tines-mapping §28)으로 버튼·닫기 단추의 클래스가
+ * 화면마다 손으로 적히던 것에서 **키트 한 곳**으로 옮겨 갔다. 스캐너는 파일 안의
+ * `const BTN = '...'` 만 풀 수 있어서, `className={BTN.primary}` 는 전부 "className 이
+ * 동적" 으로 빠졌다 — 실제로는 키트가 `min-h-[44px]` 를 보장하는데도 판정 불가가 늘었다.
+ * 키트가 퍼질수록 이 규칙이 조용히 꺼지므로, **키트를 읽는 것**이 맞는 수선이다.
+ *
+ * 읽는 것: 최상단 문자열 상수(`FOCUS` · `BTN_BASE` · `DLG_PAD` …)와
+ * `export const NAME = { key: '…' } as const` 의 각 칸. 칸 안의 `${IDENT}` 는 앞의
+ * 문자열 상수로 펼친다(중첩은 한 겹 — 키트가 그 이상을 쓰지 않는다).
+ */
+export function collectKitConstants(kitSource: string): Map<string, string> {
+  const plain = collectClassConstants(kitSource)
+  const out = new Map<string, string>(plain)
+
+  const expand = (text: string): string =>
+    text.replace(/\$\{([A-Za-z_$][\w$]*)\}/g, (whole, name: string) => plain.get(name) ?? whole)
+
+  // `export const NAME = { ... } as const` — 칸 하나하나를 NAME.key 로 등록한다.
+  const objRe = /^export\s+const\s+([A-Za-z_$][\w$]*)\s*=\s*\{([\s\S]*?)\n\}\s*as\s+const/gm
+  let m: RegExpExecArray | null
+  while ((m = objRe.exec(kitSource)) !== null) {
+    const objName = m[1]
+    const body = m[2]
+    const entryRe = /(?:^|\n)\s*([A-Za-z_$][\w$]*)\s*:\s*(['"`])((?:\\.|(?!\2)[\s\S])*?)\2/g
+    let e: RegExpExecArray | null
+    while ((e = entryRe.exec(body)) !== null) {
+      out.set(`${objName}.${e[1]}`, expand(e[3]))
+    }
+  }
+
+  // 최상단 상수 자체도 `${...}` 를 펼쳐 둔다(BTN_STACKED 가 FOCUS 를 섞어 쓴다).
+  for (const [k, v] of plain) out.set(k, expand(v))
+  return out
 }
 
 /**
@@ -243,7 +282,9 @@ export function collectClassTokens(
         continue
       }
       if (/[A-Za-z_$]/.test(c)) {
-        const m = /^[A-Za-z_$][A-Za-z0-9_$]*/.exec(src.slice(i))
+        // 점 경로까지 한 낱말로 읽는다 — 공유 부품 키트가 `className={BTN.primary}` 처럼
+        // **객체의 칸**을 내주기 때문이다. `BTN` 만 읽으면 그 자리가 전부 판정 불가가 된다.
+        const m = /^[A-Za-z_$][A-Za-z0-9_$]*(?:\.[A-Za-z_$][A-Za-z0-9_$]*)*/.exec(src.slice(i))
         const word = m ? m[0] : c
         const known = consts.get(word)
         if (known !== undefined) push(known)
@@ -524,10 +565,11 @@ export function judgeTag(
 
 // ── 스캔 ─────────────────────────────────────────────────────────────────────
 
-export function scanFile(absPath: string, repoRoot: string): Finding[] {
+export function scanFile(absPath: string, repoRoot: string, kitConsts?: Map<string, string>): Finding[] {
   const source = readFileSync(absPath, 'utf8')
   const rel = relative(repoRoot, absPath).split(sep).join('/')
-  const consts = collectClassConstants(source)
+  // 파일 안의 상수가 키트를 덮어쓴다 — 같은 이름이면 그 파일의 것이 실제로 쓰인다.
+  const consts = new Map([...(kitConsts ?? new Map<string, string>()), ...collectClassConstants(source)])
   const findings: Finding[] = []
   for (const t of extractOpenTags(source)) {
     const kind = interactiveKind(t.raw, t.tag)
@@ -546,5 +588,13 @@ export function scanFile(absPath: string, repoRoot: string): Finding[] {
 }
 
 export function scanAdmin(webSrcDir: string, repoRoot: string): Finding[] {
-  return listAdminSourceFiles(webSrcDir).flatMap((f) => scanFile(f, repoRoot))
+  // 공유 부품 키트를 한 번 읽어 모든 파일에 넘긴다. 키트가 없어지면(이름이 바뀌면)
+  // 판정 불가가 다시 늘어 회귀 테스트가 먼저 알려 준다.
+  let kitConsts = new Map<string, string>()
+  try {
+    kitConsts = collectKitConstants(readFileSync(join(webSrcDir, 'components', 'ui', 'tines-kit.ts'), 'utf8'))
+  } catch {
+    // 키트를 못 읽으면 예전처럼 파일 안 상수만 본다 — 규칙이 느슨해질 뿐 오탐은 없다.
+  }
+  return listAdminSourceFiles(webSrcDir).flatMap((f) => scanFile(f, repoRoot, kitConsts))
 }

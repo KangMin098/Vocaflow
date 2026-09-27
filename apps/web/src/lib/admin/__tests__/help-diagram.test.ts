@@ -43,6 +43,16 @@ const entry = (k: string): ScreenHelpEntry => {
   return e
 }
 
+/**
+ * 칸 수 상한 — **종류가 정한다.**
+ *
+ * `flow` 는 상자를 옆으로 늘어놓으므로 여섯이 넘으면 1440px 에서 상자가 손톱만 해지고
+ * 390px 에서는 세로로 여섯 번 접힌다. `lane` 은 알약을 줄바꿈으로 흘리므로 아홉도 한 눈에
+ * 들어간다 — 교재 공장 아홉 칸이 한 그림에 서는 유일한 길이다(2026-09-23).
+ * `io` 는 셋으로 고정이라 아래 별도 검사가 본다.
+ */
+const nodeCap = (d: HelpDiagram): number => (d.kind === 'lane' ? 10 : 6)
+
 const bodies = (e: ScreenHelpEntry): ScreenHelp[] => [e.screen, ...Object.values(e.tabs ?? {})]
 const allDiagrams = (e: ScreenHelpEntry): HelpDiagram[] => bodies(e).flatMap((b) => b.diagrams ?? [])
 
@@ -87,13 +97,37 @@ describe('도식이 산문으로 되돌아가지 않는다', () => {
     expect(tooLong).toEqual([])
   })
 
-  it('한 도식의 칸은 6개 이내다 — 더 늘면 390px 에서 세로로 여섯 번 접힌다', () => {
+  // 상한이 종류마다 다른 이유: `flow` 는 상자를 옆으로 늘어놓아 390px 에서 세로로 접히지만,
+  // `lane` 은 알약이라 **줄바꿈으로 흐른다**. 공정 아홉 칸은 lane 으로만 한 그림에 들어간다.
+  it('flow · keys 는 6칸, lane 은 10칸 이내다', () => {
     const tooMany = FACTORY.flatMap((k) =>
       allDiagrams(entry(k))
-        .filter((d) => d.nodes.length > 6)
-        .map((d) => `${k}: ${d.caption} (${d.nodes.length}칸)`),
+        .filter((d) => d.nodes.length > nodeCap(d))
+        .map((d) => `${k}: ${d.caption} (${d.nodes.length}칸 · 상한 ${nodeCap(d)})`),
     )
     expect(tooMany).toEqual([])
+  })
+
+  it('계약 그림은 정확히 세 칸이다 — 받는 것 · 하는 일 · 내놓는 것', () => {
+    const wrong = FACTORY.flatMap((k) =>
+      allDiagrams(entry(k))
+        .filter((d) => d.kind === 'io' && d.nodes.length !== 3)
+        .map((d) => `${k}: ${d.caption} (${d.nodes.length}칸)`),
+    )
+    expect(wrong).toEqual([])
+  })
+
+  // 항목이 길어지면 그림 모양의 문단이 된다 — 칸 설명(48자)과 같은 이유의 상한이다.
+  it('칸 안 항목은 24자 · 칸당 4개 이내다', () => {
+    const over = FACTORY.flatMap((k) =>
+      allDiagrams(entry(k)).flatMap((d) =>
+        d.nodes.flatMap((n) => [
+          ...((n.items?.length ?? 0) > 4 ? [`${k}: ${n.label} 항목 ${n.items!.length}개`] : []),
+          ...(n.items ?? []).filter((it) => it.length > 24).map((it) => `${k}: ${it.length}자 「${it}」`),
+        ]),
+      ),
+    )
+    expect(over).toEqual([])
   })
 
   it('caption 은 화면 안에서 겹치지 않는다 — 렌더가 그것을 key 로 쓴다', () => {
@@ -110,6 +144,38 @@ describe('도식이 산문으로 되돌아가지 않는다', () => {
         expect(new Set(labels).size, `${k} / ${d.caption} 의 칸 이름이 겹친다`).toBe(labels.length)
       }
     }
+  })
+})
+
+// ── 왜 이 검사가 생겼나 (실측 2026-09-23) ──────────────────────────
+// 도움말 본문은 처음부터 마크다운처럼 쓰여 있었는데(별표 두 개로 굵게) 그리는 쪽이 문자열을
+// 그대로 내보내서, 교재 공장 11화면 + 탭 6개의 렌더 결과에 별표가 **1,164개** 찍혀 있었다.
+// 가장 중요한 문장이 별표에 둘러싸인 채로 보였다 — 강조가 오히려 읽기를 방해했다.
+// 렌더가 이제 굵게와 코드 표시를 읽는다. 이 검사는 ① 그 기능이 사라지는 것과
+// ② 본문에서 별표 짝이 안 맞는 것(닫히지 않은 강조)을 함께 잡는다.
+describe('강조가 글자로 새지 않는다', () => {
+  const asText = (body: ScreenHelp) =>
+    renderToString(createElement(HelpBody, { body }))
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&[a-z]+;/g, ' ')
+
+  it('어느 화면에도 별표가 글자로 남지 않는다', () => {
+    const leaks: string[] = []
+    for (const [key, e] of Object.entries(HELP_REGISTRY) as [string, ScreenHelpEntry][]) {
+      for (const body of bodies(e)) {
+        const n = (asText(body).match(/\*\*/g) ?? []).length
+        if (n > 0) leaks.push(`${key}: ${n}개`)
+      }
+    }
+    expect(leaks, `짝이 안 맞는 강조이거나 렌더가 강조를 안 읽는다:\n${leaks.join('\n')}`).toEqual([])
+  })
+
+  it('굵게·코드가 실제로 그려진다 — 변이 검사', () => {
+    const body = { summary: '앞 **굵게** 뒤', cautions: ['명령은 `pnpm build` 다'] } as ScreenHelp
+    const html = renderToString(createElement(HelpBody, { body }))
+    expect(html).toContain('<strong')
+    expect(html).toContain('<code')
+    expect(html.replace(/<[^>]+>/g, '')).not.toContain('**')
   })
 })
 
@@ -186,11 +252,11 @@ describe('도식이 붙은 화면은 어디든 같은 한도를 받는다', () =
     expect(over).toEqual([])
   })
 
-  it('한 도식의 칸은 6개 이내다', () => {
+  it('flow · keys 6칸 · lane 10칸', () => {
     const tooMany = withDiagrams.flatMap(([k, e]) =>
       allDiagrams(e)
-        .filter((d) => d.nodes.length > 6)
-        .map((d) => `${k}: ${d.caption} (${d.nodes.length}칸)`),
+        .filter((d) => d.nodes.length > nodeCap(d))
+        .map((d) => `${k}: ${d.caption} (${d.nodes.length}칸 · 상한 ${nodeCap(d)})`),
     )
     expect(tooMany).toEqual([])
   })

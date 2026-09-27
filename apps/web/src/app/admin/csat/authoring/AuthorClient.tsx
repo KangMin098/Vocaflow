@@ -13,11 +13,20 @@ import { useState } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
+  StageFailures,
+  StageFrame,
+  type FailureRow,
+  type StageBlock,
+} from '@/components/admin/csat/StageFrame'
+import { FACTORY_STAGES, judgeStage } from '@/lib/csat/factory-model'
+import {
   INVENTORY_LEVELS,
   TYPE_KO,
   offLadderCount,
   type AuthorView,
 } from '@/lib/csat/factory-line-model'
+
+const STAGE = FACTORY_STAGES.find((s) => s.id === 'author')!
 
 /**
  * 재고를 **농도**로 바꾼다 — 숫자를 읽기 전에 어디가 두껍고 어디가 얇은지 보이게.
@@ -33,7 +42,7 @@ function heat(n: number | null | undefined, max: number): number {
   return Math.log10(n + 1) / Math.log10(max + 1)
 }
 
-export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorView) {
+export function AuthorClient({ cells, total, ladderCells, itemState, loadError }: AuthorView) {
   const [onlyLadder, setOnlyLadder] = useState(false)
   /** 농도의 분모. 못 센 칸은 빼고 실제로 있는 최대 재고를 쓴다. */
   const maxCell = cells.reduce((m, c) => Math.max(m, c.count ?? 0), 0)
@@ -46,22 +55,103 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
   })
   const shown = onlyLadder ? types.filter((t) => ladderCells.some((c) => c.type === t)) : types
 
+  // ── ② 막힌 것 ──────────────────────────────────────────────────────
+  // 사다리가 쓰기로 한 칸 중 **재고 0** 인 자리가 이 공정이 막고 있는 것이다.
+  // 사다리 밖 재고는 막는 것이 아니라 **낭비**라 따로 센다 — 할 일이 정반대다
+  // (전자는 만들고, 후자는 그만 만들거나 규격을 넓힌다).
+  const byKey = new Map(cells.map((c) => [`${c.type}|${c.vLevel}`, c]))
+  const emptyLadderCells = ladderCells.filter((l) => (byKey.get(`${l.type}|${l.vLevel}`)?.count ?? 0) === 0)
+  const unmeasuredCells = cells.filter((c) => c.count == null)
+
+  const blocks: StageBlock[] = [
+    {
+      what: '사다리가 쓰는데 재고 0 인 칸',
+      count: loadError ? null : emptyLadderCells.length,
+      unmeasuredReason: loadError ?? undefined,
+    },
+    {
+      // 못 센 칸은 **막힌 것이 아니다** — 조회가 빈손으로 온 것이고 새로고침하면 대개 맞는다.
+      what: '못 센 칸 (조회가 빈손으로 왔다)',
+      count: unmeasuredCells.length,
+    },
+    {
+      // ⚠️ 재고 매트릭스는 「몇 개 있나」만 말한다. 그중 **못 쓰는 것**은 다른 축이고,
+      //    그 축이 없던 동안 관리자는 막힌 문항 292개를 재고로 세고 있었다(DD-74).
+      what: '검수에서 막힌 문항 — 재고에 있지만 못 쓴다',
+      count: itemState.available ? itemState.blocked : null,
+      unmeasuredReason: itemState.error ?? '문항 상태 표를 못 읽었다',
+    },
+    {
+      what: '사다리 밖 재고 — 어느 권에도 안 실린다',
+      count: loadError ? null : offLadder,
+      unmeasuredReason: loadError ?? undefined,
+    },
+  ]
+
+  const failureRows: FailureRow[] = emptyLadderCells.slice(0, 10).map((c) => ({
+    id: `${c.type}|${c.vLevel}`,
+    label: `${TYPE_KO[c.type] ?? c.type} · V${c.vLevel}`,
+    tags: ['재고 0', '사다리 안'],
+    // 「무엇이 비었나」 다음 물음은 늘 「어떻게 채우나」다 — 그 칸의 명령을 그대로 적는다.
+    says: `store-new-types --band ${c.vLevel} --commit 로 만들고, 원글이 모자라면 write-drain-export --band ${c.vLevel}`,
+  }))
+
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            ⑤ 집필 — 유형 × 수준 재고
-          </h2>
-          <p className="font-body text-[12px] text-[var(--t2)]">시중: 원고 집필 (문항)</p>
-        </div>
-        <AdminScreenHelp screen="csat-authoring" />
-      </div>
+    <StageFrame
+      stage={STAGE}
+      status={judgeStage([
+        {
+          label: '사다리 칸 중 재고 있음',
+          num: loadError ? null : ladderCells.length - emptyLadderCells.length,
+          den: ladderCells.length,
+          unit: 'ratio',
+          unmeasuredReason: loadError ?? undefined,
+        },
+      ])}
+      help={<AdminScreenHelp screen="csat-authoring" />}
+      blocks={blocks}
+      commands={[
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/store-new-types.mjs',
+          why: '인자 없이 돌리면 아무것도 쓰지 않고 세기만 한다',
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/store-new-types.mjs --band 5 --commit',
+          why: '이미 있는 글에 문항을 붙인다 — 새 글보다 이것이 먼저다',
+          writes: true,
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/write-drain-export.mjs --band 3 --size 6',
+          why: '원글 자체가 모자란 밴드에서 슬롯을 뽑는다. 읽기만 한다',
+          claudeCode: true,
+        },
+        {
+          cmd: 'pnpm dlx tsx scripts/textbook/item-drain-import.mjs --type purpose --band 5 --commit',
+          why: '에이전트가 쓴 선택지를 적재한다. 재실행 안전 · 건너뛴 수를 출력한다',
+          writes: true,
+        },
+      ]}
+      approvalNote={
+        '밴드 하나에 대량 적재하기 전에 소량으로 먼저 확인한다 — 규격 밖 문항이 들어가면 재고만 불고 조판이 안 고른다. 적재 자체는 재실행 안전이지만 지우는 길은 없다.'
+      }
+      failures={
+        <StageFailures
+          title="재고 0 인 칸 — 사다리가 쓰는 자리"
+          total={loadError ? null : emptyLadderCells.length}
+          rows={failureRows}
+          emptyNote={
+            loadError
+              ? '집계표를 못 읽었다 — 0건이 아니다.'
+              : '사다리가 쓰는 칸에 빈 자리가 없다. 사다리 밖 재고는 위 「막힌 것」에서 따로 센다.'
+          }
+        />
+      }
+    >
 
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[#9C3A30] bg-[var(--bg)] p-3 font-body text-[13px] text-[#9C3A30]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
         >
           {loadError}
         </p>
@@ -97,7 +187,7 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
             aria-pressed={onlyLadder === v}
             className={`min-h-[44px] rounded-[var(--r-md)] border px-3 font-display text-[13px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] ${
               onlyLadder === v
-                ? 'border-[var(--p)] bg-[var(--p)]/10 font-[600] text-[var(--t1)]'
+                ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] font-[600] text-[var(--t1)]'
                 : 'border-[var(--bd)] text-[var(--t2)] hover:bg-[var(--bg2)] active:bg-[var(--bd)]'
             }`}
           >
@@ -110,7 +200,7 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
         <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 font-body text-[11px] text-[var(--t3)]">
           <span className="inline-flex items-center gap-1.5">
             <span
-              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[var(--p)]/50"
+              className="inline-block h-3 w-4 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--p)_50%,transparent)]"
               aria-hidden
             />
             사다리가 쓰는 칸
@@ -121,14 +211,14 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
               <span
                 key={a}
                 className="inline-block h-3 w-4"
-                style={{ background: `rgba(139, 92, 246, ${a})` }}
+                style={{ background: `color-mix(in srgb, var(--p) ${a * 100}%, transparent)` }}
                 aria-hidden
               />
             ))}
             <span className="ml-0.5">적음 → 많음 (로그)</span>
           </span>
           <span>
-            <strong className="text-[#9C3A30]">—</strong> 재고 0 · <strong>?</strong> 못 셈
+            <strong className="text-[var(--memory-risk)]">—</strong> 재고 0 · <strong>?</strong> 못 셈
           </span>
         </div>
         <div className="overflow-x-auto">
@@ -176,19 +266,19 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
                                 : '사다리 밖 — 만들어도 어느 권에도 안 실린다'
                             }
                             className={`inline-block min-w-[52px] rounded-[var(--r-sm)] px-1 py-1 font-mono text-[11px] tabular-nums ${
-                              ladder ? 'border border-[var(--p)]/50' : ''
+                              ladder ? 'border border-[color-mix(in_srgb,var(--p)_50%,transparent)]' : ''
                             }`}
                             style={{
                               // 한 가지 색의 농도만 쓴다(발산·무지개 금지). 진할수록 재고가 많다.
                               background: n
-                                ? `rgba(139, 92, 246, ${(0.06 + 0.5 * heat(n, maxCell)).toFixed(3)})`
+                                ? `color-mix(in srgb, var(--p) ${((0.06 + 0.5 * heat(n, maxCell)) * 100).toFixed(1)}%, transparent)`
                                 : undefined,
                               color:
                                 n == null
-                                  ? '#8A8278'
+                                  ? 'var(--memory-new)'
                                   : n === 0
                                     ? ladder
-                                      ? '#9C3A30'
+                                      ? 'var(--memory-risk)'
                                       : 'var(--t3)'
                                     : 'var(--t1)',
                             }}
@@ -202,7 +292,7 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
                       {sum.toLocaleString()}
                       {unmeasured > 0 && (
                         <span
-                          className="ml-1 text-[10px] text-[#8A8278]"
+                          className="ml-1 text-[10px] text-[var(--memory-new)]"
                           title={`${unmeasured}칸을 못 쟀다 — 실제 합계는 이보다 크다`}
                         >
                           +?
@@ -217,24 +307,6 @@ export function AuthorClient({ cells, total, ladderCells, loadError }: AuthorVie
         </div>
       </section>
 
-      <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
-        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">빈 칸을 채우는 순서</h3>
-        <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/store-new-types.mjs
-        </code>
-        <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/store-new-types.mjs --band 5 --commit
-        </code>
-        <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/write-drain-export.mjs --band 3 --size 6
-        </code>
-        <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
-          <strong>글을 새로 쓰기 전에 이미 있는 글에 문항을 붙이는 것이 먼저다.</strong> 문항이 안 붙은
-          원글은 조판이 재고로 세지 않으므로, 그 상태에서 새 글을 써 봐야 같은 자리에 쌓인다 (실측
-          2026-08-30 에 그런 원글이 11,246편이었다). 첫 명령은 인자 없이 돌리면 아무것도 쓰지 않고
-          세기만 한다. 마지막 것은 원글 자체가 모자란 밴드에서 슬롯을 뽑아 Claude Code 가 쓴다.
-        </p>
-      </section>
-    </div>
+    </StageFrame>
   )
 }

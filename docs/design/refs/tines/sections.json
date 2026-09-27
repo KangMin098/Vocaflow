@@ -1,0 +1,6292 @@
+{
+  "generatedBy": "scripts/design/extract-sections.mjs",
+  "generatedAt": "2026-09-21",
+  "base": "https://www.tines.com",
+  "pages": [
+    {
+      "key": "home",
+      "url": "/",
+      "parent": null,
+      "status": 200,
+      "title": "Tines | The secure environment for AI agents, apps and automation",
+      "docHeight": 7392,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "ThreeBHero",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "ThreeBHero",
+            "AnnouncementBar",
+            "HomeContent",
+            "CtaButtons"
+          ],
+          "heading": "You told everyone to use AI.Now give them a secure place to do it.",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 85,
+          "h": 299,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ThreeBHero",
+          "naming": "module",
+          "inner": [
+            "ThreeBHero",
+            "ThreeBHundredXBanner",
+            "FlowerField"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 468,
+          "h": 432,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": [
+            "hundredXSink"
+          ]
+        },
+        {
+          "component": "ThreeBHero",
+          "naming": "module",
+          "inner": [
+            "TimelineScrubber",
+            "ThreeBMascot",
+            "ThreeBProductVisual",
+            "AvatarFace"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 860,
+          "h": 680,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 64,
+            "video": 0,
+            "link": 0,
+            "button": 1,
+            "form": 1,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "threeBVisualAppear",
+            "breathe",
+            "floatZ",
+            "blink",
+            "spin",
+            "timelineBarFadeIn",
+            "timelineBarIntro"
+          ]
+        },
+        {
+          "component": "HomeMonitorBanner",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 1636,
+          "h": 1524,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "HomeMonitorBanner",
+          "naming": "module",
+          "inner": [
+            "HomeAiTangleBanner",
+            "HomeSectionKicker"
+          ],
+          "heading": "AI made everyone a builder. But security and IT got 100× harder.",
+          "headingTag": "h2",
+          "kicker": "The new reality for IT and security",
+          "y": 1636,
+          "h": 1016,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "HomeSolutionSection",
+          "naming": "module",
+          "inner": [
+            "HomeSolutionSection",
+            "ThreeBMascot",
+            "Button",
+            "HomeSectionKicker",
+            "HomeSectionHeading",
+            "FlowerField",
+            "ThreeBMascotOrb"
+          ],
+          "heading": "Freedom to build. Complete security. No compromises.",
+          "headingTag": "h2",
+          "kicker": "Our 100× solution",
+          "y": 2748,
+          "h": 819,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": [
+            "solutionBedParallax",
+            "spin",
+            "blink"
+          ]
+        },
+        {
+          "component": "HomeUseCasesSection",
+          "naming": "module",
+          "inner": [
+            "HomeUseCasesSection",
+            "HomeSectionKicker",
+            "HomeSectionHeading",
+            "HomeSectionByline"
+          ],
+          "heading": "Keep important workflows moving for the teams dependent on them.",
+          "headingTag": "h2",
+          "kicker": "Teams using Tines",
+          "y": 3723,
+          "h": 1233,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 5,
+          "counts": {
+            "img": 12,
+            "svg": 5,
+            "video": 0,
+            "link": 0,
+            "button": 9,
+            "form": 0,
+            "tab": 5,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "useCasesReveal"
+          ]
+        },
+        {
+          "component": "HomeUSPSection",
+          "naming": "module",
+          "inner": [
+            "StargazingConstellation",
+            "HomeUSPSection",
+            "HomeSectionKicker",
+            "HomeSectionHeading",
+            "HomeSectionByline"
+          ],
+          "heading": "Powerful workflows, proven success.",
+          "headingTag": "h2",
+          "kicker": "Why Tines?",
+          "y": 5112,
+          "h": 272,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "constellationSpin",
+            "twinkle"
+          ]
+        },
+        {
+          "component": "HomeUSPSection",
+          "naming": "module",
+          "inner": [
+            "HomeUSPSection"
+          ],
+          "heading": "Born in security, built for the enterprise. Governance, guardrails, and monitori",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 5439,
+          "h": 429,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 4,
+          "counts": {
+            "img": 4,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 6024,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "3b",
+      "url": "/3b/",
+      "parent": null,
+      "status": 200,
+      "title": "Tines 3B | The AI-native intelligent workflow platform",
+      "docHeight": 8664,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "ThreeBHero",
+          "naming": "module",
+          "inner": [
+            "ThreeBHeroFlowerFields",
+            "FlowerField"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 130,
+          "h": 1455,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 2
+          },
+          "scrollX": false,
+          "animations": [
+            "heroBedDrift"
+          ]
+        },
+        {
+          "component": "ThreeBHero",
+          "naming": "module",
+          "inner": [
+            "ThreeBPullQuote",
+            "ThreeBHero",
+            "Button",
+            "CtaButtons"
+          ],
+          "heading": "The AI-native intelligent workflow platform",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 139,
+          "h": 276,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ThreeBHero",
+          "naming": "module",
+          "inner": [
+            "VideoPlayer"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 510,
+          "h": 815,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 3,
+          "counts": {
+            "img": 0,
+            "svg": 8,
+            "video": 1,
+            "link": 0,
+            "button": 5,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "labelRise",
+            "teaserPlayBlink"
+          ]
+        },
+        {
+          "component": "ThreeBExploreSection",
+          "naming": "module",
+          "inner": [
+            "ThreeBExploreSection",
+            "ThreeBExploreGarden"
+          ],
+          "heading": "Explore Tines 3B",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1453,
+          "h": 453,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ThreeBBentoSection",
+          "naming": "module",
+          "inner": [
+            "ThreeBBentoSection",
+            "ThreeBPromptTyper",
+            "ThreeBChatMock",
+            "ThreeBTestClock",
+            "ThreeBMascot",
+            "ThreeBMascotOrb"
+          ],
+          "heading": "Build anything, anywhere",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2062,
+          "h": 1266,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 9,
+          "counts": {
+            "img": 5,
+            "svg": 40,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "promptCaretBlink",
+            "spin",
+            "blink",
+            "chatCaretBlink",
+            "clockSegmentFlash",
+            "tileFloat"
+          ]
+        },
+        {
+          "component": "ThreeBBentoSection",
+          "naming": "module",
+          "inner": [
+            "ThreeBBentoSection"
+          ],
+          "heading": "Run securely, optimize continually",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3484,
+          "h": 1092,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 6,
+          "counts": {
+            "img": 4,
+            "svg": 59,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ThreeBBentoSection",
+          "naming": "module",
+          "inner": [
+            "ThreeBBentoSection",
+            "ThreeBAccessMapThumb",
+            "ThreeBDependencyGraph",
+            "ThreeBPullQuote",
+            "FlowerField"
+          ],
+          "heading": "Monitor everything",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4732,
+          "h": 1144,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 8,
+          "counts": {
+            "img": 3,
+            "svg": 54,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": [
+            "quoteFlowerParallax",
+            "accessMapFlow",
+            "depGraphFlow"
+          ]
+        },
+        {
+          "component": "ThreeBCodaSection",
+          "naming": "module",
+          "inner": [
+            "ThreeBCodaSection"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": "Build, run and monitor",
+          "y": 5875,
+          "h": 676,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 1,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ThreeBFaqSection",
+          "naming": "module",
+          "inner": [
+            "ThreeBFaqSection"
+          ],
+          "heading": "Frequently asked questions",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 6551,
+          "h": 650,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 6,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 7297,
+          "h": 518,
+          "w": 1440,
+          "bg": "color(display-p3 0.9238 0.9119 0.9846)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "3b:detail",
+      "url": "/3b/examples/product-feedback-deduplication-system-with-arr-weighted-prioritization/",
+      "parent": "3b",
+      "status": 200,
+      "title": "Product feedback deduplication system with ARR-weighted prioritization | Tines 3B examples | Tines",
+      "docHeight": 2852,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "ThreeBExamplePage",
+          "naming": "module",
+          "inner": [
+            "ThreeBExampleArticle",
+            "ThreeBExampleCard",
+            "AngularGradientBorder",
+            "ThreeBExamplePage",
+            "PromptActionButton"
+          ],
+          "heading": "Product feedback deduplication system with ARR-weighted prioritization",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 130,
+          "h": 1872,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 6,
+            "svg": 1,
+            "video": 0,
+            "link": 9,
+            "button": 1,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "angularGradientBorderSlide"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "pricing",
+      "url": "/pricing/",
+      "parent": null,
+      "status": 200,
+      "title": "Pricing | Tines",
+      "docHeight": 4020,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "PricingPlanCards",
+            "Button",
+            "PageSection"
+          ],
+          "heading": "Free edition",
+          "headingTag": "h2",
+          "kicker": "Explore",
+          "y": 323,
+          "h": 368,
+          "w": 1440,
+          "bg": "color(display-p3 0.4583 0.3429 0.848)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "PricingQuotesGrid",
+            "PageSection"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 948,
+          "h": 397,
+          "w": 1440,
+          "bg": "color(display-p3 0.4583 0.3429 0.848)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "G2BadgeList",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Don’t take our word for it",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1501,
+          "h": 265,
+          "w": 1440,
+          "bg": "color(display-p3 0.4583 0.3429 0.848)",
+          "columns": 6,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "PricingFaqSection",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "FAQs",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1922,
+          "h": 574,
+          "w": 1440,
+          "bg": "color(display-p3 0.4583 0.3429 0.848)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 5,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 5,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 2652,
+          "h": 518,
+          "w": 1440,
+          "bg": "color(display-p3 0.4583 0.3429 0.848)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "customers",
+      "url": "/customers/",
+      "parent": null,
+      "status": 200,
+      "title": "Customers | Tines",
+      "docHeight": 7056,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "CaseStudyGridSection",
+        "Button"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "CaseStudyBookCard",
+            "CurrentColorRemoteSvg",
+            "WithCustomInlineFormatting",
+            "Button",
+            "CaseStudyGridSection",
+            "PageSection"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 818,
+          "h": 952,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 9,
+          "counts": {
+            "img": 0,
+            "svg": 18,
+            "video": 0,
+            "link": 10,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "CustomerG2ReviewCard",
+            "CaseStudyBookCard",
+            "AccreditationGrid",
+            "RatingStars",
+            "CurrentColorRemoteSvg",
+            "Button",
+            "WithCustomInlineFormatting",
+            "PageSection"
+          ],
+          "heading": "The Legos of security automation",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 1890,
+          "h": 3598,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 5,
+          "counts": {
+            "img": 8,
+            "svg": 84,
+            "video": 0,
+            "link": 25,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 5608,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "case-study",
+      "url": "/case-studies/",
+      "parent": null,
+      "status": 200,
+      "title": "Customers | Tines",
+      "docHeight": 7056,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "CaseStudyGridSection",
+        "Button"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "CaseStudyBookCard",
+            "CurrentColorRemoteSvg",
+            "WithCustomInlineFormatting",
+            "Button",
+            "CaseStudyGridSection",
+            "PageSection"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 818,
+          "h": 952,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 9,
+          "counts": {
+            "img": 0,
+            "svg": 18,
+            "video": 0,
+            "link": 10,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "CustomerG2ReviewCard",
+            "CaseStudyBookCard",
+            "AccreditationGrid",
+            "RatingStars",
+            "CurrentColorRemoteSvg",
+            "Button",
+            "WithCustomInlineFormatting",
+            "PageSection"
+          ],
+          "heading": "The Legos of security automation",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 1890,
+          "h": 3598,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 5,
+          "counts": {
+            "img": 8,
+            "svg": 84,
+            "video": 0,
+            "link": 25,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 5608,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "case-study:detail",
+      "url": "/case-studies/r3/",
+      "parent": "case-study",
+      "status": 200,
+      "title": "R3’s security team saves 220+ hours a month with Tines | Tines",
+      "docHeight": 6411,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "CaseStudyHeroSection",
+          "naming": "module",
+          "inner": [
+            "CaseStudyHeroSection",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "R3’s security team saves 220+ hours a month with Tines",
+          "headingTag": "h1",
+          "kicker": "Highlights",
+          "y": 130,
+          "h": 520,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 1,
+            "svg": 2,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "CaseStudyContent",
+          "naming": "module",
+          "inner": [
+            "PullQuote",
+            "StructuredTextBlock",
+            "DataCardGrid",
+            "Article",
+            "CaseStudyContent"
+          ],
+          "heading": "About R3",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 746,
+          "h": 3530,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 3,
+            "video": 0,
+            "link": 7,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "CaseStudyBookCard",
+            "CaseStudyReadMoreSection",
+            "CurrentColorRemoteSvg",
+            "WithCustomInlineFormatting",
+            "Button",
+            "PageSection"
+          ],
+          "heading": "More case studies",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4432,
+          "h": 455,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 0,
+            "svg": 6,
+            "video": 0,
+            "link": 4,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 5044,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "solutions",
+      "url": "/solutions/it/",
+      "parent": null,
+      "status": 200,
+      "title": "IT Solutions: One platform for every workflow, every team, and every AI.",
+      "docHeight": 5518,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "SolutionHero",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "SolutionHero",
+            "SolutionPageAllcapsHeading",
+            "HeroHeadlineDecoration",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "One platform for every workflow, every team, and every AI.",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 194,
+          "h": 366,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "PageSection",
+            "SolutionHero"
+          ],
+          "heading": "A unified workspace to build, run and monitor IT",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 656,
+          "h": 586,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionPageValuePropsSection",
+            "PageSection",
+            "SolutionPageSecondaryDescription",
+            "SectionHeading2"
+          ],
+          "heading": "Smart, secure workflows",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1337,
+          "h": 942,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionChildEntryLinkCard",
+            "SolutionChildPageGridSection",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Dive into the details",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2435,
+          "h": 952,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 5,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 5,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionPageQuoteSection",
+            "PageSection",
+            "WithCustomInlineFormatting",
+            "CurrentColorRemoteSvg"
+          ],
+          "heading": "Power to scale, freedom to focus",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3543,
+          "h": 451,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 4150,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "solutions-2",
+      "url": "/solutions/security/",
+      "parent": null,
+      "status": 200,
+      "title": "Security Solutions: Built by security practitioners, for security practitioners",
+      "docHeight": 5201,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "SolutionHero",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "SolutionHero",
+            "SolutionPageAllcapsHeading",
+            "HeroHeadlineDecoration",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "Built by security practitioners, for security practitioners",
+          "headingTag": "h1",
+          "kicker": "Security",
+          "y": 194,
+          "h": 321,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "PageSection",
+            "SolutionHero"
+          ],
+          "heading": "The ever-evolving threat landscape demands faster security responses",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 611,
+          "h": 334,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionPageValuePropsSection",
+            "PageSection",
+            "SolutionPageSecondaryDescription",
+            "SectionHeading2"
+          ],
+          "heading": "Smart, secure workflows",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1041,
+          "h": 966,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionChildEntryLinkCard",
+            "SolutionChildPageGridSection",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Dive into the details",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2163,
+          "h": 952,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 6,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionPageQuoteSection",
+            "PageSection",
+            "WithCustomInlineFormatting",
+            "CurrentColorRemoteSvg"
+          ],
+          "heading": "For the whole team",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3271,
+          "h": 406,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3833,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "industry",
+      "url": "/public-sector/",
+      "parent": null,
+      "status": 200,
+      "title": "Public sector | Tines",
+      "docHeight": 6842,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "ExplosionCTASection"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "SolutionHero",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 130,
+          "h": 477,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "SolutionHero",
+          "naming": "module",
+          "inner": [
+            "SolutionHero",
+            "Button",
+            "SolutionPageAllcapsHeading"
+          ],
+          "heading": "Smart, secure workflows for SOAR and beyond",
+          "headingTag": "h1",
+          "kicker": "Public sector",
+          "y": 194,
+          "h": 413,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PublicSectorLayeredProductVisual",
+          "naming": "module",
+          "inner": [
+            "PublicSectorLayeredProductVisual"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 631,
+          "h": 623,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 3,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "FeatureHighlightCard",
+            "SolutionForFeatureHighlightsSection",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Modernize your security approach",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1350,
+          "h": 773,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 3,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "CenteredQuoteSection",
+          "naming": "module",
+          "inner": [
+            "CenteredQuoteSection",
+            "Button",
+            "CurrentColorRemoteSvg"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 2279,
+          "h": 336,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionForUseCasesSection",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Intelligent workflows for federal agencies",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2770,
+          "h": 680,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 5,
+            "svg": 11,
+            "video": 0,
+            "link": 0,
+            "button": 10,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionForExamplesSection",
+            "Button",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "See more practical examples",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3606,
+          "h": 338,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "SolutionForPartnersSection",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Partnered with the companies you trust today",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4101,
+          "h": 450,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 8,
+          "counts": {
+            "img": 0,
+            "svg": 9,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "ContentCardBase",
+            "ContentCardDocument",
+            "ContentCardGeneric",
+            "WithCustomInlineFormatting",
+            "PageSection",
+            "SolutionForRelatedContentSection",
+            "ContentCardArticle"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 4684,
+          "h": 340,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 4,
+          "counts": {
+            "img": 4,
+            "svg": 0,
+            "video": 0,
+            "link": 4,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ExplosionCTASection",
+          "naming": "module",
+          "inner": [
+            "ExplosionCTASection",
+            "Button"
+          ],
+          "heading": "Built by you,powered by Tines",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 5148,
+          "h": 844,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "enterprise",
+      "url": "/enterprise/",
+      "parent": null,
+      "status": 200,
+      "title": "Enterprise | Tines",
+      "docHeight": 9241,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 0,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Trusted by global leaders across industries",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 598,
+          "h": 123,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 32,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 817,
+          "h": 743,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Tines changes the way teams operate",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 913,
+          "h": 647,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 3,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Build, run, and monitor your most important workflows",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1788,
+          "h": 926,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 6,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Enterprise scalability and resiliency",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2870,
+          "h": 930,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 11,
+          "counts": {
+            "img": 0,
+            "svg": 13,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "A platform for organization-wide intelligent workflows",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3924,
+          "h": 815,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 15,
+            "video": 0,
+            "link": 0,
+            "button": 14,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "See more practical examples",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4763,
+          "h": 456,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Partnered with the companies you trust today",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 5375,
+          "h": 546,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 10,
+          "counts": {
+            "img": 0,
+            "svg": 11,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "With you every step of the way",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 6055,
+          "h": 591,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 1,
+            "svg": 4,
+            "video": 0,
+            "link": 4,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 6742,
+          "h": 138,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 6,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 7036,
+          "h": 295,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 5,
+          "counts": {
+            "img": 2,
+            "svg": 1,
+            "video": 0,
+            "link": 5,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Built by you,powered by Tines",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 7455,
+          "h": 936,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "library",
+      "url": "/library/",
+      "parent": null,
+      "status": 200,
+      "title": "Home | Stories | Library",
+      "docHeight": 8497,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "CollectionEntryCard"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 0,
+      "sections": [
+        {
+          "component": "StoryGridPageSection",
+          "naming": "module",
+          "inner": [
+            "LibraryStoryCard",
+            "DotGridPattern"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 703,
+          "h": 280,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "StoryEmbed",
+          "naming": "module",
+          "inner": [
+            "StoryEmbed",
+            "Button",
+            "DotGridPattern"
+          ],
+          "heading": "Analyze SMS messages for scams using OCR and AI",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 1079,
+          "h": 576,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 3,
+            "svg": 1,
+            "video": 0,
+            "link": 2,
+            "button": 1,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "HowItWorksPageSection",
+          "naming": "module",
+          "inner": [
+            "HowItWorksPageSection"
+          ],
+          "heading": "How it works",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1751,
+          "h": 330,
+          "w": 1000,
+          "bg": "color(srgb 0.805532 0.237617 0.546212 / 0.2)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 3,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSectionHeader",
+          "naming": "module",
+          "inner": [
+            "PageSectionHeader",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "See what your team can build with Tines",
+          "headingTag": "h2",
+          "kicker": "Teams",
+          "y": 2177,
+          "h": 158,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "CollectionsGridPageSection",
+          "naming": "module",
+          "inner": [
+            "CollectionEntryCard"
+          ],
+          "heading": "Security",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 2335,
+          "h": 234,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 5,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 5,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSectionHeader",
+          "naming": "module",
+          "inner": [
+            "PageSectionHeader",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "Get inspired by our featured use cases",
+          "headingTag": "h2",
+          "kicker": "Use cases",
+          "y": 2665,
+          "h": 158,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "CollectionsGridPageSection",
+          "naming": "module",
+          "inner": [
+            "CollectionEntryCard"
+          ],
+          "heading": "Asset and app management",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 2824,
+          "h": 798,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 6,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSectionHeader",
+          "naming": "module",
+          "inner": [
+            "PageSectionHeader",
+            "WithCustomInlineFormatting",
+            "StoryGridPageSection"
+          ],
+          "heading": "Latest stories",
+          "headingTag": "h2",
+          "kicker": "Freshly baked",
+          "y": 3718,
+          "h": 171,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "StoryGridPageSection",
+          "naming": "module",
+          "inner": [
+            "LibraryStoryCard",
+            "DotGridPattern",
+            "StoryAuthorsDisplay"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3889,
+          "h": 1601,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 9,
+          "counts": {
+            "img": 30,
+            "svg": 0,
+            "video": 0,
+            "link": 9,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSectionHeader",
+          "naming": "module",
+          "inner": [
+            "PageSectionHeader",
+            "WithCustomInlineFormatting",
+            "ToolsPageSection"
+          ],
+          "heading": "Build smart outcomes with these partners",
+          "headingTag": "h2",
+          "kicker": "Partnerships",
+          "y": 5585,
+          "h": 205,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ToolsPageSection",
+          "naming": "module",
+          "inner": [
+            "LibraryToolCard"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 5790,
+          "h": 590,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 12,
+          "counts": {
+            "img": 18,
+            "svg": 0,
+            "video": 0,
+            "link": 12,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSectionHeader",
+          "naming": "module",
+          "inner": [
+            "PageSectionHeader",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "From our community",
+          "headingTag": "h2",
+          "kicker": "Community selection",
+          "y": 6476,
+          "h": 171,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "StoryGridPageSection",
+          "naming": "module",
+          "inner": [
+            "LibraryStoryCard",
+            "DotGridPattern"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 6647,
+          "h": 590,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 10,
+            "svg": 0,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "SubmitStoryCtaPageSection",
+          "naming": "module",
+          "inner": [
+            "SubmitStoryCtaPageSection",
+            "Button"
+          ],
+          "heading": "Submit your story",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 7333,
+          "h": 250,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 1,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "library:detail",
+      "url": "/library/tools/thinkst-canary/",
+      "parent": "library",
+      "status": 200,
+      "title": "Thinkst Canary | Tools | Stories | Library",
+      "docHeight": 1778,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "LibraryTable",
+          "naming": "module",
+          "inner": [
+            "LibraryStoryCard",
+            "LibraryTable",
+            "StoryAuthorsDisplay",
+            "DotGridPattern"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": "Story",
+          "y": 539,
+          "h": 315,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 23,
+            "svg": 7,
+            "video": 0,
+            "link": 14,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "stories",
+      "url": "/stories/",
+      "parent": null,
+      "status": 200,
+      "title": "Tines Stories | Tines",
+      "docHeight": 4170,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "ExplosionCTASection"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "WhatsNewSection",
+          "naming": "module",
+          "inner": [
+            "WhatsNewCard",
+            "WithCustomInlineFormatting",
+            "WhatsNewSection",
+            "Button"
+          ],
+          "heading": "What’s new",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1428,
+          "h": 880,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 0,
+            "video": 0,
+            "link": 10,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ExplosionCTASection",
+          "naming": "module",
+          "inner": [
+            "ExplosionCTASection",
+            "Button"
+          ],
+          "heading": "Built by you,powered by Tines",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 2396,
+          "h": 844,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "stories:detail",
+      "url": "/stories/whats-new/support-regex-and-custom-response-for-webhook-action-rules/",
+      "parent": "stories",
+      "status": 200,
+      "title": "Support regex and custom response for webhook actions with rules | What's new at Tines",
+      "docHeight": 3820,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "ExplosionCTASection"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "Article",
+          "naming": "module",
+          "inner": [
+            "VideoBlock"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 473,
+          "h": 860,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 1,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ExplosionCTASection",
+          "naming": "module",
+          "inner": [
+            "ExplosionCTASection",
+            "Button"
+          ],
+          "heading": "Built by you,powered by Tines",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 2126,
+          "h": 844,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "blog",
+      "url": "/blog/",
+      "parent": null,
+      "status": 200,
+      "title": "Tines Blog",
+      "docHeight": 6723,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "ArticleEntryLink",
+          "naming": "module",
+          "inner": [
+            "ArticleEntryLink",
+            "PersonInfoItem"
+          ],
+          "heading": "We gave all our employees access to Tines 3B. Here's what happened next.",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 194,
+          "h": 472,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "BlogArticleExcerptSection",
+          "naming": "module",
+          "inner": [
+            "BlogArticleExcerptSection"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 1883,
+          "h": 472,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 1,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "ArticleEntryLink",
+          "naming": "module",
+          "inner": [
+            "ArticleEntryLink",
+            "PersonInfoItem"
+          ],
+          "heading": "Building AI agents in Tines Stories: tips and tricks for getting started",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 2519,
+          "h": 472,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "NewsletterSection",
+          "naming": "module",
+          "inner": [
+            "NewsletterSection",
+            "Checkbox",
+            "ConsentCheckboxes",
+            "Button"
+          ],
+          "heading": "World class ideas right in your inbox",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4109,
+          "h": 536,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 1,
+            "form": 6,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 5356,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "blog:detail",
+      "url": "/blog/tines-invests-in-no-code-research-at-university-of-limerick-ireland/",
+      "parent": "blog",
+      "status": 200,
+      "title": "Tines invests in no-code research at University of Limerick, Ireland",
+      "docHeight": 3727,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 2359,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "university",
+      "url": "/university/",
+      "parent": null,
+      "status": 200,
+      "title": "Learn how to build with Tines Stories University | Tines",
+      "docHeight": 5260,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Tines Stories University",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 133,
+          "h": 362,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Tines Stories Foundations",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 559,
+          "h": 1749,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 53,
+            "svg": 2,
+            "video": 0,
+            "link": 10,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Library",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 2464,
+          "h": 416,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 3,
+            "svg": 3,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Bootcamps",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 3036,
+          "h": 314,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Built by you,powered by Tines",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 3474,
+          "h": 936,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "events",
+      "url": "/events/",
+      "parent": null,
+      "status": 200,
+      "title": "Events | Tines",
+      "docHeight": 6227,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "EventsWorldMap",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 130,
+          "h": 450,
+          "w": 1360,
+          "bg": "color(srgb 0.327962 0.185308 0.613088 / 0.06)",
+          "columns": 2,
+          "counts": {
+            "img": 59,
+            "svg": 0,
+            "video": 0,
+            "link": 3,
+            "button": 15,
+            "form": 0,
+            "tab": 0,
+            "expandable": 1,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "EventsDirectory",
+          "naming": "module",
+          "inner": [
+            "EventDirectoryCard",
+            "EventsDirectory"
+          ],
+          "heading": "Upcoming events",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 620,
+          "h": 3391,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 33,
+            "svg": 49,
+            "video": 0,
+            "link": 33,
+            "button": 2,
+            "form": 1,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "NewsletterSection",
+          "naming": "module",
+          "inner": [
+            "NewsletterSection",
+            "Checkbox",
+            "ConsentCheckboxes",
+            "Button"
+          ],
+          "heading": "Can’t make it this time?",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4167,
+          "h": 536,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 1,
+            "form": 6,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 4859,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "events:detail",
+      "url": "/events/builder-connect/",
+      "parent": "events",
+      "status": 200,
+      "title": "Builder Connect | Tines",
+      "docHeight": 6040,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 0,
+      "sections": [
+        {
+          "component": "GridCanvas",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3328,
+          "h": 179,
+          "w": 1114,
+          "bg": "rgb(255, 224, 204)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "GridCanvas",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3545,
+          "h": 180,
+          "w": 1114,
+          "bg": "rgb(255, 220, 232)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "GridCanvas",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3762,
+          "h": 179,
+          "w": 1114,
+          "bg": "rgb(218, 240, 233)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "GridCanvas",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3980,
+          "h": 179,
+          "w": 1114,
+          "bg": "rgb(234, 223, 248)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 4672,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "webinars",
+      "url": "/webinars/",
+      "parent": null,
+      "status": 200,
+      "title": "Webinars | Tines",
+      "docHeight": 13819,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Upcoming",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 162,
+          "h": 606,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Wild code: You can’t govern what you can’t see",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 930,
+          "h": 11883,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 69,
+          "counts": {
+            "img": 142,
+            "svg": 0,
+            "video": 0,
+            "link": 69,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "careers",
+      "url": "/careers/",
+      "parent": null,
+      "status": 200,
+      "title": "Careers | Tines",
+      "docHeight": 10528,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 762,
+          "h": 638,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 1,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 1429,
+          "h": 183,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 0,
+            "svg": 3,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Where we work",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1768,
+          "h": 886,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 8,
+          "counts": {
+            "img": 3,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Our values",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2655,
+          "h": 623,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 3,
+            "svg": 0,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Hear from our team",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3434,
+          "h": 701,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 6,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Awards",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4291,
+          "h": 429,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 3,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Benefits",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 4940,
+          "h": 891,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 12,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Open positions",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 5986,
+          "h": 2041,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 4,
+          "counts": {
+            "img": 1,
+            "svg": 3,
+            "video": 0,
+            "link": 69,
+            "button": 0,
+            "form": 4,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Inclusion matters",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 8183,
+          "h": 435,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 3,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Built by you,powered by Tines",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 8742,
+          "h": 936,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "contact",
+      "url": "/contact/",
+      "parent": null,
+      "status": 200,
+      "title": "Contact us | Tines",
+      "docHeight": 3925,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "Button"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 2,
+      "sections": [
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 2557,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "partners",
+      "url": "/partners/",
+      "parent": null,
+      "status": 200,
+      "title": "Partners | Tines",
+      "docHeight": 5055,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "QuoteCardNeue"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 0,
+      "sections": [
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "PageSection"
+          ],
+          "heading": "Work smarter with Tines’ trusted partners",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 130,
+          "h": 361,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "PartnerEntry",
+            "PartnerLogo",
+            "PartnersDirectorySection",
+            "PartnerDirectory",
+            "PageSection"
+          ],
+          "heading": "Channel partners",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 587,
+          "h": 912,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 12,
+            "svg": 1,
+            "video": 0,
+            "link": 37,
+            "button": 0,
+            "form": 1,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "QuoteCardNeue",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Make your tools and systems work together like never before",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1655,
+          "h": 513,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 4,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "ArticleEntryLink",
+            "PageSection",
+            "SectionHeading2"
+          ],
+          "heading": "Backed by the companies you trust",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2323,
+          "h": 540,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "PageSection",
+          "naming": "module",
+          "inner": [
+            "ContentCardBase",
+            "ContentCardArticle",
+            "PageSection",
+            "SectionHeading2",
+            "ContentCardGeneric",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": "Get the latest updates",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3019,
+          "h": 512,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 4,
+          "counts": {
+            "img": 3,
+            "svg": 1,
+            "video": 0,
+            "link": 4,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3687,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "newsroom",
+      "url": "/newsroom/",
+      "parent": null,
+      "status": 200,
+      "title": "Newsroom | Tines",
+      "docHeight": 12445,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 1,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Why Tines’ Eoin Hinchy is sceptical on AI",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 132,
+          "h": 10651,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 75,
+          "counts": {
+            "img": 75,
+            "svg": 0,
+            "video": 0,
+            "link": 75,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Tines brand",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 10939,
+          "h": 501,
+          "w": 1000,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 1,
+            "svg": 1,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "podcast",
+      "url": "/podcast/",
+      "parent": null,
+      "status": 200,
+      "title": "Podcast: The Future of Security Operations | Tines",
+      "docHeight": 20444,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Season 6",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 132,
+          "h": 3781,
+          "w": 1000,
+          "bg": "color(display-p3 0.0839 0.0739 0.1149)",
+          "columns": 2,
+          "counts": {
+            "img": 9,
+            "svg": 0,
+            "video": 0,
+            "link": 45,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Season 5",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 3993,
+          "h": 3361,
+          "w": 1000,
+          "bg": "color(display-p3 0.0839 0.0739 0.1149)",
+          "columns": 2,
+          "counts": {
+            "img": 8,
+            "svg": 0,
+            "video": 0,
+            "link": 40,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Season 4",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 7434,
+          "h": 2101,
+          "w": 1000,
+          "bg": "color(display-p3 0.0839 0.0739 0.1149)",
+          "columns": 2,
+          "counts": {
+            "img": 5,
+            "svg": 0,
+            "video": 0,
+            "link": 20,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Season 3",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 9615,
+          "h": 2941,
+          "w": 1000,
+          "bg": "color(display-p3 0.0839 0.0739 0.1149)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 0,
+            "video": 0,
+            "link": 28,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Season 2",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 12636,
+          "h": 2521,
+          "w": 1000,
+          "bg": "color(display-p3 0.0839 0.0739 0.1149)",
+          "columns": 2,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 29,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Season 1",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 15237,
+          "h": 4201,
+          "w": 1000,
+          "bg": "color(display-p3 0.0839 0.0739 0.1149)",
+          "columns": 2,
+          "counts": {
+            "img": 10,
+            "svg": 0,
+            "video": 0,
+            "link": 58,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "security",
+      "url": "/security/",
+      "parent": null,
+      "status": 200,
+      "title": "Security at Tines | Tines",
+      "docHeight": 9484,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Compliance",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 556,
+          "h": 7922,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 19,
+            "video": 0,
+            "link": 39,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "story-scroll",
+      "url": "/history-and-future-of-workflows/",
+      "parent": null,
+      "status": 200,
+      "title": "The history and future of workflows | Tines",
+      "docHeight": 18818,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 0,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 0,
+          "h": 1880,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Thehistoryandfutureofworkflows",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 68,
+          "h": 609,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 7,
+          "counts": {
+            "img": 9,
+            "svg": 87,
+            "video": 0,
+            "link": 0,
+            "button": 3,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<figure>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 741,
+          "h": 691,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 2,
+            "svg": 9,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 0,
+          "h": 900,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 1588,
+          "h": 567,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 2311,
+          "h": 504,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 9,
+            "svg": 5,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 3,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h",
+            "QuestionDotBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Human-led Era",
+          "headingTag": "h2",
+          "kicker": "Human-led Era",
+          "y": 2815,
+          "h": 1859,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 6,
+            "svg": 3,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "WaterwheelSpin-w142pmer"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 4674,
+          "h": 464,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 6,
+            "svg": 6,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 3,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h",
+            "QuestionDotBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "The deterministic era",
+          "headingTag": "h2",
+          "kicker": "The deterministic era",
+          "y": 5252,
+          "h": 712,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<figure>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 6059,
+          "h": 625,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 6,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 6950,
+          "h": 433,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 5,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 3,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h",
+            "QuestionDotBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Agentic Era",
+          "headingTag": "h2",
+          "kicker": "Agentic Era",
+          "y": 7391,
+          "h": 1944,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 5,
+          "counts": {
+            "img": 1,
+            "svg": 11,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "agentCurveShapeRotate-a1flc2nu"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 9491,
+          "h": 511,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 2,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 10222,
+          "h": 464,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 5,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 3,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h",
+            "QuestionDotBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "The future ofworkflows",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 10734,
+          "h": 1522,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 3,
+          "counts": {
+            "img": 4,
+            "svg": 10,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "A new foundation forModern Businesses",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 12208,
+          "h": 897,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 3,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 13260,
+          "h": 464,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 10,
+            "svg": 5,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 3,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h",
+            "QuestionDotBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Aligning on priorities",
+          "headingTag": "h2",
+          "kicker": "Aligning on priorities",
+          "y": 13816,
+          "h": 936,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 3,
+          "counts": {
+            "img": 7,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 14908,
+          "h": 464,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 2,
+          "counts": {
+            "img": 7,
+            "svg": 5,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 3,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "scanLines-s6oqw7h",
+            "QuestionDotBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Building for the future",
+          "headingTag": "h2",
+          "kicker": "Building for the future",
+          "y": 15568,
+          "h": 833,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 2,
+            "svg": 9,
+            "video": 0,
+            "link": 6,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": [
+            "QuestionBorderBlink-q1nzmrmg"
+          ]
+        },
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 16401,
+          "h": 196,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "The intelligentworkflow platform",
+          "headingTag": "h3",
+          "kicker": null,
+          "y": 16589,
+          "h": 1379,
+          "w": 1440,
+          "bg": "rgb(255, 255, 255)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 3,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "capability-matrix",
+      "url": "/workflow-capability-matrix/",
+      "parent": null,
+      "status": 200,
+      "title": "Workflow capability matrix | Tines",
+      "docHeight": 4409,
+      "header": [
+        "SiteNav26",
+        "NavSearch",
+        "FlowerField"
+      ],
+      "footer": [
+        "SiteFooter26"
+      ],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "DotGridPattern",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 0,
+          "h": 3110,
+          "w": 1440,
+          "bg": "rgba(146, 116, 244, 0.5)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WcmDial",
+          "naming": "module",
+          "inner": [
+            "WcmDial"
+          ],
+          "heading": "Workflow capability matrix",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 130,
+          "h": 549,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 2,
+            "video": 0,
+            "link": 1,
+            "button": 4,
+            "form": 1,
+            "tab": 0,
+            "expandable": 1,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": [
+            "heroFloatUp"
+          ]
+        },
+        {
+          "component": "WcmDial",
+          "naming": "module",
+          "inner": [
+            "WcmDial"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 763,
+          "h": 1364,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 14,
+          "counts": {
+            "img": 0,
+            "svg": 177,
+            "video": 0,
+            "link": 177,
+            "button": 177,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WcmDial",
+          "naming": "module",
+          "inner": [],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 130,
+          "h": 1997,
+          "w": 1360,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 0,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WcmFooterSection",
+          "naming": "module",
+          "inner": [
+            "WcmFooterSection",
+            "Button"
+          ],
+          "heading": "Start building today!",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 2191,
+          "h": 320,
+          "w": 1128,
+          "bg": "color(display-p3 0.8998 0.9319 0.906)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WcmFooterSection",
+          "naming": "module",
+          "inner": [
+            "ContentCard",
+            "WithCustomInlineFormatting"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 2536,
+          "h": 350,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 4,
+          "counts": {
+            "img": 0,
+            "svg": 3,
+            "video": 1,
+            "link": 4,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "WildCodeCTASection",
+          "naming": "module",
+          "inner": [
+            "Button",
+            "WildCodeCTASection",
+            "CtaButtons",
+            "InteractiveCursor",
+            "WildCodeField",
+            "WildCodeFlowers"
+          ],
+          "heading": null,
+          "headingTag": null,
+          "kicker": null,
+          "y": 3042,
+          "h": 518,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 0,
+            "video": 0,
+            "link": 2,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 1
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "legal",
+      "url": "/legal/",
+      "parent": null,
+      "status": 200,
+      "title": "Legal | Tines",
+      "docHeight": 3017,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Legal",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 68,
+          "h": 2100,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 29,
+            "button": 2,
+            "form": 0,
+            "tab": 0,
+            "expandable": 2,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "privacy",
+      "url": "/privacy/",
+      "parent": null,
+      "status": 200,
+      "title": "Privacy policy | Tines",
+      "docHeight": 18464,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "TINES GENERAL PRIVACY POLICY",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 556,
+          "h": 16884,
+          "w": 1128,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 0,
+            "svg": 4,
+            "video": 0,
+            "link": 10,
+            "button": 0,
+            "form": 0,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "not-found",
+      "url": "/this-page-does-not-exist-vf/",
+      "parent": null,
+      "status": 404,
+      "title": "Not found | Tines",
+      "docHeight": 1762,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<div>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Page not found",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 68,
+          "h": 844,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 1,
+          "counts": {
+            "img": 1,
+            "svg": 0,
+            "video": 0,
+            "link": 1,
+            "button": 0,
+            "form": 1,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    },
+    {
+      "key": "webinars:detail",
+      "url": "/webinars/integrate-hashicorp-vault-1password-using-tines/",
+      "parent": "webinars",
+      "status": 200,
+      "title": "Integrate HashiCorp Vault & 1Password using Tines | Tines",
+      "docHeight": 3122,
+      "header": [],
+      "footer": [],
+      "footerLinkGroups": 0,
+      "footerLinks": 71,
+      "sections": [
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Integrate HashiCorp Vault & 1Password using Tines",
+          "headingTag": "h1",
+          "kicker": null,
+          "y": 170,
+          "h": 1385,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 6,
+          "counts": {
+            "img": 1,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 3,
+            "form": 4,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        },
+        {
+          "component": "<section>",
+          "naming": "generic",
+          "inner": [],
+          "heading": "Missed this webinar?",
+          "headingTag": "h2",
+          "kicker": null,
+          "y": 1555,
+          "h": 561,
+          "w": 1440,
+          "bg": "rgb(252, 249, 245)",
+          "columns": 2,
+          "counts": {
+            "img": 0,
+            "svg": 1,
+            "video": 0,
+            "link": 1,
+            "button": 3,
+            "form": 4,
+            "tab": 0,
+            "expandable": 0,
+            "canvas": 0
+          },
+          "scrollX": false,
+          "animations": []
+        }
+      ]
+    }
+  ],
+  "overlays": [
+    {
+      "kind": "banner",
+      "label": "cookie-consent",
+      "found": true,
+      "w": 1440,
+      "h": 900,
+      "top": 0,
+      "components": [],
+      "links": 0,
+      "groups": 0,
+      "images": 0,
+      "inputs": 0,
+      "fills": [],
+      "role": null,
+      "modal": null
+    },
+    {
+      "kind": "mega-menu",
+      "label": "Product",
+      "found": true,
+      "w": 1440,
+      "h": 310,
+      "top": 68,
+      "components": [
+        "SiteNav26",
+        "FlowerField"
+      ],
+      "links": 4,
+      "groups": 2,
+      "images": 2,
+      "inputs": 0,
+      "fills": [
+        "color(display-p3 0.4583 0.3429 0.848)",
+        "color(display-p3 0.3827 0.2622 0.7236)",
+        "color(display-p3 0.9238 0.9119 0.9846)"
+      ],
+      "role": null,
+      "modal": null
+    },
+    {
+      "kind": "mega-menu",
+      "label": "Solutions",
+      "found": true,
+      "w": 1440,
+      "h": 279,
+      "top": 68,
+      "components": [
+        "SiteNav26"
+      ],
+      "links": 5,
+      "groups": 4,
+      "images": 5,
+      "inputs": 0,
+      "fills": [
+        "color(display-p3 0.7037 0.6454 1.0113)",
+        "color(display-p3 0.0151 0.5342 0.3416)",
+        "color(display-p3 0.4583 0.3429 0.848)",
+        "color(display-p3 1.0581 0.8897 0.786)",
+        "color(display-p3 1.0646 0.8213 0.6768)"
+      ],
+      "role": null,
+      "modal": null
+    },
+    {
+      "kind": "mega-menu",
+      "label": "Discover",
+      "found": true,
+      "w": 1440,
+      "h": 411,
+      "top": 68,
+      "components": [
+        "SiteNav26"
+      ],
+      "links": 6,
+      "groups": 3,
+      "images": 6,
+      "inputs": 0,
+      "fills": [
+        "color(display-p3 0.9238 0.9119 0.9846)",
+        "rgb(252, 249, 245)",
+        "color(display-p3 0.6523 0.5827 0.9902)",
+        "color(display-p3 0.8668 0.8464 0.9956)",
+        "color(display-p3 0.8998 0.9319 0.906)",
+        "color(display-p3 0.8115 0.8907 0.8359)",
+        "color(display-p3 0.8253 0.4336 0.1927)"
+      ],
+      "role": null,
+      "modal": null
+    },
+    {
+      "kind": "modal",
+      "label": "search",
+      "found": true,
+      "w": 1440,
+      "h": 900,
+      "top": 0,
+      "components": [
+        "GlobalSearch"
+      ],
+      "links": 0,
+      "groups": 0,
+      "images": 2,
+      "inputs": 1,
+      "fills": [
+        "rgb(252, 249, 245)",
+        "color(srgb 0.441758 0.295458 0.814856 / 0.04)"
+      ],
+      "role": "dialog",
+      "modal": "true"
+    },
+    {
+      "kind": "drawer",
+      "label": "mobile-menu",
+      "found": true,
+      "w": 374,
+      "h": 329,
+      "top": 67,
+      "components": [
+        "SiteNav26"
+      ],
+      "links": 4,
+      "groups": 0,
+      "images": 0,
+      "inputs": 0,
+      "fills": [
+        "color(srgb 0.441758 0.295458 0.814856 / 0.1)"
+      ],
+      "role": null,
+      "modal": null
+    }
+  ],
+  "components": [
+    {
+      "name": "Button",
+      "pages": 19,
+      "occurrences": 39
+    },
+    {
+      "name": "WildCodeCTASection",
+      "pages": 15,
+      "occurrences": 30
+    },
+    {
+      "name": "CtaButtons",
+      "pages": 15,
+      "occurrences": 17
+    },
+    {
+      "name": "InteractiveCursor",
+      "pages": 15,
+      "occurrences": 15
+    },
+    {
+      "name": "WildCodeField",
+      "pages": 15,
+      "occurrences": 15
+    },
+    {
+      "name": "WildCodeFlowers",
+      "pages": 15,
+      "occurrences": 15
+    },
+    {
+      "name": "WithCustomInlineFormatting",
+      "pages": 10,
+      "occurrences": 19
+    },
+    {
+      "name": "<div>",
+      "pages": 10,
+      "occurrences": 18
+    },
+    {
+      "name": "PageSection",
+      "pages": 8,
+      "occurrences": 54
+    },
+    {
+      "name": "<section>",
+      "pages": 6,
+      "occurrences": 45
+    },
+    {
+      "name": "CurrentColorRemoteSvg",
+      "pages": 6,
+      "occurrences": 8
+    },
+    {
+      "name": "SectionHeading2",
+      "pages": 5,
+      "occurrences": 13
+    },
+    {
+      "name": "SolutionHero",
+      "pages": 3,
+      "occurrences": 9
+    },
+    {
+      "name": "ExplosionCTASection",
+      "pages": 3,
+      "occurrences": 6
+    },
+    {
+      "name": "DotGridPattern",
+      "pages": 3,
+      "occurrences": 6
+    },
+    {
+      "name": "CaseStudyBookCard",
+      "pages": 3,
+      "occurrences": 5
+    },
+    {
+      "name": "SolutionPageAllcapsHeading",
+      "pages": 3,
+      "occurrences": 3
+    },
+    {
+      "name": "ThreeBHero",
+      "pages": 2,
+      "occurrences": 9
+    },
+    {
+      "name": "ArticleEntryLink",
+      "pages": 2,
+      "occurrences": 5
+    },
+    {
+      "name": "FlowerField",
+      "pages": 2,
+      "occurrences": 4
+    },
+    {
+      "name": "LibraryStoryCard",
+      "pages": 2,
+      "occurrences": 4
+    },
+    {
+      "name": "NewsletterSection",
+      "pages": 2,
+      "occurrences": 4
+    },
+    {
+      "name": "ThreeBMascot",
+      "pages": 2,
+      "occurrences": 3
+    },
+    {
+      "name": "ThreeBMascotOrb",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "CaseStudyGridSection",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "CustomerG2ReviewCard",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "AccreditationGrid",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "RatingStars",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "Article",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "HeroHeadlineDecoration",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "SolutionPageValuePropsSection",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "SolutionPageSecondaryDescription",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "SolutionChildEntryLinkCard",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "SolutionChildPageGridSection",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "SolutionPageQuoteSection",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "ContentCardBase",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "ContentCardGeneric",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "ContentCardArticle",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "StoryAuthorsDisplay",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "Checkbox",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "ConsentCheckboxes",
+      "pages": 2,
+      "occurrences": 2
+    },
+    {
+      "name": "PageSectionHeader",
+      "pages": 1,
+      "occurrences": 10
+    },
+    {
+      "name": "ThreeBBentoSection",
+      "pages": 1,
+      "occurrences": 6
+    },
+    {
+      "name": "WcmDial",
+      "pages": 1,
+      "occurrences": 5
+    },
+    {
+      "name": "HomeSectionKicker",
+      "pages": 1,
+      "occurrences": 4
+    },
+    {
+      "name": "HomeUSPSection",
+      "pages": 1,
+      "occurrences": 4
+    },
+    {
+      "name": "StoryGridPageSection",
+      "pages": 1,
+      "occurrences": 4
+    },
+    {
+      "name": "GridCanvas",
+      "pages": 1,
+      "occurrences": 4
+    },
+    {
+      "name": "HomeSectionHeading",
+      "pages": 1,
+      "occurrences": 3
+    },
+    {
+      "name": "WcmFooterSection",
+      "pages": 1,
+      "occurrences": 3
+    },
+    {
+      "name": "HomeMonitorBanner",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "HomeSolutionSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "HomeUseCasesSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "HomeSectionByline",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "ThreeBPullQuote",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "ThreeBExploreSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "ThreeBCodaSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "ThreeBFaqSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "ThreeBExamplePage",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "CaseStudyHeroSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "CaseStudyContent",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "PublicSectorLayeredProductVisual",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "CenteredQuoteSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "StoryEmbed",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "HowItWorksPageSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "CollectionsGridPageSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "CollectionEntryCard",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "ToolsPageSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "SubmitStoryCtaPageSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "LibraryTable",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "WhatsNewSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "PersonInfoItem",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "BlogArticleExcerptSection",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "EventsDirectory",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "<figure>",
+      "pages": 1,
+      "occurrences": 2
+    },
+    {
+      "name": "AnnouncementBar",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "HomeContent",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBHundredXBanner",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "TimelineScrubber",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBProductVisual",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "AvatarFace",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "HomeAiTangleBanner",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "StargazingConstellation",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBHeroFlowerFields",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "VideoPlayer",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBExploreGarden",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBPromptTyper",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBChatMock",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBTestClock",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBAccessMapThumb",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBDependencyGraph",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBExampleArticle",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ThreeBExampleCard",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "AngularGradientBorder",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PromptActionButton",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PricingPlanCards",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PricingQuotesGrid",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "G2BadgeList",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PricingFaqSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PullQuote",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "StructuredTextBlock",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "DataCardGrid",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "CaseStudyReadMoreSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "FeatureHighlightCard",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "SolutionForFeatureHighlightsSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "SolutionForUseCasesSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "SolutionForExamplesSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "SolutionForPartnersSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ContentCardDocument",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "SolutionForRelatedContentSection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "LibraryToolCard",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "WhatsNewCard",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "VideoBlock",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "EventsWorldMap",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "EventDirectoryCard",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PartnerEntry",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PartnerLogo",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PartnersDirectorySection",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "PartnerDirectory",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "QuoteCardNeue",
+      "pages": 1,
+      "occurrences": 1
+    },
+    {
+      "name": "ContentCard",
+      "pages": 1,
+      "occurrences": 1
+    }
+  ]
+}

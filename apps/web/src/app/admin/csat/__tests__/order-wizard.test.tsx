@@ -197,6 +197,9 @@ describe('새 교재 만들기 — 화면', () => {
     evidence: EVIDENCE,
     itemsPerVolume: ITEMS,
     unitsPerBook: UNITS,
+    itemsPerUnit: ITEMS / UNITS,
+    unitsRange: { min: 5, p25: 7, median: UNITS, p75: 12, max: 29 },
+    seriesList: [{ id: 'reading', brand: 'Vocaflow Reading', accent: '#2E7D5A', kind: 'reading' }],
     inventoryAt: null,
     loadError: null,
   }

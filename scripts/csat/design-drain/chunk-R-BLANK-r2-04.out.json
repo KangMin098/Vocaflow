@@ -1,0 +1,235 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2006#33",
+      "roles": [
+        "topic",
+        "support",
+        "turn",
+        "support",
+        "support",
+        "support",
+        "conclusion",
+        "support",
+        "support",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "비물질화를 '제품→서비스, 원자→비트'라는 같은 방향의 치환으로 거듭 설명하는 글이라, 빈칸이 그 방향을 뒤집지 않고 요약하는지를 묻게 된다.",
+      "transform": "paraphrase",
+      "transform_note": "무형의 것이 물질에 스며 하드웨어가 소프트웨어처럼 군다는 진술이 선지에서 '무형의 서비스인 것처럼'으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#32",
+      "roles": [
+        "background",
+        "background",
+        "turn",
+        "support",
+        "support",
+        "topic",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "고고학의 '이론 먼저' 규범을 제시한 뒤 실제로는 순서가 반대였다고 여러 번 꺾는 통념-반박 구조라, 빈칸이 뒤의 재진술로 채워지게 된다.",
+      "transform": "paraphrase",
+      "transform_note": "해석을 정할 때 이미 자료를 알고 있었다는 재진술이 선지에서 '발견한 자료로부터 나왔다'로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2006#31",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "example",
+        "example",
+        "example",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 6,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "myth_rebuttal",
+      "selection": "과잉 종만 다룬다는 좁은 정의를 반박하고 멸종위기종끼리 얽힌 사례를 드는 글이라, 빈칸이 사례 속 '매도 보호 대상'이라는 신분 정보로 채워지게 된다.",
+      "transform": "inference",
+      "transform_note": "매 역시 멸종위기종이라는 사실에서 '해치지 않고' 막아야 한다는 조건을 논리로 복원해야 하며 지문에 직접 진술은 없다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#34",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 2,
+          "role": "turn"
+        }
+      ],
+      "pattern": "contrast",
+      "selection": "장소 정체성의 관광 마케팅 장점을 말한 뒤 however 로 단점을 나열하는 글이라, 빈칸이 뒤따르는 주민의 반감 진술과 같은 방향이어야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "산업에서 나온 장소 정의에 강하게 애착하고 외부인을 불쾌해한다는 진술이 선지에서 '그 정체성을 잃기를 거부한다'로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#33",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "외현화 상담의 절차를 순서대로 설명하는 글로, 빈칸이 바로 앞 문장에서 찾은 것에 이름을 붙이게 되어 있다.",
+      "transform": "negation_flip",
+      "transform_note": "문제가 아이에게 영향을 미치지 않았던 때라는 부정 진술이 선지에서 '문제 이야기의 예외'라는 명사로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#32",
+      "roles": [
+        "background",
+        "background",
+        "topic",
+        "support",
+        "example",
+        "example",
+        "support",
+        "example"
+      ],
+      "alternatives": [
+        {
+          "index": 0,
+          "role": "topic"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "'내 말은 이렇다'는 예고 뒤 빈칸에 정의를 두고 가게 사례로 풀어내는 글이라, 빈칸이 바로 뒤의 일반 진술로 채워지게 된다.",
+      "transform": "paraphrase",
+      "transform_note": "사람마다 이것 아닌 저것을 알아차리고 한 측면에 대해 판단한다는 진술이 선지에서 '일어나는 일에 대한 특정한 관점'으로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M1809#31",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "myth_rebuttal",
+      "selection": "창의성은 재능이라는 통념을 부정하고 '숫자 게임'으로 재서술하는 글이라, 빈칸이 뒤의 여러 진술을 한 낱말로 압축해 받게 된다.",
+      "transform": "abstraction",
+      "transform_note": "많이 시도하고 더 많이 한다는 구체 진술들이 선지에서 '생산성'이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#33",
+      "roles": [
+        "topic",
+        "support",
+        "example",
+        "example",
+        "example",
+        "support",
+        "conclusion",
+        "support"
+      ],
+      "alternatives": [
+        {
+          "index": 5,
+          "role": "conclusion"
+        }
+      ],
+      "pattern": "general_specific",
+      "selection": "설계 중 의뢰인과 사용자에게 반응 기회를 주라는 주장을 병원 사례로 풀고 빈칸에서 다시 요약하는 글이라, 행위의 강도와 방향을 맞춰야 한다.",
+      "transform": "paraphrase",
+      "transform_note": "설계 진행 중 반응할 기회를 주고 사용자를 참여시킨다는 진술이 선지에서 '설계 과정에서 의견을 물었다'로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#32",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "general_specific",
+      "selection": "좋은 문체를 대화의 협력 원리로 설명하고 글에는 즉각적 반응이 없다는 점을 더해 빈칸에서 결론을 맺는 글이라, 빈칸 바로 뒤 동격 재진술로 채워진다.",
+      "transform": "paraphrase",
+      "transform_note": "가상 대화의 양쪽을 모두 상상해야 한다는 뒤 재진술이 선지에서 '없는 독자의 반응을 예상한다'로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "2026#31",
+      "roles": [
+        "topic",
+        "support",
+        "support",
+        "support",
+        "support",
+        "support",
+        "conclusion"
+      ],
+      "alternatives": [],
+      "pattern": "cause_effect",
+      "selection": "곡물 무역 회사가 여러 시장의 정보로 위험을 줄였다는 인과를 설명하는 글이라, 빈칸 낱말이 정보가 무엇의 열쇠였는지를 글 전체 흐름으로 복원해야 한다.",
+      "transform": "inference",
+      "transform_note": "정보로 위험을 덜고 가격을 고정했다는 진술에서 그것이 '수익성'의 열쇠라는 고리를 논리로 채워야 하며 직접 진술은 없다.",
+      "cues": [],
+      "data_defect": null
+    }
+  ]
+}

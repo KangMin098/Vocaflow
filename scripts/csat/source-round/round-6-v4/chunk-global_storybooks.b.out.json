@@ -1,0 +1,717 @@
+[
+  {
+    "id": "f576c13a-0017-4a97-9585-ecdae365b11c",
+    "source_updated_at": "2026-09-25T04:02:36.149891+00:00",
+    "body_sha256": "fb051db88eccaa763c4576e3d6dd83e82f5d0c11da77b58117b719cde94f9ceb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "기상→등교→수업→귀가→취침이 시각 표지로 이어지는 하루 서사라 초등 순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tembe wakes up at seven o'clock",
+      "note": "소문자 문장 머리·빠진 주어(the helps)만 고치면 순서 문항으로 바로 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "3ba03367-a95d-44b2-a697-a5c5aadef894",
+    "source_updated_at": "2026-09-25T04:02:04.791006+00:00",
+    "body_sha256": "df427f644c1384a910fee4dd418538f663f122154f25b2772928ca0e4502b1b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "동물마다 이빨이 어떻다는 특징 문장의 나열뿐이라 문장 사이 연결이 없어 초등 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "A crocodile has big teeth. A",
+      "note": "마지막 두 줄 외에는 사건·이유·순서 연결이 없어 떼어 낼 논지가 없다."
+    }
+  },
+  {
+    "id": "54b92f81-7618-4080-995e-dcf2a7dc5ce3",
+    "source_updated_at": "2026-09-25T04:02:19.336967+00:00",
+    "body_sha256": "6ae5210c341571c2d3212e614ed70a35900782d1d8fe702959a970a20d9018e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "헛간에 살던 목수가 돈을 얻어 집을 짓고 잔치하는 사건 흐름이 이어져 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There was a great builder in",
+      "note": "짧지만 원인(돈)→행동(자재 구입·건축)→결과(잔치)가 이어져 순서 배열이 된다."
+    }
+  },
+  {
+    "id": "855ae038-917a-4249-980c-19fc81860da3",
+    "source_updated_at": "2026-09-25T04:02:22.679287+00:00",
+    "body_sha256": "86a4fa135fc85783ad7cad2c62badf60bff30d2463f60aa7c5dec6e7707a0011",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "「That's not yours」「What have you got?」 등 그림을 봐야 무엇을 가리키는지 서는 외침 반복이라 조각이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Come back, cat! Play with me.",
+      "note": "고양이가 무엇을 했는지 본문에 없어 그림 없이 사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "72f2d451-3388-469a-922d-ed3a4670720e",
+    "source_updated_at": "2026-09-25T04:01:37.210962+00:00",
+    "body_sha256": "d8f11a2d66a002372e3613a913ec1cf9cc38f61af590851c07e8d766bd1537a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "아침 집→등굣길→학교→귀가 순으로 식물에게 말을 거는 반복 서사라 초등 순서·심경 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Khalai wakes up and talks to",
+      "note": "장소 이동이 순서 단서가 되어 문단 배열이 쉬웠다."
+    }
+  },
+  {
+    "id": "b43a09f8-f1c1-4e2b-96e1-f8f9364a0716",
+    "source_updated_at": "2026-09-25T04:02:25.752967+00:00",
+    "body_sha256": "0f7aa0263414a8da334fad2b10baf7921d3f899d287294e44f4f6242a8cb0374",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "나무 아내를 빼앗기고 비둘기로 되찾으려다 생명까지 거두는 설화로 눈을 쪼는 장면이 있어 고1 이상 심경·순서 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once upon a time, there lived",
+      "note": "마지막 「Just as a woman does」 성별 고정관념 한 구절은 가공 때 걷어낸다 — 걷어도 이야기가 선다."
+    }
+  },
+  {
+    "id": "fa64f7ba-85d7-45e7-952b-1f863b603cfd",
+    "source_updated_at": "2026-09-25T04:01:41.776758+00:00",
+    "body_sha256": "fdf9adf0bbe944df7fc359e687fe347245ace5c6df06f7c42970ffbfde61c0b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "마타이의 성장·유학·귀국 후 나무심기·노벨상까지 시간순 전기라 초중등 순서·내용일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When she had finished her studies,",
+      "note": "귀국 문단은 앞 문맥 없이 문제→해결→결과가 서서 요약 문항이 됐다."
+    }
+  },
+  {
+    "id": "21ae1fc0-e4c6-48b3-9bb8-ac055fa0d0f5",
+    "source_updated_at": "2026-09-25T04:01:41.320318+00:00",
+    "body_sha256": "7c124f3aab04f31421d60e8ce06c493f531491ad53459b4fb89541510f701c51",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "해·달·불·물을 차례로 훔치는 기원 설화라 사건 순서가 뚜렷해 중등 순서·장문 칸이 서고 끝의 story notes 는 떼어 낸다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "long_reference",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dima disguised himself again and returned",
+      "note": "말미 채록 해설 문단은 성격이 달라 떼어 내고 본문만 쓴다."
+    }
+  },
+  {
+    "id": "7b321d29-95cb-4e8c-8ca2-f28791d32519",
+    "source_updated_at": "2026-09-25T04:02:09.667505+00:00",
+    "body_sha256": "b771294d81dd205e30d6064d23f147b34e3378604913e9a2af1f26c0d0eab77e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "bias",
+    "why": "인종을 피부색과 「slanted eyes」로 가르는 창조 과정이 설화의 요지라 걷어 내면 이야기가 서지 않아 편견으로 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Once upon a time long ago, when",
+      "note": "인종 창조 네 문단이 본문의 중심이라 걷어 낼 수 없었다."
+    }
+  },
+  {
+    "id": "2f287174-cc6c-4ad4-94ff-d97a1238e0cc",
+    "source_updated_at": "2026-09-25T04:01:32.182442+00:00",
+    "body_sha256": "58bc3bbe516d7e32d96c249ffd9c752e5c79e2d925f61d76870dcd87fbce2709",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "감자·양배추·당근을 손질한다는 무관한 동작 문장의 나열이라 사건·이유 연결이 없어 초등 칸 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "I peel the potatoes. I chop",
+      "note": "마지막 양파 문장만 이유가 있고 나머지는 순서 없는 목록이다."
+    }
+  },
+  {
+    "id": "c81fa5c2-3437-4bba-9b91-bcfddce4b530",
+    "source_updated_at": "2026-09-25T04:01:56.350667+00:00",
+    "body_sha256": "8fccbccfbe4d1c985f8a0119fda12dc968113d981fb58baed2bea10ca417970b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "하이에나가 탐욕으로 까마귀 꼬리에 매달렸다 구름에서 떨어지는 유래담이라 사건·교훈 흐름이 서서 초중등 순서·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Raven was not mean, so he",
+      "note": "다리 부러짐은 교훈의 결과일 뿐 묘사가 약해 연령 제한까지는 아니라고 봤다."
+    }
+  },
+  {
+    "id": "6d066245-fd1f-402c-8569-867a17ed2743",
+    "source_updated_at": "2026-09-25T04:01:39.176168+00:00",
+    "body_sha256": "192d9b978f532287f9a0d1437b94a65482ad1883da7822c105fa9219db5aafa2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "소 우유·아빠 고기·엄마 가방이 서로 무관한 네 문장이라 사건·이유·순서 어느 연결도 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Mother cow cow, I like you",
+      "note": "문장 사이 연결이 없어 초등 최소선에도 못 미쳤다."
+    }
+  },
+  {
+    "id": "ff71fc68-7c61-4012-b8ff-6742df7665d9",
+    "source_updated_at": "2026-09-25T04:01:35.974451+00:00",
+    "body_sha256": "69f475be29c6937a2104b9ce1f142288e4c5bea5e5acc94d03eb78ebb716ab03",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "그라사 마셸의 출생·장학금·독립·교육정책·재혼을 시간순으로 따르는 전기라 중등 순서·내용일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Graça worked hard at school and",
+      "note": "고유명사를 걷어도 교육으로 삶을 바꾼 흐름이 서서 요약이 됐다."
+    }
+  },
+  {
+    "id": "457ec6ee-eec7-4911-a068-2574cd337295",
+    "source_updated_at": "2026-09-25T04:01:41.564132+00:00",
+    "body_sha256": "1685f296e0ce032615d62f94ee2d15fe2a95020d24951b97de5821182b70e1ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "소를 치다 목이 말라 물을 찾고 소를 잃고 울다 집에 와 보니 소가 먼저 와 있는 사건 연결이 있어 초등 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V1",
+        "V2"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lekishon and his dog are thirsty",
+      "note": "「This is Lekishon」 소개 문장만 그림 지시라 걷어 내면 된다."
+    }
+  },
+  {
+    "id": "9827ffb3-c874-4478-81c1-c6c882fa2c11",
+    "source_updated_at": "2026-09-25T04:02:21.477754+00:00",
+    "body_sha256": "db778956226980ebe54d18ad0536a13592cfa392cce0326b40cd8b5d9d64dbb9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "인터넷에서 나쁜 사진을 본 소녀를 나비가 돕고 소녀가 자라 아이들을 가르치는 교훈 서사라 초등 요지·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fiffie flew over to the girl's",
+      "note": "「nasty picture」는 막연한 표현이라 초등에 그대로 둘 수 있었다."
+    }
+  },
+  {
+    "id": "11ec0dfa-5418-4be3-a417-64520fd05ce0",
+    "source_updated_at": "2026-09-25T04:02:08.764005+00:00",
+    "body_sha256": "774a5efe52a560f67b6e590878dfa23c9b3e9d850a864d12a6de8cbefd8a9d69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "길 잃은 염소가 춤추겠다는 꾀로 시간을 벌어 개들 덕에 늑대를 피하는 인과 서사라 초등 순서·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "insert"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The goat answered: If I have",
+      "note": "대사 앞 콜론을 따옴표로 바꾸면 끼워 넣기 문항이 쉬웠다."
+    }
+  },
+  {
+    "id": "f8d7c18c-8300-4390-af7b-5a1cbd0677fb",
+    "source_updated_at": "2026-09-25T04:02:13.035067+00:00",
+    "body_sha256": "288c30669ef98e817501bb29b138c47f624bf5dee3ed2659c83b8474a957c1a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "남편이 아내의 가슴을 잘라 죽음에 이르는 폭력·죽음이 교훈의 중심인 설화라 연령 칸을 고1 이상으로 제한해 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He hurried back to the forest",
+      "note": "짧아도 유혹→폭력→사라짐→죽음이 이어지나 묘사가 직접적이라 elem·mid 칸은 달지 않았다."
+    }
+  },
+  {
+    "id": "f8d25113-ed1e-4f14-8c1f-a30e5bb4f768",
+    "source_updated_at": "2026-09-25T04:01:54.969051+00:00",
+    "body_sha256": "7732fa2cd82c6983eaee5048f826a2cbf78e8e53c65a802726d5571ab1d19661",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "식인 도깨비가 가족을 요리하라 요구하고 목을 졸라 죽이는 결말이 사건의 중심이라 고1 이상 순서·장문 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "long_reference",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For several days the ogre allowed",
+      "note": "반복 구조(아들→딸→남편→아내)가 순서 단서라 배열이 쉬웠고 죽음 장면 때문에 연령만 제한했다."
+    }
+  },
+  {
+    "id": "b3c87fc5-fe84-4ee7-b473-fe313c1cdc3b",
+    "source_updated_at": "2026-09-25T04:01:54.734992+00:00",
+    "body_sha256": "48c6f5e9f5048247707f88cce553af437f49a8b53c9b53a51eece11fc8113284",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "토끼가 코끼리를 불 속에 세워 발굽을 태우는 잔혹한 속임이 이야기의 중심이라 고1 이상 심경·순서 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "mood",
+        "main_point",
+        "insert"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Because Elephant was eager to have",
+      "note": "허영의 대가라는 요지는 서지만 고통 묘사가 길어 연령 칸을 올렸다."
+    }
+  },
+  {
+    "id": "4ff3a727-9dbb-4fff-bb08-3d1bb169bfa0",
+    "source_updated_at": "2026-09-25T04:01:47.165242+00:00",
+    "body_sha256": "740e375f45ddc87c1bf095a26b63acafd77d4b0d034344d1ad4bdb5f84c0533d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 4,
+    "round": 6,
+    "retention": "keep",
+    "genre": "fiction",
+    "why": "뿔 없는 돼지가 밀랍 뿔로 잔치에 들어갔다 녹아 떨어져 코가 납작해진 유래담으로 인과가 이어져 초등 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "main_point"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When the party started heating up,",
+      "note": "밀랍이 녹는 인과가 뚜렷해 문장 삽입 위치가 한 곳으로 정해졌다."
+    }
+  }
+]

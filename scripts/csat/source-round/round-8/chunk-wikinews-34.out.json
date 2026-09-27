@@ -1,0 +1,1037 @@
+[
+ {
+  "id": "0ab5d148-25fc-4635-a483-e9a73bc2a51e",
+  "source_updated_at": "2026-09-25T08:06:37.386178+00:00",
+  "body_sha256": "294547bb5ff72f5cdbb53d4c9e1446f118e773f1ffe01fa0a1aa38c076151dbc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "장기 구금에 맞선 단식과 정부의 거부, 지지자의 증언이 맞서는 단락들이 고2 이상 내용 일치·심경 칸을 채운다(단식 사망 위험 소재).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "mood",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"He felt he had no option",
+   "note": "「He felt he had no option」 증언 단락은 절망감이 읽혀 심경 문항으로 떼기 쉽고 incarceration·foreboding 만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "0ab839ee-bc93-400f-a706-5cef3d9c4bb7",
+  "source_updated_at": "2026-09-25T06:47:48.498168+00:00",
+  "body_sha256": "97eaab807cc9165164f7bbb44f79600cf32071c027a4c03e36bde97d5fcd65da",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "궤도선 도착 → 시험 → 연료 주입 → 발사 → 순항·공력제동으로 이어지는 일정 단락이 중등~고1 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "After the scheduled launch, the MRO",
+   "note": "일정 단락은 날짜를 걷어도 단계 순서가 서고 aerobraking 만 풀어 쓰면 된다."
+  }
+ },
+ {
+  "id": "0abb7598-b01e-493e-922a-4f561f08a6ea",
+  "source_updated_at": "2026-09-25T07:58:50.805155+00:00",
+  "body_sha256": "50eb5e9bf0306986fb38ff7cb2c2c67f755ae7b4ead7ac88b0dfeb816645167c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "입원 → 중환자실 → 사망 경위와 딸의 「무대에서 죽겠다」 회고가 이어진 짧은 부고로 고1 내용 일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Barrios was taken to the Dos",
+   "note": "네 단락뿐이지만 병세 경과가 순서대로 이어지고 thromboembolism 을 쉬운 말로 바꾸면 V4까지 내려간다."
+  }
+ },
+ {
+  "id": "0abcf6e8-2a8c-40a3-bf6e-7228ebc2a789",
+  "source_updated_at": "2026-09-25T07:44:52.594566+00:00",
+  "body_sha256": "5ab8739c1efb349bd395791dd04c85dc4ac5beb1ee1150b3bed83f4336e4aa68",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "자원봉사자의 폭발물 발견 → 두 학교 대피 → 통제 폭파 → 경찰 조사로 세 단락이 이어져 중등 내용 일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to ABC7 news volunteers cleaning",
+   "note": "출처 표기(ABC7·Chicago Breaking News)를 걷어도 사건 흐름이 서고 detonation 만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "0ac84ce3-d6e1-4e4c-8f48-f87d4a1cab84",
+  "source_updated_at": "2026-09-25T07:06:20.095101+00:00",
+  "body_sha256": "1418947ff0f122420645b0a4706c2dfe12944da246b56524503f665a06a00503",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "위험물 의심으로 읍 중심부 대피 → 평화적 종결 → 성학대 배상 지연에 대한 항의 성명이 이어져 고1 이상 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The centre of Roscrea, a small",
+   "note": "세 단락이 짧지만 사건 원인이 성명으로 드러나고 Gardai 를 police 로 바꾸면 된다(학대 소재라 고1 이상)."
+  }
+ },
+ {
+  "id": "0aca0810-e06e-41a6-8a34-a54957c534f9",
+  "source_updated_at": "2026-09-25T07:31:45.019681+00:00",
+  "body_sha256": "2f1ead3d15df5cd073e8e13a891d8076193e4e3c7251ee812d20d5fd1f178258",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "개종이 가족 의무 회피 수단이 돼선 안 된다는 주장과 이혼·양육권 분쟁 증가라는 근거가 이어져 고2 이상 주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "title",
+    "summary",
+    "blank",
+    "content_match",
+    "insert",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Ong said that issues involving divorce,",
+   "note": "옹 장관 발언 단락은 인명·직함을 걷어도 민법 우선 주장이 서고 jurisdiction·renounce 를 바꾸면 V6."
+  }
+ },
+ {
+  "id": "0ace28f6-c5ca-4f8f-9f7a-8b9ea8ac56ef",
+  "source_updated_at": "2026-09-25T07:58:50.832468+00:00",
+  "body_sha256": "c5bd259a1eb8f50f146a8cfec943436b20f87f588a852f06a60dcad864cbcd59",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "시리아 개입 가능성에 항공사들이 우회 계획을 세우는 대응과 과거 운항 중단 사례가 이어져 고1~고2 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Several airlines have already suspended commercial",
+   "note": "마지막 단락은 항공사 이름 나열을 줄이면 「분쟁 → 운항 중단」 흐름이 서고 contingency 만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "0ad46b89-c3cd-450e-a134-96b662db9d44",
+  "source_updated_at": "2026-09-25T06:58:36.727413+00:00",
+  "body_sha256": "ac84fc058eb500d8ce042d85c6654512087941a790983865ad0daf9e0766d5c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "강풍으로 소방 헬기가 못 뜨고 불이 번져 대피하는 원인-결과가 가뭄 설명과 이어져 중등 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Wildfires are burning homes in Oklahoma",
+   "note": "두 단락뿐이지만 바람 → 진화 불가 → 대피 → 가뭄 배경으로 이유가 이어진다. 수치 오타(30,00)는 가공 때 고친다."
+  }
+ },
+ {
+  "id": "0ad646f5-1a5d-4609-8d62-e44bf85c176c",
+  "source_updated_at": "2026-09-25T07:58:50.854464+00:00",
+  "body_sha256": "10f7d9a3077d71de34b3e4f1a38400f58cf67e8133aa4bee9deb446a38b12b78",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "구급차 정차 시비를 두고 구급대원 측의 사이렌 미사용 이유와 경관 측 반론이 단락별로 맞서 고2 이상 주장-근거·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "claim",
+    "mood"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "An Oklahoma police officer is on",
+   "note": "사이렌 단락은 인명을 걷어도 「심장 환자라 사이렌을 끔 ↔ 면제 불가」 대립이 서고 욕설 인용은 가공 때 걷어 낸다."
+  }
+ },
+ {
+  "id": "0adb2319-02f0-45dd-9ba8-218d8acf9dde",
+  "source_updated_at": "2026-09-25T06:50:20.437085+00:00",
+  "body_sha256": "ddc59b77857966b0ecba75e38a6530c632469fe44f2bc6306c223a3125272aae",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "밝기로 크기를 추정하는 원리(전구 비유)와 행성 정의 논쟁 단락이 고2 이상 빈칸·요지·순서 칸과 명왕성 강등 전후 시대 비교 속성을 갖는다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "insert",
+    "irrelevant",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "\"Even if it reflected 100 percent",
+   "note": "「To determine size」 단락은 전구 비유로 논지가 서고 reflectance·infer 만 바꾸면 V6. 제나를 10번째 행성이라 부르는 서술은 발행 연도를 밝혀 쓴다."
+  }
+ },
+ {
+  "id": "0ae80171-f312-418b-8d8f-a1d171c2b542",
+  "source_updated_at": "2026-09-25T07:46:34.984706+00:00",
+  "body_sha256": "5f25e066759e2fcb444d180afa25256577551b001798984c530c85a3fc6d816c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "물가 상승의 원인(임금·유가·가뭄) 단락과 금리 인상으로 성장을 늦추려는 정책 단락이 고3 빈칸·요약·수치 주장 검증 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "insert",
+    "irrelevant",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many factors are contributing to China's",
+   "note": "「Many factors are contributing」 단락은 떼어도 원인 나열이 서고 macro-economic 을 풀어 쓰면 V7 로 내려간다."
+  }
+ },
+ {
+  "id": "0aef58f2-3a2b-4a61-97d4-5fab20128537",
+  "source_updated_at": "2026-09-25T08:13:55.372954+00:00",
+  "body_sha256": "f1646f7d30b2ecbf4e3aea9a1ed9011da5469e95254cee7a3416fe10dade271e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "폭발 경위에 대한 세 통신사의 엇갈린 보도와 도로 관리 부실·노점 밀집이라는 구조적 원인 단락이 고2 이상 내용 일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Accidents are common as the country's",
+   "note": "끝 단락은 짧게 원인-결과(도로 부실 → 사고, 노점 → 사상자)가 서고 inadequately 만 바꾸면 된다(사망 소재)."
+  }
+ },
+ {
+  "id": "0af36cc2-7c71-477e-964e-4dc35a3d5f32",
+  "source_updated_at": "2026-09-25T07:27:19.821506+00:00",
+  "body_sha256": "9a4e89779760c85a97020f601ae68af011aedd81a92e2d0b0d81d8ad26b53cba",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "discard",
+  "genre": "reference",
+  "why": "적설 예보 인치 수와 지명 나열뿐인 기상 특보 다섯 단락이라 떼어 낼 논지·사건 흐름이 없어 보관 최소선에 못 미친다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "According to the National Oceanic and",
+   "note": "어느 단락을 떼도 「어디에 몇 인치」 수치만 남아 내용 일치 외 칸이 서지 않는다."
+  }
+ },
+ {
+  "id": "0af5dd9f-f3ee-46c3-9631-4d01c1609fb0",
+  "source_updated_at": "2026-09-25T07:58:50.917205+00:00",
+  "body_sha256": "eaaa20bbdc4ef6f8f7a7038ad21949ed10edcb84aa5bb1b6e8172b809761dc23",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "범고래 공연 중 조련사 사망 경위와 목격 증언, 다른 공원 공연 취소가 이어진 세 단락이 고2 이상 내용 일치 칸을 채운다(공격 묘사가 구체적).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dawn Brancheau, a whale trainer, died",
+   "note": "첫 단락은 떼어도 사건이 서지만 목격 증언의 폭력 묘사는 가공 때 줄인다."
+  }
+ },
+ {
+  "id": "0af71f5b-3b55-439c-8dbe-415e354515d2",
+  "source_updated_at": "2026-09-25T08:08:27.358926+00:00",
+  "body_sha256": "db4adea2796406186982887b4afc524b0e39b6210d6f63560a8555cb5b3d2471",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "반인종주의 공연의 목적(극우 정당 저지)과 단체 결성 배경·선례가 이어진 단락이 고1~고2 목적·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "purpose"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Love Music Hate Racism was set",
+   "note": "결성 배경 단락은 밴드 이름을 걷어도 「인종주의 확산 → 단체 결성 → 선례」가 서고 provoke 만 바꾸면 된다."
+  }
+ },
+ {
+  "id": "0af754b1-3fce-4c87-9ea1-a4100dd43b12",
+  "source_updated_at": "2026-09-25T08:07:16.720925+00:00",
+  "body_sha256": "67eea61b8cdc30686f411dd78a4ede9e750d9b29eb0b5d4351d2b95e810f2311",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "유출 회의록이 전쟁이 이미 결정됐음을 시사한다는 보도와 양국 정부의 부인 없는 대응이 대비돼 고3 내용 일치·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the two sources, the",
+   "note": "둘째 단락은 인용을 걷어도 「외교는 군사 계획에 맞춰졌다」는 요지가 서고 internecine 은 빼면 된다."
+  }
+ },
+ {
+  "id": "0af87195-7cef-4bb8-ae30-92a92ee2c449",
+  "source_updated_at": "2026-09-25T07:45:23.999457+00:00",
+  "body_sha256": "5ba285c80f43c3e8bcd4f54321db9cf2e8845b285678dd1899c7abc730a67775",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 아이 사망 이후 보건 당국이 건강한 5세 미만 접종 확대를 검토하되 전문위원회 권고를 따른다는 대응 단락이 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "summary"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Following these incidents, Dr. Michael McBride,",
+   "note": "의무관 발언 단락은 JCVI 약칭만 풀면 논지가 서고 vaccination programme 은 그대로 둬도 된다(아동 사망 소재)."
+  }
+ },
+ {
+  "id": "0af8dd3b-e05b-4dd8-a672-087a443d6ced",
+  "source_updated_at": "2026-09-25T07:14:19.074071+00:00",
+  "body_sha256": "c7304ac8e31d6285a0ac9ca48cdb8c18840827655b08cdbcb9c049eb92f07205",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "science",
+  "why": "상어는 정자를 저장한다는 기존 가설을 3년 저장은 불가능하다는 근거로 뒤집고 처녀생식으로 결론 내는 단락이 요지·빈칸 칸과 통념 교정 속성을 갖는다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "order",
+    "insert",
+    "irrelevant",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It was previously thought by researchers",
+   "note": "「It was previously thought」 단락은 통념 → 반증이 두 문장에 서고 insemination·chromosomal 을 쉬운 말로 바꾸면 V6."
+  }
+ },
+ {
+  "id": "0aff3db5-c788-4198-a437-8e692407ab05",
+  "source_updated_at": "2026-09-25T07:11:10.867389+00:00",
+  "body_sha256": "ccf1d07bf9c30a3843821dd80f0ce54361c62cfcc2da583f62bf25ccd8f85a11",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "광고 수입 감소 → 인력 감축 계획 → 노조의 24시간 채널 운영 우려가 이어진 해고 기사로 고1~고2 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The union which represents some of",
+   "note": "노조 단락은 이름을 걷어도 「인원이 줄면 새 채널을 어떻게 운영하나」 요지가 선다. 원문 오기(1,100 employer)는 가공 때 고친다."
+  }
+ },
+ {
+  "id": "0b02325b-221b-4634-a0d5-f576dc2ec84b",
+  "source_updated_at": "2026-09-25T07:35:35.176761+00:00",
+  "body_sha256": "f3b6020d92b672b9cac242c3a2f41f0ffba9cda40f299f8ee1ca14b0fe40d3b7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "새 정부가 배출권거래제를 기후 검토 뒤로 미룬다는 결정과 제도의 단계별 시행 설명 단락이 고3 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The ETS requires companies emitting greenhouse",
+   "note": "「The ETS requires」 단락은 제도 원리와 시행 순서가 떼어도 서고 emissions·permits 는 문맥으로 잡힌다."
+  }
+ },
+ {
+  "id": "0b03cda2-9ded-470f-9804-6cf315ab3ca2",
+  "source_updated_at": "2026-09-25T07:45:47.600386+00:00",
+  "body_sha256": "653af6dbf06d911ec467c89987e35c7948b9e21bbac186cd9af199aa2301be80",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "지진·콜레라 이후 혼란 속 결선 투표와 두 후보의 대비되는 이미지·유사한 공약이 단락별로 이어져 고2 이상 내용 일치·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Haiti is still struggling to recover",
+   "note": "「Haiti is still struggling」 단락은 떼어도 배경이 서고 squalid 만 바꾸면 된다. 마르텔리의 무대 기행 인용은 가공 때 걷어 낸다."
+  }
+ },
+ {
+  "id": "0b04f055-e540-494c-919b-4edb5948acb5",
+  "source_updated_at": "2026-09-25T07:01:54.679014+00:00",
+  "body_sha256": "46885597370a8a1f3345d08a8ef49b5ea67768f3951b584438fddd90ff6abe49",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "일가족 감염이 사람 간 전파일 수 있다는 WHO 판단과 변이·지역사회 확산 증거는 없다는 단서가 대비돼 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The World Health Organization (WHO) said",
+   "note": "첫 단락은 3인 연쇄 전파 사실이 떼어도 서지만 neuraminidase 단락은 전문 용어라 걷어 낸다."
+  }
+ },
+ {
+  "id": "0b078a1f-4856-4ddc-a09b-4cf7d8b82e7a",
+  "source_updated_at": "2026-09-25T07:13:11.194044+00:00",
+  "body_sha256": "f45b12e539152f214377d4b42265ecec3d7b75c856f82a51f7600cedc8915adc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "선거 부정 판결로 집권당 해산 → 긴장 속 선고 → 민주당 무죄와 축하로 이어지는 긴 기사가 고3 순서·장문 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "order",
+    "insert",
+    "long_reference",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The tribunal was reviewing violations that",
+   "note": "재판 배경 단락은 쿠데타 → 선거 무산 경위가 떼어도 서고 인명이 많아 가공 때 두셋으로 줄인다."
+  }
+ },
+ {
+  "id": "0b07da72-6857-4eac-9c18-33d1c966e67d",
+  "source_updated_at": "2026-09-25T08:15:31.296603+00:00",
+  "body_sha256": "6b97f71c3339aaa7f9cd2d48a368e09db728044abf97a733beeb6dba5101a890",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "마약 단속 간부 피격과 칼데론 정부의 군 투입·카르텔 사망자 수 배경이 이어져 고2 이상 내용 일치 칸 하나를 채운다(총격 살해 소재).",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Gunmen today opened fire in a",
+   "note": "끝 단락은 떼어도 「군 투입 이후 4천 명 사망」 배경이 서고 인명을 걷으면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "0b0cc21f-27a4-4780-af90-8b323d9d5581",
+  "source_updated_at": "2026-09-25T07:23:22.546843+00:00",
+  "body_sha256": "586f3fe3b75c9c538ddc6cb5901b2298535db36c7a79dac28d6ba7f8d24a6e5b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "인종·성차별 발언으로 해고된 진행자가 방송사와 합의하고 선수에게 피소된 경위가 고2 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "title",
+    "content_match",
+    "vocab_choice",
+    "claim"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "CBS and MSNBC argued Imus' remark",
+   "note": "해고 사유 단락은 차별 발언 원문 인용 없이도 사건이 서므로 가공 때 인용한 비하 표현을 걷어 낸다."
+  }
+ }
+]

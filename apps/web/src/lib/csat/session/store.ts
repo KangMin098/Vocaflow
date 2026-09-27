@@ -13,6 +13,7 @@ import type { CachedPaper } from '@/lib/csat/reflow/types'
 import { EMPTY_RECORD, type Attempt, type LearnerRecord } from './model'
 import { mergeRecord, unsynced } from './sync'
 import { emptyDissectionRecord, type DissectionRecord } from '../dissect'
+import { mergeDissection, sameRecord } from '../continuity'
 
 const DB_NAME = 'vocaflow-csat'
 const DB_VERSION = 1
@@ -34,9 +35,84 @@ export async function loadDissectionRecord(): Promise<DissectionRecord> {
 }
 
 export async function saveDissectionRecord(record: DissectionRecord): Promise<boolean> {
-  dissectionMemory = record
-  const result = await run(S_RECORD, 'readwrite', s => s.put(record, DISSECTION_KEY))
+  const stamped = { ...record, updatedAt: Date.now() }
+  dissectionMemory = stamped
+  const result = await run(S_RECORD, 'readwrite', s => s.put(stamped, DISSECTION_KEY))
+  schedulePush(stamped)
   return result !== null
+}
+
+// ── 서버 동기화(ia-design §3-1 · `/api/csat/state`) ────────────────────────────
+// 기기가 먼저다. 서버는 **다른 기기에서 이어지게** 하는 사본이다 — 막히면 조용히 기기 기록으로 돈다.
+// 쓰기는 1.5초 모아서 한 번(해부 한 문항에 저장이 여러 번 일어난다). 탭을 닫을 때는 keepalive.
+
+let pushTimer: ReturnType<typeof setTimeout> | null = null
+let pending: DissectionRecord | null = null
+
+async function putServer(record: DissectionRecord): Promise<boolean> {
+  try {
+    const res = await fetch('/api/csat/state', {
+      method: 'PUT',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ record }),
+      keepalive: true,
+    })
+    return res.ok
+  } catch {
+    return false
+  }
+}
+
+function schedulePush(record: DissectionRecord) {
+  if (typeof window === 'undefined') return
+  pending = record
+  if (pushTimer) clearTimeout(pushTimer)
+  pushTimer = setTimeout(() => {
+    pushTimer = null
+    const next = pending
+    pending = null
+    if (next) void putServer(next)
+  }, 1500)
+}
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('pagehide', () => {
+    if (pending) void putServer(pending)
+    pending = null
+  })
+}
+
+async function fetchServerState(): Promise<DissectionRecord | null | 'unavailable'> {
+  try {
+    const res = await fetch('/api/csat/state', { cache: 'no-store' })
+    if (!res.ok) return 'unavailable'
+    const json = (await res.json()) as { ok: boolean; record?: DissectionRecord | null }
+    if (!json.ok) return 'unavailable'
+    return json.record && json.record.version === 1 ? json.record : null
+  } catch {
+    return 'unavailable'
+  }
+}
+
+/**
+ * 기기 기록을 읽고 서버 사본과 **항목 단위로** 합친다. 합친 결과가 기기와 다르면 기기에 쓰고,
+ * 서버와 다르면 서버에 올린다. 서버가 막혀 있으면 기기 기록을 그대로 돌려준다.
+ */
+export async function loadSyncedDissectionRecord(): Promise<{ record: DissectionRecord; synced: boolean }> {
+  const local = await loadDissectionRecord()
+  const server = await fetchServerState()
+  if (server === 'unavailable') return { record: local, synced: false }
+  if (!server) {
+    if (local.predictions.length || local.completed.length || local.formulas.length || local.queue.length || (local.views ?? []).length || local.active) void putServer(local)
+    return { record: local, synced: true }
+  }
+  const merged = mergeDissection(local, server)
+  if (!sameRecord(merged, local)) {
+    dissectionMemory = merged
+    await run(S_RECORD, 'readwrite', s => s.put(merged, DISSECTION_KEY))
+  }
+  if (!sameRecord(merged, server)) void putServer(merged)
+  return { record: merged, synced: true }
 }
 
 const memory = { record: null as LearnerRecord | null, papers: new Map<string, CachedPaper>() }
@@ -162,6 +238,7 @@ export async function clearAll(): Promise<void> {
   memory.papers.clear()
   try {
     await fetch('/api/csat/session/record', { method: 'DELETE' })
+    await fetch('/api/csat/state', { method: 'DELETE' })
   } catch {
     /* 서버 쪽은 다음에 */
   }

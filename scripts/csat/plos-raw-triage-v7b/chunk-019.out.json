@@ -1,0 +1,373 @@
+[
+  {
+    "id": "0d207a19-fc3b-4061-9821-d581258f363c",
+    "source_updated_at": "2026-09-25T07:30:58.285886+00:00",
+    "body_sha256": "ae8e78e820e791788739256fab23a7d04705c85c7ac1f432970cabb4f79a2bcb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 고정 용량 한계 → 부하·유지 용량 최적화 논지와 고찰의 임상 함의 단락이 주제·빈칸·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In clinical practice, every therapeutic intervention implicitly",
+      "note": "수식 없는 임상 목표 단락은 떼어도 서고, pharmacodynamic·liberation 두셋만 바꾸면 V6대로 내려간다."
+    }
+  },
+  {
+    "id": "0d34da88-c76a-4e77-8aac-44b4f7f50202",
+    "source_updated_at": "2026-09-25T07:30:59.093754+00:00",
+    "body_sha256": "3023b32b9498f17c8b65f8bd7804a90257e7c8121522ef3ae1fd3356dc7e3d9f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 첫 단락의 암세포 대사 재편과 치료 불일치 논지가 요지·빈칸 칸을 채우나 결과 절은 유전자명 나열이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cancer cells survive and proliferate by",
+      "note": "유전자 약어를 걷고 대사 재편→획일 치료의 문제로 요약하면 서며, reprogramming·proliferate 정도를 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0d40c57e-6576-49b3-81c8-34fbfed749df",
+    "source_updated_at": "2026-09-25T07:30:59.888393+00:00",
+    "body_sha256": "3da2d37517b1e2df6b56f04d5d90305d8ce6ade33b6303d975ccb2decc959774",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약 단락이 감염→대식세포 신호→호중구 자기증폭→태아 성장 저해의 인과 흐름을 평이하게 세워 순서·요약 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "DENV infection during pregnancy can lead",
+      "note": "저자 요약은 이미 쉬운 말로 쓰여 CXCL2 같은 기호만 걷으면 독립 지문이 된다."
+    }
+  },
+  {
+    "id": "0d41bcfb-5bdf-4204-b423-1d60d84a7e64",
+    "source_updated_at": "2026-09-25T07:31:00.451056+00:00",
+    "body_sha256": "05a5a7fe02c7fcfd7fc38c920f3dd175c762a8332d0483461e07c66dc62f309b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 당뇨발 궤양 혈관신생 장애 설명과 고찰의 한계 단락이 주제·빈칸 칸을 채우고 방법 절은 절차 나열이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among the pathological processes involved in",
+      "note": "VEGF·PI3K 같은 기호를 빼도 혈관신생이 치유를 좌우한다는 논지가 서고 neovascularization 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "0d44c165-a793-4318-92ab-6886bddebc22",
+    "source_updated_at": "2026-09-25T07:31:00.84655+00:00",
+    "body_sha256": "d589c44c8412f60530ce8ac632db644747ef9bb098394f028696f52e2052dd40",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 장 세포 교체와 새 세포사 에레보시스 소개, 고찰의 헴-줄기세포 균형 단락이 제목·빈칸·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dynamic tissue homeostasis of the gut",
+      "note": "줄기세포 분열과 세포 죽음의 균형이라는 뼈대는 쉽게 떼어지고, enterocyte·homeostasis 두 낱말 풀이면 V6대가 된다."
+    }
+  },
+  {
+    "id": "0d4abdb4-50a9-498c-9c54-aed57630668e",
+    "source_updated_at": "2026-09-25T07:31:01.552337+00:00",
+    "body_sha256": "ff8d54423625d88d15057c2a163906db6966b75b46866db9a056ea08a32de472",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "음모론 성향이 서사가 아닌 어휘로만 드러난다는 반전 결과와 동기·인지부담 해석 단락들이 주제·주장·순서 칸을 넓게 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "claim",
+        "summary",
+        "blank",
+        "order",
+        "insert",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One plausible explanation involves the cognitive demands",
+      "note": "인지 부담 단락은 수치 없이 서사 구성 대 낱말 사용 대비로 선다. conspiracism 한 낱말만 풀면 된다."
+    }
+  },
+  {
+    "id": "0d79c437-c4a0-411b-a291-1f311f0d24c7",
+    "source_updated_at": "2026-09-25T07:31:05.298872+00:00",
+    "body_sha256": "d12ce308d0cfab9069ce7690dcf6c3d1845c52ff52f294bf05d9f9e8f8a72610",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 우울증 치료 한계→장·구강 미생물 축 논지가 주제·빈칸 칸을 채우나 결과·고찰은 속명 나열이 많다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In recent years, the gastrointestinal tract,",
+      "note": "속명을 걷고 미생물-장-뇌 축 증거 흐름만 남기면 서며, dysbiosis·germ-free 두 낱말 풀이가 필요하다."
+    }
+  },
+  {
+    "id": "0d95b4ff-0c6e-48ce-8b0b-0708fb8bae4a",
+    "source_updated_at": "2026-09-25T07:31:07.441834+00:00",
+    "body_sha256": "681621fb946ef0d63990d7558a20a105164105eefbe3632f81c6c91794f74449",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 저염도 새우 양식 질소 독성과 물 교환 비용 대 토착 세균 대안이 주제·빈칸 칸을 채우고 결과는 수치·속명 나열이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The accumulation of nitrogenous compounds is a",
+      "note": "물 교환의 한계와 세균 정화 대안의 대비는 떼어도 서고, nitrogenous·bioremediation 풀이면 된다."
+    }
+  },
+  {
+    "id": "0d9e2d9f-2084-407e-ac17-c5c7a03490b0",
+    "source_updated_at": "2026-09-25T07:31:09.347338+00:00",
+    "body_sha256": "fbf315c733cc574e0fb9f2daa6ed21e66807d3fb295e7639027953c7cf064d1a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약의 왜·무엇을·의미 세 문단과 서론의 늦은 선별 검사 문제가 요약·빈칸 칸을 채우며 결과 절은 지표 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "These findings suggest that a simple",
+      "note": "혈액 검사로 망막 신경 손상 위험을 미리 가린다는 요약 문단은 이미 평이해 거의 그대로 쓸 수 있다."
+    }
+  }
+]

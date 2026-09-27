@@ -83,7 +83,7 @@ export function PdBasisPanel({ onMsg }: { onMsg: (s: string) => void }) {
     <div className="flex flex-col gap-4">
       <section
         className="rounded-[var(--r-lg)] border p-4"
-        style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}08` }}
+        style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.1%, transparent)` }}
       >
         <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">
           PD 근거 확인 — 발행을 막고 있는 관문

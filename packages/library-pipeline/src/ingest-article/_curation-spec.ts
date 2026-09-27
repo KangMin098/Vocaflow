@@ -48,6 +48,33 @@ export type SourceKey =
   //   실측 2026-09-13: CC BY×영어×전문보유 5,218,944편 · review 618,178편 · 서론 수확률 97.5%.
   //   변형 가능 논증문 공급선이 사실상 PLOS 하나였던 것을 푼다.
   | 'europe_pmc'
+  // ── 내용 점검을 거쳐 확보한 원문 원천 4곳 (2026-09-23) ──────────────
+  // 원문 117편을 받아 **전부 읽고** 판정해 94편을 확보했다(80.3%).
+  // 넷 다 **전문 경로가 API 안에 이미 있었다** — 긁을 필요가 없다:
+  //   olh       `galleys[]` 의 type=='xml' → JATS 전문
+  //   econstor  OAI `didl` 에 PDF 비트스트림 URL 직접
+  //   scielo    기사 객체의 `fulltexts.html.{lang}`
+  //   openalex  `pdf_url` → 없으면 랜딩 페이지의 `citation_pdf_url` 발굴(성공분의 41%)
+  //
+  // ⚠ `SOURCE_RANKINGS_BY_LEVEL` 에는 넣지 않는다 — `europe_pmc` 와 같은 이유로
+  //   대량 GET 화면의 선택지가 아니다. 학습자 추천이 아니라 교재 원문 공급선이다.
+  // 근거: `docs/reports/source-doc-register.md`
+  | 'olh'
+  | 'econstor'
+  | 'scielo'
+  | 'openalex'
+  // ── 소스GET 3차 (2026-09-25) — 20편 파일럿 실측 · docs/reports/sources-register.md §6 ──
+  //   global_voices     WP REST `/wp-json/wp/v2/posts` · 글마다 푸터 `rel=license` CC BY 3.0
+  //   global_storybooks GitHub `global-asp/asp-source/en` · 이야기 파일 끝줄 `License: [CC-BY]`(NC 섞임 3/20)
+  //   gdl               WP REST `/wp-json/wp/v2/book` → EPUB · 책마다 license 필드(NC 섞임)
+  | 'global_voices'
+  | 'global_storybooks'
+  | 'gdl'
+  // ── 소스GET 4차 (2026-09-25) — 퍼블릭 도메인 연방 어린이·건강 글 ──
+  //   eia_kids            eia.gov/kids 메뉴 BFS · 63편 · PD(연방)
+  //   nih_news_in_health  원 사이트가 Cloudflare 챌린지 → Wayback 사본 · 800편 · 「not copyrighted」(사진 제외)
+  | 'eia_kids'
+  | 'nih_news_in_health'
   | 'original'
 
 export interface FeedSpec {
@@ -415,6 +442,103 @@ export const SOURCE_DEFAULT_SPEC: Record<SourceKey, FeedSpec> = {
     // 철회·정정은 교재에 실을 수 없다 — 제목 축에서 먼저 떨어뜨린다.
     noiseKeywords: ['correction', 'retraction', 'erratum', 'withdrawn'],
     maxItems: 20,
+  },
+  // ── 확보 원문 4곳 (2026-09-23) ──────────────────────────────────────
+  // **피드가 없다.** 넷 다 목록 API 로 받아 본문을 따로 가져오므로 `recencyDays` 가
+  // 뜻을 갖지 않는다(학술 원문은 오래돼도 지문이 된다). 그래도 이 표는
+  // `Record<SourceKey, FeedSpec>` 이라 값을 채워야 하고, 채우지 않으면 TS 가 잡는다.
+  // 값은 `europe_pmc`(같은 성격)를 본보기로 삼되 실측으로 어긋난 칸만 고쳤다.
+  olh: {
+    recencyDays: 3650,
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.78,    // 인문 학술 — 편집 품질이 고르다(정제 후 산문 99.8% 잔존)
+    levelBonus: -0.10,
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'editorial'],
+    maxItems: 50,          // Janeway API 가 한 번에 50편을 준다
+  },
+  econstor: {
+    recencyDays: 3650,
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.74,    // 워킹페이퍼 — 방법·표 절이 길다(정제 후 90.6%)
+    levelBonus: -0.10,
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum'],
+    maxItems: 100,         // OAI ListRecords 한 페이지
+  },
+  scielo: {
+    recencyDays: 3650,
+    minDescriptionLen: 80,
+    minTitleLen: 15,
+    sourceWeight: 0.76,
+    levelBonus: -0.08,     // 남아공 인문사회 — 주제가 평이한 편이다
+    idealDescLen: 250,
+    noiseKeywords: ['correction', 'retraction', 'erratum'],
+    maxItems: 50,
+  },
+  openalex: {
+    recencyDays: 3650,
+    minDescriptionLen: 100,
+    minTitleLen: 15,
+    sourceWeight: 0.68,    // 색인이라 품질이 고르지 않다 — 스팸 6%·본문 비영어 18~30%
+    levelBonus: -0.10,
+    idealDescLen: 300,
+    noiseKeywords: ['correction', 'retraction', 'erratum', 'dumps', 'braindump', 'practice test'],
+    maxItems: 200,         // API per_page 상한
+  },
+  // ── 소스GET 3차 (2026-09-25) ────────────────────────────────────────
+  global_voices: {
+    recencyDays: null,     // 국제 시민기자 기사 — 쟁점 해설이 오래 산다
+    minDescriptionLen: 0,
+    minTitleLen: 10,
+    sourceWeight: 0.72,    // 파일럿 중앙 1,330어 — 절단 대상 · 캡션·연재 안내 줄 정제 필요(13/20)
+    levelBonus: -0.05,
+    idealDescLen: 200,
+    noiseKeywords: ['podcast', 'newsletter', 'roundup'],
+    maxItems: 20,          // WP REST per_page — 사이트가 ~90요청 뒤 응답을 끊었다(2026-09-25)
+  },
+  global_storybooks: {
+    recencyDays: null,     // 그림책은 시의성이 없다(storyweaver 와 같다)
+    minDescriptionLen: 0,
+    minTitleLen: 3,
+    sourceWeight: 0.88,
+    levelBonus: 0.05,
+    idealDescLen: 120,
+    noiseKeywords: [],
+    maxItems: 40,
+  },
+  gdl: {
+    recencyDays: null,
+    minDescriptionLen: 0,
+    minTitleLen: 3,
+    sourceWeight: 0.84,    // 후원사 문장이 끝에 붙는 책 ~4/20 — 정제 대상
+    levelBonus: 0.05,
+    idealDescLen: 120,
+    noiseKeywords: [],
+    maxItems: 20,
+  },
+  // ── 소스GET 4차 (2026-09-25) ────────────────────────────────────────
+  eia_kids: {
+    recencyDays: null,     // 에너지 원리 설명 — 시의성 없음(본문의 최신 통계 문장은 주의)
+    minDescriptionLen: 0,
+    minTitleLen: 3,
+    sourceWeight: 0.80,
+    levelBonus: 0.03,
+    idealDescLen: 200,
+    noiseKeywords: ['quiz', 'game', 'glossary', 'teacher'],
+    maxItems: 70,
+  },
+  nih_news_in_health: {
+    recencyDays: null,     // 2010~2026 월간 호 — 건강 설명문은 오래 산다
+    minDescriptionLen: 0,
+    minTitleLen: 5,
+    sourceWeight: 0.82,
+    levelBonus: 0.0,
+    idealDescLen: 250,
+    noiseKeywords: ['featured website'],
+    maxItems: 100,
   },
   plos: {
     recencyDays: 3650,     // 연구 — stale 관대
@@ -921,6 +1045,144 @@ export const SOURCE_SPECS: Record<SourceKey, SourceSpec> = {
       { feedId: 'environment', weight: 0.12 },
     ],
   },
+  // ── 확보 원문 4곳 (2026-09-23) ──────────────────────────────────────
+  // 소재 분포는 **확보 94편의 실측**이다(추정이 아니다):
+  //   경제 20 · 사회 18 · 교육 13 · 문화 8 · 철학 8 · 심리 7 · 역사 6 ·
+  //   과학 4 · 예술 3 · 기술 3 · 환경 3 · 인류 1
+  // `preferredFeedMix` 는 비운다 — 넷 다 **피드가 없고** 목록 API 로 받는다.
+  olh: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 50,
+    minScore: 0.40,
+    bulkPriority: 3,
+    license: 'CC BY 4.0',
+    attributionRequired: true,
+    topicDomain: ['humanities', 'culture', 'philosophy', 'history', 'art', 'society'],
+    styleGuide: '인문 학술 본문 · 정제 후 산문 99.8% 잔존(넷 중 최고) · 장문 토막 편당 28',
+    // ⚠ **전권보유 8.3% 가 섞여 있다.** 편당 필터가 필수다. 그리고 `short_name` 이
+    //   `censes/by/4.0/` 로 잘린 편이 30편 중 6편이고 그중 하나는 `name` 마저
+    //   "Imported License" 다 — **`url` 을 함께 보지 않으면 CC BY 를 놓친다.**
+    preferredFeedMix: [],
+  },
+  econstor: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 100,
+    minScore: 0.40,
+    bulkPriority: 4,
+    // ⚠ **CC 전용 문서가 0편이다**(표본 30편 전수 확인). EconStor 표준 이용약관이
+    //   **항상 병기**되고 CC 는 그 위에 더 붙는 것이다(30편 중 17편). 재배포형
+    //   활용은 그 병기분에 한정해 봐야 한다 — 「CC 25.9%」를 그대로 쓰면 안 된다.
+    //
+    // 그래서 여기 적는 값은 **우리가 실제로 적재하는 것**의 라이선스다 —
+    // 처음엔 `'EconStor Terms of Use'` 로 적었고 `source-policy.test.ts` 의
+    // 「SOURCE_SPECS 에 restricted 등급 소스가 없다」가 그것을 잡았다. **테스트가 옳았다.**
+    // 고친 것은 테스트가 아니라 적재 범위다 — `source-doc-import.mjs` 가 행마다
+    // 개작 허용 라이선스를 확인하고 NC·ND·라이선스 없음을 넣지 않는다
+    // (확보 27편 중 **13편이 그렇게 빠진다**). 그 나머지가 CC BY 다.
+    license: 'CC BY 4.0',
+    attributionRequired: true,
+    topicDomain: ['economy', 'society', 'education', 'psychology', 'environment'],
+    styleGuide: '경제·사회 워킹페이퍼 본문 · 장문 토막 편당 21 · 방법·표 절은 정제 대상',
+    preferredFeedMix: [],
+  },
+  scielo: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 50,
+    minScore: 0.42,
+    bulkPriority: 3,
+    // ⚠ **편당 라이선스 필드가 없다** — 기사 객체에 없고 저널 객체(`title.v541`)에만
+    //   있다(기사 30편 0/30 확인). 저널 350개 중 **41개가 BY-NC-ND**(개작 금지)라
+    //   문장 절단·재조합을 쓰려면 `v541` 로 **저널 단위 제외**가 필요하다.
+    license: 'CC BY 4.0',
+    attributionRequired: true,
+    topicDomain: ['society', 'education', 'economy', 'culture', 'history', 'environment'],
+    styleGuide: '남아공 인문사회 학술 본문 · 확보율 100%(30/30) · 장문 토막 편당 16',
+    preferredFeedMix: [],
+  },
+  openalex: {
+    targetLevels: ['advanced'],
+    targetCefr: { min: 'C1', max: 'C2' },
+    maxItemsPerBatch: 200,
+    minScore: 0.44,        // 넷 중 확보율 최저(59%) — 문턱을 높인다
+    bulkPriority: 5,
+    license: 'CC BY 4.0',  // 질의 필터가 곧 라이선스다(`best_oa_location.license:cc-by`)
+    attributionRequired: true,
+    topicDomain: ['art', 'humanities', 'culture', 'history', 'philosophy', 'society'],
+    styleGuide: '예술·인문 OA 본문 · 막힌 예술 칸을 겨냥한다 · 장문 토막 편당 16',
+    // ⚠ **적재 전 게이트가 셋 필요하다** — 전부 실측이다:
+    //   ① 스팸 6.0% — IT 자격시험 덤프 판매글이 CC-BY `article` 로 색인돼 있다
+    //   ② 본문 비영어 18~30% — 제목·초록만 영어인 논문이 많다. 초록 기준(0.5%)의
+    //      40~60배다. 라틴문자 비율로는 독일어·폴란드어를 못 거른다 → 기능어 비율
+    //   ③ 초록 null·10어 미만 10.8%
+    preferredFeedMix: [],
+  },
+  // ── 소스GET 3차 (2026-09-25) ────────────────────────────────────────
+  // 라이선스는 **행마다** 읽는다 — 여기 적힌 것은 다수값이다. NC 로 읽힌 행은
+  // 적재기(scripts/csat/source-get/import.mjs)가 그 표기를 그대로 남겨 restricted 로 떨어진다.
+  global_voices: {
+    targetLevels: ['intermediate', 'advanced'],
+    targetCefr: { min: 'B2', max: 'C1' },
+    maxItemsPerBatch: 20,
+    minScore: 0.40,
+    bulkPriority: 4,
+    license: 'CC BY 3.0',  // 글마다 푸터 `rel=license` 실측 20/20
+    attributionRequired: true,
+    topicDomain: ['society', 'culture', 'economy', 'environment', 'technology'],
+    styleGuide: '세계 시민기자 국제·사회 기사 · 중앙 1,330어(절단 대상) · 맥락 의존 44% 주의',
+    preferredFeedMix: [],
+  },
+  global_storybooks: {
+    targetLevels: ['beginner'],
+    targetCefr: { min: 'A1', max: 'A2' },
+    maxItemsPerBatch: 40,
+    minScore: 0.30,
+    bulkPriority: 2,
+    license: 'CC BY 4.0',  // African Storybook 원작 표기를 따른다 · NC 3/20
+    attributionRequired: true,
+    topicDomain: ['story', 'family', 'animals', 'everyday'],
+    styleGuide: '초등 그림책 서사 · 중앙 123어 · 레벨 필드 없음(African Storybook 과 본문 겹침)',
+    preferredFeedMix: [],
+  },
+  gdl: {
+    targetLevels: ['beginner'],
+    targetCefr: { min: 'A1', max: 'A2' },
+    maxItemsPerBatch: 20,
+    minScore: 0.30,
+    bulkPriority: 3,
+    license: 'CC BY 4.0',  // 책마다 cc-by-4-0 · cc-by-nc-4-0 · cc-by-sa-4-0
+    attributionRequired: true,
+    topicDomain: ['story', 'school', 'animals', 'everyday'],
+    styleGuide: '초등 그림책 · 중앙 460어 · 토픽 태그에 읽기 수준(level-1~4·emergent) · StoryWeaver·Let\'s Read 와 중복',
+    preferredFeedMix: [],
+  },
+  // ── 소스GET 4차 (2026-09-25) ────────────────────────────────────────
+  eia_kids: {
+    targetLevels: ['beginner', 'intermediate'],
+    targetCefr: { min: 'A2', max: 'B1' },
+    maxItemsPerBatch: 70,
+    minScore: 0.35,
+    bulkPriority: 3,
+    license: 'Public Domain',  // eia.gov/about/copyrights_reuse.php
+    attributionRequired: false,
+    topicDomain: ['science', 'environment', 'technology', 'history'],
+    styleGuide: '어린이용 에너지 설명문 · 중앙 345어 · 과학자 전기 ~30편',
+    preferredFeedMix: [],
+  },
+  nih_news_in_health: {
+    targetLevels: ['intermediate'],
+    targetCefr: { min: 'B1', max: 'B2' },
+    maxItemsPerBatch: 100,
+    minScore: 0.38,
+    bulkPriority: 3,
+    license: 'Public Domain',  // 기사 바닥글 「Our material is not copyrighted」 — 사진은 제외
+    attributionRequired: true,  // 출처 표기 요청
+    topicDomain: ['health', 'science', 'psychology', 'everyday'],
+    styleGuide: '일반인용 건강 설명문(NIH 월간) · 중앙 531어 · Wise Choices 상자 373편',
+    preferredFeedMix: [],
+  },
   plos: {
     targetLevels: ['advanced'],
     targetCefr: { min: 'C1', max: 'C2' },
@@ -1099,6 +1361,21 @@ export const SOURCE_REGISTER_DEFAULT: Record<string, string> = {
   //   `textbook/register-signal.ts` 가 재고, 기출 중앙 5.33/1,000어 를 눈금으로 쓴다.
   //   리뷰 논문은 주장·근거·반론 구조라 기본값을 argumentative 로 둔다.
   europe_pmc: 'argumentative',
+  // ── 확보 원문 4곳 (2026-09-23) ──────────────────────────────────────
+  // ⚠ **이 표를 빠뜨리면 조용히 `?? 'expository'` 로 떨어진다.** `Record<string, string>`
+  //   이라 TS 가 안 잡는다 — gutenberg 23,618편이 그렇게 빠져 narrative 50% 를
+  //   expository 로 세고 있었다. 그래서 새 원천은 **여기부터** 적는다.
+  // 값은 읽기 판정의 실측 근거다: 확보 94편 중 74편(79%)이 장문 창을 내고,
+  // 판정자들이 「논증 대목이 있다」를 keep 의 주 근거로 썼다.
+  olh: 'argumentative',
+  econstor: 'argumentative',
+  scielo: 'argumentative',
+  openalex: 'argumentative',
+  global_voices: 'news',
+  global_storybooks: 'narrative',
+  gdl: 'narrative',
+  eia_kids: 'expository',
+  nih_news_in_health: 'expository',
   voa: 'news',
   nasa: 'expository',
   nih: 'expository',
@@ -1276,6 +1553,47 @@ const AUDIO_SOURCES: ReadonlySet<SourceKey> = new Set<SourceKey>(['voa'])
  *   이쪽만 빠져 있었다: 정책층(UI 게이트 표시)과 권위층(DB)이 갈라져,
  *   NC 소스를 추가하면 화면은 "단어세트 발행 가능"이라 말하고 DB 는 차단한다.
  *   Vocaflow 는 유료화를 전제하므로 NC 는 발행 불가가 정답이다. */
+/**
+ * 등급 슬러그 → **`license` 칸에 쓸 정본 문자열**.
+ *
+ * ⚠️ **`license` 는 사람이 읽는 원문 표기이고 `license_class` 가 파생 등급이다.**
+ * 두 칸에 같은 값을 쓰면 안 된다 — DB 트리거 `acp_classify_license` 가 `license`
+ * **문자열을 다시 파싱해** 등급을 덮어쓰기 때문이다.
+ *
+ * 실측 2026-09-23: 각색 경로 두 곳(`adapt-drain-import.mjs`·`drain-adapt.mjs`)이
+ * `license` 칸에 슬러그를 써서 재고 **80편**이 `restricted` 로 떨어졌다(부모는 전부
+ * PD/CC-BY 라 오탐 0). 슬러그 중 `public_domain` 하나만 깨진 것이 발견을 늦췄다 —
+ * `'PUBLIC_DOMAIN'` 에는 **공백이 없어** `'PUBLIC DOMAIN'` 검사를 빗나가고, `PD`·`ND`·
+ * `SA`·`BY` 어느 것도 안 걸려 마지막 `restricted` 로 떨어진다. 나머지 슬러그는
+ * `CC_BY`→`BY` · `CC_BY_SA`→`SA` 처럼 **우연히** 맞아서 조용했다.
+ *
+ * 그래서 이 표를 두고 `licenseClassOf` 의 **왕복**을 회귀가 지킨다 —
+ * `licenseClassOf(LICENSE_TEXT_BY_CLASS[c]) === c`.
+ */
+export const LICENSE_TEXT_BY_CLASS: Record<LicenseClass, string> = {
+  public_domain: 'Public Domain',
+  cc0: 'CC0 1.0',
+  cc_by: 'CC BY 4.0',
+  cc_by_sa: 'CC BY-SA 4.0',
+  cc_by_nd: 'CC BY-ND 4.0',
+  restricted: 'All Rights Reserved',
+}
+
+/** 이 문자열이 등급 슬러그 그대로인가 — `license` 칸에 들어가면 안 되는 값이다. */
+export function isLicenseClassSlug(value: string): value is LicenseClass {
+  return Object.prototype.hasOwnProperty.call(LICENSE_TEXT_BY_CLASS, value)
+}
+
+/**
+ * 등급이든 원문 표기든 받아 **`license` 칸에 쓸 문자열**로 정규화한다.
+ * 슬러그면 정본 표기로 바꾸고, 이미 사람이 읽는 표기면 그대로 둔다.
+ */
+export function licenseTextOf(value: string | null | undefined): string {
+  const v = (value ?? '').trim()
+  if (!v) return LICENSE_TEXT_BY_CLASS.public_domain
+  return isLicenseClassSlug(v) ? LICENSE_TEXT_BY_CLASS[v] : v
+}
+
 export function licenseClassOf(license: string): LicenseClass {
   const l = license.toUpperCase()
   // NC — 상업적 이용 불가. SA/BY 판정보다 먼저 (DB acp_classify_license 와 동일 순서).
@@ -1354,6 +1672,18 @@ export const SOURCE_POLICIES: Record<SourceKey, SourcePolicy> = {
   space_place: getSourcePolicy('space_place'),
   storyweaver: getSourcePolicy('storyweaver'),
   original: getSourcePolicy('original'),
+  // 확보 원문 4곳 (2026-09-23) — 정책은 SOURCE_SPECS 에서 파생된다(하드코딩 없음).
+  olh: getSourcePolicy('olh'),
+  econstor: getSourcePolicy('econstor'),
+  scielo: getSourcePolicy('scielo'),
+  openalex: getSourcePolicy('openalex'),
+  // 소스GET 3차 (2026-09-25)
+  global_voices: getSourcePolicy('global_voices'),
+  global_storybooks: getSourcePolicy('global_storybooks'),
+  gdl: getSourcePolicy('gdl'),
+  // 소스GET 4차 (2026-09-25)
+  eia_kids: getSourcePolicy('eia_kids'),
+  nih_news_in_health: getSourcePolicy('nih_news_in_health'),
 }
 
 // ── 분기 라벨 — UI 가 공유하는 정책 표시 카피 (컴포넌트별 재작성 금지) ──

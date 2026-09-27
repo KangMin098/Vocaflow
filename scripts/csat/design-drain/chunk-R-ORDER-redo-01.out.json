@@ -1,0 +1,119 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1.1",
+  "type": "R-ORDER",
+  "judge": "A",
+  "redo": true,
+  "items": [
+    {
+      "id": "M2706#36",
+      "roles": ["topic", "example", "conclusion", "support", "support", "example", "example", "example", "turn"],
+      "alternatives": [{ "index": 8, "role": "support" }, { "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "식물 방어가 다양하다는 일반 진술 아래 화학·구조·이웃 신호 방어를 차례로 나열하고 주고받음 전체를 되받는 블록으로 맺어, 블록 끝의 예고 문장과 정관사 명사구가 자리를 정하는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니며, 판단은 부정 도치 예고문과 앞 내용 전체를 받는 명사구에 달렸다.",
+      "cues": ["connective", "article", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2609#36",
+      "roles": ["background", "turn", "support", "topic", "support", "conclusion"],
+      "alternatives": [{ "index": 3, "role": "conclusion" }],
+      "pattern": "contrast",
+      "selection": "전통 작문 수업의 절차를 평가 단계까지 마치고 결과 중심이라 규정한 뒤 과정 중심 작문을 맞세워, 대조 표지와 앞 절차를 받는 표현으로 배열이 잠기는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 절차의 뒤 단계를 여는 시간 부사와 대조 연결어가 판단 근거다.",
+      "cues": ["time", "connective", "pronoun", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#37",
+      "roles": ["topic", "example", "support", "support", "support", "example", "example", "conclusion", "example", "support"],
+      "alternatives": [{ "index": 7, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "장난감 진자를 두 번 놓아 보는 실험으로 카오스를 보여 준 뒤 반복과 비선형계라는 조건으로 좁혀 가, 두 번의 시도를 받는 표현과 정관사 하나로 순서가 정해지는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 무관사로 처음 나온 반복을 정관사로 되받는 고리가 마지막 자리를 잠근다.",
+      "cues": ["article", "repetition", "time", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#37",
+      "roles": ["topic", "support", "support", "support", "example", "support", "support", "support", "support"],
+      "alternatives": [{ "index": 4, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "학습 조직을 돕는 인사 관행이라는 일반 진술을 예시 블록으로 받고, 인재 개발 담당자가 학습 조력자가 되어야 한다는 문장 뒤에 그 역할 블록을 붙여 소유격 대명사로 배열이 결정되는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 복수 사람 명사를 받는 소유격 대명사와 예시 연결어가 근거다.",
+      "cues": ["pronoun", "connective", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2506#36",
+      "roles": ["background", "background", "turn", "support", "support", "support", "conclusion", "support", "turn"],
+      "alternatives": [{ "index": 2, "role": "topic" }],
+      "pattern": "cause_effect",
+      "selection": "원주민의 불 관리 뒤에 목축업자의 새 방식을 들이고 그 결과가 오히려 관목을 늘려 불을 또 부르는 인과 고리를 세 블록에 나눠, 지시어와 결과 서술로 순서가 잠기는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 가축과 새싹을 받는 대명사와 불탄 지역의 재성장을 받는 지시 표현이 근거다.",
+      "cues": ["pronoun", "connective", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#37",
+      "roles": ["background", "conclusion", "support", "support", "example", "support", "turn", "topic"],
+      "alternatives": [{ "index": 6, "role": "topic" }, { "index": 1, "role": "support" }],
+      "pattern": "myth_rebuttal",
+      "selection": "얼굴 붉힘을 당혹의 불수의 반응으로 본 다윈의 견해를 사회적 조건으로 풀고 이어 긍정적 사회 기능으로 뒤집은 뒤 집단 결속까지 밀고 가, 세 블록 모두 붙어 보이게 만든 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 사회적 환경이라는 조건의 풀이와 역접 뒤 기능 주장, 추측 부사의 확장이 순서를 정한다.",
+      "cues": ["connective", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "M2206#37",
+      "roles": ["background", "support", "example", "support", "example", "conclusion", "support", "support", "topic", "support", "support", "support"],
+      "alternatives": [{ "index": 8, "role": "support" }],
+      "pattern": "problem_solution",
+      "selection": "조선소 투자 결정이 인근 제철소에 달렸고 제철소 투자도 조선소에 달렸다는 상호 의존을 풀어 다중 균형을 선언한 뒤 두 결과를 나열해, 예고 문장과 결과 개수 선언이 배열을 정하는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 다음 화제를 예고하는 문장과 두 결과를 선언하는 문장이 받는 블록을 짝짓는 것이 근거다.",
+      "cues": ["connective", "logic", "repetition", "time"],
+      "data_defect": null
+    },
+    {
+      "id": "M2109#36",
+      "roles": ["background", "support", "support", "example", "topic", "support", "example", "conclusion"],
+      "alternatives": [{ "index": 2, "role": "example" }],
+      "pattern": "myth_rebuttal",
+      "selection": "인간이 만물의 척도라는 경구를 가정으로 정식화하고 그 가정이 놓치는 것을 나열한 뒤 자동차 비유로 맺어, 예고한 대상과 비유가 가리키는 대상을 짝지어야 자리가 정해지는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 가정을 받는 지시 형용사와 놓침의 예고, 공통 구조를 비유로 되받는 고리가 근거다.",
+      "cues": ["pronoun", "logic", "repetition"],
+      "data_defect": null
+    },
+    {
+      "id": "2018#37",
+      "roles": ["topic", "example", "support", "support", "conclusion", "support", "turn", "support"],
+      "alternatives": [{ "index": 6, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "현대인에게 병은 도덕과 무관하다는 진술에 원시인의 도덕적 병 관념을 맞세우고, 신을 처음 들인 블록 뒤에 그 신을 대명사로 받는 블록을 두어 두 고리로 배열을 못박은 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 신들을 받는 복수 대명사와 앞 공동체를 받는 지시 표현이 근거다.",
+      "cues": ["pronoun", "repetition", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "2014A#37",
+      "roles": ["background", "topic", "example", "example", "example", "example", "example", "example"],
+      "alternatives": [{ "index": 7, "role": "conclusion" }],
+      "pattern": "narrative",
+      "selection": "병 속 편지의 불확실성이라는 일반론 뒤에 콜럼버스 일화를 세 조각으로 잘라, 인물 지칭이 전체 이름·성·대명사로 좁아지는 차례와 시간 흐름으로 순서가 나오는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지 변환은 없고, 인물 지칭의 정밀도 변화와 종이를 받는 대명사, 사건의 시간 순서가 근거다.",
+      "cues": ["pronoun", "article", "time"],
+      "data_defect": null
+    }
+  ]
+}

@@ -1,0 +1,430 @@
+[
+  {
+    "id": "77426209-8e70-4f0f-9f5d-610fc277e33e",
+    "source_updated_at": "2026-09-15T15:19:50.712365+00:00",
+    "body_sha256": "ba102e08098c32191da6a42fb4674fdd76fb94c2b76ccf42f9ebf24841327e8f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "고찰의 「OBX increases NO levels」 단락이 가설-근거-결론으로 이어져 발췌 가능 — 주제·빈칸·내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "Neuronal plasticity includes alterations in the",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "약어(PFC·NO·SNAP-25)를 「뇌 앞부분」「신호 물질」로 풀면 서고, 인용 괄호만 걷으면 된다."
+    }
+  },
+  {
+    "id": "7743d196-1640-4bb8-a556-79042289af67",
+    "source_updated_at": "2026-09-25T07:28:06.043637+00:00",
+    "body_sha256": "a73021ec90aeaea6c46516161b52e540f17ffaf8addea475e9559aa5d5506f8b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 구내염 원인·치료 한계 단락과 고찰의 저농도 효과 단락이 자족적 — 주제·요지·내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "Stomatitis refers to inflammation of the",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "원인 나열 문단이라 corticosteroids·erythematous 를 쉬운 말로 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "7744bb01-dbaa-4fa9-850b-f5318efecd37",
+    "source_updated_at": "2026-09-25T07:28:06.45051+00:00",
+    "body_sha256": "6fdcbcfbb6798e02c7c59a6ef0d0e72d10fbab1313ebddc2b07f79ae37c2fc57",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약 단락이 감염 감지-세포 죽음-방어 흐름을 쉬운 말로 한 편으로 세운다 — 요약·주제·빈칸 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "sample": "The immune system uses specialized sensors",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "CASP 기호를 「효소」로 묶어 걷으면 논지가 선다; 결과 절은 약어 밀도가 높아 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "774a5f4c-afe5-4ef0-9eb9-9dcab29d253e",
+    "source_updated_at": "2026-09-15T15:19:52.035507+00:00",
+    "body_sha256": "b7634aac8b5de41bfc92f784105d68174527aebdc214cdecaaec52b85d22c62e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약과 고찰의 「아이는 항체가 사라진다」 단락이 이유와 함의를 잇는다 — 요지·내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "Zika virus (ZIKV) infection during pregnancy",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "nAb 를 「antibodies」로 풀고 trimester 를 「early pregnancy」로 바꾸니 V6 에 가깝다."
+    }
+  },
+  {
+    "id": "7752d59d-b47c-4e18-8023-016a91538326",
+    "source_updated_at": "2026-09-25T07:28:08.331702+00:00",
+    "body_sha256": "9f06f5fdd0083cbdee61052c4d0179161754d72791abc471eba9e71f961b6835",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론의 근감소증·운동 단락이 문제-해결 흐름으로 선다 — 주제·목적·순서 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "As people grow older, muscles become",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "저자 요약은 거의 그대로 쓰이고 sarcopenia 만 풀어 주면 된다."
+    }
+  },
+  {
+    "id": "77543c56-1dbc-49da-9620-9f39d1039469",
+    "source_updated_at": "2026-09-13T07:38:13.189205+00:00",
+    "body_sha256": "fb3e556840e42088f95eedd17165be2c5afaa32739deb6365c1c0441fc0a5969",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "돌고래가 메기 머리를 잘라 먹는 까닭을 에너지 보상·가시 위험으로 논하는 고찰 단락이 발췌 가능 — 주제·빈칸·순서 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "Despite the presumed extra energy required",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "soniferous·gravid 를 「소리 내는」「알 밴」으로 바꾸고 지명 약어를 걷으면 흐름이 남는다."
+    }
+  },
+  {
+    "id": "775ea76f-c7ac-4864-ab37-667d3fa6146d",
+    "source_updated_at": "2026-09-25T07:28:09.375514+00:00",
+    "body_sha256": "366fd674fc6f2f83f3e3fc0712c98fa91146c6c0e251b19477c09b48bb103b9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「따뜻한 허혈이 조직을 손상시킨다」 단락과 연구용 태아 조직 가치 단락이 논지로 선다 — 요지·내용 일치 칸, 소재상 성인 칸만.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "Because RNA is highly susceptible to",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "임신 중단 소재는 걷고 RNA·DNA 안정성 대비만 떼면 서지만, 원천 소재 때문에 성인 칸으로 제한한다."
+    }
+  },
+  {
+    "id": "776148f7-db58-442a-9104-7492ef7213e1",
+    "source_updated_at": "2026-09-25T07:28:09.861403+00:00",
+    "body_sha256": "e55fb63f4792cd48e6fce1cdbafae579ca96ae5648295bcbb05aced1556f88ad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 생강 껍질 재활용이 비용·환경에 이롭다는 단락이 주장-근거로 선다 — 주제·요지·빈칸 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "sample": "Economically, repurposing ginger peel, which is",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "valorizing·circular economy 를 풀면 V6 로 내려가고, 결과 절 수치는 쓰지 않는다."
+    }
+  },
+  {
+    "id": "77616919-e502-4de9-adc0-49c55e3a64ce",
+    "source_updated_at": "2026-09-13T07:09:30.328611+00:00",
+    "body_sha256": "ef4686551c4e4d2d664f26edeca46eb39d86cac696e241835133926f3009d908",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "서론의 혈장 사료가 병을 퍼뜨리는가에 대한 엇갈린 증거 단락이 논쟁 구조로 선다 — 주제·빈칸·무관한 문장 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "sample": "It has been speculated that the",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "바이러스 약어를 「돼지 바이러스」로 묶으면 서지만 표·log 수치가 많은 결과 절은 쓰지 않는다."
+    }
+  },
+  {
+    "id": "777affe2-e3f9-4d08-b963-923e5d554014",
+    "source_updated_at": "2026-09-13T06:04:08.376588+00:00",
+    "body_sha256": "e7a4c306c869c3db2c954134c638c39aa40b84de3785e14bbc6f880d02caedbe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 6,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "표지 그림 설명이지만 살프 배아 발생 연구를 요약한 단락이 그림 없이도 선다 — 요약·주제·내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "sample": "Tunicates are the closest living relatives",
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "note": "마지막 두 문장(그림 설명·염색 색)을 걷고 calymmocytes 를 「어미 세포」로 풀면 선다; 같은 단락이 두 번 반복돼 하나만 쓴다."
+    }
+  }
+]

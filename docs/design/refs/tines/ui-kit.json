@@ -1,0 +1,637 @@
+{
+ "generatedBy": "scripts/design/extract-ui-kit.mjs",
+ "pages": 80,
+ "btn": [
+  {
+   "k": "#542f9c · #fcf9f5 · none · 990px · 35 · Roobert Mono 13px/700 · uppercase",
+   "n": 69,
+   "pages": 69
+  },
+  {
+   "k": "#ece8fd · #6741bf · none · 990px · 24 · Roobert 14px/600 · none",
+   "n": 33,
+   "pages": 33
+  },
+  {
+   "k": "#ece8fd · #6741bf · none · 990px · 28 · Roobert Mono 12px/700 · uppercase",
+   "n": 10,
+   "pages": 10
+  },
+  {
+   "k": "#fcf9f5 · #542f9c · none · 990px · 35 · Roobert Mono 13px/700 · uppercase",
+   "n": 6,
+   "pages": 6
+  },
+  {
+   "k": "#ffd6c3/0.82 · #82390e · 1px #000000/0.00 · 6px · 50 · Roobert 16px/400 · none",
+   "n": 38,
+   "pages": 2
+  },
+  {
+   "k": "#c4e6fb/0.82 · #1e5776 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 34,
+   "pages": 2
+  },
+  {
+   "k": "#9275f4/0.06 · #5d38ae · 1px #9275f4/0.15 · 6px · 70 · Roobert 16px/400 · none",
+   "n": 8,
+   "pages": 4
+  },
+  {
+   "k": "#5d38ae/0.05 · #5d38ae · 1px #5d38ae/0.15 · 999px · 30 · Roobert 13px/400 · none",
+   "n": 4,
+   "pages": 4
+  },
+  {
+   "k": "#edd2ff/0.82 · #603a7b · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 20,
+   "pages": 2
+  },
+  {
+   "k": "#ffd6c3/0.82 · #82390e · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 20,
+   "pages": 2
+  },
+  {
+   "k": "#ffd3d2/0.82 · #8d2333 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 20,
+   "pages": 2
+  },
+  {
+   "k": "#c9e8dd/0.82 · #355a51 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 18,
+   "pages": 2
+  },
+  {
+   "k": "#eadff8 · #6956a8 · none · 5.6px · 35 · Roobert 14px/700 · none",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "#d6dbf1/0.82 · #323b90 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 12,
+   "pages": 2
+  },
+  {
+   "k": "#e0dbff/0.82 · #534190 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 10,
+   "pages": 2
+  },
+  {
+   "k": "#acefe4/0.82 · #005d57 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 8,
+   "pages": 2
+  },
+  {
+   "k": "#beebce/0.82 · #005d3b · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 8,
+   "pages": 2
+  },
+  {
+   "k": "#ffd6c3/0.82 · #82390e · 1px #000000/0.00 · 6px · 68 · Roobert 16px/400 · none",
+   "n": 8,
+   "pages": 2
+  },
+  {
+   "k": "#f9d3de/0.82 · #8d0952 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 6,
+   "pages": 2
+  },
+  {
+   "k": "#fedea2/0.82 · #6a4f13 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 6,
+   "pages": 2
+  },
+  {
+   "k": "#ffd2e3/0.82 · #813159 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 4,
+   "pages": 2
+  },
+  {
+   "k": "#dfe6a7/0.82 · #4f5600 · 1px #000000/0.00 · 6px · 67 · Roobert 16px/400 · none",
+   "n": 4,
+   "pages": 2
+  },
+  {
+   "k": "#fcf9f5 · #542f9c · 1px #c3b5ff · 8px · 68 · Roobert 16px/400 · none",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "#fcf9f5 · #542f9c · 1px #c3b5ff · 0px · 68 · Roobert 16px/400 · none",
+   "n": 2,
+   "pages": 2
+  }
+ ],
+ "hovers": [
+  {
+   "k": "#542f9c → #6741bf | 글자 #fcf9f5 → #fcf9f5 | 변형 — ",
+   "n": 68,
+   "pages": 68
+  },
+  {
+   "k": "#ece8fd → #ded8ff | 글자 #6741bf → #6741bf | 변형 — ",
+   "n": 32,
+   "pages": 32
+  },
+  {
+   "k": "#fcf9f5 → #d1c7ff | 글자 #542f9c → #3f2374 | 변형 — ",
+   "n": 6,
+   "pages": 6
+  },
+  {
+   "k": "#5d38ae/0.05 → #5d38ae/0.10 | 글자 #5d38ae → #5d38ae | 변형 — ",
+   "n": 4,
+   "pages": 4
+  },
+  {
+   "k": "#9275f4/0.06 → #9275f4/0.12 | 글자 #5d38ae → #5d38ae | 변형 — ",
+   "n": 4,
+   "pages": 4
+  },
+  {
+   "k": "#eadff8 → #eadff8 | 글자 #6956a8 → #6956a8 | 변형 — ",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "#ded8ff → #ded8ff | 글자 #542f9c → #542f9c | 변형 — ",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "#ffe1c4 → #ffe1c4 | 글자 #8a3701 → #8a3701 | 변형 — ",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "#e4eee7 → #e4eee7 | 글자 #005d35 → #005d35 | 변형 — ",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "#ffdeee → #ffdeee | 글자 #8a1f57 → #8a1f57 | 변형 — ",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "#fcf9f5 → #ded8ff | 글자 #542f9c → #542f9c | 변형 — ",
+   "n": 4,
+   "pages": 2
+  },
+  {
+   "k": "#ddf1ed → #ddf1ed | 글자 #006061 → #006061 | 변형 — ",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "#ffe1c4 → #ffcea6 | 글자 #8a3701 → #8a3701 | 변형 — ",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "#ffbc8a → #ff9c5b | 글자 #622c12 → #622c12 | 변형 — ",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "#ded8ff → #d1c7ff | 글자 #6741bf → #6741bf | 변형 — ",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "#ded8ff/0.55 → #ded8ff/0.55 | 글자 #4a288a → #4a288a | 변형 — ",
+   "n": 1,
+   "pages": 1
+  }
+ ],
+ "tabs": [
+  {
+   "k": "선택 · #007f4a · #fcf9f5 · 0px #fcf9f5 · 14px · 167 · Roobert 16px/400 · | 틀 #000000/0.00 · 0px · 가로",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "비선택 · #714bd0 · #fcf9f5 · 0px #fcf9f5 · 14px · 167 · Roobert 16px/400 · | 틀 #000000/0.00 · 0px · 가로",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "비선택 · #008784 · #fcf9f5 · 0px #fcf9f5 · 14px · 167 · Roobert 16px/400 · | 틀 #000000/0.00 · 0px · 가로",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "비선택 · #c05100 · #fcf9f5 · 0px #fcf9f5 · 14px · 167 · Roobert 16px/400 · | 틀 #000000/0.00 · 0px · 가로",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "비선택 · #3565cc · #fcf9f5 · 0px #fcf9f5 · 14px · 167 · Roobert 16px/400 · | 틀 #000000/0.00 · 0px · 가로",
+   "n": 1,
+   "pages": 1
+  }
+ ],
+ "pressed": [
+  {
+   "k": "끔 · #000000/0.00 · #5d38ae · 0px #5d38ae · 7px · 31 · Roobert 14px/400",
+   "n": 8,
+   "pages": 4
+  },
+  {
+   "k": "켬 · #eadff8 · #5d38ae · 1px #c2aafa · 50% · 300 · Roobert 16px/400",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "켬 · #d6edd9 · #5d38ae · 1px #87d1a3 · 50% · 300 · Roobert 16px/400",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "끔 · #000000/0.00 · #00693b · 0px #00693b · 7px · 31 · Roobert 14px/400",
+   "n": 2,
+   "pages": 1
+  },
+  {
+   "k": "켬 · #714bd0 · #fcf9f5 · 1px #714bd0 · 12px · 85 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "켬 · #714bd0 · #fcf9f5 · 1px #714bd0 · 140px · 38 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "끔 · #ece8fd · #3f2374 · 1px #c3b5ff · 0px · 38 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "켬 · #fcf9f5 · #6741bf · 0px #6741bf · 10.5px · 45 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "끔 · #9275f4/0.50 · #fcf9f5 · 0px #fcf9f5 · 10.5px · 45 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "켬 · #fcf9f5 · #007442 · 0px #007442 · 10.5px · 45 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "끔 · #00a46e/0.20 · #00452a · 0px #00452a · 10.5px · 45 · Roobert 14px/600",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "끔 · #000000/0.00 · #cae4d4 · 0px #cae4d4 · 999px · 34 · Roobert Mono 12px/700",
+   "n": 1,
+   "pages": 1
+  }
+ ],
+ "chips": [
+  {
+   "k": "#ece8fd · #6741bf · 24 · Roobert 14px/600 · none",
+   "n": 38,
+   "pages": 38
+  },
+  {
+   "k": "#ece8fd · #6741bf · 28 · Roobert Mono 12px/700 · uppercase",
+   "n": 10,
+   "pages": 10
+  },
+  {
+   "k": "#542f9c · #ece8fd · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 38,
+   "pages": 2
+  },
+  {
+   "k": "#d1c7ff · #542f9c · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 32,
+   "pages": 2
+  },
+  {
+   "k": "#eadff8 · #5d38ae · 23 · Roobert 13px/600 · none",
+   "n": 4,
+   "pages": 4
+  },
+  {
+   "k": "#005d35 · #e4eee7 · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 13,
+   "pages": 2
+  },
+  {
+   "k": "#aedac2 · #005d35 · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 13,
+   "pages": 2
+  },
+  {
+   "k": "#cae4d4 · #00452a · 21 · Roobert 13px/500 · none",
+   "n": 21,
+   "pages": 1
+  },
+  {
+   "k": "#3f2374 · #ece8fd · 20 · Roobert Mono 11px/600 · uppercase",
+   "n": 17,
+   "pages": 1
+  },
+  {
+   "k": "#ded8ff · #5d38ae · 27 · Roobert Mono 11.5px/700 · uppercase",
+   "n": 5,
+   "pages": 2
+  },
+  {
+   "k": "#8a1f57 · #ffdeee · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 15,
+   "pages": 1
+  },
+  {
+   "k": "#ffb1dc · #8a1f57 · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 15,
+   "pages": 1
+  },
+  {
+   "k": "#8a3701 · #ffe1c4 · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 13,
+   "pages": 1
+  },
+  {
+   "k": "#ffbc8a · #8a3701 · 26 · Roobert Mono 12px/700 · uppercase",
+   "n": 13,
+   "pages": 1
+  },
+  {
+   "k": "#ffc7e5 · #9c2464 · 27 · Roobert Mono 11.5px/700 · uppercase",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "#ded8ff · #3f2374 · 21 · Roobert 13px/500 · none",
+   "n": 10,
+   "pages": 1
+  }
+ ],
+ "inputs": [
+  {
+   "k": "input · #000000/0.00 · 0px #d7c4fa · 0px · 42 · Roobert 16px/500",
+   "n": 12,
+   "pages": 3
+  },
+  {
+   "k": "input · #000000/0.00 · 1px #d7c4fa · 0px · 46 · Roobert 16px/400",
+   "n": 9,
+   "pages": 3
+  },
+  {
+   "k": "input · #000000/0.00 · 1px #d7c4fa · 6px · 46 · Roobert 16px/400",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "input · #000000/0.00 · 0px #d7c4fa · 14px · 42 · Roobert 16px/500",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "select · #000000/0.00 · 0px #d7c4fa · 0px · 42 · Roobert 16px/500",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "input · #ece8fd · 1px #d1c7ff · 990px · 41 · Roobert 14px/500",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "input · #000000/0.00 · 1px #c2aafa · 0px · 42 · Roobert 14px/500",
+   "n": 6,
+   "pages": 2
+  },
+  {
+   "k": "input · #000000/0.00 · 0px #3f2374 · 0px · 16 · Roobert 14px/500",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "input · #000000/0.00 · 1px #c2aafa · 7px · 42 · Roobert 14px/500",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "textarea · #000000/0.00 · 0px #5d38ae · 0px · 191 · Roobert 16px/500",
+   "n": 2,
+   "pages": 2
+  }
+ ],
+ "cards": [
+  {
+   "k": "#fcf9f5 · 1px #aa94ff · 12px · 0px · 그림자 없음",
+   "n": 18,
+   "pages": 18
+  },
+  {
+   "k": "#f3efea · none · 10px · 0px · 그림자 없음",
+   "n": 54,
+   "pages": 6
+  },
+  {
+   "k": "#ece8fd · 1px #c3b5ff · 8px · 0px · 그림자 없음",
+   "n": 16,
+   "pages": 9
+  },
+  {
+   "k": "#312f3b · none · 14px · 0px · 그림자 없음",
+   "n": 43,
+   "pages": 6
+  },
+  {
+   "k": "#ffdeee · 1px #ff9ad2 · 8px · 0px · 그림자 없음",
+   "n": 12,
+   "pages": 8
+  },
+  {
+   "k": "#8d75e6/0.13 · none · 14px · 22.5px · 그림자 없음",
+   "n": 30,
+   "pages": 6
+  },
+  {
+   "k": "#ffffff · 1px #e4e0d9 · 12px · 0px · 그림자 없음",
+   "n": 75,
+   "pages": 1
+  },
+  {
+   "k": "#ffe1c4 · 1px #ffab70 · 8px · 0px · 그림자 없음",
+   "n": 10,
+   "pages": 7
+  },
+  {
+   "k": "#e4eee7 · 1px #91d1af · 8px · 0px · 그림자 없음",
+   "n": 9,
+   "pages": 7
+  },
+  {
+   "k": "#d7c4fa · none · 12px · 38px · 그림자 없음",
+   "n": 40,
+   "pages": 2
+  },
+  {
+   "k": "#000000/0.00 · 1px #eee4d9 · 14px · 0px · 그림자 없음",
+   "n": 6,
+   "pages": 5
+  },
+  {
+   "k": "#ece8fd · 1px #aa94ff · 14px · 0px · 그림자 없음",
+   "n": 16,
+   "pages": 4
+  },
+  {
+   "k": "#ece8fd · 1px #c3b5ff · 14px · 0px · 그림자 없음",
+   "n": 6,
+   "pages": 5
+  },
+  {
+   "k": "#f3ecf7 · none · 12px · 38px · 그림자 없음",
+   "n": 26,
+   "pages": 3
+  },
+  {
+   "k": "#ece8fd · 1px #ded8ff · 14px · 32px · 그림자 없음",
+   "n": 30,
+   "pages": 2
+  },
+  {
+   "k": "#7a56e0/0.10 · 1px #000000/0.00 · 12px · 24px · 그림자 없음",
+   "n": 8,
+   "pages": 4
+  },
+  {
+   "k": "#f5f2fb · 1px #542f9c · 12px · 0px · 그림자 없음",
+   "n": 4,
+   "pages": 4
+  },
+  {
+   "k": "#008b53/0.10 · 1px #000000/0.00 · 12px · 24px · 그림자 없음",
+   "n": 7,
+   "pages": 3
+  },
+  {
+   "k": "#ffe1c4 · 1px #ffab70 · 14px · 0px · 그림자 없음",
+   "n": 4,
+   "pages": 3
+  },
+  {
+   "k": "#e4eee7 · 1px #cae4d4 · 14px · 32px · 그림자 없음",
+   "n": 13,
+   "pages": 2
+  }
+ ],
+ "layers": [
+  {
+   "k": "sticky · z 1004 · #000000/0.00 · none · — · top 0px · h 68",
+   "n": 40,
+   "pages": 40
+  },
+  {
+   "k": "sticky · z 1000 · #000000/0.00 · none · — · top 0px · h 68",
+   "n": 36,
+   "pages": 36
+  },
+  {
+   "k": "sticky · z 200 · #000000/0.00 · none · — · top 68px · h 62",
+   "n": 8,
+   "pages": 8
+  },
+  {
+   "k": "sticky · z 1004 · #000000/0.00 · none · — · top 0px · h 62",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "sticky · z auto · #000000/0.00 · none · — · top 154px · h 710",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "sticky · z auto · #000000/0.00 · none · — · top 155px · h 735",
+   "n": 3,
+   "pages": 3
+  },
+  {
+   "k": "sticky · z auto · #000000/0.00 · none · — · top 155px · h 169",
+   "n": 2,
+   "pages": 2
+  },
+  {
+   "k": "sticky · z auto · #000000/0.00 · none · — · top 92px · h 460",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #000000/0.00 · none · — · top 88px · h 674",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #ece8fd · none · — · top 96px · h 330",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #000000/0.00 · none · — · top 96px · h 804",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #f8f4f0 · none · — · top 100px · h 547",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #f8f4f0 · none · — · top 100px · h 485",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #f8f4f0 · none · — · top 100px · h 666",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #f8f4f0 · none · — · top 100px · h 662",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "sticky · z auto · #f8f4f0 · none · — · top 100px · h 740",
+   "n": 1,
+   "pages": 1
+  }
+ ],
+ "shadows": [
+  {
+   "k": "#00a46e 0px 0px 3px 0px",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "#9274f4 0px 0px 3px 0px",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "#000000/0.22 0px 10px 28px 0px",
+   "n": 1,
+   "pages": 1
+  },
+  {
+   "k": "#7a56e0 0px 0px 3px 0px",
+   "n": 1,
+   "pages": 1
+  }
+ ]
+}

@@ -61,6 +61,9 @@ export function scanFiles(list, root = ROOT) {
         if (value !== undefined && /^\$\{|^process\.env|^import\.meta/.test(value)) continue
         // 참조·경로·토큰 이름·예시는 값이 아니다: env(…)(supabase config) · var(--x)/--x(CSS 토큰) · ./ ../ /(경로) · … 가 든 예시
         if (value !== undefined && (/^(env\(|var\(|--|\.{1,2}\/|\/)/.test(value) || /\.\.\.|…/.test(value))) continue
+        // **저장소 상대 경로**도 값이 아니다 — 슬래시로 나뉘고 확장자로 끝난다(`tokens: 'packages/…/tokens.css'`).
+        //   비밀값은 이 모양을 갖지 않는다. 규칙이 정당한 코드를 걸면 값을 허용하지 말고 **모양**을 거른다.
+        if (value !== undefined && /^[\w@.-]+(?:\/[\w@.-]+)+\.[A-Za-z0-9]{1,6}$/.test(value)) continue
         // 예시 호스트(`db.example.co`)라고 통과시키지 않는다 — `agents/scripts/lib.mjs` 의 가드와 기준을 하나로 둔다.
         // 검사기 자신의 테스트 픽스처는 값을 **런타임에 조립**해 소스에 리터럴을 남기지 않는다(check.test.mjs 의 기존 방식).
         hits.push({ kind, at: `${f}:${i + 1}` })

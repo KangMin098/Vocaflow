@@ -8,6 +8,8 @@
 
 'use client'
 
+import Image from 'next/image'
+
 import { SealMark } from '@/components/ui/press'
 
 import { VOCAB_CATEGORIES, type VocabCategoryId } from './categories'
@@ -76,7 +78,12 @@ export function CategoryMatrix({
             </span>
 
             {/* 시각 앵커 — v07 이모지 대신 낙관(라벨 첫 글자). 선택된 타일은 어두운 바탕이라 반전 */}
-            <SealMark label={cat.label} size="lg" tone={isActive ? 'inverse' : 'ju'} />
+            {/* DD-68 · tines-mapping §18 — 분류마다 물건 소품(참조 이모지 아이콘 자리). 소품이 없는 분류만 낙관 */}
+            {'spot' in cat ? (
+              <Image src={`/illustrations/tines/${cat.spot}.webp`} alt="" width={96} height={96} className="h-6 w-6 shrink-0 select-none sm:h-12 sm:w-12" />
+            ) : (
+              <SealMark label={cat.label} size="lg" tone={isActive ? 'inverse' : 'ju'} />
+            )}
 
 
             {/* 라벨 + 힌트 */}

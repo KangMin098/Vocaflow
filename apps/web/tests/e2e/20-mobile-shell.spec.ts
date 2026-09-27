@@ -121,7 +121,7 @@ test.describe('모바일 전역 셸 (하단 탭)', () => {
     );
   });
 
-  test('B. 데스크톱에는 없다 (사이드바가 같은 일을 한다)', async ({ page }) => {
+  test('B. 데스크톱에는 없다 (상단 메뉴가 같은 일을 한다)', async ({ page }) => {
     await page.setViewportSize(DESKTOP);
     await page.goto('/hub', { waitUntil: 'domcontentloaded', timeout: 60_000 });
     await page.waitForTimeout(600);

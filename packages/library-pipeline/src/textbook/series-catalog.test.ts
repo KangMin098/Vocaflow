@@ -9,7 +9,7 @@
 // 그래서 여기서 잠그는 것은 셋이다:
 //   · 계단의 학령 눈금이 `series.ts` 정본과 **같은가** — 눈금이 둘이면 조판과 화면이 갈린다
 //   · 정의한 유형이 실제 저장 유형인가 — 오타 하나가 그 단을 조용히 0으로 만든다
-//   · `shipping` 을 함부로 늘리지 않는가 — 안 찍은 것을 찍었다고 세면 그 화면은 못 믿는다
+//   · 「나갔는가」를 **선언하지 않는가** — 상수로 적으면 찍은 뒤에도 안 바뀐다(DD-76)
 
 import { describe, expect, it } from 'vitest'
 
@@ -18,7 +18,7 @@ import {
   MARKET_SERIES_TOTAL,
   SCHOOL_SERIES_BLOCKED,
   SERIES_CATALOG,
-  seriesShipping,
+  seriesDefined,
 } from './series-catalog'
 
 describe('시리즈 목록', () => {
@@ -102,23 +102,28 @@ describe('계단이 정본 눈금을 벗어나지 않는다', () => {
 })
 
 describe('찍은 것과 정의한 것을 가른다', () => {
-  it('draft 는 다음 한 걸음을 반드시 갖는다 — 없으면 막다른 화면이다', () => {
-    for (const s of SERIES_CATALOG.filter((x) => x.status === 'draft')) {
-      expect(s.nextStep, `${s.brand} 에 다음 걸음이 없다`).toBeTruthy()
+  // ── 2026-09-23 (DD-76) ────────────────────────────────────────────
+  // 여기 있던 검사 둘은 `SeriesDef.status` 상수를 읽었다. 그 상수를 없앤 이유가
+  // 바로 그것이 **찍은 뒤에도 안 바뀌기 때문**이라, 상수를 지우자 두 검사는 빈
+  // 목록을 돌며 아무것도 안 지키는 검사가 됐다. 뜻으로 다시 쓴다: 카탈로그가
+  // 소유하는 것은 **뜻**이고, 「나갔는가」는 조판 기록만 안다.
+  it('카탈로그는 「나갔는가」를 선언하지 않는다 — 뜻(intent)만 갖는다', () => {
+    for (const s of SERIES_CATALOG) {
+      expect(['planned', 'active', 'retired'], `${s.brand}`).toContain(s.intent)
+      expect(s, `${s.brand} 에 status 가 남아 있다`).not.toHaveProperty('status')
     }
   })
 
-  it('shipping 은 다음 걸음이 없다 — 이미 나갔다', () => {
-    for (const s of SERIES_CATALOG.filter((x) => x.status === 'shipping')) {
-      expect(s.nextStep).toBeNull()
+  it('접지 않은 시리즈는 매대에 설 수 있는 계단을 갖는다', () => {
+    for (const s of SERIES_CATALOG.filter((x) => x.intent !== 'retired')) {
+      expect(s.rungs.length, `${s.brand} 에 계단이 없다`).toBeGreaterThan(0)
     }
   })
 
-  it('지금 나가는 시리즈는 하나뿐이고, 시장은 그보다 훨씬 많다', () => {
-    const n = seriesShipping()
+  it('정의한 시리즈는 시장보다 적다 — 분모가 뒤집히면 코퍼스를 다시 재야 한다', () => {
+    const n = seriesDefined()
     // ⚠️ 이 부등식이 이 파일의 존재 이유다. 여기가 뒤집히면(우리가 시장보다 많아지면)
     //   분모를 다시 재야 한다 — 코퍼스가 낡은 것이지 우리가 이긴 것이 아닐 수 있다.
-    expect(n.shipping).toBeLessThan(n.market)
     expect(n.defined).toBeLessThanOrEqual(n.market)
     expect(n.market).toBe(MARKET_SERIES_TOTAL)
   })

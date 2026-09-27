@@ -1,0 +1,24 @@
+{
+  // apps/web/tsconfig.scripts.json
+  //
+  // **스크립트 전용 타입체크** — `scripts/**` 의 `.mts` 를 컴파일이 보게 한다.
+  //
+  // ── 왜 따로 있나 (실측 2026-09-23 · DD-78) ──────────────────────────
+  // 본 설정(`tsconfig.json`)의 `include` 는 `**/*.ts` · `**/*.tsx` 라 **`.mts` 를 안 잡는다**
+  // (TS 의 include 패턴은 확장자를 글자 그대로 본다). 그래서 `apps/web/scripts` 의 32개
+  // `.mts` 가 통째로 타입체크 밖에 있었고, 그 사실이 실제 결함을 놓쳤다:
+  // `video-source.mts` 가 `SeriesDef.status` 를 복사하고 있었는데 그 필드를 **지운 뒤에도**
+  // `pnpm turbo run typecheck` 가 7/7 통과했다(DD-76).
+  //
+  // 본 설정에 `**/*.mts` 를 더하지 않고 파일을 나눈 이유는 `allowImportingTsExtensions` 다.
+  // 이 스크립트들은 서로를 `./env.mts` 처럼 **확장자까지 적어** 부른다(tsx 런타임이 그것을
+  // 요구한다). 그 옵션을 본 설정에 켜면 앱 코드에서도 `./foo.ts` 임포트가 열려, 런타임에
+  // 깨지는 임포트를 컴파일이 허용하게 된다 — 스크립트를 살리자고 앱을 헐겁게 하지 않는다.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // 스크립트는 tsx 로 직접 돈다 — 확장자를 적는 것이 맞고, 여기서만 허용한다.
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+  "include": ["scripts/**/*.ts", "scripts/**/*.mts"]
+}

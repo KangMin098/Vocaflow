@@ -1,0 +1,29 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1",
+  "type": "R-ORDER",
+  "items": [
+    {
+      "id": "M2706#37",
+      "roles": ["topic", "support", "support", "support", "support", "support", "example"],
+      "alternatives": [{ "index": 5, "role": "turn" }],
+      "pattern": "general_specific",
+      "selection": "‘문화 틀 안에서 작동한다’는 주장 하나를 세 블록이 되받기 · 확장 · 추가 조건으로 차례로 받아, 블록 첫머리의 되받기·확장·추가 표지만으로 사슬 전체가 결정되는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — 판단은 블록 첫머리 연결 표지와 지시어가 앞 블록의 무엇을 받는지에 달렸다.",
+      "cues": ["pronoun", "connective", "logic"],
+      "data_defect": null
+    },
+    {
+      "id": "M2706#36",
+      "roles": ["topic", "example", "conclusion", "support", "conclusion", "example", "example", "example", "turn"],
+      "alternatives": [{ "index": 8, "role": "support" }, { "index": 2, "role": "support" }],
+      "pattern": "general_specific",
+      "selection": "‘식물의 방어는 다양하다’는 일반 진술 아래 화학·구조·이웃 신호 방어를 나열하고 주고받음 전체를 되받는 블록으로 닫아, 블록 끝의 예고 문장과 정관사 명사구가 자리를 정하는 글이다.",
+      "transform": "none",
+      "transform_note": "순서 유형이라 선지는 지문 표현의 변환이 아니다 — (C) 끝의 부정 도치 예고가 (B)를, 정관사로 전체를 되받는 (A)가 마지막 자리를 정한다.",
+      "cues": ["article", "connective", "logic", "repetition"],
+      "data_defect": "(B) 블록 문장에 빈칸 표시(know ___ that)가 잘못 끼어 있고 ⑤ 선지 뒤 깨진 글리프 — 원문 추출 잡음."
+    }
+  ]
+}

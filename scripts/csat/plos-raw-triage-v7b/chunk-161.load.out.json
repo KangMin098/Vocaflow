@@ -1,0 +1,368 @@
+[
+ {
+  "id": "7d8ce7f3-466a-4a3f-bbb6-bef7e987ce1f",
+  "source_updated_at": "2026-09-13T06:21:09.189345+00:00",
+  "body_sha256": "f9ea951355e6b999a34efe3d067f65c0021746044e75fba438771cf747158e27",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "discard",
+  "genre": "fragmentary",
+  "why": "학술지 표지 그림 설명문 한 단락이 두 번 반복될 뿐이라 그림 없이는 뜻이 서지 않아 채울 칸이 없다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "We introduce Persistence Weighted Death",
+   "note": "색·삼각형 표시를 그림으로 봐야 하는 캡션이라 떼어 낼 문단이 없다."
+  }
+ },
+ {
+  "id": "7d943fa4-0589-4f36-8a0e-83695df2274e",
+  "source_updated_at": "2026-09-13T07:18:44.785462+00:00",
+  "body_sha256": "376da268414765ddf6f41be5ea54645c2fbdbfae11a4beec67314a552a25c435",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰의 「세포 안에 숨어 증식하는 세균」 단락이 요로병원성 대장균 비교로 논지를 세워 주제·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "E . faecalis is among the",
+   "note": "keratinocyte·macropinocytosis 를 「피부 세포」·「세포 흡수」로 바꾸면 서고 참조 번호는 걷는다."
+  }
+ },
+ {
+  "id": "7dabaa78-b41b-4980-99e6-7d0a4ebb34ec",
+  "source_updated_at": "2026-09-25T07:30:38.897681+00:00",
+  "body_sha256": "515593f257ec1b225e9a5c71eb9530f98f44a2762981bcbfa8c0a81d6fd4d79b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "서론의 「생물 자료의 변이가 통계 도구 발전을 이끌었다」 단락이 피셔·피어슨 예시로 논지를 세워 요지·빈칸 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "summary",
+    "topic"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Biological data and information often",
+   "note": "수식·분수 미분 부분은 버리고 서론 둘째 단락까지면 선다; heterogeneity 를 variety 로 바꿨다."
+  }
+ },
+ {
+  "id": "7de096fb-0858-4106-bec3-022972b8a74b",
+  "source_updated_at": "2026-09-25T07:30:46.294531+00:00",
+  "body_sha256": "2b6744baf746344e26f4262a1ad74f0edaa5a6fecad1b15c44d14fdfc1224d16",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "서론의 「코코넛 껍질 수작업 표시가 병목이다 → 저가 자동화가 필요하다」 흐름이 문제-해결 구조라 주제·순서·삽입 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "purpose",
+    "order",
+    "insert",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite these material advantages, manual",
+   "note": "lignocellulosic 을 「단단한 섬유질」로, bottleneck 을 설명어로 바꾸면 V6 로 내려간다."
+  }
+ },
+ {
+  "id": "7dec7459-6d27-4953-823a-f2755254b08c",
+  "source_updated_at": "2026-09-25T07:30:46.693995+00:00",
+  "body_sha256": "d77fceee061b5883c5cfe00898d80c586bc3cf5cb398fe0c1b4d2760e9a13615",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "서론의 합성 농약의 해악에서 생물농약·광촉매 대안으로 넘어가는 단락이 문제-대안 논지를 세워 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The widespread reliance on synthetic chemical",
+   "note": "농약 이름 나열(DDT 등)을 걷고 bioaccumulation 을 풀면 두 단락이 한 편으로 선다."
+  }
+ },
+ {
+  "id": "7def19ef-5a7d-4810-a5d4-64207ecbe595",
+  "source_updated_at": "2026-09-15T15:22:52.327106+00:00",
+  "body_sha256": "353519270e5aad3e182986051eaac049512df6bd2f995b26d3e622ab100adae5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 「어린 시절 감염을 피한 40%가 성인이 돼 중증 위험을 진다」는 논지와 백신 권고가 이어져 요지·주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "claim",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although we observed age-dependent increases in",
+   "note": "seropositivity·force of infection 을 「면역 비율」·「감염 속도」로 바꾸면 서고 수치는 줄인다."
+  }
+ },
+ {
+  "id": "7df981f7-7add-48ba-a1ab-21cce3b03a2f",
+  "source_updated_at": "2026-09-25T07:30:47.853058+00:00",
+  "body_sha256": "68d91225791ff1cb80af8fb2d9979ca3b0d07042efb59c9668e13f136478fc92",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 「조건 좋은 발치 자리에서는 이식술의 추가 이득이 작다」는 해석 단락이 통념과 다른 결과를 설명해 요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Notably, despite these time- and site-dependent",
+   "note": "ARP·buccal 을 「뼈 보존 시술」·「볼 쪽」으로 풀어야 해 치의학 용어 부담이 크다."
+  }
+ },
+ {
+  "id": "7dfe5a87-fcb5-4d21-9628-73b1415f8f19",
+  "source_updated_at": "2026-09-25T07:30:48.215861+00:00",
+  "body_sha256": "678c9d8f381af6df0ced0a78abeb8f76079ba594803a17235e26e5a5881a89ac",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "고찰의 「변이는 지역마다 다르게 갈라지며 파키스탄 유입은 중동 여행로를 따랐다」 단락이 논지와 근거를 갖춰 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Phylogenomic analysis further contextualizes these findings.",
+   "note": "변이 기호(E156G 등)를 걷고 phylogenomic 을 「유전자 계통」으로 풀면 선다."
+  }
+ },
+ {
+  "id": "7e0449ce-490c-4c49-80ab-d6d02ea927ff",
+  "source_updated_at": "2026-09-25T07:30:49.520195+00:00",
+  "body_sha256": "2066bfef9e2b3b2d25e34f40593c637b6f7c2228637b4792ce99f6ea79e1af24",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰의 「급성 스트레스 고혈당이 지수를 낮춰 사망 위험의 표지가 된다」는 인과 설명 단락이 원인-결과 흐름이라 빈칸·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "blank",
+    "order",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "First, acute stress responses in severe",
+   "note": "HbA1c·HGI 를 한 번 풀어 정의해야 서고 catecholamines 을 「스트레스 호르몬」으로 바꿨다."
+  }
+ }
+]

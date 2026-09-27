@@ -1,0 +1,1861 @@
+[
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "081aa764-8cbd-4ca7-aace-4d6000688ce0",
+    "revision": "2026-09-25T08:23:02.749447+00:00",
+    "body_sha256": "7c48312c7005efe8b90eabce7ddb02b62081810aad777a6a0002b1396348f414",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "그리스 에비아섬 돌발 홍수로 경찰관이 숨지고 건물·도로가 잠긴 피해가 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The mayor of one of the",
+          "note": "둘째 단락 중간 줄바꿈은 이어 붙이면 된다; 피해 단락이 원인→결과로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.568Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Flash_flooding_in_Greece_kills_one%2C_dozens_of_buildings_flooded",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.386,
+          "words": 114,
+          "english": 0.389
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "081bc39e-642e-42e9-b8fd-b66a3bc3d71e",
+    "revision": "2026-09-25T08:05:56.580053+00:00",
+    "body_sha256": "b6a9b5484809e80ea4a2fea7fa01b6fb21c2aa9526d77edd3965159542dcf2c4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "독일 총선 후보 사망으로 한 선거구 보궐선거가 결과 확정을 늦추는 이유와 헌법학자들의 우려가 인과로 서서 요약·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some constitutional lawyers have also raised",
+          "note": "마지막 헌법학자 우려 단락이 논리 구조로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Death_of_candidate_will_delay_final_results_for_German_federal_election_by_weeks",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.384
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "081bef5f-fd71-489e-8660-a67e21279cd4",
+    "revision": "2026-09-25T07:27:29.665086+00:00",
+    "body_sha256": "b1eeaa5608c48aa82ad9bc012acd86a86a0a21388aeb37c8562dad199777cb5d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "러드 정부의 교토의정서 비준과 경제 영향에 대한 상반된 주장(경제 타격 대 성장 유지)이 대비돼 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr. Rudd's decision to sign the",
+          "note": "기후연구소 인용과 전 정부 반대 이유 단락이 짝으로 떨어진다; 내각 명단 단락은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Australian_Prime_Minister_signs_Kyoto",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.358
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "081c794c-411f-4763-8d8c-97fe2e87bc76",
+    "revision": "2026-09-25T06:52:24.743749+00:00",
+    "body_sha256": "6f8de3a0ec234d1b7d656659ce59a6df064cd9715b042a5026973f8a327e9bdf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "유타에서 실종된 등산객이 보험 사기로 호주에 도피한 것으로 드러난 경위가 시간순으로 서서 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Washington County Sheriff Sgt. Jake Adams",
+          "note": "수사 추적 단락이 시간순 순서 문항으로 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hiker_missing_from_US_state_of_Utah_wilderness_found_in_Australia",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.417
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "0821ad20-1e84-4e6f-b2cf-efe435830533",
+    "revision": "2026-09-25T06:54:41.606754+00:00",
+    "body_sha256": "e1ccd6b808e4a02173f5e57a93a06f049a76b836eae80b0f8a87fec68e88e74d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "허리케인 리타 접근에 따른 유가 상승과 정유 시설 집중·OPEC 책임 공방이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The head of the U.S. Energy",
+          "note": "EIA와 OPEC이 서로 책임을 돌리는 끝 단락들이 짝으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oil_price_jumps_as_Rita_heads_to_refineries",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "082456f1-4b7d-4573-92a5-da6a14a3e88a",
+    "revision": "2026-09-25T07:04:07.139588+00:00",
+    "body_sha256": "96dc84dd5af7f47caabe2cf6cb637954d56397c8f0e515eb6949703c284432ff",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "리버먼의 코네티컷 경선 패배와 이라크전 지지가 쟁점이 된 이유가 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The final result is highly anticipated",
+          "note": "쟁점 설명 둘째 단락이 이유 구조로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Lieberman_loses_to_Lamont_in_Connecticut_primary",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.364
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "0825c919-1cc7-43bf-8e72-c318a8f6749d",
+    "revision": "2026-09-25T07:31:36.656507+00:00",
+    "body_sha256": "7e42a0be9aa984be45b373248ad90f3e86f7d45bdb552c88536eba8ee0929939",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "카르자이 대통령 암살 시도와 기념식 공격 경위가 짧게 이어져 고등 이상 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Today, the enemies of Afghanistan, the",
+          "note": "카르자이 성명 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/President_of_Afghanistan_uninjured_after_assassination_attempt",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.372,
+          "words": 183,
+          "english": 0.388
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "082c5e58-1d02-46af-b9cd-c3fb14fb9775",
+    "revision": "2026-09-25T06:55:47.768443+00:00",
+    "body_sha256": "7a96c7b2eae65f841bfeeaaadebfcd372753ca3059751839e4fd5d0e4d0691e7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "폴란드 청년 이주를 주제로 한 학생 학술대회 소개로 논의 주제가 이어져 읽기 내용 일치 칸 하나는 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "For the following two days students",
+          "note": "비문과 오탈자(「Pols」「adjustement」)가 많아 손봐야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Emigration_perspective_in_the_eyes_of_young_Poles",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.229,
+          "words": 153,
+          "english": 0.312
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "082e5034-149c-4cd4-b02a-07ea6980dc83",
+    "revision": "2026-09-25T07:07:37.10807+00:00",
+    "body_sha256": "aa59c2523ce838dda7f4cd9631d50041dac6ff164f75c6a552ee8c2c6eeae0b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "프랑스 동부 열차 정면충돌 사고와 단선 운행이라는 원인 추정이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The cause of the crash is",
+          "note": "단선 운행 설명 단락이 원인으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Trains_collide_in_eastern_France",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.396
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "0833296f-3b74-4a0c-a3d1-38e40512098b",
+    "revision": "2026-09-25T06:59:35.560252+00:00",
+    "body_sha256": "faa24b7d4aa31e7ef599fdceed15458037ec862e06205779617b9f4b3df1b442",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "화성정찰궤도선의 궤도 진입과 임무·궤도 진입의 어려움이 설명으로 서서 삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After its seven-month journey toward the",
+          "note": "궤도 진입이 왜 어려운지 설명하는 단락이 삽입 문항에 맞는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NASA_spacecraft_enters_Mars_orbit",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.327
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "08348cf8-f48c-455b-8df7-c6b534b279af",
+    "revision": "2026-09-25T06:49:41.839571+00:00",
+    "body_sha256": "1d50a66484b8f434f8ed00d37d73330f87419089fc4d01dce4ae9a92269b679a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "롤링 스톤스의 부시 비판 신곡 논란과 재거의 해명이 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"You call yourself a Christian, I",
+          "note": "가사 인용과 재거 발언 단락이 대비된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rolling_Stones_unleash_new_song_critical_of_Bush",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.594,
+          "words": 143,
+          "english": 0.383
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "0836450b-1aa4-4fc1-b8ff-4f15bf3cc930",
+    "revision": "2026-09-25T08:23:29.049941+00:00",
+    "body_sha256": "487ddc0ef9f41becc48fb60d828279f8d05c5d6acb0b8bb80e18ce91208aa59b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기니 수도의 시위 유혈 진압과 군정 지도자의 출마 번복·아프리카연합 제재 경고가 이어져 순서·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The African Union said it may",
+          "note": "시신 수 인용이 있어 고등 이상; 출마 번복 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/At_least_50_killed_in_clashes_in_Guinea",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "083f757d-e028-48d5-8ee9-0a72aa6727f2",
+    "revision": "2026-09-25T08:03:55.636251+00:00",
+    "body_sha256": "88ff598f1570c1ba505bbf2461761a67651bfec26477de795fa6ec298e10eca1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아부그라이브 교도소 기지 공격과 같은 날 이라크 다른 공격이 이어져 고등 이상 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The conflict, described as intermittent and",
+          "note": "마지막 단락은 다른 사건이라 걷고 앞 세 단락을 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraqi_insurgents_attack_Abu_Ghraib",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.173,
+          "words": 162,
+          "english": 0.325
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "083ff59e-0f5b-4eca-b945-fd15651f5f82",
+    "revision": "2026-09-25T08:20:32.237214+00:00",
+    "body_sha256": "08527bd1df19d880b917e591160c882d391afd18e8aa2be8b0f7cb593d878f2a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "인도 국민회의당의 예상 밖 압승과 출구조사 대비 결과가 서서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The results of the elections come",
+          "note": "출구조사와 비교한 단락이 대비 구조로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India's_Congress_party_wins_elections",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.025,
+          "words": 199,
+          "english": 0.386
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "08403f57-f193-4823-aa72-561392d5c546",
+    "revision": "2026-09-25T08:09:48.033805+00:00",
+    "body_sha256": "14ea81da0a3746b83bfb5d598a3d9c635c85326c1f1af258b1e865e61109a6cf",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "뉴질랜드 가축 시장에서 황소가 중개인을 들이받아 숨지게 한 경위가 시간순으로 이어져 고등 이상 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hunter had tried to escape into",
+          "note": "공격 묘사가 구체적이라 고등 이상; 쉬운 어휘라 조정은 거의 필요 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.569Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bull_kills_New_Zealand_man",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.398
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "08430a83-1d9e-46b3-b4ec-deedcaa570ae",
+    "revision": "2026-09-25T07:58:48.856066+00:00",
+    "body_sha256": "0f31bc2a9a4d4cee9f1c451c0d745e64152521bfc11a6dcfb8041d935af2af41",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "파키스탄 명예살인 처벌법 통과와 인권운동가·보수 의원의 상반된 반응이 대비돼 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The legislation, which was jointly approved",
+          "note": "살인·강간 소재라 고등 이상; 법 내용 단락과 반응 단락이 짝으로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pakistan_frames_law_against_'honour_killing'",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "084e5b8e-e631-4c2c-b4f6-0b97d042ddc6",
+    "revision": "2026-09-25T08:22:40.902564+00:00",
+    "body_sha256": "b5737867cac1b05c59b3df7a60fe15ef6537502fdfd60483b054f90bf2987d23",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "영국 육군 참모총장 퇴임과 그가 병사 처우 개선을 두고 정부와 부딪친 배경이 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dannatt was regarded by many soldiers",
+          "note": "존경과 정부 반감을 대비한 둘째 단락이 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_Army_chief_General_Sir_Richard_Dannatt_stands_down",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.646,
+          "words": 192,
+          "english": 0.404
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "08526879-55c7-4b77-94f2-c9dc4620fddf",
+    "revision": "2026-09-25T06:48:15.612578+00:00",
+    "body_sha256": "d1b54ce5c6c6c26841a82335491c49aacae6b81fd7f53f9381d5d3a95ce228a5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "호주의 아프간 난민 송환 합의와 「아이 바다 투척」 거짓 주장·난민 심사 공정성 논란이 길게 이어져 주장·요약·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary",
+            "long_reference"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Those claims appear to have solidified",
+          "note": "「Children overboard」 경위 단락이 통념-반증 구조로 떨어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australia_prepares_to_return_Afghan_detainees",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.395
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "085771cc-2b4a-4546-91b9-1dd445eab3ca",
+    "revision": "2026-09-25T07:25:23.953292+00:00",
+    "body_sha256": "195a3b1fa4f5ccc4cc7f9ea1f575637a02db81d75e79139301db2905072cc3aa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "페루 운석 충돌과 주민 집단 발병을 두고 전문가들이 먼지·지하 가스·진흙화산 등 대안 설명을 내놓아 주장·요약 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Other explanations abound. Don Yeomans, head",
+          "note": "여러 전문가의 대안 설명 끝 단락이 통념-반증 구조로 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Meteorite_blamed_for_mysterious_illness_in_Peru",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "08600666-7191-4a21-a1aa-b8890fde696f",
+    "revision": "2026-09-25T06:46:47.318272+00:00",
+    "body_sha256": "184faa89ecf58a38a4a57f2b574a359f003140b7b3e8855a1a5d551572bbaffd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "압바스의 보안군 대규모 강제 퇴직 명령과 부패·무법 척결 배경이 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The official said that Abbas has",
+          "note": "연이은 사임 단락이 배경을 담아 떼기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Abbas_orders_more_security_reforms%2C_hundreds_of_security_officers_to_be_forced_to_retire",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.255,
+          "words": 188,
+          "english": 0.356
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "0860be5a-a46c-489c-bd46-7694b8b5cac7",
+    "revision": "2026-09-25T07:05:24.234372+00:00",
+    "body_sha256": "75a0f3d033ffcb8590084ba80393ce1faedcafba286374a7ef8ef5437641efe0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "아일랜드 늪에서 발견된 중세 시편과 발견자가 흙으로 덮어 보존한 이유가 서서 삽입·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The psalter was found by a",
+          "note": "습한 흙으로 덮은 이유 단락이 원인 설명으로 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ancient_prayer_book_found_in_Irish_bog",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.512,
+          "words": 127,
+          "english": 0.403
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "0861cc3c-8765-4972-a0ea-a68b56c8f7a2",
+    "revision": "2026-09-25T08:38:48.044734+00:00",
+    "body_sha256": "d42dbb3bd59471ec61f94833f7f0cfb884f09f5b9bc41b3ea0f4b094461febeb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "인도 차티스가르 담장 붕괴 사고와 관리 소홀·폭우 원인 논란이 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ambikapur mayor Prabodh Minj said the",
+          "note": "「&nbdash;」 표기 잔재는 가공 때 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wall_collapse_kills_twelve_in_Chhattisgarh%2C_India",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.207,
+          "words": 145,
+          "english": 0.404
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "086505fc-d3c0-4013-94ed-30a616af2b15",
+    "revision": "2026-09-25T08:33:52.569187+00:00",
+    "body_sha256": "b783838ff10163c4d897f3b9137ff482b1254f26815b6b1db4cc5bdf1517626b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "유명 성형외과 의사의 교통사고 사망과 경력이 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dr. Ryan, a celebrity in his",
+          "note": "경력 단락이 사고 묘사 없이도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Celebrity_plastic_surgeon_Dr._Frank_Ryan_dies_in_car_accident_aged_50",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 8.333,
+          "words": 180,
+          "english": 0.41
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "086628b1-3d9a-4333-a1d6-df9db6eee12e",
+    "revision": "2026-09-25T08:13:18.203629+00:00",
+    "body_sha256": "62126a8f78d34e30667aa54bc3dac01d338e52ff310bd3ddc6f240aa533a667d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "남극에서 드물게 일어난 규모 5.8 지진과 역대 최대 지진 비교가 짧게 이어져 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Antarctica's biggest earthquake was a magnitude",
+          "note": "거리 수치를 걷으면 문장 세 개로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rare_earthquake_strikes_Antarctica",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.357,
+          "words": 112,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-05-566Z",
+    "id": "086a8436-8220-4114-b4ca-11899ac3a4f0",
+    "revision": "2026-09-25T07:37:09.362641+00:00",
+    "body_sha256": "0ba722e800d93a882b19f02ee37b823aa2373d0322f0f50284ccd6f3b5dee873",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "미국 증시가 12년 만의 최저로 떨어진 원인(금융·GM 우려)과 「산불처럼 번진다」는 전문가 진단이 서서 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"This is one of the worst",
+          "note": "지수 수치 단락은 걷고 산불 비유 인용 단락을 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:05.570Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_stock_markets_reach_12-year_lows",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.328
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

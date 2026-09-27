@@ -1,0 +1,132 @@
+[
+  {
+    "id": "0c64fbeb-3b22-4e89-a894-1d1e491f0f91",
+    "source_updated_at": "2026-09-13T07:25:07.483678+00:00",
+    "body_sha256": "ecabcf72b54c59c10a99385c85f9635f2c3dd61e89eaf368f23831ed0b628539",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰·결론 절이 조영제를 줄이면 신장을 지킨다는 예상과 반대 결과를 근거와 함께 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["main_point", "blank", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["myth-rebuttal"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For the past years, the use",
+      "note": "인용 번호와 약어를 풀면 문단이 그대로 서고, nephropathy 같은 낱말 두셋을 쉬운 말로 바꾸면 목표 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "0c687ea4-07c4-445c-8dab-0cc47319d03e",
+    "source_updated_at": "2026-09-13T06:57:05.854114+00:00",
+    "body_sha256": "58fc527556cd993ff379f641e9741a221a29d584690ddc7ca73cf57670b8ce40",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론과 고찰이 바이러스가 소포에 싸여 세포를 빠져나가 항체를 피한다는 논지를 근거 여럿으로 세워 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "summary", "blank", "content_match"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "EV-mediated exit and transport are potentially",
+      "note": "실험 절은 장비 이름이 많아 쓰기 어렵지만 서론·고찰 문단은 그림 번호만 걷어 내면 앞 문맥 없이 읽힌다."
+    }
+  },
+  {
+    "id": "0c6e255d-10bf-437a-811f-6cfa708f98c8",
+    "source_updated_at": "2026-09-13T05:59:00.79298+00:00",
+    "body_sha256": "9b879f843a4b8ea9aa8d5c1f80edf40a40662e7a209ce2cdc7d505b63ede8464",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "표지 그림 설명만 두 번 반복되어 그림을 봐야 뜻이 서고, 떼어 낼 논지나 사건 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "On the right is the Magnaporthe",
+      "note": "리본·화살표 같은 그림 지시를 걷어 내면 문장이 남지 않는다."
+    }
+  },
+  {
+    "id": "0c802e10-1f93-4c28-8cd8-be76ae0dfd12",
+    "source_updated_at": "2026-09-15T13:54:55.398303+00:00",
+    "body_sha256": "156897128b688bf71819e073ade311c247b8da45e1d478ad225a638a497dd060",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 뎅기열 확산과 야생 원숭이의 감염 고리 설명이 사실 진술로 이어져 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": ["high3", "adult"],
+      "purposes": ["csat", "reading"],
+      "types": ["topic", "content_match", "blank"],
+      "levels": ["V7", "V8"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Thailand, macaques inhabit a wide",
+      "note": "단백질 이름이 몰린 고찰은 쓰기 어렵지만 서식지·인간 접촉을 다룬 서론 문단은 고유명사를 줄이면 그대로 선다."
+    }
+  },
+  {
+    "id": "0c84523b-fa74-474f-829b-fe1bb89e129d",
+    "source_updated_at": "2026-09-15T13:55:01.407394+00:00",
+    "body_sha256": "0b2c7152eb2f0a0da7d78f785cbbf8a40b6e41755286d0f713bcf4c201382be3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인공 신경망이 무엇을 어떻게 배우는지 설명한 서론 단락이 기존 검사법의 한계와 맞물려 주제·빈칸 칸을 연다.",
+    "slots": {
+      "ages": ["high2", "high3", "adult"],
+      "purposes": ["csat", "mock", "reading"],
+      "types": ["topic", "blank", "summary", "content_match"],
+      "levels": ["V6", "V7"],
+      "platform": ["claim-evidence"]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Artificial intelligence (AI) has gained relevance",
+      "note": "유전자 이름이 몰린 결과 절은 버리고 신경망 설명 문단만 쓰면 되고, 어려운 낱말 두셋만 바꾸면 밴드가 내려간다."
+    }
+  }
+]

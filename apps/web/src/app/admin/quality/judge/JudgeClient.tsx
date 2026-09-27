@@ -192,7 +192,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                 onClick={() => setKind(k)}
                 className={`min-h-[44px] rounded-[var(--r-md)] border px-4 py-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                   kind === k
-                    ? 'border-[var(--p)] bg-[var(--p)]/10 text-[var(--p)]'
+                    ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--p)]'
                     : 'border-[var(--bd)] bg-[var(--bg2)] text-[var(--t2)] hover:text-[var(--t1)]'
                 }`}
               >
@@ -256,7 +256,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                   onClick={() => setMode(m)}
                   className={`min-h-[44px] rounded-[var(--r-full)] border px-3 py-1 font-body text-[12px] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] ${
                     mode === m
-                      ? 'border-[var(--p)]/50 bg-[var(--p)]/10 text-[var(--p)]'
+                      ? 'border-[color-mix(in_srgb,var(--p)_50%,transparent)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--p)]'
                       : 'border-[var(--bd)] text-[var(--t2)] hover:text-[var(--t2)]'
                   }`}
                 >
@@ -268,7 +268,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={loadSample}
               disabled={loading || (kind === 'book' ? !bookId : !articleId)}
-              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
               표본 불러오기
@@ -278,7 +278,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
       )}
 
       {error && (
-        <p role="alert" className="rounded-[var(--r-md)] border border-[#9C3A30]/30 bg-[#9C3A30]/8 px-4 py-3 font-body text-[13px] text-[#9C3A30]">
+        <p role="alert" className="rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--memory-risk)_30%,transparent)] bg-[color-mix(in_srgb,var(--memory-risk)_8%,transparent)] px-4 py-3 font-body text-[13px] text-[var(--memory-risk)]">
           {error}
         </p>
       )}
@@ -305,9 +305,9 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                     key={w.word}
                     className={`rounded-[var(--r-md)] border bg-[var(--bg2)] p-4 transition-all duration-[var(--dur-normal)] ease-[var(--ease)] ${
                       v === 'valuable'
-                        ? 'border-[#2E7D5A]/50 bg-[#2E7D5A]/6'
+                        ? 'border-[color-mix(in_srgb,var(--memory-stable)_50%,transparent)] bg-[color-mix(in_srgb,var(--memory-stable)_6%,transparent)]'
                         : v === 'uncertain'
-                          ? 'border-[#B5803A]/40'
+                          ? 'border-[color-mix(in_srgb,var(--memory-shaky)_40%,transparent)]'
                           : 'border-[var(--bd)]'
                     }`}
                   >
@@ -325,10 +325,10 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           aria-pressed={v === 'valuable'}
                           onClick={() => setVerdict(w.word, 'valuable')}
                           title="가치 있음"
-                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#2E7D5A] ${
+                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--memory-stable)] ${
                             v === 'valuable'
-                              ? 'border-[#2E7D5A] bg-[#2E7D5A] text-white'
-                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#2E7D5A]/50 hover:text-[#2E7D5A]'
+                              ? 'border-[var(--memory-stable)] bg-[var(--memory-stable)] text-white'
+                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[color-mix(in_srgb,var(--memory-stable)_50%,transparent)] hover:text-[var(--memory-stable)]'
                           }`}
                         >
                           <Check size={15} />
@@ -338,10 +338,10 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           aria-pressed={v === 'uncertain'}
                           onClick={() => setVerdict(w.word, 'uncertain')}
                           title="애매함"
-                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B5803A] ${
+                          className={/* 탭 영역 44px — 시각 크기(h-8, 32px)와 다르다 */ `relative after:absolute after:left-1/2 after:top-1/2 after:h-11 after:w-11 after:-translate-x-1/2 after:-translate-y-1/2 grid h-8 w-8 place-items-center rounded-[var(--r-sm)] border transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--memory-shaky)] ${
                             v === 'uncertain'
-                              ? 'border-[#B5803A] bg-[#B5803A] text-white'
-                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[#B5803A]/50 hover:text-[#B5803A]'
+                              ? 'border-[var(--memory-shaky)] bg-[var(--memory-shaky)] text-white'
+                              : 'border-[var(--bd)] text-[var(--t2)] hover:border-[color-mix(in_srgb,var(--memory-shaky)_50%,transparent)] hover:text-[var(--memory-shaky)]'
                           }`}
                         >
                           <HelpCircle size={15} />
@@ -375,8 +375,8 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
                           onClick={() => setPairChoices((p) => ({ ...p, [i]: side }))}
                           className={`flex-1 rounded-[var(--r-sm)] border p-3 text-left transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                             chosen
-                              ? 'border-[var(--p)] bg-[var(--p)]/10'
-                              : 'border-[var(--bd)] hover:border-[var(--p)]/40'
+                              ? 'border-[var(--p)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)]'
+                              : 'border-[var(--bd)] hover:border-[color-mix(in_srgb,var(--p)_40%,transparent)]'
                           }`}
                         >
                           <span className="font-display text-[14px] font-[700] text-[var(--t1)]">{w.word}</span>
@@ -402,7 +402,7 @@ export function JudgeClient({ books, articles }: { books: BookOption[]; articles
               type="button"
               onClick={submit}
               disabled={saving || (mode === 'pairwise' && pairwiseAnswered === 0)}
-              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[#7c4ff0] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+              className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-5 py-2 font-display text-[13px] font-[600] text-[var(--on-p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p-hover)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {saving ? <Loader2 size={14} className="animate-spin" /> : <Scale size={14} />}
               판정 제출
@@ -467,7 +467,7 @@ function RevealPanel({
               <div className="flex items-center gap-3">
                 <span
                   className={`grid h-5 w-5 place-items-center rounded-full ${
-                    match ? 'bg-[#2E7D5A]/15 text-[#2E7D5A]' : 'bg-[#B5803A]/15 text-[#B5803A]'
+                    match ? 'bg-[color-mix(in_srgb,var(--memory-stable)_15%,transparent)] text-[var(--memory-stable)]' : 'bg-[color-mix(in_srgb,var(--memory-shaky)_15%,transparent)] text-[var(--memory-shaky)]'
                   }`}
                 >
                   {match ? <Check size={12} /> : <X size={12} />}
@@ -476,10 +476,10 @@ function RevealPanel({
                 <span className="font-body text-[12px] text-[var(--t2)]">{w.meaning_ko}</span>
               </div>
               <div className="flex shrink-0 items-center gap-2 font-mono text-[10px]">
-                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${youKept ? 'bg-[#2E7D5A]/12 text-[#2E7D5A]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${youKept ? 'bg-[color-mix(in_srgb,var(--memory-stable)_12%,transparent)] text-[var(--memory-stable)]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   나: {youKept ? '가치' : v === 'uncertain' ? '애매' : '제외'}
                 </span>
-                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${r.in_cap ? 'bg-[var(--p)]/12 text-[var(--p)]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
+                <span className={`rounded-[var(--r-sm)] px-2 py-1 ${r.in_cap ? 'bg-[color-mix(in_srgb,var(--p)_12%,transparent)] text-[var(--p)]' : 'bg-[var(--bg3)] text-[var(--t2)]'}`}>
                   시스템: {r.in_cap ? 'in-cap' : `#${r.sort_order_at}`}
                 </span>
               </div>
@@ -492,7 +492,7 @@ function RevealPanel({
         <button
           type="button"
           onClick={onReset}
-          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)]/40 bg-[var(--p)]/8 px-4 py-2 font-display text-[13px] font-[600] text-[var(--p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p)_8%,transparent)] px-4 py-2 font-display text-[13px] font-[600] text-[var(--p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[color-mix(in_srgb,var(--p)_15%,transparent)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <Sparkles size={14} /> 다음 표본 판정
         </button>

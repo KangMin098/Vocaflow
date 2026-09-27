@@ -1,0 +1,2033 @@
+{
+  "contract": "pilot/v1",
+  "slot_group": "B — 정보·실용형 (실용문 · 데이터 기술)",
+  "deficit_weight": 1,
+  "measured_on": "2026-09-24",
+  "criteria": "docs/source-acquisition/criteria.md (G0~G3)",
+  "demand_reference": "docs/source-acquisition/demand-model.md §1 · B 무리 수요 21.1% · 상업 가능 재고 11편",
+  "evidence_tags": {
+    "[측정]": "이 파일럿이 직접 재거나 읽은 값",
+    "[문헌]": "원문 URL 을 열어 읽은 조문",
+    "[추론]": "판정에 쓰지 않음"
+  },
+  "discovery": {
+    "question": "실용문(안내·공지·편지·모집요강)과 데이터 기술을 자유롭게 재사용 가능한 라이선스로 내놓는 곳은 어디인가",
+    "probed": [
+      {
+        "candidate": "Federal Register (US) API",
+        "url": "https://www.federalregister.gov/api/v1/documents.json",
+        "http": 200,
+        "verdict": "adopted",
+        "note": "회의 공고가 DATES/ADDRESSES/CONTACT 표제로 구조화돼 있다. 최근 90일 \"Public Meeting\" 공고 206건 [측정: expiry.json]"
+      },
+      {
+        "candidate": "NPS nps.gov (공원 안내)",
+        "url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+        "http": 200,
+        "verdict": "adopted",
+        "note": "공원 16곳 fees.htm 전부 200 [측정]. 틀이 표준화"
+      },
+      {
+        "candidate": "NPS Data API (developer.nps.gov)",
+        "url": "https://developer.nps.gov/api/v1/parks",
+        "http": 403,
+        "verdict": "blocked",
+        "note": "API 키 필요. 웹페이지 경로는 열려 있으므로 우회 불필요"
+      },
+      {
+        "candidate": "NASA news release feed",
+        "url": "https://www.nasa.gov/news-release/feed/",
+        "http": 200,
+        "verdict": "adopted",
+        "note": "공지·행사 보고가 섞여 나온다"
+      },
+      {
+        "candidate": "NASA 일정 페이지(hyperwall schedule)",
+        "url": "https://science.nasa.gov/earth/ffa-2026-hyperwall-schedule/",
+        "http": 200,
+        "verdict": "rejected",
+        "note": "내용이 전부 표라 평문 추출 38어 [측정 1차 실행]. 표본에서 뺐다"
+      },
+      {
+        "candidate": "USGS 보도자료",
+        "url": "https://www.usgs.gov/news",
+        "http": "403 → 200",
+        "verdict": "adopted",
+        "note": "curl 기본 UA 는 403, 신원을 밝힌 UA 는 200 [측정]"
+      },
+      {
+        "candidate": "CDC FastStats",
+        "url": "https://www.cdc.gov/nchs/fastats/obesity-overweight.htm",
+        "http": 200,
+        "verdict": "adopted_but_unusable",
+        "note": "산문이 아니라 수치 목록"
+      },
+      {
+        "candidate": "climate.gov (NOAA)",
+        "url": "https://www.climate.gov/news-features",
+        "http": 200,
+        "verdict": "g0_fail",
+        "note": "라이선스 조문을 못 읽었다. noaa.gov disclaimer 403"
+      },
+      {
+        "candidate": "Our World in Data",
+        "url": "https://ourworldindata.org/atom.xml",
+        "http": 200,
+        "verdict": "adopted",
+        "note": "저장소에 어댑터 있음 packages/library-pipeline/src/ingest-article/owid.ts"
+      },
+      {
+        "candidate": "Eurostat Statistics Explained",
+        "url": "https://ec.europa.eu/eurostat/statistics-explained/",
+        "http": 200,
+        "verdict": "adopted",
+        "note": "라이선스 정책 페이지 전문을 읽었다 — 상업 재배포 허용(출처 표시), 제외 조항 있음"
+      },
+      {
+        "candidate": "gov.uk search API",
+        "url": "https://www.gov.uk/api/search.json",
+        "http": 200,
+        "verdict": "adopted",
+        "note": "press_release 최근 90일 840건 · guidance 25,283건 [측정]"
+      },
+      {
+        "candidate": "World Bank Data Blog",
+        "url": "https://blogs.worldbank.org/en/opendata",
+        "http": 200,
+        "verdict": "g0_route_R3",
+        "note": "형태는 도표 유형에 가장 맞는데 사이트 약관이 비상업이다"
+      },
+      {
+        "candidate": "Wikivoyage",
+        "url": "https://en.wikivoyage.org/wiki/Kyoto",
+        "http": 200,
+        "verdict": "g0_route_R2",
+        "note": "CC BY-SA 4.0 — 재저작 입력"
+      },
+      {
+        "candidate": "Parks Canada",
+        "url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+        "http": 200,
+        "verdict": "g0_route_R3",
+        "note": "캐나다 정부는 상업 복제에 서면 허가 필요"
+      },
+      {
+        "candidate": "Library of Congress events API",
+        "url": "https://www.loc.gov/events/?fo=json",
+        "http": 403,
+        "verdict": "blocked",
+        "note": "신원 UA 로도 403. 사칭하지 않았다"
+      },
+      {
+        "candidate": "Smithsonian newsdesk",
+        "url": "https://www.si.edu/newsdesk",
+        "http": 403,
+        "verdict": "blocked",
+        "note": "같음"
+      },
+      {
+        "candidate": "Global Voices (CC BY 3.0)",
+        "url": "https://globalvoices.org/",
+        "http": "200(목록) → 연결 실패(기사)",
+        "verdict": "unreachable",
+        "note": "목록·피드는 200 인데 기사 URL 은 curl 3회·node fetch 1회 모두 포트 443 연결 타임아웃 [측정 2026-09-24]. 표본에서 뺐다 — 심경·분위기 후보였다"
+      },
+      {
+        "candidate": "BLS news release",
+        "url": "https://www.bls.gov/news.release/empsit.nr0.htm",
+        "http": "403 → 200",
+        "verdict": "not_sampled",
+        "note": "접근 가능. 20개 한도로 표본에는 안 넣었다"
+      },
+      {
+        "candidate": "api.weather.gov",
+        "url": "https://api.weather.gov/",
+        "http": 200,
+        "verdict": "not_sampled",
+        "note": "PD·무제한이지만 산출물이 예보 전문(專門) 문체"
+      },
+      {
+        "candidate": "data.gov · canada.ca 뉴스 · who.int",
+        "url": "https://www.data.gov/",
+        "http": 200,
+        "verdict": "not_sampled",
+        "note": "접근만 확인"
+      }
+    ]
+  },
+  "supply_rate": {
+    "federal_register_public_meeting_90d": 206,
+    "federal_register_all_notices_90d": 5299,
+    "govuk_press_release_90d": 840,
+    "govuk_guidance_total": 25283,
+    "nps_fees_pages_probed": {
+      "ok": 16,
+      "probed": 16,
+      "note": "편의 표본(유명 공원). 무작위 아님"
+    },
+    "evidence": "[측정: federalregister.gov API · gov.uk search API · HEAD 프로브 2026-09-24]"
+  },
+  "expiry": {
+    "measured_on": "2026-09-24",
+    "query": "federalregister.gov API · type=NOTICE · term=\"Public Meeting\" · publication_date>=2026-06-24 · metadata(title+abstract) only",
+    "returned": 206,
+    "total_matching": 206,
+    "date_parsed": 42,
+    "date_unparsable": 164,
+    "event_date_past": 27,
+    "event_date_future": 15,
+    "past_pct_of_parsed": 64.3,
+    "sample": [
+      {
+        "doc": "2026-19348",
+        "published": "2026-09-22",
+        "last_event_date": "2026-10-21",
+        "past": false
+      },
+      {
+        "doc": "2026-19347",
+        "published": "2026-09-22",
+        "last_event_date": "2026-10-16",
+        "past": false
+      },
+      {
+        "doc": "2026-19185",
+        "published": "2026-09-18",
+        "last_event_date": "2026-10-08",
+        "past": false
+      },
+      {
+        "doc": "2026-18620",
+        "published": "2026-09-11",
+        "last_event_date": "2026-11-06",
+        "past": false
+      },
+      {
+        "doc": "2026-18488",
+        "published": "2026-09-10",
+        "last_event_date": "2026-10-06",
+        "past": false
+      },
+      {
+        "doc": "2026-18370",
+        "published": "2026-09-09",
+        "last_event_date": "2026-08-26",
+        "past": true
+      },
+      {
+        "doc": "2026-18196",
+        "published": "2026-09-08",
+        "last_event_date": "2026-10-01",
+        "past": false
+      },
+      {
+        "doc": "2026-18165",
+        "published": "2026-09-04",
+        "last_event_date": "2026-10-13",
+        "past": false
+      }
+    ],
+    "reading": "메타데이터에서 행사일을 읽을 수 있었던 42건 중 27건(64.3%)이 측정일 기준 이미 지났다. 나머지 164건은 날짜가 본문 DATES 절에만 있어 판정 불가. → 「받아서 그대로 쓰기」 는 지난 행사 안내에 걸리고, G2 의 날짜 가상화가 사실상 필수다."
+  },
+  "g2": {
+    "method": "서로 다른 3곳에서 1편씩 골라 실제로 가공했다. 수정량 = 낱말 LCS 기준 (삽입+삭제) ÷ (전+후 토큰 수). 전·후 전문은 g2_texts 에 그대로 둔다.",
+    "cases": [
+      {
+        "id": "FR-01",
+        "words_before": 210,
+        "words_after": 119,
+        "tokens_before": 207,
+        "tokens_after": 117,
+        "lcs_tokens": 63,
+        "modification_rate_pct": 61.1,
+        "deletion_rate_pct": 69.6,
+        "insertion_rate_pct": 46.2,
+        "cost_grade": "중(사실상 재저작)",
+        "proper_nouns_before": {
+          "count": 56,
+          "per100": 26.67
+        },
+        "proper_nouns_after": {
+          "count": 24,
+          "per100": 20.17
+        },
+        "ngram_overlap_6": {
+          "hits": 18,
+          "sample": [
+            "all meetings are open to the",
+            "meetings are open to the public.",
+            "from 2 00 p.m. until approximately",
+            "2 00 p.m. until approximately 6",
+            "00 p.m. until approximately 6 00",
+            "p.m. until approximately 6 00 p.m."
+          ]
+        },
+        "ngram_overlap_8": {
+          "hits": 9,
+          "sample": [
+            "from 2 00 p.m. until approximately 6 00",
+            "2 00 p.m. until approximately 6 00 p.m.",
+            "information on joining the meeting by internet or",
+            "on joining the meeting by internet or telephone",
+            "will be available for public inspection within 90",
+            "be available for public inspection within 90 days"
+          ]
+        },
+        "target_type": "안내문 일치 (목표 91어 · 고유명사 15.63/100어)",
+        "kept_essentials": "누가·언제·어디서·무엇을·문의 전부 남았다. 실제 기관명(National Park Service·NAGPRA)과 날짜를 가상의 것으로 바꿔도 공고로 읽힌다.",
+        "finding": "고유명사 26.67 → 20.17. 공고는 원래 밀도가 목표보다 높아서 줄여도 남는다."
+      },
+      {
+        "id": "ESTAT-01",
+        "words_before": 189,
+        "words_after": 126,
+        "tokens_before": 189,
+        "tokens_after": 123,
+        "lcs_tokens": 48,
+        "modification_rate_pct": 69.2,
+        "deletion_rate_pct": 74.6,
+        "insertion_rate_pct": 61,
+        "cost_grade": "중(사실상 재저작)",
+        "proper_nouns_before": {
+          "count": 13,
+          "per100": 6.88
+        },
+        "proper_nouns_after": {
+          "count": 4,
+          "per100": 3.17
+        },
+        "ngram_overlap_6": {
+          "hits": 0,
+          "sample": []
+        },
+        "ngram_overlap_8": {
+          "hits": 0,
+          "sample": []
+        },
+        "target_type": "도표 (목표 133어 · 고유명사 5.13/100어)",
+        "kept_essentials": "수치·비교·순위가 남았다. 나라 이름을 가상으로 바꾸면 「도표와 일치하지 않는 것」 문항의 선택지를 그대로 만들 수 있다.",
+        "finding": "나라 이름을 가상 지명으로 바꿨는데도 6.88 → 3.17 로 떨어졌다. 같은 함정이다."
+      },
+      {
+        "id": "GOVUK-01",
+        "words_before": 264,
+        "words_after": 171,
+        "tokens_before": 263,
+        "tokens_after": 171,
+        "lcs_tokens": 118,
+        "modification_rate_pct": 45.6,
+        "deletion_rate_pct": 55.1,
+        "insertion_rate_pct": 31,
+        "cost_grade": "중",
+        "proper_nouns_before": {
+          "count": 27,
+          "per100": 10.23
+        },
+        "proper_nouns_after": {
+          "count": 11,
+          "per100": 6.43
+        },
+        "ngram_overlap_6": {
+          "hits": 13,
+          "sample": [
+            "fund accounts held by 18 to",
+            "accounts held by 18 to 24",
+            "held by 18 to 24 year-olds",
+            "by 18 to 24 year-olds have",
+            "18 to 24 year-olds have either",
+            "to 24 year-olds have either been"
+          ]
+        },
+        "ngram_overlap_8": {
+          "hits": 7,
+          "sample": [
+            "fund accounts held by 18 to 24 year-olds",
+            "accounts held by 18 to 24 year-olds have",
+            "held by 18 to 24 year-olds have either",
+            "by 18 to 24 year-olds have either been",
+            "18 to 24 year-olds have either been claimed",
+            "to 24 year-olds have either been claimed or"
+          ]
+        },
+        "target_type": "내용 일치(글) (목표 136어 · 고유명사 13.93/100어)",
+        "kept_essentials": "금액·연령·기간·절차가 남았다. 기관명만 가상으로 바꿨다.",
+        "finding": "★ 실제 고유명사를 일반명사(National Revenue Office 같은 보통 이름)로 바꾸자 고유명사 밀도가 10.23 → 6.43 으로 떨어져 목표 13.93 에서 더 멀어졌다. B 무리는 고유명사를 **지우면 안 되고 가상의 고유명사로 갈아 끼워야** 한다."
+      }
+    ],
+    "summary": {
+      "modification_rate_range_pct": [
+        45.6,
+        69.2
+      ],
+      "deletion_rate_range_pct": [
+        55.1,
+        74.6
+      ],
+      "insertion_rate_range_pct": [
+        31,
+        61
+      ],
+      "cost_grades": {
+        "경(<20%)": 0,
+        "중(20~50%)": 1,
+        "중(>50%, 사실상 재저작)": 2
+      },
+      "reading": "수정량이 큰 주된 이유는 다시 쓰기가 아니라 **길이 맞추기**다. 원천이 175~8,366어인데 목표가 91~136어라 삭제율이 55~75% 다. 삽입률(새로 쓴 낱말 비율)은 31~61% 로 더 낮다. R0·R1 원천에서는 표현 재사용이 합법이므로 이 값은 **비용**이지 적법성 수치가 아니다."
+    },
+    "g2_texts": {
+      "FR-01": {
+        "before": "Native American Graves Protection and Repatriation Review Committee; Notice of Public Meeting\nAGENCY: National Park Service, Interior.\nACTION: Meeting notice.\nSUMMARY: The National Park Service is hereby giving notice that the Native American Graves Protection and Repatriation Review Committee (Committee) will hold a virtual meeting, in accordance with the Federal Advisory Committee Act, as amended.\nDATES: The Committee will meet via video conference on Wednesday, September 30, 2026, from 2:00 p.m. until approximately 6:00 p.m. (Eastern). All meetings are open to the public. The agenda and materials for this meeting will be posted on or before September 15, 2026 (see ADDRESSES).\nADDRESSES: Information on joining the meeting by internet or telephone as well as the agenda and meeting materials will be available on the National NAGPRA Program website at https://www.nps.gov/orgs/1335/events.htm.\nFOR FURTHER INFORMATION CONTACT: Melanie O'Brien, Designated Federal Officer, National Native American Graves Protection and Repatriation Act Program (2253), National Park Service, telephone (202) 354-2201.\nThe agenda for the meeting may include a report from the National NAGPRA Program; the discussion of the Review Committee Report to Congress; subcommittee reports and discussion. Detailed minutes of the meeting will be available for public inspection within 90 days of the meeting.\n",
+        "after": "Heritage Review Council — Notice of Public Meeting\nThe Riverton Heritage Office gives notice that the Heritage Review Council will hold an online meeting. All meetings are open to the public.\nDate: Wednesday, October 14, from 2:00 p.m. until approximately 6:00 p.m.\nPlace: Video conference. Information on joining the meeting by internet or telephone will be available on the Council's events page.\nAgenda: A report from the Heritage Office, discussion of the Council's annual report to the assembly, and subcommittee reports. The agenda and materials will be posted on or before October 7.\nMinutes: Detailed minutes will be available for public inspection within 90 days of the meeting.\nContact: Dana Vasquez, Meeting Officer, telephone (02) 354-2201.\n"
+      },
+      "ESTAT-01": {
+        "before": "In 2024, 65% of the EU population aged 15 or over took part in tourism for personal purposes, in other words they made at least one tourism trip for personal purposes with at least one overnight stay during the year (such as holidays, leisure, visiting friends and relatives). However, large differences can be observed between the EU countries, as this participation rate ranged from 27.7% in Romania to 83.6% in the Netherlands (see Figure 1 and Table 1).\nEU residents (aged 15 and above) made 1.2 billion tourism trips in 2024, either for personal or business purposes. Residents of Luxembourg, Belgium, Malta, Slovenia, Austria, the Netherlands and Cyprus made more foreign than domestic trips. The number of trips increased by 4% compared with 2023 and by 67% compared with 2020. Compared with the pre-pandemic year 2019, tourism by Europeans has fully recovered, with the number of trips being 5% higher in 2024. More than half (56%) of these trips were short trips of 1 to 3 nights (see Table 1). Around 71% of all trips made were to domestic destinations, while 29% were to destinations abroad.\n",
+        "after": "The above graph shows the share of people aged 15 or over who took at least one personal trip with an overnight stay in 2024, in the member countries of the Union.\nAcross the Union as a whole, 65% of this age group made such a trip. The rate differed widely between countries: it was lowest in Eastvale, at 27.7%, and highest in Norland, at 83.6%. Taken together, residents made 1.2 billion trips that year, 4% more than in 2023 and 5% more than in 2019, the last year before the pandemic. More than half of those trips, 56%, were short ones of one to three nights. Around 71% of all trips stayed inside the traveller's own country, while 29% crossed a border.\n"
+      },
+      "GOVUK-01": {
+        "before": "Almost 3 million Child Trust Fund accounts held by 18 to 24 year-olds have either been claimed or transferred into an Individual Savings Account, HM Revenue and Customs (HMRC) reveals as it encourages the thousands who don't know where their savings are to find them today.\nLatest figures show around 827,000 young adults have a matured Child Trust Fund account waiting to be claimed, which could be worth on average 2,310 pounds.\nChild Trust Funds are long term, tax-free savings accounts set up for children born between 1 September 2002 and 2 January 2011 with an initial government deposit of at least 250 pounds.\nYoung people can take control of their account at 16 and when the account matures at 18, can decide what they want to do with it - withdraw it to spend, leave it where it is or re-invest it.\nIf young people, or their parents or guardians, know who their Child Trust Fund provider is, they can contact them directly. If not, they can locate it via the online Child Trust Fund locator tool. Almost 500,000 young people used the GOV.UK locator tool to find their Child Trust Fund in the nine months to August this year.\nIt takes about 5 minutes to submit a request to find a Child Trust Fund through the online tool using the young person's National Insurance number and date of birth and, for most, less than 3 weeks to hear back.\nThe savings accounts are not held by government but are held in banks, building societies or other saving providers.\n",
+        "after": "Almost 3 million Youth Savings Fund accounts held by 18 to 24 year-olds have either been claimed or moved into an ordinary savings account, the National Revenue Office said this week, as it urged young adults who do not know where their savings are to look for them.\nAround 827,000 young adults still have a matured account waiting to be claimed, worth on average 2,310 dollars. The accounts are long-term, tax-free savings accounts opened for children born between September 2002 and January 2011, each with a government deposit of at least 250 dollars.\nHolders can take control of an account at 16. When it matures at 18, they may withdraw the money, leave it where it is, or re-invest it. Those who know their provider can contact it directly; the rest can use the Revenue Office's free online locator. Almost 500,000 young people did so in the nine months to August. A request takes about five minutes to submit and, for most, less than three weeks to answer.\n"
+      }
+    }
+  },
+  "sources": [
+    {
+      "id": "FR-01",
+      "title": "Native American Graves Protection and Repatriation Review Committee; Notice of Public Meeting",
+      "host": "federalregister.gov",
+      "access": {
+        "url_fetched": "https://www.federalregister.gov/documents/full_text/text/2026/09/16/2026-19017.txt",
+        "landing_url": "https://www.federalregister.gov/documents/2026/09/16/2026-19017",
+        "http_status": 200,
+        "final_url": "https://www.federalregister.gov/documents/full_text/text/2026/09/16/2026-19017.txt",
+        "elapsed_ms": 938,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "federalregister.gov API 에서 type=NOTICE · term=\"Public Meeting\" 최신순 상위에서 기관이 겹치지 않게 3편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "U.S. Government work. GPO/govinfo: \"The intent of the section is to place in the public domain all work of the United States Government, which is defined in 17 U.S.C. 101\" · \"Government publications may contain copyrighted material which was used with permission of the copyright owner.\"",
+        "license_url": "https://www.govinfo.gov/about/policies",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Park Service, U.S. Department of the Interior",
+        "year": 2026,
+        "source_url": "https://www.federalregister.gov/documents/2026/09/16/2026-19017",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/govinfo.html 2026-09-24 HTTP 200 · 문장 추출]",
+        "caveat": "연방 직원의 직무 저작만 PD. Federal Register 게재 문서는 연방기관이 제출한 공식 문서이므로 본문은 PD 이나, 인용된 제3자 자료는 별도다. 표본 3편 본문에 제3자 저작 표시 없음 [측정: docs/FR-*.txt 전문 읽음]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "공고(회의 안내)",
+        "slots_filled": [
+          "안내문 일치",
+          "글의 목적"
+        ],
+        "slot_demand_sum_pct": 10.5,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          },
+          "글의 목적": {
+            "demand_pct": 3.4,
+            "words_median": 105,
+            "pn_per_100": 7.55,
+            "pn_zero_pct": 3.7
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": true,
+        "event_last_date": "2026-09-30",
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "제목·AGENCY·ACTION·SUMMARY·DATES·ADDRESSES·FOR FURTHER INFORMATION CONTACT — 안내문 필수 칸(누가·언제·어디서·문의)이 표제로 박혀 있다 [측정: 전문 읽음]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 721,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.302,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 20,
+          "school_paragraph": 4,
+          "csat_short": 4,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 115,
+          "per100": 15.95
+        },
+        "numbers": {
+          "numbers_per_100w": 5.96,
+          "date_tokens": 5
+        },
+        "bullet_line_pct": 0
+      }
+    },
+    {
+      "id": "FR-02",
+      "title": "Cedar Creek and Belle Grove National Historical Park Advisory Commission; Notice of Public Meeting",
+      "host": "federalregister.gov",
+      "access": {
+        "url_fetched": "https://www.federalregister.gov/documents/full_text/text/2026/09/08/2026-18250.txt",
+        "landing_url": "https://www.federalregister.gov/documents/2026/09/08/2026-18250",
+        "http_status": 200,
+        "final_url": "https://www.federalregister.gov/documents/full_text/text/2026/09/08/2026-18250.txt",
+        "elapsed_ms": 204,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "federalregister.gov API 에서 type=NOTICE · term=\"Public Meeting\" 최신순 상위에서 기관이 겹치지 않게 3편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "U.S. Government work. GPO/govinfo: \"The intent of the section is to place in the public domain all work of the United States Government, which is defined in 17 U.S.C. 101\" · \"Government publications may contain copyrighted material which was used with permission of the copyright owner.\"",
+        "license_url": "https://www.govinfo.gov/about/policies",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Park Service, U.S. Department of the Interior",
+        "year": 2026,
+        "source_url": "https://www.federalregister.gov/documents/2026/09/08/2026-18250",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/govinfo.html 2026-09-24 HTTP 200 · 문장 추출]",
+        "caveat": "연방 직원의 직무 저작만 PD. Federal Register 게재 문서는 연방기관이 제출한 공식 문서이므로 본문은 PD 이나, 인용된 제3자 자료는 별도다. 표본 3편 본문에 제3자 저작 표시 없음 [측정: docs/FR-*.txt 전문 읽음]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "공고(회의 안내)",
+        "slots_filled": [
+          "안내문 일치"
+        ],
+        "slot_demand_sum_pct": 7.1,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": true,
+        "event_last_date": "2027-03-18",
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "같은 틀. 회의가 3개 날짜로 나열돼 첫 회차(2026-09-17)는 이미 지났다 [측정: DATES 절 읽음]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 759,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.279,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 26,
+          "school_paragraph": 4,
+          "csat_short": 4,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 136,
+          "per100": 17.92
+        },
+        "numbers": {
+          "numbers_per_100w": 8.04,
+          "date_tokens": 11
+        },
+        "bullet_line_pct": 9.9
+      }
+    },
+    {
+      "id": "FR-03",
+      "title": "Hydrographic Services Review Panel Meeting, September 28, and 29, 2026",
+      "host": "federalregister.gov",
+      "access": {
+        "url_fetched": "https://www.federalregister.gov/documents/full_text/text/2026/09/09/2026-18315.txt",
+        "landing_url": "https://www.federalregister.gov/documents/2026/09/09/2026-18315",
+        "http_status": 200,
+        "final_url": "https://www.federalregister.gov/documents/full_text/text/2026/09/09/2026-18315.txt",
+        "elapsed_ms": 251,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "federalregister.gov API 에서 type=NOTICE · term=\"Public Meeting\" 최신순 상위에서 기관이 겹치지 않게 3편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "U.S. Government work. GPO/govinfo: \"The intent of the section is to place in the public domain all work of the United States Government, which is defined in 17 U.S.C. 101\" · \"Government publications may contain copyrighted material which was used with permission of the copyright owner.\"",
+        "license_url": "https://www.govinfo.gov/about/policies",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Oceanic and Atmospheric Administration",
+        "year": 2026,
+        "source_url": "https://www.federalregister.gov/documents/2026/09/09/2026-18315",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/govinfo.html 2026-09-24 HTTP 200 · 문장 추출]",
+        "caveat": "연방 직원의 직무 저작만 PD. Federal Register 게재 문서는 연방기관이 제출한 공식 문서이므로 본문은 PD 이나, 인용된 제3자 자료는 별도다. 표본 3편 본문에 제3자 저작 표시 없음 [측정: docs/FR-*.txt 전문 읽음]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "공고(회의 안내)",
+        "slots_filled": [
+          "안내문 일치",
+          "글의 목적"
+        ],
+        "slot_demand_sum_pct": 10.5,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          },
+          "글의 목적": {
+            "demand_pct": 3.4,
+            "words_median": 105,
+            "pn_per_100": 7.55,
+            "pn_zero_pct": 3.7
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": true,
+        "event_last_date": "2026-09-29",
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "같은 틀 + 의견 제출 마감 시각. 참가 방법(대면/온라인) 명시 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 679,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.281,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 22,
+          "school_paragraph": 4,
+          "csat_short": 4,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 105,
+          "per100": 15.46
+        },
+        "numbers": {
+          "numbers_per_100w": 7.36,
+          "date_tokens": 11
+        },
+        "bullet_line_pct": 2.5
+      }
+    },
+    {
+      "id": "NPS-01",
+      "title": "Fees & Passes - Yellowstone National Park",
+      "host": "nps.gov",
+      "access": {
+        "url_fetched": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+        "landing_url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+        "http_status": 200,
+        "final_url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+        "elapsed_ms": 614,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "유명 공원 2곳의 표준 fees.htm + people 페이지 1편 (무작위 아님 — 편의 표본)",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "NPS Disclaimer: \"Copyright law does not protect “any work of the U.S. Government” ... Thus, material created by the National Park Service and presented on this website, unless otherwise indicated, is generally considered in the public domain.\" + \"not all materials appearing on this website ... are in the public domain. Some content is protected by third party rights\"",
+        "license_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Park Service (Yellowstone National Park)",
+        "year": 2026,
+        "source_url": "https://www.nps.gov/yell/planyourvisit/fees.htm",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/nps.html 2026-09-24 HTTP 200]",
+        "caveat": "페이지 HTML 주석에 \"Content Copyright National Park Service\" 가 있다 — 조문과 어긋나 보이나 disclaimer 가 개별 문서보다 구체적이다. 사진은 별도 표시. 본문 산문만 R0 으로 다룬다 [측정: docs/NPS-01.raw grep]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "실용문(요금 안내)",
+        "slots_filled": [
+          "안내문 일치"
+        ],
+        "slot_demand_sum_pct": 7.1,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "대상·자격·요금·구입처가 있고 날짜가 없다 — 낡지 않는 상시 안내문. 다만 요금표 일부가 <table> 이라 평문 추출에서 빠진다 [측정: htmlToText 가 table 제거]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 1747,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.277,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 44,
+          "school_paragraph": 10,
+          "csat_short": 10,
+          "csat_long": 4
+        },
+        "proper_nouns": {
+          "count": 466,
+          "per100": 26.67
+        },
+        "numbers": {
+          "numbers_per_100w": 3.66,
+          "date_tokens": 9
+        },
+        "bullet_line_pct": 0.8
+      }
+    },
+    {
+      "id": "NPS-02",
+      "title": "Fees & Passes - Grand Canyon National Park",
+      "host": "nps.gov",
+      "access": {
+        "url_fetched": "https://www.nps.gov/grca/planyourvisit/fees.htm",
+        "landing_url": "https://www.nps.gov/grca/planyourvisit/fees.htm",
+        "http_status": 200,
+        "final_url": "https://www.nps.gov/grca/planyourvisit/fees.htm",
+        "elapsed_ms": 179,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "유명 공원 2곳의 표준 fees.htm + people 페이지 1편 (무작위 아님 — 편의 표본)",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "NPS Disclaimer: \"Copyright law does not protect “any work of the U.S. Government” ... Thus, material created by the National Park Service and presented on this website, unless otherwise indicated, is generally considered in the public domain.\" + \"not all materials appearing on this website ... are in the public domain. Some content is protected by third party rights\"",
+        "license_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Park Service (Grand Canyon National Park)",
+        "year": 2026,
+        "source_url": "https://www.nps.gov/grca/planyourvisit/fees.htm",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/nps.html 2026-09-24 HTTP 200]",
+        "caveat": "페이지 HTML 주석에 \"Content Copyright National Park Service\" 가 있다 — 조문과 어긋나 보이나 disclaimer 가 개별 문서보다 구체적이다. 사진은 별도 표시. 본문 산문만 R0 으로 다룬다 [측정: docs/NPS-01.raw grep]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "실용문(요금 안내)",
+        "slots_filled": [
+          "안내문 일치"
+        ],
+        "slot_demand_sum_pct": 7.1,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "NPS-01 과 같은 틀 — 공원만 바뀐다. 틀이 표준화돼 있어 대량 생산에 유리하다 [측정: 16개 공원 fees.htm 전부 HTTP 200]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 1857,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.247,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 49,
+          "school_paragraph": 11,
+          "csat_short": 11,
+          "csat_long": 5
+        },
+        "proper_nouns": {
+          "count": 512,
+          "per100": 27.57
+        },
+        "numbers": {
+          "numbers_per_100w": 3.55,
+          "date_tokens": 17
+        },
+        "bullet_line_pct": 1.4
+      }
+    },
+    {
+      "id": "NPS-03",
+      "title": "Harriet Tubman",
+      "host": "nps.gov",
+      "access": {
+        "url_fetched": "https://www.nps.gov/people/harriet-tubman.htm",
+        "landing_url": "https://www.nps.gov/people/harriet-tubman.htm",
+        "http_status": 200,
+        "final_url": "https://www.nps.gov/people/harriet-tubman.htm",
+        "elapsed_ms": 163,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "유명 공원 2곳의 표준 fees.htm + people 페이지 1편 (무작위 아님 — 편의 표본)",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "NPS Disclaimer: \"Copyright law does not protect “any work of the U.S. Government” ... Thus, material created by the National Park Service and presented on this website, unless otherwise indicated, is generally considered in the public domain.\" + \"not all materials appearing on this website ... are in the public domain. Some content is protected by third party rights\"",
+        "license_url": "https://www.nps.gov/aboutus/disclaimer.htm",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Park Service",
+        "year": null,
+        "source_url": "https://www.nps.gov/people/harriet-tubman.htm",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/nps.html 2026-09-24 HTTP 200]",
+        "caveat": "페이지 HTML 주석에 \"Content Copyright National Park Service\" 가 있다 — 조문과 어긋나 보이나 disclaimer 가 개별 문서보다 구체적이다. 사진은 별도 표시. 본문 산문만 R0 으로 다룬다 [측정: docs/NPS-01.raw grep]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "전기",
+        "slots_filled": [
+          "내용 일치(글)"
+        ],
+        "slot_demand_sum_pct": 3.5,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "내용 일치(글)": {
+            "demand_pct": 3.5,
+            "words_median": 136,
+            "pn_per_100": 13.93,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": null,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "Quick Facts(출생·사망·매장지) + 시간순 서사. 내용 일치 문항의 전형 [측정: 전문 읽음]. 게시 연도가 페이지에 없다 — criteria G0-4 의 「연도」 를 문서에서 읽을 수 없다.",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 732,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.226,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 20,
+          "school_paragraph": 4,
+          "csat_short": 4,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 186,
+          "per100": 25.41
+        },
+        "numbers": {
+          "numbers_per_100w": 2.19,
+          "date_tokens": 4
+        },
+        "bullet_line_pct": 11
+      }
+    },
+    {
+      "id": "NASA-01",
+      "title": "NASA Aircraft to Make Low-Altitude Research Flights Over Colorado",
+      "host": "nasa.gov",
+      "access": {
+        "url_fetched": "https://www.nasa.gov/general/nasa-aircraft-to-make-low-altitude-research-flights-over-colorado/",
+        "landing_url": "https://www.nasa.gov/general/nasa-aircraft-to-make-low-altitude-research-flights-over-colorado/",
+        "http_status": 200,
+        "final_url": "https://www.nasa.gov/general/nasa-aircraft-to-make-low-altitude-research-flights-over-colorado/",
+        "elapsed_ms": 230,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "nasa.gov/news-release/feed/ 최신 10건 중 공지·행사 성격 2편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "NASA Images and Media Usage Guidelines: \"NASA content ... generally are not subject to copyright in the United States.\" · \"NASA occasionally uses copyright-protected material of third parties with permission ... Those images will be marked identified as copyright protected\"",
+        "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "NASA (Gianine Figliozzi / Sharon Teitelbaum, Ames Research Center)",
+        "year": 2026,
+        "source_url": "https://www.nasa.gov/general/nasa-aircraft-to-make-low-altitude-research-flights-over-colorado/",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/nasa.html 2026-09-24 HTTP 200]",
+        "caveat": "NASA 로고·휘장은 제외. 표본 2편 본문에 제3자 표시 없음 [측정]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "공지(주민 대상 사전 안내)",
+        "slots_filled": [
+          "글의 목적",
+          "안내문 일치"
+        ],
+        "slot_demand_sum_pct": 10.5,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "글의 목적": {
+            "demand_pct": 3.4,
+            "words_median": 105,
+            "pn_per_100": 7.55,
+            "pn_zero_pct": 3.7
+          },
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": true,
+        "event_last_date": "2027-07-31",
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "무엇을·왜·언제·어디서 + 더 알아볼 링크. 175어로 목적 유형 목표(105어)에 가장 가깝다 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 175,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.289,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 6,
+          "school_paragraph": 1,
+          "csat_short": 1,
+          "csat_long": 0
+        },
+        "proper_nouns": {
+          "count": 45,
+          "per100": 25.71
+        },
+        "numbers": {
+          "numbers_per_100w": 2.86,
+          "date_tokens": 4
+        },
+        "bullet_line_pct": 9.1
+      }
+    },
+    {
+      "id": "NASA-02",
+      "title": "NASA Welcomes Croatia as Newest Artemis Accords Signatory",
+      "host": "nasa.gov",
+      "access": {
+        "url_fetched": "https://www.nasa.gov/organizations/oiir/artemis-accords/nasa-welcomes-croatia-as-newest-artemis-accords-signatory/",
+        "landing_url": "https://www.nasa.gov/organizations/oiir/artemis-accords/nasa-welcomes-croatia-as-newest-artemis-accords-signatory/",
+        "http_status": 200,
+        "final_url": "https://www.nasa.gov/organizations/oiir/artemis-accords/nasa-welcomes-croatia-as-newest-artemis-accords-signatory/",
+        "elapsed_ms": 70,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "nasa.gov/news-release/feed/ 최신 10건 중 공지·행사 성격 2편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "NASA Images and Media Usage Guidelines: \"NASA content ... generally are not subject to copyright in the United States.\" · \"NASA occasionally uses copyright-protected material of third parties with permission ... Those images will be marked identified as copyright protected\"",
+        "license_url": "https://www.nasa.gov/nasa-brand-center/images-and-media/",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "NASA (Elizabeth Shaw)",
+        "year": 2026,
+        "source_url": "https://www.nasa.gov/organizations/oiir/artemis-accords/nasa-welcomes-croatia-as-newest-artemis-accords-signatory/",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/nasa.html 2026-09-24 HTTP 200]",
+        "caveat": "NASA 로고·휘장은 제외. 표본 2편 본문에 제3자 표시 없음 [측정]",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "보도자료(행사 보고)",
+        "slots_filled": [
+          "내용 일치(글)"
+        ],
+        "slot_demand_sum_pct": 3.5,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "내용 일치(글)": {
+            "demand_pct": 3.5,
+            "words_median": 136,
+            "pn_per_100": 13.93,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": "2026-09-23",
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "행사 보고 + 인용 2건. 지난 일을 적은 글이라 「안내」 가 아니라 「내용 일치」 쪽이다 [측정: 전문 읽음]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 427,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.316,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 10,
+          "school_paragraph": 2,
+          "csat_short": 2,
+          "csat_long": 1
+        },
+        "proper_nouns": {
+          "count": 83,
+          "per100": 19.44
+        },
+        "numbers": {
+          "numbers_per_100w": 2.11,
+          "date_tokens": 1
+        },
+        "bullet_line_pct": 3.3
+      }
+    },
+    {
+      "id": "USGS-01",
+      "title": "USGS Cooperative National Geologic Map Now Covers 50 States",
+      "host": "usgs.gov",
+      "access": {
+        "url_fetched": "https://www.usgs.gov/news/national-news-release/usgs-cooperative-national-geologic-map-now-covers-50-states-us",
+        "landing_url": "https://www.usgs.gov/news/national-news-release/usgs-cooperative-national-geologic-map-now-covers-50-states-us",
+        "http_status": 200,
+        "final_url": "https://www.usgs.gov/news/national-news-release/usgs-cooperative-national-geologic-map-now-covers-50-states-us",
+        "elapsed_ms": 58,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "CDC FastStats 대표 항목 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "In-page: \"Sources/Usage: Public Domain.\" + Copyrights and Credits: \"Most USGS information resides in the Public Domain ... not all information, illustrations, or photographs on our site are.\"",
+        "license_url": "https://www.usgs.gov/information-policies-and-instructions/copyrights-and-credits",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": true,
+        "author": "U.S. Geological Survey",
+        "year": 2026,
+        "source_url": "https://www.usgs.gov/news/national-news-release/usgs-cooperative-national-geologic-map-now-covers-50-states-us",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: docs/USGS-01.raw 안에 \"Sources/Usage: Public Domain.\" 문자열 존재 · lic/usgs.html HTTP 200]",
+        "caveat": "표본 20개 중 개별 문서에 PD 표시를 박아 둔 유일한 원천이다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "보도자료",
+        "slots_filled": [
+          "내용 일치(글)"
+        ],
+        "slot_demand_sum_pct": 3.5,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "내용 일치(글)": {
+            "demand_pct": 3.5,
+            "words_median": 136,
+            "pn_per_100": 13.93,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "성과 보고 + 인용. 고유명사 14.91/100어로 내용 일치 목표(13.93)에 근접 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 852,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.311,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 24,
+          "school_paragraph": 5,
+          "csat_short": 5,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 127,
+          "per100": 14.91
+        },
+        "numbers": {
+          "numbers_per_100w": 1.53,
+          "date_tokens": 2
+        },
+        "bullet_line_pct": 0
+      }
+    },
+    {
+      "id": "CDC-01",
+      "title": "FastStats: Obesity and Overweight",
+      "host": "cdc.gov",
+      "access": {
+        "url_fetched": "https://www.cdc.gov/nchs/fastats/obesity-overweight.htm",
+        "landing_url": "https://www.cdc.gov/nchs/fastats/obesity-overweight.htm",
+        "http_status": 200,
+        "final_url": "https://www.cdc.gov/nchs/fastats/obesity-overweight.htm",
+        "elapsed_ms": 46,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "CDC FastStats 대표 항목 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "Use of Agency Materials: \"Most of the information on the CDC and ATSDR websites is not subject to copyright, is in the public domain, and may be freely used or reproduced without obtaining copyright permission.\" · \"some resources ... are restricted in their use because they were developed by government contractors or grantees, or have been licensed by a third party.\"",
+        "license_url": "https://www.cdc.gov/other/agencymaterials.html",
+        "license_class": "public_domain",
+        "statutory_basis": "17 U.S.C. §105",
+        "per_document_license_notice": false,
+        "author": "National Center for Health Statistics, CDC",
+        "year": 2026,
+        "source_url": "https://www.cdc.gov/nchs/fastats/obesity-overweight.htm",
+        "route": "R0",
+        "is_original_supply": true,
+        "evidence": "[측정: lic/cdc.html 2026-09-24 HTTP 200]",
+        "caveat": "CDC 는 \"미국 밖에서는 타국 저작권법이 적용될 수 있다\" 고 명시한다 — 한국 판매 제품에 대해서는 사용자 법률 판단 필요.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "통계 요약(산문 아님)",
+        "slots_filled": [],
+        "slot_demand_sum_pct": 0,
+        "deficit_weight": 1,
+        "slot_targets": {},
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "★ 산문이 아니다. 「항목: 값 · 출처」 목록이라 창별 산출이 0/0/0/1 이고 숫자 밀도가 22.16/100어다 [측정]. 도표 유형의 「데이터」 는 되지만 「기술문」 은 안 된다.",
+        "verdict": "no_priority"
+      },
+      "g3": {
+        "words": 334,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.22,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 0,
+          "school_paragraph": 0,
+          "csat_short": 0,
+          "csat_long": 1
+        },
+        "proper_nouns": {
+          "count": 142,
+          "per100": 42.51
+        },
+        "numbers": {
+          "numbers_per_100w": 22.16,
+          "date_tokens": 15
+        },
+        "bullet_line_pct": 0
+      }
+    },
+    {
+      "id": "NOAA-01",
+      "title": "Snow pain, snow gain: How does El Nino affect snowfall over North America?",
+      "host": "climate.gov",
+      "access": {
+        "url_fetched": "https://www.climate.gov/news-features/blogs/snow-pain-snow-gain-how-does-el-nino-affect-snowfall-over-north-america",
+        "landing_url": "https://www.climate.gov/news-features/blogs/snow-pain-snow-gain-how-does-el-nino-affect-snowfall-over-north-america",
+        "http_status": 200,
+        "final_url": "https://www.climate.gov/news-features/blogs/snow-pain-snow-gain-how-does-el-nino-affect-snowfall-over-north-america",
+        "elapsed_ms": 225,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "climate.gov 블로그 목록에서 데이터 해설 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "(개별 문서·사이트 어디에서도 라이선스 조문을 읽지 못했다. NOAA disclaimer 페이지는 403.)",
+        "license_url": null,
+        "license_class": "unverified",
+        "statutory_basis": "17 U.S.C. §105 (적용 여부 미확인)",
+        "per_document_license_notice": false,
+        "author": "climate.gov (NOAA) — 기고자 표시 확인 못함",
+        "year": null,
+        "source_url": "https://www.climate.gov/news-features/blogs/snow-pain-snow-gain-how-does-el-nino-affect-snowfall-over-north-america",
+        "route": "R4(미확정)",
+        "is_original_supply": false,
+        "evidence": "[측정: docs/NOAA-01.raw grep — licence/copyright 문자열 0건 · https://www.noaa.gov/information-technology/disclaimer HTTP 403 (2026-09-24)]",
+        "caveat": "climate.gov 는 NOAA 위탁 운영이고 필자에 외부 기고가 섞인다. 라이선스 조문을 못 읽었으므로 criteria G0-4(라이선스 원문 URL 을 못 읽으면 탈락)에 걸린다.",
+        "verdict": "fail",
+        "fail_reason": "criteria G0-4 — 라이선스 조문을 읽을 수 없다(NOAA disclaimer HTTP 403, 페이지에 고지 없음)"
+      },
+      "g1": {
+        "genre": "데이터 해설",
+        "slots_filled": [
+          "도표"
+        ],
+        "slot_demand_sum_pct": 3.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "도표": {
+            "demand_pct": 3.6,
+            "words_median": 133,
+            "pn_per_100": 5.13,
+            "pn_zero_pct": 17.2
+          }
+        },
+        "year_recorded": null,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "지도·그래프를 말로 푸는 해설문. 목적 적합도는 높으나 G0 에서 탈락한다.",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 4685,
+        "latin_ratio": 0.998,
+        "function_word_ratio": 0.312,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 142,
+          "school_paragraph": 25,
+          "csat_short": 25,
+          "csat_long": 12
+        },
+        "proper_nouns": {
+          "count": 236,
+          "per100": 5.04
+        },
+        "numbers": {
+          "numbers_per_100w": 2.8,
+          "date_tokens": 13
+        },
+        "bullet_line_pct": 1.4
+      }
+    },
+    {
+      "id": "OWID-01",
+      "title": "Which countries have already passed peak population, and when will the rest do so?",
+      "host": "ourworldindata.org",
+      "access": {
+        "url_fetched": "https://ourworldindata.org/which-countries-have-already-passed-peak-population-and-when-will-the-rest-do-so",
+        "landing_url": "https://ourworldindata.org/which-countries-have-already-passed-peak-population-and-when-will-the-rest-do-so",
+        "http_status": 200,
+        "final_url": "https://ourworldindata.org/which-countries-have-already-passed-peak-population-and-when-will-the-rest-do-so",
+        "elapsed_ms": 255,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "ourworldindata.org/atom.xml 최신 10건 중 수치 해설 2편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "In-page: \"License: CC BY\" + link https://creativecommons.org/licenses/by/4.0 · FAQ: \"Unless otherwise stated, you can use, reproduce, and distribute any chart we made ... provided that you cite us.\" · \"Most of the data on Our World in Data comes from third-party providers ... subject to the license terms of those providers.\"",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "license_class": "cc_by",
+        "statutory_basis": null,
+        "per_document_license_notice": true,
+        "author": "Our World in Data",
+        "year": null,
+        "source_url": "https://ourworldindata.org/which-countries-have-already-passed-peak-population-and-when-will-the-rest-do-so",
+        "route": "R1",
+        "is_original_supply": true,
+        "evidence": "[측정: docs/OWID-01.raw · OWID-02.raw 안에 creativecommons.org/licenses/by/4.0 링크 · lic/owid.html HTTP 200]",
+        "caveat": "본문 산문은 CC BY. 그래프에 실린 제3자 데이터는 제공자 약관 — 산문만 R1 로 쓴다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "데이터 해설",
+        "slots_filled": [
+          "도표"
+        ],
+        "slot_demand_sum_pct": 3.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "도표": {
+            "demand_pct": 3.6,
+            "words_median": 133,
+            "pn_per_100": 5.13,
+            "pn_zero_pct": 17.2
+          }
+        },
+        "year_recorded": null,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "그래프 1개를 중심으로 한 해설. 고유명사 6.15/100어 — 도표 목표(5.13)와 거의 같다 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 1089,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.334,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 35,
+          "school_paragraph": 6,
+          "csat_short": 6,
+          "csat_long": 3
+        },
+        "proper_nouns": {
+          "count": 67,
+          "per100": 6.15
+        },
+        "numbers": {
+          "numbers_per_100w": 1.65,
+          "date_tokens": 1
+        },
+        "bullet_line_pct": 0
+      }
+    },
+    {
+      "id": "OWID-02",
+      "title": "138 million children are in child labor. What does this actually mean?",
+      "host": "ourworldindata.org",
+      "access": {
+        "url_fetched": "https://ourworldindata.org/138-million-children-are-in-child-labor-what-does-this-actually-mean",
+        "landing_url": "https://ourworldindata.org/138-million-children-are-in-child-labor-what-does-this-actually-mean",
+        "http_status": 200,
+        "final_url": "https://ourworldindata.org/138-million-children-are-in-child-labor-what-does-this-actually-mean",
+        "elapsed_ms": 122,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "ourworldindata.org/atom.xml 최신 10건 중 수치 해설 2편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "In-page: \"License: CC BY\" + link https://creativecommons.org/licenses/by/4.0 · FAQ: \"Unless otherwise stated, you can use, reproduce, and distribute any chart we made ... provided that you cite us.\" · \"Most of the data on Our World in Data comes from third-party providers ... subject to the license terms of those providers.\"",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "license_class": "cc_by",
+        "statutory_basis": null,
+        "per_document_license_notice": true,
+        "author": "Our World in Data",
+        "year": null,
+        "source_url": "https://ourworldindata.org/138-million-children-are-in-child-labor-what-does-this-actually-mean",
+        "route": "R1",
+        "is_original_supply": true,
+        "evidence": "[측정: docs/OWID-01.raw · OWID-02.raw 안에 creativecommons.org/licenses/by/4.0 링크 · lic/owid.html HTTP 200]",
+        "caveat": "본문 산문은 CC BY. 그래프에 실린 제3자 데이터는 제공자 약관 — 산문만 R1 로 쓴다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "데이터 해설",
+        "slots_filled": [
+          "도표"
+        ],
+        "slot_demand_sum_pct": 3.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "도표": {
+            "demand_pct": 3.6,
+            "words_median": 133,
+            "pn_per_100": 5.13,
+            "pn_zero_pct": 17.2
+          }
+        },
+        "year_recorded": null,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "정의를 따지는 해설 — 도표보다 A 무리(설명문)에 가까운 대목이 섞인다. 고유명사 3.5/100어 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 2057,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.362,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 66,
+          "school_paragraph": 12,
+          "csat_short": 11,
+          "csat_long": 5
+        },
+        "proper_nouns": {
+          "count": 72,
+          "per100": 3.5
+        },
+        "numbers": {
+          "numbers_per_100w": 2.77,
+          "date_tokens": 1
+        },
+        "bullet_line_pct": 0
+      }
+    },
+    {
+      "id": "ESTAT-01",
+      "title": "Tourism statistics",
+      "host": "ec.europa.eu",
+      "access": {
+        "url_fetched": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Tourism_statistics",
+        "landing_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Tourism_statistics",
+        "http_status": 200,
+        "final_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Tourism_statistics",
+        "elapsed_ms": 1964,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "Statistics Explained 의 대표 기사 2편 (Tourism · Electricity price — 「가장 많이 본」 목록에 있는 것)",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "© European Union. \"Except where otherwise stated, downloading and reproduction of Eurostat data/documents for personal use or for further non-commercial or commercial dissemination are authorised provided appropriate acknowledgement is given to Eurostat as the source\" · 제외: 제3자 자료 / EU·EFTA·후보국 이외 국가에 관한 데이터 / 로고·상표 / 제한적 저작권 고지가 붙은 문서 전체. Decision 2011/833/EU.",
+        "license_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Copyright/licence_policy",
+        "license_class": "other_attribution_commercial_ok",
+        "statutory_basis": null,
+        "per_document_license_notice": false,
+        "author": "Eurostat (European Commission)",
+        "year": 2026,
+        "source_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Tourism_statistics",
+        "route": "R1",
+        "is_original_supply": true,
+        "evidence": "[측정: lic 페이지 HTTP 200 · 본문 전문 추출 2026-09-24]",
+        "caveat": "두 표본 페이지에 제한적 저작권 고지 없음 [측정: docs/ESTAT-0*.raw grep = 0건]. 단 \"EU·EFTA·후보국 외 데이터\" 제외 조항이 있어 비EU 수치를 담은 기사는 개별 확인이 필요하다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "데이터 해설",
+        "slots_filled": [
+          "도표"
+        ],
+        "slot_demand_sum_pct": 3.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "도표": {
+            "demand_pct": 3.6,
+            "words_median": 133,
+            "pn_per_100": 5.13,
+            "pn_zero_pct": 17.2
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "\"Data extracted in March 2026 · Planned article update: February 2027\" 이 머리에 박혀 있다 — 연도 확인이 쉬운 드문 원천. 소제목마다 한 문장 요지 + 수치 문단 [측정: 전문 읽음]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 2879,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.334,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 68,
+          "school_paragraph": 17,
+          "csat_short": 17,
+          "csat_long": 7
+        },
+        "proper_nouns": {
+          "count": 231,
+          "per100": 8.02
+        },
+        "numbers": {
+          "numbers_per_100w": 6.67,
+          "date_tokens": 6
+        },
+        "bullet_line_pct": 3.9
+      }
+    },
+    {
+      "id": "ESTAT-02",
+      "title": "Electricity price statistics",
+      "host": "ec.europa.eu",
+      "access": {
+        "url_fetched": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Electricity_price_statistics",
+        "landing_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Electricity_price_statistics",
+        "http_status": 200,
+        "final_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Electricity_price_statistics",
+        "elapsed_ms": 1982,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "Statistics Explained 의 대표 기사 2편 (Tourism · Electricity price — 「가장 많이 본」 목록에 있는 것)",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "© European Union. \"Except where otherwise stated, downloading and reproduction of Eurostat data/documents for personal use or for further non-commercial or commercial dissemination are authorised provided appropriate acknowledgement is given to Eurostat as the source\" · 제외: 제3자 자료 / EU·EFTA·후보국 이외 국가에 관한 데이터 / 로고·상표 / 제한적 저작권 고지가 붙은 문서 전체. Decision 2011/833/EU.",
+        "license_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Copyright/licence_policy",
+        "license_class": "other_attribution_commercial_ok",
+        "statutory_basis": null,
+        "per_document_license_notice": false,
+        "author": "Eurostat (European Commission)",
+        "year": 2026,
+        "source_url": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Electricity_price_statistics",
+        "route": "R1",
+        "is_original_supply": true,
+        "evidence": "[측정: lic 페이지 HTTP 200 · 본문 전문 추출 2026-09-24]",
+        "caveat": "두 표본 페이지에 제한적 저작권 고지 없음 [측정: docs/ESTAT-0*.raw grep = 0건]. 단 \"EU·EFTA·후보국 외 데이터\" 제외 조항이 있어 비EU 수치를 담은 기사는 개별 확인이 필요하다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "데이터 해설",
+        "slots_filled": [
+          "도표"
+        ],
+        "slot_demand_sum_pct": 3.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "도표": {
+            "demand_pct": 3.6,
+            "words_median": 133,
+            "pn_per_100": 5.13,
+            "pn_zero_pct": 17.2
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "같은 틀 · 8,304어로 창별 산출이 가장 크다(csat_short 46) [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 8304,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.357,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 233,
+          "school_paragraph": 46,
+          "csat_short": 46,
+          "csat_long": 22
+        },
+        "proper_nouns": {
+          "count": 464,
+          "per100": 5.59
+        },
+        "numbers": {
+          "numbers_per_100w": 7.85,
+          "date_tokens": 106
+        },
+        "bullet_line_pct": 5.1
+      }
+    },
+    {
+      "id": "GOVUK-01",
+      "title": "Almost 3 million young adults are 'quids in' after claiming Child Trust Fund",
+      "host": "gov.uk",
+      "access": {
+        "url_fetched": "https://www.gov.uk/government/news/almost-3-million-young-adults-are-quids-in-after-claiming-child-trust-fund",
+        "landing_url": "https://www.gov.uk/government/news/almost-3-million-young-adults-are-quids-in-after-claiming-child-trust-fund",
+        "http_status": 200,
+        "final_url": "https://www.gov.uk/government/news/almost-3-million-young-adults-are-quids-in-after-claiming-child-trust-fund",
+        "elapsed_ms": 1679,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "gov.uk search API 에서 press_release 최신 1편 + guidance 검색 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "Page footer: \"© Crown copyright\" + \"Open Government Licence v3.0\". OGL v3: \"You are free to: copy, publish, distribute and transmit the Information; adapt the Information; exploit the Information commercially and non-commercially\" · \"These terms are compatible with the Creative Commons Attribution License 4.0\".",
+        "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "license_class": "other_ogl_v3",
+        "statutory_basis": null,
+        "per_document_license_notice": true,
+        "author": "HM Revenue & Customs (UK)",
+        "year": 2026,
+        "source_url": "https://www.gov.uk/government/news/almost-3-million-young-adults-are-quids-in-after-claiming-child-trust-fund",
+        "route": "R1",
+        "is_original_supply": true,
+        "evidence": "[측정: docs/GOVUK-0*.raw 안에 \"Open Government Licence v3.0\" · \"© Crown copyright\" 문자열 · lic/ogl.html HTTP 200 조문 확인]",
+        "caveat": "OGL v3 가 스스로 CC BY 4.0 과 호환이라고 선언한다 — 그래도 CC 라이선스는 아니다. 표기 문구는 OGL 이 요구하는 형식을 따른다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "보도자료",
+        "slots_filled": [
+          "내용 일치(글)",
+          "글의 목적"
+        ],
+        "slot_demand_sum_pct": 6.9,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "내용 일치(글)": {
+            "demand_pct": 3.5,
+            "words_median": 136,
+            "pn_per_100": 13.93,
+            "pn_zero_pct": 0
+          },
+          "글의 목적": {
+            "demand_pct": 3.4,
+            "words_median": 105,
+            "pn_per_100": 7.55,
+            "pn_zero_pct": 3.7
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "요지 3줄 + 본문 + 당사자 인용 2건 + 장관 인용. 고유명사 13.01/100어로 내용 일치 목표(13.93)에 가장 가깝다 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 761,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.313,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 24,
+          "school_paragraph": 4,
+          "csat_short": 4,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 99,
+          "per100": 13.01
+        },
+        "numbers": {
+          "numbers_per_100w": 3.81,
+          "date_tokens": 8
+        },
+        "bullet_line_pct": 11.1
+      }
+    },
+    {
+      "id": "GOVUK-02",
+      "title": "Zero emission van and truck grant: eligibility and applications",
+      "host": "gov.uk",
+      "access": {
+        "url_fetched": "https://www.gov.uk/government/publications/plug-in-van-grant",
+        "landing_url": "https://www.gov.uk/government/publications/plug-in-van-grant",
+        "http_status": 200,
+        "final_url": "https://www.gov.uk/government/publications/plug-in-van-grant",
+        "elapsed_ms": 1579,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "gov.uk search API 에서 press_release 최신 1편 + guidance 검색 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "Page footer: \"© Crown copyright\" + \"Open Government Licence v3.0\". OGL v3: \"You are free to: copy, publish, distribute and transmit the Information; adapt the Information; exploit the Information commercially and non-commercially\" · \"These terms are compatible with the Creative Commons Attribution License 4.0\".",
+        "license_url": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "license_class": "other_ogl_v3",
+        "statutory_basis": null,
+        "per_document_license_notice": true,
+        "author": "Office for Zero Emission Vehicles / Department for Transport (UK)",
+        "year": 2026,
+        "source_url": "https://www.gov.uk/government/publications/plug-in-van-grant",
+        "route": "R1",
+        "is_original_supply": true,
+        "evidence": "[측정: docs/GOVUK-0*.raw 안에 \"Open Government Licence v3.0\" · \"© Crown copyright\" 문자열 · lic/ogl.html HTTP 200 조문 확인]",
+        "caveat": "OGL v3 가 스스로 CC BY 4.0 과 호환이라고 선언한다 — 그래도 CC 라이선스는 아니다. 표기 문구는 OGL 이 요구하는 형식을 따른다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "모집요강(첨부 문서 목록)",
+        "slots_filled": [
+          "안내문 일치"
+        ],
+        "slot_demand_sum_pct": 7.1,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "★ 본문이 아니라 첨부 문서 목록 페이지다. 고유명사 4.0/100어로 안내문 목표(15.63)와 멀다 — 실제 요강은 별도 HTML 첨부 안에 있다 [측정]",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 851,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.267,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 26,
+          "school_paragraph": 5,
+          "csat_short": 5,
+          "csat_long": 2
+        },
+        "proper_nouns": {
+          "count": 34,
+          "per100": 4
+        },
+        "numbers": {
+          "numbers_per_100w": 5.99,
+          "date_tokens": 23
+        },
+        "bullet_line_pct": 3.3
+      }
+    },
+    {
+      "id": "WB-01",
+      "title": "Commodity prices rose in August—Pink Sheet",
+      "host": "blogs.worldbank.org",
+      "access": {
+        "url_fetched": "https://blogs.worldbank.org/en/opendata/commodity-prices-rose-in-august-pink-sheet",
+        "landing_url": "https://blogs.worldbank.org/en/opendata/commodity-prices-rose-in-august-pink-sheet",
+        "http_status": 200,
+        "final_url": "https://blogs.worldbank.org/en/opendata/commodity-prices-rose-in-august-pink-sheet",
+        "elapsed_ms": 108,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "blogs.worldbank.org/en/opendata 목록에서 월례 수치 보고 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "worldbank.org Terms and Conditions: \"The content available on this platform is provided for informational and non-commercial purposes only, unless otherwise stated.\" · \"You may use the Site only for lawful, personal and non-commercial purposes.\"",
+        "license_url": "https://www.worldbank.org/en/about/legal/terms-and-conditions",
+        "license_class": "non_commercial",
+        "statutory_basis": null,
+        "per_document_license_notice": false,
+        "author": "John Baffes, Maria Hazel Macadangdang (World Bank)",
+        "year": 2026,
+        "source_url": "https://blogs.worldbank.org/en/opendata/commodity-prices-rose-in-august-pink-sheet",
+        "route": "R3",
+        "is_original_supply": false,
+        "evidence": "[측정: lic/wb.html 2026-09-24 HTTP 200 · docs/WB-01.raw 푸터 링크는 /about/legal 하나뿐 — 블로그 전용 CC 고지 없음]",
+        "caveat": "★ World Bank 의 CC BY 4.0 은 Open Knowledge Repository(발행물)에 붙는 것이고, blogs.worldbank.org 는 사이트 일반 약관(비상업)을 따른다. 「세계은행 = CC BY」 로 뭉뚱그리면 안 된다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "데이터 해설",
+        "slots_filled": [
+          "도표"
+        ],
+        "slot_demand_sum_pct": 3.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "도표": {
+            "demand_pct": 3.6,
+            "words_median": 133,
+            "pn_per_100": 5.13,
+            "pn_zero_pct": 17.2
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "★ 257어에 증감률만으로 된 도표 기술문 — 도표 유형(중앙 133어)에 형태가 가장 가깝다. 그런데 라이선스가 비상업이다.",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 257,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.207,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 5,
+          "school_paragraph": 2,
+          "csat_short": 1,
+          "csat_long": 0
+        },
+        "proper_nouns": {
+          "count": 62,
+          "per100": 24.12
+        },
+        "numbers": {
+          "numbers_per_100w": 6.61,
+          "date_tokens": 5
+        },
+        "bullet_line_pct": 2.2
+      }
+    },
+    {
+      "id": "WV-01",
+      "title": "Kyoto (travel guide)",
+      "host": "en.wikivoyage.org",
+      "access": {
+        "url_fetched": "https://en.wikivoyage.org/w/index.php?title=Kyoto&action=raw",
+        "landing_url": "https://en.wikivoyage.org/wiki/Kyoto",
+        "http_status": 200,
+        "final_url": "https://en.wikivoyage.org/w/index.php?title=Kyoto&action=raw",
+        "elapsed_ms": 715,
+        "user_agent": "Vocaflow/1.0 (https://vocaflow.app; hello@vocaflow.app) source-pilot",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "Wikivoyage 대표 도시 기사 1편",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "Page footer: rel=\"license\" https://creativecommons.org/licenses/by-sa/4.0/ · \"Text is available under the Creative Commons Attribution-ShareAlike License\" · 같은 문서에 \"This article is partly based on Creative Commons Attribution-ShareAlike 3.0 Licensed\" 이 함께 있다.",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "license_class": "cc_by_sa",
+        "statutory_basis": null,
+        "per_document_license_notice": true,
+        "author": "Wikivoyage contributors",
+        "year": null,
+        "source_url": "https://en.wikivoyage.org/wiki/Kyoto",
+        "route": "R2",
+        "is_original_supply": false,
+        "evidence": "[측정: https://en.wikivoyage.org/wiki/Kyoto 2026-09-24 HTTP 200 · footer grep]",
+        "caveat": "SA 는 개작물을 같은 라이선스로 공개해야 한다 — 유료 교재와 양립 불가. criteria G0-2 에 따라 재저작 입력으로만 쓴다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "실용문(여행 안내)",
+        "slots_filled": [
+          "안내문 일치",
+          "심경·분위기"
+        ],
+        "slot_demand_sum_pct": 10.6,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          },
+          "심경·분위기": {
+            "demand_pct": 3.5,
+            "words_median": 122,
+            "pn_per_100": 2.26,
+            "pn_zero_pct": 7.1
+          }
+        },
+        "year_recorded": null,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "「Understand」 는 분위기 묘사, 「Get in / See / Sleep」 은 요금·시간·주소를 담은 안내문이다. 한 문서가 두 유형을 낸다 [측정: 전문 읽음]. 목록 줄 비율 16.2% 로 표본 중 최고 — 산문화 비용이 든다.",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 8366,
+        "latin_ratio": 0.996,
+        "function_word_ratio": 0.34,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 255,
+          "school_paragraph": 46,
+          "csat_short": 45,
+          "csat_long": 22
+        },
+        "proper_nouns": {
+          "count": 892,
+          "per100": 10.66
+        },
+        "numbers": {
+          "numbers_per_100w": 1.77,
+          "date_tokens": 22
+        },
+        "bullet_line_pct": 16.2
+      }
+    },
+    {
+      "id": "PC-01",
+      "title": "Fees — Banff National Park",
+      "host": "parks.canada.ca",
+      "access": {
+        "url_fetched": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+        "landing_url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+        "http_status": 200,
+        "final_url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+        "elapsed_ms": 1027,
+        "user_agent": "Vocaflow-source-pilot/1.0 (+contact killerapp51@empal.com)",
+        "fetched_at": "2026-09-23",
+        "note": "UA 는 신원을 밝히는 문자열만 썼다. 브라우저 사칭 없음."
+      },
+      "sampling": {
+        "how_chosen": "캐나다 국립공원 요금 페이지 1편 — 「정부=PD」 가 미국 밖에서도 성립하는지 보려고 넣었다",
+        "unit": "원천(문서) 1건"
+      },
+      "g0": {
+        "license_raw": "Canada.ca Terms: \"Non-commercial reproduction — Unless otherwise specified you may reproduce the materials in whole or in part for non-commercial purposes ... without charge or further permission\" · \"To obtain permission to reproduce any content owned by the Government of Canada available on this site for commercial purposes, please contact the institution responsible\"",
+        "license_url": "https://www.canada.ca/en/transparency/terms.html",
+        "license_class": "non_commercial",
+        "statutory_basis": null,
+        "per_document_license_notice": false,
+        "author": "Parks Canada (Banff National Park)",
+        "year": 2026,
+        "source_url": "https://parks.canada.ca/pn-np/ab/banff/visit/tarifs-fees",
+        "route": "R3",
+        "is_original_supply": false,
+        "evidence": "[측정: lic/canada.html 2026-09-24 HTTP 200]",
+        "caveat": "★ 「정부 자료 = 자유롭게 쓸 수 있다」 는 미국에만 해당한다. 캐나다는 상업 복제에 서면 허가가 필요하다.",
+        "verdict": "pass",
+        "fail_reason": null
+      },
+      "g1": {
+        "genre": "실용문(요금 안내)",
+        "slots_filled": [
+          "안내문 일치"
+        ],
+        "slot_demand_sum_pct": 7.1,
+        "deficit_weight": 1,
+        "slot_targets": {
+          "안내문 일치": {
+            "demand_pct": 7.1,
+            "words_median": 91,
+            "pn_per_100": 15.63,
+            "pn_zero_pct": 0
+          }
+        },
+        "year_recorded": 2026,
+        "dated_event": false,
+        "event_last_date": null,
+        "expired_as_of_2026_09_24": false,
+        "structure_note": "★ 요금이 전부 <table> 안에 있어 평문 추출에 「얼마」 가 한 건도 안 남았다 [측정: docs/PC-01.txt 에 가격 숫자 없음]. 안내문의 필수 정보가 마크업에 갇힌 사례.",
+        "verdict": "pass"
+      },
+      "g3": {
+        "words": 395,
+        "latin_ratio": 1,
+        "function_word_ratio": 0.248,
+        "english_verdict": "english",
+        "window_yield": {
+          "school_sentence": 10,
+          "school_paragraph": 3,
+          "csat_short": 3,
+          "csat_long": 1
+        },
+        "proper_nouns": {
+          "count": 84,
+          "per100": 21.27
+        },
+        "numbers": {
+          "numbers_per_100w": 4.05,
+          "date_tokens": 3
+        },
+        "bullet_line_pct": 1.7
+      }
+    }
+  ],
+  "rollup": {
+    "sampled": 20,
+    "g0_pass": 19,
+    "g0_fail": 1,
+    "route_R0": 10,
+    "route_R1": 6,
+    "route_R2": 1,
+    "route_R3": 2,
+    "route_R4_or_unverified": 1,
+    "original_supply_R0_R1": 16,
+    "g3_english_pass": 20,
+    "slots_covered": {
+      "안내문 일치": 7,
+      "도표": 4,
+      "내용 일치(글)": 4,
+      "심경·분위기": 0,
+      "글의 목적": 4
+    },
+    "csat_short_windows_from_R0_R1": 134
+  },
+  "verdict": {
+    "question": "결손 1위 칸(B 무리 · 수요 21.1% · 상업 가능 재고 11편)을 실제로 채울 수 있는가",
+    "answer": "yes_for_4_of_5_types",
+    "detail": [
+      "안내문 일치 · 글의 목적 · 내용 일치(글) · 도표 넷은 R0·R1 원천으로 채울 수 있다. 심경·분위기는 이 표본에서 R0·R1 원천을 하나도 못 찾았다.",
+      "공급량의 하한선은 측정된 값만으로도 재고 11편을 세 자릿수 배로 넘는다 — Federal Register 회의 공고 206편/90일 · gov.uk 보도자료 840편/90일 · gov.uk 안내 25,283편(전체) · NPS 요금 페이지는 표준 틀(표본 16/16).",
+      "다만 「원문 확보」는 R0·R1 만이다. 표본 20편 중 R0 10편 · R1 6편 = 16편이 원문 확보 경로이고, R2 1편(Wikivoyage) · R3 2편(World Bank 블로그 · Parks Canada) · G0 탈락 1편(climate.gov)이다.",
+      "가공 비용은 「경」이 0건이다. 목표 어수(91~136)가 원천(175~8,366어)보다 훨씬 짧아 삭제율이 55~75% 다. 값싼 슬롯은 아니지만, 가공 자체는 3/3 성공했다."
+    ],
+    "blockers": [
+      "심경·분위기(수요 3.5%) — 기관 발행 PD/CC-BY 원천은 인물의 내면을 쓰지 않는다. 이 표본 안에서 후보는 Wikivoyage 「Understand」 절뿐이고 그건 R2(재저작)다.",
+      "「얼마·언제」가 <table> 안에 갇힌 요금 안내가 있다(PC-01 은 가격이 평문에 0건, NPS-01 은 일부). 안내문 유형을 쓰려면 표 추출기가 먼저 필요하다.",
+      "climate.gov 는 목적 적합도가 높은데 라이선스 조문을 읽을 수 없어 탈락했다(noaa.gov disclaimer HTTP 403)."
+    ],
+    "next_if_approved": [
+      "Federal Register 회의 공고 → 안내문 일치. API 가 구조화돼 있어 DATES/ADDRESSES/CONTACT 를 필드로 뽑을 수 있다. 날짜·기관명은 G2 에서 가상화한다(지난 행사 64.3%).",
+      "gov.uk press_release → 내용 일치(글)·글의 목적. OGL v3 표기 문구를 정해 두어야 한다.",
+      "Eurostat Statistics Explained + OWID → 도표. 두 곳 다 「EU 외 데이터」·「제3자 데이터」 제외 조항이 있으니 기사 단위로 확인한다.",
+      "NPS 요금·시간 페이지 → 안내문 일치. 표 추출을 먼저 만든다.",
+      "심경·분위기는 이 축에서 풀리지 않는다 — C 무리(서사) 파일럿과 합쳐서 따로 본다."
+    ]
+  },
+  "limits": [
+    "표본 20편은 무작위가 아니다. 목록 상위·유명 공원·「가장 많이 본 기사」에서 골랐다 — 각 원천의 평균 품질이 아니라 **좋은 쪽**을 봤을 가능성이 크다.",
+    "본문 추출기는 이 파일럿용으로 새로 쓴 것이라 저장소의 `source-doc-inspect.mts` 정제(STRIP·DROP_SENTENCE)를 거치지 않았다. NPS 는 .gov 배너·스킵링크 약 130어가 본문에 섞여 있어 어수와 고유명사 밀도가 실제보다 높다 [측정: docs/NPS-01.txt 머리].",
+    "<table> 을 통째로 버렸다. 요금·시간표가 표에 있는 원천(PC-01 전부 · NPS 일부 · ESTAT 의 Table n)은 핵심 수치가 빠진 상태로 측정됐다.",
+    "「날짜가 지난 행사 안내의 비율」은 Federal Register 한 곳에서만, 그것도 제목·초록으로 날짜를 읽을 수 있었던 42/206 건에 대해서만 쟀다. 나머지 164건은 판정 불가다. 다른 원천(NPS·gov.uk)에 대해서는 못 쟀다.",
+    "G2 가공은 3편이다. 수정량 45.6~69.2% 라는 폭은 3개 표본의 것이지 원천 일반의 것이 아니다.",
+    "심경·분위기 유형의 후보였던 Global Voices 를 받지 못했다(연결 타임아웃). 이 유형에 대한 판정은 **못 한 것**이지 「불가」로 잰 것이 아니다.",
+    "Library of Congress · Smithsonian · NPS Data API 는 403 이라 안을 못 봤다. UA 사칭으로 우회하지 않았다.",
+    "법률 판단은 하지 않았다. 각 원천의 조문 원문과 URL 을 적어 두었을 뿐이다 — 특히 CDC 가 명시한 「미국 밖에서는 타국 저작권법이 적용될 수 있다」와 Eurostat 의 제외 조항은 사용자 판단 대상이다.",
+    "DB 를 읽지도 쓰지도 않았다. 재고 11편·수요 21.1% 는 demand-model.md 에 적힌 값을 그대로 인용한 것이다."
+  ]
+}

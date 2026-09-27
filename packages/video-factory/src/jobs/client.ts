@@ -51,17 +51,35 @@ let disabled = false
 /** 큐 기록 한 번에 허용하는 시간. 넘으면 그 실행 동안 기록을 끈다. */
 const JOB_TIMEOUT_MS = 8_000
 
+/** `apps/web/.env.local` 을 process.env 로 읽는다(이미 있는 값은 덮지 않는다). */
+export function loadRepoEnv(): void {
+  const envPath = path.join(REPO, 'apps/web/.env.local')
+  if (!fs.existsSync(envPath)) return
+  for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
+    if (m && m[1] && !process.env[m[1]]) process.env[m[1]] = m[2]!.replace(/^['"]|['"]$/g, '')
+  }
+}
+
+/**
+ * **조용히 넘어가지 않는** service_role 클라이언트 — 요청 드레인용.
+ * 큐 기록(아래 db())은 곁가지라 없으면 건너뛰지만, 요청 드레인은 DB 가 본 작업이다.
+ */
+export function requireServiceClient(): SupabaseClient {
+  loadRepoEnv()
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY
+  if (!url || !key) {
+    throw new Error('NEXT_PUBLIC_SUPABASE_URL · SUPABASE_SERVICE_ROLE_KEY 가 없다 (apps/web/.env.local)')
+  }
+  return createClient(url, key, { auth: { persistSession: false } })
+}
+
 /** service_role 로만 쓴다 — RLS 를 우회해야 로컬 스크립트가 쓸 수 있다. */
 function db(): SupabaseClient | null {
   if (client !== undefined) return client
 
-  const envPath = path.join(REPO, 'apps/web/.env.local')
-  if (fs.existsSync(envPath)) {
-    for (const line of fs.readFileSync(envPath, 'utf8').split('\n')) {
-      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
-      if (m && m[1] && !process.env[m[1]]) process.env[m[1]] = m[2]!.replace(/^['"]|['"]$/g, '')
-    }
-  }
+  loadRepoEnv()
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !key) {

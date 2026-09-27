@@ -3,7 +3,9 @@
 //
 // 워크트리 쓰기 잠금 — 같은 워크트리를 두 에이전트가 동시에 쓰지 않게 한다(A5).
 //
-//   node agents/scripts/lock.mjs acquire <agent> [--pid N]   # 잡기. 남이 살아서 쥐고 있으면 exit 3
+//   node agents/scripts/lock.mjs acquire <agent> [--pid N] [--force]
+//       잡기. 남이 살아서 쥐고 있으면 exit 3 — **이름이 같은 다른 세션도 남이다**(DD-53 보완).
+//       같은 pid 의 재획득만 갱신이다. --force 는 사용자가 인수를 지시한 경우만.
 //   node agents/scripts/lock.mjs release <agent> [--force]   # 놓기. 남의 잠금이면 exit 3 (--force 는 사용자 지시 시만)
 //   node agents/scripts/lock.mjs status                      # 보기 (항상 exit 0)
 //
@@ -82,18 +84,31 @@ export function state(lock) {
   return 'held'
 }
 
-export function acquire(agent, pid) {
+export function acquire(agent, pid, force = false) {
   const cur = read()
   const st = state(cur)
-  if (st === 'held' && cur.agent !== agent)
+  if (st === 'held' && cur.agent !== agent && !force)
     return { ok: false, code: 3, msg: `잠금 중: ${cur.agent} (pid ${cur.pid}, ${cur.branch}, ${cur.started_at}) — 읽기 전용으로만 일할 것` }
+  // ⚠️ **이름이 같다고 같은 세션이 아니다.** 옛 판은 `cur.agent === agent` 면 무조건 갱신해서,
+  //    claude 세션 둘이 같은 워크트리를 동시에 쓰는 것을 잠금이 **허용**했다(2026-09-20 실측:
+  //    pid 21452 가 main 에서 쥐고 있는 잠금을 pid 5772 가 그대로 가져갔다). DD-53 보완.
+  //    pid 가 다르고 그 pid 가 살아 있으면(또는 다른 호스트라 확인할 수 없으면) 거부한다.
+  //    죽은 pid 는 state() 가 이미 'orphan' 으로 돌려 자동 해제되므로 여기 오지 않는다.
+  if (st === 'held' && cur.agent === agent && cur.pid !== pid && !force)
+    return {
+      ok: false,
+      code: 3,
+      msg:
+        `잠금 중: 같은 이름의 **다른 세션** ${cur.agent} (pid ${cur.pid}, ${cur.branch}, ${cur.started_at}) 이 살아 있다 — 읽기 전용으로만 일할 것.\n` +
+        `병행하려면 \`pnpm wt new <suffix>\` 로 워크트리를 따로 쓴다. 사용자가 인수를 지시했으면 --force.`,
+    }
   const notes = []
   if (st === 'orphan') {
     notes.push(`고아 잠금 해제: ${cur.agent} pid ${cur.pid} (${cur.started_at})`)
     fs.rmSync(LOCK_FILE, { force: true })
   } else if (st === 'held') {
-    fs.rmSync(LOCK_FILE, { force: true }) // 같은 에이전트의 재획득 = 갱신
-    notes.push('같은 에이전트 — 잠금 갱신')
+    fs.rmSync(LOCK_FILE, { force: true })
+    notes.push(cur.pid === pid ? '같은 세션 — 잠금 갱신' : `사용자 지시(--force) 로 인수: ${cur.agent} pid ${cur.pid}`)
   }
   const lock = { agent, pid, host: os.hostname(), branch: currentBranch(), started_at: new Date().toISOString() }
   try {
@@ -123,7 +138,7 @@ function main() {
   let r
   if (cmd === 'acquire' && agent) {
     const pid = flag('--pid') ? Number(flag('--pid')) : (findAgentPid(agent) ?? process.ppid)
-    r = acquire(agent, pid)
+    r = acquire(agent, pid, process.argv.includes('--force'))
   } else if (cmd === 'release' && agent) {
     r = release(agent, process.argv.includes('--force'))
   } else if (cmd === 'status') {

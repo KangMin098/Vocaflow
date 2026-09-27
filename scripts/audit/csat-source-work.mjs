@@ -14,12 +14,21 @@ export function discoverWork(row, result, cache, cacheDrift) {
   const work = []
   if (cacheDrift) work.push('cache_refresh')
   if (cache?.quality_flags?.length) work.push('quality_review')
-  const excluded = result.contentStatus === 'rejected' || result.blockers.some(x => ['base_legal', 'base_safety', 'harmful_genre', 'cefr_above_band', 'base_format'].includes(x))
+  // ⚠️ **길이는 원문 적격의 축이 아니다**(2026-09-23 사용자 결정). 원문에서 지문을 뜨는 것은
+  //    교재 생성 단계의 별도 공정이고, 그 공정은 유형마다 다른 창을 쓴다(`compose-unit.itemWordSpec`:
+  //    문장 6~40 · 학교 문단 40~200 · 수능 90~200 · 장문 260~400). 수능 창 하나로 원문을 거르면
+  //    나머지 유형의 재료가 사라진다 — 실측 2026-09-23: 장문 창에 자르지 않고 그대로 맞는 22,209편이
+  //    `excerpt-blind` 였고, 학교 문단 창에 맞는 108편이 하한 100어에 걸려 영구 탈락해 있었다.
+  //    그래서 `base_format` 도 `excerpt_not_materialized` 도 **더 이상 차단으로 오지 않는다.**
+  //    발췌 대기분을 세는 축은 이제 `excerptStatus` **관찰값** 하나다(상한 초과면 candidate/missing).
+  const hardBlockers = ['base_legal', 'base_safety', 'harmful_genre', 'cefr_above_band']
+  const excluded = result.contentStatus === 'rejected' || result.blockers.some(x => hardBlockers.includes(x))
   if (!excluded && result.analysisStatus !== 'complete') work.push('analysis_repair')
   if (excluded) work.push('policy_exclusion')
   // Do not spend judgment/generation on sources already excluded by stable policy.
   if (!excluded && result.contentStatus === 'unjudged') work.push(row.gate?.purpose === 'raw' ? 'raw_extraction' : 'content_judgment')
-  if (!excluded && result.contentStatus === 'accepted' && result.blockers.includes('excerpt_not_materialized')) work.push('excerpt_materialization')
+  if (!excluded && result.contentStatus === 'accepted' &&
+    (result.excerptStatus === 'missing' || result.excerptStatus === 'candidate')) work.push('excerpt_materialization')
   return work
 }
 

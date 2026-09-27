@@ -1,0 +1,1058 @@
+[
+ {
+  "id": "abf0652f-934c-4118-ac31-05ca8fe9f5e7",
+  "source_updated_at": "2026-09-25T07:12:54.383474+00:00",
+  "body_sha256": "5abdf6aadfbc0cdd53d00a270a988483c4d601ec0eb510439fdf089a02fc35c7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "Indigenous 의 두 뜻(인권 개념 대 토착주의)을 대비하고 발칸·서유럽 사례로 「먼저 온 자」 논리를 비판하는 논증이 끝 단락 결론까지 서서 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "An important distinction is easily lost",
+   "note": "국제 인권 용법의 정의 단락은 앞 문맥 없이 서지만 autochthony·marginalization 같은 낱말은 바꿔도 V6 아래로는 잘 안 내려간다."
+  }
+ },
+ {
+  "id": "ad35d367-7853-4359-a7e5-d689233b9fde",
+  "source_updated_at": "2026-09-25T07:11:35.972624+00:00",
+  "body_sha256": "4212914c346db14aa843c8d6af40838ecf251ccae0778e6ac375847ee6b85317",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "카사블랑카 라이브 음악 산업의 역사·장르 요구·팁 기반 보수의 불안정을 음악가 인터뷰로 엮어 산업 성장과 노동 조건의 간극이라는 요지가 서고 내용일치·요지 칸이 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Working conditions for musicians animating Casablanca’s",
+   "note": "팁 기반 보수 단락은 고유명사를 걷어도 선다; precarious·opaque 를 unstable·unclear 로 바꾸면 V5 쪽으로 내려간다."
+  }
+ },
+ {
+  "id": "afd43476-eb70-4113-8843-3841b5106d55",
+  "source_updated_at": "2026-09-25T07:11:15.780283+00:00",
+  "body_sha256": "fa2c1e4cf02f5cf75b06444c02107e82a7a42ec4884c4327ccf1e54cc08b43c8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "아르메니아 기자가 디지털 폭력이 「돌봄으로 위장한 통제」·침묵의 경제로 작동한다고 논하는 1인칭 에세이로, 통념 뒤집기 단락이 주제·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "People often imagine digital violence as",
+   "note": "통념(해킹)→실제(일상 속 통제) 구조가 한 단락에 있어 떼기 쉽고 surveillance·normalized 두어 개만 바꾸면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "b355125a-1b38-42a4-b1b8-72030d5f4acd",
+  "source_updated_at": "2026-09-25T07:13:10.34682+00:00",
+  "body_sha256": "d0bec60ac4f0ca93aa48c13b7492be81850f870ab4b69e1f8ac3e0d208f9f87f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "베네수엘라 지진 뒤 실종 가족을 찾는 어머니·딸의 사연을 시간순으로 따라가는 르포로, 수색을 떠맡은 여성들 단락과 인물 심경이 심경·내용일치 칸을 채운다; 죽음 소재라 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "mood",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mothers, daughters, wives, nieces, cousins. In",
+   "note": "수색을 여성이 떠맡는다는 단락은 인물명 없이 서고 disproportionate 만 바꾸면 V5 로 내려간다."
+  }
+ },
+ {
+  "id": "b5c09b99-fc70-4a2a-9bab-8284adb866cf",
+  "source_updated_at": "2026-09-25T07:12:36.5497+00:00",
+  "body_sha256": "01dc4e2da7996641cf79661b60c1a9050ec9d4b6ddcc58cc709ec5174d74cc8d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "모잠비크에서 법적 처벌이 없다는 것이 관용을 뜻하지 않는다는 통념 반박을 교육·경제·보건·디지털 영역으로 나눠 논증해 주제·요지·요약 칸이 선다; 소재상 고3·성인.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The experiences of trans people and",
+   "note": "결론 단락은 떼어도 서지만 precariousness·heteronormative 류 추상어가 많아 어휘 조정으로 크게 내려가진 않는다."
+  }
+ },
+ {
+  "id": "bbdc87ee-d995-4bf9-bb9b-09bb3dc752b7",
+  "source_updated_at": "2026-09-25T07:13:35.361163+00:00",
+  "body_sha256": "6fcc19e7e2ad54e39c048a17eca55ab3b07bcbf88705c4a87b37329c702fe85f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "language",
+  "why": "나이지리아 캄어 기록 사업을 언어학자 인터뷰로 전하며 「언어 소멸은 쓰임 맥락의 소멸」이라는 답변 단락이 요지·빈칸 칸을, 원격 훈련 전환 과정이 순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "main_point",
+    "blank",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Language loss is never just about",
+   "note": "농사 맥락 예로 논지가 한 단락에 서고 centralized·vanish 정도만 바꾸면 V5 이하로 내려간다; 공동체원 인용의 「white man」 표현은 가공 때 걷어낸다."
+  }
+ },
+ {
+  "id": "bd3b3003-860d-4e46-96bc-de97c53063e0",
+  "source_updated_at": "2026-09-25T07:11:11.756117+00:00",
+  "body_sha256": "952c4aabb268ddfd2dd71a360f1d7ab450a1c7051355b87a2dc41cbcb30c3b10",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "토착 문화의 상품화를 오악사카 결혼 패키지·텍스타일 표절·과테말라 집단 지식재산 입법 운동으로 논증해 주장·요지 칸을 채운다; 스페인어 원문 인용 블록은 가공 때 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Spiritual ceremonies get restaged for tourists.",
+   "note": "세 가지 추출 방식 나열 단락이 앞 문맥 없이 서고 co-opt·annex 를 use·take 로 바꾸면 V5~6 이 된다."
+  }
+ },
+ {
+  "id": "be56b102-a5d2-4602-84e6-f458a43e504f",
+  "source_updated_at": "2026-09-25T07:11:12.979009+00:00",
+  "body_sha256": "81ec28699d74fcd5d5a65176cd56c66c2b451092ad2b51a31231bf2bca951ae4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "인도·방글라데시 국경 「푸시인」 관행을 한 사람의 사건→지역별 집계→두 선거의 영향으로 짜서 논지가 서며 내용일치·요지 칸이 된다; 정치 소재라 고3·성인.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The two elections, arriving back-to-back, reshaped",
+   "note": "선거 두 번이 국경을 바꿨다는 단락은 서지만 지역별 인원 수치 단락은 나열이라 떼면 흐름이 없다."
+  }
+ },
+ {
+  "id": "c423a259-c933-4492-b1b9-cd786a4da8cf",
+  "source_updated_at": "2026-09-25T07:12:52.369412+00:00",
+  "body_sha256": "9ee6e5af7351c2dd277b43a8e3d00d5e43b2e3f09104348de74371c374ea997d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "education",
+  "why": "북마케도니아 학생 매체가 인스타그램 제보를 익명 플랫폼·데이터로 바꿔 구조적 문제를 드러내는 과정을 설명해 주제·순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V4",
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The platform seeks to create a",
+   "note": "개별 사례를 측정 가능한 추세로 바꾼다는 단락이 짧고 자족적이며 categorized·anecdotes 만 바꾸면 V4 까지 내려간다."
+  }
+ },
+ {
+  "id": "c78b0373-f4a7-41ee-9ca2-fc7b19f7b32f",
+  "source_updated_at": "2026-09-25T07:12:43.089542+00:00",
+  "body_sha256": "b71354750d4f1c441a8926d4e771d048d6a5154b99b56862236a5458adaf7664",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "코소보 온라인 댓글 625건 분석으로 성차별 혐오 발언이 여성의 공적 정당성을 박탈하는 담론 기능을 한다는 결론을 세워 요지·요약 칸을 채운다; 비속어 목록 단락은 가공 때 걷어내고 성인 칸만.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The dataset reveals that misogyny in",
+   "note": "네 가지 서사 정리 단락은 비속어 없이 서지만 delegitimization·misogyny 같은 핵심어는 바꾸기 어렵다."
+  }
+ },
+ {
+  "id": "ca9d96f0-dde3-4e2c-b820-5f224d621f54",
+  "source_updated_at": "2026-09-25T07:12:21.445711+00:00",
+  "body_sha256": "2c0fa9a7b85276f237b5b3254f25e0b15aa7af840861af3d90793337d775e094",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "지진 뒤 대피소 영유아의 트라우마·영양 공백을 아이 사례와 전문가 설명으로 엮고 「어린아이는 모른다」는 통념을 반박하는 단락이 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In the shelters scattered around Caracas",
+   "note": "통념→사회복지사의 반박이 한 단락에 있어 떼기 쉽고 dispels 를 corrects 로 바꾸면 V5 가 된다."
+  }
+ },
+ {
+  "id": "cdd4ff91-2805-4de5-a105-c164a03a649a",
+  "source_updated_at": "2026-09-25T07:12:33.575538+00:00",
+  "body_sha256": "033a475f51d404dac0902397de22f242e86a230b13ef7ca7a58314dc57200752",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "앞 다섯 단락은 시위가 민주주의의 권리이며 탄압이 쇠퇴의 신호라는 짧은 논설로 서서 주제·주장 칸이 되고, 뒤쪽 후원 금액 목록은 잔재라 가공 때 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Often the curtailing of peaceful protest",
+   "note": "방글라데시·인도네시아 사례 뒤 결론 단락이 서고 curtailing 을 limiting 으로 바꾸면 V6 이하로 내려간다; 후원 안내 절은 버린다."
+  }
+ },
+ {
+  "id": "cfa5bdf2-1e02-4cc7-99c1-449c663b4292",
+  "source_updated_at": "2026-09-25T07:12:18.637753+00:00",
+  "body_sha256": "cbc453de79591a8c1b111e7b1822272a4958620ea684fbd97b273dc31dcc7632",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "콩고 루알라바 구리·코발트 광산 오염을 독립 연구 결과(미세먼지·수질)와 주민 증언으로 제시해 「녹색 전환의 대가」라는 요지와 수치 내용일치 칸이 선다; 프랑스어 인용은 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The DRC is often hailed as",
+   "note": "녹색 전환의 핵심국이라는 평판과 오염 실태 대비가 한 단락에 서고 hailed·contamination 을 바꾸면 V5~6 이다."
+  }
+ },
+ {
+  "id": "d09555e8-8ec8-4ead-bdee-68bdddb17557",
+  "source_updated_at": "2026-09-25T07:12:20.127392+00:00",
+  "body_sha256": "e4a542599344dafcce63bbc7c2509e0fc1f667faf4d60862ee5f9afdf15cded2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아이티 중부 주의 평화→갱단 공격→이주민 이전 사업을 시간순으로 전하고 이주민 증언이 이어져 순서·내용일치 칸을 채운다; 성폭력·처형 언급이 있어 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Before 2023, this department was known",
+   "note": "평화로웠던 지역이 공격받기 시작한 경위 단락이 시간순으로 서고 infiltration 만 바꾸면 V5 다."
+  }
+ },
+ {
+  "id": "d2f6c276-3979-4362-8fd2-d6dbd819596b",
+  "source_updated_at": "2026-09-25T07:12:58.227878+00:00",
+  "body_sha256": "454c073e73eefdd5b5ef56ac76a263db66003ac16e4ad7b4e82a2f602a14e614",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "파키스탄 트랜스젠더 남성이 모스크를 지은 뒤 겪은 괴롭힘을 법 개정·통계·종교학자 찬반과 엮어 정체성과 생계 중 무엇이 문제인가를 묻는 기사로 요지·내용일치 칸이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When Ali began constructing his mosque",
+   "note": "착공→도난·괴롭힘→중단→완공의 흐름이 한 단락에 있어 장문 지칭 재료가 되고 어휘는 이미 V5 에 가깝다."
+  }
+ },
+ {
+  "id": "d5d76511-76ca-445b-bad3-629d388eda23",
+  "source_updated_at": "2026-09-25T07:13:16.444659+00:00",
+  "body_sha256": "711c2ac88dd577213f45e3de70de12e44023b31c49fec4801175a25b033fca28",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "탄자니아 마사이의 반복된 강제 이주를 「녹색 수탈」로 규정하고 보전은 사람 중심이어야 한다는 주장과 다섯 가지 해법까지 논지가 서서 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "For development to be peaceful, the",
+   "note": "보전이 중요한가가 아니라 어떻게 하느냐가 문제라는 단락이 자족적이고 militarized 만 바꾸면 V6 이하다."
+  }
+ },
+ {
+  "id": "d5da7c8a-1e88-43da-b1ff-7efac9957ebc",
+  "source_updated_at": "2026-09-25T07:13:04.560516+00:00",
+  "body_sha256": "d797899c4619d2d5eed6c7d01eb9733c234197b09f5a8be8270f7435ee0a8915",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "art",
+  "why": "레바논계 영국 작가 인터뷰로 「고통의 직접 이미지는 반응을 닫는다」는 예술관과 매체 선택의 논리가 답변마다 서서 주제·요지·빈칸 칸이 된다; 작품 캡션 행들은 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The direct image of suffering does",
+   "note": "직접 이미지가 감정을 곧 닫는다는 단락은 짧고 자족적이지만 추상적 사유라 어휘를 바꿔도 V6 아래로 안 내려간다."
+  }
+ },
+ {
+  "id": "d6e1c561-8bc8-4ea4-bfd4-46194c665eb7",
+  "source_updated_at": "2026-09-25T07:11:14.295535+00:00",
+  "body_sha256": "96fbe6fa5a005eaa8b52585f006c8e16e7f5f41f3660b5686e2c9c3793aaa382",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "헝가리 티서당의 승리를 심리 전환·지역 조직·데이터·메시지 순으로 분석해 세르비아 학생 운동에 교훈을 도출하는 긴 논설로 요지·요약·순서 칸을 채운다; 정치 소재라 고3·성인.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "summary",
+    "order",
+    "title"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "But the chronology is important. Tisza",
+   "note": "앱보다 공동체가 먼저였다는 단락은 고유명사를 빼도 서고 infrastructure 정도만 바꾸면 V6 이다."
+  }
+ },
+ {
+  "id": "dd2db74b-7750-4403-bfb6-cd4657a8c207",
+  "source_updated_at": "2026-09-25T07:13:44.409112+00:00",
+  "body_sha256": "705310b14c9349e147d8699462ff9eb8a240c8606190a568c39143915fa5848a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "memoir",
+  "why": "로힝야 청년이 열 살에 강을 건너 방글라데시 난민촌에 이르고 무국적 때문에 유학 기회를 잃은 과정을 시간순으로 회고해 장문·심경 칸이 된다; 학살 묘사가 있어 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "long_reference",
+    "mood",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In 2023, I got an opportunity",
+   "note": "유학 기회를 무국적 때문에 놓친 단락이 자족적이고 어휘는 V5 수준이다."
+  }
+ },
+ {
+  "id": "e2420873-5734-4bd0-adac-e80bd19a5cd8",
+  "source_updated_at": "2026-09-25T07:11:59.534663+00:00",
+  "body_sha256": "91b60cb60c78c13f1f218c218c51e9e044a6f80e7ef83b9995bbb9fa75057985",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "sports",
+  "why": "갱단 폭력으로 시설이 파괴된 아이티에서 U14 대표팀이 카리브 대회에서 우승한 사연을 통해 축구가 희망을 준다는 요지가 서고 내용일치·요지 칸이 된다; 학살 언급이 있어 고1 이상.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In Haiti, the sport of football",
+   "note": "계층을 섞는 축구의 사회적 역할 단락이 앞 문맥 없이 서고 cohesion 을 unity 로 바꾸면 V4~5 다."
+  }
+ },
+ {
+  "id": "e7914a10-492f-45b8-80f3-aed9b4601a3e",
+  "source_updated_at": "2026-09-25T07:13:20.983171+00:00",
+  "body_sha256": "676a14d810a6cebbb23d60a4a904ac492c7616be5d3c443221f52f9d247988bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "남아공 무국적 문제에 소송만이 아닌 공동체·클리닉·로펌의 「법적 생태계」가 필요하다는 주장을 행정적 불투명성 논거로 펼쳐 주장·요지·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "This is particularly important in citizenship",
+   "note": "배제가 관료제로 조금씩 만들어진다는 단락은 서지만 법률 어휘가 많아 V7 아래로는 어렵다."
+  }
+ },
+ {
+  "id": "e8b959bf-a4ce-4052-92d0-68f3ed70f0ec",
+  "source_updated_at": "2026-09-25T07:12:35.092787+00:00",
+  "body_sha256": "6b06aaa57262181d117a098eaaac710c45dc12c13c6d6d84cfb579b962e77d8b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "memoir",
+  "why": "아프가니스탄 소녀가 탈레반 집권 뒤 교육 문이 하나씩 닫힌 과정을 1인칭으로 회고하고 여성 교육이 사회의 미래라는 결론에 이르러 심경·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "school",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "mood",
+    "claim",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite this, I never gave up",
+   "note": "조산학 학원까지 닫힌 흐름이 시간순으로 서서 순서 문항이 되고 engulfed 같은 비유어만 바꾸면 V4 다."
+  }
+ },
+ {
+  "id": "ee274fb7-8a6d-4ed1-933d-e3a74c5b9eff",
+  "source_updated_at": "2026-09-25T07:13:08.819643+00:00",
+  "body_sha256": "4dc9fd82ab9ae875405cffb8463a112620bceacae4fd20c697fc4511d9efceb6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "호주 원주민 청소년 구금 과잉을 정부·유엔·단체 보고 수치로 제시하고 처벌 위주 정책이 실패했다는 주장을 세워 내용일치·주장 칸이 된다; 영상 안내 문장은 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "These reports argue strongly that harsh,",
+   "note": "결론 단락은 서지만 본문 상당수가 인용 수치라 수치를 걷으면 근거가 약해진다."
+  }
+ },
+ {
+  "id": "ee368fae-cf04-4943-bc14-7c12d6bd3458",
+  "source_updated_at": "2026-09-25T07:11:10.501901+00:00",
+  "body_sha256": "5a14c6c38c7cbace06d1d85eca70565cd62f23bee4df44e96ca7680ef9f1655f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "심해 채굴이 자메이카 어민에게 줄 위험을 과학적 불확실성·거버넌스·이익 배분으로 짚고 사전 예방 원칙을 주장해 주제·주장·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Even before mining begins, Simpson notes,",
+   "note": "해양 거버넌스 강화 필요 단락이 떼어져 서고 emphasises·governance 류만 바꾸면 V6 이하로 내려간다."
+  }
+ },
+ {
+  "id": "f202ed2b-1faf-4092-959a-436f0f2340f3",
+  "source_updated_at": "2026-09-25T07:12:17.036035+00:00",
+  "body_sha256": "2956fd75aa4676e8cb6c91c665fd2aa2e7dd7a9b1469df7b696d231a509bacca",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "중국 외동딸 세대의 독립이 출산율 하락의 원인이자 근대화 성공의 증거라는 역설을 세 여성 인터뷰로 논증해 주제·요지·빈칸 칸과 통념 뒤집기 구조를 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "title"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "China’s declining birthrate is often discussed",
+   "note": "경제 압박 설명을 깊은 변화로 뒤집는 단락이 자족적이고 overlook 정도만 바꾸면 V6 이다."
+  }
+ }
+]

@@ -1,0 +1,1877 @@
+[
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c1bab7e-7eef-4eee-ac9b-0b67ab54276f",
+    "revision": "2026-09-25T06:54:53.859818+00:00",
+    "body_sha256": "e21c839154f351054e376ca46278374936bc65625d634f9fb5ec425f2f2671d4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "나쁜 식단이 공격성·학업과 이어진다는 주장, 자판기 제거·학교 급식 실험 근거, 위약 대조 없음이라는 비판과 옥스퍼드 보완 연구가 고1~고2 주장-근거·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice",
+            "order",
+            "insert",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Critics have questioned some of Dr.",
+          "note": "셋째 단락은 「비판 → 보완 연구」 흐름이 떼어도 서고 placebo 만 풀면 V6."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.522Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/%22Junk%22_foods_may_affect_aggressive_behaviour_and_school_performance",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.36
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c1d699f-39e1-4df7-96fa-4fa9cad2fc37",
+    "revision": "2026-09-25T07:45:10.420576+00:00",
+    "body_sha256": "027a93888ca3bb7e7c044c6b7b2b332f1f957fae554105437c8691cd6e0336dd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "「종교는 선한 힘인가」 토론에서 블레어의 옹호와 히친스의 반박, 청중 표결 변화가 맞서 고3 주장·요지 칸을 채운다(교리를 사실로 제시하지 않는다).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Blair responded, \"I don't think we",
+          "note": "블레어 반론 단락은 「종교 이름의 편견이 곧 종교는 아니다」가 떼어도 서고 wholly owned subsidiaries 만 풀어 쓰면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.523Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tony_Blair_debates_religion_with_Christopher_Hitchens_in_Canada",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c2084cf-947b-4c69-8b14-7dccd8f55767",
+    "revision": "2026-09-25T07:10:45.494748+00:00",
+    "body_sha256": "766d4e6d93128e1968da7e14ee2ca3fd7ad367d6d8c9a70d9f5bbf151e37694b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "화물선이 두 동강 나 침몰 → 선원 전원 구조 → 연료유 290톤 유출 → 조류 보호구역 위협으로 두 단락이 이어져 중등~고1 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The entire 25-man crew was brought",
+          "note": "둘째 단락은 구조 → 유출 → 확산이 떼어도 서고 imminent 만 바꾸면 V4."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.524Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ship_accident_in_Norwegian_sea_causes_environmental_catastrophe",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.645,
+          "words": 124,
+          "english": 0.358
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c21a85c-81c5-4c80-9d99-50dea5dc9325",
+    "revision": "2026-09-25T06:59:37.66366+00:00",
+    "body_sha256": "07e473458c5557a98f4789651661f2b2d030090f692aff572691d9c67136e559",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "15세 배우의 성모 역 캐스팅과 오스카 최연소 후보 경력, 영화 줄거리·촬영 일정이 이어져 중등~고1 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nativity looks at the life of",
+          "note": "줄거리 단락은 떼어도 「신앙과 사랑의 시험, 나사렛 → 베들레헴」 내용이 서고 astrologers 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.524Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Keisha_Castle-Hughes_playing_Virgin_Mary",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.405,
+          "words": 148,
+          "english": 0.396
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c23ad31-46e1-4d11-9ac7-4da2a5b77a1f",
+    "revision": "2026-09-25T07:42:25.529035+00:00",
+    "body_sha256": "f3051f72214b10891ef67b2d8be825c292e2b837dd6dd77cea00be01cef791fd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "지메일에 붙인 소셜 서비스의 기능과 「정보 과부하를 알고리즘으로 줄인다」는 목적, 페이스북과의 경쟁 구도가 고1~고2 목적·내용 일치·시대 비교 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "purpose"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Google executives said that Buzz would",
+          "note": "정보 과부하 단락은 한 문장으로 목적이 서고 relevant 는 문맥으로 잡힌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.524Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Google_introduces_Google_Buzz",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.31
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c2ac89c-1e63-427a-967a-6877241857b3",
+    "revision": "2026-09-25T07:58:51.809915+00:00",
+    "body_sha256": "2630732ba417f09e6c682d60252fbfc56b6d6f185a60f5c76e316f22ae9d6246",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "1999년 실종된 17세 소녀 사건이 과학수사 발전으로 16년 만에 용의자 영장까지 이어진 경위가 고2 이상 순서·내용 일치 칸을 채운다(살인 소재).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Witnesses had seen 17-year-old Hayley walking",
+          "note": "실종 당일 단락은 떼어도 사건 발단이 서고 hitchhiking 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.524Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Western_Australia_police_close_in_on_murder_suspect%2C_arrest_warrant_issued",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.431
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c2d62ef-352e-4d18-8553-ce0ef916deb1",
+    "revision": "2026-09-25T06:57:17.446069+00:00",
+    "body_sha256": "a61d58043a1c6728d07bc3ad114f5f7e2e3fba2aaa7603ec8af0c2c08d870574",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "도서관 책 때문에 국토안보부가 찾아왔다는 학생의 거짓 주장이 널리 퍼졌다가 자백으로 드러난 경위가 고1~고2 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The story was first reported in",
+          "note": "둘째 단락은 최초 보도 → 확산 → 추정 동기가 떼어도 서고 disseminated 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.524Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Student_reveals_book_visit_a_hoax",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.477,
+          "words": 107,
+          "english": 0.425
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c2ef3f7-783a-4c52-9605-60ad972f47fc",
+    "revision": "2026-09-25T07:36:17.054026+00:00",
+    "body_sha256": "17350a0e5404c6e935e6cd04b1216398c38a3b58bb9ccc1fedebc746fdab1533",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "culture",
+        "why": "만화가의 콜롬비아 커피 풍자에 대한 소송 경위는 서지만 「In a statement Peters says:」 뒤 성명 본문이 통째로 빠져 있어 받은 본문이 중간에서 끊긴 상태다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In what the coffee growers association",
+          "note": "소송 단락은 떼어도 서지만 핵심인 작가 반론 인용이 비어 있어 원문을 다시 받아야 주장 칸을 확정할 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Too_Grimm%3F_Mother_Goose_cartoonist_sued_by_Colombian_coffee_growers",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.366
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c2ff683-6962-4a41-9b6e-877cda192b06",
+    "revision": "2026-09-25T05:31:06.40037+00:00",
+    "body_sha256": "bcec1ab29f17d6d1ed23eed29a2b7be4ab2993dfbc1c3fda60fd8cb5eef93880",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "폭풍 속 트롤선 조난 신호 → 교신 두절 → 수색기 출동과 강풍에 트럭이 넘어진 사망 사고가 이어져 고1~고2 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The UK Coastguard received an emergency",
+          "note": "둘째 단락은 시각별로 조난 경위가 떼어도 서고 beacon 만 풀면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Spanish_trawler_missing%2C_three_die_in_UK_as_storms_hit_northern_Europe",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c302473-2eea-475e-b1d3-bc62b055a7ba",
+    "revision": "2026-09-25T07:58:51.832403+00:00",
+    "body_sha256": "e7e3e1d9d4f6114650142493b6c2dde8adbe40fdb58d1777d497fd0745a44ea0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "상어 공격으로 서퍼가 숨진 뒤 보드 수거·종 확인·해변 폐쇄가 이어진 짧은 기사라 고2 이상 내용 일치 칸 하나를 채운다(신체 훼손 묘사가 있다).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The New South Wales Police Force",
+          "note": "경찰 성명 단락은 떼어도 대응이 서지만 두 다리를 잃었다는 묘사는 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Shark_attack_kills_Australian_surfer_off_Long_Reef_Beach%2C_Sydney",
+          "year": 2025,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.349,
+          "words": 126,
+          "english": 0.387
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c31a3d7-eb56-481e-9b52-2fe800ed1843",
+    "revision": "2026-09-25T07:34:30.570237+00:00",
+    "body_sha256": "3260959398b7918035e4cd8347a8560c3c0b90c7ae0c32d7c1c8bc945e355c74",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "여섯 중앙은행의 공동 달러 유동성 공급 발표와 그 직후 각국 증시 반등이 원인-결과로 이어져 고3 빈칸·수치 주장 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "At 0800 UTC, the Bank of",
+          "note": "둘째 단락은 「달러 부족 → 스와프 라인」 원리가 떼어도 서지만 지수 수치 단락은 가공 때 걷어 낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Markets_rally_as_world's_central_banks_infuse_cash",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c35b060-c202-48a0-a068-78784ff6de73",
+    "revision": "2026-09-25T07:01:43.639517+00:00",
+    "body_sha256": "af8c6e91cbfbe33500c235383dff0fd8f2711d69a225da558016fdd08124cf10",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "energy",
+        "why": "원자력은 경제성이 생기면 도입해야 한다는 재무장관의 주장(청정·저배출)과 야당의 「기후 무대응 은폐」·비용·안전 반론이 맞서 고2 이상 주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr Costello said that when nuclear",
+          "note": "코스텔로 단락과 알바니즈 마지막 단락을 짝으로 떼면 찬반이 서고 proliferation 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_treasurer_enters_nuclear_debate",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c391179-fd8c-4d36-92ea-7b6401ae285a",
+    "revision": "2026-09-25T07:05:13.290668+00:00",
+    "body_sha256": "616d803256692386c534ed40c5948aa3f216df58721646c609ca0cad69b61d4f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "news",
+        "why": "본문 절반이 알카에다 대변인의 개종 요구·서방 비난 선전 인용이고 기사 쪽 설명은 신원 확인 두 줄뿐이라 선동 인용이 글의 중심인지 경계에 있다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "A 41 minute long video, released",
+          "note": "첫 두 단락만 떼면 사실 보도는 서지만 인용을 걷으면 남는 것이 거의 없어 가공 경로가 애매하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Al-Qaeda_releases_new_videotape",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.416
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c3b638f-1497-4814-92b9-bef7d2912176",
+    "revision": "2026-09-25T07:50:30.193433+00:00",
+    "body_sha256": "1855f66627a7ebc76c7d5214a56da107fa9314346117bff2f0da8669e632aa2e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "sports",
+        "why": "1차전 무승부 → 주장 부상 교체 → 자책골 선제 → 골키퍼 선방 → 결승 진출로 경기 흐름이 이어져 중등~고1 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Manchester City held firm in the",
+          "note": "셋째 단락은 경기 흐름이 떼어도 서고 deflected·equaliser 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Real_Madrid_edge_Manchester_City_to_reach_fourteenth_European_Cup_Final",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.309
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c3c6ae6-b1b0-4abe-a1cc-c30c6b8fd8a4",
+    "revision": "2026-09-25T07:06:15.167923+00:00",
+    "body_sha256": "dcaf20c4d8fecb503ea68da080c471c61f15c291e1229bc7a26722f0337ccc80",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "예비선거 일정상 중요한 주에 대선 주자들이 몰리는 이유와 매케인·롬니의 후원금 대비, 줄리아니의 사회 쟁점 약점이 고3 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sen. John McCain (R-AZ) leads in",
+          "note": "둘째 단락은 후원금 비교가 떼어도 서지만 원문 중간 줄바꿈 잔재는 가공 때 잇는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/South_Carolina_attracting_Republican_hopefuls",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.275
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c4097ae-1d44-4d71-bd22-dd9fdcbcbb32",
+    "revision": "2026-09-25T07:50:57.143491+00:00",
+    "body_sha256": "5ab847417d31e9e23dc64c2c2893d4957035be46d977153e4893934c40fa727a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "제네바 평화회담 개막과 양측이 직접 대화하지 못한 첫날, 특사의 「실패하면 더 많은 죽음」 호소가 이어져 고2 이상 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "mood"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The two sides, however, failed to",
+          "note": "셋째 단락은 대화 불발 → 특사 호소가 떼어도 서고 sovereign 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Syrian_peace_talks_begin_in_Geneva",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.36
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c41ed2d-d414-4e3e-8bc6-fb48fb3e401b",
+    "revision": "2026-09-25T07:05:30.754111+00:00",
+    "body_sha256": "0cdfa654258e7d62f2c04d266e36815961989bcfd62373ca5ca3bb64381c6d83",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "장 출혈 수술로 카스트로가 동생에게 권력을 임시 이양한 경위와 혁명 이후 태어난 인구 70% 의 반응 불확실성이 고1~고2 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "President Fidel Castro of Cuba has",
+          "note": "첫 단락은 이양 이유와 인물 관계가 떼어도 서고 gastrointestinal 만 바꾸면 V5."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.525Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fidel_Castro_temporarily_hands_power_to_his_brother_Raul",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.263,
+          "words": 171,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c48eba4-f319-4816-a7a3-bf5633213104",
+    "revision": "2026-09-25T06:49:02.584223+00:00",
+    "body_sha256": "626ac67122104fcc4a55dd06caf5dd696d0ebe661f9b8513ed098c3506ed9724",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "해저 화산 분화로 증기 기둥과 붉게 변한 바닷물이 관측되고 1986년 이후 첫 분화라는 사실이 이어져 중등 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Japan's coastguard reported Sunday that an",
+          "note": "첫 단락은 위치 → 증기 관측이 떼어도 서고 plume 만 풀면 V4."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Underwater_volcano_erupts_in_Pacific_near_Japan",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.447,
+          "words": 94,
+          "english": 0.304
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c49de6b-4bd7-47e4-9292-c2f69b206fd6",
+    "revision": "2026-09-25T06:54:27.929412+00:00",
+    "body_sha256": "157065dc580c8ba703e12e79d1e42284d8d59cbb76832a97bec6c859842beeac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "순결 금령 해제 파티를 연 공주를 전통 감독관이 때린 사건과 「전통 의식을 지키려는 정당한 훈육」이라는 옹호가 대비돼 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"It was within the traditional overseer's",
+          "note": "옹호 발언 단락은 떼어도 전통과 개인의 충돌이 서고 chastity decree 만 풀면 된다(체벌 소재)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Swazi_princess_beaten_by_government_official_for_wild_party",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.556,
+          "words": 108,
+          "english": 0.324
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c4b221c-3ed9-4cd4-b6d6-8a3f1cab4abf",
+    "revision": "2026-09-25T07:50:39.053734+00:00",
+    "body_sha256": "52b6d6b4ed5664bf4208df43f220bcd3ba4e66deaac8ef4b762c1472469c4d40",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "영국 최대 기술 기업의 일본 매각 조건(주당 43% 할증·주주 승인)과 고용 약속, 브렉시트 이후 투자 매력을 강조한 정부 반응이 고3 내용 일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deal, worth £24 billion (US$32",
+          "note": "셋째 단락은 인수 조건이 떼어도 서지만 수치가 몰려 있어 가공 때 하나만 남긴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/ARM_to_be_bought_by_SoftBank",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c4b8535-56c1-4200-9984-0f51f32622e2",
+    "revision": "2026-09-25T08:38:04.02076+00:00",
+    "body_sha256": "d948265bfe8a805110af159f8da5a299ad47e2699dba580f46f2f776955e7200",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "여왕의 아일랜드 방문 전날 런던 폭탄 위협 경고와 공화파 소행 추정, 경계 수준 불변 발표가 이어져 고1~고2 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"A bomb threat warning has been",
+          "note": "경찰 성명 단락은 떼어도 「장소·시각 특정 안 됨」이 서고 어려운 낱말이 거의 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Police_warn_of_possible_bomb_threat_in_central_London",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.426,
+          "words": 129,
+          "english": 0.377
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c4c1306-a52a-4154-9a67-97566655abee",
+    "revision": "2026-09-25T07:04:42.664633+00:00",
+    "body_sha256": "3b31764d97b4d1903a05affa043510916b0e3761781c5d2ada6b26725259dd14",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "관광지 산불로 인명·산림 피해가 나고 해안 대피가 이어진 뒤 야당·언론의 정부 대응 비판과 정부 반박이 맞서 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "claim"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Referring to the fire on the",
+          "note": "파판드레우 단락은 비판과 반박이 떼어도 서고 coordinate 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Forest_fire_in_Chalkidiki_peninsula_causes_political_tension_in_Greece",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c4d5922-d2f8-4fef-b188-cd7b66a5a6d5",
+    "revision": "2026-09-25T07:47:18.785869+00:00",
+    "body_sha256": "4dd71e64a62778d1c1633621a67b2c794a89ec613076403515981a0a875c3c3b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "국경 협의 기구 합의와 1962년 전쟁 이후 영토·달라이 라마를 둘러싼 갈등 배경, 중국의 우호 강조가 이어져 고3 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The 'return to Asia' strategy of",
+          "note": "갈등 배경 단락은 떼어도 이유 나열이 서지만 면적 수치는 가공 때 줄인다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/India_and_China_to_develop_friendly_relations",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c506442-c0b8-4641-a7b4-2e462c3292a1",
+    "revision": "2026-09-25T08:12:37.919513+00:00",
+    "body_sha256": "2b5a0c14750393144192e7da44229b64849e558c90f092f0b8c4e36949988c5e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "엔진 고장 → 회항 시도 → 활주로 앞 추락 경위와 「운항 3% 에 사고 18.5%」라는 아프리카 항공 안전 통계 단락이 고2 이상 빈칸·수치 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "title",
+            "content_match",
+            "order",
+            "insert",
+            "long_reference",
+            "vocab_choice",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Air travel has a poor safety",
+          "note": "끝 단락은 통계와 임시 활주로 사례가 떼어도 서고 purpose-built 만 바꾸면 된다(사망 소재)."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/13_dead_as_cargo_plane_crashes_in_Congo",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-47-519Z",
+    "id": "0c545141-d399-4106-83a6-7a2a7b1699bb",
+    "revision": "2026-09-25T06:45:37.317093+00:00",
+    "body_sha256": "842d3debb7ca03523e0200d1eecf9cf604724dc2bec3dac10a682aab4fafbc8e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "1천만 달러 이상 고소득자의 평균 세율이 그 아래 계층보다 낮다는 주장과 세율 비교·추가 세수 추산이 짝을 이뤄 고3 주장·수치 주장 검증 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "title",
+            "summary",
+            "blank",
+            "content_match",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to the Tax Policy Center,",
+          "note": "둘째 단락은 주장과 근거 수치가 한 단락에 서고 수치 한두 개만 남겨 가공하면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:47.526Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._2004_tax_rates_lower_for_those_earning_over_%2410_million%2C_Tax_Policy_Center_says",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.291
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

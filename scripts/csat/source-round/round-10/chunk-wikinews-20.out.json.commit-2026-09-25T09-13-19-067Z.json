@@ -1,0 +1,1827 @@
+[
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1405510d-00b3-44b9-985c-8f8fb1dc0188",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a9d8cc21efec3889cd1d37fe1044bf3ce461f01c1d8a838e0a210cec3e1ecdc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "코크 공항 추락을 세 차례 착륙 시도 → 전복·화재 → 사상자 → 당국 발표 순으로 전해 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A statement released from the Irish",
+          "note": "IAA 성명 문단은 착륙 시도 순서가 분명해 순서 문항에 맞고 활주로 번호만 걷으면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.068Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Plane_crash_in_Cork%2C_Ireland_kills_six",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "14064c7b-eeb1-4b89-aa39-6e4bf7ab5527",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42fff9f7853d278b4a4f8391337a1a03689b01244ebe7d55a9bdf07eaa5c0dcb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "조지아·러시아·압하지야가 격추 주체를 두고 엇갈린 주장을 내고 전문가가 영상으로 판정하는 대립 구조라 주장-근거·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "However, military experts consulted by The",
+          "note": "전문가 판정 문단은 쌍꼬리·단꼬리 근거가 뚜렷해 떼어 써도 논지가 서고 resembles 하나만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.069Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Georgian_spy_plane_shot_down",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.406
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "140a9cae-f55a-49b0-bdc8-f0f81408bde4",
+    "revision": "2026-09-25T08:48:22.173585+00:00",
+    "body_sha256": "f84225e834d9cf5dea85652c0e4afcbe51a7ddafd40d1afb31afef8598a63cf6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "해초가 한 개체임을 유전 표지로 밝힌 과정·크기·생존 이유·위협까지 설명이 이어져 주제·빈칸·내용 일치 칸을 넓게 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V4",
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dr. Elizabeth Sinclair, another co-author of",
+          "note": "염색체를 모두 간직해 유전 다양성을 지켰다는 문단은 빈칸 논지가 서고 asexually 를 without partners 로 바꾸니 V4 가 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.069Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientists_discover_seagrass_off_Australia_is_world's_largest_plant",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.374
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "140bc42a-2f34-42e6-ac4c-0e5ccab18bb8",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3af195477068514c4782adf2eb8d90bc32369e67a9890d81580991389407606e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "프로디 신임투표를 하원 승리 → 상원 접전 → 사퇴 압박 → 대통령 권한 순으로 전해 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "However, Thursday's vote in the Senate",
+          "note": "상원 표결 문단은 소수 정당 이탈이 균형을 가른다는 인과가 서고 defection 만 바꾸면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Italy's_PM_Prodi_faces_confidence_vote",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.41
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "140c286a-d3b5-4fd6-a989-654efbc874d3",
+    "revision": "2026-09-25T08:55:31.383321+00:00",
+    "body_sha256": "28d9b32b57d39f355b5d278e0ce746021d11d3ae63a95ee522109eff5bb8a817",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "트럼프 세금기록 판결·항소심 유예·수사 배경·납세 관행이 이어지나 판사의 반박 인용이 빠진 자리가 있어 가공 때 걷고 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In recent United States history, it",
+          "note": "납세기록 공개 관행 문단은 떼기 좋지만 subpoena·stay 같은 법률어가 다른 문단에 몰려 있어 어휘 조정은 어렵고 「rejected this argument:」 줄은 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._judge_orders_release_of_President_Trump's_tax_records%2C_appeals_court_issues_delay",
+          "year": 2019,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.322
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "140ebb91-9271-4dcf-950f-9b1bad3c01f5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "76e9304eab00b6905e082c8c30314dc267d62b877a05079a851712ac5df07c22",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "네덜란드 반도체 장비 수출 통제의 까닭·미국과의 협상·ASML 영향·중국 반발을 여러 입장으로 전해 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Veldhoven, North Brabant-based ASML Holding, Europe's",
+          "note": "ASML 문단은 떨어지지만 lithography·dual use 같은 전문어를 바꾸면 핵심이 사라져 성인 밴드로 두었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Netherlands_set_to_further_restrict_semiconductor_technology_exports",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "14101c90-fec1-4784-9fe7-fad0844ce335",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c2ff62db5ba09b2020ba2dd7c82f926f657ab83027edc29d641357f1b7d5e64",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "창고를 비우던 여성이 여행가방 속 영아 시신을 발견한 경위가 순서대로 이어지는 짧은 사건 기사로 고등 이상 순서·내용 일치 칸만 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A woman was emptying her deceased",
+          "note": "발견 경위 문단은 가방 속 가방 순서가 분명하고 fetus 를 baby 로 두면 되지만 소재상 고2 이상으로 묶었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Mummified_baby_found_In_Florida_self-storage_unit",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.303,
+          "words": 132,
+          "english": 0.426
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1411a928-e8be-4c39-a802-6079ba952041",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "498d2de704fe8293a46fb418cb4ff97f070c341a4dcbbd95ea46abfa564ccea7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "허리케인 딘의 등급 상향 예보·경로·각 지역 대비를 차례로 전해 내용 일치·무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Governor Kathleen Blanco of Louisiana declared",
+          "note": "루이지애나 비상사태 문단은 대비와 실제 경로가 엇갈리는 반전이 있어 좋고 declared a state of emergency 는 그대로 둘 만했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hurricane_Dean_forecasted_to_become_%22catastrophic%22_Category_5_storm",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.354
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "141850de-ec26-4c11-b908-72bdde9203fd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5dbd5dabb90221ae884c2de8ed20f52c16b10d06901974465b095388a08d1726",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "멕시코 서부 규모 6.7 지진의 진앙·깊이·주민 반응·규모 수정을 짧게 전해 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The earthquake caused residents of Sinaloa",
+          "note": "주민 반응 문단은 6.9→6.7 수정이 들어 있어 내용 일치 선택지를 만들기 쉬웠고 revised 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Earthquake_shakes_western_Mexico",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.839,
+          "words": 137,
+          "english": 0.388
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "141f11ac-7994-4f5a-af15-160f8d43ece0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e368fe6ae98818039ea37dff0469eb6bd13e25a9b1ee8742d48afff4700df278",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "살해 용의자 사망과 도주 경로를 전하나 시신 훼손 묘사가 구체적이라 성인 칸 순서·내용 일치로만 둔다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Jenkins's boat was found on Wednesday,",
+          "note": "도주 경로 문단은 장소 이동 순서가 분명하지만 앞 문단의 훼손 묘사 때문에 학생 칸은 달지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Suspect_in_model_Jasmine_Fiore's_murder_found_dead",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1420c7f9-28e3-4110-9ab1-42a26163dde1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f2582ea879da2e4b8d8ed383aa1ab2aa7869ca847b9d4949c7b687f4785206f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "해체 발표·결성 내력·마지막 공연 일정·비틀스 언급이 이어진 쉬운 연예 기사로 중등부터 내용 일치 칸을 채우며 끝 사진첩 안내는 걷는다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The group, which consists of DJs",
+          "note": "결성 내력 문단은 피자가게 DJ 일화가 있어 흥미롭고 initially 하나만 바꾸면 V3 에 맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Swedish_House_Mafia_to_separate",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.418
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1420ff45-0e81-493c-8e37-e6278f57aab5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "815b39b1617f5b6e62b629c81de8e543b17b94a493d73afed30d18889ba35309",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "RBA 이사 임명을 두고 사흘간 이어진 의회 공방을 날짜순으로 전해 사건 흐름은 서지만 의사 절차어가 많아 성인 칸 내용 일치로 둔다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "On Tuesday, November 29, Wayne Swan,",
+          "note": "첫 질의 문단은 인물·발언을 걷으면 공방의 쟁점이 흐려지고 censure motion·standing orders 를 쉬운 말로 바꿀 수 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Federal_Opposition_hounds_Treasurer_over_appointment_to_RBA_board%2C_Gerard_resigns",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.449
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1423d07e-a840-4ce6-92b9-5b756dc48d28",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2cb1bedfe79874e1a5c7e6df32bcd30c846a9be50dacf48c885935940995f296",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "그라크 부고에 출생·작품 갈래·대통령 추모·교사 경력이 짧게 담겨 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In 1989, Gracq's work was published",
+          "note": "만년 문단은 문학 행사와 거리를 뒀다는 인물 특징이 있어 내용 일치로 좋고 faithful to 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/French_writer_Julien_Gracq_dies_at_97",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.25,
+          "words": 96,
+          "english": 0.323
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1425b17d-da09-4a76-8734-56a029d6b552",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dcd7d4554d8ccc093ef42e2e4b9923637bca5e2f24559f0c41d4fc9137bcfe82",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "블랙홀 용어·맨해튼 계획·교육자 면모·정치 성향을 생애순으로 전하는 과학자 부고라 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "title"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wheeler was born July 9, 1911,",
+          "note": "생애 문단은 출생→박사→보어→맨해튼 순서라 순서 문항에 맞고 doctorate 만 바꾸면 V5 다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Physicist_John_Wheeler_dies_at_age_96",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.396
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1427b679-425e-4eb9-b0f7-8f491b17c83a",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "70d7cf9e4bf884850c741ff8ee7b13366e23799297460d73f8e0d4bbeeb7ec18",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "빈 라덴 녹음 메시지의 내용과 그 의도에 대한 정보기관 해석을 거리 두고 전해 고3·성인 내용 일치 칸을 채우며 선동을 옹호하지 않는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The recording lasted one minute. While",
+          "note": "테이프 분석 문단은 인용 없이 해석만 남겨도 서고 splinter groups 를 풀어 주니 V5 에 맞았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/%22Osama_to_Obama%22%3A_Bin_Laden_addresses_US_President",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.394
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "142b467b-681f-4058-9d8b-d9a1d2818ff5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "406cf731842299d936cd36f10986cf98d1f8e57247dff322e13637fe7e44153c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "반해적단체의 IP 수집이 개인정보법 위반이라는 판정과 그 근거·반응이 이어져 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Data Inspection Board's press release",
+          "note": "위법 판정 문단은 동의 없는 저장이 금지된다는 근거가 한 문장에 서고 repercussions 는 다른 문단이라 손대지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Storing_IP-addresses_of_Swedish_copyright_infringers_deemed_illegal",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.665,
+          "words": 191,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "142db629-4708-4091-9744-343c7e3091df",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36076f249711f533cd438df482b4772022f99ae301180836366b64f35d73696c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "리트비넨코의 이슬람 개종 이유를 자카예프의 증언으로 설명하고 독살 배경을 덧붙여 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr. Zakayev said that Mr. Litvinenko",
+          "note": "개종 이유 문단은 성장 배경·전쟁에 대한 부끄러움 두 이유가 있어 서고 atrocities 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Reasons_for_Litvinenko's_conversion_to_Islam_revealed",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 9.5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1439e7b4-e8d3-4cf3-bd5a-2f4544a8b2eb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30bed8bda6a758b74bb5fe17c6a2374ffa06b3849e68b7a920a85279589b0c67",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "여객선 침몰 선사가 해난조사위원회 조사의 권한과 공정성을 문제 삼아 법원에 금지명령을 청구한 주장·근거가 서 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Sulpicio also described the investigation as",
+          "note": "편향 조사 주장 문단은 떼어 쓸 수 있으나 inquisition·prejudgment 를 바꾸면 선사 주장의 색이 빠졌다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sulpicio_Lines_asks_court_to_stop_BMI_investigation_into_'Princess_of_the_Stars'_disaster",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.368
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1439e8ea-9592-4a49-b12b-c4ee56be1bef",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dbd0c9cd0aa64169572a133e64746fa51168592083123fec8284e4e11b48ba22",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "마틴의 사망·다리 절단 뒤에도 이어진 연주·대표작·동료의 추모가 한 편에 담겨 내용 일치와 심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Martyn had to have his right",
+          "note": "다리 절단 뒤 휠체어 연주 문단은 극복 흐름이 서고 amputated 를 cut off 로 바꾸니 중3도 읽혔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Musician_John_Martyn_dies_at_age_60",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.431
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "143a807a-eafa-4703-bc3d-fb171e7ded29",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23a98058b5122d05c969a9beb08f0852cc84d0e2eebe6da027ca81c6153d6e5e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "약혼 발표·교제 시기·함께한 곡·팔로워 수를 쉬운 문장으로 전해 초중등 읽기 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "school",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to The Hollywood Reporter, the",
+          "note": "교제 시기 문단은 연월이 분명해 내용 일치로 좋고 바꿀 어려운 낱말이 거의 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Actress_Selena_Gomez_announces_engagement_to_record_producer_Benny_Blanco",
+          "year": 2024,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.263,
+          "words": 133,
+          "english": 0.4
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1440acd1-9718-46b0-9a85-fc7f2c85e8f3",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fdc1ce3a6875501c31a4dcb55a7649d1360f954686285538743344cd646a8788",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "climate",
+        "why": "폭풍 페이의 폭우·정전·재난선포·느린 이동의 원인·가뭄 해소 효과까지 이어져 내용 일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "State climatologist David Zierden told the",
+          "note": "느린 이동이 비를 끌어왔다는 원인 문단은 빈칸 한 곳을 만들기 좋고 climatologist 를 풀어 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.070Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tropical_Storm_Fay_continues_through_Florida",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.332
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "14468d3d-382a-4527-8be6-43c8d4559b3c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31b495e2e51de9265e7a96a1c1b52bf53cbf56811b23bb0b4d3a1ffba8cf7c13",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "콩고 에볼라 발생에 WHO·MSF·CDC 가 격리·검사·보급·교육으로 대응하는 과정과 질병 특성이 설명돼 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The MSF emergency team coordinator in",
+          "note": "격리 병동 세 구역 설명 문단은 구조가 분명해 순서·삽입에 맞고 disinfection 하나만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.071Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Health_organisations_respond_to_Ebola_outbreak_in_Democratic_Republic_of_the_Congo",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "14497bd9-f654-4067-8261-d697a8f3bf86",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94642bbabded41345a14bbedf11cd5da1412c9234bf7a3861e6ebab3d4d616df",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "앞 절반은 파업 선언·노조와 시장의 공방이 서고 뒤 절반은 대체 교통 안내 목록이라 앞부분으로 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Mayor Bloomberg lashed out at the",
+          "note": "시장 비난 문단은 떼어 쓸 수 있으나 affront·leverage 를 바꾸니 어조가 무너졌고, 뒤의 도로 통제 목록은 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.071Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/NYC_Transit_on_strike",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.383
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "1449f482-4462-4cbe-a95d-a49b0eb97d32",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fd4b9f2bff0ee1bf37f951922e7f7ebdc73d8a3792c9d834eef946533c67912d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "탈영병의 버스 탈취 → 비행기 납치 시도 → 장교 저지 → 체포로 사건이 순서대로 흐르고 쿠바 정부 성명이 붙어 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The two soldiers, Leandro Cerezo Sirut",
+          "note": "납치 시도 문단은 버스→활주로→기내 순서가 뚜렷해 순서 배열로 좋고 foiled 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.071Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fugitive_Cuban_soldiers_in_failed_skyjacking",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-19-067Z",
+    "id": "144b2ae3-8f5f-4b10-9004-d197ca56fb49",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a1e61a989ce3b765fa2f7f207244de80c58cc6a3851aee4596168d05e830107",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "전 NSA 직원이 영장 없는 감청 규모가 훨씬 크다고 주장하고 그 근거와 신뢰 문제가 함께 제시돼 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "President Bush admitted ordering the NSA",
+          "note": "감청 규모 주장 문단은 인정된 범위와 주장의 대비가 선명하고 warrants 만 풀어 주면 된다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:19.071Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_NSA_employee_alleges_illegal_spying",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

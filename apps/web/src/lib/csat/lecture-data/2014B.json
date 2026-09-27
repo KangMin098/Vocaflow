@@ -6296,7 +6296,7 @@
           "role": "strategy",
           "target": {
             "kind": "anchor",
-            "id": "sentence:0"
+            "id": "sentence:1"
           },
           "segments": [
             {
@@ -6346,7 +6346,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:4"
+            "id": "sentence:5"
           },
           "segments": [
             {
@@ -6375,7 +6375,7 @@
           "role": "evidence",
           "target": {
             "kind": "anchor",
-            "id": "sentence:3"
+            "id": "sentence:4"
           },
           "segments": [
             {
@@ -6523,7 +6523,7 @@
           "role": "trap",
           "target": {
             "kind": "anchor",
-            "id": "sentence:6"
+            "id": "sentence:7"
           },
           "segments": [
             {

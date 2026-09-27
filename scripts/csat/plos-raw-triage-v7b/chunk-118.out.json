@@ -1,0 +1,834 @@
+[
+ {
+  "id": "57d5a2c6-2eb0-401c-9175-c2b9703be7f7",
+  "source_updated_at": "2026-09-13T06:18:50.982039+00:00",
+  "body_sha256": "eb0793ea27179c0510e15c88b97c5f7d440cb942e0e017fd9213265d9a520e2f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "아홉 가지 가지과 작물의 스트리고락톤 합성 유전자 보존과 분화를 고찰에서 논지로 잇고, 인산 결핍이 기생잡초 감염을 키운다는 결론까지 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Parasitic weeds of Orobanche spp.",
+   "note": "기생잡초 피해 문단은 유전자 약어 없이 서고, 「holoparasite」를 「기생식물」류 평이어로 바꾸면 밴드가 내려간다."
+  }
+ },
+ {
+  "id": "57fb7bcb-e066-45f9-8b7f-8e44027ddca7",
+  "source_updated_at": "2026-09-13T06:45:27.613718+00:00",
+  "body_sha256": "06dae51f213f932dd733421dc7d231a1f1097353295f19481d27223cde7f84f9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 식물의 자가포식 단백질을 빼앗아 복제 공장을 짓고 방어를 끈다는 구조가 서론과 고찰에서 명확한 주장-근거로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Autophagy plays an important role",
+   "note": "자가포식 개념 설명 문단은 떼어도 서지만 결과 절은 약어와 그림 참조가 빽빽해 쓸 수 없다."
+  }
+ },
+ {
+  "id": "57fc6011-d036-44c8-bad7-755f1a89a19d",
+  "source_updated_at": "2026-09-15T15:04:24.076018+00:00",
+  "body_sha256": "9460b1a74699880e5adcf9a380e86d29d6ad1356ce5dbe62413c2af0553dd0c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "HMGB1이 KU70과 결합해 방사선 손상 복구를 돕는다는 단일 가설을 제시하고 실험과 한계로 마무리하는 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Radiotherapy is a well-established treatment",
+   "note": "고찰 첫 문단은 방사선치료 저항성이라는 일반 주제로 자족하고, 유전자 이름 두엇만 일반어로 바꾸면 된다."
+  }
+ },
+ {
+  "id": "580b0675-e878-4322-987f-ef9e0e670fab",
+  "source_updated_at": "2026-09-25T06:59:05.790491+00:00",
+  "body_sha256": "305f9f8b1d132208f7a663ca05ac8f7abf48f7d953397c62989bb7454731cca2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기존 면역조절제의 한계에서 출발해 가상 스크리닝과 녹색화학으로 새 후보를 찾는 과정을 논지로 잇는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Today, green chemistry is another",
+   "note": "녹색화학 소개 문단만 자족하고, 합성 절차와 스펙트럼 수치는 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "58113b32-0cc2-4c2f-ba8e-7b855fcb5e60",
+  "source_updated_at": "2026-09-25T06:59:07.070714+00:00",
+  "body_sha256": "c797992e6c18bf3fd99830ae46c3ce0e726d84400fd54d476a8269380c7075eb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "염류 토양에서 해록석 추출물이 토양 지표와 사탕무 수량을 어떻게 바꾸는지 서론-결론이 한 논지로 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Soil salinity is a significant global",
+   "note": "토양 염류화 서론은 수치를 걷어도 논지가 남고, 「sodicity」 같은 낱말만 풀어 쓰면 된다."
+  }
+ },
+ {
+  "id": "5817a772-0043-451e-a5e5-8d7e56952ea7",
+  "source_updated_at": "2026-09-13T06:27:36.004526+00:00",
+  "body_sha256": "84cdd8abe6cbc3f39012b63fe48f444db310e877fd325564312b17d9c0502bf5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "세균 효과단백질로 숙주 항바이러스 인자를 찾아낸다는 착상 자체가 주장-근거 구조로 읽히고 고찰이 의미를 정리한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Identification of pathogen-encoded immune evasion",
+   "note": "면역회피 단백질을 도구로 쓰는 까닭을 셋으로 나눈 문단은 그대로 논증 지문이 된다."
+  }
+ },
+ {
+  "id": "581b84c6-ec81-471a-ac17-14a16bb8af18",
+  "source_updated_at": "2026-09-13T07:39:18.593353+00:00",
+  "body_sha256": "b1b073d5c0981216f9b1eac645f1f2e5507f413a650817ed2bb8d20097a1c3ef",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "내피세포가 세균을 자가포식으로 없애지 못하는 까닭을 일산화질소 경로의 대가로 설명하는 고찰이 한 편의 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In this report, we showed that",
+   "note": "혈압 조절과 방어의 맞바꿈을 설명하는 고찰 첫 문단이 가장 쓸 만하고 약어가 적다."
+  }
+ },
+ {
+  "id": "581d36f3-6ed5-45f4-a217-d9e65e54c529",
+  "source_updated_at": "2026-09-25T06:59:11.347743+00:00",
+  "body_sha256": "89c9aedeb960d90162969d860b1dbef679bd3a98ebecaa127bf2f6d5cd676aaa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "비만과 천식의 통념을 유전 점수로 갈라 보아 동일 체형 안에도 서로 다른 원인이 있다고 뒤집는 구조다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Obesity increases the risk of asthma",
+   "note": "비만이 천식을 키우는 경로를 나열한 문단은 기전 이름을 줄이면 고2 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "5fd47060-209d-424a-be44-9457808036d6",
+  "source_updated_at": "2026-09-25T07:31:44.852261+00:00",
+  "body_sha256": "16a4ada573d5fc1a2d824c18becda2c746d5c6f69b20399ca3bd8a476551e391",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "보존된 DNA 중합효소 유전자 안에서 새 유전자가 생겨났다는 발견을 바이러스 유전체의 가소성이라는 논지로 묶는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Viruses commonly hijack host cell",
+   "note": "저자 요약(author summary)이 전문 용어를 줄인 채 사건 흐름을 담고 있어 발췌 출발점으로 좋다."
+  }
+ },
+ {
+  "id": "5fda0083-af46-4907-b1ca-d204d352db20",
+  "source_updated_at": "2026-09-15T15:08:05.115325+00:00",
+  "body_sha256": "712343c3570b73ec02d7e89683d09c167892ae3a998876f07c591f6992bb0b78",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "agriculture",
+  "why": "알팔파 내염성 SSR 표지 개발기로, 읽을 만한 문단이 종별 반복 단위 비율과 프라이머 번호 나열에 묶여 있어 떼어 낸 뒤 논지가 설지 불확실하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Soil salinity is among the critical",
+   "note": "서론 첫 문단만 자족하고, 고찰은 종 이름과 백분율 대조라 낱말을 바꿔도 논지가 남지 않는다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "5fe2ce40-a1f2-43aa-a15f-8d85709ca3d6",
+  "source_updated_at": "2026-09-25T07:31:47.308302+00:00",
+  "body_sha256": "279d13be6f3848dc82424a824b7281f824db6129c679bd7d3e671f92ec0c314b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "discard",
+  "genre": "obsolete-fact",
+  "why": "제목이 RETRACTED로 시작하는 철회 논문이라 내용과 무관하게 차단 장르에 해당한다.",
+  "slots": {
+   "ages": [],
+   "purposes": [],
+   "types": [],
+   "levels": [],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "SH3 domain-containing proteins are conserved",
+   "note": "철회 표시 확인만 하고 가공은 시도하지 않았다."
+  }
+ },
+ {
+  "id": "5ff07335-2ff9-4b12-a2c4-2f72d37863fb",
+  "source_updated_at": "2026-09-15T15:08:07.934485+00:00",
+  "body_sha256": "aa4b133a8cb5af97b3c035f07500e90f66c2198808b4af94b3fe8dbab5e302af",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "환자가 젊고 위험도가 낮은데도 합병증이 셋에 하나라는 대비를 의료체계 문제로 돌리는 논증이 선명하다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match",
+    "irrelevant"
+   ],
+   "levels": [
+    "V5",
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study reveals the substantial burden",
+   "note": "고찰 첫 문단은 수치를 「셋에 하나」식으로 바꿔도 논지가 그대로여서 고1까지 내려간다."
+  }
+ },
+ {
+  "id": "60068dca-7595-4e98-9ae8-7cf565a9b295",
+  "source_updated_at": "2026-09-25T07:31:50.487937+00:00",
+  "body_sha256": "be741ac6b372002b9d23f035274b30054d12c99cccd05ee984c4aa1f4ee191ad",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "호흡부전 환자에서 응고 지표 비율이 사망을 예측한다는 가설과 한계까지 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Inflammation and coagulopathy represent two",
+   "note": "염증과 응고의 상호작용을 설명한 고찰 문단이 약어 없이 서고, 지표 이름만 풀면 된다."
+  }
+ },
+ {
+  "id": "6014a2a5-7df3-4b34-a6d4-996ddb67ccc8",
+  "source_updated_at": "2026-09-25T07:31:50.918731+00:00",
+  "body_sha256": "6afe5ae21730a5b1b027e4ea489a855e8c28d19150a0ae72838a0d08bbcffb48",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "가정용 우물물에서 나온 대장균이 내성 유전자와 병원성을 함께 품고 집집을 건너 퍼진다는 논지가 서론과 고찰에 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "We have previously shown that failure",
+   "note": "도시 상수도 실패와 지하수 의존을 설명한 고찰 문단은 지명과 유전자명을 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "6029a73f-8fa8-4de2-a84b-943d32446b41",
+  "source_updated_at": "2026-09-13T06:44:36.096102+00:00",
+  "body_sha256": "6f3585518d4b5aa7bcd1ca7d28209477974c86754a77595a0d3639823f442b11",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "갑상선 수술의 세 측면 접근법을 흉터·수술시간·비용으로 견주는 비교 구조가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Thyroid surgery has always been a",
+   "note": "미용 결과를 중시하는 환자층을 다룬 고찰 서두가 해부 용어 없이 서고 밴드도 내려간다."
+  }
+ },
+ {
+  "id": "6031c292-2f5a-466c-a81a-fe64d75c1549",
+  "source_updated_at": "2026-09-25T07:31:52.998636+00:00",
+  "body_sha256": "fc59d831120a063ed404f2cf1cf89d1e411dfaf2002771387b9c86705b8d2443",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "geography",
+  "why": "순수 데이터 보간만으로는 복잡한 지질 구조를 못 맞춘다며 전문가 지식을 제약으로 넣자는 주장이 서론과 토의에 걸쳐 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The spatial distribution patterns and 3D",
+   "note": "서론의 데이터 주도 한계 문단은 자족하지만, 수식과 광체별 표고 나열 절은 전부 걷어야 한다."
+  }
+ },
+ {
+  "id": "6033bcd6-661f-41c9-b90d-afdd0417c796",
+  "source_updated_at": "2026-09-13T07:19:00.445717+00:00",
+  "body_sha256": "61d13a769de696330a7b268bd70b82e3306a33a1085abeac4300f9a1670af1dc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "채혈관 재질과 첨가물이 산화스트레스 지표 측정값을 낮춘다는 주장을 이유 두 가지로 풀어내고 유리관 권고로 맺는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The lower concentration of factors in",
+   "note": "플라스틱관에서 값이 낮아지는 까닭 두 가지를 든 문단은 시약 이름을 걷어도 논지가 서고 짧다."
+  }
+ },
+ {
+  "id": "605be32c-64e8-430f-b072-4e0d5cc09fee",
+  "source_updated_at": "2026-09-13T06:31:04.505208+00:00",
+  "body_sha256": "99fb757cc96923620934b98c8390d91e36d8b98389a1b8a87d0b6a968a149ced",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "같은 아밀로이드 병리가 해마 등쪽과 배쪽에서 정반대 방향으로 신경망을 흐트러뜨린다는 대조가 논지의 축이다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Patients with Alzheimer's disease experience",
+   "note": "서론은 그대로 쓸 수 있으나 결과 절은 통계 수치와 그림 참조가 문장마다 박혀 있어 손이 많이 간다."
+  }
+ },
+ {
+  "id": "6075fe61-9431-472a-a9e5-b54370afe07a",
+  "source_updated_at": "2026-09-13T07:12:07.704567+00:00",
+  "body_sha256": "ee12de2200be367bd92a4dd05ecaf3b10e01cbac52428aa04c31a1f40f0ba716",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "흡입형 나노입자로 폐암 약을 직접 보내 전신 부작용을 줄인다는 착상이 서론과 고찰에서 논지로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "By taking advantage of the wide",
+   "note": "흡입 투여의 이점을 설명한 서론 문단은 자족하고, 제형 최적화 표와 수식은 발췌에서 뺀다."
+  }
+ },
+ {
+  "id": "607d63c6-59f9-4647-af2e-22ad46dcc603",
+  "source_updated_at": "2026-09-13T07:08:39.625343+00:00",
+  "body_sha256": "aa7a328d22f260501ac0a3edf10d8df781836e56a20fa21e8ee042c003678bd3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "사라구로 원주민이 약으로 쓰던 버섯에서 뽑은 물질이 알츠하이머 표적 효소를 억제한다는 서사와 논증이 함께 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Suillus luteus (L.) Roussel (Suillaceae)",
+   "note": "사라구로 공동체와 치유자 전통을 설명한 문단은 화학 용어 없이 서서 고2 밴드까지 내려간다."
+  }
+ }
+]

@@ -1,0 +1,497 @@
+[
+  {
+    "runId": "2026-09-25T14-47-28-504Z",
+    "id": "4e869e4b-0197-4971-8223-5528186aba9a",
+    "revision": "2026-09-25T07:28:10.182871+00:00",
+    "body_sha256": "587caabf5e2283995e0c4480c7bdf1ef7819459f5ec15e1de71540d86bddf916",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 끝 단락이 배양법(24~72시간)과 현장형 등온 검출법의 장단점을 논지 있게 대조한다 — 서론 첫 단락도 검출 속도 필요성을 세운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Compared to traditional methods for P.",
+          "note": "culture-based·amplicon 을 풀어 쓰고 표준 번호를 걷으면 장단점 대조 논지가 남는다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:28.506Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:37:36.241Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:13:19.980Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-28-504Z",
+    "id": "4e8e90c0-7fea-44d6-a29d-5e51a3c878b0",
+    "revision": "2026-09-13T06:44:09.776175+00:00",
+    "body_sha256": "e2d85499c6bfa2f7816b42ba77133f28e40d5d17ee147c7e854fc418141ddaf3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 혈뇌장벽의 역할과 조영제(가돌리늄 위험·산화철 대안) 필요성을 흐름 있게 설명한다 — 결과·방법 절은 수치 위주다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The blood-brain barrier (BBB), functionally composed",
+          "note": "endothelial·permeability 를 쉬운 말로 바꾸면 장벽 기능과 손상 설명 단락이 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:28.508Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:37:36.241Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 7,
+      "type": "R-BLANK",
+      "shape": 34,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:07:00.684Z",
+      "topicMargin": 23.41
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-28-504Z",
+    "id": "4e91089a-708e-4063-bfa6-7c751e90e102",
+    "revision": "2026-09-13T06:05:44.469526+00:00",
+    "body_sha256": "c8b06db351b526d0e4d3e5adbaecb96bc00fc108bc6623f03cb42aba14b12855",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 당뇨 신경병증에서 미토콘드리아 축삭 수송이 왜 중요한지 인과로 잇고, 고찰이 결과 해석과 한계를 적는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Peripheral nerve demyelination and axonal degeneration",
+          "note": "KIF5A 같은 단백질 이름을 「운반 단백질」로 바꾸면 에너지 공급 논지가 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:28.508Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:37:36.241Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 9,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:02.868Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-28-504Z",
+    "id": "4e91c88b-aa88-49cb-a3cf-e4fd2f8c3449",
+    "revision": "2026-09-13T06:55:57.465766+00:00",
+    "body_sha256": "bb5807abc009ff5efa651f088c954a80659cb3b5d576420092789734934af6c3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론이 샤가스병의 전파 경로·치료제 한계·완치 판정 지표 부재를 순서 있게 세운다 — 고찰도 새 검사법의 장점과 한계를 논한다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A major limitation for drug discovery",
+          "note": "seroconversion·parasitological 을 풀어 쓰면 치료 효과 확인이 어려운 까닭이 한 단락으로 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:28.509Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:37:36.241Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 9,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:22:14.765Z",
+      "topicMargin": 16.92
+    }
+  },
+  {
+    "runId": "2026-09-25T14-47-28-504Z",
+    "id": "4e99d4d1-d026-49c8-9b35-e37a761e7e77",
+    "revision": "2026-09-13T06:44:38.168266+00:00",
+    "body_sha256": "68d2e1ef791771bf98bedd09a5dece651ab07a96e8c86e189d8255d7b5f5405d",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:37:36.241Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 바르부르크 효과 단락이 암세포가 산소가 있어도 해당작용을 쓰는 까닭을 대조로 설명한다 — 고찰은 선택적 독성 가설을 잇는다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Normal cells typically rely on oxidative",
+          "note": "oxidative phosphorylation·glycolysis 에 풀이를 붙이면 정상세포-암세포 대조 논지가 그대로 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:47:28.509Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:37:36.241Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 15,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:08:11.654Z",
+      "topicMargin": 19.200000000000003
+    }
+  }
+]

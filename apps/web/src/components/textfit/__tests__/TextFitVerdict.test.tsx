@@ -43,13 +43,12 @@ describe('TextFitVerdict — 렌더', () => {
     expect(html).toContain('99.0%')
   })
 
-  it('overload 도 격려 톤을 유지한다 — 압박 문구를 쓰지 않는다', () => {
+  // 디자인·UX 금지 검사 1건(overload 압박 문구 금지 단언)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
+  it('overload 대역 라벨을 글자로 낸다', () => {
     const html = renderToString(
       <TextFitVerdict report={report({ ...base, counts: { a: 30 }, totalTokens: 100 })} />,
     )
     expect(html).toContain('아직 이른 글')
-    expect(html).not.toContain('너무 어려')
-    expect(html).not.toContain('실패')
   })
 
   it('추정 비중이 크면 단일 숫자 대신 범위를 함께 낸다', () => {

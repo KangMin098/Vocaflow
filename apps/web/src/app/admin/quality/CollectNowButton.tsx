@@ -42,7 +42,7 @@ export function CollectNowButton() {
         type="button"
         onClick={handleCollect}
         disabled={status === 'loading'}
-        className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--p)]/40 bg-[var(--p)]/8 px-3 py-2 font-display text-[12px] font-[600] text-[var(--p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)]/15 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+        className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p)_8%,transparent)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--p)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[color-mix(in_srgb,var(--p)_15%,transparent)] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
       >
         <RefreshCw
           size={13}

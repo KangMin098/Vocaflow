@@ -11,6 +11,8 @@
 //   ADR 0006 D2 의 규칙을 그대로 적용한다: **0 은 숫자가 아니라 문장이다.**
 //
 // dev 서버 없이 돈다 — `.next` 캐시가 깨져 있어도(멀티 세션 함정) 이 검증은 산다.
+//
+// 디자인·UX 금지 검사 3건(빈 사다리 0 나열 금지 · 큰 0 금지 · 연속일 배지 금지)은 DD-66(사용자 결정 2026-09-21)으로 삭제했다.
 
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
@@ -41,12 +43,9 @@ function emptyDays(): TraceDay[] {
 }
 
 describe('DurabilityLadder — 사다리가 비었을 때', () => {
-  it('숫자를 나열하지 않고 문장으로 답한다', () => {
+  it('빈 사다리에는 다음 한 걸음 문장을 낸다', () => {
     const html = renderToString(<DurabilityLadder ladder={EMPTY_LADDER} />)
     expect(html).toContain('단어를 담으면')
-    // 빈 사다리에 0을 다섯 개 늘어놓지 않는다 — 그게 이전 히어로의 실패였다.
-    expect(html).not.toContain('하루')
-    expect(html).not.toContain('계절')
   })
 
   it('담아 둔 단어는 있고 복습만 없으면, 다음 한 걸음을 말한다', () => {
@@ -118,12 +117,11 @@ describe('DurabilityLadder — 사다리가 비었을 때', () => {
 })
 
 describe('RescuedWords — 이번 주에 아무것도 못 했을 때', () => {
-  it('0 을 크게 쓰지 않고 문장 + 다음 행동을 준다', () => {
+  it('비었으면 문장 + 다음 행동을 준다', () => {
     const empty: RescuedWordsData = { count: 0, sample: [] }
     const html = renderToString(<RescuedWords rescued={empty} />)
     expect(html).toContain('아직 다시 만난 단어가 없어요')
     expect(html).toContain('복습 열기')
-    expect(html).not.toContain('개를 다시 만나 맞혔어요')
   })
 
   it('있으면 개수와 **실물 단어**를 함께 그린다 (개수만 그리지 않는다)', () => {
@@ -139,13 +137,6 @@ describe('RescuedWords — 이번 주에 아무것도 못 했을 때', () => {
 })
 
 describe('ActivityTrace — 기록이 없을 때', () => {
-  it('연속일 배지를 그리지 않는다 (0일 연속은 압박이다)', () => {
-    const html = renderToString(
-      <ActivityTrace days={emptyDays()} streak={0} activeDays={0} />,
-    )
-    expect(html).not.toContain('일 연속')
-  })
-
   it('요일 리듬은 근거가 없으면 그리지 않는다', () => {
     const html = renderToString(
       <ActivityTrace days={emptyDays()} streak={0} activeDays={0} />,

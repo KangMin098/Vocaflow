@@ -1,0 +1,605 @@
+[
+  {
+    "id": "000019f4-6138-4658-aeca-c56b5463561b",
+    "source_updated_at": "2026-09-24T01:03:40.405022+00:00",
+    "body_sha256": "1703632a6715e52a5730ce80994a2adc1b2329beb58b90ad86acf7ae3d4131fe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "hold",
+    "genre": "social",
+    "why": "라틴아메리카 낙태 동행 네트워크를 미국의 대안으로 옹호하는 논평으로, 「Building a resistance」 절이 억압적 법에 맞선 저항 모델을 일방적으로 주장해 polemic 차단과 주장 지문(claim·main_point) 사이에서 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When first-trimester abortion was legalized",
+      "note": "멕시코시티 접근성 문단은 이동시간·사회경제 격차 논지로 떼어지고 disparities→gaps 등 두세 낱말로 내려가지만, 글 전체의 옹호 논조가 게시 적격을 가를지 기준이 없다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "000125a0-2f3c-4cc9-b0d2-1fe414096f21",
+    "source_updated_at": "2026-09-13T05:58:26.075156+00:00",
+    "body_sha256": "36dce7e143f25b3670e7506069e49b86a5d1f961d606571eb77473193b6edc0f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "아마존 목장 비유로 여는 도입과 「Implications of Near-Pristine Baselines」 절이 기준선 이동 개념과 「지구 변화가 전부」라는 통념 반박을 한 편의 논지로 세워 주제·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Imagine trying to understand the ecology",
+      "note": "첫 문단은 앞 문맥 없이 서고 elucidate→explain, pristine→untouched 로 바꾸니 V6 에 들어왔다. 참고문헌 괄호만 걷으면 된다."
+    }
+  },
+  {
+    "id": "0006848a-3f1d-471d-9a13-2d19ed48d008",
+    "source_updated_at": "2026-09-15T12:47:11.711548+00:00",
+    "body_sha256": "c94cef970cd5d57ea6de8db4dd87d607738e4c4c6b8d043395be7cceb9923248",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 경쟁 배제 원리와 「다양성 역설」 문단이 항생물질로 서로 해치는 미생물이 어떻게 공존하는가라는 물음을 세워 주제·빈칸 칸을 채운다(잘 섞인 모델 결과 절은 본문에 없지만 서론·고찰은 온전하다).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The competitive exclusion principle is built",
+      "note": "경쟁 배제 원리 문단은 인용자만 걷으면 서고 anthropocentric·resource axes 를 풀어 쓰면 V8 로 내려가지만, 뒤쪽 PSD 모티프 부분은 그래프 용어라 쓸 수 없다."
+    }
+  },
+  {
+    "id": "0009f67a-3e7a-4f11-baa1-139a4eb49755",
+    "source_updated_at": "2026-09-15T12:47:13.050579+00:00",
+    "body_sha256": "bae9c41da07c5f886ad0dd30896f02ddd7004b11821946e06e20432aac564a4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론과 「Concluding Remarks」가 통계적 유의성만으로는 뉴런 활동의 기능적 중요성을 말할 수 없다는 주장을 뚜렷이 세워 주장·요지·빈칸 칸을 채운다(결과 절은 본문에 빠져 있다).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "title"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, the methods used to identify",
+      "note": "그 문단은 앞 문맥 없이 주장이 서고 stipulate→claim, spatio-temporal 삭제로 V8 권에 든다. 「as our examples demonstrate」처럼 빠진 결과를 가리키는 문장만 걷어야 한다."
+    }
+  },
+  {
+    "id": "00113037-5d59-45c6-99c7-e9d076f63e76",
+    "source_updated_at": "2026-09-13T06:30:12.946421+00:00",
+    "body_sha256": "1f316624f8e03e596e377f3863bfa2678cb63b132b40b875102ee94680a752bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 「sinks·sources」 문단(기생충 DNA 검출이 곧 보유숙주라는 뜻은 아니다)과 고찰 끝의 근교계 모델 한계 문단이 떼어 쓸 논지를 주어 빈칸·내용 일치 칸을 채운다. 나머지는 종명·수치 나열이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "blank",
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "However, it should be noted that",
+      "note": "sinks/sources 문단은 서지만 Leishmania·xenodiagnosis 같은 전문어를 두세 개 바꿔도 V9 아래로는 안 내려간다."
+    }
+  },
+  {
+    "id": "0019bb79-0969-433b-b660-1de525efa18e",
+    "source_updated_at": "2026-09-15T12:47:14.551621+00:00",
+    "body_sha256": "47a6a8954e4300d76d30b3704eca47c1d3c026ef0f1dd52b517733e8074d3d90",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "discard",
+    "genre": "health",
+    "why": "PCR 조건·유전자 이름·검출률 나열이 본문 대부분이고 고찰도 blaCTX-M 등 유전자별 비율 비교뿐이라, 떼어 낸 문단에 수치 밖의 논지가 서지 않아 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The most commonly detected genes in",
+      "note": "가장 논지에 가까운 고찰 문단도 유전자 약어와 백분율을 걷으면 「감시가 중요하다」 한 줄만 남고, 낱말을 바꿔도 V10 이하로 안 내려간다."
+    }
+  },
+  {
+    "id": "001b6b64-5bab-491b-8cf4-fdefedd3a0c3",
+    "source_updated_at": "2026-09-13T07:25:56.360421+00:00",
+    "body_sha256": "decb6e31b47e57c2c4d5e510be7ba393a427cdfe2e29c94ba22651966924d4bd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 미드와크(dokha 파이프) 설명 문단과 「Implications」의 「보건 데이터를 더 모을 때까지 정책을 미루지 말라」는 주장이 청소년 흡연 주제로 내용 일치·요지·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "claim",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Midwakh is a narrow pipe used",
+      "note": "설명 문단은 인용 번호만 걷으면 서고 paucity→lack, epidemiological→population 으로 V6 에 든다. 표는 평탄화돼 있어 쓰지 않는다."
+    }
+  },
+  {
+    "id": "0020603f-213a-472f-b4f8-c91159e1c15e",
+    "source_updated_at": "2026-09-15T12:47:17.054213+00:00",
+    "body_sha256": "ef2e397fa0744354fa3cc19027ab9efd069c5fef716a2112f8dce0294f967211",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "hold",
+    "genre": "environment",
+    "why": "초록이 매개체 감염병 위험과 정책 방안을 논한다고 예고하지만 본문은 아마존 개관 두 문단 뒤 감사의 글로 끝나 예고한 절이 통째로 없다. 받은 두 문단만으로는 내용 일치 칸 정도만 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Amazon basin is changing rapidly.",
+      "note": "첫 문단은 떼어져 서고 megadiverse→very diverse 로 쉽게 내려가지만, 글의 논지(개발→감염병)는 없는 절에 있어 받은 문단만으로는 요지를 만들 수 없다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "0021cd54-4cc6-4d44-a4fc-177bc7eabe6f",
+    "source_updated_at": "2026-09-15T12:47:18.757559+00:00",
+    "body_sha256": "50ab29f8a0ffbbcf9865405240311f73215ea3312935926961e67a48d0d96ea2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 「장 내용물이 젤처럼 굳어 분열한 세균을 붙잡고 장 수축이 이를 흩는다」는 설명과 미세군집의 기능적 결과 문단이 인과 논지를 세워 요지·빈칸·순서 칸을 채운다(결과 절 대부분은 본문에 없다).",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bacterial clustering at the micro-scale can",
+      "note": "그 문단은 앞 문맥 없이 서고 interspecies→between species, susceptibility→sensitivity 로 V8 에 든다. 실험 약어(3MM, SPF)가 있는 문단은 피해야 한다."
+    }
+  },
+  {
+    "id": "0023ec3d-451b-497f-8d19-b207b5e2a56f",
+    "source_updated_at": "2026-09-13T07:19:38.197631+00:00",
+    "body_sha256": "184c9fafbe2479416e0b2e93560a5d1009b00065ef891b335470ffd129f51ade",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "health",
+    "why": "방법 절의 상대위험과 절대위험 비교 문단과 해석 절의 「저소득·저학력이 ADHD 위험 요인에 노출되는 기간이 길다」는 설명이 논지를 이뤄 요지·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Compared to relative risks, absolute estimates",
+      "note": "그 문단은 약어 없이 서고 multiplicative→based on ratios 로 풀면 V7 까지 내려간다. 표는 평탄화돼 쓸 수 없다."
+    }
+  },
+  {
+    "id": "0028cfb6-6160-4ee3-82a5-c1bf5599c4a5",
+    "source_updated_at": "2026-09-15T12:47:20.035759+00:00",
+    "body_sha256": "5c785ae0260f13d10ee83ba90c8c8f725326392f5119ffff8b53969a135159b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "결론 절이 「공간적 가격 마찰처럼 보이는 것이 실은 수확 시기의 어긋남」이라는 뒤집기와 수확 달력에 맞춘 정책 제언을 세워 주제·주장·빈칸·요약 칸을 채운다(결과 절은 본문에 빠져 있다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "blank",
+        "summary",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our analysis underscores the pivotal role",
+      "note": "결론 첫 문단은 Nigeria 를 「한 나라」로 바꿔도 논지가 서고 pivotal→key, asynchronous→mismatched 로 V6 에 든다."
+    }
+  },
+  {
+    "id": "002c0fd6-3bfc-4c1c-9b54-cfd143635aa0",
+    "source_updated_at": "2026-09-23T21:04:30.310991+00:00",
+    "body_sha256": "b4a192669cf7c8ffae131132eadf972d13f9be32a40625cbc18efd7130f13edd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "고찰 절이 저탄소 수입품이 저소득국에서는 오히려 탄소 집약도를 높인다는 역설을 흡수 역량·제도 부족으로 설명해 요지·빈칸·무관한 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "irrelevant",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Conversely, the findings indicate that in",
+      "note": "LT·EGs·CEI 약어를 「green technology imports」「carbon intensity」로 풀면 문단이 서고 absorptive capacity→ability to use 로 V8 에 든다. DRC 예시 문장은 걷는다."
+    }
+  },
+  {
+    "id": "002e8606-e3b1-4753-8996-b297d975a0a6",
+    "source_updated_at": "2026-09-13T06:26:35.473542+00:00",
+    "body_sha256": "90bedddee16fde3bbba910bc3267c763725ed8688fb130adfbea55f8f7273b88",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "social",
+    "why": "가설 절의 셋째 경로(위반 비용이 커지면 기업이 녹색 혁신으로 돌아선다)와 제도 설명이 인과 논지를 세워 요지·빈칸·순서 칸을 채운다. 회귀표 부분은 쓰지 않는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prior research has established that strict",
+      "note": "EPIL 을 「공익 소송」으로 풀고 internalize·endogenous 를 바꾸면 기업 비용-편익 문단이 V8 에서 선다. ULGUE 지표 정의는 쓸 수 없다."
+    }
+  },
+  {
+    "id": "002f3352-3478-4dc2-a304-7f4c68ecadb0",
+    "source_updated_at": "2026-09-15T12:47:22.856087+00:00",
+    "body_sha256": "31f72c87edb0f25241ebf82eb87a71aae5ea926fe3ed39ee3866ef1c5615b200",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 자기관리 교육 참여율과 디지털 개입의 필요, 「Mechanistic insights」의 처방 증가 억제 해석이 떼어 쓸 설명 문단이 되어 내용 일치·빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Current strategies for T2D management are",
+      "note": "T2D 를 type 2 diabetes 로 풀고 인용 괄호를 걷으면 서고 innovative→new 정도로 V7 에 든다. 비용-효과 수치 문단은 QALY 용어 때문에 못 쓴다."
+    }
+  },
+  {
+    "id": "0030dbbb-cb5a-4990-8692-6c2227e06caf",
+    "source_updated_at": "2026-09-15T12:47:24.115372+00:00",
+    "body_sha256": "af16a3bea281753c04e227348ed2af6a29cdf4dfedc6039e8915ac73ed7efe2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 끝 문단이 「어머니 임신기 행동에만 초점을 둘 근거가 없고 사회경제적 조건이 더 중요하다」는 주장을 통념 반박 구조로 세워 주장·요지·빈칸·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "title",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our findings suggest that there is",
+      "note": "그 문단은 DOHaD 만 「초기 발달 연구」로 풀면 서고 oversimplifying·socially patterned 를 바꾸면 V7 에 든다."
+    }
+  }
+]

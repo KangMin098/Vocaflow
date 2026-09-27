@@ -1,0 +1,434 @@
+[
+  {
+    "id": "0156642e-aa57-4242-9c4c-769df0c56f0a",
+    "source_updated_at": "2026-09-25T07:09:40.008622+00:00",
+    "body_sha256": "031fdcc10d21ad55d53f08bfc6255388babe8073d342dc50fa549fbeebe83306",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "고찰 끝 단락이 감나무 발병 원인을 자생지 밖 재배·가뭄·인근 포도밭 토양으로 논증해 한 편의 설명문으로 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The lack of available information on",
+      "note": "학명·균주 번호를 일반명으로 바꾸면 논지가 남지만 taxon·inocula 같은 낱말은 대체가 어렵다."
+    }
+  },
+  {
+    "id": "01663b47-7b99-4589-bddd-917ed6de6398",
+    "source_updated_at": "2026-09-25T07:09:41.415744+00:00",
+    "body_sha256": "ca6e391fe8624ea948de8712846343c07f02f237854bee7a1693dbb26ba3c510",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 diaschisis 단락이 국소 손상이 먼 뇌 영역을 바꾼다는 통념 확장을 근거와 함께 제시한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Intriguingly, our findings of long-range",
+      "note": "Fig 번호와 약어를 걷어내도 「골든아워」 도입부와 짝지으면 주장-근거 구조가 그대로 남는다."
+    }
+  },
+  {
+    "id": "01b250f0-f3e7-47c1-ae82-56c59f858047",
+    "source_updated_at": "2026-09-25T07:10:08.529637+00:00",
+    "body_sha256": "d1c61761a100188f5e1a85cd7c600e7866eb2c868eeeb21eac7f0fca6bf65f51",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 임신 중 고혈당 → 산화 스트레스 → 태아 합병증의 인과 사슬을 순서대로 세워 발췌 한 편이 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Diabetes mellitus is one of",
+      "note": "결과 절은 수치 나열이라 못 쓰고, 쓸 곳은 서론·고찰 앞부분으로 한정된다."
+    }
+  },
+  {
+    "id": "01c79aa6-6d5d-4f8d-904d-1082b3a25075",
+    "source_updated_at": "2026-09-25T07:10:24.541842+00:00",
+    "body_sha256": "b2b5ccbed8bd954235be7d8cac602bf182194ed06e48da420dd77b261fd60fa5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 백신 부재와 과도 염증이라는 문제를 먼저 세우고 단백질 하나를 답으로 제시해 자족적이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "ASF has caused huge economic",
+      "note": "NLRP3·DDX3X 같은 이름을 「특정 단백질」로 바꾸면 읽히지만 밴드를 내리지는 못했다."
+    }
+  },
+  {
+    "id": "01cf7b9e-55d4-4e3c-8446-4e60d4c1979f",
+    "source_updated_at": "2026-09-25T07:10:25.972148+00:00",
+    "body_sha256": "c8d3151929f9880535e8cf318186bb930f282c20b3f22fdfed2206d5fffac792",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론이 유방암의 체세포 돌연변이 기원을 환경 노출로 잇는 물음을 세우고 결론이 그 물음에 답한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among reproductive diseases, breast cancer is",
+      "note": "유전자 약어를 몇 개 풀어 쓰면 노출-발암 논지가 고3 독해 길이로 정리된다."
+    }
+  },
+  {
+    "id": "01eebd9b-d170-48fc-a582-388425a73415",
+    "source_updated_at": "2026-09-25T07:10:38.204766+00:00",
+    "body_sha256": "8bbf408ac97467932169d2dabee8ec174f67f9edc363d8da74c1fe3e29bdb035",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 상호작용 입자계라는 일반 개념에서 세포 집단으로 좁혀 가는 설명 구조를 갖는다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Interacting particle systems (IPSs) are ubiquitous",
+      "note": "본문 절반이 수식 자리표시자라 쓸 수 있는 곳은 요약·서론·고찰 앞부분뿐이었다."
+    }
+  },
+  {
+    "id": "01ef9de8-c759-44a0-ad02-62883d466b4e",
+    "source_updated_at": "2026-09-25T07:10:39.935134+00:00",
+    "body_sha256": "c23ecbdeea6410ced924e02233b778522daffab05392f65ea571be2f89294e3f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰이 「내재적 내성이 주고 획득 내성은 드물다」는 주장을 감시 편향 한계와 함께 조목조목 편다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The geographic distribution of the analyzed",
+      "note": "유전자 이름을 지우고 「미국이 40%」 같은 수치만 남겨도 표본 편향 논지가 그대로 선다."
+    }
+  },
+  {
+    "id": "01f662c9-2adf-4aba-9cb4-8f1d50002100",
+    "source_updated_at": "2026-09-25T07:10:40.957569+00:00",
+    "body_sha256": "a324977ef575dc78c29bfdddf954c6c5feeea96e28d424d028fa9b42e6d52733",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "가설을 세우고 실측이 그 가설을 뒤집은 뒤 왜 어긋났는지까지 적어 반증형 글로 읽힌다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Contrary to our hypotheses, LPS-treated mice",
+      "note": "F값·p값만 걷어내면 「예상과 달랐다」 단락이 거의 손대지 않고 지문이 된다."
+    }
+  },
+  {
+    "id": "020d163d-b6af-4ec9-bd08-9297c857f2e7",
+    "source_updated_at": "2026-09-25T07:10:50.455753+00:00",
+    "body_sha256": "1c43b2cefc25cb5ee9550cdff2980f77f6810ad95472884345632343dd7253ca",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론이 드론 영상이 농촌 행정을 어떻게 바꾸는지 용도별로 열거해 목적·요지 지문 재료가 된다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Building detection from drone imagery plays",
+      "note": "MIoU 표가 나오는 실험 절은 버리고 서론·한계 절만 쓰면 어휘 교체로 V6까지 내려간다."
+    }
+  },
+  {
+    "id": "020d6f94-1826-4986-a7a8-8dbca0586354",
+    "source_updated_at": "2026-09-25T07:10:52.083627+00:00",
+    "body_sha256": "1cde4b2999c05de46de1b20575ee396914c73b5af6e1d87b57c5b20357c797dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약이 테구먼트라는 구조를 먼저 설명하고 왜 그 단백질을 좇는지로 이어져 자족적이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The herpesvirus tegument is a subvirion",
+      "note": "단백질 이름을 줄여도 BioID 절차 설명이 남아 중등 이하로는 못 내린다."
+    }
+  },
+  {
+    "id": "02203c2a-47a5-4616-b0b9-a11ce379adb2",
+    "source_updated_at": "2026-09-25T07:11:01.402232+00:00",
+    "body_sha256": "821f8e46d508213576f0e92b6d19cfeb0c83c3e31b78ad6dfda21d5e43ded14e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "서론이 육안 검사와 기존 비파괴 검사의 한계를 대비시켜 자동 검출의 필요를 논증한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Materials across automotive, aerospace, construction, and",
+      "note": "수식·표가 몰린 뒤쪽은 못 쓰고 서론 두 단락이 사실상 유일한 가공 대상이었다."
+    }
+  }
+]

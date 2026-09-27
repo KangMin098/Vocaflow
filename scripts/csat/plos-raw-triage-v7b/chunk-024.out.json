@@ -1,0 +1,309 @@
+[
+  {
+    "id": "10e13b79-74b4-4cd1-a154-fcb62c6b984c",
+    "source_updated_at": "2026-09-25T07:32:25.795498+00:00",
+    "body_sha256": "11a3d8cc899864a5e606e064bb5e44735705685b1cb67eed93daa2a25d1ad19c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "결과 절은 균주 번호 나열이지만 고찰 끝의 한계 단락(배양법이 일부 세균만 잡는다)이 논지로 서서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "First, bacterial isolation in this study",
+      "note": "접속어를 걷고 어려운 낱말 두세 개를 바꾸니 「방법이 결과를 치우치게 한다」는 논지가 선다."
+    }
+  },
+  {
+    "id": "10f51642-9951-4b58-999d-f629d86a73e8",
+    "source_updated_at": "2026-09-25T07:32:27.690008+00:00",
+    "body_sha256": "89fef991add22d7233d53172fc1c00149238f9fef73735981aea3080e32c3dde",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 연결망 단락(한 단백질의 변화가 간접 연결된 단백질까지 번진다)이 떼어도 서고 결론이 같은 논지를 되받는다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since proteins interact in a complex",
+      "note": "전문 용어 두 개를 쉬운 말로 풀면 「개별이 아니라 연결망으로 보라」는 주장이 남는다."
+    }
+  },
+  {
+    "id": "11072996-b2cf-4bd0-9cb1-7c4a3b433746",
+    "source_updated_at": "2026-09-25T07:32:29.729656+00:00",
+    "body_sha256": "d1f03ea0f0eba7591a43f632c9ec5fd0a277ae8c0165ee411e2a0ca2aedc3ac4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰 둘째 단락이 표준화 비율 감소와 환자 수 증가의 역설을 두 원인으로 설명해 요지·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Data analysis revealed declining standardized rates",
+      "note": "약어와 지역 수치를 걷고 두 낱말을 풀면 비율과 절대 수의 대비가 그대로 선다."
+    }
+  },
+  {
+    "id": "1117e33e-9686-46ed-9a7e-101dbe8cab72",
+    "source_updated_at": "2026-09-25T07:32:31.216217+00:00",
+    "body_sha256": "364c61a92395d1fa46d2d6a4457a44edea78ae917f6feb40718366761c0df649",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 뇌세포 단락이 재생력 낮은 조직에서는 면역 반응을 낮추는 편이 보호가 된다는 인과로 서서 빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The intrinsic characteristics and external microenvironment",
+      "note": "단락은 떼어지지만 유전자 약어가 뒤 문장마다 박혀 낱말 교체로는 밴드가 내려가지 않는다."
+    }
+  },
+  {
+    "id": "115848a9-7ad4-4f88-8f15-a7952b9643ab",
+    "source_updated_at": "2026-09-25T07:32:35.103699+00:00",
+    "body_sha256": "45c28594d7620b2ecf08af3a53c1a02520c22f7e2a9dece3969a594ff22f180c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "수치 나열이 대부분이나 고찰의 동반질환 단락이 개별 지표의 한계와 묶어 보는 이유를 논지로 세워 칸 하나를 연다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Comorbid conditions in AIGA patients, including",
+      "note": "약어를 지시어로 바꾸고 두 낱말을 풀면 짧아도 논지가 남는다."
+    }
+  },
+  {
+    "id": "1177a71a-7c05-4c59-97e8-810359dcb24a",
+    "source_updated_at": "2026-09-25T07:32:37.234353+00:00",
+    "body_sha256": "08b6b172d462095e691969dd12020e5ba6340f94e7df7cea50bead053f5483f8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약 단락이 기존 약에 다른 약을 더해 치료를 돕는 원리를 앞 문맥 없이 설명해 주제·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Tuberculosis (TB), caused by Mycobacterium",
+      "note": "요약 단락은 그대로 서지만 세포·분자 이름이 많아 어휘 조정 폭이 좁다."
+    }
+  },
+  {
+    "id": "119d1883-71ea-49fb-b7d8-0c34a5a44d8c",
+    "source_updated_at": "2026-09-25T07:32:40.715888+00:00",
+    "body_sha256": "0fd1a3b0e8d4424fb886e49ce321106c2ebbe12e0c89457c83ac688798a03aaa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론 첫 단락이 과잉 반응과 과소 반응 사이의 균형이라는 논지를 세우고 구조 예측이 숨은 관계를 찾는다는 결론으로 이어진다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The innate immune system must respond",
+      "note": "단백질 이름을 「특정 단백질」로 묶으면 균형 논지가 남아 밴드가 한 단계 내려간다."
+    }
+  },
+  {
+    "id": "11b9b83f-f088-489d-afea-f7e092a1dbcb",
+    "source_updated_at": "2026-09-25T07:32:43.303636+00:00",
+    "body_sha256": "85a4a98781c71bfd3571459f8142f5a7f2d81b09af13f816b492063d76769119",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 해석 단락이 한 유전자를 병기 지표가 아니라 예후 표지로 읽어야 한다는 판단을 근거와 함께 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The clinical analyses in this study",
+      "note": "유전자 이름을 지시어로 바꾸면 「수치가 늘 병기와 나란하지 않다」는 논지가 그대로 선다."
+    }
+  }
+]

@@ -7,10 +7,14 @@
 //   구멍을 메우러 간다. 그래서 **동시 실행 수를 묶어** 물결로 나눠 보낸다(24칸씩 · 실측 7.2초).
 //   그래도 새는 것이 있는지는 **유형별 합 == 표 전체 count** 로 확인한다.
 //
-// ⚠️ 해설 화면(⑥)이 여기 없는 이유: 유형별 해설 보유율은 `answer_key->>explanation_ko` 를
-//   유형마다 훑어야 하는데 그 컬럼에 인덱스가 없어 한 번에 5~8초씩 걸리고, 여러 개를 같이
-//   던지면 절반이 null 로 온다(실측). 서버에서 한 번에 접는 집계 RPC 가 필요하고 그것은
-//   마이그레이션이라 **승인 대기**다. 그때까지 해설은 현황판의 전체 눈금으로만 본다.
+// ⚠️ **여기에 「해설 화면(⑥)이 없는 이유」가 한 달 넘게 적혀 있었다.** 그 문장은
+//   「유형별 해설 보유율은 `answer_key->>explanation_ko` 를 유형마다 훑어야 하는데 인덱스가
+//   없어 5~8초씩 걸린다 → 집계 RPC 가 필요하고 그것은 마이그레이션이라 승인 대기」였다.
+//   **낡은 문장이었다** — 필요한 집계는 `textbook_shelf_inventory_mv`(20260831090000)에
+//   (유형 × 수준 × 문항 × 해설)로 이미 들어 있고, 바로 아래 ⑤ 집필이 **같은 호출로 같은 표를
+//   읽고 있었다**(`loadDcpInventory`, 실측 1.2초). 마이그레이션이 필요 없던 화면이 이 한
+//   문장 때문에 안 만들어졌고, 그 사이 ⑥ 은 파이프라인 최저점(9/22)이었다(DD-69 · DD-74).
+//   교훈: **「막혔다」고 적을 때는 막은 것이 지금도 막고 있는지 같은 주석에 실측을 붙인다.**
 
 import 'server-only'
 
@@ -20,15 +24,22 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 
-import { loadDcpInventory } from './item-count'
+import { seriesHasContents } from '@/lib/textbook/volume-contents'
+
+import { inventoryFreshnessNote, loadDcpInventory } from './item-count'
+import { loadItemState } from './item-state'
 
 import {
   GENERATED_TYPES,
   INVENTORY_LEVELS,
   type AuthorCell,
+  type ExplainCell,
+  type ExplainView,
   type AuthorView,
   type PressView,
   type PressVolumeRow,
+  type VolumePublish,
+  type VolumeReach,
   type ReviewLayer,
   type ReviewView,
   type ReviewVolumeRow,
@@ -68,7 +79,8 @@ export async function loadAuthorView(): Promise<AuthorView> {
   //
   //   낡음 감시(총계 vs 칸 합)는 그래서 의미를 잃었다 — 둘이 같은 출처라 자기 자신과
   //   비교하는 셈이다. 대신 **집계표가 언제 갱신됐는지**를 화면이 말한다(`refreshedAt`).
-  const inventory = await loadDcpInventory(db)
+  // 둘은 서로를 안 기다린다 — 한쪽이 느려도 다른 쪽이 그려진다.
+  const [inventory, itemState] = await Promise.all([loadDcpInventory(db), loadItemState()])
   const byCell = new Map<string, number>()
   if (inventory.ok) {
     for (const c of inventory.cells) byCell.set(`${c.type}|${c.vLevel}`, c.items)
@@ -104,6 +116,7 @@ export async function loadAuthorView(): Promise<AuthorView> {
     // 그만큼 모자란 값이므로, 그때는 총계를 내지 않는다(모자란 수를 정확한 총계로 내밀면 안 된다).
     total: unmeasured ? null : summed,
     ladderCells,
+    itemState,
     loadError: unmeasured
       ? `집계표를 못 읽었다 — ${inventory.ok ? '' : inventory.error}. 총계는 내지 않는다 (모자란 수를 정확한 값처럼 내밀지 않기 위해서다)`
       : null,
@@ -229,20 +242,69 @@ export async function loadReviewView(): Promise<ReviewView> {
 
 /* ───────────────────────── ⑧ 조판 ───────────────────────── */
 
+/* ───────────────────────── ⑧ 조판 ───────────────────────── */
+
+/** `colophon.publish` 를 읽는다. **없으면 null** — 「아무도 판정한 적이 없다」이다. */
+function publishOf(colophon: (Colophon & { publish?: Partial<VolumePublish> | null }) | null): VolumePublish | null {
+  const p = colophon?.publish
+  if (!p || typeof p.status !== 'string') return null
+  const ok = ['rendered', 'review', 'approved', 'published', 'withdrawn']
+  if (!ok.includes(p.status)) return null // 모르는 값은 지어내지 않고 「판정 없음」으로 둔다
+  return {
+    status: p.status as VolumePublish['status'],
+    reason: typeof p.reason === 'string' && p.reason.trim() ? p.reason : null,
+    at: typeof p.at === 'string' ? p.at : null,
+    by: typeof p.by === 'string' ? p.by : null,
+  }
+}
+
+/**
+ * 그 권에서 **3인 검수에 막힌 문항 수.**
+ *
+ * `settled`(셋이 보기는 한 수)와 `passed`(셋이 통과시킨 수)의 차가 「봤는데 막혔다」다.
+ * `settled` 가 없는 옛 기록에서는 `items - passed` 로 떨어지는데, 그것은 「덜 봤다」까지
+ * 섞인 수라 **다른 뜻**이다 — 그래서 그때는 `null`(못 잼)로 둔다. 두 수를 한 칸에 섞으면
+ * 관리자가 검수를 더 돌릴지 문항을 고칠지 정할 수 없다.
+ */
+function blockedOf(colophon: Colophon | null): number | null {
+  const pr = colophon?.review?.personaReview
+  if (!pr || pr.settled == null) return null
+  return Math.max(0, pr.settled - pr.passed)
+}
+
+/**
+ * 학습자 도달 — **경로가 있는지만 말한다.** 「열린다」와 「제대로 보인다」는 다르다.
+ *
+ * ⚠️ 조판 산출물(`out_path` 로컬 HTML)을 읽는 학습자 코드는 **0곳**이다(실측 2026-09-23).
+ *   매대는 재고에서 그려지고, 상세면의 목차는 `volume-contents.json` 스냅샷에서 온다.
+ *   그래서 「찍었다」가 「학습자가 그 책을 본다」를 뜻하지 않는다 — 화면이 그 사실을 적는다.
+ */
+function reachOf(series: string, step: number | null): VolumeReach {
+  return {
+    href: step == null ? null : `/library/textbooks/${series}/${step}`,
+    hasContents: seriesHasContents(series),
+  }
+}
+
 export async function loadPressView(): Promise<PressView> {
   const db = createAdminClient() as unknown as SupabaseClient
   const { data, error } = await db
     .from('textbook_volume_renders')
     .select(
-      'band, volume_title, step, school_band, units, items, explained_batch, explained_rule, ' +
+      'band, series, volume_title, step, school_band, units, items, explained_batch, explained_rule, ' +
+        'auto_passed, auto_total, ' +
         'type_mix_fit, distinct_volumes, articles_with_items, articles_idle, ' +
-        'brand_fingerprint, render_count, rendered_at, out_path',
+        'brand_fingerprint, render_count, rendered_at, out_path, colophon',
     )
     .order('band')
 
   const current = brandFingerprint()
   const rows = (data ?? []) as unknown as {
     band: number
+    series: string | null
+    auto_passed: number | null
+    auto_total: number | null
+    colophon: (Colophon & { publish?: Partial<VolumePublish> | null }) | null
     volume_title: string | null
     step: number | null
     school_band: string | null
@@ -262,6 +324,15 @@ export async function loadPressView(): Promise<PressView> {
 
   const volumes: PressVolumeRow[] = rows.map((r) => ({
     band: r.band,
+    // 옛 행에는 series 가 없다 — 그때는 독해만 찍었다(마이그레이션 textbook_volume_renders_series).
+    series: r.series ?? 'reading',
+    // ⚠️ colophon.publish 가 없으면 **null** 이다. 'rendered' 로 채우면 「사람이 rendered 로
+    //   판정했다」와 「아무도 판정한 적이 없다」가 같은 값이 되고, 그 둘은 할 일이 다르다.
+    publish: publishOf(r.colophon),
+    personaBlocked: blockedOf(r.colophon),
+    autoPassed: r.auto_passed ?? 0,
+    autoTotal: r.auto_total ?? 0,
+    reach: reachOf(r.series ?? 'reading', r.step),
     volumeTitle: r.volume_title,
     step: r.step,
     schoolBand: r.school_band,
@@ -284,5 +355,54 @@ export async function loadPressView(): Promise<PressView> {
     brandFingerprint: current,
     brand: { rows: brandSpecRows(), fonts: VOLUME_FONTS },
     loadError: error ? `조판 기록 조회 실패: ${error.message}` : null,
+  }
+}
+
+/* ───────────────────────── ⑥ 해설 ───────────────────────── */
+
+/**
+ * 유형 × 수준 해설 보유 — **이미 있던 집계표에서 읽는다.**
+ *
+ * ⚠️ 이 파일 머리말에 「해설 화면이 여기 없는 이유」가 한 달 넘게 적혀 있었다:
+ *   「`answer_key->>explanation_ko` 를 유형마다 훑어야 하는데 인덱스가 없어 5~8초씩 걸리고,
+ *   집계 RPC 가 필요한데 마이그레이션이라 승인 대기다.」
+ *   **그 문장이 낡았다.** 필요한 집계는 `textbook_shelf_inventory_mv`(20260831090000)에
+ *   (유형 × 수준 × 문항 × 해설)로 이미 들어 있고 `loadDcpInventory` 가 1.2초에 읽는다 —
+ *   집필 화면이 **같은 호출로 같은 표를 이미 읽고 있었다.** 마이그레이션 없이 만들 수 있던
+ *   화면이 그 한 문장 때문에 안 만들어졌다(DD-74).
+ *
+ * 해설 판정 정의는 집계표 쪽을 따른다 —
+ * `COALESCE(NULLIF(explanation_ko,''), NULLIF(rationale_ko,''))`. 키만 있고 값이 빈 문항을
+ * 「해설 있음」으로 세면 구멍이 영영 안 보인다(`item-count.ts` 머리말의 같은 규칙).
+ */
+export async function loadExplainView(): Promise<ExplainView> {
+  const db = createAdminClient() as unknown as SupabaseClient
+  const inventory = await loadDcpInventory(db)
+
+  if (!inventory.ok) {
+    // **0 으로 적지 않는다** — 못 읽은 것과 「해설이 다 붙었다」는 정반대다.
+    return { cells: [], items: null, explained: null, inventoryAt: null, inventoryNote: null, loadError: inventory.error }
+  }
+
+  const ladder = new Set<string>()
+  for (const rung of SERIES_SPINE) {
+    for (const v of rung.vLevels) for (const t of rung.types) ladder.add(`${t}|${v}`)
+  }
+
+  const cells: ExplainCell[] = inventory.cells.map((c) => ({
+    type: c.type,
+    vLevel: c.vLevel,
+    items: c.items,
+    explained: c.explained,
+    inLadder: ladder.has(`${c.type}|${c.vLevel}`),
+  }))
+
+  return {
+    cells,
+    items: inventory.items,
+    explained: inventory.explained,
+    inventoryAt: inventory.refreshedAt,
+    inventoryNote: inventoryFreshnessNote(inventory.refreshedAt) ?? null,
+    loadError: null,
   }
 }

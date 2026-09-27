@@ -1,0 +1,920 @@
+[
+  {
+    "id": "0d055dc2-576e-406f-a983-f71b39974315",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5b543d19ea3e84b72e201808da12534d04975c5077b407039bd329e9916d030d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유엔 인간복제 비구속 선언 표결을 찬반 진영·영국 대응·반대측 논평으로 전하는 앞 여덟 문단이 서고 뒤의 국가 명단은 걷어 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Proposed by Honduras, the statement was",
+      "note": "온두라스 제안 문단은 가톨릭·연구국 대립이 한 문단에 서지만 embryonic stem cell 을 바꿔도 V6 에 머문다; 국가 명단 네 덩어리는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "0d06ff5c-5964-4897-968b-93b79bc132d4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "96132d80d4b6928d36673c3f2c8d7618898ce8a34039fdb3a7d52c222ab2bd05",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "history",
+    "why": "타이타닉이 빙산 이전 화재로 약해졌다는 다큐 주장을 사진 근거·전문가 반응과 함께 제시해 통념-반론 구조의 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The documentary claims expert analysis confirmed",
+      "note": "금속 강도 문단은 온도→취성→강도 저하 인과가 인용 하나로 서서 빈칸 문항이 됐다."
+    }
+  },
+  {
+    "id": "0d0df9e7-c3bb-4c67-a1b0-7a0b6ae3a184",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4444502d90c9764c607c7e3d7a3cbc8c5369c7cb3d65c50db73b0d66c9f2c190",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바로수 위원장이 반발로 명단을 철회·수정하고 의회 승인을 받은 경과를 두 문단에 담아 사건 흐름으로 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "His new line-up, according to the",
+      "note": "새 명단 문단은 교체된 두 명과 표결 결과가 이어져 섰고 Eurosceptics 만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "0d2424d6-6627-41ad-9b29-4c3cff048c76",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "673da9ad584f649dfa8498c758e886cbd225181053c01d1debdb7a8be627238d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "타이베이 패션쇼의 일정·장소·홍보 무대를 나열한 홍보 기사로 비문이 많고 사건 흐름이나 논지가 서지 않아 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "By the way of 2008 FUSE",
+      "note": "FUSE 문단은 By the way 연결과 비문 때문에 고쳐 써도 행사 이름 나열만 남아 가공이 막혔다."
+    }
+  },
+  {
+    "id": "0d27f2db-aef8-4b30-9e6c-83a1ee21df93",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d0fd813a2a09c3e5a51a940a79798e6ba9998be84c289ead15a82a652279d905",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인도 장기 밀매 혐의자 체포와 아내 항변·피해자 증언·송환 문제를 엮은 사건 기사로 서사·내용일치 칸을 채운다; 범죄 소재라 고2 이상 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One victim, known as Ranjinder, told",
+      "note": "피해자 증언 문단은 속임→이동→혈액검사 순서가 서서 서사 순서 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "0d29e99c-e6ca-44e0-b084-b147605d70eb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "215e23d9bc95ea4173be6f383013eb454c9557cb1a7698891c4c96af081a53df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "호주 하원의 이성 결혼 지지 동의안 토론을 의원별 발언으로 전하는 의회 보도라 쟁점 대립을 읽는 고3·성인 읽기 칸을 채운다; 한쪽 발언이 대부분이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Interestingly, the Australian Senate is yet",
+      "note": "마지막 문단은 상원 반대 동의안을 소개해 균형을 조금 잡지만 의회 용어가 많아 V6 아래로는 안 내려갔다."
+    }
+  },
+  {
+    "id": "0d2ad9cd-8741-47cc-b224-5372270cd8f4",
+    "source_updated_at": "2026-09-25T08:53:51.413346+00:00",
+    "body_sha256": "f54dfb4f70a465065b885eadadaa17103956db48fd8d6010e2b8ab0a956b15e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "세이브더칠드런 잘랄라바드 사무소 피습과 활동 중단 성명을 경과·성명·배경 순으로 전해 내용일치·서사 칸을 채운다; 테러 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Save the Children established operations in",
+      "note": "배경 문단은 1976년 진출부터 최근 구호단체 피습 목록까지 시간순이라 순서 문항으로 잘렸다."
+    }
+  },
+  {
+    "id": "0d2d488e-5dad-46fb-9d17-49dbc5442078",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab9b8953fdded4ff378d273be58e59a78aab71164a268f7854b4ca8c51d4fac0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프라하 도심 폭발의 피해·추정 원인(가스)·구조 상황을 짧게 전해 사건 흐름으로 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The blast shattered windows of buildings",
+      "note": "유리창 파손 문단은 피해→봉쇄→수색 흐름이 두 문장에 서고 rubble 만 풀면 된다."
+    }
+  },
+  {
+    "id": "0d30a2ba-fc84-4e1f-bfd2-cd4f16014250",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "af908dabd6f0c0ee95e4eb460f873c7bd9a48707b0e88a7d761d3d00f24f95e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "15년간 신원 미상이던 정신병원 여성이 제보로 신원을 되찾은 사연을 시간순으로 전해 서사·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "long_reference"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After receiving multiple tips in response",
+      "note": "제보로 조각을 맞춘 문단은 앞 문맥 없이 서고 fragments 만 쉬운 말로 바꿨다."
+    }
+  },
+  {
+    "id": "0d3228f0-83de-48f0-829a-137530511786",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "119340907e244f7abd19d0af7b31a80ced2ed493c40a301d66076fbe59cea4df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "뉴질랜드 가입자망 분리 법안 통과와 경쟁·요금 변화, 장관 발언을 전해 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The bill will ensure that consumers",
+      "note": "소비자 요금 문단은 전후 대비가 서지만 naked DSL·local loop 같은 용어는 바꾸면 뜻이 흐려져 V6 에 머문다."
+    }
+  },
+  {
+    "id": "0d38b71a-c9d7-481e-ab49-ec5a70ff4184",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d340f18843f9733155970c7199950265bc983d12f8888f8e656307725335f66f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "hold",
+    "genre": "news",
+    "why": "일본 지진의 지축 이동 기사지만 문단마다 인용문이 빠진 채 「Experts believe that」처럼 끊겨 받은 본문이 중간에서 잘렸다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "According to La Nación, the impact",
+      "note": "라 나시온 문단이 stated that 에서 끊겨 인용 없이는 문장이 완결되지 않아 가공이 막혔다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "0d395740-e0ac-4db8-9bba-f1d44b23a1b2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "59d52b0ad69ac9a221329952d7853f91934c2324492a19e319481394c61bb08b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "창조론 영화 Expelled 제작사의 저작권 침해 의혹 세 건과 과학계 비판을 전해 내용일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On April 16, the The Wall",
+      "note": "음악 무단 사용 문단은 사례 셋이 In addition 으로 이어져 요약문 빈칸으로 가공됐다."
+    }
+  },
+  {
+    "id": "0d3c69c8-4f4d-42cb-b57e-87bc5d69ed8c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "26ecd2dcb83ee030459a4414359d32508f98838c13e0767abc5966d15a743be8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콜럼바인 기념일 학교 공격 모의가 잃어버린 일기로 드러난 경과를 전해 사건 흐름으로 내용일치 칸이 된다; 폭력 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plot was uncovered when the",
+      "note": "일기 발견 문단은 분실→습득→신고 흐름이 두 문장에 있어 순서 문항 재료로 좋았다."
+    }
+  },
+  {
+    "id": "0d3f37fa-4261-42dd-8ea8-c501adb0b45b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c50615e19dc52dc3a0238157a10ec2b1e86c19f4831c77ea030141986e40c754",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "깁스 전 대변인의 페이스북 이직 협상 보도로 배경과 페이스북의 로비 강화가 이어져 내용일치 칸을 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In recent months, Facebook has stepped",
+      "note": "로비 강화 문단은 앞 인물 설명 없이도 회사 전략으로 서서 떼어졌다."
+    }
+  },
+  {
+    "id": "0d41c8c7-3ad3-45c7-af75-f2796bde73ae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c79b0f7d41d44927b24426553821cf557c854d478789fb7d3a34f0dbeba62d54",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "history",
+    "why": "2차대전 중 침몰한 HMAS 시드니 발견과 총리 발언·유족의 조사 요구를 전해 서사·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "HMAS Sydney was sunk on November",
+      "note": "1941년 침몰 문단은 전원 사망→음모론→생존자 증언 일치로 이어져 홀로 섰다."
+    }
+  },
+  {
+    "id": "0d425739-5058-4166-a039-475cd9f26bc0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "da7533bfece98c18f48008b09b6055b6e89ac0bb4fa0bf7b77919a0a17565793",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미 국방부의 군 컴퓨터 동영상 사이트 차단 조치를 이유(대역폭)와 영향으로 전해 내용일치 칸을 채운다; 사이트 명단은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The move affects soldiers' ability to",
+      "note": "영향 문단은 보기와 제공을 대비해 요점이 서고 인용은 줄여도 된다."
+    }
+  },
+  {
+    "id": "0d468bcf-b09f-47eb-89cb-b2a6ad27fa76",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33a12971187c7a798d36e936c3c155a977cf3d60a28a6f011331bed8a7dd216b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "칠레 광부 매몰 사고를 영화로 만들겠다는 감독의 계획과 발언을 전해 짧은 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ortúzar is already filming in Copiapó.",
+      "note": "촬영 일정 문단은 짧아 쉽게 떼어졌지만 정보가 적어 문항 하나 분량이다."
+    }
+  },
+  {
+    "id": "0d4d01f7-2fc2-42e4-a270-d59e1eb53a87",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9e019589a2bca17ce488e6d25a7376b136229b61559e5b628cc4ee8920b92db5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "space",
+    "why": "아틀란티스 귀환 일정과 첩보위성 파괴에 따른 대체 착륙지 고려, 엔데버 이동을 전해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Atlantis is scheduled to land on",
+      "note": "대체 착륙지 문단은 위성 파편→위험→대안 인과가 서지만 시각·약어가 많아 V6 아래로는 어렵다."
+    }
+  },
+  {
+    "id": "0d4dd67c-1430-4a27-bf3e-b805303eed0d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "09642873d48b94e5bab6eb7d98cb21bf5d522d9ea418fade76f757ef5b286b6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "mixed",
+    "why": "국경없는의사회 철수·재거·다보스·파푸아뉴기니 쿠데타 등 무관한 단신 여럿을 묶은 모음이라 한 편의 글로 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Medicins Sans Frontieres (MSF) have announced",
+      "note": "MSF 문단은 떼면 서지만 다음 단신과 이어지지 않아 원천 단위로는 가공이 막혔다."
+    }
+  },
+  {
+    "id": "0d58b7f9-deb4-46b1-a8eb-c464ebddcedf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a9f404cc1867d99d732c92aba6ff984ea9800aec090b6c527654938976781e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "철도 공사 기습 예고를 두고 버진트레인과 네트워크레일이 맞선 경과와 규제기관 조사를 전해 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spokesman for Network Rail said,",
+      "note": "네트워크레일 해명 문단은 휴가철을 고른 까닭이 한 인용에 서서 주장-근거 짝으로 쓰였다."
+    }
+  },
+  {
+    "id": "0d59da8e-ce46-42f3-a85a-cf11b44ad85f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b86d1ddd31fbaba36c668be9118014a8bcebf22c0d85948492cd471a67d8d69f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미군 여성 전투병과 금지 해제 발표를 규모·현행 제한과 함께 전해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Military rules currently prevent women from",
+      "note": "현행 제한 문단은 금지 항목 나열이라 문장으로 풀어야 했고 reconnaissance 만 바꿨다."
+    }
+  },
+  {
+    "id": "0d5be905-2284-49fc-8d9e-11ce5e54a458",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b96cf14f85128c2d1ea37365249624c5a8459b167b540ff035e821eee9532287",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "mixed",
+    "why": "우크라이나 가스관 폭발·구리값·라스베이거스 폭발 등 무관한 단신과 「Sources」 잔재를 묶은 모음이라 한 편으로 서지 않는다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Copper prices are rising. Between record",
+      "note": "구리값 문단은 따로 떼면 인과가 서지만 원천 전체가 세 주제로 갈아엎혀 보관 단위가 되지 못한다."
+    }
+  },
+  {
+    "id": "0d5ccc72-ec3f-4ba9-88ea-9e7587720e9f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b2af68d3f469f007e0b30c20b080526b5deb9e9afca8f9effc399575a8de8d2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "옐로스톤 협곡 추락 사망 사고의 경과·구조·재발 지점을 시간순으로 전해 서사·내용일치 칸을 채운다; 사망 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yellowstone fire department and a technical",
+      "note": "구조 문단은 출동→하강→확인→다음 날 수습 순이라 순서 문항으로 바로 잘렸다."
+    }
+  },
+  {
+    "id": "0d5e333d-2615-4de9-88d1-660ca9f57160",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8407297798e036a59c54adf1b6a7b3002f079e3b2530c8ff36e0350a92035f11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 피랍 구호원 하산의 피살 추정 소식과 피랍 이후 경과를 전해 내용일치 칸을 채운다; 처형 소재라 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since her kidnapping on October 19,",
+      "note": "피랍 이후 문단은 주어가 빠진 문장을 고쳐야 했지만 요구 사항이 서서 떼어졌다."
+    }
+  },
+  {
+    "id": "0d603c22-adc9-4bc4-96e9-411990d1e5b1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "24fc21770f17fe77c544e01bc6bee7b842f70c809a034bd9feb9f5494086723e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "호주 해상 시추선 원유 유출 규모와 당국의 무해 주장·대피를 전해 내용일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Officials, however, said that there was",
+      "note": "장관 발언 문단은 증발로 위협이 없다는 주장이 서서 주장 파악 문항으로 가공됐다."
+    }
+  }
+]

@@ -1,0 +1,1794 @@
+[
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "12fc9c96-e816-48c2-9283-f3984bc5e5ed",
+    "revision": "2026-09-25T08:57:33.500468+00:00",
+    "body_sha256": "0e0ce61f019d68c44fb554e46a1de68ab13628e3e41af0562fd6addf1163a5c9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "푸틴 퇴진 발언과 백악관의 수습, 러시아 측 반박이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nevertheless, Biden's speech included other warnings",
+          "note": "NATO 경고 문단은 인용 두 개로 섰고 sacred obligation 을 풀면 됐으나 조약 괄호 설명은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.617Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_President_Biden_says_Russian_President_Putin_must_be_ousted",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.396
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1304063b-f6e3-4dc3-94ba-d8791c8222eb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e93005648fe0c016031bf1e4e778b0e85e4b80a4f6b84a8ffc4d2721c87fada1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "부시 병역 보도가 가짜 문서 논란→조사→해고로 이어진 경위가 언론 검증 원칙을 드러내 순서·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The independent panel was not able",
+          "note": "조사단 결론 문단은 검증 원칙 위반이라는 핵심을 담아 섰고 verify 외엔 쉬운 말이었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.618Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/CBS_fires_four_in_fake_Bush_story_fallout",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13057819-81a2-49bc-b827-8131d1b79f49",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e64376fff6d12f0e5c3b4fad478e5c44e03536f36506c3e1fec1625419efe96b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "소녀 사망의 조류독감 연관 의심 이유와 검사 진행이 이어져 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The young woman lived near a",
+          "note": "거주지 문단은 철새 경유지와 가금 폐사를 이어 감염 의심 이유를 세웠고 stopover 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.618Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Young_Iraqi_teen_death_investigated_as_possible_bird_flu_case",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.237,
+          "words": 118,
+          "english": 0.4
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1316ab29-49ea-48db-927d-f3e5d706c9c5",
+    "revision": "2026-09-25T08:50:47.312412+00:00",
+    "body_sha256": "660563f536d7edd7017b34ba488d3a987cfa0e2066cb24150b8526be73faf485",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "배우의 사망과 대표작 이력, 원작자의 애도가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He also portrayed Professor Severus Snape",
+          "note": "해리 포터 문단은 He 를 이름으로 바꾸면 섰고 adaption 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Alan_Rickman_dies_at_69_due_to_cancer",
+          "year": 2016,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.349,
+          "words": 189,
+          "english": 0.408
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1319b2a4-6bf3-445e-93ae-fc7ccd008e7e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "de08020c976e17a296b112192d56b4a91055c1b805cca4440439792e56f85a3f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "피임 스펀지 재승인과 장단점, 시장 철수에 관한 오해와 실제 이유가 이어지나 성 묘사가 있어 성인 요약 칸만 둔다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some misconceptions have surrounded the product's",
+          "note": "오해 교정 문단은 「안전하지 않다(거짓)·파산했다(거짓)」 뒤 실제 이유를 대는 구조가 뚜렷했으나 성 관련 장점 목록은 성인 칸으로만 둔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Female_sponge_contraceptive_re-approved_for_US_market",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "131d68f5-d754-40d4-b61d-a654cfb8b4e0",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "81a83f8fc37a9daf8c55f56657706060aaa6bdb9169ad416fe4079a39484bd1d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "부정행위 주장을 첫째·둘째·셋째 기술 근거로 뒷받침하고 기록 인정으로 끝나 주장-근거·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "First, the analysis pointed to the",
+          "note": "첫째 근거 문단은 배지 시간 순서가 뒤섞였다는 증거가 섰고 non-chronological 을 풀면 V5 였다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Roblox_player_uncovers_cheating%2C_awarded_Guinness_World_Record",
+          "year": 2026,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.328
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1320978b-e9a7-44b5-b891-36192c79cd5f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3aca4ac5a3124e892c5ab9a23b9a5cda525add3ae12ae9b73ae0cd2e7eb15a22",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대통령 재선 결과와 개혁 공약, 부정선거 비판이 맞서 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Opposition candidates, however, have claimed that",
+          "note": "부정선거 주장 문단은 인권 단체 인용으로 섰고 stifled·beleaguered 를 풀어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Obiang_reelected_as_president_of_Equatorial_Guinea_after_elections",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.195,
+          "words": 154,
+          "english": 0.347
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "132a9618-990a-4fc7-840c-96cdc928f003",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "189bef35005a1b3eba849a95ca7758a8bd23b6e1429e411c09914b47aeb18a03",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "퇴직 경찰관이 강도를 쫓아 경찰 대회 참석자들과 붙잡은 경위가 시간순으로 서서 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Comparetto handed over both to the",
+          "note": "추격 문단은 넘겨줌→총 꺼냄→추격→지원 요청 순서가 뚜렷해 순서 문항에 좋았고 holster 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Robber_holds_retired_NYC_police_officer_at_gunpoint_during_convention",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.422,
+          "words": 166,
+          "english": 0.339
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13351abd-fa9e-430b-8889-287fb3870cc9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "101aa06ce7dfec1c66af4857d752a8dfc6ac6fe982ae9a0e84d5b2fa4ea32f32",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "장기 파병을 각오하라는 장군의 주장과 사상자 경고, 보상 논리가 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "There are things worth fighting for.",
+          "note": "「싸울 가치」 문단은 주장이 강하게 서지만 뒤따르는 인용 문단이 추상 명사 나열이라 어휘를 내리기 어려웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/'Afghanistan_is_a_20-year_venture'_warns_Canadian_general",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1335ecf3-40a6-4adb-8d60-47670b63c3bb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bad847c2f971e78a4cdb236a62c65f62b0ba667394ecd01fec2a3323e6a80e20",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "6자 회담 복귀 촉구와 「폭정의 전초기지」 발언 철회 요구가 맞서 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Pyongyang claims that it desires nuclear",
+          "note": "북한 주장 문단은 방어 논리와 미국의 부인이 한 문장에 맞서 섰고 aggression 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Rice_pushes_for_fresh_nuclear_talks_with_North_Korea",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.797,
+          "words": 158,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13375e00-f3a3-4cb9-b9f8-f9ca379c2090",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5bfb65e762b1ecb45e5be9bb3326279ad19b817f11e26d030e49749beabba162",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "구제 융자 조건과 두 회사의 구조조정, 부진 원인과 파급 효과가 이어져 요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "GM must reduce some of its",
+          "note": "GM 부진 원인 문단은 고유가 속 대형차 투자라는 인과가 짧게 서서 요지로 좋았고 legacy costs 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/GM_and_Chrysler_receive_Canadian_loans_amid_US_restructuring_ultimata",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.406
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13390615-997b-4c5f-8b91-fa1fc542ec90",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ac6f2b40097d233b1bbb6971e1c4fb42c86961b6c41af3a528a5d10941146bc1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "첫 히스패닉 대법관 후보 지명과 이력, 인준 절차가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sotomayor was nominated in 1997 to",
+          "note": "경력 문단은 지명 이력을 시간 역순으로 담아 섰고 predecessor 만 바꾸면 됐다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Obama_nominates_Sonia_Sotomayor_to_U.S._Supreme_Court",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 9.202,
+          "words": 163,
+          "english": 0.304
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13393079-87ea-4d42-ba1e-dfc2e5f8ee95",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36969d43e267f4c9d494b121414d9f176c9fecf42ed30157d635836194637888",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "1977년 검찰총장 암살 사건이 30년 뒤 DNA 증거로 재수사돼 체포로 이어진 흐름이 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The case was reopened last year,",
+          "note": "DNA 재수사 문단은 신기술이 옛 사건을 푼 인과가 서고 envelope 외엔 쉬웠다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_terrorist_arrested_for_1970s_murder_of_top_German_prosecutor",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.401
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1339344e-b2e0-4ef3-b784-b305f91ffdf4",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d2a1d35f4ac97e98a0a96eb885d6a7e4564563abe0ed73a2b0649e3efeff796",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "가수의 네 차례 출전과 첫 0점 기록, 은퇴 후 직업이 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The singer performed at the first",
+          "note": "출전 이력 문단은 1956→1958→1960→1962 순서가 뚜렷해 순서 문항에 맞았고 nul points 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Belgian_Eurovision_singer_Fud_Leclerc_dies_at_age_86",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.479,
+          "words": 146,
+          "english": 0.396
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "133b7b31-3ef6-483d-bb40-67013cad0daf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8d50def18a652e06d873d82d1a4896b3a8cfecac3850b41fc89eb8657eeedad2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "초기 우주의 바리온 절반이 사라진 문제와 X선 관측으로 그 은신처를 찾은 과정이 이어져 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Various measurements give a good estimate",
+          "note": "사라진 바리온 문단은 줄바꿈을 이어 붙이면 문제 제기가 섰지만 baryon·dark energy 개념은 바꿀 수 없어 V7 에 머물렀다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Chandra_telescope_finds_missing_baryonic_matter",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "133d1a23-33c8-4877-b3ea-89584b0c9ca9",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e66dbec73b02470c5b540300dc20672baae7438b241c4ebf82355e88bb210bf8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "라오스 지진의 규모·진앙과 피해 없음·방콕 체감 사실이 이어져 중등 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There are no reports of damage",
+          "note": "피해 전망 문단은 한 문장이라 재난센터 인용 문단과 묶어야 섰고 괄호 속 단위 환산은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.619Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/6.3_earthquake_rocks_Laos",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.918,
+          "words": 159,
+          "english": 0.409
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "133dffa4-0716-4cb3-beba-3b029bf60929",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f141a63f59a72b06dec34bb81d71a63a36575005050e85a73277c66a06fbf697",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "정신건강 5개년 계획의 목적과 세부 조치(상담 환급·인력 확충)가 이어져 목적·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "purpose"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Under the federal government's plan, psychologists",
+          "note": "심리상담 환급 문단은 제도 변화와 현재 비용을 대비해 섰으나 마지막 두 단락이 같은 내용을 반복해 가공 때 하나를 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_PM_announces_%241.8_billion_mental_health_plan",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.328
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "133f22db-c21b-4353-a051-8b54ef0c9401",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7bcc4f90a4e3a825785ab4fbf93545054f534cc94bed1c93b90c0fab0e481ad3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "화성 균열의 광물 변질이 과거 지하수와 생명 가능 환경을 시사한다는 해석과 근거가 이어져 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to NASA scientists, \"mineralization\" was",
+          "note": "광물화 문단은 물에 녹았다 증발하는 과정과 다른 가능성을 함께 담아 빈칸에 좋았고 evaporating 은 그대로 두었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Reconnaissance_Orbiter_finds_more_evidence_of_water_on_the_planet_Mars",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.402
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13417dce-ffbe-45d6-8316-f0a1dc6e1002",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4df8a2e2a7e82c813c130f18ebaa496e51ad416cf79f68ce889bf73153ccd2f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "칠레 지진의 규모·쓰나미 판단·정전과 여진 사실이 이어져 내용 일치 칸을 채운다(지명·거리 나열은 걷는다).",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The National Office of Emergency of",
+          "note": "정전 문단은 의도적 단전 설명을 담아 섰지만 지명 나열이 많아 둘만 남겼고, 진앙 거리 목록 문단은 걷었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/7.1_magnitude_earthquake_strikes_Araucan%C3%ADa%2C_Chile%3B_no_tsunami_warning",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13522f2f-6e31-4022-87b2-9af200b9af05",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "af9980df04865d2ec9d20d272600e77b7d0fc8fd6330094278f3be710b1ea235",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "블랙박스 수색 자금 지원의 이례성과 속도 센서 결함 의심 근거가 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Airbus had already recommended that one",
+          "note": "피토관 문단은 교체 권고→미교체→유사 사고 흐름이 섰고 pitot tubes 는 「속도 센서」로 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Airbus_offers_funding_to_search_for_black_boxes_from_Air_France_disaster",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "13557319-1f8f-4a15-a801-1159de0bf06e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9f2e4fcb5a0862165ad850a9eb1888d6e9180df3e4c551d0aa85e6576bc0ea4b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "배우의 무기 소지 유죄와 테러 혐의 배제, 항소 절차가 이어져 고2 이상 내용 일치 칸을 채운다(조항 번호는 걷는다).",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Judge Pramod Kode gave the decision",
+          "note": "판결 문단은 테러범이 아니라는 판단을 담아 섰지만 둘째·넷째 단락의 법 조항 번호는 걷어야 했고 법률 용어가 많았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sanjay_Dutt_found_guilty_under_Arms_Act_in_1993_Mumbai_blasts_case",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.37
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1359ea5c-10df-4898-8e7f-901bbb64b245",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75afb4c86ac700dfcec1599df8393389d8a13c5cb9e3ee1dc14e895dd1bae151",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "미·인도 원자력 협정 법안 통과와 찬성(동반자 관계)·반대(비확산 훼손) 논리가 맞서 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The deal offers India US nuclear",
+          "note": "거래 내용 문단은 교환 조건과 찬반 평가를 한 문단에 담아 요지로 섰고 non-proliferation 을 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_House_of_Representatives_passes_India_nuclear_bill",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.386
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "135d4e31-7ffa-4f43-bc1a-6d29a6888daf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e6cd1a0d7943a1150dd872ed2217759f68c6f16be76d456c2119fb966d22166d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "지역 리그 결승 진출 판도가 경기 점수차와 팀 순위 나열로만 이루어져 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Heading into round 18, Maffra will",
+          "note": "순위 문단을 떼니 팀 이름과 순위 나열뿐이라 논지나 사건 흐름이 서지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_rules_football%3A_2010_Gippsland_Football_League_finals_take_shape_two_weeks_out",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.164,
+          "words": 146,
+          "english": 0.322
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "135f4070-d3ee-420a-8e9e-f800114b05c5",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a8169c61b8c135e27372ed52749213519871ae95ef698c420e810ded9dba4e9b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "같은 날 이라크의 폭탄·처형·차량 폭탄 사건 사실이 이어져 고3·성인 내용 일치 칸 하나만 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "In Baghdad, up to three Iraqi",
+          "note": "바그다드 문단은 따로 서지만 앞 두 사건과 연결이 약해 세 사건을 「같은 날 이라크 폭력」으로 묶는 문장을 더해야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bombing_in_Iraq_kills_US_Marines_and_civilians",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.167,
+          "words": 96,
+          "english": 0.347
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-15-615Z",
+    "id": "1360072e-8b4c-410c-9141-f49842802ddd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1a0c9c45d9d2b0a77b3b67829f706cce8d6ba0e82b41d5c98ffb62aedbad9ee0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "NPT 탈퇴 경고의 근거와 안보리 개입 반대, 협상 가능성 전망이 이어져 주장·요약·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the Non-Proliferation Treaty, Article 10",
+          "note": "제10조 문단은 탈퇴 근거와 북한 선례를 담아 섰고 signatories 를 signature 로 고쳤다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:15.620Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iran_says_it_may_withdraw_from_Nuclear_Non-Proliferation_Treaty",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.465
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

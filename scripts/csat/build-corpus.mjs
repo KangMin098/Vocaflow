@@ -17,9 +17,22 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor, passageOf, choicesOf, INLINE_SYMBOL_TYPES } from './lib-passage.mjs'
+import { examMetaOf, listeningEndOf } from './lib-exam-id.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
+
+/**
+ * **어느 집합의 원장을 만드나.** 기본은 평가원(수능 + 모평) → `corpus.json`.
+ * `--set hakpyeong` 은 교육청 학평만 → `corpus-hakpyeong.json`.
+ *
+ * 두 원장을 합치지 않는 이유: `corpus.json` 은 블루프린트·대역·측정 스크립트 수십 개가
+ * «평가원 전체» 로 읽는다. 학평 4,680문항이 섞이면 그 스크립트들의 분모가 조용히 바뀐다.
+ * 학평은 보조·검증 집합이다 — 따로 두고, 대조하고 싶은 쪽이 명시적으로 읽는다.
+ */
+const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
+if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
+const OUT_NAME = SET === 'kice' ? 'corpus' : 'corpus-hakpyeong'
 
 const TYPES = new Map(read('classified.json').types.map((t) => [t.id, t]))
 
@@ -34,8 +47,12 @@ const classified = new Map(
 )
 
 const keyOf = new Map()
-for (const a of suneungKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
-for (const a of mockKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
+if (SET === 'kice') {
+  for (const a of suneungKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
+  for (const a of mockKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
+} else {
+  for (const a of read('hakpyeong-answers.json').answers) keyOf.set(`${a.exam}#${a.no}`, a)
+}
 
 /**
  * **평가원 공개 정답표에서 받아 온 모의평가 정답**(`mock-answers-kice.json`).
@@ -50,7 +67,7 @@ for (const a of mockKeys.answers) keyOf.set(`${a.exam}#${a.no}`, a)
  */
 const kicePath = path.join(DIR, 'mock-answers-kice.json')
 let kiceFilled = 0
-if (fs.existsSync(kicePath)) {
+if (SET === 'kice' && fs.existsSync(kicePath)) {
   for (const a of read('mock-answers-kice.json').answers ?? []) {
     const k = `${a.exam}#${a.no}`
     if (keyOf.has(k)) continue
@@ -65,19 +82,13 @@ if (fs.existsSync(kicePath)) {
  * '독해' 로 들어와 분석 사정권을 오염시킨다 — 실측으로 걸렸다(지문 길이 5~24자).
  */
 function listeningEnd(exam) {
-  return exam.startsWith('2014') ? 22 : 17
+  return listeningEndOf(exam)
 }
 
 /** 회차 성격 — 수능인가 모평인가, 몇 학년도 몇 월인가 */
 function examMeta(exam) {
-  if (exam.startsWith('M')) {
-    const yy = exam.slice(1, 3)
-    const mm = exam.slice(3, 5)
-    return { kind: 'mock', year: 2000 + Number(yy), month: Number(mm), label: `20${yy}학년도 ${Number(mm)}월 모의평가` }
-  }
-  const year = Number(exam.slice(0, 4))
-  const form = exam.length > 4 ? exam.slice(4) : null
-  return { kind: 'suneung', year, month: 11, form, label: `${year}학년도 수능${form ? ` ${form}형` : ''}` }
+  // 회차 id 문법은 `lib-exam-id.mjs` 한곳이 읽는다(학평 `H2503G1` 포함)
+  return examMetaOf(exam)
 }
 
 /**
@@ -226,10 +237,10 @@ const LONG_SET_TYPE = { 41: 'X-TITLE', 42: 'X-VOCAB', 43: 'X-ORDER', 44: 'X-REFE
 const GENERIC_SET_STEM = /^다음\s*글을\s*읽고,?\s*물음에\s*답하시오/
 
 const items = []
-const rows = [
-  ...suneung.questions.map((q) => ({ ...q, ...(classified.get(`${q.exam}#${q.no}`) ?? {}) })),
-  ...mock.rows,
-]
+const rows =
+  SET === 'kice'
+    ? [...suneung.questions.map((q) => ({ ...q, ...(classified.get(`${q.exam}#${q.no}`) ?? {}) })), ...mock.rows]
+    : read('hakpyeong-questions.json').rows
 
 /**
  * **유형이 안 붙은 문항만** 발문에서 다시 배정한다 — 이미 붙은 것은 절대 건드리지 않는다.
@@ -466,8 +477,8 @@ const report = {
   by_exam: exams,
 }
 
-fs.writeFileSync(path.join(DIR, 'corpus.json'), JSON.stringify({ report, items }, null, 1))
-fs.writeFileSync(path.join(DIR, 'corpus-report.json'), JSON.stringify(report, null, 1))
+fs.writeFileSync(path.join(DIR, `${OUT_NAME}.json`), JSON.stringify({ report, items }, null, 1))
+fs.writeFileSync(path.join(DIR, `${OUT_NAME}-report.json`), JSON.stringify(report, null, 1))
 
 const pct = (a, b) => (b ? ((a / b) * 100).toFixed(1) : '0.0')
 const s = report.in_scope
@@ -478,4 +489,4 @@ console.log(`  유형 배정  ${s.typed} (${pct(s.typed, s.items)}%)`)
 console.log(`  정답·배점  ${s.keyed} (${pct(s.keyed, s.items)}%) · 정답표 온전 회차 ${s.exams_fully_keyed}/${report.exams}`)
 console.log(`  지문       ${s.passaged} (${pct(s.passaged, s.items)}%)`)
 console.log(`  선지 5개   ${s.choiced} (${pct(s.choiced, s.items)}%)`)
-console.log('→ corpus.json · corpus-report.json')
+console.log(`→ ${OUT_NAME}.json · ${OUT_NAME}-report.json`)

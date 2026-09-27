@@ -34,6 +34,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { isKiceExam } from '../csat/lib-exam-id.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split('\n')) {
   const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/)
@@ -96,7 +97,8 @@ for (let from = 0; ; from += 500) {
     .range(from, from + 499)
   if (error) throw new Error(`csat_items 읽기 실패: ${error.message}`)
   if (!data?.length) break
-  csatRows.push(...data)
+  // 평가원 회차만 — 학평(보조·검증 집합)은 이 측정의 분모가 아니다
+  csatRows.push(...data.filter((r) => isKiceExam(r.id)))
   if (data.length < 500) break
 }
 const csatMeasured = csatRows

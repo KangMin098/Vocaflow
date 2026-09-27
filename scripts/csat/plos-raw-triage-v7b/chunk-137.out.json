@@ -1,0 +1,852 @@
+[
+ {
+  "id": "6eb4eaed-c3a6-4f22-87e0-e46c1af76ba7",
+  "source_updated_at": "2026-09-15T15:15:22.599222+00:00",
+  "body_sha256": "22540a02be4d1bf4f8a72eed015939f4b860199b421fc0c06931b0630299dbb8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "IgG4 안질환의 각막 변화 가설을 세우고 고찰에서 갑상선 안질환과 비교해 논지를 잇는다 — 「동적 변수가 더 민감」 단락이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The keratometry measurements reflect the static",
+   "note": "각막 계측 약어(A2 velocity)를 「각막이 돌아오는 속도」로 풀면 서고, 수치를 걷어도 대비 논지가 남는다."
+  }
+ },
+ {
+  "id": "6ebb0573-92b8-4eaf-aa46-3caa03571d50",
+  "source_updated_at": "2026-09-25T07:38:31.297667+00:00",
+  "body_sha256": "4820f0bc586376a313597a1d417bf148c0e058c0184aad04435af9f9a95a6e2a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "항생제 내성 화상 감염이라는 문제에서 빛으로 약을 터뜨리는 해법까지 원인-해법 구조로 이어진다 — 서론 두 단락이 그대로 논지가 된다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Biofilm formation exacerbates the clinical severity",
+   "note": "지질체 조성(DSPC·DOTAP)은 걷어내도 「빛으로 방출을 조절한다」는 뼈대가 남는다."
+  }
+ },
+ {
+  "id": "6ec32681-c1ad-4edc-979c-59584e8deb97",
+  "source_updated_at": "2026-09-25T07:38:32.627578+00:00",
+  "body_sha256": "76f11b97bd84e4bacdb3d6509298f3d573f8076bcd85bc11b9286586c9a5a606",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 숙주의 행동을 바꾼다는 통념을 유전자 하나로 좁혀 검증하는 흐름이라 서론과 고찰이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Baculoviruses have long been known",
+   "note": "유전자 기호(BmCSP3·snRNA-seq)를 「특정 단백질」로 바꾸면 내려가나, 분자동역학 절은 버려야 한다."
+  }
+ },
+ {
+  "id": "6ecc4bf9-97a5-495c-a7d6-1898924aacf6",
+  "source_updated_at": "2026-09-13T06:44:03.566238+00:00",
+  "body_sha256": "f64223ee010142a21ac0231d912e31fca8dbccb4f2f1d3dd534fbbd17afc0d62",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "수용체의 활성 영역을 지운 변이체로 원인을 가르는 실험 논리가 뚜렷해 고찰이 한 편의 논증으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "One of the questions remaining",
+   "note": "유전자 이름 나열이 문단마다 들어가 고유명사를 걷으면 문장이 무너지는 곳이 많다."
+  }
+ },
+ {
+  "id": "6ed10bc7-fbbf-48cd-925e-b1dc8a4359c6",
+  "source_updated_at": "2026-09-13T07:45:05.992874+00:00",
+  "body_sha256": "71390f5a398cd836e69f5696b0fc5cfaa00291be239f7a81a210558c9c285614",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "척수 손상 후 괴사조직을 얼마나 걷어낼지 세 가지 범위를 견줘 최소 절개를 고르는 판단 과정이 서사처럼 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "When looking to make a therapeutic",
+   "note": "수술 기구 이름은 걷어도 「자리를 비워야 이식할 수 있다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "6edfabc5-8c07-4067-81cf-614dfbe055a9",
+  "source_updated_at": "2026-09-25T07:38:37.031162+00:00",
+  "body_sha256": "5272bf7debff3afbd7b30a1d505bc63a1c6556ad36c1093ab87aaef9e9f610f0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "빛의 색이 나리 비늘줄기의 색을 바꾼다는 관찰에서 유전자 발현 순서까지 인과로 이어져 고찰이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our results demonstrate that light quality",
+   "note": "효소 약어(PAL·DFR)를 「색소를 만드는 효소」로 묶으면 중등 상단까지 내려간다."
+  }
+ },
+ {
+  "id": "6ef0c1ca-9291-479b-9348-3899231671f4",
+  "source_updated_at": "2026-09-13T07:43:33.364231+00:00",
+  "body_sha256": "a0d9958b593366744a9884b668f2a87c109ebe8f3d64fc45a76900ee2101303e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "비타민 D 결핍과 인지 저하의 연결을 루푸스 환자에서 확인하고 기전까지 설명해 주장-근거 짝이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Recent evidence has suggested a link",
+   "note": "표와 검사 이름(ANAM)은 걷어도 되고 25(OH)D3 는 「비타민 D 형태」로 바꾸면 선다."
+  }
+ },
+ {
+  "id": "6ef2e6b2-2452-4d0c-b389-ae72b1aa2006",
+  "source_updated_at": "2026-09-25T07:38:40.549841+00:00",
+  "body_sha256": "3de56e26511950f1cc59b60b156af516000309ecacf2926042b5ddc438428418",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "난자 보존 조직을 자르지 않고 들여다보려는 목적과 잡음 제거라는 해법이 한 편으로 이어져 목적 단락이 선명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Optical coherence tomography is a noninvasive",
+   "note": "광학 장비 규격(파장·개구수) 문단은 걷고 「깊이와 해상도의 맞바꿈」만 남기면 된다."
+  }
+ },
+ {
+  "id": "6f17ee2d-5711-49e7-bd9c-6b521389df2e",
+  "source_updated_at": "2026-09-15T15:15:35.424372+00:00",
+  "body_sha256": "30ceb612e957faf6fe6d146291ff92f3ce5d6a6a05be52c232e1fc64d144f82e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "hold",
+  "genre": "technology",
+  "why": "모델 성능 수치와 약어 나열이 본문 대부분을 채워 문단을 떼어 냈을 때 논지가 서는지 판단이 갈린다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "However, conventional radiomics primarily relies",
+   "note": "2.5D 딥러닝 설명 단락은 떼어지나 AUC·특징 이름을 걷으면 남는 문장이 거의 없다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "6f328236-d93f-498e-accd-cbd539983ede",
+  "source_updated_at": "2026-09-13T06:52:33.016228+00:00",
+  "body_sha256": "5b218bb918167603496f4d7e951a43162b652d63d59ef036a216e0756b3e02a6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "바다 민달팽이가 중추 없이 냄새의 방향을 계산한다는 발견을 해부와 전기생리로 좁혀 가 고찰이 논증으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Many soft-bodied animals have an extensive",
+   "note": "신경 이름(LOVN·TH-li)을 「감각 신경」으로 바꾸면 서고, 고찰 끝 진화 비교가 특히 자족적이다."
+  }
+ },
+ {
+  "id": "6f3b397f-8c07-4b9a-a379-cb1f47a34f2e",
+  "source_updated_at": "2026-09-13T07:42:05.647676+00:00",
+  "body_sha256": "cf8099cfe6596192aa2a5952b14c00864ca5883fa334b9fa318abef3df6489f8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 검사법의 낮은 재현율을 문제로 세우고 운동 부하를 더한 새 절차로 답하는 구조가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "We hypothesized that increased adrenergic tone",
+   "note": "검사 절차 단락은 시간순이라 떼기 쉽고, 혈압·심박 수치는 걷어도 된다."
+  }
+ },
+ {
+  "id": "6f48f1aa-0fae-400e-8724-59cb7dd6e555",
+  "source_updated_at": "2026-09-13T06:43:06.389477+00:00",
+  "body_sha256": "b9354b5830464013c5c14ed86dba6d12d9802a513614dfda0e434803be9ee2dd",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "만성 염증이 암으로 이어진다는 통념을 구강암 조직의 수용체 분포로 확인하려는 논지가 서론에서 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The role of chronic inflammation and",
+   "note": "결과 절은 TLR 번호와 p값 나열이라 못 쓰고, 서론과 고찰 앞부분만 쓸 수 있다."
+  }
+ },
+ {
+  "id": "6f4daa56-c434-4500-a685-dc8f4def5c99",
+  "source_updated_at": "2026-09-25T07:38:45.61288+00:00",
+  "body_sha256": "4667b6bd7adcc4f239f818360d8519a0b4ac8ec886372baa66209b6d523c0277",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "천식이 폐 밖 합병증까지 늘린다는 주장을 중증도별 차이로 뒷받침하고 왜 그런지 기전까지 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Asthma is commonly described as a disease",
+   "note": "오즈비 수치를 걷으면 「천식은 기도만의 병이 아니다」라는 논지가 더 또렷해진다."
+  }
+ },
+ {
+  "id": "6f56b11d-5344-4493-8291-c0c7f49c1173",
+  "source_updated_at": "2026-09-13T06:30:24.849838+00:00",
+  "body_sha256": "3000b89803e2675206885aade19f00ba75ef69e4b76bba7f87c8f87e7923c7c0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "변이가 느린 표면 단백질을 표적 삼는 이유를 서론에서 세우고 실험으로 좁혀 가 논지가 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "However, due to its immunodominance",
+   "note": "서론은 항원 변이 설명만으로 서지만 재료·방법 절은 시약 목록이라 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "6f6b4f83-34fb-4a1f-bba1-fc267113cc6a",
+  "source_updated_at": "2026-09-25T07:38:49.545627+00:00",
+  "body_sha256": "2a86f39bfdc175175d18b886def09e57740f0b3830b57616faa9cf3fca8feb25",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "멸종한 조상 단백질을 되살려 항균 기능이 언제 생겼는지 시간순으로 좇는 구조라 서사와 논증이 함께 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The evolution of immune function is vital",
+   "note": "조상 이름(AncLFcin1~3)은 「가장 오래된 형태」 식으로 바꾸면 되고 아미노산 기호는 걷을 수 있다."
+  }
+ },
+ {
+  "id": "6f7aad1f-752b-4aea-ad69-4b7d6e9d2df6",
+  "source_updated_at": "2026-09-15T15:15:42.638961+00:00",
+  "body_sha256": "3942d243e9e8b41d0f463ce7280244f3783af90a13b60c5658d04a71c937ebe9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두드러기의 중증도와 보체 조각 농도를 잇고 응고계와의 연결까지 설명해 고찰이 한 편의 논증으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Activation of the coagulation system, particularly",
+   "note": "C5a·C5aR 기호가 문장마다 주어라 바꿔 쓰기 어렵고, 표 인용 문단은 걷어야 한다."
+  }
+ },
+ {
+  "id": "6f84bba8-d4b9-4e33-acc3-039a62a37dab",
+  "source_updated_at": "2026-09-25T07:38:51.56627+00:00",
+  "body_sha256": "08697c815098ea63e24cb072a9f8de200724f9dd15fdd716818bed6a3e879a66",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "바이러스가 숙주 단백질을 끌어다 세포의 유전자 지도를 다시 그린다는 모형을 세우고 실험으로 받친다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The HIV-1 core is a metastable structure",
+   "note": "고찰은 논지가 서지만 유전자·기법 약어가 촘촘해 몇 개를 바꿔도 밴드가 내려가지 않는다."
+  }
+ },
+ {
+  "id": "6f882d15-8f75-4784-9f9d-ab657f4dddb4",
+  "source_updated_at": "2026-09-25T07:38:52.759861+00:00",
+  "body_sha256": "f2bc8565243dee3e51877ff432d60b577bc107c1a63062153d62b4013fc7977b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "단일 구조의 한계에서 서로 다른 형상을 매끄럽게 잇는 설계로 넘어가는 문제-해법 구조가 서론에 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Porous structures exhibit significant advantages in",
+   "note": "행렬 성분과 수식 자리는 걷어야 하고, 서론·결론은 번역투가 있어 문장을 다듬어야 한다."
+  }
+ },
+ {
+  "id": "6f9fb0e4-3238-4412-8812-f231f875fe39",
+  "source_updated_at": "2026-09-15T15:15:45.933436+00:00",
+  "body_sha256": "47a7f3f1c218896cae560a645487dd574c113e73bf967a6fc4c7d73ca887ac88",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "임상에서 효과가 없었던 항체를 실험실에서 되짚어 왜 듣지 않았는지 설명하는 흐름이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The absence of an inhibitory effect may",
+   "note": "임상시험 등록번호와 세포 명칭을 걷으면 「B세포에는 듣고 T세포에는 안 듣는다」는 대비가 남는다."
+  }
+ },
+ {
+  "id": "6fa858f1-5683-4dfb-be34-870cf02198ee",
+  "source_updated_at": "2026-09-13T07:41:55.861031+00:00",
+  "body_sha256": "20b4a110798fd33899f9b98b6b81097b89a2181dba9690385ddc4d274351acdc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "발병 직후 췌장에서 신경이 줄어 있다는 관찰을 두고 원인과 결과 어느 쪽인지 따져 보는 고찰이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Whether type 1 diabetes causes a reduced",
+   "note": "기증자 표는 걷고 VIP 를 「부교감 신경 표지」로 풀면 고2 밴드까지 내려간다."
+  }
+ }
+]

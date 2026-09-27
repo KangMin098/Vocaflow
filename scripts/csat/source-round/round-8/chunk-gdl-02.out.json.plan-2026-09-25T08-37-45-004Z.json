@@ -1,0 +1,1512 @@
+[
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "17d7fdce-081a-4a95-b799-6499ab5ba06c",
+    "revision": "2026-09-25T04:03:46.392551+00:00",
+    "body_sha256": "d8320bb7eef52b5139288c25093160944ca6a605706782178e4d7710d5db2a32",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "엄지를 빠는 아이가 동물원에서 입을 막은 새끼 동물들을 보고 스스로 손을 빼는 흐름이라 초등 주제·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Anaya is at the zoo today.",
+          "note": "동물마다 같은 틀이 반복돼 순서 문항으로 자르기 쉽고 prancing·swatting 만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.007Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/anayas-thumb/",
+          "year": null,
+          "author": "Natasha Sharma."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "17e78637-303b-4281-9367-ae21b918b335",
+    "revision": "2026-09-25T04:03:36.444971+00:00",
+    "body_sha256": "0f3c725a2d371f717fc2047235db0dcf951fd13801ab80bf6f04f7862474e6b4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "게으른 용이 불 뿜기에 실패하고 고추 훈련으로 성공해 배를 인도하는 짧은 인과가 이어져 초등 순서 칸 하나는 된다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "All the dragons in town were",
+          "note": "문장은 쉬우나 코치 등장이 갑작스러워 한 줄 보충하면 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.009Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/drake-the-magical-dragon/",
+          "year": null,
+          "author": "Created collaboratively at the mEducational Alliance."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "17e994b9-8b29-4aba-9ee8-08f7a1cfdee8",
+    "revision": "2026-09-25T03:34:53.627362+00:00",
+    "body_sha256": "b609a4ce10be57b55abae4969e3ebb79208f65fe18202b687ddd45ddc67f6e78",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "겁 많은 사슴이 곰 아저씨 약초를 구하러 가 나무신의 가지를 받는 유래담이 순서대로 이어져 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But the forest paths were so",
+          "note": "대사 표기가 대시(-)로 되어 있어 따옴표로 정리해야 하고 번역투 몇 곳을 다듬는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.010Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/why-do-deer-have-antlers/",
+          "year": null,
+          "author": "Thu Hằng."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "187c3729-c32a-4a1b-ba68-57002e442ddb",
+    "revision": "2026-09-25T04:03:34.109187+00:00",
+    "body_sha256": "8642dd84e935ece9022fae26c82d17a91083294b46899f536700ad3e40f11219",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "엄마를 잃은 해달 키미가 혼자 사냥하다 위기에서 친구들 도움을 받는 흐름이라 초등 심경·순서 칸이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The falling ice was terrifying. Fortunately,",
+          "note": "장면이 짧게 이어져 떼기 쉽고 어휘는 이미 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.010Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/holding-hands-2/",
+          "year": null,
+          "author": "Mawani Gultom."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "1b815095-844b-4d81-82d6-006d12af896d",
+    "revision": "2026-09-25T04:03:06.662085+00:00",
+    "body_sha256": "00d66395a6e8d271fa23200a597de3520404a65071c26e866722ad824b232b83",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "홍수 속 반유가 떠다니는 물건을 바다 생물로 착각하며 겁먹다 배로 구조되는 반복 흐름이 초등 심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Jellyfish!Hic! Hic! Banyu starts to hiccup.The",
+          "note": "착각-정정 짝이 반복돼 문장 연결이 분명하다 — 의성어만 줄이면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.010Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/when-the-flood-comes/",
+          "year": null,
+          "author": "Witaru Emi."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "1c05a698-e848-408e-aee0-3bca460b811c",
+    "revision": "2026-09-25T04:03:29.85451+00:00",
+    "body_sha256": "64a25e7ab2b854435199953bc4a63375a78133369884b3df7639c11153c18a89",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "돌아가신 할머니를 그리던 병아리가 남의 할머니 닭을 만나 함께 지내는 흐름이라 심경·순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Listening to the story, Speckled Chicken",
+          "note": "feelingly·vexed 같은 번역투 낱말을 바꾸고 대시 대사를 정리해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.010Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/granny-of-speckled-chicken/",
+          "year": null,
+          "author": "Ba Cua Ga Mo."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "1ce9e57f-de91-43c3-a58e-9259fda13e88",
+    "revision": "2026-09-25T04:03:10.746138+00:00",
+    "body_sha256": "4a7deacb1310b3455fcf4cd8c509147f8265516a7e29d1a57772a023027140d4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "가짜 수염으로 어른 염소 흉내를 내다 양들의 질문에 들통나는 흐름이라 겉모습보다 지혜라는 주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "But the sheep family did not",
+          "note": "natty·fussily 등을 쉬운 말로 바꾸고 제목 오탈자(Goad)는 가공 때 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.010Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-beard-of-young-goad/",
+          "year": null,
+          "author": "PHÙNG THANH VÂN."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "1e3684e0-7450-4869-b843-79a82ef7255d",
+    "revision": "2026-09-25T04:03:01.934988+00:00",
+    "body_sha256": "6ee9f200e41ab543a698a1209582860071db558896277187288930e981949bf9",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "소녀 영웅이 날치기를 잡고, 읽히지 않은 책의 악마를 달래 이동도서관을 만드는 흐름이 길게 이어져 순서·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The demons appeared in strange forms:",
+          "note": "돼지 악마의 불평 문단은 떼어도 논지가 서고 끝의 프로젝트 소개는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/luh-ayu-manik-mas-making-a-mobile-library/",
+          "year": null,
+          "author": "Ni Madé Ari Dwijayanthi, BASAbali."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "1e556b71-9d5f-400f-8bb1-80c63d858576",
+    "revision": "2026-09-25T04:03:37.920669+00:00",
+    "body_sha256": "0823c829a600d8a25d95388d9d4dc0219120722929945d9d7a4a172f377ce5ec",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "borderline",
+        "genre": "fiction",
+        "why": "대사 열두 줄로 가위를 꺼내다 케이크를 먹고 가위 탓을 하는 사건이 추론은 되나 그림 없이는 중간이 비어 판단이 갈린다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "\"Mommy, what are these flowers for?\"\"Well…",
+          "note": "「Oops!」「Hmm…」처럼 그림이 받쳐 주던 줄이 많아 서술을 보충해야만 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-scissors-ate-your-cake-mommy/",
+          "year": null,
+          "author": "Tham Tâm."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "20ebe067-70fd-402d-818e-da8254690ea0",
+    "revision": "2026-09-25T03:34:55.559474+00:00",
+    "body_sha256": "0a89f4e2fe5896ef6823736f0017d5765992bb9d08bf843f42f106a3530217f0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "poetry-drama",
+        "why": "남매 문답을 후렴처럼 되풀이하는 자유시 형식으로 전편이 운문이라 차단 장르에 해당해 폐기한다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Sister, sister, I wonder… What do",
+          "note": "마지막 중력 설명 연만 산문으로 바꿀 수 있으나 그건 재저작이지 가공이 아니다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/sister-sister-why-dont-things-fall-up-2/",
+          "year": null,
+          "author": "Roopa Pai."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "215880f6-23fa-49c0-80d8-7635c24cfd9f",
+    "revision": "2026-09-25T04:03:10.032398+00:00",
+    "body_sha256": "aa05e6b9ee74bac466c3f9486bac9fc834e520baa492856458a64cb316191d92",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "빨간 장미만 키우던 마을이 노인의 다른 꽃과 화가의 말로 다름을 받아들이는 흐름이라 주제·요지 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic",
+            "main_point"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The painter replied that different colors",
+          "note": "화가의 대답 문단이 요지를 명시해 요지 문항으로 쓰기 좋고 끝 질문은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/rose-village/",
+          "year": null,
+          "author": "Su Nyein Chan."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "223518fb-c567-4ec3-b526-b527c1bfb286",
+    "revision": "2026-09-25T03:34:55.758631+00:00",
+    "body_sha256": "de847c8ed8c8bd7c12ec7a6fe6b4d9611a735fb3492abcd4409052bcfc2b1dd3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "산에 대한 물음-대답 짝이 이어지다 커서 오르자는 결심으로 끝나 문장 연결 최소선은 넘는 초등 어휘·내용일치 칸이다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "vocab",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V1"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mother! Mother! What happens on the",
+          "note": "호칭 반복을 줄이면 짧은 대화문으로 그대로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/subu-and-the-mountain/",
+          "year": null,
+          "author": "Rownika Shrestha."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "2238be5c-8dc9-4e93-902b-55667d6a1489",
+    "revision": "2026-09-25T04:02:54.656474+00:00",
+    "body_sha256": "4933f94fabaf0ff36a0b6717086480a102a4b7ffeb3bbffc8cde0a40ad886624",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "초침이 소년을 해시계·양초시계·빅벤으로 데려가는 시간 여행이 순서대로 이어져 시계 역사 내용일치·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Henry opened his eyes and found",
+          "note": "해시계 설명 문단은 떼어도 서고 obelisk·hydraulic 두 낱말만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-power-of-time/",
+          "year": null,
+          "author": "Asmaa Emara."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "228bf85b-bd83-4b90-b3de-8132509d289f",
+    "revision": "2026-09-25T04:02:46.995688+00:00",
+    "body_sha256": "8f8601f7aed863f5ef0fd740d877988e20ebd08b2849473c991544671a86af4a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "친구를 찾던 애벌레가 거미를 도와 친구가 되고 나비가 되는 흐름이라 초등 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In the garden near her tree,",
+          "note": "중간에 이름이 Kate 로 튀는 곳만 고치면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-caterpillars-friend/",
+          "year": null,
+          "author": "."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "24b80461-54d1-4b7f-8d90-6f123fee979d",
+    "revision": "2026-09-25T04:03:43.587646+00:00",
+    "body_sha256": "ba82d667ba1bcff7f1cd662520442f96594d1027750418ed3fab3ffe85295bc1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "토끼에게 무시당한 달팽이가 친구들을 숨겨 경주를 이기는 꾀 이야기라 준비-경주-결과 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The snail prepared a hundred pieces",
+          "note": "준비 과정 문단이 순서 배열용으로 알맞고 어휘는 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-race/",
+          "year": null,
+          "author": "A Mozambican folktale."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "25e204e7-d8ca-4ace-9af7-fa2e1f097aae",
+    "revision": "2026-09-25T04:03:01.432564+00:00",
+    "body_sha256": "2ac1609f0b3d4df4f601bfe6c082fbea34d6d107492942fb5f9546cc1762960e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "언니만 용을 본다고 믿던 동생이 파티·밤의 걱정 끝에 지어낸 것임을 알게 되는 심경 흐름이라 심경·순서 칸이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "My sister said we could have",
+          "note": "용 파티 문단은 떼어도 서고 1인칭 서술이라 심경 문항으로 쓰기 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.011Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/my-big-sister-can-see-dragons/",
+          "year": null,
+          "author": "Rocky Sanchez Tirona."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "28495f5b-ef5d-47a1-862d-9d910aed1384",
+    "revision": "2026-09-25T04:03:19.474447+00:00",
+    "body_sha256": "0558410d3bef12941018ef352164de66362ce928a2b896c09d0b2f15ba48679f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "토끼 농장을 빼앗은 아난시가 비 오는 날 독수리에게 바구니를 잃고 재판에서 지는 인과응보 흐름이라 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Anansi saw Vulture sitting on his",
+          "note": "재판 장면 두 문단이 떼어도 서고 summoned 정도만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/anansi-and-vulture-2/",
+          "year": null,
+          "author": "Ghanaian folktale."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "287dbfce-ff66-4441-9430-d9504c349069",
+    "revision": "2026-09-25T03:34:57.588716+00:00",
+    "body_sha256": "7cabdbe6c9122f77ed7664a638687ed80adfec01efb602cf137893e84e86697e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "실망했던 저금통에 모은 돈으로 가난한 친구 교복을 사 주는 흐름이라 심경 변화·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood",
+            "topic"
+          ],
+          "levels": [
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Baba was impressed. \"Well done, chhori!",
+          "note": "중간에 끼어 있는 낱말 풀이 목록을 걷어내면 흐름이 이어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-khutrukke-money-bank/",
+          "year": null,
+          "author": "Krishna Sarbahari."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "28d97e2c-c5b1-4c5f-88b9-ce724f944500",
+    "revision": "2026-09-25T04:03:49.102647+00:00",
+    "body_sha256": "03f7f106b68f0fcf8810e0bcaa74e472155e54fe81357765a2fbcc76ad7d266b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "작다고 놀림받던 다람쥐가 가는 가지 덕에 열매를 얻고 나눠 존중받는 흐름이라 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "One day, Ado says to Ali,",
+          "note": "장면이 짧게 떨어져 순서 문항으로 자르기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/do-not-underestimate-me/",
+          "year": null,
+          "author": "Sor Sothea."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "2987310d-4c59-4029-ab32-4829751e66c3",
+    "revision": "2026-09-25T04:02:53.448847+00:00",
+    "body_sha256": "2d7c41071c2cfb3d466267a8b40569165d38a08541005673330029e37e4be937",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "고추 장난으로 전학생을 곤란하게 한 세 아이가 용서받고 친구가 되는 학교 이야기라 순서·심경 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "After class Tanushi said, \"If you",
+          "note": "알레르기 장난 장면이 교훈 없이 끝나 가공 때 사과 대목을 살려야 하고 철자 흔들림(Maurin)은 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/tanushis-adventure/",
+          "year": null,
+          "author": "Tasnima Iqbal."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "29b447ce-375c-4682-9e8d-cf138a5bd5d7",
+    "revision": "2026-09-25T04:03:39.353474+00:00",
+    "body_sha256": "6509c0503e9764895ab93f29671db30623476314ef323c4ff792c6ae3c8ed23c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "밥 안 먹겠다며 입이 없다던 아이가 아이스크림 앞에서 입을 되찾는 대화 흐름이 이어져 초등 순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Why aren’t you?\"\"Because I have no",
+          "note": "대화만으로 사건이 읽히며 화자 표시만 보충하면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/i-have-no-mouth-today/",
+          "year": null,
+          "author": "Mai Phương."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "29f6e164-c2cf-4334-b9d1-7856b4cddece",
+    "revision": "2026-09-25T04:03:27.22893+00:00",
+    "body_sha256": "a671e706895845c6ff7b4e26b0151346df66fe5874a172b9ee3c61e462ab280b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "책을 다 읽은 아이가 높은 서가에 오르려다 사서의 도움을 받는 흐름과 글자→이야기 설명이 있어 순서·주제 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "topic"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Books are so much more fun!\"",
+          "note": "「11」 같은 쪽 번호 잔재를 걷어내면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/a-book-for-puchku/",
+          "year": null,
+          "author": "Deepanjana Pal."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "2a288ac3-6012-442e-9c7f-c7d7985cb996",
+    "revision": "2026-09-25T04:03:13.634798+00:00",
+    "body_sha256": "d9c7df3eb0660ae7a53377a239a91c83b91274dd442b2c79e2f610519a8fe763",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "팬데믹 온라인 수업 중 어른을 무시하던 셀비가 친구 발표를 듣고 뉘우치는 흐름이라 심경·주제 칸이 뚜렷하다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "mood",
+            "topic"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It was Selvi's friend's turn to",
+          "note": "친구 발표 문단이 요지를 담아 떼어 쓰기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/you-dont-understand/",
+          "year": null,
+          "author": "Julieana Philip."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "2a908855-dfa3-4949-b05e-3a1659d80055",
+    "revision": "2026-09-25T04:03:37.702935+00:00",
+    "body_sha256": "fdaf490b30095edf5c44e2ab3a631dadb311c9c9a4424fca9c764b3294f75507",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "경고문을 붙이려던 토끼와 종을 친 호랑이가 벌떼에 쫓기는 인과 흐름이라 초등 순서 칸이 선다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order"
+          ],
+          "levels": [
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Rabbit jumped and jumped, but could",
+          "note": "의성어 줄만 걷어내면 그대로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/do-not-ring-the-bell/",
+          "year": null,
+          "author": "Si Ona."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-37-45-004Z",
+    "id": "2ab68e16-fd05-4eee-b7dd-270c7aa76bb3",
+    "revision": "2026-09-25T03:34:55.325767+00:00",
+    "body_sha256": "61e99fb9c49c9ce5af6a0de417ae068757006f3afbfdd36ea7cad7e90bfd80d5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "휠체어를 탄 노미오 가족의 펫숍·놀이공원 하루가 순서대로 이어지고 끝에 장애 포용 취지가 있어 순서·내용일치 칸이 된다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Nomio stops suddenly. A surprising sound",
+          "note": "휠체어는 마지막에야 드러나 가공 때 앞에 한 줄 밝혀 주고 토론 질문·저자 말은 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:37:45.012Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/a-day-of-adventures/",
+          "year": null,
+          "author": "Otgontuya Badamgarav."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  }
+]

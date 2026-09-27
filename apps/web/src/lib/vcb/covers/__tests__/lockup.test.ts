@@ -62,9 +62,22 @@ describe('각인 → 규격 — 여덟 항목이 전부 화면 쪽으로 건너�
     expect(coverLockupOf(IMPRINT, 'dark')!.ink).toBe(FAMILY_GRAIN_DARK.structure.ink)
   })
 
-  it('서체는 역할 → 토큰 클래스다 (값을 적지 않는다)', () => {
-    const f = coverLockupOf(IMPRINT)!.fontClass
-    expect(f).toEqual({ display: 'font-english', body: 'font-body', numerals: 'font-mono' })
+  it('서체 역할은 토큰 클래스로 푼다', () => {
+    const l = coverLockupOf(IMPRINT)!
+    expect(l.fontClass).toEqual({ display: 'font-english', body: 'font-body', numerals: 'font-mono' })
+    expect(l.fontFamily).toEqual({ display: null, body: null, numerals: null })
+  })
+
+  // 「서체·색은 역할 이름만」 제한은 DD-66(사용자 결정 2026-09-21)으로 풀었다.
+  it('서체 이름을 직접 적으면 font-family 로 쓴다', () => {
+    const l = coverLockupOf({ ...IMPRINT, typography: { ...IMPRINT.typography, body: 'Inter' } })!
+    expect(l.fontClass.body).toBe('')
+    expect(l.fontFamily.body).toBe('Inter')
+  })
+
+  it('색 값을 직접 적으면 그 값 그대로 쓴다', () => {
+    const l = coverLockupOf({ ...IMPRINT, palette: { ...IMPRINT.palette, ink: '#2E7D5A' } })!
+    expect(l.ink).toBe('#2E7D5A')
   })
 })
 
@@ -83,8 +96,8 @@ describe('모양이 안 맞으면 null — 반쯤 채운 규격을 만들지 않
     ['비율 형태', { ...IMPRINT, coverGrid: { ...IMPRINT.coverGrid, ratio: '4' } }],
     ['스크림 범위 밖', { ...IMPRINT, coverGrid: { ...IMPRINT.coverGrid, scrimStrength: 1.4 } }],
     ['여백 범위 밖', { ...IMPRINT, coverGrid: { ...IMPRINT.coverGrid, plateInset: 90 } }],
-    ['서체 역할 아님', { ...IMPRINT, typography: { ...IMPRINT.typography, body: 'Inter' } }],
-    ['색 역할 아님', { ...IMPRINT, palette: { ...IMPRINT.palette, ink: '#2E7D5A' } }],
+    ['서체가 빈 값', { ...IMPRINT, typography: { ...IMPRINT.typography, body: ' ' } }],
+    ['색이 역할도 색 값도 아님', { ...IMPRINT, palette: { ...IMPRINT.palette, ink: 'nvay' } }],
     ['계열 아님', { ...IMPRINT, family: 'etymology' }],
   ])('%s → null (표지는 종전 모습으로 떨어진다)', (_label, broken) => {
     expect(coverLockupOf(broken)).toBeNull()

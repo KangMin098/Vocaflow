@@ -1,0 +1,1833 @@
+[
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "086bc535-a250-45e7-93d1-98067821a1e7",
+    "revision": "2026-09-25T07:44:41.081148+00:00",
+    "body_sha256": "9911313745f56236624f83522299b9b45513e15c31a5873aee414fc7f7e841b8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "비상 슬라이드 탈출 사건 → 기소 → 퇴직 확인이 두 번째 단락에서 시간순으로 이어져 고등 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "On August 9, the 38-year-old",
+          "note": "reckless endangerment·criminal mischief 를 쉬운 말로 바꾸면 V4 로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.512Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Resignation_of_JetBlue_flight_attendant_Steven_Slater_announced",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.678,
+          "words": 171,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "0872c3d5-ffef-4c8a-9295-f69efbf04489",
+    "revision": "2026-09-25T08:09:53.418442+00:00",
+    "body_sha256": "3f16191cc1a8067ec5a9b65dc6e9a8220d189ab465bc079a74053ec1d92e7af5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "연설 장소·언어·시각 등 확인 가능한 사실이 여러 단락에 흩어져 있어 중등 내용일치 칸 하나를 겨우 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Stephen Harper will have a televised",
+          "note": "사건 흐름은 약하지만 아프가니스탄 파병 우려라는 연설 목적이 있어 수치 나열만은 아니다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.513Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canadian_PM_to_make_televised_address_for_5th_anniversary_of_Sept_11._attacks",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.897,
+          "words": 174,
+          "english": 0.428
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "0874d850-2814-4e1b-a0a3-a490cb06f8df",
+    "revision": "2026-09-25T08:15:39.358257+00:00",
+    "body_sha256": "c6f6e969850e7955c6e4253d9118461205dac17904c7b7f5d0c077ef23fb92c1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "news",
+        "why": "「the report summarised its findings:」 뒤에 올 권고 목록이 통째로 빠져 본문이 중간에서 끊겼다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "The report mentioned possible abuse of",
+          "note": "예고한 권고 요약이 없어 논지의 알맹이가 비어 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.513Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Prisoner_abuse%2C_serious_corruption_may_have_occurred_in_Turks_and_Caicos_Islands",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.478,
+          "words": 115,
+          "english": 0.443
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08774872-fa31-4781-91ca-a83ca6ce546d",
+    "revision": "2026-09-25T06:58:06.166678+00:00",
+    "body_sha256": "a4ac73712372d214073b499187e1360154401f0e9b178441ea1f07c646f07f45",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "혜성 먼지 캡슐 착지 → 회수 → 에어로젤 분석 계획이 단락별로 이어져 내용일치·순서·삽입 칸을 넉넉히 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert",
+            "vocab_choice"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When opened, scientists will find the",
+          "note": "aerogel 문단은 앞 문맥 없이 서고 porous 만 풀면 중등으로 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Stardust_lands_in_Utah_successfully",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "087e680b-7377-4d94-903c-b7c149576342",
+    "revision": "2026-09-25T07:25:32.078959+00:00",
+    "body_sha256": "8e9ae8fdfce14eed7c58edb640b8da33c3181e6701f9a4cb52d4da98136adf37",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "석방 규모 조정·양측 반응·하마스 대변인 비판이 짧게 이어져 고등 내용일치와 관점 대조 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Israel had originally said it would",
+          "note": "첫 문장 「in an attempt to Palestinian support」가 비문이라 가공 때 고쳐야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Israel_releases_90_Palestinian_prisoners",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.085,
+          "words": 177,
+          "english": 0.377
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08813714-4e54-4c6a-8b4e-6b68eec1ec3f",
+    "revision": "2026-09-25T08:36:39.693062+00:00",
+    "body_sha256": "49c72368b32dad010b46b33dd1e237f287829db0d6067c9a2a20a29e109992f4",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "추락 → 두 승무원 탈출·구조 → 기계 고장 추정과 조사 착수가 순서대로 이어져 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The crew members - the pilot",
+          "note": "CET/UTC 시각과 트위터 인용을 걷어도 사건이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._fighter_jet_crashes_in_Libya",
+          "year": 2011,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 8.04,
+          "words": 199,
+          "english": 0.307
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08819917-7640-4b1a-a6b1-18e87117fa9d",
+    "revision": "2026-09-25T07:58:49.068646+00:00",
+    "body_sha256": "457c6b0c4ea4e09a9e31c29bbee2d282a5b2106929d6109042349fb2534afcfa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "1974년 테러 재판에서 피고의 자기변호와 피해자 변호인 발언이 맞서는 구조라 고등 이상 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "While Ramírez Sánchez's lawyer, Coutant-Peyre, denounced",
+          "note": "테러범의 살해 과시 인용은 가공 때 걷어낸다 — 폭력 소재라 고2 이상 칸만 단다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/'Carlos_the_Jackal'_on_trial_for_third_life_sentence",
+          "year": 2017,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.362
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "0884a2f7-b696-419a-8d8d-1b1728386f6c",
+    "revision": "2026-09-25T07:41:17.690431+00:00",
+    "body_sha256": "fe59c51645f48280be6fc5a0d9b33607d116b0adf8b8fe4cb112a0925faedd11",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "묘지 도굴 발견 → 정당 성명 → 고인 약력으로 짧게 이어져 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The corpse of former Cypriot President",
+          "note": "heinous 를 terrible 로 바꾸면 쉽게 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Corpse_of_former_President_of_Cyprus_Tassos_Papadopoulos_stolen",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.965,
+          "words": 113,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08866856-2d8e-426a-8ea7-113d526e3562",
+    "revision": "2026-09-25T08:12:40.41025+00:00",
+    "body_sha256": "932e4a43c95109b47f99c1a64698e916cb6a664840d8954e2287602ba6828739",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "총격 현장에서 아이가 무사히 발견된 경위가 목격 진술과 함께 이어져 고등 이상 내용일치 칸을 채운다 — 살인 소재라 연령 제한.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Police announced on Wednesday that the",
+          "note": "용의자를 「Asian man」으로 적은 구절은 사건 서술이라 유지해도 되나 가공 때 중립적으로 다듬는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Three-year-old_girl_found_unharmed_at_site_of_fatal_shooting",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.225,
+          "words": 142,
+          "english": 0.435
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08890828-8fbb-4b86-9b52-758a72dbd034",
+    "revision": "2026-09-25T07:14:40.379892+00:00",
+    "body_sha256": "980d676897f453c4149b22d2f3da4eda2dd78a26974348b836ae491e8c9ce1b3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "mixed",
+        "why": "폭주족 판결·시청 인질극·인종차별 영상 논란 세 토막이 「Sources」로만 갈려 한 편으로 주제가 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "A Calgary, Alberta man was taken",
+          "note": "토막 하나씩은 떼어지지만 원천 단위로는 서로 다른 글이 섞였다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_Shorts_for_Canada%3A_May_6%2C_2007",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "088abf52-a6c4-487a-a9a3-1eb4a3c39f3a",
+    "revision": "2026-09-25T08:14:34.776526+00:00",
+    "body_sha256": "bf12a4edb2b4f6000ffad4cdbb050cba878c7d12745de4e47a9bb2148b2ab741",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "선거 일정 앞당김 경위와 야권 반발·참관단 초청 단락이 서서 고등 내용일치·순서 칸을 채운다 — 선거구 수 나열 단락은 걷어낸다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "On January 25, 2008, the specific",
+          "note": "선거구별 숫자 단락은 수치 나열이라 빼고 일정·반발 단락만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Zimbabwe_prepares_for_election",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.444
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08959863-0023-46f3-8082-521efc678d7f",
+    "revision": "2026-09-25T07:09:04.391062+00:00",
+    "body_sha256": "6a54bf25b16009e655397cbb6c8015aa62aaafafb34ec0c0388804f43a267257",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "technology",
+        "why": "출시 확정 → 반복 지연·기능 축소 → 기업 도입 전망이 단락별로 나뉘어 주제·내용일치·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic",
+            "insert",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It's not clear how quickly big",
+          "note": "기업 도입이 늦는 이유 문단은 앞 문맥 없이 서며 compatibility 만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Microsoft_announces_that_new_Vista_OS_on_schedule",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08a3c1ce-11e6-4491-b814-dbf00670e447",
+    "revision": "2026-09-25T07:43:43.973411+00:00",
+    "body_sha256": "4ecb412e3705bfdc68ba37faa1b28198845fcbfe4cab2fe03ce1f578a1e9c5c2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "기지 이전 공약 파기 → 지지율 하락 → 사임 결정의 인과가 한 편 안에서 서서 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hatoyama told a news conference broadcast",
+          "note": "사임 원인이 명시돼 원인-결과 가공이 쉬웠다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.514Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Japanese_Prime_Minister_Yukio_Hatoyama_to_resign",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.355
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08a5e124-f1b3-4501-9b26-f8a5c8f667f9",
+    "revision": "2026-09-25T07:22:03.516805+00:00",
+    "body_sha256": "b8283fcebb2cbf62a9f73934e35b612487e0b280e727609b2dc8b0b4257091db",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "물을 쓸 수 없는 인 화재의 성질과 피해·대피 경과가 이어져 설명과 사건이 함께 서는 내용일치·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "blank",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Extinguishing the fire proved extremely difficult",
+          "note": "물과 만나면 독가스라는 이유 문장이 빈칸 자리로 쓸 만하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Ukrainian_railway_accident_generates_huge_phosphor_cloud",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.397
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08ab8601-9921-4da9-869d-4d0b46d09a5f",
+    "revision": "2026-09-25T07:31:58.680501+00:00",
+    "body_sha256": "620bd98520a57590b2f2123a0f55f930f7aeb162032dbf9c8f74910e5eca5052",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "청석면 발견 보도·전 신도 증언·교단 반박이 맞서고 끝 단락이 청석면 위험을 설명해 고등 이상 주장·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Raw blue asbestos is the most",
+          "note": "마지막 두 단락(석면·중피종 설명)은 따로 떼도 서고 mesothelioma 에 풀이를 달면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Asbestos_controversy_aboard_Scientology_ship_Freewinds",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.43
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08ac0e09-fcb7-4d00-b852-a641ca3a5b1f",
+    "revision": "2026-09-25T07:58:49.152991+00:00",
+    "body_sha256": "eaf8aab1454436ff82de21bee0d024504c8c21d71bb7ae9f29234ea761e7f03f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "학교 칼부림 경과와 학교 개방성 논쟁·동기 조사가 이어져 고등 이상 내용일치 칸을 채운다 — 살해 소재라 연령 제한.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bo Johansson, head of the Swedish",
+          "note": "학교 개방성 단락이 폭력 묘사 없이 서서 가공 출발점으로 좋았다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Masked_man_kills_two_in_sword_attack_at_Swedish_school",
+          "year": 2015,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.358
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08ae525b-d131-4cb8-b2c3-5fa0461275aa",
+    "revision": "2026-09-25T07:32:23.57666+00:00",
+    "body_sha256": "9f167dd92c452503ed368ed7e23ce827695ecb69741c9470deba27b1499b142c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "목사 발언 논란 → 지지율 하락 → 탈퇴 결정의 경과가 서지만 인종·종교 인용이 많아 고등 이상 내용일치·순서 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The pastor had an impact on",
+          "note": "첫 단락 중간 줄바꿈 오류와 욕설 인용은 가공 때 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Obama_withdraws_from_Trinity_United_Church",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.399
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08b49cb6-2b60-488f-b06c-f4dd41d2209d",
+    "revision": "2026-09-25T07:43:19.573965+00:00",
+    "body_sha256": "23cb6fe1afdbd933f92b9687cf39d2a0a524f8fecda4d76be16a9853c1a0f485",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "기름 해안 도달 → 시추 금지 → 방제 규모 → 누출 차단 두 방안이 단락별로 이어져 순서·삽입·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert",
+            "summary"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "BP has developed two options to",
+          "note": "두 방안 단락은 First/second 구조라 순서 문항으로 바로 떼어졌다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Oil_spill_in_Gulf_of_Mexico_reported_to_have_reached_coast%3B_offshore_drilling_ban_announced_by_Obama_administration",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08bc11cb-d7d4-46ef-a52a-07d07af5c253",
+    "revision": "2026-09-25T08:15:10.00272+00:00",
+    "body_sha256": "83f5789135b87b1e53e4e09b72ad5d031eed1cae7267750d3d0a70afeaf46953",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "집속탄의 민간 피해 이유와 찬반 국가·이행 유예 논쟁이 서서 고등 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Cluster bombs have been used in",
+          "note": "stockpile 을 supply 로 바꾸면 한 밴드 내려간다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/International_ban_on_cluster_bombs_%22very_close%22_says_British_Prime_Minister",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08bca5f1-d0a5-4fc1-8230-4110b247a8c6",
+    "revision": "2026-09-25T07:43:47.278993+00:00",
+    "body_sha256": "888d29776d66a00324052e77eca8fb4696305a216f7708e442f9dc6d2cd04749",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "우승 발표와 참가자 소감 인용이 길게 이어져 구어체 소감 단락이 듣기·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "vocab"
+          ],
+          "types": [
+            "content_match",
+            "mood"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Alex Uttley, a 24-year-old member of",
+          "note": "구성원 나이 나열 단락은 걷어내고 소감 단락만 쓰면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Spelbound_declared_winner_of_Britain's_Got_Talent_2010",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08bea236-202f-4229-82af-76b176c6d52c",
+    "revision": "2026-09-25T05:31:26.789573+00:00",
+    "body_sha256": "6198084e75ad6e68847901ef939f153cdbbb331246fa392e17b874e7c979480b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "전쟁 포로 탈출 → 바르샤바 봉기 → 자유유럽방송 → 귀국의 생애가 시간순으로 이어져 장문·순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "long_reference",
+            "title"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He also served as an envoy",
+          "note": "봉기 단락은 폴란드 고유명사를 줄여도 사건이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Jan_Nowak-Jezioranski_Dies",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08c74b6c-382e-49a5-b30b-d5111bad5796",
+    "revision": "2026-09-25T06:55:00.669505+00:00",
+    "body_sha256": "aaa635736fe1c7e751c48eb70b8eeb2e50d5a4d6ef86e86a23efb6a338eebd3e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "연방 권한 확대 제안과 민병대법 제한의 긴장이 설명돼 있고 상원의원 연설 발췌가 근거를 더해 고등 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Current law prevents regular military troops",
+          "note": "첫 줄 「States rights battle unfolding」 조각과 연설 발췌 경계를 정리해야 한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Bush_calls_for_expanding_Federal_authority",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.39
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08ce4ac7-cfef-4e9f-92b9-3a205b78ec31",
+    "revision": "2026-09-25T08:35:41.435872+00:00",
+    "body_sha256": "d71cfddf0a45d6b29fd4b4d2edb2bacba5c55b1624528283a93851d110433441",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "체포 시도 → 총격 대치 → 진압·사망 → 조사가 시간순으로 이어져 고등 이상 순서·내용일치 칸을 채운다 — 총격 소재라 연령 제한.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Police attended a property in Kirkheaton,",
+          "note": "목격자 구어 인용은 듣기 재료로도 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gunman_dies%2C_police_officer_injured_after_stand-off_ends_in_West_Yorkshire%2C_England",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.374
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08cef7a4-529d-48d0-ab18-c004ee8c1ff3",
+    "revision": "2026-09-25T08:08:58.96248+00:00",
+    "body_sha256": "1595895558e9a565806fd5d2e8d2938c1c4f7cb26b334830be6c775752dcfb1c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "출생 → 14선 → 총리 재임 → 스캔들 사퇴가 세 단락에 짧게 이어져 중등 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Born in Soja city, Okayama Prefecture,",
+          "note": "짧지만 생애 순서가 서서 약력 지문으로 충분하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_Japanese_Prime_Minister_Ryutaro_Hashimoto_dies",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.769,
+          "words": 104,
+          "english": 0.372
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-46-08-509Z",
+    "id": "08d4fb3f-ceec-40a0-ae2a-e914a5ae6857",
+    "revision": "2026-09-25T08:35:23.051059+00:00",
+    "body_sha256": "189fb9bb2790ea9308e46975bc669ed02f5b3af1af61978036367007313fd33e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "교도소 화재 사망자 집계와 대통령의 신축 약속이 이어지나 사망자 수가 81·83으로 엇갈려 가공 때 정리가 필요한 내용일치 칸이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Pedro Hernández, representing the Chilean gendarmerie",
+          "note": "수치 불일치(81/83, 14/21)를 한쪽으로 맞춰야 내용일치 정답이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:46:08.515Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Huge_fire_in_Chilean_jail_kills_81%3B_21_injured",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.759,
+          "words": 191,
+          "english": 0.302
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

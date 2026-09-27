@@ -1,0 +1,847 @@
+[
+ {
+  "id": "74abb576-e80f-417a-b1ed-6f08532922ef",
+  "source_updated_at": "2026-09-25T07:41:18.735186+00:00",
+  "body_sha256": "35804ae8be39a3bdab38bce07c41cc141ec7afd01f514d932afeaf4b03011b84",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "표면 플라즈몬 공명의 한계를 짚고 그래핀-흑린 이종구조로 푸는 흐름이 서론과 결론에서 한 편의 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Surface plasmon resonance (SPR) biosensing technology",
+   "note": "수식 문단은 걷어내야 하고 RIU·FOM 같은 약어를 풀어 쓰면 논지가 남는다."
+  }
+ },
+ {
+  "id": "74b1c89b-201a-4609-a6c5-8017e6546c4a",
+  "source_updated_at": "2026-09-25T07:41:20.031643+00:00",
+  "body_sha256": "1e9ae0d07bd997c0896702267de5cac17d42178d5d27d88b9748265b2588f529",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "선박 배기탈황탑 부품의 마모·부식이라는 문제 제기에서 Cu/Nb 비율 조절이라는 해법까지 인과가 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "With the development of the marine economy",
+   "note": "서론 첫 두 단락은 수치 없이도 서고, 합금 기호는 「특정 원소」로 바꿀 수 있다."
+  }
+ },
+ {
+  "id": "74c8ea8e-5dd9-4097-af77-3f815de642a8",
+  "source_updated_at": "2026-09-13T07:36:20.459211+00:00",
+  "body_sha256": "e9355002bf40b71e5c1454ef74b9610e4f157f59dfe75cbbdef17dac755f0240",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "정상압수두증이 치매로 오진되는 문제와 영상 지표로 가려내려는 시도가 서론과 고찰에서 논지로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "NPH classically comprises of a triad",
+   "note": "표와 측정치 문단이 길어 고찰 쪽 단락을 골라야 하고, 영상 약어는 풀이가 필요하다."
+  }
+ },
+ {
+  "id": "74cad8d7-1020-4681-83f3-03b428ec12c1",
+  "source_updated_at": "2026-09-25T07:41:24.559298+00:00",
+  "body_sha256": "fc1e522fc71a636af3f941f3e23fc6e4ea4446c7b795ab6948fc9fa4885ffcbf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "조기발병 췌장암 부담이 늘어난 까닭을 인구 증가와 대사 위험으로 갈라 설명하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pancreatic cancer is a leading cause",
+   "note": "지표 약어(DALY·PAF)를 풀면 서고, 고찰의 인과 추론 단락이 그대로 쓰인다."
+  }
+ },
+ {
+  "id": "74d4897d-b24e-4f0d-9d71-facca530bb51",
+  "source_updated_at": "2026-09-25T07:41:28.402571+00:00",
+  "body_sha256": "c77bbe69b2db85af159c70ebf6dbc54c9933c0b9a910c8c29d8f465f4627d9d0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "장 감염 신호가 간을 거쳐 전신 반응으로 번지는 시간 순서를 저자 요약이 한 편의 설명으로 풀어 놓았다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Localized infections often stimulate systemic responses",
+   "note": "저자 요약이 떼어 내기 쉬웠고 유전자명은 「염증 신호 물질」로 바꿔도 논지가 남는다."
+  }
+ },
+ {
+  "id": "74ef9732-cf22-4584-b7f8-b8b459f5c38d",
+  "source_updated_at": "2026-09-25T07:41:36.205207+00:00",
+  "body_sha256": "b5b3093667c2b60efbd4bfabef4ba224acd615bb2ddef500f8b78de1e21cb68d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "수용체 둘을 없애도 독소가 듣는다는 관찰에서 세 번째 인자를 찾아가는 추적 과정이 서술로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Bacillus cereus is a toxin-producing",
+   "note": "유전자 약칭이 빽빽해 「숙주 단백질 A/B」로 치환해야 읽히지만 사건 순서는 살아 있다."
+  }
+ },
+ {
+  "id": "75090ab1-54d5-4d16-9859-fe27691e131e",
+  "source_updated_at": "2026-09-25T07:41:37.103181+00:00",
+  "body_sha256": "132c116ed0fab3d0be3f9b42dd375a7491ac63f7dcd174174cfd9ac612048c5b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저수준 바이러스혈증에서 약을 바꿀지 유지할지를 두고 근거가 엇갈린다는 물음과 답이 한 편으로 맞물린다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Antiretroviral therapy (ART) suppresses viral replication",
+   "note": "고찰 단락이 수치를 걷어도 서고, 약제 계열명만 일반어로 바꾸면 된다."
+  }
+ },
+ {
+  "id": "750d9e13-fa97-4ee1-890f-baacafc7734e",
+  "source_updated_at": "2026-09-15T15:18:40.987512+00:00",
+  "body_sha256": "d41e91696c52735fea56b57e06aeed30d5cad37b3d323a9c948e63691a3877d9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "빛이 깊이 못 들어간다는 광역동치료의 약점을 전기장으로 보완하려는 시도가 서론에서 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Photodynamic therapy (PDT) is a cutting-edge",
+   "note": "항생제 내성 문단은 그대로 쓸 만하고 나노입자 약칭은 풀어 써야 한다."
+  }
+ },
+ {
+  "id": "7514c0f8-5444-4bee-9945-c2c53c9d06b2",
+  "source_updated_at": "2026-09-25T07:27:05.852721+00:00",
+  "body_sha256": "16f0d5cadb8a1b2cb4979d7c9bcec8e2558a5eb99cea2f51537d2dbf56bad710",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "꿀벌 부저병 두 유전형이 왜 병의 진행 속도가 다른지를 생장·포자·발아로 나눠 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Pollination is essential for sustaining ecosystem",
+   "note": "저자 요약과 서론은 전문 용어가 적어 거의 손대지 않아도 읽힌다."
+  }
+ },
+ {
+  "id": "751bc511-cc71-4379-9a88-2d6721134064",
+  "source_updated_at": "2026-09-25T07:27:07.865712+00:00",
+  "body_sha256": "bcb439e94dbc03374463f6a3510c829a3745f8f90f21d349b6ab4820f6a3fac9",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 항체 검사의 민감도-특이도 맞바꿈을 단백질 지표로 넘어서려는 문제의식이 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Systemic lupus erythematosus (SLE) is a chronic",
+   "note": "단백질 이름을 걷어도 비용-정확도 맞바꿈이라는 논지가 그대로 남는다."
+  }
+ },
+ {
+  "id": "7521cb38-0366-4528-bd5c-45ed4e7bd985",
+  "source_updated_at": "2026-09-13T07:46:17.892441+00:00",
+  "body_sha256": "698cd4bc2a36b586e977f11fccf284fe216c89f825acedd329364e652ece0968",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "부분작용제의 효능 차이가 시냅스 반응을 어떻게 가르는지 실험과 해석이 인과로 이어진다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The entorhinal cortex (EC) acts as",
+   "note": "수용체 약칭과 전기생리 수치가 촘촘해 어휘를 바꿔도 밴드가 크게 내려가지 않는다."
+  }
+ },
+ {
+  "id": "753d3528-7597-4982-8e80-42e6b1bc214b",
+  "source_updated_at": "2026-09-13T07:12:01.164164+00:00",
+  "body_sha256": "add8bc508df408c2734fed06126cebb8d9d3606240d2034c09a9f1f9eac2b904",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "편모충 감염에서 대식세포의 염증 반응을 COX-2가 매개한다는 가설과 검증이 차례로 놓인다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Giardia duodenalis is one of the most",
+   "note": "서론의 기생충 생활사 단락은 떼어 내기 쉽고, 신호 분자명은 일반어로 바꿀 수 있다."
+  }
+ },
+ {
+  "id": "7540a271-e9c8-4749-8c62-19a7ab31cf65",
+  "source_updated_at": "2026-09-15T15:18:48.172974+00:00",
+  "body_sha256": "718731c437a60affb6099a58d661ab5259bbc9f04a69dbce41bc1f06d4ca579c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "심근경색 뒤 호중구가 몰려 손상을 키우는 경로에 대사 효소를 끼워 넣는 설명이 한 줄기로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Acute myocardial infarction (AMI), a serious",
+   "note": "서론과 고찰 첫 단락은 수치 없이 서지만 효소·수용체 약칭은 풀어 써야 한다."
+  }
+ },
+ {
+  "id": "75429f5e-af03-4953-9e5d-d70fa5bf0647",
+  "source_updated_at": "2026-09-13T07:18:28.926601+00:00",
+  "body_sha256": "44a91763b58736640f10bf1b0a670cd20b7ba75ab111e7090eb8a0c0411c60e7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "간질 감염 때 조직마다 면역 반응이 갈린다는 점을 시기별 비교로 풀어 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Fasciola hepatica and Fasciola gigantica are",
+   "note": "서론의 감염 경로 단락이 사건 순서로 이어져 그대로 쓸 만하다."
+  }
+ },
+ {
+  "id": "7549ba36-a018-4161-bc22-81c804a4168b",
+  "source_updated_at": "2026-09-25T07:27:12.093145+00:00",
+  "body_sha256": "a199d785d1f37721511c5551b49f3c4e7891879e1e209431d096004498074cd8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "토양 염류화와 시들음병이라는 두 문제를 내생균 하나로 함께 다루려는 시도가 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Endophytic fungi are microorganisms colonizing internal",
+   "note": "서론은 전문 용어가 적어 균주명만 일반어로 바꾸면 중등 위쪽까지 내려간다."
+  }
+ },
+ {
+  "id": "754d0584-cc47-4104-a0b3-f30f84ec08e8",
+  "source_updated_at": "2026-09-23T21:04:56.961502+00:00",
+  "body_sha256": "27709d52d084c2329ba651ce4a00adadc5caf9a82549bdd98589c017e1f3b695",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "기존 영상 검사가 낮은 PSA에서 재발을 놓친다는 문제와 새 추적자의 성적이 맞물려 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Prostate cancer (PCa) remains the second",
+   "note": "검출률 수치 문단이 길어 서론과 고찰 앞부분을 골라야 한다."
+  }
+ },
+ {
+  "id": "754d9010-227f-4d6f-b650-2e2a6f099401",
+  "source_updated_at": "2026-09-25T07:27:12.551656+00:00",
+  "body_sha256": "c1b65c899364b3097b6b8028a73642b561ad6534f51a3a900ab14be55099250a",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "항암제가 정상 세포까지 해친다는 문제에서 나노입자 전달로 넘어가는 서론이 자족적으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Breast cancer is among the most",
+   "note": "기기 분석 절은 걷고 서론·고찰만 남겨도 논지가 서며 약어를 풀기 쉽다."
+  }
+ },
+ {
+  "id": "7558ea48-2995-4f49-bf00-f3d9349080cd",
+  "source_updated_at": "2026-09-15T15:18:51.160799+00:00",
+  "body_sha256": "4bbb4a10dd6bbe50245b35b3e0ba235932b52e75d1314ff4461ca7a1a6fff1cf",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 약을 함께 쓸 때의 위험 신호를 제시하면서 표본이 작다는 한계까지 스스로 짚는 구조다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mechanical ventilation is a key supportive",
+   "note": "분량이 짧고 고찰이 근거의 약점을 스스로 말해 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "755aff75-0938-4d5b-b3a5-63f7dda9bb93",
+  "source_updated_at": "2026-09-25T07:27:13.65468+00:00",
+  "body_sha256": "23b6da4c72a5675f7f4f4790f76b52ab6cbd69c99105f1c78724f9a88346d465",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "균이 성장에서 항생물질 생산으로 넘어가는 전환점을 영양분 고갈로 설명하는 흐름이 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Clavulanic acid (CA) is a molecule",
+   "note": "대사 경로 약칭이 많아 걷어야 하지만 전환이라는 사건 흐름은 남는다."
+  }
+ },
+ {
+  "id": "7579aea4-1ef9-4cb1-bdd3-b1b24c8ad232",
+  "source_updated_at": "2026-09-13T07:44:41.477064+00:00",
+  "body_sha256": "a63ab868dd3ba78f54d13e55fa30b27126ea15ca28bf91718cbadb49eff4a936",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 6,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "같은 유전자를 없애도 계통에 따라 생체시계 표현형이 달라진다는 관찰이 결론까지 곧게 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "24-hour, or circadian, clocks have",
+   "note": "서론의 생체시계 설명은 거의 손대지 않아도 서고, 유전자명만 풀면 된다."
+  }
+ }
+]

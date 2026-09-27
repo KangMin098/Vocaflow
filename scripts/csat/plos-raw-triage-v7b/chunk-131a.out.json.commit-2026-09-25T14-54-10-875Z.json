@@ -1,0 +1,515 @@
+[
+  {
+    "runId": "2026-09-25T14-54-10-875Z",
+    "id": "6a62c27c-1fd6-4477-8e6d-f2c379d4c53b",
+    "revision": "2026-09-13T06:42:32.59844+00:00",
+    "body_sha256": "93f163fb0722aad93c030c798c7f245d14ad28c72082eb5dbc05862f7ad6f090",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 절이 약제 내성 기생충의 등장과 진드기 전파 가능성을 말라리아 사례와 대조하며 논지를 이어 가 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Since its first discovery and use",
+          "note": "약어 BPQ를 「그 약」으로, cytochrome B를 「표적 단백질」로 바꾸면 수치 없이 발견-우려 흐름이 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:54:10.878Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T12:06:52.143Z",
+      "topicMargin": 21.33
+    }
+  },
+  {
+    "runId": "2026-09-25T14-54-10-875Z",
+    "id": "6a655bb1-1a7e-40b8-956f-3fd7f982d314",
+    "revision": "2026-09-13T07:12:44.378564+00:00",
+    "body_sha256": "81dfbebfa3df63356f105a4f4d3a768d5f1de8d0dcaae0b601b2e89d7d4853f3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 지속 감염 단락이 바이러스가 스스로 복제를 억제해 오래 머문다는 가설을 근거와 함께 전개해 주제·요약 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "During infection, ZIKV persists in",
+          "note": "NS4A 같은 단백질 이름을 「바이러스 단백질」로 묶고 일수 수치를 걷으면 가설 논지가 남는다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:54:10.879Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 3,
+      "type": "R-BLANK",
+      "shape": 16,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:00:44.461Z",
+      "topicMargin": 37.55
+    }
+  },
+  {
+    "runId": "2026-09-25T14-54-10-875Z",
+    "id": "6a6642d6-f133-4aa0-a780-31c7d37b0a85",
+    "revision": "2026-09-15T15:13:18.148938+00:00",
+    "body_sha256": "a54ed0342b73a3828348e046e09bf0838edb80bcc22fef7947dbe93d41f6a9a9",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론과 고찰이 항생제 남용이 젖소·양 우유 속 다제내성균을 키운다는 인과를 설명해 주장·요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The rise of antibiotic-resistant strains",
+          "note": "MRSE·mecA 같은 약어를 「내성균」「내성 유전자」로 바꾸면 남용-내성 인과가 쉽게 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:54:10.879Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 6,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:24:48.744Z",
+      "topicMargin": 19
+    }
+  },
+  {
+    "runId": "2026-09-25T14-54-10-875Z",
+    "id": "6a692379-22bf-48db-a95e-c897413ea004",
+    "revision": "2026-09-13T06:25:30.874681+00:00",
+    "body_sha256": "ec8df144cfef73b348c3c758d340ec088a1b133d564c4a4deff55ee0dc42ff5f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰이 로봇 수술의 안정된 견인이 비뇨기 합병증을 줄이는 까닭과 수술 시간이 길어진 이유를 설명해 요지·순서 칸이 된다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "order",
+            "insert",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Because LPND requires only lymphatic",
+          "note": "LPND·TME 약어를 「림프절 절제」「직장암 수술」로 풀면 원인 설명 단락이 앞 문맥 없이 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:54:10.879Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 5,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-03T11:40:12.546Z",
+      "topicMargin": 0.7699999999999996
+    }
+  },
+  {
+    "runId": "2026-09-25T14-54-10-875Z",
+    "id": "6a6c3973-9dd8-4c16-a0ed-2aee6320be6a",
+    "revision": "2026-09-13T07:18:15.023357+00:00",
+    "body_sha256": "280aec99876f6de5d0f7120ae495d0ee0bd77d011facfb25d0b094aae9430a1f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-06T00:04:48.156Z",
+      "by": "rule",
+      "cv": 1,
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰 끝의 공생균 경쟁 단락이 비강 세균과 면역 펩타이드를 이겨 내는 내성이 감염 성공을 돕는다는 논지를 세워 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "irrelevant"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Competition among microorganisms is a key",
+          "note": "bacteriocin·defensin을 「항균 물질」로 바꾸면 세균 경쟁 이야기가 일반 독자에게도 선다."
+        },
+        "criteria_version": 6,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T14:54:10.880Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T00:04:48.156Z",
+        "by": "rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false
+      },
+      "pass": 10,
+      "type": "R-BLANK",
+      "shape": 25,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-09-04T08:08:03.919Z",
+      "topicMargin": 18.32
+    }
+  }
+]

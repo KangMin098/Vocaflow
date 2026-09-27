@@ -1,0 +1,822 @@
+[
+  {
+    "id": "d16d4d2e-031c-401f-be6d-3eeb198df1f5",
+    "source_updated_at": "2026-09-25T05:32:32.618647+00:00",
+    "body_sha256": "3044acaffcef631b48e70182b6954f9f46b6eedf8b0262ec011441059a894495",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "가난 속 유학부터 라듐 발견·노벨상까지 시간순 전기가 한 편으로 서 있어 내용 일치·순서·서사 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "title"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Together the Curies began looking for",
+      "note": "발견 과정 단락은 앞 문맥 없이 서고 ore·acids 정도만 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "2be53544-76e4-4ec0-9277-392a0374d10e",
+    "source_updated_at": "2026-09-25T05:32:23.902035+00:00",
+    "body_sha256": "4c71a360341a59cb64690568f76fe816f1e228c78074bbd97e48d16191d7cfd3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "전기가 2차 에너지원·에너지 운반자라는 정의와 전기 이전 생활 대조 단락이 논지를 세워 주제·빈칸·일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite its great importance in daily",
+      "note": "take for granted 단락은 바로 떼어지고 decipher 를 figure out 으로 바꾸면 고1 밴드가 된다."
+    }
+  },
+  {
+    "id": "7931f9e2-ab1b-4639-acd0-cd51e9027dd7",
+    "source_updated_at": "2026-09-25T05:32:29.011084+00:00",
+    "body_sha256": "91089ae48a988c65d39a0108d923e9a37e0955f39fcb9a956c27cf1e4e7475d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "후반 환경 영향 절(탄소중립 주장과 매연·삼림 파괴 반론)이 논지를 세우고 전환 공정 절이 순서 칸을 채운다; 앞쪽 수치 나열 절은 쓰지 않는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Using biomass and biofuels made from",
+      "note": "환경 영향 단락은 독립적으로 서고 photosynthesis 외 carbon-neutral 만 풀면 되며 TBtu 수치 절은 떼어 낸다."
+    }
+  },
+  {
+    "id": "ec6ae71c-00d2-4160-a9c6-43901527a905",
+    "source_updated_at": "2026-09-25T05:32:22.701072+00:00",
+    "body_sha256": "b19840fb87e92e47daf7eaf0ad0070724876259fe39eafdb451ec574d9c7d4fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "science",
+    "why": "에너지 정의와 형태 전환(음식의 화학 에너지→운동 에너지) 예시 단락이 짧지만 자족적이라 중등 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Energy can be converted from one",
+      "note": "목록 줄을 걷으면 전환 예시 단락만으로 서고 converted 를 changed 로 바꾸면 초등 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "35c48446-d5c3-446c-8eec-554f8f97d331",
+    "source_updated_at": "2026-09-25T05:32:30.388707+00:00",
+    "body_sha256": "7d969c6602148d9559fa1614849497c91496b4f6a5e48015be6a28d12a1798f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "태양광 전지 원리 단락과 말미 환경 영향 절(무배출 이점 대 제조·폐기·서식지 부담)이 논지를 세워 순서·삽입·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "insert",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Solar energy technologies require materials, such",
+      "note": "에너지 회수 기간 단락은 떼어도 서고 발전소 이름·용량 목록 절은 버리면 된다."
+    }
+  },
+  {
+    "id": "f55d39c4-ff7e-469e-b683-17607ee42df4",
+    "source_updated_at": "2026-09-25T05:32:28.371542+00:00",
+    "body_sha256": "c95d6a81234752907b6e04ee75b494dad5acc683c2ff93e596b6261940466340",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "석탄 생성 과정과 채굴·환경 영향 절(산정 제거·배출물·저감 기술)이 흐름을 가져 순서·요지 칸을 채운다; 지역별 생산 비율 절은 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "main_point",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mountaintop removal and valley fill mining",
+      "note": "산정 제거 단락은 주 이름만 걷으면 서고 overburden·impoundment 같은 낱말 두셋만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "4abffb4e-8051-4945-8416-034b4c93aedd",
+    "source_updated_at": "2026-09-25T05:32:36.218645+00:00",
+    "body_sha256": "48602092c60e052d38a0abc19af1806c8d120e838a36663df637c6f78541a1b4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "특허 제도 도면공에서 에디슨 팀 유일 흑인 기술자로 이어진 업적이 시간순으로 서서 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1884, Latimer became an engineer",
+      "note": "두 단락 모두 앞 문맥 없이 서고 commercially viable 을 practical 로 바꾸면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "02238388-c043-4c74-afeb-1d0b2cef0838",
+    "source_updated_at": "2026-09-25T05:32:36.919422+00:00",
+    "body_sha256": "f6b83d0f4fb9b1055ca2f7498da0e747497472c8e93d071f3f8268c832726ad4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "여성 물리학자로 박사가 되고 나치 독일을 떠나 핵분열을 밝혀낸 경력이 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lise Meitner was born in Austria",
+      "note": "한 단락 전기라 그대로 서며 neutron bombardment 만 풀어 주면 고1 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "472fbca0-0c71-4a4c-aadd-7ede96f6481c",
+    "source_updated_at": "2026-09-25T05:32:29.619081+00:00",
+    "body_sha256": "123534ca1f3ba823fb8baa5b7cc1325802d84a69db68a35557026ef353692ae1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "지열의 근원·발전소 세 유형·열펌프 계절 반전 설명이 단락마다 떨어져 순서·삽입·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although air temperatures above ground change",
+      "note": "열펌프 단락은 겨울·여름 대비가 선명해 떼기 쉽고 steady 정도만 남기면 중등 밴드로 된다."
+    }
+  },
+  {
+    "id": "16428622-5425-42e2-9b86-e4e54667cbc1",
+    "source_updated_at": "2026-09-25T05:32:34.309835+00:00",
+    "body_sha256": "d2cee6f8c9cf65757c9c87df9738b69ac864b1e3bff07e074c8779d117055e56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "자동차 발명자라는 통념을 첫 문장에서 바로잡고 농장 소년에서 조립 라인까지 이어지는 전기라 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Henry Ford is often incorrectly thought",
+      "note": "첫 단락은 그대로 서고 worked in continued 오탈자만 고치면 revolutionized 외엔 쉬운 어휘다."
+    }
+  },
+  {
+    "id": "bc402199-6d24-4e22-9afe-c7d065a16b65",
+    "source_updated_at": "2026-09-25T05:32:31.729828+00:00",
+    "body_sha256": "0c7f649cb8367d1169cf3334634535146e92836c61f4732c28511cf65406f3a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "온실효과 원리와 탄소 순환 불균형(1950년 무렵 흡수 능력 초과) 단락이 인과 논지를 세워 주제·빈칸·요약 칸을 채운다; 전망 수치 절은 버린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Concentrations of CO2 in the atmosphere",
+      "note": "탄소 순환 두 단락을 이어 붙이면 앞 문맥 없이 서고 flux 를 movement 로 바꾸면 고2 밴드가 된다."
+    }
+  },
+  {
+    "id": "69927c81-a764-41ad-bce7-56f97c6465ea",
+    "source_updated_at": "2026-09-25T05:32:31.441824+00:00",
+    "body_sha256": "10500ee918e01cfb062a61c20b5234cb31c916c76e860299801741d3503ba4f6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "전력망 상호 연결 역사와 수요 공급 균형·스마트 그리드 단락이 설명 흐름을 가져 순서·삽입·요지 칸을 채운다; 발전원 비율 절은 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At the beginning of the 20th",
+      "note": "상호 연결 역사 단락은 떼어도 서지만 기관명(ERCOT 등)을 걷어야 하고 peak demand 는 그대로 둘 만하다."
+    }
+  },
+  {
+    "id": "4bf7c81e-2bf3-4d54-8a23-3df22c39f9c3",
+    "source_updated_at": "2026-09-25T05:32:26.279459+00:00",
+    "body_sha256": "601f762dcd8fbfa2b265250f97ad30483352b002e0860672defee02a89838b9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "재생·비재생 구분의 기준(생성 시간·보충)과 바이오매스에서 화석연료로의 역사 전환 단락이 논지를 세워 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Renewable energy sources are constantly replenished",
+      "note": "재생 에너지 단락은 그대로 서고 replenished·inexhaustible 을 쉬운 말로 바꾸면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "ccf15ac2-03fb-4241-a5d3-da274c81f7ae",
+    "source_updated_at": "2026-09-25T05:32:28.679015+00:00",
+    "body_sha256": "88cdce02246bece7a83d727cd946afa77d0149ca947b09217200796b74253364",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "핵분열 연쇄 반응 원리와 방사성 폐기물 반감기·저장 단락이 과정 설명으로 서서 순서·삽입·일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In nuclear fission, atoms are split",
+      "note": "연쇄 반응 단락은 떼어도 서고 절차 순서가 분명해 순서 문항으로 바로 잘린다."
+    }
+  },
+  {
+    "id": "3d41c99d-2845-4f68-a2f8-494ddbc9070c",
+    "source_updated_at": "2026-09-25T05:32:25.779437+00:00",
+    "body_sha256": "399cfc250372a0468cb9261a00e047670089accca0414e5f4434fd132ddc3b65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "에너지 효율(기술)과 에너지 절약(행동)을 예시로 대조하는 정의 단락이 짧지만 자족적이라 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Energy efficiency is using technology that",
+      "note": "대조 단락은 바로 서고 ENERGY STAR 줄만 걷으면 되며 fluorescent 를 빼면 초등 밴드도 된다."
+    }
+  },
+  {
+    "id": "ab906021-e40a-4e34-a8b1-6123ff207b4c",
+    "source_updated_at": "2026-09-25T05:32:29.957217+00:00",
+    "body_sha256": "3eef136e56597a2942f50d610e02a0b892327a5cde82649e22062fde6b4ebb4c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "물 순환과 낙차 원리, 댐의 어류 이동·생태 영향 단락, 조력 발전 설명이 흐름을 가져 순서·삽입·무관 문장 칸을 채운다; 주별 순위 절은 버린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many species of fish, such as",
+      "note": "어류 이동 단락은 짧고 자족적이며 spawning 만 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "fc197cc9-c399-460c-bbe5-33ffe8337e44",
+    "source_updated_at": "2026-09-25T05:32:38.346993+00:00",
+    "body_sha256": "4c7df8dced7cd69c14c0cf8134a613e430ac40409db0df76ef7f96faa99704ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "연도별 학위·직함·재직 기간 나열이 전부이고 「1950년부터 현재까지」 같은 낡은 현재형이 섞여 떼어 낼 사건 흐름이나 논지가 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Louis W. Roberts was born in",
+      "note": "직함과 기간을 걷으면 남는 사건이 없어 내용 일치 외 칸이 없고 그것도 경력 나열뿐이다."
+    }
+  },
+  {
+    "id": "5e2c7e76-4b00-42fa-bea2-84f5e1b627b8",
+    "source_updated_at": "2026-09-25T05:32:27.252825+00:00",
+    "body_sha256": "3945456f0d6a5bf0c385eb677b887f84df8058de3f3a614ca79251545616a475",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "디젤 엔진 발명·첫 장거리 주행 일화와 초저황 경유 규제로 배출을 줄인 경위가 설명 흐름을 가져 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Before 2006, most diesel fuel sold",
+      "note": "황 규제 단락은 떼어도 서며 phased in 과 ppm 만 풀면 된다."
+    }
+  },
+  {
+    "id": "8265fc66-e6e6-4b0d-82db-6f94e5bdd5d8",
+    "source_updated_at": "2026-09-25T05:32:29.345936+00:00",
+    "body_sha256": "d69e36299ab155edac9ba99f1aa16514171add56fe5649378219072358c75eed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "에탄올 역사 단락(주세·금주법·석유 파동)과 바이오연료 탄소 상쇄 논쟁 절이 시대 흐름과 논지를 가져 순서·빈칸·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "blank",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the 1850s, ethanol was a",
+      "note": "에탄올 역사 두 단락은 연도순으로 이어져 순서 문항으로 바로 잘리고 repealed 만 풀면 된다."
+    }
+  },
+  {
+    "id": "3f9c71ad-a548-4243-9b35-4dd11a2c9aab",
+    "source_updated_at": "2026-09-25T05:32:32.388677+00:00",
+    "body_sha256": "205aac40ce06ddf4833ccda3e4e2fb28b370552994eed21804a46cee76a3f244",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 6,
+    "retention": "hold",
+    "genre": "biography",
+    "why": "냉난방 권위자의 학위·직책·특허 수 나열이 대부분이나 라디오시티 난방 설계와 은퇴 후 강의라는 사건 두 개가 있어 칸 성립이 애매하다.",
+    "slots": {
+      "ages": [
+        "high1"
+      ],
+      "purposes": [
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Mr. Crosthwait was responsible for designing",
+      "note": "둘째 단락은 떼어지지만 특허·매뉴얼 나열뿐이라 사건 흐름이 서는지 판단이 갈린다."
+    },
+    "hold_reason": "borderline"
+  }
+]

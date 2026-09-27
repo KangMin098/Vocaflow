@@ -1,0 +1,1434 @@
+[
+  {
+    "runId": "2026-09-25T08-14-37-735Z",
+    "id": "0e85fad7-7bea-4f5f-b7f1-19ffad1cf2c0",
+    "revision": "2026-09-25T07:31:35.52047+00:00",
+    "body_sha256": "3a5146ef9249d76195d7e7eff9f6c177c009775d20f3d3ababf0629c9a69cabb",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.634Z",
+        "by": "chunk-llm",
+        "why": "폴립에서 해파리로 바뀔 때 새로운 세포 유형이 생기는가라는 물음이 서론에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:43.093Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "bc0b7da9e248a620e9447f6bbfee95794e540127c4f5ac67722eb0e30ed50860"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 앞 문단은 분류군 이름만 정리하면 서고 유전자 이름 절은 버린다.",
+          "sample": "Cell type diversification is a hallmark",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:34.634Z",
+        "by": "chunk-llm",
+        "why": "폴립에서 해파리로 바뀔 때 새로운 세포 유형이 생기는가라는 물음이 서론에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "nature",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:43.093Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "bc0b7da9e248a620e9447f6bbfee95794e540127c4f5ac67722eb0e30ed50860"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 앞 문단은 분류군 이름만 정리하면 서고 유전자 이름 절은 버린다.",
+          "sample": "Cell type diversification is a hallmark",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "고찰의 「줄무늬근은 해파리에게 새 헤엄 방식을 열었다」 단락과 서론의 폴립→메두사 변태 설명이 떼어지며 주제·빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Striated muscles in the subumbrella enabled",
+          "note": "논지는 서지만 유전자 이름·전문어가 촘촘해 2~3개 교체로는 밴드가 내려가지 않는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:37.739Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:34.634Z",
+          "by": "chunk-llm",
+          "why": "폴립에서 해파리로 바뀔 때 새로운 세포 유형이 생기는가라는 물음이 서론에서 한 편으로 선다.",
+          "basis": "full",
+          "genre": "nature",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "reading",
+              "csat"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:43.093Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "bc0b7da9e248a620e9447f6bbfee95794e540127c4f5ac67722eb0e30ed50860"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 앞 문단은 분류군 이름만 정리하면 서고 유전자 이름 절은 버린다.",
+            "sample": "Cell type diversification is a hallmark",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 5,
+      "type": "R-BLANK",
+      "shape": 18,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:57.738Z",
+      "topicMargin": 13.74
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-37-735Z",
+    "id": "0ebd1264-6eb0-4ea7-afd2-fdad271d9b09",
+    "revision": "2026-09-25T07:31:37.272415+00:00",
+    "body_sha256": "554af992e57b80abcbb515609a234c545765b07c44fd83f2c55acedff001f1f3",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.676Z",
+        "by": "chunk-llm",
+        "why": "통념(분변지표 통과=안전)을 세우고 클레브시엘라 잔존으로 뒤집는 결론 절이 한 편의 논지로 선다.",
+        "basis": "full",
+        "genre": "environment",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:44.726Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ec1e280efefcbd0c622903c1642704bc9820a17b2035abd4854f1dda21cdc634"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "지명·수치를 걷어도 지표균과 기회감염균의 대비가 남아 문단이 그대로 선다.",
+          "sample": "The microbiological safety of reclaimed water",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.676Z",
+        "by": "chunk-llm",
+        "why": "통념(분변지표 통과=안전)을 세우고 클레브시엘라 잔존으로 뒤집는 결론 절이 한 편의 논지로 선다.",
+        "basis": "full",
+        "genre": "environment",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:44.726Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "ec1e280efefcbd0c622903c1642704bc9820a17b2035abd4854f1dda21cdc634"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "지명·수치를 걷어도 지표균과 기회감염균의 대비가 남아 문단이 그대로 선다.",
+          "sample": "The microbiological safety of reclaimed water",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "결과·고찰의 「대장균 소실이 안전을 뜻하지 않는다」 단락이 통념-반증 구조로 서며 주제·주장·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "claim",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This divergence underscores a system-specific limitation",
+          "note": "지명·수치를 걷고 opportunistic pathogen→harmful germ 등으로 바꾸면 논지가 그대로 남는다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:37.741Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:35.676Z",
+          "by": "chunk-llm",
+          "why": "통념(분변지표 통과=안전)을 세우고 클레브시엘라 잔존으로 뒤집는 결론 절이 한 편의 논지로 선다.",
+          "basis": "full",
+          "genre": "environment",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "myth-rebuttal"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:44.726Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "ec1e280efefcbd0c622903c1642704bc9820a17b2035abd4854f1dda21cdc634"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "지명·수치를 걷어도 지표균과 기회감염균의 대비가 남아 문단이 그대로 선다.",
+            "sample": "The microbiological safety of reclaimed water",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:38:32.644Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-37-735Z",
+    "id": "0ef01314-e969-4449-8cef-c20410ebf2a5",
+    "revision": "2026-09-25T07:31:39.216522+00:00",
+    "body_sha256": "84bbc15a601a34b8240555114d267c27db2ad1c4e9b4c6c6e0e7907853d786f6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.679Z",
+        "by": "chunk-llm",
+        "why": "자궁내막암 치료 한계 → 페롭토시스라는 새 경로 제시로 도입부가 문제-해법 구조를 갖춘다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:46.212Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "539dfad5b2b4786001e3fefa354421f8c48a1629979fa1c600a6f9a3edebd4c0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "유전자 약어를 «한 단백질»로 바꾸면 세포사 기전 설명이 밴드를 한 단계 내려간다.",
+          "sample": "In recent years, ferroptosis, a new",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.679Z",
+        "by": "chunk-llm",
+        "why": "자궁내막암 치료 한계 → 페롭토시스라는 새 경로 제시로 도입부가 문제-해법 구조를 갖춘다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:46.212Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "539dfad5b2b4786001e3fefa354421f8c48a1629979fa1c600a6f9a3edebd4c0"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "유전자 약어를 «한 단백질»로 바꾸면 세포사 기전 설명이 밴드를 한 단계 내려간다.",
+          "sample": "In recent years, ferroptosis, a new",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 페로토시스 설명 단락과 고찰의 「같은 유전자가 암마다 반대로 작용한다」 단락이 떼어져 주제·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "In recent years, ferroptosis, a new",
+          "note": "단락은 떼어지나 단백질·지표 이름이 많아 몇 낱말 교체로는 밴드가 안 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:37.742Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:35.679Z",
+          "by": "chunk-llm",
+          "why": "자궁내막암 치료 한계 → 페롭토시스라는 새 경로 제시로 도입부가 문제-해법 구조를 갖춘다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:46.212Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "539dfad5b2b4786001e3fefa354421f8c48a1629979fa1c600a6f9a3edebd4c0"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "유전자 약어를 «한 단백질»로 바꾸면 세포사 기전 설명이 밴드를 한 단계 내려간다.",
+            "sample": "In recent years, ferroptosis, a new",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:36:28.431Z",
+      "topicMargin": 16.61
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-37-735Z",
+    "id": "0f296ece-b848-4757-8a4a-cd5a4a3b235e",
+    "revision": "2026-09-25T07:31:45.321267+00:00",
+    "body_sha256": "876ef8758bca10722722f3c866b135533204d7581de00c72d1c19933844d420f",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.679Z",
+        "by": "chunk-llm",
+        "why": "두 운동 방식을 같은 지표로 견주고 각각의 장점을 가르는 고찰이 비교·대조 지문으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:52.249Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "d1b1e7fd5563082ea2124414db6337eb82099683f37bc69a4412077e04c08bc2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "신뢰구간 수치를 걷어도 «고강도는 공복혈당, 복합운동은 삶의 질» 대비가 남는다.",
+          "sample": "Aerobic exercise training, resistance exercise training",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.679Z",
+        "by": "chunk-llm",
+        "why": "두 운동 방식을 같은 지표로 견주고 각각의 장점을 가르는 고찰이 비교·대조 지문으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:52.249Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "d1b1e7fd5563082ea2124414db6337eb82099683f37bc69a4412077e04c08bc2"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "신뢰구간 수치를 걷어도 «고강도는 공복혈당, 복합운동은 삶의 질» 대비가 남는다.",
+          "sample": "Aerobic exercise training, resistance exercise training",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "고찰의 「운동 처방은 환자에 맞춰야 한다」 절(HIIT 대 복합훈련 비교)이 논지로 서며 요지·주장·요약·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "summary",
+            "blank",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "HIIT is ideally suited for patients",
+          "note": "약어(HIIT·HOMA-IR)를 풀고 glycaemic→blood sugar 로 바꾸니 비교 논지가 쉽게 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:37.743Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:35.679Z",
+          "by": "chunk-llm",
+          "why": "두 운동 방식을 같은 지표로 견주고 각각의 장점을 가르는 고찰이 비교·대조 지문으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high1",
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "school",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:52.249Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "d1b1e7fd5563082ea2124414db6337eb82099683f37bc69a4412077e04c08bc2"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "신뢰구간 수치를 걷어도 «고강도는 공복혈당, 복합운동은 삶의 질» 대비가 남는다.",
+            "sample": "Aerobic exercise training, resistance exercise training",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 1,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:17.170Z"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-37-735Z",
+    "id": "0f494e82-5ebd-4c1d-b687-59fe6dfe9154",
+    "revision": "2026-09-25T07:31:46.187306+00:00",
+    "body_sha256": "b870b62770e00f7bbb2e39be43ac2da8ccb4652f40986ee093343458f781dae6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.682Z",
+        "by": "chunk-llm",
+        "why": "임상시험 제외 환자가 실제 환자의 다수라는 지적이 저자 요약에서 평이한 논지로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:54.533Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4a4f29bdfab59dc6bbfa992118136a1d5c6e2db62f453ee6eebc0dd0503c6cf3"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 고유명사를 지워도 그대로 한 편의 설명문이 된다.",
+          "sample": "Visceral leishmaniasis is a life-threatening disease",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.682Z",
+        "by": "chunk-llm",
+        "why": "임상시험 제외 환자가 실제 환자의 다수라는 지적이 저자 요약에서 평이한 논지로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "summary",
+            "content_match",
+            "blank"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:54.533Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4a4f29bdfab59dc6bbfa992118136a1d5c6e2db62f453ee6eebc0dd0503c6cf3"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "저자 요약 단락은 고유명사를 지워도 그대로 한 편의 설명문이 된다.",
+          "sample": "Visceral leishmaniasis is a life-threatening disease",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "저자 요약과 고찰의 「항생제 투여를 CRP 로 가를 수 있다」 단락이 임상시험 대상의 한계라는 논지로 서며 주제·요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Visceral leishmaniasis is a life-threatening disease",
+          "note": "저자 요약은 이미 평이하고, 고찰 단락은 CRP→blood marker 교체로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:37.744Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:35.682Z",
+          "by": "chunk-llm",
+          "why": "임상시험 제외 환자가 실제 환자의 다수라는 지적이 저자 요약에서 평이한 논지로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "summary",
+              "content_match",
+              "blank"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:54.533Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4a4f29bdfab59dc6bbfa992118136a1d5c6e2db62f453ee6eebc0dd0503c6cf3"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "저자 요약 단락은 고유명사를 지워도 그대로 한 편의 설명문이 된다.",
+            "sample": "Visceral leishmaniasis is a life-threatening disease",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:09:21.120Z",
+      "topicMargin": 11.31
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-37-735Z",
+    "id": "0f65b2ca-e08f-4c14-b90e-6e01a8707c3a",
+    "revision": "2026-09-25T07:31:48.629057+00:00",
+    "body_sha256": "9dc0f97cc68403212eff1f1e0211bdff6e7a13eb0ad0217b51e5275c4ea35d5c",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.685Z",
+        "by": "chunk-llm",
+        "why": "문화서비스의 측정 어려움을 문제로 세우고 소셜미디어 텍스트를 해법으로 잇는 사회과학 논증이다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:58.274Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "99dcb55c919c9e8379dadcbd395e9b39046c9327a526de14b6e366cb7829bd47"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "판다국립공원이라는 사례명을 빼도 «감각 경험으로 자연의 가치를 읽는다»가 남는다.",
+          "sample": "Ecosystems are essential to human well-being",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:28:35.685Z",
+        "by": "chunk-llm",
+        "why": "문화서비스의 측정 어려움을 문제로 세우고 소셜미디어 텍스트를 해법으로 잇는 사회과학 논증이다.",
+        "basis": "full",
+        "genre": "social",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "main_point",
+            "summary",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "school",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:53:58.274Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "99dcb55c919c9e8379dadcbd395e9b39046c9327a526de14b6e366cb7829bd47"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "판다국립공원이라는 사례명을 빼도 «감각 경험으로 자연의 가치를 읽는다»가 남는다.",
+          "sample": "Ecosystems are essential to human well-being",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "geography",
+        "why": "결과의 오감 경험 단락과 「보호 규제가 강한 곳일수록 관광 효과가 작다」 이질성 단락이 떼어져 주제·빈칸·순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "blank",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In Fig 3, the high frequency",
+          "note": "그림 참조 첫 구절만 걷으면 오감 인상 논지가 서고 heterogeneity 등 2~3개 교체로 내려간다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:37.745Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:28:35.685Z",
+          "by": "chunk-llm",
+          "why": "문화서비스의 측정 어려움을 문제로 세우고 소셜미디어 텍스트를 해법으로 잇는 사회과학 논증이다.",
+          "basis": "full",
+          "genre": "social",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high1",
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "main_point",
+              "summary",
+              "blank",
+              "order",
+              "insert"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "school",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:53:58.274Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "99dcb55c919c9e8379dadcbd395e9b39046c9327a526de14b6e366cb7829bd47"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "판다국립공원이라는 사례명을 빼도 «감각 경험으로 자연의 가치를 읽는다»가 남는다.",
+            "sample": "Ecosystems are essential to human well-being",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 0,
+      "type": "R-BLANK",
+      "shape": 0,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T09:11:09.749Z"
+    }
+  }
+]

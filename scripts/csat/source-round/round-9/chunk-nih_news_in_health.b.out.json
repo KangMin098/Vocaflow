@@ -1,0 +1,816 @@
+[
+  {
+    "id": "c18a050c-cbbd-4595-8640-ee4466921673",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "016ceb269dda83b50e2f0204180c6ac9a04e031cd4b5215592e33f42c1b62dc2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "과거 호르몬요법 우려 → 최근 연구로 뒤집힌 MHT 단락이 논지를 세워 요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Women with severe symptoms now have",
+      "note": "MHT 단락은 과거 우려→새 연구로 흐름이 서고 fell out of favor·chronic 두어 개만 바꾸면 V5로 내려가며, 끝 증상 목록은 걷는다."
+    }
+  },
+  {
+    "id": "90c995e8-b8ea-42fb-a3b4-9088ddc1efd9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5b183636ee227c38a5ea8b8c0dbb2a4191a71726c73d90bbf39cffe72a059f8c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "누가(NIH)·누구에게(숨찬 사람)·무엇을(폐활량 검사를 받으라) 한 편에서 서서 목적·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "COPD is very common. It’s",
+      "note": "검사 절차 단락은 자족적이고 spirometry 풀이가 본문에 있어 쉬웠지만 끝 URL·영상 종료 공지는 걷어야 한다."
+    }
+  },
+  {
+    "id": "dceb538d-c93d-4775-a840-9429d319f652",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c9a1d9d9a2cbd2d90e74724023cd60b1940484934b2d37ed277e5325f7b66c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「위험한 독이 어떻게 약이 되나」의 역설 단락이 주제·빈칸 칸을 세우고 안전 경고 단락이 내용일치를 받친다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It may sound odd that something",
+      "note": "역설 단락이 앞 문맥 없이 서고 suffocate·contract 를 바꾸면 V5, 끝 병명 용어집은 reference라 걷는다."
+    }
+  },
+  {
+    "id": "e42c13de-5809-4da0-b757-42804c9a7b7e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "746884cf3f0aa406ba9cf66ed3756da67f255a52880c820ac70a4cb34b82a329",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "hold",
+    "genre": "health",
+    "why": "서로 다른 다섯 기사 요약을 모은 목록형이라 한 편의 논지는 없고, 각 번호 단락만 짧게 따로 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "3. Keep Your Kidneys Healthy. Your",
+      "note": "신장 단락 하나는 번호·제목만 떼면 서지만 요약 조각이라 한 편 지문 분량·논지가 모자라 애매했다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "2622294b-248f-4029-9f44-d0e1d9b6e598",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8ce0c2db4ce5c3c217f1632b5766e5e555a938f8f73926fac054868d10da9c1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "원인 모를 과민증 70명 → 6명 알파갈 → 진드기 연결로 이어지는 연구 보고 흐름이 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The researchers found that six of",
+      "note": "알파갈 단락은 수치를 걷어도 「늦게 나타나는 육류 알레르기」가 서고 anaphylaxis 만 풀면 된다."
+    }
+  },
+  {
+    "id": "c68cad3f-9416-48f2-937d-dc7b30dbbd27",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "430349246617d8ce84e38cdd5bd6b7314606f4e34453d7f18d868fa778225dbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "두 집단 비교 실험(표준 소책자 vs 맞춤 코칭) 결과 단락이 요지·내용일치 칸을 세운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Fifty-four participants were enrolled. They were",
+      "note": "실험 설계 단락은 쉬운 낱말뿐이라 조정할 게 거의 없고 결과 수치 비교가 요약문 빈칸으로 바로 된다."
+    }
+  },
+  {
+    "id": "9b5fc868-9281-4f98-bdde-6fa7916f7b9c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa5ad02d22e393f6ea763250da918a8a8e94c696d4a551786891bd78be76f4cf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "신호 인식 → 일상 관리 → 관계 → 재구성으로 이어지는 조언 단락들이 순서·요지·무관문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "irrelevant"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If you can, also try to",
+      "note": "「reframing」 단락은 교통체증 예로 뜻이 서서 떼기 쉬웠고 끝의 「Find more tips.」 링크 잔재만 걷으면 된다."
+    }
+  },
+  {
+    "id": "f43780bb-e2ae-40c8-9743-2dbde444d8a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3bce1eba37f23882cbc07c948870168460ae890b5484252727a117dd34c67697",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「믿어야 효과가 있나?」를 묻고 기대·경험·소통으로 답하는 후반 단락이 주장·빈칸·요지 칸을 세운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "blank",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But for a placebo to work,",
+      "note": "통념(속아야 한다)→반증 구조가 선명해 빈칸이 쉽고, 끝 임상시험 참가 안내 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "920bd46a-9caf-483a-9ef8-bbe0be8ab6f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3731b2c15410496f865ec88969443eb8f914928727449d6972a5592380261424",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "영아 돌연사 위험과 수면 자세의 까닭을 설명하고 부모에게 할 일을 권하는 글이라 목적·요지 칸을 채운다(죽음 소재라 고등 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Why does sleep position matter? Sleeping",
+      "note": "수면 자세의 생리적 이유 단락이 자족적이고 repressed 하나만 바꾸면 되나, 끝 Wise Choices 목록은 걷는다."
+    }
+  },
+  {
+    "id": "b7171c19-9230-4d1f-97f3-5cb411e66d0b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "639af0150c01b09f302de01e34cb30128780ab1d5e2cdd855765bb805aa83246",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "학교 연극·친구 모임 예로 통증이 청소년 발달을 바꾼다는 인터뷰 답변이 주장·요지·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Think of the girl who thinks",
+      "note": "연극 예시 단락은 문답 표지를 걷으면 한 편 논증으로 서지만 구어 반복을 한두 곳 다듬어야 한다."
+    }
+  },
+  {
+    "id": "bd261f4b-7753-4ed3-aff4-31c1515b1f0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "250ffdd3855eecf968c1f8901bd6f79bc21e4a07360bcca395740941d9e02bc7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「연관은 인과가 아니다」를 짚는 셋째 단락이 짧은 글 안에서 논지를 세워 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "That doesn’t mean obesity is the",
+      "note": "상관≠인과 단락이 빈칸 지문으로 곧바로 되나 That 이 앞 연구를 가리켜 한 문장을 보충해야 떼어진다."
+    }
+  },
+  {
+    "id": "42f897bc-42b6-49e8-85e8-b21681e2bbdc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "97cb4e74a9aeaf796ec72f24690288e07a233fb5dc41b799c134fcea71bfc314",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "손톱 모양·색 변화가 질병 신호라는 설명 단락들이 내용일치·순서·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The part of the nail you",
+      "note": "손톱 생장 단락은 과정 순서가 분명해 순서 문항에 좋고, 끼어든 용어 풀이(Cells that have…) 조각만 걷으면 된다."
+    }
+  },
+  {
+    "id": "7d7b6df9-172a-4100-a50e-f21ce5f692fd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4174f4ea231cb4df11066d804531c0c0af754b717508745b98869a5c0dec2467",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "관행(낭종 추적 촬영) → 7만 명 자료 → 추적 불필요 결론의 반증 흐름이 요지·내용일치 칸을 세운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The most common type, called a",
+      "note": "관행 단락은 asymptomatic·undergo 두 낱말만 바꾸면 되지만 소재가 성인 부인과라 연령을 높였다."
+    }
+  },
+  {
+    "id": "1a895332-f979-4589-84f8-c0f311e00974",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3ca69bfa75e4afbadb54a7210d63fedfbe3dafd92d5886fa13940182ab8c9774",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "심장 수치를 알고 기록하며 활동하라는 권유가 한 편에서 서서 목적 칸의 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Get your blood pressure checked at",
+      "note": "혈압 권유 단락은 쉬운 명령문이라 조정이 필요 없고 끝 「Find tips and tools」 링크 문장만 걷는다."
+    }
+  },
+  {
+    "id": "9012fbed-20b6-45e3-8332-590e696be944",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c359033509a4597f5cc1098c3576d95500f15d1498bf43990240db52c62bf5ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "science",
+    "why": "매년 백신을 바꿔야 하는 문제 → DNA+부스터 실험 → 동물 생존으로 이어지는 흐름이 순서·내용일치 칸을 채운다(2010년 연구라 시대 비교 후보).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Each year influenza, or flu, kills",
+      "note": "문제 제기 단락은 자족적이나 사망자 수치가 2010년 기준이라 가공 때 연도를 달거나 걷어야 한다."
+    }
+  },
+  {
+    "id": "540c27dc-4407-4b5f-ba73-ea9511b6a846",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "253105bb474a0ef266cb2a36546788fbdf8291f924a0f858a9c5e7e069683ea8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「뼈는 살아 있다」로 열고 어린 시절 골량·운동의 중요성을 논하는 단락들이 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Physical activity is also important for",
+      "note": "운동 단락은 인용까지 한 흐름으로 서고 load-bearing 하나만 바꾸면 되며, 긴 URL 문장은 걷는다."
+    }
+  },
+  {
+    "id": "86b096d5-dffc-4e18-a301-333812fe685a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2bef0c1102f92eccb8aa5b235ec90a9220c70d00f9ebb9e3920e4511d533aa39",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "회복탄력성은 타고나는 게 아니라 공동체와 상호작용하는 과정이라는 논지와 Burt 의 이웃 연구가 주장·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "“The presence of resilience in a person",
+      "note": "이웃 지원 단락은 연구 근거와 결론이 한 단락에 있어 요약문으로 좋고, 끝 상담 전화번호 목록은 걷는다(자살 언급으로 고등 이상)."
+    }
+  },
+  {
+    "id": "6c04cc2e-b7a8-48f8-8ab1-15d3b46fd8e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23b716601250fc3a048879cf00981e4223c207d763edaaa5e3f62ec2e6ad4890",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "NIH 가 다운증후군 가족에게 DS-Connect 등록을 권하고 그 까닭(연구·정보)을 밝혀 목적 칸의 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The registry, called DS-Connect, offers a",
+      "note": "등록부 설명 단락은 권유 까닭이 서지만 「characteristic facial appearance」 문장은 가공 때 표현을 다듬어야 한다."
+    }
+  },
+  {
+    "id": "a919f07f-01cc-44f8-bb88-e2496b1cd973",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37f005a2515ae582f0401b8398d1df4e78804de63cef6515416d32003ece6723",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "「체중 증가가 금연 이득을 상쇄하나」라는 물음에 3,000명 자료로 답하는 구조가 요지·빈칸·주장근거 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cigarette smoking causes about 1 in",
+      "note": "물음 제기 단락은 섞여 든 용어 풀이 조각(The system of heart…)을 걷고 counteract 를 바꾸면 V5로 선다."
+    }
+  },
+  {
+    "id": "e73be8da-5758-4675-9920-7685bc7c4b51",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0bfab493fce82b465ccec379ec9e34dc0e2d316bb47783b1ebfdee4364c33a51",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 9,
+    "retention": "keep",
+    "genre": "health",
+    "why": "탈모 두 유형의 원인과 JAK 억제제 발견을 설명하는 단락들이 내용일치·순서·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Another common type of hair loss",
+      "note": "원형탈모 단락은 자가면역 설명이 본문 안에서 풀려 쉬웠고 follicles 만 풀어 주면 V4로 선다."
+    }
+  }
+]

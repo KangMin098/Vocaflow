@@ -1,0 +1,308 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "004",
+  "items": [
+    {
+      "id": "50fea1d1-2019-04-15T20:24:28Z-00019-000",
+      "sha256": "550320784eb160188661ec4cb6f20310f768a0dd681c7baa32c57839e54131c3",
+      "verdict": "write",
+      "topic_ko": "아동 후원 — 문화 논쟁은 후원 자체를 접을 이유가 되지 않는다",
+      "passage": "Critics of child sponsorship often point out that some charities carry their own beliefs into the villages they serve, and that worry is an honest one. The choice in front of a hungry family, however, is not a choice between one set of ideas and another. It is a choice between food, medicine and a place at school on one side and illness on the other. Most groups that raise money for children make no attempt to change what those children believe, and a donor who dislikes such influence can simply give somewhere else. The objection also proves far too much, because every school, hospital and printed book carries values of some kind, and nobody suggests closing them for that reason. Belief is what moves many donors to give at all, and money given out of conviction feeds a child as well as money given out of duty. A practice that keeps millions of children alive should not be dropped because a few of its sponsors hold strong opinions.",
+      "claim": "Concerns about cultural influence are not a good reason to abandon child sponsorship."
+    },
+    {
+      "id": "51afcf0c-2019-04-18T17:56:46Z-00001-000",
+      "sha256": "84bfde586235b423e4fa476fc7d18a5dd72546d6b0ebdde4bec12b0986bbe46a",
+      "verdict": "write",
+      "topic_ko": "볼링은 스포츠인가 — 정의를 모든 경우에 똑같이 적용하라",
+      "passage": "A sport is best defined as a contest in which people use physical skill to complete a set task under agreed rules, and bowling fits that description at every point. Rolling a heavy ball down a narrow lane demands balance, timing and steady control of the arm, and a small error in any of them is punished at once. The task is fixed, the rules are public, and the score settles who has performed it better. Objections usually rest on the fact that many players are not athletic, but that test is applied to no other game. Shooting and golf also reward accuracy rather than speed, and nobody argues that they fall outside sport for that reason. A definition is only useful when it is applied in the same way to every case that meets it. Since bowling meets the common definition, the honest conclusion is that bowling is a sport, whatever its image may be.",
+      "claim": "Bowling counts as a sport because it satisfies the ordinary definition of one."
+    },
+    {
+      "id": "51c34db5-2019-04-18T13:22:25Z-00005-000",
+      "sha256": "563adc22a342167fde1bf9e1926bd5967cf5d7895ede1e393c7dbf5374827302",
+      "verdict": "write",
+      "topic_ko": "최저임금은 전국 단일 인상보다 지역 결정이 낫다",
+      "passage": "A national government should leave the minimum wage to smaller units of government rather than fixing one figure for an entire country. Rents, food prices and typical wages differ so widely between regions that a level which barely protects workers in an expensive city can close the shops in a poor town. The wage was designed as a floor for people entering work, not as a settled income for a lifetime, and pushing it far above that floor changes what the tool was ever meant to do. Small firms create most of the new jobs, yet their margins are the thinnest, so they answer a sudden rise by cutting hours or by hiring nobody at all. Prices then follow wages upward, and the gain that was promised to the lowest paid is quietly taken back at the shop counter. Rules made close to local conditions can protect the same workers without these costs.",
+      "claim": "The minimum wage should be set by regional governments rather than raised by a single national figure."
+    },
+    {
+      "id": "51ffb5fa-2019-04-19T12:46:22Z-00013-000",
+      "sha256": "4bda7bd6a40edc20b56de3370e76be3ef0f12697793bb8f1747a1ff2c8818725",
+      "verdict": "write",
+      "topic_ko": "기후 피해 보상 — 주의 의무를 어긴 쪽이 갚는 오래된 원리",
+      "passage": "Ordinary law has long held that a person who owes others a duty of care, and then breaks it, must pay for the harm that follows. Damage done to the climate fits that rule closely, even though the harm crosses borders and arrives slowly. Wealthy nations built their industries on cheap fuel, and the gases released during that century of growth are still warming the air above every country. The people who suffer first are farmers and fishing families in poorer regions, who burned almost none of that fuel and gained almost nothing from it. If a factory that floods a field next door must pay for the ruined crop, the principle cannot change simply because the field now lies on another continent. Payment in such cases is not charity; it is the ordinary consequence of harm caused by a known risk. Those who are losing land and water deserve compensation on exactly that ground.",
+      "claim": "People harmed by a changed climate deserve compensation under the same duty of care that ordinary law already applies."
+    },
+    {
+      "id": "51ffb5fa-2019-04-19T12:46:22Z-00016-000",
+      "sha256": "35af6f9b267021be06e5af0762fd418948eb3bbc51b374b24ff63924d0c9f43a",
+      "verdict": "write",
+      "topic_ko": "기후 피해 보상 반대 — 값을 매길 수 없는 손실",
+      "passage": "A compensation system for climate damage sounds fair until somebody has to put a figure on the loss, and that single step defeats it. Storms, dry years and failed harvests have always happened, so a court would first have to decide how much of one disaster was caused by human action rather than by ordinary weather. No settled method for that judgment is available anywhere, and the scientists asked to supply one would be certain to return different answers in every case. The losses themselves also resist pricing, since melting ice or a vanished bird has no market value that anyone can name. A court forced to guess would soon be accused of favoring some claims over others, and the bitterness created would outlast any payment made. Money spent on years of argument helps nobody, while the same money spent on flood walls, seed stores and warning systems would protect the very people who need protection now.",
+      "claim": "A compensation system for climate damage should not be built, because the losses cannot be measured or priced fairly."
+    },
+    {
+      "id": "52844cf-2019-04-18T11:56:15Z-00003-000",
+      "sha256": "9e90e507792c98d77456642e0378d39a9f3893313fb0328548dc2e940f2bfc3b",
+      "verdict": "skip",
+      "skip_reason": "신의 존재 증명을 다투는 종교 논쟁 — 교재 지문으로 중립적 논증을 세울 수 없다."
+    },
+    {
+      "id": "52a52389-2019-04-18T11:29:44Z-00001-000",
+      "sha256": "22c70f8d8a1eef2db0135e52067b11aa7a6dcfb7a031d849169a52e0edeaa7cf",
+      "verdict": "write",
+      "topic_ko": "대외 원조는 사치가 아니다 — 금액과 회수의 문제",
+      "passage": "The claim that rich countries cannot afford foreign aid does not survive a look at the sums involved. Aid budgets in wealthy states rarely reach one percent of public spending, a share smaller than the yearly change in many other departments. Nations ruined by war have been rebuilt with outside help before, and those same nations later became trading partners whose factories and shoppers now buy goods from the countries that once paid for the repairs. Trade is not a fixed pile to be divided, so a healthier economy abroad adds customers rather than taking them away. Disease, hunger and sudden collapse travel as well, and the cost of meeting such trouble after it has spread is far higher than the cost of preventing it. Aid on this scale is therefore an ordinary investment in a steady world, and calling it a luxury mistakes a small and useful expense for a waste.",
+      "claim": "Foreign aid is affordable for wealthy countries and returns more than it costs."
+    },
+    {
+      "id": "52c80b8-2019-04-18T11:19:10Z-00000-000",
+      "sha256": "c56a7179d8daf1b50955f864be1db64abde8b5368a689e456e3776d169f4ddd0",
+      "verdict": "write",
+      "topic_ko": "봉사 졸업 요건 반대 — 강제된 선의는 양쪽을 모두 해친다",
+      "passage": "Making unpaid service a condition of graduation turns a generous act into one more box to tick, and both sides of the exchange lose by it. A student who resents the duty will complete the hours without care, and the elderly residents or rescued animals at the other end of that visit deserve better than a bored helper counting minutes. The amount of time such rules demand is tiny, often ten hours a year, which is far too little to change how anybody sees the world. Schools already ask students to carry a full timetable, so those hours must be taken from study, sleep or family. Real volunteering grows out of interest, and interest is easy to encourage through clubs, open visits and teachers who talk about the work they do themselves. Schools that want generous adults should show young people what generosity looks like instead of measuring it in hours. A requirement replaces that slow growth with a signature on a form, and a signature teaches nothing.",
+      "claim": "Required volunteering should not be a condition of graduation, because it helps neither students nor the people they serve."
+    },
+    {
+      "id": "532444ae-2019-04-18T13:35:09Z-00004-000",
+      "sha256": "46f30a1cfce41d8b433c2468f13bc6a8c913941b2b885f71ffc10a5badfdf57f",
+      "verdict": "write",
+      "topic_ko": "양육 책임 포기권 — 권리와 의무는 한 묶음이어야 한다",
+      "passage": "A decision to continue a pregnancy belongs to the woman alone, and that rule is right, because the risks of pregnancy fall on her body. The next step in the law is harder to defend, since a man who had no voice in that decision is then bound for eighteen years to a duty he never accepted. Rights and duties are normally joined together, and a person who surrenders every claim to visit, name or raise a child has given up a great deal in return. A formal path for that surrender, declared early and treated as final, would at least be honest about what the law is doing. Courts already allow adoption to end both halves of the bond at once, so the idea is not a strange one. Anybody planning to raise a child alone would then know the position from the beginning rather than discovering it later in a courtroom.",
+      "claim": "The law should offer a father an early and final way to surrender every parental right together with every parental duty."
+    },
+    {
+      "id": "53703b7c-2019-04-18T11:08:27Z-00002-000",
+      "sha256": "f3b4a773488ee38e3c290ff630a0dd452ac315ae6f880df91048c3758794b333",
+      "verdict": "write",
+      "topic_ko": "탄소세보다 배출 상한과 거래 — 값이 아니라 총량을 정하라",
+      "passage": "Putting a firm ceiling on pollution works better than taxing it, because a ceiling fixes the outcome while a tax only fixes the price. When demand for a product is strong, a company can pay the tax, add it to the price and carry on releasing exactly as much smoke as before. The state collects money in that case, but the air is no cleaner, and cleaner air was the reason for acting. A permit system starts from the other end: the total amount allowed is decided first, permits are issued to match that total, and no plant may release more than the papers it holds. Firms that can cut their waste cheaply are free to sell what they no longer need, so the reductions happen wherever they cost the least. The ceiling can then be lowered year by year, and everybody can see whether the promised fall has actually arrived.",
+      "claim": "A traded permit system with a fixed ceiling controls pollution more reliably than a tax on it."
+    },
+    {
+      "id": "54b181c-2019-04-18T15:21:56Z-00004-000",
+      "sha256": "5d8f20cc854077736d21f34034eae9580a5042d99450c222f465050db5b0cc10",
+      "verdict": "write",
+      "topic_ko": "교복 폐지론 — 비용·편안함·개성의 근거",
+      "passage": "Defenders of the school uniform call it a cheap way to keep order, but the case for it falls apart under pressure. Clothing offers a teenager one of the few ways to say anything about himself inside a building where nearly everything else comes already decided, and to remove that outlet teaches obedience rather than judgment. The cost argument fails in practice too. A uniform must be bought on top of the clothes a student already owns, replaced as young people grow, and washed often enough that most families need a second set. Comfort matters as well, since a stiff jacket that runs too thin for winter makes a long day of concentration harder than it should be. The strongest point for the uniform holds that it stops cruelty between students, yet a pupil who wants a target will find one in a haircut, a bag, or a voice. A small school mark on ordinary clothing serves the same honest purpose.",
+      "claim": "School uniforms should be dropped, because the benefits claimed for them do not survive examination."
+    },
+    {
+      "id": "5520ff9a-2019-04-15T20:22:42Z-00009-000",
+      "sha256": "c1afbb515a8f52959f810b165eecf2a630e8da072240dfe5c54978f7954bdd14",
+      "verdict": "write",
+      "topic_ko": "전 국민 단일 의료보험 반대 — 선택권의 상실",
+      "passage": "Before one public system replaces the whole market for medical cover, it pays to ask what would go missing along with what would arrive. Many workers already hold cover through an employer and pick that employer partly for it, while others buy a plan matched to the level of care they actually want. A young and healthy adult may sensibly carry very little cover and pay direct for the rare visit, and that decision frees real money for somebody whose income still runs small. A single national plan wipes out every such option and swaps a company that can be dropped for an office that can never be dropped. The promise of less office work looks doubtful as well, since employment law would still fill the same desks. A patient who once complained to a named manager would instead wait in line at a public window. Care improves when people stay free to leave, and that pressure disappears when nowhere else remains.",
+      "claim": "A single national health system should not replace a mixed market, because it removes choices that many people value."
+    },
+    {
+      "id": "5535e05a-2019-04-18T19:37:44Z-00004-000",
+      "sha256": "fd79ec16b9c496b7727f2076fddcc0cac5ea2d2f1923bcde2e61ddbd75eabd63",
+      "verdict": "write",
+      "topic_ko": "부패는 부자에게만 매겨지는 세금인가 — 실제 부담은 가난한 쪽이다",
+      "passage": "People sometimes say that secret payment to officials burdens only the wealthy, since a family with no spare money can never offer one in the first place. The reasoning runs backwards. A rich buyer treats such a payment as a cost of doing business and passes it into the price of whatever he sells, while a poor household with nothing to offer simply gets refused: the hospital holds no bed, the permit never arrives, the school place goes to somebody else. What the wealthy lose is money. What the poor lose is access, and access cannot pile up in a bank for later use. The practice also spreads once it looks normal, so public funds meant for roads, water, and teachers drain away from exactly the districts with no other supply. Judged by who ends up without the thing on offer, dishonest dealing works as no charge on the rich at all.",
+      "claim": "Corruption is not a charge on the rich, because the poor pay for it by losing access to services entirely."
+    },
+    {
+      "id": "55a98dd0-2019-04-18T12:44:02Z-00000-000",
+      "sha256": "897a0085a8480796b3365e1955ef2e692791be7699f21840ae63b4f12d1a6380",
+      "verdict": "write",
+      "topic_ko": "점심시간 교외 외출 허용 반대 — 책임과 급식의 문제",
+      "passage": "Schools should keep students on the grounds at lunch, because the school carries responsibility for them during those hours and cannot carry it from a distance. Students below the legal age of adulthood are in the care of the school, and a teacher cannot answer for whatever happens in a car park half a mile away. Traffic is the plainest danger, since a crowd of young drivers leaving and returning inside a thirty minute window is exactly the condition in which crashes occur. School meals are the second cost, because a kitchen survives on the number of dinners sold each day. If most students buy food elsewhere, the kitchen loses the numbers that hold the price of a meal down, and the children who depend on a free or reduced meal are the ones left with a thinner tray. A rule that looks like a small freedom would fall hardest on those with the least.",
+      "claim": "Schools should not allow students to leave the grounds during lunch."
+    },
+    {
+      "id": "55ac2ae4-2019-04-18T11:15:00Z-00004-000",
+      "sha256": "d9f90f6bcb3b0fe042679539fd75bba494329896892efad3d14fe32120b4a983",
+      "verdict": "write",
+      "topic_ko": "「and/or」 옹호 — 짧게 셋째 뜻을 말하는 표현",
+      "passage": "The short form and/or earns its place in written English because it states something that neither word states alone. A notice reading bring a passport and a birth certificate demands both papers, while a notice reading bring a passport or a birth certificate allows only one of them. Many rules need a third meaning: either paper will serve, and both together are acceptable as well. A form that asks for a home address and/or a work address is understood at once by the person who sits down to fill it in. Writing that out in full takes a clause of eight or nine words, and inside a long list of conditions such repetition quickly becomes harder to follow than the mark it replaced. Critics call the form ugly, which it may well be, but beauty is not the only test for an expression that appears in contracts, forms and safety notices. Clarity matters more in those places than elegance does, and no shorter phrase delivers the same meaning without inviting an argument later.",
+      "claim": "The form and/or earns its place in written English because no shorter expression carries the same meaning."
+    },
+    {
+      "id": "561a86d1-2019-04-15T20:22:16Z-00022-000",
+      "sha256": "4bfe19d2eea7db83c380ba9b2e1945d5aaeb90a91555db2a24de32ca2a10a6f8",
+      "verdict": "write",
+      "topic_ko": "학교 보건 교육 — 가르치기 어렵다는 것은 그만둘 이유가 아니다",
+      "passage": "Health lessons that deal honestly with relationships and the body are among the hardest things a school teaches, and that difficulty is a reason to teach them better rather than to drop them. A good course sets out the case for waiting, explains the risks that follow early and careless choices, and then deals with the world as students actually meet it. Poor teaching is a fair complaint, but the same complaint is made about mathematics, and nobody proposes removing mathematics from the timetable because some lessons go badly. The answer in both subjects is identical: better training for teachers, clearer materials, and help from nurses and social workers who handle these questions every day. Silence is itself a lesson, and what it teaches is that such questions must be carried alone to whatever source a student happens to find first. Schools can do better than that.",
+      "claim": "Schools should teach honest health and relationship lessons better rather than drop them because they are hard to teach."
+    },
+    {
+      "id": "5633144a-2019-04-18T16:58:56Z-00006-000",
+      "sha256": "5288a7ecd4c143f1f6c820a46c9ac73cffc740c86ac0994c30247f4184b3fd86",
+      "verdict": "write",
+      "topic_ko": "교육 개혁의 주체 — 손상을 볼 수 있는 사람이 고쳐야 한다",
+      "passage": "Broad reforms written in a capital city and applied to every school at once rarely fit the schools they finally reach. Two public schools twenty miles apart can receive equal money, teach similar numbers of children, and still differ enormously: one leads the region while the other struggles with poor results and empty seats. Their problems are different, so the remedies must differ too, and a single rule written for both will be wasted effort in one building and the wrong medicine in the other. A district knows which teachers are leaving, which families are moving and which subjects have collapsed, and it can act on that knowledge within a term. A distant office learns the same facts a year later through forms. National government still has work to do in setting standards and sending money where it is scarce, but the design of the repair belongs to the people who can see the damage.",
+      "claim": "The design of school reform belongs to local districts rather than to a national government."
+    },
+    {
+      "id": "57a0d0da-2019-04-18T17:05:33Z-00002-000",
+      "sha256": "f02b59507e7c8b365e99e112f96b2d6696703e6c1dc8b14b9e85fca007331cff",
+      "verdict": "write",
+      "topic_ko": "건설형 게임의 수업 활용 — 설명이 못 하는 것을 경험이 한다",
+      "passage": "A block building game, used for a short while under a teacher's direction, can teach what a description on its own cannot. Asking a class to build a walled town forces every student to meet the problems the original builders met: where the water comes from, which ground can be defended, and how far the fields may lie from the gate. Students remember a wall they raised themselves far longer than a paragraph about walls, and a mistaken layout can be corrected on the spot while the reason for it is still fresh. Control of the class is the usual worry, and it is answered by tools that such programs already include, which let a teacher freeze everybody or remove a student who spoils another child's work. Cost is rarely the obstacle either, since a great many schools already lend a computer to every student. The point is not the game itself but the questions a teacher is able to ask while the town rises on the screen. Ten minutes a week is enough for the method to earn its place, and nobody has proposed that it replace the lesson.",
+      "claim": "A building game used briefly under a teacher’s control belongs in the classroom because experience teaches what description cannot."
+    },
+    {
+      "id": "59150c43-2019-04-18T14:14:07Z-00008-000",
+      "sha256": "68181193cf33ba264f3d00d6d0efacb2ad625240bc39ff78afaa0d96eb17b675",
+      "verdict": "write",
+      "topic_ko": "복지는 다리여야 한다 — 끊지 말고 기울여라",
+      "passage": "A payment made to a household while nobody in it holds a job ought to behave like a crossing rather than like a destination. Its purpose is to carry a family across the gap between one job and the next, so a payment designed for that gap has to shrink over time and lean gently toward paid work. A system that pays enough to live on without working sets a trap, because the first low wage a person accepts cancels the payment and leaves the family no better off than before. The repair is not a sudden cut, which produces unpaid rent and hungry children, but a slow reduction that lets earnings and support overlap for a period. The payment should also stay below what a full week of work would bring, so that the arithmetic always favors the job. Training and help with travel belong in the same package, since a crossing is useless when nothing at all waits on the far side.",
+      "claim": "Welfare should be rebuilt as temporary support that shrinks as earnings rise rather than as a permanent income."
+    },
+    {
+      "id": "59512115-2019-04-18T16:55:06Z-00002-000",
+      "sha256": "36a6e61251d7a0137f0609f358edab8ca4e158dc9605de2110f4c34c720121d0",
+      "verdict": "skip",
+      "skip_reason": "동성애자를 열등하게 취급하는 논거가 원문의 골격이다 — 지문으로 재저작할 수 없다."
+    },
+    {
+      "id": "59669006-2019-04-18T12:43:35Z-00005-000",
+      "sha256": "981fe3b3ffeb07e3fedd625e22b72ed2dd2ed1d80e2082aab0576acf69a6439a",
+      "verdict": "write",
+      "topic_ko": "인간 복제 — 전면 금지가 아니라 용도별 허가로",
+      "passage": "Copying human cells in a laboratory should be governed by what the work is for, not halted by a single ban that covers every use. Tissue grown from a patient's own cells could repair a damaged heart or replace skin after a burn, and the body would not reject material that began inside it. That promise is quite separate from the idea of producing a whole person, which raises questions about consent and identity that no laboratory has yet answered. A law written around purposes can permit the first and forbid the second, and it can be revised as the science moves. A total ban does the opposite, since it freezes the rules at the moment of greatest fear and drives the work toward countries with weaker inspection. Careful limits, public records and licenses that can be withdrawn will protect people better than a rule nobody is able to enforce beyond the border.",
+      "claim": "Laboratory work on copying human cells should be governed by purpose rather than stopped by a total ban."
+    },
+    {
+      "id": "5aa34be2-2019-04-18T16:38:08Z-00001-000",
+      "sha256": "ebe707e7fe4ed9cd3545ee590ad14bee0b24226380a38d883d1abc49f12a5150",
+      "verdict": "write",
+      "topic_ko": "시장경제와 가난 — 빠져나갈 사다리가 유료일 때",
+      "passage": "A market economy does not create poverty, but when it is left entirely to itself it makes poverty unusually hard to leave. The route out of low pay now runs through a degree or a long training course, and both carry a price that the families who most need them are unable to raise. Loans fill part of the gap, yet a debt of that size frightens exactly the households with no savings behind them, and many of them decide not to try at all. Employers meanwhile demand the qualification even for jobs that plainly do not require one, so the door closes on people whose ability was never tested. The result is a circle: no money, no training, no better job, and no money again. Nothing in this reasoning requires abandoning markets, but it does require paying for the ladder through grants, free places and training posts that carry a wage.",
+      "claim": "A market economy left entirely to itself keeps the poor poor because the route out of low pay has a price they cannot meet."
+    },
+    {
+      "id": "5ab682b5-2019-04-18T11:45:18Z-00001-000",
+      "sha256": "23dbe8dd527ccd6c111e71ad27eded2b04ada6f1deea942ebd90b8b1561e34fb",
+      "verdict": "skip",
+      "skip_reason": "성적 지향을 둘러싼 논쟁으로, 한쪽 입장을 세우는 논증문이 될 수밖에 없다."
+    },
+    {
+      "id": "5b2df768-2019-04-18T11:15:51Z-00002-000",
+      "sha256": "b422a906a8a97d42666ceada7ee0bee944ca2359181c43c6d70101b59cb86e52",
+      "verdict": "write",
+      "topic_ko": "고등학교에서 놓친 과목은 되돌릴 수 있다",
+      "passage": "Missing a subject at school is a setback rather than a sentence, and the belief that every door closes at eighteen does real harm. Advanced courses at college start from the beginning of their material, and students who never studied chemistry at school regularly pass those courses during their first year. Adults often study more effectively than teenagers do, since the choice is their own and the reason for making it is clear to them. Textbooks are written for readers working alone, libraries are free, and a patient teacher can now be found online for almost any topic at any hour. The genuine obstacles are time, money and the belief that the chance has gone, and only the last of the three is imaginary. Telling students that one weak year has already settled their future is both false and cruel, and it keeps people out of classrooms they could enter tomorrow.",
+      "claim": "Missing a subject in high school is a setback rather than a permanent loss."
+    },
+    {
+      "id": "5b76999-2019-04-18T17:02:24Z-00002-000",
+      "sha256": "36cfb41021ae8f6bba5023ddc00b229b0522cdfaadf8d1bfdef724ed33952d28",
+      "verdict": "write",
+      "topic_ko": "공립학교와 종교 — 알게 하는 것과 믿게 하는 것",
+      "passage": "Public schools should teach about religions without teaching students to believe any of them, and the distance between those two tasks is wide enough to build a course upon. Religion shapes law, art, war and daily habit across the world, so a student who leaves school knowing nothing about it will misread the news and the history book alike. Teaching about a faith means explaining what its followers hold, how the tradition began and where it disagrees with others, which is the ordinary work of a history or literature class. Teaching students to believe means prayer, instruction and the weight of a teacher's approval, and that work belongs to families and to their own communities. A school that keeps the line clear protects the believing family and the doubting family equally. Silence is no protection at all, since it leaves the whole subject to whoever speaks loudest outside the gate.",
+      "claim": "Public schools should teach about religions as knowledge while leaving belief itself to families."
+    },
+    {
+      "id": "5b95b352-2019-04-18T11:18:14Z-00000-000",
+      "sha256": "5e9dbe9b8b5933cb083daeb3d32dd799f05908278800bbc8759aedc22b735d83",
+      "verdict": "write",
+      "topic_ko": "청소년 정신건강 — 인터넷 탓이라는 설명의 빈틈",
+      "passage": "Blaming the internet for rising distress among young people is a tidy story that the evidence does not support. Time online replaced television rather than friendship for most teenagers, and the same years brought insecure work, expensive housing and crowded classrooms, none of which arrived through a screen. For a young person isolated by illness, by distance or by an unfriendly town, an online group is often the first place where anybody has understood them. Messages also hold families together across borders and let a frightened student discover, at two in the morning, that the feeling has a name and a treatment. Careless use does real harm, and a night lost to a screen is a night of sleep lost as well. Studies that follow the same teenagers across several years report effects far too small to account for a change of this size. That finding argues for better habits, clearer limits and honest teaching about them, rather than for a story that blames a tool and examines nothing else.",
+      "claim": "The internet is not the cause of rising distress among young people, and on balance it helps more than it harms."
+    },
+    {
+      "id": "5bb3c333-2019-04-18T17:11:21Z-00003-000",
+      "sha256": "ded57665dbaccf4d8266e1c81414042b63f561f3b5fc7b6e119b54087e0181f3",
+      "verdict": "write",
+      "topic_ko": "강한 정부와 독립 감시기구 — 힘을 줄이지 말고 감시를 붙여라",
+      "passage": "The answer to a government that misuses its power is not a weaker government but a stronger watch kept over it. A central authority unable to act leaves crime, disaster and unfair markets to whoever happens to be strongest on the ground, and that outcome falls hardest on ordinary citizens. What people fear is not capability itself but capability used in secret and for the benefit of a few. An independent office, funded separately and able to demand papers from any department, meets that fear directly, since it can question a decision, publish what it finds and force a minister to explain. Elections arrive too rarely to serve the same purpose, because a vote every few years cannot review a thousand decisions. Courts act only once harm has been done. A body that watches continuously, and owes nothing to the people it watches, allows a government to be strong and answerable at once.",
+      "claim": "A government should be watched by an independent body rather than weakened."
+    },
+    {
+      "id": "5d4b85c3-2019-04-18T19:25:48Z-00004-000",
+      "sha256": "7dd0c4fd2c5893109828a77dd0503713e7cfa4356f0309859c552ff4302e1bb1",
+      "verdict": "write",
+      "topic_ko": "법 집행이 실패할 때 — 사적 처벌이 아니라 법원을 고쳐라",
+      "passage": "When the police fail to act, the anger that follows is understandable, but private punishment is the wrong remedy for it. Courts are slow and formal for a reason, since the delay exists so that evidence can be tested, an accused person can answer, and a mistaken charge can be withdrawn before anybody has been harmed. A crowd acting on its own certainty has none of those steps, and the record of such groups is largely a record of the wrong person beaten in the street. Error is not the only danger, because once a town accepts that punishment may arrive from outside the law, the strongest people decide who deserves it. A citizens' court staffed by trained lawyers would merely be a second court without the powers that make the first one fair. Weak enforcement is a genuine complaint, and the honest response is to demand courts that work.",
+      "claim": "Private punishment is the wrong answer to weak law enforcement, because it discards the safeguards that make punishment fair."
+    },
+    {
+      "id": "5d68f3d4-2019-04-18T14:39:09Z-00003-000",
+      "sha256": "5323547f1fb129fc2da4cfa4f804fd1ebf3dede7ce22845a31d620dbc6dd25df",
+      "verdict": "write",
+      "topic_ko": "학비 보조금 — 장학금과 보조금은 다른 일을 한다",
+      "passage": "Grants that pay college fees for students from poor households should be protected rather than cut, because they do a job that no other payment does. Scholarships reward performance already shown, and the students who most need help are often those whose school years were spent in weak classrooms or in difficult homes. A grant asks a different question: can this person do the work now, and will the cost alone stop them from trying. Many adults who drifted through school return years later and finish near the top of their class, which could never happen if a poor record at sixteen closed the door for life. The money also comes back, since a graduate pays more tax across a working life than the grant ever cost the state. A country that wants fewer households on public support has an obvious interest in paying for the training that ends the need for it. Cutting this support saves a modest sum this year and surrenders a larger one every year afterward.",
+      "claim": "Tuition grants for low income students should be protected rather than restricted."
+    },
+    {
+      "id": "5d889dc3-2019-04-18T19:57:40Z-00004-000",
+      "sha256": "7f1a70939426624ac6577bc893be90856fc563f7b9e25cdbd8f9edb4136d5c6b",
+      "verdict": "write",
+      "topic_ko": "총기 소유는 권리인가 특권인가 — 이름표가 하는 일",
+      "passage": "Owning a gun is better described as a privilege than as a right, and the difference is not merely a matter of words. A right belongs to a person simply because they are a person, so nothing has to be shown and nothing may be demanded in return. A privilege is granted on conditions, and it can be withdrawn once those conditions fail, which is exactly how gun ownership is treated almost everywhere. Buyers pass a check, hold a license, register the weapon, and lose all of it after a serious conviction. Driving is handled in the same fashion, and few people find the arrangement insulting. Calling the practice a right makes it harder to refuse the applicant who ought plainly to be refused, because every refusal then looks like theft. Naming it correctly leaves the lawful owner untouched and gives the state the language it needs in order to say no.",
+      "claim": "Owning a gun is better described as a privilege than as a right."
+    },
+    {
+      "id": "5dbf4649-2019-04-18T15:49:37Z-00003-000",
+      "sha256": "d042cac47a6b6d4f5fb54020e377da7a06a381edf321c399c04d81396d26af14",
+      "verdict": "skip",
+      "skip_reason": "전지(全知)한 신이 논리적으로 가능한지를 다투는 종교 논쟁이다."
+    },
+    {
+      "id": "5e2b5b5c-2019-04-18T14:45:23Z-00002-000",
+      "sha256": "43df3e1c6652e9da036e60466cf0fc7ae77a6e8c533d961f49ffc2169e2ce77a",
+      "verdict": "write",
+      "topic_ko": "숙제 폐지론 — 작은 이득과 큰 비용의 교환",
+      "passage": "Homework should be dropped from the school day, because the small gains it produces are bought at a very high price. Studies that do find a benefit report a modest one, and most of it disappears among younger children, who gain almost nothing measurable from evening exercises. The cost is far easier to see, since a child who has already spent six hours in lessons loses the remaining daylight to more of the same, and sport, music and rest are pushed out of the week. Families pay as well, because the quarrel over whether the work has been finished is the most common argument in many homes, and a parent becomes an inspector rather than a refuge. A large share of the work is never handed in at all, so teachers spend their own evenings chasing it. Time returned to children would be spent on things that also teach.",
+      "claim": "Homework should be dropped because its small measured gains are bought at a very high price."
+    },
+    {
+      "id": "5eea52a8-2019-04-18T12:33:41Z-00002-000",
+      "sha256": "222ae1e4648fb4f141281d631b3517715137f9619bdf7424d6d8f390013dffe5",
+      "verdict": "skip",
+      "skip_reason": "거대 로봇을 둘러싼 가상 설정 토론이라 자족적 논증 지문으로 성립하지 않는다."
+    },
+    {
+      "id": "5ef4ba1a-2019-04-18T16:23:15Z-00009-000",
+      "sha256": "e2df857a676b1f75e4a172559b41ecf6ebca134ea9f3024fa67ae189d300bdff",
+      "verdict": "write",
+      "topic_ko": "신약 시험 참여 — 참여자가 실제로 얻는 것",
+      "passage": "Joining a trial of a new medicine is often described as a sacrifice made for other patients, yet the arrangement usually rewards the patient as well. Somebody living with a condition that has no accepted treatment may reach a promising drug long before the same medicine arrives on a normal hospital shelf, and the earliest patients are the first to benefit if the drug works. Those placed in the comparison group are not abandoned either, because the standard of care inside a trial is the best treatment already available, delivered under closer watch than most hospitals can offer. Tests, scans and appointments come round more often, so any change in the illness is noticed early. The risks are real and must be explained in plain language before anybody agrees to take part. Weighed honestly, the exchange is early access and closer attention offered in return for careful record keeping.",
+      "claim": "Joining a trial of a new medicine usually rewards the patient rather than costing them."
+    },
+    {
+      "id": "5f9010c5-2019-04-19T12:46:04Z-00007-000",
+      "sha256": "b7c3d1ba17dff9e91411dc65fb774f7d94f133cb49ce772d61b98590e95e1626",
+      "verdict": "write",
+      "topic_ko": "지역에서 사기 — 중간 단계가 가져가는 몫",
+      "passage": "Food bought directly from the farm that grew it is sold at a price the grower actually keeps, and the size of that gap surprises most shoppers. Produce carried through traders, packers and a national chain is marked up at every stage, and the grower may be left with less than a fifth of the final price. That thin share explains why small farms disappear, and why the growers who use slower and gentler methods are usually the first of them to fail. A market stall or a farm shop is a much shorter road, so the same money supports the field instead of the truck. Wages paid by a nearby business are spent again in the same streets, and that small circle is how a town holds on to its shops. Shoppers who want small farms to survive therefore have a direct way to act, and the whole effort costs a short walk rather than a gift.",
+      "claim": "Buying food directly from local growers is worth doing because it returns a fair share of the price to the people who grew it."
+    },
+    {
+      "id": "5f962438-2019-04-19T12:47:34Z-00008-000",
+      "sha256": "618ee43c90218700da33ff89281f38e118f22bc3ad052a4039caed8ff0fdc5ab",
+      "verdict": "write",
+      "topic_ko": "유전자 변형 작물의 위험 — 품종이 줄어들 때 생기는 구멍",
+      "passage": "Crops improved in a laboratory carry a risk that is hidden by their harvests, since they push farming toward a very small number of varieties. Wild plants are protected from new pests by the differences between one population and the next, so a disease that destroys one kind leaves another standing beside it. When most of a region is planted with the same modified seed, that protection is gone, and a single new pest can empty the harvest of an entire country. A plant whose genes have been changed may also be weakened in ways the designer never intended, as with a modified bean whose stems lost the substance that held them upright. Every added feature demands energy the plant would otherwise spend on surviving weather, salt or a dry season. None of this makes the technology worthless, but it is a strong reason for keeping many older varieties alive in the ground and in storage.",
+      "claim": "Modified crops carry a serious risk because they push farming toward a very small number of varieties."
+    },
+    {
+      "id": "5fd0544c-2019-04-19T12:45:42Z-00010-000",
+      "sha256": "651bc8fa8d3890c619038a593aadc1b20627fb7c6e70e5a1295399c946ce1d0a",
+      "verdict": "write",
+      "topic_ko": "축구 비디오 판독 — 이미 있는 증거를 보지 않을 이유는 없다",
+      "passage": "Football should allow match officials to review recorded pictures whenever the question is whether the ball crossed the goal line. Goals decide matches, seasons and the money that follows them, so a mistake on that single point is not a small matter. In the highest competitions the pictures already exist, filmed from every angle by the company that shows the game, and a screen beside the field would add almost nothing to the cost. Refusing to look at evidence that is already inside the stadium is hard to defend to anyone who has watched the same moment at home seconds later. The cameras are paid for by somebody else, so the only new cost to the sport is a screen and a pause of a few seconds. The review can be kept narrow: one type of decision, one screen, and a strict limit so that the game keeps moving. Matches without cameras would continue exactly as before, which leaves the arguments that supporters enjoy untouched.",
+      "claim": "Top level football should let officials review recorded pictures for goal line decisions."
+    },
+    {
+      "id": "5ff149d1-2019-04-18T16:31:56Z-00004-000",
+      "sha256": "3899382f577700d8aa602a105fd72f8dd0a44d77e72ca6a487b57e5653606a1f",
+      "verdict": "write",
+      "topic_ko": "선거 연령 16세 — 세금을 내는 사람에게 발언권을",
+      "passage": "The voting age should be lowered to sixteen, because people of that age already carry the duties that a vote is supposed to accompany. A sixteen year old may leave school, take paid work and pay tax on those wages, and a government that collects money from a citizen owes that citizen a voice. Decisions made now about housing, college fees and the climate will be lived with longest by the youngest citizens, who are the only group with no way of answering them. The usual objection is that teenagers lack judgment, yet no test of judgment is applied to any other voter, and plenty of older voters would fail one. Habits also form early, and somebody who first votes while still at home and still in a classroom, surrounded by discussion, is more likely to keep voting for life. Countries that have made this change report none of the disorder their critics predicted.",
+      "claim": "The voting age should be lowered to sixteen because people of that age already carry the duties that voting accompanies."
+    },
+    {
+      "id": "6013441c-2019-04-18T16:58:33Z-00006-000",
+      "sha256": "8161c22e26983d54399e937c09c3390a4c3b64df4dbfdcb3a53c6825121706a6",
+      "verdict": "write",
+      "topic_ko": "숙제는 시간 낭비인가 — 저녁 시간이 가르치는 것들",
+      "passage": "Time outside the classroom is not spare time, and treating it as free is the central mistake behind a heavy load of homework. A student who leaves school after six hours of lessons still has a body to move, a family to sit with and eight hours of sleep to find, and one evening cannot hold all of it. Sleep is usually what gives way, and a tired student learns less the following morning, which cancels whatever the extra practice was meant to add. The hours lost carry real lessons of their own, because a game teaches patience under pressure and a shared meal teaches how to listen, and neither of them has a substitute on a worksheet. A school that fills the evening as well as the day has quietly claimed the whole of a child's week. Nothing here says that practice has no value. It says that practice belongs inside the day a school already controls, where a teacher can see the mistake while it is being made.",
+      "claim": "Heavy homework wastes time because the hours it takes are already carrying lessons of their own."
+    }
+  ]
+}

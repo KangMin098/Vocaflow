@@ -90,6 +90,18 @@ export interface PreviewUnit {
 
 export interface VolumeContents {
   band: number
+  /**
+   * 어느 시리즈의 권인가. 옛 스냅샷에는 없다 — 없으면 독해다(그때는 독해만 구웠다).
+   */
+  seriesId?: string
+  /**
+   * 이 권을 몇 단원으로 조판했는가. 시리즈마다 다르다(독해 10 · 어휘/구문 20).
+   *
+   * ⚠️ 화면은 top-level `CONTENTS_UNITS_PER_VOLUME` 이 아니라 **이 값**을 써야 한다.
+   *   top-level 은 마지막으로 구운 시리즈의 값이라 다른 시리즈 권에 틀린 수를 적는다.
+   *   옛 스냅샷에는 없으므로 없으면 `units.length` 로 읽는다.
+   */
+  unitsPerVolume?: number
   step: number | null
   title: string | null
   schoolBand: string | null
@@ -133,11 +145,32 @@ interface Snapshot {
   generatedAt: string
   unitsPerVolume: number
   bands: number[]
+  /**
+   * 키는 **`<시리즈>:<V레벨>`** 이다 — 예 `reading:5` · `vocab:5`.
+   *
+   * ⚠️ 2026-09-23 까지 키가 **V레벨 하나**(`'5'`)였다. 그런데 시리즈는 셋이고 계단은 겹친다
+   *   (독해 5단 · 어휘 5단 · 구문 5단이 전부 V5). 그래서 `/library/textbooks/vocab/5` 가
+   *   **독해 4권의 목차를 자기 것으로 인쇄했다** — 실측: 조판 기록은 20단원 120문항인데
+   *   화면은 10단원 60문항에 「The Will to Power…」 같은 독해 지문과 독해 유형을 적었다.
+   *   스냅샷이 독해 7권만 담고 있었고(2026-09-13), 찾는 키에 시리즈가 없었기 때문이다.
+   */
   volumes: Record<string, VolumeContents>
-  problems: { band: number; error: string }[]
+  problems: { band: number; error: string; series?: string }[]
 }
 
 const snapshot = raw as unknown as Snapshot
+
+/**
+ * 스냅샷 키. 시리즈를 **반드시** 포함한다.
+ *
+ * 옛 스냅샷(시리즈 없는 숫자 키)은 **독해로만** 받아 준다 — 그 파일이 담고 있던 것이
+ * 독해뿐이었기 때문이다. 어휘·구문을 옛 키로 읽어 주면 바로 그 버그가 돌아온다.
+ */
+function lookup(seriesId: string, vLevel: number): VolumeContents | undefined {
+  const hit = snapshot.volumes[`${seriesId}:${vLevel}`]
+  if (hit) return hit
+  return seriesId === 'reading' ? snapshot.volumes[String(vLevel)] : undefined
+}
 
 /** 스냅샷을 구운 시각(ISO). 화면이 함께 내보인다. */
 export const CONTENTS_GENERATED_AT: string = snapshot.generatedAt
@@ -146,13 +179,19 @@ export const CONTENTS_GENERATED_AT: string = snapshot.generatedAt
 export const CONTENTS_UNITS_PER_VOLUME: number = snapshot.unitsPerVolume
 
 /**
- * 그 V레벨의 목차. 스냅샷에 없으면 `null` — **빈 목차를 만들어 내지 않는다.**
+ * 그 **시리즈의** 그 V레벨 목차. 스냅샷에 없으면 `null` — **빈 목차를 만들어 내지 않고,
+ * 다른 시리즈의 목차를 대신 내주지도 않는다.**
  *
  * 권은 V레벨 여럿을 쓸 수 있으므로 **첫 레벨**로 찾는다(조판도 그 밴드로 찍는다).
+ *
+ * ⚠️ `seriesId` 가 인자로 **반드시** 들어온다. 기본값을 두지 않는 이유는 `shelf-query.ts` 가
+ *   같은 실수를 이미 겪었기 때문이다 — 기본값 `'reading'` 때문에 시리즈 셋 중 둘이
+ *   학습자에게 도달하지 않았다(그 파일 머리말). 여기서 기본값을 두면 호출부가 인자를
+ *   빠뜨린 것을 아무도 못 본다.
  */
-export function contentsOf(vLevels: readonly number[]): VolumeContents | null {
+export function contentsOf(seriesId: string, vLevels: readonly number[]): VolumeContents | null {
   for (const v of vLevels) {
-    const found = snapshot.volumes[String(v)]
+    const found = lookup(seriesId, v)
     if (found) return found
   }
   return null
@@ -174,11 +213,34 @@ export function unitCovers(unit: ContentsUnit): 'article' | 'word' {
   return unit.types.length > 0 && unit.types.every((t) => WORD_UNIT_TYPES.has(t)) ? 'word' : 'article'
 }
 
-/** 그 밴드가 스냅샷을 굽다 만난 문제. 없으면 `null`. */
-export function contentsProblem(vLevels: readonly number[]): string | null {
+/**
+ * 그 **시리즈의** 그 밴드가 스냅샷을 굽다 만난 문제. 없으면 `null`.
+ *
+ * 옛 스냅샷의 문제 기록에는 `series` 가 없다 — 그때는 독해만 구웠으므로 독해로 읽는다.
+ */
+export function contentsProblem(seriesId: string, vLevels: readonly number[]): string | null {
   for (const v of vLevels) {
-    const p = snapshot.problems.find((x) => x.band === v)
+    const p = snapshot.problems.find(
+      (x) => x.band === v && (x.series ?? 'reading') === seriesId,
+    )
     if (p) return p.error
   }
   return null
+}
+
+/**
+ * 그 시리즈가 스냅샷에 **하나라도** 구워져 있는가.
+ *
+ * ⚠️ 「이 권의 목차가 아직 없다」와 「이 시리즈를 아예 안 구웠다」는 다른 사실이고 할 일이
+ *   정반대다(전자는 그 권만, 후자는 `contents-snapshot --series <id>` 전량). 화면이 그
+ *   둘을 같은 문장으로 적으면 아무도 다시 굽지 않는다.
+ */
+export function seriesHasContents(seriesId: string): boolean {
+  const prefix = `${seriesId}:`
+  for (const k of Object.keys(snapshot.volumes)) {
+    if (k.startsWith(prefix)) return true
+    // 옛 숫자 키는 독해가 소유한다.
+    if (seriesId === 'reading' && /^\d+$/.test(k)) return true
+  }
+  return false
 }

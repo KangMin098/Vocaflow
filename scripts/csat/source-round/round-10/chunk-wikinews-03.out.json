@@ -1,0 +1,943 @@
+[
+  {
+    "id": "0da07d63-1dce-437e-8f84-aa4ec8191a20",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6243c09f371757abd9bd9d360a663277d660c3a2356757d980a49f3420835c00",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하퍼 총리가 청정대기법을 위원회로 보내기로 한 경위와 야당 넷의 엇갈린 반응을 전해 주장 대비·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, Layton was disappointed with Harper's",
+      "note": "레이턴 실망 문단은 협의보다 행동이 급하다는 주장이 인용 하나로 서서 주장 파악 문항이 됐다."
+    }
+  },
+  {
+    "id": "0da8e9f4-f983-4edc-8b92-1da6439d7d29",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "05a1823ea45fcfcef448a6ee26d4db7f65e62f1e6228b6149e664a53b75863a4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "art",
+    "why": "라라랜드 14개 부문 후보와 다른 작품들, 다양성 논쟁을 전해 내용일치 칸을 채운다; 부문 나열은 줄인다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This year, six black actors received",
+      "note": "#OscarsSoWhite 문단은 흑인 후보 기록과 해시태그 창시자의 반론이 이어져 주장-반론으로 가공됐다."
+    }
+  },
+  {
+    "id": "0daa8834-4077-4e04-b03f-0f2f9ad5b4d9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d95075cccd9bc99f40dd2a32581dabcd9f332d6022aa943f21bb0f61da529c66",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "올란드 도박업체 PAF 와 핀란드 정부의 독점권 분쟁을 판결·수사·맞소송 순으로 전해 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At the beginning of this year,",
+      "note": "재수사 문단은 판결 무시→재수사 인과가 서고 monopoly 는 뜻풀이로 두었다."
+    }
+  },
+  {
+    "id": "0dab6cdd-f379-40bb-a7a9-4eda8989fc7f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6dcc242224733f0786a162da3b5625f3989feaa80222eb3ff69cb3184c032701",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "health",
+    "why": "시드니 도심 레지오넬라 집단 발병 경보를 전파 경로·치명률·과거 사례로 설명해 목적·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The pathogen, Legionella pneumophila (L. pneumophila),",
+      "note": "병원체 문단은 에어로졸 흡입 경로가 한 문단에 서서 과학 내용일치로 떼어졌다."
+    }
+  },
+  {
+    "id": "0daf01cc-db45-4a2c-bbce-6aec8cb18f9c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d2da352517c8bba3a920ff19415a331fddc1f94facdf8626fdc12af516906d7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앨버타 보수당 경선에서 3위였던 스텔마크가 선호투표로 역전승한 과정을 전해 서사·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Stelmach was the surprise leader last",
+      "note": "결선 문단은 1차 근소 우위→3위 표 이전→역전 흐름이 서서 수치를 빼도 순서 문항이 됐다."
+    }
+  },
+  {
+    "id": "0db2810d-2953-4dc2-9920-c0d00347d9af",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6402acbe18233bbaa321c40b69105842cac44bbe18593be43abad247980997be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오클라호마 민주당 경선에서 낙태 반대 운동가가 대의원 1명을 얻은 사건과 전례를 전해 내용일치 칸을 채운다; 선거 광고 묘사가 있어 고3 이상이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The last time an incumbent president",
+      "note": "1996년 전례 문단은 현직 대통령이 대의원을 잃은 선례로 서지만 인용된 비방 문구 때문에 가공 폭이 좁다."
+    }
+  },
+  {
+    "id": "0db34629-a87a-46c2-a6ac-3b45bc3cbf7e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7cb47af83912de456cde1852e5e1d7cb15a2cb2e6413311c3345b8ade3835323",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "몰타 지방선거 결과를 득표율·전회 비교·지역 이름 나열로만 전해 떼어 낸 문단에 논지·사건 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The elections held in one-third of",
+      "note": "선거 지역 문단은 지명 22개 나열이라 걷고 나면 남는 문장이 없어 가공이 막혔다."
+    }
+  },
+  {
+    "id": "0db71a98-49ec-47fd-b44f-89d3a353a16e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2be82efab32bebc178a0943bd02dece6405f229a9f49c5ca46673d6d2a77fcf1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "텔레콤 뉴질랜드가 자체 점검 후 요금 환불에 나선 경과와 규제기관·이용자단체 비판을 전해 주장-근거·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ernie Newman, chief executive of the",
+      "note": "이용자단체 문단은 칭찬 뒤 신뢰 하락을 지적하는 양면 논지가 서서 요지 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "0dbaf6c8-28dd-426f-9f9c-3a97cf07e49a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1549a556fb94b663554023a94d5ed46b04c6cb1a94b060c11a7b5b0d5f0e3270",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "마셜제도가 핵실험 피해로 미국에 30억 달러 추가 보상을 요구한 근거와 미국 측 반론을 전해 주장-근거·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.S. government disagrees over which",
+      "note": "미국 반론 문단은 피해 섬 범위와 법적 의무 부재가 한 문단에 서서 주장 대비로 쓰였다."
+    }
+  },
+  {
+    "id": "0dbe1314-2e22-4d58-93bd-34b2992e3640",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e1e5c64d218880e654d05ee7d1be08b6c18a1b8be667f13b7c73b318d8ba3df4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "코소보 접경 마케도니아 경찰 피습 사건을 두 문장과 코소보 측 반응으로 전하는 단신이라 짧은 내용일치 칸만 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Kosovo police chief Veton Ellshani",
+      "note": "코소보 경찰청장 문단은 한 문장뿐이라 앞 문단과 합쳐야 문항이 됐다."
+    }
+  },
+  {
+    "id": "0dbe42e9-ec36-42f9-a1f5-f698147ecbf0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30d30f4c9efcbe5158d8e3cd642373444c6082a9689a1949477d93e948637e27",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "마이클 잭슨 주치의의 영상 메시지와 과실치사 기소 전망 보도를 전해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Law enforcement sources investigating the death",
+      "note": "수사 보도 문단은 과실치사→더 무거운 혐의 검토 흐름이 서서 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "0dbef8f9-232b-4a9b-9dba-0b3b6b884a92",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7de4acb4c5fdf14606de7381fe5f2139841fe559498f7398c86cc20268a29867",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "헤즈볼라 공격과 이스라엘 레바논 진입을 양측·레바논 정부·미국 입장으로 전해 관점 대비·내용일치 칸을 채운다; 교전 소재라 고2 이상이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Lebanese government issued a statement",
+      "note": "레바논 정부 성명 문단은 몰랐고 지지하지 않는다는 입장이 홀로 서서 관점 비교 문항에 쓰였다."
+    }
+  },
+  {
+    "id": "0dc170d2-22aa-4b89-98a8-d203ef461312",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ad3658fddb62e67a63c918e707bdfb1a5348a2f44d482b48c9aafd828920e635",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "고양이에게 대마 연기를 흡입시킨 남성의 동물 사육 금지 판결과 법정·단체 발언을 전해 내용일치 칸을 채운다; 비속어 인용은 걷고 고3 이상이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kane was prosecuted by the Royal",
+      "note": "기소·판결 문단은 형량 셋이 한 문단에 모여 섰고 영상 속 비속어 인용 문단은 가공 때 뺀다."
+    }
+  },
+  {
+    "id": "0dc3cf55-c462-4088-a718-71fa11fb40d5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df0b01d129def0d1b5d73008be1068484dba18e108e840d0e25e24f4563995fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "노키아가 첫 외국인 CEO 로 MS 출신 엘롭을 앉힌 배경(시장 하락)과 소프트웨어 전환 전략을 전해 요지·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The change follows Nokia's fall in",
+      "note": "시장 하락 문단은 아이폰·안드로이드 경쟁 실패가 원인으로 서서 요지 문항으로 가공됐다."
+    }
+  },
+  {
+    "id": "0dc6e314-e16f-41a3-b1dd-8abbf458aba6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "549c70017c56ea69db034579aac81264d1c62fb100a4f1c8a479c0afc1e9e6fc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스리나가르 관광버스 수류탄 공격과 관광국장의 안전 주장·업계 우려를 전해 주장 대비·내용일치 칸이 된다; 테러 소재라 고1 이상이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "State Tourism Director Farooq Ahmed Shah",
+      "note": "관광국장 발언 문단은 안전하다는 주장과 업계 우려가 한 문단에 대비돼 섰다."
+    }
+  },
+  {
+    "id": "0dc75157-509a-4208-8919-fff5ea23c073",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2245a7e8d4f6dfbaebec5c7822569776f48ba85cbf1d8ca05e9b6ff6e73df194",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "코노코필립스의 10억 달러 자사주 매입 발표를 목적(지분 희석 방지)과 배당 공지로 전해 성인 읽기 칸을 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Houston - The major oil company,",
+      "note": "첫 문단이 매입 목적까지 담아 떼었지만 diluted·compensation program 은 바꾸면 뜻이 흐려진다."
+    }
+  },
+  {
+    "id": "0dcf178d-c5e8-4fa3-aa7a-a1674d079967",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a78dde8f72906d8bd67b707504072259da63704a7513c20dbf158fecadf5ecf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "2006년 폭염이 미 동부로 옮겨 가며 정전·경보·습도 문제를 일으킨 상황을 전해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many cities are already struggling due",
+      "note": "정전 문단은 7월 폭염 여파와 절전 요청이 이어져 쉽게 떼어졌다."
+    }
+  },
+  {
+    "id": "0dd44a3e-763c-482e-b16b-d98915a1ac41",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5efed09a7c943be15565d2604d06ce6eb5350ce8aa3b9a454cc1e1848633c2ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공원 잔디를 깎다 체포된 오하이오 남성의 동기·경찰 대응·시 예산 사정을 전해 서사·심경·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "City officials call the incident unfortunate,",
+      "note": "시 당국 해명 문단은 예산 삭감→인력 부족→입양 제도 흐름이 서서 반대 입장 문항으로 쓰였다."
+    }
+  },
+  {
+    "id": "0dddc7bd-3eca-49c0-9418-96a16a5c3fe0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a3a2163875216290a5e79b8ca8e86ccd33f80c3349b086570d0cec668b4520ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "UNEP GEO-4 보고서의 기후·물·생물다양성 경고와 지역별 과제를 전해 주제·요지·내용일치 칸을 넉넉히 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The report finds that despite \"visible",
+      "note": "기후 대응 문단은 명백한 증거 대비 부족한 대응이라는 논지가 서서 주제 문항으로 곧장 가공됐다."
+    }
+  },
+  {
+    "id": "0dddda85-986a-41c9-a2c3-a5a35d6d12e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f74e86f442bdce0ad8c6a0486277490eed638ab0de058c96d947e89d6284e93",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "관타나모 첫 유죄 판결 힉스의 형량·감형·송환 일정을 전하는 단일 단신이라 짧은 내용일치 칸이 된다; 머리·꼬리 잔재는 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "David Hicks of Australia has been",
+      "note": "판결 문단 하나만 남기면 형량→감형→송환 흐름이 서고 Related news·Sources 잔재는 걷는다."
+    }
+  },
+  {
+    "id": "0ddeda08-748a-4d72-8f6b-ee2d1f3ae134",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "70ece76a18b7ce82b980d11eb5d0b0231dba29aa4f7e8a7bd5d9d7ae3dbb5038",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이탈리아 대통령의 가나 방문 일정을 회담·의회·유적·평화유지센터 순으로 전해 순서·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The next day, he visited the",
+      "note": "평화유지센터 문단은 방문→공약→발언 흐름이 서고 contingents 만 쉬운 말로 바꿨다."
+    }
+  },
+  {
+    "id": "0ddee3f1-a7f9-4f28-be5b-bb20a1f84ab5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "791dcf067922b51db051a746ae5285a378ecdea9c30c8dfe6a63b307e4b354bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "AT&T 망 아이패드 이용자 이메일 유출을 해킹 방법·회사 대응·FBI 수사로 전해 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The hackers were able to obtain",
+      "note": "해킹 방법 문단은 프로그램 발견→번호 추측→저장 흐름이 서서 순서 문항으로 잘렸다."
+    }
+  },
+  {
+    "id": "0df0132b-a626-419e-a7e4-8962abb7e9a5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0da6e65935f0d79eb89d1c6341f3bf778175f087bed08c9eb32daf9b32585a5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "펜실베이니아 전 상원의원의 137개 혐의 유죄 평결과 혐의 내용·재판 경과를 전해 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Prosecutors also said Fumo arranged for",
+      "note": "혐의 사례 문단은 사치 사례가 구체적이라 떼기 쉬웠지만 법률 용어는 V6 아래로 못 내렸다."
+    }
+  },
+  {
+    "id": "0df09cb6-dca9-4bc8-8456-b1baaa732c7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ae207a30175ebedf131d073cc82e13414dfa674446499e8177be2d252cef5939",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "이란 부셰르 원전 가동 일정과 러시아 협력 배경을 전해 짧은 내용일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Russia has assisted Iran in the",
+      "note": "러시아 협력 문단은 35년 전 제안과 90년대 건설 대비가 서서 시대 비교 선택지로 쓰였다."
+    }
+  },
+  {
+    "id": "0df31a02-861a-4241-b9e0-0b29bbd7e130",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e6a49feb440de4c0f21da62a7654e229b6bd4ba71e0735904f65796259b2bb30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 5,
+    "round": 10,
+    "retention": "keep",
+    "genre": "news",
+    "why": "브라질 집권당 매표 스캔들을 폭로자·비서·전 우정국장 증언 순으로 전해 서사·내용일치 칸을 채운다; 고3·성인 읽기다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "On June 14, Fernanda Karina Ramos",
+      "note": "비서 증언 문단은 진술→번복→재확인 흐름이 서지만 인명과 매체명이 많아 V6 에 머문다."
+    }
+  }
+]

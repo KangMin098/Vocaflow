@@ -30,17 +30,33 @@ export type StageId =
   | 'explain'
   | 'review'
   | 'press'
+  | 'operate'
 
 /**
  * 두 레인.
  *
  * · `lab`(전략 연구소) — **무엇을 만들지 정하는** 공정. 산출물은 규격·표·판정이지 문항이 아니다.
  * · `line`(생산 라인) — **정해진 규격대로 찍어 내는** 공정. 산출물이 학습자에게 간다.
+ * · `shelf`(매대) — **낸 다음**의 공정. 산출물은 책이 아니라 **다음 판의 근거**다.
  *
- * 이 둘을 한 표에 섞으면 "재고가 많다" 가 "잘 팔린다" 처럼 읽힌다. 연구소가 규격을 바꾸면
+ * 이 셋을 한 표에 섞으면 "재고가 많다" 가 "잘 팔린다" 처럼 읽힌다. 연구소가 규격을 바꾸면
  * 라인의 재고가 통째로 낡으므로, 레인을 갈라 두면 그 인과가 화면에서 보인다.
+ *
+ * ── `shelf` 가 왜 생겼나 (2026-09-23 · DD-77) ────────────────────────
+ * 공정이 ⑧ 조판·발행에서 **끝났다.** 그래서 여덟 칸이 전부 통과하는 날 현황판은 초록이
+ * 되고 다음에 할 일이 없다 — 「한 권을 냈으니 그 유형은 완료」라는 뜻이 구조에 박혀 있었다.
+ * 시중 출판사의 공장은 그렇게 끝나지 않는다: 낸 뒤에 **팔리는지 보고 · 제도가 바뀌면
+ * 개정하고 · 안 팔리면 접는다.** 그 판단이 다시 ② 기획의 입력이 되어 다음 라인을 낳는다.
+ * `shelf` 레인이 그 자리이고, 이 레인이 있어야 라인이 **순환**한다.
  */
-export type Lane = 'lab' | 'line'
+export type Lane = 'lab' | 'line' | 'shelf'
+
+/** 레인 이름 — 화면이 띠 제목으로 쓴다. 화면에서 다시 짓지 않는다. */
+export const LANE_KO: Record<Lane, { label: string; what: string }> = {
+  lab: { label: '전략 연구소', what: '무엇을 만들지 정한다' },
+  line: { label: '생산 라인', what: '정해진 규격대로 찍어 낸다' },
+  shelf: { label: '매대', what: '낸 것이 팔리는지 보고 다음 판을 정한다' },
+}
 
 /** 게이트 판정. `unmeasured` 는 실패가 아니라 **아직 안 잰 것**이다 — 0 과 다르다. */
 export type StageStatus = 'pass' | 'short' | 'blocked' | 'unmeasured'
@@ -102,6 +118,16 @@ export interface StageDef {
   marketName: string
   /** 이 공정이 답하는 질문 하나. 화면 부제로 쓴다. */
   question: string
+  /**
+   * 이 공정이 **받는 것**. 계약의 빠져 있던 한 축이다.
+   *
+   * ── 왜 뒤늦게 생겼나 (2026-09-23 · DD-74) ─────────────────────────
+   * 이 모델은 `output`(내놓는 것)과 `gate`(넘어야 하는 것)를 처음부터 갖고 있었는데
+   * **받는 것**이 없었다. 그래서 단계 화면이 「이 칸이 무엇으로 시작하는가」를 말할 수 없었고,
+   * 실측(DD-69 A2)에서 아홉 화면 중 계약 셋을 다 적은 것이 **둘**뿐이었다.
+   * 입력을 적어 두면 앞 칸이 막혔을 때 이 칸에서 할 일이 없다는 것이 화면에서 바로 보인다.
+   */
+  input: string
   /** 이 공정이 내놓는 것. */
   output: string
   /** 게이트 — 이걸 넘어야 다음 공정으로 원고가 넘어간다. */
@@ -136,6 +162,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '기출 원천',
     marketName: '출제경향 분석',
     question: '우리가 겨냥한 시험을 실제로 아는가',
+    input: '평가원 기출 원문과 정답표(csat_items · csat_exams)',
     output: '회차·유형별 기출 분석과 유형 리포트',
     gate: '사정권 배점을 덮은 회차가 늘고 있는가',
     gateGauges: ['독해 실점 0 회차'],
@@ -148,6 +175,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '기획',
     marketName: '시장조사 · 경쟁교재 분석',
     question: '시중 교재를 이기는가, 어디서 지는가',
+    input: '시중 교재 코퍼스 79종과 우리 재고 집계',
     output: '출판사별 우위 지수와 구속점',
     gate: '구속 출판사 지수 ≥ 1.200',
     gateGauges: ['구속 출판사 지수'],
@@ -160,6 +188,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '설계',
     marketName: '이원목적분류표 · 목차 설계',
     question: '연령 × 수준 × 유형 칸이 규격대로 정의됐는가',
+    input: '학령 눈금(SERIES_SPINE)과 기출 유형 · 단계 게이트 임계',
     output: '학령 사다리 7단과 단별 허용 유형',
     gate: '사다리에 끊긴 계단이 없는가',
     gateGauges: ['사다리가 선언한 유형 중 생산 가능', '단계 게이트 임계 정의 (S1~S5)'],
@@ -172,6 +201,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '소재',
     marketName: '지문 섭외 · 저작권 검토',
     question: '각 칸에 쓸 지문이 있는가',
+    input: '적격 판정을 통과한 원문(csat_source_eligibility.grade)',
     output: '단계 밴드별 지문 재고',
     // ⚠️ **셈법이 바뀌었는데 이 두 줄이 안 따라왔었다** (실측 2026-09-16).
     //   `5982ac67`(2026-09-15)이 밴드 판정을 게이트의 `metric` 에 맡기도록 바꾸면서
@@ -197,6 +227,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '집필',
     marketName: '원고 집필 (문항)',
     question: '각 칸에 문항이 있는가',
+    input: '밴드별 원글과 그 밴드가 쓰는 유형 목록',
     output: '유형 × 수준 문항 재고',
     gate: '사다리 각 단이 쓰는 유형 중 재고 0인 칸이 없는가',
     gateGauges: ['사다리 칸 중 재고 있음'],
@@ -209,10 +240,12 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '해설',
     marketName: '정답해설 집필',
     question: '문항마다 해설이 붙었는가',
+    input: '조판 후보 문항(csat_dcp_items)',
     output: '문항별 한국어 해설',
     gate: '해설 보유율 100%',
     gateGauges: ['해설 보유'],
-    href: null,
+    // 2026-09-23 신설(DD-74). 그전에는 null 이라 현황판의 ⑥ 칸이 **갈 곳이 없었다**.
+    href: '/admin/csat/explain',
   },
   {
     id: 'review',
@@ -221,6 +254,7 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '검수',
     marketName: '초교 · 재교 · 삼교 + 감수',
     question: '다층 검수를 통과했는가',
+    input: '그 권에 실릴 문항 — 재고 전량이 아니라 조판기가 고른 것',
     output: '층별 통과 기록',
     gate: '층마다 통과율 100%',
     gateGauges: ['L1', 'L2', 'L3', 'L4'],
@@ -233,10 +267,35 @@ export const FACTORY_STAGES: readonly StageDef[] = [
     name: '조판 · 발행',
     marketName: '조판 · 교정쇄 · 인쇄',
     question: '권으로 나왔는가',
+    input: '검수를 통과한 문항과 사다리 규격',
     output: '조판된 권과 그 검수 기록',
     gate: '사다리 계단마다 최신 규격으로 조판된 권이 있는가',
     gateGauges: ['조판된 계단', '최신 규격으로 찍힌 계단'],
     href: '/admin/csat/press',
+  },
+  {
+    id: 'operate',
+    lane: 'shelf',
+    ord: 9,
+    name: '운영·개정',
+    marketName: '증쇄 · 개정 · 절판',
+    question: '낸 책이 실제로 팔리고 있고, 아직 유효한가',
+    // ⚠️ 이 공정의 입력은 **책이 아니라 책이 남긴 흔적**이다. 그래서 ⑧ 과 겹치지 않는다 —
+    //   ⑧ 은 「이 권이 나갈 수 있는가」를 묻고, 여기는 「나간 뒤 무슨 일이 있었는가」를 묻는다.
+    input: '나간 권과 그 판권면 · 발행 결재 기록 · 학습자가 고른 권',
+    // 산출물이 문항도 책도 아니라는 것이 요점이다. 이 공정이 내놓는 것은 **다음 판의 근거**이고,
+    // 그것이 ② 기획으로 들어가 다음 시리즈·다음 판을 낳는다. 여기서 고리가 닫힌다.
+    output: '개정 · 증쇄 · 절판 판단과 그 근거 — ② 기획의 입력',
+    gate: '나간 권마다 사람 결재와 수요 신호가 있는가',
+    // ⚠️ **「구성요소 지수」는 문서에만 있던 공정이다.** `ADMIN_CONSOLE.md` 는 2026-09-06 부터
+    //   「공정 9칸」이라 적고 ⑨ 를 **진열**(매대·상세면 · 구성요소 지수 ≥ 1.200)로 표에 실어
+    //   두었는데, `FACTORY_STAGES` 에는 여덟 칸뿐이었다 — 아무도 그 눈금을 안 재고 있었다.
+    //   재는 도구(`apparatus-surface-probe.mjs`)는 있지만 **저장소에 리포트를 안 남긴다**
+    //   (`--out` 을 줘야 쓴다). 그래서 눈금 이름만 세우고 값은 「못 잼」으로 둔다 —
+    //   지우면 문서가 주장하던 축이 조용히 사라지고, 채우면 없는 수를 지어내는 것이 된다.
+    gateGauges: ['구성요소 지수', '발행 결재를 받은 권', '학습자가 고른 권'],
+    // 품목 화면이 생애(개정·절판)를 이미 그린다 — 공정 하나에 화면 둘을 두면 갈린다.
+    href: '/admin/csat/catalog',
   },
 ] as const
 
@@ -286,21 +345,44 @@ export function judgeStage(gauges: readonly StageGauge[]): StageStatus {
 }
 
 /**
- * 병목 — **라인 순서에서 가장 앞선, 통과하지 못한 공정.**
+ * 병목 — **그 레인의 순서에서 가장 앞선, 통과하지 못한 공정.**
  *
  * 뒤쪽 공정이 더 나빠 보여도 앞이 막혀 있으면 뒤를 고쳐 봐야 소용이 없다(해설이 0%인데 조판을
  * 돌리면 해설 없는 책이 나온다). 그래서 "가장 나쁜 공정" 이 아니라 **"가장 앞선 막힌 공정"** 을
  * 고른다. `unmeasured` 도 병목이다 — 재지 않은 것을 통과로 세면 그게 바로 거짓 안심이다.
+ *
+ * ── 레인 인자가 왜 생겼나 (2026-09-23 · DD-69 A1 · DD-74) ───────────
+ * ⚠️ 여기까지 이 함수는 **레인을 안 가리고** `ord` 만 봤다. 그런데 `ord 2` 는 ② 기획이고
+ *   그것은 `lane: 'lab'` — **라인을 막지 않는 공정**이다. 기획은 「시중 교재를 이기는가」를
+ *   묻고, 그 답이 미달이어도 ④ 소재·⑤ 집필·⑧ 조판은 그대로 돈다.
+ *
+ *   실측 2026-09-23: 현황판이 「막힌 곳 · 2. 기획」이라 적는 동안 ④⑤⑧ 은 전부 「통과」였고,
+ *   그 기획의 미달 사유는 **생산이 아니라 증거 부족**(EBS 정답해설이 코퍼스에 없다)이었다.
+ *   즉 화면이 가리킨 곳에서 할 수 있는 생산 작업이 **하나도 없었다.**
+ *
+ *   레인을 나누면 두 병목이 따로 선다 — 연구소 병목은 「무엇을 만들지」가 막힌 것이고,
+ *   라인 병목은 「만드는 것」이 막힌 것이다. 인자를 안 주면 예전처럼 전체에서 고른다.
  */
-export function findBottleneck(stages: readonly StageState[]): StageState | null {
+export function findBottleneck(
+  stages: readonly StageState[],
+  lane?: Lane,
+): StageState | null {
   return (
     [...stages]
+      .filter((s) => (lane ? s.def.lane === lane : true))
       .sort((a, b) => a.def.ord - b.def.ord)
       .find((s) => s.status !== 'pass') ?? null
   )
 }
 
-/** 라인 전체 달성률 — 통과한 공정 / 전체 공정. 분자·분모를 그대로 화면에 적는다. */
+/**
+ * 공장 전체 달성률 — 통과한 공정 / 전체 공정. 분자·분모를 그대로 화면에 적는다.
+ *
+ * ⚠️ **분모에 ⑨ 운영·개정이 들어 있다**(2026-09-23 · DD-77). 그전에는 ⑧ 조판이 마지막이라
+ *   여덟 칸이 통과하는 날 이 수가 8/8 이 되고 **공장이 끝났다**. 그런데 그 시점에도 할 일은
+ *   있다 — 낸 책이 팔리는지 보고, 제도가 바뀌면 개정하고, 안 팔리면 접는다. 그 칸을 분모에
+ *   넣어 두면 「다 했다」가 뜰 자리가 **낸 뒤의 일까지 끝났을 때**로 옮겨간다.
+ */
 export function lineCompletion(stages: readonly StageState[]): { passed: number; total: number } {
   return { passed: stages.filter((s) => s.status === 'pass').length, total: stages.length }
 }

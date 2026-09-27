@@ -1,0 +1,1584 @@
+{
+  "contract": "pilot/v1",
+  "pilot_date": "2026-09-24",
+  "source": {
+    "name": "StoryWeaver (Pratham Books)",
+    "homepage": "https://storyweaver.org.in/",
+    "type": "CC 아동 서사 플랫폼 · 다출판사 집합체",
+    "english_inventory_by_level": {
+      "level_1": 5297,
+      "level_2": 5462,
+      "level_3": 3691,
+      "level_4": 2373,
+      "total_english": 16823
+    },
+    "inventory_evidence": "[측정: /api/v1/books-search?languages[]=English&levels[]=N 의 metadata.hits · 2026-09-24]",
+    "candidate_pool_publishers": {
+      "Pratham Books": 256,
+      "Room to Read": 16,
+      "Book Dash": 6,
+      "African Storybook Initiative": 1,
+      "StoryWeaver": 3,
+      "Dastkari Haat Samiti": 3,
+      "Nature Conservation Foundation": 1,
+      "Janaagraha Centre for Citizenship & Democracy": 1,
+      "Dakshin Foundation": 1
+    },
+    "candidate_pool_note": "층화 후보 288편(수준당 72)의 출판사 분포 — Pratham Books 256/288 = 88.9% [측정]"
+  },
+  "access": {
+    "list_endpoint": "https://storyweaver.org.in/api/v1/books-search?page=N&per_page=24&languages[]=English&levels[]=L",
+    "metadata_endpoint": "https://storyweaver.org.in/api/v1/stories/<slug>",
+    "body_endpoint": "https://storyweaver.org.in/api/v1/stories/<slug>/read?embed=true",
+    "user_agent": "Vocaflow/1.0 (https://vocaflow.app; hello@vocaflow.app) source-acquisition-pilot — 위장 없음",
+    "repo_adapter": "packages/library-pipeline/src/ingest-article/storyweaver.ts",
+    "BREAKING": {
+      "what": "저장소 어댑터가 쓰는 본문 경로 /api/v1/stories/<slug>/read 가 이제 401 을 낸다 (You are not authorized to read this story).",
+      "verified": "세션 쿠키를 붙여도 401 · 로그인 필요 [측정: 2026-09-24 직접 호출]",
+      "workaround": "사이트 자체 공개 임베드 경로 ?embed=true 는 200 에 전체 pages 를 준다. 쿼리 한 개 차이.",
+      "impact": "ingestStoryweaverArticle() 과 scripts/textbook/storyweaver-ingest.mjs 는 현재 상태로는 한 편도 못 받는다. 고치기 전에는 추가 수확 불가.",
+      "fix": "storyweaver.ts 의 fetch URL 에 ?embed=true 추가 — 응답 모양(pages[].pageType/html)은 동일해 그 밖의 파싱은 그대로 쓸 수 있다 [측정: 20/20 성공]."
+    }
+  },
+  "sampling": {
+    "n_books": 20,
+    "strategy": "읽기 수준 1~4 × 5편 층화. 수준마다 후보 72편(3쪽×24)을 받아 균등 간격으로 뽑고 저자 중복을 피했다.",
+    "by_level": {
+      "1": 5,
+      "2": 5,
+      "3": 5,
+      "4": 5
+    },
+    "fetch_failures": 0,
+    "note": "한 편(34911)은 첫 호출이 일시 실패해 같은 책을 재호출했다. 표본은 20권을 넘지 않는다.",
+    "representativeness_caveat": "표본 출판사 = Pratham 18 · Room to Read 1 · Book Dash 1. 후보 풀 88.9% 가 Pratham 이므로 표본은 풀에 맞지만, 이 원천의 라이선스 분포는 Pratham 의 정책에 거의 지배된다."
+  },
+  "g0": {
+    "verdict": "통과 — 전원 R1",
+    "license_distribution": {
+      "CC BY 4.0": 20,
+      "CC BY-SA": 0,
+      "CC BY-NC": 0,
+      "CC BY-NC-SA": 0,
+      "CC BY-ND": 0,
+      "CC0": 0,
+      "other": 0,
+      "unreadable": 0
+    },
+    "cc_by_only_pct": 100,
+    "license_url_live": true,
+    "license_url_check": "[측정: https://creativecommons.org/licenses/by/4.0/ → 200 · 본문에 \"Attribution 4.0 International\" 존재]",
+    "per_book_license_read": "20/20 — 책 뒷장(BackInnerCoverPage)의 \"Released under CC BY 4.0 license.\" 문자열을 개별로 읽었다. 사이트 약관을 쓰지 않았다.",
+    "g0_4_dropouts": 0,
+    "fields_complete": "저자 20/20 · 연도 20/20 · source_url 20/20 · license_raw 20/20",
+    "attribution_chain": "번역·재수준(re-level) 본도 원작 저작자·출판사·라이선스를 기계 판독 가능한 문자열로 병기한다 [측정: 10727 · 38508 · 174103].",
+    "caveats": [
+      "⚠️ 100% 는 표본 20권의 값이지 플랫폼 16,823편의 값이 아니다. 후보 풀의 88.9% 가 Pratham Books 이고 Pratham 은 CC BY 를 기본으로 쓴다. 비-Pratham 출판사(Room to Read · Book Dash · African Storybook 등 8곳, 풀의 11.1%)는 2편만 봤다 — 둘 다 CC BY 4.0 이었다.",
+      "⚠️ StoryWeaver 는 사용자 번역·재수준 업로드를 받는다. 전량 수확 시 라이선스는 반드시 책 단위로 다시 읽어야 한다(어댑터는 이미 그렇게 한다)."
+    ]
+  },
+  "g1": {
+    "verdict": "통과 — C 무리(가중치 0.51)와 초·중등 서사 슬롯을 둘 다 채운다",
+    "register_human_read": {
+      "narrative": 13,
+      "biography": 2,
+      "expository": 4,
+      "no_text": 1
+    },
+    "narrative_or_biography_share": "15/19 텍스트 보유 = 78.9%",
+    "expository_note": "⚠️ 4편(1052-busy-ants · 21616 · 223330 · 31924)은 아동 서사가 아니라 설명문이다. A 무리(가중치 0)로 간다. 수준·제목만으로는 안 갈린다 — 갈래는 읽어서 정해야 한다.",
+    "years": "2015~2021 (발행일 기준 20/20 기록) · 저작권 연도 2009~2021 — 고어체·낡은 사실 위험 없음",
+    "translations": "2/20 (10727 ← 우르두 · 38508 ← 벵골어). 영어 원작 18/20. isTranslation 필드로 기계 판별 가능 [측정].",
+    "relevels": "1/20 (174103 = 59108 의 L1 재수준본). ⚠️ 같은 이야기가 수준별로 중복 존재한다 — slug 만으로는 dedup 이 안 된다.",
+    "grade_band_fit": {
+      "elem6_40_194": "7/19 통째로 적중",
+      "mid_90_200": "6/19 통째로 적중",
+      "csat_long_260_400": "2/19 통째로 적중"
+    }
+  },
+  "g2": {
+    "verdict": "가공 비용 = 중 (20~50%) · 실측 평균 46.6% — 「사실상 재저작」 경계(50%)에 근접",
+    "cases": [
+      {
+        "book": "30972-kali-wants-to-dance",
+        "level": "4",
+        "page": 4,
+        "risk_tested": "고유명사 최고밀도 10.56/100어 · 인도 인명/지명/무용명/카스트",
+        "before": "“Would you like to learn Bharatanatyam in Kalakshetra?” she asks him after the performance. Kali laughs at first. Dance? The Dalit community rarely had the opportunity to learn, let alone master, Bharatanatyam. In Kali’s family, there is never enough money to spare for dance classes. And who has heard of boys dancing for a living? But Sarah is serious. “You must learn Bharatanatyam in a proper school, Kali,” she says. “I will pay your fees.”",
+        "after": "After the performance, the visitor asked the boy whether he would like to study classical dance at a famous school in the city. He laughed at first. Dance? People from his community were rarely given the chance to learn that dance, let alone master it. In his family there was never enough money for dance lessons. And who had ever heard of a boy dancing for a living? But the visitor was serious. “You must study this dance in a proper school,” she said. “I will pay your fees.”",
+        "before_words": 75,
+        "after_words": 89,
+        "kept": 46,
+        "changed_pct": 48.3
+      },
+      {
+        "book": "34911-the-case-of-the-missing-water",
+        "level": "4",
+        "page": 12,
+        "risk_tested": "앞 문맥 지시어로 시작(She) · 대화문 39.1%",
+        "before": "She ran and ran until she was panting. She finally sat at the side of the road. “I have to find the water!” she huffed. “Can I help?” said a voice. It was Sapna who had seen Ranj running away from school. Ranj beamed. “Yes!” “We have to do this properly,” Sapna said. “Like real Sanitary Engineers.” “Like who…?” Ranj asked. “Sanitary Engineers build pipes and tanks and drains. I am going to be one when I grow up,” Sapna said. Ranj and Sapna decided to draw a map of their village and all its tanks and streams, showing all the places where the water might have flowed.",
+        "after": "The girl ran and ran until she was out of breath, and at last she sat down at the side of the road. “I have to find the water,” she said to herself. “Can I help?” said a voice behind her. It was her classmate, who had seen her leave school. “Yes!” “Then we should do this properly,” her classmate said. “The way a water engineer would. Water engineers build the pipes and tanks and drains that carry water. That is what I want to be when I grow up.” Together the two girls drew a map of their village, marking every tank and stream, and every place the water might have flowed.",
+        "before_words": 108,
+        "after_words": 113,
+        "kept": 65,
+        "changed_pct": 42.5
+      },
+      {
+        "book": "36960-all-aboard",
+        "level": "2",
+        "page": 14,
+        "risk_tested": "대화문 59.3% · 통째로 C 슬롯에 드는 유일급 표본",
+        "before": "“I see a tall animal with brown spots,” says Baba. “Huh! You saw a leopard?” asks Ma. “No, a giraffe!” says Baba. Nina looks out of the window and yells, “Giraffes do not live in India! You cheated, Baba.” Everyone starts laughing.",
+        "after": "“I see a tall animal with brown spots,” said the girl's father. “A leopard?” asked her mother. “No — a giraffe!” he said. The girl looked out of the train window and shouted, “Giraffes don't live here! You cheated!” Everyone in the compartment began to laugh.",
+        "before_words": 42,
+        "after_words": 45,
+        "kept": 23,
+        "changed_pct": 48.9
+      }
+    ],
+    "edit_rate_mean_pct": 46.6,
+    "cost_decomposition": {
+      "proper_nouns_only": "20.0% [측정: 30972 p4 — 고유명사만 일반명사로 교체]",
+      "plus_tense_to_past": "27.5% [측정: 같은 문단 + 서술 시제 과거화]",
+      "plus_vocab_and_self_containment": "48.3% [측정: 같은 문단 최종본]",
+      "reading": "비용의 절반 이상은 고유명사가 아니라 어휘 하향 + 자족성 확보에서 나온다."
+    },
+    "tense_finding": {
+      "present_tense_narration": "9/19 · past 10/19 [측정: 대화 제거 후 서술 동사 빈도]",
+      "by_level": "L1+L2 는 9편 중 7편이 현재시제 · L3+L4 는 10편 중 8편이 과거시제",
+      "reading": "기출 장문 서사는 과거시제 서술이다. C 슬롯을 채우는 L3·L4 는 이미 과거시제라 이 비용이 대부분 사라진다 — 시제 정규화 비용은 초·중등 슬롯(L1·L2)에만 붙는다."
+    },
+    "illustration_dependence": {
+      "illustration_only_pages": "42/362 StoryPage = 11.6% 가 글이 아예 없는 그림 전용 쪽 [측정]",
+      "books_with_such_pages": "9/20",
+      "worst_case": "174103-the-girl-who-could-not-stop-laughing — StoryPage 21쪽 전부 글 0. 어수 0. 글만으로는 아무것도 안 남는다.",
+      "reading": "표본의 5%(1/20)는 글이 아예 없어 못 쓴다. 나머지는 그림 전용 쪽이 섞여 있을 뿐 남은 글로 이야기가 이어진다 [측정: 3개 가공 사례 전부 그림 없이 읽혔다].",
+      "residual_risk": "화자 표시 없는 대사(60932-dance-mihlali 의 \"I will help you practise at home.\")는 그림/말풍선에 의존한다 — 가공 때 화자를 넣어야 한다."
+    },
+    "apparatus_contamination": {
+      "finding": "용어집·연표·저자노트·활동 쪽이 pageType:\"StoryPage\" 로 들어와 본문으로 세어진다",
+      "books_affected": "6/11 (어수 260 이상인 책 기준)",
+      "words_removed": 922,
+      "worst": "31924-telephones (1,246→987, 21% 가 부속) · 30972-kali (994→747, 25%)",
+      "reading": "⚠️ 걷어내지 않으면 어수가 부풀고 지문 끝이 용어 목록이 된다. 쪽 유형으로는 안 갈리고 본문을 읽어야 갈린다."
+    }
+  },
+  "g3": {
+    "english_gate": "19/19 통과 (라틴문자 ≥0.70 ∧ 기능어 ≥0.15). 1편은 토큰 0 으로 판정 불가 [측정].",
+    "latin_ratio_min": 0.9987,
+    "function_word_ratio_min": 0.2269,
+    "function_word_ratio_max": 0.4091,
+    "word_counts_narrative_only": {
+      "median_all": 336,
+      "min": 77,
+      "max": 5615,
+      "by_level": {
+        "L1": "중앙 162 (77–231)",
+        "L2": "중앙 182 (91–336)",
+        "L3": "중앙 445 (193–1045)",
+        "L4": "중앙 987 (747–5615)"
+      },
+      "evidence": "[측정: 부속 쪽 제거 후 본문 낱말 수]"
+    },
+    "window_yield_260_400": {
+      "windows_total_all_books": 39,
+      "windows_from_narrative_biography_only": 36,
+      "books_yielding_at_least_one": 10,
+      "excluding_5615w_outlier": {
+        "windows": 20,
+        "books": 9,
+        "per_book": 2.22
+      },
+      "construction": "연속 쪽(문단)을 260어에 닿을 때까지 이어붙여 260~400 에 들면 한 창. 비겹침·탐욕."
+    },
+    "window_style_vs_C_benchmark": {
+      "benchmark": {
+        "words": 334,
+        "proper_noun_per_100w": 4.25,
+        "time_marker_pct": 89.7,
+        "anaphora_start_pct": 0,
+        "quote_start_pct": 0
+      },
+      "measured": {
+        "words_median": 297,
+        "proper_noun_per_100w_median": 1.94,
+        "time_marker_present_pct": 92.3,
+        "quote_start_pct": 15.4,
+        "anaphora_start_pct": 12.8,
+        "either_start_problem_pct": 28.2,
+        "self_contained_windows": 28
+      },
+      "reading": "시간순 표지 92.3% 는 C 기준 89.7% 와 일치한다 — 이 원천은 C 무리의 핵심 문체 지표를 그대로 갖고 있다. 어수 중앙 297 은 334 에 근접. 고유명사 1.94 는 C 기준 4.25 보다 낮다(가공 부담이 오히려 적다). 자족성만 어긋나며(28.2%) 창 경계를 한 쪽 밀면 대부분 해소된다."
+    },
+    "dialogue": {
+      "book_level_median_pct": 15.9,
+      "window_level_median_pct": 17.1,
+      "windows_over_40pct": "3/39",
+      "reading": "대화문이 지문을 못 쓰게 만드는 수준은 아니다. 다만 L1·L2 단편(36960 59.3% · 369 53.3% · 10118 43.9%)은 대화가 절반을 넘어 장문 지문으로는 부적합하다 — C 슬롯은 어차피 L3·L4 몫이다."
+    }
+  },
+  "verdict": {
+    "overall": "확보 — 우선순위 높음",
+    "route": "R1 (CC BY · 표기 의무 · 개작 가능 · 상업 이용 가능)",
+    "source_value": "C 장문 서사(0.51) + 초·중등 서사 슬롯을 동시에 채운다. 가공 비용 등급 중.",
+    "core_question": {
+      "question": "장문 슬롯(C · 어수 334)을 채울 수 있는가?",
+      "answer": "채울 수 있다 — 단 읽기 수준 3·4 를 가져와 발췌할 때만이다.",
+      "numbers": [
+        "재고의 storyweaver 평균 101어는 원천의 성질이 아니라 수확 인자의 산물이다: scripts/textbook/storyweaver-ingest.mjs 의 LEVEL = arg(\"level\") ?? \"1\" 로 Level 1 만 받았다. DB 136행 중 260어 이상은 2편뿐이고 최대가 291어다 [측정: library_articles].",
+        "수준을 1~4 로 펴면 본문 어수 중앙이 336어다 — C 기준 334 와 사실상 같다 [측정: 표본 19편].",
+        "L3 중앙 445어 · L4 중앙 987어. L3+L4 만 해도 영어 재고 6,064편이다 [측정: books-search metadata.hits].",
+        "통째로 260~400 에 드는 책은 2/19 뿐이지만, 발췌하면 서사·전기 10권에서 36개 창이 나온다. 5,615어 이상치 한 권을 빼도 9권에서 20창 = 권당 2.2창 [측정].",
+        "발췌 창의 문체가 C 기준과 맞는다: 시간순 표지 92.3% (기준 89.7%) · 어수 중앙 297 (기준 334) · 고유명사 1.94/100어 (기준 4.25)."
+      ],
+      "blockers": [
+        "창의 28.2% 가 인용부호나 지시어로 시작한다(C 기준은 둘 다 0%) — 창 경계 조정으로 대부분 해소되나 자동화에 규칙이 필요하다.",
+        "어수 260 이상 책의 6/11 에 용어집·연표가 본문으로 섞여 있다. 안 걷으면 어수가 최대 25% 부풀고 지문 끝이 목록이 된다.",
+        "가공 수정량 46.6% — 「중」 등급이되 재저작 경계에 가깝다."
+      ]
+    },
+    "elementary_middle_slot": "초6 창(40~194어)에 7/19 · 중1·중3 창(90~200어)에 6/19 가 통째로 든다. 발췌까지 치면 90~200 창이 100개 나온다 [측정]. L1·L2 가 이 자리다.",
+    "next_actions_measured": [
+      "① storyweaver.ts 의 본문 URL 에 ?embed=true 를 더한다 — 현재 어댑터는 401 로 한 편도 못 받는다. 이것을 고치기 전에는 아무 수확도 못 한다.",
+      "② 수확 시 --level 3 · --level 4 를 반드시 준다. 기본값 1 이 재고를 101어에 묶어 놓았다.",
+      "③ 부속 쪽 제거를 적재 경로에 넣는다(본문 판독 필요 — 쪽 유형으로는 안 갈린다).",
+      "④ 갈래를 읽어서 판정한다 — 표본의 21%(4/19)가 서사가 아닌 설명문이었다.",
+      "⑤ 재수준(re-level) 중복 dedup: originalStory.slug 로 묶는다."
+    ]
+  },
+  "limits": [
+    "표본 20권이다. 라이선스 100% CC BY · 갈래 비율 78.9% · 권당 창 2.2개는 모두 이 20권의 값이며, 16,823편 전체에 대 본 값이 아니다. 전량 판정 전에 권고의 근거로 쓰지 않는다.",
+    "못 잰 것: 플랫폼 전체의 라이선스 분포. books-search 응답에 라이선스 필드가 없어 책을 받아야만 읽힌다 — 20권 상한 안에서는 20편분만 알 수 있다.",
+    "못 잰 것: 비-Pratham 출판사 66곳의 라이선스 정책. 표본에 2곳(Room to Read · Book Dash)만 들어왔다.",
+    "못 잰 것: 어휘 대역(NGSL+NAWL 밖 비율). 이 파일럿에서 낱말 목록 로더를 돌리지 않았다 — G2 의 어휘 하향 비용은 3개 문단의 사람 판독으로만 잰 값이다.",
+    "못 잰 것: 정제 잔존율(keep_pct). source-doc-inspect.mts 를 돌리지 않았다.",
+    "못 잰 것: 6,064편(L3+L4)을 발췌했을 때의 실제 창 산출 총량. 권당 2.2창은 9권에서 나온 값이라 곱하지 않는다.",
+    "갈래·부속 쪽·가공 결과는 사람(이 에이전트) 판독이다. 기계 지표가 아니며 다른 판독자와 어긋날 수 있다.",
+    "창 구성은 쪽(문단) 경계만 쓴다. 문장 단위로 자르면 산출이 달라진다.",
+    "고유명사 밀도는 대리 지표다(문장 중간 대문자 정규식). 대화가 많은 글에서는 화자 이름이 과대 계상된다.",
+    "DB 에 아무것도 쓰지 않았다. 읽기 전용 질의 3건만 했다."
+  ],
+  "books": [
+    {
+      "slug": "369-the-red-raincoat",
+      "title": "The Red Raincoat",
+      "source_url": "https://storyweaver.org.in/stories/369-the-red-raincoat",
+      "level": "1",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Kiran Kasturia",
+        "year_published": "18-06-2015",
+        "year_copyright": "2015",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "The Red Raincoat",
+          "authors": [
+            "Kiran Kasturia"
+          ],
+          "slug": "369-the-red-raincoat"
+        },
+        "attribution_string": "This story: The Red Raincoat is written by Kiran Kasturia . © Pratham Books , 2015. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "초·중등 서사",
+        "words_raw": 231,
+        "words_narrative_only": 231,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 9,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2294,
+        "tokens_judged": 231,
+        "proper_noun_per_100w": 6.93,
+        "time_marker_per_100w": 0.43,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 53.3,
+        "page_words_median": 27,
+        "sentence_words_median": 7.5,
+        "sentence_in_6_40_pct": 73.3,
+        "windows_260_400": 0,
+        "windows_90_200": 2,
+        "windows_40_200": 4,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "1052-busy-ants",
+      "title": "Busy Ants",
+      "source_url": "https://storyweaver.org.in/stories/1052-busy-ants",
+      "level": "1",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Kanchan Bannerjee",
+        "year_published": "13-08-2015",
+        "year_copyright": "2015",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Busy Ants",
+          "authors": [
+            "Kanchan Bannerjee"
+          ],
+          "slug": "1052-busy-ants"
+        },
+        "attribution_string": "This story: Busy Ants is written by Kanchan Bannerjee . © Pratham Books , 2015. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "expository",
+        "fills_slot": "A (가중치 0)",
+        "words_raw": 192,
+        "words_narrative_only": 192,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": true,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 11,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.3229,
+        "tokens_judged": 198,
+        "proper_noun_per_100w": 3.13,
+        "time_marker_per_100w": 0,
+        "has_time_marker": false,
+        "dialogue_sentence_pct": 13.6,
+        "page_words_median": 13,
+        "sentence_words_median": 7,
+        "sentence_in_6_40_pct": 77.3,
+        "windows_260_400": 0,
+        "windows_90_200": 1,
+        "windows_40_200": 4,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "15458-ting-tong",
+      "title": "Ting Tong",
+      "source_url": "https://storyweaver.org.in/stories/15458-ting-tong",
+      "level": "1",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Lubaina Bandukwala",
+        "year_published": "18-07-2017",
+        "year_copyright": "2011",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Ting Tong",
+          "authors": [
+            "Lubaina Bandukwala"
+          ],
+          "slug": "15458-ting-tong"
+        },
+        "attribution_string": "This story: Ting Tong is written by Lubaina Bandukwala . © Pratham Books , 2011. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "초·중등 서사",
+        "words_raw": 77,
+        "words_narrative_only": 77,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 11,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2727,
+        "tokens_judged": 78,
+        "proper_noun_per_100w": 5.19,
+        "time_marker_per_100w": 1.3,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 25,
+        "page_words_median": 6,
+        "sentence_words_median": 6,
+        "sentence_in_6_40_pct": 50,
+        "windows_260_400": 0,
+        "windows_90_200": 0,
+        "windows_40_200": 1,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "174103-the-girl-who-could-not-stop-laughing",
+      "title": "The Girl Who Could Not Stop Laughing",
+      "source_url": "https://storyweaver.org.in/stories/174103-the-girl-who-could-not-stop-laughing",
+      "level": "1",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Pratham Books Team",
+        "year_published": "28-08-2020",
+        "year_copyright": "2019",
+        "copyright_holder": "for this re-level lies with Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": true,
+        "original_work": {
+          "title": "The Girl Who Could Not Stop Laughing",
+          "authors": [
+            "Meera Ganapathi"
+          ],
+          "slug": "59108-the-girl-who-could-not-stop-laughing"
+        },
+        "attribution_string": "This story: The Girl Who Could Not Stop Laughing is re-levelled by Pratham Books Team . The © for this re-level lies with Pratham Books , 2019. Some rights reserved. Released under CC BY 4.0 license. Based on Original story: ' The Girl Who Could Not Stop Laughing ' , by Meera Ganapathi . © Pratham Books , 2019. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "no_text",
+        "fills_slot": "초·중등 서사",
+        "words_raw": 0,
+        "words_narrative_only": 0,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 21,
+        "total_pages": 21,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "판정 불가",
+        "latin_ratio": null,
+        "function_word_ratio": null,
+        "tokens_judged": 0,
+        "proper_noun_per_100w": null,
+        "time_marker_per_100w": null,
+        "has_time_marker": false,
+        "dialogue_sentence_pct": null,
+        "page_words_median": null,
+        "sentence_words_median": null,
+        "sentence_in_6_40_pct": null,
+        "windows_260_400": 0,
+        "windows_90_200": 0,
+        "windows_40_200": 0,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "21616-who-ate-all-that-up",
+      "title": "Who Ate All That Up?",
+      "source_url": "https://storyweaver.org.in/stories/21616-who-ate-all-that-up",
+      "level": "1",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Sejal Mehta",
+        "year_published": "07-12-2017",
+        "year_copyright": "2017",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Who Ate All That Up?",
+          "authors": [
+            "Sejal Mehta"
+          ],
+          "slug": "21616-who-ate-all-that-up"
+        },
+        "attribution_string": "This story: Who Ate All That Up? is written by Sejal Mehta . © Pratham Books , 2017. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "expository",
+        "fills_slot": "A (가중치 0)",
+        "words_raw": 132,
+        "words_narrative_only": 132,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": true,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 11,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.4091,
+        "tokens_judged": 132,
+        "proper_noun_per_100w": 3.79,
+        "time_marker_per_100w": 0,
+        "has_time_marker": false,
+        "dialogue_sentence_pct": 0,
+        "page_words_median": 13,
+        "sentence_words_median": 4,
+        "sentence_in_6_40_pct": 24.1,
+        "windows_260_400": 0,
+        "windows_90_200": 1,
+        "windows_40_200": 2,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "10118-ammachi-s-amazing-machines",
+      "title": "Ammachi's Amazing Machines",
+      "source_url": "https://storyweaver.org.in/stories/10118-ammachi-s-amazing-machines",
+      "level": "2",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Rajiv Eipe",
+        "year_published": "05-01-2017",
+        "year_copyright": "2017",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Ammachi's Amazing Machines",
+          "authors": [
+            "Rajiv Eipe"
+          ],
+          "slug": "10118-ammachi-s-amazing-machines"
+        },
+        "attribution_string": "This story: Ammachi's Amazing Machines is written by Rajiv Eipe . © Pratham Books , 2017. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "초·중등 서사",
+        "words_raw": 182,
+        "words_narrative_only": 182,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": true,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 14,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2637,
+        "tokens_judged": 190,
+        "proper_noun_per_100w": 4.4,
+        "time_marker_per_100w": 1.1,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 43.9,
+        "page_words_median": 13,
+        "sentence_words_median": 3,
+        "sentence_in_6_40_pct": 36.6,
+        "windows_260_400": 0,
+        "windows_90_200": 1,
+        "windows_40_200": 3,
+        "starts_with_quote": true,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "26650-the-magic-block",
+      "title": "The Magic Block",
+      "source_url": "https://storyweaver.org.in/stories/26650-the-magic-block",
+      "level": "2",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Lavina  Mahbubani",
+        "year_published": "05-02-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "The Magic Block",
+          "authors": [
+            "Lavina  Mahbubani"
+          ],
+          "slug": "26650-the-magic-block"
+        },
+        "attribution_string": "This story: The Magic Block is written by Lavina Mahbubani . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 402,
+        "words_narrative_only": 324,
+        "words_dropped_apparatus": 78,
+        "dropped_pages": [
+          17,
+          18
+        ],
+        "whole_fits_csat_long_260_400": true,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 18,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.3308,
+        "tokens_judged": 401,
+        "proper_noun_per_100w": 2.74,
+        "time_marker_per_100w": 0.75,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 1.5,
+        "page_words_median": 20,
+        "sentence_words_median": 5,
+        "sentence_in_6_40_pct": 46.2,
+        "windows_260_400": 1,
+        "windows_90_200": 3,
+        "windows_40_200": 6,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "36960-all-aboard",
+      "title": "All Aboard",
+      "source_url": "https://storyweaver.org.in/stories/36960-all-aboard",
+      "level": "2",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Rohini Kejriwal",
+        "year_published": "29-05-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "All Aboard",
+          "authors": [
+            "Rohini Kejriwal"
+          ],
+          "slug": "36960-all-aboard"
+        },
+        "attribution_string": "This story: All Aboard is written by Rohini Kejriwal . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 336,
+        "words_narrative_only": 336,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": true,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 15,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2388,
+        "tokens_judged": 335,
+        "proper_noun_per_100w": 8.63,
+        "time_marker_per_100w": 0.6,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 59.3,
+        "page_words_median": 21,
+        "sentence_words_median": 5,
+        "sentence_in_6_40_pct": 45.8,
+        "windows_260_400": 1,
+        "windows_90_200": 3,
+        "windows_40_200": 7,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "60932-dance-mihlali",
+      "title": "Dance, Mihlali!",
+      "source_url": "https://storyweaver.org.in/stories/60932-dance-mihlali",
+      "level": "2",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Matona Fatman",
+        "year_published": "13-06-2019",
+        "year_copyright": "2018",
+        "copyright_holder": "Book Dash",
+        "publisher": "Book Dash",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Dance, Mihlali!",
+          "authors": [
+            "Matona Fatman"
+          ],
+          "slug": "60932-dance-mihlali"
+        },
+        "attribution_string": "This story: Dance, Mihlali! is written by Matona Fatman . © Book Dash , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "초·중등 서사",
+        "words_raw": 150,
+        "words_narrative_only": 150,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": true,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 2,
+        "total_pages": 18,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2733,
+        "tokens_judged": 151,
+        "proper_noun_per_100w": 2.67,
+        "time_marker_per_100w": 0,
+        "has_time_marker": false,
+        "dialogue_sentence_pct": 19.2,
+        "page_words_median": 7.5,
+        "sentence_words_median": 6,
+        "sentence_in_6_40_pct": 65.4,
+        "windows_260_400": 0,
+        "windows_90_200": 1,
+        "windows_40_200": 3,
+        "starts_with_quote": false,
+        "starts_with_anaphora": true,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "223330-the-little-plant",
+      "title": "The Little Plant",
+      "source_url": "https://storyweaver.org.in/stories/223330-the-little-plant",
+      "level": "2",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Radha Rangarajan",
+        "year_published": "03-03-2021",
+        "year_copyright": "2021",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "The Little Plant",
+          "authors": [
+            "Radha Rangarajan"
+          ],
+          "slug": "223330-the-little-plant"
+        },
+        "attribution_string": "This story: The Little Plant is written by Radha Rangarajan . © Pratham Books , 2021. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "expository",
+        "fills_slot": "A (가중치 0)",
+        "words_raw": 91,
+        "words_narrative_only": 91,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": true,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 7,
+        "total_pages": 9,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.3077,
+        "tokens_judged": 92,
+        "proper_noun_per_100w": 14.29,
+        "time_marker_per_100w": 0,
+        "has_time_marker": false,
+        "dialogue_sentence_pct": 0,
+        "page_words_median": 45.5,
+        "sentence_words_median": 9.5,
+        "sentence_in_6_40_pct": 100,
+        "windows_260_400": 0,
+        "windows_90_200": 1,
+        "windows_40_200": 2,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "59108-the-girl-who-could-not-stop-laughing",
+      "title": "The Girl Who Could Not Stop Laughing",
+      "source_url": "https://storyweaver.org.in/stories/59108-the-girl-who-could-not-stop-laughing",
+      "level": "3",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Meera Ganapathi",
+        "year_published": "15-04-2019",
+        "year_copyright": "2019",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "The Girl Who Could Not Stop Laughing",
+          "authors": [
+            "Meera Ganapathi"
+          ],
+          "slug": "59108-the-girl-who-could-not-stop-laughing"
+        },
+        "attribution_string": "This story: The Girl Who Could Not Stop Laughing is written by Meera Ganapathi . © Pratham Books , 2019. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 925,
+        "words_narrative_only": 886,
+        "words_dropped_apparatus": 39,
+        "dropped_pages": [
+          21
+        ],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 21,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2269,
+        "tokens_judged": 935,
+        "proper_noun_per_100w": 3.57,
+        "time_marker_per_100w": 0.65,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 23.2,
+        "page_words_median": 38,
+        "sentence_words_median": 7,
+        "sentence_in_6_40_pct": 56.3,
+        "windows_260_400": 3,
+        "windows_90_200": 6,
+        "windows_40_200": 12,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "10727-the-will",
+      "title": "The Will",
+      "source_url": "https://storyweaver.org.in/stories/10727-the-will",
+      "level": "3",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Pragya Gopinath",
+        "year_published": "19-01-2017",
+        "year_copyright": "2015",
+        "copyright_holder": "for this translation lies with Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": true,
+        "is_relevel": false,
+        "original_work": {
+          "title": "وصیت",
+          "authors": [
+            "Anis Azmi"
+          ],
+          "slug": "9844-vaseeyat"
+        },
+        "attribution_string": "This story: The Will is translated by Pragya Gopinath . The © for this translation lies with Pratham Books , 2015. Some rights reserved. Released under CC BY 4.0 license. Based on Original story: ' وصیت ' , by Anis Azmi . © Pratham Books , 2015. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 1045,
+        "words_narrative_only": 1045,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 4,
+        "total_pages": 15,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2938,
+        "tokens_judged": 1038,
+        "proper_noun_per_100w": 3.83,
+        "time_marker_per_100w": 0.77,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 15.9,
+        "page_words_median": 101,
+        "sentence_words_median": 12,
+        "sentence_in_6_40_pct": 86.6,
+        "windows_260_400": 3,
+        "windows_90_200": 8,
+        "windows_40_200": 10,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "28270-anna-s-extraordinary-experiments-with-weather",
+      "title": "Anna's Extraordinary Experiments with Weather",
+      "source_url": "https://storyweaver.org.in/stories/28270-anna-s-extraordinary-experiments-with-weather",
+      "level": "3",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Nandita Jayaraj",
+        "year_published": "01-03-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Anna's Extraordinary Experiments with Weather",
+          "authors": [
+            "Nandita Jayaraj"
+          ],
+          "slug": "28270-anna-s-extraordinary-experiments-with-weather"
+        },
+        "attribution_string": "This story: Anna's Extraordinary Experiments with Weather is written by Nandita Jayaraj . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "biography",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 658,
+        "words_narrative_only": 442,
+        "words_dropped_apparatus": 216,
+        "dropped_pages": [
+          15,
+          16,
+          17,
+          18
+        ],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 2,
+        "total_pages": 18,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.3,
+        "tokens_judged": 670,
+        "proper_noun_per_100w": 6.84,
+        "time_marker_per_100w": 0.15,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 13.2,
+        "page_words_median": 40,
+        "sentence_words_median": 7,
+        "sentence_in_6_40_pct": 67.1,
+        "windows_260_400": 1,
+        "windows_90_200": 4,
+        "windows_40_200": 8,
+        "starts_with_quote": true,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "47980-shoecat-thoocat",
+      "title": "Shoecat Thoocat",
+      "source_url": "https://storyweaver.org.in/stories/47980-shoecat-thoocat",
+      "level": "3",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Shalini  Srinivasan ",
+        "year_published": "09-11-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Shoecat Thoocat",
+          "authors": [
+            "Shalini  Srinivasan "
+          ],
+          "slug": "47980-shoecat-thoocat"
+        },
+        "attribution_string": "This story: Shoecat Thoocat is written by Shalini Srinivasan . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 445,
+        "words_narrative_only": 445,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 19,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2977,
+        "tokens_judged": 442,
+        "proper_noun_per_100w": 4.94,
+        "time_marker_per_100w": 0.9,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 21.8,
+        "page_words_median": 21,
+        "sentence_words_median": 7,
+        "sentence_in_6_40_pct": 63.6,
+        "windows_260_400": 1,
+        "windows_90_200": 4,
+        "windows_40_200": 8,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "300555-haru",
+      "title": "Haru",
+      "source_url": "https://storyweaver.org.in/stories/300555-haru",
+      "level": "3",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Manjari Chakravarti",
+        "year_published": "05-08-2021",
+        "year_copyright": "2021",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Haru",
+          "authors": [
+            "Manjari Chakravarti"
+          ],
+          "slug": "300555-haru"
+        },
+        "attribution_string": "This story: Haru is written by Manjari Chakravarti . © Pratham Books , 2021. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "초·중등 서사",
+        "words_raw": 193,
+        "words_narrative_only": 193,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": true,
+        "whole_fits_mid_90_200": true,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 1,
+        "total_pages": 14,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 0.9987,
+        "function_word_ratio": 0.2969,
+        "tokens_judged": 193,
+        "proper_noun_per_100w": 4.15,
+        "time_marker_per_100w": 0.52,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 0,
+        "page_words_median": 7,
+        "sentence_words_median": 6.5,
+        "sentence_in_6_40_pct": 59.1,
+        "windows_260_400": 0,
+        "windows_90_200": 2,
+        "windows_40_200": 3,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "34911-the-case-of-the-missing-water",
+      "title": "The Case of the Missing Water",
+      "source_url": "https://storyweaver.org.in/stories/34911-the-case-of-the-missing-water",
+      "level": "4",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Shalini  Srinivasan ",
+        "year_published": "08-05-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "The Case of the Missing Water",
+          "authors": [
+            "Shalini  Srinivasan "
+          ],
+          "slug": "34911-the-case-of-the-missing-water"
+        },
+        "attribution_string": "This story: The Case of the Missing Water is written by Shalini Srinivasan . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 1052,
+        "words_narrative_only": 969,
+        "words_dropped_apparatus": 83,
+        "dropped_pages": [
+          21,
+          22
+        ],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 1,
+        "total_pages": 22,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2927,
+        "tokens_judged": 1054,
+        "proper_noun_per_100w": 2.57,
+        "time_marker_per_100w": 0.57,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 39.1,
+        "page_words_median": 46,
+        "sentence_words_median": 6,
+        "sentence_in_6_40_pct": 55.6,
+        "windows_260_400": 3,
+        "windows_90_200": 8,
+        "windows_40_200": 13,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "30972-kali-wants-to-dance",
+      "title": "Kali Wants to Dance",
+      "source_url": "https://storyweaver.org.in/stories/30972-kali-wants-to-dance",
+      "level": "4",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Aparna Karthikeyan",
+        "year_published": "21-03-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Kali Wants to Dance",
+          "authors": [
+            "Aparna Karthikeyan"
+          ],
+          "slug": "30972-kali-wants-to-dance"
+        },
+        "attribution_string": "This story: Kali Wants to Dance is written by Aparna Karthikeyan . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "biography",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 994,
+        "words_narrative_only": 747,
+        "words_dropped_apparatus": 247,
+        "dropped_pages": [
+          14,
+          15,
+          16
+        ],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 16,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.2788,
+        "tokens_judged": 998,
+        "proper_noun_per_100w": 10.56,
+        "time_marker_per_100w": 0.6,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 15.4,
+        "page_words_median": 62,
+        "sentence_words_median": 9,
+        "sentence_in_6_40_pct": 79.1,
+        "windows_260_400": 2,
+        "windows_90_200": 6,
+        "windows_40_200": 10,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "38508-the-golden-bird",
+      "title": "The Golden Bird",
+      "source_url": "https://storyweaver.org.in/stories/38508-the-golden-bird",
+      "level": "4",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Alisha Berger",
+        "year_published": "28-01-2019",
+        "year_copyright": "2014",
+        "copyright_holder": "for this translation lies with Room to Read",
+        "publisher": "Room to Read",
+        "is_translation": true,
+        "is_relevel": false,
+        "original_work": {
+          "title": "সোনার পাখি",
+          "authors": [
+            "Sayed Ashique Mahmood"
+          ],
+          "slug": "37740-sonar-pakhi"
+        },
+        "attribution_string": "This story: The Golden Bird is translated by Alisha Berger . The © for this translation lies with Room to Read , 2014. Some rights reserved. Released under CC BY 4.0 license. Based on Original story: ' সোনার পাখি ' , by Sayed Ashique Mahmood . © Room to Read , 2014. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 1458,
+        "words_narrative_only": 1458,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 3,
+        "total_pages": 33,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.318,
+        "tokens_judged": 1456,
+        "proper_noun_per_100w": 1.44,
+        "time_marker_per_100w": 0.62,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 28.9,
+        "page_words_median": 43.5,
+        "sentence_words_median": 11,
+        "sentence_in_6_40_pct": 83,
+        "windows_260_400": 5,
+        "windows_90_200": 11,
+        "windows_40_200": 22,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "31924-telephones-bell-to-cell",
+      "title": "Telephones - Bell to Cell",
+      "source_url": "https://storyweaver.org.in/stories/31924-telephones-bell-to-cell",
+      "level": "4",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "Veena Prasad",
+        "year_published": "12-04-2018",
+        "year_copyright": "2018",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Telephones - Bell to Cell",
+          "authors": [
+            "Veena Prasad"
+          ],
+          "slug": "31924-telephones-bell-to-cell"
+        },
+        "attribution_string": "This story: Telephones - Bell to Cell is written by Veena Prasad . © Pratham Books , 2018. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "expository",
+        "fills_slot": "A (가중치 0)",
+        "words_raw": 1246,
+        "words_narrative_only": 987,
+        "words_dropped_apparatus": 259,
+        "dropped_pages": [
+          18,
+          19,
+          21
+        ],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 1,
+        "total_pages": 21,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.3285,
+        "tokens_judged": 1257,
+        "proper_noun_per_100w": 1.52,
+        "time_marker_per_100w": 0.88,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 3.6,
+        "page_words_median": 60.5,
+        "sentence_words_median": 10,
+        "sentence_in_6_40_pct": 87.4,
+        "windows_260_400": 3,
+        "windows_90_200": 8,
+        "windows_40_200": 14,
+        "starts_with_quote": false,
+        "starts_with_anaphora": false,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    },
+    {
+      "slug": "15758-grandfather-goes-on-strike",
+      "title": "Grandfather Goes on Strike",
+      "source_url": "https://storyweaver.org.in/stories/15758-grandfather-goes-on-strike",
+      "level": "4",
+      "g0": {
+        "license_raw": "Released under CC BY 4.0 license",
+        "license_class": "CC BY",
+        "license_version": "4.0",
+        "license_url": "http://creativecommons.org/licenses/by/4.0/",
+        "route": "R1",
+        "author": "K.S.  Nagarajan ",
+        "year_published": "27-07-2017",
+        "year_copyright": "2009",
+        "copyright_holder": "Pratham Books",
+        "publisher": "Pratham Books",
+        "is_translation": false,
+        "is_relevel": false,
+        "original_work": {
+          "title": "Grandfather Goes on Strike",
+          "authors": [
+            "K.S.  Nagarajan "
+          ],
+          "slug": "15758-grandfather-goes-on-strike"
+        },
+        "attribution_string": "This story: Grandfather Goes on Strike is written by K.S. Nagarajan . © Pratham Books , 2009. Some rights reserved. Released under CC BY 4.0 license.",
+        "evidence": "[측정: /api/v1/stories/<slug>/read?embed=true 의 BackInnerCoverPage 본문 + /api/v1/stories/<slug>]"
+      },
+      "g1": {
+        "register_human_read": "narrative",
+        "fills_slot": "C 장문 서사 (발췌) + 초·중등 서사",
+        "words_raw": 5615,
+        "words_narrative_only": 5615,
+        "words_dropped_apparatus": 0,
+        "dropped_pages": [],
+        "whole_fits_csat_long_260_400": false,
+        "whole_fits_elem6_40_194": false,
+        "whole_fits_mid_90_200": false,
+        "evidence": "[측정: 본문 낱말 수 · 부속 쪽은 사람 판독으로 지정]"
+      },
+      "g2": {
+        "illustration_only_pages": 0,
+        "total_pages": 46,
+        "evidence": "[측정: StoryPage 중 텍스트 0인 쪽]"
+      },
+      "g3": {
+        "english_verdict": "영어",
+        "latin_ratio": 1,
+        "function_word_ratio": 0.3001,
+        "tokens_judged": 5000,
+        "proper_noun_per_100w": 1.69,
+        "time_marker_per_100w": 0.64,
+        "has_time_marker": true,
+        "dialogue_sentence_pct": 14.2,
+        "page_words_median": 130,
+        "sentence_words_median": 7,
+        "sentence_in_6_40_pct": 66,
+        "windows_260_400": 16,
+        "windows_90_200": 30,
+        "windows_40_200": 41,
+        "starts_with_quote": false,
+        "starts_with_anaphora": true,
+        "evidence": "[측정: scratchpad/sw/metrics.mjs · trim.mjs]"
+      }
+    }
+  ]
+}

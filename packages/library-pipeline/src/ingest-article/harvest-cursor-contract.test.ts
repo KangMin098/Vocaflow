@@ -105,8 +105,18 @@ describe('수확기 등록부 — 커서 없는 목록기를 말없이 못 붙�
     // 이 검사가 0건 통과하면 위의 「등록부에 있다」가 스크립트 수확기를 하나도 안 지킨다.
     const scripts = scriptListers()
     expect(scripts.length, '`@harvest-source:` 를 선언한 스크립트가 없다').toBeGreaterThan(0)
-    expect(scripts.map((s) => s.source)).toContain('gutenberg')
-    expect(HARVEST_CURSOR_REGISTRY.gutenberg?.cursorFile, 'Gutenberg 커서가 사라졌다').toBeTruthy()
+    // ⚠️ 예전에는 `gutenberg` 를 이름으로 못 박아 두었는데, 2026-09-24 에 그 원천을
+    //   퇴출하자 이 줄이 걸렸다. 검사의 뜻은 「gutenberg 가 있다」가 아니라
+    //   **「스크립트 수확기도 등록부를 지킨다」** 이므로, 특정 이름 대신 **선언한 전부**를 본다.
+    //   이름을 박으면 원천이 하나 바뀔 때마다 멀쩡한 검사가 깨진다.
+    for (const s of scripts) {
+      const entry = HARVEST_CURSOR_REGISTRY[s.source as keyof typeof HARVEST_CURSOR_REGISTRY]
+      expect(entry, `${s.source} 수확기가 등록부에 없다 (${s.file})`).toBeTruthy()
+      expect(
+        entry.cursorFile || entry.reason,
+        `${s.source} 는 커서도 이유도 없다 — 깊이 캐면서 어디까지 봤는지 아무도 모른다`,
+      ).toBeTruthy()
+    }
   })
 
   it('2026-09-07 에 고친 셋은 이유가 아니라 커서 파일을 갖는다', () => {

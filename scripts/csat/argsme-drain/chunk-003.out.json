@@ -1,0 +1,312 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "003",
+  "items": [
+    {
+      "id": "36fcabed-2019-04-19T12:46:36Z-00007-000",
+      "sha256": "1118ac9003285eadd183564d2276dcf324126aa337b780745dca4e1ef5931367",
+      "verdict": "write",
+      "topic_ko": "국가의 비밀 정보 수집과 사생활 통제권 — 건별 사법 승인의 필요",
+      "passage": "A free society rests on a simple promise: each person holds a private store of letters, accounts and opinions, and decides who may look inside it. When officials quietly collect bank records and phone logs, that decision is taken away from the very person who should be holding it. Those who defend such programs often claim that the practice is no different from an ordinary police search, yet the comparison fails where it matters most. Police must normally inform a suspect once an investigation has opened, and a court has to weigh every search separately before it may proceed. An official who approves a thousand requests before lunch provides nothing of the kind, because not one of those cases has been examined on its own. Secret watching may indeed protect a country from real harm, and few would argue that every file should be open to the public. Safety that is bought by removing the citizen's control over private life, however, is not the kind of safety a democracy was built to defend.",
+      "claim": "Secret collection of personal data by the state should require approval case by case rather than a single blanket signature."
+    },
+    {
+      "id": "370f00ff-2019-04-18T16:24:01Z-00003-000",
+      "sha256": "2634873a248ca2762eb3f1d1beb715fa4d3836235732d6fb594003bb637091d3",
+      "verdict": "write",
+      "topic_ko": "아이의 형질을 고르는 기술과 다양성의 상실",
+      "passage": "Parents who could order the traits of a child would almost certainly order much the same list, because fashion in health and beauty is remarkably narrow. A population that has been shaped by one generation's taste is far less varied than one shaped by chance, and variety is exactly what protects a species. Every serious change in climate, food supply or disease has been survived by the odd members of a group rather than by the ideal ones. A crop grown from a single perfect seed is wiped out by one new insect, while a mixed field loses only part of its plants. Human beings are not crops, yet the same rule holds, since no parent can know which body will be needed in eighty years. There is also a quieter cost, because a child built to a plan carries the weight of that plan for a whole life. Freedom to become an unexpected person is worth more than any advantage a printed list of features could promise.",
+      "claim": "Choosing a child’s traits narrows the variety that allows a population to survive change."
+    },
+    {
+      "id": "378f5f8b-2019-04-15T20:24:33Z-00017-000",
+      "sha256": "fa53fbd677f50eb4256240b8a49bec52f929862cd82f4c0876e07802cc1043a6",
+      "verdict": "write",
+      "topic_ko": "대학 교육의 온라인 이전 — 아낀 돈을 교육과 연구로",
+      "passage": "A great deal of what a university spends never reaches a student, since buildings, parking, halls of residence and the staff who manage them must be paid for first. Surveys of public universities have found that administration alone takes about a twelfth of the budget on average, and nearly a fifth at the most costly places. Teaching delivered over the network removes much of that weight, because a recorded lecture needs no hall, no heating and no evening cleaning. The money released does not vanish; it can be moved to salaries, libraries and research, which are the activities a university exists to perform. Reach improves as well, since a student in a distant town follows the same course as one who lives beside the gates. Something is certainly lost when young people never share a room, and that objection deserves an answer rather than a shrug. The sensible course is to keep the meetings that truly need a room and to move everything else, rather than defending buildings out of habit.",
+      "claim": "Universities should move most teaching onto the network because the money saved can be spent on teaching and research."
+    },
+    {
+      "id": "37d99e29-2019-04-18T19:21:07Z-00000-000",
+      "sha256": "fa7f1d8adabc0630a26104e14331289e053c2b00e933cded7dc74b9abe30a880",
+      "verdict": "write",
+      "topic_ko": "교과 추가 논쟁 — 언어와 수의 기초가 먼저다",
+      "passage": "Every new subject that enters a school timetable takes its hours from something else, so the question is never simply whether a subject has some value of its own. Language and number work have a claim that few other subjects can match, because they are used in every job and in ordinary life outside work. A person who writes a clear letter is trusted more quickly than one who does not, and the difference is often the difference between an offer and a polite refusal. Numbers are just as constant, since prices, wages, interest and simple statistics appear in decisions that nobody can avoid. Subjects such as philosophy, art and a second language do bring real gains, and schools should protect them wherever the basic skills are already secure. The order matters, though, because a student who has not mastered a paragraph or a percentage cannot use the finer subjects at all. Firm ground first and height afterwards is the rule that has served school timetables best, and nothing has yet overturned it.",
+      "claim": "Schools should secure basic language and number skills before adding new subjects to the timetable."
+    },
+    {
+      "id": "3812b086-2019-04-18T15:27:29Z-00003-000",
+      "sha256": "3302288c42fef92b875c02273b5be492fad8453eb7356cb295869c337d033764",
+      "verdict": "write",
+      "topic_ko": "국방비 삭감과 국내 지출로의 이전",
+      "passage": "A defence budget is not a measure of safety by itself, and money can be added to it long after the danger that first justified it has passed. Much of what is bought in a large military programme is equipment for a war that nobody expects, kept because the same line stood in the budget last year. The same money has uses that are easy to see on any city street, where shelters are full and older people who once served are living badly. Spending at home also returns, since a family with more income buys goods, and the shops that supply them hire more workers. Borrowing on an enormous scale for weapons, by contrast, leaves a debt that must be paid through taxes by the next generation. Security is real and nobody sensible would leave a country open, yet there is a level beyond which extra spending buys very little. Finding that level, rather than repeating the total of last year, is the honest work of a government.",
+      "claim": "A share of a very large defence budget should be moved to urgent needs at home."
+    },
+    {
+      "id": "3aa2ad07-2019-04-15T20:22:23Z-00017-000",
+      "sha256": "8a583eddc9cc82d2da478bfddc7d9bc7dc7adcfc214768f52c6d8c32654ed50a",
+      "verdict": "write",
+      "topic_ko": "에너지 효율을 끌어올리는 힘 — 정책보다 이윤 동기",
+      "passage": "Energy standards rise fastest when saving energy is profitable, because a profit is a reason that does not change when an election changes the government. A rule written by one administration can be weakened by the next, and firms that have watched this happen learn to delay investment until the direction is clear again. The cost of energy, by contrast, appears in every account a company prepares, so a factory that has cut its use keeps the gain whatever happens in the capital. Oil prices swing wildly, and the memory of the last high price is enough to keep managers buying better machines even while prices are low. None of this means that government has no part, since basic research and honest measurement are public work that no single firm will ever pay for. The mistake is to treat policy as the engine and the market as the passenger, when the steadier force is the ordinary search for lower costs. Standards that ride on that force outlast the ministers who announce them.",
+      "claim": "Profit is a steadier driver of better energy standards than government policy."
+    },
+    {
+      "id": "3b1910e-2019-04-18T13:30:51Z-00001-000",
+      "sha256": "28537977c766b566b571bbb75293ec6ca50c9a904a8bc51b11ba202d3cdd81e3",
+      "verdict": "write",
+      "topic_ko": "운동선수의 고액 연봉 — 노력이 아니라 관객의 크기가 정한다",
+      "passage": "Pay in professional sport is often attacked as unfair, yet the complaint usually rests on a belief that a wage should match the effort behind it. Effort is not what any wage measures, because a market pays for what many people are willing to buy, and few goods are bought by so many at once. A single match may be watched by tens of millions of people, and companies pay enormous sums to place their products beside it. An engineer who designs the screen works just as hard, but the value of that work is spread thinly across years and across many quiet buyers. The value of a famous player, by contrast, arrives inside two hours and then disappears, which is exactly why it commands so much. Calling such pay unfair is therefore an argument about what the public chooses to watch rather than about greedy players. A society that wants different wages should look first at its own habits of attention.",
+      "claim": "Pay in professional sport follows the size of the paying audience rather than the effort involved."
+    },
+    {
+      "id": "3b73d45e-2019-04-19T12:44:32Z-00013-000",
+      "sha256": "b46a69759eaa2a57f25b357bc8c23d2671f92aac9fb65afcdd9ede31bc709a58",
+      "verdict": "write",
+      "topic_ko": "속도 제한 강화와 자동차 세금 인상의 자기모순",
+      "passage": "A government that raises taxes on cars while cutting the speed at which they may be driven is working against itself in a way that is easy to miss. Drivers pay for the time they save, and a road that has been slowed is worth less to them, so the same journey is made less often. Fuel taxes, road taxes and the charges paid on parts and repairs all fall together when driving falls, and those sums are large in most national budgets. The loss does not stop there, because people who give up a car in a country built around cars find fewer jobs within reach. Lower incomes then mean lower income taxes, so a second loss follows quietly behind the first. Slower roads may well save lives, and that case deserves a full hearing on its own terms. What cannot be defended is a policy that treats drivers as a source of money and as a problem to be removed at the same moment.",
+      "claim": "A government cannot discourage driving and rely on motoring taxes at the same time."
+    },
+    {
+      "id": "3d1a752c-2019-04-18T17:01:05Z-00004-000",
+      "sha256": "6277263c78aa940cc13a58add806fbbdbf0420a6efd63c9d3f1e6d6c9c9c39c8",
+      "verdict": "write",
+      "topic_ko": "미성년자의 중대한 의료 결정에 보호자가 함께해야 하는가",
+      "passage": "Young people should have access to medical care that protects their health, and a system that leaves them with nowhere to turn has already failed them. Access, however, is not the same as deciding alone, and the difference matters most when a decision carries effects that last for years. A student of fourteen is under heavy pressure from friends, from images and from the wish to appear older, and those forces are strongest exactly when calm judgement is needed. An adult who knows the whole history of that child can supply the memory and the distance that the moment itself does not allow. The common objection is that some homes are unsafe, and the objection is both true and serious. The answer is a named adult, a doctor or another trusted grown person rather than no adult at all, since silence is not the same thing as safety. Care that is shared with someone older protects a young person twice, once from harm and once from a choice made in a hurry.",
+      "claim": "Serious medical decisions taken by young teenagers should involve a trusted adult rather than the young person alone."
+    },
+    {
+      "id": "3d4ee487-2019-04-18T17:32:20Z-00004-000",
+      "sha256": "1e65261417c651ffd7d0ec65ad9c63046be9b6391ca6ac489b03247e623f7e76",
+      "verdict": "write",
+      "topic_ko": "정규 교육이 성공을 보장하지 못하는 이유 — 순응 훈련",
+      "passage": "Formal education does give a student real habits, including time keeping, steady work and the patience to finish what has been started. What it does not train is the willingness to leave the marked path, and that willingness is what separates the people who build something genuinely new. A classroom is organised around an adult who sets the task, judges the result and decides when the work is over. Years inside that shape teach a young person to wait for instructions, which prepares one kind of career very well and every other kind rather badly. The famous cases of founders who left their studies early are not proof by themselves, since most of those who leave build nothing at all. They are useful, though, as evidence that the ordinary system rewards a narrow sort of obedience. Schools that added regular hours for projects chosen and finished by students alone would lose nothing and would return the missing half of the training.",
+      "claim": "Formal education trains obedience more thoroughly than the independent thinking that success demands."
+    },
+    {
+      "id": "3d7a338e-2019-04-19T12:47:35Z-00019-000",
+      "sha256": "651bc8fa8d3890c619038a593aadc1b20627fb7c6e70e5a1295399c946ce1d0a",
+      "verdict": "write",
+      "topic_ko": "골라인 판독 기술 — 이미 있는 중계 장비로 좁게 쓰자",
+      "passage": "Goals decide matches, and a goal wrongly given or wrongly refused can undo a season of work in a single second. The equipment needed to settle such moments already exists at every important match, because the companies that broadcast the game surround the field with cameras. A screen placed beside the officials, used only for the question of whether the ball crossed the line, would therefore cost the clubs almost nothing at all. The usual fear is that machines will creep into every decision and stop the game constantly, but a rule limited to one plain fact leaves no room for that. Matches too small for cameras would simply continue as before, and the arguments they produce are part of the ordinary pleasure of the sport. A tool that has already been paid for, aimed at the one decision that cannot be argued away afterwards, is long overdue. Waiting for a perfect system has cost the game far more than a modest one ever would.",
+      "claim": "Goal-line technology should be used at matches where broadcast cameras already exist, and only for that single question."
+    },
+    {
+      "id": "3dd6fc5e-2019-04-18T12:42:02Z-00000-000",
+      "sha256": "83bcfc8948fc6adceedd8ec125b1cbe5ea88c494b2f5e5954c46040e12db635c",
+      "verdict": "write",
+      "topic_ko": "자연을 전시물로 보존하는 것은 살아 있는 자연을 대신할 수 없다",
+      "passage": "A museum can keep the shape of a tree, but a tree is not a shape; it is a process that draws water upward and returns air to the sky. Cutting a forest and charging visitors to view what remains would preserve the picture while destroying everything that the picture was made of. Living trees hold soil in place, cool the ground beneath them, feed insects and birds, and clean the air of a whole region for nothing. Machines can indeed produce oxygen, yet the energy for such a machine has to come from somewhere, and the bill would be enormous. There is also a loss that no ticket price can measure, since a child who meets nature only behind glass learns that the living world is a display. The worth of a forest lies in the work it performs while it is alive, and no exhibition has ever performed that work. Preserving the appearance of nature while removing its function is not preservation at all, and no entrance fee can hide the difference.",
+      "claim": "Preserved specimens cannot replace a living forest, because the value of a forest lies in the work it does while alive."
+    },
+    {
+      "id": "3fa9cf9c-2019-04-18T17:30:16Z-00003-000",
+      "sha256": "b6ed765d041443f06ee5fca799de1483dadd1f7ac504373394371d7926dccef4",
+      "verdict": "write",
+      "topic_ko": "예술과 음악 수업의 필수화 — 재능 발견을 넘어 인격과 회복력",
+      "passage": "Art and music are usually defended as a way of finding talent, but the stronger case has very little to do with talent at all. Children who spend regular hours making something with their hands or their voices learn that a first attempt is allowed to be poor. That lesson is rare in school, where most subjects reward a correct answer and quietly punish the attempt that fails. Long studies of early schooling have found that pupils with steady contact with the arts hold a more positive view of difficulty in later years, and that advantage lasts. Mathematics and science explain how the world works, which is essential, while art and music ask what is worth caring about in it. A timetable that carries only the first question produces people who can measure everything and value nothing. For that reason the arts belong among the required subjects rather than among the treats offered to those with spare hours and willing parents.",
+      "claim": "Art and music should be required subjects because they build character and the patience to fail, not merely because they reveal talent."
+    },
+    {
+      "id": "40297317-2019-04-18T16:20:01Z-00003-000",
+      "sha256": "0a203b421efb2f8e29ab7fe24165ddb0fad05353f3b58cefc90b732b0ce54c2a",
+      "verdict": "write",
+      "topic_ko": "개인 맞춤 학습과 교실 학습 — 뒤처졌다 따라잡는 경험의 가치",
+      "passage": "Lessons matched to each learner look strictly better, since nobody waits and nobody is left behind, and the machine never loses patience. Something real is lost all the same, because a system in which a student can never fall behind is also one in which nobody has to climb back. Falling behind and catching up is itself a skill, and it is the skill most often demanded at work, where deadlines arrive whether or not a worker feels ready. A classroom supplies that pressure in a safe form, with a teacher nearby and a shared date that every member of the room has to meet. Personal pacing supplies comfort instead, and comfort trains the wrong habits for a world that will not adjust itself to any single person. The strongest arrangement keeps the fixed deadline and adds personal tools for the hours in between, rather than replacing the one with the other. Deadlines shared by a whole room are not a defect of the older classroom; they are the part most worth keeping.",
+      "claim": "A classroom teaches recovery from falling behind, and learning at a private pace quietly removes that lesson."
+    },
+    {
+      "id": "40a5182d-2019-04-18T18:55:00Z-00005-000",
+      "sha256": "f9b82aaef58dae8059958e0808f0943d64e4789deff3e2cf3913209cf93e5b4a",
+      "verdict": "skip",
+      "skip_reason": "한 나라의 헌법과 특정 단체를 전제한 총기 소유권 옹호문이라 정치적으로 치우쳐 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "40eb61f3-2019-04-18T15:16:46Z-00005-000",
+      "sha256": "744188fe8b1b6efc9db97af02068aed756fca16b74a9f4151da4c5c817220016",
+      "verdict": "write",
+      "topic_ko": "깊은 애착은 복제될 수 있는가 — 애정의 고유성 논증",
+      "passage": "No rule can fix how many people a single heart may hold in deep affection, and the customs that pretend otherwise come from society rather than nature. Custom, however, is able to shape an opinion and nothing more, since it cannot settle what a strong attachment actually is. The heart of the question is whether the same bond can exist twice at once, in the very same form and with the same weight. An attachment that could be copied exactly was never particular to the person it was aimed at, since the thing being repeated is the thing that made it theirs. Deep feeling of that kind grows out of a shared history that no second person has lived through, and a history cannot be copied. Two attachments can certainly be strong at the same moment, yet they will not be the same attachment, and that difference is the whole answer. Calling both of them by one word hides a distinction that anyone who has been loved can feel.",
+      "claim": "A bond that could be copied exactly was never particular to the person it was aimed at."
+    },
+    {
+      "id": "4159ba7a-2019-04-18T18:05:41Z-00005-000",
+      "sha256": "40cf9f93cfc15b9914c998beab083b82cca8b46ed28a9ec2f2d90fa5cb593e24",
+      "verdict": "write",
+      "topic_ko": "숙제 대신 학교에서의 30분 — 가정환경 격차를 줄이는 장치",
+      "passage": "Homework looks like the same task for every child, but it is completed in homes that differ enormously in quiet, in space and in adult help. A pupil with a spare room and an educated parent finishes in an hour, while another shares a kitchen table and receives no help at all. The marks that follow measure the home as much as the child, and a school that ignores this is reporting the wrong number. Half an hour of supervised study at the end of the day removes most of that difference, because the help is given by a teacher to everyone in the room. The cost is a slightly longer day, which is a modest price for evenings that are genuinely free for rest, for sport and for family. Earlier attempts to ban written homework failed because nothing was offered in its place, and that empty space is precisely what this arrangement fills. Fairness in a school is measured by what happens to the child who has the least help at home.",
+      "claim": "Supervised study at the end of the school day is fairer than homework because it removes the advantage of a comfortable home."
+    },
+    {
+      "id": "41aaccd5-2019-04-18T19:48:47Z-00005-000",
+      "sha256": "eb6abd3285a1ee035aa036c2e943223d95eaba5a1577e3e634060032f18bd894",
+      "verdict": "write",
+      "topic_ko": "숙제의 교육적 가치 — 책임감·독립적 사고·기억의 고정",
+      "passage": "Homework is often described as a burden, yet it is the only part of school that a student has to organise alone, without an adult standing nearby. Planning an evening around a task that is due tomorrow is a small rehearsal for every deadline that will follow, and the habit forms early or never. A second gain is independence of mind, since a pupil who is stuck at home must find a way forward instead of raising a hand. Material also fades quickly, and work repeated a few hours after the lesson holds far better than work that was seen once in a crowded room. Even the mild pressure that homework creates has a use, because a first meeting with pressure is better faced at fifteen than at thirty. None of this defends the mountain of tasks that some schools set, which exhausts pupils, angers families and teaches them nothing. Short, regular and honestly marked homework is the form that earns its place in a week, and the form that most schools have yet to adopt.",
+      "claim": "Short and regular homework earns its place because it builds responsibility, independent thinking and lasting memory."
+    },
+    {
+      "id": "43a4f186-2019-04-18T19:53:00Z-00006-000",
+      "sha256": "5256d29c7addd1d98a81fe8a6e91f235785a8d4a8167ced6a790bee771b9fe33",
+      "verdict": "write",
+      "topic_ko": "급식 비판의 일반화 오류 — 넓은 주장은 식단을 바꾸지 못한다",
+      "passage": "A claim that school food is bad sounds like a description of the world, but it is far too broad to act upon. Schools differ enormously, since some serve fresh meals prepared on site, some buy frozen trays from a distant supplier, and a number of private schools serve no lunch at all. The word bad also hides two separate complaints, because a meal can be dull and healthy or pleasant and poor in nutrition. An argument that never says which schools and which fault cannot be tested, and a claim that cannot be tested cannot be answered either. Precise complaints, by contrast, have changed menus in many places, since a named school with measured salt or sugar leaves an official with something to fix. Anger at a whole system feels stronger than a narrow report, yet the narrow report is what actually moves a kitchen in the end. Those who want better meals should therefore trade the large statement for the small one, and name the school they mean.",
+      "claim": "A sweeping claim that school food is bad cannot be tested and therefore cannot change a single kitchen."
+    },
+    {
+      "id": "440c6bc3-2019-04-15T20:22:44Z-00028-000",
+      "sha256": "c345128597bc4bfbf7da65a5918c234e8c6fcd71443fdf18de9b9bbd0c5b08b4",
+      "verdict": "write",
+      "topic_ko": "세계정부론 — 전능한 세계국가가 아니라 제한된 형태의 가능성",
+      "passage": "The idea of a world government is usually dismissed in a single step, because listeners assume that it must mean one all-powerful state ruling every corner of the earth. That picture is frightening and deserves to be rejected, yet it is not the only form such an arrangement could possibly take. A limited version would hold a small set of powers, chiefly those concerned with war and with problems that cross every border, and would leave the rest to nations. Bodies of that kind have been created before by ordinary conference, as the founding of the United Nations showed within a few years of a world war. The fact that few officials can picture a path to such a body is weak evidence that no path exists, since imagination has never been the test of possibility. Change of this size tends to arrive quickly once enough people understand that a modest option is available. Dismissing the whole question because of its worst version is the error worth correcting first.",
+      "claim": "The case for a limited world government is dismissed only because people assume it must mean an all-powerful state."
+    },
+    {
+      "id": "44a35b5b-2019-04-18T15:21:37Z-00002-000",
+      "sha256": "1ec2fb72109ac0e76542d6c06c003211f07b7abb1fca39e05641f62538be5b19",
+      "verdict": "write",
+      "topic_ko": "겨울 수업을 지키고 휴일을 여름으로 옮기자",
+      "passage": "Cold weather is uncomfortable rather than dangerous, and a school calendar built around mere discomfort gives away days that are hard to recover later. Ice on the roads is a genuine risk, but it has been handled every winter by a delay of two hours, salt on the paths and slower buses. Warm clothing solves most of what remains, since layers cost little and a pupil dressed for the weather barely notices the walk to the stop. Summer holidays, by contrast, are worth far more than winter ones, because long light evenings allow travel, outdoor work and activity that a snowy afternoon forbids. Moving free days from the cold months to the warm ones therefore raises the value of exactly the same number of days. The tired feeling of a long winter term is real and deserves attention from anyone who plans a school year. Short breaks inside the term answer that tiredness better than whole weeks of holiday spent indoors under a grey sky.",
+      "claim": "School days should be kept through the winter and free days moved to the summer, where they are worth more."
+    },
+    {
+      "id": "45382ef9-2019-04-18T17:01:05Z-00002-000",
+      "sha256": "43a3a968d660859caff1849004eaa7b202f805f5d7ce454d1d9ea97305ea75bb",
+      "verdict": "write",
+      "topic_ko": "학교 체육 예산 — 새 종목 신설보다 기존 강점 종목의 보수",
+      "passage": "A school that finds spare money for sport faces a choice between starting a new team and repairing the buildings it already owns. Starting a team is attractive, since new players, new uniforms and a new season all look like growth on any report to parents. The older building tells a different story, though, when the roof leaks, the floor has worn unevenly and whole rows of seats have been closed for safety. Money spent on repair protects hundreds of pupils who already train there, while money spent on a new sport reaches a few dozen in its first years. A programme with a long record also carries the name of the school beyond its region, and such a reputation is built across decades and lost in a handful of poor seasons. New sports deserve a place once the buildings are sound and the strong programmes have been properly secured for the years ahead. Order rather than refusal is what a limited budget demands, and the order is repair first and expansion afterwards.",
+      "claim": "A limited sports budget should repair strong existing programmes before it starts a new team."
+    },
+    {
+      "id": "4566fc90-2019-04-15T20:22:23Z-00017-000",
+      "sha256": "f3a892cb1d87d16dbe810cc8ec1e07ff8cb52b630bd8f86e8b94c53ddca53044",
+      "verdict": "write",
+      "topic_ko": "대학의 학생 유치 경쟁 — 차등 등록금과 장학금이 있어야 작동한다",
+      "passage": "Universities that recruit abroad are honest about one thing rarely said aloud, which is that the main attraction of a foreign student is the fee rather than the culture. That is not shameful in itself, since the money pays for teachers, equipment and libraries that every student in the place then uses. Charging all applicants the same price sounds fair and is often proposed as the end of the argument, yet it leaves the poorest exactly where they were. A student without means cannot pay a high common fee any more than a high foreign one, so equal pricing by itself opens no doors. A system with differing fees and generous grants does more, because the sums paid by families who can afford them fund the places given to those who cannot. Home students have a reasonable claim to a lower rate as well, since their families have already paid through taxes for the buildings and the research. Competition for talent works only when the prize has been paid for by someone, and grants name that someone openly.",
+      "claim": "Competition for the best students works only when higher fees from wealthy families pay for places given to poorer ones."
+    },
+    {
+      "id": "45906448-2019-04-18T15:18:06Z-00005-000",
+      "sha256": "9b7a6ca37ca92efb485d8eecc08d7c19d72bb3b6f1471cad8a797dbbae7fb563",
+      "verdict": "write",
+      "topic_ko": "자율 기계의 확산 속도 — 책임 소재가 정해진 만큼만",
+      "passage": "Machines that act on their own are useful, and nobody gains from a blanket fear of the technology that cleans a floor or brings a train safely into a station. The trouble begins where control ends, because a device that decides for itself can fail in ways that its makers never imagined. When such a failure kills someone, the first question is who answers for it, and at present that question has no settled reply. The maker points to the owner, the owner points to the program, and the injured family is left with a case that no court has been built to hear. Machines watching a street also gather far more about ordinary life than any neighbour would ever accept from another person. None of this argues for stopping the work, which would be both impossible and foolish in equal measure. It argues for matching the speed of release to the speed at which responsibility is fixed in law, and for going no faster than that.",
+      "claim": "Machines that act on their own should spread only as fast as the law settles who answers for their failures."
+    },
+    {
+      "id": "45dd7972-2019-04-18T16:52:25Z-00001-000",
+      "sha256": "9980601bccc73063d949e8e3440f1ddad4604da8745a610d7e031af2afff86b7",
+      "verdict": "write",
+      "topic_ko": "분노는 통제될 때 도덕적 행동의 연료가 된다",
+      "passage": "Anger has a bad name, and most advice about it treats the feeling itself as the fault that must be removed. The fault lies in the person rather than in the emotion, since anger turns destructive only when nobody has decided what to do with it. Compared with gentler feelings, anger carries a person through the long and unpleasant middle of a task, where sympathy alone often fades away. A student who is angry at an unfair mark will read the rules, write the letter and appear at the meeting, and few other feelings supply that much fuel. Courage works in a similar way, because ordinary people who step in front of cruelty usually report a hot and simple fury rather than calm reasoning. Anger under control is therefore closer to a tool than to a disease, and tools are judged by the use that has been made of them. Teaching young people to aim the feeling is wiser than teaching them to be ashamed of it.",
+      "claim": "Anger under control is a tool for moral action rather than a fault to be removed."
+    },
+    {
+      "id": "47bff03c-2019-04-18T16:12:48Z-00003-000",
+      "sha256": "b0156ac66333f773f18f6abbc0645eb04ce78e55b92f41980854e94148c0a7f9",
+      "verdict": "write",
+      "topic_ko": "인간 복제 연구는 공개 규칙 아래 공공 기관에서만",
+      "passage": "Research into human cloning will continue somewhere, whatever any single country decides, and a rule that simply forbids it moves the work abroad rather than ending it. The honest question is therefore which hands should hold the technique and under what conditions the work may go on. Left to private companies, the purpose would quickly become a service sold to whoever can pay, and wealthy families would order features for their children. Public research bodies, required to publish their methods and to answer to an elected assembly, are slower and far less exciting, which is precisely the point. Openness also allows a mistake to be found by outsiders, while a firm protecting a product has every reason to keep its failures quiet. Governments are not trustworthy by nature, and their record of secrecy in scientific matters is a fair reason for suspicion. A rule that requires every step to be published is stronger than trust, and stronger still than a market with no rule at all.",
+      "claim": "If human cloning proceeds at all, it should be done by public bodies bound to publish every step."
+    },
+    {
+      "id": "4931da27-2019-04-18T18:57:00Z-00002-000",
+      "sha256": "b49d3985990afd50f96ce42882bfb924d28ed2dd393fae287dc0f69514a05b71",
+      "verdict": "write",
+      "topic_ko": "고등학생의 전면 수강 선택권 — 학급 불균형과 어려운 과목 회피",
+      "passage": "Letting every student choose every class sounds like respect for young people, but the timetable that results would serve them badly. Popular subjects would fill beyond any useful size while others sat nearly empty, and the same number of teachers would have to cover both extremes. Demanding courses would suffer most, since a subject such as algebra is avoided by many who need it precisely because it is hard. The value of such a course appears years later, in a job or a further course, long after the moment when a tired teenager decided that it looked unpleasant. A required core is not an insult to young judgement; it is the record of what adults have learned about which subjects pay off. Choice still belongs in a school, and a sensible system offers it around a fixed centre rather than in place of one. Freedom at the edges with firmness in the middle is the arrangement that leaves the most doors open to a student at eighteen.",
+      "claim": "Free choice of every class would unbalance schools and let students avoid the subjects that pay off later."
+    },
+    {
+      "id": "4936af65-2019-04-18T16:21:12Z-00000-000",
+      "sha256": "d7be90117067bda1e572cd2f274f7023b7fb9128bff6ae59d66c343b52e63a77",
+      "verdict": "write",
+      "topic_ko": "영화표 구매가 그 메시지에 대한 지지인가 — 반대 논증",
+      "passage": "A ticket is a payment for two hours of entertainment, and treating that purchase as agreement with everything on the screen confuses money with belief. Most people choose a film for its story, its actors or the company they keep that evening, and many are strongly opposed to the view it takes. Support has two meanings that are quietly swapped in this argument, since paying for something and standing behind what it says are not the same act. Payment is real, and a film that earns well does lead producers to make more of the same kind, so the money clearly matters. Agreement, however, is held in the mind of the person watching, and no amount of accounting can place it there. A person who buys a ticket in order to understand an idea and then argues against it has funded the film while opposing it far more effectively than absence ever would. Judging belief by receipts would make every reader of a hostile newspaper a supporter of its politics, which is plainly absurd.",
+      "claim": "Paying for a film funds it without endorsing what it says."
+    },
+    {
+      "id": "4936af65-2019-04-18T16:21:12Z-00001-000",
+      "sha256": "f58c753202f642fbfd1bf44d35549ae515253c1281a80be65ae753d9e0d7a1e4",
+      "verdict": "write",
+      "topic_ko": "영화표 구매는 의도와 무관하게 그 메시지를 지지한다",
+      "passage": "Money is the clearest message an audience ever sends, and it is sent whether or not the person handing it over means anything by it. A film earns its budget from tickets, and the studios that read those figures learn which ideas can be sold again next year. The viewer who attends purely for entertainment still adds a unit to that count, and the count is all that a producer ever sees. Intention does not travel with a payment, since nobody at the ticket window records that a particular customer disagreed with the story. Every purchase is a small vote about what kind of work should exist, and votes are counted without any regard for the mood of the voter. That is the ordinary logic of a market, in which labour is traded for money and money then calls forth more of whatever it was spent on. Anyone troubled by the message of a film has one plain answer, which is to spend the evening elsewhere.",
+      "claim": "A ticket supports the message of a film whether or not the buyer intends it."
+    },
+    {
+      "id": "4936af65-2019-04-18T16:21:12Z-00003-000",
+      "sha256": "a5f276842f52a60e3727c48859247d7c2a875c1b68b39058bc040f72e5bed4d4",
+      "verdict": "write",
+      "topic_ko": "관객의 돈이 제작 결정을 움직인다 — 표 한 장의 작은 권력",
+      "passage": "The flow of money decides which films are made, and that flow begins with an ordinary person at a ticket window on a Friday evening. Producers watch those numbers closely, since their work is to guess what a large public will be willing to pay for next season. A studio reading a strong result does not hear a comment about art; it hears a request for more of the same kind of story. Most viewers never think in these terms, and there is nothing dishonest about going out on a Saturday simply to be entertained for an evening. The effect arrives all the same, because a system does not require its members to understand it in order to run. Even directors who ignore public taste depend on companies that cannot ignore it, so the chain of causes reaches everybody eventually. A single ticket is a small thing, yet the habit of a million small things is what fills the screens of the following year, and of the year after that.",
+      "claim": "Ticket money shapes which films are made, whether or not the audience thinks about it."
+    },
+    {
+      "id": "495f145-2019-04-18T14:09:13Z-00006-000",
+      "sha256": "37bb366f3c3e563d4fdc37bdb2cdcb7874e006b8c5019fa521307148f3f45ee7",
+      "verdict": "write",
+      "topic_ko": "주 4일 등교제 — 학생이 치르는 비용이 교사의 휴식보다 크다",
+      "passage": "Teachers would certainly gain from a free day, with quiet hours for marking and rest that the present week never supplies. That gain is real, but it has been paid for by the people the school exists to serve, and the bill is larger than it first looks. A shorter week means fewer meetings between a class and its teacher, and warmth that depends on daily contact cools quickly when contact drops to four days. Attention weakens as well, because habits of study are built by repetition and a long gap interrupts the rhythm every single week. The cost does not appear immediately; it appears years later, when students who studied lightly meet courses that simply assume the missing ground. Pleasant now and expensive later is the shape of most bad decisions about schooling, and this one has that shape exactly. A better answer protects teachers by cutting the paperwork that fills their evenings rather than by cutting the days on which their students attend.",
+      "claim": "A shorter school week costs students more than the rest it gives teachers."
+    },
+    {
+      "id": "4a33de2e-2019-04-18T18:08:40Z-00000-000",
+      "sha256": "26b2a93e88a04bee168d763516f848fb42c016f3bb05ec1cc52295c9992e8746",
+      "verdict": "write",
+      "topic_ko": "감정을 지우려는 수양은 인간다움을 지운다 — 스토아 원칙 비판",
+      "passage": "A calm mind is worth having, and the old advice to separate what can be controlled from what cannot has saved many people from useless suffering. The advice becomes harmful when it grows into a demand that feeling itself be trained away and hidden from everybody, including oneself. Emotions are not faults in the machine; they are the evidence that something mattered, and a person who feels nothing at a loss has lost twice over. One ancient teacher compared life to a dinner where dishes pass by, to be taken when they arrive and released without complaint when they move on. The image is useful for small matters and cruel for large ones, since a child or a friend is not a dish on a table. Grief that has been fully felt fades in its own time, while grief that was pushed down tends to return later in worse forms. Accepting what cannot be changed is wisdom, while refusing to feel it at all is merely a disguise worn by fear.",
+      "claim": "A discipline that trains feeling away removes part of what it means to be human."
+    },
+    {
+      "id": "4a33de4d-2019-04-18T18:08:39Z-00002-000",
+      "sha256": "26b2a93e88a04bee168d763516f848fb42c016f3bb05ec1cc52295c9992e8746",
+      "verdict": "write",
+      "topic_ko": "통제할 수 없는 일은 받아들이되 상실의 고통은 지우지 말라",
+      "passage": "Much of the misery people carry comes from fighting facts that no effort can alter, and learning to stop that fight is a genuine relief. The ancient rule that divides events into those within a person's power and those outside it is still among the most useful pieces of advice ever written. Trouble begins when the rule is stretched from action to feeling, as though a sensible mind should also refuse to hurt. Acceptance describes what a person does next, and it says nothing about what the heart is permitted to register in the meantime. A parent who has buried a child can accept that nothing will bring the child back and still weep for years without any failure of reason. Pain of that kind is a measure of the value of what has gone, and a teaching that removes the pain quietly removes the worth of the thing lost. The wiser form of the rule asks for acceptance of events and honesty about feeling, and the two are never the same demand.",
+      "claim": "Acceptance should govern what a person does next, not what that person is allowed to feel."
+    },
+    {
+      "id": "4b450b63-2019-04-18T15:27:51Z-00003-000",
+      "sha256": "f37a98400f304e1db788838b02d4e8ec21d51faace986ce346557becc6a12329",
+      "verdict": "write",
+      "topic_ko": "상징을 태우는 저항은 표현의 자유로 보호되어야 한다",
+      "passage": "Freedom of expression means very little if it protects only the statements that most people are already content to hear. A symbol burned in public offends deeply, and that offence is exactly the reason such an act carries any weight at all. An object bought with a person's own money is that person's property, and destroying one's own property injures nobody directly. The message of such an act is aimed at a government rather than at any neighbour, and governments are the bodies that free speech was designed to restrain. Those who are ignored by every ordinary channel often reach for a loud gesture, and a society that closes that door leaves them with silence or with violence. A law against the act would also punish the meaning rather than the fire, since burning the same cloth for warmth would trouble nobody at all. Protecting speech that stings is the only test of the principle that has ever mattered, and a test refused is a principle abandoned.",
+      "claim": "Destroying a symbol that a person owns is protected expression, and the offence it causes is the reason it counts."
+    },
+    {
+      "id": "4d52035f-2019-04-18T16:20:20Z-00000-000",
+      "sha256": "8c52d3458f07bac0d30b1780ce36b133c670a81deea4391c6dfe8f898768494b",
+      "verdict": "write",
+      "topic_ko": "유전자 검사는 곧 일상 의료가 된다 — 쟁점은 결과의 통제권",
+      "passage": "Genetic testing is becoming cheap and ordinary, and arguing about whether it should exist at all has already been overtaken by events. Within a generation a test that names the diseases a person is likely to face will be as normal as a measurement of blood pressure. The gains are obvious, since early warning turns some deadly illnesses into managed ones and points research toward the causes that matter most to patients. The serious question is not the test but the record it produces, because that record describes a single person from birth until death. An insurance company holding such a record can price a policy so high that the customer has been refused in all but name. A worker whose employer has seen the same result may never learn why a promotion went elsewhere. Rules that keep the result in the hands of the patient and the doctor are therefore urgent, and they are needed before such testing becomes universal rather than long afterwards.",
+      "claim": "Since genetic testing will become routine, the urgent question is who may hold and use the results."
+    },
+    {
+      "id": "4d91b1df-2019-04-18T15:29:29Z-00007-000",
+      "sha256": "313a9645d28e326dd11534a7c3ed88e1ab0a8a0ca97ed840955fd527cd764838",
+      "verdict": "skip",
+      "skip_reason": "한쪽으로 치우친 사회·종교 쟁점 옹호문이라 논증 지문으로 중립적 재저작이 어렵다."
+    },
+    {
+      "id": "4da47715-2019-04-17T11:47:27Z-00216-000",
+      "sha256": "5bd7ea8e12ac057fecb66d636c12e398d415750927caf790761ba652aea38d39",
+      "verdict": "write",
+      "topic_ko": "개인의 지출 선택권 — 시장이 소수 의견을 지키는 방식",
+      "passage": "Every adult in a market economy decides what to do with the money earned, and that decision is made without asking permission from anybody else. A person may buy books that argue against the market itself, give to a church, support a cause that most neighbours dislike, or save the whole sum. Such choices look small, yet together they are the only reliable protection a minority opinion has, since a minority is by definition unable to win a vote. When spending has been directed by a central plan, the values of the majority decide which causes receive money and which receive none. A group out of favour then finds that its wishes have been outvoted rather than merely unpopular, and money is the one tool that it can no longer use. Defenders of planning answer that wealth is unevenly shared, and that complaint carries real force. The sound reply is to widen the number of people with money to spend, not to remove the freedom that makes spending meaningful.",
+      "claim": "Free spending is the one tool a minority keeps when it cannot win a vote."
+    },
+    {
+      "id": "4efafaa0-2019-04-18T11:20:16Z-00001-000",
+      "sha256": "991763721f5d3736101a367171c7008abb518bbf780b5fe9adade09ca2edc405",
+      "verdict": "skip",
+      "skip_reason": "신의 존재를 논리로 증명한다며 무신론자를 비합리적이라 공격하는 종교 선동문이라 지문으로 부적절하다."
+    },
+    {
+      "id": "4ffcb8a7-2019-04-18T15:27:12Z-00004-000",
+      "sha256": "a762234aa7896c885a8731e810ea8093d278622d843ee1f317529baee470e213",
+      "verdict": "write",
+      "topic_ko": "장기 매매 합법화 반대 — 빈곤층 착취와 배분의 불평등",
+      "passage": "A legal market in human organs would not remove the shortage; it would simply decide who goes without by the size of a bank account. Wealthy patients could buy a place at the front of every queue, while those with less would be left waiting behind them exactly as they are today. The sellers would be drawn from the other end of the same scale, since nobody with a comfortable income offers part of a body for cash. A choice made under that kind of pressure is hardly a free choice, and calling it free dresses up desperation as ordinary business. Legal trade would also give cover to criminals, because papers can be forged and a lawful market makes stolen organs far easier to move. A common list that accepts organs given freely is blind to wealth, and it treats every patient by need and by the time already waited. Keeping the trade illegal, while working much harder to raise the number of willing givers, is the fairer of the two paths.",
+      "claim": "A legal market in organs would sort patients by wealth and press the poor into selling."
+    }
+  ]
+}

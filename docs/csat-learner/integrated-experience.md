@@ -1,5 +1,7 @@
 # 분석과 듣기 통합 — 2026-09-18
 
+> **[동결]** 이 문서는 **실물 확인 전 초안**이다. Stage 5 에서 실물(실제 라우트 캡처) 기준으로 교체된다. **수정 금지** — 고칠 것이 보이면 화면을 먼저 고치고 그 화면에서 값을 다시 뽑는다(DD-62).
+
 ## 조사와 선택
 
 Next 14 App Router / React 18 / pnpm 9 / CSS modules와 공용 토큰을 유지한다. `/csat`, `/csat/dissect`, `/csat/formulas`가 학습자 표면이고 관리자 분석은 `/admin/kice`에 남는다. PDF는 기존 PDF.js → 기기 IndexedDB → passage-model을 사용한다. 서버 분석은 기존 공개 분석 catalog를 사용한다. API·인증·DB 변경과 dependency 추가는 없다.

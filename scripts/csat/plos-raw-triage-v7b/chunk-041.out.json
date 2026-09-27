@@ -1,0 +1,865 @@
+[
+ {
+  "id": "16305ac8-254b-437b-8e29-c8e49c17ecd7",
+  "source_updated_at": "2026-09-25T07:34:23.164647+00:00",
+  "body_sha256": "dcc016cf89a92cb2fac9c76183ea79e772b5f0e52a7b0ce71c3d7cf10f13ea6e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "고찰이 보존된 스템 헬릭스를 표적으로 삼아 항체 폭을 넓힌다는 논지로 한 편이 서고, 친화도 성숙 대목이 발췌된다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The emergence of pathogenic betacoronaviruses, such",
+   "note": "항체 약어를 「이 항체」로 바꾸면 서고, 결합 수치를 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "163d7c68-91bd-4b3d-8609-9f6d196d7306",
+  "source_updated_at": "2026-09-25T07:34:25.073112+00:00",
+  "body_sha256": "26ccde3700167cda2c07311b3ff5c91b623039645d11825873e393d6f8a23b2c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "파푸아뉴기니 쿠루 유행 지역에서 발견된 보호 돌연변이를 유전자 치료로 옮긴다는 이야기가 서론에 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The human PrPV127 mutation, discovered in",
+   "note": "단백질 약어를 「보호형 단백질」로 바꾸면 쉬워지고, 사건 순서가 그대로 남는다."
+  }
+ },
+ {
+  "id": "16406553-0b1c-470a-8f99-34aeaef30e75",
+  "source_updated_at": "2026-09-25T07:34:25.481122+00:00",
+  "body_sha256": "04b932506d62e5c4dbb6e59c75abb27d6575b02fee58c2067bf55fcd751e19d6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "한계 절이 표본이 적어 유의하지 않은 결과를 「차이 없음」으로 읽으면 안 된다는 논지를 한 문단으로 세운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "This investigation is subject to several",
+   "note": "시술 약어가 문장마다 걸려 본문 대부분은 못 쓰고, 검정력 문단 하나만 선다."
+  }
+ },
+ {
+  "id": "16498e39-1bf2-49a8-a118-63a473e6184e",
+  "source_updated_at": "2026-09-25T07:34:26.007653+00:00",
+  "body_sha256": "93d8903e6000c730eb015fd9fbbb01ccbceb4804532cb4e9bbec15e6778177d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "숲이 회복될수록 토양 양분 조절이 물리적 층위에서 생물·화학 작용으로 옮겨간다는 고찰 논지가 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The progressive increase in total explained",
+   "note": "원소 기호와 비율 표기를 낱말로 풀면 서고, 상관계수를 걷어도 흐름이 남는다."
+  }
+ },
+ {
+  "id": "164d52d0-7019-4008-b008-ece61a26a36f",
+  "source_updated_at": "2026-09-25T07:34:27.791574+00:00",
+  "body_sha256": "fd447353eb6689e9485cb6e9bd62782dbe7cf45fa924214f3dae10675703a66b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "주혈흡충 감염과 음주가 간 손상에서 상승·길항 두 경로로 갈린다는 고찰이 주장-근거 짝으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A synergistic interaction between schistosome infection",
+   "note": "생애 시간차 논의가 쉬운 낱말로 바꿔도 그대로 서고, 통계값은 걷어도 된다."
+  }
+ },
+ {
+  "id": "1659d4fd-cb5a-4623-9b49-1529feceaeb6",
+  "source_updated_at": "2026-09-25T07:34:29.14221+00:00",
+  "body_sha256": "2c448b8aaaf9d65194802eb982deee213d7d1716f759de330c61c942e23edd24",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "psychology",
+  "why": "영매 상태의 글쓰기를 문화 현상으로 다루며 뇌파 측정으로 가르는 서론이 한 편의 설명문으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mediumistic trance refers to a complex",
+   "note": "주파수 대역 이름을 「느린 뇌파」로 바꾸면 서고, 영적 주장을 사실로 제시하지 않는다."
+  }
+ },
+ {
+  "id": "165e4a1e-7364-4179-9ee4-2cf0c019c010",
+  "source_updated_at": "2026-09-25T07:34:29.954795+00:00",
+  "body_sha256": "46e3959bb100ecbcecd9f3f6e507094dc2b83a455976f7ddaff6c369d4203bf8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "가와사키병을 앓은 아이가 성인이 된 뒤 혈관벽에 남은 흔적을 본다는 임상 관점 절이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Acute myocardial infarction in Kawasaki disease",
+   "note": "영상 기법 약어가 빽빽해 결과 절은 못 쓰고, 임상 관점 절만 떼어진다."
+  }
+ },
+ {
+  "id": "1667dfe9-7d05-48f3-aea2-727b903f68ea",
+  "source_updated_at": "2026-09-15T14:23:27.360367+00:00",
+  "body_sha256": "be20386861846643dd38d6bfc69233cf8c440d1eeca74ec7fa246bf3cf453b2b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "자궁 적출이 난소암 위험을 낮춘다는 통념과 나팔관 기원설이 맞서는 서론이 통념-반증 구조로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Conversely, several biological mechanisms support the",
+   "note": "호르몬 용어 두셋만 풀면 서고, 한국 자료라는 맥락도 살아 있다."
+  }
+ },
+ {
+  "id": "2171fbe8-147b-49db-80fe-1b3dc0c8070d",
+  "source_updated_at": "2026-09-25T07:39:06.36457+00:00",
+  "body_sha256": "c3da60e7e9fa4ef35a1b05354fa0faf39e6f79379206e379424cea7abefa1612",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "텔로미어가 염색체 끝을 지키고 암세포가 이를 되살려 무한 증식한다는 설명 단락이 떼어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V9",
+    "V10"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Telomerase is a special mix that",
+   "note": "영문 문장이 거칠어 어법 재료로는 못 쓰고, 개념 단락만 다시 써서 쓴다."
+  }
+ },
+ {
+  "id": "217d580d-3156-48a0-9d77-9caf475acdb2",
+  "source_updated_at": "2026-09-25T07:39:08.548653+00:00",
+  "body_sha256": "8c1d298bb3d241d176268390a857f076667e8e5c8c2f3e716b7b79a3226f66e1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "수상돌기가 정해진 길로 자라는가 무작위로 뻗다가 자리에서 굳는가, 두 모형을 맞세운 고찰이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The acquisition of appropriate dendritic morphology",
+   "note": "유전자 이름을 「이 수용체」로 바꾸면 두 모형 대조가 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "217d8863-57b6-4bc0-8bd1-a3aacc8aa389",
+  "source_updated_at": "2026-09-25T07:39:09.024688+00:00",
+  "body_sha256": "6236a040ee38b55e60c30fe699a643ca4dd962ffb9605127179b23bbdbf920de",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아미노산은 그대로 두고 드문 코돈으로 바꿔 바이러스를 약하게 만든다는 개념 설명이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Because live-attenuated vaccines consist of intact",
+   "note": "유전자 조각 이름을 걷어도 「코돈 바꾸기」 논지가 온전히 남는다."
+  }
+ },
+ {
+  "id": "21840800-942a-4f75-bb99-db804a0ef0b3",
+  "source_updated_at": "2026-09-25T07:39:09.919129+00:00",
+  "body_sha256": "87a2c6a3e459bbb3c5823ad17e45e2041d7a65280d2e1025189ca4299a31f50c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "출생 전에는 유전 프로그램이, 출생 후에는 경험이 대뇌 피질을 빚는다는 고찰 단락이 대조 구조로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "irrelevant"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "then-now",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The influences on cortical development shift",
+   "note": "영상 지표 이름만 풀면 서고, 조산아 논의까지 흐름이 이어진다."
+  }
+ },
+ {
+  "id": "21842587-11b4-4524-bdf6-71f2fcae9dd8",
+  "source_updated_at": "2026-09-13T07:07:01.026591+00:00",
+  "body_sha256": "bce65bcf7ca2a9692180af5c52d0ecbaf3094de6568656da9416c0ca77266da2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "반복 DNA를 뭉쳐 잠재우는 이질염색질이 세포분열을 넘어 이어진다는 서론 첫 단락만 떼어진다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary"
+   ],
+   "levels": [
+    "V10",
+    "V11"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Transcriptional silencing of repetitive DNA elements",
+   "note": "대립유전자 표기가 본문 전체를 덮어 쓸 수 있는 곳은 서론 앞머리뿐이다."
+  }
+ },
+ {
+  "id": "2185c5bd-62de-4543-b1f9-050f5c0029c3",
+  "source_updated_at": "2026-09-13T06:58:16.036765+00:00",
+  "body_sha256": "eac88c7f5e03b5efda51b1887115d0ecce5bfe7fe4643ce26f3fc4d47b7a6592",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "장내 세균이 면역을 계속 켜 두고 자가포식이 꺼지면 그 스위치를 못 끈다는 고찰이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The intestinal microbiota is essential for",
+   "note": "초파리 유전자 표기를 「이 유전자가 없는 개체」로 바꾸면 논지가 남는다."
+  }
+ },
+ {
+  "id": "218653bc-1bf6-4e4d-a525-ff16743ed90b",
+  "source_updated_at": "2026-09-13T07:17:36.631092+00:00",
+  "body_sha256": "d784e2fd906a2a89ce739bdd776b10b30f309e5f596cae29e439460063620d6d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "인도의 「빅4」 뱀 목록이 지역을 못 담아 혈청이 안 듣는다는 결론이 정책 주장으로 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "purpose",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Snakebite is still a largely ignored",
+   "note": "동물 실험 묘사가 구체적이라 연령 칸을 고1 이상으로 제한하고 서론·결론만 쓴다."
+  }
+ },
+ {
+  "id": "2189db85-8633-4122-90a0-2b67ac2340f3",
+  "source_updated_at": "2026-09-25T07:39:10.464171+00:00",
+  "body_sha256": "7beebca654ab65f7c0d5b9abca83aba5126a379623ec78691f541e1ca5d4231e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "결핵균이 숙주 안에서 무엇을 먹고 약을 어떻게 견디는지 묻는 서론이 자족적인 설명문이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mycobacterium tuberculosis (Mtb) is a bacterium",
+   "note": "유전자 목록을 걷으면 「대사 유연성」 논지가 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "218a0f39-a92a-420f-be06-9b70bb277301",
+  "source_updated_at": "2026-09-13T07:34:39.189404+00:00",
+  "body_sha256": "8cae463f376065250167c929332febc87cc7481efa8e14393346e118fbf09df8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "자궁내막증 통증이 병소에 들어온 신경과 염증 물질의 맞물림에서 온다는 서론 가설이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Endometriosis is defined by the presence",
+   "note": "수용체 이름을 「통증 수용체」로 바꾸면 서고, 부인과 소재라 연령을 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "2192c985-e4ad-4c62-b72b-b5f1245d81ae",
+  "source_updated_at": "2026-09-13T06:45:32.111358+00:00",
+  "body_sha256": "debbb6932bce4b1aa0d36ac2eb5b5f2fdf68c0c5fe338c2b27ac5c77747406a7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "유전자 수가 적은 바이러스가 짧은 아미노산 토막 하나로 여러 숙주 단백질을 붙잡는다는 고찰이 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Viruses have limited coding capacity and",
+   "note": "잔기 번호를 걷으면 「한 토막이 여러 일을 한다」는 논지가 선명해진다."
+  }
+ },
+ {
+  "id": "21af43bc-f803-4fdd-98b2-a1b20abd8489",
+  "source_updated_at": "2026-09-13T06:42:47.76037+00:00",
+  "body_sha256": "62cecead28bb6204d7db47635bba3fab8f61c50d6b83835b171ecc80845abaa2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "철에 의존하는 새 세포사 방식을 찾아 세포자멸사 내성 암에 쓴다는 서론 설명이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In 2012, Dixon et al. described",
+   "note": "세포주 이름과 약물 코드만 걷으면 개념 설명이 그대로 남는다."
+  }
+ },
+ {
+  "id": "21b7dc34-cb67-4b70-b205-9b92c8075662",
+  "source_updated_at": "2026-09-25T07:39:14.6559+00:00",
+  "body_sha256": "b2589227154b89ed23592e9c016b6b749c8f498ca3cfd7ed7a94d63d600740d5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "바다에 알칼리를 더해 이산화탄소를 붙잡는 방법이 플랑크톤에 어떤 값을 치르는지 묻는 서론이 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "blank",
+    "insert",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Since the Industrial Revolution, anthropogenic carbon",
+   "note": "화학식 두셋만 낱말로 풀면 중등 상위까지 내려가고, 논지가 그대로 선다."
+  }
+ }
+]

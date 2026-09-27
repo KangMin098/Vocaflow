@@ -1,0 +1,241 @@
+[
+  {
+    "id": "0df03f5c-8599-4068-b2c9-cbaeaf08835c",
+    "source_updated_at": "2026-09-25T07:31:19.972506+00:00",
+    "body_sha256": "13c8f1faa39bd00bf1a232f47a80c59add301fdeeace6fc5819da34c84c042d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "서론의 스키마 치료 모델 설명과 공정성 욕구 단락이 논지로 서 주제·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The sense of fairness emerges as",
+      "note": "공정성 단락은 인용 번호만 걷으면 선다; ethologists·injustice sensitivity 를 풀어 쓰면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "0e2440d2-bcf4-4383-9af0-6661c2689a6d",
+    "source_updated_at": "2026-09-25T07:31:24.576108+00:00",
+    "body_sha256": "48633971a6fbcef4316358e07fd37450309aacb493e9ba0d2fb73a82a37f95ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "대부분 방법 절차지만 서론 둘째 단락의 LPS 교차반응·위양성 문제 설명이 떼어져 내용일치·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Serological methods have been widely used",
+      "note": "위양성 논지는 서지만 LPS·gram-negative 등 전문어가 핵심이라 바꾸면 뜻이 흐려진다."
+    }
+  },
+  {
+    "id": "0e3be88d-10ef-436d-8025-831ecbc5477b",
+    "source_updated_at": "2026-09-25T07:31:26.287835+00:00",
+    "body_sha256": "fe6ec0134f82943fb8a4fe9ea247c02186c4a3b32bacd701e0b3143f934375c5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 소아 기관지폐렴 조기 감별 난점·항생제 과다처방 논지가 한 단락으로 서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bronchopneumonia (BP) is one of the",
+      "note": "약어 BP·URTI 를 풀고 antimicrobial resistance·empirical 을 쉬운 말로 바꾸면 V8 로 선다."
+    }
+  },
+  {
+    "id": "0e3c7c37-6842-432a-84b7-1ffdd1c63315",
+    "source_updated_at": "2026-09-25T07:31:26.763161+00:00",
+    "body_sha256": "e82eff7edca882b933b84d53b8df03bcba0d16465d1d2a6b66720322160165e6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론 첫 단락의 시상 기능 설명과 고찰의 CBP 한계 논지가 떼어져 내용일치·주제 칸을 채운다; 나머지는 영상 방법 절차다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The thalamus is a subcortical brain",
+      "note": "시상 단락은 선다; 핵 이름·질환명이 많아 몇 개 바꿔도 V9 아래로 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "0e4c864b-6b99-4d2f-b0bd-2ed3d0abee4a",
+    "source_updated_at": "2026-09-25T07:31:27.767633+00:00",
+    "body_sha256": "5a71473ca5ed2366b2aba526deea673a40bb9eb1fb7535a878b29acb7efe2615",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 스테로이드 사용 실태·심장 위험 단락들이 연결되어 순서·요지·내용일치 칸을 채운다; 결과 절은 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "order",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nevertheless, these substances abuse may lead",
+      "note": "첫머리 Nevertheless 를 걷고 앞 단락 AAS 정의를 한 줄 붙이면 서며 hypertrophy·compliance 를 풀면 V8."
+    }
+  },
+  {
+    "id": "0e679c90-8988-4185-8b45-d9387fc8dc6e",
+    "source_updated_at": "2026-09-25T07:31:29.777376+00:00",
+    "body_sha256": "319eee79426df573cbef56dc643833301053dceac14f5a371d0e155b7d52d5ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론의 지카 성접촉 전파 기간 문제, RNA 잔존≠전파력 논지가 서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Zika virus (ZIKV) is primarily transmitted",
+      "note": "저자 요약 단락은 그대로 서고 hSTAT2 KI·epididymal ligation 을 풀면 V8; 성접촉 소재라 연령은 성인으로 둔다."
+    }
+  }
+]

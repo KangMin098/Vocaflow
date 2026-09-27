@@ -6,15 +6,15 @@
 export const VOCAB_CATEGORIES = [
   { id: 'all', label: '전체', emoji: '✨', hint: '모든 단어장' },
   { id: 'preschool', label: '유아', emoji: '🧸', hint: '5~7세 기초' },
-  { id: 'elementary', label: '초등', emoji: '🌱', hint: '1~6학년' },
-  { id: 'middle', label: '중등', emoji: '📘', hint: '중1~3' },
-  { id: 'high', label: '고등', emoji: '📚', hint: '고1~3' },
-  { id: 'csat', label: '수능·내신', emoji: '🎯', hint: '입시 필수' },
-  { id: 'eng_test', label: '공인영어', emoji: '🌍', hint: 'TOEIC·TOEFL·IELTS' },
+  { id: 'elementary', label: '초등', emoji: '🌱', hint: '1~6학년', spot: 'spot-cat-elem' },
+  { id: 'middle', label: '중등', emoji: '📘', hint: '중1~3', spot: 'spot-cat-middle' },
+  { id: 'high', label: '고등', emoji: '📚', hint: '고1~3', spot: 'spot-cat-high' },
+  { id: 'csat', label: '수능·내신', emoji: '🎯', hint: '입시 필수', spot: 'spot-quiz' },
+  { id: 'eng_test', label: '공인영어', emoji: '🌍', hint: 'TOEIC·TOEFL·IELTS', spot: 'spot-cat-cert' },
   { id: 'civil', label: '공무원', emoji: '🏛️', hint: '7·9급' },
-  { id: 'business', label: '비즈니스', emoji: '💼', hint: '실무 영어' },
-  { id: 'etymology', label: '어원', emoji: '📜', hint: '어근으로 계열 학습' },
-  { id: 'themed', label: '테마별', emoji: '🎨', hint: '관심사 큐레이션' },
+  { id: 'business', label: '비즈니스', emoji: '💼', hint: '실무 영어', spot: 'spot-cat-business' },
+  { id: 'etymology', label: '어원', emoji: '📜', hint: '어근으로 계열 학습', spot: 'spot-cat-roots' },
+  { id: 'themed', label: '테마별', emoji: '🎨', hint: '관심사 큐레이션', spot: 'spot-cat-theme' },
 ] as const
 
 export type VocabCategoryId = (typeof VOCAB_CATEGORIES)[number]['id']

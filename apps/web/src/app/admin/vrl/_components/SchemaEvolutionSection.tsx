@@ -28,22 +28,22 @@ const TIER_COLOR: Record<number, { bg: string; fg: string; gradient: string }> =
   1: {
     bg: 'var(--success-light)',
     fg: 'var(--success)',
-    gradient: 'linear-gradient(135deg, var(--success) 0%, #16a34a 100%)',
+    gradient: 'linear-gradient(135deg, var(--success) 0%, var(--success-ink) 100%)',
   },
   2: {
     bg: 'var(--error-light)',
     fg: 'var(--error)',
-    gradient: 'linear-gradient(135deg, var(--error) 0%, #b91c1c 100%)',
+    gradient: 'linear-gradient(135deg, var(--error) 0%, var(--error-ink) 100%)',
   },
   3: {
     bg: 'var(--info-light)',
     fg: 'var(--info)',
-    gradient: 'linear-gradient(135deg, var(--info) 0%, #0891b2 100%)',
+    gradient: 'linear-gradient(135deg, var(--info) 0%, var(--info-ink) 100%)',
   },
   4: {
     bg: 'var(--warning-light)',
     fg: 'var(--active)',
-    gradient: 'linear-gradient(135deg, var(--active) 0%, #d97706 100%)',
+    gradient: 'linear-gradient(135deg, var(--active) 0%, var(--warning) 100%)',
   },
   5: {
     bg: 'var(--bg3)',
@@ -209,7 +209,7 @@ function TierCard({
   const isComplete = present === total
   const ringClass =
     isNext && !isComplete
-      ? 'ring-2 ring-[var(--error)] shadow-[0_0_16px_rgba(239,68,68,0.15)]'
+      ? 'ring-2 ring-[var(--error)] shadow-[0_0_16px_color-mix(in_srgb,var(--error)_15%,transparent)]'
       : ''
 
   return (

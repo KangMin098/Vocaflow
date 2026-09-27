@@ -171,6 +171,29 @@ export const SCHOOL_BAND_MAX_CEFR = 'B1'
  */
 export const HIGH_BAND_MAX_CEFR = 'B2'
 
+/**
+ * **고2 이상(V6+)의 난이도 상한 = C1**(2026-09-24 실측으로 확정 · 사용자 승인).
+ *
+ * 위 주석이 요구한 「시중 고등 교재 실측」을 했다(`scripts/csat/measure-band-rulers.mts` · **정본 자**로).
+ *
+ *   | 집단 | ≤B2 | C1 | C2 |
+ *   |---|---|---|---|
+ *   | 기출 802편 | 82.2% | **17.8%** | 0% |
+ *   | 시중 고1 교재 61 | 93.4% | 6.6% | 0% |
+ *   | 시중 고1~고2 308 | 94.5% | 5.5% | 0% |
+ *   | 시중 고2~고3 248 | 68.5% | **31.5%** | 0% |
+ *   | 시중 고3 97 | 74.2% | **25.8%** | 0% |
+ *
+ * V5(고1)는 B2 가 맞다(시중 고1 의 93~94%). V6(고2)·V7+(고3)에서 B2 상한은 **실제 수능 지문의 18%,
+ * 시중 고2~고3 지문의 26~32%** 를 막는다 — 실물이 싣는 수준을 막는 상한이다. C2 는 어디에도 없다(0%).
+ * 외부 연구도 수능 지문이 교과서보다 뚜렷이 어렵다고 본다(research-passage-difficulty-20260924).
+ *
+ * ⚠️ 이 표는 **정본 자(기능어 제외)** 로 잰 것이다. 기능어를 포함한 자로 재면 기출 C1 이 0.6% 로 나와
+ *   「기출은 B2」처럼 보인다(DD-60 의 근거가 그 자였다) — 상한과 같은 자로 재야 비교가 성립한다.
+ */
+export const UPPER_BAND_MIN_V = 6
+export const UPPER_BAND_MAX_CEFR = 'C1'
+
 const CEFR_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
 
 /**
@@ -181,7 +204,7 @@ export function cefrFitsBand(cefr: string | null | undefined, band: number | nul
   if (!cefr || band == null) return true
   const idx = CEFR_ORDER.indexOf(cefr as (typeof CEFR_ORDER)[number])
   if (idx < 0) return true
-  const cap = band <= SCHOOL_BAND_MAX_V ? SCHOOL_BAND_MAX_CEFR : HIGH_BAND_MAX_CEFR
+  const cap = band <= SCHOOL_BAND_MAX_V ? SCHOOL_BAND_MAX_CEFR : band < UPPER_BAND_MIN_V ? HIGH_BAND_MAX_CEFR : UPPER_BAND_MAX_CEFR
   return idx <= CEFR_ORDER.indexOf(cap)
 }
 /** 초·중으로 보는 V-Level 상한. `V_TO_MARKET_BUCKET` 이 V5 부터 고1 로 매긴다. */

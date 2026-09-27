@@ -39,7 +39,7 @@ const GLOBALS = join(SRC, 'app', 'globals.css')
 
 /** 런타임에 주입돼서 소스에 정의가 없는 것이 **정상**인 변수들. 이유를 함께 적는다. */
 const RUNTIME_INJECTED: Record<string, string> = {
-  '--sidebar-w': 'Sidebar 가 useEffect 에서 style.setProperty 로 넣는다(fixed 오버레이 오프셋)',
+  '--sidebar-w': 'AppHeader 가 useEffect 에서 0px 으로 넣는다(v08.6 이전 사이드바 폭 — fixed 오버레이 오프셋)',
   '--m-accent': '아케이드 무드 색 — app/(main)/arcade/page.tsx 가 조상 요소의 인라인 style 로 넣는다',
   '--m-glow': '같은 곳에서 함께 넣는다',
 }

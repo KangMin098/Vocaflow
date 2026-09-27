@@ -55,7 +55,7 @@ function MissingPanel({ title, reason, href, hrefLabel, span2 }: MissingPanelPro
       </p>
       <Link
         href={href}
-        className="mt-3 inline-flex min-h-[44px] items-center font-display text-[12px] font-[700] text-[var(--p)] underline decoration-[var(--p)]/40 underline-offset-2 transition-colors duration-[var(--dur-normal)] hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="mt-3 inline-flex min-h-[44px] items-center font-display text-[12px] font-[700] text-[var(--p)] underline decoration-[color-mix(in_srgb,var(--p)_40%,transparent)] underline-offset-2 transition-colors duration-[var(--dur-normal)] hover:decoration-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         {hrefLabel}
       </Link>

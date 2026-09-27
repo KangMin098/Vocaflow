@@ -1,18 +1,23 @@
 // apps/web/src/components/library/browse/SeriesInfoModal.tsx
 //
-// 시리즈 학습정보 팝업 (v06.245 — 시각적 정보전달 강화) —
-//   /library/scripts 진입면에서 주제(시리즈)를 누르면 뜨는 "결정 surface".
-// 텍스트 위주 → 시각 부호화(정보전달 매커니즘) 우선:
-//   · 난이도 게이지: "나 vs 시리즈"를 축 위에 그려 "나에게 맞나?"를 <1s 시각 즉답(전주의적).
+// 시리즈 학습정보 팝업 — /library/scripts 에서 주제(시리즈)를 누르면 뜨는 "결정 surface".
+//
+// ── 껍데기는 `ui/Dialog` (DD-68 · tines-mapping §28, 2026-09-23) ───────────
+// 예전에는 이 파일이 배경막·패널·머리·닫기 버튼을 직접 그렸다. 지금은 참조 팝업 골격을
+// 그대로 쓴다: 빵부스러기 알약 → 큰 제목 → 한 줄 → **능력 태그 줄**(참조의 태그 자리) →
+// 가로선 → 2열 본문(넓은 왼쪽 판단 + 좁은 오른쪽 수치·출처) → 바닥 CTA.
+// 참조가 태그를 머리에 올리는 이유가 우리에게도 맞는다 — "무엇을 기르는 시리즈인가" 는
+// 제목 다음으로 읽혀야 하는 정보지, 스크롤해서 찾을 것이 아니다.
+//
+// ── 내용 원칙(그대로) ──────────────────────────────────────────────────────
+//   · 난이도 게이지: "나 vs 시리즈"를 축 위에 그려 <1s 시각 즉답(전주의적).
 //   · 스탯 타일: 분량·읽기시간·음성을 아이콘+수치로(그림 우월).
-//   · 능력 아이콘 칩: 각 능력에 키워드→아이콘(Dual Coding) — 텍스트 나열 탈피.
 //   · 로드맵: 큰 번호+연결선(경로 시각화). why/출처는 아이콘 앵커로 보조.
-//   · 인지부하 청킹(Sweller), Von Restorff(개인화·CTA 격리), Calm 등장, 44/48px 타깃, 다크 토큰.
-// 콘텐츠는 전부 실데이터/근거 — TrackStat + SourceTrack 카피.
+//   · 콘텐츠는 전부 실데이터/근거 — TrackStat + SourceTrack 카피.
 
 'use client'
 
-import { useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useMemo } from 'react'
 import {
   ArrowRight,
   BarChart3,
@@ -26,10 +31,13 @@ import {
   Target,
   Type,
   Volume2,
-  X,
   type LucideIcon,
 } from 'lucide-react'
+
+import { Dialog, DialogColumns, DialogSection, DialogTintPanel, type DialogTone } from '@/components/ui/Dialog'
+import { BTN, DIALOG } from '@/components/ui/tines-kit'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { SealMark } from '@/components/ui/press'
 
 import {
   TRACK_FIT_META,
@@ -37,12 +45,18 @@ import {
   getLearnerBand,
   vToCefrLabel,
   vToPct,
+  type TrackFit,
   type TrackStat,
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
-import { SealMark } from '@/components/ui/press'
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
-import { useFocusTrap } from '@/lib/ui/use-focus-trap'
+
+/** 판정 → 면 색. 색이 뜻을 나른다(맞음 초록 · 어려움 살구 · 쉬움 청록 · 미진단 라벤더). */
+const FIT_TONE: Record<TrackFit | 'undiagnosed', DialogTone> = {
+  fit: 'green',
+  hard: 'peach',
+  easy: 'teal',
+  undiagnosed: 'lavender',
+}
 
 /** 개인화 훅 — fit + idealCount + 진단여부 (감정 부호화·자기효능감). */
 function appealLine(stat: TrackStat, userV: number): { lead: string; body: string } {
@@ -93,14 +107,12 @@ export function SeriesInfoModal({
   onClose: () => void
   onEnter: () => void
 }) {
-  // 이 모달은 열려 있을 때만 마운트된다 — 마운트 = 열림.
-  useCloseOnBack(true, onClose)
-
   const { track, count, cefrLabel, hasAudio, fit, sources, idealCount, vMin, vMax } = stat
   const fitMeta = TRACK_FIT_META[fit]
   const appeal = appealLine(stat, userV)
-  const titleId = useId()
   const accent = track.accent
+  const band = getLearnerBand(userV)
+  const tone = FIT_TONE[band === 'undiagnosed' ? 'undiagnosed' : fit]
 
   // 읽기 시간 레이블 — 실 글에서 집계 (분량 타일용).
   const readLabel = useMemo(() => {
@@ -113,182 +125,153 @@ export function SeriesInfoModal({
 
   const maxSourceCount = Math.max(1, ...sources.map((s) => s.count))
 
-  const [shown, setShown] = useState(false)
-  const dialogRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', onKey)
-    const prev = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    const raf = requestAnimationFrame(() => setShown(true))
-    return () => {
-      document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prev
-      cancelAnimationFrame(raf)
-    }
-  }, [onClose])
-
-  // 포커스: 열 때 팝업 안으로 · Tab 순환 · 닫을 때 트리거로 복원.
-  //   이 팝업은 **열 때 포커스를 옮기지도, 닫을 때 되돌리지도 않았다**(실측 2026-09-05).
-  //   키보드 사용자에게는 팝업이 떴다는 사실 자체가 전달되지 않았고, 첫 Tab 이 팝업이
-  //   아니라 그 뒤 목록의 다음 항목으로 갔다. 규칙은 `lib/ui/use-focus-trap.ts` 단일 출처.
-  //   이 컴포넌트는 열려 있을 때만 마운트된다(호출부 조건부 렌더) — 그래서 상시 `true`.
-  useFocusTrap(true, dialogRef)
-
   return (
-    <div
-      className={`fixed inset-0 z-[60] flex items-end justify-center bg-[color-mix(in_srgb,var(--t1)_50%,transparent)] p-0 backdrop-blur-[3px] transition-opacity duration-[var(--dur-normal)] sm:items-center sm:p-4 ${shown ? 'opacity-100' : 'opacity-0'}`}
-      onClick={onClose}
-      role="presentation"
-    >
-      <div
-        ref={dialogRef}
-        // 패널 자체가 포커스를 받는다 — 열 때 「닫기」 버튼으로 뛰면 제목·난이도 게이지를
-        // 지나친 자리에서 시작한다. 스크린리더는 "무엇이 떴는지" 부터 읽어야 한다.
-        tabIndex={-1}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={titleId}
-        onClick={(e) => e.stopPropagation()}
-        className={`flex max-h-[92vh] w-full max-w-[560px] flex-col overflow-hidden rounded-t-[var(--r-xl)] bg-[var(--bg)] shadow-[var(--sh-lg)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus:outline-none sm:rounded-[var(--r-xl)] ${shown ? 'translate-y-0 opacity-100 sm:scale-100' : 'translate-y-6 opacity-0 sm:translate-y-0 sm:scale-95'}`}
-      >
-        {/* ═══ 히어로 — 정체성 ═══ */}
-        <header
-          className="relative flex items-start gap-4 px-6 pb-5 pt-6"
-          style={{ background: `linear-gradient(155deg, color-mix(in srgb, ${accent} 20%, var(--bg)) 0%, var(--bg) 82%)` }}
-        >
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="닫기"
-            className="absolute right-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            <X size={20} aria-hidden />
-          </button>
-          <SealMark label={track.title} size="lg" />
-          <div className="flex min-w-0 flex-1 flex-col gap-1 pr-8">
-            <span className="inline-flex w-fit items-center gap-1 font-display text-[11px] font-[800] uppercase tracking-[0.1em]" style={{ color: accent }}>
-              학습 시리즈
-            </span>
-            <h2 id={titleId} className="font-editorial text-[25px] font-[600] leading-[1.1] tracking-[-0.01em] text-[var(--t1)]">
-              {track.title}
-            </h2>
-            <p className="font-body text-[14px] leading-[1.5] text-[var(--t2)]">{track.oneLine}</p>
-          </div>
-        </header>
-
-        {/* ═══ 본문 (스크롤) ═══ */}
-        <div className="flex flex-col gap-5 overflow-y-auto px-6 pb-5 pt-2">
-          {/* ── 난이도 게이지 — "나에게 맞나?" 시각 즉답 ── */}
-          <DifficultyGauge vMin={vMin} vMax={vMax} userV={userV} fitMeta={fitMeta} cefrLabel={cefrLabel} accent={accent} />
-
-          {/* ── 스탯 타일 — 분량·읽기시간·음성 (그림 우월) ── */}
-          <div className="grid grid-cols-3 gap-2">
-            <StatTile icon={FileText} label="분량" value={`${count}편`} tint={accent} />
-            <StatTile icon={Clock} label="읽기" value={readLabel} tint={accent} />
-            <StatTile icon={Volume2} label="음성" value={hasAudio ? '있음' : '없음'} tint={hasAudio ? accent : undefined} muted={!hasAudio} />
-          </div>
-
-          {/* ── 개인화 훅 (Von Restorff) ── */}
-          <div
-            className="flex items-start gap-3 rounded-[var(--r-lg)] border-l-[3px] px-4 py-4"
-            style={{ borderColor: fitMeta.color, backgroundColor: `color-mix(in srgb, ${fitMeta.color} 9%, var(--bg))` }}
-          >
-            <span aria-hidden className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: fitMeta.color, color: 'var(--ti)' }}>
-              <Gwonjeom size={13} aria-hidden />
-            </span>
-            <div className="flex flex-col gap-1">
-              <span className="font-display text-[16px] font-[800] leading-[1.3] text-[var(--t1)]">{appeal.lead}</span>
-              <span className="font-body text-[13.5px] leading-[1.45] text-[var(--t2)]">{appeal.body}</span>
-            </div>
-          </div>
-
-          {/* ── 기르는 능력 — 아이콘 칩 그리드 (Dual Coding) ── */}
-          <Zone label="이렇게 성장해요" accent={accent}>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-              {track.skills.map((sk) => {
-                const Icon = skillIcon(sk)
-                return (
-                  <div key={sk} className="flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-3">
-                    <span aria-hidden className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 14%, transparent)`, color: accent }}>
-                      <Icon size={16} aria-hidden />
-                    </span>
-                    <span className="font-body text-[13.5px] font-[600] leading-[1.25] text-[var(--t1)]">{sk}</span>
-                  </div>
-                )
-              })}
-            </div>
-          </Zone>
-
-          {/* ── 학습 로드맵 — 큰 번호 + 연결선 ── */}
-          <Zone label="학습 로드맵" accent={accent}>
-            <ol className="flex flex-col">
-              {track.method.map((step, i) => (
-                <li key={step} className="flex gap-3">
-                  <div className="flex flex-col items-center">
-                    <span aria-hidden className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)] font-mono text-[12px] font-[800] text-[var(--ti)] shadow-[var(--sh-xs)]" style={{ backgroundColor: accent }}>
-                      {i + 1}
-                    </span>
-                    {i < track.method.length - 1 && (
-                      <span aria-hidden className="my-1 w-[2.5px] flex-1 rounded-full" style={{ backgroundColor: `color-mix(in srgb, ${accent} 30%, var(--bd))` }} />
-                    )}
-                  </div>
-                  <span className={`pt-1 font-body text-[14px] font-[600] leading-[1.35] text-[var(--t1)] ${i < track.method.length - 1 ? 'pb-3' : ''}`}>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </Zone>
-
-          {/* ── 출처별 상세 (소스별 · 소스주제별 — 무엇을·어디서, 한눈에) ── */}
-          {sources.length > 0 && (
-            <Zone label={`출처 · ${sources.length}곳`} accent={accent}>
-              <div className="flex flex-col gap-2">
-                {sources.map((s) => (
-                  <SourceDetail key={s.key} source={s} maxCount={maxSourceCount} />
-                ))}
-              </div>
-              <p className="mt-0.5 font-body text-[11px] leading-[1.4] text-[var(--t2)]">
-                모두 신뢰할 수 있는 원문에서 큐레이션 · 원문은 각 글에서 열 수 있어요.
-              </p>
-            </Zone>
+    <Dialog
+      onClose={onClose}
+      size="lg"
+      media={<SealMark label={track.title} size="lg" />}
+      crumbs={['학습 시리즈', '기사 서가', `시리즈 ${cefrLabel}`]}
+      title={track.title}
+      byline={track.oneLine}
+      // 참조의 태그 줄 = 「이 시리즈로 기르는 능력」. 아이콘을 달아 Dual Coding 을 유지한다.
+      tags={track.skills.map((sk) => {
+        const Icon = skillIcon(sk)
+        return (
+          <span key={sk} className="inline-flex items-center gap-1.5">
+            <Icon size={14} aria-hidden style={{ color: accent }} />
+            {sk}
+          </span>
+        )
+      })}
+      meta={
+        <>
+          <span className="font-display font-[700] text-[var(--t1)]">{count}편</span>
+          <span aria-hidden>·</span>
+          <span>출처 {sources.length}곳</span>
+          {hasAudio && (
+            <>
+              <span aria-hidden>·</span>
+              <span className="inline-flex items-center gap-1">
+                <Volume2 size={13} aria-hidden /> 음성
+              </span>
+            </>
           )}
-
-          {/* ── 왜 효과적 (아이콘 앵커) ── */}
-          <div className="flex items-start gap-3 rounded-[var(--r-lg)] bg-[var(--bg2)] p-4">
-            <span aria-hidden className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)]" style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}>
-              <Lightbulb size={14} aria-hidden />
-            </span>
-            <div className="flex flex-col gap-1">
-              <span className="font-display text-[11px] font-[800] uppercase tracking-[0.08em] text-[var(--t2)]">왜 효과적일까요</span>
-              <p className="font-body text-[13px] leading-[1.5] text-[var(--t1)]">{track.why}</p>
-              {track.note && <p className="mt-1 font-body text-[11.5px] leading-[1.45] text-[var(--t2)]">※ {track.note}</p>}
-            </div>
-          </div>
-        </div>
-
-        {/* ═══ 스티키 CTA ═══ */}
-        <footer className="flex items-center gap-3 border-t border-[var(--bd)] bg-[var(--bg)] px-6 py-4">
-          <button
-            type="button"
-            onClick={onClose}
-            className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-md)] px-4 font-display text-[14px] font-[700] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
+        </>
+      }
+      footer={
+        <>
+          <button type="button" onClick={onClose} className={BTN.secondary}>
             닫기
           </button>
-          <button
-            type="button"
-            onClick={onEnter}
-            className="group inline-flex min-h-[48px] flex-1 items-center justify-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[15px] font-[800] text-[var(--ti)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:translate-y-0"
-            style={{ backgroundColor: accent }}
-          >
+          <button type="button" onClick={onEnter} className={`${BTN.primary} group ml-auto flex-1 sm:flex-none`}>
             {idealCount > 0 ? `딱 맞는 글 ${idealCount}편부터 시작` : '이 시리즈로 시작하기'}
             <ArrowRight size={16} aria-hidden className="transition-transform group-hover:translate-x-0.5" />
           </button>
-        </footer>
-      </div>
-    </div>
+        </>
+      }
+    >
+      <DialogColumns
+        main={
+          <>
+            {/* ── 참조의 「Starting prompt」 자리 — 우리는 「나에게 맞나」 판단이 먼저다 ── */}
+            <DialogTintPanel
+              tone={tone}
+              dots
+              title={appeal.lead}
+              note={appeal.body}
+              action={
+                <span className="inline-flex items-center gap-1.5 font-display text-[13px] font-[800]">
+                  <Target size={15} aria-hidden />
+                  {fitMeta.label}
+                </span>
+              }
+            >
+              <DifficultyGauge vMin={vMin} vMax={vMax} userV={userV} cefrLabel={cefrLabel} accent={accent} />
+            </DialogTintPanel>
+
+            {/* ── 학습 로드맵 — 큰 번호 + 연결선 ── */}
+            <DialogSection label="학습 로드맵">
+              <ol className="flex flex-col">
+                {track.method.map((step, i) => (
+                  <li key={step} className="flex gap-3">
+                    <div className="flex flex-col items-center">
+                      <span
+                        aria-hidden
+                        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full font-mono text-[12px] font-[800] text-[var(--ti)]"
+                        style={{ backgroundColor: accent }}
+                      >
+                        {i + 1}
+                      </span>
+                      {i < track.method.length - 1 && (
+                        <span
+                          aria-hidden
+                          className="my-1 w-[2.5px] flex-1 rounded-full"
+                          style={{ backgroundColor: `color-mix(in srgb, ${accent} 30%, var(--bd))` }}
+                        />
+                      )}
+                    </div>
+                    <span
+                      className={`pt-1 font-body text-[14px] font-[600] leading-[1.35] text-[var(--t1)] break-keep ${i < track.method.length - 1 ? 'pb-3' : ''}`}
+                    >
+                      {step}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </DialogSection>
+
+            {/* ── 왜 효과적 ── */}
+            <DialogSection label="왜 효과적일까요">
+              <div className="flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
+                <span
+                  aria-hidden
+                  className="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full"
+                  style={{ backgroundColor: `color-mix(in srgb, ${accent} 16%, transparent)`, color: accent }}
+                >
+                  <Lightbulb size={14} aria-hidden />
+                </span>
+                <div className="flex flex-col gap-1">
+                  <p className="font-body text-[13.5px] leading-[1.55] text-[var(--t1)] break-keep">{track.why}</p>
+                  {track.note && (
+                    <p className="mt-1 font-body text-[12px] leading-[1.45] text-[var(--t2)] break-keep">※ {track.note}</p>
+                  )}
+                </div>
+              </div>
+            </DialogSection>
+          </>
+        }
+        side={
+          <>
+            {/* ── 스탯 타일 — 분량·읽기시간·음성 (그림 우월) ── */}
+            <div className="grid grid-cols-3 gap-2 lg:grid-cols-1">
+              <StatTile icon={FileText} label="분량" value={`${count}편`} tint={accent} />
+              <StatTile icon={Clock} label="읽기" value={readLabel} tint={accent} />
+              <StatTile
+                icon={Volume2}
+                label="음성"
+                value={hasAudio ? '있음' : '없음'}
+                tint={hasAudio ? accent : undefined}
+                muted={!hasAudio}
+              />
+            </div>
+
+            {/* ── 출처별 상세 — 무엇을·어디서, 한눈에 ── */}
+            {sources.length > 0 && (
+              <DialogSection label={`출처 · ${sources.length}곳`}>
+                <div className="flex flex-col gap-2">
+                  {sources.map((s) => (
+                    <SourceDetail key={s.key} source={s} maxCount={maxSourceCount} />
+                  ))}
+                </div>
+                <p className="font-body text-[11px] leading-[1.4] text-[var(--t2)] break-keep">
+                  모두 신뢰할 수 있는 원문에서 큐레이션 · 원문은 각 글에서 열 수 있어요.
+                </p>
+              </DialogSection>
+            )}
+          </>
+        }
+      />
+    </Dialog>
   )
 }
 
@@ -297,14 +280,12 @@ function DifficultyGauge({
   vMin,
   vMax,
   userV,
-  fitMeta,
   cefrLabel,
   accent,
 }: {
   vMin: number
   vMax: number
   userV: number
-  fitMeta: { label: string; color: string }
   cefrLabel: string
   accent: string
 }) {
@@ -313,28 +294,32 @@ function DifficultyGauge({
   const me = vToPct(effectiveUserV(userV))
   const myCefr = vToCefrLabel(effectiveUserV(userV))
   return (
-    <div className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-4">
-      <div className="flex items-center justify-between">
-        <span className="inline-flex items-center gap-2 font-display text-[13px] font-[800]" style={{ color: fitMeta.color }}>
-          <Target size={14} aria-hidden /> {fitMeta.label}
-        </span>
-        <span className="font-mono text-[11px] font-[600] text-[var(--t2)]">시리즈 {cefrLabel}</span>
-      </div>
-      <div className="relative mt-1 h-2.5 w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
+    <div className="flex flex-col gap-2">
+      {/* 트랙은 면 위라 면 글자색 14% — 크림 기준 --bg3 를 쓰면 색 있는 면에서 안 보인다(§25). */}
+      <div className="relative h-2.5 w-full rounded-full bg-[color-mix(in_srgb,var(--t1)_14%,transparent)]">
         {/* 시리즈 밴드 */}
         <span
           aria-hidden
-          className="absolute top-0 h-full rounded-[var(--r-full)]"
-          style={{ left: `${bandLo}%`, width: `${Math.max(6, bandHi - bandLo)}%`, backgroundColor: `color-mix(in srgb, ${accent} 55%, transparent)` }}
+          className="absolute top-0 h-full rounded-full"
+          style={{
+            left: `${bandLo}%`,
+            width: `${Math.max(6, bandHi - bandLo)}%`,
+            backgroundColor: `color-mix(in srgb, ${accent} 55%, transparent)`,
+          }}
         />
         {/* 내 위치 마커 */}
         <span aria-hidden className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2" style={{ left: `${me}%` }}>
-          <span className="block h-4 w-4 rounded-[var(--r-full)] border-[2.5px] border-[var(--bg)] bg-[var(--t1)] shadow-[var(--sh-sm)]" />
+          <span className="block h-4 w-4 rounded-full border-[2.5px] border-[var(--bg)] bg-[var(--t1)]" />
         </span>
       </div>
       <div className="flex items-center justify-between font-mono text-[10.5px] font-[600] text-[var(--t2)]">
         <span>← 쉬움</span>
-        <span className="font-[700] text-[var(--t2)]">내 레벨 · {userV > 0 ? `V${userV}` : '기준'} · {myCefr}</span>
+        <span className="font-[700]">
+          내 레벨 · {userV > 0 ? `V${userV}` : '기준'} · {myCefr}
+        </span>
+        <span aria-hidden className="hidden sm:inline">
+          시리즈 {cefrLabel}
+        </span>
         <span>어려움 →</span>
       </div>
     </div>
@@ -346,7 +331,7 @@ function SourceDetail({ source, maxCount }: { source: TrackStat['sources'][numbe
   const pct = Math.round((source.count / maxCount) * 100)
   return (
     <div className="flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3">
-      <span aria-hidden className="mt-1 h-3 w-3 shrink-0 rounded-[var(--r-full)]" style={{ backgroundColor: source.color }} />
+      <span aria-hidden className="mt-1 h-3 w-3 shrink-0 rounded-full" style={{ backgroundColor: source.color }} />
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-center gap-2">
           <span className="truncate font-display text-[13.5px] font-[800] text-[var(--t1)]">{source.label}</span>
@@ -358,9 +343,12 @@ function SourceDetail({ source, maxCount }: { source: TrackStat['sources'][numbe
           </span>
           <span className="ml-auto shrink-0 font-mono text-[11px] font-[700] text-[var(--t2)]">{source.count}편</span>
         </div>
-        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t2)]">{source.blurb}</p>}
-        <div className="mt-0.5 h-[3px] w-full rounded-[var(--r-full)] bg-[var(--bg3)]">
-          <div className="h-full rounded-[var(--r-full)]" style={{ width: `${pct}%`, backgroundColor: `color-mix(in srgb, ${source.color} 60%, transparent)` }} />
+        {source.blurb && <p className="font-body text-[12px] leading-[1.4] text-[var(--t2)] break-keep">{source.blurb}</p>}
+        <div className="mt-0.5 h-[3px] w-full rounded-full bg-[var(--bg3)]">
+          <div
+            className="h-full rounded-full"
+            style={{ width: `${pct}%`, backgroundColor: `color-mix(in srgb, ${source.color} 60%, transparent)` }}
+          />
         </div>
       </div>
     </div>
@@ -383,7 +371,7 @@ function StatTile({
 }) {
   return (
     <div
-      className="flex flex-col items-center gap-1 rounded-[var(--r-md)] border px-2 py-3 text-center"
+      className="flex flex-col items-center gap-1 rounded-[var(--r-md)] border px-2 py-3 text-center lg:flex-row lg:gap-3 lg:px-4 lg:text-left"
       style={{
         borderColor: tint ? `color-mix(in srgb, ${tint} 28%, var(--bd))` : 'var(--bd)',
         backgroundColor: tint ? `color-mix(in srgb, ${tint} 7%, var(--bg))` : 'var(--bg2)',
@@ -392,23 +380,13 @@ function StatTile({
       <span aria-hidden style={{ color: muted ? 'var(--t3)' : tint ?? 'var(--t2)' }}>
         <Icon size={16} aria-hidden />
       </span>
-      <span className="font-display text-[9.5px] font-[700] uppercase tracking-[0.05em] text-[var(--t2)]">{label}</span>
-      <span className="font-display text-[14px] font-[800] leading-none" style={{ color: muted ? 'var(--t3)' : 'var(--t1)' }}>
+      <span className={`${DIALOG.sectionLabel} text-[9.5px] lg:flex-1`}>{label}</span>
+      <span
+        className="font-display text-[14px] font-[800] leading-none"
+        style={{ color: muted ? 'var(--t3)' : 'var(--t1)' }}
+      >
         {value}
       </span>
     </div>
-  )
-}
-
-/** 정보 존 — 라벨 + 내용 (Gestalt 근접성). */
-function Zone({ label, accent, children }: { label: string; accent: string; children: ReactNode }) {
-  return (
-    <section className="flex flex-col gap-3">
-      <span className="inline-flex items-center gap-2 font-display text-[12px] font-[800] uppercase tracking-[0.07em] text-[var(--t2)]">
-        <span aria-hidden className="h-3 w-[3px] rounded-full" style={{ backgroundColor: accent }} />
-        {label}
-      </span>
-      {children}
-    </section>
   )
 }

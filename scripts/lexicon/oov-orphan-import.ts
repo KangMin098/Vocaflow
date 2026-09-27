@@ -185,13 +185,15 @@ async function applyOovInsert(
 async function lemmaBackfill(sb: SupabaseClient, apply: boolean): Promise<Record<string, number>> {
   if (!apply) return {}
 
-  // shared_words / vocabularies / library_book_vocabularies / library_article_vocabularies
+  // shared_words / vocabularies / library_book_vocabularies
   // Step 8 패턴: lemma IS NULL && EXISTS sd WHERE sd.word = LOWER(TRIM(word))
+  // ⚠️ library_article_vocabularies 는 뺐다 — `lemma`·`id` 가 2026-09-01
+  //    (`20260901040000_lav_drop_dead_columns`)에 삭제됐다. 넣어 두면 「열 없음」 오류가
+  //    아래 건너뛰기에 걸려 「표 없음(-1)」으로 조용히 보고됐다.
   const tables: Array<{ name: string; wordCol: string }> = [
     { name: 'shared_words', wordCol: 'word' },
     { name: 'vocabularies', wordCol: 'word' },
     { name: 'library_book_vocabularies', wordCol: 'word' },
-    { name: 'library_article_vocabularies', wordCol: 'word' },
   ]
   const result: Record<string, number> = {}
 
@@ -205,8 +207,8 @@ async function lemmaBackfill(sb: SupabaseClient, apply: boolean): Promise<Record
       .not(t.wordCol, 'is', null)
       .limit(1000)
     if (error) {
-      // 테이블 존재하지 않으면 skip
-      if (error.code === '42P01' || /does not exist/i.test(error.message)) {
+      // 테이블이 없을 때만 skip — 「열 없음」(42703)은 여기서 삼키지 않고 던진다.
+      if (error.code === '42P01' || error.code === 'PGRST205' || /relation .* does not exist/i.test(error.message)) {
         result[t.name] = -1
         continue
       }

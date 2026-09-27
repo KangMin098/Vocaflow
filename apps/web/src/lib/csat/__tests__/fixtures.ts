@@ -8,12 +8,15 @@
 //
 // ⚠️ 이 파일은 테스트 파일이 아니다(`*.test.ts` 아님) — vitest 가 수집하지 않는다.
 
+import { UNREAD_ITEM_STATE } from '@/lib/csat/item-state-model'
 import type { BenchPublisher } from '../factory-bench'
 import type { BlueprintView, MarketView } from '../factory-lab-model'
 import type { AuthorView, PressView, ReviewView } from '../factory-line-model'
 // `import type` 이라 런타임에 사라진다 — `source-console.ts` 의 `server-only` 가 안 끌려온다.
+import type { ReviewDefectView } from '../review-defects-model'
 import type { SourceConsoleView } from '../source-console'
 import type { KidSourcePanel } from '@/lib/textbook/kid-source-stats'
+import { SCHOOL_SERIES_BLOCKED } from '@vocaflow/library-pipeline/textbook-series-catalog'
 import { FACTORY_STAGES, type StageState } from '../factory-model'
 import {
   NOT_MAKING,
@@ -172,6 +175,7 @@ export const MARKET_REAL: MarketView = {
       }),
     ],
   },
+  benchAgeDays: 5,
   target: 1.2,
   platform: { itemAttempts: 1, renderedVolumes: 7, itemAttemptsError: null },
   loadError: null,
@@ -352,7 +356,8 @@ export const AUTHOR_REAL: AuthorView = {
     { type: 'order', vLevel: 5 },
     { type: 'order', vLevel: 6 },
     { type: 'insert', vLevel: 6 },
-  ],
+  ],  // 표본은 **못 읽은 상태**를 기본으로 — 렌더 테스트는 DB 를 안 타므로 그것이 사실이다.
+  itemState: UNREAD_ITEM_STATE,
   loadError: null,
   inventoryAt: null,
 }
@@ -431,6 +436,13 @@ export const PRESS_REAL: PressView = {
   volumes: [
     {
       band: 6,
+      series: 'reading',
+      // 사람이 발행 판정을 내린 권 — 사유 없이 approved 는 없다(승인은 사유가 필요 없다).
+      publish: { status: 'published', reason: null, at: '2026-09-02T00:00:00Z', by: 'claude' },
+      personaBlocked: 0,
+      autoPassed: 10,
+      autoTotal: 10,
+      reach: { href: '/library/textbooks/reading/6', hasContents: true },
       volumeTitle: 'Vocaflow Reading 5',
       step: 6,
       schoolBand: '고2',
@@ -448,6 +460,14 @@ export const PRESS_REAL: PressView = {
     },
     {
       band: 1,
+      series: 'vocab',
+      // 아무도 판정한 적이 없다 — 'rendered' 로 채우면 「사람이 rendered 라 판정했다」가 된다.
+      publish: null,
+      personaBlocked: null,
+      // 자동 검사가 **안 돌았다** — 0/0 은 「통과」가 아니라 「못 잼」이다.
+      autoPassed: 0,
+      autoTotal: 0,
+      reach: { href: '/library/textbooks/vocab/1', hasContents: false },
       volumeTitle: 'Vocaflow Reading Starter',
       step: 1,
       schoolBand: '초등 저학년',
@@ -481,15 +501,19 @@ export const PRESS_REAL: PressView = {
 /**
  * 카탈로그 표본 — **시리즈 × 학령**(2026-09-06 축 변경).
  *
- * 값은 실측에서 왔다: 독해 7단 전부 조판됨 · 어휘·구문 각 6단이 재고를 채웠지만 한 번도
- * 안 찍힘. 「초등 저학년」 칸은 어휘·구문에 단이 없다(`noRung`) — 빈칸이지 결함이 아니다.
+ * 값은 실측에서 왔다(2026-09-23 재확인): 독해 7권 · 어휘 6권 · 구문 6권이 전부
+ * `textbook_volume_renders` 에 `status='published'` 로 있다. 「초등 저학년」 칸은
+ * 어휘·구문에 단이 없다(`noRung`) — 빈칸이지 결함이 아니다.
+ *
+ * ⚠️ 표본이 옛 사실을 들고 있으면 회귀가 **고쳐진 결함을 계속 통과시킨다.** 어휘·구문을
+ *   「한 번도 안 찍음」으로 두는 동안 그것이 정확히 화면의 거짓말이었다(DD-76).
  */
 function seriesRow(
   id: SeriesRow['id'],
   brand: string,
   accent: string,
   marketSeries: number,
-  status: SeriesRow['status'],
+  lifecycle: SeriesRow['lifecycle'],
   cells: (VolumeStatus | null)[],
   items: number,
 ): SeriesRow {
@@ -523,8 +547,15 @@ function seriesRow(
     brand,
     question: '표본',
     accent,
-    status,
-    nextStep: status === 'draft' ? '조판을 한 번도 안 돌렸다' : null,
+    lifecycle,
+    intent: 'active',
+    origin: {
+      trigger: 'supply',
+      evidence: '표본 — 실제 카탈로그는 그때 잰 수를 적는다',
+      since: '2026-09-06',
+    },
+    nextAction: '표본 — 실제 화면은 nextActionOf() 가 준다',
+    stale: 0,
     marketSeries,
     marketExamples: [],
     volumes,
@@ -536,15 +567,26 @@ function seriesRow(
 
 export const SERIES_REAL: SeriesCatalogView = (() => {
   const P = 'published' as const
-  const R = 'ready' as const
   const rows: SeriesRow[] = [
     seriesRow('reading', 'Vocaflow Reading', '#2E7D5A', 16, 'shipping', [P, P, P, P, P, P, P], 215032),
-    seriesRow('vocab', 'Vocaflow Vocab', '#8B5CF6', 3, 'draft', [null, R, R, R, R, R, R], 287614),
-    seriesRow('syntax', 'Vocaflow Syntax', '#B5803A', 2, 'draft', [null, R, R, R, R, R, R], 153720),
+    seriesRow('vocab', 'Vocaflow Vocab', '#8B5CF6', 3, 'shipping', [null, P, P, P, P, P, P], 287614),
+    seriesRow('syntax', 'Vocaflow Syntax', '#B5803A', 2, 'shipping', [null, P, P, P, P, P, P], 153720),
   ]
   return {
+    counts: { shipping: 3, defined: 3, market: 22 },
     rows,
-    counts: { shipping: 1, defined: 3, market: 22 },
+    // 시장 칸 대비 — 내신은 못 만드는 칸이라 이유와 함께 남는다(지우면 매번 다시 검토된다).
+    gaps: [
+      { kind: 'reading', market: 16, ours: 1, blockedWhy: null },
+      { kind: 'vocab', market: 3, ours: 1, blockedWhy: null },
+      { kind: 'syntax', market: 2, ours: 1, blockedWhy: null },
+      {
+        kind: 'school',
+        market: 1,
+        ours: 0,
+        blockedWhy: SCHOOL_SERIES_BLOCKED,
+      },
+    ],
     inventoryAt: null,
     notMaking: NOT_MAKING,
     loadError: null,
@@ -553,3 +595,45 @@ export const SERIES_REAL: SeriesCatalogView = (() => {
 
 /** 초·중 원문 재고 — TBP 콘솔에서 ④ 소재로 옮긴 패널(2026-09-06). */
 export const KID_SOURCE_REAL: KidSourcePanel = { inventory: null, error: null }
+
+/**
+ * ⑦ 검수에서 막힌 문항 — **DB 실측 모양**(2026-09-23).
+ *
+ * 값은 지어낸 것이 아니라 그날 실제로 잰 분포다:
+ *   판정 963행 = pass 303 · revise 501 · fail 159 · 문항 321 · 3인 전원 pass 29
+ * 밀집도 하네스가 **채워진 화면**을 재야 예산이 뜻을 갖는다 — 빈 화면을 재면 실제보다
+ * 작게 나오고, 데이터가 들어오는 날 아무 경고 없이 예산을 넘는다.
+ */
+export const REVIEW_DEFECTS_REAL: ReviewDefectView = {
+  available: true,
+  loadError: null,
+  itemsReviewed: 321,
+  itemsAllPass: 29,
+  itemsBlocked: 292,
+  byVerdict: { pass: 303, revise: 501, fail: 159 },
+  matrix: [
+    { vLevel: 5, pass: 140, revise: 244, fail: 78, items: 154 },
+    { vLevel: 6, pass: 121, revise: 198, fail: 61, items: 128 },
+    { vLevel: 7, pass: 42, revise: 59, fail: 20, items: 39 },
+  ],
+  rows: [
+    {
+      itemId: '3f2a91c7-0000-4000-8000-000000000001',
+      type: 'blank_word',
+      vLevel: 5,
+      persona: 'analyst',
+      verdict: 'fail',
+      says: '오답 2번과 4번이 같은 이유로 틀린다 — 배제 근거가 하나뿐이다',
+      reviewedAt: '2026-09-18T04:11:02.000Z',
+    },
+    {
+      itemId: '91c70a33-0000-4000-8000-000000000002',
+      type: 'insert',
+      vLevel: 6,
+      persona: 'tutor',
+      verdict: 'revise',
+      says: null,
+      reviewedAt: '2026-09-17T23:40:10.000Z',
+    },
+  ],
+}

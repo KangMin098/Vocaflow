@@ -311,7 +311,7 @@ function ErrorBox({ message }: { message: string }) {
   return (
     <div
       role="alert"
-      className="flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--learn-error)]/30 bg-[var(--learn-error-light)] p-3"
+      className="flex items-center gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--learn-error)_30%,transparent)] bg-[var(--learn-error-light)] p-3"
     >
       <AlertCircle size={14} className="shrink-0 text-[var(--learn-error)]" aria-hidden />
       <span className="font-body text-[12px] text-[var(--learn-error)]">{message}</span>

@@ -1,0 +1,828 @@
+[
+ {
+  "id": "2c3e5412-9b6c-45a4-8e31-562c6d3f0b22",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:23.234022+00:00",
+  "body_sha256": "0c6037c3945d5becf6d36fb993ccc65ed2acc2407b5161e06c69e3cadbba19b4",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "저마그네슘 환경이 콜리스틴 내성 경로를 어떻게 바꾸는지 고찰에서 두 경로와 적합도 대가로 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Environmental conditions and microbial interactions with",
+   "note": "유전자명(htrB2·lpxO2)을 「지질 합성 효소」로 바꾸면 서고, 내성-취약성 맞교환 논지가 남는다."
+  }
+ },
+ {
+  "id": "2c3f744f-b22e-4436-97fe-fbc70a4d6a29",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-15T14:43:21.765215+00:00",
+  "body_sha256": "9896b735894f3ec1f071a88fb1bc88319466a0247484eb985079a4def0b6644d",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "모기 계통·볼바키아 균주·바이러스 혈청형의 상호작용을 저자 요약과 고찰이 평이하게 정리한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dengue fever has become an escalating",
+   "note": "Author summary 단락은 전문 용어가 적어 그대로 쓸 만하고, Fst 수치는 걷어도 논지가 선다."
+  }
+ },
+ {
+  "id": "2c46f277-94f3-430e-a3b8-16972cce65c5",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:34.436718+00:00",
+  "body_sha256": "765cc2c760b8041d9b79088612103bd469c75e0222d1b2975c1e836fc88e3ecd",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "제왕절개 이용을 성별 규범·의료 권력으로 설명하는 사회과학 논증이며 인용 사례가 단락마다 붙는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cesarean section (CS) is a critical",
+   "note": "「밀어내는/끌어당기는 요인」 대비 구조가 뚜렷해 단락 떼기가 쉽다. 출산 묘사는 없어 고등 칸에 둔다."
+  }
+ },
+ {
+  "id": "2c4d18ee-6526-42be-a379-2efc3e1a3287",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:36.008077+00:00",
+  "body_sha256": "43ed32c4a4ce051b738f1e04df4ace29bc8e0bb694759b34ea697e639918e768",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "노화에 따른 종양 전사체 차이를 다루지만 고찰이 유전자 목록 해설 중심이라 가공 폭이 좁다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Clear cell renal cell carcinoma (ccRCC)",
+   "note": "서론 첫 단락은 서지만, 결과 절은 수치·유전자 약어를 걷으면 남는 문장이 거의 없다."
+  }
+ },
+ {
+  "id": "2c587cfc-4f69-46ca-b1ae-49e9bc25e091",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:38.977643+00:00",
+  "body_sha256": "1e4eea4f926378e848f53bff82246e496c32fbcbbbd1e6ee54cc5e78ab67f07f",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "정맥혈과 지말초혈 혈당의 예측력 차이를 J자형 관계로 설명해 고찰이 하나의 논지로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In critically ill patients, hyperglycemia had",
+   "note": "HR·AUC를 걷으면 「측정 방법에 따라 기준값이 달라진다」는 논지가 남지만, 어휘 치환은 임상 약어가 많아 어렵다."
+  }
+ },
+ {
+  "id": "2c5ae3e0-94cf-450b-8a7a-a1f2b4c1dc41",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:44.990011+00:00",
+  "body_sha256": "9bf9de0a35ad28e5394c40cbff69eed16cef5850e315c96512c21b59e247bb14",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "병리 슬라이드로 면역세포 구성을 추정하는 모델을 설명하며 고찰에서 선행 연구와 대비한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The tumor microenvironment (TME) is a",
+   "note": "서론은 「면역세포 구성이 예후를 가른다」로 요약되지만 모델 약어(MIL·ARI)가 촘촘해 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "2c692a41-d6d9-483f-94c8-2082b3fc63c1",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:51.904259+00:00",
+  "body_sha256": "0025cf37dc3db438c77b9dc96021b2fc4bfc5344c4e002989fd7816eba15f570",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "지방간 환자의 생존이 더 나았다는 역설을 제시하고 두 사망 표현형으로 설명하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Dengue has transcended its historical characterization",
+   "note": "「비만 역설」 단락은 통념-반증 구조라 그대로 서고, 점수 약어(ALBI·SAPS)는 「간 기능 점수」로 바꿀 수 있다."
+  }
+ },
+ {
+  "id": "2c748064-4eb2-49ce-a197-76381636932b",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:08:59.143557+00:00",
+  "body_sha256": "bc397291d47e74e30a6230d708fd4f302020acd02fb31f9429b4d15cbf7bd94a",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "대상포진 백신이 선천면역에 남기는 기억을 TGFβ 억제로 설명하며 저자 요약이 논지를 평이하게 옮긴다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Herpes zoster (HZ) is a severe",
+   "note": "Author summary를 도입으로 쓰면 문맥이 서고, 세포 표지자 나열은 「면역세포」로 묶을 수 있다."
+  }
+ },
+ {
+  "id": "2c7c780f-4513-4829-9dec-56afe8b40882",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:05.804774+00:00",
+  "body_sha256": "574e11b15c05989606d83494fdf2b41a7fe6f9a46387e9cd852795126cf1d05e",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "오로푸체 바이러스 두 계통의 교체를 기후 지표 전환과 함께 서술해 사건 흐름과 논지가 모두 있다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "OROV is a significant public health",
+   "note": "계통명(BR-2015–2024)을 「새 계통」으로 바꾸면 서고, 엘니뇨 전환과의 시간 대비가 그대로 흐름이 된다."
+  }
+ },
+ {
+  "id": "2c7ee5a5-165c-4b12-9aa1-78a8dbcc6d95",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:08.481483+00:00",
+  "body_sha256": "319b972ae487ebf8317f67af88afad2ccb3bd866f1daa2ca397296a1469b76d7",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "후기 청소년기 대뇌 재편이 기억 인출을 흔든다는 주장을 인간 기억 현상과 잇는 고찰이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Episodic and autobiographical memories, which enable",
+   "note": "「회상 융기」를 언급한 고찰 단락은 실험 약어 없이도 서고, PNN은 「신경 그물」로 치환 가능하다."
+  }
+ },
+ {
+  "id": "2c7fce39-a50e-416a-a2dc-91b7d43ff5ce",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:10.185703+00:00",
+  "body_sha256": "b37e075733bcdc65cd335631eb16b5cb0f619b78189c6526858989cf5ccc3cdf",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "engineering",
+  "why": "측압계수가 균열 전파를 억제한다는 결론을 현장 검증까지 잇지만 본문 대부분이 수치·모델 조건이다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In deep coal mining, the adoption",
+   "note": "서론과 결론은 논지가 서지만, 중간 절은 상수·기호를 걷으면 남는 문장이 적어 발췌는 앞뒤로 제한된다."
+  }
+ },
+ {
+  "id": "2c8d79fa-0488-462a-b677-c99813e3eb47",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:13.880868+00:00",
+  "body_sha256": "7b6ec45a6d84d4f42dbf02144f6d8c39529486c43c601d30ea2b732747081098",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "이버멕틴 내성에서 PGP-9 하나의 역할을 유전자 결실·복원·형광 추적으로 좁혀 가는 논증이 선명하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Helminth infections remain one of the",
+   "note": "Author summary가 실험 순서를 평이하게 옮겨 주고, 균주명은 「내성 계통」으로 바꿔도 논지가 남는다."
+  }
+ },
+ {
+  "id": "2c8f2a45-e5dd-4322-886f-16c108a843a3",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:15.857435+00:00",
+  "body_sha256": "c5cf0bded0ba97bddcab258e265f64b90569c2123a1eb8112ee151bc2b2a4a4b",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "공개 CT 데이터셋의 중복·지역 편중을 세어 상류 편향이라는 하나의 주장으로 모으는 비평이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "insert"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Abdominal computed tomography (CT) imaging is",
+   "note": "간암 지역별 병인 대비 단락은 떼어도 서고, 데이터셋 이름을 걷어도 편중 논지가 유지된다."
+  }
+ },
+ {
+  "id": "2c94a7ca-87ab-432d-b7fc-69626ad38a15",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:17.017514+00:00",
+  "body_sha256": "c404232a44fe2c5716f24f8b96c5afa1c23030b5d00cca44e996bc05c3a19c7d",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "라미닌 조각이 각막 상피의 접착과 이동을 바꾼다는 결과를 MMP 억제 실험으로 되짚는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "vocab_choice"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The laminins (LMs) are a family",
+   "note": "고찰은 논지가 서지만 결과 절이 단백질 약어와 수치로만 이어져 떼어 낸 단락이 홀로 서지 않는다."
+  }
+ },
+ {
+  "id": "2c996dab-b23c-41bb-b31e-9a87d219a583",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-13T07:39:01.188354+00:00",
+  "body_sha256": "7cf807c8573e4dbb3d8e17ce76b6b18a8cd7661e8559417a64b4e0414a70f4b0",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "아밀로이드 축적이 전반 인지가 아니라 특정 영역·영역별 수행과 이어진다는 결론이 고찰에서 정리된다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Clinical Parkinson disease (PD) is a",
+   "note": "고찰 첫 단락은 떼어 내도 서지만, 결과가 표와 통계치로만 이어져 중간 발췌는 어렵다."
+  }
+ },
+ {
+  "id": "2ca73a1d-9530-4777-bef3-1e95b14416aa",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:20.962641+00:00",
+  "body_sha256": "f8bc84bd23377d3f36bfa7289e4b6eac6272982cc869c9b164d6a5a41324ffab",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "내성 변이가 숙주 차단 기능을 깎는다는 발견으로 「내성주가 왜 퍼지지 않는가」를 설명하는 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Vaccines to influenza A virus (IAV)",
+   "note": "Author summary와 고찰의 작업 모형 단락이 실험 약어 없이 서고, I38T 같은 표기는 「내성 변이」로 묶을 수 있다."
+  }
+ },
+ {
+  "id": "2ca89b5e-ef1f-4b7a-b19f-0e4962ffdc0f",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:22.994889+00:00",
+  "body_sha256": "92b5acc6a5068f0713a0bd0aeb55d5fb8457af12ceebf662ec880b1b492bba66",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간의 어느 세포가 인터페론을 내는지를 조건부 결손 실험까지 밀어붙여 협력 구조로 결론짓는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neonatal viral infections remain a significant",
+   "note": "저자 요약이 세포 이름 몇 개만 남기고 논지를 옮겨 주며, 유전형 표기는 「신호가 없는 생쥐」로 치환된다."
+  }
+ },
+ {
+  "id": "2ca8db7b-d9b4-414d-ac33-abbfccfa38ec",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:25.055676+00:00",
+  "body_sha256": "d0ce5d6ba51adec1157895c5ab3769277937d048595b481217d786bd61a0c4bb",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "history",
+  "why": "자르기 전 CT로 내부를 보는 절차를 제안하고 그 한계까지 적어 방법론 논증이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "X-ray computed tomography, or, more colloquially,",
+   "note": "서론과 「CT의 한계」 절은 광물명을 걷어도 서고, 파괴 전 비파괴 관찰이라는 대비가 단락 골격이 된다."
+  }
+ },
+ {
+  "id": "2cb28040-8bf7-4d38-948d-0292ac674d3e",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:33.056533+00:00",
+  "body_sha256": "bf4df5616dc3f8eafac29343c664e7769607fca5153f68fdb9e3a2fa8224285f",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "인수공통 질환이 남는 이유를 생산 방식·진단 역량·생활 관행 셋으로 묶어 결론까지 밀고 간다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Zoonotic diseases remain a persistent challenge",
+   "note": "고찰의 세 가지 동인 단락은 병원체 이름 없이도 서고, 저자 요약이 그대로 중등 밴드 도입부가 된다."
+  }
+ },
+ {
+  "id": "2cbfddc2-91f2-4511-bf80-65dc92360761",
+  "kind": "retain",
+  "basis": "full",
+  "source_updated_at": "2026-09-25T07:09:38.832239+00:00",
+  "body_sha256": "60b1bff9c2be1de0397c4b7c6185cbdc4efc71688c669d0e6f0b4c3e9060e802",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "STING 작용제 장기 투여가 견딜 만하고 바이러스 복제를 누른다는 결과를 한 마리의 항체 형성까지 짚는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Chronic hepatitis B virus (HBV) infection",
+   "note": "서론은 「복제를 막아도 완치가 안 된다」로 서지만, 결과 절은 투여군 번호와 표지자 약어가 엉켜 떼기 어렵다."
+  }
+ }
+]

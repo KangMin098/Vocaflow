@@ -31,6 +31,8 @@ import { fileURLToPath } from 'node:url'
 import { describe, expect, it } from 'vitest'
 
 import { SIDEBAR_NAV, type NavItem } from '../AdminSidebar'
+import { FACTORY_STAGES } from '@/lib/csat/factory-model'
+import { PLAIN_LAB, labByStage, stepByKey, stepOfStage, type StepKey } from '@/lib/csat/factory-plain'
 
 // `src/components/admin/__tests__/` → 세 단계 올라가야 `src` 다. 두 단계로 잡으면
 // `src/components` 를 가리켜 `app/` 을 못 찾고 **모든 화면이 「h1 0」으로 보인다** —
@@ -148,6 +150,55 @@ function headerTitles(src: string): string[] {
   return [...stripComments(src).matchAll(HEADER_TITLE_RE)].map((m) => m[1]!)
 }
 
+/**
+ * **`<StageFrame stage={STAGE}>` 의 제목도 읽는다** (2026-09-23 · DD-74).
+ *
+ * 교재 공장 단계 화면들이 공통 골격으로 옮겨 가면서 `<h2>` 가 `StageFrame.tsx` 로 들어갔고,
+ * 화면 파일에는 `const STAGE = FACTORY_STAGES.find((s) => s.id === 'review')!` 만 남았다.
+ * 그 상태로 **화면에는 「⑦ 검수 — …」가 또렷이 떠 있는데** 판정은 「못 알아봄」이 됐다.
+ *
+ * `AdminPageHeader` 때와 **같은 자리**다 — 검사가 자기 주장을 못 재고 있는 것이지
+ * 화면이 나빠진 게 아니다. 그때와 같은 방식으로 한 단계만 따라간다: 공정 id 를 읽어
+ * 정본(`FACTORY_STAGES`)에서 이름을 꺼낸다. 모르는 id 면 아무것도 안 준다(지어내지 않는다).
+ */
+const STAGE_ID_RE = /FACTORY_STAGES\.find\(\s*\([^)]*\)\s*=>\s*[a-zA-Z_$][\w$]*\.id\s*===\s*'([a-z]+)'/g
+/**
+ * `stepByKey('a')` 또는 `stepByKey(x === 'y' ? 'a' : 'b')` — 괄호 안의 따옴표 낱말을 전부 후보로 삼고,
+ * 걸음 key 가 아닌 것(`'y'`)은 `stepByKey` 가 던지므로 버린다. 한 화면이 두 걸음을 맡으면 둘 다 센다.
+ */
+const STEP_KEY_RE = /stepByKey\(([^)]*)\)/g
+const QUOTED_RE = /'([a-z]+)'/g
+const LAB_KEY_RE = /PLAIN_LAB\.find\(\s*\([^)]*\)\s*=>\s*[a-zA-Z_$][\w$]*\.key\s*===\s*'([a-z]+)'/g
+
+function stageTitles(src: string): string[] {
+  const out: string[] = []
+  for (const m of stripComments(src).matchAll(STAGE_ID_RE)) {
+    const def = FACTORY_STAGES.find((s) => s.id === m[1])
+    // 이름과 질문 둘 다 화면 제목에 그대로 인쇄된다(`StageFrame` 의 h2).
+    if (def) out.push(`${def.name} ${def.question}`)
+    // 2026-09-24 부터 `StageFrame` 의 h2 는 **쉬운 말 걸음 이름**이다(`StepHeader` · `LabHeader`).
+    // 공정 이름은 「자세히 — 운영자용」 안에 남아 있으므로 둘 다 제목으로 센다.
+    const plain = def ? (labByStage(def.id)?.name ?? stepOfStage(def.id)?.name) : undefined
+    if (plain) out.push(plain)
+  }
+  // 공통 골격을 안 쓰는 화면은 머리띠를 직접 부른다 — `stepByKey('order')` · `PLAIN_LAB.find(… 'evidence')`.
+  for (const m of stripComments(src).matchAll(STEP_KEY_RE)) {
+    const keys = [...(m[1] ?? '').matchAll(QUOTED_RE)].map((q) => q[1] as StepKey)
+    for (const k of keys) {
+      try {
+        out.push(stepByKey(k).name)
+      } catch {
+        // 모르는 key 면 아무것도 안 준다(지어내지 않는다).
+      }
+    }
+  }
+  for (const m of stripComments(src).matchAll(LAB_KEY_RE)) {
+    const lab = PLAIN_LAB.find((l) => l.key === m[1])
+    if (lab) out.push(lab.name)
+  }
+  return out
+}
+
 function titlesIn(src: string, tag: 'h1' | 'h2'): string[] {
   const re = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, 'g')
   const out: string[] = []
@@ -230,7 +281,7 @@ for (const item of ITEMS) {
     // ⚠️ 「같은 이름 주장」 검사에는 **자기 파일의 h1 만** 넣는다. layout 의 h1 은 그 구역
     //   전체가 공유하는 것이라(교재 공장의 「교재 공장」), 넣으면 아홉 화면이 서로
     //   충돌하는 것으로 잡힌다 — 설계대로 동작하는 것을 위반이라 부르는 셈이다.
-    const header = headerTitles(src)
+    const header = [...headerTitles(src), ...stageTitles(src)]
     if (own.includes(f)) h1Titles.push(...h1, ...header)
     allTitles.push(...h1, ...header, ...titlesIn(src, 'h2'))
   }

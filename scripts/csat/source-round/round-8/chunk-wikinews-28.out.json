@@ -1,0 +1,979 @@
+[
+ {
+  "id": "08d6690b-eb4b-4af4-95a2-08271d242aa8",
+  "source_updated_at": "2026-09-25T07:58:49.262329+00:00",
+  "body_sha256": "61b18dd500c0a777f581f9f8fcf68c24319d14d9c80165acbd6a5a724b9c68d3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "소품 총 발사 사고 → 조사 → 「안전하다고 건네받았다」는 진술서로 사건 경위가 이어져 고등 이상 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A sworn affidavit by investigators working",
+   "note": "마지막 단락이 사고 원인의 핵심이라 빈칸 자리로도 쓸 만했다."
+  }
+ },
+ {
+  "id": "08dc20d4-b242-4dc0-a972-a445fd0ae012",
+  "source_updated_at": "2026-09-25T07:58:49.285025+00:00",
+  "body_sha256": "89a679b45365ced6b5485e9b20273fb6078c12c3606cddfd74a0db7eadd33591",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "옴부즈맨 임명 → 주정부 이의 → 두 판사 의견 대립 → 제3 판사 판결의 절차가 순서대로 서서 고등 순서·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Justice Sonia Gokani backed Modi's objection",
+   "note": "Lokayukta 풀이가 본문에 있어 떼어도 되지만 인도 고유명사가 많아 어휘 조정만으론 내려가지 않는다."
+  }
+ },
+ {
+  "id": "08e96007-9a78-46a0-bfc8-44f4c2e1e5dc",
+  "source_updated_at": "2026-09-25T06:47:17.646727+00:00",
+  "body_sha256": "10cd7007671343124012b57582b091a3bac53aee53ab92e2fa95a9f2b7385df4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "4천 명 감원 발표 → 노조 파업 투표 → 「80% 인력으로 100% 품질은 무리」라는 주장이 이어져 내용일치·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The job cuts announced last month,",
+   "note": "compulsory redundancies 를 forced job losses 로 바꾸면 한 밴드 내려간다."
+  }
+ },
+ {
+  "id": "08ed7a33-5ee6-429c-b98a-2dd6246d0930",
+  "source_updated_at": "2026-09-25T07:25:28.75186+00:00",
+  "body_sha256": "8cec4e75a47f025a7306350f89d4cf683880cf11f239ea70cc3ff1d18dbb9d5e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "아동 간 성범죄 기소 경위가 구체적 성행위 묘사와 함께 서술돼 사실 전달은 서지만 성인 읽기 칸 하나만 단다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The two boys charged with sexual",
+   "note": "묘사가 구체적이라 v4 §8 에 따라 adult 로 제한했고 학교용 가공은 어렵다."
+  }
+ },
+ {
+  "id": "08eed056-355c-402e-b879-dd4a2892e7cc",
+  "source_updated_at": "2026-09-25T07:58:49.310315+00:00",
+  "body_sha256": "34c397495c9face18f251a71c5dd7f7e5c9a30cc0e9d909cb69d6674e1fa0f53",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "차량 폭탄 → 경찰 위장 자폭 → 수사 착수의 두 폭발 순서가 분명해 고등 이상 순서·내용일치 칸을 채운다 — 테러 소재라 연령 제한.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The second explosion was caused by",
+   "note": "사망자 수 12·부상 18/23 불일치는 가공 때 맞춘다."
+  }
+ },
+ {
+  "id": "08f56aac-a56d-454e-9709-206eff632c49",
+  "source_updated_at": "2026-09-25T07:45:42.977012+00:00",
+  "body_sha256": "ece9cadc4d2ea66f4b5bb59cbb302abbeebde4d9bad7319e4b7a8bd08becca0c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "새 기능 소개 → 엇갈린 평가(추적 방지 목록 비판 대 개선 호평)로 이어져 고등 내용일치·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "insert"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The browser received mixed reviews.",
+   "note": "HTML5·Acid3 기술 용어 단락은 걷어내고 평가 단락만 쓰면 된다."
+  }
+ },
+ {
+  "id": "08fbf07b-2251-4a3f-8ebd-407f2dff16bd",
+  "source_updated_at": "2026-09-25T07:06:16.685352+00:00",
+  "body_sha256": "4d24b99a9e4ec150141c57b8ec648f6f0c63bc91f0cd900b2a0a11a9aaaaeb20",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "단속 건수에 더해 빗길 수막현상·학생 이삿짐 낙하라는 원인 설명이 있어 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Students heading to college residences posed",
+   "note": "수치 나열에 그치지 않고 사고 원인 문장이 있어 최소선을 넘는다."
+  }
+ },
+ {
+  "id": "08fe5d87-47e5-42aa-bfa0-ef493449e0c9",
+  "source_updated_at": "2026-09-25T07:28:38.739664+00:00",
+  "body_sha256": "5290231d78d6011e2c042a6d6e3e2add92e732ea461b8aa5f9126c1a8e612c0f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "백업 테이프 분실 → 행방 불명 → 피해 없음과 무료 신용 감시 제공이 이어져 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "None of the accounts have been",
+   "note": "마지막 문장 「과거에 실수해서 유감」은 논리가 어색해 가공 때 고친다."
+  }
+ },
+ {
+  "id": "08fecca9-e09e-4fa7-a20a-6cd9c7dce6cb",
+  "source_updated_at": "2026-09-25T06:57:50.150193+00:00",
+  "body_sha256": "4fc707f4bbdaade45ccb6b5641d2dfd494f9955168ddd81b5e88221f35b3cf49",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "사형 집행 후 DNA 재검사로 유죄가 확인되기까지 양측 논쟁과 변호인 주장이 이어져 고등 이상 요지·내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "claim"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Coleman tests, if he were",
+   "note": "성폭행 사건 세부(정액 표본)는 가공 때 걷어낸다."
+  }
+ },
+ {
+  "id": "0908344a-260e-4b47-bd8c-83bbdf893f83",
+  "source_updated_at": "2026-09-25T07:33:35.525032+00:00",
+  "body_sha256": "4026ae7ea13b06945a88c0f2fc529584b452b19a03881cc76ebed2a1fc588b0e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "감독 방문 중 딸 납치 → 요트 도주 우려 → 수색·경보 해제가 짧게 이어져 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Authorities believe that Rockefeller might try",
+   "note": "짧지만 사건 순서가 분명하다."
+  }
+ },
+ {
+  "id": "0909829b-f94b-4b48-b026-9bb5d0a8e7b3",
+  "source_updated_at": "2026-09-25T05:30:19.897725+00:00",
+  "body_sha256": "025e21db82e1be9b918d149766f331b7b06544503346bc6f8bce3c0173405644",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "갱도 폭발 매몰과 중국 탄광 사고 역사 단락이 이어져 내용일치 칸을 채운다 — 사망 통계 문단은 수치가 많아 줄인다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "China has had a long history",
+   "note": "통계 문장은 한두 개만 남겨야 내용일치가 수치 나열로 흐르지 않는다."
+  }
+ },
+ {
+  "id": "0909d02b-7d23-47f7-8fe1-16e6a5022aa4",
+  "source_updated_at": "2026-09-25T08:15:38.717075+00:00",
+  "body_sha256": "26194b9e3a71d988bb612e5d0dfb44c00a67abe6b7e5a7892b9f26a570293763",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "추락 사고 → 운항 제한 → 재개 결정 → 활주로가 위험한 이유로 이어져 순서·내용일치·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The airport is considered one of",
+   "note": "마지막 단락의 위험 이유 세 가지가 빈칸·요약 재료로 쉬웠다."
+  }
+ },
+ {
+  "id": "090bca16-faab-4ae7-ba6c-4a2b62290b3b",
+  "source_updated_at": "2026-09-25T05:31:23.152489+00:00",
+  "body_sha256": "5c9e104c4275c320ec63f47752b2515cd5f9d0fcf4ef71a4482f327fe735deec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "space",
+  "why": "철·니켈 운석 발견과 부식이 없는 이유에 대한 두 가설이 두 단락에 서서 짧은 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The surface of the meteorite was",
+   "note": "corrosion 을 rust 로 바꾸면 중등으로 내려간다."
+  }
+ },
+ {
+  "id": "0911682b-8645-4192-b719-23fed1a1d81f",
+  "source_updated_at": "2026-09-25T07:58:49.411718+00:00",
+  "body_sha256": "66fdc28544cd797ac2e62ebf838bc6db038cacf0588fa9cc004657410535746b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "수정헌법 14조 3항 해석을 둘러싼 콜로라도 법원과 연방 대법원 판단의 경과가 서서 고등 이상 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The case began with a petition",
+   "note": "법률 문장 구조가 복잡해 낱말 몇 개로는 밴드가 내려가지 않는다."
+  }
+ },
+ {
+  "id": "0916d233-ca67-4d9b-ade3-36e1f4721e5d",
+  "source_updated_at": "2026-09-25T07:27:27.860903+00:00",
+  "body_sha256": "d625a3c4ffb617646c621a656ac6ce26f6674a042e2d3d40fc6776d7c01de892",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "감염 통계와 만델라·레녹스·퀸의 캠페인, 중국·미국의 대응이 나라별 단락으로 나뉘어 삽입·내용일치·요지 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "insert",
+    "main_point"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The rock band Queen, which lost",
+   "note": "만델라 인용 단락은 치료와 신규 감염의 대비가 뚜렷해 요지 문항으로 쉬웠다."
+  }
+ },
+ {
+  "id": "091768e4-1139-44e2-91a1-477a71258d7d",
+  "source_updated_at": "2026-09-25T07:58:49.431955+00:00",
+  "body_sha256": "8fd0b665ff6174d548b78190a17b8dd7eb59d7bd5c6c5b9223f62f3b5bd03673",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "러시아 싱크탱크 두 문서의 내용과 전직 요원 반응, 공모 증거 없음이 이어져 고등 이상 내용일치·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "According to the anonymous officials, the",
+   "note": "익명 출처 보도라 사실 확정이 약해 내용일치 정답은 「보도에 따르면」으로 걸어야 한다."
+  }
+ },
+ {
+  "id": "091c6721-fc9c-43ae-a50b-2258137ad034",
+  "source_updated_at": "2026-09-25T07:22:53.92662+00:00",
+  "body_sha256": "0acc1e4745597f46b900292c3f5c2999078b0ac76675ccdaa3802ef2b3988499",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "판다 출산과 사육 판다 번식의 어려움이 이어져 내용일치 칸을 채운다 — 번식 유도 영상 구절은 걷어낸다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The newborn cub's gender is not",
+   "note": "「panda porn」·「mater」 구절은 가공 때 걷어낸다."
+  }
+ },
+ {
+  "id": "091cb461-2b2b-46f4-8817-17dcbc5a6834",
+  "source_updated_at": "2026-09-25T07:58:49.455252+00:00",
+  "body_sha256": "0311301bbce9a2a1617f1da9d881e2847d9eeec1a9803e44251e0a921804ccad",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "스캔들 시작 → CEO 사임 → 추가 차량 → 조작 장치 원리와 질소산화물 피해까지 인과가 서서 순서·삽입·요약 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "insert",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The software, known as a \"defeat",
+   "note": "조작 장치 설명 단락이 앞 문맥 없이 서고 nitrogen oxide 에 풀이만 달면 된다."
+  }
+ },
+ {
+  "id": "091d9c31-20d7-49b1-b3e9-07980bc30631",
+  "source_updated_at": "2026-09-25T07:14:59.00413+00:00",
+  "body_sha256": "65fda7338a92a3d7ebf8dde12ae470794b83fc830213dc084f8efee9dac36535",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "사찰단 초청 → 동결 자금 해제 → 6자회담 합의라는 배경이 짧게 이어져 내용일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The announcement comes on the heels",
+   "note": "on the heels of 를 right after 로 바꾸면 쉬워진다."
+  }
+ },
+ {
+  "id": "09251047-2fbd-4e2a-9ef2-04edc4d9e731",
+  "source_updated_at": "2026-09-25T07:28:19.746971+00:00",
+  "body_sha256": "735bf2d3cbe0f8a09cf61aee89a36662196cfb5c7857ec1ae3f00c3d70e872fb",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "health",
+  "why": "위약 처방 조사 결과와 의사들의 이유·거짓말 여부, 의사협회 지침의 대비가 논지로 서서 요지·주장·빈칸 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "main_point",
+    "content_match",
+    "blank",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Twelve percent of surveyed physicians think",
+   "note": "placebo 가 본문에 풀이돼 있어 어휘 조정 없이도 고1 에 맞았다."
+  }
+ },
+ {
+  "id": "09293f4a-be34-4c16-bcc4-d175b30f2e96",
+  "source_updated_at": "2026-09-25T07:25:25.377779+00:00",
+  "body_sha256": "a1837d6a782386b186f0ba4422ac261242550ee05d27b8cb84ad09f2dda3383f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "culture",
+  "why": "참가 작가 증가와 행사 하이라이트, 패널 지연·마이크 차단 소동이 이어져 내용일치·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "mood",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "One of the featured panels on",
+   "note": "캐럴이 화난 장면 단락은 심경 문항 재료로 떼어졌다."
+  }
+ },
+ {
+  "id": "092a4785-9c17-40f1-9b31-001f5eac74f0",
+  "source_updated_at": "2026-09-25T07:25:36.543815+00:00",
+  "body_sha256": "91ed42883a501d11a953e2bd640a14e1147686ec569d4593db4d8a971d3f04c4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "social",
+  "why": "후보 인터뷰의 문답에서 보건세 비판·재정 통제 주장이 근거와 함께 서서 주장·요지 칸과 구어 문답 재료를 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "claim",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The Health Tax is particularly burdensome",
+   "note": "한쪽 당 후보의 일방 주장이라 주장 문항으로만 쓰고 사실 문항으로는 쓰지 않는다."
+  }
+ },
+ {
+  "id": "092c0af8-a214-4e34-9479-c33a60fafd4c",
+  "source_updated_at": "2026-09-25T07:14:33.047961+00:00",
+  "body_sha256": "555e22e762ba294405f54038f25150366347130855ec0e87cc53a63ba8be2571",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "서비스 전환 → IP 재할당 → 접속 장애 → 조치 안내의 원인-결과가 서서 중등 내용일치·순서 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The issues started to occur when",
+   "note": "고객센터 전화번호 단락은 걷어낸다."
+  }
+ },
+ {
+  "id": "092c1903-7f1c-4a84-923e-89bfa28014fe",
+  "source_updated_at": "2026-09-25T08:08:59.625853+00:00",
+  "body_sha256": "866eb9434ea260ad474292270eb7e4ac2577800429132af009b6edb9ff5e8ab5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "news",
+  "why": "이라크 민간인 성폭행·살해 혐의의 제보 → 수사 경과가 서지만 시신 훼손 등 묘사가 구체적이라 성인 읽기 칸만 단다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Apparently the allegations surfaced when an",
+   "note": "폭력 묘사가 구체적이라 v4 §8 대로 adult 로 제한했다."
+  }
+ },
+ {
+  "id": "09307473-74c8-4a16-99ac-16aefe789f35",
+  "source_updated_at": "2026-09-25T07:09:06.696376+00:00",
+  "body_sha256": "d89ae00e84b0fec39b8f870351d4cf64c4ea6bff453a3816d173e008014d1252",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 8,
+  "retention": "keep",
+  "genre": "environment",
+  "why": "폭우 → 저수지 산사태 → 탁도 상승 → 끓여 마시기 권고의 인과가 짧게 서서 중등 내용일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A new storm is predicted to",
+   "note": "turbidity 를 cloudiness 로 바꾸면 V4 로 내려간다."
+  }
+ }
+]

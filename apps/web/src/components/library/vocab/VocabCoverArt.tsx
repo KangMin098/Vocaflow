@@ -149,7 +149,7 @@ export function VocabCoverArt({
               className={`truncate ${lockup.fontClass.numerals} ${
                 compact ? 'text-[7.5px] tracking-[0.16em]' : 'text-[9.5px] tracking-[0.18em]'
               }`}
-              style={{ color: paper, opacity: 0.85 }}
+              style={{ color: paper, opacity: 0.85, fontFamily: lockup.fontFamily.numerals ?? undefined }}
             >
               {lockup.kicker}
             </span>
@@ -158,7 +158,7 @@ export function VocabCoverArt({
                 className={`shrink-0 tabular-nums ${lockup.fontClass.numerals} ${
                   compact ? 'text-[7.5px]' : 'text-[9.5px]'
                 }`}
-                style={{ color: paper, opacity: 0.85 }}
+                style={{ color: paper, opacity: 0.85, fontFamily: lockup.fontFamily.numerals ?? undefined }}
               >
                 {volume}
               </span>
@@ -169,7 +169,7 @@ export function VocabCoverArt({
             className={`absolute inset-x-0 bottom-0 truncate text-center ${lockup.fontClass.body} ${
               compact ? 'px-[11%] pb-[7%] text-[7.5px] tracking-[0.14em]' : 'px-[10%] pb-[6.5%] text-[9.5px] tracking-[0.16em]'
             }`}
-            style={{ color: paper, opacity: 0.8 }}
+            style={{ color: paper, opacity: 0.8, fontFamily: lockup.fontFamily.body ?? undefined }}
           >
             {lockup.seriesLine}
           </p>

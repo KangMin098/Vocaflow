@@ -79,8 +79,11 @@ export interface ExcerptRange {
 export const SOURCE_KEY_SHAPE: Record<GovernedSource, RegExp> = {
   wikipedia: /^wikipedia:[0-9]+$/,
   voa: /^voa:[0-9]{4,}$/,
-  // DOI 는 소문자 · `#p<a>-<b>` 발췌 접미어 허용
-  frym: /^frym:10\.3389\/frym\.[0-9][0-9.]*[0-9](?:#p[0-9]+-[0-9]+)?$/,
+  // DOI 는 소문자 · `#p<a>-<b>` 발췌 접미어 허용.
+  //   `frym-full:` 은 **전문 원천 행**이다(2026-09-24) — `frym:<DOI>` 152행이 초록만 담은 채 원본 열쇠를
+  //   차지하고 있어 전문을 따로 둔다(초록 행은 파생물 · `csat_fit.derived_from.kind = abstract`).
+  //   여기서 받지 않으면 backfill-source-ids 가 원천 행을 규약 밖으로 읽고 `frym:` 으로 되돌리려 한다.
+  frym: /^frym(?:-full)?:10\.3389\/frym\.[0-9][0-9.]*[0-9](?:#p[0-9]+-[0-9]+)?$/,
   // Frontiers 성인 학술지. 약칭이 저널마다 달라 `[a-z]+` 이고, **`frym` 은 뺀다** —
   //   두 소스가 같은 DOI 접두어(`10.3389/`)를 쓰므로 접두어를 갈라 두지 않으면
   //   재고가 섞이고 중복 검사가 서로를 못 본다(정찰 §4).

@@ -1,0 +1,796 @@
+[
+ {
+  "id": "387485a7-e0c2-4c33-b930-891f712e3e26",
+  "source_updated_at": "2026-09-23T21:04:42.709667+00:00",
+  "body_sha256": "1a5b92f0da744adf73a62ee1b7ede94fa65b331b9c8bde4afecc66ed54699476",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "침 대사물질로 세 구강질환을 가르는 논지를 서론-고찰로 잇고 고찰의 「산화 스트레스 축」 절이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study demonstrated that untargeted salivary",
+   "note": "대사물질 이름을 「특정 유기산」으로 바꾸면 서고 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "387756c3-fdb6-4e51-a684-754149599253",
+  "source_updated_at": "2026-09-15T14:49:05.978107+00:00",
+  "body_sha256": "f67337f8052d4f100c201b5f6799132e98e053b7d40156c8cb48ae524dcbe152",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 당뇨약의 관절염 위험을 비교한 관찰연구로 고찰이 한계와 해석을 분명한 논지로 정리한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "This study provides real-world comparative evidence",
+   "note": "약물 약어와 위험비 수치를 걷어도 「연관성일 뿐 인과가 아니다」는 논지가 선다."
+  }
+ },
+ {
+  "id": "38798f20-adbc-4f4f-aac7-87c2a0c10a71",
+  "source_updated_at": "2026-09-25T07:34:29.923807+00:00",
+  "body_sha256": "906bf6fbf5b8fa4a11a526caad5870ab630fb00565c1674441b0909920434b60",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "외상성 뇌손상 후 응고 지표의 예측력을 시간축으로 비교하고 고찰에서 TEG 의 한계를 논증한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Taken together, the hypercoagulability captured by",
+   "note": "검사 약어가 많아 두세 개를 일반어로 바꿔야 하지만 논지 흐름은 유지된다."
+  }
+ },
+ {
+  "id": "387be541-2a94-493e-9ec5-a28696865f8b",
+  "source_updated_at": "2026-09-13T06:40:21.425211+00:00",
+  "body_sha256": "d1e13f8c63ac7b7fd1e466f00e7d1587153c245c539052d65e97dc0be33086b5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "hold",
+  "genre": "nature",
+  "why": "새 섬모충과 공생세균 기재로 본문 대부분이 측정치·형태 항목 나열이고 떼어 낼 논지 단락이 분명하지 않다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "The Colony was composed of a",
+   "note": "생태 고찰 절만 논지에 가깝고 기재부는 치수 나열이라 가공 판단이 갈린다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "387d0600-2698-4dd0-9bf0-20e1e0697ef1",
+  "source_updated_at": "2026-09-25T07:34:31.477505+00:00",
+  "body_sha256": "e23e37c108d40ba2246efaffbd9102188cc5bcf02fc3e073c4e91a160a274f7d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "인도 니파바이러스 역학을 지역·계절·생태 요인으로 설명하는 종합 논문이라 논지가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Why does this unique spatial pattern",
+   "note": "지명과 유전 서열 절을 걷고 생태-확산 단락만 쓰면 쉽게 내려간다."
+  }
+ },
+ {
+  "id": "38860fc9-7ae4-4cd1-ad9b-36ccb799e6e3",
+  "source_updated_at": "2026-09-25T07:34:32.391961+00:00",
+  "body_sha256": "923267b831f3e52aaaced12116a875604d230ca1e71d7e28ee9cd616796b2faa",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "ISG20 이 RNA 분해가 아니라 면역 신호 증폭으로 작용한다는 반증 구조를 고찰에서 또렷이 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Here, we demonstrate that ISG20 acts",
+   "note": "유전자 약어가 빽빽해 어휘 조정만으로는 중등 밴드까지 내려가지 않는다."
+  }
+ },
+ {
+  "id": "38a24cfa-1f29-496f-8e2c-bf6bb48923c7",
+  "source_updated_at": "2026-09-13T06:54:29.084272+00:00",
+  "body_sha256": "93f09dd62da0b609b806e4a8c31abe32176cee65a10c9f7fe2fec5c722009001",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "agriculture",
+  "why": "여름철 수퇘지 정액질에 대한 타우린 보충 효과를 가설-실험-고찰로 이어 한 편의 논지를 만든다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The quality of boars ejaculate is",
+   "note": "열 스트레스와 산화 스트레스 설명 단락이 그대로 읽히고 장비 이름만 걷으면 된다."
+  }
+ },
+ {
+  "id": "38b1016c-9eb9-492e-98f4-544f25b1caa2",
+  "source_updated_at": "2026-09-15T14:49:11.887376+00:00",
+  "body_sha256": "07a7175f975001775ed5fb6123ae6664b26dda568c13c9ee76a738987b2bb0e2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "알부민이 LPS 의 뇌 진입을 돕는다는 가설을 저용량·고용량 대비로 논증하고 고찰이 임상 함의까지 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Our research reveals that BSA promotes",
+   "note": "항체 카탈로그 번호가 많은 방법 절은 버리고 고찰만 쓰면 논지가 남는다."
+  }
+ },
+ {
+  "id": "38b4e391-5bb1-434b-b6ac-aa15fad861e8",
+  "source_updated_at": "2026-09-25T07:34:37.227648+00:00",
+  "body_sha256": "8e4c4e6cf2aa133c943d817c03e7262d1cff455848a92128340a74e26dc91123",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "CUL5 결손이 방광암의 면역회피를 막는 경로를 단계별로 밝혀 기전 논지가 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Bladder cancer is one of the",
+   "note": "유전자·도메인 약어가 논지의 골격이어서 걷어내면 뜻이 흐려진다."
+  }
+ },
+ {
+  "id": "38c4c5a4-e792-43fc-88da-399e3a7c0cb7",
+  "source_updated_at": "2026-09-25T07:34:38.949446+00:00",
+  "body_sha256": "70c3aed91aa8c8d894b6cab645adeaafe133a41e59e5c967c072b512a814a64c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "다중오믹스 통합 생존예측 모형의 한계와 개선을 서론에서 조목조목 세워 논증문으로 읽힌다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cancer remains a leading cause of",
+   "note": "서론의 「기존 방법의 세 한계」 단락은 수식을 걷어도 그대로 선다."
+  }
+ },
+ {
+  "id": "38e167e8-dd2c-4aec-b1ae-19d297d1f8f5",
+  "source_updated_at": "2026-09-25T07:34:41.477256+00:00",
+  "body_sha256": "1434c277e576e2343bda0f0829d4a0dfe30e06d4ec5219af7dbbadf042233495",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "알파 채널이라는 간과된 통로를 공격면으로 제시하고 탐지법까지 제안하는 논지가 분명하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "main_point",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Modern computer vision systems often represent",
+   "note": "원리 설명 단락은 수식을 빼고 비유로 바꿔도 논지가 유지된다."
+  }
+ },
+ {
+  "id": "38f01f16-2fcd-40c8-a06e-34171190af13",
+  "source_updated_at": "2026-09-13T06:45:13.741738+00:00",
+  "body_sha256": "b7f910e5dabafe241fefda430bbd45f48f1ab8d850e00e7052f95e2307f00e45",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "죽상경화와 급성 장염의 복합 모델 수립 과정을 절차와 소견으로 잇고 예상 밖 결과까지 고찰한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "In this study, we fed ApoE",
+   "note": "초음파 지표 약어가 많아 떼어 낸 문단이 앞 설명 없이는 서기 어렵다."
+  }
+ },
+ {
+  "id": "38f2db74-17f9-4e7a-939b-cb60f889af1d",
+  "source_updated_at": "2026-09-25T07:34:43.102507+00:00",
+  "body_sha256": "9247dceebc4858a03040c17421d6b6a087c7546715f7f2d6346865800f1e1446",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "성상신경절 차단이 수술 후 내장통만 줄인다는 결과를 기전 설명과 함께 논지로 세운다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Laparoscopic hysterectomy is a minimally invasive",
+   "note": "내장통과 절개통의 구분 설명은 용어 두세 개만 바꾸면 읽힌다."
+  }
+ },
+ {
+  "id": "393bb778-3d5b-4e27-b442-c1f05c222c22",
+  "source_updated_at": "2026-09-25T07:34:47.947959+00:00",
+  "body_sha256": "6a0dfc545fb55a44bfa217b6124db73fd920e5de2cc9730147d2ff9bfcd4ab43",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "AP180 조립 도메인이 액틴 결합으로 소포 크기를 정한다는 인과를 유전·생화학 근거로 잇는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Neurons communicate through the precisely regulated",
+   "note": "서론 첫 단락은 자족적이지만 결과부는 돌연변이 표기에 기대어 떼어내기 어렵다."
+  }
+ },
+ {
+  "id": "3974f102-a7af-49d7-88c6-f98f9e2fbb19",
+  "source_updated_at": "2026-09-13T07:19:55.656652+00:00",
+  "body_sha256": "092ee3b551209a2aac783aa026e544ceb946bc5531be89dd2699a1291968cbdc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "코로나 연구에서 2차원 세포·동물·오가노이드 모델의 쓸모와 한계를 나란히 견주는 개설 논지가 선다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading",
+    "school"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "summary",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Two-dimensional cell lines display a wide",
+   "note": "세포주 이름을 「원숭이 신장 세포」처럼 풀면 중등 밴드까지 내려간다."
+  }
+ },
+ {
+  "id": "39883e94-c4c2-4e83-b50a-c5917d1ee4a4",
+  "source_updated_at": "2026-09-13T06:54:29.834706+00:00",
+  "body_sha256": "daa9692e591ca6c54106f0a7b666eae02ef65ea4193b70f321a1b624e47bfa06",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미토콘드리아 손상이 다장기 손상으로 이어진다는 가설을 기계학습으로 검증하는 논증 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Machine learning is often applied for",
+   "note": "고찰 첫 단락의 「거꾸로 쓴 기계학습」 설명은 유전자 목록을 걷어도 남는다."
+  }
+ },
+ {
+  "id": "39914e8a-8834-4f12-a12d-cb7f32b04b6a",
+  "source_updated_at": "2026-09-25T07:34:57.67398+00:00",
+  "body_sha256": "e538c152b043872483c624752864a348cf6223fd6b2c59660aeee4889d7f5747",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "자가포식 유전자 변이와 한센병 감수성의 관계를 세 집단 반복 검증으로 잇고 칼슘의 양면성으로 해석한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Autophagy is involved in pathogen clearance",
+   "note": "SNP 표기가 촘촘해 고찰의 칼슘 해석 단락만 떼어 쓸 수 있다."
+  }
+ },
+ {
+  "id": "3992fbec-9749-448b-8bd1-089ea5098d1c",
+  "source_updated_at": "2026-09-25T07:34:58.14448+00:00",
+  "body_sha256": "43ed0a0e7946f5631837e539375d1f1c930f05c0f6c04b8c3a21629ab633f20f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "Angptl5 가 레티노산 신호를 통해 조혈 항상성을 제어한다는 경로를 단계마다 근거로 이어 논지를 세운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "order"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Our study establishes Angptl5 as a",
+   "note": "유전자·수용체 이름이 논지의 축이라 바꾸면 뜻이 흐려진다."
+  }
+ },
+ {
+  "id": "399d04b8-7b0e-4424-bb7a-c516d848d723",
+  "source_updated_at": "2026-09-25T07:34:59.039327+00:00",
+  "body_sha256": "6c27bfa589a10c260a441d827059b37d6be7c10d7fea2f8c8fde7c5c75d8e4b4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "핵-세포질 수송 교란이 PKR 억제를 낳는다는 인과를 재조합 바이러스 두 계통으로 가려낸 논증이 선다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "order"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In this study, we investigated the",
+   "note": "고찰은 논지가 또렷하지만 바이러스 변이 표기를 남겨야 문맥이 유지된다."
+  }
+ },
+ {
+  "id": "399d08a6-af33-4ca6-8e39-b90168b1b682",
+  "source_updated_at": "2026-09-25T07:34:59.480162+00:00",
+  "body_sha256": "4296c7b8d3b8235da160aafb49f327538fa5b321fc5af782a1d94d2a715cf59f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간 특이 긴비암호화RNA 가 아미노산 분해를 억제한다는 기전을 인간화 마우스와 환자 데이터로 잇는다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Maintaining systemic nitrogen homeostasis is a",
+   "note": "고찰의 「간-알파세포 축」 단락은 유전자명을 한두 개 남기면 읽힌다."
+  }
+ }
+]

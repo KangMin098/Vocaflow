@@ -1,0 +1,946 @@
+[
+  {
+    "id": "18f022f6-968d-43b2-96e0-bb794a8c07bf",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:42.72755+00:00",
+    "body_sha256": "f1ec9a634c691acd84b0de3dc5e12b0b3093cc92a8553fd6b6121b4a37097c18",
+    "retention": "keep",
+    "genre": "science",
+    "why": "노화에 따른 세포간 신호 변화를 SE 점수라는 새 지표로 설명하는 고찰부가 논지로 서서 성인 독해 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Applying this approach to four",
+      "note": "고찰 문단은 떼어내도 논지가 서지만 유전자 약어가 많아 어휘 조정만으로는 밴드가 내려가지 않는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "18f8cd93-1a0f-4c5d-8364-26ebc54c15a7",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:28:54.546102+00:00",
+    "body_sha256": "1b4e126ebecc870f5a5cbc8595c6cc7e7113e9a73f7b2baf7ad1cf0a1fbf5acc",
+    "retention": "keep",
+    "genre": "health",
+    "why": "전통 한약 제제의 항염 기전을 대사 경로로 설명하는 고찰 문단이 주장과 근거 구조를 갖춘다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "AA is a precursor for",
+      "note": "고찰의 염증 매개체 설명은 자족적이고 화합물 약어를 풀어 쓰면 고3 밴드에 근접한다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "190db8c3-b39f-4851-a857-daf5f5b09993",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:06:09.153399+00:00",
+    "body_sha256": "05d7cdfcc8f52e5ab282c8aae50ecae498862892f373a505bf2ad24e515c2991",
+    "retention": "keep",
+    "genre": "science",
+    "why": "기생충의 형태별 세포분열 차이를 비교하는 도입·고찰이 설명문으로 읽혀 성인 과학 독해 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Trypanosomatids assume a wide range",
+      "note": "형태와 분열 방식을 대비하는 도입부는 그림 없이도 읽히나 세포기관 용어가 밀집해 있다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19318397-4e3f-486f-93ce-d8d9ceda8480",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:50:14.589796+00:00",
+    "body_sha256": "86358ebb1838b08eeceb0bb8b6843f42107887e4588654655175f3f927076a6f",
+    "retention": "keep",
+    "genre": "health",
+    "why": "항VEGF 치료의 부담과 반응 예측이라는 문제 제기가 도입부 한 편의 논지로 완결된다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anti-vascular endothelial growth factor therapy",
+      "note": "도입 첫 문단은 유전자 기호 없이 서고 치료 부담 어휘 두셋만 바꾸면 고3 밴드로 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "193e09e9-31fa-45b2-b680-03a429f181de",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:47.659185+00:00",
+    "body_sha256": "73cd58d3e6e0047c82c9a925f3813aed5de66f22b57c9914d378531b33f95539",
+    "retention": "keep",
+    "genre": "health",
+    "why": "저자 요약이 일반 독자용 설명문으로 따로 쓰여 있어 발췌 지문으로 바로 가공할 수 있다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "How an individual immune system",
+      "note": "저자 요약 문단은 떼어내도 완결되고 면역 용어 두세 개만 풀면 고2 밴드까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "194207f5-ea65-45db-b630-4842c8fa2773",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:41:53.964614+00:00",
+    "body_sha256": "d6e6249ca7e38a7cad5c5aab442573ce5514fc2ceffcf20bfaca7c46f3f41031",
+    "retention": "keep",
+    "genre": "science",
+    "why": "IL-10이 특정 계통이 아니라 다능성을 준다는 가설 전개가 고찰에서 하나의 논지로 정리된다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Our data suggest that BM-derived",
+      "note": "표면 표지자 기호가 문장마다 박혀 있어 어휘 치환으로는 밴드가 안 내려가고 고찰 문단만 쓸 만하다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19437a08-184c-4ce4-841e-c792cce8a365",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-05T23:07:50.506445+00:00",
+    "body_sha256": "2aec79c1f0c2eb46dcf0ef8268caa4f72ac037f8273ddd3d0131eb368df30bb4",
+    "retention": "keep",
+    "genre": "health",
+    "why": "양수색전증의 진단 난점과 치료 우선순위를 그림 없이 논하는 논평이라 지문 가공이 가장 쉽다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "insert",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Because AFE is a diagnosis",
+      "note": "표와 그림 참조가 없어 문단을 그대로 떼어 쓸 수 있고 의학 용어 서넛만 바꾸면 고3 밴드다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab",
+      "structured"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "196e9d6a-739d-4110-8d40-1877f54ea98c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:41:51.324545+00:00",
+    "body_sha256": "ff0b44293fa92d337158e6b841a5a936422c9161a7d20d5967db79fc7b5310ba",
+    "retention": "keep",
+    "genre": "science",
+    "why": "균핵 형성과 산화 스트레스의 관계를 세운 도입부는 논지가 서지만 결과부는 화합물 나열이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Sclerotium formation in R. solani",
+      "note": "도입 문단만 자족적이고 결과와 표는 대사물 이름 나열이라 지문으로 쓸 수 없다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "198caed6-431a-4cb4-9f1e-5e562ed2422d",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:32:42.324312+00:00",
+    "body_sha256": "0b12cc90df61e64e986a4d1c340c76c71aac428e60b15963f32fabf2832bd6c7",
+    "retention": "keep",
+    "genre": "health",
+    "why": "출혈성 쇼크에서 바소프레신 고갈이라는 가설과 근거가 도입·고찰에서 한 편으로 이어진다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although intense vasoconstriction is the",
+      "note": "도입 문단은 수치 없이도 서고 생리 용어 두세 개를 풀면 고3 밴드에 든다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "199a80df-d8be-45d5-8d87-e8cd29af5f3f",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:35:55.681226+00:00",
+    "body_sha256": "7f01e426d89905879b0e652aeb46f51556dab12b49ec64100975fc1db2f26948",
+    "retention": "hold",
+    "genre": "engineering",
+    "why": "다중 앵커 널말뚝의 문제 제기는 분명하나 영어 문장이 어색하게 번역돼 발췌 가공 가능 여부가 갈린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "With the rapid development of",
+      "note": "문장 구조가 비문에 가까운 곳이 여럿이라 손질 없이는 지문이 되지 않는다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4,
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "19bfc3c5-acf9-4f96-bf1a-8b8eff95e777",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:15:31.817607+00:00",
+    "body_sha256": "f8c87b37c00c6bdf9b0bb472f9147776816e990334fda08952fc683d8dc827da",
+    "retention": "keep",
+    "genre": "health",
+    "why": "루게릭병과 자가면역질환의 공존을 다루는 고찰이 가설과 반증을 나란히 놓아 논지가 선다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The cooccurrence of AIDs and",
+      "note": "고찰 문단은 표를 안 보고도 읽히고 면역 용어 두셋을 바꾸면 고3 밴드로 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19c4d85f-1099-4049-8568-c28edb68b5eb",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:39:12.294284+00:00",
+    "body_sha256": "eb3e8c2081ecf89f50d10175ffa34e8b7281478c1c00acea7abfb8ccee7af806",
+    "retention": "keep",
+    "genre": "science",
+    "why": "일본 첫 SCA10 가계 보고가 인류 이동 가설과 엮여 사건 흐름과 논지를 함께 갖춘다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "long_reference",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 34-year-old Japanese woman presented",
+      "note": "증례 서술은 시간순으로 이어져 그대로 떼어 쓸 수 있고 유전자 기호는 걷어낼 수 있다."
+    },
+    "uses": [
+      "argument",
+      "sequence",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19c94b40-8df0-4b96-85c1-d58172a7fc1a",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:36:00.645748+00:00",
+    "body_sha256": "21ec4d5456a604bed4df2632a6c9b2d1a4416b1b6f5edca7be6f12c9b4a557ce",
+    "retention": "keep",
+    "genre": "technology",
+    "why": "혈관내피를 모사한 약한 음전위로 인공판막 혈전을 막는다는 착상이 비유와 함께 설명된다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The vascular endothelium naturally maintains",
+      "note": "도입의 글리코칼릭스 비유 문단이 자족적이고 어휘를 낮추면 고2 밴드까지 내려간다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab",
+      "structured"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19cb335f-91f0-412f-86f1-5b4e20b47a8c",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:36:01.165849+00:00",
+    "body_sha256": "790eb76388ed32d85295ea1cea6823cb5a97b28ae4efbd6f0791a6648cdf440a",
+    "retention": "keep",
+    "genre": "health",
+    "why": "진균과 세균의 상호작용이 독성을 키운다는 저자 요약이 일반 독자용 설명문으로 제공된다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Polymicrobial infections are often associated",
+      "note": "저자 요약은 그림 참조가 없어 떼어 쓰기 쉽고 균주 기호는 걷어낼 수 있다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19ce0058-679e-4a43-a7e4-c6e2b1a0c1fd",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:18:38.033285+00:00",
+    "body_sha256": "d529f81f0a9e4457ceef38f5aacfbcdc30ebb67f090f3bf235c70ca90b1f32b7",
+    "retention": "keep",
+    "genre": "health",
+    "why": "수단에서 MAP의 인체 검출을 처음 조사한 배경과 고찰이 논지로 이어져 읽을 글이 된다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "For decades, Mycobacterium avium subsp",
+      "note": "고찰 도입 문단은 표 없이 서지만 학명과 약어가 많아 밴드를 내리기 어렵다."
+    },
+    "uses": [
+      "argument",
+      "factual"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19d6f7e7-7db3-4f27-b084-f25fb3859583",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-25T07:36:02.608752+00:00",
+    "body_sha256": "afdd6069712cac037f80ee62d7948fe1224951a06ed2904a1f4e759f1e7e06dc",
+    "retention": "keep",
+    "genre": "nature",
+    "why": "생물지리학과 생태학의 단절을 진단하고 통합 방향을 제시하는 논설이라 논지가 가장 뚜렷하다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Biogeography and ecological research have",
+      "note": "용어 상자가 따로 있어 떼어낸 문단도 뜻이 서고 예시 문단은 어휘를 낮추기 쉽다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab",
+      "structured"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19d76b95-58b9-4e4e-ad38-abc85ba7dff1",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T06:00:04.069009+00:00",
+    "body_sha256": "53ce3d9d5f44dc1480bbc6202a21bfd750afc3242eb9ee57d383663ab9e641b7",
+    "retention": "keep",
+    "genre": "health",
+    "why": "골형성부전증 아동의 통증 관리라는 임상 문제와 국소마취 대안이 한 편의 논지로 정리된다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The theoretical rationale for investigating",
+      "note": "고찰의 근거 문단은 수치 없이 서고 마취 용어 두셋만 풀면 고3 밴드다. 초록이 두 번 실려 있어 중복은 걷어낸다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19ec9818-b2a0-4a61-889d-a449d5cc2377",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:30:30.48482+00:00",
+    "body_sha256": "99b9e766848baedefe0ac266d53eb30c3b1bdd44e80e6de1252bd3f0d64d5671",
+    "retention": "keep",
+    "genre": "science",
+    "why": "NS1 당화가 바이러스 조립을 좌우한다는 기전이 저자 요약에서 인과 사슬로 서술된다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V10",
+        "V11"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Tembusu virus is an avian",
+      "note": "저자 요약은 순서가 뚜렷해 배열형에 맞으나 단백질 기호가 촘촘해 밴드가 내려가지 않는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19eea8d1-5536-458a-bb9c-d051d0f2cca2",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-13T07:20:30.353898+00:00",
+    "body_sha256": "4db2babc4d9426c0f9bd6d46154ceb470c29551bd96c02073189c94c6e14a904",
+    "retention": "keep",
+    "genre": "health",
+    "why": "항레트로바이러스 치료가 샤가스병 재활성화를 막는다는 결론이 근거와 함께 고찰에서 선다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chagas disease is caused by",
+      "note": "도입의 전파 경로 설명이 자족적이고 진단법 약어를 풀면 고3 밴드에 든다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  },
+  {
+    "id": "19f234a1-5fab-413b-b98b-09338a068b78",
+    "kind": "retain",
+    "basis": "full",
+    "source_updated_at": "2026-09-15T14:30:39.946226+00:00",
+    "body_sha256": "4cbf8c14bb11dcf8009604681d3f2f8cb06c67f53d7cf9e197abd54f401670e0",
+    "retention": "keep",
+    "genre": "health",
+    "why": "비타민C 정맥주사의 기대와 실제 결과가 갈리는 대목이 주장과 반증 구조로 읽힌다.",
+    "slots": {
+      "ages": [
+        "adult",
+        "high3",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence",
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Previous studies investigating the effects",
+      "note": "고찰 문단이 선행 연구와 자기 결과를 대비해 통념 교정형에 맞고 어휘도 평이하다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab",
+      "structured"
+    ],
+    "criteria_version": 4,
+    "round": 4
+  }
+]

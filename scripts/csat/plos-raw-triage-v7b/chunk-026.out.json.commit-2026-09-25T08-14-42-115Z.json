@@ -1,0 +1,917 @@
+[
+  {
+    "runId": "2026-09-25T08-14-42-115Z",
+    "id": "135e02a1-9e42-45a9-8a3c-fe91ec7c4ef5",
+    "revision": "2026-09-25T07:33:20.908427+00:00",
+    "body_sha256": "44fbf3626245849d09c252181303f9d835a4349805c480fa8196c6f8a3abead6",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.344Z",
+        "by": "chunk-llm",
+        "why": "만성 스트레스–장내미생물–뇌 축을 설명하고 환경 풍부화가 그 고리를 끊는다는 논지가 서론에서 결론까지 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:17.457Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4593bd6e82a37f68e90a675c553367c5e220cd810cbdb408c05b1a7cb95876f9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 2문단은 균종명 두셋만 일반어로 바꾸면 고2 밴드로 내려간다.",
+          "sample": "Chronic stress disrupts gut microbiota homeostasis",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:04.344Z",
+        "by": "chunk-llm",
+        "why": "만성 스트레스–장내미생물–뇌 축을 설명하고 환경 풍부화가 그 고리를 끊는다는 논지가 서론에서 결론까지 이어진다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "summary",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:17.457Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "4593bd6e82a37f68e90a675c553367c5e220cd810cbdb408c05b1a7cb95876f9"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "서론 2문단은 균종명 두셋만 일반어로 바꾸면 고2 밴드로 내려간다.",
+          "sample": "Chronic stress disrupts gut microbiota homeostasis",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "psychology",
+        "why": "서론의 풍부환경 정의 단락과 고찰의 한계·인간 적용 단락이 떼어 내도 논지가 서서 주제·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Environmental enrichment (EE) is a non-pharmacological",
+          "note": "non-pharmacological→drug-free, neurogenesis→growth of new brain cells, HPA axis 구절 삭제로 V7 근처가 되고 약어만 풀면 선다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:42.119Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:04.344Z",
+          "by": "chunk-llm",
+          "why": "만성 스트레스–장내미생물–뇌 축을 설명하고 환경 풍부화가 그 고리를 끊는다는 논지가 서론에서 결론까지 이어진다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high2",
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "summary",
+              "blank",
+              "content_match"
+            ],
+            "levels": [
+              "V6",
+              "V7"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "mock",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:17.457Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "4593bd6e82a37f68e90a675c553367c5e220cd810cbdb408c05b1a7cb95876f9"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "서론 2문단은 균종명 두셋만 일반어로 바꾸면 고2 밴드로 내려간다.",
+            "sample": "Chronic stress disrupts gut microbiota homeostasis",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T04:41:58.950Z",
+      "topicMargin": 1.6500000000000004
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-42-115Z",
+    "id": "13d0f003-c908-4d08-b843-59bbe8825151",
+    "revision": "2026-09-25T07:33:27.717817+00:00",
+    "body_sha256": "153c4bde2b563326a8de3e430b0d3dd6e9e2aaa3365a8e64b058c07b77d77816",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:05.565Z",
+        "by": "chunk-llm",
+        "why": "통념(보충제가 혈당을 크게 낮춘다)을 메타분석 수치로 눌러 「보조 요법일 뿐」이라는 논지가 고찰에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:23.727Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0035927b67f916f5cbf9fec9846dd96c82e55c2550f50a11a5c3cfd21b738c20"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 문단은 수치 두 개만 남기고 약물명을 일반어로 바꾸면 그대로 선다.",
+          "sample": "Despite promising findings, the current evidence",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:05.565Z",
+        "by": "chunk-llm",
+        "why": "통념(보충제가 혈당을 크게 낮춘다)을 메타분석 수치로 눌러 「보조 요법일 뿐」이라는 논지가 고찰에서 한 편으로 선다.",
+        "basis": "full",
+        "genre": "health",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "main_point",
+            "blank",
+            "summary"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "myth-rebuttal",
+            "data-claim"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:23.727Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "0035927b67f916f5cbf9fec9846dd96c82e55c2550f50a11a5c3cfd21b738c20"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "고찰 첫 문단은 수치 두 개만 남기고 약물명을 일반어로 바꾸면 그대로 선다.",
+          "sample": "Despite promising findings, the current evidence",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "서론의 기존 치료 한계 단락과 고찰의 「통계적 유의하나 임상적으로 작은 효과」 단락이 주장-근거로 서서 요지·주장·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "summary",
+            "irrelevant"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The cornerstone of T2DM management includes",
+          "note": "약물 이름 나열을 「여러 먹는 약과 주사 약」으로 줄이고 adherence→taking medicine as told, glycemic→blood sugar 로 바꾸니 논지가 남았다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:42.121Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:05.565Z",
+          "by": "chunk-llm",
+          "why": "통념(보충제가 혈당을 크게 낮춘다)을 메타분석 수치로 눌러 「보조 요법일 뿐」이라는 논지가 고찰에서 한 편으로 선다.",
+          "basis": "full",
+          "genre": "health",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "main_point",
+              "blank",
+              "summary"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "myth-rebuttal",
+              "data-claim"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:23.727Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "0035927b67f916f5cbf9fec9846dd96c82e55c2550f50a11a5c3cfd21b738c20"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "고찰 첫 문단은 수치 두 개만 남기고 약물명을 일반어로 바꾸면 그대로 선다.",
+            "sample": "Despite promising findings, the current evidence",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 2,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T05:26:04.533Z",
+      "topicMargin": 12.999999999999998
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-42-115Z",
+    "id": "13f14a16-14f5-4c2e-b598-061cc156869e",
+    "revision": "2026-09-25T07:33:29.47976+00:00",
+    "body_sha256": "d0edc3885ab6bdc579ed05ec4c2cb2a1f159dcf404fcec8f13bd0de38333b59e",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:05.568Z",
+        "by": "chunk-llm",
+        "why": "수용체·잔기 번호가 문장의 주어와 목적어를 다 차지해, 고유명사를 걷으면 남는 논지가 없었다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:26.711Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "810019f05062b3aace928943f26288157c6faff5637283c3bac4f507849891f2"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "도입부 두 문단을 실제로 다듬어 봤으나 잔기 표기(F1073.32 등)를 빼면 문장이 끊긴다.",
+          "sample": "Hydroxycarboxylic acid receptors (HCAR) consist of",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:05.568Z",
+        "by": "chunk-llm",
+        "why": "수용체·잔기 번호가 문장의 주어와 목적어를 다 차지해, 고유명사를 걷으면 남는 논지가 없었다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": [],
+          "purposes": [
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:26.711Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "810019f05062b3aace928943f26288157c6faff5637283c3bac4f507849891f2"
+        },
+        "retention": "hold",
+        "processing": {
+          "note": "도입부 두 문단을 실제로 다듬어 봤으나 잔기 표기(F1073.32 등)를 빼면 문장이 끊긴다.",
+          "sample": "Hydroxycarboxylic acid receptors (HCAR) consist of",
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": false
+        },
+        "hold_reason": "processing-unclear",
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "서론 둘째 단락(닮은 두 수용체 중 하나만 홍조 부작용)이 떼어 쓸 만한 유일한 대목이고 나머지는 잔기 번호 서술이라 칸은 주제·빈칸 정도다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank"
+          ],
+          "levels": [
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "HCAR2 shares the highest sequence similarity",
+          "note": "수용체 이름을 「두 닮은 수용체」로 바꾸면 부작용 대비 논지는 서지만 ERK·prostaglandin 등을 걷으면 문단이 짧아져 V9 아래로 내리기 어렵다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:42.122Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:05.568Z",
+          "by": "chunk-llm",
+          "why": "수용체·잔기 번호가 문장의 주어와 목적어를 다 차지해, 고유명사를 걷으면 남는 논지가 없었다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "adult"
+            ],
+            "types": [
+              "content_match"
+            ],
+            "levels": [
+              "V9"
+            ],
+            "platform": [],
+            "purposes": [
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:26.711Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "810019f05062b3aace928943f26288157c6faff5637283c3bac4f507849891f2"
+          },
+          "retention": "hold",
+          "processing": {
+            "note": "도입부 두 문단을 실제로 다듬어 봤으나 잔기 표기(F1073.32 등)를 빼면 문장이 끊긴다.",
+            "sample": "Hydroxycarboxylic acid receptors (HCAR) consist of",
+            "detachable": true,
+            "standsAlone": false,
+            "vocabAdjustable": false
+          },
+          "hold_reason": "processing-unclear",
+          "criteria_version": 3
+        }
+      },
+      "pass": 2,
+      "type": "R-BLANK",
+      "shape": 7,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T13:22:22.541Z",
+      "topicMargin": 10
+    }
+  },
+  {
+    "runId": "2026-09-25T08-14-42-115Z",
+    "id": "13fd410d-14cd-4b90-b908-b29bedd25451",
+    "revision": "2026-09-25T07:33:30.776322+00:00",
+    "body_sha256": "b94f7bd15fef435f4d835686c1b244d64c687bdd5f4e7276d4f92e789ebaf910",
+    "before": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:05.569Z",
+        "by": "chunk-llm",
+        "why": "저자 요약 절이 전파 경로와 야생동물 생태까지 일반 독자용 논지로 정리돼 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:26.836Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "766e608c2f9de06f60ef4e9844ad6f26ff2738d383cd743e0a8843376564bd3b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Author summary 는 앞 문맥 없이 시작해 그대로 떼였고 전문어는 두 개만 남았다.",
+          "sample": "The contamination of the food chain",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      }
+    },
+    "after": {
+      "v": 2,
+      "at": "2026-09-05T23:03:42.335Z",
+      "by": "rule",
+      "rv": 3,
+      "why": "",
+      "codes": [],
+      "genre": "",
+      "purpose": "raw",
+      "verdict": null,
+      "blockedBy": "oversize-raw",
+      "publishable": false,
+      "retain_stale": {
+        "at": "2026-09-25T01:39:05.569Z",
+        "by": "chunk-llm",
+        "why": "저자 요약 절이 전파 경로와 야생동물 생태까지 일반 독자용 논지로 정리돼 있다.",
+        "basis": "full",
+        "genre": "science",
+        "round": 4,
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "types": [
+            "topic",
+            "title",
+            "summary",
+            "blank"
+          ],
+          "levels": [
+            "V7",
+            "V8"
+          ],
+          "platform": [
+            "claim-evidence"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ]
+        },
+        "stale": {
+          "at": "2026-09-25T02:55:26.836Z",
+          "reason": "plos-figure-refetch",
+          "hash_before": "766e608c2f9de06f60ef4e9844ad6f26ff2738d383cd743e0a8843376564bd3b"
+        },
+        "retention": "keep",
+        "processing": {
+          "note": "Author summary 는 앞 문맥 없이 시작해 그대로 떼였고 전문어는 두 개만 남았다.",
+          "sample": "The contamination of the food chain",
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true
+        },
+        "criteria_version": 3
+      },
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "저자 요약과 서론 첫 단락의 사슴 만성소모병 확산·말초 조직 전파 설명, 고찰 끝의 자연 전파 모형 필요성이 떼어져 주제·빈칸·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "blank",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V8",
+            "V9"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The contamination of the food chain",
+          "note": "cervids→deer and elk, irrevocable→unstoppable, conformational 문장 삭제로 V8 이 되고 저자 요약 단락은 그대로 자족적이다."
+        },
+        "criteria_version": 3,
+        "basis": "full",
+        "round": 4,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:14:42.124Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "v": 1,
+      "gate": {
+        "v": 2,
+        "at": "2026-09-05T23:03:42.335Z",
+        "by": "rule",
+        "rv": 3,
+        "why": "",
+        "codes": [],
+        "genre": "",
+        "purpose": "raw",
+        "verdict": null,
+        "blockedBy": "oversize-raw",
+        "publishable": false,
+        "retain_stale": {
+          "at": "2026-09-25T01:39:05.569Z",
+          "by": "chunk-llm",
+          "why": "저자 요약 절이 전파 경로와 야생동물 생태까지 일반 독자용 논지로 정리돼 있다.",
+          "basis": "full",
+          "genre": "science",
+          "round": 4,
+          "slots": {
+            "ages": [
+              "high3",
+              "adult"
+            ],
+            "types": [
+              "topic",
+              "title",
+              "summary",
+              "blank"
+            ],
+            "levels": [
+              "V7",
+              "V8"
+            ],
+            "platform": [
+              "claim-evidence"
+            ],
+            "purposes": [
+              "csat",
+              "reading"
+            ]
+          },
+          "stale": {
+            "at": "2026-09-25T02:55:26.836Z",
+            "reason": "plos-figure-refetch",
+            "hash_before": "766e608c2f9de06f60ef4e9844ad6f26ff2738d383cd743e0a8843376564bd3b"
+          },
+          "retention": "keep",
+          "processing": {
+            "note": "Author summary 는 앞 문맥 없이 시작해 그대로 떼였고 전문어는 두 개만 남았다.",
+            "sample": "The contamination of the food chain",
+            "detachable": true,
+            "standsAlone": true,
+            "vocabAdjustable": true
+          },
+          "criteria_version": 3
+        }
+      },
+      "pass": 1,
+      "type": "R-BLANK",
+      "shape": 10,
+      "topic": "과학·자연",
+      "topicV": 2,
+      "bandsHash": "773d679f463c",
+      "measuredAt": "2026-08-30T10:35:59.796Z",
+      "topicMargin": 26.12
+    }
+  }
+]

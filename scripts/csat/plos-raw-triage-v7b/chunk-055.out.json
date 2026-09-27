@@ -1,0 +1,869 @@
+[
+ {
+  "id": "21b8ecfb-8737-452c-91de-1d6fde7e4108",
+  "source_updated_at": "2026-09-25T07:39:15.08969+00:00",
+  "body_sha256": "7113835cc9115f7788b0c30234871050db30b0b88d2ffb143f3d26eb74e19af5",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "장내 프로바이오틱스가 신경 보호로 이어지는 경로를 서론과 고찰에서 한 편의 논지로 잇는다 — 고찰 첫 단락이 발췌 가능하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Our study demonstrates that probiotic",
+   "note": "유전자 약어(NHR-86·CYP)를 「핵수용체」「해독 효소」로 바꾸면 서고, 균주명은 「장내 세균」으로 줄일 수 있다."
+  }
+ },
+ {
+  "id": "21ba63b7-940f-4cb7-aa7e-db91699a83dc",
+  "source_updated_at": "2026-09-25T07:39:15.734421+00:00",
+  "body_sha256": "21167e8f27f656c110ed60263af096012488bff83e8acc6305166b3465ac264f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "거북 두 종의 성결정 방식 차이를 가설 네 개로 세우고 검증하는 구조라 통념·반증 따라가기에 쓸 수 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "order"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Primary cilia are antennae-like organelles",
+   "note": "가설 기호(H0~H3)를 풀어 쓰면 읽히고, 유전자 이름 나열은 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "21be59fb-2be4-4e25-93e3-20ead1f1cc1b",
+  "source_updated_at": "2026-09-25T07:39:16.222045+00:00",
+  "body_sha256": "c2ec7b4c43d60544312bc79cb9dacde0cd1a1a5783b09f5bd7706407d5675ef7",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "오가노이드 실험에서 배양 자체가 만드는 변화가 감염 신호를 가린다는 방법론적 반증을 한 편으로 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Intestinal organoids - lab-grown mini-intestines",
+   "note": "「저자 요약」 절이 이미 일반 독자용 문장이라 손볼 것이 거의 없다."
+  }
+ },
+ {
+  "id": "21cc00ce-2a50-4432-b74b-1176f1f930d4",
+  "source_updated_at": "2026-09-13T07:02:33.165301+00:00",
+  "body_sha256": "f54c141ce46a0bac7912b59f2c654427608cc2234925e51694418d2cc0e53770",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "흔히 쓰는 약이 경련 역치를 낮출 수 있다는 주장을 동물 실험으로 뒷받침하는 고찰이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The present work demonstrates that PDE5",
+   "note": "결과 절은 측정 수치 나열이라 못 쓰고, 고찰 단락만 떼어 써야 한다."
+  }
+ },
+ {
+  "id": "21ce3bf8-c038-4388-953a-c6ece4950048",
+  "source_updated_at": "2026-09-13T07:06:02.142242+00:00",
+  "body_sha256": "9daaaf4f495528bff4ebc51945bf7702f16cf077cf52692801d1922c7d7efdb2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "history",
+  "why": "청동기 후기 정착망의 형성과 붕괴를 기후·사회 요인으로 설명하는 서술이 길고 흐름이 분명하다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "title",
+    "main_point",
+    "summary",
+    "order",
+    "insert",
+    "long_reference",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "then-now",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The mid-second millennium BC was a time",
+   "note": "유적지 목록 표는 통째로 걷어내야 하고, 지명은 「이 지역」으로 바꿔도 논지가 선다."
+  }
+ },
+ {
+  "id": "21fddf46-e6bd-4a71-b79f-b67a25799619",
+  "source_updated_at": "2026-09-13T06:48:07.357526+00:00",
+  "body_sha256": "3568385ba594fcd6228f6afbe0d6080dad74e725fd96ba5b7cb699c8fdd2f7c4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "희귀 백질형성장애 동물 모델에서 약물이 유발전위와 보행을 개선한다는 결과를 임상 의미까지 잇는다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Somatosensory and motor-evoked potentials allow",
+   "note": "서론 첫 단락이 유발전위의 쓰임을 설명해 배경 없이도 시작된다."
+  }
+ },
+ {
+  "id": "2203e65f-d1b7-4921-8258-d6ff18dd0f84",
+  "source_updated_at": "2026-09-25T07:39:24.862928+00:00",
+  "body_sha256": "71e1dbcaf82908a899725232e581bd8a2e1f9fadd0d3fd90fd90cb3db08a707f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "마그네슘 농도와 투여 시점이 모두 있어야 신경 보호가 된다는 계산 모형의 결론이 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A critical challenge in Mg2+-based neuroprotection",
+   "note": "수식 자리(치환 기호)가 본문에 남아 있어 방법 절은 못 쓰고, 서론·고찰만 쓴다."
+  }
+ },
+ {
+  "id": "220aa76b-0c53-43c1-9eeb-ba16e2a1584a",
+  "source_updated_at": "2026-09-15T14:38:37.171189+00:00",
+  "body_sha256": "771e6e6c1fd445e57a788926569912b16b2f682a1854b9629509597e0da249d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "두 치료법의 완치율은 같고 회복 부담과 만족도에서 갈린다는 비교 결론이 수치 없이도 읽힌다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Treatment remains controversial. Reported strategies",
+   "note": "신뢰구간·표본 수를 걷어도 「효과는 같고 부담은 다르다」는 논지가 남는다."
+  }
+ },
+ {
+  "id": "2cdf7760-25d5-40bc-a820-541cf4db5c23",
+  "source_updated_at": "2026-09-13T07:12:40.200105+00:00",
+  "body_sha256": "fdac43aa1437a6beb84812e57fc1820bfd5401880fcf18ea098ae29e1a88ab26",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "미생물 색소가 합성 색소를 대체할 수 있다는 서론의 논지는 서지만, 결과 절은 분광 수치 나열이라 좁게 쓴다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3"
+   ],
+   "purposes": [
+    "reading",
+    "vocab"
+   ],
+   "types": [
+    "topic",
+    "vocab_choice",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Interest in microbially derived pigments has",
+   "note": "분광 피크 수치는 통째로 버려야 하고, 쓸 만한 단락은 서론 두 개뿐이다."
+  }
+ },
+ {
+  "id": "2ce22c50-56f0-4194-9769-5a504eb29b02",
+  "source_updated_at": "2026-09-25T07:09:58.551205+00:00",
+  "body_sha256": "91d2228f7bcc234e3ae6eacd16b5535f2f1872a8e36959f891b2c33fa5f0ee7c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "hold",
+  "genre": "science",
+  "why": "문단 대부분이 서버·도구 이름과 약어 나열이라 떼어 내도 논지로 서는 단락을 고르기 어렵다.",
+  "hold_reason": "processing-unclear",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": false,
+   "sample": "Tularemia is a zoonotic illness brought",
+   "note": "서론 첫 단락은 질병 설명으로 서지만 이후는 전부 도구·점수 나열이라 어휘 교체로 내려가지 않는다."
+  }
+ },
+ {
+  "id": "2ceb0568-678a-46ed-b1e0-ec3f626b0e97",
+  "source_updated_at": "2026-09-25T07:10:02.076808+00:00",
+  "body_sha256": "1d0e092c40ddcff5aff892604fd6a2bde29c14d234cd534a3f70133629b713ec",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "면역 조절 인자가 줄면 오히려 폐렴이 가벼워진다는 역설적 결과를 기전까지 밀고 간다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Significant progress has been made in",
+   "note": "저자 요약 절이 일반 독자용이라 그대로 쓰이고, 유전자 이름은 두세 개만 남기면 된다."
+  }
+ },
+ {
+  "id": "2cf7d185-d909-48f2-9e34-02c89017b59e",
+  "source_updated_at": "2026-09-25T07:10:04.838091+00:00",
+  "body_sha256": "b29c2e164bc0d57875aeb673d56e23e5751e0a5ea99c52419e71e720704cf03e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기존 돌연변이 방식으로는 필수 유전자를 볼 수 없다는 한계를 새 도구로 넘는 과정이 논지로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Functional genomics is a powerful approach",
+   "note": "균주·프라이머 이름은 걷어야 하고, 서론과 고찰 앞부분만 쓸 만하다."
+  }
+ },
+ {
+  "id": "2cfa71fc-4b83-4aa6-8516-854373079ad3",
+  "source_updated_at": "2026-09-25T07:10:06.596703+00:00",
+  "body_sha256": "b4679a9c7a8c9b1e6e321f4896db5809a6a8915119d4b559a6a6f7ba6c0f3d83",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "같은 유전자의 변이 세 개가 서로 다른 결과를 낸다는 대조 구조라 내용 일치 문항을 만들 수 있다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The transcription factor NK2 homeobox 1",
+   "note": "변이 표기(c.641A>G 등)가 문장마다 박혀 있어 어휘 교체만으로는 밴드가 내려가지 않는다."
+  }
+ },
+ {
+  "id": "2cfd1507-7e77-42aa-bd9b-c7b1975f8866",
+  "source_updated_at": "2026-09-13T06:42:12.280476+00:00",
+  "body_sha256": "4418c6a89ee87c0b6b8b3944f7088f070cdd6b0074d938319881c2b44cc6377b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "모기 매개 감염병의 확산 배경과 백신 개발 과정을 시간순으로 이어 주는 서론이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "school",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "order",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Chikungunya virus (CHIKV) is a mosquito-borne",
+   "note": "발생 연도와 감염자 수만 남기고 플라스미드 이름을 걷으면 중등 상위까지 내려간다."
+  }
+ },
+ {
+  "id": "2d027043-1c4f-4274-8602-08de69012481",
+  "source_updated_at": "2026-09-15T14:43:47.358808+00:00",
+  "body_sha256": "9faffb04851360201491e1107bb6e24e4a733b11778e86bab1222dc1755e1dd1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "섬모 운동 이상이 장기 좌우 배치까지 바꾼다는 발생학 설명이 고찰에서 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "In general, cilia can be divided",
+   "note": "변이 표기는 버리고 섬모 구조를 설명한 고찰 단락만 떼면 배경 없이 시작된다."
+  }
+ },
+ {
+  "id": "2d05a799-2caa-4bf3-9483-e5f12f098476",
+  "source_updated_at": "2026-09-15T14:43:48.034397+00:00",
+  "body_sha256": "954a04c8e80651e9958f56266d3c426402bdb8512f2144f4eb813ef0714b75ce",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "바이러스 존재 여부만 보는 검사의 한계를 단계별 분자 변화로 반박하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Current cervical cancer screening relies primarily",
+   "note": "유전자 목록은 걷어도 「존재가 아니라 활동을 봐야 한다」는 논지가 그대로 남는다."
+  }
+ },
+ {
+  "id": "2d12ba20-3519-4fac-95fd-4c88767c657b",
+  "source_updated_at": "2026-09-13T07:19:43.053789+00:00",
+  "body_sha256": "d709a1a6c283bf9c4449dc1168015fde50484cb04e3f026e6a8f7b87e1f05ce4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "드문 기생충 감염이 자주 오진되는 이유와 혈청 진단의 필요를 임상 사례와 함께 설명한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Paragonimiasis is a major foodborne helminthiasis",
+   "note": "진단 성능 표는 버리고 서론과 고찰 앞부분을 쓰면 되고, 증상 용어 몇 개만 풀면 된다."
+  }
+ },
+ {
+  "id": "2d168158-975c-4496-8d60-eed0e80208f6",
+  "source_updated_at": "2026-09-15T14:43:49.120331+00:00",
+  "body_sha256": "387cd9ae244fe0f8c2883a5afe6c6a20105d97c6e0dd4b274fb1c435482e102e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "간경변 환자의 단기 사망을 가르는 두 지표를 찾고 기전까지 설명하는 고찰이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "mock"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Cirrhosis was a chronic disease characterized",
+   "note": "검사 약어가 많아 두세 개로 줄여야 하고, 과거시제 문체가 어색해 다듬어야 한다."
+  }
+ },
+ {
+  "id": "2d23e475-76d7-4fe1-b264-aaaa75857bb3",
+  "source_updated_at": "2026-09-25T07:10:25.132304+00:00",
+  "body_sha256": "379bcd6117211771538cba4a32a855212695b1270d158430697d393fde8ac5d4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "반려동물이 진드기 매개 바이러스의 중간 고리가 될 수 있다는 주장을 유전체 근거로 세운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Severe fever with thrombocytopenia syndrome virus",
+   "note": "저자 요약 절이 이미 쉬운 문장이라 유전형 기호만 지우면 중등까지 내려간다."
+  }
+ },
+ {
+  "id": "2d31659b-ca8f-4578-a886-12bc2f392122",
+  "source_updated_at": "2026-09-25T07:10:28.147375+00:00",
+  "body_sha256": "24797b0fde6bd8a9e1c27b6324b1e4e5f98a724fb1ba010f5c8350063086cc0b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 4,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기공 형성을 막는 작은 분자가 가뭄 대응에 쓰일 수 있다는 논지가 서론에서 결론까지 이어진다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Plant growth and survival rely on",
+   "note": "전산 도구 이름과 수식 자리는 걷어야 하고, 기공의 역할을 설명한 서론이 가장 쓸 만하다."
+  }
+ }
+]

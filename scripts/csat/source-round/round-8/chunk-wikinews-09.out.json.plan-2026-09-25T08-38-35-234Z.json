@@ -1,0 +1,1821 @@
+[
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02d5a8ef-4293-4693-aa3a-7473868c2734",
+    "revision": "2026-09-25T06:48:37.495799+00:00",
+    "body_sha256": "44a8a288c7248a66f3ef20ae0f667a86562f4ceeaeaf753730b797f172f576e1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "하원 소위의 공영방송 예산 삭감과 이를 이념적 보복으로 보는 쪽·재정 적자로 설명하는 쪽의 대립이 서서 주장·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Ready to Learn was one of",
+          "note": "스코필드 반박 인용 단락이 재정 논리를 자족적으로 담는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.238Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Congress_House_panel_OKs_big_cut_in_public_broadcasting_funds",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.291
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02d9bd34-cff6-4d18-8dd2-d64fa515ad48",
+    "revision": "2026-09-25T07:06:35.353098+00:00",
+    "body_sha256": "15285fd3926ae0cf9381e8b07c5c9fd543600b935ff24fa668b4fbdf6f747c8f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "12억 달러 청소년 마약 광고가 효과가 없고 오히려 사용을 정상으로 보이게 했을 수 있다는 감사 결론과 반박이 서서 주장-근거·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "claim",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence",
+            "myth-rebuttal"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In its August 25, 2006, report",
+          "note": "‘다른 이의 마약 사용을 정상으로 인식’이라는 역효과 문장이 빈칸 재료로 좋고 보고서 제목만 걷으면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.239Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/GAO_report_says_federal_anti-drug_Ad-campaign_ineffectual",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.352
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02e02799-a43b-4ac9-ae91-62f0f8a25255",
+    "revision": "2026-09-25T06:48:11.878246+00:00",
+    "body_sha256": "d0f8f86b1a0fd9d9aa93a416d73f3e9740ab30e4544053bed18e7b1ecd23923d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "100년 된 옹벽이 무너져 파크웨이가 막혔으나 인명 피해는 없었던 짧은 사고 기사라 중등 이상 내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to New York City Mayor",
+          "note": "지명이 많지만 붕괴-피해 없음-정리 계획 순서가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.239Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_York_City_Henry_Hudson_highway_retaining_wall_collapses",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.087,
+          "words": 115,
+          "english": 0.348
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02e743e2-b66f-442b-900a-79a70d8c7573",
+    "revision": "2026-09-25T05:31:51.985659+00:00",
+    "body_sha256": "00838e9ebb6448a58855f958269fae78e244fa4dead2352735860d455f19c699",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "영국 장애 급여 개편안의 정액화·구직 의무와 자선단체·야당의 반대가 맞서 짧은 정책 기사로 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Charities such as Leonard Chesire have",
+          "note": "찬반 입장이 한 줄씩 떨어져 있어 주장 짝 찾기로 가공하기 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.239Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_Incapacity_Benefit_due_to_be_overhauled_today",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02e86b4d-b8dd-4c16-b0e9-6a52de00b02e",
+    "revision": "2026-09-25T05:31:56.686294+00:00",
+    "body_sha256": "81d51b04b7c7a441d947821bd592060d4fc27ab48d5f7399d40e56f2b78c9d81",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "정신질환을 앓는 호주 시민이 불법 체류자로 오인돼 10개월 구금된 경위와 무기한 구금 제도 비판이 이어져 고2 이상 요지·서사 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "main_point",
+            "content_match",
+            "order",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Findings by a number of independent",
+          "note": "코엔에서 발견돼 이민 당국에 넘겨진 경위 단락이 자족적이나 사진 캡션 줄과 옹호 단체 논조는 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.239Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australian_immigration_detains_Aussie_flight_attendant_for_10mths%2C_and_maltreats_her",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02ecb5b2-c28d-49ff-bfc1-afb085fc0fb6",
+    "revision": "2026-09-25T07:52:42.880733+00:00",
+    "body_sha256": "cf19ceb57b39730001a408776a7bcdae5595b715ec8255fdee1a9046fef767b2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "델리 코로나 확진 급증과 마스크 의무화·보건차관 경고가 이어진 짧은 방역 기사로 내용 일치와 시대 비교 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now",
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Delhi, with other states including Kerala,",
+          "note": "양성률 수치는 걷어도 방역 강화 흐름이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.240Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Indian_capital_New_Delhi_reports_surge_in_COVID-19_cases",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.972,
+          "words": 181,
+          "english": 0.313
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02f22c50-c015-4710-8174-b8d0d24538a0",
+    "revision": "2026-09-25T06:58:41.704015+00:00",
+    "body_sha256": "967904eaa3b14105e55f3743ab0dfe481e637c5985923b625a6d500cf7cb90fd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "극우 정당의 재등록 운동과 폭동 연루 의혹·당직자의 인종 발언·전과가 중립적으로 보도돼 고3·성인 내용 일치 칸을 연다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Recently it has been alleged that",
+          "note": "당 주장과 웹사이트 문구가 모순되는 단락이 비판적 읽기 재료이나 인종 발언 인용은 가공 때 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.240Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Australia_First_begins_revival_campaign",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.409
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02f4c10f-2b5a-4810-a5c7-f27730ac8f86",
+    "revision": "2026-09-25T07:48:12.992136+00:00",
+    "body_sha256": "9cbdc80b570186c825be5c9281e98148e4ee0d6e63798914517bd8787356992e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "2차 대선 토론에서 벵가지 대응을 두고 오간 공방과 사회자 개입 논란이 이어져 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Elsewhere in the debate, there was",
+          "note": "사회자 논란 단락이 사실 확인 흐름으로 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.240Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Obama_and_Romney_battle_in_second_U.S._presidential_debate",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.38
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02f5bbdd-6b15-458b-95c2-1bd6ca68345f",
+    "revision": "2026-09-25T08:08:14.67458+00:00",
+    "body_sha256": "722bf01d59fbae3b7881db17d59d832184539334dbd82fada3e39bb7abf20d12",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "여섯 살 아이의 911 신고를 장난으로 여겨 어머니가 숨진 경위가 통화 인용과 함께 시간순으로 전개돼 서사·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "audio"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The boy called 911 three hours",
+          "note": "두 번째 통화 단락이 대화체로 생생하고 떼어도 선다; 녹음 공개 사실이 있으나 원음은 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.240Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Detroit_woman_dies_after_child's_911_calls_are_neglected",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6.5,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02f8321b-3766-4059-a7df-9bc1053dfa46",
+    "revision": "2026-09-25T07:51:57.589047+00:00",
+    "body_sha256": "9e9d49426a1f1c2fc98d5fc43e6f870610c6e73d0631d7d294ecbefd9e82ceac",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "푸에르토리코 연쇄 지진과 정전·발전소 피해·허리케인 여파가 이어져 재해 기사 내용 일치·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Puerto Rico had still not fully",
+          "note": "코스타 수르 발전소 단락이 복구 지연의 이유를 자족적으로 설명한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.240Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Seismic_activity_continues_to_shake_Puerto_Rico_with_5.2_quake",
+          "year": 2020,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.307
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02fc4d62-b112-46a8-9d74-a638b7e7ee2a",
+    "revision": "2026-09-25T06:51:59.008474+00:00",
+    "body_sha256": "7b41e061c08e7c0657eda288e6e147bd30aa358a2aaf04f94bb3f86b8ad06418",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "베슬란 학교 인질 참사 뒤 새 학교 두 곳이 문을 연 소식과 참사 배경이 짧게 서서 고1 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The mayor of Moscow, Yuri Luzhkov,",
+          "note": "희생 수치가 있어 초·중 칸은 달지 않았고 개교식 단락은 쉽게 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_new_schools_open_in_Beslan",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.594,
+          "words": 143,
+          "english": 0.423
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "02fef4ae-00c9-4c4e-a9e2-063e926468f1",
+    "revision": "2026-09-25T07:37:05.710214+00:00",
+    "body_sha256": "90a69383fed5c6f0caf22da6eaf402240d38977f7784e9088a4801564a4c0c6b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "버냉키가 금융 안정 회복을 조건으로 경기 회복 시점을 전망한 조건부 논지가 서서 요지·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "content_match"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"It is essential that we continue",
+          "note": "‘only if’ 조건문 인용이 빈칸 재료로 좋고 수치 단락은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Fed_chairman_Bernanke_says_US_recession_'may_last_into_2010'",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.409
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "0307a12a-7c4e-4d0d-999b-2883796096cd",
+    "revision": "2026-09-25T08:07:31.126509+00:00",
+    "body_sha256": "55d04930ab24e4085cd8117405e06f5520d62e66be3ff656ffc9b6b3e2624e2f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "ELN이 총선 휴전을 선언한 배경과 FARC와의 대비·세력 약화 분석이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The ELN is the second largest",
+          "note": "두 반군 비교 단락이 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Colombia's_National_Liberation_Army_declares_ceasefire_for_elections",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "03094d46-533a-4be8-9c01-64e92512a262",
+    "revision": "2026-09-25T08:20:03.791046+00:00",
+    "body_sha256": "347266f72535b14e942da1b6259ed19861e76e6d68748cccbd4e03243c50019b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "오슬로 타밀 시위와 대사관 점거·노르웨이 중재 중단·스리랑카 내전 배경이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The peaceful demonstrations come the day",
+          "note": "대사관 점거 뒤 중재 거부로 이어진 인과 단락이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Tamil_protests_underway_in_Oslo",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.388
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "030be74a-16a1-4f6e-9c65-63db54fad73c",
+    "revision": "2026-09-25T07:44:22.273896+00:00",
+    "body_sha256": "fd921a17b3f4266b70597d0bc5fc4c2ac9bbd055ff3738bddeeef85e90e11973",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "처칠·아이젠하워의 UFO 은폐 의혹을 공개 문서로 전하면서 16건 중 10건이 오인·장난으로 판명됐다는 결과까지 담아 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The inquiry read, \"During the discussion",
+          "note": "의혹을 사실로 단정하지 않고 문서 인용으로 전해 의사과학이 아니며, 미사일 배제 논리 단락이 떼기 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/RAF_UFO_encounters_may_have_been_covered_up_by_Churchill_and_Eisenhower",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.342
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "030c03b7-990a-486b-92ad-f6a49ffd7d70",
+    "revision": "2026-09-25T07:21:21.525287+00:00",
+    "body_sha256": "2f6c377fd306d3d09cda94a063788c883c35c6d4d06af3d2c7346e4119d16fba",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "영국 테러 경보가 ‘임박’에서 ‘심각’으로 내려간 의미를 내무장관과 MI5 설명으로 풀어 요지·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The MI5 website stated, \"This means",
+          "note": "MI5 설명 단락이 두 등급의 차이를 자족적으로 정의한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_threat_level_reduced_to_'severe'",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.795,
+          "words": 146,
+          "english": 0.397
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "031013db-bd7c-4c5b-a816-cffd95cdb383",
+    "revision": "2026-09-25T07:58:44.143889+00:00",
+    "body_sha256": "b592dd2197fc5d88fa69b8cbafcd72b7e8c40894f77254912cb420a01443b64d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "폭죽 든 과일에 다친 임신한 코끼리가 강에서 숨진 경위와 용의자 체포·보도 정정이 이어져 사건 서사·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "According to wildlife officials, the 15-year-old",
+          "note": "동물 죽음 묘사가 있어 고1 이상; 파인애플→코코넛 정정 단락이 사실 확인 재료가 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Suspect_arrested_in_death_of_elephant_in_Kerala%2C_India_that_ate_explosive_fruit",
+          "year": 2020,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.343
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "0312de74-3cb6-4172-9753-b698005f8600",
+    "revision": "2026-09-25T08:10:36.216482+00:00",
+    "body_sha256": "ae4694a50cb2fdf481fd2a34dc8c43e097b75489504b406daf7289803419bd19",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "리트비넨코의 발병부터 폴로늄 검출·동선 조사·러시아 부인까지 시간순 전개가 서서 장문 서사·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr Litvinenko was admitted to Barnet",
+          "note": "입원-악화-전원 단락이 날짜 순으로 자족적이고 isotope 등은 풀어 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_Russian_spy_Litvinenko_dies%2C_radioactive_poisoning_suspected",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "03171594-1ad1-49cf-bce9-791140ade63a",
+    "revision": "2026-09-25T07:13:35.945055+00:00",
+    "body_sha256": "be4cc1174205da3e26f9c2492a58ea94ddbb475d58ba15032f69224089f95d51",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "예산안에 반대해 제명된 케이시 의원의 이유와 비슷한 제명 사례가 이어져 고2 이상 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"In some ways, it was very",
+          "note": "케이시 발언 단락이 지역 이익 논리를 담는다; 무소속 의원 명단은 걷는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Canadian_Tory_MP_left_alone_for_voting_against_budget_legislation",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.351
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "0318a23c-7e60-49ee-bdf2-099aa80d9e01",
+    "revision": "2026-09-25T07:10:32.075763+00:00",
+    "body_sha256": "1d244b960911bba4b5f1a779aa767ff975789d16f6856ad0f8e31047cf8d4fe1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "가스통 폭발 위협 대치가 로봇 대화 시도와 최루탄으로 끝나기까지의 시간순 전개가 서서 사건 서사·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Westshore SWAT was deployed at 6",
+          "note": "SWAT 투입 단락이 시각 순서로 자족적이나 본문 시각 하나가 앞뒤로 어긋나 가공 때 확인한다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Lakewood_Police_%26_SWAT_team_end_standoff_with_tear_gas",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.35
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "03191b65-f9ca-477a-8e78-0f454f6cb364",
+    "revision": "2026-09-25T07:25:36.268931+00:00",
+    "body_sha256": "ed56e6fc09591f2a3a33d83c0d5d39a3da625cbbdd4997dcf9e5affc66773cef",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "줄기세포 연구 기금 주민투표 안건을 두고 반대측 소송과 판사의 기각 논리·찬반 배경이 서서 주장-근거·요지 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "summary"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Stem cell research has been a",
+          "note": "찬반 배경 단락이 양측 논리를 균형 있게 담아 떼어도 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Judge_rules_stem_cell_proposal_to_remain_on_New_Jersey_ballot",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.5,
+          "words": 200,
+          "english": 0.398
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "0319485b-6411-4c92-b741-d850b1dc3655",
+    "revision": "2026-09-25T07:48:33.219354+00:00",
+    "body_sha256": "f6ad73aff4c1c9a44fa1c0260dba1d9da67748e3e41cfbf957c6bee84e1c74d8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "뒤영벌이 꽃의 전기장을 감지한다는 것을 차등 조건화 실험으로 밝힌 과정이 문답으로 설명돼 과학 요지·빈칸·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "blank",
+            "order",
+            "content_match",
+            "insert"
+          ],
+          "levels": [
+            "V4",
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "DC: We use what's called 'differential",
+          "note": "실험 설계 답변 단락이 80% 대 50% 대비로 결론까지 완결되고 그림 요청 문답만 걷으면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Wikinews_interviews_British_sensory_biologist_Dominic_Clarke_about_floral_electric_fields_and_bees",
+          "year": 2013,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.378
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "031b7dc9-8bdb-4207-8db2-5da2727724a0",
+    "revision": "2026-09-25T07:52:46.127503+00:00",
+    "body_sha256": "88eeae865987ce2a7123597ded4d1ee69017fb19f485b9dfff012be2f05644c5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "제임스 웹 첫 딥필드 이미지와 L2 궤도·전개 과정·비용 증가 역사가 이어져 우주 설명문 내용 일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "L2 is a secure location for",
+          "note": "‘see left’ 그림 참조 두 곳과 거리 수치가 빠진 문장만 걷으면 L2 설명 단락이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/First_deep_space_images_from_James_Webb_Space_Telescope_released",
+          "year": 2022,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "031e8767-5f07-4465-be9a-2d364d54111c",
+    "revision": "2026-09-25T07:58:44.188757+00:00",
+    "body_sha256": "02b702953b81dfda1f605924be1821a05404f0649149945e28842756942b559f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "알자지라 기자 3명의 징역형과 방송사의 강한 반발·호주 외무장관 반응이 이어져 언론 자유 주제 내용 일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Al Antsey, the managing director for",
+          "note": "방송사 인용이 한쪽 입장이라 판결 사실 단락과 함께 써야 균형이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "queued",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Egyptian_court_sends_three_Al-Jazeera_journalists_to_jail",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-38-35-234Z",
+    "id": "032328f7-f807-4eb3-8df7-0df1d4c085c1",
+    "revision": "2026-09-25T07:42:01.144327+00:00",
+    "body_sha256": "d95743f2a413aff396494e365aba8ddf4d9b1d893040f26968f3a2e83a5bf122",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "할라브자 독가스 공격을 지휘한 ‘케미컬 알리’의 처형과 죄목·엇갈린 반응이 짧게 서서 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Chemical Ali\", as he was known,",
+          "note": "처형·학살 소재라 고2 이상만; 죄목 단락이 역사 배경으로 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:38:35.241Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iraq_executes_%22Chemical_Ali%22",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.393
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

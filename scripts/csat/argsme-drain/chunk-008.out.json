@@ -1,0 +1,311 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "008",
+  "items": [
+    {
+      "id": "9f70dcbe-2019-04-15T20:23:00Z-00010-000",
+      "sha256": "e1663a462443519f70efc84e75f15ce21b63777993db2530be589ffa6d5c5e07",
+      "verdict": "write",
+      "topic_ko": "새 발명에 대한 법적 보호를 없애야 하는가",
+      "passage": "Calls to end legal protection for new inventions rest on the belief that such rules lock useful knowledge away from the public. The belief is hard to defend, because the protection runs out after a set number of years and an owner who waits earns nothing at all. That pressure is what turns a private idea into a public product, since selling the right is the only way to be paid before the clock stops. A short delay in the spread of a design is a reasonable price for a rule that rewards the effort behind the design. Firms that cannot manufacture on their own have been able to pass the right to firms that can, and such deals are now routine. In several countries an owner who refuses to produce a needed medicine has been ordered to let another company make it. A system with limits of this kind is better described as a schedule for sharing than as a wall around knowledge.",
+      "claim": "Temporary legal protection for new inventions spreads useful knowledge instead of hiding it."
+    },
+    {
+      "id": "9f718cba-2019-04-18T15:35:46Z-00003-000",
+      "sha256": "477a609cedd08a04d6a112d0b3ab7d81999fd5c60087a999e516b75cdb466495",
+      "verdict": "write",
+      "topic_ko": "에너지 보존 법칙이 유령의 존재를 뒷받침하는가",
+      "passage": "A popular defence of ghosts starts from a rule of science: energy is never destroyed, so the energy of a living body must survive that body. The rule itself is sound, yet the conclusion drawn from it is not, and the distance between the two is wider than it looks. What the rule promises is only that the total amount stays the same, not that any pattern inside a body stays the same. When a person dies, the stored chemical energy is released as heat, and it spreads into the air and the ground until nothing about it is personal. Memory and character are patterns of activity in living tissue, and once that tissue stops working the pattern has gone. A tune ends in the same way when the strings fall silent, although no energy has been lost anywhere in the room. Reports of strange figures at night are better explained by tired eyes and strong expectation than by any law of nature.",
+      "claim": "The rule that energy is never destroyed gives no support to a belief in ghosts."
+    },
+    {
+      "id": "a0587216-2019-04-15T20:22:11Z-00013-000",
+      "sha256": "e3c8c2e987bbe3f46abd1a895731d198dd1a918ad40bb533ec25f417fe7241d0",
+      "verdict": "write",
+      "topic_ko": "법학 학위가 들인 비용만큼의 값을 하는가",
+      "passage": "The case for an expensive law degree rests on a hopeful guess that the market for lawyers will be larger by the time a student leaves. That guess may fail, and a graduate who borrowed heavily can arrive in a market that is no better than the one left behind three years earlier. Debt is the harder problem, because it does not shrink while the search for work drags on and it must be paid whatever the salary turns out to be. A student who once hoped to serve poor clients or enter public office is then pushed toward whichever firm pays the most. If the plan was never to practise law at all, three years of fees and lost wages are a costly route to a job that cheaper routes also reach. Scholarships soften the loss without removing it, since the time itself cannot be refunded. A degree is worth its price only when the work that follows is both likely and wanted.",
+      "claim": "An expensive law degree is a risky purchase because its debt outlasts the market that was meant to repay it."
+    },
+    {
+      "id": "a07fc94e-2019-04-19T12:47:31Z-00055-000",
+      "sha256": "2e3a9f45258a6be49ba501bbda58badb53234a992f1c402fe1c3a36eef04282c",
+      "verdict": "write",
+      "topic_ko": "우주 탐사에 쓰는 돈은 낭비인가",
+      "passage": "Critics of space programmes describe the budget as money fired into an empty sky, a luxury for rich states while problems on the ground wait. The record does not match that picture, because tools invented for flight have moved quickly into ordinary life. Small computer chips, medical scanners and reliable weather warnings all grew out of demands that no other customer was making at the time. Research answers the questions it is given, and nobody would have asked for a machine that sees inside a skull without a harder problem to solve first. A second return is slower but larger, since minerals that are rare on the ground appear to be common on the moon and on nearby rocks. A nation that learns to reach them early will hold an advantage that no amount of later spending can buy back. Poverty is real and urgent, yet a country that stops looking outward tends to grow poorer rather than richer.",
+      "claim": "Spending on space exploration returns more to ordinary life than it costs."
+    },
+    {
+      "id": "a0ae451e-2019-04-18T12:12:38Z-00008-000",
+      "sha256": "852cfbbed07425c60582b3498a8993f13a5ca4e35c23faf6364080b66b151582",
+      "verdict": "skip",
+      "skip_reason": "성행위 합법화 주장문으로 노골적 성행위를 열거한다 — 교재 지문 불가.",
+      "topic_ko": "성행위 합법화 논쟁"
+    },
+    {
+      "id": "a1095672-2019-04-18T18:33:16Z-00006-000",
+      "sha256": "4d34a090ff96019400e08502d7d92266b08d6f128331c74076a771c0a64d783b",
+      "verdict": "write",
+      "topic_ko": "알 수 없는 것과 아직 살펴보지 않은 것의 차이",
+      "passage": "People often sort knowledge into two boxes: what is already understood and what is said to lie forever beyond understanding. The second box is far smaller than it looks, and most of what falls into it is not unknowable but simply unexamined. A closed room with no window offers a useful picture, since its contents are a mystery only until somebody opens the door and looks inside. Once the door is open, the objects can be named, measured and compared with the objects in any other room. That pattern is the ordinary history of science, because lightning, disease and the movement of the stars were treated as permanent mysteries before patient work made them plain. Calling a gap in knowledge permanent is therefore a claim about effort rather than a claim about the world itself. The honest position treats every unanswered question as an invitation to open one more door.",
+      "claim": "Most of what people call unknowable is merely unexamined."
+    },
+    {
+      "id": "a111ff1c-2019-04-18T14:10:47Z-00005-000",
+      "sha256": "7c4b43d00e1954ef1dde6eef631e41a6697ceced767344ed864ca99952528fca",
+      "verdict": "write",
+      "topic_ko": "총기 규제를 지역이 아닌 국가 단위 법으로 정해야 하는가",
+      "passage": "Rules about firearms are written state by state in many countries, and the result is a mixture that satisfies almost nobody. A weapon bought where checks are light travels easily to a city where checks are strict, so the stricter rule is quietly undone by the weaker one next door. One rule covering the whole country would remove that escape route, and it would take nothing from owners who pass a check and store their weapons safely. Dealers would gain as well, because one set of forms is cheaper to follow than many different versions of the same document. The objection that such a law would be hard to pass is an objection about difficulty rather than about value, and hard laws have been passed before. Neither side of the old argument about weapons can win while the map stays broken into small pieces. A common rule is the rare outcome in which careful owners and worried neighbours both gain something.",
+      "claim": "Rules on firearms should be set by one national law rather than state by state."
+    },
+    {
+      "id": "a168fcfe-2019-04-18T13:08:58Z-00000-000",
+      "sha256": "782654954e692573f2e38b9c5294040f389773b4dbacd902ce65a84a800f3d25",
+      "verdict": "write",
+      "topic_ko": "과학을 받아들이는 일이 종교적 믿음과 같은가",
+      "passage": "A familiar complaint holds that trust in a scientific account of life is itself a kind of faith, since nobody has watched the whole story unfold. The complaint misses what separates the two habits of mind, and the difference is not the amount of certainty that each one carries. A scientific claim is held on the understanding that it may be dropped, and a careful researcher can name the discovery that would force exactly that retreat. Religious faith, by contrast, is offered as a commitment that survives contrary evidence, and many believers describe that steadiness as its chief virtue. Neither habit is dishonest, yet they answer to different rules, and a claim open to correction cannot be judged by the standards of one that is not. Demanding total proof before any belief would empty the courts, the clinics and the workshops of the world. What matters is whether a person can say what would change the answer.",
+      "claim": "Accepting a scientific account is not the same act as religious faith, because it stays open to revision."
+    },
+    {
+      "id": "a233c5ba-2019-04-18T14:21:41Z-00001-000",
+      "sha256": "3e30126ef5c78fca1b3dbb9457e2a53592f83ea403ef17e21e36a863b4aacdce",
+      "verdict": "write",
+      "topic_ko": "재난이 닥치면 사회 질서가 곧바로 무너지는가",
+      "passage": "Stories about the sudden collapse of a society share one assumption, namely that the removal of police would release the worst behaviour in ordinary people. Records of real disasters point the other way, and the pattern is steady across floods, earthquakes and long failures of the power supply. Neighbours dig through fallen walls for strangers, share food that was meant for a single family and organise shelter before any official arrives. Stealing happens, but it is rare enough that reporters treat it as news, while the far more common rescue by a passer-by is never counted at all. The deeper error is the picture of order itself, which is held in place less by uniforms than by habit, reputation and the plain need for company. A crowd that has lost its government still has its neighbours, and those ties are what carry people through the first hard weeks. Planning for a crisis should build on that willingness instead of preparing for a war of everyone against everyone.",
+      "claim": "Real disasters usually produce cooperation rather than the collapse that popular stories predict."
+    },
+    {
+      "id": "a239aa0-2019-04-18T13:38:32Z-00001-000",
+      "sha256": "bccc7ee0b26f9f7162d832a211dcf9bedbf1e5dd008092cbf339f6b62860eeb0",
+      "verdict": "write",
+      "topic_ko": "공공장소에서 아기에게 수유하는 일을 어떻게 볼 것인가",
+      "passage": "Whether a mother may feed her baby in a public place is still treated as an open question, and the answer belongs to her rather than to the people nearby. An infant does not wait, and a parent who is ordered out of a park or a shop has effectively been told that the whole town is closed to her. The discomfort of onlookers is real, yet discomfort alone has never been a strong ground for removing somebody from a shared space. Anyone troubled by the sight is free to look elsewhere, which costs nothing and settles the matter at once. Ordinary clothing shows how odd the complaint is, since far more skin appears on any summer street without drawing a single objection. Feeding a child is among the plainest of human acts, and a society that treats it as shameful teaches an unkind lesson about need. Quiet rooms should be available for mothers who prefer them, but the choice must stay with the mother.",
+      "claim": "A parent feeding an infant in public should be left to decide the matter without pressure from onlookers."
+    },
+    {
+      "id": "a289ef55-2019-04-18T19:33:31Z-00005-000",
+      "sha256": "3cae2d3178d2daf69f33c12b25070fe89344734f2a597091fe3d34e79ba467a2",
+      "verdict": "write",
+      "topic_ko": "도덕 기준이 사람들 사이의 합의로만 정해지는가",
+      "passage": "One common view holds that moral rules exist only as agreements between people, so a rule is valid exactly as long as a group keeps supporting it. The view runs into trouble as soon as the capacity for choice, rather than the agreement itself, is examined with care. A person counts as a moral agent because that person is able to weigh reasons and act on them, and the ability remains even when it is never used. Someone who decides that saving a child would be worth a great risk has made a moral judgement, whether or not the terrible moment ever arrives. If agreement were the whole story, a judgement made alone and never shared would carry no weight, which almost nobody believes. Groups can also be wrong together, and history is a long record of agreements abandoned once their cruelty became plain. The starting point of morality is therefore the reasoning person, and shared opinion is only a rough report of what such persons have concluded.",
+      "claim": "Moral standing rests on a person's capacity for reasoned choice, not on what a group happens to agree about."
+    },
+    {
+      "id": "a4724a66-2019-04-18T11:10:52Z-00001-000",
+      "sha256": "90d76c4e450600996cf138d862564fa70ae3435699a182659ce19a180a9e46ed",
+      "verdict": "write",
+      "topic_ko": "일반 시민이 호신용 장비를 지닐 수 있어야 하는가",
+      "passage": "Police forces cannot be everywhere, and the average wait for an officer after an emergency call is measured in minutes rather than in seconds. Those minutes are the whole of a violent encounter, which means that the person attacked is alone for the part that decides everything. Allowing an adult to carry equipment that halts an attacker without killing him would close that gap at very little public cost. Such devices are already trusted in the hands of officers, and the reason they are carried off duty in some countries is that danger keeps no schedule. A permit earned through training would keep the change modest, since nobody is proposing to hand these tools to whoever asks for one. Training also answers the fear of accidents, because a holder who has been taught when not to act is safer than one who has never considered the question. A rule that leaves ordinary people defenceless for ten minutes protects nobody at all.",
+      "claim": "Trained adults should be allowed to carry defensive devices that stop an attacker without killing."
+    },
+    {
+      "id": "a490cbe2-2019-04-18T18:54:43Z-00003-000",
+      "sha256": "e17324fec682f928db7c437f88a857dc917f524a3603c9058d1de3921663c3a4",
+      "verdict": "write",
+      "topic_ko": "사형제를 폐지하고 종신형으로 대신해야 하는가",
+      "passage": "The death penalty should be ended, and the argument for keeping it grows weaker the longer the record is examined. Cost is the first surprise, since the years of appeals that a death sentence requires are more expensive than holding a prisoner for the rest of his life. The second claim, that the threat of execution frightens others away from violence, is not supported by the numbers that governments themselves publish. Countries that execute prisoners do not enjoy lower rates of serious crime than comparable countries that have stopped the practice. A life sentence delivers what the public actually needs, because the dangerous person is removed from the street for good. It also leaves room for the mistake that any court can make, and prisoners have been released after fresh evidence appeared many years later. A government that forbids killing and then kills is teaching a lesson it cannot afford to teach.",
+      "claim": "A state should replace the death penalty with life imprisonment."
+    },
+    {
+      "id": "a490cc01-2019-04-18T18:54:44Z-00005-000",
+      "sha256": "e17324fec682f928db7c437f88a857dc917f524a3603c9058d1de3921663c3a4",
+      "verdict": "write",
+      "topic_ko": "돌이킬 수 없는 오판 때문에 사형을 두어서는 안 되는가",
+      "passage": "Every legal system makes mistakes, and the death penalty is the single punishment that offers no way to repair one. Witnesses misremember, laboratories mix samples and poor defendants receive tired lawyers, and each of these failures has put innocent people behind bars. Where the sentence is prison, the error can be corrected, and a released prisoner can at least be paid for the stolen years. Where the sentence is death, nothing remains to correct, and the apology arrives at a grave. Supporters answer that modern evidence has made such errors rare, yet prisoners have been cleared long after conviction in one country after another. Rarity would comfort a society only if the harm stayed small, and here the harm takes everything from the person who suffers it. A punishment that cannot survive the ordinary error rate of human courts has no place in a system built and run by humans.",
+      "claim": "Because courts make mistakes that cannot be undone, no legal system should keep the death penalty."
+    },
+    {
+      "id": "a550a25-2019-04-18T13:21:45Z-00001-000",
+      "sha256": "abce84a4f2b4bc1007c3d0d74fe8b56e8bcc9003e74e868e39722e3c6d3477f3",
+      "verdict": "write",
+      "topic_ko": "인구를 늘리도록 장려해야 하는가",
+      "passage": "Encouraging a larger human population is a mistake, because each new arrival needs land, water and fuel from a supply that is already stretched thin. A civilisation that expands without limit on a single planet damages that planet in ways no later effort can undo, and it eventually runs short of the supplies that allowed the growth. A slow decline, held below one percent a year, would move in the opposite direction and leave more of everything for each person alive. The familiar objection is economic, since an ageing country with fewer workers tends to grow slowly, and that pattern has been visible for decades in several rich nations. The objection loses much of its force if the fall is gentle and if governments stop treating sheer size as a measure of success. A smaller population also buys time, because lighter demand on the earth lets human settlement last far longer. The goal should be fewer people living well rather than more people living thinly.",
+      "claim": "A slow decline in human numbers would serve people better than continued growth."
+    },
+    {
+      "id": "a6bcbd59-2019-04-18T17:58:11Z-00009-000",
+      "sha256": "b2f502cb1abc94d988dbec00e30d264cf5868652cb8fdd0c03ed289461665b8c",
+      "verdict": "write",
+      "topic_ko": "아이에게 휴대전화를 갖게 해야 하는가",
+      "passage": "Children should be allowed to carry phones, and the usual worries about screens do not outweigh what a phone quietly makes possible. Safety comes first, since a child who feels threatened in a cinema or on a late bus can reach a parent in seconds instead of hunting for a stranger. The same device turns a lost child into a found one, which is why parents who dislike screens still hand over a phone before a long trip. Friendship is the second reason, because plans are made and repaired in short messages, and a child without them is quietly left out. Social skill grows through practice, and much of that practice now happens in writing before it ever happens face to face. A phone is also a small lesson in responsibility, since it must be charged, kept safe and used without cruelty. Limits are sensible, yet a flat refusal trades a real gain for a fear that careful rules can already handle.",
+      "claim": "Children should be allowed to carry phones, because the safety and social gains outweigh the risks."
+    },
+    {
+      "id": "a8cf6837-2019-04-18T11:41:09Z-00001-000",
+      "sha256": "434f818fd8cb5f4356b985064c178e6f4e90b13ab41eeb828eac98c3eb74ba1b",
+      "verdict": "skip",
+      "skip_reason": "특정 인종에게 출산세를 매기자는 인종차별 선동 — 지문 불가.",
+      "topic_ko": "특정 인종에 대한 출산세 주장"
+    },
+    {
+      "id": "aa469986-2019-04-18T11:38:42Z-00007-000",
+      "sha256": "b7280bfa6dea9ce6db0d049b9234fab194a95d97608d21636a159080dd2e102b",
+      "verdict": "write",
+      "topic_ko": "대학이 하나의 정치 성향으로 굳었다는 비판",
+      "passage": "A charge often made against universities is that one political outlook has hardened into something close to a religion on campus. The comparison is careless, since a religion rests on claims about a god and an afterlife, while a political outlook is a set of positions about laws and rights that anyone may dispute. Loose labels of this kind end conversations, because a belief that has been named a faith is no longer treated as something a reasonable person might hold. The complaint also ignores choice, as students select their institutions and nobody is assigned to one by the state. Still, the worry underneath the bad label deserves an answer, because a campus where a single view is never questioned teaches poor habits to everyone in the room. The remedy is a firm rule that unpopular positions can be stated and examined, not a counting of opinions among the staff. Universities are judged by the quality of the disagreement they permit.",
+      "claim": "Calling a political outlook a religion hides the real campus question, which is whether disagreement is allowed."
+    },
+    {
+      "id": "ab4d5c9d-2019-04-18T17:21:12Z-00005-000",
+      "sha256": "8af2bd41984777e3334255f8fd04d9781e6f19a40e4b4bfcf0228e0a4f798ba1",
+      "verdict": "write",
+      "topic_ko": "모든 행동에 도덕적 결과가 따르는가",
+      "passage": "The claim that no human action is free of moral consequence sounds serious, yet it collapses under the weight of ordinary examples. A person who eats a sandwich at noon has harmed nobody, helped nobody and owes no account of the choice to anyone. Taking medicine for a headache belongs to the same class of acts, and the relief that follows is a result rather than a moral consequence. The word consequence is doing hidden work here, because it usually points toward harm, and most of what people do all day produces none. Believing that an act is right does not make it right either, so a passing thought about conduct cannot turn a neutral act into a moral one. A useful moral vocabulary has to leave room for the great many acts that are simply neither good nor bad. Treating every movement as a moral event leaves the word moral useless on the day a genuine wrong appears.",
+      "claim": "Many ordinary human actions carry no moral weight at all."
+    },
+    {
+      "id": "ab51f7c4-2019-04-18T12:09:19Z-00004-000",
+      "sha256": "289592d5660b59dc6abcef665536aee2f0596bbffe17ad9938af8895aa9d7cdd",
+      "verdict": "write",
+      "topic_ko": "우주가 언제나 존재했다는 주장",
+      "passage": "The exact age of the universe remains unknown, and the measurements that scientists trust most still carry a margin of error. That uncertainty is often turned into an argument for the opposite extreme, namely the claim that the universe had no beginning at all. The step does not follow, because a gap in the evidence supports no particular filling, and one guess is not improved by the weakness of another. Anyone who holds that something was happening before the earliest moment instruments can reach has to say what that something was and how it could be detected. Creation stories face the same demand and mostly decline it, which is why they belong to religion rather than to science. A claim earns its place only when it names the observation that would count against it. Until such a test is offered, the honest answer about the beginning of the universe is that the question stays open.",
+      "claim": "Uncertainty about the age of the universe is no evidence that the universe has always existed."
+    },
+    {
+      "id": "abb4cdb2-2019-04-18T12:05:27Z-00000-000",
+      "sha256": "64451ca39ea6f7540d16783d6460ce5c488f946ba9a34c301c50b4348b62fda6",
+      "verdict": "skip",
+      "skip_reason": "미성년 대상 성행위를 옹호하는 글 — 지문 불가.",
+      "topic_ko": "미성년 대상 성행위 논쟁"
+    },
+    {
+      "id": "ac032159-2019-04-18T19:21:15Z-00004-000",
+      "sha256": "92044e3665a93df991839ac9628cd1d1ae5d2bcf6c6dd7992f4569acac81740a",
+      "verdict": "write",
+      "topic_ko": "기본 지급금과 단일 세율로 복지 제도를 대체하는 안",
+      "passage": "A single yearly payment to every adult, paired with a single rate of tax on earnings, could replace most of the separate programmes that now support people with low incomes. The design is simple enough to state in a sentence, since the government sends a fixed sum to each person and takes a fixed share of whatever that person earns. Someone with no earnings keeps the whole payment, someone in the middle pays about as much tax as the payment is worth, and a rich earner pays far more than the sum received. Support falls smoothly as earnings rise, so nobody loses more in lost benefits than a new job pays, and that trap is common in current systems. One rule also costs far less to run than a dozen offices with a dozen application forms and a dozen separate tests. The size of the payment and the level of the rate are political questions that any parliament can settle. The structure itself is clearer and fairer than the mixture it would replace.",
+      "claim": "One yearly payment combined with a single tax rate would replace many welfare programmes more simply and more fairly."
+    },
+    {
+      "id": "aef6705c-2019-04-18T17:45:42Z-00001-000",
+      "sha256": "dfe705a761da68959a5ffc9b4214ae9df47c11a338f202e995177d845f008f94",
+      "verdict": "write",
+      "topic_ko": "교사가 학교에서 총기를 소지하게 해야 하는가",
+      "passage": "Arming teachers is offered as a way to protect pupils, yet more weapons inside a building cannot be the road to fewer attacks. Every additional firearm in a classroom is another object that can be stolen, found by a curious child or reached for in a moment of rage. The cost is larger than it first appears, since training, ammunition and insurance would be paid out of budgets that are already thin. Those sums buy very little, because an attack is over in seconds and a teacher who must unlock a drawer arrives far too late. Fear would not fall either, as pupils who know that a weapon sits in every room are unlikely to feel calmer about the day ahead. The sensible money goes to locked entrances, staff who watch them and steady help for students in trouble. Trouble is always cheaper to prevent at the door than to answer in a corridor.",
+      "claim": "Arming teachers would make schools more dangerous rather than safer."
+    },
+    {
+      "id": "afb5c7b0-2019-04-18T19:54:26Z-00003-000",
+      "sha256": "364b4048efcf612be3613f4895c9880dd4171d6fb4360eb9a6cea7f43c66d5b1",
+      "verdict": "write",
+      "topic_ko": "소득세를 없애고 단일세로 가야 하는가",
+      "passage": "The present income tax has grown into a structure that few citizens can read and that rewards whoever can afford the best advice. A single low rate, applied to every earner without exceptions, would be fairer precisely because it is dull, and a rule with no doors has no doors to slip through. Collection would be cheaper as well, since the staff now spent on checking claims and special cases could be cut sharply. The objection that a flat rate favours the rich is answered by a floor, below which no tax is due at all, so the poorest keep every coin they earn. A tax on spending can carry part of the load and has the useful habit of following money that other rules miss. Young workers should pay the same rate as everyone else, because a person who earns is a taxpayer whatever the age on the card. A system that people can understand is also a system they are more willing to obey.",
+      "claim": "A single low rate applied to every earner would be fairer and simpler than the present income tax."
+    },
+    {
+      "id": "afeb8c9f-2019-04-18T17:31:05Z-00004-000",
+      "sha256": "e7ad44ab45b2fdde420bf37912e8ccc751e33dec8c213f001c307692e6e791fb",
+      "verdict": "write",
+      "topic_ko": "법원이 학교의 인종 구성을 맞출 책임이 있는가",
+      "passage": "Court orders that move pupils between schools have a weaker record than their supporters expect, and the reason lies outside the school gate. Children are assigned by address, and addresses are sorted by income and history, so a court that redraws a school map leaves the map of the neighbourhoods untouched. Within a single district the mixing that follows is often slight, and pupils drift back into familiar groups in the corridor and the lunch hall. A court can open a door, but it cannot make anyone walk through it, since no order changes what a family believes about its neighbours. The deeper repair is housing, hiring and transport, and those levers are held by councils and parliaments rather than by judges. Schools asked to settle a quarrel that the wider society has refused to settle end up doing less of the teaching they exist to do. Fair schools are the product of fair towns and never a substitute for them.",
+      "claim": "Courts cannot produce balanced schools, because the causes of separation lie in housing rather than in school maps."
+    },
+    {
+      "id": "b040058-2019-04-18T16:03:49Z-00005-000",
+      "sha256": "cbd84de17d6af82721b2b52e1d1ae5d4b72949ca05973101a0f3a6a5351d4daa",
+      "verdict": "write",
+      "topic_ko": "사립학교가 공립학교보다 실제로 더 나은가",
+      "passage": "A common verdict holds that paying for a school buys nothing the public sector fails to supply, and that verdict arrives too quickly, since the difference shows up most clearly in size. Private schools tend to be roughly half as large, and their classes hold about nine pupils for every teacher against seventeen in the public sector. Numbers like these change what a teacher is able to do, because a child who is quiet or struggling is noticed in a small room and overlooked in a crowded one. Belonging follows from size as well, since pupils in a smaller school are known by name and find it harder to disappear. None of this proves that private teachers are better trained or that the subjects offered are richer, and many public schools do both jobs well. It shows instead that the advantage can be copied, as small classes are a matter of budget rather than of ownership. A government that wants the result should buy the condition that produces it.",
+      "claim": "The advantage of private schools comes mainly from small classes, which public schools could buy as well."
+    },
+    {
+      "id": "b0605cc3-2019-04-18T15:11:34Z-00004-000",
+      "sha256": "4282fe389fd473c526b546958264f15554a92d627d3e922f31db202f09886fcf",
+      "verdict": "write",
+      "topic_ko": "고등학교에서 대학식 강의 방식을 도입해야 하는가",
+      "passage": "Most secondary subjects could be taught in the way universities teach them, with a lecture to deliver the material and a later session to practise it. Practical work such as sport, art and laboratory science would keep its present shape, since those lessons depend on doing rather than on listening. The first gain concerns preparation, because a student who has never sat through a lecture reaches university without the habit of taking notes at speed. A second gain lies in simplicity, as the content of a lesson stays fixed, a classmate supplies the notes after an absence, and the homework always consists of the sheet that follows. Absence stops being a disaster under such a system, since the notes of one evening replace the lesson that was missed. The method demands more of learners, and students who depend on constant conversation with a teacher would have to master a harder skill earlier. Learning that skill earlier is the whole point rather than an unfortunate side effect.",
+      "claim": "Secondary schools should teach most subjects through lectures followed by practice sheets."
+    },
+    {
+      "id": "b0a8830c-2019-04-18T16:31:22Z-00005-000",
+      "sha256": "92818f3fec5aef7309c4d5b700d3398b97a94eb08c32b4e6b0fc1a3199c23bc3",
+      "verdict": "skip",
+      "topic_ko": "상상 속 능력 가운데 시간 조절이 가장 현명한 선택인가",
+      "passage": "",
+      "claim": "Among imagined powers, control over time would make the wise choice because it adds no danger and multiplies learning.",
+      "skip_reason": "초능력의 우열을 가리는 공상 오락 소재여서 현실 쟁점이 없는 논증 지문이 되지 않는다."
+    },
+    {
+      "id": "b1853ecb-2019-04-18T17:51:08Z-00005-000",
+      "sha256": "2d431982f605c4d3247b5aa75a5f6a2940a326aa78d2d1c709cbceb766df1eac",
+      "verdict": "skip",
+      "skip_reason": "낙태 찬반을 성폭력 피해 사례로 전개한다 — 교재 지문으로 부적절.",
+      "topic_ko": "낙태 찬반"
+    },
+    {
+      "id": "b185af88-2019-04-18T16:32:21Z-00004-000",
+      "sha256": "d32a4dbf5cddc3caa7a1897e3e61bc1911ad4e8de81602964b7183e998ddfa0d",
+      "verdict": "skip",
+      "skip_reason": "미성년 성폭력 피해를 전제로 한 낙태 찬반 — 지문 불가.",
+      "topic_ko": "낙태 찬반"
+    },
+    {
+      "id": "b1ab2cab-2019-04-18T13:24:43Z-00003-000",
+      "sha256": "2f14c69b9b871b6a2d49964018b72a32ee2ebcddfc2ca91df185dda16adf1f28",
+      "verdict": "skip",
+      "skip_reason": "동성결혼 찬반 — 한쪽 옹호 형태로만 성립하는 정치·사회 쟁점이라 지문 부적합.",
+      "topic_ko": "동성결혼과 동성애자 권리"
+    },
+    {
+      "id": "b2e5336b-2019-04-18T11:10:47Z-00003-000",
+      "sha256": "3946d7a505193f02314fbf886eab5ef6b4c253bc9cccb72fe52c523fd8aa32ed",
+      "verdict": "write",
+      "topic_ko": "예산이 부족할 때 학교 예술 과목을 지켜야 하는가",
+      "passage": "As soon as a school budget tightens, the arts become the first lessons named for cutting, and the reasons offered rarely survive inspection. Sport survives the same budget meeting with little argument, although it too takes time and money away from reading and mathematics. If the test is the number of pupils who will earn a living from a subject, few school teams produce professional players either, and that standard would empty half the timetable. The stronger case for music and drawing lies in what they train, since both demand long practice, close attention and the nerve to be judged in public. Those habits travel into every other subject, and teachers report that pupils who rehearse anything become steadier at repeating difficult work. Academic lessons do deserve protection when money is short, and nobody should pretend that a budget can stretch without limit. The real choice is not between the arts and mathematics but between a narrow school and a whole one.",
+      "claim": "Arts lessons should not be the first subject cut when a school runs short of money."
+    },
+    {
+      "id": "b38b6ed7-2019-04-18T11:53:23Z-00006-000",
+      "sha256": "5d17a727b0baec6eea306eeaabcafbfd6964a1f667f4a03589e5218547d58913",
+      "verdict": "skip",
+      "skip_reason": "특정 종교의 기적 주장을 변호하는 글 — 종교 편향으로 지문 부적합.",
+      "topic_ko": "특정 종교의 부활 주장 변호"
+    },
+    {
+      "id": "b50e5709-2019-04-18T15:46:32Z-00005-000",
+      "sha256": "c858868efeb9da72a1d6296a9a4afcb318cc220217af21f16fef27b24f16cf07",
+      "verdict": "write",
+      "topic_ko": "자본주의가 보통 사람의 삶을 나아지게 하는가",
+      "passage": "Private enterprise is often described as a machine that enriches owners and leaves everyone else behind, but the picture is far too simple. A shop that opens in a second town hires staff in that town, and those wages are spent locally long before any profit reaches the owner. Food supplies work in the same way, since shops compete for customers by stocking what those customers want, including narrow diets that a state kitchen would never bother to serve. Profit is the signal that guides all of this, and the taxes taken from profit and from wages pay for roads and hospitals that no single firm would build. None of that makes the system self-correcting, because the drive that fills the shelves will also cut wages and hide costs wherever nobody is watching. Rules on safety, honest labels and fair contracts are what keep the machine pointed at the public. Enterprise deserves defence as an engine and never as a judge of its own conduct.",
+      "claim": "Private enterprise spreads wealth more widely than its critics allow, provided that rules keep it honest."
+    },
+    {
+      "id": "b51a8b96-2019-04-18T15:32:31Z-00004-000",
+      "sha256": "62161784904f9d52db9d118c2ab4b06ec6bb585dd3b5fae8b60bb5d4ea49d98d",
+      "verdict": "write",
+      "topic_ko": "최저임금을 크게 올리면 누가 손해를 보는가",
+      "passage": "A higher minimum wage wins applause on the day of the announcement, and the bill for it arrives quietly some months later. A small employer who already works on a thin margin has only a few ways to find the extra money, and none of those ways is painless. Cheaper materials come first, which lowers the quality of the product and drives customers to a rival, and a shop that loses them may close altogether. Cutting staff is the other move, and the workers let go are exactly those with the fewest skills to sell elsewhere. A closed business helps nobody, since the wage that was raised on paper falls to nothing for every person who worked there. Where unemployment is already high, an employer can replace a lost worker within a day, so the pressure falls entirely on the weaker side of the deal. Help for low earners is better delivered through the tax system, which does not ask one small shop to carry it alone.",
+      "claim": "A large rise in the minimum wage costs low-skilled workers the jobs it was meant to protect."
+    },
+    {
+      "id": "b66b3ad1-2019-04-18T17:41:33Z-00002-000",
+      "sha256": "d99a39b7fdca476925bb43b919a7ae6c9b7a02852e42b29575de65adac136566",
+      "verdict": "write",
+      "topic_ko": "모두가 채식을 하면 인류가 더 나아지는가",
+      "passage": "A growing population does strain the food supply, but the answer lies in mending the way farmers produce meat rather than in abandoning the practice altogether. Every other shortage in history has been met by improving the product and the chain that delivers it, and animal farming has the same room for repair. Feed, breeding and waste all invite redesign, and the gains available there look large enough to matter within a single generation. A sudden turn to plants would close farms and processing plants across whole regions, and the workers there cannot easily move into other trades. Diet also grows out of custom and celebration, and rules that ignore custom last for about a season before they quietly collapse. A further risk is dependence, since a population living entirely on plants would lean on tablets of iron and protein, and the firms that sell them would gain unusual power. Reform of a working system is slower than a clean break, yet it is the change that can actually be carried out.",
+      "claim": "Reforming meat production is a more realistic answer to a growing population than universal vegetarianism."
+    },
+    {
+      "id": "b6e64e91-2019-04-18T19:39:05Z-00000-000",
+      "sha256": "15ff10569b86891ef5335fee537410d01cb685af9fdd765f427517fed15f0eac",
+      "verdict": "skip",
+      "skip_reason": "토론팀 가입 여부와 개인 일정을 다투는 신변 글 — 자족적 논증 지문으로 성립 불가.",
+      "topic_ko": "토론팀 가입 여부를 둘러싼 개인 사정"
+    },
+    {
+      "id": "b72c09d0-2019-04-18T15:07:53Z-00002-000",
+      "sha256": "caace41b6f55854e222ecdb62228f2878f3519715757fac7195f2da701d113a9",
+      "verdict": "write",
+      "topic_ko": "무한한 우주 가설이 영원한 삶을 뒷받침하는가",
+      "passage": "The hope that a life continues somewhere else is often supported by the idea of endless parallel worlds in which every possible arrangement occurs. The idea is less helpful than it looks, and the trouble starts inside the idea rather than outside it. If absolutely every possibility is realised somewhere, then a possibility in which no such collection of worlds exists must also be realised, which leaves the proposal arguing against itself. A second difficulty is repetition, because the particular conditions that produced life on this planet were the result of a very long chain of accidents. Copying that chain exactly would demand luck on a scale that the word unlikely barely describes, and a rough copy would not be the same person at all. What survives of the original claim is only a feeling, which is understandable in the face of death but is not evidence. A comforting picture becomes a scientific one only when it can be tested, and this picture cannot.",
+      "claim": "The idea of endless parallel worlds cannot support the hope that a particular life is repeated somewhere else."
+    },
+    {
+      "id": "b72d2186-2019-04-18T12:12:43Z-00001-000",
+      "sha256": "1d56b231533e63179eea28e3631f2b4ae76939567c6d1068ed3f31ac353814b1",
+      "verdict": "write",
+      "topic_ko": "선거 연령을 낮춰야 하는가",
+      "passage": "Lowering the voting age sounds generous, yet the case for it rests on a picture of teenagers that the same societies reject everywhere else. The law that would hand a ballot to a person of sixteen still refuses that person alcohol, tobacco and a rented car, and those refusals are defended by evidence about judgement under pressure. Adolescence is the period in which identity and belief are still being assembled, which makes it the period in which persuasion works most easily. A voter formed by whoever spoke last is a gift to any campaign with enough money to speak last. Experience matters as well, since the effects of a tax rule or a trade agreement are learned by living under them for years rather than by reading about them. Most sixteen-year-olds are meeting the structure of government for the first time in a classroom during the very term in which a ballot would arrive. Eighteen is not a perfect line, but it is a defensible one, and no strong argument for moving it has been made.",
+      "claim": "The voting age should not be lowered, because sixteen-year-olds lack the experience that the choice requires."
+    }
+  ]
+}

@@ -1,0 +1,1506 @@
+[
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "99c0c49e-6f42-48ad-b52c-4fa38daa0347",
+    "revision": "2026-09-25T04:02:50.543407+00:00",
+    "body_sha256": "d68f4a2233f7889c2848c20ad2c1976c009b4eb693941cde252a92d6331d4018",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "세 딸이 쌀·금·책의 집을 고르고 막내만 지혜로 번성하는 인과가 끝까지 이어져 초중등 순서·주제·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Once upon a time, in a",
+          "note": "셋째 딸 단락은 앞 문맥 없이 서고 learnt·stumble 정도만 바꾸면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.827Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/three-gifts/",
+          "year": null,
+          "author": "Wong Chew Wee."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "99eb3596-06fe-4f29-b1c1-9c5c953b35e3",
+    "revision": "2026-09-25T04:03:30.301266+00:00",
+    "body_sha256": "331bb4985ea2ea1a9d3a3e7f5dfbbfaee96fecd3c969356105a8f2f32bd6bb46",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "가지 피르가 호랑이·코브라를 칭찬으로 길들이고 전쟁에 이기는 전설과 파타치트라 설명 노트가 각각 서서 초중등 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This is a story told in",
+          "note": "노트 단락(파타치트라 설명)이 독립 설명문으로 떼기 쉽고 0y ears 오탈자만 고친다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.827Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-story-scroll/",
+          "year": null,
+          "author": "HerStory Foundation."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9a5a564f-0fae-4906-b872-b0ecaf7c876e",
+    "revision": "2026-09-25T04:03:39.565671+00:00",
+    "body_sha256": "eb011fcfbb9b2d6fb84a61ab4fb2b54031ce0f7c61dd7554932b540988dc5750",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "슈퍼히어로 발표 수업 틀 안에서 에디의 나눔 습관이 큰 마음으로 자라는 흐름과 부모용 노트가 초등 요지·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This Monday morning every student was",
+          "note": "중간 시 부분은 운문이라 빼고 노트 단락을 쓰면 설명문으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/our-superhero-edhi-baba/",
+          "year": null,
+          "author": "Maria Riaz."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9a71e152-d6de-44d1-bf1c-61238e45fd90",
+    "revision": "2026-09-25T04:03:41.58365+00:00",
+    "body_sha256": "01afdbc18c6370fecfa021141a911f1f8884958a2aa052d03657b21cbe8f3531",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "비를 싫어하던 화자가 동생 따라 물웅덩이에서 놀며 비를 좋아하게 되는 심경 변화가 초등 심경·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "mood",
+            "order"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "My brother and I love playing",
+          "note": "의성어 줄을 걷어내면 짧지만 싫음→즐거움 심경 전환이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/when-it-rained/",
+          "year": null,
+          "author": "Ade Cynthia."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9ac5d522-cb0f-42a0-9bfd-ad059724e43b",
+    "revision": "2026-09-25T04:03:16.92395+00:00",
+    "body_sha256": "36cd43ae8bc8402c6b8cfb1735337ee71c83b9c46db1b1fb3ad4a5854e7b3e08",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "치타공 산지 세 부족의 새해 축제를 차례로 방문하는 여정이 초중등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Ma and I were packing a",
+          "note": "축제별 단락이 시간순으로 뚜렷해 순서 배열에 바로 쓸 수 있다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-baisabi-festival/",
+          "year": null,
+          "author": "HerStory Foundation."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9d910223-fc2a-4448-81f6-f3655e072b52",
+    "revision": "2026-09-25T04:03:31.182445+00:00",
+    "body_sha256": "4516181810ea4ac9662510c93e5bb8796c5fae04c35481f2e4ab3832afe3b9b0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "건망증 많은 아푸이가 바구니·연료·노를 잇달아 잊는 사건 연쇄가 초등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Apuy is going to collect crabs",
+          "note": "이야기 본문만 떼면 서고 끝의 INOVASI 후원 안내는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/crabs-for-dinner/",
+          "year": null,
+          "author": "Yuniventaria Hasugian."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9e287dbb-0a0e-4e9f-843d-33e3a71dad69",
+    "revision": "2026-09-25T04:02:49.755003+00:00",
+    "body_sha256": "55fc118f8de6e188a5eb8b59d67ec02164e86941061bf64448546a429af77beb",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "자기가 차라고 믿는 말 보니를 동물들이 설득하다 기차놀이로 끝나는 반복 구조가 초등 순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"Do you hear that?\" shouted the",
+          "note": "설득 시도가 차례로 이어져 순서 문항이 되지만 결말이 약하다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/i-am-a-car/",
+          "year": null,
+          "author": "Mervat Al-Beltagi."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9eabf86c-166d-4d6d-bba6-b4365f1e4318",
+    "revision": "2026-09-25T04:02:47.702106+00:00",
+    "body_sha256": "17feef21b5b1e48987ac85707eac97e0e79dacb50fd4f5be13dbcf54dd9b729b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "도서관 대출 기록이 없어 책을 못 찾은 스레이 렉이 공책 데이터베이스를 만드는 문제-해결 흐름이 중등 요지·순서·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "order",
+            "insert",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Boooong!” Hearing the bell ring, Srey",
+          "note": "공책에 네 항목을 적는 단락이 떼어져도 서고 database manager 개념만 풀면 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/finding-dragon-island/",
+          "year": null,
+          "author": "The Asia Foundation - Let's Read."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "9f35f15c-fd08-48d9-a100-e49de939d70b",
+    "revision": "2026-09-25T04:03:37.486754+00:00",
+    "body_sha256": "9c56560e9b72e310507434e65a441855c3fc184c1ba16ff30f8e658f885770b2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "poetry-drama",
+        "why": "해·별·반딧불이에 얼굴 빛을 견주는 짧은 운문 한 편이라 차단 장르 운문에 해당한다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "This is how my face glows.",
+          "note": "행갈이 운문이라 산문 문단으로 가공할 수 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/this-is-how-my-face-glows/",
+          "year": null,
+          "author": "Yomna Ibraheem."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a1edf2f9-d966-4a08-bd07-6d942d8b4b55",
+    "revision": "2026-09-25T04:03:40.585392+00:00",
+    "body_sha256": "a9f8c4415ec290889432fe5263671edeb9fa9213ba5a6d9fe0e413aeb50062fa",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "뿔에 나무가 자라 새들이 먹이를 날라 주는 버팔로의 인과 사건이 초중등 순서·주제 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Bhabho’s horns got wet in the",
+          "note": "씨앗→묘목→나무→둥지 순서가 뚜렷하고 indifferent 정도만 바꾼다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/bhabho-the-buffalo/",
+          "year": null,
+          "author": "Tripurari Sharma."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a2ccc6e7-966f-456c-b6b1-2081357bdd68",
+    "revision": "2026-09-25T04:02:53.679864+00:00",
+    "body_sha256": "e95604eacf31760269577f7f5f91ea7679cf01a40ad56097a392022947341924",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "poetry-drama",
+        "why": "타루족 할머니의 바구니 짜기를 후렴이 반복되는 운문 행과 결혼 노래로 엮은 글이라 차단 장르 운문이다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "My Dudhu was born in Dauraha",
+          "note": "행이 붙어 저장된 운문이라 산문 문단을 떼어 낼 수 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.828Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/my-dudhu/",
+          "year": null,
+          "author": "Shanti Chaudhary."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a3a2766e-1c60-460c-ac90-fce42a209207",
+    "revision": "2026-09-25T04:02:50.298719+00:00",
+    "body_sha256": "cbcd0a7515973c8e4811f83bf22323b3e093e0d5127a6ab21e6a6fbfab204398",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "림부족 여신이 형제에게 단서를 주다 정체를 드러내는 긴 설화가 고1 이상 장문·순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "long_reference",
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Long ago, there was nothing. Then,",
+          "note": "끝 단락의 신앙 단정(the almighty God)은 설화 전승으로 틀어 가공 때 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-story-of-goddess-yuma-sammang/",
+          "year": null,
+          "author": "Namoti Nembang."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a3e96ffe-ddf5-4299-8574-949283ea6a6c",
+    "revision": "2026-09-25T04:03:39.167111+00:00",
+    "body_sha256": "e6bb27df9fab0744421f55a291fe33432521156aa970bc03a8c663676464dd84",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "poetry-drama",
+        "why": "빗방울·연기·해에 대한 물음을 행으로 늘어놓은 짧은 동시라 차단 장르 운문이다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Why do raindrops fall down, But",
+          "note": "물음 나열 운문이라 사건·논지 흐름이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/curious/",
+          "year": null,
+          "author": "VƯƠNG TRỌNG."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a44e4e4e-a43e-4f4a-a72c-c567473aa486",
+    "revision": "2026-09-25T04:02:45.297547+00:00",
+    "body_sha256": "084671f08b5ad3379eea0b7a8ca29457abcdba40009b75a3bfcb79570b453443",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "도시락에 물고기를 숨긴 미투산의 비밀이 끝에 드러나는 반전 구조가 초중등 순서·심경·빈칸 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "mood",
+            "blank"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "“Mithusan, what do you have in",
+          "note": "도시락을 감추는 조바심 단락이 심경 문항으로 바로 떼어진다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/whats-in-the-lunch-box/",
+          "year": null,
+          "author": "Somesuntharam Shanmugapriya."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a48201b4-b8f7-415e-9e08-71d28f5906e8",
+    "revision": "2026-09-25T04:03:46.842214+00:00",
+    "body_sha256": "ba0f153da7f1c8a3864fd2c663350870c76e0c37066aa858714957dc9b54cd3f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "fragmentary",
+        "why": "네모·세모가 와서 눈·코를 만든다는 그림 조작 캡션이라 그림 없이는 뜻이 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "There is a simple yellow circle.",
+          "note": "도형 배치를 그림으로 봐야 이해되는 캡션 반복이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-happy-yellow-circle/",
+          "year": null,
+          "author": "Ratna Kusuma Halim."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a511d86c-f859-456d-a8eb-523a6bb3a856",
+    "revision": "2026-09-25T04:03:19.242073+00:00",
+    "body_sha256": "6b2f8f33787dff2f15e62e1b08b80ca4ae28da3bc159109616df94fef1d90956",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "군사 퍼레이드를 보려는 갈루가 닭을 쫓는 방법을 차례로 바꾸다 깡통 장치로 이기는 흐름이 초중등 순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "mood",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Galuh looks at her collection of",
+          "note": "막대→물→비닐 요새→깡통 시도 순서가 선명해 순서 문항이 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/girl-against-chickens/",
+          "year": null,
+          "author": "Aris Hartanti."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a60a6015-d197-4e20-a770-965eaffbf630",
+    "revision": "2026-09-25T04:02:45.948628+00:00",
+    "body_sha256": "85df2005aa5a1f0c473f89f89eae0d3716a1443ac5c402c81ae2ca30b99204f8",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "소라게 허미의 집 바꾸기 모험과 끝의 소라게 생태 노트가 초중등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Hermy wriggles and squiggles in his",
+          "note": "SPECIAL NOTE 단락이 1인칭 설명문으로 독립해 내용일치에 좋다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/hermys-new-home/",
+          "year": null,
+          "author": "Shoba Chugany, Shoba Dewey Chugani."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a86bb8f4-4e82-4570-a1cb-571b2ac3d127",
+    "revision": "2026-09-25T04:03:34.692633+00:00",
+    "body_sha256": "e15105b4c128b6f326dde24198982eafe5cff7fff6123afa864993389de865a7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "갓 태어난 피그미 해마가 물살·포식자를 피해 부채산호에 자리 잡는 과정과 생태 해설이 초등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Mr. Pygmy Seahorse has just given",
+          "note": "끝 해설 단락은 수치·학명을 걷어도 위장 설명으로 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-perfect-spot/",
+          "year": null,
+          "author": "Kusuma Dewi Yuli."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "a98aba45-1640-470b-b136-3aeb0a991c77",
+    "revision": "2026-09-25T04:03:24.570739+00:00",
+    "body_sha256": "0784db3b5aa454cd2333d6810e4f435638f6b4607d134e7c63a782bb809fa636",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "신시아 마웅이 미얀마를 탈출해 매솟에 무료 진료소를 세우는 전기가 중등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dr. Cynthia Maung was hiding. It",
+          "note": "끝의 쓰기 활동 지시는 걷어내고 전기 본문만 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-healer/",
+          "year": null,
+          "author": "Alyson Curro."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "aa608783-0e1c-4434-b852-8e70680b208d",
+    "revision": "2026-09-25T04:02:48.733373+00:00",
+    "body_sha256": "a6669020182a26b80e44d043304afdd7ebe1d00848e9de7468c1cdd945cf984c",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "신소부 여왕이 탈출해 즉위하고 왕관을 내려놓고 쉐다곤을 금박으로 덮는 생애가 중등 순서·내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Queen Shin Saw Pu was sailing",
+          "note": "끝의 글쓰기 활동 안내는 걷어내면 전기 본문이 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-queen-2/",
+          "year": null,
+          "author": "Alyson Curro."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-5"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "aaff23df-d275-4858-9a91-a45689052214",
+    "revision": "2026-09-25T04:03:44.683904+00:00",
+    "body_sha256": "eea97187841fa91aad3500ec81eb6c6126c7568a725f92b82554b2d0c699412b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "개가 알 위에서 낮잠 자다 부화한 새끼들이 개를 엄마로 부르는 사건이 초등 순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V1",
+            "V2"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "A pewit* laid four eggs. *pewit",
+          "note": "별표 주석만 걷어내면 짧은 인과 이야기가 선다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-dogs-eggs-2/",
+          "year": null,
+          "author": "Chandan Yadav."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-2"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "abb66995-13a8-4b75-8a68-c0ae01bc19b5",
+    "revision": "2026-09-25T04:03:31.901706+00:00",
+    "body_sha256": "903ec367002a78600398c81318bf1b054d1c2d1d8f9a76886c55ab00a4595a1e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "두 아이가 공주 바틱 대회 책을 읽으며 네 다약 문양의 뜻을 배우는 액자 이야기가 초중등 내용일치·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Sinta has been trying to choose",
+          "note": "문양별 단락이 반복 구조라 내용일치가 쉽고 후원 안내는 걷어낸다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-princess-batik/",
+          "year": null,
+          "author": "Joned."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "ac56dcc9-7eba-40c2-9ad8-9032341c0d1c",
+    "revision": "2026-09-25T04:03:22.62112+00:00",
+    "body_sha256": "c8c179b5d75cc6854ed9b50c8ae0ad0518230e4896da1b09ebce47ecf3df6428",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "fiction",
+        "why": "해골 유령이 아이를 훔쳐 가자 마을이 격자창을 달아 물리치는 문제-해결 설화가 중등 장문·순서·심경 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "long_reference",
+            "order",
+            "mood"
+          ],
+          "levels": [
+            "V3",
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Many years ago, the city of",
+          "note": "아이 제안 단락과 격자창 제안 단락이 떼어져도 서고 slumber 정도만 바꾼다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY-NC",
+        "license": "cc-by-nc-4-0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/the-lattice-window-2/",
+          "year": null,
+          "author": "Midesh Maharjan."
+        },
+        "needsResolution": true
+      },
+      "source_level": "level-4"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "ace5ec68-6bbc-41cc-8280-8bb34005e411",
+    "revision": "2026-09-25T04:03:08.549372+00:00",
+    "body_sha256": "d121a327f7f59f55db147dafd1b379eee1b9f8268c99d962eba812d033dd0cf7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "poetry-drama",
+        "why": "시계 바늘을 노래하는 다섯 줄짜리 동시라 차단 장르 운문이다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "Second hand, Minute hand,One is fast,",
+          "note": "운문 행 나열이라 가공할 산문이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/clock/",
+          "year": null,
+          "author": "VƯƠNG TRỌNG."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  },
+  {
+    "runId": "2026-09-25T08-42-27-825Z",
+    "id": "af43635d-44aa-43dd-b82d-1caba0c16a74",
+    "revision": "2026-09-25T04:03:12.731389+00:00",
+    "body_sha256": "5cfb61f3c41cb8767b62ae6d6ed32fb2dcf73ad9cea3bf80f847e12a649513e2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "environment",
+        "why": "버린 비닐봉지가 괴물로 자란다는 누나의 상상 경고로 쓰레기를 줍게 되는 흐름이 초등 요지·순서 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem"
+          ],
+          "purposes": [
+            "reading",
+            "school"
+          ],
+          "types": [
+            "main_point",
+            "order"
+          ],
+          "levels": [
+            "V2",
+            "V3"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "\"What a great day for a",
+          "note": "봉지가 점점 커지는 상상 단락들이 순서대로 이어져 배열이 쉽다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:42:27.829Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 4.0",
+        "evidence": "api",
+        "attribution": {
+          "url": "https://digitallibrary.io/book/toks-bag/",
+          "year": null,
+          "author": "Iem Tithseiha."
+        },
+        "needsResolution": false
+      },
+      "source_level": "level-3"
+    }
+  }
+]

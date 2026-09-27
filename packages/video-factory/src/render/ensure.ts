@@ -13,6 +13,8 @@ import path from 'node:path'
 import { BUNDLE_PATH, MissingBundleError } from '../catalog/bundle'
 import { VOICE_DIR } from '../voice/edge-tts'
 import type { VoiceManifest } from '../voice/timing'
+import { ensureRequestSpecsFile } from '../requests/store'
+import { readRetired } from '../requests/retired'
 
 export const VOICE_INDEX = path.join(VOICE_DIR, 'index.json')
 
@@ -34,4 +36,8 @@ export function writeVoiceIndex(): Record<string, VoiceManifest> {
 export function ensureWorkFiles(): void {
   if (!fs.existsSync(BUNDLE_PATH)) throw new MissingBundleError(BUNDLE_PATH)
   writeVoiceIndex()
+  // 요청 편은 선택 — 없으면 빈 배열 파일을 만들어 Root 의 import 가 깨지지 않게 한다
+  ensureRequestSpecsFile()
+  // 내린 편 목록은 **없으면 멈춘다**(빈 목록으로 찍으면 내린 편이 되살아난다)
+  readRetired()
 }

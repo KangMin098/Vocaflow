@@ -56,7 +56,7 @@ const ID_META: Record<
     accent: 'var(--success)', // green
     accentSoft: 'var(--success-light)',
     gradient:
-      'linear-gradient(135deg, var(--success) 0%, #16a34a 100%)',
+      'linear-gradient(135deg, var(--success) 0%, var(--success-ink) 100%)',
     ringClass: '',
     description: '사용자 텍스트 토큰화 후 lemma 매칭 (winkNLP + inflections)',
   },
@@ -66,9 +66,9 @@ const ID_META: Record<
     accent: 'var(--error)', // red — 본질 페인
     accentSoft: 'var(--error-light)',
     gradient:
-      'linear-gradient(135deg, var(--error) 0%, #b91c1c 100%)',
+      'linear-gradient(135deg, var(--error) 0%, var(--error-ink) 100%)',
     ringClass:
-      'ring-2 ring-[var(--error)] shadow-[0_0_28px_rgba(239,68,68,0.18)]',
+      'ring-2 ring-[var(--error)] shadow-[0_0_28px_color-mix(in_srgb,var(--error)_18%,transparent)]',
     description: 'VCB Pipeline — V-Level/CEFR/Track/Domain 별 단어장 빌드',
   },
   R4: {
@@ -76,7 +76,7 @@ const ID_META: Record<
     icon: Layers,
     accent: 'var(--active)', // amber
     accentSoft: 'var(--warning-light)',
-    gradient: 'linear-gradient(135deg, var(--active) 0%, #d97706 100%)',
+    gradient: 'linear-gradient(135deg, var(--active) 0%, var(--warning) 100%)',
     ringClass: '',
     description: 'Flashcard/SpellForge/WordBlitz/Dictation 학습 자산',
   },

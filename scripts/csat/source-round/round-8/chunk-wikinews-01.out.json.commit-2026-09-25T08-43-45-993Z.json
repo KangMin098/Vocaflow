@@ -1,0 +1,1842 @@
+[
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "0001d66a-f035-426a-9463-00936c6729e6",
+    "revision": "2026-09-25T08:05:49.936402+00:00",
+    "body_sha256": "33972d8531612c2d5eefef5308a412a94a1da60a65313adf9d416fbda02485cc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "필리핀 의회 위원회가 아로요 탄핵 청원을 모두 부결한 소식과 서명 수 계산(79명 중 73명)이 짧게 이어져 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Edmundo Reyes, a pro-impeachment congressman, revealed",
+          "note": "탄핵 재판에 필요한 서명 수 단락이 자족적이고 consent·trigger 를 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.995Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Philippine_impeachment_unlikely_to_succeed",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.975,
+          "words": 163,
+          "english": 0.366
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "0008749b-32ee-4ff4-936f-de8f92d254c9",
+    "revision": "2026-09-25T07:06:39.604135+00:00",
+    "body_sha256": "1d3e4c312a71a8455b01e92b4c2b8d86ce1aac2c66b6f52e5630c26eddc2b54a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "브램턴 시의원 후보 서면 인터뷰로 「개발은 관리될 때만 좋다」는 답변이 주장으로 서서 주장·내용일치 칸이 되고, 문답 형식이 읽기 자료로 쓰인다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "It is good that Brampton slowed",
+          "note": "개발 속도 조절에 관한 답변 단락이 문답 없이도 서고 sporadic·increments 를 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Interview_with_Navdeep_Gill%2C_City_Council_candidate_for_Wards_2_%26_6_in_Brampton%2C_Canada",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "000b6f58-0605-4389-ab5d-43921e53f4b6",
+    "revision": "2026-09-25T08:42:24.986975+00:00",
+    "body_sha256": "5aab30b1059489a139814047f688437a2307f283446f4866d9bdefb15f491ea1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "리비아 법원이 카다피 정권을 도운 외국인 24명에게 징역형을 내린 판결과 각국 대사의 반응·체포 경위가 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The men have been held since",
+          "note": "체포 경위와 미사일 쟁점 단락이 자족적이고 complicit 정도만 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Libyan_court_jails_24_foreigners_for_helping_Gaddafi",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.406
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "000d9230-4dd3-4f9d-a431-085a46692b4f",
+    "revision": "2026-09-25T07:40:47.439207+00:00",
+    "body_sha256": "39b80ece38805c2daf48c19d9df42fac3d20a3370cbee8f45879bb28209d46bc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "소말리아 해적의 화물선 납치 사건과 10월 이후 누적 납치 현황·해군 순찰 효과가 짧게 이어져 중등 이상 내용일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Naval forces from the United States,",
+          "note": "순찰에도 해적이 인도양으로 옮겨 갔다는 단락이 자족적이고 어휘가 이미 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Pirates_seize_cargo_ship_in_Indian_Ocean",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.371
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "000f5472-1227-4bc1-908b-c04b2c1bc53d",
+    "revision": "2026-09-25T08:30:27.947136+00:00",
+    "body_sha256": "d44242d6fe2aa3ecfb6e081bb6adac6bd1b0fbf190dca6658de5d5e106583bf6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "나이지리아 조스 인근 마을 습격 사건과 종교·토지 갈등 배경이 이어져 내용일치 칸이 서지만 마체테 상처 묘사가 있어 고1 이상 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Violence in and around Jos, mainly",
+          "note": "반복되는 폭력과 토지 경쟁 배경 단락이 자족적이고 recurred·animist 를 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thirteen_dead_after_ethnic_clashes_in_Nigeria",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.545,
+          "words": 198,
+          "english": 0.378
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "000f56c5-fd63-4bc5-b676-50ca8f67ebaf",
+    "revision": "2026-09-25T06:57:39.959226+00:00",
+    "body_sha256": "4327b307ea350ddab382dbd9f31ae677aaf7346f6afd4b43ef035ce0560b5ee3",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "2005년 허리케인 시즌 종료 공지 뒤 본문이 폭풍별 기록 나열뿐이라 떼어 낸 단락에 논지·사건 흐름이 없고 내용일치 하나만 수치로 채운다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Hurricane Dennis became the strongest recorded",
+          "note": "기록 문장이 서로 독립된 나열이라 한 문단으로 묶어도 흐름이 생기지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Record-breaking_2005_Atlantic_Hurricane_Season_officially_ends",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "001302e7-5eae-48a5-86cc-8ce534a0ec8e",
+    "revision": "2026-09-25T06:55:02.693867+00:00",
+    "body_sha256": "d75d8901eb899130f1f68a2c753c32b72fe96e74da04d63f8e523f554e0d2714",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "허블 망원경이 자이로 하나를 꺼 수명을 늘린 이유와 두 자이로로 방향을 잡는 원리를 설명해 내용일치·순서 칸이 되고 시기가 분명해 시대 비교 재료가 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The gyros are an integral part",
+          "note": "자이로가 조준 장치의 핵심이라는 단락이 자족적이고 integral·reserve 를 바꾸면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Hubble_Space_Telescope_running_on_two_gyroscopes",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.32
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00199083-c849-4508-90b2-d7bd62fc2f39",
+    "revision": "2026-09-25T06:57:23.418925+00:00",
+    "body_sha256": "0e470a358dbb60b40e4789ffdee42b11904fc6ae9916a7fdfe7ffa5a0c71f858",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "전 독일 외무차관 가족의 예멘 납치 사건과 부족의 요구·반복되는 외국인 납치 배경이 짧게 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Reuters named the captors as members",
+          "note": "납치범이 가족을 「손님」이라 부르며 석방을 요구한 단락이 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Former_German_deputy_foreign_minister_and_family_abducted_in_Yemen",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.124,
+          "words": 194,
+          "english": 0.461
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "001cde8e-c742-4a44-87fb-a675943a541d",
+    "revision": "2026-09-25T06:46:18.232418+00:00",
+    "body_sha256": "5e18d8b178f933b54e5593595895e890bba6f86273e24e864643bb77487cd52d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "culture",
+        "why": "예수 이야기를 성소수자 인물로 바꾼 브라질 연극의 줄거리와 작가의 제작 동기를 전하는 단신으로 내용일치 칸이 서지만 종교·성 소재라 성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The plot begins with a 15",
+          "note": "줄거리 단락은 시간순으로 서지만 인물 설정 나열이 많아 문항은 내용일치 정도다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Gay_play_about_Jesus_Christ_to_open_in_Brazil",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.382
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "001f91e6-a464-41ca-a0f9-a05b5a7610bf",
+    "revision": "2026-09-25T06:47:35.283907+00:00",
+    "body_sha256": "2c48e34a357bb9b340a1b6ae03fbf9fa00706fa62d5decc748323f552b64973e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이라크 무장세력이 루마니아 기자 처형 시한을 연장한 경위와 가족·정부 반응이 이어져 내용일치 칸이 서고, 처형 위협 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The Islamic terrorists which kidnapped three",
+          "note": "시한 연장 경위 단락이 자족적이고 yield 를 give in 으로 바꾸면 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Execution_deadline_for_kidnapped_journalists_expires",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.403
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00206b11-a1cd-4d29-84e9-37fff5db057a",
+    "revision": "2026-09-25T07:44:32.163902+00:00",
+    "body_sha256": "4216bf8b0334a8ae1b126c9c1e9538869bf7c3c590f3a11ffcbcb674fec87d88",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "암흑 에너지 측정으로 우주가 영원히 팽창할 수 있다는 연구 결론을 짧게 설명해 주제·내용일치 칸이 되고 2010년 발표라 시대 비교 재료가 된다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "topic",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Dark energy is a completely invisible",
+          "note": "암흑 에너지 정의 단락이 짧고 자족적이며 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Scientists_conclude_that_the_universe_may_expand_forever",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.79,
+          "words": 167,
+          "english": 0.41
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00213c19-96dc-4d87-889d-2168e573e494",
+    "revision": "2026-09-25T06:56:07.552512+00:00",
+    "body_sha256": "17df4653c607ebb16f173bcfd6793f947c7d614db5610b4b918647cee9ee9e59",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "IRA 무기가 모두 폐기됐다는 발표와 성직자 증인의 증언·연합주의자의 회의론이 이어져 내용일치 칸이 서고 평화 과정의 한 사건으로 읽힌다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "No photographs were taken of the",
+          "note": "사진을 찍지 않은 이유 단락이 자족적이지만 decommissioning 같은 핵심어는 바꾸기 어렵다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/IRA_weapons_decommissioned",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.409
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00254f8f-bff2-4bd1-b174-c2d35c98ea2f",
+    "revision": "2026-09-25T08:14:01.542756+00:00",
+    "body_sha256": "d507b2871112f806cd88d6c7a393657cffdfc0db671ef67543e11c8cd4b36d08",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "베이루트 차량 폭탄으로 하리리 암살 조사관이 숨진 사건과 2005년 이후 연쇄 폭발 배경이 이어져 내용일치 칸이 서고 폭력 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Eid had reportedly just finished meeting",
+          "note": "조사관이 표적이 된 이유 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Car_bomb_in_Beirut_kills_6%2C_including_top_police_investigator",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00259d80-aa63-4efb-b211-e1796d19495a",
+    "revision": "2026-09-25T07:41:38.713522+00:00",
+    "body_sha256": "fc5cb679d313ab36f6921109a117d3be7077cfff2eebdcb960a461e275ab1c80",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "1912년 남극 탐험에 쓰인 첫 비행기 잔해를 목수가 산책 중 발견한 경위를 전해 사건 흐름과 내용일치 칸이 서고 중등도 읽을 수 있다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Before Mawson's 1911–14 expedition, the aircraft",
+          "note": "추락→썰매 전용→엔진 고장→방치의 순서가 한 단락에 있어 순서 문항이 된다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.996Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Remains_of_1912_expedition_plane_found_in_Antarctica",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.412
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00266034-fbb6-4e43-979b-78babb0880ac",
+    "revision": "2026-09-25T07:32:29.789172+00:00",
+    "body_sha256": "4c6ee5c59549bcb59d0c2baf8c195dc22f42ef3bbd13b0d470ebf6cd22e8aa3e",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "health",
+        "why": "CDC 청소년 위험행동 조사가 16년간 감소를 보였지만 히스패닉 학생은 예외라는 결과를 수치로 제시해 도표형 내용일치 칸이 되며 성·약물 소재라 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "main_point"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "data-claim"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "In comparison with previous YRBS results,",
+          "note": "비율 변화 단락은 떼어지지만 수치를 걷으면 남는 것이 적어 수치 검증형으로 쓴다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._teens_generally_reducing_risky_behavior_says_CDC",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.326
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "002947df-29ab-41d2-bd3b-d00f390b642c",
+    "revision": "2026-09-25T08:29:12.845936+00:00",
+    "body_sha256": "e972fad5ffe49de9f849560283cdf8ea42290d0f72628e8496c730524141cfc1",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "북아일랜드 뉴리 법원 앞 차량 폭탄 사건과 반체제 공화파의 연속 공격 배경이 짧게 이어져 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "There have been several incidents over",
+          "note": "평화 과정 반대 세력의 연속 공격 단락이 자족적이고 detonation 만 바꾸면 V4~5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Car_bomb_explodes_outside_court_in_Northern_Ireland",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.587,
+          "words": 179,
+          "english": 0.35
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "002c9b5e-dcc1-4962-bbcd-92552f6f45a8",
+    "revision": "2026-09-25T07:32:40.977168+00:00",
+    "body_sha256": "43349e34a4f9f8cb2ce77b496120e072cb5064fb6fc351b83e3eb349fbf13a49",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "버펄로의 200년 된 마구간 건물이 부분 붕괴 뒤 철거될 처지가 되자 시와 주민이 맞서는 과정이 서서 내용일치·주장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Demolition on the building is expected",
+          "note": "주민이 철거에 반대하는 이유 단락이 자족적이고 livery 만 풀면 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Partially_collapsed_building_in_Buffalo%2C_New_York_likely_to_be_demolished",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.385
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00312417-85aa-4ab9-bb48-af9bd455f1a4",
+    "revision": "2026-09-25T07:49:22.492493+00:00",
+    "body_sha256": "ef801f5e7cefdcf6c67fd857766bee63312550fc3df6941e2a9f8d9e824f03c0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "science",
+        "why": "바퀴벌레 속 Arenivaga 를 재분류해 신종 39종을 찾은 4년 연구의 방법과 의의가 이어져 내용일치 칸이 되지만 분류학 용어가 많아 고2 이상이다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": false,
+          "sample": "Hopkins remarked about potential of further",
+          "note": "혹독한 환경 적응과 추가 발견 가능성 인용이 자족적이지만 radiation·Corydiidae 는 바꾸기 어렵다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Researcher_discovers_39_new_cockroach_species%2C_increasing_genus_Arenivaga_fivefold",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.369
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00362ee5-b07e-4a16-820e-0fe1b40075e0",
+    "revision": "2026-09-25T07:32:14.870048+00:00",
+    "body_sha256": "88693e8f230b1b3ce5b35d5259372592440ceb1b864a2ec83afdd54d09020191",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "컴퓨텍스 2008 기사는 앞 몇 단락도 어색한 문장으로 상 이름을 소개할 뿐이고 뒤 절반이 수상 제품 목록이라 떼어 낼 논지·사건 흐름이 없다.",
+        "slots": {
+          "ages": [
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "\"Best Choice of COMPUTEX\", designed to",
+          "note": "상 설명 단락은 문법이 흐트러지고 목록이 이어져 가공할 문단이 없다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/2008_COMPUTEX_Taipei%3A_Three_awards%2C_One_target",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.303
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "0044781e-91f6-4e49-8203-60a79f745db3",
+    "revision": "2026-09-25T08:23:59.613191+00:00",
+    "body_sha256": "dc4d8faaa02d63866fbd73e0389d43cbfea6f84935080240f456a98d95ba913b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "이란 혁명법원이 선거 후 시위 참가 왕정주의자에게 첫 사형을 선고한 소식과 분석가·성직자의 반응이 이어져 내용일치 칸이 서고 사형 소재라 고1 이상이다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A number of prominent Iranian clerics",
+          "note": "강요된 자백은 무효라는 성직자 판단 단락이 자족적이고 jurisprudence 만 바꾸면 V5~6 이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Iran_court_sentences_opposition_activist_to_death",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "0047d757-d879-41a0-afbd-bd8e516917ee",
+    "revision": "2026-09-25T08:25:01.417114+00:00",
+    "body_sha256": "2449561f40cb317676356641cfbb7b34a8b68d4d78677b404dbbe499bb1819f2",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "아프간 대선 후보 압둘라가 결선 불참을 선언한 경위와 각국·분석가 반응이 길게 이어져 내용일치·장문 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "mock",
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "long_reference"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "This election's first polls, which were",
+          "note": "1차 투표 부정과 과반 미달로 결선이 된 경위 단락이 자족적이고 어휘가 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Afghan_presidential_candidate_Abdullah_withdraws_from_elections",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.45
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "00490fe4-9f89-42b3-85d2-5425599d69ed",
+    "revision": "2026-09-25T07:40:43.223641+00:00",
+    "body_sha256": "2583fd2c1f6eae480f5e7f1d6a00b5811fff0a4776862ba85b6303d1c4d71eb5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "history",
+        "why": "베를린 장벽 붕괴 20주년 기념 소식에 메르켈·클린턴 발언과 장벽 역사가 이어져 내용일치 칸이 서고 시기가 분명해 시대 비교 재료다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Celebrations will centre around the Brandenburg",
+          "note": "브란덴부르크 문과 남은 장벽 구간 단락이 자족적이고 어휘가 V4 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Thousands_to_celebrate_twenty_years_since_fall_of_Berlin_Wall",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.391
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "0049a102-48dc-403f-8a25-80c73a6537f7",
+    "revision": "2026-09-25T07:41:47.454113+00:00",
+    "body_sha256": "ecd907efbf94fb84ac535696c1f992db97c64275d37341890ce929ef41ef1947",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "어메이징 라디오 창립자 인터뷰로 BBC 확장이 민간 시장을 망친다는 주장과 PRS 계약 비판이 근거와 함께 서서 주장·요지 칸이 되지만 비속어·자살 농담이 있어 걷어내고 고3·성인 칸만 단다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "csat",
+            "reading"
+          ],
+          "types": [
+            "claim",
+            "main_point",
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "So far as the iTunes comparisons",
+          "note": "아이튠즈 8p 대 52p 비교 단락이 수치 논거로 자족적이고 transaction 류만 풀면 V5 다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/An_interview_with_Paul_Campbell%2C_founder_of_Amazing_Radio_UK",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.364
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "004bbf4d-a5a8-4c0c-83cc-51ff37a0e772",
+    "revision": "2026-09-25T07:35:13.435674+00:00",
+    "body_sha256": "d35e04a186884462dbed6ebb7af056aaeeb9505a2656d6d9e7eb6d7f4cca6e68",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "스페인 저가항공 LTE 운항 중단과 하루 전 FlySur 파산이 짧게 이어져 금융위기 시기 사건으로 내용일치 칸이 선다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "school",
+            "mock",
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V4",
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The news comes just one day",
+          "note": "FlySur 가 45일 만에 파산했다는 단락이 짧고 자족적이다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Spanish_airline_LTE_suspends_all_flights",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.172,
+          "words": 174,
+          "english": 0.36
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T08-43-45-993Z",
+    "id": "0054c13d-9312-418a-9bec-51c93783ed67",
+    "revision": "2026-09-25T07:53:10.492714+00:00",
+    "body_sha256": "40df9d1917434124e5f916fc7d82fde03633d1340dca7c348fb6707e28440346",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "크림 도서관 책 출간 행사 단신으로 행사 사실 한 줄과 저자의 자기 책 소개 인용뿐이라 사건 흐름·논지가 없고 원주민 생활을 「wretchedness」로 그리는 문장이 전부다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": false,
+          "sample": "A literary work created in the",
+          "note": "저자 인용 한 문장이 길고 뒤틀린 번역투라 떼어도 논지가 서지 않는다."
+        },
+        "criteria_version": 4,
+        "basis": "full",
+        "round": 8,
+        "by": "chunk-llm",
+        "at": "2026-09-25T08:43:45.997Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Holyday_of_wandering_mzungu%2C_presentation_of_the_book_by_Russian_adventurer_took_place_in_the_Crimean_capital",
+          "year": 2024,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 2.525,
+          "words": 198,
+          "english": 0.37
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  }
+]

@@ -1,0 +1,303 @@
+{
+  "measuredAt": "2026-09-23",
+  "contract": "source-remeasure/v1",
+  "target": {
+    "median": 164,
+    "p25": 144,
+    "p75": 188
+  },
+  "markerSets": {
+    "broad": 61,
+    "claimVerbs": 17,
+    "discourse": 38
+  },
+  "rows": [
+    {
+      "file": "obk-obp-samples.json",
+      "source": "obk-obp",
+      "n": 8,
+      "words_p25": 3430,
+      "words_median": 5132,
+      "words_p75": 8918,
+      "band_140_200_pct": 0,
+      "spans": 250,
+      "spans_per_doc": 31.3,
+      "usable_pct": 91.9,
+      "marker_broad_pct": 16.5,
+      "marker_claim_verbs_pct": 3.2,
+      "marker_discourse_pct": 11.5
+    },
+    {
+      "file": "obk-au-samples.json",
+      "source": "obk-au",
+      "n": 7,
+      "words_p25": 1368,
+      "words_median": 4904,
+      "words_p75": 7588,
+      "band_140_200_pct": 0,
+      "spans": 198,
+      "spans_per_doc": 28.3,
+      "usable_pct": 88.2,
+      "marker_broad_pct": 19.4,
+      "marker_claim_verbs_pct": 1.4,
+      "marker_discourse_pct": 15.1
+    },
+    {
+      "file": "obk-rebus-samples.json",
+      "source": "obk-rebus",
+      "n": 6,
+      "words_p25": 3454,
+      "words_median": 4706,
+      "words_p75": 6092,
+      "band_140_200_pct": 0,
+      "spans": 170,
+      "spans_per_doc": 28.3,
+      "usable_pct": 94.3,
+      "marker_broad_pct": 23.3,
+      "marker_claim_verbs_pct": 4.7,
+      "marker_discourse_pct": 16.3
+    },
+    {
+      "file": "obk-libre-samples.json",
+      "source": "obk-libre",
+      "n": 8,
+      "words_p25": 602,
+      "words_median": 1203,
+      "words_p75": 3647,
+      "band_140_200_pct": 25,
+      "spans": 86,
+      "spans_per_doc": 10.8,
+      "usable_pct": 91.5,
+      "marker_broad_pct": 13,
+      "marker_claim_verbs_pct": 0,
+      "marker_discourse_pct": 13
+    },
+    {
+      "file": "ccby-eco-samples.json",
+      "source": "ccby-eco",
+      "n": 8,
+      "words_p25": 1133,
+      "words_median": 1469,
+      "words_p75": 1917,
+      "band_140_200_pct": 0,
+      "spans": 70,
+      "spans_per_doc": 8.8,
+      "usable_pct": 95,
+      "marker_broad_pct": 18.5,
+      "marker_claim_verbs_pct": 1.5,
+      "marker_discourse_pct": 14.7
+    },
+    {
+      "file": "ccby-pdr-samples.json",
+      "source": "ccby-pdr",
+      "n": 8,
+      "words_p25": 658,
+      "words_median": 1637,
+      "words_p75": 1877,
+      "band_140_200_pct": 12.5,
+      "spans": 56,
+      "spans_per_doc": 7,
+      "usable_pct": 95.1,
+      "marker_broad_pct": 14.3,
+      "marker_claim_verbs_pct": 2.3,
+      "marker_discourse_pct": 11.7
+    },
+    {
+      "file": "ccby-fee-samples.json",
+      "source": "ccby-fee",
+      "n": 8,
+      "words_p25": 800,
+      "words_median": 1220,
+      "words_p75": 1749,
+      "band_140_200_pct": 0,
+      "spans": 54,
+      "spans_per_doc": 6.8,
+      "usable_pct": 86.4,
+      "marker_broad_pct": 21.2,
+      "marker_claim_verbs_pct": 1.7,
+      "marker_discourse_pct": 14.8
+    },
+    {
+      "file": "ccby-well-samples.json",
+      "source": "ccby-well",
+      "n": 8,
+      "words_p25": 1133,
+      "words_median": 1149,
+      "words_p75": 1281,
+      "band_140_200_pct": 12.5,
+      "spans": 48,
+      "spans_per_doc": 6,
+      "usable_pct": 88.5,
+      "marker_broad_pct": 10.4,
+      "marker_claim_verbs_pct": 1.4,
+      "marker_discourse_pct": 8.2
+    },
+    {
+      "file": "eco-cochrane-samples.json",
+      "source": "eco-cochrane",
+      "n": 14,
+      "words_p25": 76,
+      "words_median": 779,
+      "words_p75": 802,
+      "band_140_200_pct": 0,
+      "spans": 39,
+      "spans_per_doc": 2.8,
+      "usable_pct": 50.4,
+      "marker_broad_pct": 26.7,
+      "marker_claim_verbs_pct": 0,
+      "marker_discourse_pct": 25.8
+    },
+    {
+      "file": "oaj-openalex-samples.json",
+      "source": "oaj-openalex",
+      "n": 46,
+      "words_p25": 111,
+      "words_median": 190,
+      "words_p75": 241,
+      "band_140_200_pct": 26.1,
+      "spans": 47,
+      "spans_per_doc": 1,
+      "usable_pct": 56.6,
+      "marker_broad_pct": 18.6,
+      "marker_claim_verbs_pct": 2.6,
+      "marker_discourse_pct": 12.3
+    },
+    {
+      "file": "oaj-scielo-samples.json",
+      "source": "oaj-scielo",
+      "n": 899,
+      "words_p25": 153,
+      "words_median": 199,
+      "words_p75": 243,
+      "band_140_200_pct": 31.4,
+      "spans": 784,
+      "spans_per_doc": 0.9,
+      "usable_pct": 61.4,
+      "marker_broad_pct": 18.6,
+      "marker_claim_verbs_pct": 3.1,
+      "marker_discourse_pct": 12.3
+    },
+    {
+      "file": "eco-econstor-samples.json",
+      "source": "eco-econstor",
+      "n": 30,
+      "words_p25": 126,
+      "words_median": 158,
+      "words_p75": 186,
+      "band_140_200_pct": 46.7,
+      "spans": 20,
+      "spans_per_doc": 0.7,
+      "usable_pct": 53.7,
+      "marker_broad_pct": 25,
+      "marker_claim_verbs_pct": 3.6,
+      "marker_discourse_pct": 19.8
+    },
+    {
+      "file": "oaj-olh-samples.json",
+      "source": "oaj-olh",
+      "n": 650,
+      "words_p25": 109,
+      "words_median": 153,
+      "words_p75": 200,
+      "band_140_200_pct": 32.6,
+      "spans": 415,
+      "spans_per_doc": 0.6,
+      "usable_pct": 47.6,
+      "marker_broad_pct": 26.7,
+      "marker_claim_verbs_pct": 9.9,
+      "marker_discourse_pct": 17.2
+    },
+    {
+      "file": "eco-econpapers-samples.json",
+      "source": "eco-econpapers",
+      "n": 10,
+      "words_p25": 99,
+      "words_median": 147,
+      "words_p75": 156,
+      "band_140_200_pct": 50,
+      "spans": 5,
+      "spans_per_doc": 0.5,
+      "usable_pct": 48.3,
+      "marker_broad_pct": 22.4,
+      "marker_claim_verbs_pct": 1.7,
+      "marker_discourse_pct": 22.4
+    },
+    {
+      "file": "eco-iza-samples.json",
+      "source": "eco-iza",
+      "n": 7,
+      "words_p25": 80,
+      "words_median": 89,
+      "words_p75": 103,
+      "band_140_200_pct": 0,
+      "spans": 0,
+      "spans_per_doc": 0,
+      "usable_pct": 0,
+      "marker_broad_pct": 38.7,
+      "marker_claim_verbs_pct": 3.2,
+      "marker_discourse_pct": 32.3
+    }
+  ],
+  "skipped": [
+    {
+      "file": "args-kialo-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "edu-hechinger-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "edu-kappan-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "edu-niemanlab-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "edu-taxfoundation-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "hum-iep-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "hum-phil-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "hum-sep-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "mag-aeon-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "mag-issues-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "mag-psyche-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "mag-sapiens-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "text-anu-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "text-openstax-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    },
+    {
+      "file": "text-punctum-samples.json",
+      "reason": "본문 미저장 — 같은 자로 다시 잴 수 없다"
+    }
+  ]
+}

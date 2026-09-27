@@ -157,6 +157,45 @@ Admin 「기획」 탭. Admin 은 커밋된 원천 + **DB 실측**으로 같은 
 
 ---
 
+## 2-3. 요청 순환 — 요청 → 기획 → 설계 → 검토 → 적용 → 평가 (2026-09-24)
+
+규칙 8개가 만드는 73편 **옆에** 사람이 요청하는 편이 선다. 규칙 편은 그대로 돈다.
+
+| 칸 | 누가 | 어디 |
+|---|---|---|
+| 요청 | 관리자 | `/admin/video` 「요청」 탭 — 분야 · 대상 · 목적(학습/구매) · 수요자 · 규격 · 메모 |
+| 기획 + 설계 | 에이전트 | `pnpm video requests:export` → `video-request-designer` → `requests:import --commit` |
+| 검토 | 관리자 | `/admin/video/requests/[id]` — 승인 · 수정 요청(코멘트 → 다음 설계) · 반려 |
+| 적용 | 에이전트 | `requests:pull` → 기존 `voice` · `render` · `loudness` · `thumbs` · package · publish |
+| 평가 | 에이전트 | `pnpm video requests`(큐 → 요청 상태) · `evaluate <id>`(규격 + 목적) |
+
+- **분야는 설정이다** — `video_domains` 한 행(`target_kinds` = 기획 후보 종류). 대상 목록은 기획 보드와 같은 출처다.
+- **수치는 초안에 적을 수 없다.** 초안은 `{{이름}}` + 번들 경로(`series[id=reading].rungs[step=4].items`)만 갖고, 값은 `to-spec` 이 원료에서 채운다. 자리표시 밖의 숫자는 import 가 떨어뜨린다(「4단계」「3권」 같은 차례 이름은 예외).
+- **이야기 구조를 기계가 본다** — 첫 장면은 문제(자막 3초 안), 해결 장면 1개 이상, 마지막은 다음 행동(closing). 근거 없는 효과 주장(보장·성적 향상·최상급·배수)은 금칙.
+- **규칙 편 흡수** — 초안이 `borrow` 로 규칙 편의 장면(서가·계단·문항·커버리지)을 가져온다. 근거도 같이 온다. 대상이 규칙 편이면 그 설계도가 출발점(`baseline`)으로 청크에 실린다.
+- **승인 없이 적용 없음** — `video_request_advance` 가 현재 rev 에 approve 결정이 없으면 `applying` 을 거절한다.
+- **검토자는 채운 모습을 본다** — import 가 원료로 채운 미리보기(`checks.preview`)를 함께 저장한다. 실측 2026-09-24: 자리표시만 보여 줄 때 「{{band}} 학년에」 → 「중학 3학년 학년에」 겹침을 화면에서 못 봤다.
+- **목적 평가** — `funnel_events` 의 `video_started` · `video_completed` 를 `meta.videoId` 로 센다. 재생 30회 미만은 비율을 내지 않는다(「못 잼」). CTA 클릭은 영상 계측에 아직 없다. 관리자 미리보기는 계측 없는 `<video>` 라 평가에 섞이지 않는다.
+- 요청 편 설계도는 `work/request-specs.json`(커밋 안 함)에 굳고, `allSpecs()` 가 규칙 편과 합쳐 음성·렌더·포장·Remotion 루트에 넘긴다. 같은 id 면 규칙 편이 이긴다.
+- **도구**: Remotion + Edge TTS 유지. 교체 제안은 근거와 함께 여기에만 적고, 승인 뒤 바꾼다(지금 제안 없음).
+
+## 2-4. 발행된 편 내리기 · 교체 (2026-09-24)
+
+| | 어떻게 | 되돌리기 |
+|---|---|---|
+| **내리기** | 화면(구성요소 탭 · 요청 상세)에서 이유와 함께 → `video_retirements` · `pnpm video retire:sync --commit` 이 manifest 에서 뺀다 → **커밋·배포 뒤** 화면에서 사라진다 | 「되살리기」 → 다음 `package` 가 manifest 에 되돌린다 |
+| **파일 삭제** | `retire:sync --commit --purge` — 버킷 + 로컬(out · dist-media) 파일을 지우고 `purged_at` | 「다시 찍어 되살리기」 → `rerender_requested_at` · 그 편만 렌더 목록에 돌아온다 → `pnpm video voice <id> && pnpm video render <id>` 가 **모든 규격**을 파일로 확인하면 `video_retire_rerendered` 가 purge 표시를 지우고 되살린다 → 다음 `package`. 그 전에는 포장·발행에서 계속 빠진다(`20260926130000`) |
+| **교체** | 「교체 요청」 → 요청(`mode=replace`, `video_id` = 그 자리) → 순환 그대로 → 발행이 같은 경로를 덮는다 | 교체본을 다시 교체하거나, 규칙 편이면 교체 요청을 거두기 전까지 |
+
+- **내린 편은 어디에도 다시 안 나온다** — `mergeSpecs` 가 음성·렌더·포장·Remotion 에서 빼고, `publish` 는 로컬에 남은 파일도 올리지 않는다. 목록은 명령마다 DB 에서 `work/retired.json` 으로 새로 받고, **못 받으면 멈춘다**(빈 목록으로 진행하면 내린 편이 되살아난다).
+- **교체 편은 같은 id 의 편을 이긴다**(`brief.replaces`). 새 요청 편은 같은 id 가 있으면 진다. 교체 편은 원래 편의 `kind` 를 이어받는다 — /video 의 칸과 계측 kind 가 그대로다.
+- **같은 자리의 진행 중 교체는 하나** — `video_requests_video_id_live_uniq`(approved·applying·applied).
+- **같은 자리의 주인은 가장 나중에 만든 요청** — `requests:pull` 은 `created_at` 순으로 읽고 `pickRequestOwners` 로 자리마다 하나만 설계도 파일에 쓰고 시작한다. 옛 `failed` 는 더 새 요청이 있으면 자동 재시도하지 않는다(두 행이 applying 이 되어 유일 인덱스에 걸리던 결함). `mergeSpecs` 도 같은 id 가 여럿이면 뒤의 것이 이긴다. DB 전이(`video_request_advance`)도 같은 규칙으로 막는다(`20260926130000`).
+- **교체 편 평가는 새 발행 뒤만** — 요청이 applied 가 되는 순간의 발행 시각을 `video_requests.applied_at` 에 남기고, `evaluate` 는 `funnel_events.occurred_at ≥ applied_at` 만 센다. 교체 편인데 `applied_at` 이 없으면 옛 편 기록을 섞지 않고 「못 잼」.
+- **큐** — `video_job_advance` 는 단계를 되돌리지 않으므로, 교체 시작 때 `video_job_restart` 가 그 자리의 행을 `queued` 로 되돌린다.
+- **캐시** — 버킷은 7일 캐시(`cacheControl 604800`)라 같은 경로를 덮으면 옛 파일이 나간다. `package` 가 규격·포스터·자막마다 내용 해시(`v` · `posterV` · `captionsV`)를 manifest 에 쓰고 앱이 `?v=` 로 붙인다. 포스터는 영상이 더 새로우면 다시 뽑는다. 썸네일은 `thumbs <id> --force`.
+- 콘솔: 내린 편은 「안 만듦」이 아니라 「내림 N」, 발행된 요청 편은 「고아」가 아니다(요청이 주인).
+
 ## 3. 3단 드레인 (CLAUDE.md §🤖 와 같은 구조)
 
 | 단계 | 명령 | 하는 일 | 재실행 안전 |
@@ -376,7 +415,7 @@ video render-all → video package → video publish → (manifest 커밋) → �
 | 포장 | `pnpm --filter @vocaflow/video-factory package` | 포스터 jpg(mp4 에서 ffmpeg 로 추출) · **WebVTT 자막** · 설명글(YouTube 설명란용) · `apps/web/src/lib/video/manifest.json` |
 | 발행 | `pnpm --filter @vocaflow/video-factory publish` | Supabase Storage 공개 버킷 `video` 업로드 + manifest 에 `baseUrl` 기록 |
 
-**재실행 안전**: 포장은 이미 있는 포스터를 건너뛰고, 발행은 **같은 크기**로 올라간 파일을 건너뛴다.
+**재실행 안전**: 포장은 이미 있는 포스터를 건너뛰고, 발행은 버킷에 있고 **내용(sha256)이 같은** 파일만 건너뛴다(`render/upload-plan.ts`). 해시는 버킷의 `publish-sha256.txt` 에 기록한다 — 없거나 깨졌으면 전부 다시 올린다(첫 발행 한 번은 전량 업로드). 크기로 가르던 때는 교체 편처럼 같은 경로·같은 크기·다른 내용인 파일이 건너뛰어졌다.
 
 ### 화면에 붙는 자리
 

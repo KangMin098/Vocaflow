@@ -250,13 +250,17 @@ test.describe('아케이드 접근 모델 (로그인)', () => {
   test.use({ storageState: STATE_PATH });
 
   // ── A. 발견성 ────────────────────────────────────────────────────
-  test('A1. 사이드바 Practice 에 Arcade 가 있고 /arcade 에서 활성 표시된다', async ({ page }) => {
+  test('A1. 상단 Practice 메뉴에 Game Lab 이 있고 /arcade 에서 활성 표시된다', async ({ page }) => {
     await page.goto('/arcade', { waitUntil: 'domcontentloaded' });
-    const link = page.locator('aside[aria-label="주 메뉴"] a[href="/arcade"]');
+    // v08.6 — 왼쪽 레일이 상단 막대 + 메가메뉴가 됐다(`components/layout/AppHeader`).
+    //   Game Lab 은 ③ Practice 패널 안이라 **열어야 보인다**(닫혀 있어도 DOM 에는 있다).
+    const shell = page.locator('header[aria-label="주 메뉴"]');
+    // 허브는 세션이 아니다 — 전역 셸이 살아 있어야 한다((app) 그룹 잔류 회귀 차단)
+    await expect(shell).toBeVisible({ timeout: 30_000 });
+    await shell.getByRole('button', { name: /Practice/ }).hover();
+    const link = shell.locator('a[href="/arcade"]');
     await expect(link).toBeVisible({ timeout: 30_000 });
     await expect(link).toHaveAttribute('aria-current', 'page');
-    // 허브는 세션이 아니다 — 전역 셸이 살아 있어야 한다((app) 그룹 잔류 회귀 차단)
-    await expect(page.locator('aside[aria-label="주 메뉴"]')).toBeVisible();
   });
 
   // A2 (진입 카드 문구 드리프트 차단) 는 **여기서 검사할 대상이 사라져** 옮겼다.

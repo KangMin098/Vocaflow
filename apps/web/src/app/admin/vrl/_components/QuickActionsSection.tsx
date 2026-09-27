@@ -159,7 +159,7 @@ export function QuickActionsSection({
         {/* QA4 — VCB-VRL navigate (P0 본질 페인) */}
         <Link
           href="/admin/vocab"
-          className="group flex items-start gap-3 rounded-[var(--r-lg)] border border-[var(--error)]/30 bg-[var(--error-light)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
+          className="group flex items-start gap-3 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--error-light)] p-3 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
         >
           <span
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)] bg-[var(--error)] text-white"

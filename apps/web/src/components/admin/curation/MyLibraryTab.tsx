@@ -1641,7 +1641,7 @@ function BulkActionToolbar({
           )}
           스크립트 퀴즈 큐
           {quizEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--active)]/15 px-2 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--active)_15%,transparent)] px-2 py-0 font-mono text-[10px]">
               {quizEligibleCount}
             </span>
           )}
@@ -1666,7 +1666,7 @@ function BulkActionToolbar({
           )}
           레벨 검토 큐
           {reviewEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-2 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--info)_15%,transparent)] px-2 py-0 font-mono text-[10px]">
               {reviewEligibleCount}
             </span>
           )}
@@ -1691,7 +1691,7 @@ function BulkActionToolbar({
           )}
           어휘 감사 큐
           {vocabAuditEligibleCount > 0 && (
-            <span className="ml-1 rounded-[var(--r-full)] bg-[var(--info)]/15 px-2 py-0 font-mono text-[10px]">
+            <span className="ml-1 rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--info)_15%,transparent)] px-2 py-0 font-mono text-[10px]">
               {vocabAuditEligibleCount}
             </span>
           )}

@@ -269,7 +269,7 @@ function BulkIngestPanel({
   return (
     <section
       className="rounded-[var(--r-lg)] border p-4"
-      style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}08` }}
+      style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.1%, transparent)` }}
     >
       <div className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">
@@ -375,7 +375,7 @@ function RecommendPanel({ source, onMsg, onEnqueued, schemaReady }: { source: st
   const newCount = cands.filter((c) => !c.existingStatus).length
 
   return (
-    <section className="rounded-[var(--r-lg)] border p-4" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}08` }}>
+    <section className="rounded-[var(--r-lg)] border p-4" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.1%, transparent)` }}>
       <div className="flex flex-wrap items-baseline gap-2">
         <h3 className="font-display text-[14px] font-[800] text-[var(--t1)]">추천 소재 — 아는 명작만 고르세요</h3>
         <span className="font-body text-[11.5px] text-[var(--t2)]">컬렉션 ID·연도·검색어 몰라도 됩니다. 학습 적합·PD 안전 순으로 자동 랭킹됩니다.</span>
@@ -1043,7 +1043,7 @@ function RowViewControls({
         value={view.q}
         onChange={(e) => view.setQ(e.target.value)}
         placeholder="제목 · 식별자 · 시리즈"
-        className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:text-[var(--t2)] hover:border-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20 sm:w-64"
+        className="min-h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-body text-[12px] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] placeholder:text-[var(--t2)] hover:border-[var(--t2)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_20%,transparent)] sm:w-64"
       />
       {chips.map((c) => {
         const on = view.statusFilter === c.key
@@ -1054,7 +1054,7 @@ function RowViewControls({
             onClick={() => view.setStatusFilter(c.key)}
             aria-pressed={on}
             className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t2)] active:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-            style={{ borderColor: on ? ACCENT : 'var(--bd)', color: on ? ACCENT : 'var(--t2)', background: on ? `${ACCENT}1a` : 'transparent' }}
+            style={{ borderColor: on ? ACCENT : 'var(--bd)', color: on ? ACCENT : 'var(--t2)', background: on ? `color-mix(in srgb, ${ACCENT} 10.2%, transparent)` : 'transparent' }}
           >
             {c.label} <span className="font-mono tabular-nums">{c.n}</span>
           </button>
@@ -1374,7 +1374,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `${ACCENT}30`, background: `${ACCENT}0a` }}>
+      <div className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border px-4 py-3" style={{ borderColor: `color-mix(in srgb, ${ACCENT} 18.8%, transparent)`, background: `color-mix(in srgb, ${ACCENT} 3.9%, transparent)` }}>
         <span className="font-display text-[12.5px] font-[700] text-[var(--t1)]">테스트 · 모니터</span>
         <span className="font-body text-[11.5px] text-[var(--t2)]">파이프라인이 지금 무엇을 · 어떤 상태로 · 어떻게 처리 중인지 실시간 관측</span>
         <div className="ml-auto flex items-center gap-2">
@@ -1419,7 +1419,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                   {running && <span className="inline-block h-2 w-2 rounded-full" style={{ background: ACCENT }} aria-label="방금 진행" />}
                   <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">{r.title}</h3>
                   <span className="font-mono text-[11px] text-[var(--t2)]">{r.sourceAdapter}</span>
-                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ background: `${ACCENT}1a`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
+                  {r.acquirePages != null && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ background: `color-mix(in srgb, ${ACCENT} 10.2%, transparent)`, color: ACCENT }}>테스트 · 앞 {r.acquirePages}쪽</span>}
                   <span className="ml-auto font-mono text-[11px] tabular-nums text-[var(--t2)]">{r.panelsTotal}컷</span>
                 </div>
                 <Stepper status={r.status} failed={Boolean(r.lastError)} />
@@ -1457,7 +1457,7 @@ function MonitorTab({ rows, counts, truncated, onMsg, onRefresh, active }: {
                       'modernized' 가 되고 큐에서 빠졌다. */}
                   {pdActionAllowed('modernize', r.status) && (
                     <>
-                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: '#2E7D5A', color: '#2E7D5A' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
+                      <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'preserve')} title="원작 작화 보존 + 색채·대사 현대화 (CPU·$0)" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--memory-stable)', color: 'var(--memory-stable)' }}>{busy === r.id ? '…' : '작화보존 현대화'}</button>
                       <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'erase-preview')} title="GPU 없이 말풍선 지우기만 실행 — 남은 글자를 모델이 가짜 글자로 재현하므로 태우기 전에 확인한다" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: 'var(--t3)', color: 'var(--t2)' }}>지우기 확인</button>
                       <button type="button" disabled={busy === r.id} onClick={() => void modernize(r.id, 'restyle')} title="원작 재작화 (GPU 모델·COMFY_URL 필요 · 되돌릴 수 없음). 먼저 '지우기 확인'으로 글자가 다 지워졌는지 보세요" className="min-h-11 rounded-[var(--r-full)] border px-3 font-display text-[11px] font-[700] transition-colors disabled:opacity-50" style={{ borderColor: `${ACCENT}`, color: ACCENT }}>AI 리스타일</button>
                     </>
@@ -1538,7 +1538,7 @@ function ModernizationMethods() {
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)]">
       <button type="button" onClick={() => setOpen((v) => !v)} className="flex w-full items-center gap-2 px-3 py-3 text-left">
         <span className="font-display text-[12.5px] font-[800] text-[var(--t1)]">현대화 방법 (2트랙)</span>
-        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>기본 · 작화 보존</span>
+        <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: 'var(--memory-stable)', background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>기본 · 작화 보존</span>
         <span className="rounded-[var(--r-full)] px-2 py-1 font-mono text-[9.5px] font-[700]" style={{ color: 'var(--p)', background: 'var(--p-light)' }}>선택 · AI 리스타일</span>
         <span className="ml-auto font-mono text-[11px] text-[var(--t2)]">{open ? '▾' : '▸'}</span>
       </button>
@@ -1573,12 +1573,12 @@ type OpStep = { seq: number; ts: string | null; slug: string; content: string; p
 type OpContent = { slug: string; content: string; total: number; lastAction: string; lastVerdict: string | null; next: string | null }
 
 const OP_META: Record<OpStep['action'], { label: string; color: string; bg: string }> = {
-  adopt: { label: '채택', color: '#2E7D5A', bg: '#2E7D5A18' },
-  reject: { label: '반려', color: '#9C3A30', bg: '#9C3A3018' },
-  improve: { label: '개선', color: '#B5803A', bg: '#B5803A18' },
+  adopt: { label: '채택', color: 'var(--memory-stable)', bg: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' },
+  reject: { label: '반려', color: 'var(--memory-risk)', bg: 'color-mix(in srgb, var(--memory-risk) 9.4%, transparent)' },
+  improve: { label: '개선', color: 'var(--memory-shaky)', bg: 'color-mix(in srgb, var(--memory-shaky) 9.4%, transparent)' },
   pivot: { label: '피벗', color: 'var(--p)', bg: 'var(--p-light)' },
-  evaluate: { label: '평가', color: '#5B6470', bg: '#5B647018' },
-  note: { label: '메모', color: '#8A8278', bg: '#8A827818' },
+  evaluate: { label: '평가', color: 'var(--t2)', bg: 'color-mix(in srgb, var(--t2) 9.4%, transparent)' },
+  note: { label: '메모', color: 'var(--memory-new)', bg: 'color-mix(in srgb, var(--memory-new) 9.4%, transparent)' },
 }
 
 function SelfDevTimeline({ active }: { active: boolean }) {
@@ -1710,7 +1710,7 @@ function LiveProgress({ issueId, onZoom }: { issueId: string; onZoom: (rels: str
           <div className="flex flex-col gap-2">
             {data.modern!.map((m) => {
               const res = typeof m.verdict?.result === 'string' ? m.verdict.result : null
-              const tone = res?.includes('채택') ? 'var(--success,#2E7D5A)' : res?.includes('반려') ? 'var(--error,#9C3A30)' : res?.includes('현대적') ? 'var(--success,#2E7D5A)' : 'var(--warn,#B5803A)'
+              const tone = res?.includes('채택') ? 'var(--success,var(--memory-stable))' : res?.includes('반려') ? 'var(--error,var(--memory-risk))' : res?.includes('현대적') ? 'var(--success,var(--memory-stable))' : 'var(--warn,var(--memory-shaky))'
               const rel = m.preview ?? m.strip
               return (
                 <div key={m.key} className="flex gap-3 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2">
@@ -1945,9 +1945,9 @@ function ModernBadges({ modern }: { modern?: { preserve: boolean; reader: boolea
     <div className="mt-1.5 flex flex-wrap items-center gap-2">
       <span className="font-display text-[10px] font-[700] text-[var(--t2)]">현대화</span>
       {!done && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">아직 안 함</span>}
-      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>작화보존 ✓</span>}
-      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: '#2E7D5A', background: '#2E7D5A18' }}>리더 ✓</span>}
-      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `${ACCENT}18` }}>AI 리스타일 ✓</span>}
+      {modern.preserve && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: 'var(--memory-stable)', background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>작화보존 ✓</span>}
+      {modern.reader && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: 'var(--memory-stable)', background: 'color-mix(in srgb, var(--memory-stable) 9.4%, transparent)' }}>리더 ✓</span>}
+      {modern.restyle && <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[10px] font-[700]" style={{ color: ACCENT, background: `color-mix(in srgb, ${ACCENT} 9.4%, transparent)` }}>AI 리스타일 ✓</span>}
     </div>
   )
 }

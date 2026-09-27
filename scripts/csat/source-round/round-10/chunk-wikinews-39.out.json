@@ -1,0 +1,1024 @@
+[
+ {
+  "id": "1a9d554d-b2bb-48f4-a21f-00dc9368b1de",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "5f008bff8dd79292fb81d4988ccbfe3a01a4bb9f577cc5e5de452af8285aced3",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "인터넷 업체 만족도 급락 조사와 원인 진단이 이어져 주장·내용 일치 칸과 수치 검증 속성을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": [
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "David Russel, chief executive of the",
+   "note": "소비자원장 인용 문단은 과장 광고와 상담 창구 부실을 탓하는 주장이 서서 bones of contention 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1a9dbcd1-4fee-4970-8adc-786865da3ee4",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "aacbed094b32a52ae85230083f6518cde3fd803dea007ed1126a7540b0ad6d30",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "판다 새끼 출생과 쌍둥이 중 하나의 소실, 관찰 계획이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to Hall, early ultrasound images",
+   "note": "쌍둥이 문단은 초음파 → 심장 박동 없음 → 한 마리만 출산으로 이어지지만 in utero·reabsorbed 는 쉬운 말로 풀어야 했다."
+  }
+ },
+ {
+  "id": "1a9e9040-2c8a-49a3-b1ef-4402d8567c3a",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "244521f3944ecb2a0a27d221044471b32d652abb4ab1979958672ff2b03d2bd0",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "실종 소년이 나흘 만에 무사히 발견되기까지의 경위와 가족·교회의 반응이 이어져 초등부터 순서·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "elem",
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The 12 year-old boy was dehydrated",
+   "note": "실종 경위 문단은 늦잠 → 점심 뒤 걸어 나감 → 실종으로 이어져 dehydrated 만 바꾸면 초등 읽기에도 맞다."
+  }
+ },
+ {
+  "id": "1aa13674-de64-4c22-8a39-0f4d5690de04",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "979ac079795f6cf737e8df89e4a354f14bc56855b81e10adb2b9869b647284d1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "철군 표결 요청과 밤샘 토론을 둘러싼 양당 주장이 맞서 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite the all-night session, some senators",
+   "note": "밤샘 토론 문단은 「홍보용 쇼」라는 비판이 서서 짧지만 양측 인용과 묶으면 주장 문항이 된다."
+  }
+ },
+ {
+  "id": "1aa2755b-8dc0-4e43-a4f3-02b6be32dc05",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "e612cc12ad1788646f8142f1ca77b61c1ed4a90230bbbe96acf5e80a04d4788b",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "다리 붕괴 희생자 확인과 긴급 지원 소식이 짧게 이어져 고1 이상 내용 일치 칸 하나를 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Minneapolis received US$5 million in emergency",
+   "note": "긴급 지원 문단은 교통 대책 예산이 서지만 짧아서 앞 문단의 희생자 소식과 붙여야 사건이 선다."
+  }
+ },
+ {
+  "id": "1aa88182-6332-4c9e-9bee-f545b5767913",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ab3a0d1d4de00492db7f0de9b6789807ad61db9ed2af4b62cf4e306e82ebc9c6",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "마약 운반범 처형 예정과 가족 면회가 짧게 이어져 심경 칸이 되나 사형 소재라 고2 이상만 단다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "mood"
+   ],
+   "levels": [
+    "V3",
+    "V4"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Following an appeal to the Prime",
+   "note": "마지막 면회 문단은 총리 요청으로 가족과 손을 잡았다는 장면이 서지만 처형 소재라 고2 이상으로 둔다."
+  }
+ },
+ {
+  "id": "1aa8cd06-53f2-41ac-8441-9668fa759f12",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "23c1dbcce47f5f677e2f9578f72c11b648c981ce557da9825627537d21b8d9be",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "economics",
+  "why": "음반사 실적 증가가 디지털 판매에서 왔다는 짧은 인과와 경영 방향이 서서 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Warner Music has undergone restructuring after",
+   "note": "구조조정 문단은 매각 → 비용 절감·디지털 집중이라는 흐름이 짧게 서서 exploiting 만 바꾸면 됐다."
+  }
+ },
+ {
+  "id": "1aac63d6-9678-40ff-ad7d-da87e59535af",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "fa948fccc0703841dbf1f230030ed85c47185e322c73ddd352ee56d3001c2d91",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "국방장관 메모가 공개 입장과 어긋난다는 논점이 서서 요지·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The memo has raised many eyebrows",
+   "note": "파장 문단은 공개 발언과 메모의 모순을 짚어 서지만 rebuked·assertions 같은 말이 남아 V6 아래로는 안 내려간다."
+  }
+ },
+ {
+  "id": "1aae81ca-970f-4a6f-bfcd-05006f1d4852",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "458ece5314647dc432743d3673ed1f154862432fce7bd8786a238771934c430c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "재선 출마 선언과 양당의 주장, 나이·지지율 논란이 긴 글로 이어져 주장·요약·장문 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "summary",
+    "long_reference"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Iowa-based Democratic presidential campaign strategist Jeff",
+   "note": "전략가 분석 문단은 나이가 가장 큰 공격 지점이라는 예측이 서지만 선거 관용어가 많고 양당 비난 인용은 가공 때 줄인다."
+  }
+ },
+ {
+  "id": "1ab17cb6-d6f8-41cf-870e-dcc87458fac3",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "6dcefbbc971be67234cbd61dcb70994c19eeb8007989286a0ad42a2b1496b76d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "social",
+  "why": "여성 승무원 운행을 계기로 한 철도 관리자 문답에서 여성 노동의 어려움과 해법 답변이 서서 요지·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "main_point",
+    "mood"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Challenges, I would say, are the",
+   "note": "어려움 답변은 두 배의 노력과 늦은 인정, 집안일 부담이라는 근거로 논지가 서고 구어체라 문장만 다듬으면 됐다."
+  }
+ },
+ {
+  "id": "1ab21d0e-1f48-47ed-ab30-f2f1c0aae789",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "9da0645b7df5a24a7368ca9988a5863a6bef2a27539689bb57a4876e6a1e93ea",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "전투 60주년 기념 행사와 유명한 일화의 재현이 짧게 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "A memorable moment in the history",
+   "note": "「Nuts!」 문단은 항복 거부 일화를 땅콩 던지기로 기념한 까닭이 서서 짧지만 흥미롭게 가공됐다."
+  }
+ },
+ {
+  "id": "1ab23d51-b498-4073-991a-85cb66299841",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "73de8149d533fb56b54bc06cf2e6f9d5015f033d28d6ce93fb355d28cb6ce88e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "history",
+  "why": "무장 투쟁 종식 선언과 각계 반응이 앞 절반에서 서서 요약·내용 일치 칸을 고2 이상으로 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Members have been ordered to dump",
+   "note": "무장 해제 명령 문단은 평화적 수단으로 전환한다는 결정이 서지만 뒤에 붙은 성명 전문은 한쪽 주장이라 가공 때 인용 몇 줄로 줄인다."
+  }
+ },
+ {
+  "id": "1ab69a09-a8c3-42b3-901c-52ca588313b8",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "7540ab602d2b55dd950382e023bf60c7f9ffb51c78ef36390483158cd066326f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "hold",
+  "genre": "news",
+  "why": "후보 문답의 답이 대부분 한두 줄 목록이라 주장 칸이 설 만큼 가공되는지 가르기 어렵다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "sample": "By embracing sustainability. The carbon-based economy",
+   "note": "일자리 답변은 두 시나리오를 내세우지만 한 줄짜리 목록이라 떼어 내면 주장-근거가 되기엔 너무 성겼다."
+  },
+  "hold_reason": "processing-unclear"
+ },
+ {
+  "id": "1ab774fa-cc3f-4259-9d5c-eaad5ca61c2e",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "53382e6152f42cd0e698d8be771420ccdad1af6ed42db3fd4748be8ea1df70bc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "폭탄 테러 뒤 대통령의 정상회의 불참과 배후 공방, 대화 제안이 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The violence threatens efforts by opposition",
+   "note": "대화 제안 문단은 선거 전 합의 노력과 야당의 거절이 대비돼 서서 인명을 걷어도 읽혔다."
+  }
+ },
+ {
+  "id": "1ab98390-7da7-4265-8d6c-898964d97fe2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "57ea43b3de619ea327dc72eb0c78f97bcba59359fdf2db87ed01bfbc37e99859",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "잭팟 지급을 거부당한 여성이 기계에 매달려 버틴 일화가 순서대로 이어져 순서·심경 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order",
+    "mood"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "She then held on tightly to",
+   "note": "매달리기 문단은 기자·변호사가 올 때까지 버티고 합의금을 거절한 흐름이 서서 settlement 만 풀면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "1abb2ea0-1a13-4c2c-9581-f9cda885a2fb",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "385f1ebe9c9de7127df39c99fba416dcfd951fc9b3d50bf642c0bb481418b387",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "멸종 위기 물고기 방류와 번식 과정, 종의 특징이 이어져 주제·삽입·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic",
+    "insert"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The spotted handfish is an unusual",
+   "note": "물고기 소개 문단은 손 같은 지느러미로 바닥을 걷는다는 특징과 멸종 위기 사정이 서서 pectoral 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1abd762f-d17d-4fb0-b463-cec71d511fc2",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "38b8dd702618ced80848a5250083c1b928894ae69d79f6940fea157f4a14c188",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "폭탄 음모 용의자 체포와 이전 음모와의 연계, 위협 평가가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Norwegian and United States officials say",
+   "note": "연계 문단은 과산화물 폭탄이라는 공통점으로 앞선 음모들과 이어져 떼어 쓰기 쉬웠다."
+  }
+ },
+ {
+  "id": "1ac41864-f860-455d-a54e-f8287412d997",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "4477cffa29a9c4645cfb523307969d1bc92c36d56127e0ff0575a76b74ccb97e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "국적 기반 검색을 정보 기반으로 바꾸는 항공 보안 정책의 목적과 설명이 이어져 목적·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "purpose"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The move is intended to lower",
+   "note": "목적 문단은 국적 대신 정보에 따라 검색한다는 전환이 서서 짧게 떼어도 요지가 남았다."
+  }
+ },
+ {
+  "id": "1ac7594b-bba6-40ab-b90a-2f8cf086e7c5",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "c8edb0c0de2956275fa2f0b1b099a9ce9175e6842eebbdba4f7e30871c5045d8",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "청력 손실 우려에 따른 음량 제한 소프트웨어와 음량 비교가 이어져 주제·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V4",
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "iPods sold in France already have",
+   "note": "음량 비교 문단은 프랑스 기준 100dB, 기기 120dB, 총성 140dB 비교가 서서 decibels 만 풀면 중등에 맞는다."
+  }
+ },
+ {
+  "id": "1ac94cae-a6d1-42f1-a387-fdae7d8e5d38",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "35e3f92c7c5704461de6ddac5d43040f18bc6d5786c3dc99fa7570b733ce334d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "climate",
+  "why": "허리케인 발생과 진로·약화 예보, 방재 당국의 경계가 이어져 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "mid",
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The storm appears to be headed",
+   "note": "진로 문단은 하와이로 가다 약해질 것이라는 예보가 서서 tropical depression 만 풀면 됐다."
+  }
+ },
+ {
+  "id": "1acb21c8-427b-4ce1-8988-634bb2e8336d",
+  "source_updated_at": "2026-09-25T08:56:36.089626+00:00",
+  "body_sha256": "5e649f4e0f319043505ee067e7e90734b3a8f7557a0f12b49f4275ce6535fff4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "착륙 중 활주로 이탈 사고의 경위와 원인, 사상자가 이어져 고1 이상 내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "According to the National Disaster Response",
+   "note": "활주로 문단은 고원형 활주로라 멈추지 못하면 협곡으로 떨어진다는 원인이 서서 tabletop 을 풀어 쓰면 됐다."
+  }
+ },
+ {
+  "id": "1acfd1ca-83b9-437c-9b62-88360123887b",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "805560f1324c3e7b19a0598f246563641770e07861946eed1bc911af7d7c9a80",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "biography",
+  "why": "전 대선 후보의 별세와 선거·기아 퇴치 활동, 각계 추모가 이어져 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "McGovern's 1972 running mate was originally",
+   "note": "1972년 선거 문단은 러닝메이트 교체 → 대패 → 재출마 포기로 이어져 인명 몇을 걷으면 순서 문항이 된다."
+  }
+ },
+ {
+  "id": "1acfeade-f286-43a9-9356-62feb21bd74c",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "ac862b45e47bc7bedb305090cc3dff6e952f77ae042bbf1275ae6e08b8baccca",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "호텔 개발 계획과 쫓겨날 상인들의 반대, 보존 단체의 전례가 이어져 주장·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim"
+   ],
+   "levels": [
+    "V5"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Nancy Pollina, of Don Apparel at",
+   "note": "상인 문단은 14년 된 가게와 지역 봉사 이력으로 반대 이유가 서지만 뒤쪽 「기생충」 발언 인용은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "1ad7b0e9-20e8-4087-8577-016515541d82",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "43dcb58a1aa45355de20258e4a12701f07fd490fae015cf8bca6b2c7ab30ffd4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "창립자가 정당의 몰락 원인을 진단하고 사퇴를 촉구하는 연설이라 요지·주장 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high1",
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "claim",
+    "main_point"
+   ],
+   "levels": [
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Mr Chipp told patrons at the",
+   "note": "쇠락 원인 문단은 공개 불화와 분열이라는 까닭이 한 문장에 서서 짧게 떼어도 요지가 됐다."
+  }
+ },
+ {
+  "id": "1ad88c1c-8cbb-4a3d-bef2-b326a1f8b3b1",
+  "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+  "body_sha256": "8fba7c9dc4c55d718430018c5145904b1726baa77d1f49810a785f8ef1df74d4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 10,
+  "retention": "keep",
+  "genre": "news",
+  "why": "가수의 사망 원인이 진정제 과다 투여로 밝혀진 경위가 순서대로 서서 고2 이상 순서·내용 일치 칸을 채운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "mock",
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "order"
+   ],
+   "levels": [
+    "V5",
+    "V6"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "On the day of his death,",
+   "note": "사망 당일 문단은 약물 투여 순서가 선명하지만 약물 이름과 과다 투여 소재라 고2 이상으로 둔다."
+  }
+ }
+]

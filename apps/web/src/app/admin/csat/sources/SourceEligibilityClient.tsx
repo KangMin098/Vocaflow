@@ -10,9 +10,12 @@
 
 'use client'
 
+import type { EligibilityDrift } from '@/lib/textbook/eligibility-drift'
 import Link from 'next/link'
 
 import { SourceWorkspace } from './SourceWorkspace'
+import type { SourceLiveResult } from '@/lib/textbook/source-live'
+import type { SourceRounds } from '@/lib/textbook/source-pipeline'
 import type { SourceWorkspaceState } from '@/lib/textbook/source-workspace'
 import type { SourceInventoryPanel } from '@/lib/textbook/source-inventory-view'
 
@@ -61,13 +64,75 @@ function SourceLink({ source, children }: { source: string; children: React.Reac
   )
 }
 
-export function SourceEligibilityClient({ panel, inventory, initialState }: {
+/**
+ * **스냅샷 이후 DB 가 얼마나 움직였나.**
+ *
+ * 이 화면의 수치는 커밋된 스냅샷이다 — 깊은 판정(발췌창·추출 결함)이 들어 있어 요청마다
+ * 다시 못 잰다. 그런데 그것만 그리면 **드레인을 돌려도 화면이 안 움직인다**. 관리자는
+ * 「안 늘었다」를 보고 안 해도 될 일을 또 한다(실측 2026-09-23: 스냅샷 87,716 vs DB 87,720).
+ *
+ * ⚠️ 못 읽었으면 **「못 읽었다」고 적는다** — 「안 움직였다」와 정반대다.
+ */
+function DriftBar({ drift }: { drift: EligibilityDrift }) {
+  if (!drift.available) {
+    return (
+      <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 font-body text-[12px] text-[var(--memory-new)]">
+        지금 값을 못 읽었다 — 스냅샷과의 차이를 모른다(0 이 아니다).
+        {drift.error ? <span className="ml-1">{drift.error}</span> : null}
+      </p>
+    )
+  }
+  const delta = (drift.nowTotal ?? 0) - drift.snapshotTotal
+  const moved = delta !== 0 || drift.grades.length > 0
+  return (
+    <div
+      className="flex flex-col gap-1 rounded-[var(--r-md)] border p-3"
+      style={{
+        borderColor: moved ? 'color-mix(in srgb, var(--memory-shaky) 33.3%, transparent)' : 'var(--bd)',
+        background: moved ? 'color-mix(in srgb, var(--memory-shaky) 5.9%, transparent)' : 'var(--bg2)',
+      }}
+    >
+      <p className="break-keep font-display text-[12.5px] font-[700] text-[var(--t1)]">
+        {moved ? '스냅샷 이후 DB 가 움직였다' : '스냅샷과 지금이 같다'}
+        <span className="ml-2 font-mono text-[12px] font-[400] tabular-nums text-[var(--t2)]">
+          {drift.snapshotTotal.toLocaleString()} → {(drift.nowTotal ?? 0).toLocaleString()}
+          {delta !== 0 ? (
+            <span className="ml-1" style={{ color: delta > 0 ? 'var(--memory-stable)' : 'var(--memory-risk)' }}>
+              ({delta > 0 ? '+' : ''}
+              {delta.toLocaleString()})
+            </span>
+          ) : null}
+        </span>
+      </p>
+      {drift.grades.length ? (
+        <p className="break-keep font-mono text-[11.5px] tabular-nums text-[var(--t2)]">
+          {drift.grades
+            .slice(0, 6)
+            .map((g) => `${g.grade} ${g.delta > 0 ? '+' : ''}${g.delta.toLocaleString()}`)
+            .join(' · ')}
+        </p>
+      ) : null}
+      <p className="break-keep font-body text-[11px] leading-snug text-[var(--t3)]">
+        위 표는 <strong>스냅샷</strong>이다(본문을 읽어야 나오는 판정이 들어 있다). 이 줄은{' '}
+        <strong>지금 DB</strong>다. 둘이 갈라져 있으면 스냅샷을 다시 구울 때가 됐다 —{' '}
+        <code className="font-mono text-[10.5px]">source-eligibility-scan.mjs</code>.
+      </p>
+    </div>
+  )
+}
+
+export function SourceEligibilityClient({ panel, inventory, initialState, drift, live, rounds, nextRound }: {
   panel: SourceEligibilityPanel
   inventory: SourceInventoryPanel
   initialState?: SourceWorkspaceState
+  drift: EligibilityDrift
+  live?: SourceLiveResult
+  rounds?: Record<string, SourceRounds>
+  nextRound?: number
 }) {
-  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState}
+  return <SourceWorkspace panel={panel} inventory={inventory} initialState={initialState} live={live} rounds={rounds} nextRound={nextRound}
     eligibility={<>
+      <DriftBar drift={drift} />
       <GradeTable grades={panel.grades} total={panel.total.total} />
       <AxisTable axes={panel.axes} />
       <p className="text-[12px] text-[var(--t2)]">지금 조판이 받으면 안 되는 편수: {(panel.total.total - panel.total.composable).toLocaleString()}편</p>
@@ -294,7 +359,7 @@ function RequirementTable({ panel }: { panel: SourceEligibilityPanel }) {
           </thead>
           <tbody>
             {typeRows(panel).map((row) => (
-              <tr key={row.type} className="border-b border-[var(--bd)]/50">
+              <tr key={row.type} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)]">
                 <th
                   scope="row"
                   className="sticky left-0 bg-[var(--bg)] py-1.5 pr-3 text-left font-[600] text-[var(--t1)]"
@@ -604,7 +669,7 @@ function TypeInventoryTable({ inv }: { inv: TypeInventoryPanel }) {
             {inv.bands.map((b) => {
               const t0 = b.types.find((t) => t.type === b.bindingType)
               return (
-                <tr key={b.vLevel} className="border-b border-[var(--bd)]/50">
+                <tr key={b.vLevel} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)]">
                   <td className="py-2 pr-3 font-[700] tabular-nums text-[var(--t1)]">V{b.vLevel}</td>
                   <td
                     className="py-2 pr-3 text-right font-[700] tabular-nums"
@@ -689,7 +754,7 @@ function FillPlanTable({ plan }: { plan: FillPlanPanel }) {
               const drainTop = b.types.filter((t) => t.drain).slice(0, 3)
               const deterministic = b.types.filter((t) => !t.drain)
               return (
-                <tr key={b.vLevel} className="border-b border-[var(--bd)]/50">
+                <tr key={b.vLevel} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)]">
                   <td className="py-2 pr-3 font-[700] tabular-nums text-[var(--t1)]">V{b.vLevel}</td>
                   <td className="py-2 pr-3 text-right tabular-nums text-[var(--t2)]">{b.volumes}권</td>
                   <td className="py-2 pr-3 text-right font-[700] tabular-nums text-[var(--t1)]">
@@ -798,7 +863,7 @@ function SourceYieldTable({ yieldPanel }: { yieldPanel: SourceYieldPanel }) {
                 .filter(([k]) => k !== 'ok')
                 .sort((a, b) => b[1] - a[1])[0]
               return (
-                <tr key={`${r.source}-${r.vLevel}`} className="border-b border-[var(--bd)]/50">
+                <tr key={`${r.source}-${r.vLevel}`} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)]">
                   <td className="pr-3 font-mono text-[12px]">
                     <SourceLink source={r.source}>{r.source}</SourceLink>
                   </td>
@@ -884,7 +949,7 @@ function DrainAuditTable({ audit }: { audit: DrainAuditPanel }) {
               {audit.reasons.map((r) => {
                 const rationale = /근거/.test(r.reason)
                 return (
-                  <tr key={r.reason} className="border-b border-[var(--bd)]/50">
+                  <tr key={r.reason} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)]">
                     <td className="py-2 pr-3 text-right font-[700] tabular-nums text-[var(--t1)]">
                       {r.count.toLocaleString()}
                     </td>
@@ -945,7 +1010,7 @@ function DefectTable({ defects }: { defects: DefectPanel }) {
           </thead>
           <tbody>
             {defects.rules.map((r) => (
-              <tr key={r.id} className="border-[var(--bd)]/50 border-b align-top">
+              <tr key={r.id} className="border-[color-mix(in_srgb,var(--bd)_50%,transparent)] border-b align-top">
                 <td className="py-2 pr-3 font-[600] text-[var(--t1)]">{r.label}</td>
                 <td className="py-2 pr-3 text-right tabular-nums text-[var(--t1)]">
                   {r.count.toLocaleString()}

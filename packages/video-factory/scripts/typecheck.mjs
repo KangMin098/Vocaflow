@@ -6,14 +6,16 @@
 // 원료를 픽스처로 채워 넣지 않는 이유: render/ensure.ts 가 「원료가 없으면 만들지 않는다」로 막아 둔 가드를 우회하게 된다.
 
 import { spawnSync } from 'node:child_process'
-import { existsSync } from 'node:fs'
+import { existsSync, writeFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const HERE = join(dirname(fileURLToPath(import.meta.url)), '..')
-const has = ['work/source-bundle.json', 'work/voice/index.json'].every((f) => existsSync(join(HERE, f)))
-if (!has) console.warn('[video-factory] 원료 없음 — src/remotion/Root.tsx · index.ts 는 타입 검사에서 건너뜀(pnpm --filter web video:source 로 원료를 뽑으면 전부 검사).')
+const has = ['work/source-bundle.json', 'work/voice/index.json', 'work/retired.json'].every((f) => existsSync(join(HERE, f)))
+// 요청 편 파일은 선택이다 — 원료가 있는데 이것만 없으면 빈 배열로 만들어 Root 를 검사한다(render/ensure.ts 와 같은 처리).
+if (has && !existsSync(join(HERE, 'work/request-specs.json'))) writeFileSync(join(HERE, 'work/request-specs.json'), '[]\n', 'utf8')
+if (!has) console.warn('[video-factory] 원료 없음(source-bundle · voice/index · retired.json) — src/remotion/Root.tsx · index.ts 는 타입 검사에서 건너뜀(pnpm --filter web video:source 로 원료를 뽑으면 전부 검사).')
 const tsc = createRequire(join(HERE, 'package.json')).resolve('typescript/bin/tsc')
 const r = spawnSync(process.execPath, [tsc, '--noEmit', '-p', has ? 'tsconfig.json' : 'tsconfig.no-bundle.json'], { cwd: HERE, stdio: 'inherit' })
 process.exit(r.status ?? 1)

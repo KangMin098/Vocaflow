@@ -1,0 +1,838 @@
+[
+ {
+  "id": "4cdc6f0b-6752-48a9-9c1d-6b83b5d1be2d",
+  "source_updated_at": "2026-09-25T07:27:26.110164+00:00",
+  "body_sha256": "f42dfa0e0252a83280cd4cf2fa3983cf732f99ea32dc78d64ff191e657dfa68c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "해충 방제라는 문제 제기에서 신경펩타이드 표적 가능성까지 서론-고찰이 한 편의 논지로 이어진다 — 고찰 도입부가 발췌 가능.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Neuropeptides and peptide hormones are essential",
+   "note": "펩타이드 약어(Ast-A·AKH)를 「호르몬 물질」로 바꾸면 서고, 발현 수치는 걷어도 논지가 남는다."
+  }
+ },
+ {
+  "id": "4ce67c67-6711-45ac-af6b-7ee76fba2205",
+  "source_updated_at": "2026-09-25T07:27:28.543159+00:00",
+  "body_sha256": "bca5e18c2b97b4f491bdea17f46a8472bb451caf11b315d9bb663c698cb94e49",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "류마티스 관절염과 궤양성 대장염이 공통 면역 기전을 공유한다는 주장을 근거 둘 이상으로 세운다 — 고찰 첫 단락이 자족적이다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Although UC and RA are two",
+   "note": "유전자 이름 나열은 걷어내야 하지만 두 질환의 연관이라는 논지는 그대로 선다."
+  }
+ },
+ {
+  "id": "4ce79e0d-135f-4f93-9395-3ecbe0547acd",
+  "source_updated_at": "2026-09-13T06:44:13.575706+00:00",
+  "body_sha256": "777ab9346741ad6c9a25e55ff2e5a8fdc0e3f11c80bb1314da746d1b27e5a9c1",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "자기조절이라는 일반 원리를 세운 뒤 통읽기 전사라는 예외 기전으로 뒤집는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "summary",
+    "insert"
+   ],
+   "levels": [
+    "V8",
+    "V9"
+   ],
+   "platform": [
+    "myth-rebuttal"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Bacteria have complex gene regulatory",
+   "note": "유전자 기호(vtrB·VPA1349)가 문장마다 박혀 있어 어휘 교체만으로는 밴드가 잘 안 내려간다."
+  }
+ },
+ {
+  "id": "4ceddcac-a703-4b91-87eb-1b14412fb42d",
+  "source_updated_at": "2026-09-25T07:27:29.057639+00:00",
+  "body_sha256": "bb7626214e77526bb2b55322b7d44dbf34f4cb013f7ffc493e08db6f1de219fc",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "수컷과 암컷 생식세포 진화 속도가 비대칭이라는 결론을 세포 유형별 근거로 받치고 고찰에서 다시 정리한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Overall, our findings reveal a striking",
+   "note": "통계 기호를 걷고 세포 이름을 「정소 세포」식으로 풀면 고찰 마지막 단락이 그대로 지문이 된다."
+  }
+ },
+ {
+  "id": "4cfd65ef-487a-425a-98f5-ede7f507c9a8",
+  "source_updated_at": "2026-09-13T07:14:35.911977+00:00",
+  "body_sha256": "a852e005ca91dd7aa5820dbe7b885baab7985ecfb32ac0a709db868eaaa202d2",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "돼지 척수 촬영 기법의 필요와 자세 선택의 이점을 고찰이 이유를 들어 설명한다 — 결과부는 수치표라 발췌 대상이 아니다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "content_match",
+    "topic"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": []
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The CT-guided myelography technique described here",
+   "note": "해부 용어를 풀어쓰면 고찰 단락은 서지만, 결과의 측정치 나열은 가공 때 통째로 걷어야 한다."
+  }
+ },
+ {
+  "id": "4cfd6c73-c0a5-4d8e-9646-3d7a0446aa5f",
+  "source_updated_at": "2026-09-13T07:14:40.455345+00:00",
+  "body_sha256": "ae9d8eb5e06ef0afca55369809eca637ca4cb3263d253ec3bd8cc6074a3dd894",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "환경 화학물질이 발달기 호르몬 반응을 앞당길 수 있다는 논지가 실험 설계와 함께 한 편으로 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "content_match"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The poor biological outcomes that arise",
+   "note": "수용체 약어를 「갑상샘 호르몬 수용체」로 풀면 고찰 도입부가 그대로 읽힌다."
+  }
+ },
+ {
+  "id": "4d040e2f-9452-41d9-b9e5-4e11afc1e0bc",
+  "source_updated_at": "2026-09-13T07:40:31.592767+00:00",
+  "body_sha256": "d5364d3137b725df8b325aa8cbc56447f664313c94862ff4bdb14adfaeb56f62",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "파킨슨병 유전자가 수용체 운반을 방해한다는 주장을 세포·동물 두 계통의 근거로 받친다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "The catecholaminergic neurotransmitter dopamine acts by",
+   "note": "본문에 그림 설명이 섞여 있어 가공 때 골라내야 하고, 약어 밀도가 높아 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "4d521d77-1e3a-4046-a7ae-383230794a04",
+  "source_updated_at": "2026-09-25T07:27:36.412635+00:00",
+  "body_sha256": "c4408e805733a05991da7bb664988c40761633bfefd95cb2181a461e8b607956",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "기계학습이 기존 통계가 놓치는 유전자를 잡아낸다는 방법론 주장이 고찰에서 사례와 함께 선다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The high-dimensional nature of omics data",
+   "note": "서론의 특성 선택 설명 단락은 유전자 이름 없이도 서서 어휘 교체가 쉽다."
+  }
+ },
+ {
+  "id": "5759206b-ea7d-43b5-9a5a-f48117cf6608",
+  "source_updated_at": "2026-09-25T06:58:27.515337+00:00",
+  "body_sha256": "7b22d0ccfc6d69bec8b1f7a84bd94d08807e86bb69009b9f39675347b2a831da",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "대유행이 다른 코로나바이러스의 진화 속도를 바꿨다는 가설을 계통·구조 근거로 전개한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "blank",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "then-now"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "SARS-CoV-2 and HCoV-OC43 are similar",
+   "note": "유전형 기호를 걷고 「계절성 코로나바이러스」로 부르면 고찰 중반이 완결된 글이 된다."
+  }
+ },
+ {
+  "id": "575fc50d-2849-41e8-bb0e-4315101f0609",
+  "source_updated_at": "2026-09-15T15:04:10.151359+00:00",
+  "body_sha256": "881cc17031c9aacd21b05a79d63f419281901b46c28d7589ee12911c33bfbb39",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "망막모세포종 항암제 내성의 기전을 전사인자-효소 축으로 설명하며 치료 표적을 제안한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7",
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The diagnosis and treatment of cancer",
+   "note": "고찰 첫 단락은 유전자 기호 두어 개만 풀면 서고, 방법 절은 가공 때 통째로 걷는다."
+  }
+ },
+ {
+  "id": "57636c81-51c7-4b14-9c67-779c45861f80",
+  "source_updated_at": "2026-09-13T07:42:05.973337+00:00",
+  "body_sha256": "64c8c7fe54abefc29158fcedd00a798e13524e259e3dbe38bafe279466e73bd4",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "혈관 부위마다 같은 단백질 발현이 다르다는 관찰을 두뇌 미세혈관 예외로 뒷받침한다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "In this study we showed for",
+   "note": "수용체 약어와 실험 조건이 문장에 붙어 있어 어휘 교체만으로 밴드를 내리기 어렵다."
+  }
+ },
+ {
+  "id": "5763e530-b221-4480-b747-bcf01c31e57c",
+  "source_updated_at": "2026-09-25T06:58:31.708284+00:00",
+  "body_sha256": "9177b01a8730118e50da3667719b0c385d5e9f9d6e6ed6a181e0e215d823277c",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "technology",
+  "why": "호흡 보조 기록이 기관마다 달라 비교가 안 된다는 문제 제기와 해법 제안이 한 편으로 이어진다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "purpose"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Despite their clinical effectiveness, NIRS modalities",
+   "note": "배경 절은 기기 약어를 풀면 서지만, 클래스·공리 개수 나열은 가공 때 걷는다."
+  }
+ },
+ {
+  "id": "5774fc7f-5b0f-4c40-a345-473fba95675a",
+  "source_updated_at": "2026-09-25T06:58:34.415793+00:00",
+  "body_sha256": "9f104aabb2760c62948fbdf25d407fcffd3e8194a734d2ffe6fdd2810e0a3664",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "social",
+  "why": "재난용 취약성 지표를 총기 폭력 연구에 쓰는 것이 개념적 표류라는 비판을 자료와 논증으로 세운다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "blank",
+    "insert"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence",
+    "data-claim"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Yet, the SVI is none of",
+   "note": "고유명사와 회귀 수치를 걷어도 「도구를 목적 밖에 쓰면 안 된다」는 논지가 온전히 남는다."
+  }
+ },
+ {
+  "id": "5777b169-9025-4129-9907-17565d9f554e",
+  "source_updated_at": "2026-09-25T06:58:36.983787+00:00",
+  "body_sha256": "b229d2a779f584a0db6b005235105c3593d56c2dcb3dc666f3e33909b3df6a20",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "nature",
+  "why": "어린 물고기의 무늬 변화가 주변 성체 유무에 따라 달라진다는 관찰을 실험과 행동 시험으로 받친다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Understanding the origins of biodiversity is",
+   "note": "세포 이름을 「색소 세포」로 묶으면 서론과 고찰 도입이 모두 지문 길이로 정리된다."
+  }
+ },
+ {
+  "id": "577eeffd-d1b1-4963-bf12-571383f22ed5",
+  "source_updated_at": "2026-09-13T07:46:16.67423+00:00",
+  "body_sha256": "322270f6795bfc710ecf7c1384d0644b0b40960115f310440d1c3147aa495a82",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "인공와우 자석을 빼면 MRI 영상 왜곡이 줄어든다는 결론과 그 임상적 판단 기준을 함께 제시한다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "The MR images after magnet removal",
+   "note": "촬영 변수(TR·TE) 나열은 걷고 고찰만 남기면 한 편의 설명문이 된다."
+  }
+ },
+ {
+  "id": "5788168e-6a4c-4f49-b824-b45e0e5fb645",
+  "source_updated_at": "2026-09-25T06:58:41.806483+00:00",
+  "body_sha256": "d3968a85cc0896e015dfe3ed5a0249398b8e47fff191c91798a2bf5c3f8c9753",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "결핵 방어력이 반응의 크기가 아니라 시점과 조율에 달렸다는 논지를 시간대별 비교로 세운다.",
+  "slots": {
+   "ages": [
+    "adult"
+   ],
+   "purposes": [
+    "reading",
+    "csat"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary"
+   ],
+   "levels": [
+    "V8"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": false,
+   "sample": "Developing a more efficacious TB vaccine",
+   "note": "서론은 쉬운데 결과부의 세포·유전자 기호가 촘촘해 전체 밴드를 내리기는 어렵다."
+  }
+ },
+ {
+  "id": "579c55f2-f337-4656-9d61-ca0d4d39905c",
+  "source_updated_at": "2026-09-25T06:58:45.544302+00:00",
+  "body_sha256": "cdecf3fe0ee7d3a348e09694243b9a5154be45554b88f1b6fd5f0d4a9202fe91",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "발자국 화석 유적지의 규모와 보존 조건을 설명하고 무리 행동 해석의 한계까지 논증한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Because dinosaurs cannot be observed in",
+   "note": "「무리 행동과 사회 행동은 다르다」는 고찰 단락이 그대로 서고, 중간의 측정 목록은 가공 때 통째로 걷는다."
+  }
+ },
+ {
+  "id": "57b1d75b-787b-4e0c-8469-b072dd994bed",
+  "source_updated_at": "2026-09-15T15:04:18.240515+00:00",
+  "body_sha256": "f5dfb34c5fe6ec8338323fb27999d61bb654f5a38bf0d8b74ef59aa246043e3e",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "혈당이 정상인 사람에게도 두 갈래의 인슐린 저항성 유형이 있다는 주장을 지표별 근거로 받친다.",
+  "slots": {
+   "ages": [
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "summary",
+    "content_match"
+   ],
+   "levels": [
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Insulin resistance is a key risk",
+   "note": "회귀계수를 걷고 지표 이름을 「염증 표지」식으로 묶으면 서론이 완결된 글이 된다."
+  }
+ },
+ {
+  "id": "57cf0039-2fff-4b10-b901-efd22a65cc7b",
+  "source_updated_at": "2026-09-13T06:45:16.963159+00:00",
+  "body_sha256": "a704260705863efa242cc843c6ac2e4c4de60126bbd8cd43d30851c803991e8d",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "health",
+  "why": "구강 점막이 바이러스 침입 경로라는 통념을 자기 데이터로 반박하는 구조가 뚜렷하다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "claim",
+    "summary",
+    "blank"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "myth-rebuttal",
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "Collectively, it seems that the reported",
+   "note": "항체 번호를 걷어도 「보고된 양성 결과가 생물학적으로 말이 되지 않는다」는 반박이 남는다."
+  }
+ },
+ {
+  "id": "57d11be3-d581-4a74-b45c-e9c0d5589b38",
+  "source_updated_at": "2026-09-13T07:21:23.869821+00:00",
+  "body_sha256": "8655cbabe4f31d71b9d873cbc4332eea1096571ffb0278b041b4a7d28d70a20f",
+  "kind": "retain",
+  "basis": "full",
+  "criteria_version": 5,
+  "round": 4,
+  "retention": "keep",
+  "genre": "science",
+  "why": "중성화한 새끼 고양이의 체중 증가를 영양소 보충으로 늦출 수 있다는 결과와 그 한계를 함께 논한다.",
+  "slots": {
+   "ages": [
+    "high2",
+    "high3",
+    "adult"
+   ],
+   "purposes": [
+    "csat",
+    "mock",
+    "reading"
+   ],
+   "types": [
+    "topic",
+    "main_point",
+    "content_match",
+    "summary"
+   ],
+   "levels": [
+    "V6",
+    "V7"
+   ],
+   "platform": [
+    "claim-evidence"
+   ]
+  },
+  "processing": {
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "sample": "It is generally accepted that choline",
+   "note": "사료 성분표는 걷고 고찰만 남기면 밴드가 한 단계 내려간다."
+  }
+ }
+]

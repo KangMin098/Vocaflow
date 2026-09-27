@@ -1,0 +1,118 @@
+{
+  "criteria": "docs/csat-learner/design-annotation-criteria.md",
+  "criteria_version": "v1",
+  "type": "R-BLANK",
+  "judge": "A",
+  "items": [
+    {
+      "id": "M2706#31",
+      "roles": ["background", "support", "topic", "support", "turn", "support", "example"],
+      "alternatives": [{ "index": 1, "role": "background" }, { "index": 4, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "보전주의와 보존주의를 대비하는 글인데 빈칸 문장만으로는 다섯 선지가 다 들어가므로, 첫머리의 공통 정의(목적을 위해 상태를 유지함)로 되돌아가야 풀리는 지문이라 골랐다.",
+      "transform": "inference",
+      "transform_note": "관조·연구·전시·사용이라는 목적을 위해 상태를 지킨다는 정의에서, 그 상태가 일부러 고른 상태라는 성질을 추론해 ‘바라는’ 한 낱말로 복원했다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#34",
+      "roles": ["topic", "support", "support", "support", "example", "support", "example", "example"],
+      "alternatives": [{ "index": 3, "role": "topic" }, { "index": 5, "role": "conclusion" }],
+      "pattern": "general_specific",
+      "selection": "일상 규모와 큰 규모를 같은 문장 틀로 병렬시킨 글이라, 병렬을 알아보면 앞 문장의 공간 개념이 빈칸 답이 되고 못 보면 뒤 예시의 사회·정치 낱말로 끌려가게 된다.",
+      "transform": "paraphrase",
+      "transform_note": "앞 문장의 ‘공간적 배열·상황’이라는 명사 표현이 선지에서 ‘현상이 지표 위에 어떻게 배치되는가’라는 절로 풀려 같은 수준에서 재진술되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#33",
+      "roles": ["topic", "example", "support", "support", "support", "turn", "support", "conclusion", "support"],
+      "alternatives": [{ "index": 7, "role": "support" }],
+      "pattern": "contrast",
+      "selection": "좁혀 집중하기의 이득과 손해를 ‘짧게 vs 오래’라는 시간 축으로 가르는 글이라, 빈칸 앞의 짧은 순간 표지와 뒤의 재진술을 연결해야 하는 빈칸 유형에 맞다.",
+      "transform": "paraphrase",
+      "transform_note": "빈칸 두 문장 뒤의 ‘너무 오래 좁혀진 채 갇힘’이 선지에서 ‘너무 오래 확대된 채 머묾’으로 낱말만 바꿔 재진술되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2606#32",
+      "roles": ["topic", "example", "support", "support", "example", "support", "example"],
+      "alternatives": [{ "index": 3, "role": "topic" }],
+      "pattern": "general_specific",
+      "selection": "‘외모를 묘사받지 않았는데 받았다고 느끼는’ 착시 하나를 여러 작가 사례로 반복하는 글이라, 마지막 사례의 느낌 쪽을 채우게 하면 사실과 느낌을 구분하는지 잴 수 있다.",
+      "transform": "perspective",
+      "transform_note": "작가가 외모의 효과만 알려준다는 필자 쪽 설명이, 선지에서 독자가 ‘외모를 정확히 들었다’고 느끼는 독자 쪽 착각으로 바뀌었다.",
+      "cues": [],
+      "data_defect": "빈칸 표시가 1번 문장의 인명(Hermann 과 Broch 사이)에 잘못 붙고, 실제 빈칸 자리인 6번 문장 끝은 빈칸 없이 ‘as if you .’로 끊겨 있다."
+    },
+    {
+      "id": "M2606#31",
+      "roles": ["background", "turn", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "‘가르침’이란 말을 동물에 쓰지 말자는 통념을 제시한 뒤 개미·범고래 사례로 반박하는 글이라, 첫 문장의 빈칸을 마지막 문장의 ‘이유가 있다’까지 끌고 가야 풀린다.",
+      "transform": "abstraction",
+      "transform_note": "범고래가 에너지를 들여 반복하는 데에는 이유가 있어야 한다는 구체 진술이 선지에서 ‘의도성’이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2509#31",
+      "roles": ["background", "topic", "support", "example", "example", "support", "support", "background", "conclusion"],
+      "alternatives": [{ "index": 7, "role": "example" }, { "index": 0, "role": "topic" }],
+      "pattern": "myth_rebuttal",
+      "selection": "나방이 빛에 끌린다는 통념을 뒤집는 문장에 빈칸을 두고 뒤에 ‘벗어나려 한다’는 낱말을 여러 번 심어, 시도와 결과를 구분하는지 가를 수 있는 지문이다.",
+      "transform": "compression",
+      "transform_note": "감각 과부하로 방향을 잃고 빛 주위를 헛되이 맴돈다는 여러 문장의 결과가 선지에서 ‘갇힌’ 한 낱말로 압축되었다.",
+      "cues": [],
+      "data_defect": "7·8번 문장(현관등 주위를 도는 나방 관찰)이 도입부처럼 읽혀 원래 지문 순서가 뒤섞였을 가능성이 있다."
+    },
+    {
+      "id": "M2506#34",
+      "roles": ["background", "support", "support", "concession", "example", "concession", "topic"],
+      "alternatives": [{ "index": 3, "role": "turn" }, { "index": 6, "role": "conclusion" }],
+      "pattern": "myth_rebuttal",
+      "selection": "지각이 청자마다 다르다는 분량 많은 진술을 양보로 깔고 마지막 But 뒤에 필자 결론을 두어, 양보-반전 표지를 읽는지를 빈칸으로 잴 수 있는 글이다.",
+      "transform": "paraphrase",
+      "transform_note": "기본 지각은 청자 사이에 비교적 일관된다는 앞 진술이 선지에서 ‘공통점이 차이보다 훨씬 크다’는 비교 진술로 재진술되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#34",
+      "roles": ["background", "support", "support", "topic", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "topic" }, { "index": 6, "role": "turn" }],
+      "pattern": "contrast",
+      "selection": "감각 지각과 이성 인식의 대립을 원근법 사례로 실행한 뒤 역접 연결어로 겉모습만 되살리는 글이라, 부분 복원을 전면 복원으로 오독하는지를 빈칸으로 가를 수 있다.",
+      "transform": "negation_flip",
+      "transform_note": "‘오직 이성만이 참된 인식을 가리킨다’는 긍정 진술이 선지에서 ‘지각이 아니라 이성적 표상에’라는 부정-긍정 대비 구조로 바뀌었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#33",
+      "roles": ["topic", "support", "support", "support", "turn", "support", "support", "conclusion"],
+      "alternatives": [{ "index": 0, "role": "background" }, { "index": 6, "role": "topic" }],
+      "pattern": "contrast",
+      "selection": "과학자의 관찰자 독립적 현실과 예술가의 관찰자 의존적 현실을 대비시키고 마지막 문장이 앞 문장을 재진술하므로, 재진술 관계를 잡는지를 빈칸으로 잴 수 있다.",
+      "transform": "paraphrase",
+      "transform_note": "‘관찰자에 의존하는 현실’이라는 앞 문장의 규정이 선지에서 ‘사람이 참여해야 존재한다’는 행위 표현으로 풀려 재진술되었다.",
+      "cues": [],
+      "data_defect": null
+    },
+    {
+      "id": "M2406#31",
+      "roles": ["background", "concession", "topic", "example", "support", "support", "example", "example", "conclusion"],
+      "alternatives": [{ "index": 1, "role": "background" }, { "index": 2, "role": "turn" }],
+      "pattern": "general_specific",
+      "selection": "끼니·실용에서 생활양식·선택으로 소비의 축이 옮겨 간다는 일반 진술을 음식 예시로 풀어 쓴 글이라, 빈칸 근처 예시가 아니라 대비 축을 잡아야 풀린다.",
+      "transform": "abstraction",
+      "transform_note": "이국 요리의 경험·상징, 윤리적 소비 같은 구체 사례와 생활양식 대비가 선지에서 ‘비물질적’이라는 상위 개념으로 올라갔다.",
+      "cues": [],
+      "data_defect": "5번 문장에 빈칸 표시가 두 개(component 뒤와 its 뒤) 있다 — 앞의 것은 잘못 붙은 표시다."
+    }
+  ]
+}

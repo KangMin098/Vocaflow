@@ -1,0 +1,1302 @@
+{
+  "contract": "pilot/v1",
+  "measured_at": "2026-09-24",
+  "scope": "읽기 전용 파일럿 · DB 쓰기 없음 · 표본 20권(ANU Press 10 + punctum books 10)",
+  "evidence_tags": "[측정: …] 재현 가능한 계수 · [문헌: URL] 1차 공개자료 · [추론] 판정에 쓰지 않음",
+  "sources": [
+    {
+      "publisher": "ANU Press",
+      "home": "https://press.anu.edu.au/",
+      "catalogue_size_claimed_in_brief": 936,
+      "catalogue_size_measured": {
+        "crossref_book_level_dois_prefix_10_22459": 819,
+        "breakdown": {
+          "Monograph": 379,
+          "Edited Book": 266,
+          "Book": 174
+        },
+        "note": "[측정: api.crossref.org prefixes/10.22459 · type facet] 같은 prefix 의 Chapter 7,053 · Journal Article 2,634 는 뺐다. 저널·챕터를 빼면 도서급 DOI 는 819 이며, DOI 가 없는 구간(초기 ANU E Press)은 여기서 안 세진다 — 936 과의 차이는 그 쪽이다."
+      },
+      "metadata_apis": {
+        "crossref": "license facet value-count = 0 [측정] — ANU 는 Crossref 에 라이선스를 넣지 않는다",
+        "doab": "publisher=ANU Press 로 175건 [측정] · 편당 라이선스 필드 없음(dc.rights = \"open access\" 뿐)",
+        "oapen": "publisher=ANU Press 로 175건 [측정] · dc.rights.uri 가 있는 것은 12건뿐(by-nc-nd/4.0 8 · CC 안내페이지 링크 4)"
+      }
+    },
+    {
+      "publisher": "punctum books",
+      "home": "https://punctumbooks.com/",
+      "catalogue_size_claimed_in_brief": 452,
+      "catalogue_size_measured": {
+        "thoth_all_work_records": 2612,
+        "thoth_book_level": 557,
+        "breakdown": {
+          "MONOGRAPH": 414,
+          "EDITED_BOOK": 134,
+          "BOOK_SET": 9,
+          "(BOOK_CHAPTER 2,037 제외)": 0
+        },
+        "active_only": 472,
+        "note": "[측정: api.thoth.pub GraphQL · publisherId 9c41b13c-cecc-4f6a-a151-be4682915ef5] Thoth 는 punctum 자신이 운용하는 메타데이터 원장이다."
+      },
+      "metadata_apis": {
+        "thoth": "GraphQL · 편당 license URL 필드가 채워져 있다(557 중 556)"
+      }
+    }
+  ],
+  "access": {
+    "press.anu.edu.au": {
+      "http": 200,
+      "robots": "User-agent:* · Crawl-delay: 10 · /publications/ 는 허용 [문헌: https://press.anu.edu.au/robots.txt]",
+      "fetched": "책 소개 10면 (요청 간 10초)"
+    },
+    "press-files.anu.edu.au": {
+      "http": 200,
+      "note": "장별 PDF 직링크 · 표본 19파일(prelims+본문장) 다운로드, 요청 간 2.5초. an05 의 prelims64.pdf 는 404 (출판사 쪽 죽은 링크) → book.pdf 로 대체"
+    },
+    "punctumbooks.com / books.punctumbooks.com": {
+      "http": 200,
+      "robots": "User-agent:* · Disallow: (없음) · Crawl-delay 없음 [문헌: https://punctumbooks.com/robots.txt]",
+      "fetched": "출판사 정본 PDF 10권(요청 간 3초)"
+    },
+    "api.thoth.pub/graphql": {
+      "http": 200,
+      "note": "POST 만 허용(GET 405) · 인증 불필요 · 페이지당 100건"
+    },
+    "directory.doabooks.org, library.oapen.org": {
+      "http": 200,
+      "note": "DSpace 5 /rest/filtered-items 로 publisher=equals 질의 가능"
+    },
+    "api.crossref.org": {
+      "http": 200,
+      "note": "prefix + type + published facet"
+    }
+  },
+  "sampling": {
+    "target": "출판사당 10권 · 합계 20권",
+    "anu": {
+      "frame": "press.anu.edu.au sitemap.xml 2,163 URL 중 /publications/series/ 481건 [측정]",
+      "strata": "시리즈(= 주제) × 연도. 전기 2 · 역사 1 · 고고학 1 · 공공정책 1 · 태평양 사회과학 1 · 중국 시사 1 · 생태 1 · 이슬람 지역연구 1 · 인류학 1",
+      "years": [
+        2007,
+        2008,
+        2009,
+        2014,
+        2016,
+        2017,
+        2019,
+        2021,
+        2021,
+        2024
+      ],
+      "pre2018_vs_2018plus": "6 : 4 (라이선스 분기점을 일부러 걸쳤다)",
+      "unit_read": "책마다 판권면(prelims) PDF 1개 + 본문 장 PDF 1개",
+      "substitution": "science/saving-world 는 2027년 예정본이라 PDF 가 없어 field-studies-ecology/…kosciuszko… 로 교체"
+    },
+    "punctum": {
+      "frame": "Thoth ACTIVE 도서급 472권 [측정]",
+      "strata": "1차 THEMA 최상위 문자 × 연도 내 균등 위치 추출. D 문학 3 · A 예술 2 · J 사회 2 · Q 철학 1 · F 픽션 1 · N 역사 1",
+      "years": [
+        2013,
+        2014,
+        2016,
+        2017,
+        2018,
+        2020,
+        2021,
+        2022,
+        2023,
+        2023
+      ],
+      "unit_read": "출판사 정본 PDF 전권(books.punctumbooks.com)"
+    }
+  },
+  "g0": {
+    "rule": "criteria.md G0 — 라이선스는 탈락이 아니라 경로 배정. 컬렉션 라벨을 믿지 않고 책마다 확인.",
+    "anu": {
+      "publisher_policy": {
+        "text": "\"Prior to 2018, all ANU Press books were published under an all rights reserved licence. From January 2018, the majority of ANU Press books were published under a Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) licence. Please check the copyright information page for each title.\"",
+        "source": "[문헌: https://press.anu.edu.au/faqs/conditions-use]",
+        "also": "\"Non-commercial use — The texts and images may not be used for any commercial purpose without permission\" · \"Derivative Works — You may not alter, transform or build upon this work.\""
+      },
+      "distribution_measured": {
+        "basis": "[측정] 표본 10권은 책의 판권면을 직접 읽었다. 전량 분포는 Crossref 의 도서급 DOI 819건을 연도로 갈라 정책 문장에 댔다.",
+        "sample_10": {
+          "CC BY-NC-ND 4.0": 4,
+          "All rights reserved": 6,
+          "CC BY": 0,
+          "CC BY-SA": 0,
+          "CC BY-NC": 0,
+          "CC0": 0,
+          "PD": 0
+        },
+        "sample_rule_fit": "2018년 이전 6권 전부 ARR · 2019~2024년 4권 전부 CC BY-NC-ND 4.0 — 정책 문장과 10/10 일치",
+        "catalogue_by_year_crossref": {
+          "pre_2018": 519,
+          "2018_onward": 300,
+          "total_book_level_dois": 819
+        },
+        "catalogue_estimate": "CC BY-NC-ND 4.0 ≤ 300권(2018년 이후 발행분 중 \"대다수\") · ARR ≥ 519권 · **CC BY 0권**"
+      },
+      "aggregator_label_conflict": "DOAB 의 ANU Press publisher-level oalicense 문구는 \"Commercial redistribution is strictly prohibited … ANU Press retains exclusive worldwide rights for electronic distribution\" 로 CC 를 아예 언급하지 않는다 [측정: DOAB publisher.oalicense]. 책의 판권면(CC BY-NC-ND 4.0)과 어긋난다 — **컬렉션 라벨로 판정하면 틀린다.**",
+      "route": "10/10 → R4 (ND 이거나 ARR). ND 는 개작 명시 금지, ARR 은 표현·개작 모두 불가.",
+      "dropouts_g0_4": 0
+    },
+    "punctum": {
+      "distribution_measured": {
+        "basis": "[측정: Thoth GraphQL 전수 · 도서급 557건] + 표본 10권은 PDF 판권면을 직접 읽어 대조",
+        "all_book_level_557": {
+          "CC BY-NC-SA 4.0": 441,
+          "CC BY-NC-SA 3.0": 93,
+          "CC BY-NC-ND 3.0": 17,
+          "none": 1,
+          "CC BY-NC-ND 4.0": 5
+        },
+        "active_472": {
+          "CC BY-NC-SA 4.0": 360,
+          "CC BY-NC-SA 3.0": 92,
+          "CC BY-NC-ND 3.0": 16,
+          "CC BY-NC-ND 4.0": 4
+        },
+        "distinct_raw_license_strings": {
+          "https://creativecommons.org/licenses/by-nc-sa/4.0/": 441,
+          "https://creativecommons.org/licenses/by-nc-sa/3.0/": 93,
+          "https://creativecommons.org/licenses/by-nc-nd/3.0/": 17,
+          "(null)": 1,
+          "http://creativecommons.org/licenses/by-nc-nd/4.0/": 1,
+          "https://creativecommons.org/licenses/by-nc-nd/4.0/": 4
+        },
+        "sample_10_in_book_vs_metadata": "9/10 은 책 판권면에 라이선스 문장이 있고 Thoth 값과 일치. pb04(2014)만 **책 안에 라이선스 문장이 없고** 랜딩페이지 schema.org license 필드에서만 by-nc-sa/3.0 을 확인했다."
+      },
+      "brief_hypothesis_check": "과제 지시문은 \"452권(BY-NC-SA 412)\" 이라 적고 \"나머지 40권은 무엇인가\" 를 물었다. 실측은 다르다 — **ACTIVE 472권 중 BY-NC-SA 452 · BY-NC-ND 20** 이다. 452 는 총량이 아니라 BY-NC-SA 의 수다. 나머지 20권은 더 느슨한 라이선스가 아니라 **더 조인 BY-NC-ND** 다.",
+      "aggregator_label_conflict": "DOAB 의 punctum publisher-level oalicense 는 \"All punctum titles carry a Creative Commons BY-NC-ND license\" 라고 적는다 [측정: DOAB publisher.oalicense]. 실측은 95.8%가 BY-NC-SA 다 — **또 한 번, 컬렉션 라벨이 틀렸다.**",
+      "route": "BY-NC-SA 452 → R3 · BY-NC-ND 20 → R4. CC BY·CC0·PD = 0.",
+      "dropouts_g0_4": 0
+    },
+    "r1_usable_count": {
+      "ANU Press": 0,
+      "punctum books": 0,
+      "total": 0,
+      "note": "criteria.md G0-2 에서 \"원문 확보\"에 해당하는 것은 R0·R1 뿐이다. 두 출판사 합계 **0권**."
+    }
+  },
+  "g1": {
+    "slot_weights_used": {
+      "A": 0,
+      "B": 1,
+      "C": 0.51
+    },
+    "anu": {
+      "subject_distribution": {
+        "basis": "[측정: DOAB 175건의 thema EDItEUR 최상위 문자] 전량이 아니라 DOAB 수록분이다",
+        "J_society": 91,
+        "N_history_archaeology": 51,
+        "K_economics": 20,
+        "C_language": 19,
+        "D_biography_literature": 18,
+        "G_reference": 12,
+        "R_earth_geography": 11,
+        "L_law": 9,
+        "A_arts": 8,
+        "Q_philosophy_religion": 7,
+        "P_science": 2,
+        "T_technology": 2,
+        "no_thema": 33
+      },
+      "series_frame": "[측정: sitemap] anzsog 58 · pacific 45 · terra-australis 39 · aboriginal-history 37 · china-update 32 · monographs-anthropology 22 · caepr 21 · asian-studies 21 · asia-pacific-environment 19 · ssgm 17 · **anu-lives-series-biography 15** · … · biography 5 · australian-dictionary-biography 1",
+      "slots_filled": "A 가 압도적. 표본 10권 중 A 단독 6 · A+C 혼합 3 · A+B 혼합 1 · **B 단독 0 · C 단독 1(an02 전기)**",
+      "slot_value": "원천 가치 = Σ(슬롯 × 가중치). A=0 이므로 ANU 의 가치는 거의 전부 C(0.51)에서만 나온다. C 후보는 biography 계열 ~21권(anu-lives 15 + biography 5 + ADB 1) [측정: sitemap 계수].",
+      "genre_counts_sample": {
+        "역사·전기 서술": 3,
+        "인류학·지역연구": 3,
+        "공공정책·시사": 2,
+        "고고학·생태 보고": 2
+      },
+      "regional_context_dependence": {
+        "method": "[측정] 장별 본문의 상위 14개 고유명사를 뽑아, 지명·인명·종족명에 묶인 것을 셌다",
+        "per_book_bound_of_top14": {
+          "an01": 10,
+          "an02": 10,
+          "an03": 10,
+          "an04": 10,
+          "an05": 5,
+          "an06": 7,
+          "an07": 6,
+          "an08": 9,
+          "an09": 11,
+          "an10": 10
+        },
+        "median": 10,
+        "reading": "표본 10권 중 9권이 상위 고유명사의 절반 이상을 호주·태평양·아시아의 지명/인명/종족명에 쓴다(중앙 10/14 = 71%). 가장 낮은 것은 an05 공공리더십(5/14).",
+        "but": "표면의 이름 의존과 **논지의 의존**은 다르다 — G2 에서 an06 의 한 문단에서 Wampar·ngaeng faring·Dzifasing 을 전부 지우고도 논지가 온전히 남았다(수정량 56.3%). 즉 **지역 의존은 어휘층이지 논지층이 아니다**(표본 1문단)."
+      }
+    },
+    "punctum": {
+      "subject_distribution": {
+        "basis": "[측정: Thoth ACTIVE 472권의 THEMA 최상위 문자 · 중복 허용]",
+        "D_biography_literature": 201,
+        "J_society": 165,
+        "A_arts": 120,
+        "Q_philosophy_religion": 94,
+        "F_fiction": 45,
+        "R_earth_geography": 27,
+        "N_history_archaeology": 24,
+        "K_economics": 23,
+        "V_health": 22,
+        "G_reference": 18,
+        "U_computing": 15,
+        "C_language": 13,
+        "P_science": 12,
+        "no_thema": 9,
+        "note": "THEMA 코드 중 숫자로 시작하는 한정자(1 지역 93 · 3 시대 50 · 5 관심대상 49 · 6 스타일 22)는 주제가 아니라 한정자다 — 주제 칸에 넣지 않았다."
+      },
+      "year_distribution_active": {
+        "2011": 3,
+        "2012": 23,
+        "2013": 41,
+        "2014": 30,
+        "2015": 40,
+        "2016": 39,
+        "2017": 27,
+        "2018": 31,
+        "2019": 28,
+        "2020": 34,
+        "2021": 35,
+        "2022": 31,
+        "2023": 30,
+        "2024": 29,
+        "2025": 25,
+        "2026": 26
+      },
+      "slots_filled": "표본 10권 중 A 가 9, 슬롯 없음(본문 없는 시각예술서) 1. **B 0 · C 단독 0.** F(픽션) 45권과 D 안의 회고·에세이가 C 후보지만 표본에서는 C 기준(시간순 89.7% · 앞문맥 지시어 0%)을 하나도 못 맞췄다.",
+      "slot_value": "A=0 이므로 가치가 거의 0. C 후보 풀은 F 45권 + D 일부 — 표본에 F 1권(pb09 Broken Theory)이 들어갔고 실험적 산문이라 C 가 아니었다."
+    },
+    "verdict_g1": "두 출판사 모두 **결손 지도의 B(1.00)를 0권 채운다.** C(0.51)를 채울 여지는 ANU 의 전기 계열 ~21권과 punctum 의 픽션 45권뿐이고, 표본에서 실제로 C 문체 기준에 근접한 것은 ANU an02(전기) 하나다."
+  },
+  "g2": {
+    "method": "criteria.md G2 — 문단을 실제로 가공해 수정량을 잰다. 출판사당 2문단, 합계 4문단. 수정량 = 1 − LCS(원문 토큰, 가공문 토큰)/원문 토큰 수. n-gram 중복은 G0-3 의 재저작 가드(6~8-gram 0건)와 같은 계산.",
+    "worked_paragraphs": [
+      {
+        "id": "a1",
+        "publisher": "ANU Press",
+        "from": "an06 Pacific Youth ch03 (2019, CC BY-NC-ND)",
+        "aim": "지역 맥락(Wampar · ngaeng faring · Dzifasing) 제거 + 학술어 평이화",
+        "diff": {
+          "words_before": 128,
+          "words_after": 117,
+          "retained_from_original": 56,
+          "modification_rate_pct": 56.3,
+          "inserted_new_words": 61,
+          "insertion_rate_pct": 52.1,
+          "6gram_shared": 0,
+          "7gram_shared": 0,
+          "8gram_shared": 0
+        },
+        "before": "to be held, primarily to raise funds for the costs of registration, which entails administrative, mapping and legal service expenses. It was a time of speculations, questions, imaginations, expectations and accommodations, but also of confrontations (Bacalzo et al. 2014), as locals, led by few but influential and competing ngaeng faring, began to organise themselves in relation to ideas of opportunities and problems. A new landowner association was formed with the intent to defend the interest in the mine in the name of all Wampar. This landowner association has been involved in costly court battles with other landowner associations from neighbouring non-Wampar groups over the ownership of the mining area, and they opened the membership to anybody living in the affected communities, provided that they paid an initial membership fee.",
+        "after": "Village meetings were held, mainly to raise money for the cost of registering the land. Registration meant paying for office work, map-making and legal advice. It was a time of guesswork, questions, hopes and bargaining, but also of open conflict. Villagers, led by a small number of powerful and rival elders, began to organise themselves around the chances and the dangers they saw ahead. A new landowners' group was formed to defend the villagers' share in the mine. That group has since fought expensive court cases against landowners' groups from neighbouring villages over who owns the mining area. It opened its membership to anyone living in the affected communities, as long as they paid a joining fee."
+      },
+      {
+        "id": "a2",
+        "publisher": "ANU Press",
+        "from": "an02 ‘My own sort of heaven’ ch03 (2024, CC BY-NC-ND)",
+        "aim": "고유명사(Rosalie · New Zealand · WCTU) 제거 + 전기 서술 유지",
+        "diff": {
+          "words_before": 108,
+          "words_after": 105,
+          "retained_from_original": 36,
+          "modification_rate_pct": 66.7,
+          "inserted_new_words": 69,
+          "insertion_rate_pct": 65.7,
+          "6gram_shared": 0,
+          "7gram_shared": 0,
+          "8gram_shared": 0
+        },
+        "before": "During these formative years, education was central to this part of Rosalie's life on two counts. School provided her with the stability and structure that may have been lacking at home. Also, New Zealand's policies and practices on domestic education for girls, based as they were on an idealised family, may have contributed to the feelings of being different, a misfit, an outsider, which she later talked about. Her family fell short of the ideal family promoted by the government and women's organisations such as the Women's Christian Temperance Union. In the longer term, the same policies shaped her thinking about a woman's role in home and family.",
+        "after": "In her childhood years, school mattered to her for two reasons. It gave her the steadiness and the routine that her home did not. At the same time, the rules the country set for teaching girls how to run a household assumed a perfect family, and that assumption may have fed her sense of being odd, out of place, an outsider, which she spoke about later in life. Her own family did not match the model that the government and the church-backed women's groups held up. In the long run, those same rules shaped what she believed a woman's place in the home should be."
+      },
+      {
+        "id": "p1",
+        "publisher": "punctum books",
+        "from": "pb08 Reiner Schürmann and the Poetics of Politics (2018, CC BY-NC-SA)",
+        "aim": "철학 고유명사(Plotinus · Aristotle)와 전문어(cataphatic · apophantic · archic · natality) 제거",
+        "diff": {
+          "words_before": 141,
+          "words_after": 140,
+          "retained_from_original": 24,
+          "modification_rate_pct": 83,
+          "inserted_new_words": 116,
+          "insertion_rate_pct": 82.9,
+          "6gram_shared": 0,
+          "7gram_shared": 0,
+          "8gram_shared": 0
+        },
+        "before": "Here an echo of Aristotle is heard; for, as emphasized in chapter 2, Aristotle used the pronoun ti and the adverb pos to gesture to the indefiniteness at play in the being of the one. This is a language attentive to dispersion; it signals a heuristic of dysfunction - precisely there, where the limits of language are felt, something other than the conceptual shows itself. This happens only, however, as Plotinus risks a certain audacity: to articulate free willing in the one. Daring to speak cataphatically, Plotinus's language becomes apophantic, capable of showing that \"originary audacity fractures archic simplicity.\" By following along with the words that seek to articulate free willing in the one, Plotinus brings the trait of mortality to language, indeed, suffers the \"labor of mortality,\" and in so doing, shows the event of its discordant union with natality: the nuptial.",
+        "after": "An older thinker had already reached for the same device. To point at something that cannot be pinned down, he used the vaguest words his language offered - a bare \"something,\" a bare \"somehow.\" Such wording admits that it is scattering the idea rather than fixing it. That is its use: at the exact place where words give out, something that is not a concept shows itself. But this only works if the writer takes a risk. He has to stop saying what the thing is not and start saying, plainly, what it is, even though he knows the plain words are not permitted. The moment he does, his language stops being safe and starts being able to show. It carries into speech the fact that it will fail, and by failing it joins what is ending to what is beginning."
+      },
+      {
+        "id": "p2",
+        "publisher": "punctum books",
+        "from": "pb07 Recovering the Radical Promise of Superheroes (2023, CC BY-NC-SA)",
+        "aim": "프랜차이즈 고유명사(Zod · Krypton · Kryptonians · World Engine) 제거",
+        "diff": {
+          "words_before": 116,
+          "words_after": 99,
+          "retained_from_original": 30,
+          "modification_rate_pct": 74.1,
+          "inserted_new_words": 69,
+          "insertion_rate_pct": 69.7,
+          "6gram_shared": 0,
+          "7gram_shared": 0,
+          "8gram_shared": 0
+        },
+        "before": "As newcomers, they have opted to colonize rather than assimilate, but a combination of breathing and sensory issues makes this difficult, hence the breather masks. And so, when General Zod issues the order to \"Release the World Engine!\" he marks the start of a nefarious plan to terraform, or terror-form, Earth and make a new Krypton. The World Engine works to alter Earth's underlying structure and its atmosphere. It will be up to the Kryptonians to change Earth's meaning from a human to a Kryptonian world. Moreover, by seeking to change Earth's present and future, the Kryptonians create the possibility of rewriting its past, likely erasing the human chapter of Earth's story completely, or trying to.",
+        "after": "The newcomers have chosen to take the planet over rather than fit into it, but trouble with breathing and with their senses makes that hard, which is why they wear masks. When their commander orders the great machine switched on, a plan begins: to reshape the ground and the air of the planet until it suits them instead of the people already living there. If the machine works, the meaning of the place changes hands. And a group that can decide a planet's present and future can also rewrite its past, erasing the earlier inhabitants from its story altogether."
+      }
+    ],
+    "modification_rate_summary": {
+      "a1": 56.3,
+      "a2": 66.7,
+      "p1": 83,
+      "p2": 74.1,
+      "median": 70.4,
+      "cost_grade": "4/4 모두 >50% = **중(사실상 재저작)** [criteria.md G2 등급표]"
+    },
+    "ngram_guard": "4/4 모두 6·7·8-gram 중복 0건 [측정: diffrate.mjs]. 즉 가공을 「고유명사 제거 + 평이화」 수준으로만 해도 산출물은 이미 G0-3 재저작 가드를 통과한다 — 가공과 재저작의 경계가 이 원천들에서는 거의 없다.",
+    "argument_survival": {
+      "a1": "남는다. Wampar·ngaeng faring·Dzifasing 을 마을/장로/그 마을로 바꿔도 「등기 비용 → 지주 단체 결성 → 이웃 마을과 소유권 소송」 이라는 논지가 그대로 선다.",
+      "a2": "남는다. 인물 이름과 국명을 지워도 「학교가 집에 없던 안정을 주었다 / 이상적 가정을 전제한 교육정책이 이질감을 키웠다」 가 남는다. 다만 전기의 값어치인 **이 사람의 이야기**는 사라진다 — C 슬롯용으로 쓰려면 고유명사를 지우면 안 된다는 뜻이다.",
+      "p1": "거의 안 남는다. 문단 자체가 플로티노스·아리스토텔레스가 **어떤 낱말을 썼는가**에 대한 주석이다. 고유명사와 전문어를 걷으면 「말이 끝나는 자리에서 개념 아닌 것이 드러난다」 는 한 문장만 남고, 나머지는 새로 지어낸 것이다(수정량 83.0% · 삽입 82.9%).",
+      "p2": "남는다. 프랜차이즈 이름을 지워도 「이주자가 동화 대신 점령을 택한다 / 행성을 개조하면 현재·미래만이 아니라 과거까지 다시 쓸 수 있다」 는 논지가 선다. 다만 원문의 재미는 고유명사에 있었다."
+    },
+    "paragraph_self_containment": {
+      "method": "[측정] 40어 이상 본문 문단 중 논증·설명 표지를 가진 비율(criteria.md G2 의 「문단 하나가 주장 또는 완결된 설명을 담는 비율 ≥ 2/3」 의 기계 대리 지표)",
+      "anu": {
+        "an01": 27.5,
+        "an02": 31.3,
+        "an03": 48.6,
+        "an04": 20.8,
+        "an05": 28,
+        "an06": 51.7,
+        "an07": 42.1,
+        "an08": 51.9,
+        "an09": 46,
+        "an10": 35.4
+      },
+      "punctum": {
+        "pb01": 9.1,
+        "pb02": 62.8,
+        "pb03": 0,
+        "pb04": 26,
+        "pb05": 45.4,
+        "pb06": 47.9,
+        "pb07": 35.7,
+        "pb08": 50.2,
+        "pb09": 16.8,
+        "pb10": 26.8
+      },
+      "result": "**20권 중 0권이 2/3(66.7%) 기준을 넘지 못했다.** 최고값은 punctum pb02 62.8% · ANU an08 51.9%. 중앙은 ANU 38.8% · punctum 31.3%.",
+      "caveat": "이 지표는 표지 정규식이다. 사람 판독은 위의 4문단에만 했다 — 그 4문단은 모두 문단 하나로 완결된 주장을 담고 있었다. 기계 대리 지표가 보수적으로 나온다는 뜻일 수 있다."
+    },
+    "r3_reauthoring_cost": {
+      "why": "criteria.md G0-2 에 따르면 NC·ND 원천은 표현을 못 쓴다. 따라서 여기서 재야 하는 것은 「가공 비용」이 아니라 **「논지 하나를 새 지문으로 바꾸는 비용」** 이다.",
+      "measured": "4문단 모두 한 문단 = 한 논지 = **재저작 지문 1편**(90~200어 창)이었다. 원문 문단 하나가 2편 이상을 내지 못했다 — 한 문단이 담는 주장이 하나이기 때문이다 [측정: 4/4].",
+      "chapter_level": "논증 표지를 가진 40어+ 문단 수가 재저작 입력의 상한이다: ANU 장당 7~40개(중앙 15) · punctum 권당(중앙 60% 구간) 0~210개(중앙 96.5) [측정: claimdensity].",
+      "caution": "이 상한은 **상한일 뿐**이다. 같은 장 안의 문단들은 같은 주장을 나눠 지니므로 실제 독립 지문 수는 훨씬 적다. 표본 4문단으로 권당 편수를 추정하는 것은 [추론]이라 판정에 쓰지 않는다."
+    }
+  },
+  "g3": {
+    "method": "criteria.md G3 — 보조 지표. 계산식은 scripts/csat/source-doc-inspect.mts(정제·창별 산출·기능어)와 scripts/csat/demand-model.mjs(CAPS·BACKREF·STRUCTURE)를 그대로 옮겨 썼다. 판정 단위는 **원문을 창 크기로 자른 지문**이다 — demand-model.md 의 기준선과 같은 단위.",
+    "unit": {
+      "anu": "책마다 본문 장 PDF 1개",
+      "punctum": "책마다 전권 PDF 의 가운데 60%(15~75% 페이지) — 앞표지·판권·목차·참고문헌을 피하려는 것"
+    },
+    "english_gate": {
+      "rule": "라틴문자 ≥0.70 그리고 기능어 ≥0.15 (앞 5,000토큰 · 50토큰 미만이면 판정 불가)",
+      "anu": "ANU 10/10 english (라틴 0.938~0.972 · 기능어 0.310~0.386)",
+      "punctum": "punctum 9/10 english (라틴 0.932~0.976 · 기능어 0.318~0.449). pb03 Kern 은 가운데 60% 구간에서 **판정 불가**(50토큰 미만) — 전권을 봐도 806어뿐이다."
+    },
+    "per_book": {
+      "anu": {
+        "an01": {
+          "words_prose": 6814,
+          "keep_pct": 97.8,
+          "latin_ratio": 0.966,
+          "functionword_ratio": 0.371,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 68,
+            "p25": 43,
+            "median": 106,
+            "p75": 157
+          },
+          "yield": {
+            "school_sentence": 222,
+            "school_paragraph": 36,
+            "csat_short": 36,
+            "csat_long": 17
+          },
+          "csat_short_window": {
+            "n": 36,
+            "words_median": 176,
+            "propernoun_per100_median": 3.49,
+            "propernoun_zero_pct": 11.1,
+            "backref_start_pct": 19.4,
+            "quote_start_pct": 2.8,
+            "contrast_pct": 55.6,
+            "chrono_pct": 55.6,
+            "example_pct": 13.9
+          },
+          "csat_long_window": {
+            "n": 17,
+            "words_median": 366,
+            "propernoun_per100_median": 3.62,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 35.3,
+            "quote_start_pct": 0,
+            "contrast_pct": 82.4,
+            "chrono_pct": 76.5,
+            "example_pct": 35.3
+          },
+          "top_proper_nouns": "Aboriginal 38 · Australia 16 · Cootamundra 11 · Barrangang 9 · Indigenous 9 · Ngapartji 8 · Europe 8 · Sydney 6 · Wyalong 5"
+        },
+        "an02": {
+          "words_prose": 5328,
+          "keep_pct": 88.8,
+          "latin_ratio": 0.943,
+          "functionword_ratio": 0.31,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 70,
+            "p25": 36,
+            "median": 65,
+            "p75": 113
+          },
+          "yield": {
+            "school_sentence": 131,
+            "school_paragraph": 31,
+            "csat_short": 31,
+            "csat_long": 14
+          },
+          "csat_short_window": {
+            "n": 31,
+            "words_median": 169,
+            "propernoun_per100_median": 8.89,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 25.8,
+            "quote_start_pct": 0,
+            "contrast_pct": 61.3,
+            "chrono_pct": 54.8,
+            "example_pct": 16.1
+          },
+          "csat_long_window": {
+            "n": 14,
+            "words_median": 358,
+            "propernoun_per100_median": 8.97,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 28.6,
+            "quote_start_pct": 0,
+            "contrast_pct": 71.4,
+            "chrono_pct": 71.4,
+            "example_pct": 35.7
+          },
+          "top_proper_nouns": "Rosalie 90 · Gascoigne 41 · New Zealand 32 · Auckland 23 · Daintry 19 · Stanley 15 · Walker 9 · Nellie 9 · Epsom 8"
+        },
+        "an03": {
+          "words_prose": 6630,
+          "keep_pct": 94.6,
+          "latin_ratio": 0.944,
+          "functionword_ratio": 0.35,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 90,
+            "p25": 16,
+            "median": 33,
+            "p75": 100
+          },
+          "yield": {
+            "school_sentence": 174,
+            "school_paragraph": 39,
+            "csat_short": 37,
+            "csat_long": 17
+          },
+          "csat_short_window": {
+            "n": 37,
+            "words_median": 178,
+            "propernoun_per100_median": 9.55,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 13.5,
+            "quote_start_pct": 2.7,
+            "contrast_pct": 62.2,
+            "chrono_pct": 48.6,
+            "example_pct": 27
+          },
+          "csat_long_window": {
+            "n": 17,
+            "words_median": 366,
+            "propernoun_per100_median": 8.92,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 17.6,
+            "quote_start_pct": 11.8,
+            "contrast_pct": 82.4,
+            "chrono_pct": 82.4,
+            "example_pct": 58.8
+          },
+          "top_proper_nouns": "French 42 · Freycinet 31 · Waigeo 20 · Dorey 20 · Quoy 20 · Papuan 19 · Dumont 16 · Duperrey 12"
+        },
+        "an04": {
+          "words_prose": 9265,
+          "keep_pct": 86.8,
+          "latin_ratio": 0.938,
+          "functionword_ratio": 0.355,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 137,
+            "p25": 14,
+            "median": 51,
+            "p75": 113
+          },
+          "yield": {
+            "school_sentence": 299,
+            "school_paragraph": 49,
+            "csat_short": 49,
+            "csat_long": 24
+          },
+          "csat_short_window": {
+            "n": 49,
+            "words_median": 182,
+            "propernoun_per100_median": 5.38,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 14.3,
+            "quote_start_pct": 0,
+            "contrast_pct": 59.2,
+            "chrono_pct": 30.6,
+            "example_pct": 4.1
+          },
+          "csat_long_window": {
+            "n": 24,
+            "words_median": 374,
+            "propernoun_per100_median": 6.46,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 4.2,
+            "quote_start_pct": 0,
+            "contrast_pct": 75,
+            "chrono_pct": 54.2,
+            "example_pct": 8.3
+          },
+          "top_proper_nouns": "Sigatoka 50 · Fiji 44 · Viti 33 · Levu 32 · Beqa 24 · Karobo 20 · Anderson 21 · Clark 20"
+        },
+        "an05": {
+          "words_prose": 3367,
+          "keep_pct": 97.5,
+          "latin_ratio": 0.972,
+          "functionword_ratio": 0.375,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 40,
+            "p25": 18,
+            "median": 83,
+            "p75": 139
+          },
+          "yield": {
+            "school_sentence": 101,
+            "school_paragraph": 19,
+            "csat_short": 19,
+            "csat_long": 9
+          },
+          "csat_short_window": {
+            "n": 19,
+            "words_median": 174,
+            "propernoun_per100_median": 2.45,
+            "propernoun_zero_pct": 15.8,
+            "backref_start_pct": 21.1,
+            "quote_start_pct": 0,
+            "contrast_pct": 73.7,
+            "chrono_pct": 15.8,
+            "example_pct": 31.6
+          },
+          "csat_long_window": {
+            "n": 9,
+            "words_median": 381,
+            "propernoun_per100_median": 2.39,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 22.2,
+            "quote_start_pct": 0,
+            "contrast_pct": 100,
+            "chrono_pct": 22.2,
+            "example_pct": 55.6
+          },
+          "top_proper_nouns": "Australian 18 · Senate 7 · Democracy 6 · Schumpter 5 · Australia 4 · Princeton 4"
+        },
+        "an06": {
+          "words_prose": 8005,
+          "keep_pct": 89.2,
+          "latin_ratio": 0.972,
+          "functionword_ratio": 0.386,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 88,
+            "p25": 30,
+            "median": 79,
+            "p75": 136
+          },
+          "yield": {
+            "school_sentence": 242,
+            "school_paragraph": 44,
+            "csat_short": 44,
+            "csat_long": 21
+          },
+          "csat_short_window": {
+            "n": 44,
+            "words_median": 182,
+            "propernoun_per100_median": 3.19,
+            "propernoun_zero_pct": 13.6,
+            "backref_start_pct": 18.2,
+            "quote_start_pct": 0,
+            "contrast_pct": 47.7,
+            "chrono_pct": 38.6,
+            "example_pct": 13.6
+          },
+          "csat_long_window": {
+            "n": 21,
+            "words_median": 374,
+            "propernoun_per100_median": 3.48,
+            "propernoun_zero_pct": 4.8,
+            "backref_start_pct": 23.8,
+            "quote_start_pct": 0,
+            "contrast_pct": 76.2,
+            "chrono_pct": 61.9,
+            "example_pct": 28.6
+          },
+          "top_proper_nouns": "Wampar 97 · Dzifasing 24 · New Guinea 14 · Papua 13 · Markham 8 · Robert 11 · Greg 10"
+        },
+        "an07": {
+          "words_prose": 4075,
+          "keep_pct": 98,
+          "latin_ratio": 0.943,
+          "functionword_ratio": 0.33,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 205,
+            "p25": 10,
+            "median": 11,
+            "p75": 13
+          },
+          "yield": {
+            "school_sentence": 83,
+            "school_paragraph": 24,
+            "csat_short": 24,
+            "csat_long": 11
+          },
+          "csat_short_window": {
+            "n": 24,
+            "words_median": 174,
+            "propernoun_per100_median": 8.33,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 12.5,
+            "quote_start_pct": 0,
+            "contrast_pct": 66.7,
+            "chrono_pct": 25,
+            "example_pct": 41.7
+          },
+          "csat_long_window": {
+            "n": 11,
+            "words_median": 371,
+            "propernoun_per100_median": 9.16,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 18.2,
+            "quote_start_pct": 0,
+            "contrast_pct": 100,
+            "chrono_pct": 54.5,
+            "example_pct": 63.6
+          },
+          "top_proper_nouns": "China 24 · Chinese 16 · Wang 8 · Wuhan 5 · Weibo 5"
+        },
+        "an08": {
+          "words_prose": 3347,
+          "keep_pct": 78.1,
+          "latin_ratio": 0.96,
+          "functionword_ratio": 0.344,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 64,
+            "p25": 20,
+            "median": 31,
+            "p75": 115
+          },
+          "yield": {
+            "school_sentence": 111,
+            "school_paragraph": 18,
+            "csat_short": 18,
+            "csat_long": 8
+          },
+          "csat_short_window": {
+            "n": 18,
+            "words_median": 182,
+            "propernoun_per100_median": 2.2,
+            "propernoun_zero_pct": 16.7,
+            "backref_start_pct": 16.7,
+            "quote_start_pct": 0,
+            "contrast_pct": 44.4,
+            "chrono_pct": 22.2,
+            "example_pct": 55.6
+          },
+          "csat_long_window": {
+            "n": 8,
+            "words_median": 376,
+            "propernoun_per100_median": 2.39,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 12.5,
+            "quote_start_pct": 0,
+            "contrast_pct": 87.5,
+            "chrono_pct": 37.5,
+            "example_pct": 62.5
+          },
+          "top_proper_nouns": "Kosciuszko 12 · National Park 14/12 · Eucalyptus 10 · Australian 9 · Richea 6 · Alps 3"
+        },
+        "an09": {
+          "words_prose": 10740,
+          "keep_pct": 94.6,
+          "latin_ratio": 0.959,
+          "functionword_ratio": 0.335,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 99,
+            "p25": 66,
+            "median": 112,
+            "p75": 144
+          },
+          "yield": {
+            "school_sentence": 347,
+            "school_paragraph": 57,
+            "csat_short": 57,
+            "csat_long": 27
+          },
+          "csat_short_window": {
+            "n": 57,
+            "words_median": 185,
+            "propernoun_per100_median": 10.53,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 17.5,
+            "quote_start_pct": 0,
+            "contrast_pct": 43.9,
+            "chrono_pct": 59.6,
+            "example_pct": 33.3
+          },
+          "csat_long_window": {
+            "n": 27,
+            "words_median": 380,
+            "propernoun_per100_median": 10.16,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 22.2,
+            "quote_start_pct": 3.7,
+            "contrast_pct": 70.4,
+            "chrono_pct": 88.9,
+            "example_pct": 59.3
+          },
+          "top_proper_nouns": "Islamic 204 · Islam 70 · Muslim 50 · Bandung 37 · Kilat 29 · Indonesia 28 · Salman 27 · Pesantren 26 · Istiqamah 22 · Karisma 18"
+        },
+        "an10": {
+          "words_prose": 10140,
+          "keep_pct": 91.9,
+          "latin_ratio": 0.961,
+          "functionword_ratio": 0.361,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 102,
+            "p25": 46,
+            "median": 97,
+            "p75": 145
+          },
+          "yield": {
+            "school_sentence": 287,
+            "school_paragraph": 57,
+            "csat_short": 57,
+            "csat_long": 27
+          },
+          "csat_short_window": {
+            "n": 57,
+            "words_median": 173,
+            "propernoun_per100_median": 4.61,
+            "propernoun_zero_pct": 10.5,
+            "backref_start_pct": 29.8,
+            "quote_start_pct": 0,
+            "contrast_pct": 80.7,
+            "chrono_pct": 24.6,
+            "example_pct": 26.3
+          },
+          "csat_long_window": {
+            "n": 27,
+            "words_median": 364,
+            "propernoun_per100_median": 5.32,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 22.2,
+            "quote_start_pct": 0,
+            "contrast_pct": 100,
+            "chrono_pct": 48.1,
+            "example_pct": 51.9
+          },
+          "top_proper_nouns": "Titan 35 · Schwartz 32 · Admiralty 20 · Mead 19 · Manus 18 · Paliau 15 · Gimi 13 · Melanesia 12"
+        }
+      },
+      "punctum": {
+        "pb01": {
+          "words_prose": 5961,
+          "keep_pct": 98.6,
+          "latin_ratio": 0.97,
+          "functionword_ratio": 0.344,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 238,
+            "p25": 14,
+            "median": 21,
+            "p75": 31
+          },
+          "yield": {
+            "school_sentence": 149,
+            "school_paragraph": 34,
+            "csat_short": 33,
+            "csat_long": 16
+          },
+          "csat_short_window": {
+            "n": 33,
+            "words_median": 180,
+            "propernoun_per100_median": 0,
+            "propernoun_zero_pct": 69.7,
+            "backref_start_pct": 3,
+            "quote_start_pct": 0,
+            "contrast_pct": 33.3,
+            "chrono_pct": 33.3,
+            "example_pct": 9.1
+          },
+          "csat_long_window": {
+            "n": 16,
+            "words_median": 369,
+            "propernoun_per100_median": 0.26,
+            "propernoun_zero_pct": 50,
+            "backref_start_pct": 6.3,
+            "quote_start_pct": 0,
+            "contrast_pct": 62.5,
+            "chrono_pct": 62.5,
+            "example_pct": 18.8
+          },
+          "top_proper_nouns": "Occido 2 · Mercury 1 · Bachelard 1 (거의 없음 — 시집)",
+          "slot": "A (시 — 슬롯 없음)"
+        },
+        "pb02": {
+          "words_prose": 31311,
+          "keep_pct": 96.7,
+          "latin_ratio": 0.966,
+          "functionword_ratio": 0.368,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 357,
+            "p25": 31,
+            "median": 63,
+            "p75": 126
+          },
+          "yield": {
+            "school_sentence": 877,
+            "school_paragraph": 174,
+            "csat_short": 174,
+            "csat_long": 82
+          },
+          "csat_short_window": {
+            "n": 174,
+            "words_median": 174,
+            "propernoun_per100_median": 0.55,
+            "propernoun_zero_pct": 44.8,
+            "backref_start_pct": 22.4,
+            "quote_start_pct": 1.1,
+            "contrast_pct": 76.4,
+            "chrono_pct": 25.9,
+            "example_pct": 15.5
+          },
+          "csat_long_window": {
+            "n": 82,
+            "words_median": 366,
+            "propernoun_per100_median": 1.08,
+            "propernoun_zero_pct": 18.3,
+            "backref_start_pct": 19.5,
+            "quote_start_pct": 2.4,
+            "contrast_pct": 96.3,
+            "chrono_pct": 46.3,
+            "example_pct": 30.5
+          },
+          "top_proper_nouns": "Body 35 · Survivor 29 · Metaphor 18 · Illness 17 · Amitriptyline 14",
+          "slot": "A (에세이) · C 일부"
+        },
+        "pb03": {
+          "words_prose": 0,
+          "keep_pct": 0,
+          "latin_ratio": 0,
+          "functionword_ratio": null,
+          "english_verdict": "판정 불가",
+          "paragraph_words": {
+            "n": 0,
+            "p25": null,
+            "median": null,
+            "p75": null
+          },
+          "yield": {
+            "school_sentence": 0,
+            "school_paragraph": 0,
+            "csat_short": 0,
+            "csat_long": 0
+          },
+          "csat_short_window": null,
+          "csat_long_window": null,
+          "top_proper_nouns": "(추출 가능한 본문 자체가 없음)",
+          "slot": "없음 (본문 없음)",
+          "whole_book_check": "[측정] 15~75% 구간이 0어인 것은 그 구간이 전부 타이포그래피 도판이기 때문이다. 106쪽 전권을 재면 산문 806어(3쪽)뿐이고 창별 산출은 csat_short 4 · csat_long 2 다."
+        },
+        "pb04": {
+          "words_prose": 13739,
+          "keep_pct": 92,
+          "latin_ratio": 0.962,
+          "functionword_ratio": 0.321,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 301,
+            "p25": 11,
+            "median": 29,
+            "p75": 71
+          },
+          "yield": {
+            "school_sentence": 405,
+            "school_paragraph": 75,
+            "csat_short": 75,
+            "csat_long": 36
+          },
+          "csat_short_window": {
+            "n": 75,
+            "words_median": 181,
+            "propernoun_per100_median": 2.31,
+            "propernoun_zero_pct": 5.3,
+            "backref_start_pct": 13.3,
+            "quote_start_pct": 1.3,
+            "contrast_pct": 61.3,
+            "chrono_pct": 24,
+            "example_pct": 22.7
+          },
+          "csat_long_window": {
+            "n": 36,
+            "words_median": 369,
+            "propernoun_per100_median": 2.99,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 5.6,
+            "quote_start_pct": 0,
+            "contrast_pct": 88.9,
+            "chrono_pct": 41.7,
+            "example_pct": 33.3
+          },
+          "top_proper_nouns": "Hoard 79 · Station 59 · Beowulf 25 · Staffordshire 16 · Anglo 11",
+          "slot": "A · C 일부(허구 서사 삽입)"
+        },
+        "pb05": {
+          "words_prose": 19590,
+          "keep_pct": 87.8,
+          "latin_ratio": 0.964,
+          "functionword_ratio": 0.351,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 309,
+            "p25": 14,
+            "median": 59,
+            "p75": 103
+          },
+          "yield": {
+            "school_sentence": 584,
+            "school_paragraph": 107,
+            "csat_short": 107,
+            "csat_long": 51
+          },
+          "csat_short_window": {
+            "n": 107,
+            "words_median": 183,
+            "propernoun_per100_median": 1.71,
+            "propernoun_zero_pct": 27.1,
+            "backref_start_pct": 9.3,
+            "quote_start_pct": 0,
+            "contrast_pct": 67.3,
+            "chrono_pct": 13.1,
+            "example_pct": 33.6
+          },
+          "csat_long_window": {
+            "n": 51,
+            "words_median": 375,
+            "propernoun_per100_median": 1.83,
+            "propernoun_zero_pct": 9.8,
+            "backref_start_pct": 7.8,
+            "quote_start_pct": 0,
+            "contrast_pct": 90.2,
+            "chrono_pct": 29.4,
+            "example_pct": 51
+          },
+          "top_proper_nouns": "Research 36 · Methodologies 31 · Indigenous 21 · Vannini 14",
+          "slot": "A"
+        },
+        "pb06": {
+          "words_prose": 41836,
+          "keep_pct": 97.5,
+          "latin_ratio": 0.976,
+          "functionword_ratio": 0.449,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 384,
+            "p25": 41,
+            "median": 95,
+            "p75": 157
+          },
+          "yield": {
+            "school_sentence": 1150,
+            "school_paragraph": 234,
+            "csat_short": 233,
+            "csat_long": 109
+          },
+          "csat_short_window": {
+            "n": 233,
+            "words_median": 178,
+            "propernoun_per100_median": 1.28,
+            "propernoun_zero_pct": 23.2,
+            "backref_start_pct": 31.8,
+            "quote_start_pct": 0.9,
+            "contrast_pct": 70.8,
+            "chrono_pct": 36.5,
+            "example_pct": 7.3
+          },
+          "csat_long_window": {
+            "n": 109,
+            "words_median": 372,
+            "propernoun_per100_median": 1.91,
+            "propernoun_zero_pct": 6.4,
+            "backref_start_pct": 30.3,
+            "quote_start_pct": 0,
+            "contrast_pct": 89.9,
+            "chrono_pct": 58.7,
+            "example_pct": 14.7
+          },
+          "top_proper_nouns": "Becker 111 · Marx 77 · Unlearning 62 · Rancière 35 · Klein 18",
+          "slot": "A"
+        },
+        "pb07": {
+          "words_prose": 70465,
+          "keep_pct": 87.1,
+          "latin_ratio": 0.95,
+          "functionword_ratio": 0.326,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 953,
+            "p25": 23,
+            "median": 58,
+            "p75": 113
+          },
+          "yield": {
+            "school_sentence": 1842,
+            "school_paragraph": 399,
+            "csat_short": 395,
+            "csat_long": 187
+          },
+          "csat_short_window": {
+            "n": 395,
+            "words_median": 176,
+            "propernoun_per100_median": 5.13,
+            "propernoun_zero_pct": 6.3,
+            "backref_start_pct": 19.7,
+            "quote_start_pct": 1,
+            "contrast_pct": 84.8,
+            "chrono_pct": 29.6,
+            "example_pct": 38
+          },
+          "csat_long_window": {
+            "n": 187,
+            "words_median": 368,
+            "propernoun_per100_median": 5.68,
+            "propernoun_zero_pct": 1.6,
+            "backref_start_pct": 21.4,
+            "quote_start_pct": 0,
+            "contrast_pct": 96.8,
+            "chrono_pct": 54.5,
+            "example_pct": 60.4
+          },
+          "top_proper_nouns": "Hulk 107 · Batman 106 · Black 78 · Superman 68 · Marvel 57 · Grimm 54",
+          "slot": "A"
+        },
+        "pb08": {
+          "words_prose": 33480,
+          "keep_pct": 92.6,
+          "latin_ratio": 0.962,
+          "functionword_ratio": 0.401,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 423,
+            "p25": 29,
+            "median": 60,
+            "p75": 111
+          },
+          "yield": {
+            "school_sentence": 794,
+            "school_paragraph": 192,
+            "csat_short": 189,
+            "csat_long": 89
+          },
+          "csat_short_window": {
+            "n": 189,
+            "words_median": 179,
+            "propernoun_per100_median": 4.62,
+            "propernoun_zero_pct": 2.1,
+            "backref_start_pct": 23.8,
+            "quote_start_pct": 0,
+            "contrast_pct": 69.8,
+            "chrono_pct": 45,
+            "example_pct": 4.8
+          },
+          "csat_long_window": {
+            "n": 89,
+            "words_median": 370,
+            "propernoun_per100_median": 4.94,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 25.8,
+            "quote_start_pct": 2.2,
+            "contrast_pct": 93.3,
+            "chrono_pct": 73,
+            "example_pct": 9
+          },
+          "top_proper_nouns": "Schürmann 261 · Plotinus 124 · Hegemonies 107 · Kant 86 · Aristotle 75 · Heidegger 48",
+          "slot": "A"
+        },
+        "pb09": {
+          "words_prose": 33195,
+          "keep_pct": 97.3,
+          "latin_ratio": 0.945,
+          "functionword_ratio": 0.391,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 625,
+            "p25": 16,
+            "median": 25,
+            "p75": 60
+          },
+          "yield": {
+            "school_sentence": 841,
+            "school_paragraph": 179,
+            "csat_short": 173,
+            "csat_long": 83
+          },
+          "csat_short_window": {
+            "n": 173,
+            "words_median": 179,
+            "propernoun_per100_median": 0.97,
+            "propernoun_zero_pct": 35.3,
+            "backref_start_pct": 12.1,
+            "quote_start_pct": 0.6,
+            "contrast_pct": 48,
+            "chrono_pct": 31.2,
+            "example_pct": 22
+          },
+          "csat_long_window": {
+            "n": 83,
+            "words_median": 373,
+            "propernoun_per100_median": 1.37,
+            "propernoun_zero_pct": 20.5,
+            "backref_start_pct": 15.7,
+            "quote_start_pct": 0,
+            "contrast_pct": 67.5,
+            "chrono_pct": 49.4,
+            "example_pct": 39.8
+          },
+          "top_proper_nouns": "Twine 118 · Dojoji 111 · Surge 15",
+          "slot": "A (실험적 산문)"
+        },
+        "pb10": {
+          "words_prose": 54357,
+          "keep_pct": 87.3,
+          "latin_ratio": 0.932,
+          "functionword_ratio": 0.318,
+          "english_verdict": "english",
+          "paragraph_words": {
+            "n": 917,
+            "p25": 17,
+            "median": 32,
+            "p75": 87
+          },
+          "yield": {
+            "school_sentence": 1380,
+            "school_paragraph": 307,
+            "csat_short": 304,
+            "csat_long": 144
+          },
+          "csat_short_window": {
+            "n": 304,
+            "words_median": 177,
+            "propernoun_per100_median": 15.06,
+            "propernoun_zero_pct": 0.7,
+            "backref_start_pct": 11.8,
+            "quote_start_pct": 8.2,
+            "contrast_pct": 53.6,
+            "chrono_pct": 33.2,
+            "example_pct": 18.8
+          },
+          "csat_long_window": {
+            "n": 144,
+            "words_median": 368,
+            "propernoun_per100_median": 15.89,
+            "propernoun_zero_pct": 0,
+            "backref_start_pct": 13.9,
+            "quote_start_pct": 8.3,
+            "contrast_pct": 74.3,
+            "chrono_pct": 56.3,
+            "example_pct": 32.6
+          },
+          "top_proper_nouns": "Africa 134 · African 129 · Hebrew 120 · Gothic 118 · Medieval 109 · Christian 93 · Byzantine 90 · Du Bois 83",
+          "slot": "A"
+        }
+      }
+    },
+    "against_baselines": {
+      "baseline_A": "고유명사 중앙 0 · 0개인 지문 52~79% · 대조 65~87% · 어수 148~169",
+      "baseline_C": "고유명사 4.25 · 시간순 89.7% · 어수 334 · 0개인 지문 0% · 앞문맥 지시어 0%",
+      "anu_vs_A": "고유명사 중앙 2.20~10.53(기준 0) · 0개인 지문 0~16.7%(기준 52~79%) → **A 무리 문체와 안 맞는다.** 대조 표지는 43.9~80.7% 로 기준 하단에 걸친다.",
+      "anu_vs_C": "장문 창(260~400어)에서 an09 시간순 88.9%·an03 82.4%·an01 76.5% 로 C 기준(89.7%)에 근접. 그러나 앞문맥 지시어 시작이 4.2~35.3%(기준 0%)로 전부 어긋난다. 고유명사는 an05 2.39 ~ an09 10.16 으로 기준 4.25 를 중심으로 넓게 흩어진다.",
+      "punctum_vs_A": "pb01 시집만 고유명사 0·0개인 지문 69.7% 로 A 기준에 맞는다(그러나 시라서 쓸 수 없다). 산문 8권은 0.55~15.06 으로 기준 0 에서 벗어난다. 대조 표지는 48.0~84.8% 로 A 기준 안에 든다.",
+      "punctum_vs_C": "시간순 표지 13.1~45.0%(short) — C 기준 89.7% 근처가 하나도 없다. **punctum 에 C 무리는 없다.**",
+      "bibliographic_noise_check": "고유명사 대리 지표가 참고문헌(Press/University/York 등)을 세는지 따로 쟀다 — ANU 0.7~3.9% · punctum 5.7~8.3% [측정]. pb10 의 15.06/100 은 참고문헌 때문이 아니라 본문의 Africa·Hebrew·Gothic·Byzantine 때문이다."
+    },
+    "keep_pct": {
+      "anu": "ANU 78.1~98.0% (중앙 93.3%)",
+      "punctum": "punctum 87.1~98.6% (중앙 92.6%) · pb03 제외",
+      "reading": "정제 잔존율은 두 출판사 모두 높다 — 표·서지가 아니라 산문이다. 이 축에서는 걸리는 것이 없다."
+    }
+  },
+  "verdict": {
+    "ANU Press": {
+      "g0": "R4 only — CC BY 0권. 2018년 이전 ARR(≈519), 이후 CC BY-NC-ND 4.0(≤300). 원문 확보(R1) 가능 권수 **0**.",
+      "g1": "채우는 슬롯 = A(가중치 0)가 거의 전부. B 0. C 후보는 전기 계열 ~21권.",
+      "g2": "수정량 56.3% · 66.7% (2문단) = 중. 지역 맥락은 어휘층이라 걷어도 논지가 남는다.",
+      "g3": "A 무리 문체와 안 맞음(고유명사 과다). 장문 창에서는 C 무리에 근접하나 앞문맥 지시어가 기준을 못 맞춘다.",
+      "value": "원천 가치 = Σ(슬롯 × 결손 가중치) ÷ 비용 = (A 0 + C 0.51×소수) ÷ 중 = **낮음**",
+      "recommend": "전량 수확 대상 아님. **단 하나의 예외**: ANU Lives / Biography 계열 ~21권은 C(0.51) 후보로 따로 재 볼 값어치가 있다. 그 21권도 라이선스는 ND/ARR 이므로 경로는 R4 재저작이다."
+    },
+    "punctum books": {
+      "g0": "R3/R4 — BY-NC-SA 452 · BY-NC-ND 20 · CC BY 0. 원문 확보(R1) 가능 권수 **0**.",
+      "g1": "표본 10권 중 9권이 A. B 0 · C 0. 주제(예술·문학·철학) 적중은 과제 지시문 말대로 높지만, **적중하는 칸이 이미 과잉인 칸**이다.",
+      "g2": "수정량 74.1% · 83.0% (2문단) = 중. 철학서는 재저작해도 내용이 거의 안 남는다.",
+      "g3": "시간순 표지 기준으로 C 무리 0. 본문이 없는 시각예술서가 표본 10권 중 1권(pb03 Kern — 106쪽에 추출 가능 806어).",
+      "value": "**거의 0**",
+      "recommend": "수확 우선순위 없음. 재저작 입력으로서도 ANU 보다 나쁘다 — 논지가 고유명사·전문어에 더 깊이 묶여 있다(수정량 중앙 78.6% vs ANU 61.5%)."
+    },
+    "joint": "두 출판사 합쳐 **R1(원문 확보) 0권**. 두 곳 다 demand-model.md §4 의 결손 칸(B 1.00 · C 0.51)을 거의 안 채운다. demand-model.md §5 가 이미 적은 대로 「여섯 후보 중 여섯이 A 무리」 라는 진단이 이 파일럿으로 실측 확인됐다."
+  },
+  "limits": [
+    "ANU Press 936권 전량의 라이선스를 세지 못했다. 편당 라이선스를 담은 API 가 없고(Crossref license facet 0 · DOAB dc.rights \"open access\" · OAPEN dc.rights.uri 12/175), 책 판권면은 PDF 안에만 있다. robots.txt 의 Crawl-delay 10 을 지키면 936권 확인에 최소 2.6시간이 걸린다 — 파일럿 범위를 넘어 하지 않았다. 대신 정책 문장 + 연도 분포로 **상한/하한**만 냈다.",
+    "연도 분포 519 : 300 은 Crossref 의 도서급 DOI 819건 기준이다. ANU 가 말하는 936권과 117권 차이가 나고, 그 차이는 DOI 없는 초기 ANU E Press 쪽일 가능성이 높다 — 그렇다면 ARR 비중은 실제로 더 높다. 확인 안 했다.",
+    "punctum 의 「452권」은 Thoth ACTIVE 도서급 472권 중 BY-NC-SA 의 수다. Thoth 에는 FORTHCOMING 76 · SUPERSEDED 5 · POSTPONED 3 · CANCELLED 1 이 더 있어 총 557 이다. 어느 수를 카탈로그 크기로 부를지는 정의 문제이므로 셋 다 적었다.",
+    "punctum 표본의 G3 는 전권 PDF 의 가운데 60% 페이지 구간이고, ANU 표본은 본문 장 하나다. 단위가 다르다 — 비율 지표(고유명사/100어 · 표지 비율 · keep_pct)는 비교 가능하지만 절대 산출량(yield)은 비교하면 안 된다.",
+    "G2 를 문단 4개에만 했다. criteria.md 는 원천마다 3문단을 요구한다 — 20권 × 3 = 60문단을 못 했다. 수정량 중앙값 70.4% 는 표본 4의 값이다.",
+    "「문단 자기완결성」은 표지 정규식 대리 지표다. criteria.md 가 요구하는 사람 판독은 4문단에만 했다. 20권의 argument_pct 수치를 사람 판독값처럼 쓰면 안 된다.",
+    "ANU an05 는 출판사 쪽 prelims 링크가 404 라 전권 PDF 에서 판권면을 읽었다. 본문 장은 정상 링크에서 받았다.",
+    "저자(author) 필드를 ANU 표본에 대해 구조화해 넣지 못했다. 책 판권면·표제지에 저자/편저자가 있다는 것은 확인했으나(G0-4 탈락 없음), HTML 파서가 이름을 못 떼어 냈다. punctum 은 Thoth contributions 에서 채웠다.",
+    "「지역 맥락 의존」은 상위 14개 고유명사를 육안 분류한 값이다. 전체 고유명사 질량의 분류가 아니다.",
+    "R3 재저작 산출량(원문 문단 1개 → 지문 몇 편)은 4문단에서 모두 1편이었다. 권당·장당 편수 추정은 하지 않았다 — 표본 4로 외삽하면 AGENTS.md 가 금지한 「일화 근거 권고」가 된다.",
+    "pb03(Kern)은 시각 타이포그래피 작품이라 PDF 에서 806어만 나온다. OCR 을 시도하지 않았다 — 이미지 자체가 글자 배열 작품이라 OCR 해도 산문이 아니다."
+  ]
+}

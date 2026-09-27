@@ -43,9 +43,9 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
           const border = !v
             ? 'border-dashed border-[var(--bd)]'
             : stale
-              ? 'border-[#B5803A]'
-              : 'border-[#2E7D5A]'
-          const fill = !v ? 'transparent' : stale ? 'rgba(181,128,58,0.12)' : 'rgba(46,125,90,0.18)'
+              ? 'border-[var(--memory-shaky)]'
+              : 'border-[var(--memory-stable)]'
+          const fill = !v ? 'transparent' : stale ? 'color-mix(in srgb, var(--memory-shaky) 12%, transparent)' : 'color-mix(in srgb, var(--memory-stable) 18%, transparent)'
           return (
             <li
               key={s}
@@ -60,7 +60,7 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
               {missing ? (
                 <span
                   aria-hidden
-                  className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[#9C3A30]"
+                  className="absolute right-1 top-1 h-2 w-2 rounded-full bg-[var(--memory-risk)]"
                 />
               ) : null}
               <span className="font-mono text-[10px] text-[var(--t3)]">{s}</span>
@@ -69,7 +69,7 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
               </span>
               <span
                 className="font-body text-[9.5px]"
-                style={{ color: !v ? 'var(--t3)' : stale ? '#B5803A' : '#2E7D5A' }}
+                style={{ color: !v ? 'var(--t3)' : stale ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}
               >
                 {label}
               </span>
@@ -83,7 +83,7 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
         그 중복을 잡았다(덩어리 110). 빨간 점만 글자가 없으므로 여기서 뜻을 말한다.
       */}
       <p className="inline-flex items-center gap-1 font-body text-[10.5px] text-[var(--t3)]">
-        <span className="inline-block h-2 w-2 rounded-full bg-[#9C3A30]" aria-hidden />
+        <span className="inline-block h-2 w-2 rounded-full bg-[var(--memory-risk)]" aria-hidden />
         해설 안 붙은 문항이 있는 권 — 그대로 나가면 해설 빠진 책이다
       </p>
     </div>

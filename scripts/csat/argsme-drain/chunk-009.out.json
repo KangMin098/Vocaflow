@@ -1,0 +1,306 @@
+{
+  "contract": "argsme-textbook/v1.out",
+  "chunk": "009",
+  "items": [
+    {
+      "id": "b835c0fa-2019-04-18T19:13:13Z-00003-000",
+      "sha256": "0c3157b1f3f3d5777b0e17007a2ad13d759f37b12c9a3a03786cdbbd43d07907",
+      "verdict": "write",
+      "topic_ko": "되돌릴 수 없는 형벌과 오판의 위험",
+      "passage": "No court can promise that every judgment it reaches will hold up forever. Judges, juries, and lawyers spend long hours on each case, and most of the time that careful work protects the innocent. Still, fresh evidence sometimes shows that a court reached the wrong answer, and prisons in many countries have freed people who spent decades locked up for a crime they never touched. Defenders of the death penalty reply that prison also holds the wrong person from time to time, and that no country would close every prison for that reason. The comparison breaks down at one point: a prisoner who wins a new trial can walk out and ask the state for payment, while a prisoner already put to death can ask for nothing. Because that harm can never be repaired, the chance of error weighs far more heavily here than anywhere else in the law. A state honest enough to admit that it may be wrong should keep only the punishment it can still take back.",
+      "claim": "A punishment that can never be corrected should not remain in the law."
+    },
+    {
+      "id": "bac1255e-2019-04-19T12:45:44Z-00021-000",
+      "sha256": "f0001bbfa5391a2a86ac2679522b253598230360b0c0ca302fa073fd440acd4a",
+      "verdict": "write",
+      "topic_ko": "복제가 유전적 다양성을 줄인다는 우려의 실제 크기",
+      "passage": "The fear that copying people would drain the variety out of the human family is much larger than the facts behind it. Cloning a person is slow, costly and uncertain, so it will stay within reach of only a few patients who have no other route to a child. Most couples are not waiting for a laboratory, because the wish to raise a child together with a partner has not weakened merely because a new method exists. The one group that would use the method widely is women who carry a serious illness in the part of the egg cell that supplies energy. For them the point is not a copy but a healthy child, since the illness is left behind when the core of one cell is moved into another. Removing a single deadly disease from a family line is no different from wiping out a fever that once killed millions, and those victories were welcomed. Judged by what it can actually do, rather than by what it seems to threaten, this technology is a narrow tool and not a danger to human variety.",
+      "claim": "The fear that cloning would narrow human genetic variety is far out of proportion to what the technology can actually do."
+    },
+    {
+      "id": "bb82ff95-2019-04-18T14:12:09Z-00003-000",
+      "sha256": "c2e86788a21183e9ebccbaeb756f97f39cbba9b00289f3eb696b5fe43e71d797",
+      "verdict": "write",
+      "topic_ko": "통학 버스에 안전벨트를 달아야 하는가",
+      "passage": "A school bus is the only vehicle in which children are carried each morning without the restraint that the law demands in an ordinary car. The usual answer is that tall soft seats are enough, yet those seats were designed for a crash from the front and do little once a bus rolls over. In a roll a child who is not held down is thrown against the roof and the windows, and such injuries are the worst that records show. Belts are cheap beside the cost of one serious head injury, and they have already been fitted to buses in several regions without any trouble. Children who are strapped in also stay in their seats, which makes the driver's task easier and the ride calmer for everyone on board. The habit matters as much as the metal, because a student who has been held safely every morning will not argue about a belt later in life. Until belts are installed and their use is required, the vehicle that carries the youngest passengers remains the least protected on the road.",
+      "claim": "School buses should be fitted with seat belts and students should be required to wear them."
+    },
+    {
+      "id": "bc6c8f10-2019-04-18T17:37:56Z-00001-000",
+      "sha256": "6c60c9e97999baf2700d39937e6cccc8b59bce4bf8a915e7d14b5ace8ffe2479",
+      "verdict": "skip",
+      "skip_reason": "계급을 나눠 유전자 조작·세뇌·가족 해체로 통제하자는 우생학적 제안이라 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "bc8970dc-2019-04-18T11:07:28Z-00001-000",
+      "sha256": "d27c5674681562fdea169ac4690684a86325ca9d08bc855b1c1b8fdb5d29e2d9",
+      "verdict": "write",
+      "topic_ko": "특정 집단 우대 법에 기한과 재검토를 둬야 하는 이유",
+      "passage": "Support aimed at a group that has been held back can be fair, but it should not be written into law as a permanent arrangement. A rule made for a particular disadvantage is answering a condition, and conditions change, so the rule should be examined again on a fixed date. When no review is scheduled, the benefit hardens into an ordinary right, and the people who hold it defend it long after the original harm has faded. A second danger is that these programs are easy to enter for people who never suffered the disadvantage they were built to repair. A fixed term answers both problems, because the support continues while the measured gap remains and ends quietly once that gap has closed. Such a limit also protects the policy itself, since a measure that must prove its worth every few years is harder to attack as an unfair gift. Equal treatment is the aim, and any help given in its name should be judged by how soon it becomes unnecessary.",
+      "claim": "Laws that give special support to one group should carry a fixed term and a scheduled review rather than permanent standing."
+    },
+    {
+      "id": "bd14a941-2019-04-18T13:27:08Z-00002-000",
+      "sha256": "c3feb7ea636897acb8918d5df1ee5b0284dc0525eea5ac19c41a6205aeb43139",
+      "verdict": "write",
+      "topic_ko": "학교 운동 경기를 성별로 나누는 기준은 무엇이어야 하는가",
+      "passage": "Boys and girls are separated in school sport almost everywhere, and the habit is rarely examined even in games where it makes no difference. The reason usually given is fairness, and in sports that are decided by weight, height and raw force that reason is a strong one. Yet many school games are decided by aim, timing and judgement, and in those events a mixed team would be neither unfair nor unsafe. Shooting, sailing and riding have been contested by mixed fields for years, and the results have not collapsed into easy wins. A school that divides every activity by sex also teaches a quiet lesson, namely that girls and boys cannot work as one side. The better rule is to look at what actually decides each game, then to separate the events where size settles the result and open the rest. Fairness is the goal, and fairness is measured by the demands of the sport rather than by a line drawn before the game begins.",
+      "claim": "School sports should be divided by what actually decides each game rather than by sex as a matter of habit."
+    },
+    {
+      "id": "bd7e78ba-2019-04-18T16:33:28Z-00007-000",
+      "sha256": "628921098454e6c4775c8834f62ca05008803aa937d3be45d837ab71a2e805fd",
+      "verdict": "write",
+      "topic_ko": "환자 자신의 세포로 손상된 장기를 고치는 복제는 허용해야 한다",
+      "passage": "Two very different things travel under the single word cloning, and the argument suffers badly because they are so rarely separated. One branch copies a whole person, which raises questions that no laboratory has answered and which remains forbidden nearly everywhere. The other branch grows fresh tissue from a patient's own cells so that a damaged heart or liver can be repaired. The medical case for the second branch is strong, because heart disease has been the leading cause of death in wealthy countries for decades. Tissue built from a patient's own cells is also less likely to be rejected by the body, which is the problem that has limited organ surgery since it began. Banning the whole field because one branch is troubling would waste a treatment that is already close, and the patients who wait are the ones who would pay. Copying people can stay forbidden while repairing them is allowed, and a law that draws the line in that place is careful rather than fearful.",
+      "claim": "Growing replacement tissue from a patient’s own cells should be allowed even while the copying of whole people stays forbidden."
+    },
+    {
+      "id": "bda1b4fa-2019-04-18T17:08:34Z-00005-000",
+      "sha256": "eb8f391b6d06f2a2e13d9840fbef32c25205f4ef1fd6d61744ba65aa8dc9e897",
+      "verdict": "write",
+      "topic_ko": "편을 고르는 일과 전제를 묻는 일의 차이",
+      "passage": "Taking a side in an argument feels like thinking, yet the two activities are not the same and they often pull in opposite directions. Every dispute rests on a question that both sides have already accepted, and that shared question is usually the part which deserves attention. When a quarrel about an answer has run for centuries without moving, the fault is rarely in the answers and usually in the question itself. The useful move at that point is to ask what the question assumes, because a buried assumption can be false while both answers still look reasonable. A dispute that falls apart in this way has not been won by either party, since it has simply stopped being a dispute at all. This work is unpopular, because it offers no victory and leaves the people who were keeping score with nothing to record. Still, the habit of examining the ground under a question is worth more than a lifetime of clever arguments for one position.",
+      "claim": "Choosing a side is not the same as thinking, because the harder work is to question the assumption that both sides share."
+    },
+    {
+      "id": "bfd230ff-2019-04-18T16:27:59Z-00004-000",
+      "sha256": "323d7597476a91eb6f5220ff947bdeae94ef53f1b169ac812cb9906a5a29bfa0",
+      "verdict": "skip",
+      "skip_reason": "9·11 항공기 충돌을 둘러싼 음모론 주장이고 물리 서술이 사실과 달라 지문으로 쓸 수 없다."
+    },
+    {
+      "id": "bfd69562-2019-04-18T17:38:09Z-00006-000",
+      "sha256": "813734f04596eb19684184ed99792994f357491097aa3708775c574dbef6f9a1",
+      "verdict": "write",
+      "topic_ko": "초등학교 숙제를 없앨 것인가, 고칠 것인가",
+      "passage": "Calls to ban homework in primary school are usually aimed at the worst examples rather than at the practice itself. A child who has been given two hours of copying has been treated badly, but the answer to bad homework is better homework. Twenty minutes of reading gives a young learner a second meeting with the day's lesson, and that second meeting is what fixes it in memory. Short tasks done alone also teach a skill that no classroom hour can supply, which is the habit of starting work without a teacher nearby. Parents learn something too, because a page brought home is the clearest view they are likely to get of what their child can and cannot do. The load in later years is far heavier, and a student who has never worked at home before the age of twelve meets that load with no practice at all. The sensible reform is a firm limit on the time and a clear purpose for every task, not the removal of homework altogether.",
+      "claim": "Homework should not be removed from primary school; it should be short, limited and clearly purposeful."
+    },
+    {
+      "id": "bfe8543f-2019-04-15T20:22:17Z-00028-000",
+      "sha256": "02eeb31ffe4beb01de509957d147e0a7c6e520ee215b5feab4fbe41d738fea93",
+      "verdict": "write",
+      "topic_ko": "후보를 공개 경선으로 뽑는 방식이 정당을 갈라놓는가",
+      "passage": "Letting ordinary voters choose a party's candidate is often attacked as a recipe for division, yet the record does not support that fear. An open contest forces candidates to say clearly what they stand for, and a party that has argued in public arrives at the election with a settled message. The quarrels are real, but they are the same quarrels that would otherwise be held behind a closed door and settled by a handful of officials. A candidate chosen by a small committee may face no serious test until the general election, which is the worst possible moment to discover a weakness. Voters who have taken part in the choice are also more likely to work for the result, since the candidate is partly theirs. Parties that have run hard contests have still won afterwards, which suggests that the damage is temporary while the benefit lasts. The alternative to an open contest is not harmony but silence, and silence inside a party has never been the same thing as unity.",
+      "claim": "Open contests for choosing a candidate strengthen a party rather than split it."
+    },
+    {
+      "id": "c266f92-2019-04-18T18:20:36Z-00002-000",
+      "sha256": "7a9c18a18f26a848d97d56aa9728604bf3dcde5dbf6474b786df8bfac18d68f1",
+      "verdict": "write",
+      "topic_ko": "자기가 듣는 음악의 뿌리를 배워야 하는가",
+      "passage": "Popular music is taught as though it began with whatever is playing this year, and that habit leaves young listeners with a very short memory. Nobody has to enjoy the records of sixty years ago, but the groups that shaped them are the reason modern songs sound as they do. The guitar sound, the studio tricks and even the idea that a band should write its own material were settled by a few early groups. A listener who knows none of that history hears every new record as though it had no parents, which makes it much harder to judge. Schools already teach where a painting or a poem came from, and music deserves the same treatment rather than a shelf of recent hits. The point is not respect for old age, since a style is simply easier to understand once its sources are known. A single lesson on the bands that built the modern song would cost almost nothing and would change how a whole class listens.",
+      "claim": "Schools should teach where popular music came from, because a style is easier to judge once its sources are known."
+    },
+    {
+      "id": "c47b7fe3-2019-04-18T19:04:35Z-00005-000",
+      "sha256": "2e9a527998e0f865fbc6aba69cd9bf8eda060b54fc03ee96a3ee6880edab409b",
+      "verdict": "write",
+      "topic_ko": "위험한 실험적 수술을 환자가 요청할 권리",
+      "passage": "Medicine is cautious by habit, and that caution has saved many lives, yet it can also trap a patient who has run out of ordinary choices. An adult who has been told the odds, the likely pain and the chance of failure should be allowed to ask for an unproven operation. The usual objection is that such a patient cannot judge clearly, but the same person is trusted to refuse treatment and die of the illness instead. A rule that permits refusal while forbidding a risky attempt treats the patient as an adult in one direction only. The request must be genuine, which means that the offer is never made by a hospital and never carries a promise of success. Careful records of such attempts are also the fastest route to knowledge, since the hardest cases are usually the ones that teach the most. Consent given with open eyes is the heart of modern medicine, and it should not stop at the door of the difficult operation.",
+      "claim": "An adult who has been fully informed should be allowed to request an operation that doctors regard as risky and unproven."
+    },
+    {
+      "id": "c4db5457-2019-04-18T15:41:09Z-00007-000",
+      "sha256": "9f773c113d412c08f95bc9ab8e3ebd2f269668e1e8e3bc87fabdf28ca593b676",
+      "verdict": "write",
+      "topic_ko": "학교 밴드가 학생에게 남기는 것",
+      "passage": "A school band is often the first item cut when a budget tightens, which suggests that its value has never been properly counted. The obvious gain is musical, but the larger gain is social, because a band gives a student a group to belong to on the very first day. Students who have somewhere to sit at lunch are less likely to drift away, and teachers report fewer absences among the members of a band. The work itself is unusually honest, since a passage that nobody has practiced is exposed the moment the group plays it together. That lesson is hard to teach in any other room, and it transfers quietly into subjects where effort is much less visible. Performing in front of a hall is also the cheapest cure for the fear of being watched, a fear that follows many students into adult life. A program that produces confident and patient students for the price of a few instruments is not a luxury that a school should cut first.",
+      "claim": "School music groups earn their cost because they give students a place to belong and a habit of honest practice."
+    },
+    {
+      "id": "c557910-2019-04-19T12:47:49Z-00006-000",
+      "sha256": "e7de5cbe6348edea0dd452847ee7d26b122f7a0e2dc2e4acd477bdcfa25fa394",
+      "verdict": "write",
+      "topic_ko": "무역만으로 가장 가난한 나라를 도울 수 있는가",
+      "passage": "Trade is often presented as the honest alternative to aid, a way of lifting poor nations without handing them anything at all. The argument is attractive, but it rests on a condition that many of the poorest countries are not yet able to meet. Trade rewards those who already have goods worth selling, ports that work and a government that foreign buyers are willing to deal with. Wealthy buyers also attach terms of their own, from working conditions to political support, and a country that cannot meet them is simply left outside. The nations that need the most are therefore the least able to earn it, which is why the promised spread of wealth has been so uneven. Aid has the opposite shape, because it follows need rather than capacity and can be aimed at the clinic or the school that is missing. Trade should certainly grow, yet until the poorest countries are able to sell anything at all, aid is the only instrument that reaches them.",
+      "claim": "Trade cannot reach the poorest countries, so aid remains necessary alongside it."
+    },
+    {
+      "id": "c5b8d1f0-2019-04-18T15:28:42Z-00000-000",
+      "sha256": "c872df9cfa5d89db9288f8920293e07146b6ee8d3179bb34206a86d7a418553f",
+      "verdict": "write",
+      "topic_ko": "온라인 학위와 캠퍼스 학위는 무엇이 다른가",
+      "passage": "Online study has opened a door that was closed for a long time, and the people walking through it are exactly those the old system missed. A parent with a full time job, a student in a distant town and an adult returning to study at forty can all now take a serious course from home. That gain is real, and it should not be talked away by anyone who happened to finish a degree on a comfortable campus. Still, a campus supplies something that a screen has not yet matched, which is a daily crowd of people that nobody selected. Arguments in a corridor, a club joined by accident and a difficult partner in a long project all teach a student how to work with people they did not pick. Employers notice the difference, because many jobs ask less about knowledge than about whether a person can be trusted in a room full of strangers. The honest conclusion is that the two routes are not rivals, since one widens the gate while the other shapes what happens after it.",
+      "claim": "Online study widens access to education, while a campus still supplies a social training that a screen has not matched."
+    },
+    {
+      "id": "c5ef2ca1-2019-04-18T16:31:01Z-00003-000",
+      "sha256": "8113f668f49a8672a5276415be95a33397370e93b1652e27df7f948b3fc016b0",
+      "verdict": "skip",
+      "skip_reason": "말기 환자의 죽을 권리를 설득하는 글이라 청소년 대상 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "c62047b4-2019-04-18T18:18:51Z-00007-000",
+      "sha256": "b74042a6aee7a54fed7c2324dca8d84d19b845849914bb1f727b80e14a1d874a",
+      "verdict": "write",
+      "topic_ko": "독립된 중앙은행이 필요한가 — 금본위·자유은행과의 비교",
+      "passage": "Calls to close the central bank return whenever prices rise sharply, and the anger behind them is easy enough to understand. Prices, however, are the signals that tell producers what to make and workers what their hours are worth, and sudden shifts in those signals damage everything built on them. An independent authority with the power to slow or speed the supply of money is the only tool that has kept such shifts small. A fixed metal standard cannot do the job, since the supply of money then depends on how much of the metal happens to be dug up. Nor can a market of competing private banks, which has no reason to act when a general panic is already spreading. The second task matters even more, because spending and lending collapse together in a downturn and someone must lean against that fall. A central bank can be badly run and should be watched closely, but removing it would leave the economy with no hand on the brake.",
+      "claim": "A nation needs an independent central bank, because nothing else can hold prices steady or soften a downturn."
+    },
+    {
+      "id": "c6ac36ad-2019-04-18T12:04:24Z-00001-000",
+      "sha256": "cedc85fabff22ea25bb2cb916819ce55db76d8f913ac8faf8875bd26887429c7",
+      "verdict": "write",
+      "topic_ko": "수업 중 조는 학생을 벌할 것인가, 등교 시각을 늦출 것인가",
+      "passage": "Students fall asleep in class every day of the week, and schools answer with punishment as though tiredness were a simple choice made at the desk. Some of it is laziness, but much of it is biology, since the body clock of a teenager shifts later and does not care about a bell at eight. A student who has been awake since six in the morning has already lost the hours in which learning comes most easily. Punishing that student changes nothing, because the sleep was missing before the lesson began and no threat can put it back. Schools that have moved the first lesson an hour later report better attendance, fewer accidents on the road and much calmer classrooms. The cost is a timetable problem rather than a moral one, and timetables have been rearranged for far smaller reasons than this. Where a later start is impossible, a tired student should be sent to rest rather than punished, since an awake class is the whole point of the morning.",
+      "claim": "Schools should move the first lesson later rather than punish students for being tired."
+    },
+    {
+      "id": "c7b72d87-2019-04-15T20:24:23Z-00016-000",
+      "sha256": "325ea228fdfbfaa98b2aa5c97301d730328fa04da67a3a60a259f23c7187c9ee",
+      "verdict": "write",
+      "topic_ko": "선거 직전 여론조사 공표 금지는 효과가 없다",
+      "passage": "A ban on publishing opinion polls in the last two weeks before a vote is a very small measure aimed at a very large complaint. By that point the polls of the previous year have already been printed, discussed and absorbed, and most voters have long since settled their view. The quiet period therefore removes nothing except the most recent figures, which are usually the most accurate and the most carefully made of all. Only the undecided could be moved within that window, and nobody has shown how many such voters exist or which way the effect runs. A limit on public expression needs far stronger ground than a guess about the size and the habits of a group that has never been measured. There is also an odd gap in the proposal, because a harm serious enough to justify silence in the final weeks would justify silence all year. The safer course is to publish the method beside every poll, so that readers are able to weigh a weak survey against a careful one.",
+      "claim": "A short ban on publishing polls before an election would not remove the harm it aims at and would limit expression for nothing."
+    },
+    {
+      "id": "c7b72d87-2019-04-15T20:24:23Z-00017-000",
+      "sha256": "241839f1989141e56fe769e10eaf06a3afc0eb9a5ff0ae800d3e10125e71eb21",
+      "verdict": "write",
+      "topic_ko": "선거 직전 2주 여론조사 공표 금지에 찬성한다",
+      "passage": "A short pause in the publication of polls immediately before a vote would protect the moment when the decision is actually made. Such a pause does not silence opinion, because the same figures have been published freely for the rest of the year and will return afterwards. Democracies already accept narrow limits of this kind, from rules about campaigning at the door of a polling station to silence during emergencies. The final days are different in kind, since a late figure can no longer be checked, corrected or argued about before the ballots are cast. A doubtful survey released on the last morning can push voters toward a candidate who seems certain to win, and that pressure has nothing to do with policy. Smaller parties suffer most, because their supporters are told that a vote for them is wasted just when it is too late to reply. Two quiet weeks would return the closing argument to the candidates themselves, which is where an election properly belongs.",
+      "claim": "A short quiet period before voting protects the final decision without silencing public debate."
+    },
+    {
+      "id": "c7b72d87-2019-04-15T20:24:23Z-00020-000",
+      "sha256": "05b4e264907628455770b225a8edd8a55c07d73a711c8107e78a1bc5887e7612",
+      "verdict": "write",
+      "topic_ko": "표현의 자유는 절대적인가 — 제한의 정당성",
+      "passage": "Free expression is treated in most arguments as though it were absolute, yet no country has ever protected speech without exception. Laws against threats, against false alarms in a crowded hall and against lies told to sell a worthless product are accepted almost everywhere. Once those limits are admitted, the interesting question is no longer whether speech may be restricted but where exactly the line should sit. A common reply is that any restriction opens the way to a wider one, but that warning describes a risk rather than a result. The same reasoning would forbid every rule that has ever been written, since all of them could in principle be stretched by a careless court. Limits should therefore be judged one at a time, by the harm they prevent, the harm they cause and how narrowly they have been drawn. That test is harder than shouting about freedom, but it is the only honest way to keep both speech and the public safe.",
+      "claim": "Since every democracy already limits speech for the public good, the real question is where the line should sit rather than whether one exists."
+    },
+    {
+      "id": "c7cbfbc6-2019-04-18T18:24:55Z-00003-000",
+      "sha256": "758ad8dee50b1236cf0c749e7c6a1040efa9f8030116c197ea724cc782e71d64",
+      "verdict": "write",
+      "topic_ko": "집단을 적으로 규정하는 발언까지 표현의 자유인가",
+      "passage": "Most speech that offends should be answered rather than punished, and a society that puts people in prison for rude opinions has already lost something valuable. A different case arises when a public figure tells a nation that one group among its neighbors is an enemy who ought to leave. That is not an opinion about an idea, since it is a claim about which people belong, and it lands on children in the same classroom. The harm is measurable, because reported attacks on a minority tend to rise in the weeks after such statements have been widely repeated. Ordinary debate about religion, about borders or about law is not touched by a rule aimed at that narrow kind of speech. The line can be drawn at the direct call to remove a group from the country, which leaves every criticism of a belief entirely free. A democracy protects argument, and it is precisely to keep argument possible that one side must not be defined out of the room.",
+      "claim": "Speech that marks a whole group as an enemy to be removed should be treated differently from ordinary disagreement."
+    },
+    {
+      "id": "c82011a3-2019-04-18T14:45:33Z-00003-000",
+      "sha256": "017ab120327c3f871a3ad885a43190ee401a52537f09f40147bd2509a304d894",
+      "verdict": "write",
+      "topic_ko": "좋은 목적은 나쁜 수단을 정당화하는가",
+      "passage": "The idea that a terrible act can be excused by a wonderful outcome has a long history, and it has never once survived contact with the result. A plan that promises peace at the cost of millions of lives asks for a certainty about the future that nobody has ever possessed. The dead are real and immediate, while the promised peace is a guess, and no honest scale balances the two against each other. Every ruler who has taken that bargain has also had to build the machinery for it, and such machinery outlives the emergency that produced it. A method chosen once becomes the method available next time, so the price is paid again long after the original aim has been forgotten. Good ends are not worthless, since they are simply too uncertain to justify a harm that is entirely certain. The rule that has served best is the oldest one, which is that the means are the only part of the future anyone controls.",
+      "claim": "A good aim cannot make a monstrous method right, because the harm is certain while the promised gain is only a guess."
+    },
+    {
+      "id": "c8896269-2019-04-18T13:07:22Z-00003-000",
+      "sha256": "6e30cbd7a936179e565d58bc46076468c494c2ef72bb09f975887a68036419ed",
+      "verdict": "write",
+      "topic_ko": "보통 사람에게 신문 읽기가 실용적인가",
+      "passage": "Reading a newspaper is often dismissed as a waste of a quiet hour, on the ground that distant events change nothing at all in an ordinary life. That view mistakes what a paper contains, because most of it is local, practical and directly connected to the reader's own week. A tax change, a new bus route, a factory closing and a job notice are all matters that reach an ordinary household first in print. A person who has read about a rule before it takes effect still has time to act, while a person who has not simply meets it. The wider pages matter too, since prices, work and even the weather are now shaped by events that begin very far away. Nobody needs to read the whole paper, and the habit works best when it is limited to the sections that touch the reader directly. Twenty minutes spent in this way is not idle curiosity, since it is the cheapest preparation available anywhere for the ordinary decisions of a year.",
+      "claim": "Reading part of a daily paper is practically useful, because most of what it carries touches the reader’s own week."
+    },
+    {
+      "id": "c905620-2019-04-18T11:23:50Z-00001-000",
+      "sha256": "33664e5757dccb3f99a9bca6c0e053ff4df5b2565c453ca501394b1dd44b2031",
+      "verdict": "write",
+      "topic_ko": "모든 아이가 같은 출발선에서 시작해야 하는 이유",
+      "passage": "Inequality between young children is the one form of inequality that nobody has ever really managed to defend in public. An adult who earns more after years of effort has an argument to make, but a newborn has done nothing at all to deserve a worse start. The gap opens very early, because health, food and the number of words heard before school already differ enormously between households. By the first day of class the distance is measurable, and schools that are asked to close it have been handed a task that began years earlier. Equal starts are not the same thing as equal incomes, and the case for them does not require that every wage be identical. It requires only that the accident of birth should stop deciding whether a child is fed, treated when ill and properly taught. The gain is shared, since talent that has been wasted in one country is a loss for every country that might have used it.",
+      "claim": "Every child should begin life with the same basic chances, even though adult incomes will still differ."
+    },
+    {
+      "id": "c949e93f-2019-04-18T19:39:09Z-00002-000",
+      "sha256": "0e6f0559d01f5ae6ae9fb8142a1a3c012797a7b48c2f20e6eb97a38a54f8dea6",
+      "verdict": "write",
+      "topic_ko": "광고비는 반드시 제품 가격을 올리는가",
+      "passage": "Advertising is widely assumed to be a cost that the buyer pays in the end, and the assumption seems too obvious to question. It ignores the reason a company advertises at all, which is to find enough buyers to justify making the product in quantity. The first machine, the first factory and the first design are expensive, while each additional unit is comparatively cheap to produce. A firm that sells to a few thousand people must recover those fixed costs from a few thousand sales, and the price is high as a result. A firm that has found a million buyers spreads the same costs across a million sales, and the price falls even after the advertising has been counted. Competition pushes in the same direction, since a buyer who has been told that two products exist is able to move between them. Advertising can certainly be wasteful and dishonest, but the claim that it must raise prices is not supported by the way manufacturing works.",
+      "claim": "Advertising does not necessarily raise the price of a product, because the demand it creates can spread fixed costs far more widely."
+    },
+    {
+      "id": "c9664fa2-2019-04-18T17:01:48Z-00006-000",
+      "sha256": "125f86c2e89f6e8019e4a3b180f48180f22118dcc82abf9db4b5599bb94a8acd",
+      "verdict": "write",
+      "topic_ko": "어린 학습자에게 학습용 기기는 방해인가 도움인가",
+      "passage": "Screens are blamed for almost every difficulty in early education, and the charge is usually made without asking what the screen is being used for. A young child who spends an hour drifting between short videos has lost that hour completely, and nobody should pretend otherwise. A child working through a reading program that adapts to each mistake is doing something a crowded classroom cannot easily offer. The device is not the variable, since the task running on it is, and the two have been constantly confused in this argument. Early learners also differ enormously from one another, and a tool that holds the attention of a restless young child may be the only thing that holds it at all. Paper does not disappear, because a child who has learned to read on a screen still reads, and the skill moves easily between the two. The sensible rule is to judge the activity rather than the object, and to keep both a book and a screen within easy reach.",
+      "claim": "The device is not what helps or harms a young learner; the task running on it decides that."
+    },
+    {
+      "id": "c9e2b968-2019-04-15T20:24:29Z-00006-000",
+      "sha256": "a9db281e4c304fa8bd397f1d89994088b886c83e140f4b1b6dbee9e3b5d2fba4",
+      "verdict": "write",
+      "topic_ko": "프로 선수는 국가대표로 뛸 도덕적 의무가 있는가",
+      "passage": "A player who was trained by a local club is often told that the nation which raised him owes him nothing and that he owes it everything. The debt is much harder to locate than the phrase suggests, because the training was paid for by a club that expected a return and received one. If the player stays, the club wins matches and the money that follows them, which pays for the next group of young players. If he leaves instead, the club receives a large transfer fee that does exactly the same work for exactly the same purpose. Either way the original investment has been repaid, and the accounts close without any appearance by a national side at all. A duty that arises from the accident of a birthplace is also a strange kind of duty, since nobody chose the country in question. Playing for a national team is an honor worth offering and worth accepting, but an honor that is required by law is no longer one.",
+      "claim": "A player trained by a local club owes no forced service to a national team, because that investment has already been repaid."
+    },
+    {
+      "id": "c9e2b968-2019-04-15T20:24:29Z-00010-000",
+      "sha256": "fa09314a4fc79fbb1ce04ed45217fd9e6d1da9d612b5ac5009d788dd2b62b4fd",
+      "verdict": "write",
+      "topic_ko": "한 선수에게 나라의 무게를 지우는 일",
+      "passage": "Every few years a country decides that one player has to win a tournament for it, and the argument that follows is entirely about that player's duty. The question has been aimed at the wrong place, because a team that depends on a single person has a problem no rule about duty can fix. Injuries, age and a simple loss of form remove such players from a team far more often than any refusal has ever done. A squad built around one man or one woman is therefore fragile in exactly the way that a national side should not be. The weight is also unfair, since a performance watched by millions is hard enough without the belief that a whole nation is waiting for it. Coaches who have spread responsibility across a wider group of players tend to survive the loss of any one famous name. The money and attention spent arguing about duty would be better spent finding the next ten players, which is the only real protection.",
+      "claim": "A country that depends on one player has a team problem rather than a problem about duty."
+    },
+    {
+      "id": "c9ea5788-2019-04-18T15:39:43Z-00005-000",
+      "sha256": "d007957445a919d9b26d081fae833766505fef6704430d40f51f7fb19afc9cf6",
+      "verdict": "skip",
+      "skip_reason": "성기와 성행위 서술이 섞여 있고 특정 집단을 배제하는 전제를 깔고 있어 지문으로 부적절하다."
+    },
+    {
+      "id": "ccb2cd3b-2019-04-19T12:44:47Z-00027-000",
+      "sha256": "b6f71c0fc35ab2e3e2a692f8d1bf86ea4289378d292bebd266dc3924e0f6324c",
+      "verdict": "write",
+      "topic_ko": "음주 가능 연령을 낮춰야 하는가",
+      "passage": "Lowering the legal drinking age to eighteen is usually defended on the ground that the current limit is already widely ignored. It is ignored, but that argument proves less than it seems, because a law that is broken at twenty will be broken at seventeen once the line moves. The line does not decide whether drinking happens, since it decides how early the habit is built and how open it becomes. Students who have had three years of legal practice before their final examinations arrive with a tolerance that turns a weekend into a week. The body offers a second reason, because the brain is still developing through the late teens and heavy drinking in those years does lasting damage. Countries that have raised the limit have recorded fewer deaths on the road among the youngest drivers, which is the clearest evidence available. A rule that is imperfectly obeyed is still a rule that delays the first drink, and that delay is itself the benefit.",
+      "claim": "Lowering the legal drinking age would move the habit earlier rather than make it safer."
+    },
+    {
+      "id": "ce17d06f-2019-04-19T12:47:45Z-00004-000",
+      "sha256": "b29aeaacba4e5ccf095c64fee437a5e2649fd80d60d996627adb3d1ab5587504",
+      "verdict": "write",
+      "topic_ko": "신입 환영 의식을 금지할 것인가 감독할 것인가",
+      "passage": "Welcome ceremonies for new members of a team have a real purpose, since a group that has laughed together settles faster than one that has not. The trouble is that these events usually have no adult in the room and no limit that anyone present is willing to state aloud. Newcomers are pressed to drink far past the point of safety, and students have died in circumstances that were entirely predictable in advance. A ban, however, simply moves the ceremony somewhere darker and later, because the tradition is much older than any rule a university can write. Supervision is the harder answer and the better one, requiring a registered event, a named person in charge and a member of staff who is present. Under such a rule the jokes survive while the dangerous part is removed, and a newcomer who wants to stop drinking is able to stop. Universities that have tried this approach have kept the welcome and lost the hospital visits, which is exactly the outcome worth aiming at.",
+      "claim": "Welcome ceremonies for new team members should be supervised rather than banned."
+    },
+    {
+      "id": "ce7f5699-2019-04-19T12:45:21Z-00036-000",
+      "sha256": "b537cc6ea219592fef9c3d6edda5221859bc8f657873dcd66cbd4e7c46d3001b",
+      "verdict": "write",
+      "topic_ko": "가장 위험한 무기에 대한 규칙은 모든 나라에 똑같이 적용되어야 한다",
+      "passage": "Rules about the most dangerous weapons are written mainly by the countries that already hold them, and that fact damages every argument built on them. A nation told that it cannot be trusted with a weapon its neighbor keeps hears a judgement about its character rather than about the weapon. Resentment of that kind has driven more than one government toward the very program the rule was meant to prevent. No reliable test exists for deciding which state is stable enough, since governments change and yesterday's safe partner is tomorrow's crisis. A rule that applies to everyone is therefore the only version that can be defended in public and enforced without the charge of double standards. That principle points in one direction, which is a limit binding on the strongest states as firmly as on the weakest ones. Until the powerful accept the same ceiling they have written for others, every agreement will be read as an attempt to freeze an advantage.",
+      "claim": "Rules about the most dangerous weapons hold only if they bind every nation alike, including the strongest."
+    },
+    {
+      "id": "cef27dcb-2019-04-18T14:16:46Z-00006-000",
+      "sha256": "26ec6fdf99524219b9151b8cc7a0606f7480116943c7dfed6e8d8dc051c98481",
+      "verdict": "write",
+      "topic_ko": "달 착륙 부정론이 무너지는 지점",
+      "passage": "The claim that the moon landings were staged has survived for decades, which says more about the pleasure of doubt than about the evidence. Hundreds of thousands of people worked on the program over many years, and not one of them has ever produced a document, a photograph or a confession. A secret of that size has never been kept anywhere, and the cost of faking the flights would have approached the cost of making them. The rock brought back is a harder problem still, since it differs from every sample on this planet in ways that were unknown at the time. Laboratories in rival countries examined that rock, and those countries had every reason to announce a lie and never did. Equipment left on the surface still returns a light signal today, which careful observers in several countries have measured again and again. Doubt is healthy, but doubt that ignores physical objects, foreign laboratories and a hundred thousand silent workers has stopped being doubt and has become a habit.",
+      "claim": "The claim that the moon landings were staged collapses under the physical evidence and the silence of the workers involved."
+    },
+    {
+      "id": "cf401f08-2019-04-18T15:17:34Z-00005-000",
+      "sha256": "db7a911b8c4c427a858bb848188aa7556c3d933b5d7378e7a0c5feb67c159225",
+      "verdict": "skip",
+      "skip_reason": "안락사·조력 자살을 권하는 논지라 청소년 대상 교재 지문으로 부적절하다."
+    },
+    {
+      "id": "cf843223-2019-04-18T15:49:10Z-00003-000",
+      "sha256": "97c98c8bfa371fa23d50972f15d7ba0ee2866d8e7df0b41594426ad9b0b273b1",
+      "verdict": "write",
+      "topic_ko": "교복이 하루의 비교 압력을 낮춘다",
+      "passage": "A uniform is often described as an attack on a student's character, but the ordinary clothing that it replaces was never neutral either. In a school without a uniform, dress becomes a daily statement about family money, and children read that statement with painful accuracy. Groups form along the lines that it draws, and a student whose family cannot keep up has been placed outside them before a single word is spoken. A uniform removes that particular signal, which is not everything but is one fewer thing for a young student to worry about before eight in the morning. Mornings are also quicker and cheaper, since a set of shirts bought once costs far less than a supply of new clothes renewed every season. Staff gain a practical benefit on school trips, because a group in matching clothing can be counted at a single glance in a crowded street. Character has many other ways of showing itself, and a school that frees its students from one daily competition has not taken anything real from them.",
+      "claim": "A common uniform lowers the daily pressure of comparison in a school without taking anything real from a student."
+    },
+    {
+      "id": "d0009dd4-2019-04-18T18:48:05Z-00007-000",
+      "sha256": "3f0421291fe700229e44340cc16760293bddc356d848d168cc1e6ab40d996f64",
+      "verdict": "write",
+      "topic_ko": "우주 연구비는 되돌아오는가",
+      "passage": "Spending on space research is attacked whenever a public budget is tight, usually with the remark that the same money could be feeding hungry people instead. The objection assumes that the money leaves the planet, when in fact almost all of it is paid to engineers, factories and laboratories on the ground. What returns from that work has a habit of appearing somewhere unexpected, in a hospital or a kitchen rather than on a launch pad. Small computers, better materials, accurate clocks and the tiny cameras in a modern phone were all pushed forward by the demands of flight. Weather satellites now warn coastal cities of storms days in advance, and that single application has saved more lives than the whole program has cost. The knowledge itself also has a value, since a species that has measured its own planet from outside understands that planet rather differently. The choice was never between a rocket and a meal, and treating it that way has cost far more than it has ever saved.",
+      "claim": "Money spent on space research returns more than it costs, mainly through the tools and knowledge it leaves behind on the ground."
+    },
+    {
+      "id": "d01da2a3-2019-04-18T19:04:30Z-00003-000",
+      "sha256": "d9be2bc3af5543556fb690476b432f100ec6b70588dcf3ae46c17aa8a45f21e3",
+      "verdict": "skip",
+      "skip_reason": "동성결혼 찬반은 종교·정치적으로 한쪽에 서지 않고는 쓰기 어려운 쟁점이라 교재 지문에서 제외한다."
+    }
+  ]
+}

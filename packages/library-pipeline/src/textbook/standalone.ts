@@ -54,8 +54,43 @@ export const STANDALONE_SPEC = {
  * 시중 분포가 0 에 몰려 있어 p90(4.5)으로 조이면 **대화가 조금 있는 정상 이야기 지문**이
  * 무더기로 막힌다. 두 자의 백분위가 다른 것은 실수가 아니라 분포가 달라서다.
  */
+/**
+ * 기출 서사 계열의 대화 비중 실측 — 2026-09-24 · `scripts/csat/data/corpus.json` 802문항.
+ *
+ * ⚠️ **위 `market` 은 시중 초·중 「설명문」 지문이다.** 그 p95(8.5·7.6)로 만든 문턱 9 를
+ *   서사에 대면 **기출 자체가 탈락한다** — 심경·분위기의 53.6%, 장문 서사의 79.3%,
+ *   서사 계열 전체의 **73.0%** 가 9% 를 넘는다. 게이트가 유형을 안 보고 있었다.
+ *
+ * 서사(심경·분위기 · 장문 순서/지칭/내용일치, n=115)는 분포 자체가 다르다:
+ *   p50 18.44 · p75 29.17 · p90 41.74 · **p95 46.65** · p99 57.47
+ * 나머지 유형(n=687)은 p50 0 · p95 7.23 이라 문턱 9 가 맞다 — 그쪽은 안 바꾼다.
+ */
+export const STANDALONE_NARRATIVE_SPEC = {
+  measuredAt: '2026-09-24',
+  source: 'scripts/csat/data/corpus.json',
+  sample: 115,
+  quotedP50: 18.44,
+  quotedP75: 29.17,
+  quotedP90: 41.74,
+  quotedP95: 46.65,
+  quotedP99: 57.47,
+  /** 대조군 — 나머지 유형 687문항. 문턱 9 의 근거가 여전히 유효하다. */
+  nonNarrative: { sample: 687, quotedP50: 0, quotedP95: 7.23 },
+} as const
+
 export const STANDALONE_GATE = {
   maxQuotedPct: 9,
+  /**
+   * 서사 계열 문턱 = **기출 서사 p95(46.65) → 47.**
+   *
+   * 문턱을 백분위로 잡는 방식은 위 `maxQuotedPct` 와 같다 — 다른 것은 **분모**다.
+   * 설명문 문턱은 시중 설명문 p95 에서, 서사 문턱은 기출 서사 p95 에서 온다.
+   *
+   * 47 에서 서사 탈락은 약 5%(정의상), 9 에서는 73.0% 였다.
+   * 더 올리면(60) 탈락이 0 이 되지만 그건 **대화만 있는 장면 조각**까지 통과시킨다 —
+   * 기출에도 그런 것은 없다(p99 57.47).
+   */
+  maxQuotedPctNarrative: 47,
   /**
    * 질문 밀도 문턱 = **40%**.
    *
@@ -294,15 +329,29 @@ export interface StandaloneFit {
  * 교재 지문으로 자립하는가.
  *
  * 못 재면 **통과시키지 않는다** — 모름을 허용으로 바꾸면 잴 수 없는 글이 그대로 실린다.
+ *
+ * @param opts.narrative 서사 계열(심경·분위기 · 장문 순서/지칭/내용일치) 지문인가.
+ *   **기본값 false 라 기존 호출부의 판정은 안 바뀐다.** true 면 대화 문턱만
+ *   `maxQuotedPctNarrative`(47)로 바뀐다 — 나머지 검사는 그대로다.
+ *
+ *   ⚠️ 이 인자가 없던 동안 게이트는 **기출 서사의 73.0% 를 거르고 있었다**
+ *   (문턱 9 가 시중 「설명문」 p95 라서다). 서사 재고를 수확할 때 이 인자를 빠뜨리면
+ *   그 원천이 "대화가 많아 못 쓴다" 는 **없는 진단**을 받는다.
  */
-export function standaloneFit(text: string): StandaloneFit {
+export function standaloneFit(text: string, opts: { narrative?: boolean } = {}): StandaloneFit {
   const s = standaloneSignals(text)
   if (!s) return { pass: false, signals: null, reason: '낱말이 없어 잴 수 없다' }
-  if (s.quotedPct > STANDALONE_GATE.maxQuotedPct) {
+  const maxQuoted = opts.narrative
+    ? STANDALONE_GATE.maxQuotedPctNarrative
+    : STANDALONE_GATE.maxQuotedPct
+  if (s.quotedPct > maxQuoted) {
+    const basis = opts.narrative
+      ? `기출 서사 p95 ${STANDALONE_NARRATIVE_SPEC.quotedP95}%`
+      : `시중 p95 ${STANDALONE_SPEC.market.elementary.quotedP95}%`
     return {
       pass: false,
       signals: s,
-      reason: `대화가 ${s.quotedPct}% 다 — 장면 조각이지 지문이 아니다(시중 p95 ${STANDALONE_SPEC.market.elementary.quotedP95}%)`,
+      reason: `대화가 ${s.quotedPct}% 다 — 장면 조각이지 지문이 아니다(${basis})`,
     }
   }
   if (s.opensAnaphoric) {

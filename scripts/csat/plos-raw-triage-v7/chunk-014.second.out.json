@@ -1,0 +1,799 @@
+[
+  {
+    "id": "083a3d96-a44b-413d-9e10-cd8e8441a00e",
+    "source_updated_at": "2026-09-13T07:03:02.597102+00:00",
+    "body_sha256": "3b0df84033b297cacda80b897dc51007644d5f2c8883ef9b91cfa11d10ed7c62",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「예상은 α-klotho 증가였으나 감소가 나왔다 → 인산뇨로 설명」 단락이 가설-반증-설명으로 서서 주제·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "order",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When designing this study our hypothesis",
+      "note": "예상과 다른 결과를 설명하는 흐름이 분명하나 FGF23·phosphaturia 등 용어 3~4개 풀이가 필요하다."
+    }
+  },
+  {
+    "id": "083e2bce-83a1-4175-9444-ec5353623a0d",
+    "source_updated_at": "2026-09-13T06:37:51.518704+00:00",
+    "body_sha256": "719c98cb2fc7ee5af20f884b16b1168f5e6e060c8c81104646eb84cbb4f6c673",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "science",
+    "why": "새 생쥐 계통이 목표 세포를 선택적으로 표지하지 못했다는 음성 결과로, 고찰 단락은 떼어지지만 계통·층판 용어 밀도가 높아 가공 여부가 애매하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The Gucy2d-cre driver line created and",
+      "note": "dorsal horn·cre·dynorphin 등을 바꾸면 논지 자체가 사라져 어휘 조정이 되지 않았다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "0849dab6-78ad-4219-952e-a32e3a9e28ad",
+    "source_updated_at": "2026-09-15T13:33:13.176702+00:00",
+    "body_sha256": "99459f2cbdba7c696e365358d7e13f21d86a49c7eb2588c2ae7930c8359084bd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "서론의 CCTA 판독 부담 → 자동 분할 필요 단락과 한계 절의 작은 비석회 플라크 오류 설명이 문제-해법 구조로 주제·요약·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite CCTA’s capability for volumetric CAD",
+      "note": "CCTA를 “heart scans”, plaque를 “fatty buildup”으로 바꾸니 V6 쪽으로 내려갔다."
+    }
+  },
+  {
+    "id": "084a02b9-1d70-4b9a-a956-50a72f5d527a",
+    "source_updated_at": "2026-09-15T13:33:16.815878+00:00",
+    "body_sha256": "b799f9c540545d09366a5ff06fd6fb8813884155eed41edc394ad177b3120a09",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약과 서론 첫 단락의 유방염 → 항생제는 조직 손상을 못 되돌림 → 산화 스트레스 표적 필요 흐름이 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bovine mastitis is one of the",
+      "note": "서론 첫 단락은 소 유방염 이야기로 서지만 결과 절은 단백질 기호뿐이라 가공 범위가 좁다."
+    }
+  },
+  {
+    "id": "084bbc07-12b6-439a-8980-1029086932f8",
+    "source_updated_at": "2026-09-15T13:33:27.101724+00:00",
+    "body_sha256": "7fb3256c6cc31636a75a3032952cf09f59d3618bf7e0a9467cab1b43a437e7a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "「실제 화학 신호 기울기는 얕다 → 고전 주화성은 멈추고 접촉 견인력은 이어간다」 단락이 대비 논지로 서서 주제·빈칸·무관 문장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In vivo chemoattractant gradients guiding collective",
+      "note": "수식 기호가 빠진 자리(“slope of ,”)를 걷어 내야 하고 chemoattractant 풀이가 필요하다."
+    }
+  },
+  {
+    "id": "0854a8fd-99ee-4b94-871f-23b2bfbfe750",
+    "source_updated_at": "2026-09-15T13:33:49.308999+00:00",
+    "body_sha256": "f7b69fb3d16d6f814c68c0d464b02282e567873905f9df37bbe60d97437eb6ea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론 첫 단락의 「모유는 영양을 넘어 면역 세포를 전달한다」 설명이 사실 여럿과 논지로 서서 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Human milk is a dynamic fluid",
+      "note": "leukocytes를 “immune cells”로, lymphoid를 풀어 쓰니 한 편의 설명문이 됐다. 결과 절 유전자 나열은 쓰지 않는다."
+    }
+  },
+  {
+    "id": "0855d498-8688-4cf0-85fa-1e75b8314ce2",
+    "source_updated_at": "2026-09-13T06:19:48.769039+00:00",
+    "body_sha256": "26b41fea2d9ce81aca67f82cf5be4e8cc71e4e74ee7f88a71cc942a1e0960f7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "hold",
+    "genre": "health",
+    "why": "호 표지 그림 설명으로 흡연 연구 요약 두 문장이 두 번 반복된다. 그림 없이 뜻은 서지만 캡션이라 분량·칸이 경계선이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Using data from 22 prospective cohort",
+      "note": "요약문은 떼어지고 뜻도 서지만 두 문장뿐이라 문항 하나를 받치기에 모자라다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "085b4079-5cb7-4b1f-9b43-add339fb5a34",
+    "source_updated_at": "2026-09-13T06:45:11.868217+00:00",
+    "body_sha256": "6f2e5a80d0feb56c1e3eec1f0d65f877d1c98a6dd69dc7293ee7795ed05612aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 초음파·마이크로파·효소 추출 원리 설명이 원인-결과 문장으로 이어져 순서·삽입·내용 일치 칸을 채운다. 결과 절은 수치 나열이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "UAE is advantageous because it reduces",
+      "note": "cavitation을 “tiny bubbles collapsing”으로 풀어 보니 초음파 추출 문단이 절차 설명으로 섰다."
+    }
+  },
+  {
+    "id": "0868404e-5364-4f76-b7fd-456e81b6dda1",
+    "source_updated_at": "2026-09-13T07:36:57.292498+00:00",
+    "body_sha256": "6625d2a833aea0a6207513b16e92a8fb4520b50b45043f448841431673f0fffc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 「식이 제한의 학습 효과가 수명 연장의 부산물인가」라는 물음과, 고찰의 KYNA 한 경로로 설명된다는 결론이 주장-근거로 서서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, given that DR or reductions",
+      "note": "벌레 유전자명을 걷어도 「먹이 제한 → 억제 물질 감소 → 학습 향상, 수명과 무관」 논지가 선다."
+    }
+  },
+  {
+    "id": "086e5fad-af75-44b7-855f-bd783d2b20d5",
+    "source_updated_at": "2026-09-15T13:35:47.027869+00:00",
+    "body_sha256": "4f0116711b04066cd6e5c36998b473fe3db5b0ca178c0df4453d2fd218236457",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "psychology",
+    "why": "서론의 우울·조현병·인지 저하가 서로 얽혀 있다는 단락과 고찰의 「뇌는 모듈형 적응 체계」 단락이 설명 논지로 서서 주제·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The brain operates as a modular,",
+      "note": "문장이 길고 추상적이지만 cohesion을 “working together”로 바꾸니 요지가 잡혔다."
+    }
+  },
+  {
+    "id": "0871e32c-ceef-44a7-b4a5-a2037f440259",
+    "source_updated_at": "2026-09-15T13:35:51.653022+00:00",
+    "body_sha256": "0bb869c9fdb0c88c081a0a899e6c234a8658d2341fc8115e0ef9f82e5be06285",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "1차 진료에서 AI는 임상의를 대신하지 않고 보조해야 한다는 의견문으로, 설계 원칙 단락이 주장과 근거로 서서 주장·요지·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "title",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Finally, AI systems are best understood",
+      "note": "MASLD·FIB-4 같은 약어를 걷고 “liver disease” “simple score”로 바꾸니 AI 보조 논지만 남았다."
+    }
+  },
+  {
+    "id": "087e735f-84c3-490e-aad8-406831f3bee6",
+    "source_updated_at": "2026-09-15T13:35:55.689609+00:00",
+    "body_sha256": "790a565cbebc5e87cdd127d4e01c797dfc2f36cced8a81fd31803e17d81609a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "관행적인 도뇨관 피부 고정이 근거·이득·비용·환자 선호 네 기준에서 모두 「저가치 간호」라는 반증 구조가 분명해 주장·요지·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Given the global backdrop of efforts",
+      "note": "「저가치 진료」 정의 단락은 거의 그대로 서고 TURP를 “prostate surgery”로 바꾸면 V6이다."
+    }
+  },
+  {
+    "id": "088b4eec-868f-4bdc-a54c-ba817b8cd8cb",
+    "source_updated_at": "2026-09-15T06:47:52.868112+00:00",
+    "body_sha256": "883ddc9e45e087e70021287e23fffff70525848358c487b9c04425e74b696022",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "저자 요약의 「감수분열은 염색체를 고리 단백질이 붙들어 정확히 나눈다」 설명 두 단락이 떼어져 서고 주제·빈칸 칸을 채운다. 본문은 단백질 기호 중심이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meiosis is the process that produces",
+      "note": "저자 요약만 쓸 수 있다. cohesin을 “ring-shaped proteins”로 풀어 보니 설명문이 됐다."
+    }
+  },
+  {
+    "id": "089bf593-7140-487f-adc2-a536a1c39591",
+    "source_updated_at": "2026-09-15T13:36:03.232362+00:00",
+    "body_sha256": "1ca8b29b8abd57f7d4901f3b127833808cc13377321d06cc09deb7de3bc889a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 유전자 중복 뒤 신기능화·하위기능화·위유전자화 세 갈래 설명이 구분되는 단락으로 서서 순서·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Combining gene mutations can lead to",
+      "note": "세 운명을 나열하는 구조라 순서 문항에 맞다. paralog를 “gene copies”로 바꿨다."
+    }
+  },
+  {
+    "id": "08b02252-3fab-4205-b98e-232dd4c4befc",
+    "source_updated_at": "2026-09-15T13:36:13.635182+00:00",
+    "body_sha256": "a08ea456a89d2020270d1c28853c027cbe749346ab4df4df7393fe60ab3ef397",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "고찰의 「모기장 소유는 감염률이 높고 실제 사용은 낮다 → 접근과 이용은 다르다」 역설 단락이 논지를 세워 주제·빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Divergent associations for prevention-related behaviors warrant",
+      "note": "ITN을 “bed nets”로 바꾸니 소유와 사용의 차이라는 논지가 PR 수치 없이도 섰다."
+    }
+  },
+  {
+    "id": "08ca73bc-9ef7-49da-a227-51f78a078c05",
+    "source_updated_at": "2026-09-15T13:36:30.536747+00:00",
+    "body_sha256": "1c79132e06e4757994c8dddf5be9690ef9759f5bdaea7bb3e268884c99d46ca1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "「표현형 자료의 군집은 생물학적 실체가 아니라 방법의 산물일 수 있다」는 중심 가설과 서론의 알고리즘 가정 단락이 주장으로 서서 주장·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Crucially, the interpretability of phenotypic clustering",
+      "note": "heteroscedasticity·Pst를 걷으면 「가정이 맞지 않으면 군집은 허상」 논지가 남는다."
+    }
+  },
+  {
+    "id": "08db5862-6bc9-46d6-aebb-cccb8b624220",
+    "source_updated_at": "2026-09-13T06:52:34.883921+00:00",
+    "body_sha256": "6efcfa3f7515cd86fcf828b94af62ad0a38078f39004dd416191599ea88cbca2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 급성 감염 기억 대 만성 바이러스 잠복이라는 대비와 고찰의 이식 환자 선택적 억제 제안 단락이 떼어져 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The development of immune memory to",
+      "note": "첫 단락은 CMV 설명으로 서지만 결과 절은 세포 표지 약어뿐이라 서론·고찰만 쓸 수 있다."
+    }
+  },
+  {
+    "id": "08df955e-ad82-4a00-9690-f2819a794f59",
+    "source_updated_at": "2026-09-15T13:36:35.386589+00:00",
+    "body_sha256": "4256707137d3c641a7581459384afea43fd42d655beb834eab190cb5acfcaf15",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "서론의 자가포식 단계(격리막 → 신장 → 봉합 → 융합)가 시간 순서로 이어지고 Orsay 바이러스 발견 단락이 사실 진술이라 순서·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The steps of macroautophagy, hereafter referred",
+      "note": "단계 나열이 뚜렷해 순서 문항으로 바로 잘렸다. phagophore만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "08dfff5d-e7aa-416c-9104-90f13258df52",
+    "source_updated_at": "2026-09-15T13:36:36.905521+00:00",
+    "body_sha256": "01b23494777f4837f2fa7d5464da2ae9e134f16bcfc344708b95a88537c91a4b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "health",
+    "why": "서론의 「MR 길항제는 효과가 있지만 고칼륨혈증 위험 때문에 덜 쓰인다 → 새 조절제」 문제-해법 흐름이 주제·빈칸·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "main_point"
+      ],
+      "levels": [
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In humans, MR antagonists (MRAs) provide",
+      "note": "hyperkalemia를 “high blood potassium”으로 바꾸니 약의 장단점 논지가 섰다. 약어가 많아 V8에 머문다."
+    }
+  },
+  {
+    "id": "08e43be0-20bd-48fc-813a-b844b822811f",
+    "source_updated_at": "2026-09-15T13:36:43.287255+00:00",
+    "body_sha256": "e5dca1032d5861565748b32f2472e861b4de99e0d9917bb681d3e8a70a2ebace",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 3,
+    "round": 4,
+    "retention": "keep",
+    "genre": "science",
+    "why": "고찰의 「일반 곰팡이는 정면 공격, 전문 곰팡이는 면역을 피해 숨어 자란다」 두 전략 대비 단락이 논지로 서서 주제·요지·빈칸·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "title"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A key aim of our study",
+      "note": "종명을 걷고 “generalist/specialist fungi”로 두니 숨는 전략 대 공격 전략의 대비가 선명하다."
+    }
+  }
+]

@@ -38,6 +38,18 @@ import {
 } from '../spec/evaluate'
 import { cuesOf } from './captions'
 import { loadBundle } from '../catalog/bundle'
+import { allSpecs } from '../requests/store'
+import {
+  cmdRequests,
+  cmdRequestsExport,
+  cmdRequestsImport,
+  cmdRequestsPull,
+  recordRequestEvaluations,
+  refreshRetiredFile,
+  markRerendered,
+  cmdRetireSync,
+} from '../requests/drain.mjs'
+import { splitRetired } from '../requests/retired'
 import { validateAll } from '../spec/validate'
 import { FPS, FORMATS, type FormatId } from '../spec/format'
 import { applyVoiceTiming, loadVoiceManifest, synthesizeSpec } from '../voice/edge-tts'
@@ -120,7 +132,7 @@ function positionals(): string[] {
 
 /** 음성 실측 길이를 반영한 설계도. 이게 렌더가 보는 최종본이다. */
 function specsWithVoice(): VideoSpec[] {
-  return buildSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
+  return allSpecs(loadBundle()).map((s) => applyVoiceTiming(s, loadVoiceManifest(s.id)))
 }
 
 /** `id` 하나, 또는 `kind` 하나, 또는 아무것도 안 주면 전부. */
@@ -170,7 +182,7 @@ async function cmdList(): Promise<void> {
 
 /** 설계도 전부를 큐에 올린다 — 이게 「안 만든 편」의 분모가 된다. */
 async function cmdEnqueue(): Promise<void> {
-  const specs = select(buildSpecs(loadBundle()), positionals())
+  const specs = select(allSpecs(loadBundle()), positionals())
   const r = await enqueueAll(specs)
   console.log(`큐에 올림 ${r.ok}` + (r.skipped ? ` · 못 올림 ${r.skipped}` : ''))
 }
@@ -188,7 +200,7 @@ function cmdCheck(): number {
 }
 
 async function cmdVoice(): Promise<void> {
-  const specs = select(buildSpecs(loadBundle()), positionals())
+  const specs = select(allSpecs(loadBundle()), positionals())
   const force = has('force')
   let made = 0
   let skipped = 0
@@ -249,6 +261,9 @@ async function renderOne(
   return { file: outFile, bytes }
 }
 
+/** 다시 찍기가 요청된 purge 편 — main 이 DB 에서 받아 채운다(splitRetired) */
+let rerenderIds: ReadonlySet<string> = new Set()
+
 async function cmdRender(all: boolean): Promise<number> {
   ensureWorkFiles()
   const specs = select(specsWithVoice(), all ? [] : positionals())
@@ -288,6 +303,12 @@ async function cmdRender(all: boolean): Promise<number> {
         failed++
         console.log(`FAIL ${spec.id}--${format}  ${(err as Error).message.split('\n')[0]}`)
       }
+    }
+    // purge 뒤 「다시 찍기」로 되살리는 편 — **모든 규격**이 파일로 확인됐을 때만 되살림을 기록한다
+    //   (한 규격만 찍고 되살리면 포장이 빠진 규격을 싣지 못한다)
+    if (rerenderIds.has(spec.id) && !only && made === spec.formats.length) {
+      await markRerendered(spec.id)
+      console.log(`↺ ${spec.id} — 다시 찍기 완료 · 되살림(다음 package 부터 실린다)`)
     }
   }
   console.log(`\n찍음 ${ok} · 실패 ${failed} → ${path.relative(process.cwd(), OUT_DIR)}`)
@@ -451,6 +472,16 @@ async function cmdEvaluate(): Promise<number> {
     }
   }
 
+  // 요청 편은 요청 쪽에도 남긴다(규격 + 목적) — 다음 기획의 입력이 된다.
+  if (!has('no-record')) {
+    try {
+      const rn = await recordRequestEvaluations(cards)
+      if (rn > 0) console.log(`요청 평가 기록 ${rn}편`)
+    } catch (e) {
+      console.log(`요청 평가를 못 남겼다: ${(e as Error).message}`)
+    }
+  }
+
   const s = summarize(cards)
   console.log(
     `\n편 ${s.videos} · 전부 통과 ${s.clean} · 어긋남 있음 ${s.failing}` +
@@ -600,7 +631,17 @@ function cmdStale(): number {
   return 1
 }
 
+/** 설계도를 읽는 명령 — 시작 전에 DB 의 내린 편 목록을 새로 받는다 */
+const NEEDS_RETIRED = new Set(['list', 'check', 'voice', 'render', 'render-all', 'enqueue', 'stale', 'evaluate', 'thumbs'])
+
 async function main(): Promise<void> {
+  if (cmd && NEEDS_RETIRED.has(cmd)) {
+    const live = await refreshRetiredFile()
+    const split = splitRetired(live)
+    rerenderIds = new Set(split.rerender)
+    if (live.length > 0) console.log(`내린 편 ${live.length} — 목록에서 뺀다`)
+    if (split.rerender.length > 0) console.log(`다시 찍기 요청 ${split.rerender.length} — 렌더 대상에 넣는다: ${split.rerender.join(', ')}`)
+  }
   switch (cmd) {
     case 'list':
       await cmdList()
@@ -635,6 +676,21 @@ async function main(): Promise<void> {
     case 'thumbs':
       process.exitCode = await cmdThumbs()
       break
+    case 'requests':
+      process.exitCode = await cmdRequests()
+      break
+    case 'requests:export':
+      process.exitCode = await cmdRequestsExport()
+      break
+    case 'requests:import':
+      process.exitCode = await cmdRequestsImport(has('commit'))
+      break
+    case 'requests:pull':
+      process.exitCode = await cmdRequestsPull()
+      break
+    case 'retire:sync':
+      process.exitCode = await cmdRetireSync(has('commit'), has('purge'))
+      break
     default:
       console.log(
         [
@@ -649,6 +705,11 @@ async function main(): Promise<void> {
           'pnpm video evaluate [<id|kind>]     평가 — 규격 대비 (--full 로 축 전부)',
           'pnpm video loudness [--fix]         음량이 YouTube 규격(-14 LUFS) 안인지',
           'pnpm video stale                    발행본이 설계도와 어긋나는지',
+          'pnpm video requests                 요청 현황 + 큐 결과 반영 (재실행 안전)',
+          'pnpm video requests:export          설계 대기 요청 → work/requests/chunk-NN.json',
+          'pnpm video requests:import [--commit]  설계 초안 검사 → rev 기록 (기본 예행)',
+          'pnpm video requests:pull            승인본 → 설계도 + 큐 + 적용 시작',
+          'pnpm video retire:sync [--commit] [--purge]  내린 편을 manifest 에서 뺀다 (--purge: 파일까지, 되돌릴 수 없음)',
         ].join('\n'),
       )
       process.exitCode = 1

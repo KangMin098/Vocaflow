@@ -1,0 +1,1769 @@
+[
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13629b07-312f-48c3-925c-1661992654d7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f31b94a172f0854c289fa3c64cb885e82476914b56c20f42d5f79c027cd01691",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "space",
+        "why": "캐나다 첫 궤도 발사장 부지 배정과 제안 회사의 우주선 계획, 입지 이유가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The proposal came from a Canada",
+          "note": "제안 회사 문단은 발사장 입지 이유까지 담아 섰고 shuttling 을 carrying 으로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.719Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cape_Breton%2C_Nova_Scotia_to_have_launch_pad",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.356
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13645777-a4e8-404d-ab85-1aee37f50a27",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c4f835a094abb1075e2707aaae0b640698fe8af4b4249541fa08a64d072fdb26",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "무장조직·마약조직별 항공기 보유 대수 나열이 본문 전부라 내용 일치 칸도 수치 나열뿐이어서 보관 최소선에 못 미친다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The country's biggest guerrilla group, the",
+          "note": "반군 보유 문단을 떼니 집단별 항공기 대수 나열뿐이라 사건이나 논지가 서지 않았다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.720Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Colombian_terrorists_own_42_aircraft",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.185,
+          "words": 135,
+          "english": 0.311
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "136583f1-b55c-4417-a79c-50a10e7deb80",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6656fabad5b7346e3c2c14b4aefc3c84596c3eb964e2985d65c8a4d839c133bd",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "평화유지군 피격 경위와 누적 사망자, 최근 폭력 감소 사실이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The spokesman, Kemal Saiki, commented that",
+          "note": "매복 경위 문단은 응사·도주까지 담아 섰고 assailants 를 attackers 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.720Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Three_peacekeepers_in_Sudan_killed_by_gunmen",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.882,
+          "words": 136,
+          "english": 0.39
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "1366ba6f-80ab-41c3-ba2b-a60eeec32816",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a17cea616a143476b97d9c039d84b990e320872575a3d929e13de44458efad84",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "동시다발 폭탄 테러의 피해·배경·책임 공방·폭동이 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Assam has been the scene of",
+          "note": "분리주의 배경 문단은 폭탄 테러의 맥락을 스스로 세웠고 insurgencies·outlawed 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.720Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Synchronised_bombings_strike_Indian_state_of_Assam",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 6,
+          "words": 200,
+          "english": 0.356
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "136a0347-f822-4c68-a6ec-ca67b4ba64b9",
+    "revision": "2026-09-25T08:58:50.002946+00:00",
+    "body_sha256": "32ca9d7bb362d34f9b028e1e975b487e9bbc594f9691e2491dc2ef7ff9313f87",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "engineering",
+        "why": "인도 첫 민간 군용기 조립 공장 개소와 생산 계획·계약 배경이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "India signed the nearly INR21,000 crore",
+          "note": "계약 문단은 노후기 교체라는 까닭을 담아 섰지만 crore 단위는 달러 환산만 남겼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.720Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Indian_and_Spanish_leaders_inaugurate_India's_first_private_military_aircraft_facility",
+          "year": 2024,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.867,
+          "words": 181,
+          "english": 0.339
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "136f7e4e-3fc7-47c5-9c39-fe18151254a1",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cb6e7a6dcaed7373909abe4ffe5f9ec383483b6262f5e247b251a5396db5fd8f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "애니메이션 특집의 방송·배포 날짜와 채널, 출연자 이름 나열뿐인 홍보 일정표라 읽는 글 칸이 서지 않는다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "The official special is scheduled to",
+          "note": "방영 일정 문단을 떼니 날짜·채널 나열뿐이라 떼어 쓸 사건이나 논지가 없었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.720Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_promotional_events_set_for_Disney's_%22Phineas_and_Ferb's_Christmas_Vacation%22",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.335
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13710d42-f9d0-4538-b9b0-6598da4cbb55",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cd8abe387b75ec42cc9b1d6a25be9f529e0f2566e12ddcb6437ee1556c865223",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "discard",
+        "genre": "reference",
+        "why": "12일치 기사 제목과 한 줄 요약을 날짜별로 늘어놓은 목록이라 한 편의 글이 아니다.",
+        "slots": {
+          "ages": [],
+          "purposes": [],
+          "types": [],
+          "levels": [],
+          "platform": []
+        },
+        "processing": {
+          "detachable": false,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "India government demolishes over 6,000 shanties",
+          "note": "첫 요약 줄은 한 문장짜리 헤드라인 요지라 떼어도 앞뒤가 없고, 나머지도 서로 무관한 제목·날짜 목록이었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.720Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Digest%2F14December2004",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13716dd1-b5de-495a-be07-d771ea631c42",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e63e08d84d333921b9f95e928cb4b688b0d790fdca289c22c6b092ec28def5ca",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "대규모 총기 압수와 수사 작전의 배경이 이어져 고2 이상 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Operation Trident officers and Polsa (Police",
+          "note": "수색 문단은 괄호 약어를 걷으면 섰고 majority 외엔 쉬웠으나 비문(though majority of weapon)을 고쳐야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/London_Police_seize_massive_gun_cache",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 6.04,
+          "words": 149,
+          "english": 0.315
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "1379cc93-d2e9-48ec-aac3-8cee043d24dd",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "210ab98efdc1337f3496d3800f4b098f5641bf09988738e5f14793505212dcb5",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "올해의 인물 후보 지명과 그 자격을 두고 근거를 댄 논평, 비판이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": [
+            "claim-evidence"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Marshall argued Fluke belongs on the",
+          "note": "칼럼니스트 문단은 후보 자격 주장에 근거 셋을 대서 주장-근거 문항에 맞았고 adversity 만 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Sandra_Fluke_nominated_by_Time_magazine_for_Person_of_the_Year",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.356
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "137a6526-70c3-4bee-a465-67c78f058b3d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9e3568ccf447fae0f341ae22b795093af1fb0f3d01ff5d9c55d05742824dcca6",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "유세장에서 질문한 활동가가 제압된 경위와 양측 주장, 지지율 변화가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Three Allen campaign staffers wrestled Stark",
+          "note": "제압 문단은 세 주체의 서로 다른 규정을 담아 섰지만 staffers·heckling 두 낱말을 풀어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Activist_ejected_from_Virginia_senator%E2%80%99s_re-election_rally",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.363
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "137ae332-243b-4398-897f-c0e1f5f2995c",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e01dbef3c2ef2b4774ce080403be4eeef659c0e6bc68c0354393bd5c87f88533",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "방역 규정을 집행해야 할 장관들이 위반으로 사임한 경위와 확산 배경이 대비돼 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A recent surge in new infections",
+          "note": "확산 문단은 당국이 규정 위반을 탓하는 맥락을 줘 장관 사임의 아이러니가 섰고 attribute 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Two_Jordanian_ministers_caught_breaking_lockdown_measures%2C_resign",
+          "year": 2021,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.34
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "137b7631-495c-451e-82f9-7285f8fda12f",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "457a0ea259b36e6d15570e008f5cd714f15b22e55b0d998624715b3d936901fc",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "literature",
+        "why": "작가의 경력·대표작의 주제·교육 속 위상·유산이 차례로 이어져 순서·주제·삽입 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "csat",
+            "mock",
+            "reading",
+            "school"
+          ],
+          "types": [
+            "content_match",
+            "order",
+            "topic",
+            "insert"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "His book Fahrenheit 451 cut to",
+          "note": "『화씨 451』 문단은 작품 주제와 각색 이력을 담아 섰고 cut to the heart of 관용구를 풀어야 했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Science_Fiction_author_Ray_Bradbury_dies",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.373
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "137d2e7d-4243-43e5-a3ee-c4fff7a48a56",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "478574cb424f7a03a44e35578c032700dd0eea5d8713cb251e2da6a94434a692",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "화물기 추락과 산불, 목격자 증언과 기종 확인이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Though George Clare, a man from",
+          "note": "목격자 문단은 군용기 추정과 당국 확인이 엇갈려 섰고 fixed wing 을 풀어 썼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Cargo_plane_crashes_in_Alaska's_Denali_Park%2C_sparks_wildfire",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.345
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "137fb230-41b5-4036-9e45-9f98030858cb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c3d1b00d9aac0484028fde36c41f86fe99925ef340926ed45d3e44738679a75b",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "nature",
+        "why": "토네이도 사망자와 주별 피해, 경보에도 피해가 컸던 이유가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "When asked about the storms which",
+          "note": "보안관 인용 문단은 경보가 있었는데도 피해가 컸던 까닭을 담아 섰고 fatality 를 death 로 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/18_dead_after_multiple_twisters_strike_US_Midwest",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.357
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "1382db44-c687-4aa2-b05b-4163704db16e",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a400ad9a3868c5cfe52c3a61599769a715d0f2765a866649301952f28a8462a7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "호텔 계획 좌초 정황(매각 표지판)과 개발사·소송 측의 엇갈린 해석이 이어져 성인 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": false,
+          "vocabAdjustable": true,
+          "sample": "Giacalone believes that a press release",
+          "note": "변호사 해석 문단은 섰지만 원고 이름이 길게 이어진 앞 문단을 걷어야 했고 save face 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Proposal_for_Buffalo%2C_N.Y._hotel_reportedly_dead%3A_parcels_for_sale_%22by_owner%22",
+          "year": null,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3,
+          "words": 200,
+          "english": 0.411
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "1389447b-4068-49dd-9b9f-9bdd10755ef7",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b422ce9d8d35b0ad956ccb534c0bdefaf6758431a9e9b79d775b4b60ca2e3c4d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "climate",
+        "why": "기후연구소 해킹 기사에서 콜론으로 예고한 이메일·성명 인용 여러 곳이 비어 있어 불완전 원천으로 보류한다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Some journalists suppose that this event",
+          "note": "배경 추정 문단은 섰지만 「discussed one of … e-mails:」「stated that:」 뒤 인용 셋이 빠져 있어 글이 군데군데 끊겼다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/British_Climatic_Research_Unit's_emails_hacked",
+          "year": 2009,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.379
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "138b9203-9142-4ab8-9b5c-ef491bedcf86",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30b85828e573b27d5e4008d4769481170a2973a405a0dd41338823e1bae470e0",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "런던 폭탄테러의 동기로 이라크 점령과 경제·사회적 요인을 꼽은 보고서 결론이 40어에 서서 요약·내용 일치 칸 하나를 채운다.",
+        "slots": {
+          "ages": [
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "summary"
+          ],
+          "levels": [
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Other motivating factors are identified: economic",
+          "note": "한 문단뿐이라 둘째 문장(동기 목록)을 떼어 보니 deprivation·disaffection 을 풀면 V6 이 됐지만 40어라 요약 재료에 그친다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/UK_government_links_London_2005_attacks_to_the_occupation_of_Iraq",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 4.878,
+          "words": 41,
+          "english": 0.4
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "138cd391-29d4-406e-8533-046254ef2384",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf73c82cad5fe587b4927e631b8a2af2c9a06ace8439ab314bd65dea159d163d",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "literature",
+        "why": "작가의 사망과 은둔, 『호밀밭의 파수꾼』의 내용과 영향이 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock",
+            "school"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5",
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "His magnum opus was published in",
+          "note": "대표작 문단은 줄거리와 영향력을 담아 섰고 magnum opus 는 greatest work 로 바꿨으나 레넌 피살 문장은 걷는다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Novelist_J.D._Salinger_dies_aged_91",
+          "year": 2010,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "138da50f-61df-4e15-88c5-c3d02ab76d8d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36befc91ba667c9d2dda383c236bd78e7e68ad432938a5f34775dad32fb1d44a",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "news",
+        "why": "첫 여성 의장 선출로 4대 요직이 모두 여성이 된 사실과 경선 이유가 이어져 내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Wilson was voted in with 64",
+          "note": "표결 문단은 이례적 경선의 까닭(협의 부족 항의)을 담아 섰고 unopposed 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "PD",
+        "license": "Public Domain",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/New_Zealand_elects_first_female_Speaker",
+          "year": 2005,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 7.857,
+          "words": 140,
+          "english": 0.3
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "1390513b-38bb-44e3-b9aa-1aa2e75779bf",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a3810100ca64249d890cdb9dcf83a3df2d70ee4f77646f2e8680495b9a8fd377",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "hold",
+        "hold_reason": "incomplete-source",
+        "genre": "history",
+        "why": "윈턴의 아동 구출과 훈장 수여 기사가 「and said. Winton replied.」처럼 인용이 빠진 채 끊겨 불완전 원천으로 보류한다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1",
+            "high2"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "In recent years, around 250 thousand",
+          "note": "재발견 문단은 다락방 문서→역사가→훈장 흐름이 잘 섰지만 셋째 단락 「and said. Winton replied.」의 두 인용이 통째로 빠져 있었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Czech_Republic_awards_Sir_Nicholas_Winton_nation's_highest_order",
+          "year": 2014,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4,
+          "words": 200,
+          "english": 0.347
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "1397b22a-d5c4-466f-b239-6472112ec3bb",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ef6c881def56a84586364c18801ef09123f37d253023e71af4edd7a83af6668",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "economics",
+        "why": "온라인 도박 금지법과 업체들의 엇갈린 대응(철수·영업 지속) 성명이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Many of the public companies that",
+          "note": "업계 반응 문단은 철수 선언과 주가 폭락의 인과가 섰고 legislature 를 law 로 고쳤다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/U.S._outlaws_online_gambling",
+          "year": 2006,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5,
+          "words": 200,
+          "english": 0.372
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "139c98fb-f201-4a50-99df-cd8df219b108",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2263941fb822390905d0974641237131a13beb25ca361cfeee1fa0b10067fd07",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "서머타임 연장 결정과 그 이유(청원·학기 충돌), 기대 효과가 이어져 주제·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "elem",
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading",
+            "school",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "topic"
+          ],
+          "levels": [
+            "V3",
+            "V4"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "The extension is due primarily to",
+          "note": "연장 이유 문단은 청원과 근로자 혜택을 담아 섰고 petition 을 풀면 초등 상급 수준까지 내려갔다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Daylight_savings_extended_in_New_Zealand",
+          "year": 2007,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 4.5,
+          "words": 200,
+          "english": 0.387
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13a24aad-6f98-475a-b361-66a559962b4d",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5f41dec553f19b0b5bf13df28f26a01aff63a61bfd6b2364f88e52cb641ac958",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "education",
+        "why": "스쿨버스 운전 경연의 과제와 평가 방식이 이어지고 끝의 예산 단락이 겉돌아 내용 일치·무관한 문장 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "mid",
+            "high1"
+          ],
+          "purposes": [
+            "reading"
+          ],
+          "types": [
+            "content_match",
+            "irrelevant"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "A driver with Tyler Independent School",
+          "note": "대회 설명 문단은 휠체어 고정 과제까지 담아 섰고, 마지막 예산 삭감 단락은 주제와 어긋나 무관한 문장 재료로 쓸 만했다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.721Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/Texas_'roadeo'_lets_school_bus_drivers_show_their_mettle",
+          "year": 2012,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 1,
+        "head": {
+          "prose": 5.5,
+          "words": 200,
+          "english": 0.317
+        },
+        "reasons": [],
+        "verdict": "pass",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13a32a5c-7579-4c9e-9838-e53dde0b0782",
+    "revision": "2026-09-25T08:58:43.079626+00:00",
+    "body_sha256": "fe79f6b51e4f4bb1d2354e6631f4c76f9a33e29616306ec8d58c8f205756259f",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "social",
+        "why": "사제 총기 규정의 효력 회복과 찬반 단체 반응, 규정 제정 배경이 이어져 주장·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high2",
+            "high3",
+            "adult"
+          ],
+          "purposes": [
+            "reading",
+            "csat"
+          ],
+          "types": [
+            "content_match",
+            "claim"
+          ],
+          "levels": [
+            "V6",
+            "V7"
+          ],
+          "platform": []
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "Advancements in technology and the availability",
+          "note": "규정 배경 문단은 사제 총기 증가→범죄 연관→규정 제정의 인과가 섰고 unserialized 를 풀었다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.722Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/US_Supreme_Court_blocks_stay_on_federal_regulation_on_privately_made_firearms",
+          "year": 2023,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 3.5,
+          "words": 200,
+          "english": 0.323
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  },
+  {
+    "runId": "2026-09-25T09-13-16-717Z",
+    "id": "13a4c069-58f0-459e-a790-02b03a5f9577",
+    "revision": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f96ec1cfeb2cc7f0176ec15e932d061930f16721bf662cdd90e9f2e12c867ad7",
+    "before": null,
+    "after": {
+      "retain": {
+        "retention": "keep",
+        "genre": "biography",
+        "why": "배우의 수용소 생존과 전후 연기 경력이 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+        "slots": {
+          "ages": [
+            "high1",
+            "high2",
+            "high3"
+          ],
+          "purposes": [
+            "reading",
+            "mock"
+          ],
+          "types": [
+            "content_match",
+            "order"
+          ],
+          "levels": [
+            "V5"
+          ],
+          "platform": [
+            "then-now"
+          ]
+        },
+        "processing": {
+          "detachable": true,
+          "standsAlone": true,
+          "vocabAdjustable": true,
+          "sample": "He was born on December 27,",
+          "note": "생애 문단은 체포→수용소→침몰선 생존 순서가 뚜렷해 순서 문항에 좋았고 evacuated 만 바꿨다."
+        },
+        "criteria_version": 5,
+        "basis": "full",
+        "round": 10,
+        "by": "chunk-llm",
+        "at": "2026-09-25T09:13:16.722Z"
+      }
+    },
+    "changed": true,
+    "status": "ready",
+    "csat_fit": {
+      "rights": {
+        "v": 1,
+        "class": "BY",
+        "license": "CC BY 2.5",
+        "evidence": "collection-default",
+        "attribution": {
+          "url": "https://en.wikinews.org/wiki/German_actor_Erwin_Geschonneck_dies_at_101",
+          "year": 2008,
+          "author": null
+        },
+        "needsResolution": true
+      },
+      "precheck": {
+        "v": 2,
+        "head": {
+          "prose": 7.194,
+          "words": 139,
+          "english": 0.402
+        },
+        "reasons": [
+          "title:unfit"
+        ],
+        "verdict": "flag",
+        "blockedBy": []
+      }
+    }
+  }
+]

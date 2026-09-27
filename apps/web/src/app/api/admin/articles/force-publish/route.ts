@@ -16,11 +16,14 @@
 
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { ensureArticleVocab } from '@vocaflow/library-pipeline'
 
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
+// 어휘 재생성(편당 약 46.5 ms + 사전 조회)이 들 수 있다 — dev-process 와 같은 상한.
+export const maxDuration = 300
 
 interface Body {
   article_id?: string
@@ -92,6 +95,22 @@ export async function POST(request: Request): Promise<NextResponse> {
     return NextResponse.json({ ok: true, already_published: true })
   }
 
+  // 어휘 행이 없으면 발행 전에 본문에서 다시 만든다(docs/reports/lav-retention-2026-09-24.md).
+  //   없는 채로 발행하면 트리거 안의 품질 게이트 「추출 비어있음」이 막고, 메시지는
+  //   「콘텐츠 품질 게이트 FAIL」뿐이라 원인이 안 보인다.
+  let vocab: Awaited<ReturnType<typeof ensureArticleVocab>>
+  try {
+    vocab = await ensureArticleVocab(a.id, { client, now: () => new Date() })
+  } catch (e) {
+    return NextResponse.json(
+      { error: 'VocabRebuild', message: e instanceof Error ? e.message : String(e) },
+      { status: 500 },
+    )
+  }
+  if (vocab.vrlWarning) {
+    console.warn(`[force-publish] compute_article_vrl warning (${a.id}):`, vocab.vrlWarning)
+  }
+
   const { error: updErr } = await client
     .from('library_articles')
     .update({ status: 'published', published_at: new Date().toISOString() })
@@ -104,5 +123,5 @@ export async function POST(request: Request): Promise<NextResponse> {
   // trg_publish_article_word_set trigger 가 자동으로 publish_article_word_set 호출
   // → shared_word_sets(category='library_article') 1개 + shared_words 생성.
 
-  return NextResponse.json({ ok: true, published: true })
+  return NextResponse.json({ ok: true, published: true, vocab_rebuilt: vocab.rebuilt })
 }
