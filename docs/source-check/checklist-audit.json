@@ -1,0 +1,23 @@
+{
+ "rule": {
+  "rate": 0.05,
+  "maxWrongKeep": 0.03,
+  "minAudited": 30
+ },
+ "disabled": [],
+ "batches": [
+  {
+   "batch": 1,
+   "date": "2026-09-27",
+   "criteria_version": 7,
+   "bySource": {
+    "wikinews": {
+     "audited": 23,
+     "auditedKeep": 14,
+     "wrongKeep": 0
+    }
+   },
+   "wrong": []
+  }
+ ]
+}
