@@ -1,0 +1,938 @@
+[
+  {
+    "id": "003f134f-ba98-4e2e-87a3-ce356642a261",
+    "source_updated_at": "2026-09-25T07:58:41.823348+00:00",
+    "body_sha256": "7ee2eb4c4a14adddd2666521e9af9772762b47f8b41ab3b9665c6a2f8e301491",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "둘째~넷째 단락이 화성의 기온·붉은 까닭·대기·물의 흔적을 이유로 이어 말하고 마지막 단락이 생명 탐사 물음으로 맺어 초등·중등 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mars is a cold desert world.",
+      "note": "첫 단락은 사진 캡션(Credit 줄)이라 걷고, 둘째 단락부터 떼니 바로 선다 — terrestrial 없는 글이라 Fahrenheit 수치만 풀어 주면 된다."
+    }
+  },
+  {
+    "id": "0b564ebf-d931-4db6-bf8b-ad67fed964f9",
+    "source_updated_at": "2026-09-25T07:58:51.25854+00:00",
+    "body_sha256": "390440901947cbd74a98b554623bc0eda9f91537b6cd0161479e4ef9f855d0ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "셋째 단락이 「다 안다고 생각하겠지만 아니다 → 위성이 지금도 측정한다」로 통념-반박을 한 번 세우고, 앞 두 단락이 바다·대기 사실을 대 초등 내용 일치·요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since we live here, you might",
+      "note": "끝의 「Real World: A-Train」 링크 줄만 걷으면 되고, terrestrial·meteoroids 를 rocky·space rocks 로 바꾸니 초등 밴드로 내려갔다."
+    }
+  },
+  {
+    "id": "1952d727-4219-4f1e-b607-019a29542acb",
+    "source_updated_at": "2026-09-08T05:35:30.372832+00:00",
+    "body_sha256": "b4628da94533abd654045ac757639de85ba63ef3330351ae3297b5800ba59adf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "저자가 착륙 14주년에 착륙 순간의 긴장과 기쁨을 회고하는 첫 단락과, 교차 층리 지점까지 이동해 두 계획 주기를 머무는 경과가 이어져 심경·내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "mood",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "This week was very special for",
+      "note": "첫 단락은 링크·도구 이름을 걷어도 회고가 서지만, 본론 단락들은 표적 이름(Tunas Khasa 등)·기기 약어가 빽빽해 걷고 나면 문장 뼈대만 남는다 — 어휘 조정보다 고유명사 제거가 일이다."
+    }
+  },
+  {
+    "id": "20964ed9-3a13-4346-90d6-d4baf8051a58",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d901696c82e144b9c93f36dde036cb6d2f74e6bb199484d14c94597feb5673c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "수식과 그림 참조가 빠져 「Since, by definition, , we can find」「as shown in .」처럼 문장마다 구멍이 나 있어 어느 단락도 식·그림 없이 뜻이 서지 않으므로 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "When a vector acts in more",
+      "note": "성분 정의 단락 하나만 겨우 서지만 바로 뒤가 빠진 기호로 이어져 떼어도 두 문장 이상 못 간다 — 식을 다시 써 넣지 않으면 가공이 안 된다."
+    }
+  },
+  {
+    "id": "27364d9e-4bf4-422c-b97b-0c1e95a4b600",
+    "source_updated_at": "2026-09-05T23:10:57.728985+00:00",
+    "body_sha256": "e2e9c1032712d5b1c115f3419a9a2bdec57b0ea20c59fcb5fe503a1707ae4211",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "본문 한 단락이 「지금은 지상 측정뿐 → 광집적칩 라이다가 고고도 바람 관측을 연다 → 화성·지구·금성 응용」으로 제안의 논지를 세워 고3·성인 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10",
+        "V11"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "This represents a substantial improvement over",
+      "note": "1·2·3 단계 목록과 HOM·PIC 약어를 걷으면 논지는 서지만 phase-squeezed·interferometer 를 2~3개 바꿔도 V9 아래로는 안 내려간다."
+    }
+  },
+  {
+    "id": "3e7cce0e-34cc-4997-9dd8-c744b68213b2",
+    "source_updated_at": "2026-09-05T23:28:50.107091+00:00",
+    "body_sha256": "500e65140d9204ffb0ae4afad7e19bf93a04847d4af82158f0465bdfa54f8c23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "NASA 가 고교·대학생에게 인턴십·챌린지·시민과학·발사 참관에 참여하라고 권하는 안내문으로 누가·누구에게·무엇을이 한 편에서 서 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "school"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A new school year brings fresh",
+      "note": "소제목과 끝 「Keep Exploring」 링크 묶음을 걷고 첫 두 단락을 떼니 바로 권유 글이 되고, authentic·vacancies 를 real·openings 로 바꾸니 V6 로 내려갔다."
+    }
+  },
+  {
+    "id": "3f491d64-3e07-47e1-a07a-1661f040895f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "678c6381378d289975a26f5c412b6b84aaa5adefceb75a833a7940f82fefc39b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "교과서 절 전체가 SBA 의 보증 대출·투자·경영 자문·소수자 지원을 차례로 설명하고 마지막 단락이 그 요약이라 요약·주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The SBA offers financial assistance to",
+      "note": "전화번호·URL 을 걷어도 둘째 단락이 선다 — surety bonds·lending channels 를 풀어 주면 V7 쪽으로 내려간다."
+    }
+  },
+  {
+    "id": "3ff2b8d5-0a56-45ca-a248-a85f4f05cd2f",
+    "source_updated_at": "2026-09-25T07:59:39.4247+00:00",
+    "body_sha256": "64291ce0ba0eb13af2fda5412c1d9b10071b0529cce0aa9a3f614a0265e54925",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "만들기 절차는 빠지고 「이 사진의 노란 중심·분홍과 보라」처럼 사진을 봐야 뜻이 서는 캡션 셋이 두 번씩 되풀이될 뿐이라 떼어 쓸 단락이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The Hubble Space Telescope took this",
+      "note": "허블·스피처·찬드라 캡션을 묶어 파장 비교 글로 만들어 보았지만 색 설명을 걷으면 한 줄씩밖에 남지 않고, 앞 두 단락은 은하 위치 사실 두 개뿐이다."
+    }
+  },
+  {
+    "id": "4375586c-0140-4211-b6e1-aecfbf254ea1",
+    "source_updated_at": "2026-09-25T07:59:42.421989+00:00",
+    "body_sha256": "665a573d4740a0d92ce8942182a10163bfed5f14986aa0f2b0ac8f98e8a13788",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "매리너 4호가 첫 화성 사진을 보내자 실망과 흥분이 갈리고 기술자들이 숫자를 손으로 칠해 첫 사진을 만든 일화가 사건 흐름으로 서고, 앞뒤는 그림 공모 안내라 초등·중등 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "purpose",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sixty years ago, humans had never",
+      "note": "끝의 보호자 초상권 동의문과 빠진 준비물 목록 머리는 걷고, 매리너 단락 넷을 떼니 앞 문맥 없이 서며 barren·primitive 를 bare·early 로 바꾸니 초등 밴드가 된다."
+    }
+  },
+  {
+    "id": "5527f456-050e-47d4-bdc7-4020dab0add7",
+    "source_updated_at": "2026-09-05T23:42:24.816365+00:00",
+    "body_sha256": "6fd3d7fed66c17b1b85ea8825adca5859536b4038c51cf9181dd2ea03a69febe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "세 차례 우주유영이 태양전지판 전력선 준비·통신 안테나 교체·반사경 교체를 왜 하는지까지 날짜별로 이어 설명해 사건과 목적이 연결되므로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASA will provide coverage as astronauts",
+      "note": "편집자 주 넷·기자 등록 안내·연락처를 걷고 8월 6일 단락을 떼니 목적(3B 전력 채널 → 폐기 궤도 전력)이 서며 deorbit 하나만 풀면 된다."
+    }
+  },
+  {
+    "id": "700a4596-49c0-459d-846d-5518f52414d9",
+    "source_updated_at": "2026-09-25T08:00:25.743425+00:00",
+    "body_sha256": "f235260a07512a069c19080f7a11cf3f6b659bd749d524c8454a4b427f01dede",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "「여름에 태양과 가깝다」는 통념을 세우고 근일점이 1월이라는 근거로 뒤집은 뒤 자전축 기울기로 결론을 내 통념 교정·주제·빈칸·순서 칸을 한 편에서 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many people believe that Earth is",
+      "note": "끝의 교사용 자료 링크만 걷으면 되고 테이아 곁가지 단락은 무관한 문장 후보로 쓸 수 있으며, lop-sided·off-kilter 를 바꾸니 초등 상단 밴드로 내려갔다."
+    }
+  },
+  {
+    "id": "76dc91f9-1c08-46d8-acb5-fac2244dcbe7",
+    "source_updated_at": "2026-09-25T08:00:32.832977+00:00",
+    "body_sha256": "ab47c02cb48667f24892698bfd0bba5ffc4dddaf7a907de4d014bc1079874056",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "만들기 절차는 그림 의존이지만 「왜 알아야 하나」 절이 오라 위성 발사 → TES 가 대류권 오존을 잰다 → 대도시 근처에 많다로 이어져 중등 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASA launched the Aura satellite in",
+      "note": "같은 절이 두 번 실려 한 벌만 쓰고 「like this one」 그림 문장은 걷어야 하며, Spectrometer·troposphere 를 풀어 쓰면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "7d5a0875-fc45-4139-bbcc-6f650942cfb5",
+    "source_updated_at": "2026-09-25T08:00:38.429208+00:00",
+    "body_sha256": "16ba2afc133cc172ee19c46b8f27a8458b52c40b21e9a098bc51a043425b974e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "혜성의 핵·코마·두 꼬리를 소개하고 태양풍이 먼지와 가스를 밀어 무게 차로 꼬리가 갈린다는 원인 설명과 세 번째 꼬리 발견이 이어져 초등 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Comet tails are a result of",
+      "note": "리본·호일 대응 단락을 걷어도 둘째·다섯째 단락이 이어지며, ion·specular 를 빼고 bright 로 바꾸니 초등 밴드로 내려갔다."
+    }
+  },
+  {
+    "id": "7f98fa10-36e1-4d16-bd2d-d118637416fa",
+    "source_updated_at": "2026-09-06T00:10:15.802756+00:00",
+    "body_sha256": "ab73ab064942e19ac1669cbc80a2ca5972aaf8dfebc622a14443533a919ed26e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아르테미스 2호 승무원이 50여 년 만에 달 너머를 비행한 공로로 의회 우주 명예훈장을 받는다는 원인-결과가 두 단락에서 이어지는 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASA astronauts Reid Wiseman, Victor Glover,",
+      "note": "시청 링크·기자 신청·연락처를 걷으면 두 단락이 남아 사건과 이유가 서고, credentialing 은 이미 걷힌 부분이라 어휘 조정이 거의 필요 없다."
+    }
+  },
+  {
+    "id": "8dca8c47-0803-4d47-928f-579a28afdaf1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "270fc1f8f51073167b569c63efe30a80529f003dfe289074586f450d08a949d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "프랑스의 상선 나포 → 준전쟁 → 외국인·선동법 제정 → 편집인 기소 → 제퍼슨·매디슨의 결의안 반대로 원인-결과가 한 단락에 이어져 순서·내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On February 21, 1797, Secretary of",
+      "note": "한 단락 그대로 자족적이며, naturalized·deemed 를 become citizens·considered 로 바꾸니 V7 로 내려갔다."
+    }
+  },
+  {
+    "id": "96812c6d-712c-46b2-990f-319c12e2b6b5",
+    "source_updated_at": "2026-09-25T08:01:07.347953+00:00",
+    "body_sha256": "d06db449ed7d28b6fc852719319af9750a3b5ae8f6f7afc44ef6fc6bf402d236",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "「그림에선 가까워 보인다 → 실제로는 지구 30개 거리 → 궤도가 원이 아니라 평균을 말한다」로 통념을 교정하는 흐름이 서 초등 통념 교정·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Often when we see drawings of",
+      "note": "실험 안내는 절차가 빠진 채 두 번 실려 걷고 앞 네 단락만 떼면 서며, 마일 수치를 지구 개수로만 남겨도 논지가 유지된다."
+    }
+  },
+  {
+    "id": "a16af0a7-5115-45f0-81b9-19a223b11a50",
+    "source_updated_at": "2026-09-06T00:36:59.279243+00:00",
+    "body_sha256": "8216a757f687fa3696b98447d4254a768f6324d7d4ac621f8cb2468ea729fd0e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "계약 업체 이름·기간 구성·계약 방식·최대 금액만 나열한 계약 공시라 사건의 원인·반응·다음 절차로 이어지는 문장이 없어 짧은 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The hybrid contract has a five-year",
+      "note": "계약 조건 단락을 떼어 보니 cost-plus-award-fee·indefinite-delivery 같은 조달 용어를 걷으면 기간과 금액만 남아 논지가 없다."
+    }
+  },
+  {
+    "id": "a2a34003-4882-4c69-83d3-fa9f0472e8a8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea6e040cc598a4b6103a50df3c2575dafbfe5f6945e4fc8d3bf3a7d4846e9fec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "social",
+    "why": "특허 침해의 엄격책임·균등론 단락은 주장-예시로 잘 서지만 끝에서 「Several options exist」라 예고한 선택지 절이 통째로 빠지고 법조문 인용이 본문에 붙어 들어와 있어 받은 원천이 불완전하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Even if some elements of a",
+      "note": "균등론 단락은 벨크로 예시까지 떼어도 서지만, 특허 용어(infringe·read on·statutory)를 두세 개 바꿔도 V9 아래로 안 내려가고 원문 끝 선택지 목록이 없다."
+    }
+  },
+  {
+    "id": "d7cba510-18c5-4616-a341-075f712f5a11",
+    "source_updated_at": "2026-09-25T08:02:27.507408+00:00",
+    "body_sha256": "bc649403b9d7a7b936351526fccd31e9ef99edff86b192993b3c8b1782e6df66",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "행성 순서대로 위성 수를 짚되 수성은 태양 중력 때문에 위성을 못 잡는다는 이유와 타이탄 대기·트리톤 크기 같은 설명이 붙어 수치만의 나열이 아니라 초등 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Because Mercury is so close to",
+      "note": "끝의 링크·중복 「Why is the Moon so scarred」 줄을 걷고, 위성 수는 날짜가 붙어 낡으니 수치 문장은 가공 때 날짜를 명시해야 한다."
+    }
+  },
+  {
+    "id": "dbb8d817-5675-4f41-8ddb-bb4e1bb71b68",
+    "source_updated_at": "2026-09-06T00:36:59.279243+00:00",
+    "body_sha256": "2399f61a4a8a544f91e651884a143a2ea1dceb59b0c59f83ce4a368ca10bb181",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "NASA 가 대학 기관에게 M-STAR 연구비를 8월 11일까지 신청하라고 알리고 그 까닭(달·화성 탐사 역량·연구 경쟁력)을 둘째 단락에서 대 목적 칸의 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASA is introducing a new funding",
+      "note": "넷째 단락의 부서 소개는 추상 명사 덩어리라 걷고, 첫 두 단락에서 ecosystem·capabilities 를 풀어 쓰니 V8 로 내려갔다."
+    }
+  },
+  {
+    "id": "e224a7a5-4c83-44e5-9492-78b1e560c7ae",
+    "source_updated_at": "2026-09-25T08:02:38.806551+00:00",
+    "body_sha256": "6838baa9fa36f4de32aedcff7bef7d435c81caf8a1bdce449172ae92a54b48cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "space",
+    "why": "태양의 거리·크기·생애 단계를 이어 설명하는 단락들은 서지만 「For example…」「Here are just a few reasons why:」 뒤의 목록이 통째로 빠져 예고한 절이 없는 원천이다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Sun is also right in",
+      "note": "생애 단계 단락(황색 왜성 → 적색 거성 → 백색 왜성)은 떼어도 순서가 서지만, 원천 가운데 빠진 목록 두 곳 때문에 원문 전체의 흐름은 다시 받아야 확인된다."
+    }
+  },
+  {
+    "id": "e22dc9ea-2e97-48de-808e-4cb6c9316ec6",
+    "source_updated_at": "2026-09-25T08:02:38.833806+00:00",
+    "body_sha256": "68fa2a80a749204588f8d9860137bb970040509e12831a9f666f1cda7cce3d2f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "「NASA 는 먼 행성만 본다고 생각하겠지만 지구도 본다」를 세우고 GPM·RapidScat·OCO-2·SMAP 가 각각 무엇을 왜 재는지 근거로 대 초등·중등 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "You might think of NASA as",
+      "note": "만들기 도입 단락과 두 번 실린 절 중 한 벌을 걷고, precipitation·phenomena 를 rain and snow·events 로 바꾸니 초등 상단 밴드가 된다."
+    }
+  },
+  {
+    "id": "e3b22a6b-1c4b-478e-80a8-107fa9c7568a",
+    "source_updated_at": "2026-09-25T08:02:39.767328+00:00",
+    "body_sha256": "87c4d3afa65baa78d34b803754b9e03d9374b1ca6d947c5b294d4fa145d35a2f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "지구 물을 바닷물 → 민물 → 빙하·지하수·강 → 수증기로 쪼개 내려가는 흐름이 문장 사이를 이어 수치만의 나열이 아니므로 초등 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Earth is special because it has",
+      "note": "영상·포스터 안내 두 문장과 끝 링크 줄을 걷으면 셋째 단락부터 바로 서고 어휘가 이미 쉬워 atmosphere 하나만 풀면 된다."
+    }
+  },
+  {
+    "id": "ea7a508d-7533-4f13-bc45-7a3d398f2cbf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0dd1eaa8e7a81403ad1240b65902205130410fa9d00a7c50fead09aeb54969b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "발가락을 찧는 경험에서 법칙을 세우고 수영 선수·자동차·새·문어·로켓 추력으로 작용-반작용 예를 잇는 절이라 주제·빈칸·문장 삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "csat",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "insert",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Other examples of Newton’s third law",
+      "note": "수영 선수 단락은 빠진 힘 기호 때문에 못 쓰지만 예시 단락 둘은 기호 없이 서고, propels·ejecting 을 pushes·shooting out 으로 바꾸니 V6 로 내려갔다."
+    }
+  },
+  {
+    "id": "ecfe2874-e3b7-4934-97fa-ead9523215c8",
+    "source_updated_at": "2026-09-06T00:36:59.279243+00:00",
+    "body_sha256": "e2902da46c35c43291a5afeac4b1b7b46ced27f0d39ffa950d962a6ae9059a99",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "1997년 패스파인더가 에어백으로 열다섯 번 튀어 착륙하고 소저너가 첫 화성 로버가 된 뒤 칼 세이건 기념소로 이름이 바뀐 사건 흐름이 해설 단락에 서 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On July 4th , 1997, using",
+      "note": "「this color mosaic」「visible in the foreground」 같은 사진 지시 문장은 걷어야 하며 걷고 나도 착륙 경과는 서고, novel·strewn 을 new·covered 로 바꾸면 된다."
+    }
+  }
+]
