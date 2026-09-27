@@ -40,7 +40,7 @@ export function AnalysisWorkbench({ item, paper, model, focus, active, onSelect,
     <div className={visual.inspector}>
       <div className={visual.sourceHead}><h2>출제 구조</h2><span>{active ? '음성과 같은 관계를 따라가요' : '노드를 눌러 원문과 대조'}</span></div>
       <QuestionArchitecture item={item} focus={focus} onSelect={onSelect} speaking={Boolean(active)} />
-      <div className={visual.focusNav} role="group" aria-label="분석 관계 선택">{sections.map(section => <button key={section.id} aria-pressed={focus === section.id} onClick={() => onSelect(section.id as AnalysisFocus)}>{({ context: '소재', evidence: '정답 연결', distractor: '오답 변형', intent: '출제 의도', pattern: '공통 공식' })[section.id]}</button>)}</div>
+      <div className={visual.focusNav} role="group" aria-label="분석 관계 선택">{sections.map(section => <button key={section.id} aria-pressed={focus === section.id} onClick={() => onSelect(section.id as AnalysisFocus)}>{({ context: '소재', evidence: '정답 연결', distractor: '오답 변형', intent: '설계 가설', pattern: '공통 공식' })[section.id]}</button>)}</div>
       {sections.map((section, index) => <section hidden={focus !== section.id} key={section.id} id={`analysis-${section.id}`} data-analysis={section.id} data-current={active === section.id} data-kind={section.id} className={visual.relationDetail}>
         {active === section.id && <span className={visual.focusLabel}>현재 설명 · {section.title}</span>}
         <h2>{section.title}</h2>

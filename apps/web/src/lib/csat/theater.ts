@@ -62,7 +62,7 @@ const ROLE_SFX: Record<LectureRole, TheaterSfx> = {
 const ANALYSIS_NAME: Record<string, string> = {
   head: '문항 열기',
   ability: '이 문항이 재는 것',
-  intent: '출제 의도',
+  intent: '설계 가설',
   map: '지문의 뼈대',
   answer: '답이 왜 이것인가',
   procedure: '다시 풀 때의 절차',
@@ -182,8 +182,8 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
     out.push({
       key: 'analysis:intent',
       kind: 'intent',
-      title: '출제 의도',
-      chips: [{ text: '왜 이렇게 냈나' }],
+      title: '설계 가설',
+      chips: [{ text: '문항 구조에서 역추정' }],
       body: text(item.design_intent),
       quote: null,
     })

@@ -14,7 +14,7 @@ export function analysisSections(item: DissectionItem) {
     { id: 'context', title: '무엇을 연결하는 문항인가', text: `${item.topic}. ${item.format}`, role: 'intro' as LectureRole },
     { id: 'evidence', title: '근거에서 정답으로', text: item.evidence, role: 'evidence' as LectureRole },
     { id: 'distractor', title: '그 관계를 비튼 오답', text: `${item.distractor.family}. ${item.distractor.line}`, role: 'trap' as LectureRole },
-    { id: 'intent', title: '출제자가 확인하려는 읽기', text: item.intent, role: 'strategy' as LectureRole },
+    { id: 'intent', title: '이 문항이 재는 읽기 — 역추정', text: item.intent, role: 'strategy' as LectureRole },
     { id: 'pattern', title: '다음 지문에 가져갈 원리', text: item.formula, role: 'wrapup' as LectureRole },
   ].filter(section => section.text.trim())
 }

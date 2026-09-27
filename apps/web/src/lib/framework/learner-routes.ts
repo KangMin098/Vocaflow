@@ -186,7 +186,7 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     path: '/csat/dissect',
     screen: 'csat-dissect',
     label: '기출 해부',
-    says: '출제자의 수를 예측하고, 두 문항을 대조하고, 다른 지문에 옮긴다.',
+    says: '문항 설계를 예측하고, 두 문항을 대조하고, 다른 지문에 옮긴다.',
     group: 'main',
     kind: 'screen',
   },

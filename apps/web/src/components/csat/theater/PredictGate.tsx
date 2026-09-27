@@ -42,7 +42,7 @@ export function PredictGate({
   return (
     <section className={styles.gate} aria-labelledby="gate-title" data-testid="predict-gate">
       <p className={styles.gateEyebrow}>먼저 예측 · 확정하면 정답과 근거가 열려요</p>
-      <h2 id="gate-title">출제자는 어느 문장에 정답을 걸었을까요?</h2>
+      <h2 id="gate-title">정답 근거는 어느 문장에 있을까요?</h2>
 
       {sentences.length ? (
         <fieldset className={styles.gateField}>
@@ -71,7 +71,7 @@ export function PredictGate({
             </div>
           </fieldset>
           <fieldset className={styles.gateField}>
-            <legend>출제자가 고른 지문의 뼈대는?</legend>
+            <legend>이 지문의 뼈대는?</legend>
             <div className={styles.gateRow}>
               {(Object.keys(PATTERN_LABEL) as Pattern[]).map((p) => (
                 <button key={p} type="button" aria-pressed={pattern === p} onClick={() => setPattern(pattern === p ? null : p)}>
@@ -165,7 +165,7 @@ export function GateDiff({ commit, result, gateKey }: { commit: GateCommit; resu
     rows.push({ label: '표현 변환', mine: commit.transform ? TRANSFORM_LABEL[commit.transform] : '고르지 않음', theirs: TRANSFORM_LABEL[d.transform], hit: result.transformHit ?? null })
   rows.sort((a, b) => Number(a.hit === true) - Number(b.hit === true))
   return (
-    <section className={styles.diff} aria-label="내 예측과 출제자 설계의 차이" data-testid="gate-diff">
+    <section className={styles.diff} aria-label="내 예측과 역분석의 차이" data-testid="gate-diff">
       {result.overconfident ? <p className={styles.diffAlert}>확신이 높았는데 어긋났어요 — 이 문항에서 가장 배울 게 많은 자리예요.</p> : null}
       <dl>
         {rows.map((r) => (
@@ -173,7 +173,7 @@ export function GateDiff({ commit, result, gateKey }: { commit: GateCommit; resu
             <dt>{r.label}</dt>
             <dd>
               <span>내 예측 {r.mine}</span>
-              <span>출제자 {r.theirs}</span>
+              <span>역분석 {r.theirs}</span>
               <b>{r.hit === null ? '—' : r.hit ? '맞음' : '어긋남'}</b>
             </dd>
           </div>

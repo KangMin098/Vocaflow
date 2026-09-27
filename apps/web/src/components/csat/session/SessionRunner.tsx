@@ -87,7 +87,7 @@ export function SessionRunner({ catalog, initial, formulaTag, explore, resume }:
     const families = [...new Set(predictions.flatMap(p => p.family ? [p.family] : []))].filter(f => !startCounts.current.families.has(f))
     if (review.current && !review.current.done) { review.current.done = true; track({ name: 'csat_review_done', props: { size: 1, substituted: true } }) }
     const nextDue = record.queue.map(q => q.due).filter(d => d > Date.now()).sort((a, b) => a - b)[0]
-    return <section className={styles.finish} data-testid="finish"><p className={styles.eyebrow}>오늘의 해부</p><h1>출제자의 수를<br />한 번 더 읽었어요.</h1><p>예측 {predictions.filter(p => p.hit).length}/{predictions.length} 적중 · 공식 +{record.formulas.length - startCounts.current.formulas} · 새 계열 {families.length}</p>
+    return <section className={styles.finish} data-testid="finish"><p className={styles.eyebrow}>오늘의 해부</p><h1>문항 설계를<br />한 번 더 읽었어요.</h1><p>예측 {predictions.filter(p => p.hit).length}/{predictions.length} 적중 · 공식 +{record.formulas.length - startCounts.current.formulas} · 새 계열 {families.length}</p>
       {/* 다음 할 일 — 끝 화면이 막다른 곳이 되지 않게(ia-design §2-4 · 중단 이유 S5 · S11) */}
       <div data-testid="finish-next">
         {families.length ? <p>새로 만난 함정 계열: {families.slice(0, 4).join(' · ')}</p> : null}
