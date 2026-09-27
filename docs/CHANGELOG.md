@@ -9,6 +9,8 @@
 ---
 ## Unreleased (v06.34 → next)
 
+- 수정(`20260927161216`): `csat_items_public` 에 authenticated SELECT 가 빠져 학습자 기출 화면이 permission denied — 복구. anon·쓰기 권한은 계속 없음. copyright-boundary 통합 테스트로 확인.
+
 - 학평 수용 4단계: `csat_items`·`csat_exams` 를 직접 읽는 웹 6곳(guide·order-view·client·items·evidence·heatmap·learner 회차표)과 스크립트 6곳을 평가원 회차로 좁힘(`onlyKiceItems`·`onlyKiceExams`·`isKiceExam`) + 재발 가드 2건. 학평 적재 전 선행 조건.
 
 - 학평 수용 2·3단계: 마이그레이션 `20260927153152_csat_exams_hakpyeong`(organizer·grade·exam_year, 학습자 뷰·csat_coverage 는 평가원만 — 2026-09-28 적용, 뷰 802·coverage 29회차 불변 확인). `ingest-hakpyeong.mjs`(pdfjs+cMap — pdftotext 는 학평 한글을 못 읽는다) 2018~ 105회차 중 104 수집, 사정권 2,912문항 유형 배정 99.5%·정답 100%(9회차는 그림 정답표를 렌더링해 눈으로 이중 대조). 원장은 `build-corpus/corpus-sync --set hakpyeong` 으로 분리, 모평 파서는 `lib-mock-parse.mjs` 로 공유(모평 산출 바이트 불변).
