@@ -1,6 +1,6 @@
--- supabase/migrations/20260927170000_csat_items_public_rehide_stem.sql
+-- supabase/migrations/20260927172604_csat_items_public_rehide_stem.sql
 --
--- **20260927161216 을 되돌린다 — 발문(stem) 차단 원복.** (SQL Editor 직접 실행 — auto 모드가 MCP 적용을 막음)
+-- **20260927161216 을 되돌린다 — 발문(stem) 차단 원복.** (적용 2026-09-28 · 사용자 승인)
 --
 -- 경위(2026-09-28): 학평 브랜치의 옛 copyright-boundary 테스트가 `select('*')` 로 뷰를 읽다
 -- permission denied 로 떨어졌고, 이를 «권한 유실» 로 오판해 table-level SELECT 를 복구했다.

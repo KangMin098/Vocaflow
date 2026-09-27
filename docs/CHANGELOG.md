@@ -195,7 +195,7 @@
 - 영상 공장 요청 순환 화면·드레인: `/admin/video` 「요청」 탭 + `/admin/video/requests/[id]`(스테퍼 · 채운 미리보기 · 승인/수정/반려), `pnpm video requests[:export|:import|:pull]`, 설계 서브에이전트 `video-request-designer`. 초안은 숫자를 못 쓰고 번들 경로만 인용, 규칙 편 장면은 borrow 로 흡수. 교재 권별 요청 1건으로 요청→수정 요청→rev 2→승인→음성→렌더(가로)까지 실측.
 - 영상 공장 요청 순환 DB(`20260924120000_video_requests`): 분야 설정 표 + 요청·설계 rev·검토·평가 4표, phase 전이는 RPC 6개로만 — 현재 rev 승인 없이는 적용 불가. `video_jobs.kind` 에 `request` 추가.
 
-- **오판 정정**(`20260927161216` → `20260927170000`): 학평 브랜치의 옛 저작권 경계 테스트가 `select('*')` 로 permission denied 를 내자 «권한 유실» 로 보고 table-level SELECT 를 복구했으나, 실제로는 `20260925120000`(hide_stem)이 일부러 컬럼 단위로 발문만 닫은 상태였다 — 복구가 144문항 발문 영어 원문을 다시 열었다. `20260927170000_csat_items_public_rehide_stem` 으로 원복(SQL Editor 실행 대기). 교훈: 권한이 «없어 보이면» main 최신 마이그레이션과 `pg_attribute.attacl` 부터.
+- **오판 정정**(`20260927161216` → `20260927172604`): 학평 브랜치의 옛 저작권 경계 테스트가 `select('*')` 로 permission denied 를 내자 «권한 유실» 로 보고 table-level SELECT 를 복구했으나, 실제로는 `20260925120000`(hide_stem)이 일부러 컬럼 단위로 발문만 닫은 상태였다 — 복구가 144문항 발문 영어 원문을 다시 열었다. `20260927172604_csat_items_public_rehide_stem` 으로 원복(적용됨 — stem 컬럼 SELECT false 확인). 교훈: 권한이 «없어 보이면» main 최신 마이그레이션과 `pg_attribute.attacl` 부터.
 
 - 학평 수용 4단계: `csat_items`·`csat_exams` 를 직접 읽는 웹 6곳(guide·order-view·client·items·evidence·heatmap·learner 회차표)과 스크립트 6곳을 평가원 회차로 좁힘(`onlyKiceItems`·`onlyKiceExams`·`isKiceExam`) + 재발 가드 2건. 학평 적재 전 선행 조건.
 

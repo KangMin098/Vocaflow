@@ -1230,8 +1230,8 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260913120000  video_jobs                                 ← 영상 공장 큐(편당 1행) + 단계 전진 RPC 2 (아래 참조)
 20260913013946  csat_exams_paper_form                      ← 인쇄 형(홀수/짝수/단일). `form`(수준별 A/B)과 다른 축
 20260927153152  csat_exams_hakpyeong                       ← 학평 수용: kind+hakpyeong · organizer(kice|edu_office) · grade · exam_year. csat_items_public·csat_coverage 는 평가원만
-20260927161216  csat_items_public_restore_authenticated_select  ← ⚠ 오판(hide_stem 을 무력화) — 20260927170000 으로 원복
-20260927170000  csat_items_public_rehide_stem                ← authenticated 는 컬럼 단위 SELECT 만(stem 제외) — hide_stem 원복
+20260927161216  csat_items_public_restore_authenticated_select  ← ⚠ 오판(hide_stem 을 무력화) — 20260927172604 으로 원복
+20260927172604  csat_items_public_rehide_stem                ← authenticated 는 컬럼 단위 SELECT 만(stem 제외) — hide_stem 원복
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
