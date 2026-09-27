@@ -108,7 +108,7 @@ API 키를 기다리며 "막혔다" 고 보고하지 않는다 — **지금 돌�
 
 - `shared_dictionary` **49,244** row · meaning_ko 100%
 - `library_books` **401** — published 312 · archived 83 · queued 6
-- `library_articles` **91,732** — ready 84,715 · archived 3,655 · queued 3,104 · published 250 · failed 7 · analyzing 1
+- `library_articles` **91,793** — ready 84,715 · archived 3,655 · queued 3,165 · published 250 · failed 7 · analyzing 1
 - `shared_word_sets` 11,312 (published 11,099) · `library_chapter_quiz` 2,453
 - `texts` 278 · `vocabularies` 2,269
 - 만화: `pd_comic_issues` 969 · 시리즈 101 · 발행 `comic_books` 1
