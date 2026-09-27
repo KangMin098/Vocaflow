@@ -265,3 +265,6 @@ scripts/csat/data/hakpyeong-answers.json
 scripts/csat/data/hakpyeong-inventory.json
 scripts/csat/data/corpus-hakpyeong.json
 scripts/csat/data/corpus-hakpyeong-report.json
+
+# 학평 분석 드레인 작업물 — 청크·결과에 학평 지문·인용이 실린다(EBSi 재배포 금지). 정본은 DB csat_item_analyses.
+scripts/csat/analysis-drain-hakpyeong/

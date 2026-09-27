@@ -17,6 +17,7 @@
 // 실행:
 //   node scripts/csat/analysis-drain-export.mjs                 (남은 전부)
 //   node scripts/csat/analysis-drain-export.mjs --type R-BLANK  (한 유형만)
+//   node scripts/csat/analysis-drain-export.mjs --set hakpyeong --exam H2603G3  (학평 · 한 회차만)
 //   node scripts/csat/analysis-drain-export.mjs --size 10       (청크당 문항 수, 기본 12)
 //   node scripts/csat/analysis-drain-export.mjs --limit 5       (청크 수 상한)
 //   node scripts/csat/analysis-drain-export.mjs --redo 2026#30,M1809#30
@@ -25,6 +26,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor } from './lib-passage.mjs'
+import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -32,12 +34,14 @@ const arg = (n, d = null) => {
 }
 
 const DIR = path.resolve('scripts/csat/data')
-const WORK = path.resolve('scripts/csat/analysis-drain')
+const WORK = WORK_DIR // --set hakpyeong 이면 analysis-drain-hakpyeong/
 fs.mkdirSync(WORK, { recursive: true })
 
 const SIZE = Number(arg('size', 12))
 const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity
 const ONLY_TYPE = arg('type')
+/** 한 회차만 — 새 집합의 파일럿용(`--set hakpyeong --exam H2603G3`) */
+const ONLY_EXAM = arg('exam')
 
 /**
  * **이미 끝난 문항을 일부러 다시 뽑는다** — `--redo 2026#30,M1809#30`.
@@ -63,7 +67,8 @@ const REDO = new Set(
 )
 const REDO_TAG = new Date().toISOString().slice(0, 10).replace(/-/g, '')
 
-const corpus = JSON.parse(fs.readFileSync(path.join(DIR, 'corpus.json'), 'utf8'))
+const corpus = JSON.parse(fs.readFileSync(CORPUS_FILE, 'utf8'))
+console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
 
 // ── 이미 채워진 몫 ────────────────────────────────────────────────────
 // out 파일에 있고 **검수 3인이 서로 다른 페르소나로 붙어 있는 것**만 완료로 센다.
@@ -100,6 +105,7 @@ if (REDO.size) {
 const pool = corpus.items
   .filter((it) => it.in_scope)
   .filter((it) => (ONLY_TYPE ? it.type_id === ONLY_TYPE : true))
+  .filter((it) => (ONLY_EXAM ? it.exam === ONLY_EXAM : true))
   .filter((it) => !done.has(it.id))
 
 // 유형별 → 최신 회차 먼저

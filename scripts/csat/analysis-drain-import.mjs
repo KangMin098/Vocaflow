@@ -18,9 +18,10 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { createClient } from '@supabase/supabase-js'
+import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 
 const COMMIT = process.argv.includes('--commit')
-const WORK = path.resolve('scripts/csat/analysis-drain')
+const WORK = WORK_DIR
 
 function env(name) {
   if (process.env[name]) return process.env[name]
@@ -244,7 +245,7 @@ process.stdout.write('\n')
  * 맡기면 청크마다 판단이 갈리고, 게이트의 `n_analyzed === analyses.length` 검사와도 부딪힌다.
  * **코퍼스가 이미 `same_item_as` 로 알고 있으므로 여기서 센다.**
  */
-const CORPUS = path.resolve('scripts/csat/data/corpus.json')
+const CORPUS = CORPUS_FILE
 const sameAs = new Map()
 if (fs.existsSync(CORPUS)) {
   for (const it of JSON.parse(fs.readFileSync(CORPUS, 'utf8')).items ?? []) {
@@ -287,6 +288,15 @@ function mergeReports(list) {
   }
 }
 
+// ⚠️ **유형 리포트는 평가원 집합만 DB 에 쓴다.** `csat_type_reports` 는 type_id 하나에 한 행이고
+//    upsert 라, 학평 청크가 올리면 평가원 n=수십 리포트가 학평 리포트로 **통째로 바뀐다**
+//    (2026-09-28 파일럿 미리보기에서 22유형이 덮일 뻔했다). 학평 유형 소견은 대조용 로컬 파일로만 둔다.
+if (SET !== 'kice') {
+  const out = path.join(WORK, '_type-reports.json')
+  fs.writeFileSync(out, JSON.stringify(Object.fromEntries([...typeReports].map(([tid, list]) => [tid, mergeReports(list)])), null, 1))
+  console.log(`  · 유형 리포트 ${typeReports.size}건은 DB 에 쓰지 않았다(집합 ${SET}) — ${path.basename(out)} 에 대조용으로 남김`)
+  typeReports.clear()
+}
 for (const [tid, list] of typeReports) {
   const m = mergeReports(list)
   const { error } = await db.from('csat_type_reports').upsert(
