@@ -327,7 +327,7 @@ export const RETENTION = new Set(['keep', 'keep-pending-extraction', 'hold', 'di
 // ── 보관 판정 어휘 — 정본 docs/source-check/criteria.md §3 과 **같아야 한다**(judge-criteria.test 가 대조한다) ──
 
 /** 기준 버전. 판정 기록마다 남긴다 — 개정 뒤 재판정 대상을 이것으로 가른다. */
-export const CRITERIA_VERSION = 7
+export const CRITERIA_VERSION = 8
 /** 논문 원천 — v7 체크리스트 경로(criteria §3-6)를 쓰지 않는다. 정본 문구는 criteria §3-6, 목록은 여기(judge-criteria.test 가 대조한다). */
 export const PAPER_SOURCES = new Set(['plos', 'frontiers', 'europe_pmc', 'elife', 'scielo', 'openalex', 'olh', 'econstor'])
 /** 체크리스트 무작위 전문 재판정 비율 · 원천을 되돌리는 확정 오판율 · 판단을 시작하는 재판정 수(criteria §3-6). */
