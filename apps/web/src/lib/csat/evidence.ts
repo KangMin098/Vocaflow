@@ -26,6 +26,7 @@ import {
   type EvidenceType,
 } from './evidence-fold'
 import { normalizeForMatch } from './quote-match'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 type ExamRow = { id: string; label: string; kind: string; year: number; month: number }
 type TypeRow = { id: string; name: string; status: string }
@@ -183,7 +184,8 @@ export async function loadEvidence(): Promise<EvidenceData> {
   // 것으로 끝나지 않고 **statement timeout 으로 빈 화면이 된다**(실측 2026-09-16). 그래서
   // 먼저 id·버전만 받아 최신 802개를 고르고, 무거운 칸은 그 802개만 가져온다.
   const [examsRes, typesRes, reportsRes, itemsPaged, headsPaged] = await Promise.all([
-    db.from('csat_exams').select('id, label, kind, year, month'),
+    // onlyKiceExams 와 같은 조건. 이 Promise.all 은 타입이 깊어 헬퍼를 거치면 TS2589 가 난다
+    db.from('csat_exams').select('id, label, kind, year, month').eq('organizer', 'kice'),
     db.from('csat_types').select('id, name, status').eq('in_scope', true),
     db
       .from('csat_type_reports')
@@ -200,6 +202,7 @@ export async function loadEvidence(): Promise<EvidenceData> {
         .from('csat_items')
         .select('id, exam_id, no, type_id, points, answer, answers, high_score, body_ok, passage')
         .eq('in_scope', true)
+        .not('exam_id', 'like', `${HAKPYEONG_ID_PREFIX}%`)
         .order('id', { ascending: true })
         .range(from, to),
     ),

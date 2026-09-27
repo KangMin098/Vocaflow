@@ -18,7 +18,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { pagedSelect } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
-import { schoolYearOf } from './exam-id'
+import { onlyKiceExams, schoolYearOf } from './exam-id'
 
 /** 한 칸 — (연도 × 유형). */
 export interface HeatCell {
@@ -150,7 +150,7 @@ export async function loadHeatmap(): Promise<Heatmap> {
             .range(from, to),
         '기출 지형 문항',
       ),
-      db.from('csat_exams').select('id', { count: 'exact', head: true }),
+      onlyKiceExams(db.from('csat_exams').select('id', { count: 'exact', head: true })),
     ])
     if (typeRes.error) return { ...empty, error: typeRes.error.message }
 

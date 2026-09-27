@@ -107,4 +107,44 @@ describe('흩어진 판정 금지', () => {
     }
     expect(hits).toEqual([])
   })
+
+  // 학평은 보조·검증 집합이다. `csat_items` · `csat_exams` 를 **직접** 읽는 질의가 범위를 안 좁히면
+  // 학평 2,912문항이 유형 가이드·분석 완결도·지형 분모에 조용히 섞인다(학습자 뷰는 DB 가 거른다).
+  // 한 행을 id 로 짚는 조회와 수능만 고르는 조회는 범위가 이미 정해져 있어 통과시킨다.
+  it('csat_items · csat_exams 직접 질의는 평가원으로 좁힌다', () => {
+    const SCOPED = [
+      'onlyKiceItems',
+      'onlyKiceExams',
+      'HAKPYEONG_ID_PREFIX',
+      ".eq('organizer', 'kice')",
+      ".eq('id',",
+      ".eq('kind', 'suneung')",
+    ]
+    const hits: string[] = []
+    for (const f of walk(path.join(ROOT, 'apps/web/src'), [])) {
+      const rel = path.relative(ROOT, f).split(path.sep).join('/')
+      const src = fs.readFileSync(f, 'utf8')
+      for (const m of src.matchAll(/\.from\(\s*['"](csat_items|csat_exams)['"]\s*\)/g)) {
+        const at = m.index ?? 0
+        const window = src.slice(Math.max(0, at - 40), at + 320)
+        if (!SCOPED.some((k) => window.includes(k))) hits.push(`${rel}:${src.slice(0, at).split('\n').length} ${m[1]}`)
+      }
+    }
+    expect(hits).toEqual([])
+  })
+
+  // 스크립트는 받아 온 뒤 거르는 경우가 많아 **파일 단위**로 본다: `csat_items` 를 읽는 스크립트는
+  // `isKiceExam` 으로 거르거나(측정·드레인), 집합을 명시적으로 고르거나(`--set`) 해야 한다.
+  it('csat_items 를 읽는 스크립트는 집합을 가른다', () => {
+    const hits: string[] = []
+    for (const d of ['scripts']) {
+      for (const f of walk(path.join(ROOT, d), [])) {
+        const src = fs.readFileSync(f, 'utf8')
+        if (!/\.from\(\s*['"]csat_items['"]\s*\)/.test(src)) continue
+        if (src.includes('isKiceExam') || src.includes("'--set'")) continue
+        hits.push(path.relative(ROOT, f).split(path.sep).join('/'))
+      }
+    }
+    expect(hits).toEqual([])
+  })
 })

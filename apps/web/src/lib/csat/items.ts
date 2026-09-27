@@ -16,6 +16,7 @@ import { auditAnalysis, summarizeAudit, type CsatItemAudit, type RawAnalysis } f
 import { loadItemSkeleton, type ItemSkeleton } from './skeleton'
 import verifiedAnchors from './dissect-anchors.json'
 import { DISSECTION_METADATA } from './dissect-metadata'
+import { onlyKiceExams, onlyKiceItems } from './exam-id'
 
 export type { CsatItemAudit } from './items-fold'
 
@@ -38,10 +39,10 @@ export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | n
   const db = createCsatClient()
 
   const [examsRes, typesRes, itemsPaged, analysesPaged] = await Promise.all([
-    db.from('csat_exams').select('id, label'),
+    onlyKiceExams(db.from('csat_exams').select('id, label')),
     db.from('csat_types').select('id, name'),
     selectAllPages<ItemRow>((from, to) =>
-      db.from('csat_items').select('id, exam_id, no, type_id, points, answer').eq('in_scope', true).range(from, to),
+      onlyKiceItems(db.from('csat_items').select('id, exam_id, no, type_id, points, answer').eq('in_scope', true)).range(from, to),
     ),
     selectAllPages<RawAnalysis>((from, to) =>
       db

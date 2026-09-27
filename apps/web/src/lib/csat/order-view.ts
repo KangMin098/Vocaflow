@@ -37,6 +37,7 @@ import {
   type OrderView,
   type OrderVolume,
 } from './order-model'
+import { onlyKiceExams, onlyKiceItems } from './exam-id'
 
 /**
  * 저장소 뿌리 — `docs/reports/` 가 있는 곳까지 올라간다.
@@ -98,11 +99,11 @@ export async function loadOrderView(): Promise<OrderView> {
     db.from('csat_types').select('id, name'),
     db.from('csat_type_reports').select('type_id, status'),
     // 유형별 기출 문항 수 — 802행이라 그대로 세어 접는다(집계 RPC 를 새로 만들 이유가 없다).
-    db.from('csat_items').select('id, type_id'),
+    onlyKiceItems(db.from('csat_items').select('id, type_id'), 'id'),
     // 유형별 분석 수는 문항을 거쳐야 나온다(분석 표에 type_id 가 없다). 2,234행이라 그대로 읽는다.
     db.from('csat_item_analyses').select('item_id').eq('status', 'published'),
     db.from('csat_analysis_reviews').select('id', { count: 'exact', head: true }),
-    db.from('csat_exams').select('id, kind'),
+    onlyKiceExams(db.from('csat_exams').select('id, kind')),
     db.from('textbook_volume_renders').select('series, step'),
   ])
 

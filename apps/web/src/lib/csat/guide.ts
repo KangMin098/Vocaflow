@@ -14,7 +14,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createCsatClient, selectAllPages } from './client'
-import { schoolYearOf } from './exam-id'
+import { onlyKiceExams, onlyKiceItems, schoolYearOf } from './exam-id'
 import { detectTypeReportMeta } from './evidence-fold'
 import {
   foldTrapFamilies,
@@ -163,7 +163,7 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
 
   const [typesRes, examsRes, reportsRes, itemsPaged, analysesPaged] = await Promise.all([
     db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
-    db.from('csat_exams').select('id, label, kind, year'),
+    onlyKiceExams(db.from('csat_exams').select('id, label, kind, year')),
     db
       .from('csat_type_reports')
       .select(
@@ -171,7 +171,7 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
       )
       .eq('status', 'published'),
     selectAllPages<ItemRow>((from, to) =>
-      db.from('csat_items').select('id, type_id, exam_id, points').eq('in_scope', true).range(from, to),
+      onlyKiceItems(db.from('csat_items').select('id, type_id, exam_id, points').eq('in_scope', true)).range(from, to),
     ),
     selectAllPages<AnalysisRow>((from, to) =>
       db

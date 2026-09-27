@@ -15,6 +15,7 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
+import { onlyKiceItems } from './exam-id'
 
 export function createCsatClient(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -117,7 +118,7 @@ export async function loadCsatOverview(): Promise<CsatOverview> {
   const [typesRes, itemsPaged, analysesPaged, reportsRes, reviewsRes] = await Promise.all([
     db.from('csat_types').select('id, name, section, status, in_scope').eq('in_scope', true),
     selectAllPages<{ id: string; type_id: string | null; answer: number | null }>((from, to) =>
-      db.from('csat_items').select('id, type_id, answer').eq('in_scope', true).range(from, to),
+      onlyKiceItems(db.from('csat_items').select('id, type_id, answer').eq('in_scope', true), 'id').range(from, to),
     ),
     selectAllPages<{ item_id: string; status: string }>((from, to) =>
       db.from('csat_item_analyses').select('item_id, status').range(from, to),

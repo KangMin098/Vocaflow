@@ -19,7 +19,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { createScriptClient } from '../lib/supabase-client.mjs'
-import { schoolYearOf } from './lib-exam-id.mjs'
+import { isKiceExam, schoolYearOf } from './lib-exam-id.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -49,7 +49,8 @@ for (let from = ''; ; ) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   if (!data?.length) break
-  rows.push(...data)
+  // 평가원 회차만 — 학평(보조·검증 집합)은 이 측정의 분모가 아니다
+  rows.push(...data.filter((r) => isKiceExam(r.id)))
   from = data.at(-1).id
   if (data.length < 500) break
 }

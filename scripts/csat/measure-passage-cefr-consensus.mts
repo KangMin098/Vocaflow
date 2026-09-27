@@ -24,7 +24,7 @@ import { resolve } from 'node:path'
 import { createRequire } from 'node:module'
 import { createClient } from '@supabase/supabase-js'
 import { processText } from '@vocaflow/wlp'
-import { schoolYearOf } from './lib-exam-id.mjs'
+import { isKiceExam, schoolYearOf } from './lib-exam-id.mjs'
 
 for (const line of readFileSync(resolve('apps/web/.env.local'), 'utf8').split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -77,7 +77,8 @@ for (let from = ''; ; ) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   if (!data?.length) break
-  items.push(...(data as Item[]))
+  // 평가원 회차만 — 학평(보조·검증 집합)은 이 측정의 분모가 아니다
+  items.push(...(data as Item[]).filter((r) => isKiceExam(r.id)))
   from = data.at(-1)!.id as string
   if (data.length < 500) break
 }
