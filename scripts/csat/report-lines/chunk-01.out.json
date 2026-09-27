@@ -1,0 +1,298 @@
+{
+  "lines": [
+    {
+      "type_id": "R-NOTICE",
+      "field": "failure_modes",
+      "index": 13,
+      "text": "괄호 안 정보를 건너뛴다. (dinner and breakfast included) · (A student can choose only one.) · (The gate opens at 6 p.m.) 처럼 판정 근거가 괄호 안에만 있는 문항이 살펴본 묶음에서 세 번 나온다"
+    },
+    {
+      "type_id": "R-NOTICE",
+      "field": "failure_modes",
+      "index": 16,
+      "text": "수량이 숫자가 아니라 낱말(eight, one, two weeks)로 적히면 숫자만 훑을 때 빠진다 — 살펴본 묶음에서 정답 근거 3개 중 2개가 낱말로 적힌 수량이었다"
+    },
+    {
+      "type_id": "R-NOTICE",
+      "field": "failure_modes",
+      "index": 39,
+      "text": "표를 가로로만 읽는다 — M2706#27(Paper Size 열을 세로로 세야 한다)과 2025#27(혜택이 세 행 공통)은 모두 세로 읽기가 필요했고, 살펴본 문항 가운데 정답률이 가장 낮을 것으로 보이는 두 문항이다"
+    },
+    {
+      "type_id": "R-CHART",
+      "field": "failure_modes",
+      "index": 3,
+      "text": "'같다' 를 요령으로 처리한다 — 참인 동일값 선지(2016#24 ②)와 거짓인 동일값 선지(2014#29/32 ④)가 모두 있어, '같다는 대개 거짓' 이나 '비슷하면 같다' 어느 쪽도 통하지 않는다. 값을 직접 읽어 확인한다"
+    },
+    {
+      "type_id": "R-CHART",
+      "field": "failure_modes",
+      "index": 7,
+      "text": "선지 다섯을 서로 대조하지 않고 하나씩 그래프에 대조한다. 살펴본 4문항 모두 선지끼리 겹치거나 모순되는 쌍이 있어, 선지끼리 먼저 대조하면 읽어야 할 칸이 절반 이하로 준다"
+    },
+    {
+      "type_id": "R-CHART",
+      "field": "failure_modes",
+      "index": 23,
+      "text": "문형이 같고 대상만 다른 두 선지에서 한쪽 판정을 다른 쪽에 옮겨 쓴다. 두 진술은 따로 판정해야 하며, 살펴본 문항 중 두 문항에서 이 자리에서 틀리기 쉬웠다"
+    },
+    {
+      "type_id": "R-GRAMMAR",
+      "field": "failure_modes",
+      "index": 0,
+      "text": "밑줄 언저리 서너 낱말만 보고 문장 전체에 정동사가 있는지 세지 않는다 — 살펴본 정답 5개 중 3개가 이 확인 하나로 결정된다"
+    },
+    {
+      "type_id": "R-INSERT",
+      "field": "failure_modes",
+      "index": 4,
+      "text": "마지막 자리(⑤)를 '설마 마지막이겠나'로 미리 제외한다 — 살펴본 8문항 중 정답이 ⑤인 것이 3개다"
+    },
+    {
+      "type_id": "R-INSERT",
+      "field": "failure_modes",
+      "index": 11,
+      "text": "정답이 ⑤인 문항에서 마지막 자리를 심리적으로 배제한다. ⑤가 정답인 예: M2106#39 · M2006#38 · M1809#39"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "failure_modes",
+      "index": 7,
+      "text": "총괄 어조의 문장을 논지 선언으로 읽어 첫 자리에 놓는다 — 살펴본 문항 중 7문항에서 오답 하나가 이 형태였고(2018#37 (B) · M1809#36 (B) · 2019#37 (A) 등), 읽으면 그럴듯해서 검산에서도 안 걸린다. 총괄 문장에는 Thus·As a result·has determined 같은 도출 표지가 붙어 있다"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "failure_modes",
+      "index": 10,
+      "text": "블록 첫 문장만 보고 끝낸다 — 살펴본 문항 중 9개는 예고가 블록 마지막 문장에 있었다(downsides · called reactivity · One study · The gods · one “entity”). 첫 문장 셋만 읽으면 이 9개는 갈리지 않는다"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "failure_modes",
+      "index": 17,
+      "text": "이음매 하나만 확인하고 굳힌다 — 오답 48개 중 8개가 「첫 덩어리는 맞는데 뒤 둘의 순서가 바뀐」 형태다. 쌍이 맞아 자연스럽게 읽히므로 검산에서 걸리지 않는다. 이음매가 둘이면 둘 다 근거를 적는다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "failure_modes",
+      "index": 22,
+      "text": "선지 번호 분포로 찍는다 — 이 유형에서 ①이 정답인 적도 있고(M2506#36) 정답 번호는 1·4·5·3·5·3 처럼 흩어져 있다. 번호 통계는 풀이 절차에 넣지 않는다"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "failure_modes",
+      "index": 24,
+      "text": "블록의 첫 문장만 보고 판단을 끝낸다. 살펴본 문항 중 5문항은 근거가 앞 블록의 **마지막** 문장(예고문·질문·풀리지 않은 단서)에 있었다."
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "failure_modes",
+      "index": 26,
+      "text": "첫 블록만 맞히고 두 번째를 그럴듯한 쪽에 붙인다. 가장 유력한 오답 8개가 모두 첫 블록은 맞고 둘째가 틀린 배열이다(2026#37 4번 · M2609#36 5번 · 2025#36 4번 · M2509#36 4번 · M2509#37 2번 등) (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "procedure_steps",
+      "index": 1,
+      "text": "(A)(B)(C)의 첫 문장만 읽고 앞가리킴 표지에 동그라미 친다 — ① 대명사(they·it·them) ② 지시어(this·these·such·that) ③ 정관사 + 처음 보는 명사 ④ 연결사(However·Nor·Further·Likewise·In this way·For example·Thus). 이음매 36개 중 24개가 이 넷으로 판정됐다(지시어 11 · 접속부사 7 · 대명사 4 · 정관사 2) (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "procedure_steps",
+      "index": 2,
+      "text": "동그라미마다 ‘받을 대상이 주어진 글 안에 문자로 있는가’ 를 손가락으로 짚어 묻는다. 없으면 그 블록은 첫 자리에서 지운다. 이 한 단계로 12문항 모두 선지가 2~3개로 줄었다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-ORDER",
+      "field": "procedure_steps",
+      "index": 3,
+      "text": "각 블록의 마지막 문장을 읽어 다음 블록을 부르는 예고를 찾는다 — 물음 · 개념에 이름 붙이기(called ...) · 처음 등장하는 명사 · downsides·problem 같은 목록 예고. 예고와 그것을 채우는 블록을 붙여 인접쌍으로 적는다. 12문항 중 9문항이 이 단계에서 확정됐다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-PURPOSE",
+      "field": "failure_modes",
+      "index": 4,
+      "text": "행위만 맞추고 주체를 안 본다. 살펴본 세 문항 모두에 주체가 뒤집힌 오답이 하나씩 있었고, 가장 자주 되풀이된 함정이다."
+    },
+    {
+      "type_id": "R-TOPIC",
+      "field": "failure_modes",
+      "index": 8,
+      "text": "선지가 두 자리(목적+수단, 원인+결과)를 요구하는데 한 자리만 대조하고 고른다 — 2019#23 이 바로 이 형태이고, '주제문 한 문장' 규칙이 통하지 않는 예외다"
+    },
+    {
+      "type_id": "R-TOPIC",
+      "field": "failure_modes",
+      "index": 11,
+      "text": "정답표가 없는 회차에서 추정한 정답을 근거처럼 믿는다 — M2306#23 · M2209#23 · M2206#23 · M2109#23 은 공식 정답표가 없어 근거와 선지 판정을 싣지 않았다"
+    },
+    {
+      "type_id": "R-TOPIC",
+      "field": "failure_modes",
+      "index": 12,
+      "text": "지문 낱말이 가장 많이 겹치는 선지를 고른다 — 오답 36개 중 다섯 개가 정답 근거 문장의 낱말을 그대로 쓰고 방향을 정하는 말만 뗐다(non-market → market · minimal → benefits · decline of the referentials → decline of reliability · 뉴턴 법칙이 설명한다 → limitations of Newtonian law · speed is worthless without frequency → impact of high-speed systems). 낱말 대조로는 안 걸리고 그 낱말 앞의 한 형태소를 봐야 걸린다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "X-ORDER",
+      "field": "failure_modes",
+      "index": 15,
+      "text": "45번의 선지 순서를 사건 시간 순서로 오해한다 — 45번 선지는 (A)(B)(C)(D) 인쇄 순서를 따른다(정답표가 있는 회차에서 모두 확인). 43번에서 정한 사건 순서로 45번을 훑으면 대응이 어긋나 근거 문장을 엉뚱한 단락에서 찾게 된다"
+    },
+    {
+      "type_id": "R-GIST",
+      "field": "failure_modes",
+      "index": 0,
+      "text": "처방형 선지를 무조건 내린다 — 2014 두 문항은 지문이 명령문으로 끝나고 정답이 처방형이다. 지문에 당위 표현이 있는지 먼저 확인하지 않으면 정답을 가장 먼저 지운다"
+    },
+    {
+      "type_id": "R-GIST",
+      "field": "failure_modes",
+      "index": 4,
+      "text": "낱말 겹침이 가장 큰 선지를 고른다 — 2014 ④는 3번 문장 causes distress in our relationships 를 거의 그대로 옮기되 원인 자리만 바꾼 것이라, 지문과 가장 많이 겹치면서도 오답이다"
+    },
+    {
+      "type_id": "R-GIST",
+      "field": "failure_modes",
+      "index": 11,
+      "text": "선지의 소재어가 지문에 있는지로 거르려 한다 — 오답 48개 전부가 지문의 소재어를 담고 있어 이 방식으로 걸러지는 오답은 0개다. 한국어 선지와 영어 지문은 문자로 겹칠 수 없으므로 '지문에 있는 말인가'라는 물음 자체가 이 유형에서는 작동하지 않는다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-FACT",
+      "field": "failure_modes",
+      "index": 0,
+      "text": "문장을 주어부터 읽는다. 살펴본 정답 4개 모두 근거가 주어-동사 구간 밖에 있다 — 맨 앞 전치사구 2건(With Jan Novák · During his stay in Egypt), 콤마 삽입구 1건(largely on foot), 맨 끝 보어 1건(in the middle of the enemy's camp). 주어부터 읽는 습관이 이 유형에서 가장 큰 실점 원인이다"
+    },
+    {
+      "type_id": "R-FACT",
+      "field": "failure_modes",
+      "index": 4,
+      "text": "참인 선지를 낱말 하나 때문에 거짓으로 본다 — emigrated · horticultural · is said to have been · spoke out against · almost. 오답 16개 중 4개가 이 형태다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-FACT",
+      "field": "failure_modes",
+      "index": 9,
+      "text": "앞 세 선지가 연달아 맞으면 속도가 붙어 뒤 두 줄을 눈으로만 스친다 — 그런데 살펴본 정답 근거 8개 중 7개가 지문 후반부에 있다(2021#26·2020#26 은 마지막 문장)"
+    },
+    {
+      "type_id": "R-REFER",
+      "field": "failure_modes",
+      "index": 11,
+      "text": "인용 안의 I 를 지문의 1인칭 화자에게 돌린다. 살펴본 3문항 중 2문항에 인용이 끼어 있었다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 1,
+      "text": "오답 4개가 전부 지문 낱말을 담은 문항에서 '지문에 있는 말'을 안전 신호로 삼는다 — 2015#33 · 2014B#32 · 2014B#33 이 정확히 그렇게 짜여 있다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 8,
+      "text": "빈칸 앞까지만 읽고 답을 정한다 — 근거가 빈칸 뒤에 있는 예: M1809#34 · 2017#31 · 2017#34 · 2016#31. 특히 M1809#34 는 빈칸 앞 문장만 보면 ②·③도 성립해 보인다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 14,
+      "text": "빈칸 앞 문장만 읽고 답을 고른다 — 살펴본 12문항 중 절반(6/12)은 근거가 빈칸 뒤에 있어 앞만 보면 근거 자체를 못 본다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 15,
+      "text": "선지에 지문 낱말이 있으면 정답으로, 없으면 오답으로 센다 — 지문 낱말을 담은 오답이 9개였지만 M2006#33의 정답도 지문 낱말(intangibles·services)을 그대로 담았다. 낱말 일치는 신호가 아니다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 20,
+      "text": "빈칸 앞만 읽고 고른다 — 빈칸이 문단 첫 문장인 문항(살펴본 묶음에서 4문항)은 이 습관으로는 원리상 못 푼다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 26,
+      "text": "빈칸이 **첫 문장**에 있을 때 거기서 고른다 — M2106#31·M2106#32 는 근거가 각각 세 문장·여섯 문장 뒤에 있어 끝까지 읽어야 풀린다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 31,
+      "text": "스캔 잡음(가짜 빈칸 표시·섞인 단)을 지문의 일부로 읽는다 — 살펴본 문항 중 4문항에 이런 잡음이 있었다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 32,
+      "text": "빈칸 근처만 읽는다 — 2022#32 · M2209#31 · M2209#32 · M2209#34 는 빈칸이 첫 문장이라 근처에 근거가 원리상 없다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 52,
+      "text": "빈칸 **앞**만 읽고 고른다 — 살펴본 12문항 중 8문항은 근거가 뒤에 있고, 빈칸이 1~2문장째인 4문항은 앞에 읽을 것이 아예 없다"
+    },
+    {
+      "type_id": "R-BLANK",
+      "field": "failure_modes",
+      "index": 53,
+      "text": "빈칸 문장이 부정문일 때 '지문과 어울리는' 선지를 고른다 — M2509#32 는 지문의 결론을 그대로 옮긴 ⑤가 오답이고, 가장 강한 함정이다. 12문항 중 5문항(M2606#32 · 2025#32 · M2509#31 · M2509#32 · M2509#33)이 빈칸 문장 자체에 방향을 뒤집는 장치가 있다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-TITLE",
+      "field": "failure_modes",
+      "index": 8,
+      "text": "지문 낱말이 가장 많이 겹치는 선지를 고른다 — 겹침이 단독 최대인 6문항에서 정답 3 · 오답 3 이라 이 방법은 동전 던지기다. 방향을 정하는 말이나 기능(비유·예시·수단)을 뗀 채 낱말만 옮긴 오답이 여덟 번 나왔다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-TITLE",
+      "field": "failure_modes",
+      "index": 14,
+      "text": "선지의 낱말이 지문에 있는지만 대조하고 그 낱말이 걸리는 대상을 확인하지 않는다 — 오답 36개 중 7개가 이런 형태였고, 정답 쪽은 오히려 지문 표현을 바꿔 말한 경우가 많다(M2509#24 관용구 · 2026#24 은유) (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "R-TITLE",
+      "field": "failure_modes",
+      "index": 18,
+      "text": "지문에 조언·해결책이 없는데 Tips·How to·Solutions 형 제목을 고른다 — 이런 오답의 예: M2609#24 ① · M2606#24 ③ · M2509#24 ②⑤ · 2024#24 ①"
+    },
+    {
+      "type_id": "R-CLAIM",
+      "field": "failure_modes",
+      "index": 8,
+      "text": "정답표 없는 회차에서 '그럴듯한 하나'를 정답으로 굳힌다 — 12개 중 4개(M2306·M2209·M2206·M2109)는 평가원 정답표가 없어 선지 판정을 싣지 않았다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "X-VOCAB",
+      "field": "failure_modes",
+      "index": 2,
+      "text": "앞뒤 문장의 낱말을 그대로 되받는 자리를 「뻔하다」고 의심해 뺀다 — **되받는 것이 곧 맞다는 증거다.** 살펴본 10문항 모두에 이 유인이 있었고, 이 자리에서 가장 많이 틀린다"
+    },
+    {
+      "type_id": "X-VOCAB",
+      "field": "failure_modes",
+      "index": 8,
+      "text": "어려운 낱말을 답으로 찍는다. 오답 낱말은 obey · unlikely · relaxed · excludes · block · rapidly · challenging 처럼 쉬운 낱말이 대부분이고, misshapen · displacements · suppress · imperceptible 처럼 어려운 낱말은 전부 정상 낱말이었다."
+    },
+    {
+      "type_id": "X-TITLE",
+      "field": "failure_modes",
+      "index": 12,
+      "text": "마지막 문장을 결론으로 읽는다 — 마지막 문장에 letter 표시가 있던 4문항 모두 그 문장이 42번 정답 자리였고, 그중 3문항은 그 문장을 곧이곧대로 읽으면 제목이 정반대로 잡힌다(2026 unlikely · M2606 distinguishable · M2506 coincide). 단문 제목에서 굳힌 '끝을 보라'는 습관이 장문에서는 실점이 된다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "X-TITLE",
+      "field": "failure_modes",
+      "index": 15,
+      "text": "낱말 겹침을 근거로 삼는다 — 오답 36개 중 6개가 지문 낱말을 그대로 담고도 그 낱말의 자리(비유·비교항·증거)를 바꾼 것이다. 겹침이 가장 큰 선지가 오답인 문항이 M2606·M2506·2023 셋이다 (살펴본 회차 묶음 기준)"
+    },
+    {
+      "type_id": "X-TITLE",
+      "field": "failure_modes",
+      "index": 16,
+      "text": "선지의 물음·명령 형태로 소거한다 — 정답 9개 중 물음형은 2024#41 하나이고 나머지 여덟은 명사구다. 그러나 오답 36개 중에도 물음형이 6(M2706 ④ · 2026 ③ · M2609 ④ · M2509 ② · M2506 ⑤ · 2024 ⑤), 명령·감탄형이 5(2026 ① · M2606 ② · M2609 ⑤ · 2023 ② · 2023 ④) 섞여 있어 형태는 정답·오답 어느 쪽의 표지도 아니다. 형태로 지우면 2024#41 에서 정답을 먼저 버린다 (살펴본 회차 묶음 기준)"
+    }
+  ]
+}

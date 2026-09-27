@@ -120,9 +120,9 @@ const QUALITY_ISSUES: WorkIssue[] = [
     severity: '보고서 점검',
     why: '유형 설명에 내부 작업 용어가 남아 있습니다. 현재 해부 학습 후보 판정과는 별도입니다.',
     action: '유형 리포트 확인 → 학습자 서술 재작성 → 검증',
-    location: 'scripts/csat/locus-refold-export.mjs · locus-refold-import.mjs',
+    location: 'scripts/csat/locus-refold-*.mjs (근거 서술) · report-lines-refold.mjs (미끄러지는 자리·풀이 절차)',
     technical:
-      'locus-refold --commit은 answer_locus_pattern을 덮어씁니다. 백업 확인 후 한 번만 반영합니다(재실행 안전하지 않음). failure_modes·procedure_steps의 표지도 별도 검토합니다.',
+      'locus-refold --commit은 answer_locus_pattern을 덮어씁니다. 백업 확인 후 한 번만 반영합니다(재실행 안전하지 않음). failure_modes·procedure_steps 는 report-lines-refold 로 표지가 걸린 줄만 고칩니다. 분석 드레인 import 는 --reports 없이는 리포트를 덮지 않습니다.',
   },
   {
     id: 'reportCount',
@@ -133,9 +133,9 @@ const QUALITY_ISSUES: WorkIssue[] = [
     severity: '보고서 점검',
     why: '리포트의 분석 문항 수와 실제 유형별 문항 수가 다릅니다.',
     action: '유형 범위·분석 버전 확인 → 리포트 재집계 → 재검증',
-    location: 'csat_type_reports.n_analyzed · analysis-drain-import.mjs',
+    location: 'csat_type_reports.n_analyzed · scripts/csat/type-report-recount.mjs',
     technical:
-      '현재 항목 수를 기계적으로 덮어쓰기 전에 리포트가 다루는 범위를 확인합니다. DB 자동 수정은 수행하지 않습니다.',
+      'type-report-recount.mjs 가 지금 그 유형인 문항 중 published 분석이 있는 행 수로 다시 셉니다(미리보기 → --commit · 재실행 안전). 화면에서 자동 수정은 하지 않습니다.',
   },
 ]
 export const WORK_ISSUES: WorkIssue[] = [

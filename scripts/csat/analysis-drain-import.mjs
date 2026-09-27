@@ -287,7 +287,13 @@ function mergeReports(list) {
   }
 }
 
-for (const [tid, list] of typeReports) {
+// ⚠️ **유형 리포트는 기본으로 덮지 않는다** — `--reports` 가 있어야 쓴다(2026-09-28).
+//    병합은 청크 서술을 이어 붙이므로, 다시 돌리면 `locus-refold` 로 학습자용으로 고쳐 쓴 서술이
+//    분석자 작업 로그로 되돌아간다(2026-09-05 재작성 13유형이 09-13 재실행으로 전부 되돌아갔다).
+//    문항 수는 `type-report-recount.mjs` 가 DB 에서 다시 센다.
+const WRITE_REPORTS = process.argv.includes('--reports')
+if (!WRITE_REPORTS && typeReports.size) console.log(`  유형 리포트 ${typeReports.size}개는 건너뜀 — 덮으려면 --reports (locus-refold 재작성이 되돌아간다)`)
+for (const [tid, list] of WRITE_REPORTS ? typeReports : []) {
   const m = mergeReports(list)
   const { error } = await db.from('csat_type_reports').upsert(
     { type_id: tid, ...m, status: 'published', updated_at: new Date().toISOString() },
