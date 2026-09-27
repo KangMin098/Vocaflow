@@ -19,7 +19,10 @@
 
 ## 요약
 
-**미적용 제안(2026-09-19)**: 방법론 지식층의 [SQL 초안](./methodology/schema.sql)은 `methodology_` 테이블 10개와 원자적 snapshot 적재/조회 RPC 2개를 제안한다. 사용자 승인 전이며 실제 DB 스키마/아래 통계에 포함하지 않는다. 기존 표 변경 없음, RLS+서비스 롤 접근, 원본 자막 미저장. [단계·검증](./methodology/README.md).
+**학습 원리 지식층**
+- `methodology_*` 10개 + RPC `methodology_import` · `methodology_read` — 가져오기 스냅샷 원장(`20260919120000`, 원장 버전 `20260919031959`, 적용됨). 모든 행이 `batch_id` 에 묶인다. 원본 자막 미저장.
+- `knowledge_*` 6개 — 살아 있는 등록부(`20260928120000_knowledge_registry`, 2026-09-28 적용). `knowledge_items`(층 essence·principle·method·practice · 상태 extracted→in_review→adopted/rejected→applied · 반려는 이유 필수 · 문장 변경 시 version+1) · `knowledge_links`(`implements` 는 한 층 위로만 — 트리거 `knowledge_links_check_layer`) · `knowledge_evidence`(등급 A/B/C · stated/inferred · 출처는 methodology 스냅샷 / 기출 원천 / 외부 링크 중 정확히 하나) · `knowledge_csat_origins`(지문 해시 PK · 서지·근거 URL · 등급 A/B/C/G 생성 열 · **지문 원문 열 없음**) · `knowledge_gaps`(원인 5종) · `knowledge_reviews`(상태 전이를 트리거 `knowledge_items_track` 가 자동 기록).
+- 전부 RLS · anon/authenticated 권한 없음 · service_role 전용. 씨앗 `scripts/knowledge/import-seed.mjs`(재실행 안전). 설계 [SYSTEM](./methodology/SYSTEM.md) · [단계·검증](./methodology/README.md).
 
 - **테이블**: **107** · **Views**: **11**(+ matview 4) · **Functions**: **360** · **인덱스**: **340** · **Migrations**: **528** · **용량 7,665 MB** (2026-08-31 DB 직접 쿼리 실측)
 - RLS: 107 중 **106** enabled. 유일한 예외 `textbook_shelf_stats_meta` 는 anon 에 GRANT 되어 있지 않다.
