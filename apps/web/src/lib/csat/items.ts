@@ -18,6 +18,7 @@ import { auditAnalysis, summarizeAudit, type CsatItemAudit, type RawAnalysis } f
 import { loadItemSkeleton, type ItemSkeleton } from './skeleton'
 import verifiedAnchors from './dissect-anchors.json'
 import { DISSECTION_METADATA } from './dissect-metadata'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 export type { CsatItemAudit } from './items-fold'
 
@@ -40,7 +41,8 @@ export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | n
   const db = createCsatClient()
 
   const [examsRes, typesRes, items, analyses] = await Promise.all([
-    db.from('csat_exams').select('id, label'),
+    // 평가원 회차만(학평은 보조·검증 집합) — 조건을 직접 적는 이유는 exam-id.ts 「DB 질의 범위」
+    db.from('csat_exams').select('id, label').eq('organizer', 'kice'),
     db.from('csat_types').select('id, name'),
     keysetSelectResult<ItemRow, string>(
       (cursor, limit) => {
@@ -48,6 +50,7 @@ export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | n
           .from('csat_items')
           .select('id, exam_id, no, type_id, points, answer')
           .eq('in_scope', true)
+          .not('exam_id', 'like', `${HAKPYEONG_ID_PREFIX}%`) // 평가원 회차만
           .order('id')
           .limit(limit)
         if (cursor) query = query.gt('id', cursor)
@@ -63,6 +66,7 @@ export async function loadCsatItemAudit(): Promise<{ page: CsatItemAuditPage | n
           'item_id, version, answer_unknown, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, required_vocab, time_budget_sec, difficulty',
         )
         .eq('status', 'published')
+          .not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`)
           .order('item_id')
           .order('version')
           .limit(limit)

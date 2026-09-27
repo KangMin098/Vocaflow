@@ -1229,6 +1229,9 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260914090000  video_job_eval                             ← 영상 평가 결과 5열 + 기록/요약 RPC 2 (아래 참조)
 20260913120000  video_jobs                                 ← 영상 공장 큐(편당 1행) + 단계 전진 RPC 2 (아래 참조)
 20260913013946  csat_exams_paper_form                      ← 인쇄 형(홀수/짝수/단일). `form`(수준별 A/B)과 다른 축
+20260927153152  csat_exams_hakpyeong                       ← 학평 수용: kind+hakpyeong · organizer(kice|edu_office) · grade · exam_year. csat_items_public·csat_coverage 는 평가원만
+20260927161216  csat_items_public_restore_authenticated_select  ← ⚠ 오판(hide_stem 을 무력화) — 20260927172604 으로 원복
+20260927172604  csat_items_public_rehide_stem                ← authenticated 는 컬럼 단위 SELECT 만(stem 제외) — hide_stem 원복
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
@@ -1743,7 +1746,7 @@ anon 세션으로 실측 검증: 미발행 호 0건 노출.
 | 테이블 | 무엇 | 행(2026-09-13) |
 |---|---|---|
 | `csat_types` | 문항 유형(정본은 `scripts/csat/classify-types.mjs`) | 44 (사정권 26) |
-| `csat_exams` | 회차. `listening_end` 로 듣기 경계를 회차마다 갖는다. **`paper_form`**(홀수/짝수/단일)은 `form`(2014 수준별 A/B)과 **다른 축** — `choices` 순서·`answer` 번호가 형마다 다르므로 선지를 자리로 가리키는 화면이 대조해야 한다(마이그레이션 `20260913013946`) | 30 (홀수 7 · 짝수 6 · 단일 16 · M2009 무효로 없음) |
+| `csat_exams` | 회차. `listening_end` 로 듣기 경계를 회차마다 갖는다. **`paper_form`**(홀수/짝수/단일)은 `form`(2014 수준별 A/B)과 **다른 축** — `choices` 순서·`answer` 번호가 형마다 다르므로 선지를 자리로 가리키는 화면이 대조해야 한다(마이그레이션 `20260913013946`). **`organizer`**(kice 평가원 = 본 근거 집합 · edu_office 교육청 학평 = 보조·검증 집합) · `grade`(1~3) · `exam_year`(시행연도; `year` 는 학년도 정렬 축, 학평은 `year = exam_year + 1`). 학평 id `H{시행YY}{MM}G{학년}` 을 `csat_exams_kind_shape_check` 가 강제하고, `csat_items_public` 뷰와 `csat_coverage()` 는 **평가원 회차만** 낸다(`20260927153152`) | 30 (홀수 7 · 짝수 6 · 단일 16 · M2009 무효로 없음) |
 | `csat_items` | 문항. `in_scope` = 듣기 아님. `passage` 는 평가원 저작물(RLS `USING (false)` + `csat_items_public` 뷰) | 802 (전부 사정권 · 듣기 500행은 2026-09-03 지시로 제외) |
 | `csat_item_analyses` | 문항 분석. 덮지 않고 `version` 을 올린다. ⚠️ 적재의 중복 판정이 2026-09-13 까지 jsonb 키 순서 때문에 늘 「다르다」로 나와 전량 적재마다 802행이 늘었다 — 행 수에 그 자국이 있다 | 3,069 published (802문항 · 최대 v5) |
 | `csat_analysis_reviews` | 3인 검수. `unique(analysis_id, persona)` | 9,207 |

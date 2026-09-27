@@ -17,7 +17,7 @@ import { notFound } from 'next/navigation'
 
 import { AnalysisTheater, type TheaterMap } from '@/components/csat/theater/AnalysisTheater'
 import { LectureStage } from '@/components/csat/lecture/LectureStage'
-import { kiceSourceOf } from '@/lib/csat/kice-source'
+import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import { lectureMeta, lectureOutline } from '@/lib/csat/lecture/store'
@@ -106,7 +106,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
     exams: base.exams[examId] ? base.exams : { ...base.exams, [examId]: { label: item.exam_label, order: examOrder(examId) } },
     papers: base.papers[examId]
       ? base.papers
-      : { ...base.papers, [examId]: { url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null } },
+      : { ...base.papers, [examId]: { url: paper.paperUrl ?? paper.listUrl ?? KICE_ARCHIVE_URL, direct: paper.paperUrl != null } },
   }
 
   const theater = (
@@ -130,7 +130,8 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
         design: item.design,
       }}
       typeId={item.type_id ?? ''}
-      source={{ url: paper.paperUrl ?? paper.listUrl, direct: paper.paperUrl != null, reason: paper.reason }}
+      // 이 화면은 학습자 뷰(평가원 회차만)의 문항이라 listUrl 이 null 일 일은 없다 — 타입상 대비만 둔다
+      source={{ url: paper.paperUrl ?? paper.listUrl ?? KICE_ARCHIVE_URL, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings
         .slice()
         .sort((a, b) => b.exam_label.localeCompare(a.exam_label) || a.no - b.no)

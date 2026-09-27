@@ -19,12 +19,13 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { allRows, answerOf } from './lib-passage.mjs'
 import { TYPE_BY_NO, ABILITY_OF, SEQUENTIAL_TYPES } from './design-spec.mjs'
+import { schoolYearOf } from './lib-exam-id.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
 const R = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
 const bp = Object.fromEntries(R('blueprint.json').blueprint.map((x) => [x.type, x]))
 
-const yearOf = (e) => (String(e).startsWith('M') ? 2000 + Number(String(e).slice(1, 3)) : Number(e))
+const yearOf = (e) => schoolYearOf(e)
 const rows = allRows().filter((r) => yearOf(r.exam) >= 2019)
 const exams = [...new Set(rows.map((r) => r.exam))].sort()
 

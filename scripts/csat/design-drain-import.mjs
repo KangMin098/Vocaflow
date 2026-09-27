@@ -18,6 +18,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { isKiceExam } from './lib-exam-id.mjs'
+
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
     for (const line of fs.readFileSync(path.resolve(f), 'utf8').split('\n')) {
@@ -65,6 +67,8 @@ function quotesSource(note, passage) {
 }
 
 for (const r of rows) {
+  // 평가원 회차만 — 학평(보조·검증 집합)은 이 드레인·측정의 범위 밖
+  if (!isKiceExam(r.id)) { bump('학평 — 설계 드레인 범위 밖'); continue }
   const { data: it } = await db.from('csat_items').select('id, type_id, passage').eq('id', r.id).maybeSingle()
   if (!it?.passage) { bump('문항·지문 없음'); continue }
   const n = splitSentences(it.passage).length

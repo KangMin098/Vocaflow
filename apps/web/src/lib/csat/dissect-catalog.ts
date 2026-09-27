@@ -9,6 +9,7 @@ import verifiedAnchors from './dissect-anchors.json'
 import { loadLecture } from './lecture/store'
 import { firstSentences } from './session/text'
 import { DISSECTION_METADATA } from './dissect-metadata'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 import { hashTag, readyItem, type DissectionCatalog, type DissectionItem } from './dissect'
 
 interface Analysis {
@@ -30,7 +31,7 @@ export async function loadDissectionCatalog(options: { db?: SupabaseClient; fres
       return query
     }, (row) => row.id, '해부 문항'),
     keysetSelect<Analysis, { itemId: string; version: number }>((cursor, limit) => {
-      let query = db.from('csat_item_analyses').select('item_id,version,design_intent,answer_unknown,answer_locus,choice_analysis').eq('status', 'published').order('item_id').order('version').limit(limit)
+      let query = db.from('csat_item_analyses').select('item_id,version,design_intent,answer_unknown,answer_locus,choice_analysis').eq('status', 'published').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).order('item_id').order('version').limit(limit)
       if (cursor) query = query.or(`item_id.gt.${cursor.itemId},and(item_id.eq.${cursor.itemId},version.gt.${cursor.version})`)
       return query
     }, (row) => ({ itemId: row.item_id, version: row.version }), '해부 분석'),

@@ -21,6 +21,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { isKiceExam } from './lib-exam-id.mjs'
+
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
     for (const line of fs.readFileSync(path.resolve(f), 'utf8').split('\n')) {
@@ -66,6 +68,8 @@ const { data: items, error } = await db
   .in('type_id', types)
   .order('id')
 if (error) throw new Error(error.message)
+// 평가원 회차만 — 학평(보조·검증 집합)은 이 드레인·측정의 범위 밖
+for (let k = items.length - 1; k >= 0; k -= 1) if (!isKiceExam(items[k].id)) items.splice(k, 1)
 
 const ids = items.map((i) => i.id)
 const analyses = new Map()

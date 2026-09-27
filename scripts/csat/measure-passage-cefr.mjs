@@ -19,6 +19,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
 import { createScriptClient } from '../lib/supabase-client.mjs'
+import { isKiceExam, schoolYearOf } from './lib-exam-id.mjs'
 
 for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').split(/\r?\n/)) {
   const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
@@ -36,10 +37,9 @@ const cefrByReadingEase = (fre) =>
 
 /** 연도 — `exam_id` 는 `2026`(수능) 또는 `M2706`(모평) 꼴이다. */
 const yearOf = (examId) => {
-  const m = /^M?(\d{2})(\d{2})?$/.exec(examId) ?? /^(\d{4})$/.exec(examId)
-  if (!m) return examId
-  if (m[0].length === 4 && !m[0].startsWith('M')) return m[0] // 2026
-  return `20${m[1]}` // M2706 → 2027학년도 6월 → 시행 2026 이지만 학년도 표기를 따른다
+  // 학년도 표기(M2706 → 2027). 문법은 `lib-exam-id.mjs` 한곳이 읽는다
+  const y = schoolYearOf(examId)
+  return Number.isNaN(y) ? examId : String(y)
 }
 
 const rows = []
@@ -49,7 +49,8 @@ for (let from = ''; ; ) {
   const { data, error } = await q
   if (error) throw new Error(error.message)
   if (!data?.length) break
-  rows.push(...data)
+  // 평가원 회차만 — 학평(보조·검증 집합)은 이 측정의 분모가 아니다
+  rows.push(...data.filter((r) => isKiceExam(r.id)))
   from = data.at(-1).id
   if (data.length < 500) break
 }

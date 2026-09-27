@@ -7,6 +7,8 @@
 // `item-slug.ts` 머리말에 적어 둔 사고가 정확히 그것이다. 그래서 갈라 둔다.
 
 /** 수능 본시험인가, 6·9월 모의평가인가 — 학습자가 가장 먼저 가르는 축 */
+import { parseExamId } from './exam-id'
+
 export type ExamKind = 'suneung' | 'mock'
 
 export interface BrowseItem {
@@ -56,10 +58,11 @@ export interface BrowseCatalog {
  * (`skeletonExamMeta`). `2014A` · `2026` = 수능 · `M2606` = 2026학년도 6월 모의평가.
  */
 export function examAxis(examId: string): { kind: ExamKind; year: number; month: number | null } {
-  const mock = /^M(\d{2})(\d{2})$/.exec(examId)
-  if (mock) return { kind: 'mock', year: 2000 + Number(mock[1]), month: Number(mock[2]) }
-  const year = Number(examId.slice(0, 4))
-  return { kind: 'suneung', year: Number.isFinite(year) ? year : 0, month: null }
+  // 문법은 `exam-id.ts` 한곳이 읽는다. 서가는 학습자 뷰(평가원 회차만)를 읽으므로 학평은 오지 않는다
+  const p = parseExamId(examId)
+  if (!p) return { kind: 'suneung', year: 0, month: null }
+  if (p.kind === 'suneung') return { kind: 'suneung', year: p.schoolYear, month: null }
+  return { kind: 'mock', year: p.schoolYear, month: p.month }
 }
 
 /** 최근 회차가 위로. 같은 학년도면 수능 → 9월 → 6월 순(시행 역순) */

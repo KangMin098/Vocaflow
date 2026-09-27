@@ -91,7 +91,9 @@ async function readSessionCatalog(client?: SupabaseClient): Promise<{ catalog: L
   const papers: Record<string, PaperSource> = {}
   for (const examId of Object.keys(labels)) {
     const s = kiceSourceOf(examId)
-    papers[examId] = { url: s.paperUrl ?? s.listUrl, direct: s.paperUrl != null }
+    const url = s.paperUrl ?? s.listUrl
+    // 갈 곳이 없는 회차(학평)는 항목을 두지 않는다 — 화면이 「평가원에서 찾기」를 그리지 않는다
+    if (url) papers[examId] = { url, direct: s.paperUrl != null }
   }
 
   return {

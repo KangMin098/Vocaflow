@@ -12,6 +12,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import { parseExamId } from '../exam-id'
+
 const DEFAULT_DIRS = [
   'C:/Users/Administrator/Documents/영어/수능영어기출/수능기출',
   'C:/Users/Administrator/Documents/영어/모의평가',
@@ -34,8 +36,10 @@ function dirs(): string[] {
  */
 export function matchesExam(examId: string, file: string): boolean {
   if (!file.toLowerCase().endsWith('.pdf') || file.includes('정답')) return false
-  const mock = examId.match(/^M(\d{2})(\d{2})$/)
-  if (mock) return file.startsWith(`20${mock[1]}${mock[2]}_`)
+  // 문법은 `exam-id.ts` 한곳이 읽는다. 개발 폴더에는 평가원 원본만 있다 — 학평은 짝이 없다
+  const p = parseExamId(examId)
+  if (p?.kind === 'hakpyeong') return false
+  if (p?.kind === 'mock') return file.startsWith(`${p.schoolYear}${String(p.month).padStart(2, '0')}_`)
   const ab = examId.match(/^(\d{4})([AB])$/)
   if (ab) return file.startsWith(`${ab[1]}_`) && file.includes(`영어${ab[2]}`)
   return /^\d{4}$/.test(examId) && file.startsWith(`${examId}_`) && file.includes('영어')
