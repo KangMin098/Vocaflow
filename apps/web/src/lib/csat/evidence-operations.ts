@@ -17,6 +17,7 @@ import {
   scopeQuery,
   type Measure,
 } from './evidence-fold'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 export interface ReadinessAudit {
   total: number
@@ -56,7 +57,7 @@ export interface WorkIssue {
   label: string
   priority: 1 | 2 | 3 | 4
   stage: string
-  severity: '원천 검토' | '학습 후보 제외' | '보고서 점검'
+  severity: '원천 검토' | '학습 후보 제외' | '보고서 점검' | '분석 대기'
   why: string
   action: string
   location: string
@@ -65,6 +66,19 @@ export interface WorkIssue {
   field?: string
 }
 const QUALITY_ISSUES: WorkIssue[] = [
+  {
+    id: 'unanalyzed',
+    defect: 'unanalyzed',
+    label: '분석 없음',
+    priority: 2,
+    stage: '분석·검증',
+    severity: '분석 대기',
+    why: '공개된 분석이 없어 인용·검수·오답 근거를 잴 수 없습니다.',
+    action: '분석 드레인 export → 에이전트 분석·3인 검수 → validate → import',
+    location: 'scripts/csat/analysis-drain-*.mjs · csat_item_analyses',
+    technical:
+      '학평 문항은 --set hakpyeong 으로 드레인합니다. 결함이 아니라 아직 채우지 않은 몫이라 원천 검토 수와 따로 셉니다.',
+  },
   {
     id: 'body',
     defect: 'body',
@@ -358,7 +372,11 @@ export function makeWorkPackage(
   index = readinessIndex(null)
 ) {
   const ids = items.map((i) => i.id)
-  const safeIds = ids.every((id) => /^(?:\d{4}[AB]?|M\d{4})#\d{1,2}$/.test(id))
+  const safeIds = ids.every((id) => /^(?:\d{4}[AB]?|M\d{4}|H\d{4}G[123])#\d{1,2}$/.test(id))
+  // 한 패키지에 두 집합을 섞으면 명령 하나로 못 돌린다 — 섞이면 명령을 내지 않는다
+  const hp = ids.filter((id) => id.startsWith(HAKPYEONG_ID_PREFIX)).length
+  const mixed = hp > 0 && hp < ids.length
+  const setFlag = hp ? ' --set hakpyeong' : ''
   const issues = WORK_ISSUES.filter(
     (i) => i.id === state.issue || items.some((it) => hasIssue(it, i, index))
   )
@@ -366,6 +384,7 @@ export function makeWorkPackage(
     (i) =>
       i.defect === 'body' ||
       i.defect === 'quote' ||
+      i.defect === 'unanalyzed' ||
       ['answer', 'evidence', 'intent'].includes(i.field ?? '')
   )
   return {
@@ -381,11 +400,11 @@ export function makeWorkPackage(
       caution: i.technical,
     })),
     commands:
-      analysisNeeded && safeIds && ids.length
+      analysisNeeded && safeIds && !mixed && ids.length
         ? {
-            export: `node scripts/csat/analysis-drain-export.mjs --redo '${ids.join(',')}'`,
-            validate: 'node scripts/csat/analysis-drain-validate.mjs',
-            preview: 'node scripts/csat/analysis-drain-import.mjs',
+            export: `node scripts/csat/analysis-drain-export.mjs${setFlag} --redo '${ids.join(',')}'`,
+            validate: `node scripts/csat/analysis-drain-validate.mjs${setFlag}`,
+            preview: `node scripts/csat/analysis-drain-import.mjs${setFlag}`,
           }
         : null,
     procedure: [

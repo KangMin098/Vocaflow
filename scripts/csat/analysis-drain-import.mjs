@@ -40,7 +40,9 @@ const db = createClient(URL, KEY, { auth: { persistSession: false } })
 // ── 게이트 ────────────────────────────────────────────────────────────
 if (COMMIT) {
   try {
-    execFileSync(process.execPath, ['scripts/csat/analysis-drain-validate.mjs'], { stdio: 'inherit' })
+    // ⚠️ 게이트는 **적재할 그 집합**을 검증해야 한다 — `--set` 을 빼면 평가원 폴더를 검증한 뒤
+    //    학평 결과를 미검증으로 올린다(PR #125 리뷰).
+    execFileSync(process.execPath, ['scripts/csat/analysis-drain-validate.mjs', '--set', SET], { stdio: 'inherit' })
   } catch {
     console.log('\n  ✗ 검수 게이트 실패 — 적재하지 않는다')
     process.exit(1)

@@ -336,7 +336,9 @@ export async function loadEvidence(scope: EvidenceScope = KICE_SCOPE): Promise<E
 
     const defects: DefectCode[] = []
     if (!it.body_ok) defects.push('body')
-    if (!located) defects.push('quote')
+    // 분석이 없으면 인용을 잴 수 없다 — 「인용 미정착」이 아니라 「분석 없음」이다(PR #125 리뷰: 미분석 924문항 오진)
+    if (!a) defects.push('unanalyzed')
+    else if (!located) defects.push('quote')
     if (it.high_score !== (points === 3)) defects.push('scoring')
     if (answerCount > 1) defects.push('answerKey')
     if (it.type_id && typeTextBad.has(it.type_id)) defects.push('reportText')

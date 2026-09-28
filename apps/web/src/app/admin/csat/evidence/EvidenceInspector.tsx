@@ -19,6 +19,7 @@ import s from './evidence.module.css'
 export function EvidenceInspector({
   item,
   index,
+  readinessApplies = true,
   state,
   generatedAt,
   onClose,
@@ -30,6 +31,8 @@ export function EvidenceInspector({
 }: {
   item: EvidenceItem
   index: ReadinessIndex
+  /** false 면 학습 판정을 하지 않는 집합(학평) — 「미확인」 대신 「적용 안 함」 */
+  readinessApplies?: boolean
   state: OperationsState
   generatedAt: string
   onClose: () => void
@@ -174,6 +177,9 @@ export function EvidenceInspector({
         ) : null}
         <section className={s.section}>
           <h3>현재 판단</h3>
+          {!readinessApplies ? (
+            <p className={s.badge}>학습 판정 적용 안 함 · 보조·검증 집합(학평)</p>
+          ) : (
           <p className={`${s.badge} ${index.ready.has(item.id) ? s.good : s.bad}`}>
             {index.ready.has(item.id) ? (
               <CheckCircle2 size={16} aria-hidden />
@@ -186,6 +192,7 @@ export function EvidenceInspector({
                 ? '학습 후보 제외'
                 : '학습 상태 미확인'}
           </p>
+          )}
           <p className={s.muted}>
             {index.missing
               .get(item.id)

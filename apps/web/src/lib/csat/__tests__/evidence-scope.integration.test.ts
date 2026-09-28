@@ -26,6 +26,10 @@ describe.skipIf(skip)('evidence 학평 범위 (실 DB)', () => {
     expect(data.items.length).toBe(items.count)
     expect(data.items.every((i) => /^H\d{4}G3$/.test(i.examId))).toBe(true)
     expect(data.exams.every((e) => e.kind === 'hakpyeong')).toBe(true)
+    // 분석이 없는 문항은 「분석 없음」이지 「인용 미정착」이 아니다(PR #125 리뷰: 미분석 924문항 오진)
+    const unanalyzed = data.items.filter((i) => i.analysisVersion == null)
+    expect(unanalyzed.every((i) => i.defects.includes('unanalyzed') && !i.defects.includes('quote'))).toBe(true)
+    expect(data.items.filter((i) => i.defects.includes('quote')).every((i) => i.analysisVersion != null)).toBe(true)
     // 평가원 유형 리포트 잣대를 학평에 대지 않는다
     expect(data.items.some((i) => i.defects.includes('reportText') || i.defects.includes('reportCount'))).toBe(false)
   })
