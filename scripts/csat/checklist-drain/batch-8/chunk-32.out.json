@@ -1,0 +1,1058 @@
+[
+ {
+  "id": "52dcdaea-79d6-4a41-bb32-bbd4b6da4419",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "These warrants legally compel the 124",
+  "note": "ICC 체포영장 발부와 네타냐후 측 반발, 회원국 체포 의무라는 결과가 이어져 요지·내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52df10be-4f8f-4bc0-b6cd-55fbe3021972",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On its way back from space,",
+  "note": "디스커버리호 귀환 단신은 악천후로 에드워즈에 착륙했다는 연결 하나에 무게·거리·비용 수치가 붙은 짧은 글이다",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52df90f0-0712-4a04-9386-be1d9af1c732",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The tsunami warnings were issued only",
+  "note": "일본 지진 기사는 쓰나미 경보 발령과 해제라는 연결 하나 외에 규모와 시각만 되풀이되어 연결이 얇다",
+  "record": {
+   "genre": "nature",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52e07264-6ae4-4ed0-a2d3-4b1300d4e0fc",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The region of Arunachal Pradesh is",
+  "note": "달라이 라마 타왕 방문에 중국 항의와 본인 반박, 망명 경로라는 이유가 이어져 요지·내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52e3ec89-e4c1-415c-b8e7-2b4fd7227fbd",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "none",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Sesame Place opened for the season",
+  "note": "세서미 플레이스 기사는 출연자 경력과 놀이공원 시설, 사진가 소개가 서로 이어지지 않는 특징 나열이다",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "mid"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52e873e2-2bef-4f53-beea-c7510e7f759a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Jesuit congregation in their headquarters",
+  "note": "예수회 총장 사임 뒤 회의와 선출, 교황 승인까지 절차가 시간순으로 이어져 순서·내용 일치 칸이 선다",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52eab2a7-0381-4fda-bc32-10fa451bf7e2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Doctors say that He Junyao, 10-years-old,",
+  "note": "중국 첫 조류독감 감염 소년 회복 단신은 신속한 치료가 생존 이유라는 연결 하나에 날짜·통계가 붙은 글이다",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52eb13f4-3a93-49c2-81fd-fa3de03112ab",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "President Bush has claimed that only",
+  "note": "미국변호사협회의 영장 없는 감청 비판에 행정부 논거와 전 NSA 직원 반론이 맞서 주장·근거와 요지 칸을 채운다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52ed0b28-173e-4ec4-8885-69cb74fc1a92",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Dr. Bob Spink, MP for Castle",
+  "note": "스핑크 의원이 공천 배제 시도와 당 정책 불만으로 UKIP 로 옮긴 이유와 당의 환영 반응이 이어져 내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52ef0911-6ade-41dc-b36d-107a35699c48",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Barns is not new to political",
+  "note": "반스 임명이 어산지 출마와 후원에 이어지고 선거인 부족으로 정당 등록이 안 됐다는 이유까지 이어져 내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f15adb-f217-4d0d-bcfd-b3be65723b7f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The spacewalk was successful, and the",
+  "note": "우주유영 탱크 교체가 일찍 끝나 부수 작업을 했고 모듈 문제로 임무가 연장된 인과가 서서 순서·내용 일치 칸을 채운다",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f19325-36fe-4d5d-aaf9-e1cc73a7e2d9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Afghan youths were reported to",
+  "note": "아프간 아이들이 트럭에 숨어 들어와 하수도에서 지내다 발견되고 보호받는 경위가 이어져 내용 일치 칸이 선다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f25294-dbda-469c-abe3-83c01f48d730",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The 16 year old private-public project",
+  "note": "소아마비 퇴치 계획 단신은 예방접종 캠페인이라는 연결 하나 외에 감소율과 발병 수 수치만 이어진다",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f337bb-3759-41fb-a14d-afe15a07cbef",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": false,
+   "gap": false
+  },
+  "sample": "Mary J. Blige, who went into",
+  "note": "그래미 기사는 수상자 이름과 부문, 수상 수만 되풀이되고 이름을 걷으면 내용 있는 문장이 거의 남지 않는다",
+  "record": {
+   "genre": "art",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f37695-70a0-44c5-9c1e-b21f7ad279bb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "This decision comes after Fidel Castro,",
+  "note": "피델 카스트로 불출마 편지에 이어 라울이 선출되고 망명자·미국·주민 반응이 이어져 요지·내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f54db9-6eca-4f2b-ac5a-21108a92de0f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Survivors have reported that a human",
+  "note": "밀입국 트럭 질식 사건의 경위와 원인, 시신 송환과 수사로 이어지는 흐름이 서지만 죽음 묘사가 있어 고등 이상 칸만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f5f709-a414-4320-bbb0-7f39f6cf2990",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The accident occurred after the teenagers",
+  "note": "빅토리아 십대 사망 사고의 경위와 운전자 기소, 지역 애도로 이어지는 흐름이 있어 순서·내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f65029-c275-456c-b56e-7f4cfd5de669",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Controversy has erupted in the French",
+  "note": "시라크 입원과 일정 취소, 건강 발표의 신뢰성 논란으로 원인과 반응이 이어져 내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52f9658d-04e8-4af1-8576-569d788d5a12",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On Monday, travel proved difficult, with",
+  "note": "북동부 눈보라 기사는 항공편 결항과 도로 사고라는 결과 하나 외에 풍속과 적설량 수치만 되풀이된다",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52fd19e8-58aa-49a0-b38d-81c55ffd8e4d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "In the 49th minute, Giroud scored",
+  "note": "아스널 경기 기사는 반칙에서 페널티와 해트트릭, 16강 진출로 이어지는 경기 흐름이 시간순으로 서서 순서 칸을 채운다",
+  "record": {
+   "genre": "sports",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "52fd58a3-f7a9-4add-b547-a46b91b041d6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Marsden had contacted Wales two years",
+  "note": "웨일스와 마스든 관계 논란과 경비 의혹에 당사자와 재단의 반론이 이어져 주장·근거 칸이 서지만 사생활 소재라 고3·성인 칸만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "long_reference"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "5303e1b5-6b09-40a3-9eb8-19c9007a5347",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Although 800,000 litres of oil a",
+  "note": "BP 가 유출 지점 하나를 막아 대응이 쉬워졌고 다음 단계로 돔을 덮을 계획이라는 절차가 이어지는 단신이다",
+  "record": {
+   "genre": "environment",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "53053cc7-f458-427c-aad8-76fe327a881e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Frank McEnulty: I think it is",
+  "note": "제3당 후보 인터뷰는 한쪽 입장이지만 정책마다 주장과 이유를 대는 문답이라 주장·요지 칸을 채울 수 있다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "claim",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "5308525b-1110-4b47-9ebe-88295513ad32",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The question of where the border",
+  "note": "래브라도·퀘벡 경계 분쟁의 유래와 1927년 결정, 퀘벡의 불인정이 이어져 요지·내용 일치 칸이 선다",
+  "record": {
+   "genre": "geography",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "530d5f53-158c-486f-b6f1-4bf83653949f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Iran does not deny the documents",
+  "note": "이란 핵 설계 문서 공개에 이란의 해명과 IAEA 요청 경위가 이어져 내용 일치 칸이 서는 단신이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
