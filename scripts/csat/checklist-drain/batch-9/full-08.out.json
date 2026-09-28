@@ -1,0 +1,884 @@
+[
+  {
+    "id": "61b8d8d2-fa22-4b9b-a790-36657b4f276a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2e548dffad0068fbca5a17a787578266286bfc93d4712eb92ed35a0e0ecebb67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "코미디언의 무례한 발언 → 진행자가 뺨을 때림으로 사건과 반응이 이어지나 욕설·성적 농담이 섞여 성인 칸 내용 일치로만 보관한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Comedian Johnny Vegas peeved talk show",
+      "note": "욕설 인용(fuck·shit·shagged)과 셋째·넷째 문단을 걷어야 한다 — peeved 를 annoyed 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "61dc21ef-3fa1-47ce-9142-15a0bc75cde5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0dddfd8eca671ddaf0de10199df569456593fbb354d295e20555d53d374649cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "가스 발견 발표 → 수입 의존(97%) 감소 기대 → LNG 플랜트·수입선 검토로 원인·결과가 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Thursday, President Ricardo Lagos announced",
+      "note": "고유명사(El Mercurio·Methanex·ENAP)를 걷어도 에너지 자립 논지가 선다 — exhausted·dependence 는 문맥으로 잡힌다."
+    }
+  },
+  {
+    "id": "61edf6e8-703f-49af-bcc7-36977ae50085",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9de8e3eb56d7bb2dbda24232ff2d2d8a5965bf9d2513caef5d026c28935e2b32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쓰나미 복구 방문 일정(재개원 병원·피해지 헬기 시찰·장관 회담)과 10억 달러 원조 약속이 한 사건으로 이어져 짧은 단신 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Australian Prime Minister John Howard will",
+      "note": "72어로 짧아 문항은 내용 일치 하나뿐 — tsunami-ravaged 를 damaged by the tsunami 로 풀면 V4."
+    }
+  },
+  {
+    "id": "620bdea0-ab59-414f-b806-7300d0745bf4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d4fe50b862f7460c517a0ea86e6beba5e35d97fd3a0edf4cf0fb643fc3af329",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "제목이 알린 사망 사실·원인(심장 질환)이 본문 어디에도 없고 배경 두 문단과 끊긴 참조「(c.f. )」만 남아 예고한 사건 절이 빠진 불완전 원천이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "President Niyazov of Turkmenistan had declared",
+      "note": "종신 대통령 선언·반대파 망명 배경은 읽히나 사건(사망) 자체가 없어 단신으로 서지 않는다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "6210113c-4a4d-4f90-a0ac-fd803f1ff566",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e6f963f153ea3227bdf5ecaff05cd967c6ba3a0be0a9c85ee05e0e82d28f261e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "한 사람의 부고로 사망 발표 → 대표작(Billy Liar·희곡) → 건강 탓에 칼럼을 그만둔 경위가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "English author and playwright Keith Waterhouse",
+      "note": "작품명이 많지만 걷어도 생애 흐름이 선다 — tabloid·debut 는 문맥으로 잡힌다."
+    }
+  },
+  {
+    "id": "621675ea-af7d-4935-9715-c38338d0b571",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3576d767c7cfdc834b34b9e6256c9132e894b48b9e0b1aeccb6608df880e3052",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "세 기관의 규모·깊이 수치가 엇갈린 뒤 마지막 문단에서 학교 대피·정전·통화 끊김이라는 결과가 이어져 내용 일치 칸 하나로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The aftershock was clearly felt in",
+      "note": "둘째 문단의 진앙 거리 나열은 걷어야 한다 — 기관별 규모 차이는 내용 일치 선지로 쓸 만하다."
+    }
+  },
+  {
+    "id": "62205ae9-2b82-4976-9a31-784d09d6111e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3113b4aa559b2f581c8cee39b26d28435ed358eb5d755985f1e4724cd8be3801",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "부정 출발로 인한 실격 → 계주 세계 기록 → 폐막식 연설·차기 개최지 발표가 시간순으로 이어져 내용 일치 칸을 채운다(끝 두 줄은 빠진 결과표 설명).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the Women's 200m Backstroke Final,",
+      "note": "끝의 「Results in italic…」「Only listed national teams…」 두 줄은 없는 표를 가리키므로 걷는다 — infractions 를 rule breaks 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "622a049d-aaa5-469f-bfe1-57e60f2ccc4c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "097e3e5068a9a311382029d1ba4b0c1ab9bde2e3b3abc188e590ea9b0d21b034",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "치료제 내성 변이 확인 → 노르웨이·미국 사례와 사망 → CDC 의 「장기적 의미는 아직 이르다」는 반응이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Health officials in both the United",
+      "note": "약품명(oseltamivir·zanamivir)을 걷어도 선다 — sporadically·underlying 을 풀면 V5."
+    }
+  },
+  {
+    "id": "62363267-d588-42ca-a5a9-55582e0c4574",
+    "source_updated_at": "2026-09-25T08:49:01.559443+00:00",
+    "body_sha256": "1075eabc5fa8934c04b575dc90de689284afc500243d441c60a6c48b56a4a3ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "지진·여진 사실에 이어 「불의 고리」에 놓인 지리적 원인과 지진학자의 설명이 붙어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The geographical position of the Solomon",
+      "note": "셋째 문단(불의 고리 설명)이 떼어도 선다 — tectonic 을 풀어 주면 V4."
+    }
+  },
+  {
+    "id": "62416cbf-a14a-4efc-bd51-0bccc8c6606c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "345e0c349939d248a1e94796bbea4c2e318b835ff110ad4b8f8d19aedf00659f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "발견된 돈이 은행 강도 자금으로 확인 → 수사를 흐리려는 시도로 판단 → 코크 압수금도 확인 예정으로 사건이 이어져 단신 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Police Service of Northern Ireland",
+      "note": "92어 단신 — money laundering·outskirts 는 괄호 풀이가 필요하다."
+    }
+  },
+  {
+    "id": "6283c2a7-8443-449c-bf40-924460d2dc7c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b9380422c85a183afe97c1f0cc7c909968d8df1e147f871ba0c76322df788c04",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "무소속 의원이 원주민 주택 통제권·야생하천법 폐지를 연정 조건으로 내건 한쪽 입장 보도로, 주장과 근거가 서서 주장·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Specifically, the MP calls for total",
+      "note": "한쪽 입장 — hung parliament·backburner 같은 정치 관용어가 많아 두세 낱말 교체로는 V5 까지 안 내려간다."
+    }
+  },
+  {
+    "id": "62987932-9b2d-4cb2-96b9-aa009318cdfd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "68434d4f87f00bc3c3e137e6638602974a7a4969bd0433d04de3057f5575c64d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "63편 중 9편 선정 목록 뒤로 심사 절차(상영 → 추천 위원 선정 → 발표·시상 일정)가 이어져 목록을 걷으면 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several hundred Los Angeles-based members of",
+      "note": "국가·감독 아홉 줄 목록은 걷는다 — 뒤 두 문단의 절차 설명만으로 선다."
+    }
+  },
+  {
+    "id": "62caf695-3386-4451-821e-828e420fbfd5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e0261069ed1fe6a00f785edd198f2af460eccf29fc4072a5f3029e9907f4ec2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "노동절 행진이 광장 집회로 이어지고 노조 지도자가 해고 위기 공장 노동자와의 연대를 밝힌 한 사건이 서서 짧은 단신 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Workers and trade union members have",
+      "note": "55어로 아주 짧다 — redundancy 를 losing their jobs 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "62e2368a-31cc-41fb-8d43-c40d9e787ec8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "018603eab45e6e96ec5d2883e29f49952fde6a6f02876e06e1107c3de9cac323",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "서브프라임 위기 → 중앙은행 공동 경매·스와프 라인 → 일본은행의 환영 반응이 이어져 원인·조치·반응으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Several central banks in Europe and",
+      "note": "연준 성명 인용과 은행 약칭 나열은 걷어야 한다 — liquidity·swap line 은 개념 자체라 바꾸기 어렵다."
+    }
+  },
+  {
+    "id": "62ecdf4d-aadb-4dc9-9e5d-e8665d66407d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4d50ae17510f9374e60a25c6d04478b308df41297f1046a57ff9eb6aa593e6c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "첫 문단이 수상작·수상자 이름뿐이고 뒤 약 200줄은 부문 표시가 사라진 후보작 이름 나열이라 문장 사이를 잇는 사건이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "LONDON – The big-budget Hollywood movie",
+      "note": "첫 문단을 떼도 수상 이름만 바뀌어 되풀이되고, 나머지는 부문 없는 목록이라 읽을 글이 없다."
+    }
+  },
+  {
+    "id": "62f10433-5aaa-420e-9134-17bdfd4783d8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a8f474014a84abd54d1c478d4431951c602c42e82ea0d34b668bafe576e11908",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "우승 팀·심사 점수·국가별 12점·순위·개최지와 불참국이 수치와 이름만 바뀌며 나열될 뿐 결과를 잇는 까닭이나 반응이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The pair were given 20 points",
+      "note": "점수 문단을 떼면 득표·순위 나열만 남고 사건 흐름이 없다."
+    }
+  },
+  {
+    "id": "62f96add-c649-447a-8df9-76ff5764e728",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "14f359aa428a3bb85b5046ac5ca414b4fbe2b55edbdf52907408968448fc34a2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "지출 초과 → 부채 증가, 유류세 연기·주세 인상·연금 수당 조정과 성장 전망이 한 예산안 안에서 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Traditional \"sin taxes\" - duty on",
+      "note": "품목별 펜스 인상 수치는 걷어야 한다 — duty 를 tax 로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "630680d7-1a8c-48ca-9dd1-bb474f9ca4cd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6501a84e102ea4afd01407ad19152d23566515990667044f8c58f39eeded265f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "도청 정보 유출 수사 착수 → 도청의 적법성 논란 → 판사가 항의 사퇴한 사건이 이어져 단신 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The United States Justice Department has",
+      "note": "divulged·jurisprudence·constitutionality 가 겹쳐 두세 낱말로는 V5 까지 안 내려간다."
+    }
+  },
+  {
+    "id": "630dea9d-ed14-411f-9fd9-aa111aeef533",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7cfcf60d1951881dac1ac7ce92ddb63388b4796abec9b0e11c37124a0ba01da4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총리 사임 → 성과에 대한 자평과 인력 양성 주장 → 최장수 재임이라는 배경이 이어져 단신 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vasile Tarlev expressed his satisfaction with",
+      "note": "「international structures」처럼 번역투가 있어 가공 때 고친다 — 사건 흐름은 선다."
+    }
+  },
+  {
+    "id": "63158b16-26d2-4295-aba9-dcf8adf50d40",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "406178886598a986c5ad78b0bb0d35a328e31dcc2bcc430e2b6bcb92528a6d99",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "인수 합의·매각가 → 1982년 클럽에서 공연장으로 커진 창업사 → 레딩·리즈 페스티벌 운영으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mean Fiddler was founded in 1982",
+      "note": "창업사 문단이 떼어도 선다 — 통화 환산 괄호는 걷는다."
+    }
+  },
+  {
+    "id": "631c0c42-12c7-4bf7-bb56-eb48ea5e6bd8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2898d291bf938b8dec41cc4c691386f1262bfe6c7fee39bdc8bc1a40b45484c5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "금리 0.5% 동결을 금융위기 대응으로 설명하고 양적완화 지속·2월 재검토·1997년 이후 결정 주체 변화가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Bank of England has held",
+      "note": "Quantitative easing 은 개념 풀이가 필요하다 — revisited 를 reviewed again 으로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "63290a9a-2978-4dae-b66e-2a198049012c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0cf145bb2d62c663d8e243fc5b5c8dff2a2a3676018896b018ec3a73d1dd3e01",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "본문 대부분이 선호 총리·정당 지지율 수치 나열이나 녹색당 지지 상승을 지구온난화로 설명하는 한 문장과 상반된 여론조사 대비가 있어 단신 최소선 경계에 걸린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Mr Key's party, National, is currently",
+      "note": "셋째 문단을 떼면 지지율 숫자만 남고 까닭은 한 문장뿐이라 문항 근거가 얇다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "632ae220-a5bf-4a02-9cb9-4805ab2177a3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "83331369708c68eeac6a79bd3b87b7330cd2e1e447c7e747e30c6a794c7be9c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "리눅스 배포판·라이브 CD 개념 설명과 가속·비가속 그래픽 설정을 함께 두어 문제가 나면 바꾼다는 기능 설명이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Linux distribution is a software",
+      "note": "셋째 문단의 프로그램 이름 나열과 커널 버전 목록은 걷는다 — 둘째 문단은 그대로 선다."
+    }
+  },
+  {
+    "id": "63359c2d-f66a-4352-bdd7-999a48666919",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "734493f904024a87510dc9dbf484da0e7308722e48f1ab64af2ee43cc281f5c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앞 두 문단은 대의원 득표율 나열이지만 셋째 문단이 예상과 다른 라이의 부진을 과거 NDP 정부 경력으로 설명하고 넷째가 전당대회 절차를 이어 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Press reports had suggested that Ignatieff,",
+      "note": "득표율 문단은 걷고 셋째·넷째 문단을 쓴다 — ex-officio·riding 은 바꿔야 한다."
+    }
+  },
+  {
+    "id": "6354a3c1-9043-4377-8339-83990f0cdff4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f911e42f59381db482e67e5ae46deebeb7a969da23a92e9706cf297baac977b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "개발자 회의가 열렸다는 한 문장 뒤로 다룬 주제와 발표 기업·제품 이름만 나열돼 문장 사이를 잇는 사건이나 내용이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "A variety of different issues were",
+      "note": "주제·제품 이름 목록뿐이라 떼어 낸 문단에 문항 근거가 될 진술이 없다."
+    }
+  }
+]

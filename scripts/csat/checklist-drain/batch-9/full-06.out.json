@@ -1,0 +1,967 @@
+[
+  {
+    "id": "5f04dca3-769c-454a-a09c-966207ca05d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4eeecc06a81c9913874101d4be405f76c9b71cce9be44ad4bdcb795795afabc7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "첫 문단 뒤 본문 전부가 요금제 이름·연간 요금·OECD 순위만 바꿔 되풀이하는 나열이라 content_match 하나를 수치 나열로만 채워 보관 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The following data is for low",
+      "note": "요금제 문단을 떼면 요금·순위만 남고 순위를 걷으면 할 말이 없어 논지·사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "5f07d6a3-3b68-4ac3-817d-a92aea9e0d3e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df9902de242823bdb40ca964a09b5a806da88ac4930a9921a53ccfbb2995da8f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "두 선박 납치 확인 → 선원·항로 설명 → 유엔마약범죄사무소의 단속·송환 협정 요구로 사건과 반응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two more vessels have been hijacked",
+      "note": "keelhauled·subcontractor·prosecution 을 풀어 쓰니 V5 로 내려가고 선박 이름을 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "5f0a57c5-e055-427c-a85e-29d1d3881b01",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "51e5483b40b55ee4de9a39e275c727a11efd286a575abd379e829b98359d9d1b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "레포 금리·역레포·지급준비율·성장률 전망치를 문장마다 바꿔 적을 뿐 인상의 이유나 반응이 한 문장도 없어 수치 나열 단신에 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The Reserve Bank of India (RBI)",
+      "note": "수치를 걷으면 「금리를 올렸다」 한 문장만 남고 repo·reverse repo 는 바꿔도 뜻이 서지 않았다."
+    }
+  },
+  {
+    "id": "5f0b24b8-2a26-4a3d-a214-813aeefc74b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3741a9ba4ec4e9803b23c81212e1b53c89f170658b13ea9aeef69873f6bd970b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의원 세비 인상 → 물가 상승 대응이라는 까닭 → 총리 연봉 비교 → 존 키의 기부 약속으로 원인과 반응이 이어져 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "New Zealand Members of Parliament will",
+      "note": "backbench·backdated 를 쉬운 말로 바꾸면 V5 이고 금액을 줄여도 인상 이유·반응 흐름은 남는다."
+    }
+  },
+  {
+    "id": "5f129532-5f38-4e54-bc0e-4548bac833e5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "47c77a28b365bdffd566058900cfbbe4d3a48b33a19a46e6c86be510b5648421",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "300골 달성 경기 → 첫 골부터 기록 경신까지의 경력 → 직전 경기 페널티 패스 일화로 사건이 이어져 기록 수치가 많아도 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eleven years ago on May 1,",
+      "note": "경력 문단은 골 수 몇 개를 걷어도 시간순으로 서고 brace·tally 를 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "5f20376e-a241-493d-91b1-4fc141c7e38a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "879fec7a127802ff986dc4d77ad9b840c770c0c121b69db25649b287db3e551d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "파크티아 자폭 공격 → 사상자 → 공격 목표가 미군 협력 경비업체 지휘관이었다는 보도로 원인·결과가 이어지는 짧은 단신이라 고등 이상 내용 일치 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A suicide bomber blew himself up",
+      "note": "세 문단이 짧아 통째로 쓰고 사상자 수의 앞뒤 불일치(24·28)를 가공 때 정리해야 한다."
+    }
+  },
+  {
+    "id": "5f228ddb-c132-4778-9a6d-0e6af4689edc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "86bdf3bf5ab52b867d96bd854924455547f4304b0005dacc90780d9ce58b5145",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "레비의 채널 나인 이적 → 시청률 성과 평가와 쓰나미 보도 비판 → 재건 중인 채널 나인 사정으로 인물 평가와 배경이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ABC managing director Russell Balding said",
+      "note": "unprecedented·sluggish·tenure 를 바꾸면 V5 이고 칭찬과 비판이 대비돼 문단이 혼자 선다."
+    }
+  },
+  {
+    "id": "5f255c7c-e41c-4cd9-b386-8e1e2a894a9a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78d585a10de0ae7db8107a217bb4b398eeb2ca67c3743d85c6adccf079ce71b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "강풍·저습이 불을 키움 → 말리부 진입 난항·대피 → 샌디에이고 대피 명령 확대 → 비상사태 선포로 원인·결과·절차가 이어져 시각별 갱신 나열을 걷으면 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wildfires in Malibu, California, USA have",
+      "note": "첫 두 문단은 원인·진화 상황이 서고 뒤쪽 「As of … PDT」 시각별 도로·구역 나열은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "5f25d2f6-de29-4078-b652-7068bc5e9cd4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7b48a3989bc6818584c912b1253ee236759911cd006e9f2505b97caf6456bbf9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "브리스틀 펍 주차장 피살 청년 가족의 애도 성명과 두 명 체포 사실이 이어지고 가족의 심경이 읽혀 고등 이상 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nothing can ever fill the hole",
+      "note": "성명 문단은 이름을 걷어도 상실의 심경이 서고 어휘가 쉬워 조정이 거의 필요 없었다."
+    }
+  },
+  {
+    "id": "5f26969b-9011-4ebe-8a4b-85c8f23c90cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dda24e5b6b29916f689efc31119f0ac8415691f38708c14e55d7eccf763990c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "1조 페이지 색인 발표 → 중복 제거 설명 → 1998년 2,600만 쪽에서의 증가 비교로 사실이 이어져 내용 일치 칸과 then-now 속성을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Google, known as a popular international",
+      "note": "셋째 문단이 혼자 서지만 끝 문단의 「early 90s」는 사실과 달라(1998년 창업) 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "5f2ef962-b592-419f-8452-0d9bcaefa426",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9ad872b028195f1f31e2a2af06da39adccb1ded55f2e1a288329103e5815508d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다합 폭탄 테러 직후 다국적군 기지 자폭 공격 → MFO 와 이집트 보안당국의 사상자 발표가 엇갈림으로 사건과 반응이 한 문단 안에서 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Just days after the bombings in",
+      "note": "Multinational Force and Observers 같은 기관명을 줄이면 V5 이고 엇갈린 발표 대비가 문항 근거가 된다."
+    }
+  },
+  {
+    "id": "5f314cee-efc4-4642-88bb-cb1bca66e8a2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6bd1712bc20f6b080814a2e8eee06c9bc479bd3bb7abe09b4ceb3a54d09a7426",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부부 다툼 중 던진 리모컨이 희귀 동맥 약점에 맞아 사망 → 과실치사 인정 → 변호·검찰·판사 발언으로 사건과 절차가 이어지나 음주·코카인·폭력이 있어 고2 이상 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The court heard how 46-year-old",
+      "note": "haemorrhage·manslaughter 를 풀면 V5 이고 코카인 언급은 가공 때 걷어도 사건 흐름이 선다."
+    }
+  },
+  {
+    "id": "5f373c03-3e69-4b56-9b3d-c5f831f87f97",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "12c7372fa014906990f55bc8e74965c2f5a81e47dac1e4419931c65801fa7499",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "펜디크 폭발 사상자 → 쓰레기통 폭탄이 이미 쓰였다는 맥락 → 안탈리아·쿠샤다스 등 잇단 관광지 폭발로 사건이 연쇄 속에 놓여 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This was the last of a",
+      "note": "지명을 줄여도 「연쇄 폭발의 하나」라는 흐름이 남고 어휘는 이미 쉬운 편이다."
+    }
+  },
+  {
+    "id": "5f395656-4892-468c-897f-a568c2dec36f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "56413284ec79edf9f3ea4bd45c90ae53f46ae407dae87cff3ad834f2030e19a6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "마이클 델의 맥 OS 판매 의향 발언과 인텔 칩 전환에도 타사 허용을 부인하는 애플 입장이 대비돼 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If Apple decides to open the",
+      "note": "microprocessors·non-Apple hardware 를 풀면 V4 이고 두 입장이 짧게 대비돼 쉽게 떼어졌다."
+    }
+  },
+  {
+    "id": "5f579da6-4bc2-4583-ba6b-389afd14033f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34631597dbd71a13f6b3bb6df6f97cb39ee4f0b4d21701c107d00bd2b2e88341",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "F-22 시험비행 중 추락 → 원인·조종사 미확인 → 냉전기 설계 배경 → 2004년 첫 추락과 대비로 사건과 배경이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The F-22 is a supersonic fifth-generation",
+      "note": "supersonic·ascertained 를 바꾸면 V5 이고 배경 문단은 기종 이름만 두어도 혼자 선다."
+    }
+  },
+  {
+    "id": "5f757c15-0760-4690-b75e-29c283501a34",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be85ed4367b1ad9f169327ea2aaa272dcbe7c3a923d2235561968eed9246ccb0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시아·쿠르드·수니 지도자들의 공동 성명이 철군 일정·영장 없는 체포 중단을 요구한 내용과 아랍연맹 회의 배경이 이어지는 보도라 한쪽 입장이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Shiite, Kurdish and Sunni leaders issued",
+      "note": "communique·insurgency·arbitrary 를 바꿔 봤지만 인용 문장이 길고 문법이 어색해 밴드가 크게 내려가지 않았다."
+    }
+  },
+  {
+    "id": "5f969900-5e75-4a52-a788-b2a88b6fe1da",
+    "source_updated_at": "2026-09-25T09:16:49.451812+00:00",
+    "body_sha256": "bff1c86a3e48f4490c93aacf01d2328a3091828d971b9c1a392943ab3cadcbe3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수단의 공습 비난 → 이틀 전 두 차례 공습 주장 → 차드의 「도둑이 도둑 잡으라 한다」 반박으로 주장과 반박이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sudan also accused Chad earlier on",
+      "note": "retaliate·mercenaries 를 풀면 V5 이고 양측 주장 대비가 뚜렷해 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "5fa1542a-2340-41dc-beba-952cb1d96d37",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "521e3cd07b8453fe08382935c6dbb7d043251aeae077ee1996063bde616b4717",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "메드베데프 당선 → 야권 후보 배제와 언론 편중 → 유럽 감시단의 「자유롭지도 공정하지도 않다」 평가와 카스파로프 시위로 결과와 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The head of the Western observer",
+      "note": "득표율 문단은 걷고 감시단 평가 문단을 쓰니 mandate·technicalities 만 풀면 V5 로 선다."
+    }
+  },
+  {
+    "id": "5faf8af1-7d7a-45f1-acf0-ef1ef29c58f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4c441d7ff94d45fe7cbe59b2d8a66c7244e635140af71f6af240080795738f14",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "위구르계 캐나다인 셀릴의 반정부 활동·궐석 사형 선고 → 키르기스스탄 체포·송환 → 아내의 호소 → 캐나다 정부가 받은 사형 불요구 보장으로 사건이 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Huseyin Celil, a Uighur Muslim who",
+      "note": "in absentia·extradited 를 풀면 V5 이고 경위 문단이 시간순이라 순서 문항으로 자르기 쉬웠다."
+    }
+  },
+  {
+    "id": "5fb2be8e-aae2-4434-9f23-df6abfc8a39f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "20cdd6fc18e3b227b6a4a966e1129681543f896b69274de5c7119edc96065784",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "방송사 두 곳에서 탄저균 표기 봉투 발견 → 탐지 장비로 비료로 판명 → 성분 정밀 검사와 제독 절차로 사건과 다음 절차가 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The police, fire service and bomb",
+      "note": "decontaminated·substance 를 쉬운 말로 바꾸면 V4 이고 절차가 시간순이라 떼기 쉬웠다."
+    }
+  },
+  {
+    "id": "5fb54162-97d4-4994-a9e7-ac784d77d6ce",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "32a87df0ef547c8156e3742fc2017b6fae3364a1fc33d942ca0cba5c6c0f2196",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "culture",
+    "why": "애트우드 그래픽노블 출간·스탠 리 마지막 캐나다 방문 두 문단은 사연이 서지만 뒤 두 문단이 출연 배우·패널 이름 나열이라 행사 안내 단신이 연결 최소선을 넘는지 갈린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Saturday, September 3, acclaimed Canadian author",
+      "note": "애트우드 문단은 떼어지나 고유명사를 걷으면 「작가가 신작을 낸다」만 남아 사건 흐름이 얇았다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "5fb7d183-745c-4675-b05f-19465f2a3b4b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34f5043ae78aa799737a04e4e51446704bc0d41d7da14474062f1156e60b03b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "두 전시 개막 → 소비자용이 아닌 산업용 소프트웨어 중심이라는 일본 전시와의 대비 → 로봇이 대만 주력 산업이라 전시를 분리했다는 까닭이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Robotics is a major industry in",
+      "note": "전시 약칭을 걷고 refine 을 바꾸니 분리 이유 문단이 혼자 섰지만 전체 정보량은 적다."
+    }
+  },
+  {
+    "id": "5fe9d79f-3935-4f0d-970c-4cf4f73d965e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab106d09795637aa4b0fb7ebc1d4b70728d8bf0b59757f8b320cc02ea0a995c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "금속탐지기로 찾은 앵글로색슨 보물 전시 → 땅 주인·발견자의 소감 → 대영박물관 학예사의 전쟁 관련 유물 해석으로 사건과 해석이 이어져 내용 일치·요지·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "main_point",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "What is interesting about the hoard",
+      "note": "학예사 발언 문단은 구어라 문장을 다듬어야 했지만 hoarded·antiquities 를 바꾸니 V4 로 서고 논지가 분명했다."
+    }
+  },
+  {
+    "id": "600547db-9b7e-4557-826e-9508c9333248",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a26ba980534866df016bbe897ddfa11c7800957c95944e84a408e3d72b46a357",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가르다이아 홍수 사망 29명 → 부상자 발표 정정·헬기 대피 → 계절 하천 와디 범람이라는 원인 → 도시 배경으로 원인·결과·절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The flooding was caused by storms",
+      "note": "와디 설명 문단은 원인이 혼자 서고 seasonal·toll 만 풀면 V4 로 내려갔다."
+    }
+  },
+  {
+    "id": "601908df-a7d2-4190-9a59-076a1001a952",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd563b2cf49ee556ee31cde4e6a637d4bd4490d43d9734174108858371dbc37e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "아이폰 3GS 출시 대기 줄 → 예상보다 짧은 줄 → 새 기능과 판매 성과 → 요금 부담 비판으로 반응과 대비가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lines however, were not as long",
+      "note": "surplus·anticipated 를 바꾸면 V4 이고 「기대보다 짧은 줄」 대비가 문항 근거로 쉬웠다."
+    }
+  }
+]

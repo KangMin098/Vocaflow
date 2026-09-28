@@ -1,0 +1,964 @@
+[
+  {
+    "id": "58d21ddb-f334-4e21-a735-050a913cdb96",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "574c1f88f6c481790e7fee32ac1dcdc11cea7e686a19332a24c05c77d2d9d6d6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유죄 인정 합의 → 20년형 선고 → 심리 상담 중 자백·성인 재판 결정으로 사건이 이어져 내용 일치 칸이 서고, 가족 간 총격이라 고1 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mark Nathaniel Anderson, a 16 year-old",
+      "note": "plea agreement·certified 를 쉬운 말로 바꾸면 V4 로 내려가고, 자매 살해 경위의 부검 수치는 걷어도 사건 흐름이 선다."
+    }
+  },
+  {
+    "id": "58e27762-fb05-4b7a-bcc4-dda6fb1dca20",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7fdec3e87bd69488750b7f4358613eb6223a125c86d509b0cd26a8a2eff8e64",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 소식 → 대표작 소개 → 동료 Ronnie Corbett 의 추모 발언이 세 문단으로 이어지는 짧은 부고라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The well loved British comedian and",
+      "note": "프로그램 이름만 걷으면 짧지만 사망→이력→반응이 서고, triplicate 하나만 바꾸면 V4 로 된다."
+    }
+  },
+  {
+    "id": "58e9939c-9445-4e14-be69-7bab44d5c42f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8ecac25e7a4eec40629b9596aed3ab84001a4318f18639b4ea652c059d45fa52",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "트럭의 건널목 진입이라는 원인 → 사상자 → OSE·장관 반응 → 철도 안전 문제 제기까지 원인·결과·반응이 이어져 내용 일치와 주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "OSE expressed its sorrow for the",
+      "note": "마지막 문단은 반응과 문제 제기로 혼자 서고, hospitalised·grade crossing 을 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "58ebe428-8a38-49fe-80af-ceed9aa11b01",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df04753cd25a98bb1cb2d67384af6bdea69d690f003147d3067d99bcd8d116a4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "보궐선거 결과가 노동당·SNP·보수당·SSP 각각에 어떤 타격인지를 차례로 풀어 쓴 해설이라 득표 수치 너머 결과의 의미가 서서 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "However, the result was also viewed",
+      "note": "셋째 문단은 떼어도 서지만 영국 정당·선거구 배경지식이 많이 필요해 낱말 몇 개로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "590b92b1-d163-459f-aba9-214c9b5d2825",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "736227f2563c4403a614eb01c22d5c83759b8b79f5e6d0a5e3440464eac7d1c5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "허리케인 하비 상륙 뒤 휴교·보건 인력 배치 준비·등급 상향·추가 강우 예보가 원인과 대응으로 이어져 내용 일치 칸과 문장 순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "University of Texas officials cancelled all",
+      "note": "shelter in place·landfall 을 쉬운 말로 바꾸면 V5 로 내려가고, 둘째 문단 인용은 걷어도 대응 흐름이 선다."
+    }
+  },
+  {
+    "id": "590c405a-3630-4dab-80c4-e8619ff82ebd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "193012c3d7fe8ce47af6e73ebebe7aac684c4182d89658f5fa2914d44bba3006",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화학공장 폭발 → 주민 실내 대피 권고·도로 통제 → 암모니아 누출의 즉시 점화 설명 → 공장 정지로 사건과 조치가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "People living in Billingham and nearby",
+      "note": "첫 문장의 비문(There were been)과 둘째 문단의 어색한 문장은 가공 때 고쳐야 하고, ignited 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "59151848-53c9-4ea1-a2c7-5e873a7d5c1e",
+    "source_updated_at": "2026-09-25T09:16:05.136225+00:00",
+    "body_sha256": "3ca822681d030189924cbd4ca3b134be4e807fa4d9e7851d1475798116170daf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "하메네이의 반미 발언을 옮긴 한쪽 입장 보도이지만 자살공격(martyrdom operations)을 「명예의 정점」이라 찬양하는 인용이 반론 없이 본문 중심을 차지해 polemic 경계에 걸린다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Khamenei has in the past criticized",
+      "note": "찬양 인용을 걷으면 반미 발언 나열만 남아 사건 흐름이 약하고, 걷지 않으면 폭력 미화 인용이 지문의 중심이 된다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "59591a61-06c7-4eca-ba6c-70924ba6adc3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d7607b96e28d346f4d5f4fae16ae10c9b2f0983157dae915f30b2c4c054f892",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "세계청년대회 폐막 미사의 설교 요지(신앙의 상업화 비판) → 차기 개최지 발표 → 방독 일정이 보도로 이어지고 교리를 사실로 주장하지 않아 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Speaking to some one million pilgrims",
+      "note": "commercialisation·do-it-yourself 를 풀어 쓰면 V6 에 맞고, 설교 인용은 요지 문항 재료로 남긴다."
+    }
+  },
+  {
+    "id": "595a27c4-a371-4700-baba-0fbd356840bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1be9dbf6e4379df45d88f7c2ae839f12da8209fb85234a3c73aa7d4ce669187",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "3G 아이폰 발표 → 두 배 속도 주장 → 가격 인하 → 출시 전 추측으로 짧지만 원인과 결과가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Apple has claimed that the 3G",
+      "note": "speculation 하나를 바꾸면 V4 로 내려가고, 잡스 인용은 걷어도 발표 내용이 선다."
+    }
+  },
+  {
+    "id": "5963254c-da6b-4641-8c4a-27305b8cbc23",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aef97e7babf233d5264a80cdb05310ac008a8bafd01a72378f88f6a95d8b62fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "빈라덴 사망 발표에 대한 NATO·UN·영국·독일·중국·호주·프랑스 지도자의 반응을 차례로 옮긴 긴 보도라 반응 문단마다 떼어 내용 일치·요약 칸을 채울 수 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Angela Merkel, the German chancellor, said",
+      "note": "반응 문단은 혼자 서지만 인용이 대부분이라 어휘 몇 개로는 밴드가 내려가지 않고 지문은 인용 요약으로 가공해야 한다."
+    }
+  },
+  {
+    "id": "5966cb4c-fef0-4156-8f86-ba6f01dfdaf1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f39b7d8af9fbc304c84d807b6183d635f54974e03e808383f2bda0c9f834189c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "FBI 내부 문서가 소아성애자 식별 상징을 설명한다는 보도로 입수 경위 → 문서 내용 → 발견 경위가 이어지나 소재가 아동 성범죄라 성인 칸만 두고 내용 일치로 보관한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "It is not known how the",
+      "note": "로고 모양을 자세히 옮긴 가운데 세 문단은 걷고 문서 입수·발견 경위만 남기는 가공이 필요하며 성적 묘사는 없다."
+    }
+  },
+  {
+    "id": "5968b71f-9339-411a-9a7b-168814891f93",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "da68b7571b0a58e58cc5bf1028d7268cdb54dff21682ccf3e30c7e3357c3da2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "이아페투스 적도에서 거대한 능선을 찾았다 → 기원은 미상 → 다음 근접 비행 사진으로 풀기를 기대한다로 발견·수수께끼·다음 절차가 이어져 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It has long been known to",
+      "note": "둘째·셋째 문단이 발견과 수수께끼로 혼자 서고, hemispheres·unravel 을 바꾸면 V5 가 된다(첫 문장 중간 줄바꿈은 수집 잔재)."
+    }
+  },
+  {
+    "id": "5973c507-9e9a-4959-8ac8-83856402ceae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9551a2434b0bcd48bcb686725bbb533fa2871d9141f1c4935172983cafb4d180",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "루마니아 개최 확정 → 최종 후보 세 나라와 낙찰 → 전년 최고 성적과의 연결 → 재원 분담으로 결정의 경위가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The three countries shortlisted for the",
+      "note": "shortlisted·co-financed 를 풀면 V5 로 내려가고, 방송사·EBU 이름을 걷어도 개최 결정 흐름이 선다."
+    }
+  },
+  {
+    "id": "598579a3-451b-49c4-a27e-ea31c33d41d4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "93bf2a736cccf70fc9413976b9c5e58cb6ac07c881a7e545f7f6714992e8b8c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무장세력 400명이 라마디 거리를 장악 → 검문소·전단으로 알카에다 장악 선언 → 미군 부재·무응답으로 사건과 상황이 이어지는 짧은 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reuters reports that around 400 armed",
+      "note": "allegedly·checkpoints 를 풀면 V5 가 되고, 마지막 인구 문장은 걷어도 된다."
+    }
+  },
+  {
+    "id": "5986cff4-8f35-4470-a504-d82b165e71f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b6026a744cc962b1426f36d57040da5bb19770accf0b410c2c0201edf73ae4b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "라왈핀디 하수도 공사 착공 → 사업 구성 → 1950·60년대 낡은 하수관이 간염 증가의 원인이라는 까닭까지 이어져 내용 일치 칸과 원인 빈칸 재료가 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sabzwari also said that 22 new",
+      "note": "union councils 같은 행정 용어와 관정 수치를 걷어도 낡은 하수관→간염이라는 인과가 서고, sanitation 을 풀면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "59b1841c-e930-4431-a541-d5dc9a548c9f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "500efc946c42aad8ed4a518f860b3af10faba9664a517840a9cfb136e1febd7d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "얀샤 재선 → 득표 → 당규 개정(과거 비밀경찰 비협조 증명 폐지) → 경제 중심 강령 합의로 투표 수치 외에 결정 내용이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The delegates also voted on proposed",
+      "note": "셋째 문단은 떼어도 서지만 전체주의 정권·독립 배경을 풀어 써야 해서 낱말 교체만으로는 밴드가 크게 안 내려간다."
+    }
+  },
+  {
+    "id": "59c2736a-ddae-480d-875d-4f5d2c92aeb5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eab95b5f00198ea7f51a4cc0a5e51be147266717c0ee88047f9d8eea82fb1d11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "DRC 군의 2주 작전으로 르완다 후투 반군 90명 사망·68명 투항 → 반군의 주민 살해 전력 → 1994년 학살 이후 동부 폭력의 배경까지 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Hutus have been accused of",
+      "note": "마지막 두 문단은 배경 설명으로 혼자 서지만 민족·무장단체 배경지식이 필요해 어휘 교체로는 밴드가 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "59c426d8-7dc5-4152-bf4a-08cdec9306f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79b03e36480f752a8679c0536c8ddb4522c124019a5eb6b871de84c1d6f372ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모·진앙·깊이 수치가 앞을 채우지만 뒤에 쓰나미 경보 발표 → 피해 보고 없음 → 위치·규모로 보아 피해 가능성이라는 대응과 판단이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The National Oceanic and Atmospheric Administration",
+      "note": "둘째 문단의 수치 나열은 걷고 경보·피해 판단 문단만 남기면 사건이 서며, casualties 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "59c92a82-487e-4783-a5d4-dcbbbde7412f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d46a02bd84e3466507c1f2959984defa30f3c95a901c71e28e571f5e27ea5a0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "바스에서 로마 은화 3만 닢 발견 → 혼란기에 숨긴 까닭 추정 → 덩어리로 붙어 분석이 어려움 → 전시용 모금으로 발견·해석·다음 절차가 이어져 내용 일치·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The discovered coins were found to",
+      "note": "conservators·accumulate 를 쉬운 말로 바꾸면 V6 으로 내려가고, 넷째 문단은 앞 문맥 없이 시작한다."
+    }
+  },
+  {
+    "id": "59e45932-ca01-487e-af96-de5be962ef88",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c345f976cdf0475e2be39ca85017a17e50b3181ab8e3c6eac72ae21a965fe51",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지진 낙석으로 갇힌 광부 둘 → 동료 시신 발견으로 희망이 꺼졌다가 → 생존 확인 → 음식 공급·48시간 구조 예정으로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two miners trapped since Tuesday in",
+      "note": "rockfall·extracted 를 바꾸면 V4 로 내려가고 두 문단 전체가 혼자 선다."
+    }
+  },
+  {
+    "id": "59f56530-9b35-4e4d-914b-c53a31989091",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "02b16ecd8e050875f94032c7f6816c904ade41d0d71e9ae410a767e39c30f8fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "구글의 마운틴뷰 무료 와이파이 개통 → 속도·비용·평가 → 사업 목적(통신사 장벽 넘기) 발언으로 사실과 목적이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The system costs about US$1 million",
+      "note": "transceivers·patchy 를 풀면 V6 이 되고, 수치를 줄여도 평가 문장이 흐름을 잇는다."
+    }
+  },
+  {
+    "id": "5a24d089-3ada-481d-906d-3d5a0de83053",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c8f475f208bfbe55313e00d5d60602b405d685d92d443a4f385ff24104ed41dd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "F-16 추락으로 조종사 사망 → 컬럼비아호 참사로 숨진 우주비행사의 장남이라는 사연 → 훈련 중 사고·원인 미상으로 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ramon was the eldest son of",
+      "note": "dispatched 하나를 바꾸면 V5 에 맞고, 첫 문장 중간 줄바꿈은 수집 잔재라 가공 때 잇는다."
+    }
+  },
+  {
+    "id": "5a26e2be-d2ff-4d47-85af-1ce5df5a0db1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ef3db8c7798465084a77f43f62fa37d3f24b0da2681481ed64221914d9b20c00",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "한 꼭지짜리 단신으로 KDE·위키미디어 협력 발표 → 어느 앱에서나 자료 접근하는 프로토콜 구상 → 오프라인 CD 수록 가능성이 이어져 모음이 아니며 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A co-operation between the KDE group",
+      "note": "protocol·suite 를 풀어 쓰면 V6 이 되고, 한 문단이 통째로 혼자 선다."
+    }
+  },
+  {
+    "id": "5a2f999c-ba91-42f6-9804-c10739b1452c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bafe035363732368149605e64ad8d58b2f2f46e75cffe06a07d17b1f1b12e6ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "Sprint 의 휴대폰 라디오 서비스 발표 → 기능과 요금 → 다른 통신사 확산 예측으로 서비스 소개가 이어져 내용 일치 칸을 채우고, 지원 기종 목록 문단은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The service will allow users to",
+      "note": "셋째 문단의 기종 번호 나열은 걷어야 하고, commercial-free·subscription 을 풀면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "5a5c2bb4-42e9-4c25-bc3a-b012d0e3b343",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d9030455313071fde5a2aaa410f561fdf88f3f7bf3c399328a80a9affd5fc60d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "travel",
+    "why": "여행작가의 일본 여행기 발표회 → 배낭식 「hobo tourism」 방법과 겨울 여행의 어려움 → 사진으로 가상 여행이 이어지는 짧은 보도라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pinchuk described his method, similar to",
+      "note": "짧아 문항은 내용 일치 하나지만 둘째 문단이 혼자 서고 backpacking 을 풀면 V5 로 된다."
+    }
+  }
+]
