@@ -1,0 +1,959 @@
+[
+  {
+    "id": "601a3c63-f7f6-4a7e-a678-89bc0a5a589d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0efd3c5929ff15db10f5dc334ddfbce20357f3f9853a1338800ca978de58d4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "용어 폐기의 의미와 새 구금 기준(substantially supported)을 부시 정부와 대비하는 전개가 한 편 안에서 서서 주제·제목·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "content_match",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The move is a symbolic gesture",
+      "note": "용어 폐기 → 부시 정부와의 단절 → 구금 기준 재정의로 논지가 이어져 둘째 단락부터 떼어도 서고, 법률 용어(contours·analogues)는 바꾸기 어렵다"
+    }
+  },
+  {
+    "id": "602f494a-d9f1-4156-9dc6-1fdfaf1b2fd2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2873c999ddfa105a0b6fcea8e9a79b75fa72a53490177e9b42a0af164881ec0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "보좌관 재체포 한 문장과 블레어의 이전 인물평 한 문장뿐이라 원인·결과·반응 연결로 볼지가 갈려 내용 일치 칸 하나를 두고 보류한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "10 Downing Street aide Ruth Turner was",
+      "note": "두 문장뿐이고 둘째 문장은 체포에 대한 반응이 아니라 이전의 인물평이라 사건 사이 연결이 약하다"
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "6034ba4d-36b0-4926-b703-64bbbf5f783f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31d49cea94eb85b37e19ab102c042d9348538e3a3b85aadbe1a67f1f598c09b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "중국 홍수의 피해 수치 뒤에 대피 조치와 기상청 사전 경보가 문장으로 이어져 내용 일치 칸을 채우는 사실 단신이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Further rain has continued to fall",
+      "note": "추가 강우 → 사망·실종 → 대피 → 사전 경보로 이어져 혼자 서고, CMA 인용문 속 관료 표현은 걷거나 줄이면 된다"
+    }
+  },
+  {
+    "id": "6052ccde-b973-4913-a788-3a745b650f12",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "239891944e4d29eef4a03bee7735010fb786c20ec2d767828f206ce2ceefa4e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "비만율 통계에 이어 보건부 목표치와 연방 프로그램 비판이라는 반응이 붙어 수치 나열을 넘는 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An American not-for-profit organisation has released",
+      "note": "통계 나열이 중심이지만 마지막 단락의 정부 목표와 비판 반응이 사건 연결을 만든다 — 주 이름 나열은 가공 때 걷는다"
+    }
+  },
+  {
+    "id": "605bd0b3-1dc5-49ea-9524-f5f28f59735a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6206b8aa16b57dcbc4e1c8767dff8c58461ef3e88377968dc7b7a34a05472ef2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "파라과이 슈퍼마켓 화재의 원인·판결 근거·유족의 분노가 인과로 이어져 내용 일치·순서·장문·심경 칸을 채운다(사망 묘사로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "long_reference",
+        "mood",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The investigation found that flames broke",
+      "note": "화재 원인 → 책임별 판결 → 이전 재판의 파행 → 유족 항의로 흐름이 분명해 순서·삽입을 만들기 쉽고, asphyxiation·acquitted 정도만 바꾸면 된다"
+    }
+  },
+  {
+    "id": "606262bf-77b8-49af-87fd-c7cd2194648a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba744c5fa074cac181fee243223036172446174aa2fef29b7a24a913e64da7bb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "토네이도가 학교와 병원을 덮쳐 사망자가 늘었다는 원인·결과가 문장으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Enterprise, Alabama, a tornado tore",
+      "note": "토네이도 발생 → 학교·병원 피해 → 사망자 증가로 이어지고, supercells·spawned 를 바꾸면 한 밴드 내려간다"
+    }
+  },
+  {
+    "id": "6062cbac-19ca-4b11-8e36-a5c37656a419",
+    "source_updated_at": "2026-09-25T08:48:21.151883+00:00",
+    "body_sha256": "7329731f14135cd3ad4bc2119a30de91d159f93a60848953cdcda34bc98deb2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인종 표적 연쇄살인범의 옥중 사망과 사건 경위·판결이 이어지는 보도로, 폭력 소재라 고2 이상 연령의 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "J.C.X Simon, one of the convicted",
+      "note": "수감 중 사망 → 사건 경위 → 판결로 이어져 서지만 인종 표적 연쇄살인이 중심이라 연령을 고2 이상으로 둔다"
+    }
+  },
+  {
+    "id": "606519b9-58c3-4cdd-8183-eaa27204cd20",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c2fddec630c7bd186bf36d41aebf356954b9ebdec56e3667bf58d7fbaf22b08e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "CIA 비밀 수용소 의혹과 조사 착수, 비행 기록을 통한 발견 경위가 이어져 짧지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The European Union, the Council of",
+      "note": "의혹 제기 → 조사 발표 → 비행 기록으로 찾아낸 방법 → 증언으로 짧게 이어지며, allegations·facilities 는 쉬운 말로 바꿀 수 있다"
+    }
+  },
+  {
+    "id": "606f2e2b-2762-40ad-9bc7-df0c1973210b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "84e73c7508e28ab97f2af17d91deb47b12a8df2576818506da7e3ff0b96a700b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "친자 검사 결과와 실제 아버지의 항의, 불륜으로 인한 사임 배경이 이어지는 단신이라 성인 소재를 감안해 고3 이상 내용 일치 칸을 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "DNA tests have proven that David Blunkett",
+      "note": "검사 결과 → 부친의 항의 → 사퇴 배경으로 이어지며, 끝줄 「Wikipedia - The David Blunkett scandal」 링크 잔재는 걷는다"
+    }
+  },
+  {
+    "id": "607a8dba-30b5-4bea-a049-a548016306f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4b3a6d3a96df76ef922c8cfdfaf165dda04fae2c599f21aba6c639e7db576c21",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "agriculture",
+    "why": "멧돼지 사육 금지 결의의 까닭(탈출 개체 급증·가축 피해)과 도입 역사가 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "3% of farmed \"wild\" boars escape.",
+      "note": "결의안(금지·사살) → 개체 급증 → 탈출·피해 → 1970~80년대 도입 배경으로 까닭이 서고, ravenous·moratorium·sired 를 바꾸면 V6 로 내려간다"
+    }
+  },
+  {
+    "id": "6086d706-9473-4583-bab3-57ad748ebb9b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "64e6437104d5738d833c5e4397388983386e922b448b8112997e9ffa74ad5565",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "휴가 중 익사한 아이에 대해 외교부가 미성년이라 세부를 밝히지 않는 까닭과 영사 지원이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Government officials have confirmed that a six-year-old",
+      "note": "익사 확인 → 미성년이라 정보 비공개 → 가족 지원으로 이어지며 어휘는 이미 쉽다"
+    }
+  },
+  {
+    "id": "609eff07-9a6c-43fe-9ea4-8b1c251e802a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d46e2b586d9c7acca86fa50d9df30b004533053097533ed195751dd1c7530da9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "메조소프라노의 사망과 경력·레퍼토리 선택·투병 경위가 이어지는 한 사람의 부고라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lieberson avoided the standard operatic repertoire",
+      "note": "사망 → 성장·경력 → 음악적 취향 → 투병으로 이어지는 짧은 부고이고, repertoire·musicianship 을 풀어 쓰면 된다"
+    }
+  },
+  {
+    "id": "60bd414b-3e7e-4efe-8e92-d8e303b48861",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5fb0c1a163eedd8c4bf21313c16971084a17d861aa30c054849f9634e4fd205f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화물선 화재에서 위험물·연료 때문에 생긴 우려, 외부 진화가 안 된 이유, 승무원 구조가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There were fears of an explosion",
+      "note": "화재 → 위험 화물로 인한 환경 우려 → 진화 불가 이유 → 구조 → 폭발 우려와 진정으로 인과가 이어진다"
+    }
+  },
+  {
+    "id": "60bed282-a283-44c0-931f-8aaeb63e3b95",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c2fcc20fae5eeb7160481d5e12ddb4f45803e8d82945bdc50f3382fc551464c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "치료 불가로 알려진 광견병을 백신 없이 이겨 낸 사례와 새 치료법, 추가 검증 필요성까지 한 편으로 서서 주제·제목·빈칸·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "content_match",
+        "blank",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rabies is a disease that has",
+      "note": "통념(광견병은 치료 불가) → 예외 사례 → 새 치료법 → 검증 필요로 논지가 서고, drug-induced coma·immunity 정도만 풀면 V5 로 내려간다"
+    }
+  },
+  {
+    "id": "60d306ce-5ffa-491a-a766-5837ce088a12",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "41974528db74e36f69ac90b4a49f18ec51983222e5ce89a18b539885f2a5956b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "6중 추돌이 출근길 교통을 한 차선으로 줄이고 경찰 통제와 조사로 이어진 사건 흐름이 있어 내용 일치 칸을 채운다(뒤 단락 통계는 걷는다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A six vehicle pile up occurred",
+      "note": "사고 → 차선 축소 → 경찰 통제 → 조사 착수로 이어지며, 셋째 단락의 도로·교량 통계 나열은 가공 때 걷는다"
+    }
+  },
+  {
+    "id": "60d981f6-a5b4-4abf-bde9-2af356246ee2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e9213e85571edaa759f5fad65bffba2c9ecb15aab484a43c3fc8311aa4c9fe27",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 수니·시아 평화 회담의 주최 단체와 그 방식, 비공개 참석자 보도가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The seminar was organized by the",
+      "note": "회담 개최 → 주최 단체와 모델(남아공·북아일랜드) → 비공개 참석자 → 일정으로 이어지고 고유명사를 걷어도 선다"
+    }
+  },
+  {
+    "id": "60e56eb7-dcd9-46d5-9d5d-2809cb1ed643",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "666ab2bdcccd51894b7f8d545f3cb8805fae177c4fe63737ea19c65350dc97a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "핀란드 대선 결선 득표에 이어 결선까지 간 경위와 NATO 가입 쟁점이 문장으로 이어져 수치 나열을 넘는 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A major talking-point in the elections",
+      "note": "득표율 나열이 앞서지만 결선 경위와 NATO 가입 쟁점 단락이 사건 흐름을 만들고, 수치는 걷어도 선다"
+    }
+  },
+  {
+    "id": "60eab832-8a63-492b-9aa8-3fa38a330e2b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "24185dcdf8afb86319fd28d05412c3f87766fc76f466f54a6906f0d1428221e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미국이 선택 의정서에서 빠진 까닭을 국무부 대변인이 국제사법재판소 해석 문제로 설명해 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "This treaty, which the United States",
+      "note": "협약과 선택 의정서의 차이 → 탈퇴 이유(국제사법재판소의 예상 밖 해석) 인용으로 까닭이 서지만 법률 용어가 많아 밴드를 낮추기 어렵다"
+    }
+  },
+  {
+    "id": "615a6b45-a743-4491-8724-9cfe74c4835e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "779acb21eefe86a9088e84b059d20f3b3bc28e0dd139e074541dab9bf8df12c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부시의 싱가포르 도착과 회담·기조연설·다음 일정이 이어지는 순방 보도로, 연설 주제 목록은 걷고 내용 일치 칸을 쓴다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "U.S. President George W. Bush arrived",
+      "note": "도착 → 회담 → 연설 → 다음 행선지로 이어지나 연설 주제 부분이 명사구 목록이라 가공 때 한 문장으로 묶어야 한다"
+    }
+  },
+  {
+    "id": "61775099-c09d-4d05-8759-4142c06591bc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e630c3116f7cafee5ba675f7e48ad863a2d51f3eece68e71739b6db4a7b70a30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "베네수엘라 야당 집회의 규모를 두고 보도가 갈리고 정부가 장소를 불허한 경위, 두 후보 지지층 대비가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An opposition rally was held, yesterday",
+      "note": "집회 → 보도별 인원 차이 → 정부의 장소·촬영 불허 → 후보의 지지층으로 이어지며 고유명사를 걷어도 선다"
+    }
+  },
+  {
+    "id": "6184e693-6295-437d-9b09-657e27fc4771",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c1e07d3b5f72a8d417915350c371615f49f3013182eaf89c1b1a158b94d3001",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "권력 분점 합의 뒤 첫 민병대 습격의 원인(토지 분쟁)과 증언이 이어지나 잔혹 묘사가 있어 고2 이상 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The attack took place in Embaski",
+      "note": "공격 → 토지 분쟁 원인 → 증언 → 지역 배경으로 이어지나 살해 방식 묘사가 구체적이어서 가공 때 줄이고 연령을 고2 이상으로 둔다"
+    }
+  },
+  {
+    "id": "618ff135-f95f-4092-8e3b-53e0190f0af1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54f713ed8fce75ac87650c52116f2584b586bf04bb7e95562a5784dac87434fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "예멘 알카에다 지역 지도자 급습의 결과와 수배 경위, 다른 지휘관 은신 가능성이 이어져 짧지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yemeni local al-Qaida leader Abdullah Mehdar",
+      "note": "급습 → 사살·체포 → 수배 명단 → 추가 은신 가능성으로 이어지고 어휘는 쉽다"
+    }
+  },
+  {
+    "id": "61900049-efd9-4555-b84f-e3142afa755e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8170bf8ffa95194382cb1a8406bb671d7536e07523aaa5c63f1219e91f6c2c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대학생 알카에다 조직 혐의의 체포·기소 내용과 헬기 촬영 정황이 이어지는 보도로 내용 일치 칸을 채운다(끝의 이름 목록은 걷는다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "One of the detainees, who lived",
+      "note": "체포 → 기소 혐의 → 헬기 촬영 정황으로 이어지고, 뒤의 피의자 여섯 명 이름·나이 목록은 가공 때 걷는다"
+    }
+  },
+  {
+    "id": "61920f0e-693d-43cb-995a-b491e0b7719f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "476f3a6834379293f367c616c46feffdbdadc7c87641d5a9a05d8c098b37805b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "여왕 80세 맞이 잡학 사실(돌고래 소유·초상화 수·첫 이메일·코기)을 서로 잇는 흐름 없이 나열한 목록이라 폐기한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Did you know that: The Queen",
+      "note": "80가지 사실 중 몇 개를 「Did you know」로 늘어놓아 문장 사이를 잇는 사건·이유가 없고, 떼어도 흩어진 사실 목록뿐이다"
+    }
+  },
+  {
+    "id": "61a5dc12-bf98-4dd4-9df1-83de5588f4cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9ee224335f686b2e00bb91f6082162ee581f36af407e7f971eceb3e72f1bfab6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쓰나미 경보가 발령됐다가 파도가 미미할 것이라는 판단으로 해제되고 폭풍 피해가 이어진 흐름이 있어 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A tsunami wave alert for the",
+      "note": "경보 발령 → 해제 이유(파도가 매우 작을 것) → 폭풍 정전·운항 취소로 이어지고, 시각·지명은 걷어도 선다"
+    }
+  }
+]

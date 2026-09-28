@@ -1,0 +1,439 @@
+[
+  {
+    "id": "6370ab36-0a21-408f-bd98-5f6c4fc0973c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b8a0848e656af5ee3f3c0fc451c460d4de841aef60f5483c0c49f9418474e015",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "도로변 폭탄으로 기자·해병 사망 → 부상자 → 총리 조의 → 초기 보도 철회 → 두 주 새 두 번째 기자 사망으로 원인·반응·후속이 이어져 내용 일치·순서 칸이 선다(죽음 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Britain's Defense Ministry says Rupert Hamer,",
+      "note": "둘째 단락은 첫 문단 없이도 사건이 서고 makeshift→homemade, accompanying→going with 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "637f790b-7d3e-4bc1-a865-373484a7c4df",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "77460dbfc9f5a96a9df78587163ac122ecfc2351483475f82bbbfe7fe4ac8304",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "마지막 입찰사의 카지노 리조트 계획 → 시설·유명인 참여 → 고용·투자 회수 목표 → 정부 발표 예정으로 계획과 다음 절차가 이어져 내용 일치·목적 추론 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eighth Wonder says it wants to",
+      "note": "셋째 단락은 회사 목표와 유명인 참여가 한 문단에 서고 roped-in→brought in, tender→bid 로 바꾸면 쉬워지나 통화·수치는 걷어야 한다."
+    }
+  },
+  {
+    "id": "63873f7b-2ef5-48b9-a041-92f92aa6dc3a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cdf94664f1c53b5534eb050f173d561318d8bbc6aaa2a47bfe6e6e6386b289d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "EC 연례 보고서가 크로아티아 협상 종료 가능성·조건 → 부패·사법 비판 → 마케도니아 가입 협상 권고로 이어져 보고서 요지와 권고가 서므로 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the report, the EC said",
+      "note": "둘째·셋째 단락은 조건(개혁)→결과(협상 종료)로 이어져 따로 서고 accession→joining, benchmarks→goals 로 바꾸면 한 밴드 내려간다."
+    }
+  },
+  {
+    "id": "639a2cc0-931c-40c1-ba12-ba5fad02a66b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "667f9dffb5f16ab761cdbf62ecc541e787dcf66d023546995f5ada8eff18e2f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "약제 내성·급진행 HIV 변종 발견 → 전문가 설명(보통 10년 vs 수개월) → CDC 경보 → 검사 권고로 원인·반응·다음 절차가 이어져 내용 일치·주제 칸이 선다(성 접촉 언급으로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although diagnosed in only one man",
+      "note": "둘째 단락이 변종의 특성을 대비(보통 10년)로 세워 혼자 서고 virulent→dangerous, regimens→treatments 로 바꾸면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "639c02e6-5bbf-44c1-8dc9-5db52ac05737",
+    "source_updated_at": "2026-09-27T18:08:30.311987+00:00",
+    "body_sha256": "8b9468e220c14958913322f14ecd4a0e6169f41f39f73d69f0b6321a5fcc958e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "모음을 쪼갠 부고 꼭지로 머리말 뒤 한 사람(Duilio Loi)만 남아 끊긴 글은 아니나, 두 문장이 경력·사망·지병을 적을 뿐 사건 연결이 가늘어 단신 최소선 경계라 보류한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Duilio Loi, who won World Boxing",
+      "note": "두 문장뿐이라 이름·타이틀을 걷으면 「한 권투 선수가 알츠하이머를 앓다 죽었다」만 남아 문항을 세울 사실이 모자란다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "63a7d9ea-99ec-4d15-9a7c-362c6a3799f4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d21cc676c824e6c37c6e8d2f89239f6a9bdc4c1ad11e7ae7af6073bf6ce8cf0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "전당대회 뒤 오바마 지지율 상승과 페일린 지명 여론을 다루지만 본문 대부분이 득표율·오차·조사명 수치 나열이라 단신 최소선의 「득표율만」에 가까워 보류한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "McCain has recently added Alaskan Governor",
+      "note": "셋째 단락은 지명→여론 반응으로 이어지지만 수치를 걷으면 「평가가 갈렸다」 한 줄만 남아 논지가 서지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "63bce2b1-318f-40b4-b077-3b1815eedda4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "61c8927182409d638a6cb28222a9bfe07f44afd50ae55e2025db48d9bed2000e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "토론토 영화제 소개 → 사진가 파견 → CTV 파티 장면(레드카펫·공연·DJ) → 생중계로 장면이 이어져 내용 일치 칸과 읽기 자료 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Toronto residents are abuzz as the",
+      "note": "첫 단락은 앞 문맥 없이 서고 abuzz→excited, premieres→first showings 로 바꾸면 V4 에 맞는데 둘째 단락은 유명인 이름을 걷으면 장면이 얇아진다."
+    }
+  },
+  {
+    "id": "63e14ead-3347-4afe-ac80-3be5fdbe38d1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0a6d3c738295cd4904411654ad03fefa58ccb498db8c9e5f62fbe8d5d83521ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "단편영화제 2회 개막 → 일정·상영관 → 이동 영화관으로 지방 순회 → 첫날 상영작·주최 단체로 행사 흐름과 까닭(문화 정체성)이 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oberá en Cortos is an international",
+      "note": "셋째 단락은 행사 소개→상영 장소→지방 순회로 혼자 서고 municipalities→towns 로 바꾸면 쉬우나 스페인어 장소명은 걷어야 한다."
+    }
+  },
+  {
+    "id": "63e4054a-fc0b-472d-894c-c727fa06e768",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1a6b9f5518e3bc8ea1b110030d03581f065fdaa34d7d5630e48e340dc98645cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "81어 단신이지만 비구니가 꽃 축제를 열었다 → 두 시간 의식(독경·연설·아기 부처 목욕) → 뒤이어 음식 나눔으로 순서가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A nun of the Nipponzan Myohoji",
+      "note": "의식 순서는 종파·인명을 걷어도 서고 complimentary→free, attendees→visitors 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "63edefa5-69c9-492f-aa7b-a7b7fbe69fbc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "83156848e57e6b0b55159cc17ce8e732b19c17298f4977a174df7d7c95a51c8d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 보도 뒤 출생·중퇴·첫 카메라·FSA 사진 에세이·Life 전속·『The Learning Tree』 연출까지 생애가 시간순으로 이어져 내용 일치·순서·문장 삽입·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1938, he bought his first",
+      "note": "1938년부터 Harlem 단락까지는 사진 활동이 사회 고발로 이어져 인명 없이도 서고 provocative→challenging 로 바꾸면 되며 끝의 유족 나열은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "63ef2c7a-78f5-4e48-8ac3-a253b99952c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4da2493c073315c4aca615c0001b3fc23cf7a35979c29165aed0f7a7427066e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부통령 가랑 헬기 추락 사망 확인 → 평화 협정의 의미 → 하르툼 폭동·음모설 → 당의 자제 호소·우간다 조사단 구성으로 원인·반응·다음 절차가 이어져 내용 일치·순서 칸이 선다(폭동·학살 언급으로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Garang became Vice President in a",
+      "note": "둘째 단락은 협정의 의미를 혼자 세우고 endemic→common, liveable terms→peace 로 바꾸면 쉬워지나 르완다 비교 문장은 배경지식이 필요해 걷는 편이 낫다."
+    }
+  }
+]
