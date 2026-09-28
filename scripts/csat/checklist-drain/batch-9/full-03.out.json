@@ -1,0 +1,923 @@
+[
+  {
+    "id": "5a627a75-4952-46c0-8532-a3b90096e077",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8eb2a7d8b0b4478aad2356019412ec2435b4dcfc91d13d8bfb51b359835c1de",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "허리케인 접근 → 강풍 → 소방관이 멀리서 진화 → 이미 대피라는 원인·결과 연결이 네 문장 안에 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three buildings in Galveston, Texas, have",
+      "note": "전문이 한 문단이라 그대로 떼어지고 in anticipation of→before, blaze→fire 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "5a7a94f7-bb3a-478a-a9eb-8a032eb8e80a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bdf79925e3707a2d4632a235e1052318cb1fde6cae37f00f5e803a809d98f7a1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지명 사실 → 사임 사유 → 이라크 경찰 훈련·선거 운동 경력 → 맡을 부처의 규모로 이어지는 인물 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kerik resigned as police commissioner two",
+      "note": "둘째 문단의 쉼표에서 끊긴 줄바꿈만 이으면 경력 서술이 혼자 서고 daunting→difficult, assembled→formed 로 V5 가 된다."
+    }
+  },
+  {
+    "id": "5a8595a0-52d7-45cf-a6c0-eed27bd14fee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba7e48ba2a7e7d6cc223ec0ba1a2b5745c7d1f0c8d76405fa83377ee82fd1c74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭발 경위 → 배관 파열 원인 조사 → 주택 인허가 번복 의혹까지 원인·결과·반응이 단락마다 갈려 요약·순서·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It has been discovered that there",
+      "note": "마지막 단락(인허가 번복)은 앞 문맥 없이 서고 commissioned→hired, buffet→hit 를 바꾸면 V6 로 내려오나 \"second next year\" 같은 원문 오기는 가공 때 고친다."
+    }
+  },
+  {
+    "id": "5a8a4530-a423-49a3-b55f-70dcd3e0c0c5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "47431f8dc34c515226a8eff44346ae491e2855ee41c93ef573e97e666bd5b709",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "의회도서관의 트윗 보관 계획과 트위터 법무 책임자가 밝힌 기록 가치의 까닭이 이어져 주제·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The US Library of Congress plans",
+      "note": "인용문을 간접화법으로 줄여도 \"트윗이 역사 기록이 된다\"는 요지가 서고, 140자 제한은 시대 비교 거리다."
+    }
+  },
+  {
+    "id": "5a8b2869-49d9-4f37-84cb-c8e52417f740",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5525e2c837ea64a7298d72438d801f5586a857facec1bad203e9ec19bad19d16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 사실 뒤에 쌍둥이 관측선이 태양 폭발을 입체로 보고 위성에 경보를 준다는 목적이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Solar Terrestrial Relations Observatory (STEREO)",
+      "note": "둘째 단락은 혼자 서고 stereoscopic→3-D, emissions→bursts 로 V5 가 되지만 발사 횟수 문장은 수치라 걷는다."
+    }
+  },
+  {
+    "id": "5a8cc2b3-6f48-4c5d-a9ea-69f3e40219f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "04232b6810fc365fab2fa6a9768ccc718196b4dd375114f8893cbfc60452d398",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "내전 종식 합의의 일부로 반군 지도자가 첫 부통령이 되고 남부 자치권을 맡는다는 원인·결과가 이어져 짧은 단신 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Former Sudanese rebel leader John Garang",
+      "note": "선서 인용은 걷어도 사건이 서고 autonomous→self-ruling 으로 바꾸면 V5 가 되나 분량이 짧아 두 문단이 전부다."
+    }
+  },
+  {
+    "id": "5a9f3561-739c-4f59-8950-45f482bc655e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "00592f81b85e623ce0c61cd76bdd162f35de6ba78af1f7463d2c03a33c9b4806",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "국경 오인 사격 → 전차가 밀수범으로 착각한 원인 → 이스라엘 사과·조사라는 사건·원인·반응 연결이 서서 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An Israeli tank apparently mistook Egyptian",
+      "note": "사과 인용을 줄여도 오인→사과 흐름이 서고 intensively→closely 로 바꾸면 쉬워지며, 사망 사건이라 초·중 칸은 달지 않는다."
+    }
+  },
+  {
+    "id": "5ac2114c-f6b1-4d98-86c5-d9821f45a387",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cb1ff5ef45b9a281428b38dc6d47360465786dbfb0908d6054edc8076e35e3e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "병사 사망 발견 → 조사 착수 → 유족 지원 발언 → 파견 배경이 이어져 사망 소재라 고등 이상 칸으로 내용 일치를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The soldier, working with the International",
+      "note": "부대 약칭(ISF)을 풀면 첫 두 단락이 혼자 서고 turbulent→unstable 로 V5 가 된다."
+    }
+  },
+  {
+    "id": "5ad2fba0-1748-4501-92b4-85bd0e880a0d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6b8611cf5094338b0eb6b78d10d411e80ae712fd36270abce3c325860dfdae32",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "사형수 장기 판매 업체의 주장과 인권 단체가 반대하는 두 까닭(인권 침해의 이익화·빈곤층 착취)이 맞서 주장·근거·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The prisoners apparently give their consent",
+      "note": "둘째 단락은 앞 없이 서고 cadaveric→from a dead body, exploits→takes advantage of 로 V6 가 되며 민감 소재라 고2 이상만 단다."
+    }
+  },
+  {
+    "id": "5ad3cc7e-cc54-4452-a4b0-ddc1ba8869ff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0e47f8ed87897149ccab89d406e84cd11fe9738482cd5ddc45a0b744eb5b615",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "시와 예술위원회가 주민에게 지역 작가 작업실 투어를 알리는 첫 문단이 목적 칸을 세우고 나머지 작가 이름 목록은 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Created by the Brampton Arts Council",
+      "note": "이름 나열 세 단락을 걷으면 안내 두 문단만 남아 목적 지문으로는 얇고, 시간 표기(10 pm~4 pm) 오기를 고쳐야 한다."
+    }
+  },
+  {
+    "id": "5ae918fd-0b53-4219-b9ef-cf20a3b618f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8de6d5c4a7e30dfb35a1ab0cf28c725a17995980c496b93d8b63a6598e1d3dee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "마리오 20주년에 맞춘 출시와 이전 기종과 달리 GBA 게임만 돌아간다는 대조 설명이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Game Boy Micro is the",
+      "note": "둘째 단락은 혼자 서지만 가격·포트 같은 사양 나열이 절반이라 대조 문장만 살려 짧게 쓴다."
+    }
+  },
+  {
+    "id": "5b0da0ce-79d3-45a4-936d-a8b87f82774c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3faa6418a236d478c35928018046c188108238e82e0789dae047267841d496b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭발 피해 → 요양 시설 주민 걱정 → 사망자 없음의 반응 → 환경 영향 검사로 단락이 갈려 순서·삽입·요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "There were minor environmental concerns due",
+      "note": "환경 단락은 혼자 서고 sheen→shine, runoff→flowing water 로 V5 가 되며 제목의 decimates 는 과장이라 가공 때 고친다."
+    }
+  },
+  {
+    "id": "5b145e37-5ecb-46a8-969e-d1b5458e6cb0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "675670bbcdeab2828c8985004d0eeffa785febec2d928d5f216211e145e8816c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "두 주간 열리는 어린이 축제를 알리고 저녁 공연·낮 워크숍·옛 성곽 탐험을 권하는 안내라 목적·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At the peek of summer, children",
+      "note": "peek→peak 오기를 고치고 budding→young, strongholds→forts 로 바꾸면 V3~V4 까지 내려간다."
+    }
+  },
+  {
+    "id": "5b18d8f5-670f-49c8-ba13-4603d37919de",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "02cab1588d6cd0c31717b5065688af0190c9faa5579d98bb1ad9cb7cc4411ba1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "갤럭시탭 출시·사양에 이어 화면이 작고 값이 싸서 아이패드에 위협이라는 영국 신문의 분석 까닭이 붙어 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The device is a competitor to",
+      "note": "셋째 단락은 혼자 서고 respectively 등 사양 문장을 걷으면 V5 에 맞으나 인용 두 개는 홍보 문구라 줄인다."
+    }
+  },
+  {
+    "id": "5b1bc7cb-cef7-4b28-80b5-48a2538f8174",
+    "source_updated_at": "2026-09-25T09:16:35.712233+00:00",
+    "body_sha256": "d800acf1f5c91a5f4e104256b0fa4815e21c822845de8f1c867d36e7f744b205",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "와이맥스 전시회의 목적(대만 통신 기술 시연)과 인텔과의 협약에 따른 공동 홍보가 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Following the Ministry of Economic Affairs signing",
+      "note": "셋째 단락 인용은 말한 사람이 빠지고 \"1=\" 잔재가 있어 걷어야 하며, 남는 문장도 주최 기관 나열이 많아 쉬운 말로 바꾸기 어렵다."
+    }
+  },
+  {
+    "id": "5b1d6ac4-f7cc-4323-9b39-d7f731e489b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "590ef92e7cfac6f27f11a40fb995468e3b889184723539285bd0c909e3690f25",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭풍과 열대성 폭풍 잔해가 겹친 원인 → 주별 피해 → 대피·구조가 이어져 사망 소재라 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sheriff's Lt. Neil Riedlinger said, water",
+      "note": "주마다 한 줄씩인 단락이 많아 원인 단락과 오하이오 구조 단락만 묶으면 흐름이 서고 lodged→stuck 정도로 쉬워진다."
+    }
+  },
+  {
+    "id": "5b31fd63-b60a-4c14-93b0-0a63ede59a09",
+    "source_updated_at": "2026-09-25T09:16:30.521275+00:00",
+    "body_sha256": "4f85898ee8e99fa27215f8d6787387edb04ef74ffba7a7f4c6a16ea404f5c057",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "environment",
+    "why": "본문 절반인 두 인용을 말한 사람이 수집 때 빠져(\"1=\" 잔재 뒤 \"he\" 가 가리킬 대상이 없다) 첫 단락 행사 나열만으로는 칸이 서는지 가를 수 없다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Before the annual Earth Day on",
+      "note": "첫 단락은 전시회 이름 나열이 대부분이고 인용 단락은 화자를 모르니 떼어 내면 \"he\" 가 허공에 뜬다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "5b3aea41-8503-4b89-99c8-1abf163e3d97",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c0db9d8a689ef0e5e9cd5367e692933f82b66b436ed55de7814554733a6b767",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "보안업체의 취약점 발견 주장과 시만텍의 일부 인정·부인이 맞서 주장-반응 흐름으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Symantec released a brief statement early",
+      "note": "셋째 단락은 앞 없이 서고 pertaining to→about, exploitable→usable 로 바꾸면 V5 가 되나 제품 번호는 걷는다."
+    }
+  },
+  {
+    "id": "5b5b1498-ea9b-436e-b7ce-caef4ccab205",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f52e5d3d0776c1c72b58656aa1dcdb75ffb40ab5e31a54d656f495f27319d6d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군 총장의 항원 양성 → 격리·접촉자 통보 → 기자회견 취소 → 이전 총장 감염 사례로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Zagala said the AFP chief \"is",
+      "note": "약칭 AFP 를 풀고 reverse transcription polymerase chain reaction→PCR 로 줄이면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "5b861d92-052f-4f89-9151-de895cfb33e4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b41938bd4f1da3ba4423511ba892f1a1002ab579ad048f6a5032bdf5d8a1b8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무차별 살해와 부패 단속에 대한 보복이라는 추정 원인이 이어져 칸은 서지만 참수 묘사가 구체적이라 성인 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The killings occurred randomly at several",
+      "note": "둘째·셋째 단락은 혼자 서지만 끝 두 단락의 참수 묘사와 첫 문장의 감정적 수식은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "5b9934a0-036a-4115-8af3-5cf8bc204447",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b551b3ed5d96f5d319aff1649e253042d2db2f8ed04389e1c6e06099ccf8f4fe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "기독교유산당 후보가 작은 정부·소비세·무이자 기반시설 자금을 까닭과 함께 펴는 한쪽 입장 인터뷰라 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We see a continued deterioration of",
+      "note": "기반시설 답변은 혼자 서고 noninflationary→not causing prices to rise 로 풀면 되지만 \"소득세는 도둑질\"·\"온난화 과장\" 같은 주장은 반론 없이 실리므로 가공 때 입장 표시가 필요하고 끝의 투표 권유는 걷는다."
+    }
+  },
+  {
+    "id": "5ba32f20-ff62-43b1-ab55-629d61508a55",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "662b7bfbfc4a9cd087d4b15ed800c3eefc623514033012abae48881490e46df1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "실업률 하락이 장애·한부모 연금 수급 뒤에 숨은 결과라는 경제학자의 비판과 그 근거가 서서 주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"In my view, the Treasurer has",
+      "note": "앞 두 단락은 한 논지로 서고 generates→creates 로 쉬워지나 끝의 돌봄 연구 단락은 다른 이야기라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "5bb3f93b-8aca-446c-aa47-68257f025467",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ec0bf61a2e79b0ad597b728d0817dad431a0be20f5b64c0668f49539342893c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "산책 중 발견한 뼈 → 매머드로 확인 → 여름 발굴 계획으로 사건 순서가 이어져 초·중등 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The giant beast would have roamed",
+      "note": "pelvic bone→hip bone, dredging→digging, paleontologists→fossil scientists 로 바꾸니 V4 까지 내려갔다."
+    }
+  },
+  {
+    "id": "5bc352a9-f14f-4e5f-aafa-cad201a7ce37",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8cc5ae68dc8f36fb16aa17f79acb0f9d28a175487b4fba50fb3c56e0bae9ada7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "평화 행진과 차베스의 반미 연설 뒤 폭동으로 번진 순서가 이어져 69어 단신이라도 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An anti-American rally in Argentina became",
+      "note": "전문이 한 덩어리로 떼어지고 storefronts→shop windows 로 바꾸면 쉬워지나 분량이 짧아 배경 한 줄을 덧대야 한다."
+    }
+  },
+  {
+    "id": "5bf0f6b9-b880-4f8e-b1d7-4027ace1ca9f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "390c510a470402f8bb758085267ac47b927f093f8e1373eb69968a6040d1076b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "종목명·선수 이름·기록 초만 문장마다 바뀌어 되풀이되고 끝은 공식 누리집·기울임 표기 안내라 사건 연결 없는 기록 나열이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "In the women 50m Backstroke group,",
+      "note": "가장 나은 단락도 두 선수의 0.01초 차 기록뿐이고 영문도 비문이 많아 논지·흐름을 세울 수 없었다."
+    }
+  }
+]

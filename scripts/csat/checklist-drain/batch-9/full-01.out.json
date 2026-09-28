@@ -1,0 +1,934 @@
+[
+  {
+    "id": "570e2305-90fd-46b8-ab32-04c3e4bb14bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6c66a8035c812582ecc867e9badc78d1b69ea6047e18c76136c0f05808d3b26f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시리아 금요 시위가 비행금지구역을 요구한 배경(리비아 선례)과 진압 사망자 수를 원인·반응으로 잇는 단신이라 둘째·넷째 단락으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This wave of protests comes after",
+      "note": "리비아 선례 단락은 앞 문맥 없이 서고 deposition·autocratic 을 removal·harsh 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "573cda2c-f2cf-47b1-9b18-19a38b48323c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7cecbbdae88b141c48182028e7233ff646494b6c2cf2b9a5a0a62b2b7d55de10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유죄 인정 → 동업자 재판 협조 → 형량 조건으로 사건이 이어지는 법정 단신이라 셋째 단락 중심으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In exchange for his testimony, Mr.",
+      "note": "증언 대가·형량 단락은 혼자 서고 indictment·concurrently 를 charges·at the same time 으로 바꾸면 V6 가 된다."
+    }
+  },
+  {
+    "id": "573d4339-28a4-4d36-8324-bd9b57efa9f4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "39d7976e68dad4fe02175ba2eff1d5cb57640c6eaad872a4a5957caa9d75c2f8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "승객 수 증가를 업계의 「혹독한 겨울」 예상과 대조해 예상보다 좋았다는 결론으로 잇는 72어 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "London - Low-fares airline easyJet today",
+      "note": "한 단락뿐이라 떼기 쉽고 load-factor·yields 를 걷고 flamboyant 를 outspoken 으로 바꾸면 예상 대 결과 흐름만 남는다."
+    }
+  },
+  {
+    "id": "575ad3e2-c4de-43ea-9149-642fc13d637b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b7bf907053a80b930d569066ba6132c63a66661a1ab30896ba7ce5ac7a822cd9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "점수 규칙 한 문장 뒤로 의원마다 순위·점수·과거 순위만 바꿔 되풀이하는 나열이라 떼어 낸 단락에 논지나 사건 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Gerry Brownlee is ranked third both",
+      "note": "어느 단락을 떼도 이름·점수·연도 순위만 남아 문항으로 세울 흐름이 없다."
+    }
+  },
+  {
+    "id": "576a54be-ce50-42a5-ac54-d5df9990eff1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa17b59a90e44c380a99e7c6a86cd28f7628b375d66f2b37606ea5b61ee455f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경선 결과 뒤에 세 후보의 이력과 승리 요인(중도 노선·온라인 광고 전략)을 설명하는 넷째 단락이 있어 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Creigh Deeds was the first to",
+      "note": "승리 요인 단락은 혼자 서고 hampered·saturating 을 limited·filling 으로 바꾸면 V5 로 내려가나 인명이 많아 몇은 걷어야 한다."
+    }
+  },
+  {
+    "id": "576facee-8ffa-4b09-a709-d3cc7836deb4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "99979ed5a3a161d569d733aa300285d99e800b29ca7804c6449721e243003aaf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "최저가 인상의 목적(음주 억제) · 과거 고르바초프 실패 선례 · 비판자의 반론이 한 편 안에 이어져 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Attempts made in the past have",
+      "note": "과거 실패 선례와 비판 단락을 이으면 정책-반론 구조가 서고 moonshine·acute 를 illegal alcohol·severe 로 바꾸기 쉬웠다."
+    }
+  },
+  {
+    "id": "5788a174-d3f7-416d-91c2-be2dc6861fbd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3bf03e13f2ef8e9b2b83a27413e57c1917d915db4d3a5641f95c59024ae98053",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "이라크 전쟁이 테러 가능성을 높였다는 국제 여론조사 결과와 조사 기관장의 해석, 부시의 반응을 잇는 보도라 내용 일치 칸과 수치 주장 검증 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sixty percent of respondents in an",
+      "note": "첫 세 단락은 수치와 질문이 함께 있어 혼자 서지만 수치가 빽빽해 요약·일치 외 유형은 어렵다."
+    }
+  },
+  {
+    "id": "5791d92b-dcc5-448f-8e76-80591fccd0ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d8a9927506cc8cbdec75fd353e1a58a060b74ecc535b1e411727c07ec83027f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "녹색당 후보 한쪽 입장의 인터뷰로, 일자리 창출 답변(지역 사업·태양열 온수기 예·가계 절약)이 주장-근거로 서서 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "claim",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Local projects. Keep the money in",
+      "note": "일자리 답변은 질문만 붙이면 혼자 서지만 답하지 않은 질문 목록·후속 인터뷰 예고·주요 쟁점 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "579ac40d-15ae-4c0e-abef-ebe0329700bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69ecf6ee312f0af4eb1d0ac2b1e9f4466edc98e598488442ed6137b85353476a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사생활 질문을 거부하던 의원이 불륜 이후 처음 방송 인터뷰에 응했다는 사건이 앞뒤로 이어지는 92어 단신이라 내용 일치 칸 하나를 채운다(인터뷰 내용은 없음).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Now for the first time since",
+      "note": "거부 → 첫 인터뷰 흐름은 서지만 인터뷰 내용이 없고 「see CBC source below」 는 걷어야 하며 affair 소재라 고등 이상 칸만 둔다."
+    }
+  },
+  {
+    "id": "579f60e4-07e0-48cc-9f06-dd24261fd031",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42cd1b081bf9810e1bbe2c0519cf4be1baa729e6591fbf6d9d7f23704c9d632e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "만우절 언론 장난이라는 한 주제로 사례들을 묶고 위키백과의 「참이지만 믿기 힘든 사실」 대조로 맺는 글이라 주제·무관한 문장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "irrelevant",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wikipedia traditionally turns its main page",
+      "note": "위키백과 단락과 반응 단락은 혼자 서지만 The Register 인용의 성적 표현과 G-spot 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "57b1dc98-f7c5-46fc-82bf-abfd434191ac",
+    "source_updated_at": "2026-09-25T08:56:43.393087+00:00",
+    "body_sha256": "d3430757b6bd875a5b0be2da43a1ab625d4a993de7daa6a06ab78e0b093ec8e6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "GSA 의 인수인계 허용 → 트럼프의 반응 → 소송 실패·공화당 내부 이견으로 사건이 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Trump and his legal team have",
+      "note": "양당 반응 단락은 혼자 서고 scrutiny·denounced 를 criticism·called 로 바꾸면 V6 가 되나 인명이 많아 몇은 걷는다."
+    }
+  },
+  {
+    "id": "57c5a623-4f5e-4fe6-8f17-20ad3e902d69",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3384b94150f00b16d8e8cdf24b82683fe517346aa3307f4382289b1b5fb165d6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "개발 기간 → Firefox 뒤 출시 → 기능(POP3·IMAP 지원으로 웹메일 접근) → 경쟁 제품으로 이어지는 출시 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The new version contains many updates",
+      "note": "기능 단락은 혼자 서지만 프로토콜 이름을 걷으면 남는 내용이 얇아 일치 칸 외에는 쓰기 어렵다."
+    }
+  },
+  {
+    "id": "57cf99f3-22e2-431d-90b8-56a1cd35ffa4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aeece5015c06eab50dfd73ffea14048b619fcf5a94c1c28f26cde4ee48a05838",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유학생 피살 사건을 발견 → 귀가 경위 → 친구의 경고 → 수사 현황으로 잇는 속보라 내용 일치 칸을 채우되 신체 묘사 때문에 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Miss Dan was recorded alighting from",
+      "note": "마지막 단락은 혼자 서고 alighting 을 getting off 로 바꾸면 쉬워지며 「naked below the waist」 는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "57d38744-3a4f-4b52-85ea-6a297f55394c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6a0cb4ce3b770c8c90a3f1eb1adafa5a87444a5bee39f3e05dcdc76acc4b1ecc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "인권감시단 보고서의 고문·집단 체포를 증언과 함께 전하는 보도로 고문 묘사가 구체적이라 성인 칸만 두고 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The practice of self-criticism sessions, where",
+      "note": "자아비판 단락은 혼자 서지만 고문 세부 묘사 단락은 가공 때 걷거나 줄여야 하고 오탈자(provincies·Dark Doa)도 고친다."
+    }
+  },
+  {
+    "id": "57dc57ed-fb71-49b3-908a-8671c919c451",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "483b68f5f83273d59f2b9fdb7632f166b7dc574f53e98d7dc85aabc118389e5d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총독 임명 발표 → 총리·야당 대표의 반응 → 첫 아시아계라는 의미로 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anand Satyanand is of Indo-Fijian descent",
+      "note": "마지막 단락은 혼자 서고 ombudsman·quasi-judicial 을 걷으면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "581a9839-d30a-4410-833b-e1f2f21c23fd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cbbd3857780839a509b5904d984cb44707301b4a6bb21635a080a8aace369f47",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "러닝메이트 발표 → 스프링필드 첫 유세 → 중계로 이어지고 링컨과 연결된 장소의 의미를 덧붙인 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Springfield owns a piece of presidential",
+      "note": "링컨 단락은 혼자 서지만 짧아 일치 칸 이상은 어렵고 UTC 표기는 걷는다."
+    }
+  },
+  {
+    "id": "5822ad38-a393-4ee0-a950-3f5d378cae79",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "349231d7623882818b8917a0a49b6f04fae3a9f81977b352744e32901b8e3a95",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "첫 단락이 북극 찬 공기 유입 → 단풍 시작을 원인으로 잇고 뒤는 지역별 상태라, 원인 단락을 축으로 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "This week, a taste of autumn",
+      "note": "첫 단락은 쉬운 원인 문장이지만 나머지는 산맥·주 이름 나열이라 걷으면 글이 매우 짧아진다."
+    }
+  },
+  {
+    "id": "582cb92d-6479-4d11-98fd-a9a06b3a981c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f9e814a0208577b94657fda6a0e9c57ad0dbbdf48396e0e82c0fa65d44aaf8d6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "출시 발표 뒤 가격·화면 크기·색상·클럭 사양을 문장마다 바꿔 늘어놓는 제품 사양 단신이라 떼어 낼 사건 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Apple Computer today introduced the new",
+      "note": "사양 수치를 걷으면 「인텔 칩으로 옮겼다」 한 줄만 남아 글이 서지 않는다."
+    }
+  },
+  {
+    "id": "5832be42-ce46-4cfa-bb21-451b1731851c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0d52a76d52d1040f2bd38eaf45a91a83c0aa71cb1d13ae4863643f3eb962e02",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "100회 박람회 준비 → 개막 → 주제별 날·교통 안내 → 공연 예고로 이어지는 행사 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Several days are built around specific",
+      "note": "주제별 날 단락은 혼자 서고 faux·commemorating 을 fake·celebrating 으로 바꾸면 V3 가 된다."
+    }
+  },
+  {
+    "id": "584d6bed-0a76-48d8-ae47-26bde20331a9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f29de360dc2a7052968c62a5b233cd9163228d1de18c8bedb7e80909048d16a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "앞 보도의 폭발을 전제로 희생자 이름·가족 요청·범인 국적만 덧붙인 55어 후속 단신이라 사건 연결이 있는지 칸 최소선에서 갈린다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The British man who died in",
+      "note": "「the explosion」 을 풀어 써야 시작되고 이름을 걷으면 가족 요청 한 줄만 남아 가공이 애매하다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "5859a552-ab8e-43d9-9108-b9d218414331",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5e55a066733ca5cac7e7f786a03377165bb27360f2ade695312f128e62ac9c95",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "불신임 가결 → 야당 힘 실림 → 임시정부 구성 → 국제 중재 직전이라는 흐름이 두 단락 안에 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Ukrainian parliament passed a vote",
+      "note": "no-confidence·interim 을 풀어 쓰면 V5 가 되지만 배경 설명이 없어 선거 위기 한 줄을 보태야 한다."
+    }
+  },
+  {
+    "id": "586ca55b-3c4d-48a8-bdc7-b40506ffd503",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0af5fa507fc3daf6cc9c0e62ce100783c7d4456f947dbdd962d49aa3ab8635a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "2009년 만우절 장난을 나라별 관습 소개로 열고 기업·언론 사례를 한 주제로 묶은 글이라 주제·무관한 문장·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "irrelevant",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "April Fools' Day pranks harmlessly pervaded worldwide",
+      "note": "첫 단락은 혼자 서고 pervaded 를 spread 로 바꾸면 V4 가 되며 사례 단락은 하나씩 떼고 끼우기 쉽다."
+    }
+  },
+  {
+    "id": "58737d22-abcf-4756-a3f9-f093b3a8b7ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ac6b1946a90ed7fd6d502193c4868db4bf212224624cc17899bbea413fccbad3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지진 사망자 추정 → 실종·이재민 → 구호품 부족 → 원전 폭발로 결과와 대응이 이어지는 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Due to infrastructure damage, survivors in",
+      "note": "구호 부족 단락은 혼자 서고 infrastructure 를 roads and power lines 로 풀면 V3 에 맞는다."
+    }
+  },
+  {
+    "id": "58bfde64-4cab-4c39-80ba-476ba7153daf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "72bb35311805fba2bbda4438ea0771b483bfca19fbbfd748a3561d063d869c5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "NATO 사무총장 방문 중 아프간 기여 칭찬 → 총리의 본 프로세스 이후 논의 제안 → 일정으로 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After talking with Mr. Scheffer, Prime",
+      "note": "총리 발언 단락은 서지만 Bonn process 를 풀어 써야 해 인용을 줄이는 가공이 필요하다."
+    }
+  },
+  {
+    "id": "58c155ca-db44-400b-bdb6-27245a695b57",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "299a7f275f1d92ce768ce41505fbc3bc6ac25e6c83989720de54f398438e0638",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "분출 사실 → 드문 분출 주기 → 분출 경과 → Old Faithful 과의 비교 → 규모 조사로 이어지는 과학 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "school",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The geyser, an unpredictable and infrequent",
+      "note": "둘째 단락은 혼자 서고 infrequent·discharge 를 rare·release 로 바꾸면 V4 가 되며 시각 표기는 걷는다."
+    }
+  }
+]
