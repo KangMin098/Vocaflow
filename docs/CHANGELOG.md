@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 7 적재**(2026-09-28 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 973 · hold 16 · discard 11(바로 확정 82.1%). 감사 누적 wikinews 체크리스트 keep 149편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 13,823. 모음 행은 `Digest/` 제목 목차 1편뿐(전체 4행 — 제목 나열이라 쪼개지 않는다).
 - **체크리스트 배치 6 적재**(2026-09-27 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 972 · hold 15 · discard 13(바로 확정 80.9%). 감사 누적 wikinews 체크리스트 keep 109편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 14,776. 「모음」 보류 3편은 쪼개기 도구가 「UK Wikinews Shorts」·「Obituaries:」 제목을 놓친 탓 — `isDigestTitle`·`needsManualSplit` 을 넓혀 17행을 꼭지 61편으로 쪼갰다(자동 51 · 손 경계 10 · 재실행 0) → 남은 대상 14,823.
 - **체크리스트 배치 4·5 적재 — 기준 v8 첫 배치**(2026-09-27 · DB: `gate.retain` 1,066행 · migration 0): 배치 4 space_place·openstax·nasa 66편 keep 60 · hold 2 · discard 4(바로 확정 64.5%) — 비논문 작은 원천 셋 끝. 배치 5 wikinews 1,000편 keep 973 · hold 15 · discard 12(바로 확정 **81.8%**, 배치 3 76.4%). v8 로 `gap` 보류 2.2% → 0.1%. 감사 누적 wikinews 체크리스트 keep 71편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 15,776(wikinews).
 - **판정 기준 v8**(2026-09-27 · DB 0 · migration 0): 체크리스트 배치 3 의 `gap` 14편 중 8편이던 두 자리를 기준에 적었다 — §5 `polemic` 은 글 자체의 선동만(취재원이 자기 입장을 말하는 인터뷰·보도는 보관) · §8 노골적 성 묘사·비속어 글도 `adult` 칸(떼어 낼 문단이 없으면 폐기). 전문 판정이 이미 이렇게 판정하던 것을 판정자가 기준에서 찾게 해 `gap` 보류(전문 판정 비용)를 줄인다. 인용 빠짐 손상은 wikinews 0.15%라 개정하지 않음. `CRITERIA_VERSION` 8 · checklist-draft 안내 추가.
