@@ -1,0 +1,988 @@
+[
+  {
+    "id": "4c3f8bd9-ef0a-40d3-b68c-010f5081efe9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6633e73171c2bc702438cec9baddd5f717d9190238107cdd5aa60af0aaa7dce9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "남북 정상회담 이틀 뒤 선언 서명 → 선언 내용(휴전 체제 종식·화물 운송 재개) → 서명·건배로 사건과 결과가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a historic turn of events, Kim",
+      "note": "첫 문단의 긴 선언 공식 명칭만 줄이면 도입이 서고, armistice·hostility 는 truce·fighting 으로 바꿔 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "4c5847e3-db30-4e8d-8079-9b7ee10ca20b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f390daf2d27a6cbc4082b364e701711866108a33b4072ed35bd14a285ba94ddd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프랑스 조사팀의 「독살 아님」 결론과 스위스 연구소 주장의 대립, 이스라엘·팔레스타인 반응, 사망 경위 배경 단락이 이어져 내용 일치·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yasser Arafat led the Palestine Liberation",
+      "note": "배경 단락(4문단)은 앞 문맥 없이 서고, deteriorated·autopsy 를 worsened·examination 으로 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "4c677af2-d85d-4912-91f5-bd2e1857408a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "874436f32470b487199e0383aa04f470fa7c0b85539b69095b0440df9611f47e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "익명 소식통의 「이란 관련 회견이 있을 수 있다」는 풍문뿐이고 내용도 미정이며 둘째 문단은 무관한 FFA 연설 일화라, 사건 연결이 있다고 보기 애매해 보류한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Anonymous White House sources say that",
+      "note": "회견 자체가 미정이라 걷어 내면 남는 사건이 없고, 끝의 「See Wikinews」 안내도 걷어야 한다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "4c73b7cd-7b39-4ecb-b581-e99e8d2f809f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "beab4cb7a90f463fc933b17c51e73c99c5f2d938fa7002dbfe96e87d8453b63b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "「일자리가 반란을 줄인다」는 장군의 주장과 Vines 의 유사 주장·실업률·군 해산 결정이라는 근거가 이어져 주장·요지·빈칸 칸을 채운다(보도된 한쪽 입장).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chiarelli's assertion is similar to a",
+      "note": "IEDs·RPGs 같은 군사 약어를 bombs·rockets 로 바꾸고 insurgency 를 풀어 쓰면 V6 에 실린다."
+    }
+  },
+  {
+    "id": "4c76f6b4-1ccc-4381-b69d-3cee339fe084",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9291308f7324d4578d06d8895838bd65b6027a183b787aba99d9eb8dafe61230",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "셋째 문단 「Below are the current results」가 예고한 개표 결과 표가 본문에 없어 끊긴 글이다 — 나머지 선거 원인·반응 단락은 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This early election stemmed from the",
+      "note": "불신임 → 조기 선거 → 자유당 패배 → 마틴 사임으로 이어지는 단락은 서지만, 빠진 결과 표를 가리키는 문장은 걷어야 한다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "4c8c7ef6-6300-4c99-820c-563e68b8349b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c58eadc7cb438f696e4f97a5f244a0b33b599f58b077fa2fff0fe1d1a845b0b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지역 재건을 주제로 한 시장·의원 회의가 열려 교육·주거·보건 대책을 논의하고 장관이 지역 요구를 들으러 초청됐다는 흐름이 서서 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The congress is discussing the main",
+      "note": "서수 「VI」와 기관 이름을 줄이면 짧은 행사 안내로 서고, setbacks 를 problems 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "4ca52365-93cd-4b2c-9b80-202a8dfe2178",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5ddd1ac65b8eebc5e8442b2e06aa0f958b78604b82ad322efa873f43aa19b392",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 → 궤도 투입 → 설계 수명 두 배를 넘긴 IIA-15 를 대체한다는 이유가 이어져 내용 일치 칸을 채운다 — 로켓 구성 제원 단락은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Delta II rocket launched at",
+      "note": "둘째 문단 제원 나열(GEM-40·Thor·Star 48B)은 걷고, 첫 문단과 대체 이유만 남기면 사건 흐름이 선다."
+    }
+  },
+  {
+    "id": "4ca97049-a543-4c5b-b3fa-b4bf79c1ab5c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b94d30cde3b8de656fe1bd15947a80e0a3052acff6d55a773bf477ea0df7c08",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "버핏이 370억 달러 기부를 발표했고 이는 유언으로 재산을 내놓겠다던 이전 발언을 앞당긴 것이라는 대비가 한 단락에 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Warren Buffett, the billionaire investor of",
+      "note": "philanthropic 을 charity 로 바꾸고 재단 자산 수치를 걷어도 기부 발표와 이전 약속이 선다."
+    }
+  },
+  {
+    "id": "4cb00a18-bca6-4f49-9ba7-570a46f6f4cb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "386f85748f23d400492d4d247f1e134580c8029fa489991f228ae62916024386",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연기 신고 → 두 역에 소방대 출동 → 점검 결과 위험 없음 → 부상자 없음으로 58어 안에서 사건과 결과가 이어져 쉬운 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "No injuries were reported when firefighters",
+      "note": "역 이름을 걷어도 신고와 점검 결과가 서고 낱말이 이미 쉬워 조정이 거의 필요 없다."
+    }
+  },
+  {
+    "id": "4cb1cd74-2bde-49c5-99ea-08ec6aa0d750",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7f4e22ff953ca4a4d70bbe78e8df389e422a58637cb1db28aa5bb02976379525",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "베를루스코니가 클루니를 증인으로 부르겠다는 발표와 미성년 성매매 혐의·권력 남용 혐의·파티 참석 경위가 이어지는 성 관련 재판 보도라 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Silvio Berlusconi, the Prime Minister of",
+      "note": "혐의 설명은 사실 진술 수준이라 그대로 둘 수 있고, prosecution·immune 을 trial·protected 로 바꾸면 V5 다. 「He has denies」 오타는 고친다."
+    }
+  },
+  {
+    "id": "4cbba98b-7346-42e5-b847-b2834d138f17",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cc34794f1e8a18899bb96eded4b16aaeadc6a9f87f1776f1f25404071af566d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "규모·진앙·깊이 문장에 USGS 피해 전망과 쓰나미 경보센터 판단 두 문장이 더해졌을 뿐이라, 반응 연결로 볼지 수치 나열로 볼지 기준 경계에 걸려 보류한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The USGS says that damage could",
+      "note": "수치를 걷으면 「피해는 경미~중간, 쓰나미 없음」 두 문장만 남아 사건 흐름이 서는지 애매하다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "4cc11a2d-74f2-4b84-a51e-ae0d4bbba179",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "db0ee09e5bb3ed795f1e8ed506fae5f7642bde61326eefa8170e4efd61d4b15c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "미국 순위 하락과 그 까닭으로 든 알하지 구금·조시 울프 투옥 사례, 지수 산정 방식이 이어져 순위 나열을 넘어 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States ranks 53rd equal",
+      "note": "공동 순위 국가 이름을 걷어도 하락 이유가 서고, confiscation·harassment 를 seizing·bullying 으로 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "4cc99cdd-1827-439c-a096-fa3315989e50",
+    "source_updated_at": "2026-09-25T08:55:50.900144+00:00",
+    "body_sha256": "b69ee94b4e8375020bfa0586dce708c029b014dee5124eec80f17cf6e9cb2fdb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "「Ali Larijani wrote on Instagram:」 뒤에 옮길 조문이 빠져 글이 중간에서 끊겼다 — 사망 경위·경력·확진 관료·감염 수치 단락은 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mir-Mohammadi served as one of the",
+      "note": "경력 단락은 혼자 서지만 빠진 인용 문장 자리를 걷어야 하고 수치 단락은 줄여야 한다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "4ce118d1-ee4b-4cb6-a72a-5f76154e3b6a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e3035779d40304e0b99016cca8bf5324b5d34cf0c352e27e4e1c2a09ff0d3bf5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "택시 기사 살해 → 판결 → 인도 지연을 둘러싼 미일 갈등 → 대사 사과·기지 금주령으로 사건·결과·반응이 이어지는 살인 보도라 고1 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After the murder, the relationship between",
+      "note": "제목의 「American」과 본문의 「Nigerian national」이 어긋나 국적 표기를 정리해야 하고, deserted 를 left 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4d017811-68c9-43c7-aba8-d5bff11ede49",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e7fef58384969eb40773e7d06900af7a6322d577283d66ea728827e2f910985d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "후보가 젊은 유권자를 끌려고 웹 투표로 선거 노래를 고른다는 까닭과 결선 진행이 서서 내용 일치 칸을 채운다 — 노래 목록 단락은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Clinton, as many of the other",
+      "note": "셋째 문단의 곡명·가수 나열은 걷고 투표 방식과 웹 2.0 활용만 남기면 짧은 지문이 선다."
+    }
+  },
+  {
+    "id": "4d1aefb8-482f-4631-b1c6-27b4224328cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "564673b4287fd92a12c9531c9bda250a8d05585fadd7e7e3cc0991445d8aea3b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "기상 악화 → 착륙 연기 → 대체 착륙지 조건과 비용 이유 → 단열재 틈 충전재 점검으로 원인·결과·다음 절차가 이어져 내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NASA would prefer not to use",
+      "note": "대체지를 꺼리는 이유 단락은 혼자 서고, withstand·re-entry 를 survive·return 으로 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "4d1dd185-ba55-4b03-b5e4-ef171bd489d0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3fe94e68d8d76e2282179b90103f19ddfce71d02a5943154212f21824251a4f7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "뉴욕 행사 소개에 이어 기념일 지정 경위·목적·4월 6일을 고른 이유(아브로스 선언)가 이어져 내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tartan Day was designated as a",
+      "note": "지정·목적 단락과 날짜 이유 단락은 앞 문맥 없이 서고, proscription·designated 를 ban·named 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4d1fcabf-87a9-496d-9a81-73618fa2716d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "40282403a80ba3a4b8cf5bd2f5c1c2bf0aa83ba019c8ce9a6860453e0e2999a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "인수 → 구글·야후가 지배하는 광고 시장 진출이라는 목적 → 경쟁사 인수와의 비교 → 규제 승인 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Microsoft have today paid $6 billion",
+      "note": "경쟁사 인수 금액은 걷어도 인수 목적이 서고, acquisitions 를 purchases 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "4d24d1be-ca1e-4c14-bdbc-5e9643e16af4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ee789eda5ef55ba90b3192a8ff7a4f486c2265c7876d96bab2329c4e5635d6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "결함 때문에 외장재를 모두 떼어 냈고 개장 다섯 달 전이며 운영 측은 예산에 문제없다고 답했다는 원인·반응이 65어 안에서 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "All metal cladding has been forced",
+      "note": "cladding 을 outer panels 로, compromised 를 hurt 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "4d2501c7-0c39-487c-a66f-d15bac5a11b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fca6044b51c4e0e5b541f643c728a7f5d35c5df49c968ecae6a92bcd7b38f474",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "출마 선언 예고와 예상 약점(온건 성향·신앙) 뒤에 학력·케네디와의 선거·올림픽 조직위 경력이 이어지는 인물 소개라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Romney's record as a moderate and",
+      "note": "출마 예고와 약점 두 문단이 서고, 경력 단락은 이사회 자리 같은 세부를 걷으면 된다."
+    }
+  },
+  {
+    "id": "4d3290a1-1787-4ba5-bed6-b6985996363f",
+    "source_updated_at": "2026-09-25T08:54:55.138646+00:00",
+    "body_sha256": "9a15280be3b32a4188127c55e221d5d11b2b4562b80b9f976f074ef7a910444e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "암 투병 → 장관 해임 → 사망 → 3일 애도와 여야 정치인들의 추모 반응이 이어지는 한 사람의 부고라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Goa's government announced three days of",
+      "note": "추모 발언 인용을 줄이면 사건 흐름만 남고, demise 를 death 로 바꾸면 V5 에 실린다."
+    }
+  },
+  {
+    "id": "4d376a24-c19c-46fe-9360-702431a65930",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2bf9c7807afe13da2bce1ae01238fd5f2c3fba8fdbc089a54ff9e2d34563584b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오바마가 바이든에게 특별 훈장을 깜짝 수여한 장면과 형제 같은 관계 언급·역대 네 번째 수여·농담이 이어져 내용 일치와 분위기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a ceremony described by the",
+      "note": "역대 수상자 이름을 걷어도 감정적인 수여 장면이 서고, distinction 을 special honor 로 풀면 V5 다."
+    }
+  },
+  {
+    "id": "4d4019a7-41ee-4cba-89d2-b7e88ee6e138",
+    "source_updated_at": "2026-09-25T09:16:22.776048+00:00",
+    "body_sha256": "13e0672377733dde4eebc3da115a7dfa459521c09f11b5f018e08698073495cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "타이베이 도서전 두 세미나에서 평론가·소설가가 무협소설의 고유 요소와 대만 창작의 다양성을 말한 단락이 주제 칸이 된다 — 한자 병기·어색한 문장은 손봐야 한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "At the other seminar, \"On Trends",
+      "note": "무협소설 인용 단락은 서지만 원문 영어가 비문(「can still keep in path」「has drawn by」)이라 낱말 교체보다 문장 재작성이 필요하다."
+    }
+  },
+  {
+    "id": "4d510027-756c-4dc7-b4e9-4bc1c4b565b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "93bcd5e56a9981af857f87a3bb9cf5a3e06ba1a21b1aebf4f831640d72358c7f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "「Election results from reporting polls are below」가 예고한 개표 결과가 본문에 없어 끊긴 글이다 — 보수당 우세 예측과 조기 선거 원인 단락은 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This early election stemmed from the",
+      "note": "불신임 → 조기 선거 원인 단락은 서지만 빠진 결과를 가리키는 문장은 걷어야 한다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "4d717325-80b9-4ef4-92ec-6416461241bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dbef518d4d3993d2cc013e77dd4a2b522206a9c2c281b7255885f62f87c07ee5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스트로나크의 당적 변경 → 장관 임명 → 이유를 밝힌 발언 → 이틀 뒤 한 표 차 예산안 통과라는 결과가 이어져 내용 일치·순서·빈칸 칸을 채운다(본인 입장 발언은 한쪽 입장).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two days after Stronach switched parties,",
+      "note": "마지막 문단은 앞 문맥 없이도 서고, crossed the floor 를 changed parties 로 바꾸면 V6 에 실린다."
+    }
+  }
+]

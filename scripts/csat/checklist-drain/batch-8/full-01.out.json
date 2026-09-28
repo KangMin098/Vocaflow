@@ -1,0 +1,971 @@
+[
+  {
+    "id": "49a1ae8d-e35a-4103-b018-cc59b840124c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "742b89bd9affdf1cd630006dd2c15622f6e1477b2f6970d6092a25ddd3d6266e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 직후 추락 → 화재·폭발 → 올해 수단 네 번째 사고로 사건과 맥락이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An Ilyushin Il-76 cargo jetliner has",
+      "note": "jetliner→plane, flag carrier→national airline 로 바꾸면 V4 로 내려가고 기종명은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "49a56dda-a186-4710-bbb5-09edfd834ecd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "caf56e6d9414c35f19998256a7d62d340f65a4fea829836fb9afe4837f196dc9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버스 안팎에서 사망·입원 → 일산화탄소 추정 → 경찰 설명 → 축제 계속으로 원인과 반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two people have been found dead",
+      "note": "「commented Enoksen」 은 앞에 소개가 없는 이름이라 가공 때 경찰 대변인으로 바꾼다; suffocated→died from 등 두세 낱말 교체로 V4."
+    }
+  },
+  {
+    "id": "49a7f038-570e-4573-b263-3c4857d1450e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d2b73a53df78c5e1258b3043682830b52f33d281e8b0063698c0dc8f4f1fedc1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앞 다섯 단락이 시아파 지도자의 이슬람 입법 요구와 체니의 낙관을 맞세워 주장 대조가 서며, 뒤의 사상자 한 줄 나열은 걷을 수 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Grand Ayatollah Mohammed Ishaq al-Fayad is",
+      "note": "종교·국가 분리 논쟁 부분은 혼자 서고 legislation→laws 교체로 내려가지만 뒤 여섯 줄 사상자 나열은 논지와 무관해 걷는다."
+    }
+  },
+  {
+    "id": "49a9071f-3b63-454c-9d8c-0676d678579f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "891d3969b975e780e60b816ae497eacaba6c060e96b0bc3cb73f38b8d2fa75d6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모·위치·피해 없음·과거 지진 수치만 문장마다 바뀌어 되풀이되고 첫 문장은 동사가 빠졌으며 제목 규모와 본문이 어긋나 짧은 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "At 13.30 GMT, a magnitude 6.0",
+      "note": "떼어 낼 문단에 사건 흐름이 없고(피해·경보 없음뿐) 과거 지진은 사망자 수치 나열이다."
+    }
+  },
+  {
+    "id": "49b12fed-1579-488f-b5a8-2526db3361ad",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "077f8c710ecd8072202275a89710014adfff590a057404da50d070fc2fdbc934",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수상 사실·최초 여성 2회 수상 기록·젊은 여성에게 남긴 수상 소감이 이어져 내용 일치 칸과 소감 단락의 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While receiving her award, Swift left",
+      "note": "소감 단락만 떼어도 요지가 서고 undercut→weaken, sidetrack→distract 두 낱말로 V3 가 된다; 후보 이름 나열 단락은 걷는다."
+    }
+  },
+  {
+    "id": "49c1d4dd-17f7-4f1f-ab7a-0d7121d4ac0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ae871cbcf28f37879c4907235fddc1dda9d6427ba9cf801235c3c5fa1784a22",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "따뜻한 겨울 공기 → 토네이도 → 9분 전 경보 → 기상학자의 기단 설명으로 원인과 반응이 문장으로 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three are dead after a tornado",
+      "note": "짧지만 원인 설명 인용이 있어 선다; unsettled→unstable, touched down→hit 교체로 V4."
+    }
+  },
+  {
+    "id": "49c390d6-d835-43dc-9378-ee2ed0a2dc4f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "611ba49a71a8d484022fd12d0b077cbf4452882d780c8dcdf935daa1164df4bb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여론조사 1% 미달로 토론회 자격을 못 얻어 사퇴했다는 원인·결과와 경력·다음 계획이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gillibrand dropped out ahead of the",
+      "note": "사퇴 이유 단락은 혼자 서고 primary·endorse 를 풀어 쓰면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "49c9f47b-f189-461d-aeb9-a8c374924f24",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a699bcc8043831c2f2aec11a8c0a6368fe7eacfd18e33a794d00f9c6e866df82",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "이적료 신기록 → 유벤투스 시절 성과 → 본인 소감으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "23-year-old midfielder Paul Pogba made his",
+      "note": "우승 트로피 이름 나열은 줄여야 하나 복귀 경위는 서고 netting→scoring 교체로 V4."
+    }
+  },
+  {
+    "id": "49cf9474-93a9-4a1e-bc13-89e16e6fd554",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4eccbe24a34dbbbbd1bc1fb0c45d314dfe3d70adbc92569b34784c62c9e4335",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "투표소 충돌의 지역별 사상자 나열이 길지만 군 투입 조치와 분쟁 원인 설명 단락이 사건을 이어 고등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Army personnel were called to maintain",
+      "note": "지역별 사상자 단락은 수치 되풀이라 걷고 첫 단락·군 투입·분쟁 원인 단락을 잇는다; sporadic·factions 교체로 V5."
+    }
+  },
+  {
+    "id": "49d8e558-c7f4-4be5-91c7-62f2342983a0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4fd33dc67d69a8b310133d66db1c692008ff8730d410573a6349494e0cce83d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "토크쇼의 기네스 기록 도전 주간과 진행자 필빈의 방송 최장 기록이 한 주제로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Co-host Regis Philbin was named a",
+      "note": "필빈 단락의 방송 이력 이름 나열은 줄여야 하지만 기록 도전 이야기는 서고 sidekick→assistant 교체로 V4."
+    }
+  },
+  {
+    "id": "49e034ac-3992-4823-9738-6e1211a62e1e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "50f6354e150d9dab180f8fa04ec4f495876221580ea7ca4fa74a4fb840f615b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무장 충돌 → 단체의 책임 주장과 그 명분 성명 → 이튿날 마을 평온으로 사건·반응이 이어지는 짧은 단신이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A group, calling itself the Political-Military",
+      "note": "단체 이름이 길어 「an armed Albanian group」 로 줄이면 사건이 서고 assemble→form 교체로 V5."
+    }
+  },
+  {
+    "id": "49fbfb18-d3bd-45c3-ba12-fecfd9cd3f63",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e34f82d67b20430b1518bcaa8cb6ee71e70d589fcc93f7cf2f6fa9800b40d057",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "버스 좌석 거부 → 몽고메리 버스 보이콧 → 이후 활동·수상 → 말년 건강으로 생애가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Parks was best known for her",
+      "note": "업적 단락은 앞 문맥 없이 서고 catalyst→spark, reclusive→private 교체로 V4."
+    }
+  },
+  {
+    "id": "4a0637fa-17cc-4c03-9bb0-7cb8f52324bd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d44409b386402ab173ea289c00f234d1c9bbd709525222a3a6e532a0dae5c5e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 소식에 이어 출생·대표작·마지막 드라마·유족으로 경력이 시간순으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Swayze was born Patrick Wayne Swayze",
+      "note": "첫 줄의 「]」 잔재만 걷으면 되고 작품명이 많지만 걷어도 경력 흐름이 선다."
+    }
+  },
+  {
+    "id": "4a099bc9-3cd8-41a7-8607-ba22d956de50",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d8110853bbf90e05b58f6019735ab43d54f5d4c2eca8eb79f53cbe52ca14e6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "핵 공격 훈련 증가를 익명·미확인 이메일과 주민 불안 인용으로 엮어 공격 임박을 암시하다 마지막 단락에서만 누그러뜨려, 검증 안 된 소문 보도를 보관할지 기준이 말하지 않는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The US government is also running",
+      "note": "마지막 단락은 떼어도 서지만 나머지는 출처 미확인 주장이라 고유명사를 걷으면 근거가 사라진다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "4a0a88b9-c48c-4b27-8a2c-4e243f10249e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a59b3b04f3c8f34d4896f7501a96dc759dcbe69b016f2647f3e3484b27016ceb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "economics",
+    "why": "가격 상한 연장 → 주유소 손실·폐업 → 세금·물가 자료로 흐름은 서지만 「claiming The official gazette」「but added. The following」처럼 인용이 빠져 문장이 도중에 끊긴 곳이 여럿이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In effect, the losses are incurred",
+      "note": "손실 전가 단락은 서지만 인용이 빠진 문장 셋을 복원할 원문 없이는 앞 단락을 쓸 수 없다; indemnify·wholesale 은 교체해도 수치 밀도가 높다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "4a4106a8-b319-4b3f-afee-bd559e09fc4d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f3ec359b83949c1dbe7e3b8e1e43626ae209f7225a254c711e58789d632bb636",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "전원 관리를 바꾸면 절약된다는 조사 결론과 모니터·화면보호기·프린터 사례가 이어져 요지와 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Their investigations showed that an individual",
+      "note": "파운드 수치를 걷어도 「끄면 아낀다」 요지가 서고 peripherals→devices 교체로 V4; 마지막 분산 컴퓨팅 문장은 무관 문장 재료다."
+    }
+  },
+  {
+    "id": "4a50f266-e558-4e35-9677-ce3ec05e6839",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abc924733fcf4cebad323b47653a539e66a13f0b55d58f154785dc31e1b53d1e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탈영병의 잔학행위 증언을 옮긴 한쪽 입장 보도지만 반박·증거 모두 없었다는 마지막 단락이 맥락을 주어 고등 이상 주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Key also said at the hearing;",
+      "note": "참수·발 사격 묘사 문장은 가공 때 걷고 「이라크인도 우리와 같은 사람」 단락과 청문 맥락만 남기면 선다; deserter→soldier who left 교체."
+    }
+  },
+  {
+    "id": "4a6f59f6-45b5-42b8-99cb-488c1801472a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ec3252f64554a6d0545e3f89fce522aced7beac1862671855b698c81c4aeece8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "타이베이 집회를 두고 중국 관영지의 「분리주의」 비판과 리덩후이의 「자결 의지」 해석이 맞서 두 입장 대조와 주장 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Taiwan, former President Lee Teng-hui",
+      "note": "한자 병기와 당 약칭을 걷으면 두 반응이 서고 secessionist→separatist 교체는 되나 V5 까지는 어렵다."
+    }
+  },
+  {
+    "id": "4a84d3b0-7559-4988-8cbc-9e12e792bb81",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bee12930ae8a48b7192ce0cc9816a8a77829d4f29846e25c9d213c8dbdb253b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쿠란 소각 → 칸다하르 시위 확산 → 사상자 → 경찰·주지사·탈레반의 엇갈린 책임 주장으로 원인·결과·반응이 이어진다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to Kandahar officials, the protests",
+      "note": "평화 시위가 폭력으로 바뀐 경위 단락은 혼자 서고 desecration→disrespect, vandalizing→damaging 교체로 V5."
+    }
+  },
+  {
+    "id": "4a9479f4-1b5e-4143-a658-eaf109ccb228",
+    "source_updated_at": "2026-09-25T09:16:09.06558+00:00",
+    "body_sha256": "0bf7bb8323326fe4d36ff061f5d2b84288170fbe2f74472404b8216248fe12a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "자나티의 반미 발언을 옮긴 한쪽 입장 보도로, 직책·후보 자격 심사 역할 설명과 러시아 측 언급이 맥락을 주어 주장 칸을 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ayatollah Jannati is best known for",
+      "note": "인물 설명 단락은 혼자 서지만 「침공해 보라」 인용은 선동 문구라 가공 때 걷는다; intransigent→stubborn 교체."
+    }
+  },
+  {
+    "id": "4a94b828-3ae3-4e41-a81f-42e9b3c7d58a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "573523d4e7e06b65e3cdaf99b9c7e5c5bc2e3c6033d93f83319eb62d79f94720",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "노벨상 수상 → 한림원 선정 이유 → 첫 작품부터 작품 세계 변화까지 이어져 내용 일치와 선정 이유 단락의 요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "As a young writer in the",
+      "note": "한림원 문장은 degenerate·invoke·nouveau Roman 처럼 개념 어휘라 두세 낱말 교체로는 V6 아래로 안 내려간다; 작품명 나열 단락은 걷는다."
+    }
+  },
+  {
+    "id": "4a98f111-bdeb-4c23-8427-fab2353d2d49",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5f713acfa85556cc501de2cd5f5c832e8217468bd66fc4bd53a63ba80a547b3a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "주식 상승 → 분기 수익 → 자산 1,401억 달러와 인프라·부동산 인수 활동이 이어져 수치가 많아도 원인 문장이 있는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Rate of return for the quarter",
+      "note": "수익률 단락은 원인(주식 비중)이 서지만 인수 단락은 회사명·지분율 나열이라 걷어야 하고 금융 용어가 많아 교체로 밴드가 크게 안 내려간다."
+    }
+  },
+  {
+    "id": "4a9c88ed-8ef0-4f74-97c1-bc92ca02a2e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "47a64c4ab595e75ce65f2b866585bca5161940c98c2b90ed01df85ddd2012c74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "포럼 개막 뒤 인터넷 전망·샤오완창 참석 논란·기후 발언이 서로 이어지지 않고 「participated with」 같은 어법 오류와 맥락 없는 두 연합 언급이 있어 가공 뒤 무엇이 남을지 애매하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "But due to a hot topic",
+      "note": "파차우리 인용은 떼어 볼 수 있으나 앞 문장이 비문이고 세 꼭지가 따로 놀아 한 편의 사건이 서지 않는다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "4aade393-80aa-453a-be57-7f82c07cd7b8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d8130245ac2daf536ca227db257116d3c8bdb6e012c0e391ba137b825c5f7524",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "100여 년 만의 비백인 주지사 당선 → 득표 → 당선 연설과 공약 → 카트리나 여파 해석 → 취임 일정으로 사건과 다음 절차가 이어진다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bobby Jindal, 36, an Indian-American and",
+      "note": "당선 단락은 혼자 서고 득표율을 걷어도 사건이 남으며 sworn in→start work 교체로 V4."
+    }
+  },
+  {
+    "id": "4ac8bd4f-32ce-44fc-bf19-a6f785ae6ecf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d8ecd34147dca03ce37b6cfbd09f5389c95f8c64510419732dcf2b98dbf65c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "수마트라코뿔소 암컷 폐사 → 인공 번식 연구의 역사(초음파 임신 진단·호르몬 처방·첫 출산) → 번식 계획 중단으로 한 편이 이어져 순서·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Roth is an expert on the",
+      "note": "연구 경과 단락이 시간순으로 서서 순서·삽입 재료가 되고 propagation→breeding, conception→pregnancy 교체로 V5; 「pictured left」 는 걷는다."
+    }
+  }
+]

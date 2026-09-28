@@ -1,0 +1,941 @@
+[
+  {
+    "id": "531e44d9-75ae-4c68-95f2-15fbbee887c6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b34f1dd843e634439f5cea2d32fb40c01fda92f2f5f523b1121d7861002b32ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "훈련 발표 → 목적(IRNA 인용) → 핵시설 공개 직후라는 시점이 문장으로 이어져 사건 흐름이 서므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Iranian government has announced that",
+      "note": "'Great Prophet 4'·Qom 을 걷어도 발표-배경 흐름이 서고 capabilities·impounded 류 2~3어를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "53246613-7eea-40ac-b598-fdcbaf2d9761",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "05f319b94722ce105d1b8c611aab5f309b82ce543f845887ca2fd27d556c04e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "카타르전 패배 → 경질 → 재임 성과 → 남은 예선 일정과 2위 경쟁으로 원인·결과·다음 절차가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Thursday, South Korea's Football Association sacked",
+      "note": "sacked→fired, conceding→allowing 로 바꾸니 중등 밴드로 내려가고 승점 수치는 걷어도 경질 사건이 선다."
+    }
+  },
+  {
+    "id": "53394b10-a58c-48cf-9342-22ab4c1bc5f8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d149e68b8fedcc610d6a706bd6b31abc67fd07c2db712b138c5d1dac8604895a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "채널 이름·날짜가 많지만 둘째 단락에서 Toon Disney 출시로 경쟁사도 디즈니 채널을 송출하게 된다는 결과가 이어져 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The launch of Toon Disney was",
+      "note": "나라·채널 목록을 걷으면 남는 논지가 얇아 고유명사 의존이 크다 — 독점 해제 단락만 쓸 만하다."
+    }
+  },
+  {
+    "id": "53440cad-e09f-4bc8-a3c4-4a866c9daf5c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ce82c66a947249f3b227cc128372dce7eaa8b9cc3c1c3ff41f43df8b5f3f63d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "유출 메모 공개 경위 → 메모 인용 → 전문가 해석(WMD 근거 빈약·블레어의 위험 인지)으로 주장과 근거가 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "An Iraq expert at the University",
+      "note": "Dodge 인용 단락은 혼자 서지만 mendacity·proliferators·qualitatively 등 외교 어휘가 촘촘해 몇 개 바꿔도 V6 아래로는 안 내려간다."
+    }
+  },
+  {
+    "id": "5344b9d8-f475-4024-90ad-80d3a8fb0ed4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "344b17bceed057109d1d96d007d6d9876cfe04e67476897d35ce0c45cb892533",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "본문 대부분이 지지율·양당 선호 퍼센트 나열이고 연결은 「하워드가 물러나면 노동당이 이길 수 있다」 한 추론뿐이라 득표율 나열 폐기선과 단신 보관선 사이에 걸린다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In the latest Newspoll to be",
+      "note": "퍼센트를 걷으면 남는 문장이 한둘이라 사건이 거의 서지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "5345b258-9c9c-429b-a84e-d927201356a3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "832f1f6748bbfce6206b621bff1465bbbe6074a80cf9ff0dbbb0b2288ba1f86f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "변호인 성명 → 대변인 발언 논란이라는 앞뒤 사정 → 배심 숙의 5일째로 반응과 다음 절차가 이어져 내용 일치 칸이 서고, 아동 성추행 재판이 소재라 고등 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The statement follows the comment made",
+      "note": "gag order·deliberations 를 풀어 쓰면 V5 로 내려가지만 성명 인용문의 맥락이 설명 없이 이어져 약간 다듬어야 한다."
+    }
+  },
+  {
+    "id": "53466dd1-ed32-4a60-96c6-6845e194f625",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27b8343ebe8c5b183280446a260505fe9ab24df11ed64565597ddddfac40eca5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "앞 네 단락이 도서전 규모와 「시장이 번창한다」는 주장 · 전자책·오디오북으로의 확장을 잇고, 뒤 수상 목록은 가공 때 걷을 수 있어 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Publishing houses have long since expanded",
+      "note": "확장 단락은 혼자 서고 merchandising·value chain 을 바꾸면 V5 이지만 뒤의 날짜별 수상 목록은 걷어야 한다."
+    }
+  },
+  {
+    "id": "5370d602-b9b5-4dcc-b124-f5ed80eccfdd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "049c8c4ed5e2cdfcc53627a1e511944eadd7de149bdfbb5435ad1fa2d68a9592",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "한 사람의 부고로 사망 원인 → 생애(영부인·베티 포드 센터 설립) → 장례 일정이 이어져 짧은 단신 보관선을 넘으므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Former First Lady of the United",
+      "note": "complications·commence 두 어를 바꾸니 V4 로 내려가고 자녀 이름 줄은 걷어도 된다."
+    }
+  },
+  {
+    "id": "53719dd2-0fde-4d6b-ba34-08b733661b4b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "49829f2b88791576e72c28c1ddc5f8ab590f30165ff159e77adf2f92dbe4bbf1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "실업률 수치 뒤에 경제학자의 반응(감소폭이 개선되고 있다는 해석)이 이어져 수치 나열에 그치지 않고 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nigel Gault, the chief economist at",
+      "note": "shed·recession 을 바꾸면 V5~6 이 되지만 Gault 인용이 구어라 문장을 조금 정리해야 논지가 선다."
+    }
+  },
+  {
+    "id": "5371e584-85de-4986-8a93-3f67c042c7f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cfb21703cd349568002617b7f8069311374ab619960459d38317d48180624b41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "space",
+    "why": "월식 원리 한 문장과 구리색 설명이 있으나 나머지가 UTC·영국·북미 시각 환산 나열이라 일정만 되풀이하는 폐기선과 단신 보관선 사이에 걸린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "There will be a full lunar",
+      "note": "시각을 걷으면 원리 설명 두 문장만 남아 사건 흐름이 거의 없다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "53722dd4-96f8-4b7c-83bb-ce3b452953b0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f7fcb7116aeac14dcfc2dcf624cbb10bec2ee6e780ae1ae0bc3bfad420068d58",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 → 도킹 일정 → 셔틀 발사 때문에 지금 정거장에 Progress 가 없다는 이유 설명이 이어져 사건의 원인이 문장으로 서므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Progress spacecraft is used to",
+      "note": "보급선 순환 단락은 혼자 서고 de-orbited·analogues 를 바꾸면 V6 이며 일련번호·발사장 이름은 걷는다."
+    }
+  },
+  {
+    "id": "5382a4e3-b326-4035-b0e1-a40d44234aa1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b59a6f609988095f03a6d34ede1a32221d2f82e16f3bd91a05fe135cb1129790",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "버스를 훔친 이유 → 승객을 내리게 한 거짓말 → 추격·체포 → 유죄·정신감정으로 사건이 시간순으로 흘러 순서·내용 일치·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert",
+        "long_reference"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The man waited at the Charge",
+      "note": "정류장·마을 이름을 걷어도 도난 경위가 서고 impounded·remanded 를 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "53835f3e-1c3f-4030-9959-ef8bb384699c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "21229607cc8cad103137f445ebb80a9a568b6e6e1c157b836b333b4f34eebda7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "정상회의 개막 → 반세계화 시위 → 경찰의 진압 장비 배치와 위법 주장 → 말리의 대안 회의로 반응이 이어져 짧은 단신 보관선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hundreds of antiglobalization protesters marched on",
+      "note": "참가국 나열을 걷으면 짧지만 시위-대응 흐름이 서고 antiglobalization 만 풀면 V4~5 다."
+    }
+  },
+  {
+    "id": "5389e6af-b5a4-43cb-ab60-bd77c170be8d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b88e9bb392311a9bf23500cf96a97b1a6ecf3303d1d5f800806969aca0ba898a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "라디오 드라마 확정 → 원작 줄거리 → 같은 감독의 전작 각색 → 녹음 시작과 방송 계획으로 다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Published in 1990, Good Omens tells",
+      "note": "impending·dramatisation 을 바꾸니 V4~5 이고 출연진 이름 단락은 걷을 수 있다."
+    }
+  },
+  {
+    "id": "538a5ab7-14e4-41f7-8571-baeee946425a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b7035303202aa39c106e89993c84eae5784c3cec5b0f1312ddb3a365bb844cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "짐에 걸려 넘어짐 → 병목 → 뒤 인파에 깔림이라는 원인 사슬과 사우디의 기존 안전 조치·과거 참사가 이어져 내용 일치·순서 칸을 채우고, 대량 사망이 소재라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The stampede began when luggage from",
+      "note": "원인 단락은 혼자 서고 bottleneck·pilgrims 를 풀면 V5 이며 사망자 수는 걷어도 된다."
+    }
+  },
+  {
+    "id": "53a16b89-e2d7-446f-a32d-d49a73ece8a1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8eb0eb7103094503c688706d4b241ab10350433613c81089657c0a9f758923c6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "상하이 연구의 비교 설계 → 육류·단 음식 식단의 위험 증가 결과로 연구와 결론이 한 편에서 서므로 주제·내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The study compared post-menopausal women living",
+      "note": "epidemiological·estrogen-receptor 를 풀어 쓰면 V5~6 이고 마지막 식품 목록 단락은 걷는다."
+    }
+  },
+  {
+    "id": "53c53a57-dca1-4d43-b2d2-89ad2d24bf51",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "58539e2773f60bdeab1ca363453947b7e96cc266b09392548a9817b5a771e7b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군복 차림 학생 → 대규모 출동 → 무술용 막대뿐이었다는 결과 → 과거 캠퍼스 총격의 기억으로 반응이 이어져 단신 보관선을 넘고, 총격 소재라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A student carrying a long bag",
+      "note": "prompted·swarmed 를 바꾸면 V4~5 이고 과거 사건 연도는 걷어도 오인 출동 사건이 선다."
+    }
+  },
+  {
+    "id": "53d15cd1-33a0-41d4-8d4d-83085de30917",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fe8b50b9c5d36efee4ebf1d63f6751f088f102d2bec1949139358a7431acad72",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "점검에서 실리콘 탈락 결함 발견 → 혈류 유입 우려 → 사용 중지·반품 안내 → 보고 누락 가능성으로 원인·결과·다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the Food and Drug",
+      "note": "dislodged·coring·adverse 를 풀어 쓰면 V5~6 이 되고 제조사·유통사 이름은 걷을 수 있다."
+    }
+  },
+  {
+    "id": "5440f752-82c1-4fba-92f1-5aab52add681",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d0882dcabd2fb8a46667e5da7d4b0c378a1392c1ad869eb48851b7ccb75e05ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "개봉 소식에 크리스털 해골이 가짜라는 학자의 근거와 흥행 손익분기 설명이 붙어 사실 진술이 여럿 이어지므로 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The film is about the fictional",
+      "note": "해골 단락은 혼자 서고 sceptical 만 바꾸면 V5 지만 나머지 단락은 제작진·배우 이름 위주다."
+    }
+  },
+  {
+    "id": "544a3dad-7cac-4d43-a4be-cb00ee79abac",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e118f880c0dc1c23f682e6acbe5e2dce5f2fdb0136624815edde54719d918dbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "health",
+    "why": "50어 세 문장으로 조류독감 발견 → 닭 폐사 → 노동자 입원이 약하게 이어지지만 「stable and in a grave condition」이 서로 어긋나 사실 진술로 쓸 수 있을지 갈린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Bird Flu has been found in",
+      "note": "문장이 셋뿐이고 환자 상태 문장이 모순이라 고쳐 쓰지 않고는 내용 일치 선택지가 서지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "546dfb35-403e-48f0-9031-c766d8e92d99",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fafacb736327a329db797a116e90988ef088fbbbe79ea4c14d6021f344ddfda9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "economics",
+    "why": "지분 인수라는 원인 한 문장이 있으나 투자자 명단·지분율·시장점유율·매출 수치 나열이 본문 대부분이라 수치·이름 나열 폐기선과 단신 보관선 사이에 걸린다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Orange Romania is currently Romania's largest",
+      "note": "투자자 명단과 퍼센트를 걷으면 두 문장만 남아 사건 흐름이 서지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "54ac52fe-675c-4018-8ed1-c5c04ccfc60c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b60af77e555859c740f0caf327e18016a3c18528d81b705f59a8738867cea12a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "실종 신고 → 첫 유괴 경보 발령 → 이웃집에서 무사히 발견 → 경위 조사 예고로 사건과 다음 절차가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A kidnap alert was issued by",
+      "note": "instituted·respectively 를 바꾸니 V4 이고 「European type」 인상착의 문장은 가공 때 걷는 편이 낫다."
+    }
+  },
+  {
+    "id": "54c721d5-b97f-4f24-860c-593d7cb0c138",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0204037eb594842721e68986a925f5a43dbc78a4ba5a80ffa112505f85f1ff5a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인수 발표와 금액 구성 → 인수에 딸린 지원 계획 → MySQL 을 쓰는 사이트들로 사실 진술이 이어져 짧지만 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sun CEO Jonathan Schwartz said in",
+      "note": "offerings·platform 을 풀면 V5~6 이지만 회사·제품 이름이 많아 고유명사 설명이 필요하다."
+    }
+  },
+  {
+    "id": "54d31144-4060-4b82-9f65-9350da1d8df3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a016dae379c2e6785987b8e81d794398859e082c85d20fce5451c010db299ccc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "위원회의 비판(결함 연구·오도 발언)과 그 근거(차량 6대 표본) · 수사와 소환 · 제한 리콜로 1억 달러를 아꼈다는 내부 문서가 주장-근거로 이어져 요지·주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "content_match",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the House committee, however,",
+      "note": "표본 6대 단락은 혼자 서고 insufficient·adequacy·subpoenas 를 바꾸면 V6~7 로 내려간다."
+    }
+  },
+  {
+    "id": "54f54bf8-82f1-4241-8e24-b54aa57688e8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "191269321dbaeddab02044c3ad83261a1957bc093b218113b1f3d33b9964f028",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "한 작가의 부고로 사망 원인 → 첫 소설과 여성 최초 그랜드마스터 수상 → 첫·마지막 소설과 함께 화장해 달라는 유언이 이어져 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Norton requested before her death that",
+      "note": "congestive·cremated 두 어를 바꾸면 V4 이고 생몰 날짜 괄호는 걷는다."
+    }
+  }
+]

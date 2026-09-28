@@ -1,0 +1,948 @@
+[
+  {
+    "id": "51575452-7c6a-4db8-a172-510fcc7d93b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "46d6520455ea60c7f470fc2dd118d708bd424d95607c70f3539174802e784cf5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "두 프로젝트 발표 → 연구소 설립 → 각 프로젝트 책임자·일정으로 한 사건이 이어져 기술 보도로 content_match·topic 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Blender Foundation, which maintains the",
+      "note": "첫 문단은 앞 문맥 없이 서고 codenamed·in conjunction with 를 쉬운 말로 바꾸면 V4 로 내려가며, 프로젝트 이름을 걷어도 발표 내용이 선다."
+    }
+  },
+  {
+    "id": "5160013d-dbc9-49d6-b013-274ceaa44741",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "711164db72dc5b3de1da3f033235c4044bcd262453cb58b02118f8cce80efe1b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "노조의 불만(퇴직 연령 차별)과 지방정부협회의 반론(지방세 2% 인상)이 둘째·셋째 단락에서 맞서 주장-근거 칸과 content_match·summary 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Unions' complaint is that local",
+      "note": "둘째 단락은 혼자 논지가 서고 entitlements·unfavourably 를 바꾸면 V5 로 내려간다; 끝의 노조 약칭 목록과 오타(provising)는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "51656382-e2fb-4770-b5b1-3c92c429b22d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b3d0e8b22fd6d469d13e65a0d6d2f36319390eb8f22450da2ed8b94399613c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모 수치 단락이 길지만 넷째 단락에서 정전·마을 파괴·이재민이라는 결과가 이어져 사건 흐름이 있는 단신으로 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Power has been cut to some",
+      "note": "규모 수치 두 단락을 줄이고 피해 단락 중심으로 떼면 서며, aftershocks·severely 정도만 바꾸면 된다; USGS 수치 차이 단락은 걷는 편이 낫다."
+    }
+  },
+  {
+    "id": "51680983-3c5e-4c02-baee-b8b1482b5147",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a2cad7be51a67e2244b881d8cb84043343b26d067088b80b06f87003a693e792",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정보공개 청구 → 사망 1,000명 집계 → 「용병」 통념과 달리 직종이 다양했다는 마지막 단락까지 이어져 content_match 칸과 통념 교정 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite beliefs that the contractors all",
+      "note": "마지막 단락이 통념→반례로 혼자 서고 회사·인명을 걷어도 논지가 남으며, labelled·varied 수준이라 낱말 조정이 쉽다; 전쟁 사망 소재라 고1 이상만."
+    }
+  },
+  {
+    "id": "51770be5-20e8-4602-8361-dbbbaad0fb5b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "445c6288f0956f9a28adaf31ecaa0ca3b2358cccca38890ed84c3fcd45f9b21c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "착륙 → 사령관의 착륙 소감 인용 → 임무 내용 → 마지막 비행과 퇴역으로 한 사건이 이어져 content_match 칸을 채우고 인용 단락이 분위기 읽기에도 쓰인다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was Space Shuttle Atlantis' 32nd",
+      "note": "마지막 단락은 앞 문맥 없이 서고, 둘째 단락의 모듈 약칭(ICC-VLD)과 UTC 시각을 걷으면 중등 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "518afe2c-9168-4535-8fb9-c22d99121ca2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb8abe71e9b7d5194695eff71cd2dd83fcce7a189f709e0cfc3eb1d9d70fc348",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "방문 목적 → 투자 발표 → 인도태평양·우크라이나 입장 → 군수 협정·다음 일정으로 정상회담 한 건이 이어져 content_match·summary 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The two called for an immediate",
+      "note": "우크라이나 단락이 혼자 서고 cessation·sovereignty 를 end·independence 로 바꾸면 V5 로 내려가지만 쿼드 설명 없이는 인도 예외가 흐려진다."
+    }
+  },
+  {
+    "id": "51e207c2-8acd-4f32-8b40-806f2886e9a5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b369240e9c4afec2240378e427adcd718b7171af961a4baca9007035740489e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "동굴 집단 매장지 발견 → 법의학팀 발굴 진행 → 세르비아 측의 「접근을 거부당했다」는 반응으로 짧지만 사건이 이어져 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "New mass grave was discovered in",
+      "note": "세 단락이 짧게 이어지고 exhumation·forensic 을 digging up·scientific 으로 바꾸면 되며, 마을·기관 이름을 걷어도 사건이 선다; 전쟁 사망 소재라 고1 이상."
+    }
+  },
+  {
+    "id": "51ec1c10-8aab-4a4b-9535-019d92f2b338",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "63d7131bf0acef24fa8a934af71b1d1e7497a7e5d876a5dcb287789aba264d87",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "시즌 종료 → 휴식 후 새 시즌 → 새 공연 발표 → 큰 경기장이 없는 도시를 위해 극장 투어로 바꾼다는 이유까지 이어져 content_match 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Next year VEE Corporation, which runs",
+      "note": "마지막 단락이 새 공연·투어 변경 이유로 혼자 서고 낱말이 쉬워 중등 밴드로 내리기 쉽다; 지명·날짜가 많아 몇 개는 걷는다."
+    }
+  },
+  {
+    "id": "5205ed05-03d1-4e37-a054-05538af064b1",
+    "source_updated_at": "2026-09-25T09:15:56.69749+00:00",
+    "body_sha256": "16116373158a709a4e024080a85ab3e9665fb9563d3c5399189e003a246f588a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "중국 주가 폭락이 원인으로 토론토·뉴욕 지수 급락이 이어지고 「그래도 연초보다 높다」는 대조가 있어 수치 나열이 아니라 원인-결과 단신으로 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Toronto Stock Exchange experienced one",
+      "note": "첫 단락이 원인·결과·대조로 혼자 서고 sell-off·benchmark 를 풀면 V5 로 내려가지만, 뒤 단락은 지수 수치 되풀이라 걷어야 한다."
+    }
+  },
+  {
+    "id": "52324472-2161-4d54-97a8-faaaf56f3596",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ce8c92f4d3ad296f9328657964983316425319709c94fa6702cd6c168775709",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "뮤직비디오 동시 공개 → 1984년 원곡과 20주년 재녹음 → 다르푸르 모금용 벨소리·판매로 자선 목적이 이어져 content_match 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The song was originally recorded in",
+      "note": "둘째 단락이 원곡과 재녹음을 대조해 혼자 서고 가수 이름 몇을 걷어도 뜻이 남는다; 첫 단락 방송사 목록은 걷는다."
+    }
+  },
+  {
+    "id": "52450cd1-41ae-4251-bb9a-0b977597ec2a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f7f7cadfb4ffd30f14e48b21a4302e20a924591bef39a52e71240bac35a04769",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "공원 개장 행사 → 12년 공사·비용 → 주민 공간·서식지 보호·홍수 조절이라는 쓰임 → 남은 공사로 이어져 짧지만 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Themed \"A park for many reasons,",
+      "note": "둘째 단락이 공원이 하는 일 셋을 들어 혼자 서고 culmination·in conjunction with 만 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "524fcf08-08bb-4ffa-9477-3a8e5f55b5f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "59cacf7736a6dadac83c69d76cd7aafea71803ea7b3fe04e3855d2a667d6fe30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "sports",
+    "why": "두 경기의 쿼터별 점수 변화가 본문 대부분이라 역전 흐름(모웰이 4쿼터에 앞서 나감)이 사건 연결인지 점수 나열인지 기준 경계에 걸려 보류한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "170 kilometres away, Morwell capped off",
+      "note": "역전 경기 단락을 떼 보면 점수(15-22 (112))를 걷는 순간 남는 것이 「이겼다」뿐이고 goals-behinds 규칙 설명 없이는 읽히지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "5295c881-7a30-4392-8ba0-2f88fe991647",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33a5a5730a01877c815dcb7ac7f2193f44c89521033f0f556a4aee636b7672d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "힉스 메커니즘 수상 → 표준모형에서 그 메커니즘의 자리 → 1964년 논문 → 입자를 찾는 가속기 실험으로 이어지고, 2012년 발견 전 시점 글이라 시대 비교 칸도 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The mechanism is the key element",
+      "note": "셋째 단락은 혼자 서지만 spontaneous symmetry breaking·electroweak 같은 용어는 바꿀 낱말이 없어 밴드가 내려가지 않고, 수상자 명단과 LHC 끝 두 문장은 걷는다."
+    }
+  },
+  {
+    "id": "5296896f-7a79-4024-9cc6-7eb219ee0803",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79d79b0574669544c014f00c4acdc34bbe8ff94ed3c9ce80613ad96b8dcd441e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "금주당 후보가 금주법 시절이 최고였다고 주장하는 한쪽 입장 인터뷰로, 마지막 답변 단락에서 주장-근거(교도소가 비었다) 칸을 성인 대상으로만 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "We are America's third oldest party,",
+      "note": "마지막 답변은 주장과 근거가 있어 떼어지지만 답변 대부분이 질문과 동떨어진 단언이라 논지가 약하고, 인종·유대인 언급과 전화번호는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "52abc1df-04d7-4b82-8b06-a20ac953bd01",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ceafc630c05dc23fb508366667324a0d2d1a0296f4988e018fab30409f02af79",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 → 화물(콜버트 러닝머신 일화 포함) → NASA 발표 → 우주인 교대로 한 임무의 시작이 이어져 content_match 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The treadmill named for comedian Stephen",
+      "note": "콜버트 이름 짓기 일화는 떼어도 이유-결과가 서고, 둘째 단락 앞 문장의 장비 이름을 걷으면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "52b68983-84b4-4a57-b6fc-ad4e7d47ea09",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "32ef0e1229f929a809d4b1d39ca7d7c078adef7eff15a3d1469a1e67fe2c3555",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "99주년 추모식 → 100주년 계획 → 공식 사망자 478명을 3~6천 명으로 고친다는 결정으로 이어져 짧지만 content_match 칸과 과거 기록 수정의 시대 비교 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The San Francisco Board of Supervisors",
+      "note": "마지막 단락이 사망자 수 수정을 혼자 말하고 revised·account for 만 바꾸면 중등 밴드가 된다; 앞 두 단락과 붙여야 추모 맥락이 산다."
+    }
+  },
+  {
+    "id": "52b87c22-1652-4ce2-8a90-67f130f5ad7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cda2bd14616d4acf5677513a636f2d3073e62a73c726e9d2fa1f800c5e799f1f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "학부모의 책 소각 → 교사 단체의 비판 → 부모 쪽 이유(욕설)와 작가의 반론 → 금서 목록 비교로 입장이 맞서 claim·content_match·topic 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "claim",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Colorado parents who burned the",
+      "note": "둘째 단락이 부모 주장과 작가 반론을 혼자 담고 emeritus·flippant 를 retired·careless 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "52bbe807-d3ea-4f38-8b67-09183349dc31",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6457d5c6f2efbb431ad338f48ad478f61e4d69eece1bd6d8cc277e222c131e83",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "참모 두 명 사임(아내와의 갈등) → 모금 급감 보도 → 그래도 여론조사 상위권이라는 대조로 이어져 짧은 선거 단신의 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Tuesday and Wednesday, two of",
+      "note": "첫 단락은 사임과 이유로 혼자 서지만 마지막 단락은 여론조사 수치 되풀이라 걷어야 하고, 인명을 걷으면 남는 내용이 얇다."
+    }
+  },
+  {
+    "id": "52df10be-4f8f-4bc0-b6cd-55fbe3021972",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a43d9bfdc3dba07ec547591ce8705bbbccbd1dec060265e46ce2a2275cf6494d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "플로리다 악천후로 에드워즈 기지에 착륙 → 보잉 747 에 실려 이틀 걸려 귀환했다는 이유-결과가 이어져 짧지만 content_match 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 109 ton vehicle was flown",
+      "note": "둘째 단락이 운송 과정을 혼자 말하고 modified·pit-stops 를 바꾸면 초등 상위 밴드까지 내려가며, 마지막 단락을 앞으로 옮기면 시간순이 된다."
+    }
+  },
+  {
+    "id": "52df90f0-0712-4a04-9386-be1d9af1c732",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e3a603415ebb5f762dbe0ca535896342ff26c271abfbf581503f37a31909b8c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연속 지진 규모가 되풀이되지만 파고 예측 → 쓰나미 경보 발령 → 곧 해제 → 피해 없음이라는 반응·결과가 이어져 단신 최소선을 넘는 content_match 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The tsunami warnings were issued only",
+      "note": "경보 단락과 첫·끝 문장만 떼면 혼자 서지만 가운데 규모·시각 단락은 수치 되풀이라 걷어야 하고, 낱말은 magnitude 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "52e3ec89-e4c1-415c-b8e7-2b4fd7227fbd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7e41cbc80a4adb3211d2b16e070accd37e3d92f79949bec14633c67100db8311",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "세서미 스트리트 배우의 방문과 이력, 테마파크의 이번 시즌 공연이 첫 두 단락에서 이어져 content_match 칸을 채우지만 마지막 사진가 소개 단락은 홍보라 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Bob from Sesame Street\", actor and singer",
+      "note": "첫 단락은 인물 소개로 혼자 서고 낱말이 쉬워 조정이 적지만, 사건 연결이 약해 인물 이력 나열에 가깝고 마지막 단락은 걷어야 한다."
+    }
+  },
+  {
+    "id": "52eab2a7-0381-4fda-bc32-10fa451bf7e2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36f272bde3807a787b1dc443a3e9cc5367351577750db7e0bf56686499481c2d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "조류독감 첫 감염 소년의 완치 판정 → 의사가 빠른 치료를 생존 이유로 듦 → 무료 검진 → 중국 내 사망 통계로 원인·결과가 이어져 content_match 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Doctors say that He Junyao, 10-years-old,",
+      "note": "셋째 단락까지 떼면 이유-결과가 서고 인명을 the boy·a doctor 로 바꿔도 되며 낱말 조정이 거의 필요 없다."
+    }
+  },
+  {
+    "id": "52f25294-dbda-469c-abe3-83c01f48d730",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "725e968d16a9838e074146ed5191ad7de58c1c354afafed2f8a87d753238ea0b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "아시아 소아마비 퇴치 목표 선언 → 주도 기관과 접종 캠페인 → 2004년 45% 감소 실적으로 목표의 근거가 이어지고, 2005년 목표가 이루어지지 않은 시점 글이라 시대 비교 칸도 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 16 year old private-public project",
+      "note": "둘째 단락이 목표와 방법을 혼자 말하고 eradicate·endemic 을 wipe out·still found 로 바꾸면 V4 로 내려간다; 날짜 머리줄과 「within the country」 오기는 고친다."
+    }
+  },
+  {
+    "id": "52f337bb-3759-41fb-a14d-afe15a07cbef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0e0739140a5bee76cad76d579ed209a589d69fb5949afd579c0fc702a869738f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "논란을 딛고 5관왕이 된 딕시 칙스와 블라이지·언더우드의 수상이 이어지지만 첫 두 문장이 비문이라 고쳐 쓰는 전제로 content_match 칸만 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mary J. Blige, who went into",
+      "note": "둘째 단락은 혼자 서고 낱말도 쉽지만, 첫 단락 첫 두 문장(「won the award album in the song of」 · 주어 없는 「Finally overcame」)은 다시 써야 한다."
+    }
+  },
+  {
+    "id": "52f9658d-04e8-4af1-8576-569d788d5a12",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95b3c529d3d8b88c5b6b27aad10bc295c8cc6a686ac951b35592dcaa8f80cc43",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "겨울 첫 눈폭풍 → 허리케인급 돌풍 → 지역별 적설 → 항공편 결항·빙판 사고라는 결과가 마지막 단락에서 이어져 content_match 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Monday, travel proved difficult, with",
+      "note": "첫 단락과 마지막 단락을 이으면 원인-결과가 서고 나머지 풍속·적설 수치 단락은 걷으며, nor'easters 만 풀면 중등 밴드가 된다."
+    }
+  }
+]

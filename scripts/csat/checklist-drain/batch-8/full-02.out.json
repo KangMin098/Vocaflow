@@ -1,0 +1,988 @@
+[
+  {
+    "id": "4adcd802-c0ed-45e0-bceb-dfef008d54c5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c656f916026292d0d7f82a71782d122b1631c6c5a747a0076c490cbcbf31d27",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "칠레 건국 200주년 기념 행사를 산티아고 광장·피칠레무 해변·학교 행사로 이어 가며 기원(1810 군사평의회)부터 방문객 수 전망까지 사건이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chile is celebrating its Bicentennial, with",
+      "note": "첫 두 문단(기원·개막)만 떼면 선다 — fondas·tertulia 같은 스페인어 낱말을 걷거나 풀이로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "4aeaaba2-7894-49ae-b25a-75433fdd2ac7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78a484d5f1f5fc8d3f2aab10130383eb7cd2b65d0fcc19a5c8511b4e16b4f27d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "구글 지도·로컬 검색의 영국·아일랜드 출시를 북미 출시·위성사진 도입과 견주고 두 검색창·SMS 기능을 설명해 짧지만 기능 설명이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Google Local service offers users",
+      "note": "기능 설명 문단은 앞 문맥 없이 선다 — Keyhole 인수 같은 고유명사는 걷어도 되고 abstract·geographical 을 쉬운 말로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "4af29420-451f-4ec3-a568-d6ea127e479e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "806efb484a73fde23f4759445e8602adb64bfc4a6b8178e6c5952ef4ed331641",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "북한이 미사일 시험 준비를 부인하고 우주 개발 권리를 주장하며 미국을 비난한 성명과 한미 정보·2006년 실패 전례가 맞서 한쪽 입장 보도로 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "North Korea has denied in a",
+      "note": "부인 → 주장 → 반대 보도 흐름이 한 편에 서고, 성명 인용의 viciously tricking 같은 번역투를 풀어 쓰면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "4b14aca4-631c-4765-a596-3b1cb5a51e80",
+    "source_updated_at": "2026-09-25T08:48:09.850725+00:00",
+    "body_sha256": "5d08dc35c343901afd10ddb114d0e57fcd93a6bc1efcd9d305b1f53d09aa48eb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "타이베이 트랜스아시아기 추락에서 엔진 자동 페더링·잘못된 엔진 차단·조사 절차·조종사 평가가 원인과 후속 조치로 이어져 내용 일치·순서·문장 삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Engines autofeather when they fail ('flaming",
+      "note": "페더링 설명 문단은 앞 문맥 없이 서는 기술 설명이다 — feather·thrust·drag 를 풀어 쓰면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "4b2e41eb-6641-4662-b658-5ddf29355f91",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e342c31f464131a427692528d6a3a1547186eff9c4934eafd26c0b54f07a5ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "윈도 XP 보안 지원 종료를 이유로 중국 정부가 윈도 8 구매를 막고 마이크로소프트·중국 보안업체가 반응하는 원인·결과·반응이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Windows XP shutdown comes thirteen",
+      "note": "원인(지원 종료)과 결과(구매 금지)가 두 문단에 서 있어 떼기 쉽다 — procurement·proactively 를 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "4b3959ad-20c6-432c-a7ad-23f74389cb46",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a2b682a91f4a053e33488e4a549f64f5d5bb8a5902b7b7e2e8108c089fc22e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "호미 세트나의 사망 소식 뒤에 원자력위원회 이력·1974년 포크란 실험 주관·주지사 조사가 이어져 한 사람의 생애가 짧게 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During his career Sethna held several",
+      "note": "이력 문단은 혼자 서지만 짧다 — 조사 인용을 걷고 fibrosis·condolence 를 풀면 V5 에 든다."
+    }
+  },
+  {
+    "id": "4b3b744d-04f7-46f0-bbb7-baa089dc2900",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8efa32f140bd1ea6a45b1554ad126ef6992326e1738a2a9faa8cedb277bcb4d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "SAS 착륙장치 고장 두 건이 봄바디어 Q400 운항 중지 권고로 이어지고 항공사별 조치·주가·결항 피해가 뒤따르는 원인·결과 흐름으로 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The accidents have resulted in Bombardier",
+      "note": "주가 수치 문단은 걷어도 사건이 선다 — precautionary·undertaken 을 바꾸면 V6 이다."
+    }
+  },
+  {
+    "id": "4b5076d4-8e5a-42fe-b942-1f7a3172a50d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6540f836332e96bbd664e8cb5fdc93eb8818bc60dfa5235e7b08973f055c643e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "익명으로 남을 괴롭히는 온라인 메시지를 처벌하는 법 조항이 서명되고 사이트 운영자가 수정헌법 1조로 맞서겠다는 반응이 이어져 짧지만 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "President Bush signed legislation last Thursday",
+      "note": "법조문 인용이 길고 어려워 요약으로 바꿔야 한다 — 낱말 두셋 교체로는 밴드가 안 내려가 V6 이상으로 둔다."
+    }
+  },
+  {
+    "id": "4b5b0abc-e808-43af-acaa-54e48a3c2ebc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c33a4b18cec9f58c6116b9974a134c91937948996fe859c805b19bc4153dc84",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "에어캐나다 정비공 1,010명 해고가 A319·A320 정비 수요 감소 때문이며 영구·일시 해고의 맞바꿈과 복귀 전망이 이어져 수치 나열을 넘어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The layoffs reflect reduced demand for",
+      "note": "원인 문단이 혼자 서고 도시별 인원 수치는 걷을 수 있다 — seconded·mitigation 을 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4b731c87-e899-4ddc-b99b-21ea12790080",
+    "source_updated_at": "2026-09-25T09:16:14.25452+00:00",
+    "body_sha256": "9aa2f686a3660db02564ab222267bc7adacc2093571831824f3b068f89534cd4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "로라 부시가 사우디에서 유방암 인식 제고 협력을 출범시키고 협약 서명·환자 방문·순방 일정이 이어지는 행사 보도로 내용 일치·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Laura Bush also visited with women",
+      "note": "방문·인용 문단은 떼어도 서며 기관 이름 나열 문단은 걷는다 — comprehensive 를 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4b7a5732-862f-498e-bfd8-b4ea9bc331de",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "90bf4c23b01ca2d45839ef8a9c73501cf3d89d3644d860057317cf799d02e1a3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "앞 두 문단은 여진 규모·진앙·진도 수치 나열이지만 셋째 문단에서 지원 명단 누락 → 시장 비판 → 시장 해명이 이어져 사건 흐름이 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thursday morning the Municipality of Pichilemu",
+      "note": "비판·해명 문단은 혼자 서고 Mercalli 수치 문단은 걷는다 — balustrades 를 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4b8adc44-7a81-4de0-a75a-7dfb3242f9a2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf3c40d5dbd59c51f2d2e0319e144188808ea3f3f352c33f9d99384152c32f11",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뇌우 속 낙뢰가 피츠제럴드 옛집 첨탑에 불을 내고 소방관이 진화하며 그 집이 『낙원의 이쪽』 집필지로 확인되는 한 문단 단신이 사건으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During a thunderstorm tonight, lightning set",
+      "note": "한 문단 전부가 사건 흐름이라 그대로 떼어진다 — steeple·extinguish 를 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "4b8beabc-38cd-4dab-8f8b-f55b67e0231f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b14181a3e8dcf255571c33d0879b889adba591e84b1fad7655160e6c6b5418b2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "노동당의 태평양 기후변화 전략 발표에 녹색당 대표가 일부 환영하면서도 약하다며 난민 인정 동의안 반대 전력을 짚는 발표 → 반응 흐름이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Senator Bob Brown of the Australian",
+      "note": "두 문단뿐이고 정책 내용 자체는 없어 발표와 반응만 남는다 — 직함 괄호를 걷으면 V6 이다."
+    }
+  },
+  {
+    "id": "4b94fa5e-3038-4508-967b-672938a4727b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "29eb3163a50a80143229936369fa27f5994f3c730e495b446891fa884b7c2107",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "맥도날드 직원 A형 간염 확진으로 해당 시간대 손님에게 진료를 권하고 장갑 착용·증상·위험 해소를 설명하는 원인·안내 흐름이라 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dr Simmons says that if someone",
+      "note": "증상·권고 문단이 혼자 서고 끝 전화번호는 걷는다 — antimicrobial·nausea 를 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4b95fc49-5e37-4eba-91d0-1e592845ec40",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "913df7defff47b2decf3a426885ff66856de4d03d188d8edf2e2eced76a7b255",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "후세인 재판에서 변호사 칼릴이 발언을 멈추지 않자 퇴정당하고 법복을 던지며 후세인과 판사가 말을 주고받는 장면이 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Khalil was attempting to make a",
+      "note": "퇴정 장면 문단이 사건 순서대로 서고 대화가 짧아 쉽게 떼어진다 — sacred 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "4ba1fb2a-2e17-4ff4-afb8-b76b1de9fe8b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0f91d377fc753d3acdecc1f2a1b75ae3023d74c15d991d5e4d90b6ceff96d8e6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "공중 발사 페가수스 로켓이 C/NOFS 위성을 궤도에 올리고 위성의 전리층 섬광 예측 목적과 2003년부터의 지연·다음 발사 일정을 이어 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "C/NOFS, which stands for Communications/Navigation Outage",
+      "note": "위성 목적 문단은 혼자 서지만 scintillations·ionosphere 는 풀이가 필요하다 — 바꾸면 V6 이다."
+    }
+  },
+  {
+    "id": "4bc97cbf-f3a4-4670-bcf8-3f8aec4774e9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f96da168fc3c3d3c473d7faaaffd879dfc5da278288bba2730c432f33c093e8e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "호주 학생회비 임의가입 법안 하원 토론에서 정부·야당 의원이 이념·서비스·정액세 논리로 맞서다 표결로 통과하는 흐름이 서서 주장·요약·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In the second reading debate, Brendan",
+      "note": "넬슨의 정액세 논리 문단은 혼자 서는 주장이지만 의회 절차어(guillotine·second reading)가 많아 낱말 교체로는 밴드가 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "4bdf1a75-285b-4b10-b02d-ceb96bfb48c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7b381a491bfa2bbc95b7d6a1a9d5f682bb1625657be6350d7ade22ba14cb332f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "레바논 전쟁 지휘에 대한 내부 검토 비판 → 할루츠 참모총장 사임 → 개전 직후 주식 매도 비판으로 원인·결과가 세 문장에 이어져 짧은 단신이지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The head of the Israel Defense",
+      "note": "세 문단 전부가 한 사건이라 그대로 떼어진다 — portfolio 를 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4beff6eb-48bc-4cd4-878e-d50e22102c59",
+    "source_updated_at": "2026-09-25T09:16:57.344625+00:00",
+    "body_sha256": "4d2e1315ae50fab8b181a93dff08b6a1c0fe4219ddb261d36b3364064669147c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "economics",
+    "why": "캐나다 음반사 미지급 저작권료 집단소송 보도인데 「thus:」「he states:」 뒤 인용과 「following two tables」 표가 빠져 있고 후반은 로비스트를 「거짓말」이라 공격하는 기자 논평이라 끊긴 원천이다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The theoretical principle of the list",
+      "note": "앞 절 pending list 설명은 떼어지지만 예고한 인용·표가 없고 법률 용어가 빽빽해 낱말 교체로 내려가지 않는다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "4bf9e180-67b2-4421-886f-8091c111a4cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "82f8ce243e1fdb5e04246eca0b1a1f07623208fb49711314b604ff0c1b9b04a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "오럴로버츠대의 부채·수입·기금 수치 뒤에 총장 비위 의혹 → 일시 사퇴 → 부친 복귀 → 동문 집회의 완전 사퇴 요구가 이어져 사건 흐름이 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In September Richard Roberts, who served",
+      "note": "둘째 문단이 사건 흐름으로 혼자 서고 첫 문단 재정 수치는 걷는다 — endowment 를 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4c1be394-2e3b-45fa-a05e-34bf8d8c6961",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "af12ed3737f573fd62e8dabfabf305ccec2a24f996d8e5503e10c4415de45292",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "체니 부통령이 항공모함에서 이란 핵무장 불허를 경고하고 아마디네자드의 아부다비 방문 직전이라 발언이 더 무겁다는 맥락이 이어져 다섯 문장 단신이지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Speaking on the aircraft carrier USS",
+      "note": "한 문단이 통째로 한 사건이라 그대로 쓰되 poignant 를 significant 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4c2138b7-ebfb-4a83-be05-373cb793f802",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e527c0d7a3479a4b87644fe34fcfaf09d8e77c33b6a59b01d5eece670e6cc61",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "G8 정상회의에서 독일·프랑스의 수치 감축 목표와 미국·일본의 중국·인도 참여 요구가 정상별 발언으로 맞서는 구도가 서서 주장·요약·주제·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "summary",
+        "claim",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "President George W. Bush finds himself",
+      "note": "부시의 가교 발언 문단은 입장과 이유가 함께 있어 혼자 선다 — reluctant·quantifiable 을 바꾸면 V7 이다."
+    }
+  },
+  {
+    "id": "4c35a27b-ef58-4f9f-b7d6-b3e848ff0286",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9db710b714fda9e6460b741cf506961d05e4170105bb566d0d32fa8fd581f543",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "아이티 대선 후보 필리프·투생과 상원 후보 라토르튀의 코카인 밀매 연루 의혹을 미국 관리 증언과 당사자 부인으로 나란히 전해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Guy Philippe is the rebel leader",
+      "note": "인물 이름을 걷으면 의혹 보도가 남지 않아 고유명사를 둔 채 써야 한다 — ousted·informant 는 바꿀 수 있다."
+    }
+  },
+  {
+    "id": "4c37191f-d7d2-4688-9c74-31283d977ced",
+    "source_updated_at": "2026-09-25T08:54:44.392853+00:00",
+    "body_sha256": "aacb44d8eb6674184f09f04c394343fae7857020b454821d4cfa5c25ce129917",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쿠바 국영 버스가 빗길 추월 중 전복해 7명이 숨지고 승객 국적·사고 시각·쿠바 도로 사고 통계·한 달 네 번째 사고로 이어져 원인·결과가 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bus overturned in wet conditions;",
+      "note": "원인 문단은 혼자 서고 국적 나열 문단은 걷는다 — rollover 를 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "4c3904da-564b-4d4e-ad68-79d3b09913f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33560b0c4bd503a8bddcc977a05b886946b45fcc323b6013a83bd23882294a33",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "중국 국방비 7.5% 증가를 GDP 비중 비교·위협 대응 해명·1990년대 이후 두 자릿수 증가 추세·다른 부문 불만으로 풀어 설명해 요지·내용 일치 칸과 수치 주장 검증 속성을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to US military analysis and",
+      "note": "추세 문단이 앞 증가 폭의 까닭을 풀어 혼자 선다 — sovereignty·distorting 을 바꾸면 V6 이다."
+    }
+  }
+]
