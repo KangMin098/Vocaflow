@@ -1,0 +1,957 @@
+[
+  {
+    "id": "6d92586d-1e5e-4834-a7fe-7f200710b405",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c639166611ba3ce1b4654ebdf565d31b71c0cf58428039706a7b33bd8bc897af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "총리 결의안 제출 → 국왕 권한 축소 항목 → 분석가 우려와 정치권 반박까지 원인·내용·반응이 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The proposal also aims at cutting",
+      "note": "둘째 문단은 앞 문단 없이 서고 exempted·henceforth·secular 를 바꾸면 V6 으로 내려간다."
+    }
+  },
+  {
+    "id": "6d93f386-b474-494d-854f-59c818c0194d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e91b810630b55c5c4efdd70e0fd9322c961719c0a311e789b84bbe253363af80",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "일본 지진 뒤 부상·가옥 피해 집계, 조사단 파견, 판 섭입이라는 원인 설명이 이어져 단순 규모 나열이 아닌 내용 일치 칸 단신이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Japan's Fire and Disaster Management Agency",
+      "note": "피해 집계 → 조사단 → 원인 설명 문단이 혼자 서며 subducts·epicenter 를 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "6d96aecd-8773-46a0-bc86-30b1d830b59b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "719c29a235541bdb3e10742f871c1aac13216be59214f05b112eca8fa935f495",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오바마의 「중대한 위협」 발언 → 북한 선박 경고라는 배경 → 협상 의사와 이명박 반응이 이어지는 짧은 보도로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "President Obama's speech, delivered alongside South",
+      "note": "배경 문단이 혼자 서고 branded·coexistence 만 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "6d9fa5e3-3bd9-42bc-81ab-5f87275726c5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "518f20b23dc1bce106dde9ca5b6576c0311b2a506a473c3a21b6834fe2bdf752",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "데스크톱 검색의 기능 설명 → 정식판 추가 기능·플러그인 → 경쟁 제품 흐름으로 제품 소개가 한 편으로 서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Beta since last Autumn, version",
+      "note": "둘째 문단이 혼자 서고 registry·incentives 를 바꾸면 되지만 2005년 제품이라 시대 표시가 필요하다."
+    }
+  },
+  {
+    "id": "6da503b0-e407-4150-a5bf-572176af7136",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6a523ab73687a1703453246d560cdb7838454492bb829f97fef9d17004a46d3a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "후보자 이름과 부문 수, 진행자·장소만 바꿔 되풀이할 뿐 문장 사이를 잇는 사건이 없어 수상자 이름 나열 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Nominees for the 2008 Juno Awards,",
+      "note": "이름을 걷으면 「후보가 발표됐다」 외에 남는 논지·사건이 없다."
+    }
+  },
+  {
+    "id": "6db1ee81-b59b-4018-aacd-a476a8ef9022",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e64750cbcba1b1bf32d453e7282c0c3cb7f2f8395b5dfc14d15661ff775e58a6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "하마스 의석 결과 뒤 첫 선출 여성 시장의 인터뷰와 서안 여성 당선 수가 이어져 득표 수치 나열을 넘는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Fathiya Barghouti Rheime, a 30-year-old high",
+      "note": "여성 시장 문단이 혼자 서며 blemish·transmitting 을 바꾸면 되고 radical islamist 표현은 가공 때 중립화한다."
+    }
+  },
+  {
+    "id": "6db64128-fa0e-4b09-a4d9-42c03ba8ef0a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd148052e5073cdac25bfa174e855e1f18fba4037c1a73901a7d0f270b676bec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 → 분리 → 태양전지판 전개 → NASA·CNES 공동 해양 관측 목적이 이어져 내용 일치 칸이 서며 뒤 문단의 발사 횟수 나열은 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "OSTM is a collaboration between the",
+      "note": "첫 두 문단은 서지만 로켓 구성·발사 순번 문장은 수치 나열이라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "6dcd523d-afaa-4bb9-b3fc-3d00cbe173dd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b93a7f74af339d582d0c2eb9ebc90145770f1a229dffbe00c80e9e42482be996",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "화폐 폐지 발표 → 교환 절차·인출 한도 → ATM 행렬·상인 반발·부탄 영향까지 원인·결과·반응이 길게 이어져 내용 일치·요약·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "long_reference",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Thursday, there were long queues",
+      "note": "「In his announcement, Modi said,」 뒤 인용이 빠진 한 줄은 걷어야 하고 ATM·상점 문단은 혼자 서며 demonetised·legal tender 는 풀어 쓴다."
+    }
+  },
+  {
+    "id": "6dd4257e-7195-447a-9c9d-9b645a260e8f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a2185c2b693eaa2ed7283bd2c68e9d5037432e5bb660b7a15c41c566ee2ea3a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "십자가 모양 유목 경매 → 치즈 샌드위치 선례 → 고가 기독교 물품 사례로 흐름이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Expensive found art Christiana made international",
+      "note": "샌드위치 선례 문단이 혼자 서며 첫 두 낱말의 오기를 걷고 perusal·dubious 를 바꾸면 된다."
+    }
+  },
+  {
+    "id": "6ddc26d9-fbda-4f0e-a432-799d6827691b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "807035cfcada754927e911e592933b8742da8cfb9b58f371dd8e11ab4e9eab5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시드니 인종 폭력이라는 원인 → 세 나라의 여행 경보 → 주의 권고로 원인·반응이 이어지는 짧은 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following the racial violence which occurred",
+      "note": "한 문단 전체가 혼자 서고 sporadic·exercise caution 을 바꾸면 되나 분량이 짧아 문항 하나 몫이다."
+    }
+  },
+  {
+    "id": "6dddc94f-a93a-47d8-9ccd-15aad65dafd2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4be804708ca7774bbda960dbb379a622d7c60db46eb20080362f379839a1a919",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "폴락의 사망과 사인 → 출생과 대표작 → 유족으로 한 사람의 부고가 이어져 짧지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sydney Pollack, Academy-Award winning American film",
+      "note": "짧은 세 문단이 그대로 서지만 사건 연결이 사망·사인 하나라 문항은 내용 일치 하나 몫이다."
+    }
+  },
+  {
+    "id": "6de82c4f-a6e2-4932-95ea-087d3c03bfb1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0e086ad4c273b4e80ae5645d7c610c2c7972126d291709889749f77ffd15c76",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "득표율 수치 뒤에 터키만 승인한 정부와 1974년 침공으로 인한 분단 배경이 이어져 득표율만 나열한 단신보다 한 단계 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Turkish Cypriot government is only",
+      "note": "분단 배경 문단은 혼자 서지만 앞 세 문단은 득표율 나열이라 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "6e070dde-9399-4b2f-ace0-b4a81016fc9a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9dca595a74e4f3eb4a728ccda9293fca6a339eecb94aa81c4cd25be14eaa7411",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "분산 컴퓨팅 협업이 최대 소수를 찾았다 → 무료 프로그램 Prime95 로 찾았다 → 팀 기여도로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The discovery, which marks the 43rd",
+      "note": "둘째 문단은 서지만 첫 문단의 지수 표기가 230,402,457-1 로 깨져 2^30,402,457−1 로 고쳐야 한다."
+    }
+  },
+  {
+    "id": "6e167589-190d-4b33-ad84-d0276d49d3c1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "afa331b773bf22bae7f0786585bf2e888eec86dad93497cb83802d6d1dcc7eba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "장거리 기단 현대화 구매 → 보잉 대신 에어버스를 고른 이유 → 주가 하락·라이언에어 인수 시도 변수로 원인과 반응이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aer Lingus rival Ryanair has been",
+      "note": "인수 시도 문단이 혼자 서며 redundant·regulatory approval 을 바꾸면 V6 이 된다."
+    }
+  },
+  {
+    "id": "6e1cd63a-cb3f-481c-a2f7-00397555671d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "229027f8f85177738bc741e940461e5dee67716dea421c1c47f0132c9d15a111",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "해적 납치 부부의 격리·불면 상태와 호소 → 몸값 요구와 처형 위협 → 영국 외무부의 몸값 거부로 사건·반응이 이어져 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The couple have been separated from",
+      "note": "부인의 호소 문단이 혼자 서고 disorientated·concessions 를 바꾸면 되며 처형 위협이 있어 고등 이상 칸만 둔다."
+    }
+  },
+  {
+    "id": "6e205e5a-8057-42b9-81c0-c7736c522f37",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c7753c79739dc9a0e21e54d9bf2af57fd94222aaac00a1a12e499020afe303b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "태풍 상륙과 풍속 수치 뒤에 기상국의 해상·육상 경보 예정이라는 다음 절차가 문장으로 이어져 단신 최소선을 겨우 넘는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Super Typhoon Haitang is now making",
+      "note": "풍속·좌표 수치가 대부분이라 경보 절차 한 문장에 기대며 문항은 내용 일치 하나 몫이다."
+    }
+  },
+  {
+    "id": "6e262e30-a56c-44fd-a886-ee31afdc0085",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7800bde9d912a7d64d3f52f36fc072fc7cd84396cbede52952aa85870b25f773",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "교황이 처음으로 성금요일 예식을 이끌지 못함 → 영상으로 등장 → 폐 질환·파킨슨병이라는 이유로 사건·원인이 이어지는 단신이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pope John Paul II, the most visible",
+      "note": "네 문장이 그대로 서고 liturgies·denomination 을 바꾸면 되며 마지막 전례 설명은 사실 진술이라 교리 제시가 아니다."
+    }
+  },
+  {
+    "id": "6e2785b7-c043-4d52-b802-4aa9758fff95",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6843e712fa2acc2ef24e6ce508bc1a6ff60d5f147ba49d5100dacc8bce94142a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "첫 민주 총선 → 투표율 비교와 평화로운 진행 평가 → 후보·폭력·여성 참여로 이어져 내용 일치 칸과 순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Women have a sizable role to play",
+      "note": "여성 참여 문단이 혼자 서며 sizable·conservative 정도만 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "6e2c0c40-1a4d-419a-9136-a66d1408bd7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd6a188b5fc51a0b8de912ceac09a8d212c188b8f8b3627a544bc483276d8c0f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "보안 전시회 개막·포럼·베트남 진출 계획이라는 사건은 있으나 「grasped for」「progressively respected」 같은 비문이 많아 문장을 다시 써야 뜻이 서는지 가공이 애매하다.",
+    "hold_reason": "processing-unclear",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "New Era International Inc., the show",
+      "note": "셋째 문단은 떼어지지만 낱말 교체로는 안 되고 비문을 문장째 다시 써야 해서 원문 가공인지 재저작인지 갈린다."
+    }
+  },
+  {
+    "id": "6e2ec6bd-9812-4d38-9ac9-11e18768a97c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9115953402bc42c73e4d217c05c6f7ca077977f702928f4e060a20232ec5dfeb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "WHO 가 팬데믹 종료가 아니라고 판단 → 경보 6단계 유지와 7월 재검토 → 감시·통제 권고로 판단·근거·다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An emergency committee consisting of fifteen",
+      "note": "위원회 권고 문단이 혼자 서며 surveillance·revision 만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "6e514ff2-0e48-48a1-852a-376e5c841d2b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "395e183a40acb47af34ed032dc94e0378c217306f6a9627b6ed4285f0b4c8cae",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "거대 깃털 공룡 발견 → 「작아진 뒤 새가 됐다」는 기존 통념을 뒤집는 해석 → 연구자 인용으로 통념·반증이 서서 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Previous theories about dinosaurs were that",
+      "note": "통념·반증 문단이 혼자 서고 Cretaceous·herbivore 를 풀어 쓰면 V5 까지 내려간다."
+    }
+  },
+  {
+    "id": "6e54378d-0b6a-4884-9c06-636d2b8c761d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4d76bae66322ad8f0fc6804ff126625bb6682e031f8e7258bc5d1842021b71c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "카디마 근소 승리 → 연정 구성의 난관과 리베르만의 캐스팅보트 → 페레스의 결정·미국 반응으로 선거 뒤 교착이 길게 이어져 요약·장문·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "long_reference",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The real resolution of the electoral",
+      "note": "교착 해소 문단은 혼자 서지만 중간의 크네세트 제도·인물 약력 문단과 히브리어 표기는 백과 설명이라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "6e95bf02-0e6f-4c5e-96ce-da21ec3fcc23",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9972eadf50be9af4af6089635d8e8ee7c0e583ceac934aa0e4e43b83ea806876",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "여행 박람회 개막 → 양안관 공연과 관계 개선 기대 → 행정원장의 2008-2009 방문의 해 우대책 발표로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The show organizer, Taiwan Visitors Association",
+      "note": "양안관 문단은 혼자 서지만 successively·premiums 등 어색한 표현과 인용문 비문을 다듬어야 한다."
+    }
+  },
+  {
+    "id": "6e97bf17-8923-4623-8a8a-0fad6bfb2ec8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c24b73d7adf3a6137cb6af190188663ef58491aa39f75398f7a9984bfa45b625",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "터키·노르웨이·인도네시아 지진을 규모와 시각만 바꿔 세 번 되풀이하고 잇는 사건이 없어 규모 나열 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "On Friday at 10:20 a.m, a",
+      "note": "수치를 걷으면 「세 곳에서 지진이 났다」만 남아 문항을 세울 논지·흐름이 없다."
+    }
+  },
+  {
+    "id": "6ea0e280-b97a-4f06-8365-ed741f9db894",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b80f98492b1b55ba20f5911829ccdd2ff0f94ed3c7b7a8a6436c74c2e615a6b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지뢰 폭발과 교전으로 병사 사망 → 헬기 보복 공격 → 전날 자살 폭탄·탈레반 공세라는 맥락으로 사건·결과가 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incidents took place a day",
+      "note": "맥락 문단이 혼자 서며 paramilitary·offensive 를 바꾸면 되고 사망 소재라 고등 이상 칸만 둔다."
+    }
+  }
+]

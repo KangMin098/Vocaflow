@@ -1,0 +1,948 @@
+[
+  {
+    "id": "6a7f233f-5525-4e58-8e94-ebb5148e9667",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4db520943dff9250185cd7bd7874d4d22e6ae603b6b2f2796ca5e4d86c7ac2a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "코스텔로의 시민권 박탈 발언과 무슬림 단체·민족공동체협의회의 반박이 번갈아 서는 보도라 주장·근거 칸(claim·content_match)을 고2 이상에서 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "content_match",
+        "summary",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr Thomas also points out that",
+      "note": "시민권 박탈의 실효성 반론 두 문단은 인명을 걷어도 서고 singled out·marginalising 을 쉬운 말로 바꾸면 V5 까지 내려간다."
+    }
+  },
+  {
+    "id": "6a852a4c-9698-4d71-9ec9-2d03788977aa",
+    "source_updated_at": "2026-09-25T09:16:19.069688+00:00",
+    "body_sha256": "be69e3a4ab74477f6045b6f10cfe0b27a0dfa8a3271c36b0ab5be51cfbe207f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "매들린 매캔 실종·버지니아공대 총격·노벨평화상·서브프라임 등 서로 무관한 2007년 꼭지를 묶은 연말 개관 모음이라 꼭지로 쪼개기 전에는 판정하지 않는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Many banks in the USA saw",
+      "note": "서브프라임 두 문단은 떼어도 서지만 글 전체는 꼭지 모음이라 한 편의 원천으로 볼 수 없다."
+    }
+  },
+  {
+    "id": "6a8a5e15-16f7-4e98-bb69-61c202150452",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bf8867c0289232e761476b14f1bb8971cfb641b23e9fdbe7a002784432885e2a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "결승 무대 → 대중 투표 → 우승 소감과 심사위원 평이 이어지는 연예 단신이라 우승 경위와 반응으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "British actress Kara Tointon and her",
+      "note": "첫 두 문단만으로 순위·투표 경위가 서고 bookmakers·acclaim 을 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "6a95ceeb-2033-4ba4-9ae9-7f16aab79fcd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "60fa1866588ea9d7ea182620d8f738978b25e20849a9f66228f2a8dcf745916e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "캠퍼스 순방 → 연설 → 현판 제막으로 개교식 순서가 한 문단 안에서 이어지는 단신이라 사건 순서로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today H.E. Suzanne Mubarak, wife of",
+      "note": "「(pictured)」만 걷으면 되고 inaugurated·plaque 를 opened·sign 으로 바꾸니 V4 가 된다."
+    }
+  },
+  {
+    "id": "6aa2e828-ddbf-410e-ad6f-09b89f9eaa15",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "671bf3d29947ee83877f389ad6c9601e9fbfbd14b82047b7720c1c0df6afef3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탁신 유죄 판결 → 부인 무죄 사유 → PAD 환호 → 총리의 불개입 약속·송환 요구로 원인·결과·반응이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "With the law in Thailand barring",
+      "note": "이해충돌 금지법과 판결 결과를 잇는 문단은 기관명을 걷어도 서고 acquitted·extradite 풀이로 V6 가 된다."
+    }
+  },
+  {
+    "id": "6aafe5f2-2a73-4649-8783-75ae4312dce2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a2c83f8e66cafda3764375f30d2a51272a5b38580454032835efb2b687aa482b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콜롬보 폭발 → 같은 날 장관 피살 → 정부의 LTTE 지목이라는 원인·반응이 문장으로 이어지는 짧은 사건 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A bomb exploded Tuesday night in",
+      "note": "세 문단이 짧아 통째로 쓰며 high-security zone 정도만 풀면 되지만 두 폭발의 관계가 흐려 순서 정리가 필요하다."
+    }
+  },
+  {
+    "id": "6ad477f6-4796-4e3d-8923-c5b4255867f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c3dc725a1b61a76e3667d5f65959454aa863e46fb5b72d4a737f9f48cd7c6386",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모랄레스·룰라 회담에서 석유 협력·양국 위원회 계획과 「반미 블록은 없다」는 답이 이어져 외교 협력 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Public statements from the two leaders",
+      "note": "마지막 문단은 앞 문맥 없이 회담 성격을 말하고 counterweight 를 balance 로 바꾸면 V6 가 된다."
+    }
+  },
+  {
+    "id": "6ada13d4-26f9-48ee-bb74-39210b58cb7c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "24ac1bd749dedef4541500e52a5f126be3e6ce782899dbf45b36b3a27829d3bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가택 급습·대마 압수 → 차량에서 현금 발견 → 제보 덕이라는 경찰 반응으로 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An unidentified 28-year-old man has been",
+      "note": "환율 괄호를 걷고 seized·custody 를 쉬운 말로 바꾸면 V4~V5 가 되며 제보 인용이 결말을 준다."
+    }
+  },
+  {
+    "id": "6aebbf34-abcc-42bb-80bf-6a7213dca838",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b712d7a523fcd1c3f6f8ea6ca7b410364b695385383c32068fe6669b5eea95e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "실업률 수치 사이에 캐머런의 「엇갈린 그림」 평가와 그레일링의 성장 예산 요구가 끼어 원인·반응이 서므로 수치 나열을 넘어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Overall, the total amount of employed",
+      "note": "수치를 걷으면 논지가 얇아지므로 공공·민간 일자리 증감과 장관 인용 문단을 중심으로 가공해야 한다."
+    }
+  },
+  {
+    "id": "6af4f4a0-d6d8-4a7e-be30-b7572cebf957",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33d59870d25b3c38e5cfd4999d140060dc47e6c23aa50d9878161971b9586e6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "블랙호크 추락 → 군의 기계 결함 판단과 적 사격 없음 성명 → 2005년 이후 최악이라는 비교가 이어지는 사고 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 14 United States troops,",
+      "note": "세 문단을 그대로 쓰고 hostile fire·downed 만 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "6b0aab41-9adf-4ae7-b6d1-6b442c229265",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8e41e57ff8c798d09ed02cc3c15734486b54b2725ed11d50a9cb1d1d3fc3448",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사임 → 후임 지명까지 잔류 → 민간 이직 계획이라는 다음 절차가 세 문장으로 이어지는 짧은 인사 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tommy Thompson has joined the growing",
+      "note": "세 문장뿐이라 문항 하나 분량이 빠듯하지만 cabinet·consecutive 를 풀면 그대로 읽힌다."
+    }
+  },
+  {
+    "id": "6b1d4640-30c0-4a6f-8462-f828237a6d3f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "66b2eec17e4ce9b27f87b9603aad1b6431bc0c222f03c9654aabe10517841918",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "영화 홍보를 위해 편의점을 극 중 상점으로 바꾸고 캐릭터 상품·분장 직원을 둔 까닭이 앞 세 문단에서 서므로 내용 일치 칸을 채운다(끝의 도시 목록은 걷는다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "To promote The Simpsons Movie that",
+      "note": "끝의 매장 도시 목록은 가공 때 걷고, 아푸를 「stereotypical Indian shopkeeper」로 적은 구절도 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "6b334051-7c8e-46c5-bfa8-2e739d3a4410",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cd9bacbfff658e94bd4fa1027630e11f4ae01fa4919c1de20fc69db00fa20942",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "칠루바의 민주화 공로와 부패 재판·언론 탄압 논란, 장례 참석자와 매장지가 이어진 인물 보도라 대조 구조로 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chiluba was a figure of some",
+      "note": "논란 문단은 인명 없이도 공과 대조가 서고 relinquished·acquittal 을 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "6b457787-74b1-4d98-a04a-08e3c5dc959d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "70005624878a3d463372c1c7d709582a55e970f6e9abd0d8193cdbd46b7e76a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인수 합의 → 2단계 인증 도입 → 양사 대표 반응 → 매출·고객 전망으로 이어지는 기업 단신이라 내용 일치 칸과 인증 개념 설명을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Starting in the coming year eBay",
+      "note": "2단계 인증 풀이 문장이 자족적이며 authentication·identity theft 는 문맥으로 잡혀 V5 로 쓸 수 있다."
+    }
+  },
+  {
+    "id": "6b46d707-2200-410f-8141-54ecf8ec8b09",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "407d1f2b535bea61a48287c458883af5e5f72eb6dce4d60eb0533d012c13266d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "technology",
+    "why": "인텔 칩 맥 발표 뒤는 속도 배수와 iLife 지원이라는 제품 사양 나열뿐이어서 사건의 결과·반응이 이어지는지 단신 최소선 경계에 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Apple Computer announced on Tuesday the",
+      "note": "두 문장이 모두 사양 진술이라 수치를 걷으면 발표 사실 하나만 남아 문항 근거가 서지 않는다."
+    }
+  },
+  {
+    "id": "6b56f1e1-e80a-4998-b807-b3b3c9f5abf8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f50093da0f086f121bced1a72897a624321de201c8c7e28901e71aaafc595de3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여행가방 속 시신 발견 → 납치 의심에서 유학생 두 명 구금으로 수사 전환 → 법의학 소견이 이어져 사건 흐름으로 내용 일치 칸을 고등 이상에서 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Auckland's Harbour, a suitcase containing",
+      "note": "두 문단을 그대로 쓰되 ransom·forensic 을 풀면 V5 가 되고, 폭력 소재라 중등 칸은 두지 않는다."
+    }
+  },
+  {
+    "id": "6b6468f8-0bf6-4f2d-bcbf-d26f1a80dc12",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aa0509aac0e2ca823e57393b006e18f155c0b4d0767911869a69ec316bc75214",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "80세 생일을 계기로 즉위·첫 TV 중계 대관식·침입 사건·최장 재위 전망이 이어지는 인물 단신이라 내용 일치와 시대 비교 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She was crowned on June 2,",
+      "note": "대관식 문단은 앞 문맥 없이 서고 sovereign·abdicate 를 풀면 V4 가 된다."
+    }
+  },
+  {
+    "id": "6b65f80a-083a-4c7e-b5ec-735b689906dd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6152201601eb1491c553f0abbb0a8c6be72693207cfc088463718e7f420b42c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미스 유니버스 선출 → 수상자 이력·부상 → 디자이너 소감 → 태국 총리의 쓰나미 뒤 관광 회복 평가가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thailand's prime minister Thaksin Shinawatra said",
+      "note": "마지막 문단은 행사 개최 이유를 혼자 말하지만 후보 이름 나열 문단은 가공 때 걷어야 한다."
+    }
+  },
+  {
+    "id": "6b71c134-3999-48e3-9c55-d3f7140e5eba",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2eb17d79671eab0dc438509c7889c5b01f40355dc6adf7962e207b74d2165206",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "생존 인물 문서 편집을 경험자 승인제로 바꾸는 이유(훼손 방지)와 창립자의 문턱 설명이 이어져 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Under the new plan, anyone can",
+      "note": "둘째 문단이 제도와 까닭을 혼자 설명하며 vandalism·unconstructive 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "6b8ae820-e3e0-4691-9ad8-91a3a0c2746b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "58608beccd45379c21a0fefeec7e548993c0fe1c64bc03b164e4557b6b71d485",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "벨소리가 콜드플레이·오아시스를 누르고 차트 1위에 오른 경위와 청소년 대상 TV 광고 마케팅이 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Crazy Frog ringtone has been",
+      "note": "마케팅 문단은 떼어도 서고 primarily·targeted 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "6b91dc75-e571-4761-acbb-ef98aeed5e6d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "587614940143093b5b58e9ec615d3a712c7b1ada91a45a36672bdfa53c073a07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "science",
+    "why": "하임 이론 기반 추진 논문의 수상을 보도하나 학계가 받아들이지 않은 이론을 「많은 실험 검증을 통과한다」고 단정해 의사과학 보도인지 경계에 있다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The paper proposes experiments aimed at",
+      "note": "제안 실험 문단은 떼어지지만 검증 주장을 걷으면 논지가 비고 anti-gravity·dark energy 는 바꿔도 V7 아래로 안 내려간다."
+    }
+  },
+  {
+    "id": "6ba6c17e-013a-474a-84bd-b9a4ab94355b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "43991094a21f45f3da6dba1652e56cfe09fe5b5860fe408c6c3d316b4c773f3e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "센섹스·니프티의 종가와 상승 포인트만 문장마다 바뀌어 되풀이되고 원인·반응이 없어 수치 나열 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The 30-Stock index of the Bombay",
+      "note": "수치를 걷으면 「사상 최고치」 한 사실만 남아 문항 근거가 서지 않는다."
+    }
+  },
+  {
+    "id": "6baac6c7-01c1-4c18-9cc3-f0cdc521e16f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea13f8c423cdf4cc52242f45fbb763d3fbc3c5ed5e95ec47e046f448116941d1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "스페인 1% 역성장 → 정부의 「상대적 호전」 해석 → 불균형 때문에 오래 약하리라는 분석가 반론 → 2010년 회복 전망으로 원인·반응이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"We do expect Spain to do",
+      "note": "분석가 인용 문단은 불균형이라는 근거로 혼자 서고 imbalances 를 problems 로 바꾸면 V6 가 된다."
+    }
+  },
+  {
+    "id": "6bae0c6c-4927-44f4-bedb-2e53ac9e6621",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34b7c37b2880a1d1df1374f60365e93b08c4df6d5134ef2892ac9cd2a0b6a33e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "social",
+    "why": "국방과학위원회 보고서의 「정책 때문에 미움받는다」 논지는 서지만 「Statistical results are reproduced below」「From the same Zogby study:」 뒤 여론조사 표가 통째로 빠져 받은 본문이 끊겼다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It concludes from this that the",
+      "note": "결론 문단은 신뢰성 부족이라는 요지가 혼자 서지만 본문 줄바꿈이 문장 중간에서 깨져 있고 예고한 표가 없다."
+    }
+  },
+  {
+    "id": "6bba638d-0505-4d5a-96de-16df266297aa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b8fb8b0c1093959a93e606ff8386f404dedc8969cb17c6f208af60726f77a96e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이탈리아의 UNIFIL 지휘 인수 발표와 파병 규모를 두고 아일랜드·프랑스·이스라엘이 엇갈린 수치를 내는 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ireland called for 9000 soldiers to",
+      "note": "파병 규모 공방 문단은 떼어도 서지만 나라별 파병 목록 문단은 수치가 많아 가공 때 줄여야 한다."
+    }
+  }
+]

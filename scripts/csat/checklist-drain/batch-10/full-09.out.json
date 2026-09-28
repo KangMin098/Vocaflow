@@ -1,0 +1,965 @@
+[
+  {
+    "id": "6ea131a8-dc6a-4763-88bc-7f8983922e91",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d0e8d8b0898133556c5bfa4481b31c885e1859cac5cdbaaee1ef851021adaedd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "법안 통과 → 정교회 반대 발언 → 야당의 연령 우려 → 여당 옹호로 찬반 양쪽 반응이 한 편에서 이어져 주제·내용 일치·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Opposition party head Kyriakos Mitsotakis raised",
+      "note": "야당 연령 우려 문단은 인용을 걷어도 논지가 서고 prohibited·guarantee 정도만 바꾸면 V5 로 내려간다; 「Holy Synod went on to say,」 뒤 인용이 빠져 있어 그 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "6f023fef-6f01-49b2-b507-cdf2a56dd816",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "24b060e56d065e98efc68305c0f25b1dd6c021f5756399cfa137e49afeba7330",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "선제 페널티 → 동점 → 유일한 트라이로 역전 → 막판 수비와 감독 소감까지 경기 흐름이 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Noosa opened the scoring after fifteen",
+      "note": "득점 경과 문단은 선수 이름을 걷어도 사건 순서가 서고 쉬웠다; 감독 인용의 비속어(fucking)와 구어 파편은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "6f0dcada-393e-44e5-8705-eefa3ff7c75d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "016ee335c3dc47a1905f95bc9573b5fcc5c23bdb6ccbbfde9dfbcdba8273ba34",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭풍 상륙 → 홍수 경보 → 월마트 대비 → 대피소 17곳 개설로 사건과 반응이 짧게나마 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tropical Storm Alberto is currently over",
+      "note": "둘째 문단부터 떼면 Weather Channel 언급만 걷어도 사건-반응이 서고, 첫 문단의 기고 안내 문장은 걷는다."
+    }
+  },
+  {
+    "id": "6f0fbdad-e5d4-41b8-9b96-792deeba272b",
+    "source_updated_at": "2026-09-25T08:54:54.597324+00:00",
+    "body_sha256": "97f07458fc4c124bb01f52f05deff0befad25948cb7f7325d1c26b63ea94e0b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화재 발생 → 목재 패널로 탈출로 막힘(원인) → 사망자·총리 애도(반응) → 층수 위반 지적과 사법 조사(다음 절차)가 이어져 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "No cause was immediately known, but",
+      "note": "원인 문장과 장관 인용을 묶으면 「허가 초과 층수·목재 마감 → 대형 참사」 논지가 서고, negligence·panelling 을 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "6f1e3395-1523-4d02-b2b5-af5e4df9d28b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4eaa211514777154618e1fbdaf69e55f2de017747e0d571d8b56eeba6c3487b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미 대사의 선거 부패 지적 → 우리베의 내정 간섭 거부 → 대사의 해명 → 전직 대사의 재선 동기 분석으로 발언과 반응이 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "U.S. ambassador William Wood gave a",
+      "note": "대사 연설 문단은 이름을 걷어도 「무장 단체의 매수·위협 → 혜택 박탈 제안」이 서고 intimidation·paramilitary 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "6f35cedf-3f29-4d93-b7ec-7dd01da9b9de",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ee3b2f5c8721e61985efcb81a70d11e19bdcda9fe9a9a64f9d0dedc0486c1938",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "리즈 체포 → 테러 연관 초기 보도 → 경찰의 연관성 부인 → 구금 유지로 보도와 반응이 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However the police say they are",
+      "note": "둘째 문단의 긴 한 문장을 두 문장으로 나누면 「초기 보도 ↔ 경찰 부인」 대비가 서고 enquiry 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "6f5863fa-e4ba-4c0e-a934-26a787e00022",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dcb44d0563dad27d9d80cd135420a73361906841eb05e066efabb90cdd079e7e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "포르투갈 첫 우승과 순위를 잇고, 난민 티셔츠 → EBU 경고·금지 → 폴란드 대표의 동물권 발언으로 사건과 반응이 이어져 내용 일치·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Portugal made its first appearance in",
+      "note": "티셔츠 문단은 점수 나열을 걷어도 「인도적 메시지 → 규정 위반 경고 → 금지」가 서고 bureaucratic 을 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "6f5ca9d1-715e-45a2-a239-81dbf1184c10",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2faa4527b2090457ffa2926c48b61c446c82e15818dc01cba47521961ddb7580",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "두 도시 상수도 개선을 위한 차관 체결(목적)과 공산 붕괴 뒤 최대 공여국이라는 배경이 이어져 금액 나열 이상의 연결이 있어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Germany will lend Albania €16.7 million",
+      "note": "두 문단을 그대로 떼면 목적-배경이 서고 통화 환산 괄호와 은행 이름만 걷으면 되며 grants 정도만 풀어 준다."
+    }
+  },
+  {
+    "id": "6f6baa42-e5aa-44c9-9abd-076c46a32662",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bd7d41425815013061c7b23efed122b229a8159ec63a289d4564180976d85a54",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "팬 수요(원인) → 세 번째 공연 추가 → 16만 장 한 시간 매진 → 추가 8만 장도 팔릴 전망으로 원인과 결과가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rock group U2 will play a",
+      "note": "전문을 떼도 앞 문맥이 필요 없고 support act·promoters 만 풀면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "6f7903ef-60a9-4374-85ff-c93b43c0c699",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "431d98564335b493fec58afadaf0540a09c10ef0f0ca87c01cb9d96085fbc9e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영국군 사망 → 국방부 발표와 유족 통보 절차(다음 절차) → 이달 누적 사망자로 이어져 사건-반응이 서는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spokeswoman from the MoD said:",
+      "note": "대변인 인용을 간접 화법으로 풀면 「교전 사망 → 유족 통보 전 세부 비공개」가 서고 insurgents·next of kin 을 바꾸면 된다."
+    }
+  },
+  {
+    "id": "6f7deb04-8c94-4ae2-aab0-d777889b6dfb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bbd7e0ca841ae1c2b822a223ba3234c5efb58793941e2355429b2a71a2ef325e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "헬기 추락 → 적 공격 추정 → 날씨·지형으로 수색 난항 → 탈레반 주장과 그 신빙성 의문으로 사건·반응·다음 절차가 이어져 내용 일치·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Taliban claimed they shot the",
+      "note": "탈레반 주장 문단은 웹 주소를 걷어도 「주장 → 신빙성 불명 → 사이트 차단」이 서고 inaccurate·cache 를 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "6f7f3a59-268a-4189-a426-f595b7abf859",
+    "source_updated_at": "2026-09-27T18:08:31.590971+00:00",
+    "body_sha256": "4b475feec82a844b866a0b792631e738137eaad23c03a39106ee844c3e43e9b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부고 모음 머리말 뒤에 한 사람만 남은 꼭지로, 온건 야당 의원 피살 → 선거 뒤 폭력 사태로 수백 명 사망이라는 맥락이 이어져 짧지만 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Melitus Mugabe Were, a moderate Kenyan",
+      "note": "두 문장뿐이고 둘째 문장의 문법 오류(He was shot ... is among)를 고치고 끝의 「Related news」를 걷어야 하며, assassinated 를 killed 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "6f80658e-205c-437a-b367-94dc7b0f1bb1",
+    "source_updated_at": "2026-09-27T18:08:24.494093+00:00",
+    "body_sha256": "d2b8144ed3305a3fae4e872119348742877e65e08453c9e8b5ee75e97ac13411",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "단신 모음 머리말 뒤에 한 사건만 남은 꼭지로, 교통사고 → 다음 날 사망 → 유족 요청으로 신원 비공개가 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A man aged 90 has died",
+      "note": "한 문단 그대로 떼면 서고 도로명·시각을 걷고 sustained·publically(오타) 를 고치면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "6f88c6a0-05a5-4ac1-9f5a-1b3330ef8db6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cfe4cb6f33ee63a830a691a133efe1e82396de5798642604e576ac07cdd70b4d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "마약 원료 압수 → 추정 가치 → 사상 최대 규모 주장 → 합동 작전과 수사 계속(다음 절차)으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police in Sydney have seized 1,900",
+      "note": "화학명을 「a chemical」로 걷으면 사건이 그대로 서고 seized·bust 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "6fb4ca83-1ac6-459d-811c-5624c4c9e40a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a54d2a7e52e0eb6190fdab70dba4e8e301ba6cf4788055f951fbde52027f5204",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전 주지사 부패 유죄 → 선고 공판 일정(다음 절차)과 사형 집행 유예로 알려진 배경이 이어져 짧지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Former Governor of Illinois, George H.",
+      "note": "첫 문장의 수식을 나누고 racketeering·moratorium 을 풀면 V5 가 되지만 69어라 문항 하나 분량이 빠듯하다."
+    }
+  },
+  {
+    "id": "6fbb549f-944e-4839-945a-b0bf3ae377fc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2bf2cdcf1d1526f9b87df1a93d8fae44dfd1269103249b568a0c341962bf43f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "규모·진앙 나열에 그치지 않고 두 번째 강진 → 여진 규모 수정 → 쓰나미 경보 발령 후 해제(쓰나미 없음) → 싱가포르 진동으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The National Oceanic and Atmospheric Administration",
+      "note": "쓰나미 경보 문단은 긴 인용을 줄이면 「경보 → 쓰나미 미발생으로 해제」가 서고 epicenter·advisory 를 풀면 된다; 첫 문단 수치는 걷는다."
+    }
+  },
+  {
+    "id": "6fc5570e-92f3-4828-a6d8-04ed1b821bd6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "32ef4a3cd870bb8a18350b356d989f0285f799bf73805a7ee368a70228f1e8c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "강우량 지명 나열 뒤에 폭우로 수천 명 이재민·마을 40곳 유실(결과), 오만에서 이동해 12명 사망이 이어져 사건 흐름이 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Heavy rains and thunderstorms hit southwestern",
+      "note": "둘째·셋째 문단만 떼면 도시별 강우량 나열 없이 「폭우 → 이재민 → 파키스탄 상륙 예정」이 서고, 첫 문단 수치 목록은 걷는다."
+    }
+  },
+  {
+    "id": "6fd1b17c-9032-4993-8c10-8cb5bb89aee4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c01844dbc3b1ff31071d7887d5f649bc02df0296db9cf69845ec0f999cde1c44",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "붕괴로 33명 매몰 → 추가 붕괴로 구조 중단 → 환기구 시도 실패 후 굴착 → 대통령의 비관적 발언으로 사건과 절차가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rescue efforts were first focused on",
+      "note": "구조 문단은 대통령 이름을 걷어도 「첫 시도 실패 → 굴착 → 단층 때문에 어렵다」가 서고 fault-line·pledged 를 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "6fd2fd79-3f2c-4c1d-b073-197bd275b584",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7090dee10c06b9c71378853f417d7121a4fc93dd944bdde85f25a94db94b6a41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "달 복귀를 화성의 첫 단계로 삼는 계획과 캡슐·착륙선·발사체 구성, 메탄 연료를 쓰는 까닭(화성 조달)까지 설명이 이어져 내용 일치·삽입·순서 칸을 채우며 2005년 계획이라 시대 비교 속성도 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For a lunar mission, the LSAM",
+      "note": "약어(LSAM·EDS·CEV)를 「착륙선·추진단·캡슐」로 풀면 발사-도킹-출발 절차가 서지만 약어가 많아 풀어 쓰는 품이 크고, 끝의 목표 목록은 걷는다."
+    }
+  },
+  {
+    "id": "6fd477c7-d148-4aa5-9271-68e98f723445",
+    "source_updated_at": "2026-09-25T09:16:35.025156+00:00",
+    "body_sha256": "5e8b279525e6edb83fdbdd3c00c01095c818d2bf57166f05bcc81d6ef11fd741",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여왕의 방문 연설이 1971년 방문 회고 → 터키 민주화 칭찬 → 교역·관광·유학 교류로 이어져 한 편의 요지가 서므로 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Queen praised Turkey for its",
+      "note": "칭찬 문단과 교류 인용을 이으면 「과거보다 강해진 양국 관계」 요지가 서고 enlightened·strides 를 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "6fda5617-8605-4c4f-bec7-a7dba5c09eb9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31edd1460e105722540a34788260609ed18f0f105c802ecbee6b448f43b37439",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "41명 체포 → 혐의(유코스 자금 세탁) → 유코스의 부인 → 스페인·러시아 합동 작전으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Officials arrested 41 people from five",
+      "note": "첫 두 문단을 떼면 국적 나열만 줄여도 사건이 서고 laundering·siphoning 을 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "6fef534f-e1e4-4ac0-b885-5a181d37d63d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "06300697a0e4c92b95550e0c3630f6c993873de91d25e30d1975ddc325300a9c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "가상 형식으로 연 사진전 → 20년 여행에서 모은 원주민 생활 장면 → 작가가 사진마다 해설하며 관객을 먼 세계로 옮긴 분위기로 이어져 내용 일치·분위기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The event was held in the",
+      "note": "마지막 문단은 클럽 이름을 걷어도 장면이 서고 enveloping·destined 를 바꾸면 V5 가 된다; 「was called which」 에서 전시명이 빠졌고 aborigines 표현은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "70218ee2-3d47-4303-81a4-2a113ea3202e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8c3efef2f5f157316ad7aa6939725c185e1716d6c58092e0c1b911ca0ab4a4e4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "1990년대 중반 끊긴 버터 조각 전통 부활 → 과거 실물 크기 작품과 대비된 작은 작품 → 비좁은 작업장이 원인이라는 흐름이 이어져 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For their current exhibit however, the",
+      "note": "앞 문단 대비(however)만 「Unlike in the past,」로 바꾸면 떼어 낼 수 있고 endeavours·caricatured 를 풀면 V4 가 된다."
+    }
+  },
+  {
+    "id": "70222b6b-b55c-4403-b306-9929561d308e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "90186e00e157fe9f5aa4ed318afb14dd7bbe7f1f7362f5c9616b3d6709bb3fce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "모랄레스의 코카 연구 요청 → EU 의 자금 지원 수락 → 코카 농민 출신 배경과 코카의 전통적 쓰임까지 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Morales himself owns a coca farm",
+      "note": "둘째 문단은 「코카는 코카인 원료이지만 전통 의례·피로 해소에도 쓰인다」는 논지가 혼자 서고 eradicate·indigenous 를 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "7028a5b6-798f-490d-8f72-f0d8b34db2a8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ff5c0f7efe2498ab1025874a9b5639585a7d20ac72424f284230369a15e9fb90",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "광고 규정(상기 광고는 효능 주장 불가) → FDA 의 광고 중단 요구와 근거 → 제약사 수용으로 규제-반응이 이어져 내용 일치·요지 칸을 채우나 발기부전제 소재라 연령을 올린다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reminder ads can only call attention",
+      "note": "규정 문장과 FDA 판단 문단을 이으면 「상기 광고가 효능을 암시해 규정 위반」 논지가 서고, 끝 주가 문단과 장면 묘사 인용은 가공 때 걷는다."
+    }
+  }
+]
