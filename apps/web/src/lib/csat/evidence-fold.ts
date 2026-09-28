@@ -34,7 +34,7 @@ export type { TrapFamily } from './guide-fold'
  * 아래 결함 중 최소 하나에 걸려 하류 공정이 **그대로 가져갈 수 없다.** 옛 콘솔은 앞의 사실만
  * 세고 뒤의 사실을 한 자리도 세지 않아, 초록 눈금 넉 장을 띄운 채로 막혀 있었다.
  */
-export type DefectCode = 'body' | 'quote' | 'scoring' | 'answerKey' | 'reportText' | 'reportCount' | 'unanalyzed'
+export type DefectCode = 'body' | 'quote' | 'scoring' | 'answerKey' | 'reportText' | 'reportCount'
 
 export interface DefectDef {
   code: DefectCode
@@ -56,14 +56,6 @@ export interface DefectDef {
 }
 
 export const DEFECTS: readonly DefectDef[] = [
-  {
-    code: 'unanalyzed',
-    label: '분석 없음',
-    blocks: '⑥해설',
-    why: '공개된 분석이 아직 없다 — 인용·검수·오답 근거를 잴 대상이 없다. 인용 결함과 섞으면 드레인 전 문항 전부가 「인용 미정착」으로 보인다',
-    stageOrd: 5,
-    fix: '분석 드레인으로 채운다 — `analysis-drain-export.mjs`(학평은 `--set hakpyeong`) → 에이전트 → validate → import',
-  },
   {
     code: 'body',
     label: '지문 잘림',

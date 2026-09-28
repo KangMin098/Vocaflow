@@ -336,9 +336,10 @@ export async function loadEvidence(scope: EvidenceScope = KICE_SCOPE): Promise<E
 
     const defects: DefectCode[] = []
     if (!it.body_ok) defects.push('body')
-    // 분석이 없으면 인용을 잴 수 없다 — 「인용 미정착」이 아니라 「분석 없음」이다(PR #125 리뷰: 미분석 924문항 오진)
-    if (!a) defects.push('unanalyzed')
-    else if (!located) defects.push('quote')
+    // 분석이 없으면 인용을 잴 수 없다 — 결함이 아니라 아직 채우지 않은 몫이다. **결함 목록에 넣지 않는다**:
+    // 넣으면 「원천 검토 필요」 수·행 배지·상세에 섞여 미분석 924문항이 결함처럼 보인다(PR #125 재리뷰).
+    // 미분석은 `analysisVersion == null` 로 따로 센다(evidence-operations 의 「분석 없음」 작업).
+    if (a && !located) defects.push('quote')
     if (it.high_score !== (points === 3)) defects.push('scoring')
     if (answerCount > 1) defects.push('answerKey')
     if (it.type_id && typeTextBad.has(it.type_id)) defects.push('reportText')

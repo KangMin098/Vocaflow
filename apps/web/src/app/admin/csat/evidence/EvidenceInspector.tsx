@@ -235,7 +235,11 @@ export function EvidenceInspector({
           <summary>원문과 추출 상태</summary>
           <p>
             {item.bodyOk ? '✓ 추출 본문 정상' : '△ 추출 본문 검토 필요'} ·{' '}
-            {item.quoteLocated ? '인용 대조 일치' : '인용 대조 불일치'}
+            {item.analysisVersion === null
+              ? '분석 없음 · 인용 대조 적용 전'
+              : item.quoteLocated
+                ? '인용 대조 일치'
+                : '인용 대조 불일치'}
           </p>
           {source.paperUrl ?? source.listUrl ? (
             <a

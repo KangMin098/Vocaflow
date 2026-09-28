@@ -68,7 +68,7 @@ export interface WorkIssue {
 const QUALITY_ISSUES: WorkIssue[] = [
   {
     id: 'unanalyzed',
-    defect: 'unanalyzed',
+    // defect 가 없다 — 결함이 아니라 상태다. hasIssue 가 analysisVersion 으로 직접 판정한다
     label: '분석 없음',
     priority: 2,
     stage: '분석·검증',
@@ -294,6 +294,8 @@ export function readinessIndex(audit: ReadinessAudit | null) {
 }
 export type ReadinessIndex = ReturnType<typeof readinessIndex>
 export function hasIssue(item: EvidenceItem, issue: WorkIssue, index: ReadinessIndex): boolean {
+  // `=== null` — 로더는 분석이 없으면 null 을 명시한다(undefined 는 이 칸을 모르는 옛 데이터라 미분석으로 보지 않는다)
+  if (issue.id === 'unanalyzed') return item.analysisVersion === null
   return issue.defect
     ? item.defects.includes(issue.defect)
     : (index.missing.get(item.id) ?? []).includes(issue.field ?? '')
@@ -384,7 +386,7 @@ export function makeWorkPackage(
     (i) =>
       i.defect === 'body' ||
       i.defect === 'quote' ||
-      i.defect === 'unanalyzed' ||
+      i.id === 'unanalyzed' ||
       ['answer', 'evidence', 'intent'].includes(i.field ?? '')
   )
   return {
