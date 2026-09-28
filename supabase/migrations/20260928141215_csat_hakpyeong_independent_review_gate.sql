@@ -1,6 +1,6 @@
--- supabase/migrations/_pending_20260928151000_csat_hakpyeong_independent_review_gate.sql
+-- supabase/migrations/20260928141215_csat_hakpyeong_independent_review_gate.sql
 --
--- **학평 분석 발행 게이트 — 독립 검수 · 오래된 승인 차단** (초안 · 적용 전 사용자 승인 필요)
+-- **학평 분석 발행 게이트 — 독립 검수 · 오래된 승인 차단** (적용 2026-09-28 · 사용자 승인 · 롤백 시험 T1~T10 통과)
 --
 -- 적용 범위는 호출자가 넘기는 `--set` 이 아니라 **DB 의 회차 소속**(csat_exams.organizer='edu_office')으로 정한다.
 -- 평가원 분석(802)·검수 테이블은 건드리지 않는다(과거 검수에 이 칸들이 없어 소급하면 전부 막힌다 — 확대는 별도 결정).

@@ -1232,6 +1232,9 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260927153152  csat_exams_hakpyeong                       ← 학평 수용: kind+hakpyeong · organizer(kice|edu_office) · grade · exam_year. csat_items_public·csat_coverage 는 평가원만
 20260927161216  csat_items_public_restore_authenticated_select  ← ⚠ 오판(hide_stem 을 무력화) — 20260927172604 으로 원복
 20260927172604  csat_items_public_rehide_stem                ← authenticated 는 컬럼 단위 SELECT 만(stem 제외) — hide_stem 원복
+20260928140054  csat_hakpyeong_hold_self_reviewed            ← 학평 분석 328건(첫 묶음 300 + 파일럿 28) published → in_review — 자기 검수(틀 찍기)라 독립 검수 전 보류
+20260928141215  csat_hakpyeong_independent_review_gate       ← 학평 발행 게이트: csat_review_runs(실행·두 단계 독립 풀이) · csat_independent_reviews(회차 누적) · DB 계산 해시 박제 · 자기 검수/풀이 전 공개/변경 뒤 승인 차단 · 변경·철회 시 자동 in_review
+20260928141253  csat_hakpyeong_gate_hygiene                  ← csat_analysis_hash search_path 고정 · 새 트리거 함수 anon/authenticated 실행 회수
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
