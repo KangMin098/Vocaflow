@@ -11,7 +11,7 @@
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Archive, ArchiveRestore, ArrowRight, Plus, SlidersHorizontal, Trash2 } from 'lucide-react'
+import { ArrowRight, FolderKanban, Plus, SlidersHorizontal, Trash2 } from 'lucide-react'
 
 import { Dialog } from '@/components/ui/Dialog'
 import { track } from '@/lib/analytics/client'
@@ -70,7 +70,7 @@ export function WorkspaceDetail({ id, index, exams }: { id: string; index: Works
       <WorkspaceFrame exams={exams} rec={rec} title="Workspace" synced={synced}>
         <section className={home.section}>
           <p className={home.empty}>이 Workspace 를 찾지 못했습니다. 다른 기기에서 지웠거나 아직 동기화되지 않았을 수 있어요.</p>
-          <Link className={home.secondary} href="/csat?tab=workspace">
+          <Link className={home.secondary} href="/csat">
             내 Workspace 목록
           </Link>
         </section>
@@ -104,7 +104,6 @@ export function WorkspaceDetail({ id, index, exams }: { id: string; index: Works
               <span className={styles.wsTag}>{STARTER_LABEL[ws.starter]}</span> {dateOf(ws.createdAt)} 만듦{ws.archived ? ' · 보관됨' : ''}
             </p>
             <h1>{ws.name}</h1>
-            {ws.intent.goal ? <p className={styles.wgoal}>목표 · {ws.intent.goal}</p> : null}
           </div>
           {next.length ? (
             <Link
@@ -148,15 +147,17 @@ export function WorkspaceDetail({ id, index, exams }: { id: string; index: Works
             <dd>{prog.touchedSince}</dd>
           </div>
           <div>
-            <dt>이번 주 학습 · 계획</dt>
-            <dd>
-              {prog.studiedThisWeek}
-              <small> / {prog.perWeek ?? '—'}</small>
-            </dd>
+            <dt>남긴 예측</dt>
+            <dd>{record.predictions.filter((p) => inPool.has(p.item)).length}</dd>
           </div>
           <div>
-            <dt>기한</dt>
-            <dd>{ws.intent.plan?.until ? <>{prog.daysLeft}<small>일 · {ws.intent.plan.until}</small></> : <small>없음</small>}</dd>
+            <dt>담은 것</dt>
+            <dd>
+              <small>
+                유형 {ws.scope.types.length} · 함정 {ws.scope.traps.length} · 회차 {ws.scope.exams.length}
+                {ws.scope.mappedOnly ? ' · 지도만' : ''}
+              </small>
+            </dd>
           </div>
         </dl>
       </section>
@@ -211,75 +212,123 @@ export function WorkspaceDetail({ id, index, exams }: { id: string; index: Works
         )}
       </section>
 
+
       <section className={home.section}>
-        <div className={home.cardActions} style={{ marginTop: 0 }}>
-          <button type="button" className={home.secondary} onClick={() => setEditing(true)} data-testid="ws-edit">
-            <SlidersHorizontal size={14} aria-hidden="true" />
-            담은 것 고치기 · {pool.length}문항
-          </button>
-          <button
-            type="button"
-            className={home.secondary}
-            onClick={() => {
-              update({ archived: !ws.archived })
-              track({ name: 'csat_workspace_edited', props: { action: ws.archived ? 'restore' : 'archive', unit: 'none' } })
-            }}
-          >
-            {ws.archived ? <ArchiveRestore size={14} aria-hidden="true" /> : <Archive size={14} aria-hidden="true" />}
-            {ws.archived ? '보관 풀기' : '보관'}
-          </button>
-          <button type="button" className={home.quietLink} onClick={() => setConfirmDelete(true)}>
-            <Trash2 size={14} aria-hidden="true" />
-            지우기
-          </button>
-        </div>
+        <button type="button" className={home.secondary} onClick={() => setEditing(true)} data-testid="ws-edit">
+          <SlidersHorizontal size={14} aria-hidden="true" />
+          설정 · 담은 것 {pool.length}문항
+        </button>
       </section>
 
       {editing ? (
-        <Dialog onClose={() => setEditing(false)} title="담은 것 고치기" byline={ws.name} size="lg">
-          <ScopeEditor
-            scope={ws.scope}
-            index={index.items}
-            units={index.units}
-            onChange={(scope, change) => {
-              update({ scope })
-              track({ name: 'csat_workspace_edited', props: { action: change.action, unit: change.unit } })
-            }}
-          />
-        </Dialog>
-      ) : null}
-
-      {confirmDelete ? (
         <Dialog
-          onClose={() => setConfirmDelete(false)}
-          title="Workspace 지우기"
-          byline={ws.name}
-          size="sm"
+          onClose={() => {
+            setEditing(false)
+            setConfirmDelete(false)
+          }}
+          title=""
+          ariaLabel="Workspace 설정"
+          size="md"
           footer={
-            <div className={styles.dialogFoot}>
-              <button type="button" className={home.quietLink} onClick={() => setConfirmDelete(false)}>
-                취소
-              </button>
-              <button
-                type="button"
-                className={home.primary}
-                data-testid="ws-delete-confirm"
-                onClick={async () => {
-                  // 화면 상태를 먼저 바꾸면(=`save`) 이 팝업이 언마운트되며 「뒤로가기로 닫기」 가 history 를 되돌려
-                  // 아래 이동을 무른다(실측 2026-09-29). 저장소에 바로 쓰고 떠난다 — 서버 사본은 pagehide 가 올린다.
-                  const fresh = await loadDissectionRecord()
-                  await saveDissectionRecord(putWorkspace(fresh, deleteWorkspace(ws, Date.now())))
-                  track({ name: 'csat_workspace_edited', props: { action: 'delete', unit: 'none' } })
-                  window.location.replace('/csat?tab=workspace')
-                }}
-              >
-                <Trash2 size={14} aria-hidden="true" />
-                지우기
+            <div className={styles.sheetFoot}>
+              <button type="button" className={home.primary} onClick={() => setEditing(false)}>
+                완료
               </button>
             </div>
           }
         >
-          <p className={styles.hint}>지우면 되돌릴 수 없습니다. 이 Workspace 에서 한 학습 기록(예측 · 본 문항)은 그대로 남습니다.</p>
+          <div className={styles.sheet}>
+            <div className={styles.sheetHead}>
+              <span className={styles.sheetIcon} aria-hidden="true">
+                <FolderKanban size={16} />
+              </span>
+              <label className="sr-only" htmlFor="ws-rename">
+                Workspace 이름
+              </label>
+              <input
+                id="ws-rename"
+                className={styles.sheetName}
+                defaultValue={ws.name}
+                maxLength={40}
+                onBlur={(e) => {
+                  const v = e.target.value.trim()
+                  if (v && v !== ws.name) {
+                    update({ name: v })
+                    track({ name: 'csat_workspace_edited', props: { action: 'intent', unit: 'none' } })
+                  }
+                }}
+              />
+            </div>
+
+            <section className={styles.card}>
+              <div className={styles.cardHead}>
+                <div>
+                  <b>담을 것</b>
+                  <small>칸 안은 「또는」, 칸 사이는 「그리고」로 묶습니다. 고치면 바로 저장됩니다.</small>
+                </div>
+              </div>
+              <ScopeEditor
+                scope={ws.scope}
+                index={index.items}
+                units={index.units}
+                onChange={(scope, change) => {
+                  update({ scope })
+                  track({ name: 'csat_workspace_edited', props: { action: change.action, unit: change.unit } })
+                }}
+              />
+            </section>
+
+            <section className={styles.card}>
+              <label className={styles.switchRow}>
+                <span className={styles.cardHead} style={{ display: 'block' }}>
+                  <b>보관</b>
+                  <small>켜면 메인 목록 아래로 내리고 레일에서 뺍니다. 학습 기록은 그대로입니다.</small>
+                </span>
+                <input
+                  type="checkbox"
+                  role="switch"
+                  className={styles.switch}
+                  checked={!!ws.archived}
+                  onChange={() => {
+                    update({ archived: !ws.archived })
+                    track({ name: 'csat_workspace_edited', props: { action: ws.archived ? 'restore' : 'archive', unit: 'none' } })
+                  }}
+                />
+              </label>
+            </section>
+
+            <section className={styles.card}>
+              <div className={styles.cardHead} style={{ alignItems: 'center' }}>
+                <div>
+                  <b>Workspace 지우기</b>
+                  <small>{confirmDelete ? '한 번 더 누르면 지웁니다. 되돌릴 수 없습니다.' : '이 묶음만 지웁니다. 예측 · 본 문항 기록은 남습니다.'}</small>
+                </div>
+                {confirmDelete ? (
+                  <button
+                    type="button"
+                    className={styles.dangerBtn}
+                    data-testid="ws-delete-confirm"
+                    onClick={async () => {
+                      // 화면 상태를 먼저 바꾸면(=`save`) 팝업이 언마운트되며 이동과 겹친다(실측 2026-09-29).
+                      // 저장소에 바로 쓰고 떠난다 — 서버 사본은 pagehide 가 올린다.
+                      const fresh = await loadDissectionRecord()
+                      await saveDissectionRecord(putWorkspace(fresh, deleteWorkspace(ws, Date.now())))
+                      track({ name: 'csat_workspace_edited', props: { action: 'delete', unit: 'none' } })
+                      window.location.replace('/csat')
+                    }}
+                  >
+                    <Trash2 size={14} aria-hidden="true" />
+                    지우기 확인
+                  </button>
+                ) : (
+                  <button type="button" className={styles.dangerBtn} onClick={() => setConfirmDelete(true)} data-testid="ws-delete">
+                    <Trash2 size={14} aria-hidden="true" />
+                    지우기
+                  </button>
+                )}
+              </div>
+            </section>
+          </div>
         </Dialog>
       ) : null}
     </WorkspaceFrame>

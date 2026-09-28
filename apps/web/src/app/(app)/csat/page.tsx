@@ -55,7 +55,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
       need={need}
       view={one(params.view) === 'continue' ? 'continue' : 'home'}
       workspaceIndex={workspaceIndex}
-      initialWorkspace={one(params.tab) === 'workspace'}
+      initialWorkspace={!need && one(params.tab) !== 'type' && one(params.tab) !== 'trap' && one(params.view) !== 'continue'}
       openNew={one(params.new) === '1'}
     />
   )

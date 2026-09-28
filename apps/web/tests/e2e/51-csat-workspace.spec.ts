@@ -32,43 +32,48 @@ test.beforeAll(async ({ browser }) => {
 })
 test.use({ storageState: STATE })
 
-test('Workspace — 탭 → 만들기 팝업 → 안 → 표 한 줄 → 지우기 팝업 · 레일 팝업', async ({ page }, info) => {
+async function removeAll(page: import('@playwright/test').Page, name: string) {
+  for (let i = 0; i < 5 && (await page.getByTestId('ws-card').filter({ hasText: name }).count()) > 0; i++) {
+    await page.getByTestId('ws-card').filter({ hasText: name }).first().getByRole('link').click()
+    await page.getByTestId('ws-edit').click()
+    await page.getByTestId('ws-delete').click()
+    await page.getByTestId('ws-delete-confirm').click()
+    await expect(page).toHaveURL(/\/csat$/, { timeout: 60000 })
+    await expect(page.getByTestId('ws-table')).not.toContainText('기록을 읽는 중', { timeout: 60000 })
+  }
+}
+
+test('Workspace — 메인 목록 → 만들기 팝업 → 안 → 설정 팝업(이름 · 담을 것 · 지우기) · 레일은 곧바로 이동', async ({ page }, info) => {
   test.setTimeout(240000)
   await page.setViewportSize({ width: 1440, height: 1000 })
 
-  // 레일: 유형 26 · 회차 29 줄이 펴져 있지 않고, 목록은 팝업으로 연다
-  await page.goto('/csat?tab=workspace')
+  // 메인 = Workspace 목록
+  await page.goto('/csat')
   await expect(page.getByTestId('ws-table')).toBeVisible({ timeout: 120000 })
-  // 앞선 실패가 남긴 것부터 지운다(공유 계정 — 같은 이름이 둘이면 끝의 「0개」 단언이 흔들린다)
   await expect(page.getByTestId('ws-table')).not.toContainText('기록을 읽는 중', { timeout: 60000 })
-  for (let i = 0; i < 5 && (await page.getByTestId('ws-card').filter({ hasText: 'E2E 킬러 2026' }).count()) > 0; i++) {
-    await page.getByTestId('ws-card').filter({ hasText: 'E2E 킬러 2026' }).first().getByRole('link').click()
-    await page.getByRole('button', { name: '지우기', exact: true }).click()
-    await page.getByTestId('ws-delete-confirm').click()
-    await expect(page).toHaveURL(/\/csat\?tab=workspace/, { timeout: 60000 })
-    await expect(page.getByTestId('ws-table')).not.toContainText('기록을 읽는 중', { timeout: 60000 })
-  }
-  await page.getByTestId('rail-type').click()
-  await expect(page.getByRole('dialog', { name: '유형별' })).toBeVisible()
-  await page.screenshot({ path: info.outputPath('00-rail-popup.png') })
-  await page.keyboard.press('Escape')
+  await removeAll(page, 'E2E 킬러 2026')
 
-  // 만들기 팝업
+  // 레일 — 팝업 없이 곧바로 이동한다
+  await page.getByTestId('rail-types').click()
+  await expect(page).toHaveURL(/tab=type/)
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  await page.getByTestId('rail-home').click()
+  await expect(page.getByTestId('ws-table')).toBeVisible({ timeout: 60000 })
+
+  // 만들기 팝업 — 고르기 상자 + 토큰
   await page.getByTestId('ws-new').click()
   const dialog = page.getByRole('dialog', { name: '새 Workspace' })
   await expect(dialog).toBeVisible()
-  await dialog.locator('[data-starter="killer"]').click()
+  await dialog.getByTestId('ws-starter').selectOption('killer')
   const preview = dialog.getByTestId('ws-preview')
   const count = async () => Number((await preview.locator('b').first().textContent()) ?? '0')
   const before = await count()
   expect(before).toBeGreaterThan(0)
-  // 회차를 더 고르면 「그리고」 라 줄어든다(합집합이 아니다)
-  await dialog.locator('summary', { hasText: '담을 것' }).click()
-  await dialog.getByRole('button', { name: /2026학년도 수능/ }).first().click()
+  // 회차를 더하면 「그리고」 라 줄어든다(합집합이 아니다)
+  await dialog.getByTestId('ws-add-exams').selectOption('2026')
   const after = await count()
   expect(after).toBeGreaterThan(0)
   expect(after).toBeLessThan(before)
-  await dialog.locator('#ws-goal').fill('빈칸 · 순서 · 삽입에서 근거 문장을 먼저 찾는다')
   await dialog.locator('#ws-name').fill('E2E 킬러 2026')
   await page.screenshot({ path: info.outputPath('01-create.png') })
 
@@ -76,22 +81,21 @@ test('Workspace — 탭 → 만들기 팝업 → 안 → 표 한 줄 → 지우�
   await expect(page).toHaveURL(/\/csat\/workspace\/ws-/, { timeout: 60000 })
   await expect(page.getByRole('heading', { name: 'E2E 킬러 2026' })).toBeVisible({ timeout: 60000 })
   await expect(page.getByTestId('ws-next')).toHaveAttribute('href', /\/csat\/item\//)
-  await expect(page.getByText('연 문항 · 기존 학습 포함')).toBeVisible()
-  await page.getByTestId('ws-edit').click()
-  await expect(page.getByRole('dialog', { name: '담은 것 고치기' })).toBeVisible()
-  await page.keyboard.press('Escape')
   await page.screenshot({ path: info.outputPath('02-detail.png') })
+  await page.getByTestId('ws-edit').click()
+  await expect(page.getByRole('dialog', { name: 'Workspace 설정' })).toBeVisible()
+  await page.screenshot({ path: info.outputPath('03-settings.png') })
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog')).toHaveCount(0)
+  await page.waitForTimeout(300) // 팝업이 닫히며 쌓아 둔 히스토리 항목을 되감는 동안 이동하지 않는다
 
-  // 메인 Workspace 탭에 한 줄 — 레일에도 이름이 뜬다
-  await page.goto('/csat?tab=workspace')
+  // 메인 목록 한 줄 · 레일 이름
+  await page.goto('/csat')
   await expect(page.getByTestId('ws-card').filter({ hasText: 'E2E 킬러 2026' })).toBeVisible({ timeout: 120000 })
   await expect(page.getByTestId('csat-rail').getByRole('link', { name: 'E2E 킬러 2026' })).toBeVisible()
-  await page.screenshot({ path: info.outputPath('03-home.png') })
+  await page.screenshot({ path: info.outputPath('04-home.png') })
 
-  // 지우기 — 확인 팝업을 거친다
-  await page.getByTestId('ws-card').filter({ hasText: 'E2E 킬러 2026' }).getByRole('link', { name: 'E2E 킬러 2026' }).click()
-  await page.getByRole('button', { name: '지우기', exact: true }).click()
-  await page.getByTestId('ws-delete-confirm').click()
-  await expect(page).toHaveURL(/\/csat\?tab=workspace/, { timeout: 60000 })
+  // 지우기 — 설정 팝업 안에서 두 번 눌러 확인
+  await removeAll(page, 'E2E 킬러 2026')
   await expect(page.getByTestId('ws-card').filter({ hasText: 'E2E 킬러 2026' })).toHaveCount(0)
 })

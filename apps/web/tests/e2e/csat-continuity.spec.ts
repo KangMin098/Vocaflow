@@ -56,7 +56,7 @@ type Rec = Record<string, unknown>
 const record = (over: Rec = {}): Rec => ({ version: 1, seed: 7, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], ...over })
 
 /** 새 컨텍스트(= 새 기기) + 서버 기록 심기. record 가 null 이면 서버 기록을 지운다(첫 방문). */
-async function fresh(browser: Browser, rec: Rec | null): Promise<{ page: Page; clicks: () => number; click: (sel: Parameters<Page['locator']>[0]) => Promise<void> }> {
+async function fresh(browser: Browser, rec: Rec | null): Promise<{ page: Page; clicks: () => number; click: (sel: Parameters<Page['locator']>[0]) => Promise<void>; select: (sel: string, value: string) => Promise<void> }> {
   const ctx = await browser.newContext({ storageState: storage, viewport: { width: 1440, height: 900 } })
   opened.push(ctx)
   // 서버 저장은 합치기라(PUT = merge) 심기 전에 비운다 — 앞 시나리오의 기록이 섞이지 않게
@@ -73,6 +73,10 @@ async function fresh(browser: Browser, rec: Rec | null): Promise<{ page: Page; c
     click: async (sel) => {
       n += 1
       await page.locator(sel).first().click()
+    },
+    select: async (sel: string, value: string) => {
+      n += 1
+      await page.locator(sel).first().selectOption(value)
     },
   }
 }
@@ -92,36 +96,36 @@ test('C1/A1 첫 방문 — 처음이라면 카드에서 한 번에 해부 시작
 test('A2 킬러 유형 — 목적별 → 빈칸 줄 → 예시 문항', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-testid="rail-need"]') // 레일 팝업 열기(2026-09-29 — 목록은 팝업)
-  await click('[data-need="killer"]')
-  await page.waitForURL(/need=killer/)
-  await expect(page.getByTestId('need-chip')).toBeVisible()
+  // 2026-09-29 레일 재구성(사용자 지시 「메뉴 클릭 시 팝업 X」) — 유형 · 함정 · 전체 서가로 곧바로 간다
+  await click('[data-testid="rail-types"]')
+  await page.waitForURL(/tab=type/)
   await click('button[aria-expanded]:has-text("빈칸 추론")')
   await click('a:has-text("출제 사고로 열기")')
   await page.waitForURL(/\/csat\/item\//)
-  report('A2', clicks(), 4)
-  expect(clicks()).toBeLessThanOrEqual(4)
+  report('A2', clicks(), 3)
+  expect(clicks()).toBeLessThanOrEqual(3)
 })
 
 test('A3 오답 선지 설계 — 목적별 → 함정 줄 → 예시 문항', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-testid="rail-need"]') // 레일 팝업 열기(2026-09-29 — 목록은 팝업)
-  await click('[data-need="trap"]')
+  // 2026-09-29 레일 재구성(사용자 지시 「메뉴 클릭 시 팝업 X」) — 유형 · 함정 · 전체 서가로 곧바로 간다
+  await click('[data-testid="rail-traps"]')
   await page.waitForURL(/tab=trap/)
   await click('[role="tabpanel"] button[aria-expanded]')
   await click('a:has-text("출제 사고로 열기")')
   await page.waitForURL(/\/csat\/item\//)
-  report('A3', clicks(), 4)
-  expect(clicks()).toBeLessThanOrEqual(4)
+  report('A3', clicks(), 3)
+  expect(clicks()).toBeLessThanOrEqual(3)
 })
 
 test('A4 근거 문장 찾기 — 목적별 → 지도 있는 문항 → 근거 칩', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-testid="rail-need"]') // 레일 팝업 열기(2026-09-29 — 목록은 팝업)
-  await click('[data-need="evidence"]')
-  await page.waitForURL(/status=map/)
+  // 2026-09-29 레일 재구성(사용자 지시 「메뉴 클릭 시 팝업 X」) — 유형 · 함정 · 전체 서가로 곧바로 간다
+  await click('[data-testid="rail-browse"]')
+  await page.waitForURL(/\/csat\/browse/)
+  await click('button:has-text("지도 있음")')
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
   // 2026-09-29 — 문항 화면이 출제 사고(예측 관문)로 바뀌어 「근거 고르기」 지도 대신 관문의 근거 후보 문장을 고른다
@@ -135,23 +139,24 @@ test('A4 근거 문장 찾기 — 목적별 → 지도 있는 문항 → 근거 
 test('A5 최근 기출부터 — 목적별 → 번호 칩', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-testid="rail-need"]') // 레일 팝업 열기(2026-09-29 — 목록은 팝업)
-  await click('[data-need="recent"]')
-  await page.waitForURL(/from=\d{4}/)
-  await expect(page.getByTestId('browse-title')).toContainText('최근 기출부터')
+  // 2026-09-29 레일 재구성(사용자 지시 「메뉴 클릭 시 팝업 X」) — 유형 · 함정 · 전체 서가로 곧바로 간다 — 서가는 최근 회차가 맨 위다
+  await click('[data-testid="rail-browse"]')
+  await page.waitForURL(/\/csat\/browse/)
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
-  report('A5', clicks(), 3)
-  expect(clicks()).toBeLessThanOrEqual(3)
+  report('A5', clicks(), 2)
+  expect(clicks()).toBeLessThanOrEqual(2)
 })
 
 test('A6 유형별 — 메뉴 문장 삽입 → 번호 칩, 목적 축(A2)과 같은 서가에 닿는다', async ({ browser }) => {
-  const { page, click, clicks } = await fresh(browser, null)
+  const { page, click, clicks, select } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-testid="rail-type"]') // 레일 팝업 열기(2026-09-29 — 목록은 팝업)
-  await click('[data-type="R-INSERT"]')
-  await page.waitForURL(/type=R-INSERT/)
-  const typeUrl = new URL(page.url())
+  // 2026-09-29 레일 재구성(사용자 지시 「메뉴 클릭 시 팝업 X」) — 유형 · 함정 · 전체 서가로 곧바로 간다
+  await click('[data-testid="rail-browse"]')
+  await page.waitForURL(/\/csat\/browse/)
+  await select('#csat-library-type', 'R-INSERT')
+  // 서가의 유형 고르기는 화면만 바꾸고 주소는 그대로다 — 같은 서가인지는 아래에서 주소로 대조한다
+  await expect(page.locator('#csat-library-type')).toHaveValue('R-INSERT')
   await click('[data-testid="csat-library"] a[href^="/csat/item/"]')
   await page.waitForURL(/\/csat\/item\//)
   report('A6', clicks(), 3)
@@ -161,19 +166,19 @@ test('A6 유형별 — 메뉴 문장 삽입 → 번호 칩, 목적 축(A2)과 �
   await page.goto('/csat?need=killer', { waitUntil: 'networkidle' })
   await page.locator('button[aria-expanded]:has-text("문장 삽입")').first().click()
   const href = await page.locator('a:has-text("전체 기출 서가")').first().getAttribute('href')
-  expect(href).toBe(`${typeUrl.pathname}${typeUrl.search}`)
+  expect(href).toBe('/csat/browse?type=R-INSERT')
 })
 
 test('A7 회차별 — 메뉴 2026학년도 수능 → 31번', async ({ browser }) => {
   const { page, click, clicks } = await fresh(browser, null)
   await page.goto('/csat', { waitUntil: 'networkidle' })
-  await click('[data-testid="rail-exam"]') // 레일 팝업 열기(2026-09-29 — 목록은 팝업)
-  await click('[data-exam="2026"]')
-  await page.waitForURL(/exam=2026/)
+  // 2026-09-29 레일 재구성(사용자 지시 「메뉴 클릭 시 팝업 X」) — 유형 · 함정 · 전체 서가로 곧바로 간다 — 서가에 회차별 번호 칩이 바로 있다
+  await click('[data-testid="rail-browse"]')
+  await page.waitForURL(/\/csat\/browse/)
   await click('[data-testid="csat-library"] a[href="/csat/item/2026-31"]')
   await page.waitForURL(/\/csat\/item\/2026-31/)
-  report('A7', clicks(), 3)
-  expect(clicks()).toBeLessThanOrEqual(3)
+  report('A7', clicks(), 2)
+  expect(clicks()).toBeLessThanOrEqual(2)
 })
 
 test('C2/C5 재방문 · 다른 기기 — 서버에만 있는 멈춘 세트가 이어서 카드로 선다', async ({ browser }) => {

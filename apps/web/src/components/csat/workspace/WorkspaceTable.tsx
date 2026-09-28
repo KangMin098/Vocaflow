@@ -7,7 +7,7 @@
 // 줄 전체가 Workspace 안으로 가는 링크다. 만들기는 도구 줄의 버튼 → 팝업.
 
 import { useMemo, useState } from 'react'
-import { FolderKanban, Plus } from 'lucide-react'
+import { FolderKanban, Plus, Search } from 'lucide-react'
 
 import type { DissectionRecord } from '@/lib/csat/dissect'
 import type { WorkspaceIndex } from '@/lib/csat/workspace-index'
@@ -55,15 +55,20 @@ export function WorkspaceTable({
   startOpen?: boolean
 }) {
   const [creating, setCreating] = useState(startOpen)
-  const list = useMemo(() => (record ? liveWorkspaces(record.workspaces, true).sort((a, b) => Number(!!a.archived) - Number(!!b.archived) || b.updatedAt - a.updatedAt) : []), [record])
+  const [q, setQ] = useState('')
+  const list = useMemo(() => (record ? liveWorkspaces(record.workspaces, true).filter((w) => !q.trim() || w.name.toLowerCase().includes(q.trim().toLowerCase())).sort((a, b) => Number(!!a.archived) - Number(!!b.archived) || b.updatedAt - a.updatedAt) : []), [record, q])
 
   return (
     <div data-testid="ws-table">
       <div className={styles.wsTools}>
-        <button type="button" className={home.primary} onClick={() => setCreating(true)} data-testid="ws-new">
-          <Plus size={15} aria-hidden="true" />새 Workspace
+        <label className={home.search} style={{ flex: 1 }}>
+          <Search size={14} aria-hidden="true" />
+          <span className="sr-only">Workspace 이름으로 찾기</span>
+          <input id="ws-search" type="search" value={q} placeholder="Workspace 찾기" onChange={(e) => setQ(e.target.value)} />
+        </label>
+        <button type="button" className={styles.roundAdd} onClick={() => setCreating(true)} aria-label="새 Workspace" data-testid="ws-new">
+          <Plus size={16} aria-hidden="true" />
         </button>
-        <p className={styles.hint}>목적 · 약점에 맞춰 유형 · 함정 · 회차를 골라 담고, 그 안에서 이어서 학습합니다.</p>
       </div>
       <div className={styles.wsHead} aria-hidden="true">
         <span>Workspace</span>
@@ -77,7 +82,7 @@ export function WorkspaceTable({
           기록을 읽는 중…
         </p>
       ) : list.length === 0 ? (
-        <p className={styles.wsEmpty}>아직 Workspace 가 없습니다. 「새 Workspace」 로 첫 묶음을 만들어 보세요.</p>
+        <p className={styles.wsEmpty}>아직 Workspace 가 없습니다. 오른쪽 위 + 로 분석할 유형 · 함정 · 회차를 골라 첫 묶음을 만드세요.</p>
       ) : (
         list.map((ws) => {
           const pool = poolOf(ws.scope, index.items)

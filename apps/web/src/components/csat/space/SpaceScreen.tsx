@@ -216,7 +216,7 @@ export function SpaceScreen({
     <div className={styles.root} data-csat-space>
       {/* ── ① 좌측 레일 ─────────────────────────────────────────────────── */}
       <CsatRail
-        place={view === 'continue' ? 'continue' : need ? 'need' : 'home'}
+        place={view === 'continue' ? 'continue' : wsTab ? 'home' : tab === 'trap' ? 'traps' : need ? 'need' : 'types'}
         current={need ?? undefined}
         exams={exams}
         dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null}
