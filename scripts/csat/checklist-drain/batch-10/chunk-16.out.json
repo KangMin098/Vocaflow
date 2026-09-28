@@ -1,0 +1,49 @@
+[
+ {
+  "id": "688e0f42-dee2-48a0-8257-12908d81544e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Well the name of our home",
+  "note": "홈스쿨을 시작한 경위 문단은 교사 평가→검사→학교와 이견→가정 교육 결정→대학 성적 호전으로 이어지고, 기관 이름·학교명을 걷어도 사건이 서며 battery of tests·consternation 을 바꾸면 고2 밴드로 내려온다. 한쪽 입장 인터뷰(v8)라 polemic 아님.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "long_reference",
+     "summary"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
