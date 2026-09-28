@@ -66,6 +66,15 @@ const PERSONAS = ['setter', 'analyst', 'tutor']
 /** 이 시간 안에 만들어졌는데 판정이 없는 실행은 «작업 중» 으로 보고 다시 배정하지 않는다 */
 const CLAIM_HOURS = 3
 
+/**
+ * 검수자에게 보이는 분석 — 판정에 필요 없는 출처·운영 칸은 뺀다.
+ * analyst_run 이 보이면 검수자가 «누가 썼나»(교정본·시험용 결함 심기 등)로 판정을 기울일 수 있다.
+ */
+const forReviewer = (a) => {
+  if (!a) return a
+  const { analyst_run, body_recovered, created_at, updated_at, ...rest } = a
+  return rest
+}
 const out = (v) => console.log(JSON.stringify(v, null, 1))
 const die = (msg) => { console.error(`✗ ${msg}`); process.exit(1) }
 const must = (v, name) => (v == null || v === '' ? die(`--${name} 가 필요하다`) : v)
@@ -124,7 +133,7 @@ switch (cmd) {
     if (error) die(error.message)
     const row = data?.[0]
     const { data: r } = await db.from('csat_review_runs').select('solve_answer').eq('id', run).single()
-    out({ run_id: run, official_answer: row?.answer, official_answers: row?.answers, your_solve: r?.solve_answer, matches: r?.solve_answer === row?.answer, analysis: row?.analysis,
+    out({ run_id: run, official_answer: row?.answer, official_answers: row?.answers, your_solve: r?.solve_answer, matches: r?.solve_answer === row?.answer, analysis: forReviewer(row?.analysis),
       next: `submit --run ${run} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
     break
   }
@@ -171,7 +180,7 @@ switch (cmd) {
     const { data: prior } = await db.from('csat_independent_reviews').select('verdict, findings').eq('review_run_id', parent.id)
     out({ run_id: run.id, kind: 'rereview', parent_run: parent.id,
       original_solve: { answer: parent.solve_answer, note: parent.solve_note, matches: parent.solve_answer === row?.answer },
-      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: row?.analysis,
+      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: forReviewer(row?.analysis),
       next: `submit --run ${run.id} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
     break
   }
