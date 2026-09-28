@@ -10,11 +10,13 @@
 //   사람 검수는 그럴듯한 것을 통과시킨다. 문자열 대조는 안 봐준다.
 //
 // 실행: node scripts/csat/analysis-drain-validate.mjs [--chunk 1]
+//       (적재기는 `--strict --chunk <정확한 이름,…>` 로 부른다 — 적재할 파일과 같은 목록)
 // 실패하면 exit 1.
 
 import fs from 'node:fs'
 import path from 'node:path'
 import { CORPUS_FILE, WORK_DIR } from './lib-drain-set.mjs'
+import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -162,8 +164,17 @@ function quotesChoice(why, it) {
   return false
 }
 
-const all = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
-const files = arg('chunk') ? all.filter((f) => f.includes(arg('chunk'))) : all
+// `--strict` 는 적재기가 부르는 모드다 — 적재기와 **같은 함수·같은 규칙**으로 목록을 만든다(lib-drain-select).
+// 없으면 분석 에이전트의 자기 점검용(파일 이름 조각).
+let files
+try {
+  files = selectOutFiles(WORK, chunkArgs(process.argv), { loose: !process.argv.includes('--strict') })
+} catch (e) {
+  if (!(e instanceof DrainSelectError)) throw e
+  console.log(`  ✗ ${e.message}`)
+  process.exit(1)
+}
+if (process.argv.includes('--strict') && process.argv.includes('--chunk')) console.log(`  검사 파일: ${files.join(' · ')}`)
 
 if (!files.length) {
   console.log('  검사할 .out.json 이 없다')
