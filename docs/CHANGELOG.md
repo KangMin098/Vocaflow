@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **학평 독립 검수 게이트 v2 — 재검수를 최초 블라인드 풀이에 잇는다**(2026-09-28 · migration `20260928143924_csat_hakpyeong_rereview_link` · 사용자 승인): 분석만 교정되면 새 풀이 없이 재검수(`review-drain.mjs rereview`) — 옛 분석의 pass 는 무효, 3인이 새 분석 해시로 다시 판정. 원문·정답이 바뀌면 새 블라인드 필요. 롤백 시험 13/13.
 - **분석 드레인 `--chunk` 골라 올리기**(2026-09-28 · migration 0): 적재기와 게이트가 `lib-drain-select.mjs` 한 함수로 같은 파일 목록을 쓴다(정확한 이름만 · 없는/빈/경로 선택은 오류). 회귀 `drain-chunk-select.test.mjs` 4건. 학평 교정 4건(H2010G3#33 · H2209G1#34 · H2603G3#18·#19) v2 를 in_review 로 적재 — 발행은 독립 재검수 뒤.
 - **CSAT 통합 OFFSET 빚 5곳을 키셋으로 상환**(2026-09-26 · migration 0): `lib/csat/items.ts` 3곳과 `dissect-catalog.ts` 2곳을 고유 `id`·`(item_id, version)` 커서로 전환하고 공용 `keyset-select` 회귀를 추가했다. 깨끗한 LF 체크아웃에서 offset-paging 예산 **216→207**. row-write 스캐너가 앞 SELECT에 뒤 UPDATE를 중복 귀속하던 오탐도 고쳐 예산 **158→137**. 전체 검증에서 드러난 키셋 mock·선반 규격·재고 스냅샷 기준 드리프트를 현재 정본에 맞추고 소스 프로필 이름 단추의 44px 탭 영역을 보강했다.
 - **Codex CLI 남은 게이트 4건 실측·훅 차단 교정**(2026-09-26 · migration 0): workspace-write 에이전트 테스트 **95/95**, force-push execpolicy `forbidden`, 실제 Codex→Claude 인계 검증 PASS. 중복 훅 정의와 Claude 전용 환경변수 의존을 제거하고, Codex PreToolUse는 exit 2가 아닌 JSON `permissionDecision=deny`로 차단하도록 실제 입력 회귀를 추가했다.

@@ -19,6 +19,14 @@
 //   4) submit  --run <run id> --verdict <pass|revise|fail> --findings '<json 배열>' --checked '<json 배열>'
 //              → 판정 기록. DB 가 이 순간의 원문·정답·분석 해시와 시각을 박제한다.
 //
+// ── 분석만 바뀐 재검수(게이트 v2 · 20260928143924_csat_hakpyeong_rereview_link) ─────
+//   rereview --analysis <새 분석 id> --persona <…> --agent-run <내 실행 id>
+//              → 같은 문항·같은 페르소나의 **최초 블라인드 풀이**에 잇는 재검수 실행을 만들고 곧바로 공개한다.
+//                새로 풀지 않는다(정답을 이미 본 검수를 블라인드로 기록할 길은 DB 가 막는다).
+//                원문·선지·정답이 풀이 뒤에 바뀌었으면 쓸 수 없다 — 그때는 start 로 새 블라인드부터.
+//              출력: 새 분석 · 최초 풀이(답·근거) · 그 블라인드 실행이 옛 분석에 남긴 소견 → 교정이 소견을 풀었는지 본다
+//   다음: submit --run <run id> …(블라인드와 같다)
+//
 // ── 운영자 명령 ───────────────────────────────────────────────────────
 //   export  [--size 4] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
@@ -137,6 +145,37 @@ switch (cmd) {
     break
   }
 
+  case 'rereview': {
+    const analysisId = must(arg('analysis'), 'analysis')
+    const persona = must(arg('persona'), 'persona')
+    const agentRun = must(arg('agent-run'), 'agent-run')
+    if (!PERSONAS.includes(persona)) die(`persona 는 ${PERSONAS.join('|')}`)
+    const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run').eq('id', analysisId).single()
+    if (ae) die(ae.message)
+    if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
+    // 원문·정답이 지금과 같은 최초 블라인드 풀이 — 해시 비교는 DB 가 게이트에서 다시 한다
+    const { data: cands, error: pe } = await db.from('csat_review_runs')
+      .select('id, agent_run, solve_answer, solve_note, solve_committed_at, revealed_at, solve_answer_hash')
+      .eq('item_id', a.item_id).eq('persona', persona).eq('kind', 'blind')
+      .not('solve_committed_at', 'is', null).not('revealed_at', 'is', null).not('solve_answer_hash', 'is', null)
+      .order('solve_committed_at', { ascending: true })
+    if (pe) die(pe.message)
+    const parent = (cands ?? []).find((c) => c.agent_run !== a.analyst_run && Date.parse(c.solve_committed_at) < Date.parse(c.revealed_at))
+    if (!parent) die(`${a.item_id} ${persona}: 이을 블라인드 풀이가 없다 — start 로 새 블라인드부터`)
+    const { data: run, error: re } = await db.from('csat_review_runs')
+      .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona, kind: 'rereview', parent_run_id: parent.id }).select('id').single()
+    if (re) die(re.message)
+    const { data, error } = await db.rpc('csat_review_reveal', { p_run: run.id })
+    if (error) die(error.message)
+    const row = data?.[0]
+    const { data: prior } = await db.from('csat_independent_reviews').select('verdict, findings').eq('review_run_id', parent.id)
+    out({ run_id: run.id, kind: 'rereview', parent_run: parent.id,
+      original_solve: { answer: parent.solve_answer, note: parent.solve_note, matches: parent.solve_answer === row?.answer },
+      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: row?.analysis,
+      next: `submit --run ${run.id} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
+    break
+  }
+
   // ── 운영자 ──────────────────────────────────────────────────────────
   case 'export': {
     const size = Number(arg('size', 4))
@@ -217,6 +256,6 @@ switch (cmd) {
     break
   }
   default:
-    console.log('usage: review-drain.mjs <start|solve|reveal|submit|export|publish|status|backfill-analyst-run> …(머리 주석 참조)')
+    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|export|publish|status|backfill-analyst-run> …(머리 주석 참조)')
     process.exit(cmd ? 1 : 0)
 }
