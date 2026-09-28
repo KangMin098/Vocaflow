@@ -13,6 +13,9 @@ import {
   axisDef,
   labelOf,
   type AxisId,
+  type EvidenceScope,
+  scopeLabel,
+  scopeQuery,
 } from '@/lib/csat/evidence-fold'
 import {
   FIELD_GROUPS,
@@ -43,6 +46,13 @@ const nf = new Intl.NumberFormat('ko-KR')
 const date = (value: string) =>
   new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul', hour12: false })
 const PAGE_SIZE = 40
+/** 범위 전환 — 평가원이 본 근거 집합, 학평은 학년 하나씩(104회차를 한 매트릭스에 펴면 열이 읽히지 않는다) */
+const SCOPES: EvidenceScope[] = [
+  { set: 'kice' },
+  { set: 'hakpyeong', grade: 1 },
+  { set: 'hakpyeong', grade: 2 },
+  { set: 'hakpyeong', grade: 3 },
+]
 
 export function downloadWork(value: unknown) {
   const url = URL.createObjectURL(
@@ -83,6 +93,8 @@ export function EvidenceConsole({
   const page = Math.min(state.page, Math.max(1, Math.ceil(shown.length / PAGE_SIZE)))
   const scopeIssue = WORK_ISSUES.find((i) => i.id === state.issue)
   const healthy = !data.loadError && !data.readinessError && Boolean(data.readiness) && !verifyError
+  /** 이 화면이 보고 있는 집합 — 서버가 읽은 값이 정본이고, 없으면(옛 응답) URL 값 */
+  const scope: EvidenceScope = data.scope ?? state.scope
 
   const change = useCallback((patch: Partial<OperationsState>, replace = false) => {
     setState((previous) => {
@@ -132,16 +144,22 @@ export function EvidenceConsole({
     setMessage('최신 데이터와 배포 기준을 다시 확인하고 있습니다.')
     const timeout = setTimeout(() => controller.abort(), 90000)
     try {
-      const response = await fetch('/api/admin/csat/evidence', {
+      const scoped = scopeQuery(scope)
+      const response = await fetch(`/api/admin/csat/evidence${scoped ? `?${scoped}` : ''}`, {
         cache: 'no-store',
         signal: controller.signal,
       })
       const next = (await response.json()) as OperationsData
-      if (!response.ok || next.loadError || next.readinessError || !next.readiness)
+      if (!response.ok || next.loadError || next.readinessError || (scope.set === 'kice' && !next.readiness))
         throw new Error(next.loadError ?? next.readinessError ?? '재검증하지 못했습니다.')
+      setData(next)
+      if (!next.readiness) {
+        // 학평 범위 — 준비도를 재지 않는다
+        setMessage(`재검증 완료 · ${scopeLabel(scope)} 문항 ${next.items.length} · ${date(next.generatedAt)} KST`)
+        return
+      }
       const previous = data.readiness?.readyIds.length
       const delta = previous === undefined ? null : next.readiness.readyIds.length - previous
-      setData(next)
       setMessage(
         `재검증 완료 · 학습 준비 ${next.readiness.readyIds.length}문항${delta === null ? '' : ` · 이전 대비 ${delta > 0 ? '+' : ''}${delta}문항`} · ${date(next.generatedAt)} KST`
       )
@@ -199,6 +217,29 @@ export function EvidenceConsole({
             </button>
           </div>
         </header>
+        <nav className={s.scope} aria-label="근거 집합">
+          {SCOPES.map((sc) => {
+            const current = scopeQuery(sc) === scopeQuery(scope)
+            return (
+              <a
+                key={scopeLabel(sc)}
+                href={operationsHref({ ...state, scope: sc, item: '', page: 1, filter: {}, intersection: null })}
+                aria-current={current ? 'page' : undefined}
+              >
+                {scopeLabel(sc)}
+              </a>
+            )
+          })}
+        </nav>
+        {scope.set === 'hakpyeong' ? (
+          <div className={s.notice} role="note" data-testid="evidence-scope-notice">
+            <strong>{scopeLabel(scope)} · 보조·검증 집합</strong>
+            <p>
+              교육청 학력평가는 학습자에게 배포하지 않으므로 학습 준비 판정을 하지 않습니다. 평가원 유형
+              리포트와의 대조 결함도 적용하지 않습니다. 문항·분석·검수 상태와 원천 결함만 봅니다.
+            </p>
+          </div>
+        ) : null}
         <p className={s.muted}>
           검사 시각 {date(data.generatedAt)} KST · DB 최신 공개 분석 + 현재 배포된 앵커·메타데이터
         </p>

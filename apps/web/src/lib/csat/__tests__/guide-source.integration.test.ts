@@ -42,6 +42,7 @@ describe.skipIf(skip)('기출 가이드 원천 자료 (실 DB)', () => {
       .from('csat_items')
       .select('id', { count: 'exact', head: true })
       .eq('in_scope', true)
+      .not('id', 'like', 'H%') // 평가원만 — 코드가 학평(보조·검증 집합)을 가르므로 기준값도 같은 범위로 센다
     // 문항마다 최신 버전 하나로 접으므로 analyzed ≤ 사정권 문항
     expect(source!.totals.items).toBe(inScope.count ?? 0)
     expect(source!.totals.analyzed).toBeGreaterThan(0)
@@ -60,6 +61,7 @@ describe.skipIf(skip)('기출 가이드 원천 자료 (실 DB)', () => {
           .from('csat_item_analyses')
           .select('item_id')
           .eq('status', 'published')
+          .not('item_id', 'like', 'H%') // 평가원만 — 코드가 학평(보조·검증 집합)을 가르므로 기준값도 같은 범위로 센다
           .range(from, from + 999)
         if (page.error) throw new Error(page.error.message)
         const batch = (page.data ?? []) as { item_id: string }[]

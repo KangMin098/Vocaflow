@@ -11,7 +11,10 @@ import {
   type DefectCode,
   type EvidenceData,
   type EvidenceItem,
+  type EvidenceScope,
   type Filter,
+  parseEvidenceScope,
+  scopeQuery,
   type Measure,
 } from './evidence-fold'
 
@@ -24,6 +27,8 @@ export interface ReadinessAudit {
 export interface OperationsData extends EvidenceData {
   readiness: ReadinessAudit | null
   readinessError: string | null
+  /** 이 데이터가 본 집합. 학평이면 readiness 는 늘 null 이다(배포 판정 대상 아님) */
+  scope?: EvidenceScope
 }
 export const LEARNER_FIELDS: Record<string, string> = {
   answer: '정답',
@@ -195,6 +200,8 @@ export interface OperationsState {
   col: AxisId
   measure: Measure
   intersection: { axis: AxisId; keys: [string, string] } | null
+  /** 범위는 서버가 데이터를 다시 읽어야 바뀐다 — 링크로만 옮긴다(`change` 로 바꾸지 않는다) */
+  scope: EvidenceScope
 }
 type Params = URLSearchParams | Record<string, string | string[] | undefined>
 export function parseOperationsState(params: Params = {}): OperationsState {
@@ -240,6 +247,7 @@ export function parseOperationsState(params: Params = {}): OperationsState {
       AXES.some((a) => a.id === get('cellAxis')) && get('cellRow') && get('cellCol')
         ? { axis: get('cellAxis') as AxisId, keys: [get('cellRow'), get('cellCol')] }
         : null,
+    scope: parseEvidenceScope(params),
   }
 }
 export function operationsHref(state: OperationsState): string {
@@ -261,7 +269,8 @@ export function operationsHref(state: OperationsState): string {
     sp.set('col', state.col)
     sp.set('m', state.measure)
   }
-  return `/admin/csat/evidence?${sp}`
+  const scoped = scopeQuery(state.scope)
+  return `/admin/csat/evidence?${scoped ? `${scoped}&` : ''}${sp}`
 }
 export function readinessIndex(audit: ReadinessAudit | null) {
   return {
