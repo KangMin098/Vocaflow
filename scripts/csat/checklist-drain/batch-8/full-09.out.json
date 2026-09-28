@@ -1,0 +1,954 @@
+[
+  {
+    "id": "54fb1b41-8f2a-4192-93c0-3d5023955cec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5cf4abab390c329c055530f573aae5dc0835de4d4e8e55b7f83566aa9dfcef28",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "코건이 신문 전면 광고로 재결성을 알리고 → 2000년 해체와 블로그 비난 경위 → 멤버들이 알았는지 불분명하다는 흐름이 이어져 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the same day he released",
+      "note": "첫 문단이 혼자 서고, bitter·forthcoming 을 angry·given 으로 바꾸면 V4 로 내려간다 — 블로그 비방 인용(\"drug addict\")은 가공 때 걷어도 흐름이 선다."
+    }
+  },
+  {
+    "id": "55100a18-7b2d-44c7-83df-3217f0eade2b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "856f5a7b93d9d6e8fa1b8f126ec08cb579eab2073d819370745d1fa291f87026",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "문화부의 공개 예배 금지 → 그래서 은밀했던 종교 → 법원 판결로 허용, 정교회의 비판과 신자 수 추정치 차이까지 이유·결과로 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prior to the ruling, the religion",
+      "note": "금지→은밀→판결의 인과가 두 문단에 있어 떼기 쉽고, denomination·fragmentary 를 group·incomplete 로 바꾸면 V5 쪽으로 내려간다."
+    }
+  },
+  {
+    "id": "5516e068-fc40-46d0-99f6-f1980a9685f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "71859df780ab7b28b2ef9997d51f121ce64164e4206646751ef0e2e71048886c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "주지사 서명 법안이 25% 재생에너지를 요구하고 → 현재 풍력 규모의 약 여덟 배를 더해야 한다는 결과로 이어지는 단신이라 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bill signed by the Governor",
+      "note": "수치는 많지만 법→필요 증설로 이어지는 연결이 있어 선다; significant·approximately 를 big·about 으로 바꾸면 V3 가 된다."
+    }
+  },
+  {
+    "id": "55289880-8324-4753-90c7-f07928e04335",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2155b1e4b38f054fc175e695ee39fb5e192e7bd69a84b513182f2bf7eb821820",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "space",
+    "why": "본문 대부분이 승무원 이름·직함 명단이고 명단을 걷으면 발사 예정 시각과 「날씨로 7월 2일로 연기」 두 문장만 남아, 연결 하나로 단신 칸을 세울지 수치·일정 나열로 볼지가 갈린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "As of 3:50 PM EDT",
+      "note": "명단을 걷으면 일정 두 문장만 남아 떼어 낸 문단에 사건 흐름이 거의 없다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "552956a4-ed25-427c-9c01-2454e0cb2c3f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "13f9272d49c2b3694f60e926f6df7eaa79b808a4212ab364cd9349f643727a3f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "포드 입원과 사무실 성명 → 대변인들의 추가 정보 거부 → 5년 전 뇌졸중 이후 활동 감소라는 배경이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Former President of the United States",
+      "note": "첫 문단과 마지막 문단만으로 입원·배경이 서고, diminished·anticipated 를 decreased·expected 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "55339b47-9dc3-4f24-ab5f-56cc2650a38a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cd4767dd218c03de3101eeca824ae7691efc9f63b123a2d32206c093ac8e3f63",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "콜럼버스 집회가 LA 집회에 이은 연쇄 행사이고 하원 법안 HR 4437 에 대한 경각심을 높이려는 목적이라는 까닭이 문장으로 이어진다 — 주최 측 한쪽 입장 보도로 내용 일치·목적 추론 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Organizers wanted to raise awareness of",
+      "note": "단체 이름 나열을 걷어도 집회→법안→요구의 논지가 서고, felony·pending 을 crime·waiting 으로 바꾸면 V5 쪽이다."
+    }
+  },
+  {
+    "id": "553746ae-0c47-4084-acbc-a9b7d7a69bb7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69dd9f8fca5ecd58189f28f573a1feef67c9bba0c9748682d0f56df7e4393d6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "카베리강 물 분배 판결 → 폭동 우려로 700명 예방 구금·경찰 1만6천 배치 → 방갈로르 상점·학교 조기 폐쇄로 원인과 결과가 뚜렷이 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police in Karnataka's capital city of",
+      "note": "판결→대비→폐쇄의 세 문단이 떼고 끼우기 좋고, preventative·custody 를 safety·detention 으로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "5549836a-cca5-4bdf-9406-a1bd3b41cf5c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a175bc3b82cb284fdc7f8d4cd4ae478fdbdf25508f6e8f96ee535f732769e18c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "교과서 승인 논란 → 합법 집회 → 대사관 습격 → 일본 항의와 중국 정부 유감 표명까지 원인·반응이 이어지는 보도로, 시위자 구호는 한쪽 입장 인용이라 내용 일치·순서·주장 칸이 된다(마지막 문단은 인용이 깨져 있다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "order",
+        "insert",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Japanese Government had been criticised",
+      "note": "둘째 문단부터 다섯 문단이 혼자 서지만 마지막 문단은 인용이 뒤섞여 깨졌고 비하 구호(\"Japanese pig\")와 함께 가공 때 걷어낸다; atrocities·whitewashes 를 crimes·hides 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "5551d96c-6c60-4f1d-a10a-ecd44881c3eb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bfbe2eb508066c3189e389986965d99ee9fba0a2577a88e305ab57280a25c5e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인텔의 OpenedHand 인수 발표 → 프로젝트 계속 지원 → 애널리스트가 PC 시장과 달리 모바일은 다양해지고 있다고 풀이하는 대목이 주장·근거로 서서 내용 일치·주제 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "claim"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rob Bamforth, an analyst for Quocirca,",
+      "note": "애널리스트 문단이 PC/모바일 대조로 혼자 서고, diverse·specialist 는 문맥으로 잡혀 V4 까지 조정된다."
+    }
+  },
+  {
+    "id": "5556502d-82ce-493e-b982-1d899d71cb6b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44792d022fe73f985ffd44bf9d7b36175c12f7ae582feeda42b74a24857728e0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의심스러운 화재로 두 아이 사망 → 어머니와 아기의 탈출 → 경찰의 사전 출동과 제보 요청 → 이웃의 애도로 사건·반응이 이어진다; 아동 사망이 중심이라 고1 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the fire, which occurred in",
+      "note": "탈출 장면 문단과 이웃 반응 문단이 떼어도 서고 이웃 발언에서 심경이 읽힌다; cordoned·intelligence 를 closed·information 으로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "55709e10-1c7d-4ac3-8677-346146218a96",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d9a56b603e0e206816cc2b432b8796f32bf73de8d9980ee3ee6362bfd2cb79fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "영어 위키백과와 ESPASA 를 기사·낱말 수로 비교하고 145년 대 5년이라는 대조로 결론을 내며 「양적 비교일 뿐」이라는 단서까지 달아, 수치 나열을 넘는 비교 논지가 서 내용 일치·요지 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "topic"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": [
+        "data-claim",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It has taken ESPASA 145 years",
+      "note": "셋째 문단의 145년/5년 대조가 혼자 서고, periodically·bibliographic 을 regularly·reference 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "55757a8c-fe8b-4507-8e60-f7b3fe5c619b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7290ad66fdb14579944409a4ef27d4bb4aff4beffbd719ce0466174f695bcd48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "햇빛 많은 여름 → 동부 기온 급상승 → 기상청의 더위 지속 예보 → 서유럽 전반의 더위로 문장이 이어져, 지역·기온 수치가 많아도 연결이 있는 단신이라 쉬운 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This summer has brought a large",
+      "note": "첫 문단과 예보 문단이 혼자 서고 지명(Miðjarðarnesi 등)을 걷어도 사건이 선다; soaring·predicting 을 going up·saying 으로 바꾸면 V3 다."
+    }
+  },
+  {
+    "id": "558dc9dc-f5e3-4271-b011-55bb95ee8c70",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b9443059576b09c784b334feef184496b6f02842ea7db089960e967179123c22",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "7·7 테러 용의자 3명 체포 → 파키스탄행 탑승 시도 중 검거 → 새 반테러법으로 28일 구금 가능이라는 사건·절차가 이어져 내용 일치 칸이 선다; 테러가 소재라 고1 이상.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two of the suspects were detained",
+      "note": "검거 경위 문단과 구금 절차 문단이 떼어도 서고, instigation·detonated 를 encouraging·set off 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "559ae740-5c73-4078-8245-a8bae09e66c8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e57dfe142c5b6dbd8f97f7fc8fd354caf879c37b018209198dc2944932dfa8e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "룰라 연설·FTAA 반대 모임·9월 10일 동원 계획·질 장관 회의 한 줄·레아우 교수·차베스 발언이 별표로 이어 붙은 행사 속보 모음이라, 꼭지마다 따로 판정할 것인지 기준에 없다(차베스 인용도 괄호가 깨져 있다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The President also used his speech",
+      "note": "룰라 빈곤 캠페인 문단은 혼자 서지만 전체는 무관한 꼭지가 섞여 한 편의 글로 서지 않는다."
+    },
+    "hold_reason": "criteria-gap"
+  },
+  {
+    "id": "55aceb9d-08dc-4fe7-960d-96a00bb8693f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28aa90e040aa9fb6e6c976b9720ee1c7561d86565024da2a1cfc60460bbed211",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "코파 결승 승부차기 패배 → 메시의 은퇴 시사 → 수아레스·비야·마라도나·대통령의 만류 반응으로 사건과 반응이 이어져 내용 일치·순서 칸이 선다(메시 본인 발언 인용은 비어 있다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "topic"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Today, Suárez speaking to Radio Tenfield",
+      "note": "반응 문단들이 떼어도 서지만 「told news reporters,. He added,.」 문장은 인용이 빠져 가공 때 걷어낸다; helplessness·reconsider 는 문맥으로 잡혀 V4 그대로 된다."
+    }
+  },
+  {
+    "id": "55b2513c-5eb0-4437-abe8-ab40d2867476",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ddbe670732102ad7e6ce4f56e743b23fb5abd9e7cd2823c78b6ac32cd7eaa0cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "브라질 첫 우주인이 러시아·미국 승무원과 소유즈로 발사되고 → 둘은 여섯 달 머물고 → 그는 열흘 뒤 교대 승무원과 돌아온다는 절차가 이어지는 짧은 단신이라 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pontes, who flies for the Brazilian",
+      "note": "둘째 문단이 발사 후 일정을 혼자 세우고, outgoing·onboard 를 leaving·on 으로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "55bd9fc9-2c60-4ced-bec7-4f64aaa1d023",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "884f39e59cb2cfd2015a9a4744e55f816d372c4322c073a5681d56bba0c79129",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "타이베이 선정 발표 → 심사단이 든 선정 이유(팀·장소·후원·아시아 언어 프로젝트) → 위키마니아의 성격과 역대 개최지로 이어져 주장-근거·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Taipei had the winning combination of",
+      "note": "심사단 인용 문단이 이유 여럿을 담아 혼자 서고, centralized·accommodation 을 central·rooms 로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "55dc3d54-88da-444e-9e67-a5786c25e5d3",
+    "source_updated_at": "2026-09-27T18:08:30.956467+00:00",
+    "body_sha256": "855e8f7a70a37be6e602ef6159fddb01e770c1c1cf005c93d555e20879b81940",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "「Deaths in 2008」 머리말 뒤에 대먼 한 사람만 있고, 다섯 대통령 보좌 경력 → 백혈병 사망 → 1990년 공약과 달리 의회 증세를 설득했다는 대조가 문장으로 이어져 짧은 인물 단신 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Richard Darman, who was the trustee",
+      "note": "머리말을 걷으면 한 문단이 혼자 서지만 직함 나열이 길어 걷어야 하고, pledge·trustee 를 promise·board member 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "55e51bb3-d72c-4c91-9902-024e6c6f09ee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "041116433683be76434a92953990f5d879e982bb224324f33dc84dfbbeaae40c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "language",
+    "why": "차별반대기구와 위키미디어 아르헨티나의 협약 체결 → 협약 내용(자유로운 지식 접근·차별 예방) → 원주민 언어 백과사전 개발이라는 목적으로 이어져 내용 일치·주제 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A local chapter is a NGO",
+      "note": "마지막 문단이 원주민 언어 보존 목적을 혼자 세우고, foments·collectivities 를 encourages·communities 로 바꾸면 V5 로 내려간다(번역투라 문장 손질이 필요)."
+    }
+  },
+  {
+    "id": "55f16a87-a140-4c28-88e6-c3b1c89179ef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "671f894fa734416c87a49461ee47d33a3dae5fc6fc1673f08df02115e52d0669",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "engineering",
+    "why": "승강타 경고 → 명령 없는 상승 후 급강하 → 승객이 천장에 부딪혀 부상 → 비상착륙·후송 → 난기류가 아닌 컴퓨터 오작동 가능성 조사로 원인·결과·절차가 뚜렷해 순서·삽입·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The aircraft then performed an uncommanded",
+      "note": "사건 문단이 시간순으로 선명해 순서 문항으로 바로 쓸 수 있고, uncommanded·concussions 를 unplanned·head injuries 로 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "55f55dee-4783-4b9d-a8cf-883b383b69f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c670d62d19e26e8e709f7394a2f36946fc7a6ad41a1d117a0d930942553edae4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "첫 비행 2년 뒤 10월 두 번째 유인 발사 계획 → 책임자의 「10월 초 선호」 발언 → 2010년 달 무인 착륙·우주정거장 계획으로 이어지는 단신이라 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "China looks to launch its second",
+      "note": "첫 문단이 혼자 서고 기관명을 걷어도 계획의 흐름이 남으며, manned·probe 를 crewed·spacecraft 로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "5615d757-4b35-44bb-bd9d-842ce5157396",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78e2e295149dc9acaea1a3bf86e24b9d74b497f73741dbc4ded4ee905a18ac67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "롬니 6곳 승리 → 오하이오 근소차와 도시/농촌 표 갈림 → 샌토럼·깅리치·폴의 결과와 각자 연설로 이어지는 경선 보도라, 후보별 한쪽 입장 인용을 포함해 내용 일치·순서 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ohio had the closest margin with",
+      "note": "오하이오 문단이 도시·부유층 대 농촌·노동자층 대조로 혼자 서고, affluent·margin 을 rich·gap 으로 바꾸면 V4 다."
+    }
+  },
+  {
+    "id": "56404c18-9405-48d2-a63b-cf04590862a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "94cf20c48f4ca1425fec19b4df3f3edb91f88bff68449811da0f166f662fd0ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "로드러너 공개 → 초당 1천조 연산·블루진의 두 배 → 핵 억지와 에너지 연구에 쓰인다는 장관 발언으로 용도와 성능이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The US Department of Energy yesterday",
+      "note": "첫 문단이 용도·성능을 혼자 세우고, unveiled·deterrent 를 showed·defense 로 바꾸면 V3~V4 다."
+    }
+  },
+  {
+    "id": "56459653-3da9-4cd8-8249-7cf18939dabe",
+    "source_updated_at": "2026-09-25T08:58:48.660405+00:00",
+    "body_sha256": "eb254a490390d3b4e0466d6de2e4fe0b2fe3278328f0ee08efcc4cff9e361fbb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "퀴네르트가 건강 문제로 사무총장직을 사퇴 → 당 지도부 통보와 인스타그램 작별 → 집권당이 유럽의회 선거에서 밀린 배경으로 원인과 맥락이 이어지는 단신이라 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This past Monday Kevin Kühnert stepped",
+      "note": "첫 문단이 사퇴 이유까지 혼자 세우고, citing·disclose 를 giving·share 로 바꾸면 V3~V4 다."
+    }
+  },
+  {
+    "id": "5646faea-d125-4244-a5a1-101c6d802f19",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a1c2529b180bc6896ec8512e63b516c7e577bbef3b8568894112292bcc08b037",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "웸블리 게임 박람회를 기자가 방별로 돌며 밴드 공연 순서·관객 반응·대회 시상을 시간순으로 전하는 현장 르포라, 분위기가 읽히고 순서·심경·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The first band to play inside",
+      "note": "밴드 셋이 차례로 나오는 문단이 떼어도 서고 관객 반응이 분위기를 준다; 브랜드·유명인 이름 나열 문단은 가공 때 걷어낸다."
+    }
+  }
+]
