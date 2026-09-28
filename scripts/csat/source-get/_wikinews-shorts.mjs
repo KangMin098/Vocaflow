@@ -25,6 +25,18 @@ const words = (s) => (String(s).match(/\S+/g) ?? []).length
 // 2012년 1월 모음의 머리말 — 꼭지가 아니라 편집 안내다.
 const BOILERPLATE = /^If you believe any of these stories deserves more in-depth coverage\b[^\n]*(?:\n\s*)*/i
 
+// 모음 머리말 문단 — 꼭지가 아니다. 부고 모음(「Deaths in 2008」「The following (were some of the) deaths were reported …:」,
+// 앞에 떨어진 조각 「to」)과 단신 모음(「A compilation of brief news reports …」)의 첫머리.
+// 실측 2026-09-28: 부고 모음 4행의 첫 꼭지가 머리말을 달고 들어가, 체크리스트가 「목록 머리만 있고 끊겼다」(truncated)로 읽었다.
+const HEAD_PARA = /^(?:to|Deaths in \d{4}|The following (?:were some of the )?deaths? (?:were |was )?reported\b[^\n]*:|A compilation of brief news reports\b[^\n]*)$/i
+
+/** 모음 첫머리의 머리말 문단을 걷는다(가운데 문단은 건드리지 않는다). */
+export function stripDigestHead(content) {
+  const ps = String(content ?? '').trim().split(/\n\s*\n/)
+  while (ps.length > 1 && HEAD_PARA.test(ps[0].trim())) ps.shift()
+  return ps.join('\n\n')
+}
+
 /** 문단 나누기 — 빈 줄 기준. */
 export const paragraphs = (content) => String(content ?? '').split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean)
 
@@ -62,7 +74,7 @@ const MIN_BRIEF_WORDS = 10
  * @returns {{ briefs: string[], dropped: string[] }}
  */
 export function splitDigest(content) {
-  const parts = String(content ?? '').trim().replace(BOILERPLATE, '').split(SPLIT).map((p) => p.trim()).filter(Boolean)
+  const parts = stripDigestHead(String(content ?? '').trim().replace(BOILERPLATE, '')).split(SPLIT).map((p) => p.trim()).filter(Boolean)
   const briefs = []
   const dropped = []
   for (const p of parts) (words(p) >= MIN_BRIEF_WORDS && !RESIDUE.test(p) ? briefs : dropped).push(p)

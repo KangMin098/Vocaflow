@@ -5,7 +5,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId, isResidue, needsManualSplit, splitByGroups, paragraphs } from '../source-get/_wikinews-shorts.mjs'
+import { isDigestTitle, isBriefSourceId, splitDigest, briefTitle, briefSourceId, isResidue, needsManualSplit, splitByGroups, paragraphs, stripDigestHead } from '../source-get/_wikinews-shorts.mjs'
 import { derivativeKind } from '../gate-rules.mjs'
 
 const BODY = `Records at McGill University were made public because of a glitch in a new search system, CBC reports.
@@ -101,4 +101,15 @@ test('적어 둔 경계로 쪼갠다 — 모든 문단을 정확히 한 번씩 �
 
 test('다시 쪼갠 꼭지 source_id(#brief-N.M)도 원천이다', () => {
   assert.equal(derivativeKind({ source_id: 'wikinews:350068#brief-1.3' }), null)
+})
+
+test('부고 모음 머리말은 첫 꼭지에 남지 않는다 (2008년 1–2월 부고 모음 실측)', () => {
+  const body = 'to\n\nDeaths in 2008\n\nThe following were some of the deaths reported over the last 12 days:\n\nAmerican mystery writer Phyllis Ayame Whitney died on February 8, from pneumonia. She was 104.\n\nSources\n\nGordo cartoonist Gus Arriola died in Carmel, California on Saturday, his family said.\n\nSources'
+  const { briefs } = splitDigest(body)
+  assert.equal(briefs.length, 2)
+  assert.match(briefs[0], /^American mystery writer/)
+  assert.equal(stripDigestHead('Deaths in 2008\n\nThe following deaths were reported over the past week:\n\nRichard Darman died.'), 'Richard Darman died.')
+  // 머리말만 있는 글은 비우지 않는다 · 가운데 문단은 건드리지 않는다
+  assert.equal(stripDigestHead('Deaths in 2008'), 'Deaths in 2008')
+  assert.equal(stripDigestHead('A story.\n\nDeaths in 2008'), 'A story.\n\nDeaths in 2008')
 })
