@@ -24,11 +24,11 @@ import {
 const NOW = Date.parse('2026-09-29T09:00:00Z')
 const DAY = 86_400_000
 
-const idx = (id: string, type_id: string, family: string, mapped = true): WorkspaceIndexItem => ({
+const idx = (id: string, type_id: string, family: string, mapped = true, extra: string[] = []): WorkspaceIndexItem => ({
   id,
   type_id,
   exam_id: id.split('#')[0],
-  family,
+  families: [family, ...extra],
   mapped,
   year: Number(id.replace(/^M/, '20').slice(0, 4)),
 })
@@ -108,7 +108,7 @@ describe('progressOf — 기존 학습 포함 vs 만든 뒤 · 계획', () => {
     const ws = ws0({ ...EMPTY_SCOPE, types: ['R-BLANK'] })
     const r = rec({ views: [{ id: '2026#31', at: NOW - 3 * DAY }], completed: [{ id: '2026#32', at: NOW + DAY }] })
     const p = progressOf(ws, poolOf(ws.scope, INDEX), r, NOW + 2 * DAY)
-    expect(p).toMatchObject({ pool: 3, touched: 2, touchedSince: 1, setsThisWeek: 1, perWeek: 3 })
+    expect(p).toMatchObject({ pool: 3, touched: 2, touchedSince: 1, studiedThisWeek: 1, perWeek: 3 })
     // 10-01 09:00 → 10-10 끝까지 = 오늘을 넣어 10일
     expect(p.daysLeft).toBe(10)
   })
@@ -132,11 +132,22 @@ describe('weakRows — 표본이 적으면 단정하지 않는다', () => {
     const row = weakRows(pool, rec({ predictions: [...before, ...recent] }))[0]
     expect(row).toMatchObject({ n: 10, before: { n: 5, hits: 1 }, recent: { n: 5, hits: 4 }, verdict: 'up' })
   })
-  it('함정 축은 2수(오답 계열)를 본다 · 풀 밖 예측은 세지 않는다', () => {
-    const r = rec({ predictions: [pred('2026#36', 2, false, 1), pred('9999#1', 2, false, 2), pred('2026#36', 1, true, 3)] })
+  it('함정 축은 2수 예측이 가리킨 계열(family)로 센다 · 계열 없는 옛 기록 · 풀 밖 예측은 세지 않는다', () => {
+    const r = rec({
+      predictions: [
+        { ...pred('2026#36', 2, false, 1), family: '부분 사실' },
+        pred('2026#36', 2, false, 2),
+        { ...pred('9999#1', 2, false, 3), family: '부분 사실' },
+        pred('2026#36', 1, true, 4),
+      ],
+    })
     const rows = weakRows(pool, r)
     expect(rows.find((x) => x.axis === 'trap')).toMatchObject({ key: '부분 사실', n: 1 })
     expect(rows.reduce((a, x) => a + x.n, 0)).toBe(2)
+  })
+  it('함정 조건은 문항의 계열 중 하나라도 맞으면 든다', () => {
+    const multi = [...INDEX, idx('2023#33', 'R-BLANK', '어휘 함정', true, ['부분 사실'])]
+    expect(poolOf({ ...EMPTY_SCOPE, traps: ['부분 사실'] }, multi).map((p) => p.id)).toEqual(['2026#36', '2023#33'])
   })
   it('약점 후보는 표본을 채우고 적중이 절반 미만인 것만', () => {
     const miss = Array.from({ length: MIN_JUDGE }, (_, i) => pred('2026#36', 1, i === 0, i))

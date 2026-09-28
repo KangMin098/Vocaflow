@@ -58,8 +58,8 @@ export interface WorkspaceIndexItem {
   id: string
   type_id: string
   exam_id: string
-  /** 정답과 대조하는 대표 오답의 계열(함정) */
-  family: string
+  /** 이 문항 오답 선지들의 계열(함정) — 최신 published 분석의 `choice_analysis[].trap`, 지도에 오른 이름만 */
+  families: string[]
   /** 지문 지도가 있나 */
   mapped: boolean
   /** 학년도 */
@@ -85,14 +85,19 @@ export function poolOf(scope: WorkspaceScope, index: readonly WorkspaceIndexItem
     if (picked.has(it.id)) return true
     if (!hasFacet) return false
     if (types.size && !types.has(it.type_id)) return false
-    if (traps.size && !traps.has(it.family)) return false
+    if (traps.size && !it.families.some((f) => traps.has(f))) return false
     if (exams.size && !exams.has(it.exam_id)) return false
     if (scope.mappedOnly && !it.mapped) return false
     return true
   })
 }
 
-export const scopeSize = (s: WorkspaceScope) => s.types.length + s.traps.length + s.exams.length + s.items.length + (s.mappedOnly ? 1 : 0)
+/** 계측용 풀 크기 구간 — 문항 수를 그대로 보내지 않는다 */
+export function poolBucket(n: number): 'none' | 'lt10' | 'lt30' | 'lt100' | 'gte100' {
+  return n === 0 ? 'none' : n < 10 ? 'lt10' : n < 30 ? 'lt30' : n < 100 ? 'lt100' : 'gte100'
+}
+
+export const scopeSize =(s: WorkspaceScope) => s.types.length + s.traps.length + s.exams.length + s.items.length + (s.mappedOnly ? 1 : 0)
 
 // ── 병합(기기 ↔ 서버) ────────────────────────────────────────────────────
 
@@ -154,8 +159,11 @@ export interface WorkspaceProgress {
   touched: number
   /** 만든 뒤에 연 문항 */
   touchedSince: number
-  /** 이번 주(월요일 0시부터) 이 풀에서 끝낸 해부 세트 수 — 계획 달성의 분자 */
-  setsThisWeek: number
+  /**
+   * 이번 주(월요일 0시부터) · 만든 뒤에 이 풀에서 학습한 문항 수(해설을 열거나 · 예측하거나 · 해부를 끝낸 문항,
+   * 문항당 한 번) — 계획(주당 학습 문항)의 분자. 만들기 전 학습은 넣지 않는다.
+   */
+  studiedThisWeek: number
   /** 계획의 주당 세트 수(없으면 null) */
   perWeek: number | null
   /** 기한까지 남은 날(없거나 지났으면 null · 지났으면 0) */
@@ -192,13 +200,15 @@ export function progressOf(ws: Workspace, pool: readonly WorkspaceIndexItem[], r
     if (t.some((at) => at >= ws.createdAt)) touchedSince += 1
   }
   const monday = weekStart(now)
-  const setsThisWeek = record.completed.filter((c) => c.at >= monday && c.at >= ws.createdAt && ids.has(c.id)).length
+  const from = Math.max(monday, ws.createdAt)
+  let studiedThisWeek = 0
+  for (const id of ids) if (times.get(id)?.some((at) => at >= from)) studiedThisWeek += 1
   let daysLeft: number | null = null
   if (ws.intent.plan?.until) {
     const until = Date.parse(`${ws.intent.plan.until}T23:59:59Z`)
     if (Number.isFinite(until)) daysLeft = Math.max(0, Math.ceil((until - now) / DAY))
   }
-  return { pool: ids.size, touched, touchedSince, setsThisWeek, perWeek: ws.intent.plan?.perWeek ?? null, daysLeft }
+  return { pool: ids.size, touched, touchedSince, studiedThisWeek, perWeek: ws.intent.plan?.perWeek ?? null, daysLeft }
 }
 
 // ── 약점 변화(예측 적중) ──────────────────────────────────────────────────
@@ -258,7 +268,10 @@ export function weakRows(pool: readonly WorkspaceIndexItem[], record: Dissection
       g.list.push(p)
       groups.set(k, g)
     } else if (p.step === 2) {
-      const k = `trap|${it.family}`
+      // 2수 예측이 가리킨 오답의 계열(`Prediction.family`). 없으면(옛 기록) 함정 축에 넣지 않는다 —
+      // 문항에 계열이 여럿이라 어느 것인지 짐작하면 지어낸 수가 된다
+      if (!p.family) continue
+      const k = `trap|${p.family}`
       const g = groups.get(k) ?? { axis: 'trap' as const, step: 2 as const, list: [] }
       g.list.push(p)
       groups.set(k, g)
@@ -292,7 +305,7 @@ export function nextSet(pool: readonly WorkspaceIndexItem[], record: DissectionR
   const score = (it: WorkspaceIndexItem) => {
     const seen = times.get(it.id)
     if (!seen) return [0, 0]
-    const w = Math.min(weak.get(`type|${it.type_id}`) ?? 1, weak.get(`trap|${it.family}`) ?? 1)
+    const w = Math.min(weak.get(`type|${it.type_id}`) ?? 1, ...it.families.map((f) => weak.get(`trap|${f}`) ?? 1))
     return [1 + w, Math.max(...seen)]
   }
   return [...pool]
@@ -300,6 +313,57 @@ export function nextSet(pool: readonly WorkspaceIndexItem[], record: DissectionR
     .sort((a, b) => a.s[0] - b.s[0] || a.s[1] - b.s[1] || a.it.id.localeCompare(b.it.id))
     .slice(0, size)
     .map((x) => x.it.id)
+}
+
+// ── 가이드 — 출발점이 미리 채우는 구성 ─────────────────────────────────────
+
+export interface StarterContext {
+  /** 최근 출제가 많은 순의 유형 id */
+  typesByRecent: string[]
+  /** 킬러 유형(빈칸 · 순서 · 삽입) — `space-model.killerTypeIds` */
+  killer: string[]
+  /** 여러 유형에 걸치는 함정(많은 순) — `trap-atlas.UNIVERSAL` */
+  universalTraps: string[]
+  /** 최근 기출의 기준 학년도 — `trap-atlas.RECENT_FROM` */
+  recentFrom: number
+  /** 회차 id · 학년도 */
+  exams: { id: string; year: number }[]
+  /** 기록에서 찾은 약점 후보(`weakCandidates`) */
+  weak: WeakRow[]
+}
+
+export const STARTER_LABEL: Record<WorkspaceStarter, string> = {
+  start: '처음 시작하기',
+  killer: '킬러 유형 잡기',
+  trap: '오답 선지 설계 보기',
+  evidence: '근거 문장 찾기',
+  recent: '최근 기출부터',
+  weakness: '내 약점으로',
+}
+
+/** 출발점이 미리 담는 것과 그 이유 한 줄 — 학습자는 이것을 고쳐서 저장한다 */
+export function starterScope(starter: WorkspaceStarter, ctx: StarterContext): { scope: WorkspaceScope; why: string } {
+  switch (starter) {
+    case 'start':
+      return { scope: { ...EMPTY_SCOPE, types: ctx.typesByRecent.slice(0, 3) }, why: '최근 출제가 가장 많은 유형 셋으로 시작합니다.' }
+    case 'killer':
+      return { scope: { ...EMPTY_SCOPE, types: ctx.killer }, why: '빈칸 · 순서 · 삽입 — 3점이 몰리는 유형입니다.' }
+    case 'trap':
+      return { scope: { ...EMPTY_SCOPE, traps: ctx.universalTraps.slice(0, 4) }, why: '유형을 가리지 않고 가장 많이 쓰인 오답 제조법 넷입니다.' }
+    case 'evidence':
+      return { scope: { ...EMPTY_SCOPE, mappedOnly: true, exams: ctx.exams.filter((e) => e.year >= ctx.recentFrom).map((e) => e.id) }, why: '지문 지도로 근거 문장 자리를 확인할 수 있는 최근 문항입니다.' }
+    case 'recent':
+      return { scope: { ...EMPTY_SCOPE, exams: ctx.exams.filter((e) => e.year >= ctx.recentFrom).map((e) => e.id) }, why: `${ctx.recentFrom}학년도 이후 수능 · 모의평가입니다.` }
+    case 'weakness': {
+      const types = ctx.weak.filter((w) => w.axis === 'type').map((w) => w.key)
+      const traps = ctx.weak.filter((w) => w.axis === 'trap').map((w) => w.key)
+      // 칸 사이는 「그리고」 라 유형과 함정을 함께 넣으면 좁아진다 — 표본이 더 큰 축 하나만 담는다
+      const useTypes = types.length > 0 && (traps.length === 0 || ctx.weak.find((w) => w.axis === 'type')!.n >= ctx.weak.find((w) => w.axis === 'trap')!.n)
+      return ctx.weak.length
+        ? { scope: { ...EMPTY_SCOPE, ...(useTypes ? { types } : { traps }) }, why: '예측 기록에서 적중이 절반 미만이었던 곳입니다(표본 6회 이상).' }
+        : { scope: EMPTY_SCOPE, why: '약점을 말할 만큼 예측 기록이 아직 없습니다.' }
+    }
+  }
 }
 
 // ── 만들기 ───────────────────────────────────────────────────────────────

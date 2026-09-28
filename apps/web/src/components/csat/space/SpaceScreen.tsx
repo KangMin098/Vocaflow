@@ -37,6 +37,8 @@ import { ContinueCard } from '../home/ContinueCard'
 import { ContinuePanel } from '../home/ContinuePanel'
 import { CsatRail, type NeedId } from '../home/CsatRail'
 import { useCsatRecord } from '../home/useCsatRecord'
+import { HomeWorkspaces } from '../workspace/HomeWorkspaces'
+import type { WorkspaceIndex } from '@/lib/csat/workspace-index'
 import { track } from '@/lib/analytics/client'
 import { activeSet, coverage, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
@@ -83,6 +85,7 @@ export function SpaceScreen({
   initialTab = 'type',
   need = null,
   view = 'home',
+  workspaceIndex,
 }: {
   exams: SpaceExam[]
   /** 문항 id → 유형 id(넓이 · 「본 문항」 계산용). 서가 카탈로그에서 온다 */
@@ -92,6 +95,8 @@ export function SpaceScreen({
   need?: NeedId | null
   /** 'continue' = 이어서 · 복습 판(표 자리에 선다) */
   view?: 'home' | 'continue'
+  /** 「내 Workspace」 줄의 문항 색인 — 없으면 줄을 그리지 않는다(기존 화면 그대로) */
+  workspaceIndex?: WorkspaceIndex
 }) {
   const head = useMemo(spaceHeadline, [])
   const all = useMemo(() => ({ type: typeRows(), trap: trapRows() }), [])
@@ -228,6 +233,7 @@ export function SpaceScreen({
 
           {/* ── ③ 판 ─────────────────────────────────────────────────── */}
           <div className={styles.panel}>
+            {view === 'home' && workspaceIndex ? <HomeWorkspaces rec={rec} index={workspaceIndex} /> : null}
             <div className={styles.tabs} role="tablist" aria-label="보는 것">
               {(['type', 'trap'] as SpaceTab[]).map((key) => (
                 <button

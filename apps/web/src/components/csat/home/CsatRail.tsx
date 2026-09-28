@@ -15,14 +15,14 @@
 // 없는 것을 있는 것처럼 두지 않는다(ia-design §6).
 
 import Link from 'next/link'
-import { BookMarked, ChevronDown, Crosshair, Hash, History, Home, Layers, Library, Microscope, Search, Sparkles, Target, Timer } from 'lucide-react'
+import { BookMarked, ChevronDown, Crosshair, FolderKanban, Hash, History, Home, Layers, Library, Microscope, Search, Sparkles, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { ATLAS_TYPES, RECENT_FROM } from '@/lib/csat/trap-atlas'
 
 import styles from '../space/space.module.css'
 
-export type RailPlace = 'home' | 'continue' | 'record' | 'browse' | 'need' | 'type' | 'exam'
+export type RailPlace = 'home' | 'continue' | 'record' | 'browse' | 'need' | 'type' | 'exam' | 'workspace'
 export type NeedId = 'start' | 'killer' | 'trap' | 'evidence' | 'recent'
 
 export const NEEDS: { id: NeedId; label: string; href: string; Icon: typeof Home }[] = [
@@ -64,6 +64,9 @@ export function CsatRail({
         <Link className={styles.railItem} href="/csat" aria-current={cur(place === 'home')}>
           <Home size={15} aria-hidden="true" />
           홈
+        </Link>
+        <Link className={styles.railItem} href="/csat/workspace" aria-current={cur(place === 'workspace')} data-testid="rail-workspace">
+          <FolderKanban size={15} aria-hidden="true" />내 Workspace
         </Link>
         <Link className={styles.railItem} href="/csat?view=continue" aria-current={cur(place === 'continue')} data-testid="rail-continue">
           <History size={15} aria-hidden="true" />

@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **기출 학습 Workspace**(2026-09-29 · 저장 migration 0 · 계측 migration 1 승인 대기 `20260929090000_funnel_allow_csat_workspace`): 학습자가 유형 · 함정 · 회차 · 문항을 골라 담는 학습 묶음. `/csat/workspace` · `/new` · `/[id]` + 메인 판 머리 「내 Workspace」 줄 · 레일 항목. 저장은 `DissectionRecord.workspaces`(기기 + `csat_learner_state`) — id 단위 결정적 병합 · 묘비. 풀은 칸 안 또는 · 칸 사이 그리고(실제 포함 문항 미리보기). 진행은 기존 학습 포함 / 만든 뒤 / 이번 주 계획을 가른다. 약점 변화는 예측 적중(brief A7-1 예외 — 대상 · 표본 · 비교 기준 표시, 6회 미만 판단 보류). 이벤트 5종(자유 문자열 없음). 설계 [workspace-design](./csat-learner/workspace-design.md) · 회귀 19 · e2e 51.
 - **강의 나레이션 「출제 의도」 223곳 → 설계 가설 표현**(2026-09-28): 정형 문장 197(「이 문항의 설계를 짐작해 봅시다」 등) · 「출제자는 …」 26 → 「이 문항은 …」(의도 단정 1곳은 관찰로). 발문 공개 유지(사용자 결정) — 저작권 경계 회귀를 지문·선지만 막도록 고침(발문 144문항에 영어 원문 실측은 주석에 남김). 가이드 원천 회귀는 평가원 집합으로 대조(학평 in_scope 로 3,714). 검증 계획: [verification-plan](./csat-learner/verification-plan.md).
 - **근거 등급 칩**(2026-09-28 · 재검증 우선순위 3·4 · migration 0): `/csat/item/[id]` 「답이 왜 이것인가」에 「지문에서 확인」(인용이 지문 문장에 붙음) · 「근거 위치 미확인」 · 「도표 원본 미대조」(R-CHART 29 — 그림을 못 본 해설). 저장하지 않고 골격 앵커·유형에서 그릴 때 정한다(`evidenceGradeChip`).
 - **유형 리포트 정리**(2026-09-28 · 재검증 우선순위 2 · migration 0): 학습자 배포 가능 6/26 → **26/26** — 근거 서술 14유형(09-05 재작성 13 재적용 + R-VOCAB) · 「미끄러지는 자리」·「풀이 절차」 49줄(`report-lines-refold.mjs` 신설 · 표본 비율엔 「살펴본 회차 묶음 기준」). 원인 가드: `analysis-drain-import` 가 `--reports` 없이는 리포트를 덮지 않는다(09-13 재실행이 재작성을 되돌렸다). `n_analyzed` 합 800 → 802(`type-report-recount.mjs` · 재분류로 6유형 어긋남).

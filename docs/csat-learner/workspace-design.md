@@ -1,7 +1,7 @@
 # 학습 Workspace — 설계 (2026-09-29)
 
-> 상태: **구현 중.** 요구: 사용자 작업 지시(2026-09-29) · 검토 반영 5건(같은 날).
-> 코드: `apps/web/src/lib/csat/workspace.ts`(순수 모델) · 회귀 `lib/csat/__tests__/workspace.test.ts`.
+> 상태: **구현됨(2026-09-29) · 계측 마이그레이션 승인 대기.** 요구: 사용자 작업 지시(2026-09-29) · 검토 반영 5건(같은 날).
+> 코드: `lib/csat/workspace.ts`(순수 모델) · `lib/csat/workspace-index.ts`(서버 색인) · `components/csat/workspace/*` · 라우트 `(app)/csat/workspace{,/new,/[id]}` · 회귀 `lib/csat/__tests__/workspace.test.ts` · e2e `tests/e2e/51-csat-workspace.spec.ts`.
 
 ## 1. 무엇인가
 
@@ -37,7 +37,7 @@
 |---|---|---|
 | `touched / pool` | 이 풀에서 연 문항 — **만들기 전 학습 포함** | 「연 문항 n/총 (기존 학습 기록 포함)」 |
 | `touchedSince` | 만든 뒤에 연 문항 | 「만든 뒤 n」 |
-| `setsThisWeek / perWeek` | 이번 주(월 0시 UTC) 이 풀에서 끝낸 해부 문항 · 계획 | 「이번 주 계획 n/m」 |
+| `studiedThisWeek / perWeek` | 이번 주(월 0시 UTC) · 만든 뒤에 이 풀에서 학습한 문항(해설 열기 · 예측 · 해부, 문항당 1) · 계획 | 「이번 주 학습한 문항 n/m」 |
 | `daysLeft` | 기한까지 남은 날 | 「기한까지 n일」 |
 
 ## 6. 약점 변화 — 예측 적중 (검토 ①)
@@ -50,7 +50,7 @@
 
 ## 7. 다음 3문항
 
-안 연 문항 → 약한 유형·계열 → 오래전에 본 문항 순, 같은 순위는 id 순(결정적). 기존 `/csat/dissect?set=` 으로 연다(해부 화면 무변경).
+안 연 문항 → 약한 유형·계열 → 오래전에 본 문항 순, 같은 순위는 id 순(결정적). 첫 문항을 **출제 사고 화면 `/csat/item/[slug]`** 으로 연다 — 해부 세션(`/csat/dissect`)은 손으로 채운 메타데이터가 있는 소수 문항만 돌려서(실측 2026-09-29: 빈칸 7 · 2026 수능 2) Workspace 풀 대부분을 못 연다. 화면 무변경.
 
 ## 8. 계측 (검토 ⑤) — 이벤트용 마이그레이션 1개 예정
 
@@ -63,3 +63,7 @@
 | `csat_workspace_suggestion_applied` | axis(type · trap) · verdict |
 
 이름 · 목표 · Workspace id 같은 자유 문자열은 보내지 않는다. `funnel_events` 의 DB CHECK 허용 목록에 넣는 마이그레이션은 SQL 을 보여 드리고 **별도 승인** 후 적용한다.
+
+## 9. 문항 색인 (구현에서 바뀐 것)
+
+처음에는 해부 카탈로그를 색인으로 썼는데, 그 카탈로그는 손으로 채운 메타데이터가 있는 소수 문항만 담아(빈칸 7 · 2026 수능 2) 담을 것이 거의 없었다. 지금은 **서가 카탈로그(평가원 802)** 를 뼈대로, 함정은 오답 지도(`build-trap-atlas.mjs`)와 같은 규칙 — 최신 published 분석의 `choice_analysis[].trap` 중 지도에 오른 이름(32) — 으로 읽는다. 문항 하나에 계열이 여럿이라 `families: string[]` 이고, 함정 조건은 그중 하나라도 맞으면 든다. 약점의 함정 축은 2수 예측이 가리킨 계열(`Prediction.family`)로 세고, 계열이 없는 옛 기록은 넣지 않는다(짐작하면 지어낸 수가 된다).

@@ -20,6 +20,7 @@ import type { NeedId } from '@/components/csat/home/CsatRail'
 import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
 import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
 import { spaceHeadline } from '@/lib/csat/space-model'
+import { loadWorkspaceIndex } from '@/lib/csat/workspace-index'
 
 export const dynamic = 'force-dynamic'
 
@@ -42,6 +43,8 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
   const [exams, itemTypes] = [railExams(), await itemTypeMap()]
+  // 「내 Workspace」 줄의 문항 색인(원문 없음). 못 읽으면 줄만 빠지고 기존 화면은 그대로 선다
+  const workspaceIndex = await loadWorkspaceIndex().catch(() => undefined)
   return (
     // 쿼리가 바뀌면 다시 세운다 — 같은 경로 안의 링크 이동은 컴포넌트를 재사용해 첫 필터가 남는다(A2 실패 2026-09-25)
     <SpaceScreen
@@ -51,6 +54,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
       initialTab={one(params.tab) === 'trap' ? 'trap' : 'type'}
       need={need}
       view={one(params.view) === 'continue' ? 'continue' : 'home'}
+      workspaceIndex={workspaceIndex}
     />
   )
 }

@@ -363,6 +363,35 @@ export type PublicEvent =
       }
     }
   /**
+   * **학습 Workspace**(docs/csat-learner/workspace-design.md §8) — 만들기 · 열기 · 학습 시작 · 편집 · 추천 적용.
+   * 이름 · 목표 · Workspace id 는 보내지 않는다(자유 문자열 · 식별자 — D3). 개수 · 구간 · 닫힌 열거형만.
+   */
+  | {
+      name: 'csat_workspace_created'
+      props: {
+        starter: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'weakness'
+        types: number
+        traps: number
+        exams: number
+        items: number
+        /** 실제 포함 문항 수 구간 */
+        pool: 'none' | 'lt10' | 'lt30' | 'lt100' | 'gte100'
+        hasPlan: boolean
+        /** 가이드가 미리 채운 구성을 고쳤나 */
+        edited: boolean
+      }
+    }
+  | { name: 'csat_workspace_opened'; props: { from: 'home' | 'rail' | 'created'; pool: 'none' | 'lt10' | 'lt30' | 'lt100' | 'gte100' } }
+  | { name: 'csat_workspace_session_started'; props: { size: number; unseen: number } }
+  | {
+      name: 'csat_workspace_edited'
+      props: {
+        action: 'add' | 'remove' | 'archive' | 'restore' | 'delete' | 'intent'
+        unit: 'type' | 'trap' | 'exam' | 'item' | 'mapped' | 'none'
+      }
+    }
+  | { name: 'csat_workspace_suggestion_applied'; props: { axis: 'type' | 'trap'; verdict: 'up' | 'down' | 'flat' } }
+  /**
    * 한 회차 계획의 **줄 세우는 기준**을 바꿨다 — ⑤ 주파가 실제로 쓰이는가.
    *
    * 「내 약한 것 먼저」는 기록이 문턱을 넘은 사람에게만 보인다. 그 사람들이 실제로 눌러
@@ -548,6 +577,11 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_review_done: true,
   csat_path_chosen: true,
   csat_item_back: true,
+  csat_workspace_created: true,
+  csat_workspace_opened: true,
+  csat_workspace_session_started: true,
+  csat_workspace_edited: true,
+  csat_workspace_suggestion_applied: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

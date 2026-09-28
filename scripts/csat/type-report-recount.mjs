@@ -29,20 +29,27 @@ for (const f of ['apps/web/.env.local', '.env.local']) {
 const COMMIT = process.argv.includes('--commit')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
-// 페이지로 읽는다 — 학평 문항이 들어와 1,000행을 넘는다(한 번에 읽으면 조용히 잘린다)
+// 커서로 읽는다 — 학평 문항이 들어와 1,000행을 넘는다(한 번에 읽으면 조용히 잘린다).
+// OFFSET(`.range`)은 쓰지 않는다 — `offset-paging-budget` 회귀가 그 수가 느는 것을 막는다.
 const items = []
-for (let from = 0; ; from += 1000) {
-  const { data, error } = await db.from('csat_items').select('id, type_id').order('id').range(from, from + 999)
+for (let cursor = ''; ; ) {
+  let q = db.from('csat_items').select('id, type_id').order('id').limit(1000)
+  if (cursor) q = q.gt('id', cursor)
+  const { data, error } = await q
   if (error) throw new Error(error.message)
   items.push(...data)
   if (data.length < 1000) break
+  cursor = data[data.length - 1].id
 }
 const analyzed = new Set()
-for (let from = 0; ; from += 1000) {
-  const { data, error } = await db.from('csat_item_analyses').select('item_id').eq('status', 'published').range(from, from + 999)
+for (let cursor = null; ; ) {
+  let q = db.from('csat_item_analyses').select('item_id, version').eq('status', 'published').order('item_id').order('version').limit(1000)
+  if (cursor) q = q.or(`item_id.gt.${cursor.item_id},and(item_id.eq.${cursor.item_id},version.gt.${cursor.version})`)
+  const { data, error } = await q
   if (error) throw new Error(error.message)
   for (const r of data) analyzed.add(r.item_id)
   if (data.length < 1000) break
+  cursor = data[data.length - 1]
 }
 const byType = new Map()
 // 유형 리포트는 평가원 집합의 것이다 — 학평(보조 집합) 문항은 세지 않는다
