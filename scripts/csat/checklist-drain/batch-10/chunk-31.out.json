@@ -1,0 +1,1080 @@
+[
+  {
+    "id": "6d12d117-48fa-4243-85f7-1917a0c337c5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Health, Safety and Fire officers",
+    "note": "점거 시위로 화재·보건 위험이 생겨 성당을 닫는다는 결정과 이유, 시위가 평화적이라는 인정이 이어져 내용 일치·요지 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d15dd4d-b95c-4075-bc36-d244f9914ab0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "However, unlike a Conservative-Liberal alliance, a",
+    "note": "연립을 위해 브라운이 사임을 밝혔고 노동·자유 연합은 과반이 모자라 소수당이 필요하다는 이유·결과가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d16959a-1404-49c6-8ccd-81e61b1e8747",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Police officers were having lunch inside",
+    "note": "경찰 제복을 입은 자폭범이 점심 중인 검문소에 들어와 터뜨려 사상자가 난 경위가 시간순으로 이어져 단신이지만 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d1cec93-7ca7-4c15-9541-baca63ee0eaf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Armed police have been posted around",
+    "note": "뭄바이 테러 위협 경보에 무장 경찰 배치·도로 통제·은신처 수색이 이어지고 2008년 공격 배경이 붙어 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d1da5c4-513e-4867-85ec-a8fb0b3f2d66",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Heavy snowfall started on Monday in",
+    "note": "폭설로 건물이 무너지고 사망은 대부분 교통사고였으며 베이징은 제설 장비가 모자랐다는 원인·결과가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d1e253b-0d85-48d7-a3c3-47e7c1aac6a8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "This cabinet has George Papandreou's stamp",
+    "note": "그리스 새 내각 보도가 대부분 장관 이름·직책 나열이고 재무장관의 과제와 논평 한 줄만 이어져 연결이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d219abf-999e-41e5-97a7-596c7fdb73c7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It is exceedingly rare for a",
+    "note": "유타 토네이도 두 개의 피해 나열과 드문 일이라는 설명이 전부라 피해 결과 연결 하나뿐인 짧은 단신이다.",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d284a02-0fcc-483d-8e4d-33948d31e8f6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Governor Khalid expressed concern that the",
+    "note": "호송대 자폭 공격 뒤 주지사의 경고 무시 비판과 캐나다군의 반박, 나토의 규탄이 반응으로 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d2d2d02-76e0-4f4d-a91a-cf98c8db5e7b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "There has been a growing recognition",
+    "note": "수십 년 내전 끝에 평화 협상만이 길이라는 인식이 커져 산토스 대통령이 FARC 와 회담을 발표했다는 이유·결과가 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d2f9c0d-6d4c-48ac-bf3f-cae4c2e2bf35",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "He called for either a joint",
+    "note": "면책특권이 범죄를 부추겼다는 이라크 총리의 주장과 독립 조사 요구, 미군 측의 협의 응답이 이어져 내용 일치·주장 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d36de92-20bf-4059-a86b-9b0699d5eea1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Cassini, a European and United States",
+    "note": "카시니가 타이탄에서 호수로 보이는 지형을 찍었고 메탄 비로 생겼다는 추정과 레이더 해석이 이어져 과학 설명 칸이 선다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d3920ce-f424-4359-80ad-55fc665a9b87",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Strathclyde Police announced the launch of",
+    "note": "글래스고 사망 사건의 발견·살인 수사 착수·목격자 호소·체포·법정 출석이 순서대로 이어져 내용 일치·순서 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d3fdf47-6570-473e-9a2d-d5c30496b724",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "To challenge the possibility of WiMAX",
+    "note": "고속철 와이맥스 실험 시작과 난관 세 가지, 성공하면 세계 최초라는 인용뿐이고 문장이 서툴러 연결이 가늘다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d3ff547-9978-4751-aa4c-1cd433e88094",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On December 13, 2007 Chief Minister",
+    "note": "논란이 된 불신임 표결이 중앙정부의 대통령 통치 권고로 이어지고 선거 준비로 넘어가는 원인·결과가 서서 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d4f6a16-b0c3-403c-b45f-fa4b95c91593",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Golombeck said that he was asked,",
+    "note": "버펄로 호텔 계획을 늦게 안 시의원과 주민 단체가 승인을 미루고 개발업자가 반대하는 반응이 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d55ae53-eb64-4fef-ae80-0915799d18b1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Political scientist at the Chinese University",
+    "note": "홍콩 선거 후보 심사 계획이 시위와 국가보안법 구속 뒤에 나왔다는 배경과 전문가 해석·반응이 이어져 내용 일치·요약 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d56bb82-eace-4cd1-99fb-1ff86ce9ff5b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It will be the band's first",
+    "note": "블랙 사바스 원년 멤버 고별 공연 발표와 드러머 탈퇴 경위·파킨슨병 진단·자선 기부가 이유로 이어지며 비속어는 가공 때 걷는다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d5aaf1e-f9c5-4cf8-bc69-4f15234049c2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In 1992, historian Yoshiaki Yoshimi discovered",
+    "note": "아베 총리의 위안소 강제성 부인이 과거 발언·1993년 담화·문서 발견·증언과 대비되며 이어져 고등 이상 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d5ac435-347c-406e-bfde-12ce76aee9ed",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Killen was originally a suspect and",
+    "note": "새 증거로 재체포된 전 KKK 단원이 살해 가담 조직 혐의로 과실치사 유죄를 받은 경위가 이어져 짧지만 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d5c4925-e606-4dfb-abed-aeec26e7c712",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Another part of the new proposal,",
+    "note": "노르웨이 의회의 동성혼·입양 허용 가결과 기존 법의 차별 비판 배경, 정자 기증자 익명 조항 부결 이유가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d601c96-617e-48df-b3df-83949cb9d4f9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The eviction of the council is",
+    "note": "시의회가 차별 금지 원칙 때문에 보이스카우트 건물 임대를 끊어 교외로 옮겨야 한다는 원인·결과가 서고 도시 목록은 가공 때 걷는다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d651563-e99c-4301-90a3-4f47903b1cce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On January 25, 2005, Don Brash,",
+    "note": "야당 대표의 복지 의존 축소 공약과 입양 제안, 총리의 반박, 선거 앞 여론 배경이 이어져 주장·내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d66b57b-0ec8-48c6-b620-2ac099445a31",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Another problem is the extraction of",
+    "note": "기후변화·댐·과다 취수가 강을 말려 물 위기를 부른다는 원인과 정부 보호 권고가 이어져 요지·요약·내용 일치 칸이 선다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "main_point",
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d676f6f-a3c4-4924-84c1-8548612f37b4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The announcement follows months of rumours",
+    "note": "리드 의원의 불출마 발표가 부상 뒤 소문 끝에 나왔고 후임 지지·부상과 무관하다는 해명·대통령 헌사가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d68937b-5c63-47d0-b5d6-0615ea12a04d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Before entering into their careers, students",
+    "note": "대만 청년 디자이너 전시회 후기로 기업·학생이 참여하는 까닭은 있으나 사건 흐름 없이 일반 서술이 되풀이되고 문장이 서툴러 연결이 가늘다.",
+    "record": {
+      "genre": "art",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

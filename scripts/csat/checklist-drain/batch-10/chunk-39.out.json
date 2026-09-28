@@ -1,0 +1,1088 @@
+[
+  {
+    "id": "6f6da576-2397-4121-a13a-8b28ab829d40",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The planets are too far away",
+    "note": "직접 관측이 안 돼 스펙트럼 차이로 대기를 재고, 물이 없으리라는 예상이 뒤집혀 먼지 구름으로 설명하는 흐름이 요지·빈칸 칸을 채운다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "main_point",
+          "blank",
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f702b4d-e55c-495e-924c-561305c2d5bc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Observations were being made of a",
+    "note": "다른 초신성을 보던 중 X선 원천을 발견하고 즉시 영상 덕에 다른 망원경에 알린 원인·절차가 이어져 내용 일치·순서 칸이 선다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f78821b-8494-4d0f-b252-eedca702dcd8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The couple are reported to have",
+    "note": "쿠바 첩보 혐의 기소 → 도주 우려로 보석 불허 → 대학 휴직 처분으로 이유·결과가 이어져 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f7903ef-60a9-4374-85ff-c93b43c0c699",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A British soldier has been killed",
+    "note": "병사 사망 발표와 유족 통보 전 세부를 밝히지 않는다는 연결 하나 외에는 누적 사망자 수치라 연결이 가는 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f7cc3b0-fcbc-4775-a8cb-70a29c4a49cf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "DeSantis and Disney clashed last year",
+    "note": "디즈니가 교육법에 반대해 주지사와 충돌한 뒤 주정부가 자치구 통제권을 가져간 원인·결과가 서서 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f7deb04-8c94-4ae2-aab0-d777889b6dfb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Coalition and Afghan troops moved into",
+    "note": "헬기 추락 → 현장 확보·수색 → 악천후 방해 → 탈레반 격추 주장으로 반응과 절차가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f7f3a59-268a-4189-a426-f595b7abf859",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Melitus Mugabe Were, a moderate Kenyan",
+    "note": "부고 모음 꼭지 하나로 피살 사실과 선거 후 폭력이라는 맥락 한 가닥뿐이라 연결이 가늘다(끝의 「Related news」는 잔재).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f80658e-205c-437a-b367-94dc7b0f1bb1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A man aged 90 has died",
+    "note": "교통사고 → 이튿날 부상으로 사망 → 가족 요청으로 신원 비공개로 원인·이유가 둘 이어지는 짧은 단신이라 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "school"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f830218-0482-458f-be80-b90411000f1c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Flooding began last week after heavy",
+    "note": "사이클론 폭우로 강이 불어 기록적 홍수 → 도로 차단·고립 → 공수·대피·지원으로 원인과 대응이 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f84d852-0c0f-4600-a717-d4482fe50ee8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A fire broke out earlier today",
+    "note": "흘린 뜨거운 타르가 불씨가 됐고 불이 위층에 그쳐 항공편 지연이 없다는 원인·결과 연결이 둘 있는 짧은 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "school"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f88c6a0-05a5-4ac1-9f5a-1b3330ef8db6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Police in Sydney have seized 1,900",
+    "note": "마약 원료 압수와 추정 가치·공조 기관 나열 뒤 수사 계속 한 줄뿐이라 연결이 가는 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f895ade-d412-4e48-877f-bd1603a9a803",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tidal flexing of this moon due",
+    "note": "조석 변형이 얼음을 깨고 마찰열이 간헐천을 만든다는 원인 사슬이 지하 바다의 증거로 이어져 요지·빈칸 칸을 채운다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "main_point",
+          "blank",
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f89bb76-a531-41e9-b991-28ccf1820c45",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Accessing clinical trial with multiple source",
+    "note": "출판되지 않는 임상시험이 많아 정보 접근이 어렵던 문제를 등록 포털로 푼다는 이유·해결 구조가 요지·내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "main_point",
+          "content_match",
+          "purpose"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f8ab4d9-f61c-42b0-8648-f3253a1f787e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "But, most importantly; the main target",
+    "note": "인터뷰 답변마다 이유를 들어 설명해 떼어 낼 문단이 여럿이며, 메일 줄바꿈 잔재와 링크가 빠진 한 자리는 가공 때 걷는다.",
+    "record": {
+      "genre": "art",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "csat"
+        ],
+        "types": [
+          "claim",
+          "main_point",
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f8ae4b8-eca6-46b5-b37b-f353bd4a3ad0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Pillay, a South African former anti-apartheid",
+    "note": "의무 구금과 말레이시아 이송 합의가 난민법 위반 우려와 낙인으로 이어진다는 비판과 근거가 서서 주장·내용 일치 칸이 된다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "claim",
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f8fb4b8-6fab-4845-b736-d7d97d047219",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The document addresses the Supreme Leader",
+    "note": "망명 단체의 폭력 위협 문서를 출처·관계 불명이라는 맥락과 함께 전하는 보도라 선동이 아니며 조건·위협이 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f931fff-6d0b-4b5f-82e0-952dc304a28e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In order to achieve optimal electromagnetic",
+    "note": "전파 간섭을 줄이려 카르스트 지형에 지어 주민 이주·보상으로 이어진 원인·결과가 서서 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f9927e7-bb86-47f6-b0bb-07d88850347c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thomas also acknowledged that the issue",
+    "note": "교단의 동성혼 지지 결의와 내부 이견·탈퇴 가능성이 반응으로 이어지는 보도라 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f9e5f20-9ede-4ecb-957c-ff0b826c9391",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Roy E. Disney, son of company",
+    "note": "이사회와의 갈등으로 사임했던 디즈니 후손이 경영진 교체를 계기로 화해하는 원인·결과가 이어져 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f9f082b-c3aa-4771-a96b-a5e204df3ff3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Zelaya warned on Thursday the accord",
+    "note": "과도정부의 내각 발표에 합의 실패 선언이 반응으로 나오고 의회 표결 미정·국제 압박이 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f9f580e-1911-4d4d-8c1c-eb377299a1c0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Hussein refused to answer the charges,",
+    "note": "기소 낭독 → 답변 거부 → 무죄 답변 대리 입력 → 공동 피고 호출로 재판 절차가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f9fafc7-66c7-46bc-b663-a38d99cd5ef1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Neutralizing antibodies are secreted into the",
+    "note": "중화항체가 세포 침입 전에 바이러스를 막아 백신 토대가 될 수 있다는 원리가 구조 규명으로 이어져 요지·빈칸 칸을 채운다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "main_point",
+          "blank",
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6fa81944-512f-4695-936c-622b3bdf2bc6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Fazio has stepped down after an",
+    "note": "인수 개입 수사로 전임이 물러나고 드라기가 신뢰 회복을 맡으며 시장 개방 기대가 이어지는 이유·전망이 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6fb4ca83-1ac6-459d-811c-5624c4c9e40a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Former Governor of Illinois, George H.",
+    "note": "유죄 평결 뒤 선고 기일이 잡혔다는 절차 한 가닥 외에는 경력 사실뿐인 짧은 단신이라 연결이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6fbb549f-944e-4839-945a-b0bf3ae377fc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The National Oceanic and Atmospheric Administration",
+    "note": "규모·진앙·깊이 수치가 대부분이고 쓰나미 경보가 발생 없어 해제됐다는 연결 하나만 있어 연결이 가는 지진 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

@@ -1,0 +1,1208 @@
+[
+  {
+    "id": "6bc6d547-6168-464b-afd0-f6f492def466",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Australian Democrats welcomed the study",
+    "note": "호주 재무장관의 세제 비교 연구 발표와 그 목적·야당의 조건부 환영과 비판이 이유·반응으로 이어진다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "claim"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bc90f5e-170d-4efc-89e5-b2520dcdbf05",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In Israel, key political parties have",
+    "note": "샤론 총리가 연정 파트너를 잃어 새 연정 협상에 나섰고 성사되면 가자 철수로 이어진다는 짧은 인과 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bc99a08-9d81-428f-bac1-56029449e73e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Byers said he was taken aback",
+    "note": "국제법 교수와 이스라엘군 법률 자문의 교전 규칙 문답이 주장과 반박으로 이어져 논지 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim",
+          "main_point",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "6bca5af8-9a93-4ff5-b409-01061e08afbf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ahmed Mazloum, a spokesman for Vodafone,",
+    "note": "통신사 3G 개통이 뉴사우스웨일스 서비스 장애를 일으킨 원인과 회사 해명이 이어진 기술 단신이다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bcc39c0-7db5-4e64-9d6a-43536806eebe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The first series of leaks began",
+    "note": "위키리크스 외교 전문 공개와 사이버 공격·국무부 비판·언론 관계 붕괴가 원인과 반응으로 이어진다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bd587b3-2987-4f2a-ac29-3fc9e3ca4203",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Prosecutor Pablo Medina reports that Garcés",
+    "note": "칠레 배우 성추행 혐의 체포의 경위와 수사 절차·접근 금지 명령이 시간순으로 이어진 사건 보도다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bd75066-98b2-452b-8ed3-c3763a47b0f6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "They succeeded in dragging the pilot,",
+    "note": "경비행기 추락 후 시민 구조와 조종사 사망·엔진 고장 추정·도로 재개가 이어진 사건 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V2",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bd7fe6a-de89-4d5a-8b3b-370a57caf53f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Edinburgh earth observatory also demonstrates",
+    "note": "오타와 지진의 체감 보고와 판 경계에서 먼 서부 퀘벡 지진대의 까닭 설명이 이어져 과학 문단을 떼기 좋다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "blank",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bd952e8-b552-4323-a042-05505954ae30",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The officer, described as an experienced",
+    "note": "북아일랜드 경찰관 피살의 출동 경위·배후 주장·각계 반응이 이어지는 사건 흐름이 분명하다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bdbcc8e-d0e3-4204-a2ba-fc1949816577",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It is understood that, prior to",
+    "note": "중화항공기 화재 원인으로 연료 탱크 구멍을 찾은 조사 경과와 항공사·보잉 반응이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6be69ac3-6cc5-43cf-b1ec-166650f906bd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Holy Jihad Brigades, a previously unknown",
+    "note": "가자에서 납치된 기자들의 석방 경위와 납치 단체 요구·미국 거부·기자 소감이 이어진 보도다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6be76922-13eb-475d-9a1f-94a37db6c1d3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Prime Minister spoke of a",
+    "note": "영미 정상회담의 이라크 통제권 이양·다르푸르·무역 논의가 각각 이유와 다음 절차로 설명된 외교 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "summary"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6be82a7e-90cd-416d-a3b6-68c6eb844b5a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Saturday, Slovak authorities planted contraband",
+    "note": "공항 보안 시험용 폭약이 승객 짐에 실려 더블린까지 간 경위와 수색·사과·야당 비판이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "insert",
+          "title"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bec8455-e666-43cb-ad60-dd08a0941079",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Firefighters were alerted to a fire",
+    "note": "플로리다 이동식 주택 화재의 진화 경과와 구호·원인(방치된 그릴)이 인과로 이어진 짧은 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bf06d3c-ef95-4836-85b2-999db3614713",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to Bogota's newspaper El Tiempo,",
+    "note": "콜롬비아·베네수엘라 위기의 발단과 카스트로 중재 경과가 이어지고 끝의 날짜별 연표는 가공 때 걷는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bf41833-6bb0-4c3c-b383-7fbaf89ec6b0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to the SVT report, the",
+    "note": "파이럿베이 단속에 미국 압력이 있었다는 보도와 법무부 부인·호스팅사 소송 계획이 반응으로 이어진다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bf5e44c-028e-483d-b803-a4722fe7bba2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Though Catholic nuns and priests are",
+    "note": "교황의 성학대 내부 보고 의무화 교령과 그 배경·피해자 단체의 한계 비판이 주장과 반론으로 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bf5effd-8d4b-42ba-bcc3-b6b6e1095a8a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Just as the plane was getting",
+    "note": "디트로이트행 여객기 폭파 미수범 기소와 기내 경위·가족 경고·보안 강화 조치가 이어진 사건 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bfc3c8f-2608-4f11-a6d6-a9d65279d527",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Using the Spitzer telescope, the astronomers",
+    "note": "스피처 망원경이 두 외계 행성의 빛을 두 번 측정해 차이로 잡아낸 방법과 결과가 순서대로 이어진다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "blank",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bfc8273-d1f2-419e-9e9c-2c324b6c1ead",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "CS: Most or all cicadas have",
+    "note": "17년 매미 생물학자 문답에서 긴 생애 주기의 진화 이유와 산란 피해 설명이 인과로 이어진다.",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "blank",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6bfee677-5e7e-40e9-9459-d4b8509413b5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Siméus characterized the firings as a",
+    "note": "아이티 대법관 해임에 대한 대선 후보의 반발과 그 이유·헌법 조항 인용이 주장과 근거로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6c0226f5-e7c3-412c-b653-169c2c571533",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The separatist Bloc Quebecois (BQ) opposition",
+    "note": "하퍼 총리의 퀘벡 국가 인정 발표와 블록 발의의 차이·자유당과 블록 대표의 반응이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6c0257ff-ab12-485c-b229-73d6b0d628c1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "none",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Chimpanzee Sequencing and Analysis Consortium,",
+    "note": "침팬지 게놈 초안 발표를 세 사실 문장으로만 전하고 문장 사이를 잇는 원인·결과가 없다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6c0ad0c3-4aa9-4446-b4f2-43f698e78ecf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Even though the 2010 season seems",
+    "note": "허리케인 대니엘의 발달 경과와 성수기 예측·활동이 적은 해에도 대비하라는 이유가 이어진다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "title",
+          "order",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6c100e8d-c6aa-43ac-8cae-72809242b152",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Eleven protesters, including five members of",
+    "note": "다르푸르 학살에 항의한 하원의원 체포와 벌금 석방·대통령 발언이 이유와 반응으로 이어진 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

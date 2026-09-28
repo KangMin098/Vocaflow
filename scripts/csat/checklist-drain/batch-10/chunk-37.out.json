@@ -1,0 +1,1115 @@
+[
+  {
+    "id": "6eca3131-2713-4630-a6c4-42e02dafc8b5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The idea for the show originally",
+    "note": "디스커버리호 기상곡 소식이 우주 생중계 공연 아이디어로 이어진 이유가 서서 짧은 문화 단신으로 쓸 수 있다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ecfb07d-95d3-4648-8e24-6db38e1bbd50",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "When the captain realised the firefighters",
+    "note": "여객선 화재 발생·해안으로 조타·승객 탈출·구조·조사 착수가 시간순과 원인으로 이어지는 사고 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ed1a682-fec6-4ea2-8038-0ad49f536a8e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Researchers found the nuclear DNA in",
+    "note": "핵 DNA 와 미토콘드리아 DNA 의 유전 방식에서 부모 종을 추론하는 논리 연결이 뚜렷해 과학 지문으로 선다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary",
+          "blank",
+          "insert"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ed1e0ea-7d04-4774-8e41-28939d940a57",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Paul was also a pioneer of",
+    "note": "레스 폴의 기타 제작과 다중 녹음 실험이 성공으로 이어진 생애가 시간순으로 서는 부고 전기다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ed20105-59db-4f37-ba1b-f0c4b69ccfa0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Domestic and international flights in Southern",
+    "note": "태풍 접근에 따라 항공편 취소·어선 귀항·최고 경보 발령이 대비 조치로 이어지며 끝의 따옴표 한 자는 잔재다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6edcf1e1-9031-422b-ac73-067ef6b9ad3f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Apple has released new iPods through",
+    "note": "애플 행사의 신제품 추측이 연말 수요와 방송사 협상이라는 이유로 설명되어 단락마다 근거가 붙는다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ee1fbd7-a5e0-4b60-97dd-945bbebbcbd3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Usher made the decision to sell",
+    "note": "이혼 뒤 삶 전체를 경매에 붙이고 결과에 실망하며 새 목표를 세우는 이유·결과·다음 계획이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "mood",
+          "order"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ee3db7d-a738-4d69-8b6d-7ffe44c65b6d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "However, CBS soon retracted the story",
+    "note": "학생 블로그 오보가 퍼지고 정정·사임으로 이어지는 순서와 속보 경쟁의 교훈이 한 흐름으로 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ee506f6-1694-430c-9866-b3a32aefc992",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The incident leading to Clarkson's suspension",
+    "note": "촬영 뒤 식사 문제로 다툼이 폭행 의혹과 정직·방송 중단으로 이어지는 원인·결과 흐름이 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ee5e1ab-5af2-4581-a9da-6bba25966729",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Incentives can include property tax abatements",
+    "note": "공항 주변 지정이 세제 혜택으로 기업을 끌어오려는 목적과 자격 조건으로 이어져 경제 단신으로 선다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ee763e3-1197-4fef-8bee-dcc94adfc668",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Kerik later served as both corrections",
+    "note": "전 경찰청장의 부상과 지명 검증 중 몰락, 선고와 사과가 시간순 전기처럼 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ef08133-966e-4f9d-9090-e18bac84561d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It’s up to President Bush to",
+    "note": "취임 파티 비용을 쓰나미 구호로 돌리자는 주장과 정치화라는 반론이 짝을 이뤄 주장·근거 칸을 채운다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "6ef2a66f-b2ed-42cb-be6f-fff2c2ee5083",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Supporters of marriage equality in Maine",
+    "note": "두 주의 동성혼 주민투표 결과에 찬반 인사의 반응이 이어지는 보도로 한쪽 선동이 아니다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ef9fa77-42f2-4e70-bf65-44de87580e21",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In response to why the government",
+    "note": "불꽃놀이 구매 연령 상향의 이유와 전면 금지를 하지 않은 까닭, 소방청 반응이 논리로 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "summary"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6efe7379-cb25-49ea-b51d-58dc5ab028a8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Although the target of the attack",
+    "note": "베이루트 차량 폭탄이 시리아 내전 긴장 속에 일어났다는 배경과 정당 대표의 반응이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f023fef-6f01-49b2-b507-cdf2a56dd816",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Noosa opened the scoring after fifteen",
+    "note": "럭비 결승 득점이 이름과 점수만 바뀌며 이어지고 감독 반응 하나가 붙으며 비속어 한 낱말은 가공 때 걷는다.",
+    "record": {
+      "genre": "sports",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f03377f-36cd-4774-a6ff-33e69907bf9f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It was the first national democratic",
+    "note": "부룬디 선거 배경과 FNL 폭력이 설명된 뒤 한 웹사이트의 탄자니아 지원 주장을 옮긴 보도라 한쪽 입장으로 본다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f04c6ca-d26a-42d4-9ea5-a5d298d5ad56",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tibetan activists say that Nyima and",
+    "note": "판첸 라마 소년 실종을 두고 활동가 주장과 중국 정부 해명이 맞서고 대체 인물 지명이 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f0a97e9-d0a6-4f0a-bfc5-10d078ea21a1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to Rutgers University political scholar",
+    "note": "네바다 여성 과반 의회의 의미를 전국 비율과 정당 불균형의 이유로 설명하는 연결이 여럿이다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f0b08d1-027e-4964-833d-484742ed7baa",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Libyan leader Muammar al-Gaddafi has said",
+    "note": "카다피의 나이지리아 분할 주장과 인도 분할 근거, 나이지리아 외교관의 반응이 짧게 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f0dcada-393e-44e5-8705-eefa3ff7c75d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tropical Storm Alberto is currently over",
+    "note": "폭풍 통과에 따른 홍수 경보와 대피소 개설이 나열되고 연결은 대비 조치 하나뿐인 87어 단신이다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f0ddd80-d583-4b13-8ec7-ef4fd2b633ab",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "J. P. Patches was created at",
+    "note": "광대 캐릭터의 탄생·이적·장수 방송·동상 모금이 시간순으로 이어지나 모금 문단이 한 번 겹쳐 가공 때 걷는다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f0fbdad-e5d4-41b8-9b96-792deeba272b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to eyewitnesses, the deceased child",
+    "note": "호텔 화재 사망이 불법 증축과 목재 마감이라는 원인으로 설명되고 조사 명령이 뒤따른다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f108a4c-5a72-43a3-bc18-c8e5430a1e85",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "France is not a member of",
+    "note": "프랑스 특사 파견이 수교와 6자 회담 재개라는 목적과 이유로 설명되는 짧은 외교 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6f10f1e0-ee4d-442b-a83d-cbcbf319bb71",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Strauss-Khan was the favourite candidate for",
+    "note": "IMF 총재 체포가 IMF 공백과 대선 구도에 미칠 결과를 설명하나 성폭행 묘사 문단이 있어 고3·성인 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

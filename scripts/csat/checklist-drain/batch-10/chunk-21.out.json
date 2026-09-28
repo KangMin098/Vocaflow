@@ -1,0 +1,1055 @@
+[
+ {
+  "id": "69eed8a0-c237-4434-bc9f-ed21ab22264f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Tornadoes have been reported across the",
+  "note": "주·카운티별 피해 건수와 사망자만 되풀이되고 문장 사이 사건 연결은 거의 하나뿐이다",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "69f4f1ef-b7f9-4728-8419-b2fed1146012",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "For the economy, we will deliver",
+  "note": "후보가 자기 입장을 밝히는 문답이라 polemic 이 아니고 쟁점마다 주장과 근거가 이어진다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "69f7ccb0-6de9-42b1-ad04-29ebfb64827e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "A number of groups, including Amnesty",
+  "note": "미성년 전범 재판 적법성을 두고 혐의·인권단체 반대·변호인 논박·이전 재판 경과가 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "69f86828-224e-447e-8475-3279466c83ac",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "He had been with the band",
+  "note": "사망 발표 뒤는 입단·해고·복귀 경력 사실의 나열이라 연결이 가늘다",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "69fe671b-559c-4296-ae5f-6fd519c8b96c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Cuba and the EU began to",
+  "note": "반체제 인사 처벌→관계 동결→스페인 중재→석방→제재 중단이 시간순 인과로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "69ff0fb5-ba11-4a33-af60-d88577a50d7f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Wikimedia Commons proposal was originated",
+  "note": "중복 업로드 문제→공용 저장소 해법→성장과 저작권 과제가 설명문으로 이어져 요지·순서 칸을 채운다",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "main_point",
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "69ff80af-888e-47c1-a390-b95028602419",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Russia joined the club of the",
+  "note": "의장국 이양과 G7 확대 한 줄 뒤는 의제 목록이라 연결이 가늘다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "69ff9bca-5ed9-44e2-b423-d2c7fd5fb027",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "This dramatic fall in the Social",
+  "note": "여론조사 지지율 수치가 대부분이고 사민당 몰락의 파장 해석 하나만 이어진다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": [
+     "data-claim"
+    ]
+   }
+  }
+ },
+ {
+  "id": "6a00a562-9929-4463-8428-c3aea3eba32e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "none",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": false
+  },
+  "sample": "An earthquake hit the island of",
+  "note": "규모·깊이·진앙 거리만 기관별로 되풀이되고 원인·결과·반응이 없는 지진 단신이다",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a045c65-c222-4a35-b86c-608bf7f16e3e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The funds will be given to",
+  "note": "원조 약속과 쓰임새(피란민 발생 까닭) 하나가 이어지고 나머지는 발언 인용이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a04d65a-5a1c-4ac5-b218-817ef8e96640",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Yesterday Colbert officially withdrew from the",
+  "note": "압력 전화→투표 배제→당사자 해명(비용 까닭)→사퇴 성명이 원인과 반응으로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a09d378-72d5-4d72-9d04-634aea4a752f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In response to the killing, South",
+  "note": "임금 분쟁 살해→대통령·장관 자제 호소→야권 반발이 반응으로 이어지나 폭력 소재라 고1 이상만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a139849-47e8-48cf-9611-a0c203e7374e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Although ABC and Warner Bros. officials",
+  "note": "캐스팅 보도가 하차 추측을 낳은 연결 하나에 배역 설명이 붙은 연예 단신이다",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a141604-b5e6-4f69-b3e6-04ffb3c8397c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The man has not been named",
+  "note": "세 번째 사망과 소속·애도 발언·앞선 사망자 명단만 이어져 연결이 가늘다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a14267d-53e1-4903-a892-c79ea0ab1084",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The evidence against Rivera centered on",
+  "note": "유도 자백→DNA 불일치→항소심 무죄 판단→석방 전망이 근거와 결과로 이어지나 성범죄 세부라 고2 이상만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "6a197fb8-6601-445f-a702-d246832a3dcc",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Despite his international popularity, Lem is",
+  "note": "사망 사실 뒤 명성 설명과 협회 가입 거절 사연 하나만 인과로 이어진다",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a1ada65-ad6d-46ff-91fe-9b9de9aed9c9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The channel's Canadian roots were cut",
+  "note": "위성 편성 제외→가입자 급감→매각 이력→Bravo 흡수 전망이 원인과 결과로 이어진다",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a1faece-1cd7-4ce8-b001-ebbcc047d64e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The researchers said the culture infects",
+  "note": "불가사리 피해→배양액 개발→감염 확산 원리→근본 원인 권고가 원인·결과로 이어진 설명이다",
+  "record": {
+   "genre": "nature",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a253c4a-652a-45b0-9e26-230b4b7db56e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The plane, a Cessna Citation, departed",
+  "note": "이륙→레이더 소실→추락→가족·정치인 애도가 시간순으로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a25962e-22f4-4a0a-82e2-af1aceac83a9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "CSIS experts have been talking to",
+  "note": "보고서 주장→개입 조건→외교부 반응→태도 변화 해석이 조건과 반응으로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a282bd0-07f2-4d49-9fc9-51eb275399cc",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The UMP member, born in Finland",
+  "note": "나토 가입 비판과 94% 근거 하나에 게재 거부 사연이 붙은 짧은 기사라 연결이 가늘다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a296a63-4de8-4bc5-be5e-87550a8a1b8d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Some of the alleged failings by",
+  "note": "탐사보도→의원의 독립 조사 요구와 까닭→당국 실패 사례→의회 해명이 이어지나 아동 성착취 소재라 고2 이상만 둔다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a2bfc2d-a5a1-4e6d-aad1-57fbdcae346b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Twelve Israeli Arab and one Jewish",
+  "note": "대사관 이전 약속 연설→의원 항의·퇴장→팔레스타인 거부가 반응으로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a30a41b-ef7e-4a43-a382-5c414ac1ff2a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The new distribution will be Debian-based",
+  "note": "공동 배포판 계획과 호환성 까닭 하나가 이어지고 나머지는 기능 소개다",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "6a392aec-4414-4c88-8247-4ed3db3a0bc9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "One product seen as endangered more",
+  "note": "디지털 전환의 기회와 불법 복제 위협을 사례·비용 계산으로 잇는 설명이라 요지·빈칸 칸을 채운다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "main_point",
+     "content_match",
+     "blank"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

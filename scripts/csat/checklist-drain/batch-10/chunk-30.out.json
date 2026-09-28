@@ -1,0 +1,1120 @@
+[
+  {
+    "id": "6cb8ea68-0109-4a99-8564-4bd20a645dc0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Items were found last week at",
+    "note": "실종→유류품 발견→DNA 확인과 동물이 시신을 옮겼다는 추정까지 이어져 내용 일치·순서 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cbb0a7f-b4c4-423c-bc37-f6f7df4c660d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Byrd was originally born as Cornelius",
+    "note": "버드 의원의 사망과 생애·논란·이라크전 반대를 전기처럼 잇고 발언에 까닭이 달려 요지·내용 일치 칸이 선다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cbcbea0-37f0-4b51-9d92-1ba953d1a256",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Mandleson told the Lords that the",
+    "note": "자동차 산업 지원책의 조건과 필요 이유, 야당 반응이 이어져 주장·내용 일치 칸을 연다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cbeb175-0121-442f-aa21-0d6cc7beee29",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Kevin Smith is holding an online",
+    "note": "유명인별 구호 활동과 방문자 이름 나열이 대부분이고 숀 펜 보트 일화만 순서로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cc2c564-f02f-4016-964c-bf62ef04c0a0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "During the Israeli attack Tuesday morning,",
+    "note": "발전소·방송국 공습과 그 이유 주장, 전력 공급 감소라는 결과가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cd10bb0-20ce-41c3-a04f-8bcfa96af2b2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "President Bush marked the third anniversary",
+    "note": "세계 반전 시위 규모 나열이 길지만 부시 연설·지지율·각국 반응이 이유로 이어져 떼어 쓸 문단이 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cd27dd3-8f15-4d26-80ef-905bfc2f5e5a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "There were simultaneously another 5000 protesters",
+    "note": "후세인 동상 철거 기념 행진의 경과와 참가자 요구, 미군 입장이 이어져 서사·내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cd41d0d-4356-4316-8561-869118f1816d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A preliminary report concluded that the",
+    "note": "이륙 실패 원인 보고와 정비사 소환, 권고와 다른 점검 관행이 인과로 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "insert"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cd765be-896c-4c3d-9840-97fba4597326",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In response, Karger tweeted \"I am",
+    "note": "토론회 배제를 둘러싼 후보 주장과 방송사 반박, 청원·제소 계획이 이어져 주장·근거 칸을 연다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "6cde72b6-d597-4f9b-8731-70fc2f8fbe67",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A gentleman's dead body has been",
+    "note": "쪼갠 단신 한 꼭지로 시신 발견→현장 봉쇄→구급대 출동→사망 확인→수사까지 순서가 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ce2247e-e561-4f99-990b-322d88f1ac29",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Emma West, 34, a resident of",
+    "note": "인종 모욕 영상→기소→보석 거부→형사법원 이송이 절차로 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ce314f0-d7b1-4f06-ac90-d865589f772c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The limited edition polos were to",
+    "note": "멸종위기종 로고와 남은 개체 수만큼 셔츠를 만드는 까닭, 수익 기부가 이어져 목적·내용 일치 칸을 연다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ce4c60f-3fd7-4523-bd0a-75e7d0933d4b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Mirvish was known for his landmark",
+    "note": "사망 확인과 지인·시장 추모 인용, 업적 한 줄이라 연결이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6ceb3f39-ee4c-4be2-bb68-d431187fb15d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "While the opposition rejected the idea",
+    "note": "야당 지도자가 협상을 거부한 이유와 정부·아프리카연합·EU 반응이 이어져 주장·근거 칸을 쓸 수 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "6ced8ed7-7cd3-4785-b361-b7a2e38fc21a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Five explosions were reported in Beirut",
+    "note": "전쟁 사흘째 공습·로켓 공격과 양측 발언, 피란 행렬이 인과로 이어져 긴 내용 일치 지문이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "long_reference"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cee213c-30c0-4039-a492-4c674d2bb0b0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "\"In all Moscow we have not",
+    "note": "대관 거부로 후보 등록이 막혀 출마를 포기한다는 까닭과 탄압 사례가 이어져 요지·내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cee447a-425b-42f7-a599-3231c6ece7f0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The smoke raises contentions for its",
+    "note": "다큐멘터리가 백린탄 사용 시인을 끌어냈고 규범·인체 위험 설명이 이어지며 화상 묘사로 성인 칸 위주로 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V7",
+          "V8"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "6cf05b75-dd33-4a75-a109-ad0301026f7b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The police crackdown came around 11:00",
+    "note": "시위 진압→주최자 연행→구금·석방→야당 규탄과 시위 배경이 순서로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cf8b7f6-be02-410f-bbb2-f9988f9bcab9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "During the debate on the initial",
+    "note": "충성 서약법·나크바법 내용과 논란, 반대 측 논거와 남은 입법 절차가 이어져 주장 칸을 연다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6cfe3da3-832a-426f-a1db-1b4f9424a41d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Last Tuesday, investigators had said that",
+    "note": "추가 체포 사실과 알려지지 않은 점만 전해 사건 사이 연결이 하나뿐이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d0271c3-4d05-4a35-9785-3cabf0abfe42",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Security detected the material on Wednesday",
+    "note": "폭발물 흔적 발견→체포→수색 결과 무혐의 석방이 이어지고 TATP 위험 설명이 붙어 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d085436-56ff-4fbd-aaf4-2b54fc201a0d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Stern contributes to Page Six, the",
+    "note": "갈취 의혹 보도가 정직 처분으로 이어지고 함정 수사 경위와 당사자 부인이 붙어 짧은 사실 단신이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d091816-1d4a-44df-9a17-6a79babf637d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": true,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "According to Sufianov, the Olympiad shows",
+    "note": "「Bizheva said:」「medical tourism:」 뒤 인용이 통째로 빠져 본문 일부가 끊겼다.",
+    "record": {
+      "genre": "education",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d0c779d-59f3-448a-a90a-01c4cf73762f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Just 1 day after the plane",
+    "note": "블랙박스 신호 탐지 발표와 인도네시아 측 부인, 수습 상황과 오보 경위가 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "6d11a51f-801c-4616-8823-10f192ef2c2c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The Xbox game console was marketed",
+    "note": "엑스박스 누적 손실이 미끼 상품 전략에서 왔고 후속 기종에도 이어간다는 인과가 짧게 선다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]
