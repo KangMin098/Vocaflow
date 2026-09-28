@@ -1,0 +1,222 @@
+// scripts/csat/review-drain.mjs
+//
+// **학평 분석 독립 검수 드레인** — 분석을 쓴 에이전트와 **다른** 검수 에이전트가 문항마다 쓰는 도구.
+// DB 게이트(20260928141215_csat_hakpyeong_independent_review_gate)가 최종 판정한다. 이 스크립트는 그 절차를
+// 사람·에이전트가 틀리지 않게 한 줄씩 부르는 창구일 뿐이다.
+//
+// ── 왜 따로 있나 ──────────────────────────────────────────────────────
+// 2026-09-28 학평 드레인에서 분석 에이전트가 3인 검수를 스스로 적었고, 12문항 청크에서는 검수 소견을
+// 틀로 찍었다(4문항+ 청크 42 중 40). 같은 주체가 쓰고 검수하면 어떤 검사도 형식만 맞춰 통과할 수 있다.
+// 그래서 검수는 **다른 실행 주체**가, **정답·분석을 보기 전에 먼저 풀고**, DB 가 그 순서와 해시를 박제한다.
+//
+// ── 검수 에이전트의 한 문항 절차(순서가 곧 규칙이다) ─────────────────
+//   1) start   --analysis <id> --persona <setter|analyst|tutor> --agent-run <내 실행 id>
+//              → 원문·발문·선지만 준다. 정답·분석은 주지 않는다.
+//   2) solve   --run <run id> --answer <1-5> --note "<왜 그 답인가>"
+//              → 독립 풀이 확정. 한 번만. 이 뒤에만 공개된다.
+//   3) reveal  --run <run id>
+//              → 공식 정답과 분석(해당 버전)을 준다.
+//   4) submit  --run <run id> --verdict <pass|revise|fail> --findings '<json 배열>' --checked '<json 배열>'
+//              → 판정 기록. DB 가 이 순간의 원문·정답·분석 해시와 시각을 박제한다.
+//
+// ── 운영자 명령 ───────────────────────────────────────────────────────
+//   export  [--size 4] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
+//   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
+//   status                                                      학평 분석 상태·독립 검수 진행 요약
+//   backfill-analyst-run [--commit]                              analyst_run 이 빈 과거 분석에 원장 출처를 적는다
+//
+// 재실행 안전: start 는 매번 새 실행을 만든다(버려진 실행은 게이트가 세지 않는다) · solve 는 두 번 부르면
+// DB 가 거부 · reveal 은 몇 번 불러도 같은 값 · submit 은 (분석, 페르소나, 실행) 당 한 번 · publish 는 몇 번이든 안전.
+
+import fs from 'node:fs'
+import path from 'node:path'
+import { createClient } from '@supabase/supabase-js'
+
+const [cmd, ...rest] = process.argv.slice(2)
+const arg = (n, d = null) => {
+  const i = rest.indexOf(`--${n}`)
+  return i >= 0 ? rest[i + 1] : d
+}
+const has = (n) => rest.includes(`--${n}`)
+
+function env(name) {
+  if (process.env[name]) return process.env[name]
+  for (const f of ['.env.local', '.env', 'apps/web/.env.local', 'apps/web/.env']) {
+    if (!fs.existsSync(f)) continue
+    const m = fs.readFileSync(f, 'utf8').match(new RegExp(`^${name}\\s*=\\s*(.+)$`, 'm'))
+    if (m) return m[1].trim().replace(/^["']|["']$/g, '')
+  }
+  return null
+}
+const URL = env('NEXT_PUBLIC_SUPABASE_URL') ?? env('SUPABASE_URL')
+const KEY = env('SUPABASE_SERVICE_ROLE_KEY') ?? env('SUPABASE_SERVICE_KEY')
+if (!URL || !KEY) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 를 못 찾았다')
+const db = createClient(URL, KEY, { auth: { persistSession: false } })
+
+const WORK = path.resolve('scripts/csat/review-drain-hakpyeong') // gitignore — 문항 id 만 담지만 학평 작업물과 같은 규칙
+const PERSONAS = ['setter', 'analyst', 'tutor']
+/** 이 시간 안에 만들어졌는데 판정이 없는 실행은 «작업 중» 으로 보고 다시 배정하지 않는다 */
+const CLAIM_HOURS = 3
+
+const out = (v) => console.log(JSON.stringify(v, null, 1))
+const die = (msg) => { console.error(`✗ ${msg}`); process.exit(1) }
+const must = (v, name) => (v == null || v === '' ? die(`--${name} 가 필요하다`) : v)
+
+async function all(q) {
+  const rows = []
+  for (let f = 0; ; f += 1000) {
+    const { data, error } = await q().range(f, f + 999)
+    if (error) die(error.message)
+    rows.push(...data)
+    if (data.length < 1000) break
+  }
+  return rows
+}
+
+/** 학평 문항별 최신 분석 */
+async function latestHakpyeong() {
+  const rows = await all(() => db.from('csat_item_analyses').select('id, item_id, version, status, analyst_run').like('item_id', 'H%').order('item_id').order('version', { ascending: false }))
+  const latest = new Map()
+  for (const r of rows) if (!latest.has(r.item_id)) latest.set(r.item_id, r)
+  return [...latest.values()]
+}
+
+switch (cmd) {
+  // ── 검수 에이전트 ───────────────────────────────────────────────────
+  case 'start': {
+    const analysisId = must(arg('analysis'), 'analysis')
+    const persona = must(arg('persona'), 'persona')
+    const agentRun = must(arg('agent-run'), 'agent-run')
+    if (!PERSONAS.includes(persona)) die(`persona 는 ${PERSONAS.join('|')}`)
+    const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run').eq('id', analysisId).single()
+    if (ae) die(ae.message)
+    if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
+    const { data: run, error: re } = await db.from('csat_review_runs')
+      .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona }).select('id').single()
+    if (re) die(re.message)
+    // 정답(answer·answers)과 분석은 **주지 않는다** — solve 뒤 reveal 에서만
+    const { data: it, error: ie } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', a.item_id).single()
+    if (ie) die(ie.message)
+    out({ run_id: run.id, item: it, next: `solve --run ${run.id} --answer <1-5> --note "<근거>"` })
+    break
+  }
+  case 'solve': {
+    const run = must(arg('run'), 'run')
+    const answer = Number(must(arg('answer'), 'answer'))
+    const note = must(arg('note'), 'note')
+    if (!(answer >= 1 && answer <= 5)) die('answer 는 1~5')
+    const { error } = await db.rpc('csat_review_solve', { p_run: run, p_answer: answer, p_note: note })
+    if (error) die(error.message)
+    out({ run_id: run, solved: answer, next: `reveal --run ${run}` })
+    break
+  }
+  case 'reveal': {
+    const run = must(arg('run'), 'run')
+    const { data, error } = await db.rpc('csat_review_reveal', { p_run: run })
+    if (error) die(error.message)
+    const row = data?.[0]
+    const { data: r } = await db.from('csat_review_runs').select('solve_answer').eq('id', run).single()
+    out({ run_id: run, official_answer: row?.answer, official_answers: row?.answers, your_solve: r?.solve_answer, matches: r?.solve_answer === row?.answer, analysis: row?.analysis,
+      next: `submit --run ${run} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
+    break
+  }
+  case 'submit': {
+    const run = must(arg('run'), 'run')
+    const verdict = must(arg('verdict'), 'verdict')
+    if (!['pass', 'revise', 'fail'].includes(verdict)) die('verdict 는 pass|revise|fail')
+    let findings, checked
+    try { findings = JSON.parse(must(arg('findings'), 'findings')); checked = JSON.parse(arg('checked', '[]')) } catch (e) { die(`findings/checked 는 JSON 배열: ${e.message}`) }
+    if (!Array.isArray(findings) || !findings.length) die('findings 는 비지 않은 배열 — 이 문항에서 실제로 본 것을 적는다')
+    const { data: r, error: re } = await db.from('csat_review_runs').select('analysis_id, persona, revealed_at').eq('id', run).single()
+    if (re) die(re.message)
+    if (!r.revealed_at) die('reveal 전에는 판정을 기록하지 않는다 — solve → reveal → submit')
+    const { error } = await db.from('csat_independent_reviews')
+      .insert({ analysis_id: r.analysis_id, review_run_id: run, persona: r.persona, verdict, findings, checked })
+    if (error) die(error.message)
+    out({ run_id: run, recorded: verdict })
+    break
+  }
+
+  // ── 운영자 ──────────────────────────────────────────────────────────
+  case 'export': {
+    const size = Number(arg('size', 4))
+    const limit = arg('limit') ? Number(arg('limit')) : Infinity
+    const only = arg('items') ? new Set(arg('items').split(',')) : null
+    const latest = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
+    const ids = latest.map((a) => a.id)
+    const runs = []
+    for (let i = 0; i < ids.length; i += 200) {
+      runs.push(...(await all(() => db.from('csat_review_runs').select('id, analysis_id, persona, created_at').in('analysis_id', ids.slice(i, i + 200)))))
+    }
+    const reviews = []
+    for (let i = 0; i < ids.length; i += 200) {
+      reviews.push(...(await all(() => db.from('csat_independent_reviews').select('analysis_id, persona, verdict, review_run_id').in('analysis_id', ids.slice(i, i + 200)))))
+    }
+    const reviewedRuns = new Set(reviews.map((r) => r.review_run_id))
+    const cutoff = Date.now() - CLAIM_HOURS * 3600e3
+    const busy = new Set(runs.filter((r) => !reviewedRuns.has(r.id) && Date.parse(r.created_at) > cutoff).map((r) => r.analysis_id))
+    const passed = new Map()
+    for (const r of reviews) if (r.verdict === 'pass') (passed.get(r.analysis_id) ?? passed.set(r.analysis_id, new Set()).get(r.analysis_id)).add(r.persona)
+    const noRun = latest.filter((a) => !a.analyst_run)
+    const todo = latest.filter((a) => a.analyst_run && !busy.has(a.id))
+      .map((a) => ({ analysis_id: a.id, item_id: a.item_id, version: a.version, need: PERSONAS.filter((p) => !passed.get(a.id)?.has(p)) }))
+      .filter((t) => t.need.length)
+    fs.mkdirSync(WORK, { recursive: true })
+    const stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 13)
+    let n = 0
+    for (let i = 0; i < todo.length && n < limit; i += size, n += 1) {
+      const name = `rchunk-${stamp}-${String(n + 1).padStart(3, '0')}.json`
+      fs.writeFileSync(path.join(WORK, name), JSON.stringify({ created_at: new Date().toISOString(), items: todo.slice(i, i + size) }, null, 1))
+      console.log(`  ${name}  ${todo.slice(i, i + size).map((t) => t.item_id).join(' ')}`)
+    }
+    console.log(`  대상 ${latest.length} · 작업 중 ${busy.size} · analyst_run 없음 ${noRun.length} · 검수 필요 ${todo.length} · 새 청크 ${n}`)
+    if (noRun.length) console.log('  ⚠ analyst_run 이 없는 분석은 게이트가 발행을 막는다 — backfill-analyst-run 먼저')
+    break
+  }
+  case 'publish': {
+    const only = arg('items') ? new Set(arg('items').split(',')) : null
+    const latest = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
+    let ok = 0
+    const refused = []
+    for (const a of latest) {
+      const { error } = await db.from('csat_item_analyses').update({ status: 'published', updated_at: new Date().toISOString() }).eq('id', a.id)
+      if (error) refused.push(`${a.item_id}: ${error.message.slice(0, 80)}`)
+      else ok += 1
+    }
+    console.log(`  발행 ${ok} · 게이트 거부 ${refused.length}`)
+    for (const r of refused.slice(0, 10)) console.log(`    · ${r}`)
+    break
+  }
+  case 'status': {
+    const latest = await latestHakpyeong()
+    const by = {}
+    for (const a of latest) by[a.status] = (by[a.status] ?? 0) + 1
+    const { count: runs } = await db.from('csat_review_runs').select('id', { count: 'exact', head: true })
+    const { count: revs } = await db.from('csat_independent_reviews').select('id', { count: 'exact', head: true })
+    out({ analyses: latest.length, by_status: by, analyst_run_missing: latest.filter((a) => !a.analyst_run).length, review_runs: runs, independent_reviews: revs })
+    break
+  }
+  case 'backfill-analyst-run': {
+    // 과거 분석의 출처를 사실대로 적는다 — 어느 드레인 원장(.out.json)이 썼는지. 검수자 id 와 겹칠 수 없는 접두어
+    const dir = path.resolve('scripts/csat/analysis-drain-hakpyeong')
+    const src = new Map()
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.out.json'))) {
+      for (const a of JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).analyses ?? []) src.set(a.item_id, `legacy-selfreview:${f.replace(/^chunk-|\.out\.json$/g, '')}`)
+    }
+    const latest = (await latestHakpyeong()).filter((a) => !a.analyst_run)
+    const plan = latest.map((a) => ({ id: a.id, item_id: a.item_id, run: src.get(a.item_id) ?? 'legacy-selfreview:unknown' }))
+    console.log(`  analyst_run 비어 있음 ${plan.length} · 원장에서 출처를 찾음 ${plan.filter((p) => !p.run.endsWith(':unknown')).length}`)
+    if (!has('commit')) { console.log('  미리보기 — 쓰려면 --commit'); break }
+    let n = 0
+    for (const p of plan) {
+      const { error } = await db.from('csat_item_analyses').update({ analyst_run: p.run }).eq('id', p.id).is('analyst_run', null)
+      if (error) die(`${p.item_id}: ${error.message}`)
+      n += 1
+    }
+    console.log(`  기록 ${n}`)
+    break
+  }
+  default:
+    console.log('usage: review-drain.mjs <start|solve|reveal|submit|export|publish|status|backfill-analyst-run> …(머리 주석 참조)')
+    process.exit(cmd ? 1 : 0)
+}

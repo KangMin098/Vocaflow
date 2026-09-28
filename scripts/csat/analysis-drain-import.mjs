@@ -66,7 +66,12 @@ for (const f of files) {
     if (!a.design_intent || a.design_intent.length < 20) { skipped.push(`${a.item_id}: design_intent 부실`); continue }
     if (!(a.solve_procedure ?? []).length) { skipped.push(`${a.item_id}: solve_procedure 없음`); continue }
     const pass = new Set((a.reviews ?? []).filter((r) => r.verdict === 'pass').map((r) => r.persona))
-    if (pass.size < 3) { skipped.push(`${a.item_id}: 3인 검수 미완(${pass.size})`); continue }
+    // 학평은 분석자의 자기 검수를 발행 근거로 쓰지 않는다(독립 검수 게이트 20260928141215) — 대신
+    // 분석 실행 주체(analyst_run)가 있어야 한다. 그래야 검수자가 분석자와 다른지 DB 가 가린다
+    const analystRun = a.analyst_run ?? j.analyst_run ?? null
+    if (SET === 'hakpyeong') {
+      if (!analystRun || String(analystRun).length < 8) { skipped.push(`${a.item_id}: analyst_run 없음(학평은 필수)`); continue }
+    } else if (pass.size < 3) { skipped.push(`${a.item_id}: 3인 검수 미완(${pass.size})`); continue }
 
     analyses.push({
       item_id: a.item_id,
@@ -80,6 +85,7 @@ for (const f of files) {
       required_vocab: a.required_vocab ?? [],
       answer_unknown: a.answer_unknown === true,
       body_recovered: a.body_recovered === true,
+      ...(SET === 'hakpyeong' ? { analyst_run: analystRun } : {}),
     })
     reviewsOf.set(a.item_id, a.reviews ?? [])
   }
@@ -200,6 +206,19 @@ for (const a of analyses) {
     )
     aid = data.id
     inserted += 1
+  }
+
+  // ── 학평: 자기 검수를 쓰지 않고, 발행을 시도하지 않는다 ─────────────
+  //    과거 검수 984행을 덮어쓰지 않고(재검수는 csat_independent_reviews 에 회차로 쌓는다),
+  //    발행은 review-drain.mjs publish 가 독립 검수 3인이 모인 뒤에만 시도한다(DB 게이트가 최종 판정).
+  if (SET === 'hakpyeong') {
+    if (!same) {
+      const { error: se } = await db.from('csat_item_analyses').update({ status: 'in_review' }).eq('id', aid)
+      if (se) { skipped.push(`${a.item_id}: in_review 전환 실패 — ${se.message}`); continue }
+    }
+    republished += 1
+    process.stdout.write(`\r  적재 ${republished}/${analyses.length} (학평 — 독립 검수 대기)`)
+    continue
   }
 
   // 검수 — 페르소나마다 한 행. unique(analysis_id, persona) 가 중복을 막는다.
