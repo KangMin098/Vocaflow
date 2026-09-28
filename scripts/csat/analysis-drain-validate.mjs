@@ -373,7 +373,8 @@ for (const f of files) {
         if (!c.how_to_reject || c.how_to_reject.length < 10) bad(id, `선지 ${c.n} 의 how_to_reject 가 부실하다`)
         // **배제 근거에 위치가 있어야 한다.** "지문과 다르다" 는 검증도 재현도 안 된다 —
         // 학습자가 그 자리를 직접 짚어 확인할 수 있어야 길 안내가 된다(실측 473/606 만 갖췄다).
-        else if (!/문장|줄|번째|앞|뒤|단락|첫|끝|마지막|[a-zA-Z]{4}/.test(c.how_to_reject)) {
+        // 근거 단위 표기 `[u5]` 도 위치다(§1-a) — 빠뜨렸더니 교정 에이전트가 경고를 끄려고 영어 어구를 덧붙였다(2026-09-29)
+        else if (!/문장|줄|번째|앞|뒤|단락|첫|끝|마지막|\[u\d+\]|[a-zA-Z]{4}/.test(c.how_to_reject)) {
           warn(id, `선지 ${c.n} 의 how_to_reject 에 위치·인용이 없다 — "${c.how_to_reject.slice(0, 40)}…"`)
         }
       }
