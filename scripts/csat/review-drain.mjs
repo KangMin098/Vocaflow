@@ -28,7 +28,7 @@
 //   다음: submit --run <run id> …(블라인드와 같다)
 //
 // ── 운영자 명령 ───────────────────────────────────────────────────────
-//   export  [--size 4] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
+//   export  [--size 8] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
 //   backfill-analyst-run [--commit]                              analyst_run 이 빈 과거 분석에 원장 출처를 적는다
@@ -39,6 +39,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
+import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
 
 const [cmd, ...rest] = process.argv.slice(2)
 const arg = (n, d = null) => {
@@ -90,6 +91,24 @@ async function all(q) {
   return rows
 }
 
+/** 검수자에게 보이는 근거 단위 목록 — DB 의 **현재** 목록(csat_item_units)만. 없으면 null 과 사유 */
+async function unitsView(itemId) {
+  const u = (await loadCurrentUnits(db, [itemId])).get(itemId)
+  return u ? { units_version: u.units_version, list: unitsForAgent(u.units), note: '분석의 sentence_index·[uN] 은 이 번호다 — 지문을 다시 세지 말고 이 목록으로 대조한다' }
+    : { list: null, note: '근거 단위 목록 없음 — 번호 대조 불가(units-build 필요)' }
+}
+
+/** 도표(R-CHART) 문항 id — 이미지 입력이 없어 발행 보류 대상 */
+async function chartItems(itemIds) {
+  const set = new Set()
+  for (let i = 0; i < itemIds.length; i += 200) {
+    const { data, error } = await db.from('csat_items').select('id').in('id', itemIds.slice(i, i + 200)).eq('type_id', 'R-CHART')
+    if (error) die(error.message)
+    for (const r of data) set.add(r.id)
+  }
+  return set
+}
+
 /** 학평 문항별 최신 분석 */
 async function latestHakpyeong() {
   const rows = await all(() => db.from('csat_item_analyses').select('id, item_id, version, status, analyst_run').like('item_id', 'H%').order('item_id').order('version', { ascending: false }))
@@ -114,7 +133,7 @@ switch (cmd) {
     // 정답(answer·answers)과 분석은 **주지 않는다** — solve 뒤 reveal 에서만
     const { data: it, error: ie } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', a.item_id).single()
     if (ie) die(ie.message)
-    out({ run_id: run.id, item: it, next: `solve --run ${run.id} --answer <1-5> --note "<근거>"` })
+    out({ run_id: run.id, item: it, units: await unitsView(a.item_id), next: `solve --run ${run.id} --answer <1-5> --note "<근거>"` })
     break
   }
   case 'solve': {
@@ -134,6 +153,7 @@ switch (cmd) {
     const row = data?.[0]
     const { data: r } = await db.from('csat_review_runs').select('solve_answer').eq('id', run).single()
     out({ run_id: run, official_answer: row?.answer, official_answers: row?.answers, your_solve: r?.solve_answer, matches: r?.solve_answer === row?.answer, analysis: forReviewer(row?.analysis),
+      units: row?.analysis?.item_id ? await unitsView(row.analysis.item_id) : null,
       next: `submit --run ${run} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
     break
   }
@@ -180,17 +200,20 @@ switch (cmd) {
     const { data: prior } = await db.from('csat_independent_reviews').select('verdict, findings').eq('review_run_id', parent.id)
     out({ run_id: run.id, kind: 'rereview', parent_run: parent.id,
       original_solve: { answer: parent.solve_answer, note: parent.solve_note, matches: parent.solve_answer === row?.answer },
-      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: forReviewer(row?.analysis),
+      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: forReviewer(row?.analysis), units: await unitsView(a.item_id),
       next: `submit --run ${run.id} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
     break
   }
 
   // ── 운영자 ──────────────────────────────────────────────────────────
   case 'export': {
-    const size = Number(arg('size', 4))
+    const size = Number(arg('size', 8)) // 2026-09-29 시험: 8문항이 4문항보다 문항당 39.4% 싸고 심은 결함 검출은 같았다(확인한 결함 한정)
     const limit = arg('limit') ? Number(arg('limit')) : Infinity
     const only = arg('items') ? new Set(arg('items').split(',')) : null
-    const latest = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
+    const all0 = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
+    // 도표는 이미지 없이 검수할 수 없다 — 청크에서 빼되 **보류 건수로 남긴다**(조용히 제외하지 않는다 · DB 게이트도 발행 거부)
+    const chartHeld = await chartItems(all0.map((a) => a.item_id))
+    const latest = all0.filter((a) => !chartHeld.has(a.item_id))
     const ids = latest.map((a) => a.id)
     const runs = []
     for (let i = 0; i < ids.length; i += 200) {
@@ -217,6 +240,7 @@ switch (cmd) {
       fs.writeFileSync(path.join(WORK, name), JSON.stringify({ created_at: new Date().toISOString(), items: todo.slice(i, i + size) }, null, 1))
       console.log(`  ${name}  ${todo.slice(i, i + size).map((t) => t.item_id).join(' ')}`)
     }
+    console.log(`  보류: 도표 이미지 없음 ${chartHeld.size} (검수 청크에서 뺐다 · 완료로 세지 않는다)`)
     console.log(`  대상 ${latest.length} · 작업 중 ${busy.size} · analyst_run 없음 ${noRun.length} · 검수 필요 ${todo.length} · 새 청크 ${n}`)
     if (noRun.length) console.log('  ⚠ analyst_run 이 없는 분석은 게이트가 발행을 막는다 — backfill-analyst-run 먼저')
     break
@@ -241,7 +265,8 @@ switch (cmd) {
     for (const a of latest) by[a.status] = (by[a.status] ?? 0) + 1
     const { count: runs } = await db.from('csat_review_runs').select('id', { count: 'exact', head: true })
     const { count: revs } = await db.from('csat_independent_reviews').select('id', { count: 'exact', head: true })
-    out({ analyses: latest.length, by_status: by, analyst_run_missing: latest.filter((a) => !a.analyst_run).length, review_runs: runs, independent_reviews: revs })
+    const held = await chartItems(latest.filter((a) => a.status !== 'published').map((a) => a.item_id))
+    out({ analyses: latest.length, by_status: by, held_chart_no_image: held.size, analyst_run_missing: latest.filter((a) => !a.analyst_run).length, review_runs: runs, independent_reviews: revs })
     break
   }
   case 'backfill-analyst-run': {

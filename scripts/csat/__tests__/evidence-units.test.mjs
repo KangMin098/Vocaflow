@@ -7,7 +7,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import fs from 'node:fs'
 import path from 'node:path'
-import { buildUnits, checkUnits, unitsHash, unitsOfQuote, UNITS_VERSION } from '../lib-evidence-units.mjs'
+import { buildUnits, checkUnitRefs, checkUnits, unitsHash, unitsOfQuote, UNITS_VERSION } from '../lib-evidence-units.mjs'
 
 const texts = (p, o) => buildUnits(p, o).units.map((u) => u.text)
 
@@ -87,4 +87,26 @@ test('local corpus: all passages pass self-check and reviewer-agreed counts hold
     const it = c.items.find((x) => x.id === id)
     assert.equal(buildUnits(it.passage, { typeId: it.type_id }).units.length, n, id)
   }
+})
+
+// ── V9 번호 검사(checkUnitRefs) — 기계가 잡는 것과 못 잡는 것 ────────────
+const P6 = 'It is important to note the goal. We found no link. Success was related to fun. The children felt it too. It appears that children tune in to winning. What children share is fun!'
+const U6 = buildUnits(P6).units
+const run = (a) => { const bad = [], warn = []; checkUnitRefs(a, U6, (id, m) => bad.push(m), (id, m) => warn.push(m), 'x'); return { bad, warn } }
+
+test('V9: in-range but semantically wrong index passes — semantic errors are left to independent review (H1803G3#31 shape)', () => {
+  const r = run({ answer_locus: { sentence_index: [1, 5], quote: 'children tune in to winning' }, choices: [{ n: 2, verdict: 'correct', confirmed_at: { sentence_index: [1, 6] } }] })
+  assert.deepEqual(r.bad, [])
+})
+
+test('V9: nonexistent unit in locus, confirmed_at, or prose [uN] is an error', () => {
+  const r = run({ answer_locus: { sentence_index: [9, 11], quote: 'children tune in to winning', reasoning: 'see [u12]' }, choices: [{ n: 1, confirmed_at: { sentence_index: [7] } }] })
+  assert.equal(r.bad.filter((m) => /없는 단위/.test(m)).length, 4)
+})
+
+test('V9: quote located outside sentence_index is an error; "N번 문장" prose is a warning', () => {
+  const r = run({ answer_locus: { sentence_index: [3, 4], quote: 'children tune in to winning', reasoning: '5번 문장이 근거' } })
+  assert.equal(r.bad.length, 1)
+  assert.match(r.bad[0], /\[u5\]/)
+  assert.equal(r.warn.length, 1)
 })

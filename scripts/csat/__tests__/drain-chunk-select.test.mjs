@@ -163,3 +163,26 @@ test('missing, empty, or out-of-folder selections fail instead of falling back t
     })
   } finally { fs.rmSync(dir, { recursive: true, force: true }) }
 })
+
+test('units: analysis whose units_hash differs from its chunk list is blocked at the gate with zero DB requests', async () => {
+  const { dir, work } = setup()
+  try {
+    const units = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
+    const it = { ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: 'a'.repeat(64), units }
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [it] }))
+    const a = { ...goodAnalysis('H2603G3#18'), units_version: 1, units_hash: 'b'.repeat(64), answer_locus: { sentence_index: [2], quote: 'each recall rebuilds the event from fragments' } }
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses: [a] }))
+    await withServer(async (url, reqs) => {
+      const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+      assert.equal(r.code, 1, r.output)
+      assert.match(r.output, /units_hash 가 청크의 목록과 다르다/)
+      assert.equal(reqs.length, 0)
+    })
+    // 같은 해시·맞는 번호면 게이트를 통과한다
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses: [{ ...a, units_hash: 'a'.repeat(64) }] }))
+    await withServer(async (url) => {
+      const r = await runImport(dir, url, ['--chunk', 'revise-test'])
+      assert.equal(r.code, 0, r.output)
+    })
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+})

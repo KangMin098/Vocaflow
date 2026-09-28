@@ -153,3 +153,30 @@ export function unitsOfQuote(passage, units, quote) {
   const end = at + q.length
   return spans.filter(([s, e]) => s < end && e > at).map(([, , n]) => n)
 }
+
+/**
+ * **V9 근거 단위 번호** — 청크가 실어 보낸 목록(DB csat_item_units)으로만 센다.
+ *
+ * 기계가 보는 것은 **번호가 있는가 · 인용이 걸친 단위가 번호에 들어 있는가** 둘뿐이다.
+ * 그 단위가 실제로 주장을 뒷받침하는지(의미)는 **보지 않는다** — 범위 안의 엉뚱한 번호
+ * (H1803G3#31: 근거는 u5 인데 [1,6])는 여기를 통과하고 독립 검수가 잡는다(회귀가 이 한계를 고정한다).
+ */
+export function checkUnitRefs(a, units, bad, warn, id) {
+  const N = units.length
+  const inRange = (k) => Number.isInteger(k) && k >= 1 && k <= N
+  const idx = a.answer_locus?.sentence_index ?? []
+  for (const k of idx) if (!inRange(k)) bad(id, `answer_locus.sentence_index 에 없는 단위 u${k} (이 지문은 u1–u${N})`)
+  for (const c of a.choices ?? []) {
+    for (const k of c.confirmed_at?.sentence_index ?? []) if (!inRange(k)) bad(id, `선지 ${c.n} confirmed_at 에 없는 단위 u${k} (u1–u${N})`)
+  }
+  const q = a.answer_locus?.quote
+  if (q) {
+    const at = unitsOfQuote('', units, q)
+    if (at.length && !at.every((k) => idx.includes(k))) {
+      bad(id, `인용이 걸친 단위 [${at.map((k) => `u${k}`).join(',')}] 가 answer_locus.sentence_index [${idx.join(',')}] 에 없다`)
+    }
+  }
+  const prose = JSON.stringify(a)
+  for (const m of prose.matchAll(/\[u(\d+)\]/g)) if (!inRange(Number(m[1]))) bad(id, `서술에 없는 단위 [u${m[1]}] (u1–u${N})`)
+  if (/\d+\s*번\s*(?:째\s*)?문장/.test(prose)) warn(id, '서술에 「N번 문장」 표기가 있다 — 근거 단위 번호 [uN] 으로 쓴다')
+}

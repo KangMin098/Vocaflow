@@ -19,6 +19,7 @@ tools: Read, Write, Bash
 `$CHUNK_PATH` 로 받은 `chunk-<TYPE>-<ID>.json`. 같은 유형의 문항 12개 안팎이 들어 있다.
 필드는 `scripts/csat/analysis-drain/_PROMPT.md` 에 전부 적혀 있다. **먼저 그 파일을 읽어라.**
 스키마·검수 페르소나 정의·금지 서술이 거기 있고, 이 문서와 어긋나면 `_PROMPT.md` 가 정본이다.
+문항에 `units`(근거 단위 목록)가 있으면 **지문을 스스로 세지 말고** 그 번호만 쓴다 — 서술 위치는 `[uN]`, 분석마다 `units_version`·`units_hash` 를 옮겨 적는다(`_PROMPT.md` §1-a).
 
 특히 두 딱지를 놓치지 마라:
 

@@ -25,6 +25,7 @@ import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { loadCurrentUnits } from './lib-units-db.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const WORK = WORK_DIR
@@ -106,7 +107,9 @@ for (const f of files) {
       required_vocab: a.required_vocab ?? [],
       answer_unknown: a.answer_unknown === true,
       body_recovered: a.body_recovered === true,
-      ...(SET === 'hakpyeong' ? { analyst_run: analystRun } : {}),
+      ...(SET === 'hakpyeong'
+        ? { analyst_run: analystRun, units_version: a.units_version ?? null, units_hash: a.units_hash ?? null }
+        : {}),
     })
     reviewsOf.set(a.item_id, a.reviews ?? [])
   }
@@ -138,6 +141,23 @@ for (const f of files) {
   analyses.length = 0
   analyses.push(...lastOf.values())
   if (superseded) console.log(`  옛 청크에 겹쳐 있어 건너뛴 분석 ${superseded} (나중 청크가 이긴다)`)
+}
+
+// ── 학평: 분석이 본 근거 단위 목록이 **지금의 목록**인가 ─────────────────
+// 분석의 번호는 그 목록에서만 뜻을 갖는다. 목록이 바뀐 뒤의 분석을 올리면 번호가 조용히 엉뚱한
+// 단위를 가리킨다 — 그래서 올리지 않고 수를 출력한다(DB 게이트도 발행 때 한 번 더 막는다).
+if (SET === 'hakpyeong') {
+  const withUnits = analyses.filter((a) => a.units_hash)
+  if (withUnits.length) {
+    const cur = await loadCurrentUnits(db, withUnits.map((a) => a.item_id))
+    const stale = new Set(withUnits.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
+    for (const id of stale) skipped.push(`${id}: 근거 단위 목록이 바뀌었다 — 다시 export 해 새 목록으로 번호를 대조한다`)
+    if (stale.size) {
+      const keep = analyses.filter((a) => !stale.has(a.item_id))
+      analyses.length = 0
+      analyses.push(...keep)
+    }
+  }
 }
 
 console.log(`\n  파일 ${files.length} · 적재 대상 ${analyses.length} · 건너뜀 ${skipped.length} · 유형 리포트 ${typeReports.size}`)

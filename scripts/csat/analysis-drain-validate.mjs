@@ -17,6 +17,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { CORPUS_FILE, WORK_DIR } from './lib-drain-set.mjs'
 import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { checkUnitRefs } from './lib-evidence-units.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -222,6 +223,19 @@ for (const f of files) {
   const bad = (id, msg) => fails.push(`${f} ${id} — ${msg}`)
   const warn = (id, msg) => warns.push(`${f} ${id} — ${msg}`)
 
+  // 원본 청크가 실어 보낸 근거 단위 목록(학평). 없으면 옛 청크 — V9 를 건너뛴다
+  const srcUnits = new Map()
+  {
+    const srcPath = path.join(WORK, f.replace('.out.json', '.json'))
+    if (fs.existsSync(srcPath)) {
+      try {
+        for (const it of JSON.parse(fs.readFileSync(srcPath, 'utf8')).items ?? []) {
+          if (it.units !== undefined) srcUnits.set(it.item_id, it)
+        }
+      } catch { /* 원본 청크 파싱 실패는 V7 이 따로 알린다 */ }
+    }
+  }
+
   // ── 검수 틀 찍기 ───────────────────────────────────────────────────
   // 3인 검수는 **문항마다** 한 판정이어야 한다. 한 페르소나의 findings 가 청크 문항 절반 이상에
   // 글자 그대로 반복되면(숫자만 다른 것 포함) 그것은 검수가 아니라 스크립트가 찍은 틀이다.
@@ -395,6 +409,17 @@ for (const f of files) {
           }
         }
         if (norm(q).length < 20) warn(id, '인용이 20자 미만 — 근거로 삼기엔 짧다')
+      }
+    }
+
+    // V9 근거 단위 — 청크가 목록을 실어 보냈거나 분석이 units_hash 를 적었으면 검사한다
+    {
+      const src = srcUnits.get(a.item_id)
+      if (src?.units || a.units_hash) {
+        if (!src?.units) bad(id, 'units_hash 가 있는데 원본 청크에 근거 단위 목록이 없다 — 청크를 지웠거나 목록이 없는 문항이다')
+        else if (a.units_hash !== src.units_hash || a.units_version !== src.units_version) {
+          bad(id, '분석의 units_version·units_hash 가 청크의 목록과 다르다 — 청크 값을 그대로 옮겨 적는다')
+        } else checkUnitRefs(a, src.units, bad, warn, id)
       }
     }
 
