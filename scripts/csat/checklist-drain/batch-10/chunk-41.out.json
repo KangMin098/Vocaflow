@@ -1,0 +1,1061 @@
+[
+ {
+  "id": "700c8045-aea7-453c-98ef-ae7429f2ca3e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The confidence vote, ushered in by",
+  "note": "신임 투표 통과→선거 가능→선거법 초안이라는 다음 절차가 이어지는 정치 단신이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "700fbb38-efd8-4efd-8f44-8cb825d48e3a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Eduardo Bhatia, the Washington, D.C.-based representative",
+  "note": "의원의 외국인 발언→사실 교정→지역 지도자·사설의 반발이 반응으로 이어져 주장·근거 칸을 채운다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": [
+     "myth-rebuttal"
+    ]
+   }
+  }
+ },
+ {
+  "id": "7016d5ff-49a0-460e-bbc8-386dd34f62fe",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The inquiry is finding out how",
+  "note": "경고 전화 증언→전 주지사 연루 의혹→변호인 부인→조사 경과가 이어지나 욕설 인용이 있어 고2 이상만 둔다",
+  "record": {
+   "genre": "history",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70214b08-3e1a-4090-bd3e-78596fabac56",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Electronic Gaming Monthly, which has been",
+  "note": "부채 정리를 위한 매각→잡지 폐간과 감원→인수사 해명→지면 매체 쇠퇴가 원인·결과로 이어진다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70215b6b-ba0b-4a93-8d9e-001bed7f124c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Under the government's new plans, it",
+  "note": "노동법 개정 계획→대규모 시위→노조의 저지 선언→평화 해산이 원인과 반응으로 이어진다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70218ee2-3d47-4303-81a4-2a113ea3202e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "For their current exhibit however, the",
+  "note": "버터 조각 부활과 작품 소개가 대부분이고 비좁은 작업장이 작은 크기의 까닭인 연결 하나뿐이다",
+  "record": {
+   "genre": "art",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70222b6b-b55c-4403-b306-9929561d308e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Morales himself owns a coca farm",
+  "note": "연구비 요청→EU 동의에 코카 재배 옹호 배경 한 줄이 붙은 짧은 단신이라 연결이 가늘다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70223985-06f7-4c82-b5de-68422ab15def",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": true,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "As a result of British Airways",
+  "note": "해고→동조 파업→항공편 축소→손실 추정이 원인·결과로 이어지고 끝의 전화번호 목록은 가공 때 걷는다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "purpose"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70264627-f50b-4316-9bf4-cee3b3361bdf",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Police officials said that, around 6:00",
+  "note": "악취 신고→출동→화학물질 발견→약물 판별→체포가 시간순 절차로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7028a5b6-798f-490d-8f72-f0d8b34db2a8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Reminder ads can only call attention",
+  "note": "광고 규정 위반 까닭→FDA 중단 요구→제약사 수용이 이유와 반응으로 이어지나 성기능 약 소재라 고3·성인만 둔다",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7029b78c-489d-4c8e-8dd6-206f34b27dd3",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The United Kingdom Home Secretary Charles",
+  "note": "지방선거 패배와 죄수 석방 파문 뒤 경질이라는 연결 하나에 후임 인사만 붙은 81어 단신이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "702d46cf-e4e0-41da-827c-1298767ee4f9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Mahathir's remarks stemmed from sodomy charges",
+  "note": "명예훼손 소송→각하 이유→항소 방침→과거 기소와 정치적 배경이 이유·결과로 이어지나 성 관련 혐의라 고2 이상만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "702d484f-9bd8-49c2-bea8-549fb9b633ea",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "So far there are no reports",
+  "note": "규모·진앙 수치에 쓰나미가 예상되지 않는 까닭 하나가 이어진 지진 단신이라 연결이 가늘다",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "703017a6-70ec-4fac-b5d5-bd9b7a32d4ee",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Prior to holding the post of",
+  "note": "사망 사실과 추모 발언·경력 나열이 대부분이라 문장 사이 연결이 가늘다",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70332065-4237-4a2b-b2c6-5d0022410493",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "On Friday, Ahmadinejad gave a speech",
+  "note": "홀로코스트 부정 발언→독일의 퇴장 경고와 공동 대응 요청→처벌 법 배경이 까닭과 반응으로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7036291f-7251-4fb9-891d-e57f6d0553db",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The scientists took DNA samples from",
+  "note": "상아 DNA 분석→밀렵 조직 추적→같은 개체군 반복 밀렵 추론→단속 활용이 근거와 결론으로 이어진다",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70365ab2-c4fc-42e7-8a9e-bcf3126a1183",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Mr. Wilson has from the start",
+  "note": "대배심 증언 보도→윌슨의 해임 요구→지지율 변화→법 쟁점이 이어져 사건 경위와 반응을 따라간다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70371ff7-2f12-4e00-9c98-24749f61833e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The suspects' computers were searched, and",
+  "note": "합동 수사→체포→압수 수색→학대 가담 조사가 절차로 이어지나 아동 성착취 소재라 고3·성인만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7038a626-391c-492e-80fd-4c3c6daddc45",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The bill, which contains a ten-year",
+  "note": "위원회 통과→공화 의원 유보→대통령 반응→병합 계획→비판이 반응과 다음 절차로 이어진다",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "7038b2bc-7680-4ae3-bac9-45ec7bbcbf9a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Air accidents are common in Iran,",
+  "note": "브레이크 과열 발견→소방 요청→진화 뒤 노후 기단·제재라는 사고 원인 배경이 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "70424133-c3f5-4017-aeff-0834d90ad41c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Advisors told US President Joe Biden",
+  "note": "정찰풍선 진입→방문 취소→격추 결정 까닭→중국 반발이 시간순 인과로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7042c28e-91d3-4f70-8721-c1696fabf9b2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Obama stressed that the new bill",
+  "note": "인프라 계획 발표→일자리 효과 주장→재원 조달 설명→공화당 반대가 주장·근거·반응으로 이어진다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7044d407-57bf-4b8e-a810-e4efa5c7770f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Chávez's main competitor in the election",
+  "note": "재선 득표율과 두 후보 발언·투표율만 늘어놓아 문장 사이 연결이 가늘다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "704a591d-6a4a-466e-ae29-c928e1943f95",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The former prisoner of Zion (who",
+  "note": "사임 당사자가 자기 입장과 근거를 밝히는 보도라 polemic 이 아니고 주장-근거 짝이 뚜렷하다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "704a665e-908a-4f44-a76c-41f1b70c6c66",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Groser says the claims made by",
+  "note": "전처의 대마 흡연 주장→부인과 해명→당 대표 수용이 반응과 결과로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
