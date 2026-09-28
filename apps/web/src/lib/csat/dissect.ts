@@ -3,6 +3,7 @@
 import type { LearnerCatalog } from './session/catalog'
 import type { CatalogItem } from './session/model'
 import type { RevealAnchor } from './session/reveal'
+import type { Workspace } from './workspace'
 
 export interface DissectionItem extends CatalogItem {
   answer: number
@@ -54,6 +55,8 @@ export interface DissectionRecord {
   views?: { id: string; at: number }[]
   /** 마지막으로 고친 시각 — 기기 ↔ 서버 병합의 기준(continuity.mergeDissection) */
   updatedAt?: number
+  /** 학습 Workspace(`lib/csat/workspace.ts`) — 묘비 포함. 병합은 id 단위(`mergeWorkspaces`) */
+  workspaces?: Workspace[]
 }
 export function emptyDissectionRecord(seed: number): DissectionRecord {
   return { version: 1, seed, onboarded: false, predictions: [], formulas: [], queue: [], completed: [] }

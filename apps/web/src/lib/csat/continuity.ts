@@ -11,6 +11,7 @@
 // 학습을 지운다.
 
 import type { DissectionRecord } from './dissect'
+import { mergeWorkspaces, sameWorkspaces } from './workspace'
 
 export const DAY = 86_400_000
 /** 이 날수 이상 비었다가 오면 「공백 복귀」다. */
@@ -180,6 +181,8 @@ export function mergeDissection(local: DissectionRecord, server: DissectionRecor
     inspected: [...new Set([...(older.inspected ?? []), ...(newer.inspected ?? [])])],
     views: [...views.entries()].map(([id, at]) => ({ id, at })).sort((a, b) => a.at - b.at).slice(-200),
     drafts: { ...(older.drafts ?? {}), ...(newer.drafts ?? {}) },
+    // Workspace 는 id 단위로 합친다 — `...newer` 로 두면 늦게 쓴 기기가 다른 기기의 Workspace 를 지운다
+    ...(older.workspaces || newer.workspaces ? { workspaces: mergeWorkspaces(older.workspaces, newer.workspaces) } : {}),
     updatedAt: Math.max(local.updatedAt ?? 0, server.updatedAt ?? 0),
   }
 }
@@ -196,6 +199,7 @@ export function sameRecord(a: DissectionRecord, b: DissectionRecord): boolean {
     (a.views ?? []).length === (b.views ?? []).length &&
     (a.inspected ?? []).length === (b.inspected ?? []).length &&
     a.onboarded === b.onboarded &&
+    sameWorkspaces(a.workspaces, b.workspaces) &&
     (a.active?.index ?? -1) === (b.active?.index ?? -1) &&
     (a.active?.items.join(',') ?? '') === (b.active?.items.join(',') ?? '')
   )
