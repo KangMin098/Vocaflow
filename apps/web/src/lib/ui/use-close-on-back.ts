@@ -86,7 +86,10 @@ export function useCloseOnBack(open: boolean, onClose: () => void): void {
       if (unwound) return
       pendingUnwind = setTimeout(() => {
         pendingUnwind = null
-        window.history.back()
+        // ⚠️ 팝업 **안의 링크로 이동**해서 닫힌 경우 맨 위 항목은 이미 새 화면이다 — 그때 back() 하면
+        //    방금 한 이동을 무른다(실측 2026-09-29: 레일 「목적별」 팝업의 `/csat?need=killer` 가 제자리로
+        //    돌아왔고, Workspace 만들기 뒤 이동도 같은 이유로 막혔다). 맨 위가 **우리 표식일 때만** 되감는다.
+        if ((window.history.state as { vocaflowOverlay?: boolean } | null)?.vocaflowOverlay) window.history.back()
       }, 0)
     }
   }, [open])

@@ -23,6 +23,7 @@ import { useMemo, useState } from 'react'
 import { CsatRail, type NeedId, type RailPlace } from '@/components/csat/home/CsatRail'
 import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
 import { activeSet, dueNow, touchedItems } from '@/lib/csat/continuity'
+import { railWorkspaces } from '@/lib/csat/workspace'
 import { EMPTY_FILTER, filterBrowse, groupByExam, type BrowseCatalog, type BrowseFilter, type ExamKind } from '@/lib/csat/browse-model'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import type { RailExam } from '@/lib/csat/rail-data'
@@ -81,7 +82,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
 
   return (
     <div className={styles.root} data-csat-browse data-testid="csat-workspace">
-      <CsatRail place={place} current={current} exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
+      <CsatRail place={place} current={current} exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} workspaces={railWorkspaces(rec?.record)} />
 
       <div className="min-w-0">
         <header className={styles.topbar}>

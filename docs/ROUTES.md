@@ -143,9 +143,9 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/csat/space` | `(app)/csat/space/page.tsx` | 옛 주소 — `/csat` 으로 redirect |
 | `/csat/browse` | `(app)/csat/browse/page.tsx` + `CsatWorkspace.tsx` | **전체 기출 서가** — 홈과 같은 메뉴 · 결. 쿼리 `?type=` · `?exam=` · `?status=map` · `?from=<학년도>` · `?q=`. 회차별 번호 칩(연 문항은 옅게, 강의 없는 문항은 점선) → `/csat/item/[slug]` |
 | `/csat/record` | `(app)/csat/record/page.tsx` + `home/RecordScreen.tsx` | **내 기록** — 덮은 넓이(본 유형 x/26 · 연 문항 · 만난 오답 계열 · 공식) · 최근 14일 학습한 날 · 다음 복습 · 내 공식. 정답률 · 랭킹 없음(brief A2) |
-| `/csat/workspace` | `(app)/csat/workspace/page.tsx` + `workspace/WorkspaceListScreen.tsx` | **내 Workspace** — 학습자가 유형 · 함정 · 회차 · 문항을 골라 담은 학습 묶음 목록(보관함 따로). 저장은 학습 기록(`DissectionRecord.workspaces`) — docs/csat-learner/workspace-design.md |
-| `/csat/workspace/new` | `(app)/csat/workspace/new/page.tsx` + `workspace/WorkspaceCreate.tsx` | **새 Workspace** — 출발점(목적별 5 + 내 약점으로) → 목표 · 계획 · 약점 → 담을 것(칸 안 또는 · 칸 사이 그리고, **실제 포함 문항** 미리보기) → 이름 |
-| `/csat/workspace/[id]` | `(app)/csat/workspace/[id]/page.tsx` + `workspace/WorkspaceDetail.tsx` | **Workspace 안** — 다음 문항(→ `/csat/item/[slug]`) · 진행(기존 학습 포함 / 만든 뒤 / 이번 주 계획) · 약점 변화(예측 적중 · 표본 부족이면 판단 보류) · 보완 제안 · 담은 것 고치기 · 보관 · 지우기(묘비). `?from=home|rail|created` |
+| `/csat/workspace` | `(app)/csat/workspace/page.tsx` | → `/csat?tab=workspace` 리다이렉트 — 목록은 메인 판의 **Workspace 탭**(참조 3B 「Workflows」 탭 결 · 2026-09-29) |
+| `/csat/workspace/new` | `(app)/csat/workspace/new/page.tsx` | → `/csat?tab=workspace&new=1` 리다이렉트 — 만들기는 **팝업**(`WorkspaceCreateDialog`): 출발점 칩 → 목표·주당·기한 한 줄 → 약점 · 담을 것(접힘) + 실제 포함 문항 → 이름 |
+| `/csat/workspace/[id]` | `(app)/csat/workspace/[id]/page.tsx` + `workspace/WorkspaceDetail.tsx` | **Workspace 안** — 다음 문항(→ `/csat/item/[slug]`) · 진행(기존 학습 포함 / 만든 뒤 / 이번 주 계획) · 약점 변화(예측 적중 · 표본 부족이면 판단 보류) · 보완 제안(줄 안) · 담은 것 고치기(팝업) · 보관 · 지우기(확인 팝업 · 묘비). `?from=home|rail|created` |
 
 #### 기출 분석 뷰 (관리자 · `admin/kice/*` · 2026-09-17 학습자 `/csat` 에서 이전)
 

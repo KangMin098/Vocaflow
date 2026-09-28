@@ -56,3 +56,53 @@
 .verdict[data-v='insufficient'] { border-style: dashed; color: var(--t3); }
 
 .danger { color: #9c3a30; }
+
+/* ── 팝업 · 촘촘한 판 (2026-09-29 참조 3B Recents 결) ── */
+.compact { display: grid; gap: 14px; }
+.row3 { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr); gap: 10px; }
+@media (max-width: 720px) { .row3 { grid-template-columns: 1fr; } }
+.fold { border: 1px solid var(--bd); border-radius: 10px; padding: 0 12px; }
+.fold > summary { display: flex; align-items: baseline; gap: 8px; min-height: 44px; align-items: center; cursor: pointer; font-size: 12.5px; font-weight: 600; color: var(--t1); list-style: none; }
+.fold > summary::-webkit-details-marker { display: none; }
+.fold > summary::after { content: '▾'; margin-left: auto; font-size: 11px; color: var(--t3); }
+.fold[open] > summary::after { content: '▴'; }
+.fold > summary small { font-family: var(--font-mono), monospace; font-size: 11px; font-weight: 400; color: var(--t3); }
+.fold[open] { padding-bottom: 12px; }
+.dialogFoot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; width: 100%; }
+.inline { flex: 1 1 16rem; min-width: 0; }
+.inline input { width: 100%; min-height: 44px; padding: 0 12px; border: 1px solid var(--bd); border-radius: 9px; background: var(--bg); font: inherit; font-size: 13.5px; color: var(--t1); }
+.inline input:focus-visible { outline: 2px solid var(--t1); outline-offset: 1px; }
+
+/* 표 한 줄 = Workspace 하나 (참조 Workflows 줄) */
+.wsHead, .wsRow { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1.2fr) minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .9fr); gap: 12px; align-items: center; padding: 0 20px; }
+.wsHead { min-height: 40px; border-bottom: 1px solid var(--bd); font-size: 11.5px; color: var(--t3); }
+.wsRow { min-height: 64px; border-bottom: 1px solid var(--bd); font-size: 12.5px; color: var(--t2); }
+.wsRow:hover { background: var(--bg2); }
+.wsName { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.wsTile { display: grid; place-items: center; flex: none; width: 32px; height: 32px; border-radius: 8px; }
+.wsTitle { display: grid; gap: 2px; min-width: 0; }
+.wsTitle a { font-size: 13.5px; font-weight: 500; color: var(--t1); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wsTitle a:hover { text-decoration: underline; }
+.wsTitle a::after { content: ''; position: absolute; inset: 0; }
+.wsRow { position: relative; }
+.wsStatus { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 11.5px; color: var(--t3); }
+.wsDot { width: 6px; height: 6px; border-radius: 50%; background: #0a9a63; }
+.wsDot[data-state='idle'] { background: var(--t3); }
+.wsTag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 6px; background: var(--bg3); font-size: 11.5px; color: var(--t2); white-space: nowrap; }
+.wsNum { font-family: var(--font-mono), monospace; font-size: 12px; font-variant-numeric: tabular-nums; }
+.wsTools { display: flex; align-items: center; gap: 10px; padding: 10px 20px; border-bottom: 1px solid var(--bd); }
+.wsEmpty { padding: 28px 20px; font-size: 13px; color: var(--t2); }
+@media (max-width: 900px) {
+  .wsHead { display: none; }
+  .wsRow { grid-template-columns: 1fr; gap: 4px; padding: 10px 16px; }
+}
+
+/* Workspace 안 — 머리 한 줄 · 수치 한 줄 */
+.detailHead { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.detailHead h1 { font-size: 18px; font-weight: 600; line-height: 1.3; word-break: keep-all; }
+.detailHead .grow { flex: 1 1 16rem; min-width: 0; display: grid; gap: 4px; }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; }
+.stats div { display: grid; gap: 2px; }
+.stats dt { font-size: 11.5px; color: var(--t3); }
+.stats dd { margin: 0; font-family: var(--font-mono), monospace; font-size: 16px; color: var(--t1); font-variant-numeric: tabular-nums; }
+.stats dd small { font-size: 11.5px; color: var(--t3); }

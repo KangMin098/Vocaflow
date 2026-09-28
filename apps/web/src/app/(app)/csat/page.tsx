@@ -48,13 +48,15 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   return (
     // 쿼리가 바뀌면 다시 세운다 — 같은 경로 안의 링크 이동은 컴포넌트를 재사용해 첫 필터가 남는다(A2 실패 2026-09-25)
     <SpaceScreen
-      key={[need ?? '', one(params.tab) ?? '', one(params.view) ?? ''].join('|')}
+      key={[need ?? '', one(params.tab) ?? '', one(params.view) ?? '', one(params.new) ?? ''].join('|')}
       exams={exams}
       itemTypes={itemTypes}
       initialTab={one(params.tab) === 'trap' ? 'trap' : 'type'}
       need={need}
       view={one(params.view) === 'continue' ? 'continue' : 'home'}
       workspaceIndex={workspaceIndex}
+      initialWorkspace={one(params.tab) === 'workspace'}
+      openNew={one(params.new) === '1'}
     />
   )
 }

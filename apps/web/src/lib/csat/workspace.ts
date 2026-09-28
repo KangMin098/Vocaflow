@@ -141,6 +141,14 @@ export function mergeWorkspaces(a: readonly Workspace[] | undefined, b: readonly
 export const liveWorkspaces = (list: readonly Workspace[] | undefined, withArchived = false) =>
   (list ?? []).filter((w) => !w.deletedAt && (withArchived || !w.archived))
 
+/** 레일에 올릴 것 — 보관 · 묘비 제외, 최근에 고친 순, 이름과 id 만 */
+export function railWorkspaces(record: DissectionRecord | null | undefined): { id: string; name: string }[] | null {
+  if (!record) return null
+  return liveWorkspaces(record.workspaces)
+    .sort((a, b) => b.updatedAt - a.updatedAt)
+    .map(({ id, name }) => ({ id, name }))
+}
+
 /** 저장이 필요할 만큼 달라졌나 — id · 시각 · 묘비로만 본다 */
 export function sameWorkspaces(a: readonly Workspace[] | undefined, b: readonly Workspace[] | undefined): boolean {
   const x = a ?? []

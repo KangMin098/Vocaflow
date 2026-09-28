@@ -10,6 +10,7 @@ import Link from 'next/link'
 import { ArrowUpRight, BookMarked, CloudOff } from 'lucide-react'
 
 import { activeSet, coverage, dueNow, studyDays, upcoming } from '@/lib/csat/continuity'
+import { railWorkspaces } from '@/lib/csat/workspace'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
 import type { RailExam } from '@/lib/csat/rail-data'
 
@@ -30,7 +31,7 @@ export function RecordScreen({ exams, itemTypes }: { exams: RailExam[]; itemType
 
   return (
     <div className={styles.root} data-testid="csat-record">
-      <CsatRail place="record" exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
+      <CsatRail place="record" exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} workspaces={railWorkspaces(rec?.record)} />
       <div className="min-w-0">
         <header className={styles.topbar}>
           <span className={styles.topPill}>

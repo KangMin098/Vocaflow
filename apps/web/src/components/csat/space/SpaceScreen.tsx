@@ -23,6 +23,7 @@ import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import {
   ArrowUpRight,
   Crosshair,
+  FolderKanban,
   Layers,
   Microscope,
   Search,
@@ -37,8 +38,10 @@ import { ContinueCard } from '../home/ContinueCard'
 import { ContinuePanel } from '../home/ContinuePanel'
 import { CsatRail, type NeedId } from '../home/CsatRail'
 import { useCsatRecord } from '../home/useCsatRecord'
-import { HomeWorkspaces } from '../workspace/HomeWorkspaces'
+import { WorkspaceTable } from '../workspace/WorkspaceTable'
 import type { WorkspaceIndex } from '@/lib/csat/workspace-index'
+import { liveWorkspaces, putWorkspace, railWorkspaces, type Workspace } from '@/lib/csat/workspace'
+import { loadDissectionRecord, saveDissectionRecord } from '@/lib/csat/session/store'
 import { track } from '@/lib/analytics/client'
 import { activeSet, coverage, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
@@ -86,6 +89,8 @@ export function SpaceScreen({
   need = null,
   view = 'home',
   workspaceIndex,
+  initialWorkspace = false,
+  openNew = false,
 }: {
   exams: SpaceExam[]
   /** 문항 id → 유형 id(넓이 · 「본 문항」 계산용). 서가 카탈로그에서 온다 */
@@ -95,12 +100,23 @@ export function SpaceScreen({
   need?: NeedId | null
   /** 'continue' = 이어서 · 복습 판(표 자리에 선다) */
   view?: 'home' | 'continue'
-  /** 「내 Workspace」 줄의 문항 색인 — 없으면 줄을 그리지 않는다(기존 화면 그대로) */
+  /** Workspace 탭의 문항 색인 — 없으면 탭을 그리지 않는다(기존 화면 그대로) */
   workspaceIndex?: WorkspaceIndex
+  /** `?tab=workspace` 로 들어왔나 */
+  initialWorkspace?: boolean
+  /** `?new=1` — 만들기 팝업을 연 채로 */
+  openNew?: boolean
 }) {
   const head = useMemo(spaceHeadline, [])
   const all = useMemo(() => ({ type: typeRows(), trap: trapRows() }), [])
   const [tab, setTab] = useState<SpaceTab>(need === 'trap' ? 'trap' : initialTab)
+  // Workspace 탭 — 유형 · 함정 표와 같은 판의 셋째 탭(참조 3B 「Workflows」 탭 결)
+  const [wsTab, setWsTab] = useState(initialWorkspace && !!workspaceIndex)
+  const saveWorkspace = useCallback(async (ws: Workspace) => {
+    // 저장 직전에 기기 기록을 다시 읽어 그 위에 한 벌만 넣는다 — 다른 탭의 학습을 덮지 않게
+    const fresh = await loadDissectionRecord()
+    return saveDissectionRecord(putWorkspace(fresh, ws))
+  }, [])
   const [filter, setFilter] = useState<SpaceFilter>(need === 'killer' ? { ...EMPTY_SPACE_FILTER, keys: killerTypeIds() } : EMPTY_SPACE_FILTER)
   const rec = useCsatRecord()
   const typeOf = useCallback((id: string) => itemTypes[id], [itemTypes])
@@ -204,6 +220,7 @@ export function SpaceScreen({
         current={need ?? undefined}
         exams={exams}
         dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null}
+        workspaces={railWorkspaces(rec?.record)}
       />
 
       <div className="min-w-0">
@@ -233,18 +250,36 @@ export function SpaceScreen({
 
           {/* ── ③ 판 ─────────────────────────────────────────────────── */}
           <div className={styles.panel}>
-            {view === 'home' && workspaceIndex ? <HomeWorkspaces rec={rec} index={workspaceIndex} /> : null}
             <div className={styles.tabs} role="tablist" aria-label="보는 것">
+              {workspaceIndex ? (
+                <button
+                  type="button"
+                  role="tab"
+                  id={`${listId}-tab-ws`}
+                  aria-selected={wsTab}
+                  aria-controls={`${listId}-ws`}
+                  className={styles.tab}
+                  onClick={() => setWsTab(true)}
+                  data-testid="tab-workspace"
+                >
+                  <FolderKanban size={14} aria-hidden="true" />
+                  Workspace
+                  <span className={styles.tabCount}>{rec ? n(liveWorkspaces(rec.record.workspaces).length) : '·'}</span>
+                </button>
+              ) : null}
               {(['type', 'trap'] as SpaceTab[]).map((key) => (
                 <button
                   key={key}
                   type="button"
                   role="tab"
                   id={`${listId}-tab-${key}`}
-                  aria-selected={tab === key}
+                  aria-selected={!wsTab && tab === key}
                   aria-controls={`${listId}-panel`}
                   className={styles.tab}
-                  onClick={() => scope({ tab: key })}
+                  onClick={() => {
+                    setWsTab(false)
+                    scope({ tab: key })
+                  }}
                 >
                   {key === 'type' ? <Layers size={14} aria-hidden="true" /> : <Crosshair size={14} aria-hidden="true" />}
                   {TAB_LABEL[key]}
@@ -253,7 +288,14 @@ export function SpaceScreen({
               ))}
             </div>
 
+            {wsTab && workspaceIndex ? (
+              <div id={`${listId}-ws`} role="tabpanel" aria-labelledby={`${listId}-tab-ws`}>
+                <WorkspaceTable record={rec?.record ?? null} now={rec?.now ?? null} index={workspaceIndex} save={saveWorkspace} startOpen={openNew} />
+              </div>
+            ) : null}
+
             <form
+              style={wsTab ? { display: 'none' } : undefined}
               className={home.tools}
               onSubmit={(event) => {
                 event.preventDefault()
@@ -306,7 +348,7 @@ export function SpaceScreen({
             </form>
 
 
-            <div className={styles.tableHead} aria-hidden="true" hidden={view === 'continue'}>
+            <div className={styles.tableHead} aria-hidden="true" hidden={view === 'continue' || wsTab}>
               <span>{tab === 'type' ? '유형' : '함정'}</span>
               <span>걸친 범위</span>
               <span>{head.recentFrom}학년도 이후</span>
@@ -315,7 +357,7 @@ export function SpaceScreen({
 
             {view === 'continue' ? <ContinuePanel state={rec} itemTypes={itemTypes} /> : null}
 
-            <div id={`${listId}-panel`} role="tabpanel" aria-labelledby={`${listId}-tab-${tab}`} hidden={view === 'continue'}>
+            <div id={`${listId}-panel`} role="tabpanel" aria-labelledby={`${listId}-tab-${tab}`} hidden={view === 'continue' || wsTab}>
               {rows.length === 0 ? (
                 <div className={styles.empty}>
                   <p>조건에 맞는 {TAB_LABEL[tab]}이 없습니다.</p>

@@ -16,7 +16,7 @@ import { createClient } from '@/lib/supabase/server'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 import { loadBrowseCatalog } from './browse'
-import { examOrder, isKiceExam, schoolYearOf } from './exam-id'
+import { HAKPYEONG_ID_PREFIX, examOrder, isKiceExam, schoolYearOf } from './exam-id'
 import { TRAPS } from './trap-atlas'
 import type { WorkspaceIndexItem } from './workspace'
 
@@ -44,7 +44,7 @@ async function trapsByItem(db: SupabaseClient): Promise<Map<string, string[]>> {
   const named = new Set(TRAPS.map((t) => t.key))
   const rows = await keysetSelect<AnalysisRow, { itemId: string; version: number }>(
     (cursor, limit) => {
-      let q = db.from('csat_item_analyses').select('item_id,version,choice_analysis').eq('status', 'published').order('item_id').order('version').limit(limit)
+      let q = db.from('csat_item_analyses').select('item_id,version,choice_analysis').eq('status', 'published').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).order('item_id').order('version').limit(limit)
       if (cursor) q = q.or(`item_id.gt.${cursor.itemId},and(item_id.eq.${cursor.itemId},version.gt.${cursor.version})`)
       return q
     },

@@ -30,11 +30,14 @@ export function ScopeEditor({
   onChange,
   units,
   index,
+  folded = false,
 }: {
   scope: WorkspaceScope
   onChange: (next: WorkspaceScope, change: ScopeChange) => void
   units: WorkspaceUnits
   index: WorkspaceIndexItem[]
+  /** 고르는 칸을 접어 한 줄 요약으로(팝업용) */
+  folded?: boolean
 }) {
   const pool = useMemo(() => poolOf(scope, index), [scope, index])
   const typeName = useMemo(() => new Map(units.types.map((t) => [t.id, t.name])), [units.types])
@@ -47,7 +50,7 @@ export function ScopeEditor({
     </button>
   )
 
-  return (
+  const pickers = (
     <div className={styles.groups}>
       <div className={styles.group}>
         <p className={styles.groupHead}>
@@ -100,7 +103,10 @@ export function ScopeEditor({
           ))}
         </div>
       </div>
+    </div>
+  )
 
+  const preview = (
       <section className={styles.preview} aria-live="polite" data-testid="ws-preview">
         <p className={styles.previewHead}>
           실제 포함 문항 <b>{pool.length}</b>
@@ -123,6 +129,30 @@ export function ScopeEditor({
           <p className={styles.hint}>아직 들어오는 문항이 없습니다. 조건을 넓히거나 다른 칸을 고르세요.</p>
         )}
       </section>
+  )
+
+  // 팝업 안에서는 고르는 칸을 접는다 — 한 줄 요약만 보이고, 실제 포함 문항은 늘 보인다
+  if (folded)
+    return (
+      <div className={styles.groups}>
+        <details className={styles.fold}>
+          <summary>
+            담을 것{' '}
+            <small>
+              유형 {scope.types.length} · 함정 {scope.traps.length} · 회차 {scope.exams.length}
+              {scope.mappedOnly ? ' · 지도 있는 문항만' : ''}
+              {scope.items.length ? ` · 낱개 ${scope.items.length}` : ''}
+            </small>
+          </summary>
+          {pickers}
+        </details>
+        {preview}
+      </div>
+    )
+  return (
+    <div className={styles.groups}>
+      {pickers}
+      {preview}
     </div>
   )
 }
