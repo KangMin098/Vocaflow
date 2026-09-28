@@ -1,0 +1,928 @@
+[
+  {
+    "id": "6404b674-b957-4f1d-90ef-151a36a8d79e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d6980a2c6fa16693dad83acf475ae17f7c63c7beccaa00b6ab40fbf46315a17",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "앞 두 문단이 개최·진행·결과와 포르투갈·마케도니아 성적에 대한 반응을 사건으로 이어 content_match 칸을 채운다(끝의 순위표는 걷는다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The evening began with an introduction",
+      "note": "둘째 문단은 진행 순서가 이어져 혼자 서고, 끝의 15개국 순위 나열은 가공 때 걷는다; elaborate→detailed, incorporated→mixed 로 V4 가능."
+    }
+  },
+  {
+    "id": "6404e043-4b2a-4c82-9e52-5fedbe08e3c0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bbe6dad40f530790aea9dd2f626b5630d3323438c25f34017c908f9baabc077c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "현재 인터넷 구조 → Kittyhawk 구상 → 백서의 목표 인용 → 스카이넷 비교 논의로 이어져 주제·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "IBM has announced a new project",
+      "note": "첫 문단이 기획의 정의와 대비(지금의 인터넷)를 함께 줘서 혼자 서고, entails→means, conjectures→guesses 로 밴드를 낮출 수 있다."
+    }
+  },
+  {
+    "id": "640890f3-4630-4dba-8429-3bc4ab058133",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "550812a7fccd9f2443fabf302fd6af133c21185509d6dc6a129a7cd61d088afe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 발표 → 50년 무언 공연과 수다스러운 일화 → 총리 추모 → 홀로코스트 생존 이력으로 한 인물 부고가 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Marceau appeared on stage for over",
+      "note": "둘째 문단의 「말 없는 무대 / 말 많은 무대 밖」 대조가 쉬운 어휘로 혼자 선다 — 조정할 어휘가 거의 없다."
+    }
+  },
+  {
+    "id": "640ae427-1720-4274-aaf0-6e253bb54f8c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f3a3daa2971480bf1124e7ce1264d0f4e8a1e93cac464f19000234eeefc852c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "첫 여성 우주인 선발 → 승무원 구성 → 발사 계획 → UAE 선례와 개혁 배경으로 사건과 까닭이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Sunday, the Saudi Press Agency",
+      "note": "첫 문단과 끝 문단(개혁 배경)을 이으면 기관명을 걷어도 사건과 까닭이 서고, austere→strict, de facto→actual 로 낮춘다."
+    }
+  },
+  {
+    "id": "6416e79b-5d0f-431a-8944-964cf3fd69a0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "724994042acc7abc4628f4b9d9ce14e21bd28b20482e93eefe0bce88e00455fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "넷째 용의자 로마 체포 → 내무장관 확인 → 같은 날 다른 용의자 체포로 짧지만 사건이 이어져 성인·고등 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to three news wires, the",
+      "note": "70어 전체가 한 사건이라 통째로 쓰고, naturalized→became a citizen 정도만 바꾸면 되지만 앞선 7월 테러 맥락 한 줄은 덧붙여야 한다."
+    }
+  },
+  {
+    "id": "6416eeed-6f67-4840-b7ba-a6d544fb9c86",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ad1ec6710f3cdaa5c20f33a27e5370df415abb191f5961746a162044bec6789",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "여론조사에서 반대가 앞섰다가 12시간 뒤 뒤집힌 흐름과 비판 이유 목록이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When asked by the publication, \"Is",
+      "note": "둘째 문단의 득표 역전이 수치를 걷어도 「처음엔 불신, 곧 지지로 역전」으로 서고, constituency→members, tally→count 로 낮춘다."
+    }
+  },
+  {
+    "id": "64291736-a497-4418-b229-bc6b6d5acd6b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7a571b75448e6dc499e2c3bae52b0fd82339983af858dd958e4d20c4ffcbf858",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "월정액 무제한 요금제 발표 → 세 가지 상품 구성 → 대만 제휴사 부사장 전망으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As of Skype Limited, this \"Unlimited\"",
+      "note": "상품 셋의 설명은 떼어 쓸 수 있으나 원문 영어가 어색해(As of, different kind users) 가공 때 문장을 다듬어야 한다."
+    }
+  },
+  {
+    "id": "6433507e-c5b4-43f9-a5c2-bfba7d78dd43",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0bb93239945061632d4556f59efb59f425de2bb544c05a91a80818fd9df0b2c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "폭설이 애리조나·뉴멕시코에 내림 → 25번 주간고속도로 145마일 폐쇄 → 월요일 재개통으로 원인·결과가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "On Sunday and Monday, Southern New",
+      "note": "둘째 문단이 눈 → 도로 폐쇄 → 재개통으로 혼자 서고 이미 쉬운 어휘라 조정이 필요 없다."
+    }
+  },
+  {
+    "id": "644353b0-3dbe-4256-9504-13032c7056f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "708d34115923a14a38d72898fcfc44affd1dc911ef9c9c0e3078b589a8477476",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하타미의 농축 재개 선언 인용과 이란이 자체 핵연료 주기를 주장하는 까닭(석유 개발 제약)을 붙여 한쪽 입장이지만 주장·근거 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Iran has consistently maintained that it",
+      "note": "마지막 문단이 주장과 근거를 한데 담아 혼자 서고, indigenous→its own, preclude→prevent 로 낮춘다."
+    }
+  },
+  {
+    "id": "6455b6d9-221f-489c-96ac-72dc2276f1d9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "105f22cdfefab69728364da64b447aef250c113f568b5213c535309d62e998d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "세계무역센터 강철로 지은 함정 → 그라운드 제로 예포 → 유족 참관 → 문장과 승무원 이야기로 사건과 의미가 이어져 내용 일치·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A warship built with steel from",
+      "note": "첫 문단이 배경·의식·참관자를 모두 담아 혼자 서고, commissioning→official launch, crest→emblem 으로 낮춘다."
+    }
+  },
+  {
+    "id": "645eaca4-64ca-42cb-97c9-58703da607ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f8463e378f8545cf802856d9feb44059d980b01ba11a27bde41d5fec21753395",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "space",
+    "why": "개기월식이 붉게 보이는 까닭(대기의 산란)까지는 서지만 넷째 문단 「timeline … was as follows.」 뒤 목록이 빠진 채 끊겨 받은 본문이 불완전하다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Friday–Saturday —depending on observer's timezone—",
+      "note": "첫 문단은 현상과 원인이 혼자 서고 scattered→spread 로 낮출 수 있으나, 예고한 일정표가 없어 원천 자체가 끊겼다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "6466f493-9c4f-404e-8055-217ee0a0ae0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2100854d7bffc15b3ef3f2c4c89d894e5c6921fadb1952eee791542f6a705144",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "금리 0.25%p 인상 → 물가 억제 목적 → 저금리가 소비를 끌어올린 경기 회복 배경으로 원인·결과가 이어져 요지·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.S. economy has been gaining",
+      "note": "끝 문단이 「저금리 → 대출 → 소비 증가」 인과로 혼자 서고, rebound→recovery, fueled→driven 으로 낮춘다."
+    }
+  },
+  {
+    "id": "64673bbe-f2fa-46ab-81d3-56b5932b756e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a172905921a4252bbd539aa60f288802cc5fa407f3333ad3127b64005700b786",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "야당 운동 「Smena」가 몰래 찍은 영상과 부정선거 의혹들을 제시하는 한쪽 입장 보도로, 주장 내용을 가려 읽는 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Russian opposition movement \"Smena\" has published",
+      "note": "첫 문단이 의혹의 장면을 순서대로 담아 혼자 서고, clandestine→secret, falsification→cheating 으로 낮춘다."
+    }
+  },
+  {
+    "id": "6471ab87-5c84-45e4-b791-e6956d7f463e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c56d93fa675acdd2e644ea417037d10667b2e7910373aa89c19238567741286",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "culture",
+    "why": "악천후로 미뤄진 공개 오디션과 참가 팀 묘사는 서지만 끝의 「the selected acts are:」 뒤 선정 명단이 통째로 빠져 끊긴 원천이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although the auditions were open to",
+      "note": "둘째 문단(비 때문에 2층으로 옮겨 사람들이 못 찾음)은 인과로 혼자 서지만, 예고한 명단이 없어 원천이 끊겼다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "648a5b22-4c45-4c71-84f0-9a49ce700392",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "99243c1eb682b8ae070587079621353f44b4d7e7cb728e2a5b567c880c2c3b1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "28개 매장 임대 계약 → 올해 60개 신설 계획의 일부 → 3,500개 일자리 추가로 결과가 이어져 짧지만 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Electronics retailer Best Buy said today",
+      "note": "64어 한 문단이 계획과 결과를 잇고 leases→rental contracts, payroll→staff 로 낮춘다."
+    }
+  },
+  {
+    "id": "648d92d1-f3f5-497c-b5b1-14defa0184ce",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31ae4cfa3c198a5b61411056540e883802f219cdc945391442af0d02de29e3ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭풍 속 캠프장에서 나무가 텐트를 덮쳐 16세 학생이 숨진 사고를 원인(폭풍)과 함께 전해 고등 이상 내용 일치 칸 하나를 채운다(죽음 소재).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A 16 year old Sydney student",
+      "note": "네 문장이 사고 → 옆 학생 무사 → 장소 → 폭풍 원인으로 이어지고 어휘는 이미 쉽다(lashed 하나만 바꿀 만하다)."
+    }
+  },
+  {
+    "id": "6496e570-82fb-433b-9cab-5e477b9955bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be860df918e4d69a7f46ee9a0b76186af87d5ca2c85e7f334472e83c6e0eb8db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정직 처분 효력 정지 판결에 리빙스턴이 언론사를 반박하는 발언이 이어진 한쪽 입장 보도로, 선동이 아니라 취재원 발언이라 주장 칸을 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The four week suspension of London",
+      "note": "첫 두 문단은 떼어 쓸 수 있으나 반유대주의 논란의 앞 맥락(기자 발언 사건)이 본문에 없어 한 줄을 덧붙여야 사건이 선다."
+    }
+  },
+  {
+    "id": "649ec6b4-d076-40b9-8f46-9f17885f8d4d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f262c5bfb75c21da898ba2c44cd9057b57e629401313f5e5af7b2f964a86dfd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "곰이 아이들에게 다가옴 → 개 Major가 곰을 물어 쫓음 → 실종 → 무사 귀가로 사건이 시간순으로 이어져 초등·중등 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A boxer is missing in Westmoreland",
+      "note": "사건 순서가 뚜렷하나 「It remains missing」과 「now safe at his home」이 어긋나 가공 때 결말 한 문장으로 정리해야 한다."
+    }
+  },
+  {
+    "id": "64a0d079-c7de-423a-912d-b7e9c93fb6e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "571b68f84da84f40d2238f51c585a888d3efd2b431789c4cb356a251e10a5166",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "열대폭풍이 갑자기 허리케인으로 커짐 → 경보 발령 → 아침에 다시 약해짐으로 사건 변화가 이어져 좌표 수치를 걷고 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tropical storm Humberto suddenly gained strength",
+      "note": "첫 문장과 마지막 문장을 이으면 「예보를 뒤엎은 급성장 → 약화」가 서고, 둘째 문단 좌표·풍속 나열은 걷는다."
+    }
+  },
+  {
+    "id": "64a1a231-d92c-4193-b3ee-e3378df09ee9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "56d6538fbbe2c218ea24523718435e337175205bb3b4c2892e0d1b2cf7e505ed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "geography",
+    "why": "규모 7.0 지진 → 쓰나미 경보 발령 뒤 수정 → 피해 없음 → 「불의 고리」라 잦다는 까닭까지 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This strong quake did not leave",
+      "note": "끝 문단이 피해 없음과 잦은 지진의 까닭을 함께 담아 혼자 서고, epicenter→center, preliminarily→at first 로 낮춘다."
+    }
+  },
+  {
+    "id": "64c1a0b9-0464-4c84-ace3-f19d2a950ad9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "578c463d711bb2dd1d4720aad2f2b7347d65920b2cc008bce7633495bfdbc11a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "돌연사 발견 → 경력·가족 소개 → 아버지와 남편의 추모 발언으로 부고가 서서 내용 일치·심경 칸을 채운다(죽음 소재라 고등 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bob Geldof said \"We are beyond",
+      "note": "아버지의 추모 인용이 슬픔의 심경을 혼자 담고, bonkers→crazy, bearable→possible to live with 로 바꿔 쓸 수 있다."
+    }
+  },
+  {
+    "id": "64c7c18f-0ba8-4dd1-89ff-bb8e1ef7a3bc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ad0a766411972e874797cbdc1da56c5739ac68c325fe274b2e1c6c31ae6ff581",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "플로리다 상륙 후 약화 → 대서양에서 재강화 예보 → 경보 구역 → 사고 사망자로 이어져 경로 변화가 사건으로 서는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tropical Storm Ernesto has weakened over",
+      "note": "첫 문단이 약화와 다음 상륙 예보를 담아 혼자 서고, 둘째 문단 풍속·거리 수치는 걷는다."
+    }
+  },
+  {
+    "id": "64d9dd30-e104-4030-bfb6-dc71f863af95",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19bc809b3af9de5df23591ec976a4065d4a28e7b12feccc6eec88adb0240ea15",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "현직 대통령 3위 탈락 → 결선 투표 → 섬 재통일에 중요하다는 의미까지 이어져 득표율 나열을 넘는 사건 흐름으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to exit-polls Cyprus president Tassos",
+      "note": "첫 문단과 재통일 의미 문장을 이으면 득표율을 걷어도 서고, run-off→second vote 로 낮춘다."
+    }
+  },
+  {
+    "id": "64db9fc4-15f4-40a9-9708-d36f745b0ef5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8b65054a71293800f04b4fdf68ca30390227d0d915d4caf4fdf7830a39248223",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "관타나모 3년 무혐의 구금 뒤 귀국 → 가족의 감사 성명 → 치료 필요 → 체포 경위로 사건이 이어져 고등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mamdouh Habib, a former Guantanmo Bay",
+      "note": "첫 문단이 귀국과 구금 사실을 담아 혼자 서고, 오타(Guantanmo·incarereation) 교정과 detainee→prisoner 로 낮춘다."
+    }
+  },
+  {
+    "id": "64f30f38-d3e7-4bc6-8225-fe65a921d179",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d385dca6db5a839c9d11fa121bfc20e4a90c1f5d7fa0beaacff0f13830ea3420",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "할로 3 세계 동시 출시 → 미국 자정 개점 → 대만·홍콩 행사로 나라별 출시 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the United States, more than",
+      "note": "둘째 문단(자정 개점 · 줄 선 게이머)이 쉽게 혼자 서고, 대만 문단의 인명·팀명 나열은 가공 때 걷는다."
+    }
+  }
+]

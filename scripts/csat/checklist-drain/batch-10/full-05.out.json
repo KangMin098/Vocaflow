@@ -1,0 +1,979 @@
+[
+  {
+    "id": "6963b415-6681-4884-8c8d-c743cfa12670",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e532523d7f11827409871bfc47fe5641fb2def0e0897ec579ad2a11e3bf6532a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사임 발표 → 기자회견 예정 → 「가족을 위해」라는 본인 이유 인용으로 사건과 까닭이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to officials, President Bush's senior",
+      "note": "관리 직함을 걷고 administration→government 로 바꾸니 V4 에 무리 없이 내려갔다."
+    }
+  },
+  {
+    "id": "697d965d-d2dd-4356-8e84-5639424b9489",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "014d96e839b7f6e6d92b24459cb886526b561961cfcd0bdcc0de5cef2dc17255",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "이틀 검토 → 발사 일정 확정 → 남은 서류·보디플랩 문제라는 조건이 이어지는 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After two days of reviews, NASA",
+      "note": "첫 줄의 모음 안내 괄호만 걷으면 되고, re-entry·descent 에 풀이를 달면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "69849c5a-6f43-4b03-9e2d-2fdbfb137d18",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f87d51baadb43337bb7281dd7f78faf74cd30f9a642c8e3c91dd4e9f27eaaf40",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "위장 발각 → 과거 39개 신분·미국 투옥 → DNA로 거듭 탄로 → 본인 동기 진술로 사건이 시간순으로 흘러 순서·지칭·내용 일치 칸을 채운다(성학대 주장 한 구절 때문에 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "long_reference",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bourdin is said to have assumed",
+      "note": "미국 사건 단락은 앞 문맥 없이 서고, usurped→stole·exploits→tricks 로 바꾸니 V5 로 내려갔다."
+    }
+  },
+  {
+    "id": "699b5847-c3aa-47a5-89a0-bcf8d87cd748",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1c705bd2a17b261cf8956754548922e14bb3802ec28abeaee986d1cac87f28d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "「Danius said,」 뒤 인용이 두 번 다 비어 있어 기사의 핵심 발언이 통째로 빠진 채 끊겼다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Numerous news outlets reported Dylan remained",
+      "note": "인용 블록 두 곳이 빠져 위원회 입장이 서지 않고, 남은 문단만으로는 사건 흐름이 이어지지 않는다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "69c286c8-fa0a-4652-a5ce-393d6a517035",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23cf1db4c0cfa3e2483ee56fe4dc4ad3b4a5c09a370b89859b44ffd7a19c0e4e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "레바논 위기 → 회의 → 페리 임차·키프로스 대피·의료 지원 → 레바논 총리 통화로 대응 절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The French government also rented a",
+      "note": "「also」만 걷으면 대피 단락이 혼자 서고, evacuate→move out 정도로 V4 가 된다."
+    }
+  },
+  {
+    "id": "69d83ad9-fae2-4232-932e-587cf1ed9c91",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "631bcdd2f2b783270dde75993406b7e0cfab908291025751ea8053a8fe725de1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "예선 결과 → 다음 준결승 대진이라는 결과·다음 절차가 문장으로 이어지고 쿼터별 역전 흐름이 있어 내용 일치 칸 하나는 선다(점수 표기는 가공 때 줄인다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A seven goal to three second",
+      "note": "득점 괄호 표기와 오타(kciking·fort)를 걷으면 경기 흐름 단락이 서지만, 점수 나열이 많아 칸은 내용 일치 하나다."
+    }
+  },
+  {
+    "id": "69e9608c-4033-4bbb-aeb5-b03826e5a55c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "52e558430b69eb2ee015a9846d6740ac5b5a039078b87896418424d1c943cf41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "culture",
+    "why": "앞 두 단락은 시청자 투표 방법 안내이지만 본문 대부분이 후보·곡명 목록이라, 공지문 최소선에 드는지 기준이 갈린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Viewers can watch all the videos",
+      "note": "투표 안내 단락은 떼어지나 누구에게 왜 권하는지가 얇고 뒤 목록을 걷으면 남는 것이 두 문장뿐이다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "69ee2470-bc25-48a4-ad3d-6d62784c35c3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd00c7b70e64e6d5a55722b151d79d2d969e68d9ce0c3789e6c6eef54c5505e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "비타민C 광고 주장 → 여학생 두 명의 실험이 반증 → 기소·벌금·정정 광고로 이어져 요지·요약·순서 칸과 통념 교정 구조를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "title",
+        "summary",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was first revealed that Ribena",
+      "note": "학생 실험 단락이 혼자 서고 detectable→measurable·breaches→violations 로 V5 가 된다; 끝의 「Ribena#False…」 링크 잔재는 걷는다."
+    }
+  },
+  {
+    "id": "69eed8a0-c237-4434-bc9f-ed21ab22264f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3585b7ecbe8bc7e2e50ff1e2d242c461a8adfa55a5c248ca59cfe6ba8c70319b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "첫 두 단락 뒤로는 카운티마다 사망·피해 건수만 바뀌어 되풀이되는 목록이라 문장 사이를 잇는 사건이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "In Hardin county there were two",
+      "note": "어느 카운티 단락을 떼어도 수치·지명만 남고 논지나 사건 흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "69f86828-224e-447e-8475-3279466c83ac",
+    "source_updated_at": "2026-09-25T08:59:21.142099+00:00",
+    "body_sha256": "0d18bf765da1d1fbedfc1469c118fa4e9bd4c11e77f7e5005d90f28c6c6bed2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 발표 → 1984 기술자·1990 합류 → 2005 해고·2022 복귀 → 동료 평으로 한 사람의 이력이 시간순으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He had been with the band",
+      "note": "대명사 He 를 이름으로 바꾸면 이력 단락이 서고, credited release 만 풀면 V4 다."
+    }
+  },
+  {
+    "id": "69ff80af-888e-47c1-a390-b95028602419",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7dde27585ba6a266091ba06cfedbb75a8d0862b64f66626fc118b6d615e0f196",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "영국에서 의장국을 넘겨받음 → G7에서 G8로 된 내력 → 의제 → 독일로 넘김으로 순서가 이어지는 짧은 사실 글이라 내용 일치 칸이 선다(의제 목록은 문장으로 풀어 쓴다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Russia joined the club of the",
+      "note": "의제 일곱 줄을 한 문장으로 묶어야 하고, avoidance of spreading→stopping the spread 로 고치면 V4 가 된다."
+    }
+  },
+  {
+    "id": "69ff9bca-5ed9-44e2-b423-d2c7fd5fb027",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aee2cc72f3b5c9c4aa61785e9599015d1b034c860d477d3d1e7033c1c294e993",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "여론조사 수치 뒤에 사민당 지지 급락의 의미와 EU 가입 개혁기 신뢰의 중요성이라는 해석 단락이 있어 요지·요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This dramatic fall in the Social",
+      "note": "마지막 두 단락이 해석을 담아 혼자 서고, accession→joining·implement→carry out 으로 V6 가 된다."
+    }
+  },
+  {
+    "id": "6a00a562-9929-4463-8428-c3aea3eba32e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a0df3f810fd0c6b2e4844fd6ee6166d5af6cbecad77ad2a1b89fe2c9fe005cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "두 기관의 규모·깊이·진앙 거리·여진 시각만 되풀이되고 원인·피해·반응 같은 잇는 사건이 전혀 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "According to the USGS, the epicenter",
+      "note": "떼어 낸 문단이 도시 간 거리 목록뿐이라 설 논지도 사건도 없다."
+    }
+  },
+  {
+    "id": "6a045c65-c222-4a35-b86c-608bf7f16e3e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9859070d16e44ab344c18a53cb54c6adcc4a935ddc000f95955e7eb3c916f86a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "원조 약속 → 탈레반·군 충돌로 난민이 된 백만 명이라는 까닭 → 자르다리의 협력 호소 인용으로 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The funds will be given to",
+      "note": "The funds 를 France's aid 로 바꾸면 서고, internally displaced persons→people forced from their homes 로 V5 다."
+    }
+  },
+  {
+    "id": "6a139849-47e8-48cf-9611-a0c203e7374e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "41e4d8bff8d746814309c3765d7e099df26235aff6c5a69c65462d2e91ccf3f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "새 드라마 캐스팅 보도 → 기존 인물 퇴장 추측 → 배우 본인의 「비극 운명」 발언으로 추측의 근거가 이어져 내용 일치·지칭 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although ABC and Warner Bros. officials",
+      "note": "고유명사를 줄여도 추측→근거 흐름이 서고, speculation→guessing 으로 V5; 오타 quadrnagle 은 고친다."
+    }
+  },
+  {
+    "id": "6a141604-b5e6-4f69-b3e6-04ffb3c8397c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0108ce23a1a2a8867f7e6e357a73dd9dd6fcfa918e05b81b9279c7fbc85ccde",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "훈련 중 추락 → 현장 사망 둘 → 부상자 셋째 사망과 지휘관 애도 성명으로 사건과 반응이 이어져 내용 일치 칸을 채운다(죽음 보도라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The man has not been named",
+      "note": "애도 성명 단락이 혼자 서고, sustained→got 으로 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "6a197fb8-6601-445f-a702-d246832a3dcc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c34548e60b7f955223006d01b511455d0ba30ba24a367e73e263fcf5e5f4a8fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망 → 번역·판매로 본 명성 → 미국 SF 비평 때문에 명예회원 박탈·가입 거절이라는 까닭 → 영화화로 한 작가의 생애가 서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "title"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite his international popularity, Lem is",
+      "note": "회원 거절 단락이 인과로 혼자 서고, spawned→led to 로 바꾸면 V6 다."
+    }
+  },
+  {
+    "id": "6a282bd0-07f2-4d49-9fc9-51eb275399cc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "387f234ded3969539f25b1af17b7cad900c5dcb938c240e77269ca1650b24de2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "바타넨의 NATO 가입 주장과 근거(EU 94%)를 전하는 한쪽 입장 보도에 핀란드 여론 57% 반대라는 맥락이 붙어 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The UMP member, born in Finland,",
+      "note": "「The UMP member」를 Vatanen 으로 바꾸면 주장 단락이 서고, hark back→go back 으로 V6; 오타(Accondingly)는 고친다."
+    }
+  },
+  {
+    "id": "6a30a41b-ef7e-4a43-a382-5c414ac1ff2a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54dca31b966e78d6600f7ad1cac6297c5abce3a6d1fa7a8914376e50a52cf6ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "세 배포사가 손잡은 목적(노벨·레드햇 경쟁) → 데비안 기반과 RPM 호환을 둔 까닭이 이어져 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The new distribution will be Debian-based,",
+      "note": "패키지 형식 용어(APT·RPM·RHEL)가 논지의 뼈대라 두세 낱말을 바꿔도 V7 아래로 잘 안 내려간다."
+    }
+  },
+  {
+    "id": "6a404c70-be87-40a3-8bc7-313b2c7a5ca4",
+    "source_updated_at": "2026-09-25T08:50:45.368948+00:00",
+    "body_sha256": "43eceea7a938d690542f83cc19e7ebf8c41315ab250abedba37fba041283c07e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "자폭 공격 → 희생자 신원 → 탈레반 책임 주장 → 남은 병력 규모로 사건과 반응이 이어져 내용 일치 칸을 채운다(폭력 보도라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Via email and Twitter, the Taliban,",
+      "note": "희생자 명단 단락은 걷고, claimed responsibility→said it carried out 로 바꾸니 V5 가 됐다."
+    }
+  },
+  {
+    "id": "6a4936d6-4948-4e85-9838-e2eb84fe49fa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5961db599f5dcc969f7a8353be7a09bc3aa585a4067e695e6198e64098dd48a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "베타 종료 → 기능 설명 → 사용자 요청에 따른 아이콘 재배치라는 반응이 이어져 내용 일치 칸을 채운다(끝의 링크 제목 세 줄은 잔재).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In response to user requests, Google",
+      "note": "끝 링크 세 줄을 걷으면 서고, extension→add-on·query→search 로 V5 다."
+    }
+  },
+  {
+    "id": "6a4d8ce0-2a15-4975-8939-e0c77a7702cf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "616644e9efd9e6a0aaa4d58e8a6309d62d205e259a1c4e73f1df16522c1ced8e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화재 발생 → 소방관 60명 출동 → 연기 목격 → 부상 없음·원인 미상으로 원인·반응이 이어지는 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sixty firefighters were called to Dean",
+      "note": "시각 표기만 걷으면 그대로 서고 alight→on fire 한 낱말로 V4 다."
+    }
+  },
+  {
+    "id": "6a64d916-27a8-48e1-b116-871b79ad0e39",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "03136e62485d5c57d79048751920dae3f19b517f373a5889c3f95d21d17c7183",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "서로 무관한 단신 열한 꼭지(시위·앵커 은퇴·탄광 사고·노끈 공 등)를 묶은 모음이라 꼭지로 쪼개기 전에는 판정하지 않는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "170 workers trapped in Chinese mine",
+      "note": "꼭지 하나(탄광 사고)는 떼면 혼자 서지만 모음 행 자체는 판정 단위가 아니다."
+    },
+    "hold_reason": "criteria-gap"
+  },
+  {
+    "id": "6a6c5942-b37d-4e30-8ea1-5b621ad9df2c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ffeb6dcc822830f298042755c1f303bc3f1597912cfc07c57e4967646851dc83",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "헬기 추락 → 경찰 성명·희생자 확인 → 다음 날 옛 고용주의 헬기 사고 생존이라는 이어진 사건으로 내용 일치 칸을 채운다(죽음 보도라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An AS350B2 helicopter registered to former",
+      "note": "기종 번호를 걷고 keen→eager 로 바꾸면 V5; 마지막 문장은 어순이 엉켜 고쳐 써야 한다."
+    }
+  },
+  {
+    "id": "6a72f1d8-4d0d-43ac-aba7-b184051b292a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4e2b0fbb4756b3180251cfb566c3425e1ac5522f8438e8e8cd61da37ee843dd5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "아르헨티나의 공사 중단 요청 → 우루과이 거절과 감시 약속 → 기업 주장 → 국제사법재판소 제소 가능성으로 갈등이 이어져 요지·내용 일치 칸을 채운다(끝 두 문장은 무관한 낙서).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mills are being built on",
+      "note": "「Argentina is the shape of a circle…」 이하 두 문장은 편집 낙서라 걷고, impertinent→rude 로 V5 가 된다."
+    }
+  }
+]

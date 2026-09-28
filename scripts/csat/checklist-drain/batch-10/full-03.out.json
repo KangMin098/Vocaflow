@@ -1,0 +1,987 @@
+[
+  {
+    "id": "66685753-3f1c-42ea-8159-51ff7d743aca",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f373da786c8a8fe254c8fb139e73a64ea3ba8da37759b88e22b8a4b20e6ee869",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "자폭 공격으로 네 병사가 숨짐 → 신원 확인 → 지휘관·총리 애도 → 누적 전사자로 사건·반응이 이어져 내용 일치 칸을 채우며, 전사 소재라 고1 이상으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Monday four Canadian soldiers were",
+      "note": "계급·기지 이름을 걷고 identified·condolences 를 쉬운 말로 바꾸니 V4 로 내려갔고, 이름 나열 문장은 한 줄로 줄여야 한다."
+    }
+  },
+  {
+    "id": "666f1c26-3d96-46eb-b552-f6185525f7f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7280e488efa25298b52022bf679a9e0dd23cc67aa73f143df25bfe676bef472",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "A380 이 18개월 늦게 인도됨 → 툴루즈 기념식 → 첫 운항 일정 → CEO 소감으로 다음 절차가 문장으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The first A380 superjumbo, made by",
+      "note": "엔진 제원 한 문장은 걷고 milestone·dedication 을 바꾸면 V4, 인용 끝 문단이 반응 역할을 한다."
+    }
+  },
+  {
+    "id": "66775ccb-d837-45c2-9055-52be339ef587",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "479c7602ce05d6fd4f2175c0dd7dbedeb8d789e6e5915cfe8c686f6fc5592307",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "팰웰의 불매 촉구 → 코스트코 등 다른 매장 → 의사당 트리 개명 논쟁으로 「Happy Holidays」 논란의 원인·반응이 이어지는 보도라 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Before the holiday started, American Christian",
+      "note": "종교 인물의 주장은 보도로 옮긴 것이라 한쪽 선동이 아니며, televangelist·inclusive·explicitly 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "667966ab-23b7-48e4-a6c4-72993eb4c473",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6dd341ce058ee7c6bcc3147642681cab35df15a35f25a10dbef6afac95d77c8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "19년 투병 끝 심정지로 사망 → 유족 → 영화·그래미 경력으로 사망 원인과 생애가 짧게나마 이어지는 부고라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Comedian, Richard Pryor, died today after",
+      "note": "자녀 이름 나열은 걷어야 하고, multiple sclerosis·cardiac arrest 를 풀면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "6692151b-06d6-4239-a474-5596ca83d9e7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1334fdc90d005f36539fcc4f1ee5f63e66518cfc89084a47d7fa3f15418ead8f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부정 선거 논란 뒤 개각에서 총리 경질 → 후임 → 재임 이력 → 선거 부정 비판·구금으로 원인과 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Belarusian Prime Minister Sergei Sidorsky has",
+      "note": "sacked·reshuffle·incumbent 를 바꾸면 V6 로 내려가지만 인명이 많아 한두 개로 줄여야 한다."
+    }
+  },
+  {
+    "id": "66a0d122-d43c-40b5-8d95-1caa23064064",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d2d4f427d5f90430354a6d8483e17049e95a439057841c8668ee253b52afc75e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "델 폰테 검사의 은닉 의혹 제기 → 바티칸의 부인·해명 요구로 주장과 반응이 두 문단 안에서 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "United Nations Chief War Crimes prosecutor,",
+      "note": "긴 직함을 걷고 shielding·clarification 을 풀면 뜻은 서지만 두 문장뿐이라 문항은 내용 일치 하나에 그친다."
+    }
+  },
+  {
+    "id": "66a4c0db-162d-4b78-ad3f-1314ef4e3e36",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d6f257e9e51aa1160772b3f11a99a629d8935a320b6d5d0971c7bd2e392262ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "주정부의 위헌 소송 제기 → 청구 요지 → 연방의 기업 조항 근거 반론 → 법무차관 인용으로 주장과 반론이 짝을 이뤄 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After months of threats from the",
+      "note": "writ·corporations provision·commonwealth 는 풀어 써야 하고, 두 쪽 논거가 뚜렷해 요약이 쉬웠다."
+    }
+  },
+  {
+    "id": "66a5e56d-612f-43db-b626-0d85e8b40f5d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f783bc987ccf8609b763db77a5d020e7deddffd2fc0689f75d234de51a0b0b2f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하마스의 격추 주장 → 이스라엘 부인 → 지휘관 공습 사망이라는 배경 → 이집트 총리 방문으로 주장·반응이 이어지는 분쟁 보도라 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The \"Al-Qassam Brigades,\" a division of",
+      "note": "이집트 총리의 편드는 인용은 한 문장이라 선동이 아니고 떼어 내도 사건이 서며, 조직 이름을 줄이면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "66ab6cd1-05d6-48a0-a52e-4a0b2b2b20ed",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f00f56c490ab82f7355d00acc320c05bd425eaf5de2c074d20822dd47ed96ef9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "모디 총리의 개막 → 비하르 첫 개최 → 투자 강조 → 토착 종목·e스포츠 시범 종목으로 행사 내용이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Indian Prime Minister Narendra Modi inaugurated",
+      "note": "christened·indigenous·spectated 를 바꾸니 V4 가 되고, 경기 이름 나열은 짧게 줄인다."
+    }
+  },
+  {
+    "id": "66ac2bae-6a92-4b1a-b384-ef30e3aeb913",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f7b25e772ea044ac22a750b12a341b868ea86872ece2c1be134f03fb7d21846",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "해군 장교가 우월주의 활동 의혹으로 직무 정지 → 소속 → SPLC 의 반유대 단체 운영 주장으로 조치와 그 까닭이 이어져 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On March 7, 2007, the US",
+      "note": "relieved of his duties·espouse 를 풀면 V6 에 맞고, 편견을 옮기지 않고 의혹만 보도해 bias 가 아니다."
+    }
+  },
+  {
+    "id": "66ac8505-1ba7-46c8-96d6-53d91e1efe8c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e2eb8b8d454f8c1e4ff34c6f67d270e1d04e2098aa22fb6641d5986dae9a54b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "원자바오의 멜라민 책임 인정 → 식품 기준 → 다른 리콜 → 과학적 발전관·화석연료 의존 수치 → 과학 외교 발언으로 인터뷰 요지가 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the matter of fossil fuels,",
+      "note": "석유·석탄 수치 문단은 「지속 불가능」 주장의 근거로 떼어 쓸 수 있고, Wandashan 문장은 동사가 빠져 가공 때 고치거나 걷는다."
+    }
+  },
+  {
+    "id": "66b2bac8-447a-4ff0-aa5f-9269ed12c06b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9e8b12939ca7a095fcabfe2d0b71a2a7443c85f32ebb10e0e242d4d5908ac594",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "저장 탱크에서 경유 5~6천 리터 유출 → 기마경찰이 고의·결함 여부를 조사 중이라는 다음 절차가 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Early indications are that between 5,000",
+      "note": "장소 이름을 줄이고 intentional·circumstances 를 풀면 V5 에 맞으나 두 문단뿐이라 문항은 하나다."
+    }
+  },
+  {
+    "id": "66c7f545-7852-4603-a641-feaba169558a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3156dcdd512d10b79e76ee4bcf236939ded7f6100b013fd0c40e7376ddcc4452",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "예멘 정부군의 반군 17명 사살 → 관리 인용 → 2004년 봉기부터의 충돌 배경으로 사건과 원인이 이어지는 교전 보도라 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Skirmishes between Yemeni forces and the",
+      "note": "skirmishes·insurgency·saboteurs 를 바꾸면 V5 가 되고, 관리 인용은 정부 쪽 말이라 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "66d0ecad-0f07-4d08-85bb-6f60f68c79b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "01050142e2fc5d97da2d034e4bfe9168e5765370ee00a200b2fccd50c64ec7a4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "뉴섬이 트위터로 주지사 출마 발표 → 선거 영상 인용 → 공약 → 동성결혼 금지안 반대 이력으로 발표와 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The mayor of San Francisco, California,",
+      "note": "트윗 인용의 줄임말만 풀면 이미 V4 에 가깝고, 문단 경계가 뚜렷해 순서 배열도 된다."
+    }
+  },
+  {
+    "id": "66d278e2-41b2-4367-bcdc-9c22cc7fb450",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ba50469e07282923de157f4fa27d8d8478327ab3e9dc2327558406fbe2c132c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "다우 14,000 마감 · S&P · 나스닥 종가와 등락폭이 문장마다 수치만 바뀌어 되풀이되고 원인·반응 문장이 없어 수치 나열 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The Dow Jones Industrial Average (DJIA),",
+      "note": "떼어 낸 문단에 지수·포인트만 남고 왜 올랐는지·누가 반응했는지가 없어 논지나 사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "66ef0537-a204-45ad-bf5c-bd022dc347cb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c8c27a9d17ab8db030a91a4e5ca9cae625d4b957f4049ce160a09dcb4925a20",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "3세대 셔플 공개 → 음성 안내가 버튼을 대체 → 마케팅 부사장의 설계 이유 → 가격 → 불황기 제품이라는 분석가 평으로 기능과 반응이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "title"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"You previously couldn't have multiple playlists",
+      "note": "부사장 인용이 「보는 대신 듣는다」는 설계 이유를 대 줘 떼어도 서고, recession·stripped-down 만 풀면 된다."
+    }
+  },
+  {
+    "id": "66ef91b5-5923-4122-9286-910758bbafc1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1239088022699571519c9107eca561d77ad1e11d038118f820aca876caf58352",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "투어 가이드 집에서 밀반출 유물 발견 → 5명 체포 → 유물 600점 연대·재질 → 가이드 자격을 이용한 도굴 → 박물관 전시 전망으로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The artifacts were plundered from an",
+      "note": "plundered·excavated·citation 을 바꾸면 V5 에 맞고, 문단 셋이 발견·유물·경위로 갈려 순서 문항도 된다."
+    }
+  },
+  {
+    "id": "66f079ac-95ae-4a3f-afd3-da8b3084b1f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1372b455762eac7eced247bfee37d6df687c0a927217f898457a747c5d019d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "두 지진의 규모·깊이가 중심이지만 쓰나미 경보 발령 → 해제 → 일본 여진·0.2m 쓰나미 관측으로 결과와 다음 절차가 문장으로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The affected countries issued tsunami warnings,",
+      "note": "진앙 거리·깊이 수치를 걷으면 경보·해제·관측의 흐름만 남아 짧지만 선다 — 수치 문단은 내용 일치 선지 재료로만 쓴다."
+    }
+  },
+  {
+    "id": "67229f05-ab06-4813-b618-a7a129535a52",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8adebac45d031020aa1c2a33a87e71bff994edd63bbc88b4afe5b0e180492ff2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "탠전트사의 반독점 소송 제기 → 경쟁 파괴·가격 인상 주장 → 셔먼법 위반 근거 → 배심 손해배상 청구로 주장과 근거가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tangent alleges that Microsoft fosters tactics",
+      "note": "supra-competitive·antitrust 를 풀면 V6 이고, 끝 문단의 서비스 목록은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "67284795-46a9-4073-8e0c-cbd19df6a4f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75d08b9f34066801b43096802ad2da26151bc1062b5d7121e200b898ccd37a58",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "파키스탄의 첫 순항미사일 시험 성공 → 이름·탄두 → 레이더를 피하려 지면과 나란히 난다는 설계 이유로 짧게나마 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the military, the missile",
+      "note": "「레이더 회피 → 지면 평행 비행」의 까닭이 한 문장 안에서 서고, terrain hugging·conventional warhead 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "672ceb93-892f-47bd-920f-629fa0a92368",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "72513167ef84be4587b5a8fe4cfafdd44ded9b073eff8502fffa84118d48a788",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "러시아 폭격기 접근 → 노르웨이·영국 전투기 추적 → 러시아 국방부 확인 → 영국·노르웨이 반응 → 리트비넨코 송환 거부 배경으로 사건·반응·원인이 이어져 여러 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Relations between Britain and Russia have",
+      "note": "extradition·emigre 를 풀면 V6 이고, 문단이 추적·확인·반응·배경으로 갈려 순서·삽입 문항이 쉬웠다."
+    }
+  },
+  {
+    "id": "67473ff3-5cf1-4445-824c-70df7ba97150",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cde48a801d81d9c2fc903708f709261ee3a5ab2fc5ea2932aee5fa11e994e918",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "타이베이 음향영상전의 60주년 역사관 → 방음 객실 시연·HDTV 전시 → 운영 시간·셔틀 안내로 행사 소개가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At the Taipei Grand Hotel (Yuanshan",
+      "note": "홀 이름과 약어를 줄이면 V5 에 맞고, 관람 안내 문단은 내용 일치 선지로 쓰기 쉬웠다."
+    }
+  },
+  {
+    "id": "6751fab2-6ea1-4ac6-9066-940431903327",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cbb020c09f5330933418207c93a1cb119a7957d9c2b6d8c83e12bdc950a6a6b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "101세 사망 → 출생 → 스승 카소의 권유로 사포텍 설화를 써 첫 책 출간 → 상원의원 경력으로 생애가 시간순으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Around 1927, one of his teachers,",
+      "note": "스승의 권유 → 첫 책이라는 인과가 한 문단에 서고, 스페인어 책 제목을 걷고 federal legislature 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "67706a4a-42f3-4579-bb22-f26b14fd2306",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b6cebc3e30ae0a8840ab27cbe581f8cfd65d24f7c2c6ed72bcac4c6ebc67c18e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "공화당 출신 채피의 오바마 지지 선언과 이유 인용 → 당과 달랐던 쟁점 → 매케인 반응 예상 → 두 번째 공화당 출신 지지로 원인·반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chafee was considered a liberal Republican",
+      "note": "endorsed·front-runner·credibility 를 바꾸면 V5 가 되고, 한쪽 지지 발언은 보도로 옮긴 것이라 선동이 아니다."
+    }
+  },
+  {
+    "id": "67855386-14d6-46e2-8baf-00229ae9d77c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2151fc841193b6f819a70ecedb3683a4bee167b71abeb526e6299993881b74c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "디스커버리 착륙 → 승무원 점검 절차 → 하선 예정 → 기자회견 일정으로 다음 절차가 시간순으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Commander Eileen Collins and the rest",
+      "note": "debarkation·post-flight processing 을 풀고 시각 표기를 줄이면 V5 에 맞는다."
+    }
+  }
+]

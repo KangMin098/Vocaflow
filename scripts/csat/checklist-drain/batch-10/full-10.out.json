@@ -1,0 +1,441 @@
+[
+  {
+    "id": "7029b78c-489d-4c8e-8dd6-206f34b27dd3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e712f6835882bf0fc4a787d53ee0dd0d94565beeaed643db1f74ba40f1062de8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "81어 단신이지만 지방선거 패배·죄수 석방 파문 → 클라크 경질 → 리드 후임으로 원인과 결과가 문장으로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Kingdom Home Secretary Charles",
+      "note": "첫 문단이 경질과 그 배경(선거 패배·외국인 죄수 석방 파문)을 혼자 담아 떼기 쉽다; reshuffle→change, deported→sent home 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "702d484f-9bd8-49c2-bea8-549fb9b633ea",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c3b540ac4a377dff6f087ce5e15b207805832d9b421baf1b60852e0a4974d39",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "규모·진앙·깊이 뒤에 피해 없음 → 해일 경보 기관의 설명 → 밴던 소방서·경찰 반응이 이어져 수치 나열에 그치지 않아 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "So far there are no reports",
+      "note": "셋째·넷째 문단(피해 없음·해일 가능성 설명)이 반응 흐름을 갖는다; preliminary→early, epicenter→center, triggered→caused 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "703017a6-70ec-4fac-b5d5-bd9b7a32d4ee",
+    "source_updated_at": "2026-09-25T08:56:28.125768+00:00",
+    "body_sha256": "e35c28a41f99c63020baeb89d8f5cb727833b045954a72b6d1e52e5403964a60",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "한 사람의 부고로 사망 경위 → 독립·헌법 기초 공적 → 정보장관·부통령 추모 발언 → 이전 경력이 이어져 내용 일치 칸에 쓸 사실 흐름이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "John Luk Jok, the South Sudanese",
+      "note": "첫 문단과 마지막 문단을 묶으면 인물 소개문이 되고 추모 인용은 줄여 쓸 수 있다; prolonged→long, credited→praised 로 한 밴드 내려간다(인용 속 비문법 \"him and myself has\" 는 걷는다)."
+    }
+  },
+  {
+    "id": "7036291f-7251-4fb9-891d-e57f6d0553db",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f403961854745aee1bbe1a1fa02f3e2f86283d5e203993753f585f888dce68a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "상아 DNA 분석 방법 → 같은 가족 코끼리 상아가 다른 선적에서 나온 발견 → 밀렵망이 같은 개체군을 반복 사냥한다는 해석 → 단속 활용으로 논지가 서서 주제·요지·빈칸·순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "order",
+        "insert",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The scientists took DNA samples from",
+      "note": "셋째 문단이 방법과 발견을 혼자 담고, 고유명사(기관명)와 수치를 걷어도 「같은 밀렵망이 같은 개체군을 되풀이 노린다」는 논지가 선다; confiscated→seized, inferred→concluded, discern→understand 로 V6 가 된다."
+    }
+  },
+  {
+    "id": "7044d407-57bf-4b8e-a810-e4efa5c7770f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd751916cdb9130824b7d1bda7062d5face6baa947875e79f6219e91d8434b5d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "득표율만이 아니라 재선 결과 → 차베스의 승리 소감 → 경쟁자 카프릴레스의 기업 친화 공약 인용이 이어져 두 진영의 반응으로 내용 일치 칸을 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incumbent president of Venezuela, Hugo",
+      "note": "짧아서 전문을 한 지문으로 쓰고 수치는 선지로 돌리면 된다; incumbent→current, competitor→rival 로 V4 가 된다 — 득표율 문장은 흐름 없이 반복이라 한두 개만 남긴다."
+    }
+  },
+  {
+    "id": "704a591d-6a4a-466e-ae29-c928e1943f95",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b130eb0ae13523e889228d9f67de6f9917d7b4a9e0acccbe5ce18514a9e2cb07",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "샤란스키 한쪽 입장을 옮긴 보도로 사임 → 가자 철수 반대 이유(민주화 조건 부재·압력 증가)가 인용 근거로 이어져 선동 글이 아니고 주장·요지·요약 칸을 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The former prisoner of Zion (who",
+      "note": "다섯째 문단이 「철수가 팔레스타인 민주화와 연계되지 않았다」는 주장 하나를 혼자 세운다; contingent→dependent, disengagement→withdrawal, legitimizing→approving 로 V6 — 「reward for terrorism」 식 결말 인용은 한쪽 입장이라 가공 때 균형 문장을 덧붙이거나 뺀다."
+    }
+  },
+  {
+    "id": "704ba59b-6d6e-457c-a720-e1460ca1b319",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2807fce277b0b0e88cabbe4814a2db09fdd44ab73349af7465da6a1b7f5f6c6d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "24시간 조회 기록 경신 → 이전 기록 보유자와 비교 → 시상식 첫 공개 → 출연진 → 영화화 전망 반응으로 사건이 이어져 쉬운 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Taylor Swift has set a new",
+      "note": "첫 두 문단이 기록과 공개 경위를 담아 떼기 쉽다; 셋째 문단 출연자 이름 나열은 걷고, antagonist→villain, premiered→first showed 로 V2 가 된다."
+    }
+  },
+  {
+    "id": "708cc59c-3ef1-4d5d-8f3e-f137dedc4b04",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "09cb9762adc7b059386c6d1e15dfa38defcdb4d9de220d5768822e254ffc3b23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "우승 → 심사 기준과 경력 소개 → 우승 뒤 소감(일상은 그대로·봉사 뜻·다음 대회 준비)이 인용으로 이어져 인물 기사로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "She also doubts much will change",
+      "note": "넷째~여섯째 문단(소감과 다음 일정)이 앞 문맥 없이 이어진다; 「amazing figure」 외모 소문 문단은 가공 때 걷고, aspiring→hopeful, dedicated→committed 로 V3 가 된다."
+    }
+  },
+  {
+    "id": "70c10af6-ddf4-4362-9a7c-aaeb5c2428fb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ada9f7348748308e79f2a01d6d7113763eeffa4b0b74f130e3b9cf7a14453fd6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "3분기 22억 달러 손실 → 원인(대출 손실 증가) → 전년 대비 비교 → CEO 의 전망 발언(신용 비용 부담·4분기도 어렵다)이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Bank of America Corporation, the",
+      "note": "첫 문단과 마지막 문단을 이으면 손실·원인·전망이 한 흐름으로 선다; delinquencies→late payments, heartened→encouraged 로 V5 가 된다(수치 문장은 선지로 돌린다)."
+    }
+  },
+  {
+    "id": "70c47fca-76b4-4755-8436-26d0bf51ffa5",
+    "source_updated_at": "2026-09-25T09:16:22.990989+00:00",
+    "body_sha256": "825f351945909e0c8adcb1ead9b781f4e7d7fa10251dd26b79096a3a3f22b61f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "news",
+    "why": "도서전 전자책 출시 보도로 발표 → 작가 두 사람 발언 흐름은 있으나 본문 영어가 비문 투성이(blogger drawer · do a optimization · ever replied)라 문장을 거의 다시 써야 해 가공 가능 여부가 애매하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The \"Old Master Q\" became a",
+      "note": "둘째 문단을 떼어 보니 문장 경계와 어법이 무너져 낱말 몇 개 교체로는 안 되고 재저작이 필요했다 — 어법·어휘 칸은 원문으로 못 쓴다."
+    }
+  },
+  {
+    "id": "70e13d09-be31-456b-9beb-843cdcbf58e6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "715fcf3bd36c561844f81d96f93977223e2056026d284107202d8d42f26f40cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "맨시티의 감독 교체 발표 → 두 감독의 전적 → 전 선수·클롭의 반응 → 바이에른의 후임 발표로 사건이 이어져 전적 수치 이상으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Manchester-based football club Manchester City today",
+      "note": "첫 문단과 반응 문단을 이으면 교체와 평가가 한 흐름이 된다; 둘째·셋째 문단의 우승·전적 수치는 줄이고, managerial defeats→losses as manager 로 V4 가 된다."
+    }
+  }
+]
