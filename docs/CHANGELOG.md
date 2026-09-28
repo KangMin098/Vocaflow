@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 8 적재 · 부고 꼭지 머리말 교정**(2026-09-28 · DB: `gate.retain` 1,000행 + 꼭지 본문 3행 · migration 0): wikinews 1,000편 keep 974 · hold 19 · discard 7(바로 확정 80.3%). 감사 누적 wikinews 체크리스트 keep 189편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 12,823. 부고 모음을 쪼갤 때 첫 꼭지에 남은 머리말(「Deaths in 2008」「The following deaths were reported…:」)을 체크리스트가 「끊긴 목록」으로 읽었다 — `stripDigestHead` 로 쪼개기 단계에서 걷고, 이미 들어간 판정 전 꼭지 3행은 `wikinews-shorts-strip-head.mjs` 로 교정(판정 붙은 2행은 해시 결속 때문에 두었다).
 - **체크리스트 배치 7 적재**(2026-09-28 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 973 · hold 16 · discard 11(바로 확정 82.1%). 감사 누적 wikinews 체크리스트 keep 149편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 13,823. 모음 행은 `Digest/` 제목 목차 1편뿐(전체 4행 — 제목 나열이라 쪼개지 않는다).
 - **체크리스트 배치 6 적재**(2026-09-27 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 972 · hold 15 · discard 13(바로 확정 80.9%). 감사 누적 wikinews 체크리스트 keep 109편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 14,776. 「모음」 보류 3편은 쪼개기 도구가 「UK Wikinews Shorts」·「Obituaries:」 제목을 놓친 탓 — `isDigestTitle`·`needsManualSplit` 을 넓혀 17행을 꼭지 61편으로 쪼갰다(자동 51 · 손 경계 10 · 재실행 0) → 남은 대상 14,823.
 - **체크리스트 배치 4·5 적재 — 기준 v8 첫 배치**(2026-09-27 · DB: `gate.retain` 1,066행 · migration 0): 배치 4 space_place·openstax·nasa 66편 keep 60 · hold 2 · discard 4(바로 확정 64.5%) — 비논문 작은 원천 셋 끝. 배치 5 wikinews 1,000편 keep 973 · hold 15 · discard 12(바로 확정 **81.8%**, 배치 3 76.4%). v8 로 `gap` 보류 2.2% → 0.1%. 감사 누적 wikinews 체크리스트 keep 71편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 15,776(wikinews).

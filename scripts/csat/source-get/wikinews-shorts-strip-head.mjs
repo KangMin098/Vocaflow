@@ -29,12 +29,22 @@ const COMMIT = process.argv.includes('--commit')
 const { createScriptClient } = await import('../../lib/supabase-client.mjs')
 const db = createScriptClient()
 
-const { data: rows, error } = await db
+// 본문까지 한 번에 읽으면 문 시간 제한에 걸린다(2026-09-28) — id 만 먼저, 본문은 100행씩.
+const { data: ids, error } = await db
   .from('library_articles')
-  .select('id,source_id,content,updated_at,retain:csat_fit->gate->retain')
+  .select('id')
   .eq('source', 'wikinews')
   .like('source_id', '%#brief-%')
 if (error) throw new Error(`꼭지 조회 — ${error.message}`)
+const rows = []
+for (let i = 0; i < ids.length; i += 100) {
+  const { data, error: e1 } = await db
+    .from('library_articles')
+    .select('id,source_id,content,updated_at,retain:csat_fit->gate->retain')
+    .in('id', ids.slice(i, i + 100).map((r) => r.id))
+  if (e1) throw new Error(`본문 조회 — ${e1.message}`)
+  rows.push(...data)
+}
 
 let fixed = 0
 const judged = []
