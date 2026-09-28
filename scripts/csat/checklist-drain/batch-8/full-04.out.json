@@ -1,0 +1,969 @@
+[
+  {
+    "id": "4d929a4a-904e-496b-9d86-e0499e319340",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95572d77996b4b6f1bf7491bd4479b87eb48f18f5cd5121c091d010ca901e4ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "투표 개시 → 대통령 호소 → 보안 강화 → 세르비아계 보이콧으로 투표율 우려까지 원인·반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The main concern is the number",
+      "note": "셋째·넷째 문단을 떼면 투표율 우려와 보이콧 이유가 한 덩어리로 서고, boycott·mobilise 는 쉬운 말로 바꿀 수 있었다."
+    }
+  },
+  {
+    "id": "4d9683cc-488d-46cf-868b-f756f97464f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44499ec25adf486387413a75e655b02797808e5e2bd27863ee475f7b92a61e23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "가스 공급 목적과 영국 수요 20% 라는 한 줄 연결 외에는 길이·용량·자재·개통 연도 수치만 이어져 단신 최소선 경계에 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Stretching 1,200 km from Nyhamna, Norway",
+      "note": "수치를 걷으면 「파이프라인을 짓기 시작했다」 한 문장만 남아 사건 흐름이 서지 않았다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "4da77272-9101-4fb5-9e47-2db51acf7d8a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c7bdbedd9c9eb72361f29912bd3cd3573504ef4885a25ba6a6a68a2856c77b6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "엠브라에르 주문 발표 → 기종 선택 이유(경제성) → 신시장 개척 의도로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Air Moldova, which links the Moldovan",
+      "note": "둘째·셋째 문단을 합치면 도입 이유와 목적이 서고, 수주 잔고 수치 문단은 걷으면 된다."
+    }
+  },
+  {
+    "id": "4daefe1e-b52b-43bf-ae08-2a108b3d7feb",
+    "source_updated_at": "2026-09-27T18:08:28.999756+00:00",
+    "body_sha256": "0b0a8952b16cc15d9066ac760503523d6710099a43ec40e9d653514823a542bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모음 제목이지만 본문은 실종자 수색 호소 한 꼭지뿐이고 호소 → 목격 → 런던행 가능성 → 인상착의로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Avon and Somerset Constabulary have appealed",
+      "note": "경찰서 이름을 「police」로 바꾸면 앞 문맥 없이 서고, 인상착의는 내용 일치 선지 재료로 그대로 쓸 수 있었다."
+    }
+  },
+  {
+    "id": "4db8e8f2-a08e-4271-88d6-99608fbb3693",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30ae3e5a133ad25d99a39fbbf9ecb48d8cd3ae2f00c620b6397b33f496ed7273",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "성냥불이 새는 송유관 증기에 붙어 110명이 죽었다는 원인·결과와 정보원의 확인 불가 반응이 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incident occurred in North Pyongan",
+      "note": "첫 두 문단만으로 사건의 원인과 결과가 서고 scavenge 는 collect 로 바꾸면 밴드가 내려간다."
+    }
+  },
+  {
+    "id": "4dba52f2-8192-4217-8e5e-8f3007e61995",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "81aed22d891c7779459ff6119b914ffbbb5ba9a888b2890c782c928ea06a1a53",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "「가장 위대한 벨기에인」 선정과 다미앵 신부가 나병 환자를 돌본 까닭, 지역별로 따로 뽑아 둘이 된다는 사정이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Father Damien is famous for working",
+      "note": "둘째 문단은 한 인물의 행적으로 떼어져 서고 outcasts·hierarchy 를 쉬운 말로 바꾸면 V5 로 내려갔다."
+    }
+  },
+  {
+    "id": "4dbae754-4d60-49ad-85a5-292d64bf39a3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f9fbfe0357823190f554381e89274577e3982ac029e2689b587204bcc5e1be1a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사상 최대 복권 추첨과 판매 폭주로 추첨 장소를 옮긴 이유, 오하이오 전산 중단이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The drawing, the biggest in Mega",
+      "note": "셋째 문단의 장소 이동 이유가 한 사건으로 서고, 판매점 이름·번호 나열 문단은 걷으면 된다."
+    }
+  },
+  {
+    "id": "4de15a8a-994a-4c1f-a526-2bbb4e8269d4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e61a4ab81c4f6ecb60ac39d578547aba2d9a33b506236891b9e1b0ca31f4fedf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "53어 단신이지만 지진 발생 → 상점 선반의 물건이 떨어짐 → 구조 피해 없음으로 결과가 문장으로 이어져 짧은 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to CalTech's professor Carlos Sicilia",
+      "note": "길이는 짧지만 결과 문장 하나가 있어 선지 두세 개가 나오고 magnitude 외에는 어려운 낱말이 거의 없었다."
+    }
+  },
+  {
+    "id": "4dec634d-a951-4d3b-838b-5ce8021cafc5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf8b28f5fe55863b8b0a7c2865ea238ae338fa5d1d6507ffaf749f6c0b9d7c74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바그다드 철수 권고의 내용(도로·유전만 지키고 치안은 이라크에)과 이를 둘러싼 암살대 의혹 맥락이 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "He explained that the unnamed officer",
+      "note": "익명 출처 전언이라 사실 확정이 약하고 Salvador Option 은 배경 설명 없이는 풀리지 않아 어휘 조정만으로 밴드가 내려가지 않았다."
+    }
+  },
+  {
+    "id": "4df2799a-8fe3-4382-8e0d-145e39e992aa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4856e013ee0f4c41a13a2daff24735a2ccc21831cc68acaaa7e138172d501e7d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "폭염 경보 → 스모그 유입 → 폭풍으로 정전 → 시의 무더위 쉼터 개방 → 최저기온 기록으로 원인·대응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The heat has been compounded by",
+      "note": "폭풍 문단과 쉼터 문단을 이으면 사건과 대응이 서고 compounded·humidex 만 풀어 쓰면 됐다."
+    }
+  },
+  {
+    "id": "4e09a04b-5eb7-43a7-939a-214a3cdee56e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5e88b0ea9d7f7f4d20e0105ebaa83fc55a1cacd88aa90c6da61b1970cb424b1a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 → 궤도 진입 → 갈릴레오 시험위성이라는 목적과 지연 경위·다음 발사 계획이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "GIOVE-B will serve as a prototype",
+      "note": "둘째 문단이 목적·경위로 서고, 마지막 문단의 발사 횟수 통계는 걷으면 된다."
+    }
+  },
+  {
+    "id": "4e0b7102-4e3a-49a0-8922-6b372d5678b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1d7df2d756dbaccdb673483e7abca26698b0303f1cf36b72501bf14b3b37dfc2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "선거 직후 4년 뒤 시장 출마를 벌써 밝힌 두 후보와 그 동기·선거 규정·이례적으로 이른 이유가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neither candidate can spend money on",
+      "note": "인명 표기가 Argyll/Argall 로 흔들려 가공 때 하나로 맞춰야 하고, 득표율 문단은 걷는다."
+    }
+  },
+  {
+    "id": "4e165cdf-cd63-43b9-bcaa-acc1a002c940",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3cbe18cea7e8a5ca9f4e23eaa70204192bbce18763d67129c6dd6006ad165469",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "둘째 문단이 항공자유화조약의 목적(상호 이해와 신뢰)을 설명하고 관측 비행 실시와 상호 비행이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The treaty establishes a program of",
+      "note": "조약 설명 문단은 앞 문맥 없이 서고 surveillance·enhance 를 쉬운 말로 바꾸면 V6 로 내려갔다."
+    }
+  },
+  {
+    "id": "4e184628-9380-4961-b401-bde7f23ed5d8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b5d61f4191a53e965ab78f0054ec35326c6e8e10f8a50be0eb2580178cfca16c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모·진앙 거리·해령 위치·발생 시각만 문장마다 바뀌어 되풀이되고 피해·반응 같은 잇는 사건이 없어 칸을 채우지 못한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "An eathquake with a magnitude of",
+      "note": "수치와 지명을 걷으면 「지진이 났다」 한 문장만 남아 가공 셋이 모두 안 됐다."
+    }
+  },
+  {
+    "id": "4e2440d7-f6a6-4163-b39f-5eef0da849e5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cad5950b7598f5d7f06dffef668c942ceaf43948d5089652835a977d6952fccc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "재계약 발표와 선수 소감, 입단 경위와 우승·팬 투표 수상으로 계약 연장의 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After agreeing to the terms, Willian",
+      "note": "소감과 수상 문단이 연장 이유로 읽혀 쉽게 섰고, 끝의 다른 선수 영입 문장은 걷는다."
+    }
+  },
+  {
+    "id": "4e29f6f2-c296-4793-b404-f8b037a7b31f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f01feab8bc086f1f3289179a379e7e711c7cfbc86dc621b60947b27f75a28bc4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "순위 나열에 그치지 않고 소말리아가 1위인 까닭(폭력·무정부·난민)과 지수의 12개 평가 기준을 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Among the factors contributing to the",
+      "note": "둘째·넷째 문단을 이으면 순위의 근거가 서고, 대륙별 비율 문단은 걷으면 된다."
+    }
+  },
+  {
+    "id": "4e3019ec-ccc8-41bc-8ebe-48fbad6697d6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb14ce36ec5ba37055eb1bee4f928eec3166cd3c2eb3a0abb7358050618fdbc7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "4분기 성장 둔화 → 예상치 미달 → 금리 인상 가능성 하락이라는 분석가 반응과 건설 감소라는 원인이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The data was weaker than market",
+      "note": "반응 문단은 떼어져 서지만 year-on-year·correction·rebound 같은 경제 용어가 핵심이라 두세 낱말 교체로는 밴드가 잘 안 내려갔다."
+    }
+  },
+  {
+    "id": "4e327b7d-6c13-4c7f-b2f7-40e4243b2168",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c15e63588a9687ea67551dbb11fd5ddc9eed8aa48612e13b13742c34f90c764",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "림보 개념을 교리로 단정하지 않고 폐기 검토 소식과 뜻풀이, 신학자의 반응을 전하는 보도라 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The word comes from the Latin",
+      "note": "어원 문단과 반응 인용을 이으면 앞 문맥 없이 서고 theological·definitive 를 풀어 쓰면 V6 로 내려갔다."
+    }
+  },
+  {
+    "id": "4e4d56c0-f6b1-4035-b757-fcef307d531d",
+    "source_updated_at": "2026-09-27T18:08:30.311987+00:00",
+    "body_sha256": "a46381a6a6cec27d46d743a80c03070668a7a1cf6e6d740f7ba82c6120a23de2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "모음 제목 아래 시카고 전 시장 한 사람의 부고 한 문장뿐이라 끊긴 글은 아니지만 선지를 세울 사실이 이력·사인 둘뿐이어서 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Eugene Sawyer, who served as Mayor",
+      "note": "한 문장이라 떼어 낼 문단도, 걷고 남을 사건도 없었다."
+    }
+  },
+  {
+    "id": "4e657bd5-7385-4964-8cc6-cfb769bca74b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "18324ef6e68359c9087efdee40fb376ddccdc143af4422e6bee303d2623daa23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연쇄 지진 → 규모를 고쳐 발표 → 7.0 지진이 쓰나미 경보를 부름 → 피해 보고 없음으로 결과·절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 7.0 quake caused the National",
+      "note": "넷째 문단의 경보 발령이 사건을 이어 주고, 깊이·거리 수치는 걷으면 된다."
+    }
+  },
+  {
+    "id": "4e75c6e4-0129-42d9-b7c9-4961c44be3a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "47362c4463570d4c38efbd7c99a95822f7c9c478366d7d3c8e06bf0e5fce2157",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가자 정착촌 철거 계획에 맞선 평화 시위와 규모 추산 차이, 앞선 시위의 맥락이 이어진 보도로 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The protests where peaceful as many",
+      "note": "끝의 관련 기사 링크 두 줄은 본문이 아니라 걷어야 하고, where→were 오탈자를 고쳐야 한다."
+    }
+  },
+  {
+    "id": "4e918a48-b25c-4219-8c8a-ce68c9ce7fe2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "172b05b5f25208dec5fe6a65f088482d3a6fc14a89dec0e1aff1403f8f5fe30b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "기념물 헌정식의 진행(전사자 호명 → 기념 비행 → 헌정 → 실종자 편대 비행)이 순서대로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vintage aircraft flew over the site",
+      "note": "행사 순서 문단들이 시간순으로 떼고 끼우기 쉬웠고 etched·casualties 만 바꾸면 됐다."
+    }
+  },
+  {
+    "id": "4e9769ca-bf96-4f14-93ca-7d9643512184",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "465abc7673bda7fef54a611a544de17b4d09efa5dce93ff16fe38e14a6095b2c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "PSP 출시 사흘 판매 기록과 이전 기록 비교, 경쟁사와 다기능 마케팅, 판매 전망이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sony's main competitors in the handheld",
+      "note": "셋째 문단이 경쟁 구도와 전략으로 서고 오탈자(then·poular)는 가공 때 고친다."
+    }
+  },
+  {
+    "id": "4e9dfb28-86fb-46f1-96dc-2e9767f59d93",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34d524d47c2684e7ee6b60962b63eb64647c8fdf38b2b5230442d0321cf37463",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "아이팟 새 제품군의 기능 변화와 아이팟 터치의 와이파이·스타벅스 제휴, 아이폰 가격 인하 발표가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The iPod touch also features in-built",
+      "note": "셋째 문단은 기능과 활용이 서지만 둘째 문단은 용량·가격 나열이라 걷는 편이 낫다."
+    }
+  },
+  {
+    "id": "4ed69ee3-1ad4-4713-9ec4-ff12407bf22d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27820b7b2e7139e56e75a7f142e5f6c41663264a06997402f089f473b7cef494",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대선 결과와 단임제 설명, 당선인 첫 검찰 수사라는 사건, 당선 소감과 낙선자 승복이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For the first time in South",
+      "note": "수사 문단과 소감·승복 인용이 한 흐름으로 서고 prosecutor·inauguration 만 풀면 됐다."
+    }
+  }
+]

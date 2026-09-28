@@ -1,0 +1,956 @@
+[
+  {
+    "id": "4ed9f05b-287a-44cd-9160-4cc621793537",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a5d9dbcbfef1bb5603e8b34fa8da1fc783aa168b4d2c8d133900b6215f6c3d24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "행사 기획 → 소니·MS 경쟁 → 자선 협력으로 전시 성격이 바뀌었다는 흐름이 둘째~마지막 단락에 서서 주제·요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "summary",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 2008 Taipei Game Show, organized",
+      "note": "업체 이름·약어(OBM·B2B)를 걷고 matured→grew·notability→fame 으로 바꾸니 V6 로 내려갔다."
+    }
+  },
+  {
+    "id": "4eebb67b-4181-43d9-bf45-f205edb74dcb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "651e12b9a8fecf2c960bc4d9934ec48d88901cf2006f235e9f8c5456c7342a36",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "ILO 보고서 수치 → 사무총장 발언 → 성별·아동 부담으로 이어져 강제노동이 세계적 문제라는 요지가 서므로 주제·내용 일치 칸이 찬다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Forced economic exploitation is more or",
+      "note": "대륙별 수치 목록은 걷고 exploitation→unfair use·eradicate→end 로 바꾸면 V6 로 읽혔다."
+    }
+  },
+  {
+    "id": "4ef95d97-61a5-4727-bc92-ee5f4dcfd3bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "17132a18796ebe7a78e7ca811fb2e3b25f87159a4dda7fd07812d467cdbc0be0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "세미나에서 정부가 통신 목표(지분 매각·3G 면허)를 밝히고 Connex 3G 출시가 뒤따른다는 둘째 단락이 목표와 시장 반응을 잇는다 — 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "These include the sale of the",
+      "note": "회사 이름을 걷으면 목표 나열 성격이 강하나 3G 확대와 업체 출시가 이어져 사실 문항 하나는 선다."
+    }
+  },
+  {
+    "id": "4eff1cdb-8836-4e09-8767-cecd11be3672",
+    "source_updated_at": "2026-09-25T08:55:10.1008+00:00",
+    "body_sha256": "49948299536054e27d0723e0f186038d19665c79d2bd8577d47ba698d0e15739",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "메시지 유출 → 두 주 시위 → 사임 발표 → 승계 순서로 원인·결과·다음 절차가 이어져 순서·내용 일치 칸을 채운다(연설 인용 한 줄 빠짐은 걷는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Protesters called for Rosselló's resignation after",
+      "note": "「In his resignation speech, Rosselló said,」 뒤 인용이 비어 있어 그 줄을 걷었고, misogynistic→insulting to women 으로 바꿨다."
+    }
+  },
+  {
+    "id": "4f03a83c-7802-47b2-b16b-e3824b09b15d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c6277b04762c13e02c007259a3fb45269b5a9c8241b2f15e0ca7904ce3ba4592",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "자살폭탄 공격 → 부상자 이송 → 내무장관·대통령 규탄과 추적 지시로 사건과 반응이 이어지는 속보라 고등 이상 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Aftab Ahmed Sherpao, Pakistani Federal Minister",
+      "note": "폭력 소재라 고등 이상만 두고, culprits→attackers·condemn→strongly criticize 로 바꾸니 V5 였다."
+    }
+  },
+  {
+    "id": "4f08e805-8280-4114-b91d-3357b1b527f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0be7da330afd6433367d76de91365da4ba9832c45a7eeb26509134150186c4e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "149명 체포 발표 → 조직 구조와 공격 저지 설명 → 3월 발표와의 연속으로 사건과 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mansour al-Turki of the interior ministry",
+      "note": "통화 환산 수치를 걷고 foiled→stopped·confiscated→taken away 로 바꾸면 V6 로 섰다."
+    }
+  },
+  {
+    "id": "4f3f0957-59fb-4f41-9a91-ea879906b016",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b51d16351e9303d349942dbfb6d67e14bd31a34ca062126f6467c528e9e7ee2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "방송 계약 → 방송사 확대 계획 → 본인 포부와 정치 이력으로 사건과 인물 배경이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although best-known for his low-budget, tongue-in-cheek",
+      "note": "tongue-in-cheek→joking·pedigree→background 로 바꾸니 중등 상단까지 내려갔다."
+    }
+  },
+  {
+    "id": "4f3f8d9c-2345-42aa-b834-b8c5e7241b62",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34b0fcb449c2e2e1368df75b9869da2b45757c17dc0e24393a9357aa3b0c37e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "인파 운집 → 9시·자정 불꽃 순서 → 비용·방송 → 체포·출동 건수로 하루 행사가 시간순으로 흘러 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As usual, the bridge became the",
+      "note": "끝의 체포 죄목 나열은 걷고 revellers→party-goers·eventuate→happen 으로 바꿨다."
+    }
+  },
+  {
+    "id": "4f42e8b9-7447-490c-aa7d-22a3f9f3612b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "87e8877fe3829758c717a6c9922303d655a97d9d19ea4359057ae87a01cd6bba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "직원 배포 → HTC 제작·잠금 없는 판매 → 분석가의 모바일 웹 영향력 논평으로 소문의 근거와 의미가 이어져 내용 일치 칸, 2009 시점이라 시대 비교 후보.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is also understood that it",
+      "note": "rife→common·sporting→using 으로 바꾸고 증권사 이름을 걷으니 V5 로 읽혔다."
+    }
+  },
+  {
+    "id": "4f5749be-2528-4677-a4d5-20ec4d7dc48b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea8e72662c97124bafa38cccbb647e481948db01e01d8d04d053330d54b4a746",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무장세력의 보급 차량 방화 → 파괴 규모 → 11월 카이버 고개 탈취로 이어지는 98어 단신이라 사건과 앞선 사례가 연결된 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sources claim that more than 250",
+      "note": "무기 이름과 수치를 줄이고 overpowered→defeated 로 바꾸면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "4f82a97d-55bd-4382-a5fe-d37ca52e4c24",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "39012ae873468216e9d6c61543352f577a47c6f1b5f4bf624595103df9364da1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주민회의에서 공사 계획 설명 → 법대 기숙사 철거 가능성 → 기자가 현장을 확인한 관찰로 사건과 확인 절차가 이어져 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A visit to the science building",
+      "note": "기자 이름·거리 이름을 걷고 clamshell attachment→digging bucket 으로 바꾸니 관찰 단락만으로도 섰다."
+    }
+  },
+  {
+    "id": "4f830740-8ca4-433c-a952-0fadfbbb44f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c443ca4899dea2305c1bb0aa7c866b5cf7a1f769de7e2578d6a435133227f77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "앞의 소프트웨어 이름 목록 뒤 마지막 단락이 예산 투입 → 세 기관의 매일 코드 점검 → 3월 자동화 계획으로 이어져 목록을 걷으면 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.S. Department of Homeland Security",
+      "note": "앞의 32개 이름 목록은 걷어야 하고, 남은 한 단락이 짧아 문항 하나 분량이다."
+    }
+  },
+  {
+    "id": "4f8d8dbe-4587-42f2-8e30-88ece4d69044",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e428cd9834ebc9bc0a24bb3618199e6b7c986fd7183dc6f88a6775f468da2ec2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "한 가수의 부고로 합창단 입단 → 독집 활동으로 인기 → 대통령 추모 → 장례 일정이 이어져 모음이 아닌 단일 인물 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1947 Zykina joined the famous",
+      "note": "personification→symbol 로 바꾸면 중등 상단에 맞고 짧아 문항 하나 분량이다."
+    }
+  },
+  {
+    "id": "4faade34-b8e5-4034-a826-ff5e6e51f2a4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c16b136465651a78c17f836a1df3b3cd7f494ad80bfcc15ce6460b44f8d72ac0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "출마 선언 → 한 주에서만·양당 대표라는 풍자 조건 → 쇼 이력과 truthiness 신조어로 사건과 배경이 이어져 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Colbert has hosted The Colbert Report,",
+      "note": "맥락 없는 「I didn't have a job back then」 인용은 걷고 pundit→commentator 로 바꿨다."
+    }
+  },
+  {
+    "id": "4fba9662-d41f-43d3-82bc-cab858fabcbe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a4be570729120375df15fd510e7cc137d499408ba2425138477436337ebc37f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의원직 사퇴 발표 → 암 재발이라는 이유 → 성희롱 의혹 부인으로 원인과 반응이 이어지는 단신이라 고등 이상 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He said that he had his",
+      "note": "recurrence→return·terminal→cannot be cured 로 바꾸니 V6 로 읽혔다."
+    }
+  },
+  {
+    "id": "4fbe0e94-9646-4f3c-b315-b5f1cc6601f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b7b3f190079ed0b1be91503be8fe426657694f89584b75b4a39ab11fea49bc6c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "기자 납치 → 신문사 주최 침묵 행진 → 정당 대표 발언 → 납치 경위와 영상으로 원인과 반응이 이어져 고등 이상 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Giuliana Sgrena was kidnapped near Baghdad's",
+      "note": "주최 측·경찰 추산 차이를 남기면 사실 문항이 되고, liberation→release 로 바꿨다."
+    }
+  },
+  {
+    "id": "4fc4da05-7116-45d4-afda-67400ed1bee8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "684cbf1b96dd9689004dd78132acba78ad2877cdd3419cdeee33d7aaae872431",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이사회 결의로 임명 → 4대 7 찬성과 한 이사의 기권 → 12월 1일 취임이라는 다음 절차가 이어져 짧지만 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The resolution was approved by 4",
+      "note": "recused himself→stayed out of 로 바꾸면 V6 이나 83어로 짧아 문항 하나 분량이다."
+    }
+  },
+  {
+    "id": "4fd2057f-1f69-455f-9612-e22d4c7f4833",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0bdcb4fe575f5db95b5ae4175a80811d087deeb72ce8cc0f9787b6b5d2f579f3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "UPS 1,800명 감원 → 지역·구역 재편 → 택배량이 경기 지표라는 분석가 관심과 논평으로 결정과 그 의미가 이어져 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Economic analysts are paying considerable attention",
+      "note": "in its employ→working for it·slash→cut 으로 바꾸니 V6 로 섰다."
+    }
+  },
+  {
+    "id": "4fd6a799-1fd9-45ce-8fa0-97858291b470",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "702ec7e32133b3e61fb0a14fb6ba0b27500e3f4c25717eadc4522f279f0f50c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "2005년 생방송 착각 투표 → 조사 의뢰 → 2007 시상식 방송 연기로 원인·결과가 뚜렷해 순서·요약·내용 일치 칸을 채운다(넷째 단락의 성적 발언·욕설은 걷는다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In July this year, a scandal",
+      "note": "Julian Clary·Spike Milligan 의 노골적 발언 문장은 걷어야 하고, premium-rate→expensive 로 바꿨다."
+    }
+  },
+  {
+    "id": "4fdf2662-bc84-4838-a6a6-c0a374ba1777",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dcfc4c59904d3f8a64e78af22b948f910d032225c86e120197cea0f4afad192f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "군 훈련기 추락 → 기종·조종사 사망 확인 → 국방장관·사령관 급파로 사건과 반응이 이어지는 단신이라 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Director of the President's Press Office",
+      "note": "첫머리 「Limassol.」 지명 꼬리표를 걷고 기종 코드를 줄이면 V5 로 섰다."
+    }
+  },
+  {
+    "id": "4fe68027-1fed-48d9-a88d-a301faae9185",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dd49190ae5e7013c72b5d467770c562ddccc67cfb071d47e48a80a55a4e2be89",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "병세 악화 보도 → 췌장암과 폐렴 퇴원 이력이라는 원인이 두 문장으로 이어져 50어로 짧지만 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "World-famous opera singer Luciano Pavarotti's health",
+      "note": "pancreatic→a kind of 로 바꾸면 쉬우나 두 문장뿐이라 문항 하나도 빠듯하다."
+    }
+  },
+  {
+    "id": "501f045d-b1e5-4a3b-8729-152ec7f9d6d1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a0137dd4ca77bfc6d1a3c7f397de1aa8940745cb8df13b3fccbd89b9f2371a1c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "훈련 중 레이더에서 사라짐 → 탑승 인원 보도 엇갈림 → 수색과 태평양함대 비행 중단으로 사건과 다음 절차가 이어져 내용 일치 칸.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Defense Ministry statement said the",
+      "note": "reconnaissance/anti-submarine 기종 설명을 걷고 ceased→stopped 로 바꾸니 V5~V6 이었다."
+    }
+  },
+  {
+    "id": "502150f2-3f4f-4147-b647-d7e9d1dc7025",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9e6a1d72d855671fb3882e0b918d9827f68699884e03514c8639170f1828a393",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "직원 절반의 퇴진 요구 → 소장 재배치 → 부소장 대행 임명과 대변인 발언으로 원인·결과가 이어져 69어지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Bill Prozena has left his position",
+      "note": "interim basis→for now 로 바꾸면 쉬워지나 두 단락뿐이라 문항 하나 분량이다."
+    }
+  },
+  {
+    "id": "502173fd-ebaa-4c54-96a3-9b8bc7704079",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2697a5422e76ac7e9a4b5b8a6e53870344ef9df3cc621bad0ae416fce7fb1763",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "들러리 발표 → 약혼 때 해리의 반응 → 신부 들러리·화동 발표와 의상 비공개로 결혼 준비 소식이 이어져 내용 일치 칸(이름 나열은 줄인다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prince William of Wales has selected",
+      "note": "들러리 아이들의 작위·부모 나열을 줄이고 fiancée→future wife 로 바꾸니 V4~V5 였다."
+    }
+  },
+  {
+    "id": "5028cd3f-7618-45c6-ad0f-66b325bcea82",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "73339ed7865abe93787339ecbbe6a7227047b068085be3b76ac22568313ad71d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "geography",
+    "why": "니아스섬 두 차례 지진 → 동요 없음 → 2004 쓰나미와 불의 고리 설명으로 사건과 까닭이 이어져 내용 일치 칸(바다 이름·철자 오류는 고친다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Neither quake caused any panic on",
+      "note": "「tsumni」 오타와 수마트라 서해안을 태평양이라 한 부분을 고쳐야 하고, unstable fault lines 는 그대로 둘 만했다."
+    }
+  }
+]
