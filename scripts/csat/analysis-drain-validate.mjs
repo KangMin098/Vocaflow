@@ -14,6 +14,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { CORPUS_FILE, WORK_DIR } from './lib-drain-set.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -21,8 +22,8 @@ const arg = (n, d = null) => {
 }
 
 const DIR = path.resolve('scripts/csat/data')
-const WORK = path.resolve('scripts/csat/analysis-drain')
-const corpus = JSON.parse(fs.readFileSync(path.join(DIR, 'corpus.json'), 'utf8'))
+const WORK = WORK_DIR
+const corpus = JSON.parse(fs.readFileSync(CORPUS_FILE, 'utf8'))
 const itemOf = new Map(corpus.items.map((it) => [it.id, it]))
 
 const PERSONAS = ['setter', 'analyst', 'tutor']

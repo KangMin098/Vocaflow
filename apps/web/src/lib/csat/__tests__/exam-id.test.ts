@@ -116,7 +116,9 @@ describe('흩어진 판정 금지', () => {
   it('평가원 표 직접 질의는 평가원으로 좁힌다', () => {
     const SCOPED = [
       'HAKPYEONG_ID_PREFIX',
+      'idPattern', // evidence 의 범위(평가원 · 학평 학년) 분기
       ".eq('organizer', 'kice')",
+      ".eq('organizer', 'edu_office')",
       ".eq('kind', 'suneung')",
       ".eq('id',",
       ".eq('item_id',",

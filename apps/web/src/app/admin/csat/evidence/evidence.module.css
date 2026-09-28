@@ -498,3 +498,43 @@
     scroll-behavior: auto;
   }
 }
+
+/* 근거 집합 전환 — 평가원 · 학평 고1~3. 데이터를 다시 읽어야 해서 버튼이 아니라 링크다 */
+.scope {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+.scope a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--bd);
+  background: var(--bg);
+  color: var(--t2);
+  font-size: 14px;
+  text-decoration: none;
+}
+.scope a[aria-current='page'] {
+  border-color: var(--admin);
+  color: var(--evidence-ink);
+  font-weight: 600;
+}
+.scope a:focus-visible {
+  outline: 2px solid var(--admin);
+  outline-offset: 2px;
+}
+.notice {
+  padding: 12px 16px;
+  border-left: 3px solid var(--admin);
+  background: var(--bg);
+  margin-bottom: 16px;
+  word-break: keep-all;
+}
+.notice p {
+  margin: 4px 0 0;
+  color: var(--t2);
+  font-size: 13px;
+}
