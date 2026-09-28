@@ -211,6 +211,29 @@ for (const f of files) {
   const bad = (id, msg) => fails.push(`${f} ${id} — ${msg}`)
   const warn = (id, msg) => warns.push(`${f} ${id} — ${msg}`)
 
+  // ── 검수 틀 찍기 ───────────────────────────────────────────────────
+  // 3인 검수는 **문항마다** 한 판정이어야 한다. 한 페르소나의 findings 가 청크 문항 절반 이상에
+  // 글자 그대로 반복되면(숫자만 다른 것 포함) 그것은 검수가 아니라 스크립트가 찍은 틀이다.
+  // 실측 2026-09-28 학평 드레인: 4문항 이상 청크 42개 중 40개가 이 모양이었다(「1차 반려(revise)…」
+  // 까지 12문항에 똑같이 찍혀 있었다). 평가원 드레인 81청크는 0건 — 정상 검수는 여기 안 걸린다.
+  {
+    const A = (j.analyses ?? []).filter((a) => a.item_id)
+    if (A.length >= 4) {
+      for (const persona of ['setter', 'analyst', 'tutor']) {
+        const seen = new Map()
+        for (const a of A) {
+          const r = (a.reviews ?? []).find((x) => x.persona === persona)
+          const key = JSON.stringify(r?.findings ?? []).replace(/\d+/g, '#')
+          seen.set(key, (seen.get(key) ?? 0) + 1)
+        }
+        const top = Math.max(...seen.values())
+        if (top / A.length >= 0.5) {
+          bad('(청크)', `${persona} 검수 소견이 ${A.length}문항 중 ${top}문항에 똑같다 — 문항별 검수가 아니라 틀로 찍은 것이다. 문항마다 실제로 본 것을 적어라`)
+        }
+      }
+    }
+  }
+
   for (const a of j.analyses ?? []) {
     // 나중 원장이 이 문항을 다시 썼으면 여기서는 건너뛴다(§나중 파일만 본다)
     if (a.item_id && winner.size && winner.get(a.item_id) !== f) {
