@@ -418,6 +418,8 @@ export interface CsatItemExplain {
   /** ① 답이 왜 이것인가 */
   why_correct: string | null
   evidence_quote: string | null
+  /** 표시 상한 때문에 말줄임표를 붙였는가. 원래 인용의 말줄임과 구별한다. */
+  evidence_quote_truncated?: boolean
   evidence_reasoning: string | null
   /** ② 나머지가 왜 아닌가 */
   distractors: { n: number; trap: string | null; why_tempting: string | null; how_to_reject: string | null }[]
@@ -597,6 +599,7 @@ export async function loadCsatItemExplain(
       design_intent: nonEmpty(a?.design_intent),
       why_correct: correct?.why_correct ?? null,
       evidence_quote: capQuoteWords(a?.answer_locus?.quote ?? null),
+      evidence_quote_truncated: (a?.answer_locus?.quote?.trim().split(/\s+/).length ?? 0) > QUOTE_WORD_CAP,
       evidence_reasoning: a?.answer_locus?.reasoning ?? null,
       design: parseDesign(a?.answer_locus?.passage_design),
       distractors: chs
