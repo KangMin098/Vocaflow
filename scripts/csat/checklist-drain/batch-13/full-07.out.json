@@ -1,0 +1,583 @@
+[
+  {
+    "id": "97c98685-e026-49ba-b023-3d003ecc8571",
+    "source_updated_at": "2026-09-25T08:51:23.510791+00:00",
+    "body_sha256": "1f41ba5a47c833c78bcd774d2d14c831228ce527de212962362dc67dfeadf09c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "FSB의 사보타주 적발 주장 → 포로셴코의 경계 명령과 반박 → 양측 지도자 발언으로 사건과 반응이 이어져 고등 내용일치·주장 칸을 채운다(시신 효수 발언이 있어 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Russian Federal Security Service (FSB)",
+      "note": "둘째 문단은 주장→반응 흐름이 서고 annexed·sabotage 를 took over·attacks 로 바꾸면 V5 로 내려간다; 인명은 걷어도 된다."
+    }
+  },
+  {
+    "id": "97cb196a-e82a-42af-ab1d-8912b952b845",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c90e9d691dda0a291a4748f77b9e6e81feab7ce173c0a933671e406577b34d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "머독 유죄 판결 → 경찰의 미제 사건 재검토 → 재판 기록으로 행적 재구성 계획이 문장으로 이어지는 단신이라 내용일치 칸을 채운다(연쇄살인 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "West Australian Police have begun a",
+      "note": "세 문단 전체가 110어라 통째로 쓰고 scrutinised·methodology 를 examined·methods 로 바꾸면 된다; 인명 비중이 커서 논지 칸은 없다."
+    }
+  },
+  {
+    "id": "97e2e224-2cd4-4660-8930-f2dc428a206a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "958c4a6ac1dd6e15ffb5621d5ba0e3cb33ae24fa673bf1ede49867f3465506da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "양동이 속 유해 발견 → 신고 경위 → 전 거주자 기소 → 부검·추가 수사로 사건이 이어져 내용일치·장문 칸을 채우나 영아 시신 묘사가 구체적이라 고2 이상으로만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jennifer Sinn, 32, a former resident",
+      "note": "기소·이웃 증언 문단은 앞 문맥 없이 서고 indignity·recluse 를 disrespect·loner 로 바꿔 내렸다; 부패 묘사 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "97ebb822-9b93-40ed-802c-a100111d88fb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a0771e3a49ebed16d27d54beab5ef81bb36c92485c102bd5e778624c16b9e92",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산불 확산 규모 → 진화율 상승과 기온 하강의 도움 → 주지사 발언 → 소방관 사망·주민 대피로 원인·결과·반응이 이어져 내용일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Emergency crews said they were hopeful",
+      "note": "둘째·셋째 문단은 진화율 상승과 날씨 변화가 인과로 이어져 그대로 떼어지고 personnel 만 workers 로 바꾸면 된다; Dietrich 인용은 누구인지 소개가 없어 걷는다."
+    }
+  },
+  {
+    "id": "97f169c1-4543-4f15-a861-d5980562886b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b8dd47b50bc70b6bf6840bc9ab368cd68bf69e8e8137eabc1669faf4beda84fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시장의 무단 계약 의혹 → 이미 따른 징계·사퇴 요구 → 검찰 수사에 대한 시장의 대응이 이어지는 짧은 보도라 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gonzales is accused of secretly agreeing",
+      "note": "첫 문단이 의혹과 결과를 한 흐름으로 담아 떼어지고 censure·grand jury 를 formal blame·court review 로 바꾸면 V5 가 된다; 변호사 경력 문장은 걷는다."
+    }
+  },
+  {
+    "id": "97f20686-1c21-42c8-ad52-71694eb3f86e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "062c672e1bde8517fcba39d3848ade7e004c99841d7331809b6d1f1c82adb807",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "키갈리 보호구역 총회의 목적·참석자 → 범아프리카 보전 기금 구상 → 행동 촉구 채택(GDP 1%·원주민 권리)으로 이어져 내용일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Initiatives included the launching of a",
+      "note": "기금 구상 문단과 마지막 문단을 합치면 앞 문맥 없이 서고 in perpetuity·inaugural 을 forever·first 로 바꿔 V5 로 내렸다."
+    }
+  },
+  {
+    "id": "9801e151-3770-40d3-9838-097b9d2222eb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba598ce6b2f1c1a2336f7bf4237bc42a85d77ba2281a0c91a376b6a062cadcd5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "「산의 폭풍」 작전 사망·체포 → 헬기 추락설 부인 → 탈옥수 수색 배경 → 코소보 국경 봉쇄로 사건과 반응이 이어져 내용일치 칸을 채운다(교전 사망이라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Local media reported that police are",
+      "note": "탈옥수 수색 문단은 앞 문맥 없이 서지만 인명·지명이 많아 걷으면 짧아진다; 별명 「Nazi」는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "98071df6-f98d-456d-ab4b-72ec133ef632",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5881b3c88bdb479d0e70346fb5b8b8b33ac96b01daa40cf86588c929f0ed3e9c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "터너의 폭스 비난(히틀러 비유)과 폭스의 반박이 맞붙는 보도로 한쪽 입장 선동이 아니며 주장·반론과 시청률 사실로 내용일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ted Turner, the founder of CNN,",
+      "note": "첫 문단과 폭스 반박 두 문단을 이으면 주장-반론이 서고 likened·mouthpiece 를 compared·voice 로 바꾸면 된다; 끝 문단 홍보비 수치는 곁가지라 걷는다."
+    }
+  },
+  {
+    "id": "980b363c-f6b7-4aa1-aad2-ed7741b03735",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f82737df2908eb554eaf0cd99493ff4a2d48c2534544eef2a6a18cd5aa7d5799",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미성년 강간 혐의 보석 결정 → 보석 조건 → 나이 인지 여부를 둔 변호인·검사 공방으로 사건이 서지만 성행위 묘사가 구체적이라 성인 칸 읽기 자료로만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Magistrate John Costello granted the defendant",
+      "note": "보석 조건 문단과 나이 공방 문단은 떼어지고 complainant 를 victim 으로 바꾸면 된다; 성행위 종류·혐의 세목 문단은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "98493d6f-044b-47bf-9214-ce3a16ceb5f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abf9eca357b168a2aa1a2d4b327717189db9388b23d8af5a5dd30db1ccf75018",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "food",
+    "why": "BBC 웨일스 조사 결과(한 끼 재료비 49펜스·지역별 차이) → 제이미 올리버 캠페인과 정부 추가 예산이라는 배경으로 이어져 급식 주제 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The survey follows a recent surge",
+      "note": "둘째 문단은 조사의 배경과 정부 반응이 이어져 떼어지고 lavished·surge 를 spent·rise 로 바꿔 V4 로 내렸다."
+    }
+  },
+  {
+    "id": "9858ae85-3127-439a-8e87-e19f49c26e36",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4c4c96910779b9eb3a5b4fc699c2870401a800865ed4a1e382e3c50b1902b677",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정부 비판 토크쇼 폐지 → 친정부 기업의 언론 매입이라는 맥락 → 진행자의 정치적 결정 비판으로 66어 안에서 사건·배경·반응이 이어져 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thailand's popular political talk show, Muang",
+      "note": "두 문단 전체를 쓰며 notorious·conglomerate 를 known·large company 로 바꾸면 V5 가 된다; 매우 짧아 한 문항용이다."
+    }
+  },
+  {
+    "id": "98b51b2d-2e7e-4c3b-acc7-68259d6d41a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "100927e1d348680819f414469abe4997639119a8e1d7a87ff1c97aa166b52bb1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "본문 절반이 경기 결과·대진 나열이지만 대만-이탈리아전의 오심 두 번과 관중 비난 문단이 사건 흐름으로 서서 스포츠 내용일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two disputed calls came in the",
+      "note": "소제목이 빠져 「This pitching duel」류 문단은 어느 경기인지 먼저 밝혀야 하고 점수·대진 목록과 records 목록은 걷는다; shellacking·mercy-ruled 는 big loss 로 바꾼다."
+    }
+  },
+  {
+    "id": "98e65bd7-a2ff-4b4e-91bc-f980c8b16971",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e105158681976498a369cb17119e0e8405bfce6bd5a392f905f9365e20c19a3c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "아틀란티스·콜럼버스 발사 준비와 기상 확률 → 임무 범위(모듈 설치·가동) → 승무원 훈련 → 발사 시각으로 이어져 우주 주제 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The launch director of Atlantis said",
+      "note": "임무 범위 인용 문단은 간접화법으로 풀면 앞 문맥 없이 서고 activate·scope 를 turn on·goal 로 바꿨다; 인용 위주라 논지 칸은 없다."
+    }
+  },
+  {
+    "id": "9942dcc9-c563-4a77-aedd-8e0a2d58cacb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "da894c8df87929cfbbbabeda8c307585e3d951ec397c513b2a591e98756b1c30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "로버트슨의 「신의 징벌」 발언을 교리로 제시하는 글이 아니라 발언 → 린 목사·백악관 비판 → 대변인 해명 → 과거 논란으로 주장과 반론을 전하는 보도라 주장·내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reverend Barry W. Lynn, director of",
+      "note": "린 목사 비판과 백악관 반응 문단은 발언 요약 한 줄만 앞에 두면 서고 callous·retribution 을 cruel·punishment 로 바꿔 V5 로 내렸다; 차베스 암살 발언 부분은 곁가지라 걷는다."
+    }
+  },
+  {
+    "id": "995f7876-bbba-4a1e-a826-3da0035f7253",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bb87bcc61437fdea9d4612644b9942c7a012b79541b1fa37f2658dcd61126733",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "온타리오 보건장관의 결혼 발표 → 청혼 경위와 본인 인용 → 예식 장소·형식 → 첫 공개 동성애자 각료라는 의미로 이어지는 인물 단신이라 내용일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The wedding will take place at",
+      "note": "예식 문단과 마지막 의미 문단은 떼어지고 foray 를 attempt 로 바꾸면 된다; 끝의 「thong」 농담은 가공 때 걷는다."
+    }
+  }
+]
