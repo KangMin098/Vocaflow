@@ -23,10 +23,19 @@
     "record": {
       "genre": "news",
       "slots": {
-        "ages": ["high1", "high2"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V4"],
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
         "platform": []
       }
     }
@@ -55,10 +64,18 @@
     "record": {
       "genre": "health",
       "slots": {
-        "ages": ["high2"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V6"],
+        "ages": [
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
         "platform": []
       }
     }
@@ -119,10 +136,19 @@
     "record": {
       "genre": "news",
       "slots": {
-        "ages": ["high1", "high2"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V4"],
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
         "platform": []
       }
     }
@@ -151,10 +177,18 @@
     "record": {
       "genre": "news",
       "slots": {
-        "ages": ["high1"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V5"],
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
         "platform": []
       }
     }
@@ -183,10 +217,19 @@
     "record": {
       "genre": "science",
       "slots": {
-        "ages": ["high1", "high2"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V6"],
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
         "platform": []
       }
     }
@@ -215,10 +258,18 @@
     "record": {
       "genre": "news",
       "slots": {
-        "ages": ["high2"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V5"],
+        "ages": [
+          "high2"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
         "platform": []
       }
     }
@@ -247,10 +298,18 @@
     "record": {
       "genre": "news",
       "slots": {
-        "ages": ["high1"],
-        "purposes": ["mock"],
-        "types": ["content_match"],
-        "levels": ["V5"],
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
         "platform": []
       }
     }

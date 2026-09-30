@@ -1,6 +1,6 @@
 [
   {
-    "id": "92bc283a-1f3b-44c2-bd88-6e238eb7b35e",
+    "id": "980b8416-42a1-4b83-8af3-faa809bcd7fb",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -8,7 +8,7 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": true,
+      "narrative": false,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -18,30 +18,77 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Four strong aftershocks have occurred",
-    "note": "칠레에서 발생한 네 차례의 지진 현황과 규모를 상세히 보도한 기사다.",
+    "sample": "Zahi Hawass, Egypt's pre-eminent archaeologist,",
+    "note": "이집트의 고고학 발견과 위성 기술을 이용한 유적지 탐사 결과를 상세히 보도한 기사.",
     "record": {
-      "genre": "news",
+      "genre": "history",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
-          "content_match"
+          "content_match",
+          "summary"
         ],
         "levels": [
-          "V4"
+          "V6"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "92c37c19-ff5f-4454-a9a0-783bcbb96b5a",
+    "id": "980df61e-764c-4c2f-9001-a71be389ef8a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On June 3, the New Liberals",
+    "note": "호주의 신생 정당 지도자와의 인터뷰로 정당의 정책, 목표, 정치관을 질문-답변 형식으로 상세히 설명한 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9810de9a-4ca2-4b98-8a02-42ae62f1133c",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -59,19 +106,22 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Ousted Egyptian president Hosni Mubarak",
-    "note": "무바라크 전 대통령의 심장마비와 출국 금지 조치를 보도한 정치 뉴스다.",
+    "sample": "A federal court has upheld",
+    "note": "월마트의 성차별 소송 사건의 전개 과정과 법원 판단을 다루는 법률 뉴스.",
     "record": {
-      "genre": "news",
+      "genre": "social",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
+          "summary",
           "content_match"
         ],
         "levels": [
@@ -82,50 +132,9 @@
     }
   },
   {
-    "id": "92c8b9f0-1e26-45b8-ba32-a6f4b20eb9c3",
+    "id": "98156634-35f8-4fd8-b488-72b9a9e13219",
     "answers": {
       "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The Green party of Aotearoa",
-    "note": "뉴질랜드 녹색당이 정당들의 기후변화 정책을 평가한 결과를 발표한 기사다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92ca465f-6158-412c-9c2e-57a4dce7b98e",
-    "answers": {
-      "blocked": "polemic",
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
@@ -141,91 +150,21 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "A panel discussion titled \"Truth",
-    "note": "스레브레니차 학살에 대한 토론회에서 벌어진 민족주의자와 시민 운동가들의 충돌을 보도한다.",
-    "record": {
-      "genre": "polemic",
-      "slots": {
-        "ages": [],
-        "purposes": [],
-        "types": [],
-        "levels": [],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92d0e5c2-40ce-41f6-a290-bf7b54af4f6c",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Police are concerned over the",
-    "note": "뉴질랜드 대학생 실종 사건의 경위와 특징을 상세히 기술한 단신이다.",
+    "sample": "A road accident followed by",
+    "note": "플로리다 고속도로 교통사고의 연쇄 과정, 피해 현황, 응급 대응을 시간 순서로 설명한 기사.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
-          "high1"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V3"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92d48576-fc0a-4630-913b-7f513b148e2b",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "On Saturday, North Macedonia's parliament",
-    "note": "북마케도니아가 불가리아와의 협상 결과를 수락하고 EU 가입 협상을 앞둔 정치 뉴스다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
+          "summary",
           "content_match"
         ],
         "levels": [
@@ -236,7 +175,51 @@
     }
   },
   {
-    "id": "92da0e82-c131-42a5-ad88-bc2fa941b4cf",
+    "id": "9817f657-0836-4334-978f-86f78a2b394d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A suspect in a hit-and-run",
+    "note": "자동차를 이용한 도시 주민 연속 피해 사건과 용의자의 체포 과정을 다루는 범죄 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "981d648e-72c7-43ae-8fb8-b2f8b2452aee",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -254,20 +237,67 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "On Monday, Australian telecommunications company",
-    "note": "텔스트라 통신사가 HSPA+ 기술 도입을 전 국민에 처음 제공한 기사다.",
+    "sample": "The European Space Agency's (ESA) lunar",
+    "note": "달 탐사 우주선의 기술적 특성과 촬영 성과를 설명하는 우주 과학 기사.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9828eb18-fc7d-4bfc-8863-d23e17cc8807",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Some of Europe's airlines and airports",
+    "note": "화산재로 인한 항공 운항 제한 조치의 타당성을 둘러싼 항공사와 당국의 입장 대립을 다룬 기사.",
     "record": {
       "genre": "technology",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
-          "content_match"
+          "content_match",
+          "main_point"
         ],
         "levels": [
           "V5"
@@ -277,7 +307,7 @@
     }
   },
   {
-    "id": "92dff86f-edb2-4790-a24b-a8b0ed3f25bb",
+    "id": "9829bbd3-612c-4e74-9185-89f371411e20",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -285,48 +315,7 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The United Kingdom's Serious Fraud",
-    "note": "MG 로버 자동차 회사 붕괴 관련 부정행위 수사를 착수한 기사다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92e03c9b-1dd5-48a0-95de-81f03d9f34b4",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -336,19 +325,22 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The United Nations and two",
-    "note": "UN과 인권단체들이 가다피 사망 원인 규명을 촉구한 기사다.",
+    "sample": "Some ashes from Indian independence leader",
+    "note": "간디의 유해 분산식 역사적 맥락과 참석자들의 발언을 통해 그의 유산을 조명하는 기사.",
     "record": {
-      "genre": "news",
+      "genre": "history",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
+          "summary",
           "content_match"
         ],
         "levels": [
@@ -359,47 +351,50 @@
     }
   },
   {
-    "id": "92e1971e-075a-47d1-89f7-a8d36046c731",
+    "id": "982a71bf-ad56-4b65-b290-489db7bc7ef3",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "thin",
+      "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
-      "factsMany": false,
+      "factsMany": true,
       "stereotypeCore": false,
       "gap": false,
-      "strippedRemains": false
+      "strippedRemains": true
     },
-    "sample": "Chubu International Airport, Japan's third",
-    "note": "일본 나고야 국제공항 개항을 알리는 극히 짧은 단신이다.",
+    "sample": "Malaysian authorities on Friday arrested North",
+    "note": "김정남 암살 사건의 용의자 체포 과정, 피해자의 신원, 정치적 배경을 종합적으로 설명한 기사.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
-          "high1"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
+          "summary",
           "content_match"
         ],
         "levels": [
-          "V3"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "92ebc937-6bb9-4189-9f23-ba7fe88f4ec9",
+    "id": "982ebb74-1ded-4188-ae85-67700345d156",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -417,19 +412,240 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Fiat announced on Friday that",
-    "note": "피아트가 크라이슬러 지분을 추가 매입하려는 계획을 발표한 기사다.",
+    "sample": "The British Broadcasting Corporation (BBC) looks tonight",
+    "note": "BBC 직원 파업으로 인한 방송 중단 상황과 파업의 배경이 되는 구조 조정을 다룬 기사.",
     "record": {
-      "genre": "economics",
+      "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9831cf82-d8c4-4351-9aa8-477aa2c82dba",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A humpback whale has been",
+    "note": "템즈강에서 발견된 혹등고래의 사망 원인과 동물 전문가의 해석을 다룬 자연 생물학 기사.",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "983765f0-6a01-4af3-9300-fc0470c28a64",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Today, Governor General of Canada Michaëlle",
+    "note": "여성의 날 기념 성명을 통해 성평등과 여성 권리의 역사적 진전을 다루는 기사.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "983a4fe6-d124-4bbb-84e9-11f5fc5bcb6d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thirteen bodies have been found",
+    "note": "아프가니스탄 미군 헬리콥터 추락 사건의 원인과 피해, 구조 활동을 다루는 군사 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "983b16da-2fe8-47a5-911c-c51b50e322b9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Public transport in Brisbane came",
+    "note": "브리즈번 공공 교통 폭탄 위협 신고의 경위와 보안 조치를 다루는 단신 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "983bd8f2-a075-4c8c-9a03-3d8fcf4ef95c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "40 families have been evacuated",
+    "note": "스페인 ETA 테러 집단의 자동차 폭탄 사건 경과와 지역 주민의 우려를 다룬 테러 관련 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
           "content_match"
         ],
         "levels": [
@@ -440,208 +656,7 @@
     }
   },
   {
-    "id": "92ed4b8e-6cd5-40af-b8d8-36df8b08421f",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": false
-    },
-    "sample": "A report released by the",
-    "note": "UN이 다르푸르에서 대량학살이 아닌 인도에 반한 죄가 발생했다고 보도한 기사다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92eddba3-7f02-4911-826f-c0678904fff0",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Four adults, three teens and",
-    "note": "버지니아 총격 사건의 피해 규모와 용의자 추포 과정을 상세히 기술한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92ede804-fba1-445a-9770-ffb168dbb6e5",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Today, the satellite radio providers",
-    "note": "XM과 시리우스 위성라디오 합병 신청서에 담긴 요금 및 기술 정보를 설명한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92ee2e5a-7bf9-4839-a99f-e2b81821b3af",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Former Chilean dictator Augusto Pinochet",
-    "note": "피노체트 전 칠레 독재자가 살인 및 납치 혐의로 가택연금된 기사다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V7"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92f40f23-6de8-444d-95c6-44881037abaa",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "An Italian judge has convicted",
-    "note": "CIA의 특별 인도 프로그램과 관련된 이탈리아 법원의 첫 유죄 판결을 보도한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high2"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V6"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "92f5f21e-2876-410f-b691-5ef160413678",
+    "id": "983e108e-e650-42a6-80d1-d994269e23f7",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -659,20 +674,23 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "David Hicks of Australia became",
-    "note": "호주인 데이비드 힉스가 새 군사재판법 첫 피소 사건이 된 기사다.",
+    "sample": "United States forces in Iraq",
+    "note": "이라크 카르발라주의 보안 통제권 이양 행사와 당사자들의 입장을 다룬 중동 정책 기사.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
-          "content_match"
+          "content_match",
+          "main_point"
         ],
         "levels": [
           "V5"
@@ -682,7 +700,7 @@
     }
   },
   {
-    "id": "92faa894-fc23-4ac2-bb51-2e72478f9005",
+    "id": "98493d6f-044b-47bf-9214-ce3a16ceb5f2",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -698,21 +716,285 @@
       "factsMany": true,
       "stereotypeCore": false,
       "gap": false,
-      "strippedRemains": false
+      "strippedRemains": true
     },
-    "sample": "The Bombay Stock Exchange Sensex",
-    "note": "봄베이 증권거래소 지수가 14,000선을 넘어선 사건을 수치 중심으로 보도한다.",
+    "sample": "A survey carried out by BBC",
+    "note": "웨일즈 학교 급식 비용 조사 결과와 영양 개선 캠페인을 다룬 단신 기사.",
     "record": {
-      "genre": "economics",
+      "genre": "education",
       "slots": {
         "ages": [
+          "elem",
+          "mid",
           "high1"
         ],
         "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "984a1547-4404-4c1b-88e6-358bd4d07c4c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Indian doctor Mohammed Haneef has been",
+    "note": "런던과 글래스고 폭탄 테러 용의자와의 연관 혐의로 인도인 의사가 기소된 사건을 다룬 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "98531f02-aef7-41fe-a25b-209e92bf822a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A 43-year-old man was arrested",
+    "note": "21년 미해결 살인 사건에 대한 용의자 재체포를 통해 사건의 경과와 그동안의 조사 과정을 다룬 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "98536c8a-1ee0-4d39-9930-9a859c88c32f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Researchers in mammalogy from London,",
+    "note": "라오스에서 발견된 새로운 쥐 종이 새로운 포유류 과를 만들게 된 과학적 발견을 다룬 기사.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9854d978-d7f3-4003-8eb5-0d7cd5e4cc50",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "After an oil pipeline in China",
+    "note": "중국의 석유 유출 사건과 대규모 정화 작업의 진행 상황을 다루는 환경 뉴스.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9856dc8c-d3d9-450b-b513-4bc081dad649",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "United Kingdom entertainer and former television",
+    "note": "영국 TV 스타의 수영장 사망 사건 재수사와 새로운 증거에 따른 재체포를 다룬 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9858ad74-c0ab-46fc-8190-ec844d580cec",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Researchers at Oxford University are",
+    "note": "옥스포드 대학의 고대 문헌 복원 기술과 발견된 고전 문헌을 소개하는 과학 기사.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
         ],
         "levels": [
           "V3"
@@ -722,11 +1004,11 @@
     }
   },
   {
-    "id": "92fb7cd1-1e2e-42f3-b00e-1d250b0dfa14",
+    "id": "9858ae85-3127-439a-8e87-e19f49c26e36",
     "answers": {
       "blocked": null,
       "needsVisual": false,
-      "truncated": false,
+      "truncated": true,
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
@@ -740,255 +1022,69 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Canadian Astral Media Inc. will",
-    "note": "캐나다 방송사 애스트럴이 스탠다드 라디오를 인수하는 합병 거래 기사다.",
-    "record": {
-      "genre": "economics",
-      "slots": {
-        "ages": [
-          "high1"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "9302d2f7-4dda-4951-b67f-b1cc4637e7ab",
-    "answers": {
-      "blocked": "polemic",
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "A United Nations exhibition, entitled",
-    "note": "터키의 항의로 UN 대학살 전시회가 연기된 정치적 논쟁을 담은 기사다.",
-    "record": {
-      "genre": "polemic",
-      "slots": {
-        "ages": [],
-        "purposes": [],
-        "types": [],
-        "levels": [],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "930deb04-4f4c-43c1-a92e-3be8e645ac50",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "A family visiting Christchurch, New",
-    "note": "화재에서 가족이 위태롭게 탈출한 사건의 경과와 안전 문제를 보도한다.",
+    "sample": "Thailand's popular political talk show,",
+    "note": "태국 정치 토크쇼의 방송 중단 사건으로 보도 자유와 언론 통제 문제를 다룬 매우 짧은 기사.",
     "record": {
       "genre": "news",
-      "slots": {
-        "ages": [
-          "high1"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "930f3fe0-7c3f-4511-844a-14216bd777d0",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Charles Chibitty, the last surviving",
-    "note": "2차 대전 코만치족 암호 통신병 마지막 생존자의 사망을 추도 기사다.",
-    "record": {
-      "genre": "biography",
       "slots": {
         "ages": [
           "high1",
-          "high2"
+          "high2",
+          "high3",
+          "adult"
         ],
         "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "9313933c-33e3-4e39-ac03-3a1f86377ff0",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Another confirmed case of bovine",
-    "note": "캐나다에서 광우병 확진 사례가 발견되어 축산 시장에 영향을 미친 기사다.",
-    "record": {
-      "genre": "health",
-      "slots": {
-        "ages": [
-          "high1"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "93168a13-f819-4af3-9081-c2140c828cc2",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Canadian police officers who thought",
-    "note": "밴 헬런 가수를 사칭한 사람이 도움을 받은 유머러스한 뉴스다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1"
-        ],
-        "purposes": [
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "9318998e-7439-4180-ac61-f84d092a3bbe",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The United States embassy located",
-    "note": "미국이 케냐와 에티오피아에서의 테러 위협을 경고하는 보안 공지 기사다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high2"
-        ],
-        "purposes": [
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
           "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9871ae24-f892-4a15-bf70-8ccb04512f7d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United Nations Conference on Trade",
+    "note": "가자지구의 경제 붕괴와 재건 필요성을 강조하는 UN 보고서 내용을 다룬 경제 뉴스.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "content_match"
+        ],
+        "levels": [
+          "V5"
         ],
         "platform": []
       }
