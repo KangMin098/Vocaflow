@@ -39,7 +39,16 @@ function Feedback({ result, okText }: { result: ActionResult | null; okText: str
   )
 }
 
-export function StatusActions({ itemId, status }: { itemId: string; status: ItemStatus }) {
+export function StatusActions({
+  itemId,
+  status,
+  evidenceVersion,
+}: {
+  itemId: string
+  status: ItemStatus
+  /** 화면이 그릴 때 읽은 근거 버전 — 채택 요청에 실어 그 사이 근거가 바뀌었으면 거부된다 */
+  evidenceVersion: number
+}) {
   const { pending, result, run } = useAction()
   const [reason, setReason] = useState('')
   const next = TRANSITIONS[status]
@@ -64,7 +73,7 @@ export function StatusActions({ itemId, status }: { itemId: string; status: Item
             key={to}
             type="button"
             disabled={pending}
-            onClick={() => run(() => setItemStatusAction(itemId, to, reason), () => setReason(''))}
+            onClick={() => run(() => setItemStatusAction(itemId, to, reason, evidenceVersion), () => setReason(''))}
             className={`${BUTTON} ${to === 'adopted' || to === 'applied' ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t1)]'}`}
           >
             {STATUS_LABEL[to]}(으)로

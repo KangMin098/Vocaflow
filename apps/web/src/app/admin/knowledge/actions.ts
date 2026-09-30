@@ -30,6 +30,8 @@ const LINK_KINDS = ['implements', 'contrasts', 'complements', 'condition_variant
 
 /** 동시 저장에서 진 쪽이 보는 문장 — 화면도움말(knowledge-item cautions)이 같은 문장을 인용한다. */
 const STALE_STATUS_ERROR = '그 사이 다른 사람이 상태를 바꿨습니다 — 새로 고친 뒤 다시 판단하세요'
+/** 화면을 연 뒤 근거가 추가·삭제·변경됐을 때 — 본 근거와 저장된 근거가 다르면 판단하지 않는다. */
+const STALE_EVIDENCE_ERROR = '화면을 연 뒤 근거가 바뀌었습니다 — 새로 고쳐 근거를 다시 확인한 뒤 판단하세요'
 
 function db(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -59,21 +61,32 @@ async function evidenceCount(client: SupabaseClient, itemId: string): Promise<nu
   return count
 }
 
+/**
+ * 상태 변경. `seenEvidenceVersion` = 화면이 그 항목을 그릴 때 읽은 근거 집합 버전.
+ * 「상태 = 읽은 상태 AND 근거 버전 = 본 버전」 인 한 문장 UPDATE 라, 비교와 변경 사이에 끼어들 틈이 없다.
+ * 근거 버전은 근거가 추가·삭제·변경(원천 재등급 포함)될 때마다 DB 트리거가 올린다(20261001120000).
+ */
 export async function setItemStatusAction(
   itemId: string,
   to: string,
   reason: string,
+  seenEvidenceVersion: number,
 ): Promise<ActionResult> {
   try {
     const who = await actor('/admin/knowledge/review')
     if (!isStatus(to)) return { ok: false, error: '알 수 없는 상태입니다' }
+    if (!Number.isSafeInteger(seenEvidenceVersion) || seenEvidenceVersion < 0) {
+      return { ok: false, error: '화면의 근거 버전을 알 수 없습니다 — 새로 고친 뒤 다시 판단하세요' }
+    }
     const client = db()
     const { data: item, error } = await client
       .from('knowledge_items')
-      .select('status,slug')
+      .select('status,slug,evidence_version')
       .eq('id', itemId)
       .single()
     if (error || !item) return { ok: false, error: '항목을 찾지 못했습니다' }
+    // 이미 달라졌으면 규칙 검사 전에 돌려보낸다 — 아래 조건부 UPDATE 가 최종 방어선이다
+    if (Number(item.evidence_version) !== seenEvidenceVersion) return { ok: false, error: STALE_EVIDENCE_ERROR }
     const from = item.status as ItemStatus
     const rule = checkTransition({ from, to, reason, evidenceCount: await evidenceCount(client, itemId) })
     if (!rule.ok) return rule
@@ -81,12 +94,15 @@ export async function setItemStatusAction(
       .from('knowledge_items')
       .update({ status: to, status_reason: reason.trim() || null, updated_by: who })
       .eq('id', itemId)
-      .eq('status', from) // 그 사이 다른 사람이 바꿨으면 덮지 않는다
+      .eq('status', from) // 그 사이 다른 사람이 상태를 바꿨으면 덮지 않는다
+      .eq('evidence_version', seenEvidenceVersion) // 그 사이 근거가 바뀌었으면 본 것과 다르다
       .select('id')
     if (e2) return { ok: false, error: `저장 실패: ${e2.message}` }
     // 조건부 UPDATE 는 0행이어도 오류가 없다 — 바뀐 행이 없으면 성공이라고 말하지 않는다
     if (!changed || changed.length === 0) {
-      return { ok: false, error: STALE_STATUS_ERROR }
+      const { data: now } = await client.from('knowledge_items').select('status,evidence_version').eq('id', itemId).single()
+      const evidenceMoved = now && Number(now.evidence_version) !== seenEvidenceVersion
+      return { ok: false, error: evidenceMoved ? STALE_EVIDENCE_ERROR : STALE_STATUS_ERROR }
     }
     refresh(String(item.slug))
     return { ok: true }

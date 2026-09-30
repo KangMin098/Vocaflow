@@ -92,12 +92,14 @@ export interface KnowledgeItem {
   efficacy: string
   productModules: string[]
   version: number
+  /** 근거 집합 버전 — 근거가 추가·삭제·변경될 때마다 DB 트리거가 올린다. 채택 요청에 실어 「본 근거 그대로」를 확인한다. */
+  evidenceVersion: number
   updatedBy: string
   updatedAt: string
 }
 
 const ITEM_COLUMNS =
-  'id,layer,slug,title,statement,skill_ids,condition_ids,status,status_reason,efficacy,product_modules,version,updated_by,updated_at'
+  'id,layer,slug,title,statement,skill_ids,condition_ids,status,status_reason,efficacy,product_modules,version,evidence_version,updated_by,updated_at'
 
 function toItem(r: Record<string, unknown>): KnowledgeItem {
   if (!isLayer(r.layer) || !isStatus(r.status)) {
@@ -116,6 +118,7 @@ function toItem(r: Record<string, unknown>): KnowledgeItem {
     efficacy: String(r.efficacy),
     productModules: (r.product_modules as string[]) ?? [],
     version: Number(r.version),
+    evidenceVersion: Number(r.evidence_version),
     updatedBy: String(r.updated_by),
     updatedAt: String(r.updated_at),
   }
