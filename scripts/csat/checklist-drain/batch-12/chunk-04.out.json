@@ -1,0 +1,178 @@
+[
+  {
+    "id": "7f110efc-6e96-44a2-a0bb-806e5b019314",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Several people have been arrested",
+    "note": "명확한 사건 흐름(체포→수색→증거)으로 연결. 뉴스 표준형.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "7f116a0c-ee48-4324-ba3b-ede5ca01295f",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": true, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The United States Transportation Security",
+    "note": "정책 공지 구조: 누가(TSA) 무엇을(규칙 완화) 언제(12월 22일)부터.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["main_point", "purpose"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f168bec-d2e3-40f1-a237-806525f60bd2",
+    "answers": {"blocked": null, "needsVisual": true, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "On Wednesday, George Djorgovski",
+    "note": "과학 기술 용어 높음. '2D 그래프'언급→시각 자료 필요. 고2/고3/성인 수준.",
+    "record": {"genre": "science", "slots": {"ages": ["high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match", "main_point"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "7f173ac5-d77b-4240-8703-592b7d98b5f5",
+    "answers": {"blocked": null, "needsVisual": true, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "This is a map, by Mario",
+    "note": "지도 설명으로 시작. 천문학 기술 용어. 고급 수준. 시각자료 필수.",
+    "record": {"genre": "science", "slots": {"ages": ["high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "7f198358-c12b-4102-9a43-4e3a3bdc190c",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Stormy weather in Bangladesh",
+    "note": "짧은 단신 but 원인(폭풍)→결과(사망)→반응(경고) 연결됨.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "7f1b0b6c-49b9-4190-bffe-073d45f929fc",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The Beatles' label Apple Corps",
+    "note": "법정 소송 기사. 판결→인용문→CEO반응으로 구성.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "7f1b3e8a-be8c-45bd-ae87-d355594eb7f2",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "An overpass has collapsed",
+    "note": "사건 흐름: 붕괴→인명피해→원인추정→대응. 뉴스 서사형.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "7f1e6b8b-7a0f-48b9-98c4-66aea8d9b800",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The fighter was one of five",
+    "note": "사건→조사→결론의 흐름. 정치적 배경 설명 포함. 국제 사건.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "7f1ff525-4c16-4ff5-9fae-25d569c505c3",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "An election news report in",
+    "note": "오보 사건 설명. 맥락→오류→진정 구조. 역사적 비교 포함.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f292d85-db0c-4860-b625-b173f36916d0",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Of 400,000 serving members",
+    "note": "설문조사 기사. 수치+인용문→정책 배경 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "7f2ec0da-4bb5-45d2-9244-e905e58ac3c1",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "According to Reuters, at least",
+    "note": "재해 뉴스. 규모→피해→대응으로 흐름. 인용문과 통계 결합.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f30cef2-529f-4905-aab7-e3907169c8b4",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": false, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Birmingham Central Mosque in",
+    "note": "65단어 단신. 사건(화재)만 기술. 인명피해/피해규모 나열.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V2"], "platform": []}}
+  },
+  {
+    "id": "7f3418c4-6d1b-4779-afcc-b62f2875af74",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Local officials in the town",
+    "note": "테러 사건 보도. 사건→피해→조사 상태 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f380329-7898-4a06-a955-c19ec25cf9f0",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Tension and battles between",
+    "note": "시위 충돌 뉴스. 배경→진행→결과 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f3bfef5-a294-4aa1-8a55-3377481d13cd",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": false, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "In a press conference this",
+    "note": "128단어 단신. 사망자 수치 업데이트만. 연결 최소.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "7f3cd51d-da01-4c4d-92c4-d99dadc94607",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The President of the United",
+    "note": "정상회담 보도. 주제별 발언 정리(영국관계→테러→이라크→짐바브웨).",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "7f45d908-d83b-4ba4-b5b5-6f138581d7ca",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": true, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "New York's Metropolitan Transportation",
+    "note": "정책 공지문. 제안→이유→대안으로 구성.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["main_point", "purpose"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f4927ab-4c0c-43f9-b5d3-aa1d4e613824",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Thousands of demonstrators marched",
+    "note": "시위 보도. 배경(파나마 페이퍼)→행동(행진)→기대효과 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f4ca215-36d0-4b9f-b6ac-1e20374fd1d9",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The has blocked the use",
+    "note": "기술 정책. 기술 배경→정책→영향 설명. 어휘 어려움.",
+    "record": {"genre": "technology", "slots": {"ages": ["high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f4fedc2-93b7-4840-9a28-f96065b6f5e4",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "This past Friday, Justice Paul",
+    "note": "법원 판결 보도. 판결→이유→의미→다음 절차 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f508cb5-0e39-433b-b178-b5feb371c327",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Former Prime Minister Yvon Neptune",
+    "note": "정치 뉴스. 상황→배경→법적 문제 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "7f534d6a-ef33-401e-b0c4-ec731a1f25ca",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "On Sunday, gunmen stormed",
+    "note": "폭력 사건 보도. 사건→피해→배경 추정 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V3"], "platform": []}}
+  },
+  {
+    "id": "7f5c06cc-c166-410c-9606-9a6fc2ed4f61",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The provincial election was called",
+    "note": "선거 소식 기사. 배경→주요 정당→공약→투표 제도 설명으로 구성.",
+    "record": {"genre": "news", "slots": {"ages": ["high2", "high3", "adult"], "purposes": ["mock", "csat"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "7f5cc621-f722-4e60-a99e-ebadcfedb088",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": false, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": false, "stereotypeCore": false, "strippedRemains": false, "gap": false},
+    "sample": "The Colombian President Alvaro",
+    "note": "42단어 단신. 건강상 문제 보도만. 본문 대부분 수치/이름 나열.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "7f5d4259-d933-4f9a-8c5f-3ea003f790b1",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Constanţa Shipyard (SNC) registered",
+    "sample": "Constanţa Shipyard (SNC) registered total",
+    "note": "사업보고 뉴스. 실적→배경→자본구조 설명. 경제 기술 용어.",
+    "record": {"genre": "economics", "slots": {"ages": ["high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  }
+]

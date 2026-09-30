@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "80ff8b9c-b7e2-4060-a680-3978729e4536",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "United States President Donald Trump said",
+    "note": "정책 제안과 정당 지도자의 반응이 동적으로 전개된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8102d1da-e849-48fd-aae7-2d0eb76b7b1a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Doctors from the Rudolfinerhaus clinic in",
+    "note": "발병부터 현재까지의 시간 순서가 명확하게 기술되어 있다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81061aef-8879-4346-98d6-a71226175d3a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "An Iran Air Tour commercial jet,",
+    "note": "착륙 중 타이어 폭발에서 화재까지의 인과관계가 명확하다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "810ba524-c516-4744-8c36-6ffc177e678b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Fijian Prime Minister Laisenia Qarase yesterday",
+    "note": "군부 장관 해임 시도에서 국제 반응까지 연쇄적으로 전개된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81135763-e9ab-4e0e-a9c0-e81698c49eb0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": false,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "United States software giant Microsoft has",
+    "note": "기본 정보만 있으며 수치 제거 후 내용이 거의 남지 않는다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "811d08df-6b4e-405a-8000-a1a6a04b6950",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "While nearly all mainstream coverage of",
+    "note": "독립 후보자의 인터뷰로 정책 입장과 배경이 상세하게 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8121e989-ec7e-4488-8f0b-2b875ffa1648",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Recently, Google had released Google Desktop",
+    "note": "새로운 소프트웨어의 기능과 특징이 설명되어 있다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "812bf516-695c-4cdc-b476-fb575f0de0a2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Houston, Texas representative Al Edwards proposed",
+    "note": "제안의 배경과 지지자의 의견이 포함되어 있다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "812c0a5d-81ff-4739-b72f-416c11a8208c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Pablo Picasso's famous portrait of his",
+    "note": "그림 판매의 사실과 배경 정보가 포함되어 있다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81313b03-1570-4123-a053-5db7f9746123",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Serbian firefighters battling fires in the",
+    "note": "사건의 발생과 결과가 간단하게 기술된 단신이다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81321221-544f-4cf9-b558-412f828c1d9a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Two studies published in the July",
+    "note": "카페인 효과에 대한 연구 결과가 시간순으로 설명된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81366012-589b-4af0-ac42-60395ecda9de",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The future direction of Kelso High",
+    "note": "학교 화재와 재건 과정이 상세하게 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8138b6b6-cefd-4b79-b246-ec2e664b48a0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Bre Payton, a 26 year old",
+    "note": "개인의 사망 소식과 배경 정보가 포함된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8138d392-4ce1-47e4-97fe-46bb6ea991d9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The International Monetary Fund (IMF) Managing",
+    "note": "국제기금의 대출 제안과 그 한계가 설명된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "813a1bd6-6664-41f3-abf5-edb1beaba5ee",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "November 29 marked the United Nations",
+    "note": "국제 행사와 각국의 입장이 다각적으로 제시된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "813e721e-db7a-4ef3-802b-8a7b65e1477d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "During a theological lecture at the",
+    "note": "종교 지도자의 종교적 입장이 간단하게 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "814160fe-b24b-455e-8bc5-d6613ef26f4b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The fallout from earthquake and tsunami",
+    "note": "자연재해의 경제적 영향이 구체적으로 설명된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81449b5f-6177-4166-a657-ce3197cdfe22",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The U.S. Supreme Court today ruled",
+    "note": "대법원 판결과 그 의미가 상세하게 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8146ddfa-4dba-4cc5-871c-570e168289c9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Social networking site Facebook was tonight",
+    "note": "정부와 소셜 미디어 간의 갈등이 보도된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81480fe5-9b38-47fd-9ab2-3c433ca4f5b7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Australia's first woman prime minister (PM),",
+    "note": "정부 개편과 인물 교체가 간단하게 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8148f106-3bbd-4947-a5cb-f166f9252b66",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Almost two-thirds of Israelis want Prime",
+    "note": "여론 조사 결과와 정치적 배경이 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8150231c-dd76-4b55-904a-64bb4f3bba27",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The United States Department of Defense",
+    "note": "국방 보고서의 내용과 전략적 의미가 설명된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81508dff-b15e-4ea1-9014-56cb7cb9294c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "] Tropical Cyclone Glenda has intensified",
+    "note": "태풍의 강화 과정이 간단하게 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8156bf80-0fb5-46bf-8afc-94e2f4554151",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A federal jury found Bernard Ebbers",
+    "note": "회사 회장의 유죄 판결 과정이 기술된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "815ab805-02e5-4058-8b36-2eee236c619c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Dow Jones Industrial Average closed",
+    "note": "증시의 급등과 그 원인이 설명된다",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

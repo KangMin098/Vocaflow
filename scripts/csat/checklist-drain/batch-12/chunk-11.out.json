@@ -1,0 +1,802 @@
+[
+  {
+    "id": "815bea8d-3335-4819-9285-43e1c8803712",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Petrol prices across the UK",
+    "note": "Brief news report with clear main point and verifiable facts",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "815e04de-b361-4cdf-b6d6-2e43b76169d5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A referendum in Ireland proposing",
+    "note": "Election report with multiple sources and political context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81618332-30eb-491e-9ae7-4bc1853abb21",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Student protests against the French",
+    "note": "Substantive policy discussion with context and procedural explanation",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8166c548-e75f-44d6-9b9a-e585d5dd269d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Thursday, ten of those on",
+    "note": "Long interview article with legal and technical explanation of accident case",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8167638f-6511-43ab-bda5-4399a0d4b03a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "The United Nations have called upon",
+    "note": "Mostly statistics and facts without strong sentence connections",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81679821-c053-4d6f-92c2-c52e42c19418",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A fire has broken out at",
+    "note": "Emergency incident report with dramatic details",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81680c15-7396-4dd9-87e1-4bf338fafb03",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Before turning the gun on himself",
+    "note": "Crisis event report with substantial details and official response",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8169f9be-7523-4bae-a37f-532befb4ff20",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The following is the third in",
+    "note": "Campaign chronicle with timeline narrative and extended interview",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "816b3f1f-fce1-4868-a0bb-bdf6d1158654",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The town of Winfield, Missouri in",
+    "note": "Unusual election result with historical context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "816d8429-9b8a-4ac1-9885-89f02693d081",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Researchers at the Brookings Institution",
+    "note": "Academic scandal report with evidence and analysis",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "816de432-82ac-462d-a64a-dd7bc0759e95",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Former nuclear energy minister Yevgeny",
+    "note": "Legal proceedings report with background context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8175f731-0caa-485f-af46-9ed6dd2d207e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to police in Buffalo New",
+    "note": "Traffic accident report with dramatic details and official quotes",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8178ea85-3a87-4efb-a465-fb9297c0b135",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Archaeologists have found approximately 30",
+    "note": "Archaeology discovery report with expert commentary",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["content_match"],
+        "levels": ["V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "817adb0d-ec07-4086-8c5a-6ee149975782",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "Hoardings of Sivaji: The Boss",
+    "note": "Entertainment industry news focused on film records and numbers",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "817ddd43-6cfc-47a7-bfff-8a75ec8615db",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The BBC claims that they have",
+    "note": "Investigative report on detention facility allegations",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8180ae4a-1948-4a12-8b4e-5b8db442f559",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Wednesday, an over-90-year-old Manns Mitre",
+    "note": "Business closure story with social/economic impact",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81834d74-5af0-45f4-8109-c2d9df9708ec",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A letter and motion to be",
+    "note": "Policy proposal for financial system reform with evidence",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8183d3c6-9c30-4c0a-9ebf-39288fdf9c27",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In the United Kingdom, a former",
+    "note": "Professional controversy with expert opinions and response",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8187939e-c15f-4594-9e14-3a46aed4d8d7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Sir Fred Goodwin, the former head",
+    "note": "Corporate financial controversy with bailout context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8189d60e-7e8d-4307-8ec9-bc209ad95d64",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Citizenship (Amendment) Act 2005",
+    "note": "Policy change announcement with rationale",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81992d6e-0253-4126-b3d9-f65107a348d1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Presidential candidate Aleksandr Kozulin, leader",
+    "note": "Political arrest report with details of related incidents",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "819a4785-3d71-48ea-819d-08bc89201484",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to Afghan officials, fourteen",
+    "note": "Terror attack report with multiple incidents and attribution",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "819c3e2d-fc4b-4776-890e-dfb9499420ff",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Officials from TAG Heuer have announced",
+    "note": "Design award report with jury and product details",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81a218d7-a4ab-4e1e-b0b6-096d35c06a8a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Australian Labor leader Bill Shorten announced",
+    "note": "Political policy announcement with context and political discussion",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "81a22805-c551-4f39-8395-cc416ec42d4a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Eleventh International Human Rights Documentary",
+    "note": "Festival opening announcement with program details and history",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V2"],
+        "platform": []
+      }
+    }
+  }
+]

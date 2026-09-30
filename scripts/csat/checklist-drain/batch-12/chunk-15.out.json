@@ -1,0 +1,546 @@
+[
+  {
+    "id": "82608d41-16ce-4ef1-81a8-43a717ac1aa4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Former Massachusetts governor Mitt Romney",
+    "note": "News article with clear political narrative and multiple factual claims about campaign strategy.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8261f9d8-6d89-474e-ad28-b301d33f7fbe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Three men, James Loney, 41",
+    "note": "Short news article with clear narrative about successful hostage rescue.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "826422b4-bd84-4530-bf79-807342d86753",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Belgium became the first 2024",
+    "note": "Announcement with artist background; lacks substantive factual claims.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8265643a-dbcf-4f30-a69f-5496235ff991",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A bomb has been ruled out",
+    "note": "Investigative news with technical details about plane crash.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8271e1fb-6bf3-4c87-b3ae-c13ef6e0fcce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The most popular social networking site",
+    "note": "Brief news article about military social media adoption.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3"],
+        "purposes": ["reading", "school"],
+        "types": ["content_match"],
+        "levels": ["V3", "V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8272952b-237e-44c9-84fd-7a90aad25ec7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The head of the International Atomic",
+    "note": "Diplomatic news with multiple official statements about international negotiations.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8276abef-5b35-4d38-9110-ed0c4a13bd5d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Protesters in Israel have called for",
+    "note": "Political news about protest and government response.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8278143b-6769-481b-b735-ab1273bfcb00",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The US Senate, by a vote",
+    "note": "Legislative news with voting details and budget impact.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82867150-cb39-4304-a9bc-61811106d7c5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "In the 18 months since Andrea",
+    "note": "Long first-person interview about eating disorder recovery and fashion industry critique.",
+    "record": {
+      "genre": "essay",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "828a1a59-0014-461c-a7a1-0244e38115b4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Center for Biological Diversity announced",
+    "note": "Science news about wildlife population recovery with expert analysis.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": ["adult", "high3", "high2"],
+        "purposes": ["reading", "school"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82903fb5-fdce-4db4-9994-3e2b10329d77",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Edward Stobart, famed for his",
+    "note": "Obituary with company history and industry impact.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82918554-34a8-4bb3-b1f4-0ebd71e6c18d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The European Commission, the executive arm",
+    "note": "European political news with official approval and timeline.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82994bfd-a916-46f7-9edc-9fb019c7e616",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Al-Qaeda's second in command Ayman",
+    "note": "News report of videotaped statement with direct quotes.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82a01c40-0379-44be-8918-4ca66a5a1f63",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Multiple passengers were injured and five",
+    "note": "Accident news with detailed casualty and medical information.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82ae9135-c8aa-47da-b7fd-9ad09bcbbb8d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Douglas Mark Hughes, a mailman",
+    "note": "News about security incident with legal and technical details.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82aeae7a-02ea-44eb-aa92-43a7d4842466",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": false,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "An earthquake with a magnitude of",
+    "note": "Brief earthquake report with technical specifications.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "82bc5ae4-d7ea-485d-a310-bf021f8db7e4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "For the second weekend in a",
+    "note": "Community news about local development opposition.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "school"],
+        "types": ["content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  }
+]

@@ -1,0 +1,802 @@
+[
+  {
+    "id": "83640b4a-416e-4d69-b9ff-f25243aade65",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Afghanistan authorities said on",
+    "note": "Clear sequence of arrest announcement, attack details, casualties, and security response.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83698a0f-63af-45c1-ace0-e7d4c4f1cd39",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "The U.S. House Committee",
+    "note": "Vote count table dominates; narrative explanation exists but body is mostly voting statistics with little argumentation.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "836a2364-2fda-499a-b0b3-c79bd91a870a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The oldest known gold",
+    "note": "Logical progression from discovery to dating to implications (metallurgy indicates organized society).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "836d21af-91b7-4fb5-bb50-6300866c46f1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Tuesday, parents of",
+    "note": "Clear medical sequence from diagnosis through multiple surgeries with contextual details and medical significance.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8374b212-cc7a-4b93-b090-85951adce52e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "US Air Forces Central",
+    "note": "Incident details flow logically: incident → commander response → context of rising tensions → official statement.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8375c7cb-93e0-4abe-8214-6ad932db4db9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Kyoto Protocol aimed",
+    "note": "Clear structure: treaty comes into force → signatories and emissions targets → major absences → market mechanism impact.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83801fb3-9198-4ab6-80b3-7315926c26b4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A heavy earthquake has",
+    "note": "Logical flow: magnitude/location → tsunami assessment → comparison to previous quakes → reported damage.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83809f13-8fc4-49e4-97f2-abd3624417a0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Research by a team",
+    "note": "Clear scientific report: study finding → measurement evidence → mechanism (seabirds transport pollution).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "838a2916-c732-4d17-aaee-dad5cc1557c2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On a state run",
+    "note": "Political one-sided reporting: Cuban government accusation against US diplomat with quotes from state media.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "838eaccc-499e-4b9a-a1cc-4dba2a9ec2ea",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "London – The Woodcraft",
+    "note": "Clear cause-effect: subsidy loss → reason given → speculation about real cause → future plans.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8390f441-8156-4a9e-a919-1e2708134d73",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Monday night New",
+    "note": "Business narrative: bankruptcy filing → debt structure → competitive context → restructuring plans.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8392001a-16cd-4ed5-a889-554c3d56e2df",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Nicolas Sarkozy has been",
+    "note": "Election outcome with candidate positions: winner → vote share → loser response → policy agenda.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8398d742-a803-4f94-a9d7-909ae2719e60",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thailand's king Bhumibol Adulyadej",
+    "note": "Political context sequence: king endorsement → background of political turmoil → election history → future uncertainty.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83a27d93-b250-449c-8bc1-7c24159f6a92",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Three workers have died",
+    "note": "Incident report: deaths → location and facility details → unit status → investigation announcement.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83a29e0a-8184-4a5c-970f-522549607674",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Sudanese Government said",
+    "note": "Legal/political conflict: government refusal → investigation background → court purpose → victim scale.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83a35305-bd99-4f16-b671-405a3f3c3465",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A Pakistani boy got",
+    "note": "Event sequence: imitation of execution → details of how it happened → official investigation finding.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83aed147-77f0-4236-81ea-4f73553a3283",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "The New Zealand Christmas",
+    "note": "Primarily statistics of death toll composition with minimal narrative connection; mostly counting fatalities.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83aedbb1-81b6-4cf7-9e61-f3f71be17702",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The recently elected president",
+    "note": "Political appointment with consequences: appointment → market reaction → election context → civil war background.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83afd0d0-424d-4318-ae21-2ea676d72c5c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Mozilla Firefox the Gecko-based",
+    "note": "Technology milestone narrative: download milestone → version history → predecessor background → naming evolution.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83b1cf62-39b6-41c3-b87e-da49297b0950",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Crude oil prices surged",
+    "note": "Economic cause-effect narrative: price surge → geopolitical causes (Iran tensions, Nigeria instability).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83b550c0-e16e-4bf1-9b9b-4649f163f3a6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The contaminated pet food",
+    "note": "Investigation sequence: contamination discovery → pig exposure → meat sale → official assessment.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83b97487-38df-40e5-a47a-d79913d6a912",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "China is expanding military",
+    "note": "Geopolitical analysis: China's engagement strategy → US official concern → specific country examples.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83bea201-13df-46fe-aa27-beecbdcdf969",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Violence in India has",
+    "note": "Election violence report: attack sequence → casualty details → expert analysis of significance.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83befd15-c467-421e-b623-a9407b3d3a2e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Documents recently made public",
+    "note": "Media pressure investigation: removal of articles → pressure from law firm → examples of censored content.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "83bf86ef-e9b3-4ffd-bf18-731ce21cd98f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tera Myers a former",
+    "note": "Career change followed by past discovery: departure → circumstances of discovery → district's response.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  }
+]

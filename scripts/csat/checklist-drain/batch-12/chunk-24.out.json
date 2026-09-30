@@ -1,0 +1,177 @@
+[
+  {
+    "id": "8563c87c-6ed4-4f45-92eb-7d8d38ffe2c1",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Robert Mugabe, the President",
+    "note": "정치인 발언 보도. 주장→배경→국제 반응 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "856c54d9-e0ec-4bb2-a562-c108d78ccef9",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "At least 10,000 people are",
+    "note": "재해 뉴스. 규모 변화(10,000→15,000)→피해 상황→국제 대응 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "856c5ef0-2228-4099-9e17-61601d976e6a",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "On Wednesday, French President",
+    "note": "외교 뉴스. 발표→배경(전쟁 상황)→독일 반응 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85722446-6932-4c52-8481-591e9387985d",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "In a press conference today",
+    "note": "실종 사건 보도. 상황→증거 부재→수사 현황 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "8579ab89-f6eb-468b-9d70-d3039a9241a0",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "It is reported that some",
+    "note": "정치 행사 보도. 배경→진행→참석자 반응→정부 입장 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "857e23a2-0a3c-4710-9f71-f334d42ff2c3",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Bosnia's new international administrator",
+    "note": "정치 자리 교체. 이전 상황→새 방향→평가 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "858d2b47-e478-4f87-9d4c-d30d61bc38f5",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Freezing temperatures swept across",
+    "note": "날씨 속보. 지역별 온도 변화→원인(극지 공기)→영향 순서.",
+    "record": {"genre": "nature", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85929434-bf10-42ef-81f7-a9f2e5c36173",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "President-elect Evo Morales, who",
+    "note": "정치 뉴스. 발표→배경→이유 설명 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "85959969-d63f-4d39-8613-a80589c0f2d6",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The New York Times said",
+    "note": "정책 뉴스. 계획→장애물→부작용 우려 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "859aba66-6155-4528-a4a4-7f9b2e52a39c",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Following 8 months of deliberations",
+    "note": "법원 판결 뉴스. 결정→배경→인물 반응 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85a4fbad-e642-46e9-9ec5-43f0271749a3",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "In a podcast published on",
+    "note": "기술 전망 기사. 1931단어 장문. 문제→현황→인터뷰→결론 구조.",
+    "record": {"genre": "technology", "slots": {"ages": ["high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "85a5fb6b-5722-46e3-b9d1-524f68722a69",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Software giant Microsoft has been",
+    "note": "인수합병 뉴스. 제안→현황 변화→전략 조정 순서.",
+    "record": {"genre": "technology", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "85b0af77-34ad-4fab-80b8-149008b12326",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Due to a growing US",
+    "note": "미디어 정책 뉴스. 배경(인구 변화)→조치→효과 설명.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85bc1a07-be13-4020-8146-21be62d0504d",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "A 4-year-old-boy named Daudi",
+    "note": "사망 사건 보도. 사건→원인 조사→안전성 평가 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85bd530e-c7ad-4d5c-a08a-9cec2787103b",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "A University of Calgary research",
+    "note": "과학 기술 뉴스. 발명→원리→응용 가능성 순서. 기술 용어 많음.",
+    "record": {"genre": "science", "slots": {"ages": ["high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85c261fe-42b0-4463-a09b-4f18d5559739",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Torrential rainstorms with gale",
+    "note": "재해 뉴스. 사건(폭우)→피해→대응 순서. 인용 포함.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "85c2d1f6-4a01-4ce7-b419-82ac7b5d8290",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "A population study, released by",
+    "note": "역사 연구 보도. 데이터 변화→원인 분석→의미 설명 순서.",
+    "record": {"genre": "history", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "85c30445-9c99-4408-8c32-dc4be880fc24",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Bolivia's new president-elect Evo Morales",
+    "note": "정치인 발언 보도. 비판→근거→상황 설명 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "85c59414-9bb0-4510-88d9-0ca1f0ac57e6",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "United States Senator Ted Kennedy",
+    "note": "부고(訃告) 기사. 사망→경력→영향력→추도 순서. 928단어.",
+    "record": {"genre": "biography", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85ccfcda-2f8a-4ac5-bbfa-7e60e30d24fc",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "Russia Today TV, Moscow's English-language",
+    "note": "언론 자유 이슈. 사건→배경→평가 연결. 장문.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85cedc62-05d0-437a-be4e-5ecf1ef59ebf",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "A man has come forward",
+    "note": "군사 사건 보도. 주장→배경→결과 연결.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "85d08b14-e396-4692-9774-a59bc9368d8e",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "In a speech in Abu",
+    "note": "정치 연설 보도. 위협 정의→중동 정책→이상적 상황 제시 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "85da48f4-5cb9-439e-a7b0-a590f990a506",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "The Communist Party of Nepal",
+    "note": "협상 진행 뉴스. 배경→회의→예정 순서.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "85db9885-624e-4c21-b8fa-705bed701fe0",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "NASA's Near Earch Object Program",
+    "note": "우주 과학 뉴스. 발견→위험 등급→예상 접근 날짜 순서.",
+    "record": {"genre": "space", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "85de7258-b660-46e1-bb01-8d882d4f4bd9",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "strippedRemains": true, "gap": false},
+    "sample": "A magnitude 6.3 earthquake struck",
+    "note": "지진 재해 기사. 579단어. 사건→피해→원인 분석→대응 순서. 장문.",
+    "record": {"genre": "nature", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  }
+]

@@ -1,0 +1,802 @@
+[
+  {
+    "id": "881969c2-fe20-4f4e-9e13-f31edf66fe8f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "NASA's Cassini orbiter has sent back",
+    "note": "Space exploration discovery with scientific explanation and context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "881b0562-b1bc-431d-9345-8a4fa38ed7f5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United Nations Climate Change Conference",
+    "note": "Climate negotiation conference with multiple perspectives and expert commentary",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "881ca1f1-45fd-4b8b-b9cb-5553bc0f09c9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A memorial service was held Thursday",
+    "note": "Death report with biographical and background context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "881e908c-8a2d-473c-a4b1-753f7651ea9b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Senator Rick Santorum wrote Monday",
+    "note": "Political announcement with personal reasoning",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8821a50f-04f4-4648-b8a4-49b2c5444ec9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Steve Jobs, founder of Apple",
+    "note": "Corporate leadership transition with health context and analyst perspectives",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "882301e4-c974-46fa-a516-bd52483e5493",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Police in the United Kingdom have",
+    "note": "Crime investigation report with details on ringleader and international scope",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "88236220-0f55-43f1-9248-39a49b786bf3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "France has tightened its security",
+    "note": "Security response to terror attacks with government statements",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8823b48e-df7a-45ec-8d6a-2dd2c44847c4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Two suspects, believed to be",
+    "note": "Crime investigation with detailed case narrative across multiple incidents",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8825595d-0895-4a77-a632-06abd377f884",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "At least one firefighter has been",
+    "note": "Emergency incident report with context of related fires",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8825a224-dd3d-4198-856f-f8e7a1bd827d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "BellSouth, said in a statement",
+    "note": "Corporate statement on data privacy allegations with government response",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "882f2342-a550-4210-bff2-43d6898cd43d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An unarmed man was killed by",
+    "note": "Police incident with details of victim and official response",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "88347edd-bb06-4376-9465-99b3b33b2473",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Seoul National University's Hwang Woo-Suk",
+    "note": "Scientific breakthrough with technology and ethical implications",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "883578f3-d532-43cf-b2cb-fdc6b00f7108",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Unrest concerning the Belizian government's",
+    "note": "Civil unrest report with progression of protests and political response",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8839d7a7-7676-40c0-8bef-241cb8935ff0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Anti-gay groups accuse a music",
+    "note": "Controversy over children's video with opposing viewpoints",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "883dc78f-2b23-416c-8e42-c4145cd07e07",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The rocket carrying NASA's Orbiting",
+    "note": "Space mission failure report with technical and cost context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "884c7607-1e35-4ef6-b325-4a7ac1af0ffd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "66 passengers and the crew of",
+    "note": "Flight diversion incident with discovery outcome",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "884fab7b-278a-438f-8a03-6010bf01f1d6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Dr. Peter Piot, head of U.N.",
+    "note": "Health warning report on regional epidemic risk",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "88504600-a4a3-4b05-8ba8-1d8396f3a238",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The long awaited Internet Explorer 7.0",
+    "note": "Software release announcement with detailed feature list",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "885093b6-7249-4c78-9c94-7d3f913cac4e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An aeroplane crash in the Asian",
+    "note": "Aviation disaster report with victim details and investigation info",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8855daf5-7f84-48a1-bf70-58da21e00c5f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On October 14, 2008, Canadians will",
+    "note": "Political candidate interview with background and detailed responses",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "885962d6-a08f-49f1-aa54-b7a4af987fc0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": true,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "Leonard Rosenman, composer died yesterday",
+    "note": "Truncated obituary - only single sentence remains after title",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8859da54-5822-4319-a9fb-9209eb08a679",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A new study published in the",
+    "note": "Scientific research report with methodology and findings discussion",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8861b0fc-e920-4012-b6ee-3ee1823b225b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In a departure from its usual",
+    "note": "Human rights organizations statement with multiple perspectives and context",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "886b8d00-46b6-4cf0-aedc-7fe4d1a7091f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "India's foreign minister has been",
+    "note": "Diplomatic incident with historical parallel and political response",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "886d895f-4eb8-4c1d-bd35-aa4f3b073d01",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "By Monday evening, Beirut had already",
+    "note": "Bombing incidents report with civilian impact and attribution",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  }
+]

@@ -1,0 +1,802 @@
+[
+  {
+    "id": "89f2e44a-7b9f-4d71-be74-d5ca6c665f0d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "International police cooperation organization",
+    "note": "Legal proceedings narrative: arrest order → charges → defense statement → context of cable release.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89f59f50-0bf0-4d79-902a-d904ff01ac47",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "International media attention has",
+    "note": "Unusual medical event narrative: misunderstanding → discovery → family response → hospital care.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89f647ad-fbbf-4811-903d-ffc23b2c08c6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Gary Knowles head of",
+    "note": "Disaster narrative: first explosion → rescue challenges → second explosion → fate confirmed.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89fcd967-1eb9-47fa-a09f-cc1be5ab27df",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A senior Australian advertising",
+    "note": "Campaign analysis with data: record spending → context comparison → expert assessment.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a00b033-8444-4463-9dab-f1ff8136a04d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Twenty-four cars of a",
+    "note": "Accident report: incident details → conditions → cargo status.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a052bce-96b5-406d-b694-03c0fe109660",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Khalid Sheikh Mohammed alleged",
+    "note": "Tribunal hearing report: confession details → list of confessions → court criticism → interrogation methods.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a06b5e3-06e1-4ea3-99dc-b1c4a1b9b417",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Microsoft decided to buy",
+    "note": "Business acquisition rationale: purchase → technology description → strategic context.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a0def06-a513-4c64-8975-63fd815fa6d4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A new law which",
+    "note": "Policy announcement with rationale: new law → goal (reduce nuclear dependency) → implementation timeline.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point", "purpose"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a0ec327-3279-49bd-a6ec-42fc23180236",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Two people have been",
+    "note": "Tragedy narrative: collision event → victim details → emergency response → police commentary.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a126af3-76d2-422c-99bb-843b08ebee8d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A driver in the",
+    "note": "Accident narrative: crash sequence → witness account → outcome (no injuries).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a135474-8f8d-4972-a314-07f7fa68ba53",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Fire broke out at",
+    "note": "Incident timeline: fire outbreak → response details → casualties → animal deaths.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a14f338-fd50-47ae-aea3-0a0b847d6d63",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Peter Costello's budget announcement",
+    "note": "Policy analysis: budget outcomes → business wins → corporate tax reform calls → government position.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a1b4f72-25d7-4007-bbf9-b723c09b5684",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Cyclone Monica was expected",
+    "note": "Weather event progression: expected intensity → downgrade → damage assessment → context of previous cyclones.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a1c64ea-6a76-421a-9367-b24609090069",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Mahmoud Ahmadinejad Tehran's hardline",
+    "note": "Election outcome with context: winner → vote share → candidate background → political support base.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a1d5837-0b92-4632-bcf2-0ec7556eeaed",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A bill to eliminate",
+    "note": "Policy debate: bill introduction → criticism from activists and lawyers → specific concerns raised.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point", "purpose"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a20c7c6-5734-493a-90b7-154e1b4f477a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "As reported on Wikinews",
+    "note": "Interview format with background: isoHunt history → founder explanation → MPAA lawsuit response.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a224e6a-f33a-481b-9435-91a3c1101b34",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "After two machine counts",
+    "note": "Election recount narrative: first count → recount → manual recount → disputed outcome.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a23ffd9-38e3-4a43-ba8a-859fe6630c2b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The European Union has",
+    "note": "International aid response: EU deployment → contributing countries → other international responses.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point", "purpose"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a2894b2-40a1-459a-bb20-fec8fd42fc51",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Survivors of this weekend's",
+    "note": "Accident investigation: crash event → survivor observations → investigation process → historical precedents.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a2dbaad-baf4-456f-8dc2-f69cff65af66",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "Gunmen have killed four",
+    "note": "Very brief incident report; lacks detail beyond basic facts of attack and casualties.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a30f487-1c38-40bc-b3ee-d3839c13a640",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Socialist Party took",
+    "note": "Election results analysis: vote share → regional patterns → leader responses → broader political context.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a325a6f-4dca-4a5f-83a0-4451ee385c5f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A businessman currently representing",
+    "note": "Personal eyewitness narrative of Bangkok during coup: street observations → military presence → daily life.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a377a58-5b98-4a02-a2e0-a66706543dc2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In the days leading",
+    "note": "Political discrimination controversy: statements about teacher discrimination → party position → historical context of opposition.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a3801c0-442b-42e9-bfc0-6eb6dde68fd8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "On the 3rd day",
+    "note": "Sports event report dominated by event schedule list and record results; minimal narrative explanation.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8a3ebbf4-736c-4da1-83ae-28eaede74318",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Iceland's biggest bank Kaupthing",
+    "note": "Financial results narrative: earnings increase → CEO statement → acquisition context → growth trajectory.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  }
+]

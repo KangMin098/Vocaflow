@@ -1,0 +1,418 @@
+[
+  {
+    "id": "89627fc3-334f-432e-aa41-415412fc0a43",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "New South Wales Police Commissioner Ken",
+    "note": "Police warning announcement with operational details.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match", "purpose"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "896693b2-08d4-4890-afd9-13372cec3b60",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Afghanistan government and the U.S.",
+    "note": "Military investigation news with international law implications.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8967c513-1b6c-4eb9-96fd-0871f3f38dc5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "In the 2007 Australian Federal election",
+    "note": "Political news about party dissolution and reformation possibilities.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "896c0266-58b5-4ef9-843e-0e30f8ba2390",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Afghan border police shot dead seven",
+    "note": "Short news about mistaken police shooting and investigation.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "896f968d-bfa0-40b6-8035-f8976e79e752",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Figures have revealed that Nigeria's",
+    "note": "Investigative news about historical government corruption.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock", "school"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8971602e-531a-4c66-99ef-4d7b54989b8d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A blast is reported to have",
+    "note": "Brief incident report with disputed cause explanation.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8972459e-2650-41f8-a514-1ea499c9a052",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Speaking outside 10 Downing Street",
+    "note": "Political news about snap election announcement.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89740651-3c23-4f19-9303-42a851748837",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The following is the second edition",
+    "note": "Comprehensive monthly campaign news with polling and strategic analysis.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8977f90f-3f77-4270-9f5b-c81a8941ca85",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Australian Prime Minister, Kevin Rudd faced",
+    "note": "Political news about parliamentary debate over welfare policy.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["mock", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "897da714-5680-42af-b7ad-2b3425d9b3ce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "On Wednesday, the German government said",
+    "note": "International incident news with lab confirmation and diplomatic responses.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "897db80e-b773-4bf2-bc6e-ff9310d8f351",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "State TV reports that a bus",
+    "note": "Brief accident news with casualty and route information.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V3", "V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "898101de-08b0-4a9d-ab41-c18d3c462c16",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Armed Chinese police have surrounded and",
+    "note": "News about police sealing monasteries during religious observance.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3", "high2"],
+        "purposes": ["reading", "school"],
+        "types": ["content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "898446ff-95e4-4b7b-9bfd-5a1552cc1979",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "38 people were reported dead Sunday",
+    "note": "News about major terrorist attack with casualty breakdown.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["adult", "high3"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  }
+]
