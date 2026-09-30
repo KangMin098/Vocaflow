@@ -1,0 +1,989 @@
+[
+  {
+    "id": "7e61c488-5bd7-420a-9a5d-a527a04c2e7e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "San Francisco police have recovered",
+    "note": "도난 노트북 회수 후 개인정보 유출 사건의 경위와 법적 처리를 단계별로 기술한 뉴스 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e6f361f-7e7c-4c53-ad83-551290c9d253",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "An Anglican bishop in Nigeria",
+    "note": "나이지리아에서 발생한 주교 납치 사건의 경위, 목격자 진술, 신분증 신원 정보를 포함한 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e70f671-e65c-45a2-978d-d1bf54d1345c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Longmeng, which means Dragon",
+    "note": "중국의 저가 노트북 용드림 개발, 사양, 가격, 목표 시장을 설명하는 기술 뉴스.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e774387-1e39-4575-a7c6-871288f5c7e7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "PostSecret is a community art",
+    "note": "포스트시크릿 설립자 프랭크 워렌의 프로젝트 취지, 운영 방식, 사회적 영향에 관한 인터뷰.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "long_reference"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e786147-4746-49a5-b5df-35c37b65b1ab",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A hunter from Pennsylvania says",
+    "note": "펜실베이니아 사냥꾼이 야생동물 카메라로 포착한 빅풋 사진에 대한 전문가 의견과 검토 과정.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e84a964-5c9e-41ea-83d2-c0b524aedfd8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "American Airlines flight 55 from",
+    "note": "영국발 미국행 항공편이 비행 중 보안 위협으로 메인 공항에 비상착륙한 사건 보도.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e852c23-c35d-4ceb-8348-c7696fe75f14",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Pakistan's Chief Justice Iftikhar",
+    "note": "파키스탄 대법원장이 군부 정부의 혐의 심사를 받으면서 대규모 시위가 발생한 정치 사건.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e86e27d-781f-4c70-b49b-922f654cb0fd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "When United States Democratic presidential",
+    "note": "오바마 후보가 서방 벽에서 기도한 개인 기도문이 이스라엘 신문에 무단 공개된 사건과 반발.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e89e607-82ff-493f-913a-bfd377ffd523",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "During a press conference at",
+    "note": "스웨덴 총리가 새로운 외무장관에 정치인 야ン 엘리아송을 임명한 인사 결정과 배경.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e8fe722-7265-4ffe-8a54-a54833b10533",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Philippines is bracing for",
+    "note": "태풍 미리나가 필리핀으로 접근하면서 대피령과 경보가 발령된 자연재해 보도.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e960126-853a-4261-b11e-cad64e3a65dd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "69-year-old grandfather John Walsh",
+    "note": "호주에서 할아버지가 손녀와 손자, 아내 3명을 살해하고 법정에 출석한 중범죄 사건.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e978361-5adf-41b9-9a0d-7c6f81f4de35",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "British Home Secretary John Reid",
+    "note": "영국 내무장관이 미국의 메건 법 모델을 채택하여 아동 성범죄자 신원 공개 정책을 제안한 행정 공지.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e97933a-5562-4a9f-8e78-9029c296c739",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "With the polls now open",
+    "note": "미국 중기선거 투표소 개표 과정, 선거 결과, 부정행위 논쟁 등을 종합적으로 다룬 장문 정치 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e99a630-f232-4be0-9ef1-6bf0c4d1dad8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Libyan government forces and rebel",
+    "note": "리비아 아자지야와 미스라타에서 반군과 가다피군이 벌인 전투와 국제 외교적 개입.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e9b09e7-9ab2-45f7-8a57-92720847b52b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "With two by-elections coming",
+    "note": "호주 극우좌파 성당 정당 후보 자라 스타더스트와의 인터뷰로 성 평등, 교육, 난민 정책을 다룸.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "long_reference"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e9c4d66-f073-407f-b24d-1d4ed34fee07",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Irish budget airline Ryanair have",
+    "note": "라이언에어가 안전 다큐멘터리에 출연한 조종사를 25년 근무 후 해고 및 고소한 노동 분쟁.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7e9cc954-d794-4509-9fdd-5e3975807fa6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "On Monday, scientists from the",
+    "note": "스탠포드 의대 과학자들이 잉크젯으로 인쇄 가능한 세포 분류 진단 칩을 개발한 의학 기술 뉴스.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": [
+          "data-claim"
+        ]
+      }
+    }
+  },
+  {
+    "id": "7e9d3f80-a92c-4158-af8e-08d037860833",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Last Thursday, former US President",
+    "note": "도널드 트럼프 전 대통령이 2020년 선거 결과 전복 혐의로 법정에 나타나 무죄 항변을 함.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7ea0fb19-0c1c-42b6-9cb5-55ebc2cf332c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Dow Jones Industrial Average",
+    "note": "미국 주식 시장이 실업율 상승과 소매 판매 부진으로 340포인트 하락한 경제 뉴스.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": [
+          "data-claim"
+        ]
+      }
+    }
+  },
+  {
+    "id": "7eb01e71-4119-4138-9381-8f31897024a2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "On Friday, French capital football",
+    "note": "스페인 세비야 축구단이 PSG에서 이탈리아 골키퍼 시리구를 임차 계약한 축구 이적 뉴스.",
+    "record": {
+      "genre": "sports",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7ebab241-c58d-4504-8cb6-a76bfd653e6f",
+    "title": "TARC to showcase R&D achievements in 2008 AutoTronics Taipei",
+    "content": "In the Opening Day of 2008 AutoTronics Taipei (April 9), the Industrial Technology Research Institute of Taiwan (ITRI) invited Jamie C. Hsu (Consultant of Ministry of Economic Affairs of the Republic of the China and Former Management Executive Director of General Motors Global Technology) for a speech in the \"Pavilion of Taiwan Automotive Research Consortium (TARC)\" to forecast the future of automobile industry in Taiwan, which echoed the \"Taiwan Automotive International Forum & Exhibition\", held at TWTC Nangang in conjunction with 2008 Taipei AMPA.\n\nBefore the main show, Department of Industrial Technology of Ministry of Economic Affairs supervised the establishment of TARC by ITRI, Chung-Shan Institute of Science and Technology, Metal Industries Research & Development Center, and the other academical and industrial units to improve the level of research and development including applications on security, artificial intelligence, and energy-saving.\n\n\"1=There were several crisis for the automobile industry in Taiwan because of the decrease of market scale, low self-independence, technology transition, and the rise up of oil prices. But after in conjunction with light-weighting, electronical, and energy-saving related industries, there were other chances and challenges for the automobile industry in Taiwan. Currently, the Taiwan Automotive Research Consortium should do a proper role on R&D, policy driving, and quality improving, even though urban and rural differences, and key issue of carbon dioxide wasting, if there is a new innovation, Taiwan will be a good example in the automobile industry in the world.\"",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "In the Opening Day of 2008",
+    "note": "대만 자동차연구컨소시엄(TARC)이 2008년 자동차산업 관련 R&D 성과를 선보이는 행사에 대한 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7ec25b69-c7f5-4a81-a3dc-c6f80ed82315",
+    "title": "Evangelist minister and Islam critic charged with arson in Alabama",
+    "content": "A Baptist evangelist minister and critic of Islam was arrested Wednesday and charged with first degree attempted arson for allegedly burning tax records of his religious organization in an attempt to set his building on fire. Anis Shorrosh, 75, of Daphne, Alabama, was arrested after a fire was discovered Tuesday night in the trash room of the Loma Alta Towers condominium where he lives. 50 residents had to be evacuated from the building, but no one was hurt.\n\nAfter a burning plastic garbage container set off the alarm, one of the building residents put out the fire using a fire extinguisher. Law enforcement are still investigating the incident, and are not yet certain why the tax records were set on fire.\n\nAccording to local police, members of the condo owners association had signed a warrant on Monday, accusing Shorrosh of criminal mischief for allegedly tampering with the security system of his building. \"He had gotten frustrated with the security system, and he took a hammer to it,\" said Police Lieutenant Jud Beedy.\n\nLt. Beedy said that if the fire had gotten worse than it was, there could have been injuries or deaths, saying \"He endangered a lot of people.\" According to Lt. Beedy, building security cameras caught Shorrosh on camera entering and exiting the trash room of the building. Police Chief David Carpenter told WKRG News 5, the CBS affiliate in Mobile, that Shorrosh used an accelerant to start the fire, in what police believe was an attempt to burn the building down.\n\nShorrosh is in custody on a US$25,000 bond. He has spoken critically to Christian organizations and radio programs about Islam, and has claimed that Muslims in South Africa thrice attempted to kill him in 1989.\n\nShorrosh has appeared opposite Muslims in debates between Islam and Christianity, and is the author of 10 books including Islam: a Threat or a Challenge, and Islam Revealed. In 2006, the United States government issued a disclaimer denying that the book The True Quran, written by Shorrosh, was a \"new American Quran\". The U.S. government stated that the book was Shorrosh's attempt to convert Muslims to Christianity.\n\nShorrosh is a Palestinian Arab, and according to his website www.islam-in-focus.com he was born in the town of Nazareth. Nazareth is home to many of Israel's Arab citizens and is also a Christian pilgrimage center, as a historical location described in the New Testament as the boyhood home of Jesus Christ.",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A Baptist evangelist minister and",
+    "note": "이슬람 비평가인 설교자가 방화 혐의로 체포된 사건에 관한 뉴스.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7ec4e2eb-c734-4a1a-86f4-dfd60eff3b65",
+    "title": "British mathematician Richard K. Guy dies at 103",
+    "content": "Richard Kenneth Guy, a British mathematician who has published over 300 papers in various mathematical fields, died on Monday at 103 years of age.\n\nGuy was a mathematics professor at the University of Calgary prior to his death. He retired in 1982 but continued to regularly work at the Department of Mathematics and Statistics. In October 2016, the university celebrated Guy's 100th birthday. He was also an original director of the Number Theory Foundation.\n\nGuy has been associated with the discovery of a pattern called a \"glider\" in Conway's Game of Life, a cellular automaton — a discrete model consisting of a grid of cells — devised by mathematician John Horton Conway around 1970.\n\nFrom roughly 1948 to 1951, Guy was the endings editor for British Chess Magazine and involved in almost 200 endgame studies. He was a co-inventor of the GBR code system for representation chess piece positions.\n\nGuy and his wife Nancy Louise Thirian had three children, including computer scientist and mathematician Michael J. T. Guy. In his personal time, Richard Guy practiced mountaineering.",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Richard Kenneth Guy a British",
+    "note": "300편 이상의 수학 논문을 발표한 영국 수학자 리처드 가이의 별세 소식.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]
