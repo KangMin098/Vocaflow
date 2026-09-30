@@ -64,6 +64,9 @@ async function openPdf(file) {
   }).promise
 }
 
+/** 빈칸으로 볼 줄 안 틈(pt). 낱말 사이 띄어쓰기는 ~3pt, 빈칸 밑줄은 80pt 이상이었다 */
+const BLANK_GAP = 40
+
 /** 같은 줄로 볼 y 차이(pt). 본문 글자 크기 ~9pt 의 1/3 */
 const LINE_TOL = 3
 
@@ -76,19 +79,56 @@ function linesOf(items) {
     if (cur && Math.abs(cur.y - it.y) <= LINE_TOL) cur.items.push(it)
     else lines.push({ y: it.y, items: [it] })
   }
-  return lines.map((l) => {
+  const built = lines.map((l) => {
     const xs = l.items.sort((a, b) => a.x - b.x)
+    const solid = xs.filter((i) => i.str.trim())
     let s = ''
     let end = null
     for (const it of xs) {
-      // 조각 사이에 눈에 띄는 틈이 있으면 띄운다. pdfjs 조각은 낱말 중간에서도 끊긴다
-      if (end != null && it.x - end > 1.5 && !s.endsWith(' ') && !it.str.startsWith(' ')) s += ' '
+      // 공백만 든 조각은 너비를 믿을 수 없다 — 양쪽 맞춤 조판에서 60~119pt 로 나와(«words,» 끝 472 →
+      // 공백 w60 → «decides» 479) 빈칸 틈을 가린다. 띄어쓰기만 남기고 틈 계산에서는 뺀다
+      if (!it.str.trim()) {
+        if (s && !s.endsWith(' ')) s += ' '
+        continue
+      }
+      const gap = end == null ? 0 : it.x - end
+      // **빈칸 복원.** 학평 빈칸은 밑줄이 글자가 아니라 그어진 선이라 텍스트층에 없다 — 그 자리는
+      // 같은 줄 안의 큰 틈으로만 남는다(실측 80~150pt: «a(n) ▢ idea» · «that ▢ usually»).
+      // 그대로 두면 빈칸·요약문 514문항 중 509문항의 지문에서 빈칸 위치가 사라졌다(2026-09-28).
+      // 뒤 조각이 소문자·문장부호로 시작할 때만 빈칸으로 본다 — 표·안내문의 칸 사이 틈은 대문자로
+      // 시작하고(«DIY Item ▢ Things»), 선지 사이 틈은 ①~⑤ 로 시작한다.
+      if (gap >= BLANK_GAP && /^\s*[a-z.,;:!?)'’]/.test(it.str) && /[A-Za-z),'’]\s*$/.test(s)) {
+        s = s.replace(/\s+$/, '') + ' ______ '
+      } else if (end != null && gap > 1.5 && !s.endsWith(' ') && !it.str.startsWith(' ')) s += ' '
       s += it.str
       end = it.x + it.w
     }
     // NUL(U+0000)은 유니코드 대응이 없는 기호 글리프다(요약문 40번의 ↓ 화살표 등). Postgres 텍스트가
     // 받지 못해 적재가 `unsupported Unicode escape sequence` 로 통째로 멈춘다(2026-09-28 실측) — 지운다
-    return s.replace(/\u0000/g, '').replace(/\s+$/, '')
+    const text = s.replace(/\u0000/g, '').replace(/\s+$/, '')
+    return { text, firstX: solid[0]?.x ?? null, lastEnd: end }
+  })
+
+  // **줄 머리·줄 끝의 빈칸.** 빈칸이 줄 경계에 걸리면 줄 안에 틈이 안 생긴다 — 대신 줄 머리가
+  // 단 왼쪽 선보다 들어가 있거나, 줄 끝이 오른쪽 선에 못 미친다(양쪽 맞춤이라 이어지는 줄은
+  // 오른쪽 선까지 찬다). 단의 선은 영어 본문 줄들의 10·90 백분위로 잡는다(들여쓰기·짧은 끝줄에 안 끌린다).
+  const pct = (arr, p) => {
+    const a = arr.filter((v) => v != null).sort((x, y) => x - y)
+    return a.length ? a[Math.floor((a.length - 1) * p)] : null
+  }
+  const prose = built.filter((b) => /^[A-Za-z“"']/.test(b.text) && b.text.length > 30)
+  const colLeft = pct(prose.map((b) => b.firstX), 0.1)
+  const colRight = pct(prose.map((b) => b.lastEnd), 0.9)
+  const CHOICE = /[①②③④⑤]/
+  return built.map((b, i) => {
+    let t = b.text
+    if (colLeft == null || colRight == null || !t || CHOICE.test(t)) return t
+    const next = built[i + 1]?.text ?? ''
+    // 줄 머리 빈칸: 들여 시작하는데 소문자·문장부호로 시작한다(문단 첫 줄은 대문자로 시작한다)
+    if (b.firstX - colLeft >= BLANK_GAP && /^[a-z.,;:)'’]/.test(t)) t = `______ ${t}`
+    // 줄 끝 빈칸: 오른쪽 선에 못 미치고 문장 중간(소문자·쉼표)에서 끝나며, 다음 줄이 이어진다
+    else if (colRight - b.lastEnd >= BLANK_GAP && /[a-z,]$/.test(t) && /^[a-z(“"']/.test(next) && !CHOICE.test(next)) t = `${t} ______`
+    return t
   })
 }
 

@@ -1638,6 +1638,8 @@ export const CSAT_HELP: HelpRegistry = {
           '`node scripts/csat/corpus-sync.mjs --commit` 으로 유형·회차·문항이 DB 에 올라와 있는가.',
           '`.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있는가 — 없으면 import 가 시작도 못 한다.',
           '교육청 학평(보조·검증 집합, 회차 id `H…`)은 **원장이 따로다**: `ingest-hakpyeong.mjs` → `build-corpus.mjs --set hakpyeong` → `corpus-sync.mjs --set hakpyeong --commit`. 집합을 가르지 않고 돌리면 평가원 문항이 «코퍼스에 없는 문항» 으로 잡힌다. 학평 원문(`columns2/H*.txt` · `*hakpyeong*.json`)은 EBSi 재배포 금지라 커밋하지 않는다(gitignore).',
+          '학평 **근거 단위 목록**: `corpus-sync` 뒤 `node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong --commit` — DB 원문으로 목록(`csat_item_units`)을 만든다. **재실행 안전**(같은 원문·버전이면 건너뛴다). 같은 버전인데 목록이 다르면 멈춘다(분할 규칙을 바꿨으면 `UNITS_VERSION` 을 올린다). 원문이 바뀐 문항은 다시 돌리기 전까지 목록이 없어 export 가 경고하고, 분석 번호는 그 목록의 `n`·서술은 `[uN]` 이다. 목록이 바뀌면 그 목록으로 발행된 분석은 **자동 보류**되고 옛 승인은 다시 쓰이지 않는다.',
+          '학평 **독립 검수**: `review-drain.mjs export`(기본 8문항 청크) → 검수 에이전트가 `start → solve → reveal → submit`(분석만 교정됐으면 `rereview`) → `publish`. 발행은 DB 게이트가 판정한다(3인 pass · 자기 검수 금지 · 풀이 전 공개 금지 · 원문/정답/분석/근거 단위 해시 일치). **도표(R-CHART)는 발행 보류** — 이미지가 입력에 없어 검수·분석 모두 도표를 대조하지 못한다. export·status 가 「보류: 도표 이미지 없음」 으로 따로 세며 완료로 세지 않는다. **검수 전 사전 검사**: `review-drain.mjs precheck` 가 옛 분석(목록 이전)도 근거 단위 번호 검사(V9 — 없는 번호·인용 위치 누락)를 거치게 하고, export 는 실패 문항을 「교정 먼저」 로 빼서 블라인드 청크에 넣지 않는다(읽기만 · 재실행 안전). 2026-09-30 대조: 검수자 판정 22건 중 오탐 0 · 번호 결함 5건 중 3건 검출 — 범위 안의 엉뚱한 번호와 「N번 문장」 서술은 못 잡으므로 **블라인드 검수를 대신하지 않는다**.',
         ],
         procedure: [
           {
@@ -1661,7 +1663,7 @@ export const CSAT_HELP: HelpRegistry = {
           {
             title: '④ 적재한다',
             detail:
-              '`node scripts/csat/analysis-drain-import.mjs --commit` — 게이트를 먼저 돌려 exit 0 일 때만 올린다. 분석은 덮지 않고 **버전을 올려 새 행**으로 넣으므로 옛 분석이 남는다. **재실행 안전**: 내용이 같으면 새 버전을 만들지 않는다. ⚠️ 2026-09-13 까지 이 「재실행 안전」은 **사실이 아니었다** — 중복 판정이 `JSON.stringify` 로 비교하는데 jsonb 는 키 순서를 바꿔 저장하므로 늘 「다르다」가 나왔고, 전량 적재 한 번이 802행을 더했다(버전 분포에 전량 재적재가 두 번 찍혀 있었다). 키를 정렬해 비교하도록 고쳤고, 이어서 돌리면 「새 분석 0」이 찍히는 것으로 확인한다. `--redo` 로 다시 뽑은 문항은 옛 청크와 새 청크 양쪽에 있으므로 **나중 파일이 이긴다**(건너뛴 수를 출력한다). 학평은 `--set hakpyeong --commit` — 게이트도 같은 집합을 검증하고, **유형 리포트는 DB 에 쓰지 않는다**(type_id 당 1행 upsert 라 평가원 리포트를 덮는다 — 대조용 `_type-reports.json` 만 남긴다).',
+              '`node scripts/csat/analysis-drain-import.mjs --commit` — 게이트를 먼저 돌려 exit 0 일 때만 올린다. 분석은 덮지 않고 **버전을 올려 새 행**으로 넣으므로 옛 분석이 남는다. **재실행 안전**: 내용이 같으면 새 버전을 만들지 않는다. ⚠️ 2026-09-13 까지 이 「재실행 안전」은 **사실이 아니었다** — 중복 판정이 `JSON.stringify` 로 비교하는데 jsonb 는 키 순서를 바꿔 저장하므로 늘 「다르다」가 나왔고, 전량 적재 한 번이 802행을 더했다(버전 분포에 전량 재적재가 두 번 찍혀 있었다). 키를 정렬해 비교하도록 고쳤고, 이어서 돌리면 「새 분석 0」이 찍히는 것으로 확인한다. `--redo` 로 다시 뽑은 문항은 옛 청크와 새 청크 양쪽에 있으므로 **나중 파일이 이긴다**(건너뛴 수를 출력한다). 학평은 `--set hakpyeong --commit` — 게이트도 같은 집합을 검증하고, **유형 리포트는 DB 에 쓰지 않는다**(type_id 당 1행 upsert 라 평가원 리포트를 덮는다 — 대조용 `_type-reports.json` 만 남긴다). **골라 올리기:** `analysis-drain-import.mjs --set hakpyeong --chunk <청크이름>[,…]` — 정확한 청크 이름만 받고, 게이트도 **같은 파일 목록**으로 돈다. 폴더에 적재하지 않기로 한 결과(예: wave-2 틀 찍기)가 남아 있어도 교정분만 올릴 수 있다. 없는 청크·빈 선택·경로는 오류로 끝나며 폴더 전체로 넘어가지 않는다. 미리보기가 파일명·문항 id·건수를 보여 준다 — 확인 뒤 `--commit`. **재실행 안전**(내용이 같으면 새 버전을 안 만든다). 학평 새 버전은 in_review 로 들어가고 발행되지 않는다.',
             done: '문항 검토의 분석 버전이 바뀌고 최신 판 검수 통과가 확인된다. 지금 재검증으로 학습 준비 변화와 남은 문제를 확인한다.',
           },
           {

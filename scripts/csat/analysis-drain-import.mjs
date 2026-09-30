@@ -13,15 +13,35 @@
 // 실행:
 //   node scripts/csat/analysis-drain-import.mjs           (미리보기)
 //   node scripts/csat/analysis-drain-import.mjs --commit
+//   node scripts/csat/analysis-drain-import.mjs --set hakpyeong --chunk revise-20260928 [--commit]
+//
+// `--chunk a,b` 는 **정확한 청크 이름**만 받는다(lib-drain-select strict). 게이트도 같은 목록으로 부른다 —
+// 검사한 파일과 올리는 파일이 한 벌이어야 한다. 없는 청크·빈 선택·경로는 오류로 끝나고 폴더 전체로 넘어가지 않는다.
 
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
+import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { loadCurrentUnits } from './lib-units-db.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const WORK = WORK_DIR
+
+// ── 적재할 파일 — 게이트보다 **먼저** 정한다. 게이트와 적재가 이 한 목록을 쓴다 ─────
+const CHUNKS = (() => {
+  try { return chunkArgs(process.argv) } catch (e) { console.log(`  ✗ ${e.message}`); process.exit(1) }
+})()
+let files
+try {
+  files = selectOutFiles(WORK, CHUNKS)
+} catch (e) {
+  if (!(e instanceof DrainSelectError)) throw e
+  console.log(`  ✗ ${e.message}`)
+  process.exit(1)
+}
 
 function env(name) {
   if (process.env[name]) return process.env[name]
@@ -42,14 +62,16 @@ if (COMMIT) {
   try {
     // ⚠️ 게이트는 **적재할 그 집합**을 검증해야 한다 — `--set` 을 빼면 평가원 폴더를 검증한 뒤
     //    학평 결과를 미검증으로 올린다(PR #125 리뷰).
-    execFileSync(process.execPath, ['scripts/csat/analysis-drain-validate.mjs', '--set', SET], { stdio: 'inherit' })
-  } catch {
+    const validate = fileURLToPath(new globalThis.URL('./analysis-drain-validate.mjs', import.meta.url)) // 이 파일의 `URL` 은 Supabase 주소 상수다
+    const pick = CHUNKS ? ['--strict', '--chunk', files.join(',')] : []
+    process.stdout.write(execFileSync(process.execPath, [validate, '--set', SET, ...pick], { encoding: 'utf8' }))
+  } catch (e) {
+    process.stdout.write(String(e.stdout ?? '') + String(e.stderr ?? e.message ?? ''))
     console.log('\n  ✗ 검수 게이트 실패 — 적재하지 않는다')
     process.exit(1)
   }
 }
 
-const files = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
 if (!files.length) { console.log('  .out.json 이 없다'); process.exit(0) }
 
 const analyses = []
@@ -66,7 +88,12 @@ for (const f of files) {
     if (!a.design_intent || a.design_intent.length < 20) { skipped.push(`${a.item_id}: design_intent 부실`); continue }
     if (!(a.solve_procedure ?? []).length) { skipped.push(`${a.item_id}: solve_procedure 없음`); continue }
     const pass = new Set((a.reviews ?? []).filter((r) => r.verdict === 'pass').map((r) => r.persona))
-    if (pass.size < 3) { skipped.push(`${a.item_id}: 3인 검수 미완(${pass.size})`); continue }
+    // 학평은 분석자의 자기 검수를 발행 근거로 쓰지 않는다(독립 검수 게이트 20260928141215) — 대신
+    // 분석 실행 주체(analyst_run)가 있어야 한다. 그래야 검수자가 분석자와 다른지 DB 가 가린다
+    const analystRun = a.analyst_run ?? j.analyst_run ?? null
+    if (SET === 'hakpyeong') {
+      if (!analystRun || String(analystRun).length < 8) { skipped.push(`${a.item_id}: analyst_run 없음(학평은 필수)`); continue }
+    } else if (pass.size < 3) { skipped.push(`${a.item_id}: 3인 검수 미완(${pass.size})`); continue }
 
     analyses.push({
       item_id: a.item_id,
@@ -80,6 +107,9 @@ for (const f of files) {
       required_vocab: a.required_vocab ?? [],
       answer_unknown: a.answer_unknown === true,
       body_recovered: a.body_recovered === true,
+      ...(SET === 'hakpyeong'
+        ? { analyst_run: analystRun, units_version: a.units_version ?? null, units_hash: a.units_hash ?? null }
+        : {}),
     })
     reviewsOf.set(a.item_id, a.reviews ?? [])
   }
@@ -113,9 +143,32 @@ for (const f of files) {
   if (superseded) console.log(`  옛 청크에 겹쳐 있어 건너뛴 분석 ${superseded} (나중 청크가 이긴다)`)
 }
 
+// ── 학평: 분석이 본 근거 단위 목록이 **지금의 목록**인가 ─────────────────
+// 분석의 번호는 그 목록에서만 뜻을 갖는다. 목록이 바뀐 뒤의 분석을 올리면 번호가 조용히 엉뚱한
+// 단위를 가리킨다 — 그래서 올리지 않고 수를 출력한다(DB 게이트도 발행 때 한 번 더 막는다).
+if (SET === 'hakpyeong') {
+  const withUnits = analyses.filter((a) => a.units_hash)
+  if (withUnits.length) {
+    const cur = await loadCurrentUnits(db, withUnits.map((a) => a.item_id))
+    const stale = new Set(withUnits.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
+    for (const id of stale) skipped.push(`${id}: 근거 단위 목록이 바뀌었다 — 다시 export 해 새 목록으로 번호를 대조한다`)
+    if (stale.size) {
+      const keep = analyses.filter((a) => !stale.has(a.item_id))
+      analyses.length = 0
+      analyses.push(...keep)
+    }
+  }
+}
+
 console.log(`\n  파일 ${files.length} · 적재 대상 ${analyses.length} · 건너뜀 ${skipped.length} · 유형 리포트 ${typeReports.size}`)
 for (const s of skipped.slice(0, 10)) console.log(`    · ${s}`)
 if (skipped.length > 10) console.log(`    · … 외 ${skipped.length - 10}건`)
+if (CHUNKS) {
+  // 골라 올릴 때는 무엇을 올리는지 전부 보인다 — 건수만 보고 승인하면 엉뚱한 문항이 섞여도 모른다
+  console.log(`  선택한 파일: ${files.join(' · ')}`)
+  console.log(`  적재 대상 문항(${analyses.length}): ${analyses.map((a) => a.item_id).join(' · ')}`)
+  if (SET === 'hakpyeong') console.log('  학평: 새 버전은 in_review 로 들어가고 발행을 시도하지 않는다(독립 검수 게이트)')
+}
 
 if (!COMMIT) { console.log('\n  미리보기다 — 아무것도 쓰지 않았다. 올리려면 --commit'); process.exit(0) }
 
@@ -151,7 +204,7 @@ for (const a of analyses) {
   const { data: prev } = await retry(`${a.item_id} 조회`, () =>
     db
       .from('csat_item_analyses')
-      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status')
+      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status, analyst_run, units_version, units_hash')
       .eq('item_id', a.item_id)
       .order('version', { ascending: false })
       .limit(1),
@@ -183,9 +236,14 @@ for (const a of analyses) {
     }
     return v
   }
+  //
+  // ⚠️ **검수·출처 칸도 비교한다**(PR #126 리뷰 P2-5). 본문이 같고 근거 단위 목록(units_version·units_hash)이나
+  //    분석 실행 주체(analyst_run)만 바뀐 교정을 «같다» 로 판정하면 옛 행을 재사용해 새 목록 정보가 버려진다 —
+  //    그러면 게이트는 옛 목록 기준으로 판정한다. 평가원 행은 세 칸이 모두 null 이라 비교에 영향이 없다.
   const shape = (x) =>
     JSON.stringify(
-      canon([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure]),
+      canon([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure,
+        x.analyst_run ?? null, x.units_version ?? null, x.units_hash ?? null]),
     )
   const same = last && shape(last) === shape(a)
   let aid = last?.id
@@ -200,6 +258,19 @@ for (const a of analyses) {
     )
     aid = data.id
     inserted += 1
+  }
+
+  // ── 학평: 자기 검수를 쓰지 않고, 발행을 시도하지 않는다 ─────────────
+  //    과거 검수 984행을 덮어쓰지 않고(재검수는 csat_independent_reviews 에 회차로 쌓는다),
+  //    발행은 review-drain.mjs publish 가 독립 검수 3인이 모인 뒤에만 시도한다(DB 게이트가 최종 판정).
+  if (SET === 'hakpyeong') {
+    if (!same) {
+      const { error: se } = await db.from('csat_item_analyses').update({ status: 'in_review' }).eq('id', aid)
+      if (se) { skipped.push(`${a.item_id}: in_review 전환 실패 — ${se.message}`); continue }
+    }
+    republished += 1
+    process.stdout.write(`\r  적재 ${republished}/${analyses.length} (학평 — 독립 검수 대기)`)
+    continue
   }
 
   // 검수 — 페르소나마다 한 행. unique(analysis_id, persona) 가 중복을 막는다.
@@ -308,5 +379,5 @@ for (const [tid, list] of typeReports) {
   if (error) throw new Error(`유형 리포트 ${tid}: ${error.message}`)
 }
 
-console.log(`  새 분석 ${inserted} · published ${republished} · 유형 리포트 ${typeReports.size} · 건너뜀 ${skipped.length}`)
+console.log(`  새 분석 ${inserted} · ${SET === 'hakpyeong' ? `in_review ${republished}` : `published ${republished}`} · 유형 리포트 ${typeReports.size} · 건너뜀 ${skipped.length}`)
 console.log('→ csat_item_analyses · csat_analysis_reviews · csat_type_reports')
