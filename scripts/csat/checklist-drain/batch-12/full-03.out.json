@@ -1,0 +1,991 @@
+[
+  {
+    "id": "82ee52c4-0ccf-4571-b846-05acc3f7eb26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cd54de7104493cc8f16aee80d166eacae5cac0b5ff3e6246c4751e2e43bbbd93",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가자 기습(원인) → 로켓 보복 → 이스라엘 측 해명 → 양측 총리 반응이 네 문단으로 이어져 폭력 소재라 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Seven Palestinians and an Israeli soldier",
+      "note": "첫 문단이 그대로 서고 incursion·offensive 를 raid·attack 으로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "82ef90a8-f2c7-45cb-b473-7fe152aaa7e2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f9925791d7c0648eea4520f5a6d626bb2b179e60afb62c5681ad043da312b7a9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "전력선 인터넷(PLC)의 원리·장점 설명 문단과 시범 → 성공 시 확대 계획의 흐름이 있어 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The technology, known as Power Line",
+      "note": "둘째 문단이 앞 맥락 없이 기술 설명으로 서고 broadband·infrastructure 를 풀어 쓰기 쉽다."
+    }
+  },
+  {
+    "id": "83698a0f-63af-45c1-ace0-e7d4c4f1cd39",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c753a6b8a3420d6c97f7fa70b3720bb0fd59526d943ab56b5a3481411bcc82db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "결의안의 내용·제기 배경(유출 메모) → 발의자·공동발의 → 표결 결과가 문장으로 이어져 내용 일치 칸이 서며 끝의 표결표는 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The U.S. House Committee on International",
+      "note": "첫 문단이 긴 인용과 전문 용어(Resolution of Inquiry) 탓에 무겁고 뒤 표결표는 걷어야 한다."
+    }
+  },
+  {
+    "id": "8374b212-cc7a-4b93-b090-85951adce52e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "af1c6e1d2ad95b8689ff14c7c5ecae6c4f3b1617901bd7baf2945357f3446c6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "러시아기 플레어로 드론 손상(사건) → 미 사령관 항의 → 접촉 증가 원인 불명 발언 → 양국 주둔 배경이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "US Air Forces Central released a",
+      "note": "첫 문단이 사건을 온전히 담고 blatant·reckless 를 쉬운 말로 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "83809f13-8fc4-49e4-97f2-abd3624417a0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dac5f0c1f0f1dd55bfc1481375b946b9c8b03b803e014e02536d0e4016a8c7d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "바닷새가 해양 오염을 북극 연못으로 옮긴다는 연구 결론과 수치 근거가 한 편으로 서서 주제·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "They showed that local sources of",
+      "note": "둘째 문단의 They 만 연구진으로 풀면 서고 hexachlorobenzene 은 수치 문장째 걷어도 논지가 남는다."
+    }
+  },
+  {
+    "id": "8392001a-16cd-4ed5-a889-554c3d56e2df",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "431ee17d588ec159a16072c94165d60d1d8d703272d8649c997e2f4bd78d8ef7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "당선 → 상대 승복 → 취임 일정과 개혁 공약 → 첫 연설 인용 → 외국 축하로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr. Sarkozy has promised to be",
+      "note": "둘째 문단이 공약 중심으로 서고 어휘가 이미 쉬워 조정이 거의 필요 없다."
+    }
+  },
+  {
+    "id": "83aed147-77f0-4236-81ea-4f73553a3283",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abcc0431f794159861d8e28088c845b8a22c5dd39230c83cdb69b23a3d287d7a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연휴 교통 사망 20명 → 경찰 확정 절차 → 교통당국의 「작년의 두 배」 반응이 이어져 수치 나열을 넘는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The New Zealand Christmas – New Year",
+      "note": "첫 문단과 반응 인용 문단을 묶으면 서고 fluctuate 를 change 로 바꾸면 V4 쪽이다."
+    }
+  },
+  {
+    "id": "83afd0d0-424d-4318-ae21-2ea676d72c5c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4866fc9df8d3c23685e0654bacf11db6016ef2df3c332e1054ad989d0a144923",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "5천만 다운로드 소식 뒤 넷스케이프 → 피닉스 → 파이어버드 → 파이어폭스로 이어진 개발 내력이 시간순으로 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The browser can trace its roots",
+      "note": "개발 내력 문단이 앞 없이 서며 끊긴 문장 「A real time counter is available at.」은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "83e760fb-7741-4baa-aedf-e98ae90f103c",
+    "source_updated_at": "2026-09-25T08:56:30.805678+00:00",
+    "body_sha256": "2cc3182e03547f8ba1e56c559f65812fb7df13b9f3f610998a930c2cac1578fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화재 발생 → 소방 출동·조사 → 저택 내력 → 호텔 폐업을 둘러싼 지역 반발까지 사건과 배경이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The hotel closed around fifteen years",
+      "note": "폐업·반발 문단이 인과(인력난 → 폐업 → 반발)로 서고 retrograde 를 backward 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "83ee362c-af5f-4780-b2dc-f3605616d5b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ebc34e1e7a4dc394150a6e374da26d11a8f884bb8363ffe4b517ce61a0bfc864",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "조기 총선 → 9 대 9 동수라 의장 선출 불가 → 정부 구성 실패의 인과와 나우루 경제 몰락 배경이 서서 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Because neither side can decide who",
+      "note": "인과 문단이 선명해 빈칸 후보가 되고 caretaker 를 temporary 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "83f2503f-e0ea-41cd-94c8-157ce38c978c",
+    "source_updated_at": "2026-09-27T18:08:35.015846+00:00",
+    "body_sha256": "5d504acd8505b7fd68e0e4d32927ac1c4eac94495fae049e59f9d2f4d22fd7ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모음에서 쪼갠 꼭지 하나로, 지역구 의원의 지방 의원 배제 비판 → 당 대표의 수긍이라는 문제 제기와 반응이 이어져 짧은 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The current Member for Gregory has",
+      "note": "두 문단뿐이지만 비판 → 수긍으로 이어지고 front bench 를 leadership 으로 풀면 된다."
+    }
+  },
+  {
+    "id": "8497d9ea-7efd-451a-b12a-94b173e17424",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f14c63bc09659e9f93a1e677695606d9edde577004aa22c9ad27d4f0129af189",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "「The results are as follow:」로 예고한 개표 결과 목록이 통째로 빠져 끊긴 글이며, 나머지 연정 과반 유지 문단만으로는 칸 판단이 애매하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The minority incumbent coaltion of Venstre",
+      "note": "결과 목록이 없어 의석 수를 전제한 문장이 공중에 뜨고 정당 이름만 남는다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "84c2efea-6891-435e-9f77-bfec56622f04",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "77209b47a3b698b214dfd5a01782a7922366115082c5021300338a5fc8a79494",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산불 확산 → 백만 명 대피 → 소방대장 「못 막는다」 발언 → 대통령 비상사태 선포 → 바람 전망이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yesterday, U.S. President George W. Bush",
+      "note": "비상사태 문단이 원인(산불)과 결과(연방 지원)를 담고 어휘가 이미 평이하다."
+    }
+  },
+  {
+    "id": "84d3fc0c-e987-4cad-a3bb-fe5c52ba8f73",
+    "source_updated_at": "2026-09-28T03:30:24.81713+00:00",
+    "body_sha256": "3518e5c83cec02bd9726cdc22cbd069741e1b5a7107e6715e41214d5a01cf5f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "부고 모음 머리말 뒤에 휘트니 한 사람만 남은 꼭지로, 출생 → 칠십여 편 집필 → 에드거상 두 번 → 공로상으로 이어져 짧은 전기 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Whitney wrote more than seventy novels.",
+      "note": "셋째 문단이 수상 경력을 시간순으로 잇고 duplicated the honor 를 won it again 으로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "851aae47-43a3-4e81-9844-f7f09bdc42e3",
+    "source_updated_at": "2026-09-27T18:08:28.35339+00:00",
+    "body_sha256": "db96eb09574adbda743c4bf13eb2a9ba7c1b0a0ba30041f6c48813cefac28c57",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모음에서 쪼갠 교통사고 한 꼭지로, 충돌 → 경찰·구급 출동 → 사망·부상 → 경위 발언이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A man has been killed and",
+      "note": "첫 문단이 사건 전체를 담고 subsequently·occupant 를 later·driver 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "852223f2-3e00-440c-84b8-9369ae9b37d8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5618d2767133abb04f0f3a95d7210d93426ce67d567e366fdd9e93c7d8a12834",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "무대 난입 총격 → 네 명 사망 → 범인 사살 → 밴드 내력·세계적 애도가 이어지는 사건 기사라 폭력 소재로 고1 이상 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nathan Gale, 25, jumped onstage during",
+      "note": "첫 문단이 사건을 온전히 담으며 총격 묘사가 짧아 연령 칸 제한으로 충분하다."
+    }
+  },
+  {
+    "id": "8530ca38-b791-4083-95ce-0b404934d1de",
+    "source_updated_at": "2026-09-25T09:17:03.906034+00:00",
+    "body_sha256": "b5cf712eff0c097b46762f58b15aae9be0f150e57b9fedaf0eecd31aedba5f24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "아이티 콜레라 사망·감염 규모 → 병원 포화 경고 → UN 지원 호소 → CDC의 장기화 전망과 증상 설명이 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "No one alive in Haiti has",
+      "note": "마지막 WHO 인용이 면역 없는 인구 → 장기 토착화라는 논지로 서고 susceptible 을 easily infected 로 풀면 된다."
+    }
+  },
+  {
+    "id": "85debf27-cfa0-4d8c-9544-81c1248b51f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "036c61097018b627f1864154ceef28a6e9987d189ef16d16d6b523b993aef052",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "암살 기도 기소 → 피의자 폭행 의혹과 뉴질랜드 항의 → 외국 개입설 부인 → 2006 쿠데타 배경이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Fiji news media initially reported that",
+      "note": "외국 개입설 → 호주·뉴질랜드 부인 → 총리 번복 흐름이 서지만 treason·mutiny 등 법률 어휘가 많아 밴드 낮추기가 어렵다."
+    }
+  },
+  {
+    "id": "86189a0d-d229-4fbd-a3c9-4642ebcf7a85",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "200bc53f8396c27cc3b1ea2922ac9ca47e770bf53e8dc599a9d8a3e7f4c8bb9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "화성의 액체 물·얼음 증거 → 생명 가능성 논지를 빙하·화산·메탄·극한생물 근거로 받치고 「물은 다 증발했다」는 옛 가정을 뒤집어 주제·요지·빈칸·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "summary",
+        "blank",
+        "insert",
+        "irrelevant",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "myth-rebuttal",
+        "claim-evidence",
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Researchers have long assumed water on",
+      "note": "통념 → 반증 문단이 앞 없이 서고 hypothesis·outrageous 를 idea·strange 로 바꾸면 V5 쪽이다."
+    }
+  },
+  {
+    "id": "86504dc6-d52a-4a94-abae-dce3c216048b",
+    "source_updated_at": "2026-09-25T08:55:46.421219+00:00",
+    "body_sha256": "402c1de7149a15c09f62890b4fcb3f1994a4462583082da134f6efb01b97f636",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뉴햄프셔 경선 결과 뒤 세 후보 사퇴 → 아이오와 대의원 확정 → 다음 경선 일정으로 이어져 수치 나열을 넘는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following the Democratic primary, three candidates",
+      "note": "사퇴 문단이 결과 → 반응으로 서지만 대부분 문단이 득표율·대의원 수라 가공 때 수치를 크게 걷어야 한다."
+    }
+  },
+  {
+    "id": "8650ceac-ad10-4600-893e-e613254bde61",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a7fab3392352dbf85d6163f68e1fb113b5741fc711b4976a43aeed725eaf07ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카트리나 음모론을 편 기상 캐스터가 이론에 전념하려 사직했다는 원인·결과가 한 편 안에서 서며 음모론은 사실로 제시되지 않아 짧은 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Scott Stevens, the Idaho meteorologist who",
+      "note": "첫 두 문단으로 서고 마지막 위키뉴스 자기 참조 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "8673499a-19b4-42ff-bfd4-dc18d18096a1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "96681e6d4f1e3287db24e7ef6bd4ff032994c889709c92d58031282a5900b195",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "FDA가 소비자에게 리스테리아 오염 연어를 반품하라고 까닭(감염 위험·증상)과 함께 알리는 공지라 목적·내용 일치 칸을 채우며 제품 코드·전화번호는 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A nationwide alert for consumers to",
+      "note": "경고 → 위험 설명 → 반품 권유가 서고 판매 코드·전화번호 줄을 걷으면 목적 지문 모양이 된다."
+    }
+  },
+  {
+    "id": "86802ebd-c13b-4413-bb49-2e2c3ef00c4f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7e0a213d8d8a9f9afc51412c3f98885a93ee370bdd189eec712e33320842ae64",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대테러 작전 종료 발표 → 인권단체·카디로프 반응 → 교전 보도와 작전 재개 주장 → 두 차례 전쟁 배경이 이어져 내용 일치·순서 칸을 고1 이상으로 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The republic of Chechnya has undergone",
+      "note": "마지막 배경 문단이 두 전쟁 → 철수 발표의 의미로 혼자 서고 separatist 를 independence 로 풀면 된다."
+    }
+  },
+  {
+    "id": "8682c4a9-ee54-44f2-85e6-325bf4153cbc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "75d860f0af94b67e8ce2d8a98e060d9f887457b40147a125107d5b42d97a4d7f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알카에다 지도자 사망 미확인 보도 → 미군 부인 → 전임자 사망 경위로 보도와 반응이 이어져 짧은 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Unconfirmed reports from Iraq say that",
+      "note": "두 문단뿐이지만 보도 → 부인이 이어지고 supposed successor 를 the man who replaced 로 풀면 된다."
+    }
+  },
+  {
+    "id": "868da8c5-9bca-41fc-b074-ee3f0a11c2b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bb62549efc0f303dcf83d7d13f4370b40119be753e2d07d2bb915b7b390f9d56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "텔스트라 매각법 긴급 처리 → 야당 반발과 표결 실패 → 상원 조이스 의원의 결정권과 셈법이 이어져 의회 절차 용어가 많아 고3·성인 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Whilst the Government has an absolute",
+      "note": "상원 문단이 조이스의 결정권이라는 흐름으로 서지만 divisions·crossing the floor 같은 의회 용어가 많아 밴드를 크게 못 낮춘다."
+    }
+  }
+]

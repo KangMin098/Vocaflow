@@ -1,0 +1,992 @@
+[
+  {
+    "id": "86a2ed45-269f-439b-9f31-bf280b0b5cda",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab686b23cb944daac18dd41ddfee1fe4778be5710c4b4054155c524ebb91dfdf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "사진집 발표회 → 작가의 제작 과정 인용 → 도서관 기증으로 행사가 한 편으로 이어져 내용 일치 칸을 채우며, 끝의 「A sampling of works」는 사진 갤러리 머리라 걷어도 본문은 끊기지 않는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pinchuk noted: \"It took more than",
+      "note": "마지막 갤러리 머리 한 줄은 걷고, saturated·seamlessly 를 filled·smoothly 로 바꾸니 인용 문단이 V5 로 읽혔다."
+    }
+  },
+  {
+    "id": "86a52a26-bf69-4245-b485-4a05630b5d29",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ddf42e192d4d7654842875841cd203bac5bf46b07316360bc991b37efd27f02d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "설치 시작 → 1월 작업 → 눈보라 지연 → 2월 개막 과정이 날짜순으로 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "order",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Once Bloomberg released the first piece",
+      "note": "개막 장면 문단은 갈고리로 고리를 당겨 천이 내려오는 절차라 순서 문항으로 쉽게 잘렸고, majestically·hampered 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "86cb5a1b-af87-46e9-a21d-917f79666b2e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5e4f6b1f7c6ca9aeab387be6392075397e6a571f75e81bce8a2b4a6fea8bd0a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "가스 냄새·폭발 → 화재 → 대피·도로 봉쇄 → 사상자 없음으로 원인과 대응이 이어지는 짧은 속보라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Early eyewitness reports state that a",
+      "note": "네 문단 전부가 한 사건이라 통째로 쓰고 preceded·contain 을 came before·control 로 바꾸면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "86e53ca6-e3b6-4d93-b818-9acea50987c1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4c3cf507b406611d24de3c1f3c67c6d69c09ff336effeaf664705190f04d1209",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "베냉 방문 발표 → 방문 목적(아프리카 교회 지침) → 앞선 방문의 콘돔 발언 논란과 입장 변화가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The pontiff's prior African trip was",
+      "note": "셋째 문단이 논란과 입장 변화를 한 흐름으로 담아 떼기 쉬웠고, pontiff·garnered 를 Pope·drew 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8728f763-e7b4-4879-9208-7c6409a39ad3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "82da97b011362d244d8d92bb7604d02655230e54924aa63910c4fb89bfbdfa26",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "준결승 두 경기를 쿼터별 흐름과 감독 발언으로 서술해 경기 전개가 시간순으로 이어지므로 순서·내용 일치 칸이 선다(점수 나열만은 아니다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Six goals to Tim Aitkin could",
+      "note": "Maffra–Traralgon 쿼터 전개는 떼어지나 goals-behinds 점수 표기와 선수 이름이 많아 걷으면 경기 흐름이 흐려지고, 오탈자(there·quater)도 고쳐야 한다."
+    }
+  },
+  {
+    "id": "87646c54-480d-4bc4-a7ef-05551a3265ff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "06213d09f87e0697cb77ab7ee7b8c4a4f352040642ab22b3fe6c91505640ae7c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "Ritter·Hersh·Raw Story 의 주장을 차례로 대조하며 출처별로 무엇이 다른지를 밝히는 보도라 주장-근거·내용 일치 칸을 채운다(의혹 보도로 반론 요청도 적었다).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In Thursday's report, Raw Story supported",
+      "note": "넷째 문단은 앞 주장들과의 차이를 스스로 요약해 혼자 서지만, proxy·incursions 등 군사·정보 용어가 촘촘해 두세 개 바꿔도 V7 아래로 내려가지 않았다."
+    }
+  },
+  {
+    "id": "87727b5a-3d9e-4ad6-91f3-44cc0ec7f615",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0115f4365a3904e1f87f5b40ca15e7bd5152cd259bb8485069f7284c8aec39c3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "관측 조건 → 밤새 늘어난 유성 수 → 이름의 유래 → 유성우가 생기는 원리(혜성 잔해)로 이어져 내용 일치·설명 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "elem",
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A meteor shower occurs when the",
+      "note": "마지막 원리 문단은 고유명사 없이도 서고, intersects·debris 를 crosses·dust 로 바꾸니 초등 상급까지 내려갔다."
+    }
+  },
+  {
+    "id": "87c510e9-68ac-4010-a770-ce67b58ed21d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c235f6a3cc14ccb3b355237ab35c8757a525a21ced1d17ef7c265bbcdded24b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "호지슨 사임 → 앨러다이스 대표팀 감독 선임 → 빈 선덜랜드 자리에 모이스 선임이라는 연쇄 인사가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following the English FA appointing Allardyce",
+      "note": "인사 연쇄는 쉽게 떼어지나 경력 문단은 구단 이름·경기 수 나열이라 가공 때 줄여야 하고, relegation 을 dropping to a lower league 로 풀었다."
+    }
+  },
+  {
+    "id": "881e908c-8a2d-473c-a4b1-753f7651ea9b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a19de144ae14bcc2558c22d7f8cc8aa7c4086c9d061cc4f8996fc90143b62a37",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대선 불출마 의사 → 어려운 재선 → 가족을 이유로 든 본인 발언으로 결정의 까닭이 서는 짧은 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On the WashingtonPost.com on-line discussion forum,",
+      "note": "마지막 인용 문단이 불출마 이유를 혼자 설명하고, intensity·engaged 두 낱말만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "88504600-a4a3-4b05-8ba8-1d8396f3a238",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95d2fad8882474d609c5e089c860947c247fa1a72d9daa7579052d4884b354de",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "베타 공개 사실과 개편 이유(보안 때문에 셸에서 분리) 뒤에 새 기능을 까닭과 함께 설명하는 본문이 서므로 내용 일치 칸을 채우고, 첫머리 스크린숏 캡션은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Improved CSS support - Version 7.0",
+      "note": "그림을 봐야 뜻이 서는 첫 캡션 세 줄은 걷어야 하고, CSS 문단은 rendering 을 displaying 으로 바꾸니 기술 용어 둘만 남아 읽혔다."
+    }
+  },
+  {
+    "id": "885962d6-a08f-49f1-aa54-b7a4af987fc0",
+    "source_updated_at": "2026-09-27T18:08:34.327789+00:00",
+    "body_sha256": "5d90dfb4e233b63804af2e389ef07a481652eac56f0d75b68568d422730716d7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "제목의 「Obituaries」는 모음 머리말일 뿐 본문은 작곡가 로즌먼 한 사람의 사망과 그 원인(심장마비)만 이어 말하므로 끊긴 글이 아니고 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Leonard Rosenman, composer died yesterday at",
+      "note": "사망 → 원인 두 문장뿐이라 이름·장소를 걷으면 남는 것이 거의 없고, 중복된 「at the at the」를 고쳐야 한다."
+    }
+  },
+  {
+    "id": "8881a826-8259-4dc5-88a7-6e01a8203207",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a60c8f968c1b81915b9810e1618dd83517eb6512037694e03d910c6e8dce9e55",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "한쪽 입장 — NDP 후보가 출마 동기(딸의 물음)와 선거구 3대 쟁점(환경·빈부 격차·학생 부채)을 제 입장으로 답한 인터뷰라 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Our riding is also a very",
+      "note": "쟁점 답변 문단은 riding 을 district 로, disparities 를 gaps 로 바꾸면 혼자 서지만, 질문 줄 중간의 끊긴 줄바꿈을 정리해야 한다."
+    }
+  },
+  {
+    "id": "88bbcbe5-157b-4c99-b3f6-0a1f68f05d77",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5952cf3ed5b24b2ef352c6d2af3761362c088ac53b2bf502cd7983cd91aa8eb4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "한쪽 입장 — 공산당 후보가 출마 이유·공약·비례대표제 찬성 근거를 스스로 밝히는 인터뷰로 취재원 발언이라 polemic 이 아니며 비례대표제 답변 문단이 주장-근거 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On October 10th, most voters will",
+      "note": "MMP 답변은 주장(더 민주적) → 근거(연정 촉진)로 떼어지나, 공약 목록 부분은 구호 나열이라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "88c3b6e5-339c-4176-93bf-929f89473b2b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "71ef50ae8d5c84b57817ca8599253606feb0c29ebc46f9466cbf7bf1f4290fea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "공장 폐쇄 예정 → 노동자 점거 → 수요 감소라는 폐쇄 이유 → 국유화 요구와 다른 점거의 영향이 이어져 원인·결과·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Calling Vestas the \"world leader\" in",
+      "note": "폐쇄 이유 문단이 이윤 증가와 영국 수요 감소를 대조해 혼자 서고, nationalise·reprisals 를 풀어 쓰면 V6 이 된다."
+    }
+  },
+  {
+    "id": "88d1c8c7-4008-40ba-86a9-4054eb8434bc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "76b9d96c1ca37234da7cf9993037b1e1585496063001de3dd5838b7403ead4db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "순찰 중 폭발 → 응급 처치·헬기 후송 → 정부 애도 → 누적 사망자 증가로 사건과 반응이 이어져 내용 일치 칸을 채운다(전사 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "20 year-old Sikka had been the",
+      "note": "둘째 문단이 공격과 구조 과정을 담아 떼기 쉬웠고 administer 를 give 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "88d354bb-a373-41f8-bd83-8a1f4aa76379",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c894c751f8305f91ce90c91eb65259d120c2747e72bfaf52d3f5bb4d7008c76",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "약혼식 뒤 체포 → 14년형 → 남아공의 비판 → 인도적 사면으로 사건과 반응이 이어져 내용 일치 칸을 채우며, 소재상 고1 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In December, Steven Monjeza, 26, and",
+      "note": "시간이 뒤섞인 세 문단을 날짜순으로 다시 놓으면 순서 문항이 되고, sodomy·indecency 는 charges 로 묶어 쓸 수 있다."
+    }
+  },
+  {
+    "id": "88d6820d-a3d1-48b8-b91d-51fbe8feda09",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "60976e4a9f81411e652959f2d6b394591440739de8935f868597a03fa20304b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "중앙은행 총재의 성장 둔화·금리·물가 상승 경고 → 총리의 반응으로 경고와 반응이 이어지는 짧은 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The outgoing governor of the Reserve",
+      "note": "두 문단 전체가 한 단위이고 underlying inflation 을 price rises 로 풀면 되지만 분량이 짧아 반응 문단을 함께 써야 선다."
+    }
+  },
+  {
+    "id": "88e6af0c-7af6-44a0-aa35-aba598e41854",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3df630317413becc8c647a9db07180cca1957bf9c73f16c30eb08948ad81a8bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "전임자 탄핵 → 첫 여성 대법원장 임명 → 정년으로 본 긴 임기 전망 → 학력·경력으로 인물 소개가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Philippine President Benigno Aquino III formally",
+      "note": "임명과 임기 전망 문단은 쉽게 서지만 경력 문단은 기관 이름 나열이라 줄이고, 끝 문장 마침표가 빠진 것만 고친다."
+    }
+  },
+  {
+    "id": "88fdbe5c-5553-44eb-9e92-0d1e7606d188",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "331a14edb1d602a321c499cfe4611eb243e23a7de827a1c8e02761181c7ebaed",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전세기 이용 → 임차 전용기 두 대 도입 결정 → 이용 규칙 → 「Blair Force One」 별명과 미국 대통령기 비교로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Previously the Prime Minister has chartered",
+      "note": "도입 문단과 이용 규칙 문단이 한 단위로 서고 chartered·leased 를 rented 로 풀면 중등 밴드에 닿는다."
+    }
+  },
+  {
+    "id": "890903fa-c6eb-4a46-85a0-ff822829a5d2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "597f6fba2704bfe5091625c3b7e0886916e84f87db8bf3b7b5f59e5b1d5b0af8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "허리케인 피해자 140명 공수 → 녹스빌 도착·병원 이송 → 고어가 공을 사양한 이유 → 다음 날 추가 비행으로 사건 흐름이 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The victims were greeted by Knoxville's",
+      "note": "첫 문장의 「flown here」 지시어를 Knoxville 로 풀어야 하고, forestalled 를 stopped 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "893eca10-3ad4-4bfe-a09f-10315bca9f98",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "743095c303545dd3b6bedae3be4597545902489b3806261dec1387ff1480176a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주 상원의원이 신을 고소 → 신 명의 답변서가 접수 → 관할 없음 주장 → 소송의 취지(누구나 누구를 고소할 수 있다)로 이어지는 소송 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chambers had sued God for \"widespread",
+      "note": "마지막 문단이 소송의 까닭을 밝혀 앞으로 옮기면 글이 순서대로 서고, jurisdiction·frivolous 는 풀어 써야 한다."
+    }
+  },
+  {
+    "id": "895f657f-d338-46b7-92db-c1659dc11920",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8912ddd3c283fdaedb7c76fb4ec319f7aa8d23bb4a01fb05674d0523e41df48",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "레이더 공백 문제 → 새 기상 레이더 설치 계획 → 해상도 향상으로 홍수 경보 개선 → 건강 우려에 대한 답으로 문제-해결 흐름이 서서 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The gap in the national weather",
+      "note": "공백 문단은 격자 크기 수치를 걷어도 「해상도가 높아진다」가 서고, resolution 을 detail 로 바꾸면 V6 이 된다."
+    }
+  },
+  {
+    "id": "8971602e-531a-4c66-99ef-4d7b54989b8d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c40a61030db53de6accbb24118dcdfcfd7ea0b1555d1ad76f0e22926a3504a2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경찰서 폭발 → 부상자 → 진상 조사 지시 → 경찰의 원인 설명과 주민의 은폐 의혹으로 원인·반응이 이어지는 짧은 속보라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The police say the explosion originating",
+      "note": "마지막 문단이 원인 설명과 반박을 대조해 혼자 서지만 문법이 어긋나(originating·have reported) 고쳐 써야 한다."
+    }
+  },
+  {
+    "id": "898101de-08b0-4a9d-ab41-c18d3c462c16",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1cbaefc2767e7b234b812c43084721abde4976962ccba9a4a5ad0e6fe8330245",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "달라이 라마 수상 축하 → 경찰의 수도원 봉쇄 → 체포·부상 보고 → 중국 정부 무응답으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Armed Chinese police have surrounded and",
+      "note": "첫 문단이 원인과 조치를 함께 담아 떼기 쉬웠고, 인용문 속 대괄호 보충을 걷고 intervene 을 step in 으로 바꿨다."
+    }
+  },
+  {
+    "id": "898a4fad-7649-4e2a-9a74-54bcb34f53de",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "87e80032d2cc48cc3526d29155c96ef85b3086df3b502d2d739f84ddfd9e16d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "경기 부진·예산 불균형 → 450명 감원과 25곳 폐쇄 → 절감액 → 폐쇄 뒤 출입 금지로 원인·결과·다음 절차가 서므로 내용 일치 칸을 채우고, 뒤 절반의 장소 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The closures are considered indefinite but",
+      "note": "넷째 문단은 폐쇄 뒤 관리와 무단출입 처벌을 담아 혼자 서고, 장소 목록 25줄은 읽는 글이 아니라 전부 걷었다."
+    }
+  }
+]

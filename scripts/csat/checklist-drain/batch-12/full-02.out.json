@@ -1,0 +1,958 @@
+[
+  {
+    "id": "80c098aa-65cb-48ec-999a-4de9f8a57389",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d89e31cb91f2ac1ab6c53c83257ec39937175bf40d06cec2fbb9cb0281bfc936",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "3선 승리 → 총리·당 반응 → 야당 승복 → 개표 현황이 문장으로 이어져 선거 결과 보도 한 편이 서고 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Opposition leader Liberal Ted Baillieu conceded",
+      "note": "승복·다음 선거 다짐 문단은 앞 문맥 없이 서고, conceded·accountable 을 admitted·responsible 로 바꾸면 V4 까지 내려간다."
+    }
+  },
+  {
+    "id": "80ccbd26-5e58-4290-8a48-e3ec3ceb19e8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a092cc46deb08684ead781a7d909e291216761a41df5f9d3b7054477e75d0fb9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "위키 회의 개최와 취지 두 문장뿐인데 미래형·과거형이 섞이고 독일어 잔재(Schanghais)·출처 괄호가 남아 사건 연결이 서는지 애매하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The Chinese Wiki Conference, the first",
+      "note": "취지 문장은 떼어지지만 회의에서 무엇이 오갔는지가 없어 사건이 서지 않고, 시제·잔재를 손봐야 한다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "80e8e64f-09cb-4f5c-8824-e9a84659ea21",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2b2f0ebc9184079daf8e6d7e123967e49a1c97d5fc0da745feefc6723549f9c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "새해 차량 방화가 연례 현상이 됐다 → 한 해 통계 → 경찰이 「전쟁」이라 말한다로 폭력 격화 흐름이 이어져 내용 일치 칸(고등 이상)을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 2006, an average of 112",
+      "note": "통계 문단이 수치 위주라 첫 문단과 붙여야 흐름이 서고, ablaze·ambushes 를 on fire·attacks 로 바꾸면 쉽다."
+    }
+  },
+  {
+    "id": "81313b03-1570-4123-a053-5db7f9746123",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31db0407c4cc9232e946530bc2970aec7460f5ce639bdbcbf5c329d47ac07783",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총격 → 소방대 철수·접근 차단 → 불이 마을 쪽으로 번짐이라는 원인·결과가 두 문단 안에서 이어져 짧은 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Serbian firefighters battling fires in the",
+      "note": "지명(Kuršumlija·Podujevo)을 걷어도 사건이 서고 administrative line 을 border 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8167638f-6511-43ab-bda5-4399a0d4b03a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "261344316c9831063976b9a08210b2e41995cad3a6e49cca151dc5c61d523932",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "UN 모금 호소에 응답 국가가 없다는 사건과 옥수수 생산 반감·가격 상승이라는 원인이 이어져 기아 문제 논지가 서고 요지·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The domestic production of maize has",
+      "note": "생산 반감 → 가격 상승 → 피해 가중 문단이 혼자 서며, plunged·windfall 을 fell·extra money 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "817adb0d-ec07-4086-8c5a-6ee149975782",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8fcdbcbc41121157ea1b8ee19de4b2f0f844e4ca5d334a3ea1bdf6335a1c4360",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "개봉 임박 → 팬 카운트다운 → 다른 영화들이 5월 개봉을 피함이라는 원인·결과가 끝 문단에서 이어져 내용 일치 칸을 채운다(기록 목록은 걷는다).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Due to Sivaji: The Boss releasing",
+      "note": "끝 문단은 영화 이름만 일반화하면 서고, 중간의 기록 세 줄은 목록이라 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "8189d60e-7e8d-4307-8ec9-bc209ad95d64",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1bcef8528498eec2cda1f1f1ce835cd69d67ed305b76be38089b4ce90a15b111",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "개정법 시행 → 출생 시민권 요건 변화 → 부처가 밝힌 개정 이유가 이어져 제도 변화 한 편이 서고 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As of today babies will only",
+      "note": "요건 문단은 법 이름 없이도 서고, acquire·dependencies 를 get·territories 로 바꾸면 V4 로 된다."
+    }
+  },
+  {
+    "id": "81c0257f-61c8-4ac4-9836-9319285ffbee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23cacb94757b2de3775daba0015004f44eb5b3a311be62cfd65e98e7d8425d6e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "폭풍 발생 → 약하고 짧게 끝날 전망 → 그런데도 예보관이 놀란 이유(대류 변화 예측의 어려움)가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "However, the storm's intensification has already",
+      "note": "마지막 문단은 앞 폭풍 이름에 기대고 convection·cyclones 는 바꾸기 어려운 전문어라 어휘 조정이 막힌다."
+    }
+  },
+  {
+    "id": "81e7d508-25c1-4aa3-8a7e-04f34a44a59c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2a591d62cb5fbcc7ce4b9f0c7129720a30f3e374fab90064e46bf4c3d616c116",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부모가 딸을 속여 데려감 → 약혼자 신고 → 결혼 → 부모 기소로 사건이 시간순으로 흘러 순서·내용 일치 칸을 채운다(고등 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Friday, August 4, bride-to-be Julianna",
+      "note": "첫 문단이 사건을 열어 떼기 쉽고, 중간에 문장이 두 줄로 쪼개진 곳만 합치면 되며 felony 를 crime 으로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "81e7ff90-c15c-4103-bc8e-4d025b6d46a6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab6daf1fe56b8428a8a1ba5e7db4f9fb399f4bf55881a783814415a7fff4a0cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "기록적 적설 → 차에 갇혀 사망자 발생 → 신칸센 탈선이 첫 문단에서 이어져 그림 없이도 사건이 서고 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Snow has accumulated to record depths,",
+      "note": "첫 문단만으로 서고 사진 제공 안내 끝 문장은 걷으며, accumulated 를 piled up 으로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "81fdf086-9195-4d7b-ab0e-723cc4032c5e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2b8037866f07e58cf91718005909b11079ffdca174cf19f7cc55e7f379748c66",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "economics",
+    "why": "박람회 전시·수출 통계·후속 홍보 일정이 이어지긴 하나 대부분 기관·전시회 이름과 수치 나열이고 비문이 많아 사건 연결이 서는지 애매하다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "After the Taipei AMPA, the TAITRA",
+      "note": "후속 홍보 문단은 떼어지지만 전시회 이름을 걷으면 남는 내용이 없고 비문 교정이 먼저다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "8202f27e-7a9f-4647-ae05-c3a7acc9d39f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dfca393bcb9f316dad4105f5f70c49bd1764dc822886fb681ada51067b77dff2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "노조의 기념 행사 → 세계 여성의 날의 유래(1911 트라이앵글 화재가 노동 조건 논의를 이끎) → 각국 전통이 이어져 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "International Women’s Day has been celebrated",
+      "note": "유래 문단이 혼자 서고 designated·subsequent 를 made·later 로 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "820fac50-2c15-4bd8-840e-7aed298418a4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d18f8b03c0f992a70cb29df028f8e402cb949041d23c8b2e9d2369fbb4cd927d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "배우 은퇴 선언 → 가족에 집중하려는 이유(인용) → 동화책 홍보 자리였다는 맥락이 이어져 인물 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jamie Lee Curtis, 47, has stated",
+      "note": "첫 두 문단이 이름만 두고도 서고 어휘가 이미 쉬워 1~2개만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8212520b-d0ee-4572-aac8-b16f7d5e4158",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bd8abaa347ec8b6d5ead205464ee958654cfd75b94bd348cbd2c777753787e88",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "의회 근처 로켓 발사기 발견 → 도로 봉쇄 → 해체 보도가 두 문단 안에서 결과·대응으로 이어져 짧은 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reports say that roads leading to",
+      "note": "둘째 문단은 첫 문단에 기대므로 두 문단을 통째로 쓰고, cordoned off·defused 를 closed·made safe 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "82225531-b5f9-43a5-ba37-e94e8aa04c51",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "30d85f499fa9bd2d43e6a0300d3dce0631b805029b5c559d936b137cc0a55866",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "부고 뒤 16세 입사부터 사무총장까지의 경력과 정치적 반대자들의 추모가 이어져 인물 한 편이 서고 내용 일치·요약·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "After leaving school at 16, Crow",
+      "note": "경력 문단이 시간순이라 떼기 쉽고 felling·assistant general secretary 를 cutting·deputy leader 로 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "8229f7c4-aeee-4902-8e10-616b36842958",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cf672398e7215373550b310312b68068b43bfe1b700af18d6628a7c8cb07c4fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "장례 사실 · 결혼 연도 · 자녀 없음 · 팬 평가 네 문장이 서로 이어지지 않는 인물 정보 나열이라 짧은 단신 최소선(문장 사이 연결)에 못 미친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Swedish court soprano singer Birgit Nilsson;",
+      "note": "세미콜론 비문을 고쳐도 장례 외에 사건이 없고 뒤 문장들은 인물 정보만이라 떼어 쓸 흐름이 없다."
+    }
+  },
+  {
+    "id": "822c52cc-cd8d-4735-8844-a70db392a779",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fecb5c087cd53a097c7a60fd4924c951bfa69daf1c60299e9839a24a6a374185",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "특이한 날짜·시각이 왜 한 세기 한 번인지 → 온라인 반응 → 다음 기회(06/06/06)로 이어져 가벼운 화제 기사 한 편이 서고 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Whilst 01:02:03, 04/05/06 won't happen again",
+      "note": "마지막 문단이 혼자 서고 긴 공포증 낱말은 뜻풀이가 바로 붙어 있어 어휘 문항 재료가 된다."
+    }
+  },
+  {
+    "id": "8233b357-5d41-44e7-a829-feaa077a3413",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d23e0fc64c54d82ed6039769c8ea4280dd2e427765696316d559a8e3e78bf41b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부패 의혹으로 정부 위기 → 야당과 연정 협상·개각 → 야당 내부 반대와 당 대표 유보로 원인·대응·반응이 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an attempt to save his",
+      "note": "연정 협상 문단은 대통령 이름만 넣으면 서고 denounciations(오기)·consensus 를 accusations·agreement 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8241b067-0b27-4627-a024-a7f65008e881",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "925548e6fa7085f672eeb657d3abc50119a588b3da39d35f7aa7d5d91264a0a8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주마의 영국 비판 발언이 대변인 해명·야당 반박·청년동맹 지지와 함께 실려 한쪽 입장만이 아닌 공방 보도로 서고 주장·요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "summary",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meanwhile, the Democratic Alliance, South Africa's",
+      "note": "야당 반박 문단은 주마 발언만 한 줄 보태면 서고 lambasted·warrant 를 criticized·justify 로 바꾸면 되며, 사생활 대목과 청년동맹의 원색적 인용은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "824b1f23-70cf-4e65-8209-9122877001b8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c2b2793ec6acd95adf8a3ac8cb43c980d9002c3f6638e98af9f9a7cde55f8c99",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "지진 발생 → 해일 공포로 대피 → 경보센터의 해일 위협 없음 발표 → 피해 없음, 그리고 불의 고리라는 배경이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The quake sent people running for",
+      "note": "공포 → 안심 발표 두 문단이 떼어 쓰이고 advisory·destructive 를 message·dangerous 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "825cbf9f-9382-4382-84c2-2b2827eb8b5a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5dd34a75746b1b4523a59f36e3beb303db37c8039689188f81d446ad16ed9a75",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "건설 중 다리 붕괴 → 시신 수습과 추가 사망 추정 → 시공사 관리자 두 명 체포로 결과·다음 절차가 이어져 내용 일치 칸(고등 이상)을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Local investigators have arrested two project",
+      "note": "체포 문단은 붕괴 한 줄만 보태면 서고 culpable homicide 를 causing death by carelessness 로 풀면 쉬워진다."
+    }
+  },
+  {
+    "id": "826422b4-bd84-4530-bf79-807342d86753",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a7e34a9a0c47d934ce5071e704d216d5c6dbf1ffdbb4cc01dd67653b117635cd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "벨기에 대표 발표 → 가수 소개 → 본인의 소감과 목표(순위보다 진정성 있는 무대) 인용이 이어져 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mustii told RTBF about his selection,",
+      "note": "소감 인용 문단이 혼자 서고 authentic·primary objective 를 honest·main goal 로 바꾸면 V3 로 된다."
+    }
+  },
+  {
+    "id": "82c5492d-b3a1-4246-a531-971b7c1e2972",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fbdafc413124b3b469af85b2be33dd55eed24a3bdb567d2272998e22afad1ed1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "초등학교 유리창 70장 파손 → 휴교 → 도서관·상점 등 추가 피해 → 경찰 수사로 결과·대응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The smashed windows resulted in the",
+      "note": "휴교·추가 피해 문단이 서고 vandalism·confined 를 damage·limited 로 바꾸면 되며, 경찰 인용의 따옴표 오류만 고친다."
+    }
+  },
+  {
+    "id": "82c93791-69aa-45a1-81b1-1434569af830",
+    "source_updated_at": "2026-09-25T09:16:37.558842+00:00",
+    "body_sha256": "72ed863355e9788a552c04d86b918a2c054910d36490793ca939ded421cff222",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "원주민 공예전의 취지(장인 발굴·부족 지속성)와 공예 혁신이 문화의 다양성과 기회를 보여 준다는 주최 측 말이 이어져 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As of the organizer, this exhibition",
+      "note": "취지 문단은 떼어지나 비문(As of·bring on)과 인용 앞 「1=」 잔재를 먼저 고쳐야 하고, sustainability 를 survival 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "82d549df-68e6-4084-b95d-35acc7f940b2",
+    "source_updated_at": "2026-09-25T08:51:24.957734+00:00",
+    "body_sha256": "a4c73207391e9341a3ed4ed20d4b54a22f427deee73dfcb4d7233747923978e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "벌거벗은 트럼프 조형물 설치 → 동화에서 따온 풍자 의도 → 제작자 → 뉴욕 공원 당국 철거로 이어지는 보도이며 선동이 아니라 풍자 행위를 전하므로 성인 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spokesperson for INDECLINE told The",
+      "note": "풍자 의도 문단이 동화와 권력 풍자로 혼자 서지만, 조형물 제목과 공원 당국의 성적 말장난 문장은 가공 때 걷는다."
+    }
+  }
+]

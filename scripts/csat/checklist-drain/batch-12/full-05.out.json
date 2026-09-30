@@ -1,0 +1,861 @@
+[
+  {
+    "id": "898cdc29-d644-4fe2-a997-5a12eceb6b42",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b67a8935cdfc9e1f5b2f74e6b42062b01842a971702d109948d8c8464eb1aeee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "본문 넷째 단락이 빈 라덴의 무장세력 결속 호소를 반론 없이 길게 옮겨 분량의 절반을 차지해, 확인 안 된 녹음이라는 끝 문장만으로 선동 전재(polemic)와 보도를 가르기 애매하다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The leader of al-Qaeda, Osama",
+      "note": "인용문을 걷으면 「테이프가 나왔고 진위는 미확인」 두 문장만 남아 사건이 서지 않고, 인용을 남기면 선동 발언이 본문의 중심이 된다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "899eaedc-390e-4efc-8321-a389f9f5905f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a810e1c4c3b348ab6abe73f0691c5180eece8ee6174b4672cbcac56d0ca2314",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "첫 두 단락(투어 발표 → 새 앨범 지원 · 차트 성적)이 원인·목적으로 이어져 내용 일치 칸이 서고, 욕설 섞인 키보디스트 인용과 뒤쪽 공연 일정 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "American Gothic doom metal band Type",
+      "note": "일정 목록과 비속어 인용(asshole)을 걷어도 투어 발표-앨범 지원 흐름이 서고, melodic·lyrical themes 정도만 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "89a1b84e-4645-4db6-bddf-6b2a1fba5463",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80f7ff8de6d4d5f2110eaec4b07ebfca73aa7f71b6f234de1f02a3442efe0d76",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "독일 비준 → 프랑스 국민투표 전망 → 찬성 측 근거와 반대 측(실업·주권) 근거 → 부결 시 파장이 대비 구조로 서서 주제·요지·요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "summary",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Supporters say that it will unify",
+      "note": "찬반 두 단락을 떼면 앞 문맥 없이 서고, sovereignty·ratify·abstained 를 풀어 쓰면 V5~V6 으로 내려간다."
+    }
+  },
+  {
+    "id": "89e8331b-c179-4459-994b-e78b68fc43e6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28dcbe3bc6514578ca9fd10170d6db604220e4578c665997649844b5d6cd3e43",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "사명 변경 한 문장 뒤가 주주 지분율과 Orange 그룹 가입자 수 나열뿐이라 변경의 까닭·반응·절차가 없어 수치만 바뀌는 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "By the decision of the shareholders",
+      "note": "지분율(61%·30%…)과 진출국·가입자 수를 걷으면 「주주 결정으로 이름을 바꾼다」 한 문장만 남는다."
+    }
+  },
+  {
+    "id": "8a2dbaad-baf4-456f-8dc2-f69cff65af66",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b5ffa4cea4ba80d5bf136f5d6478a4ee77f8e6855bd6b9bca6e21f6e1ecc4281",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "강도 후 총격 → 한 명 중상 생존 · 범인 도주 → 프랑스 외무부 확인으로 사건과 반응이 이어져 내용 일치 칸이 서며, 살해 사건이라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gunmen have killed four French tourists",
+      "note": "세 단락이 짧지만 사건-생존자-정부 확인 순으로 이어지고, gunned down·automatic weapons 를 풀면 V4 로 된다."
+    }
+  },
+  {
+    "id": "8a3801c0-442b-42e9-bfc0-6eb6dde68fd8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34166ede8071719cd66eb887b9428356955c8205573191e98cce2d23f16aca4f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "둘째·셋째 단락이 데에바의 평영 세계기록을 예선·결선에서 두 번 깨고 계영 기록까지 더해 「벨라루스 신기록의 날」이 된 흐름을 잇고 폭우로 시상식이 미뤄진 결과가 붙어 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Belarus deaf swimmer Natalia Deeva not",
+      "note": "기록 수치를 줄이고 어색한 영어(within·Besides of)를 다듬으면 서지만, 끝 세 줄(공식 사이트·이탤릭 표 안내)은 보이지 않는 표를 가리켜 걷어야 한다."
+    }
+  },
+  {
+    "id": "8a56e00b-2e17-4d3c-96d1-c39ab000e936",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1ee21571e6ea7a7a57d5fe8183049abc41fc95706f92e2e220d9a67f9bc36bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "COMPUTEX 와 달리 지역 소비자 판매가 목적이라 오락기를 들였다는 까닭과 교통 대책 발표가 문장으로 이어져, 참가사 나열 단락을 걷으면 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Unlike COMPUTEX Taipei, TICA focused on",
+      "note": "넷째 단락의 기업 이름 나열은 걷고, 주최·목적·전시·교통 대책만 남기면 서며 incident-involved 같은 어색한 말은 바꿔야 한다."
+    }
+  },
+  {
+    "id": "8a7fd61c-0191-4c65-aaff-43b0d956b1c7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cd96d214a545bfb4d3111caf6e447f9448c51afd05491c0c749385b10519c471",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "비은행 금융사 인수 권한이 필요하다는 가이트너 주장과 근거(AIG 구제, 보너스 논란)에 베이너·워터스의 반대가 맞서 주장·요지·요약·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "summary",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Treasury Department secretary Timothy Geithner and",
+      "note": "첫 단락이 앞 문맥 없이 쟁점을 세우고, orderly restructuring·pariah·derided 를 풀면 V6~V7 로 내려가며 의원 이름을 걷어도 찬반 구도가 남는다."
+    }
+  },
+  {
+    "id": "8ab2ba04-ba1f-4959-8d98-b706491c07e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ee699ae37bde58e0921298eae009c07f1383cfd7bc36989e232ba332effa262",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "욕설 사용 → 프로디의 비판 → 베를루스코니의 「반어였다」 해명으로 사건·반응·대응이 이어져 내용 일치 칸이 서지만, 첫 단락이 비속어 뜻을 풀어 성인 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Italian Prime Minister Silvio Berlusconi has",
+      "note": "비속어의 해부학적 풀이(testicles·prick-head) 문장은 걷어야 하고, 걷어도 발언-비판-해명 흐름은 선다."
+    }
+  },
+  {
+    "id": "8ab9143c-ac66-4912-b5e6-563c60f2b1ba",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bb5967327132e8d7984067a037bd8f75bd6eb4b65844d0f930f599be0866772e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총격 → 도심 통제 → 목격자 진술 → 사망·중상 → 범인 신원·무기 발견이 사건 순서로 이어져 내용 일치·순서 칸이 서며, 총격 묘사가 있어 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police believe the incident began at",
+      "note": "경위 단락을 떼면 앞 문맥 없이 서고, 인상착의 문장은 걷어도 되며 bikie·point blank 만 바꾸면 V5 다."
+    }
+  },
+  {
+    "id": "8ac1dbc0-8d98-4884-93d4-1db86f9722f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "172f2a0ee5498cd9165c10fbf9ca578335c0d48651ba2934ec55592ea47c871b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "별세 소식에 이어 제미니 8호 위기 수습 → 아폴로 11호 착륙 → 이후 경력 → 가족 성명이 시간순으로 이어진 부고 전기라 내용 일치·순서·삽입·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "title",
+        "long_reference"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On March 16, 1966, he became",
+      "note": "제미니 8호 단락은 추진기 고장 → 비상 추진기로 회복 → 착수로 혼자 서고, docking·thruster 를 풀면 V4~V5 로 내려간다."
+    }
+  },
+  {
+    "id": "8acbc5a0-c7d7-49e7-947a-4e7492e16011",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d5c2719c20f7ca97321a93f7ab8bf26330f63f8d1fe69c6ad17942a183209215",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쇼트의 「내각이 전쟁 합법성에 대해 속았다」는 한쪽 입장 증언이 주장과 근거(골드스미스 번복·정보 차단)로 이어지고 끝 단락에 보이스·캠벨·턴불의 반응이 붙어 주장·요약·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "summary",
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Short asserted Blair's evidence, given to",
+      "note": "증언 단락은 떼어도 서지만 인물·직함이 너무 많아 두세 낱말을 바꿔도 밴드가 크게 안 내려가고, 가공은 인물을 쇼트·블레어·골드스미스 셋으로 줄여야 한다."
+    }
+  },
+  {
+    "id": "8ae18fcb-0060-4f13-8551-7486e03a2fbe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5b8c84115242134d13760076261957d18f2b61b808f84c0790edfd33dcb4c910",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "신경작용제 경보 → 상원 건물 대피 → 검사 음성·세정제 추정 → 대피자 검진 결과가 원인·결과로 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reports say that an office building",
+      "note": "경찰 인용의 시각 표기(1830·2330 GMT)를 걷어도 경보-대피-오경보 흐름이 서고, nerve agent·solvent 를 풀면 V4 다."
+    }
+  },
+  {
+    "id": "8ae4e254-ba32-4cb4-a3fe-20cb2e7a3e1a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bc1819a87b7e152437b828978de06643da244b5c31d93e665bb4fd5a1468c04e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "책의 주장 → 노트북에서 계획 입수 → CIA 가 시제품을 만들어 대통령에게 보고 → 경계령으로 이어지는 사건 흐름이 있어 내용 일치 칸이 서며 테러 소재라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A new book claims that Al-Qaeda",
+      "note": "책 인용 두 문장을 풀어 쓰면 앞 문맥 없이 서고, 장치 설계 서술(hydrogen-cyanide·remote trigger)은 걷는 편이 낫다."
+    }
+  },
+  {
+    "id": "8b054c66-4e6c-4730-bcea-e07a33151969",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6d02be98efc07c74ea4b192169526a2648773f3071bdb662a2980b49eeb94663",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "200m 램프 통행료 발표 → 레인코브 터널 사업의 북쪽 진출입로라는 까닭 → 1999년 1달러에 물가를 반영해 1.20달러가 된 경위가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the RTA, the toll",
+      "note": "끝 줄 「Google Map of the intersection」은 지도 링크 잔재라 걷고, 도로 이름 몇을 걷어도 통행료 산정 흐름은 선다."
+    }
+  },
+  {
+    "id": "8b097876-8cd2-4166-b4ea-8e9382aea8ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "89d5a8f0908b1895b04d50c0b8544b06685b65aa21d23561a05787d5aa12b2a4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "education",
+    "why": "셋째 단락(카트리나로 휴교 → 각지 대학이 늦은 등록 허용)만 글이고 나머지는 편집 안내와 「each state is linked below:」처럼 목록 머리만 남고 목록이 빠져 있어 끊긴 원천이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Due to the damage by Hurricane",
+      "note": "셋째 단락 하나는 원인-대응으로 서지만, 원천의 본체인 대학 목록이 다른 문서로 옮겨져 이 행에는 링크 안내만 남았다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "8b103be0-5572-4dcc-b02d-f3008d0b0fc5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c65f1bd3ae93add6dcb30fc17530c88fefbe11fcba77f5cfedfd6e2370f548b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭발 → 용의자 부상·구금 → 당국의 고의 판단 → 계엄령 선포로 사건과 대응이 이어져 내용 일치 칸이 서고, 폭탄 테러라 고1 이상 칸만 단다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The man allegedly drove a three-wheeled",
+      "note": "끝 줄 「2010 Aksu bombing」은 분류 잔재라 걷고, 민족 언급은 사실 진술이라 남겨도 사건이 선다."
+    }
+  },
+  {
+    "id": "8b17661b-97b9-4af5-8bda-1b8ba87dcdda",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f2446655abbbf00beb1084d604134e9e80eb89c9208d97d23e0b8d8eaed0dc1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "5억6천만 달러 연구비 발표와 대상 질환에 이어 「빚을 갚지 않아 절감한 이자로 가능했다」는 하워드의 까닭 설명이 붙어 내용 일치 칸과 짧은 주장-근거가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Howard said that the grants were",
+      "note": "두 단락뿐이지만 발표-까닭이 이어지고, dividend·chronic 만 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "8b1f0019-826e-4fbb-87c2-1f80874c8b7c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7ee1f41eeadcd4229aecbba5303b16561b638ecb3c2b00bb9ee4547c27896d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "지난 결승 맞대결 → 이번 경기 전 순위 → 1쿼터 우세 뒤 뒤집힌 경기 흐름 → 마프라가 두 경기 앞서는 결과가 이어져 내용 일치 칸이 서지만 점수 표기가 많다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Despite leading at quarter time, Traralgon",
+      "note": "경기 흐름 단락은 서지만 goals-behinds 점수 표기와 오타(thaks·there·puting)를 다듬어야 하고, 호주식 축구 용어는 낱말 몇 개로 풀리지 않는다."
+    }
+  },
+  {
+    "id": "8b3b3376-8ce3-400b-ba04-bf9b3fa46a5d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "626f403b760d6243c9b8a255f5c2b2246bb5fefdbe3e3a2f5c98935379dad3e3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "열대저압부 격상 → 위치·풍속 → 더 찬 바다로 가면 약해질 것이라는 예보로 원인·다음 전개가 문장으로 이어져, 좌표 단락을 걷으면 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The NHC expects Dolores to continue",
+      "note": "둘째 단락의 좌표·기압 수치는 걷고, 격상과 약화 예보만 남기면 서며 intensification·barometric 을 풀면 V4 다."
+    }
+  },
+  {
+    "id": "8b63267d-88c2-4eba-bfa2-b227e599b755",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c302bb8747e7d1d238ba196cf2b2a4c03380a9529672e700bee3666a9cc1a211",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "선불카드로 비밀 숫자를 입력해 5달러로 기록하고 20달러를 내주게 한 수법 → 9일간 아무도 몰랐다 → 정직한 이용자의 신고로 드러났다는 사건 흐름이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A man bought a pre-paid card",
+      "note": "세 단락이 짧고 인과가 분명하며, disburse·cracked 만 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "8b652ca0-cbf4-477a-82be-e0fcb94eecf6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fbd475409e7c08017dd6bac560d12211cd7a4ab9a675c44144df977fe71dc1eb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "달라이 라마가 오지 않고 격려 메시지를 보냈다는 사건에 달리트 10만 명이 불가촉민 낙인을 벗으려 개종한다는 까닭이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ceremony, attended by diplomats from",
+      "note": "두 단락뿐이지만 개종의 까닭이 문장으로 서고, stigma·untouchables 는 문맥으로 풀리며 preside 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "8b7293ff-fa74-4ebf-b00a-dd1ac91830a2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5e9105795c54a181a327916f53c515bd7fdb79cd2a24b360f38cde782d7b0afe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "두 명 사망으로 누적 100명 → 대변인의 확진 경위 → 감염자 절반이 가금류에서 옮았다는 원인이 이어져, 수치가 많아도 사건과 원인이 서는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two people, a nine year old",
+      "note": "대변인 인용과 가금류 감염 문장을 남기면 서고, contaminated·H5N1 을 풀면 V3 로 내려간다."
+    }
+  }
+]
