@@ -1237,6 +1237,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260928141253  csat_hakpyeong_gate_hygiene                  ← csat_analysis_hash search_path 고정 · 새 트리거 함수 anon/authenticated 실행 회수
 20260928143924  csat_hakpyeong_rereview_link                 ← 게이트 v2: csat_review_runs.kind(blind|rereview)·parent_run_id·solve_answer_hash(+backfilled 18) · 분석만 바뀐 재검수는 같은 문항·페르소나의 최초 블라인드 풀이에 잇는다(원문·정답이 풀이 때와 같을 때만) · rereview 는 solve 불가
 20260928152323  csat_item_units                              ← 근거 단위 목록 csat_item_units(원문 해시·버전별 1행 · lib-evidence-units.mjs 생성 · 학평 2,910) · 분석/검수 units_hash · 학평 게이트: 목록 불일치·목록 없이 박제된 승인 불인정 · 목록 변경 시 자동 in_review · R-CHART 발행 보류(도표 이미지 근거 없음)
+20260930190349  csat_review_stamp_at_reveal                  ← 게이트 v3(PR #126 리뷰): 검수 해시를 공개(reveal) 시점에 박제·제출 시 대조 · blind 풀이=공개 입력 · 게이트는 NEW 로 판정(csat_valid_review_personas_row)·현재 근거 목록 대조 · 게이트 트리거가 analyst_run/units_hash/units_version 변경에도 · 발행·목록 쓰기 같은 행 잠금 · 목록 쓰기 시점 원문 대조 · RPC csat_current_units_many / csat_units_build_input / csat_valid_review_personas_many / csat_rereview_parent / csat_publish_hakpyeong
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
