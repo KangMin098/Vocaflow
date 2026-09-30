@@ -1,0 +1,802 @@
+[
+  {
+    "id": "92bc283a-1f3b-44c2-bd88-6e238eb7b35e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Four strong aftershocks have occurred",
+    "note": "칠레에서 발생한 네 차례의 지진 현황과 규모를 상세히 보도한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92c37c19-ff5f-4454-a9a0-783bcbb96b5a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ousted Egyptian president Hosni Mubarak",
+    "note": "무바라크 전 대통령의 심장마비와 출국 금지 조치를 보도한 정치 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92c8b9f0-1e26-45b8-ba32-a6f4b20eb9c3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Green party of Aotearoa",
+    "note": "뉴질랜드 녹색당이 정당들의 기후변화 정책을 평가한 결과를 발표한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92ca465f-6158-412c-9c2e-57a4dce7b98e",
+    "answers": {
+      "blocked": "polemic",
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A panel discussion titled \"Truth",
+    "note": "스레브레니차 학살에 대한 토론회에서 벌어진 민족주의자와 시민 운동가들의 충돌을 보도한다.",
+    "record": {
+      "genre": "polemic",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92d0e5c2-40ce-41f6-a290-bf7b54af4f6c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Police are concerned over the",
+    "note": "뉴질랜드 대학생 실종 사건의 경위와 특징을 상세히 기술한 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92d48576-fc0a-4630-913b-7f513b148e2b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Saturday, North Macedonia's parliament",
+    "note": "북마케도니아가 불가리아와의 협상 결과를 수락하고 EU 가입 협상을 앞둔 정치 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92da0e82-c131-42a5-ad88-bc2fa941b4cf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Monday, Australian telecommunications company",
+    "note": "텔스트라 통신사가 HSPA+ 기술 도입을 전 국민에 처음 제공한 기사다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92dff86f-edb2-4790-a24b-a8b0ed3f25bb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United Kingdom's Serious Fraud",
+    "note": "MG 로버 자동차 회사 붕괴 관련 부정행위 수사를 착수한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92e03c9b-1dd5-48a0-95de-81f03d9f34b4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United Nations and two",
+    "note": "UN과 인권단체들이 가다피 사망 원인 규명을 촉구한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92e1971e-075a-47d1-89f7-a8d36046c731",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "Chubu International Airport, Japan's third",
+    "note": "일본 나고야 국제공항 개항을 알리는 극히 짧은 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92ebc937-6bb9-4189-9f23-ba7fe88f4ec9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Fiat announced on Friday that",
+    "note": "피아트가 크라이슬러 지분을 추가 매입하려는 계획을 발표한 기사다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92ed4b8e-6cd5-40af-b8d8-36df8b08421f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "A report released by the",
+    "note": "UN이 다르푸르에서 대량학살이 아닌 인도에 반한 죄가 발생했다고 보도한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92eddba3-7f02-4911-826f-c0678904fff0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Four adults, three teens and",
+    "note": "버지니아 총격 사건의 피해 규모와 용의자 추포 과정을 상세히 기술한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92ede804-fba1-445a-9770-ffb168dbb6e5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Today, the satellite radio providers",
+    "note": "XM과 시리우스 위성라디오 합병 신청서에 담긴 요금 및 기술 정보를 설명한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92ee2e5a-7bf9-4839-a99f-e2b81821b3af",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Former Chilean dictator Augusto Pinochet",
+    "note": "피노체트 전 칠레 독재자가 살인 및 납치 혐의로 가택연금된 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92f40f23-6de8-444d-95c6-44881037abaa",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An Italian judge has convicted",
+    "note": "CIA의 특별 인도 프로그램과 관련된 이탈리아 법원의 첫 유죄 판결을 보도한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92f5f21e-2876-410f-b691-5ef160413678",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "David Hicks of Australia became",
+    "note": "호주인 데이비드 힉스가 새 군사재판법 첫 피소 사건이 된 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92faa894-fc23-4ac2-bb51-2e72478f9005",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "The Bombay Stock Exchange Sensex",
+    "note": "봄베이 증권거래소 지수가 14,000선을 넘어선 사건을 수치 중심으로 보도한다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "92fb7cd1-1e2e-42f3-b00e-1d250b0dfa14",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Canadian Astral Media Inc. will",
+    "note": "캐나다 방송사 애스트럴이 스탠다드 라디오를 인수하는 합병 거래 기사다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9302d2f7-4dda-4951-b67f-b1cc4637e7ab",
+    "answers": {
+      "blocked": "polemic",
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A United Nations exhibition, entitled",
+    "note": "터키의 항의로 UN 대학살 전시회가 연기된 정치적 논쟁을 담은 기사다.",
+    "record": {
+      "genre": "polemic",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "930deb04-4f4c-43c1-a92e-3be8e645ac50",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A family visiting Christchurch, New",
+    "note": "화재에서 가족이 위태롭게 탈출한 사건의 경과와 안전 문제를 보도한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "930f3fe0-7c3f-4511-844a-14216bd777d0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Charles Chibitty, the last surviving",
+    "note": "2차 대전 코만치족 암호 통신병 마지막 생존자의 사망을 추도 기사다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9313933c-33e3-4e39-ac03-3a1f86377ff0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Another confirmed case of bovine",
+    "note": "캐나다에서 광우병 확진 사례가 발견되어 축산 시장에 영향을 미친 기사다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "93168a13-f819-4af3-9081-c2140c828cc2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Canadian police officers who thought",
+    "note": "밴 헬런 가수를 사칭한 사람이 도움을 받은 유머러스한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9318998e-7439-4180-ac61-f84d092a3bbe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United States embassy located",
+    "note": "미국이 케냐와 에티오피아에서의 테러 위협을 경고하는 보안 공지 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  }
+]
