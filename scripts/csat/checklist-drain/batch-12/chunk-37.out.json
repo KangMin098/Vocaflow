@@ -1,0 +1,802 @@
+[
+  {
+    "id": "899e846a-a363-4b98-81f9-f5d8008cad2a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In March, Wikinews held an exclusive",
+    "note": "후보자가 자신의 정치적 입장을 설명하는 인터뷰로, 선동적이지 않다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["claim", "content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "899eaedc-390e-4efc-8321-a389f9f5905f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": null,
+    "note": "투어 일정 목록이 본문 대부분이고, 관련 설명이나 논지가 부족하다.",
+    "record": {
+      "genre": "music",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89a1692d-3804-40f0-9adf-916202435029",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "India's yearly pilgrimage to the",
+    "note": "갠지스강 오염 문제로 힌두교 순례자들이 축제 거부를 위협하는 사건을 다룬다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89a1b84e-4645-4db6-bddf-6b2a1fba5463",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The German Bundesrat voted to",
+    "note": "EU 헌법 비준에 대한 독일과 프랑스의 입장을 설명하는 정치 뉴스다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89a34f80-e7e2-49f6-9646-e25c5e1e1ee5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On September 24, 1759, Arthur",
+    "note": "기니스 맥주의 250주년 기념행사와 역사에 관한 단신 기사다.",
+    "record": {
+      "genre": "food",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89a57693-85a3-40a2-ad37-4cdf69f78793",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Yesterday, over one hundred tons",
+    "note": "아프리카에서 상아 100톤을 소각한 사건을 보도하는 환경 기사다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89ae14f1-a5f7-4ee3-9eb7-d74760415ee3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An exhausted Charles Kennedy returned",
+    "note": "자유민주당의 정당 강령 발표와 주요 공약을 설명하는 정치 기사다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89b184c5-df9f-4eb2-b2bb-8d719aad59ad",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Three people were killed and",
+    "note": "모하비 우주항 폭발 사고의 시간순 보도로 사건 진행 과정이 명확하다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match", "long_reference"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89b71233-ca3b-4997-9ec5-ec13cb740d1d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Despite fuelling speculation of a",
+    "note": "퀸즐랜드 주지사의 선거 시기에 관한 뉘앙스 차이를 다루는 정치 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89b77d4d-485d-45fb-bb8b-19ca3588a3c1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The heads of the government",
+    "note": "케냐 정부와 야당이 선거분쟁 해결을 위해 권력분담 합의를 이룬 사건이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock", "csat"],
+        "types": ["content_match", "long_reference"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89b83f07-e970-438d-92c4-51a3f281f1e3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In a surprise result, the",
+    "note": "2005년 영국 총선에서 UUP 지도자가 낙선한 사건을 간결하게 보도한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89c03d4b-6a0e-4cde-a513-db9b6945043f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Representatives from Sudan's warring",
+    "note": "수단 내전의 양측이 민간인 보호 원칙에 합의한 외교적 성과를 다룬다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89c71627-21ee-4e8e-83a2-9aa847e6d88a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Randy Pausch, professor of computer",
+    "note": "카네기멜론대 교수 랜디 포시의 서거를 알리고 그의 업적을 소개한다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89c9ae4d-cc73-4aaa-9e79-152bcca13413",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "U.S. Secretary of State John",
+    "note": "미국 국무장관이 이라크를 방문해 ISIL 대항 국제 연대를 추진하는 외교 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89cab4e6-81c3-46b1-91ff-867893308970",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Exit polls in Bolivia indicate",
+    "note": "볼리비아 대선에서 에보 모랄레스 현직 대통령이 재선된 결과를 보도한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89d0aea8-dd7a-4a3b-912c-3e7a8018c536",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Today Wikipedia, the free encyclopedia",
+    "note": "위키피디아가 에이프릴 푸울 장난으로 본 경험과 기여자들의 반응을 다룬다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89d34252-743f-4155-bd77-34baf95013b9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In spite of the U.S.",
+    "note": "아프가니스탄의 양귀비 재배 증가와 미국의 마약 대조 전략을 다룬다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89d3f654-c1bc-48cc-8b2b-ae884f28a04b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tuesday, Hamas announced it was",
+    "note": "하마스가 로켓 방지 부대를 배치해 휴전 협정을 이행하려는 움직임을 보도한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89db096c-3a45-4a2b-8526-56a78aa078e4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Australian Labor Party has",
+    "note": "호주 정부의 핵발전소 건설 계획에 대한 야당의 압박과 반발을 다룬다.",
+    "record": {
+      "genre": "energy",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89ddc0f1-88d4-49e4-a988-7faff9bd8068",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The British Ministry of Defence",
+    "note": "아프가니스탄에서 전투로 사망한 영국 군인의 신원을 공개하고 그의 경력을 추도한다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89e8331b-c179-4459-994b-e78b68fc43e6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": null,
+    "note": "사명 변경 결정과 주요 주주를 나열한 짧은 공지로 실질적 내용이 부족하다.",
+    "record": {
+      "genre": "business",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89edc29f-d0f4-43df-aa4a-5a516f7c7085",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Wikimedia Foundation has received",
+    "note": "모르몬 교회가 위키미디어 재단을 저작권 침해로 고소한 사건과 배경을 상세히 설명한다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89ef8dd9-60dd-405e-be72-4d812abaea57",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A 66-inch (168 centimeter) water",
+    "note": "워싱턴 DC 근처에서 발생한 수도 파열 사고의 시간순 보도로 구조 과정을 설명한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match", "long_reference"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89f16b43-592f-40db-aeae-0501eb0bc285",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "As many as 3,200 mine",
+    "note": "남아공 광산의 광부 대량 갇힘 사고와 구조 과정을 시간순으로 자세히 설명한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match", "long_reference"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "89f27a83-0e56-4575-a88d-5958fa1ef89b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "New reports have emerged detailing",
+    "note": "이란 정부의 서구 문화 억압 정책과 위반자에 대한 처벌 규정을 설명한다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  }
+]
