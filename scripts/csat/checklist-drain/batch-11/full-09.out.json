@@ -1,0 +1,667 @@
+[
+  {
+    "id": "7d0df4ee-46c8-4994-826b-6e117aeeb2bd",
+    "source_updated_at": "2026-09-25T09:17:16.726854+00:00",
+    "body_sha256": "99abfe30db2ddc7608933d077f3b73771227dc4b53873699eb25786463f6b2f0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "사진 교재 발표회 → 청중 질의 → 저자가 기존 교재와 다른 점(쉬움·예시 위주)을 말하는 인용 단락까지 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "During the speech, Pinchuk took questions",
+      "note": "마지막 인용 단락의 대괄호 보충을 풀어 쓰면 저자 주장 문단으로 선다; replete·illustratively 를 full of·with pictures 로 바꿔 보니 V4 쪽으로 내려간다."
+    }
+  },
+  {
+    "id": "7d0ea273-6c32-4d05-b580-bd5aedc9716c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1f864790bd7b34812d687a60ff4e8073d988ab9e2ca7d94a6f1a355a30ca5d3d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "클랜시 사망 → 대표작 『붉은 10월』의 판매·영화화 → 베스트셀러 기록과 유작 예정까지 한 사람의 경력이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Hunt for Red October, Clancy's",
+      "note": "배우 이름을 걷어도 작품·경력 흐름이 선다; espionage·intrigue 를 spying·plots 로 바꾸니 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "7d399670-4367-4672-828a-a939c4258d9b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "89d6aaf48f43270a12bb91c7d19cbd941b1e709ab590335bd97454bcd459fdb1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "허리케인 상륙 → 정전 8만 가구 → 주민·주지사 반응 인용으로 원인·결과·반응이 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Thursday, the storm moved slowly",
+      "note": "주민 인용이 비유(nor'easters)라 한 줄 풀이가 필요; stalled·hammered 를 stopped·hit hard 로 바꾸니 쉽게 내려간다."
+    }
+  },
+  {
+    "id": "7d4aa3c7-2a32-4567-8817-09b746a0a5f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d177218cc76de6c3d1b01a262c1239b46a9438746f477789980de31d34b86e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "대법원이 퀘벡 민간 의료보험 금지를 무효화했고 그 이유(대기로 인한 생명 위험)와 쟁점(소득과 무관한 평등 접근)이 두 문장에 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Canada's top court has struck down",
+      "note": "59어로 짧지만 판결·이유·쟁점이 이어진다; struck down·regardless of income 을 cancelled·no matter how rich 로 바꿔 보니 V4 까지 된다."
+    }
+  },
+  {
+    "id": "7d4b276c-36da-49f6-b139-65ce3af3fc8a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "102c02fa26c43a0bb539eaa18ee2afae5f8ab3eae58b40d15d76b798a5040afe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "원자재 가격 상승 소식 → FTSE 1년 최고치 → 분석가의 추가 상승 전망 인용으로 원인·결과·반응이 이어져 수치 나열 단신을 넘어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some economic analysts think that the",
+      "note": "지수 수치 문장이 많아 문항은 원인·전망 문장 위주로 짜야 한다; sentiment·eyeing 을 mood·watching 으로 바꿨다."
+    }
+  },
+  {
+    "id": "7d520ded-aca3-46df-aa12-5dd96dd67516",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "49e0bffb2f1156548c3f60bcbb1d4b78efa07e3dc773848b4e9c0775c955a659",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "인도 경영대학원 입학시험 시행 → 응시자 20% 증가 → 면접 진출 기준 → 올해 바뀐 응시 규정 넷이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "IIM-Ahmedabad is the only institute which",
+      "note": "「1,90,000」 인도식 표기와 「:-」 기호를 고쳐야 한다; aggregate·scrapped 를 average·removed 로 바꿨다."
+    }
+  },
+  {
+    "id": "7d67ae8d-b1fc-4288-9c9e-21d8eaaa68a5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a3fcfbfd41374b69090de0d561c3379adab488a951d946e7b71b84121f9c6db",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "젊은 유권자가 사회정책엔 진보적·정치 관심은 높고 개인 전망은 비관적이라는 대비가 단락별로 서서 내용 일치·요지·순서 칸을 채운다(정치 성향 조사라 교재 선정 때 주의).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In stark contrast, younger Americans expressed",
+      "note": "대비 접속어(In stark contrast · Despite)가 단락 경계를 뚜렷하게 해 순서 문항이 쉽다; receptive·lagged 를 open·was lower than 으로 바꿨다."
+    }
+  },
+  {
+    "id": "7d89985a-3d08-46d8-80a3-41f23c3aa95b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ed5189e7f0aed9a51c480f6d820abd50968e75139950bedb28f35360125ac070",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "총리실의 방문 초청 → 기후 정책 기대차 → 녹색당·환경장관 반응 인용 → 날짜 미정으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Schwarzenegger is reported to have higher",
+      "note": "원문 오타(Govenor)만 고치면 된다; erratic·inauguration 을 strange·start 로 바꿨다."
+    }
+  },
+  {
+    "id": "7d910a7a-11c9-4c9e-b310-d715358b6e80",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b7658e45bd564960afb85861f6a2d379d7e686916c8897792ec8cd9e1ded509b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "메탄 폭발로 100명 넘게 사망 → 10년 내 최악 사고 → 새 안전장치 점검 중이었다는 주지사 말 → 대피 인원으로 사건 경과가 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Kemerovo governor Aman Tuleyev said",
+      "note": "주지사 인용이 번역투로 뜻이 흐려 걷거나 풀어 써야 한다; 사망·실종 수치가 보도마다 달라 문항은 한 값으로 고정한다."
+    }
+  },
+  {
+    "id": "7dbb85fc-7c15-44ee-a2c4-c5b4d13f3424",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "389ad623530ee29aae0ffd2e3724f2ff0356c446fc3c58e5b6f9f090b1bbc7ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "마라톤 예선 개막 → 후원사의 기부·자선 대사 행사 → 새 우승자와 대회 기록으로 행사 경과가 이어져 내용 일치 칸을 채운다(비문 많음).",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "ING Antai not only sponsored winning",
+      "note": "첫 문장과 둘째 단락 끝이 비문이라 다시 써야 한다; 기록 수치만 되풀이하는 셋째 단락은 줄였다."
+    }
+  },
+  {
+    "id": "7dbf98c1-2482-47f0-86d9-9069a85ff44a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "82d858661f199aa24887e31caeb2e9335fe5ca5cec9030f96bffe77857d4b254",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "노인·장애인용 산책로 개장 → 청각·시각·휠체어·노인별 설비 → 비용 조달로 대상별 배려가 단락마다 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For the hearing-impaired, sound amplifiers have",
+      "note": "「A premier for the Netherlands」 오기를 「A first」로 고쳐야 한다; amplifiers·intervals 를 speakers·every 50 meters 로 바꿨다."
+    }
+  },
+  {
+    "id": "7dc24331-a783-4e2d-b8c9-6db21f6956cf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ff7fc1407e65baed5a42c31ec960ecd3173248d6ae1012b0cc04aa772e6a9573",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "전사자 추모로 의원이 조기를 게양 → 노조 계약상 직원 업무라 반발 → 재향군인회·의원 반응 인용으로 갈등이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is part of a unionized",
+      "note": "제목의 「노조 반발」이 본문에 직접 인용되지 않아 한 문장 보충이 필요; collective agreement 를 work contract 로 바꿨다."
+    }
+  },
+  {
+    "id": "7dd5fed4-bc25-42f9-bfb6-36d71d60d268",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78a46f05c18f8f4c1ddd76f6210d3d5cb4dee7be6adfd31b40c3234dcb14e6f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "루카셴코가 해외 기부를 이념 침투라 비난 → 국내 장학 기금의 취지 → 유학 제한 요청으로 한쪽 입장 보도가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Students, which Lukashenko met, were receivers",
+      "note": "한쪽 입장 인용이지만 기자가 선동하지 않는다; stipendies·donators 오기를 stipends·donors 로 고쳐야 한다."
+    }
+  },
+  {
+    "id": "7dda2bba-5560-4656-b111-9164042f93f1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6335ad78fdc6e1a0242b1d36957a27de81e9feb2055eceebb65cfa1f738b0560",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "뭄바이 테러 공모 혐의자 무죄 주장 → 혐의 내용(동료의 정찰 은폐) → 변호인 반응으로 사건 절차가 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Prosecutors allege that Rana is used",
+      "note": "「is used」 비문과 첫 문장의 수식 위치를 고쳐야 한다; allege·pertaining to 를 claim·about 으로 바꿨다."
+    }
+  },
+  {
+    "id": "7ddcbcf1-52c1-424e-93e7-ae3336cd5bbe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "06041dbdf00d8bffc9d6890767a2ec6b0adfd1f8e24bcc2b9e9b627ef0c067ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수력 공사로 국도 66호 통행 제한 → 요일·시간 조건 → 도로공사가 우회로를 안내하는 공지형 단신이라 내용 일치·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "purpose"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Romania's National Road 66 (DN 66)",
+      "note": "우회로 지명 나열은 가공 때 한 경로만 남기고 걷는다; hydroelectrical operations 를 dam work 로 바꿨다."
+    }
+  },
+  {
+    "id": "7de29fe1-bb73-489a-88b8-547fb983e96b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c98c5641f4ca54a350cb2aa310f4ec0b256b23b569da990c7f810cb8df9de8b0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알카에다 연계 혐의 100여 명 체포 → 석유 시설 공격 계획 → 조직 구성과 대변인 발언으로 사건이 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A statement, which was read read",
+      "note": "「read read」 중복을 고쳐야 한다; 국적별 인원 단락은 수치 나열이라 줄였고 confiscated 를 taken 으로 바꿨다."
+    }
+  },
+  {
+    "id": "7dfe9b94-dde9-4694-8936-a211e8078622",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27f6e589f2a3f4ce7df70217da4e1bfd69e87e9055f923a8045fc30a70d7baba",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다게스탄 목욕탕 폭탄으로 군인 10명 사망 → 체첸 접경과 봉기의 역사라는 배경이 이어져 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two bombs were set off in",
+      "note": "끝의 「Sources:」 와 기사 제목 두 줄은 가공 때 걷는다; insurrection 을 revolt 로 바꾸니 V4 가 된다."
+    }
+  }
+]
