@@ -1,0 +1,802 @@
+[
+ {
+  "id": "85debf27-cfa0-4d8c-9544-81c1248b51f5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Six men were charged Monday",
+  "note": "쿠데타 지도자 암살 미수 기사로 혐의·체포·국제 반응이 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "85e6d432-77f5-4e9f-9e59-ca662861d94a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Curtis Cooper, a mathematician and",
+  "note": "수학 발견 기사로 발견 과정·검증·역사적 맥락이 설명됨.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "85e7e46b-fb15-4e9b-b28b-23712d539b5e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Alvin K. Hellerstein, a U.S.",
+  "note": "법원 판결 기사로 판사 명령·행정부 주장·판사 반박이 대조됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "85e8d7b6-54f9-4277-ba57-e446423c1af3",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Jóhanna Sigurðardóttir, an openly gay",
+  "note": "정치 임명 기사로 개인 배경·정치적 과정·비판이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "85eb4bd3-b01a-4c5f-a68f-617601edc2e8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Nearly a month into the",
+  "note": "기후 기사로 관측된 현상·원인 분석·농업 영향이 연결됨.",
+  "record": {
+   "genre": "environment",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "860844c0-c632-4a20-9ec8-96ccda0c7524",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "London — The Open Rights",
+  "note": "컨퍼런스 행사 기사로 행사 취지·주제·토론이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "860e7f53-4eb2-4094-84a1-0c9a761f4f63",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Austrian cellist and conductor Heinrich",
+  "note": "음악가 부고로 생애·경력·회복 사건·추도가 시간순으로 전개됨.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "860f51d2-b635-4c04-ba17-20d1792533d0",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Dutch member of parliament",
+  "note": "정치 선언 기사로 제안 배경·구체적 정책·정치적 위치가 서감.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "86138e8f-815b-426f-a6cd-044b850294b9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Floating wreckage has been retrieved",
+  "note": "항공기 추락 사건 기사로 발견·희생자·구조 노력이 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8615def6-d738-48d9-a64c-263be6b01557",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Did we need to take",
+  "note": "건강 설문 조사 기사로 문제점·구체적 증거·영향이 체계적으로 제시됨.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "861892a5-7533-4539-97ea-f74132ecf86a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Michael Moore's controversial new documentary",
+  "note": "영화 개봉 기사로 흥행 실적·역사적 위치·배급 계획이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "86189a0d-d229-4fbd-a3c9-4642ebcf7a85",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Studies of Mars point to",
+  "note": "화성 연구 기사로 과학 발견·증거·생명 가능성이 논증됨.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "861e22f9-7c10-47fe-ac91-2b741c78cc09",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Security officials in Pakistan have",
+  "note": "군사 공습 기사로 사건·피해·배경이 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "861ecf78-6d62-4666-8ce4-4e314169a7ed",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On Monday, April 28, the",
+  "note": "캐나다 선거 기사로 선거 결과·정당 성적·정치 발언이 제시됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "861ffb6b-b407-41b7-b5dd-6ca3b1e1649c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Pyongyang watchers agree that Kim",
+  "note": "정치 인물 건강 기사(96어)로 우려·증상·가능성이 간결하게 서감.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8622297a-6f51-4079-aac9-7f8ed6215e78",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Last night the top four",
+  "note": "경연 행사 기사로 참가자·심사위원 담론·평가가 제시됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V3"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8625e9c5-20d4-4346-87e3-e1121a376aa6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The White House has rejected",
+  "note": "정치 갈등 기사로 행정부 거부·민주당 주장·공화당 반박이 대조됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "862854a5-8b6e-464b-994d-16eb42e38a43",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On Thursday evening, a bus",
+  "note": "버스 추락 사건 기사(112어)로 피해·경위·치료가 간결하게 서감.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "862a3a78-2307-4fc2-afeb-534a48f928b2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Star Trek star and actor",
+  "note": "연예인 기부 기사로 사건·금액 협상·자선 목적이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "863143d4-ef42-4144-b571-25d408752305",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On 9 and 10 April",
+  "note": "이탈리아 선거 기사로 연합·정당·종료 기준·개표 방법이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8635931e-e550-414e-9184-8a231cb64cbb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The creation of the proposed",
+  "note": "인터넷 기사 기사로 거부 사유·이전 경과·정책 이유가 설명됨.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8635fa67-a73c-49ce-8e1b-74f7156ebb93",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Georgetown branch of the",
+  "note": "화재 사건 기사로 보도 경위·수집품·소방 대응이 서감.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8638b273-dee6-4b8e-a5b1-fdddd08f407a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Puffin numbers are declining on",
+  "note": "동물 개체군 기사로 관찰된 변화·원인 가설·환경 영향이 논증됨.",
+  "record": {
+   "genre": "nature",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8641245d-ca5a-4f1a-9d2a-0b5cff6b009b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A policewoman in England has",
+  "note": "범죄 사건 보도로 피해자·상황·치료 경과가 시간순으로 서감.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "8641a02f-4291-42a7-a746-9b966ae56a14",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "At least 20 people have",
+  "note": "폭탄 테러 기사로 피해·위치·역사적 맥락이 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ }
+]
