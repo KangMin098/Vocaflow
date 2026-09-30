@@ -1,0 +1,930 @@
+[
+  {
+    "id": "968ae257-0e9c-4442-b037-4d9ed8c18caf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a48d85bfa11de856b79b24cd62c44af6f445bdceca58553001b5622514aa05ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지적설계 지지 발언 → 2007년 토론 발언 → 주 의회 법안이 그의 책상에 있다로 사건이 이어지는 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Governor Bobby Jindal, a Republican politician",
+      "note": "첫 문단은 앞 문맥 없이 서고 intelligent design·creationism 을 풀어 쓰면 V4 로 내려가며, 부통령 후보 문장은 걷어도 된다."
+    }
+  },
+  {
+    "id": "96935a43-605e-4aae-bd26-ac26ed6fe554",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c1e90e13b7377c0a8dc4a4463291c3deeab98f2f24e7f6aef63cc60d8310aa24",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "파티·출연자 이름 나열이 대부분이지만 마지막 문단이 영화제가 토론토 경제에 가져오는 돈을 스타들의 지출로 설명해 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 2002 study by the Toronto",
+      "note": "경제 효과 문단은 혼자 서지만 앞의 파티·출연자 목록 문단들은 이름만 바뀌는 나열이라 가공 때 걷어야 한다."
+    }
+  },
+  {
+    "id": "96a05d27-84f2-436f-86cd-1a70b671167f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c77c201e42e8e11288dcaf68cfa4bba51aac662557c01084ef6ab45c6011af5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "목사의 요구 → 아홉 명 제명 표결 → 40명 항의 탈퇴 → 면세 지위 위험까지 원인·결과·반응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a special meeting Monday night,",
+      "note": "둘째 문단부터 떼면 사건이 앞 문맥 없이 서고 repent·dissenters·tithes 를 바꾸면 V5 로 맞는다."
+    }
+  },
+  {
+    "id": "96b08331-5285-4b10-a0e3-d37a8bf9b3c8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a26f8ae10b0fbdee37d9d9b310858383ed1837b13d3120894c8359fc5fee94d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "새 운전자가 모르고 기구를 돌려 직원이 사망했고 2004년 사고 뒤 둔 안전 조치가 지켜지지 않았다는 원인·결과가 이어져 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The accident occurred near the end",
+      "note": "사고 경위 문단은 이름을 걷어도 서고 gyrating·ejected 를 바꾸면 V4 로 내려가며, 죽음이 소재라 초중등 칸은 두지 않는다."
+    }
+  },
+  {
+    "id": "96b35723-8703-40fd-bd8c-766e1206777d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "455fbdbdd72867ee1c10597664ae01e6e3f0759868d2f5a13891d1f887fca8ab",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "리듬 게임의 곡 선정과 저작권 조율을 묻고 답하는 인터뷰로, 저작권 존중 문답 단락이 내용 일치·주장 칸을 채운다(제작사 한쪽 입장).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "I believe that a developer should",
+      "note": "저작권 문답은 떼어 낼 수 있지만 게임명·회사명을 걷으면 답변이 짧아 논지가 얇고, 질문 문장이 길어 줄여야 한다."
+    }
+  },
+  {
+    "id": "96b58417-9520-44e5-a9ed-ea288df0a602",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa351b8bf70813f89b7e9e53f250627cf25c27737607695cb8d3ee6e831ba575",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유조선 피랍 → 적재량·위험 → 선원 구성 → 몸값을 노린 반복 피랍이라는 배경으로 이어져 짧은 단신이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Officials say the tanker, which can",
+      "note": "둘째 문단은 혼자 서고 ascertain·hijacked 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "96b90ca9-efa8-4b68-95bd-6a7d70e95334",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c57c50d51ba0f2b87a7643d791f6fd6ad334fbb6a3db39b87eddf2671c2cefa9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "시위 단체가 평화 시위를 요구하며 경찰의 광장 봉쇄를 비판하는 한쪽 입장 보도로, 주장-근거 짝과 경찰·정보기관 쪽 근거가 함께 있어 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The protesters have been denied access",
+      "note": "광장 봉쇄 문단과 인용 문단은 이어 붙이면 주장이 서고 kow-towing·forecourt 를 바꾸면 V5 로 맞는다."
+    }
+  },
+  {
+    "id": "96d1c4c4-ce2a-480b-b4e4-383294114afb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b0935e5106b1db94718f18956308071a952a3b66337149aef9006ee809ab805",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "기둥이 쓰러져 천장이 무너짐 → 두 명 사망·구조대 불필요 → 조사 착수로 원인·결과·다음 절차가 이어지는 짧은 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least 2 coal miners in",
+      "note": "첫 문단은 혼자 서고 pillar 만 풀면 V3 로 내려가지만 뒤 문단은 이름·시각 나열이라 짧다."
+    }
+  },
+  {
+    "id": "96d87529-15bd-4bfe-8e1d-ca02a25937b4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "62b7ee781719e9dd9ae68b9794029021614117941e08fa47a9b28b57d7326eea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 직후 저공비행 → 나무에 걸려 추락·폭발 → 사상자 → 비상착륙 시도 추정과 조사로 사건 흐름이 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Witnesses said the six-seater Piper Aztec",
+      "note": "목격 문단은 혼자 서고 clipped·impacted 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "96d95744-cec5-4e36-8979-f3163caef1cd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c2bc4d1f05a75f778c90131f286aceeb64eeb500bd1f599391ba3f7fb0f90589",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "제목과 끝 문단은 차단 해제를 말하는데 첫 문단은 5월 6일 다시 차단됐다고 해 본문이 서로 어긋나고, 배경 문단(풍자만화 → 대법원 명령)만 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The website was originally blocked because",
+      "note": "차단 배경 문단은 혼자 서지만 앞 문단들의 해제·재차단 시점이 서로 모순이라 내용 일치 문항의 정답 근거가 흔들린다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "96de0114-2169-4acb-846b-e780d9e1b977",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c88900a324a3285a31d37449356bf2fa4eedbe82f679e775128d6be8dfd77f6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총격 신고 → 병원 이송 후 사망 → 조직 범죄로 수사하며 제보 요청으로 사건이 이어지는 단신이라 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Perez was discovered with many bullet",
+      "note": "첫 두 문단을 붙이면 사건이 서고 perpetrators 를 바꾸면 V4 로 내려가며, 폭력 소재라 초중등 칸은 두지 않는다."
+    }
+  },
+  {
+    "id": "96faea6f-72db-45e5-9750-b4bde1452073",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "53c523f8b0b53833436ae9e9abc593bfdf060ce015d454992c0f29fe849acb30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "시위가 열렸다는 한 문장과 장소 설명, 「사진을 찍었다」뿐인 사진 기사 머리글이라 사진 없이는 뜻이 서지 않아 채울 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Earlier today, demonstrations and protests were",
+      "note": "세 문장이 사진 묶음의 설명이라 떼어 낼 문단도 사건 흐름도 없다."
+    }
+  },
+  {
+    "id": "97311e73-fdf7-4c4b-90a5-0471382ffa42",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7025a64b29bf10f7baede2b73eb11868cbdca26ddc98d589091a7ba919e9c0da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "생방송 중 욕설 → 400건 가까운 항의 → BBC 사과와 지연 송출 약속의 배경으로 원인·반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following last year's Super Bowl, where",
+      "note": "지연 송출 문단은 혼자 서고 watershed·censorship 을 풀어 쓰면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "973e2047-9e0b-4006-82f1-d610f28e869b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "25c05524f3a29f0625423fc8ccd1952d18c8bc91c30e2a217a16630e4a8d14b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "섬 음악 축제가 지역 음악 사업 기금을 모으지만 봉사자 부담 때문에 존속이 불투명하다는 원인·전망이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The event, deemed 'unique' in the",
+      "note": "마지막 문단은 혼자 서고 deemed 만 바꾸면 V3 로 내려가며, 밴드 이름 문단은 걷는다."
+    }
+  },
+  {
+    "id": "974bd514-9d78-43c4-b0ca-fa6d9bcd8920",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f5539073668f53ae91e5e93846b39bf45057df099f832932c00b00c285ce94e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "인수 합의 → 비용 절감 기대 → 합병사가 고객 수 2위·전화사업 2위가 된다는 결과가 문장으로 이어져 수치 위주지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Once the acquisition is complete, the",
+      "note": "셋째 문단은 서지만 주가·지분율 수치를 걷으면 남는 문장이 적어 어휘보다 분량이 막힌다."
+    }
+  },
+  {
+    "id": "9753a05f-f77f-42c8-8ff2-f852474b6d8b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1466fca3af9312988f990ba32818562bddaaf0604d14a5c7ad1d3292bbb658e5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "무료판 광고 제거 → 사용자 증가로 검색 수익을 기대한다는 이유와 파이어폭스와의 라이선스 대비가 이어져 내용 일치·주제 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Company Officials expressed hope that this",
+      "note": "광고 제거와 기대 효과 두 문단은 서고 decompile·reverse engineer 인용은 걷으며, 끝의 다운로드 안내 두 줄도 걷는다."
+    }
+  },
+  {
+    "id": "975d9659-a418-4c24-9493-3ace950b8f76",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7520e254e572565649ae7ab33e16f33bab4be89c512b14993694b513d158278c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바지선단이 항로를 벗어나 교각에 충돌 → 선단 분리 → 재조립 후 출항과 조타 실수·강풍·난코스 원인 진술이 이어져 내용 일치·순서 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The caravan moved too far left",
+      "note": "경위 문단은 고유명사를 걷어도 서고 navigable·manoeuvre 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "976153d6-aeb4-4e9b-9e82-6562d6e6a35c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d75a641c1d1001f705b80db520ec695dde0ce1da567862ae8ead28a843074993",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "공모 주식 수·지분·카드 수·순이익·경쟁사 주가 등 문장마다 수치만 바뀌어 이어지는 사건이나 까닭이 없어 칸 하나만 수치 나열인 원천이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Purchase, NY-based MasterCard is currently owned",
+      "note": "둘째 문단을 떼도 소유 구조 수치뿐이라 수치를 걷으면 남는 논지가 없다."
+    }
+  },
+  {
+    "id": "976b4c96-388c-44c7-89e8-1320b8f79e79",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44acdf85f658586268f5b2073f2075cbedba670dec9638cc154d5c0174b33e22",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "태양전지판 손상 발견 → 전개 중단 → 승무원에게 촬영·전송 요청으로 다음 절차가 이어지는 짧은 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Astronauts and ground controllers are looking",
+      "note": "첫 두 문단은 혼자 서고 deployment·downlink 를 풀어 쓰면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "97924102-47de-401f-853b-bb1a0e952f23",
+    "source_updated_at": "2026-09-25T08:59:10.779446+00:00",
+    "body_sha256": "a3f1d68a6b2a4336d87bf1332759a83302f5ff248d1bc7046d392d4e358d1068",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공습 경과 → 기만 전술 → 국방장관의 목적 설명 → 이란 외무장관의 규탄으로 양측 반응까지 이어져 고1 이상 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Defense Secretary Pete Hegseth stated the",
+      "note": "목적·반응 두 문단은 붙여서 서고 neutralize·aggression 정도는 두되 무기 제원 문단은 걷어야 분량이 맞는다."
+    }
+  },
+  {
+    "id": "9792d1dc-82a4-43b9-841b-e853a3cd987c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "28bf186b29c6c55c0adfa741a58b80a71b8d862a7eece2266bf95bf9a1268d67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "우익 선전차 배치 → 경찰 배치의 까닭을 총리의 야스쿠니 참배와 영토 분쟁으로 설명하는 둘째 문단이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Relations between Japan and its neighbors",
+      "note": "배경 문단은 혼자 서고 interred 를 buried 로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "97a4859f-84a1-4164-ab05-551cfc9a09c2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "15a4d2df9f59b31f23d3c365e47999716d4d1b2063f281aa4d75aef5de2d033b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "등록금 인상·예산 삭감 반대 동맹휴업을 학생 쪽 주장과 대학·경찰 쪽 대응을 함께 전하는 긴 보도라 내용 일치·주장·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Many students do not understand the",
+      "note": "예산 비교 문단은 혼자 주장이 서고 advocates·deterrent 를 바꾸면 V5 로 맞으며, 도시 이름 나열 문단은 걷는다."
+    }
+  },
+  {
+    "id": "97a4b2f9-bb4a-45d6-b91a-783d19feaeac",
+    "source_updated_at": "2026-09-25T08:53:20.67432+00:00",
+    "body_sha256": "7bf71b4ef681d18b814229b913fe95be2eff12250ac8037ebfb0d45fe1bf5a04",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "사형 항소 단축 법안 합헌 판결 → 기한 조항 약화 → 여전한 집행 중단 사유까지 판결 이유와 결과가 이어져 고2 이상 내용 일치·요약 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Currently, the appeals process for death",
+      "note": "현황 문단은 혼자 서고 moratorium·habeas corpus 를 풀어 쓰면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "97c49d76-bbdc-4b8e-b773-04649552a29f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9574719ebc339a826b861ccbb3904161118864afa31c1351a6b23215fa7c39c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "기록적 따뜻한 겨울 → 동부 해빙 부족 → 하프물범 사냥과 1981년 새끼 물범 익사 전례로 원인·결과가 이어져 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lack of ice in eastern Canada",
+      "note": "해빙 문단은 혼자 서고 whelp·deviation 을 바꾸면 V4 로 내려가며, 새끼 물범 도살 문장이 있어 초중등 칸은 두지 않는다."
+    }
+  },
+  {
+    "id": "97c5d5f5-880a-4cf2-a9d3-1277b1a8fd51",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d617faf734261763cccd9e5c2f82e4c54a256bbdd474a4acd43de9c607d77f6e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "위안화 절상 압박 법안에 대해 경제학자가 강요 대신 협력을 주장하고 근거를 드는 구조라 주장·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The opinion of the China trade",
+      "note": "넷째 문단은 이름 없이 주장이 서지만 원문 어법이 서툴러(in order President … would not) 문장을 고쳐 써야 한다."
+    }
+  }
+]

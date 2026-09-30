@@ -1,0 +1,966 @@
+[
+  {
+    "id": "903555db-0315-4f1b-a683-69f0fcc85d6b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "65876dd0e8ce3fca316217f23e70ee69df10c1e562ce369e8e0e7dc75ee2626a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "클린턴·게이츠가 PEPFAR 를 옹호하면서도 금욕 교육 비중을 비판하는 둘째 단락이 주장-근거로 서서 주제·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Clinton said that the United States",
+      "note": "둘째 단락은 앞 문맥 없이 서고 abstinence-only·pledge 를 쉬운 말로 바꾸면 V5 로 내려간다 — 성매매 언급은 고등 이상 칸으로 제한."
+    }
+  },
+  {
+    "id": "90613810-4b85-473f-83f9-539f6948ac5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9415ac702daf109d0e9af9b44c323d2db516fcb5decc785185a34047dfbbd8d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "소비자신뢰·집값 하락 자료가 달러 약세와 금리 인하 전망으로 이어지는 인과가 두 단락 안에서 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.S. Dollar fell to an",
+      "note": "수치는 걷어도 자료→달러 하락→금리 인하 기대의 인과가 남고 bolsters·basis point 를 풀면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "90614a92-f3c2-4a1f-9c2b-a2b44b7b81d0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "980da0d400b45275ddc162e21031ef9e6d47154f6d6866aa3facf1c1f7e251ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "여론조사 비율만 문장마다 바꿔 되풀이하고 조사 공개 시점 한 줄 외에 문장 사이를 잇는 사건·까닭이 없어 칸 하나만 수치 나열로 채운다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "According to an TNS NIPO survey",
+      "note": "비율을 걷으면 남는 논지가 없어 떼어 낸 문단이 설 근거가 없었다."
+    }
+  },
+  {
+    "id": "9064d362-80fd-4775-b0b5-99357ece2fff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a2048f2001a1f9e4b08bc78dfe954de393f9e02fabb4b5977769e1ae6a1d634e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "네 버튼·트랙볼·윈도 호환이라는 새 마우스의 특징과 애플의 윈도 호환 흐름을 넷째 단락까지 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This is the first mouse product",
+      "note": "넷째 단락은 앞 문맥 없이 서고 non-mechanical sensors 를 쉬운 말로 풀면 V4 까지 내려가며 가격 줄은 걷으면 된다."
+    }
+  },
+  {
+    "id": "90ccdd92-8932-4da7-a41b-e5184aa74f2c",
+    "source_updated_at": "2026-09-25T08:56:58.798142+00:00",
+    "body_sha256": "d4656fce4d38d980afbb48d2f5cb9a9d821830087067655e189b8094e307ce00",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "SDP 후보가 교통 국유화·독립 재투표 반대·혐오범죄법 폐지 등 자기 정책을 답하는 한쪽 입장 인터뷰로, 문답마다 주장과 까닭이 서서 주장·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Our primary policy pledge for transport",
+      "note": "교통·기후 답변은 따로 서지만 정당·법안 고유명사가 논지에 얽혀 있고 트랜스젠더 관련 답은 가공 때 걷어낸다 — 어휘 낮추기는 어렵다."
+    }
+  },
+  {
+    "id": "90dd01b1-0cbe-4611-8685-0bf39546e7c7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "546f5431b932437d0c3e424301b51d06599a3256c9aa1adff10a7c832def24aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "시의원 후보가 노인 세금·청소년 안전·이민자 통합을 이유와 함께 말하는 한쪽 입장 인터뷰로, 첫 답의 세 쟁점 단락이 주장·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Community safety is an issue facing",
+      "note": "청소년 안전 단락은 앞 문맥 없이 서고 delinquents·absenteeism 을 바꾸면 V6 로 내려간다 — Q/A 표지는 걷는다."
+    }
+  },
+  {
+    "id": "90ea12cb-a056-4b04-8ed7-d598b533b585",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "64bd2876a2e9e1bd32f0692095bd11b2aea407a9194b206bf295eaa6dc82b964",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "견인 중 날개 끝 충돌 → 날개 끝 제거 뒤 비행 강행 → 공항 크기 비판 반박이라는 목적까지 사건이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The minor accident occurred during push",
+      "note": "둘째·셋째 단락이 사고→결정 순서로 이어져 떼기 쉽고 winglet·push back 만 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "90eac529-348a-48fa-93d6-2475a43fa3ba",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "020ec55584bfa756847ed728747e95e40c61d0f4d764a91e52530006ecf35472",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "법안이 통과되면 LGBT 사이트가 폐쇄된다는 결과와 이미 금지된 낱말이라는 배경이 짧은 한 단락 안에서 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "If the proposal is accepted, Turkish",
+      "note": "세 문장뿐이지만 제안→결과→배경이 이어지고 prohibited 등을 쉽게 바꿀 수 있다 — 칸은 좁다."
+    }
+  },
+  {
+    "id": "90f34b4c-c78b-4dcb-9dad-f4be9cb27938",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9832d6912b1b83beeeb8cb53ffa808fc62a2a611b708386f50e5ea94e70fa16f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "좌초 → 30시간 구조 → 수의사 치료 → 바다로 돌려보내기의 구조 과정이 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The whales had become stranded early",
+      "note": "구조 과정이 시간순이라 떼기 쉽고 stranded·pod 를 풀면 V4 로 내려가며 기관명은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "9110b959-0c07-41b6-b0cd-e0a8d2c336ee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "71b0043b217639bf3e54f50c36449150763264b85094bb5f7509b1e86fb900e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지방선거를 대선에 역량을 모으려고 12월로 미뤘다는 까닭과 대선 일정 조정·정권 이양 영향 없음이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Local elections intended for this fall",
+      "note": "첫 단락은 연기→까닭으로 서고 날짜는 걷어도 되며 postpone·runoff 를 풀면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "9126e99e-dc67-4d93-933c-bb03f7510dc5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8a12ffb60432b6131f30dd6a25c9b8ad72fa61e8dffd8cc1a0210dd7f3b3643e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "계엄 책임자 기소를 법원이 수사 부실을 이유로 돌려보내고 세계 지도자 증언과 외국 문서를 요구한 경위가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A Warsaw court threw out an",
+      "note": "기각→까닭→요구 흐름은 서지만 indictment·martial law 가 사건의 핵심어라 바꾸기 어렵다."
+    }
+  },
+  {
+    "id": "9128d117-47cb-4cfa-9060-90056354ff46",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5f97a749ed5e995345af8873d3b67adc569eab4a5b36eda01da67edb457ec866",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭풍 뒤 복구 작업과 사상자를 먼저 말하고 주별 피해를 잇는 단신으로, 피해 → 전력 복구라는 반응 하나가 이어져 내용 일치 칸만 좁게 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Strong storms hit the southeastern United States",
+      "note": "첫 단락은 서지만 뒤는 주별 피해 나열이라 흐름이 약하고 어휘는 이미 쉽다 — 주 목록은 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "9130bfc0-799d-46eb-9e0a-1239901629f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b25917a40de5cb12423633cb039127f58dce2919b538a16fc88dc5c8853cec6c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "재생에너지 첫 정책이 투자자에게 유인을 주려는 것이고 내각 위원회 승인을 거쳤다는 세 문장이 목적으로 이어져 내용 일치 칸을 좁게 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The policy offers attractive incentives to",
+      "note": "세 문장뿐이라 칸은 좁지만 정책→유인→승인이 이어지고 exploit·incentives 를 풀면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "914e8608-41fe-4098-9e5b-8125c23dce53",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a2d4f0741ffa76e42c7ea831ae7c0afa1a177333d5e450d5f9b6afca28de41f5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "실업률 10% 발표를 두고 민주·공화 의원과 오바마·노동통계국장이 서로 다른 해석을 내놓는 흐름이 서서 요지·주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "claim",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence",
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite a generally upward trend in",
+      "note": "넷째 단락(주가와 고용의 시차)은 앞 문맥 없이 서고 lag behind·indicators 를 풀면 V7 로 내려가며 의원 이름은 걷어도 된다."
+    }
+  },
+  {
+    "id": "915b24f2-a5ed-4d4a-9fb4-1a3c8f6e7254",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "711d2af45dc8ce62d7978b06733a4aeff1e7203fa3799a0baf62f92328c4f73a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "6,100만 파운드 개보수 뒤 애슈몰린 박물관 재개관과 여왕의 브래이즈노스 방문이 설립자로 이어지는 경위가 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Queen combined her visit to",
+      "note": "셋째 단락은 방문 두 곳을 설립자로 잇는 까닭이 서고 alumni relations 만 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "915c95c8-d7ef-47bf-aa6b-2cfe9fbaa95c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f2763f3f2e9c8357d18d3cb676471420bc7e94f05cb91bfa1e26fdd339e0780",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "24시간 안 세 차례 차량 폭탄이 시간순으로 이어지고 마지막 단락이 바스크 정당 불법화라는 배경을 대어 내용 일치·순서 칸을 고등 이상으로 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The attacks come at a time",
+      "note": "배경 단락은 앞 문맥 없이 서고 turbulence·outlawed 를 풀면 V6 에 맞는다 — 사망 묘사는 짧아 고1 이상 칸이면 된다."
+    }
+  },
+  {
+    "id": "917c4289-d01e-4631-8982-b20f8ae5ba77",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "57bc54b8332a256ce6537788b1e69fbf235824a7b320cd2369a4cee6c620d53d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "허리케인 접근 → 경보 발령 → 예상 풍속·파고 → 진로가 북쪽으로 틀면 다른 섬도 경보라는 조건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At this time, no warnings have",
+      "note": "마지막 단락은 조건→결과가 서고 좌표·기압 수치는 걷어도 사건이 남으며 sustained·gusts 를 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "91842f49-a615-48c0-ab79-929d46b1979e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f1584ccd48758d5b39f3cbfeb38a33b86936274284a364862ac6ad96696244d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "가장 큰 통신위성 발사와 지상망·위성망을 겸하는 단말이라는 쓰임, 궤도·안테나 제원이 이어져 둘째 단락이 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "AT&T Mobility along with TerreStar Corporation",
+      "note": "둘째 단락은 사각지대에서 위성을 쓴다는 까닭이 서고 terrestrial·prototype 을 풀면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "9184c470-e7d1-4b8e-8d67-3550a6fd6bed",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fb9e757a3d09d2ca00d93d120adc6fcf26952e822396c47ab5de27f7907d13d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여객기 추락 → 안개로 수색 지연 → 나토에 무인기 수색 요청이라는 반응·다음 절차가 이어져 내용 일치 칸을 고등 이상으로 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rescuers were headed to the presumed",
+      "note": "셋째 단락은 수색과 방해 요인이 한 문장으로 서고 presumed·hampered 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "918bb7b9-83e8-4671-b598-bdb4bff16fd3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0d88b602dca46f9f538581b96eb70c937311e1fedc9afc98bc15ff2bd82553f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "착륙 허가 → 궤도 이탈 점화·착륙 시각 → 기상 → 조종 교대 순서가 이어지는 짧은 단신이라 내용 일치 칸 하나만 좁게 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Shuttle Pilot Jim Kelly will be",
+      "note": "마지막 단락은 조종 교대 순서가 서지만 앞 두 단락은 시각·기상 수치라 흐름이 얇고 subsonic 을 풀면 V5 다."
+    }
+  },
+  {
+    "id": "91a1422f-d8ed-45f1-b7fc-55f562933ebf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b8fcc622f599c7bb65e2d8aa23d288c03dd312f600fae43382f1ecbdc5392718",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "7월 집값 반등을 두고 이코노미스트가 올해 들쭉날쭉한 흐름을 둔화 시장으로 해석하는 둘째 단락이 반응으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Overall, there has been little change",
+      "note": "해석 인용은 앞 문맥 없이 서고 환율 괄호는 걷으면 되며 consistent with 를 풀면 V6 에 맞는다."
+    }
+  },
+  {
+    "id": "91a3b6cf-54ac-4b34-9134-b3c2c4205b56",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "05a0f88e1ae0b5389707fc0ffe2b246d4dd74f6b3cf05fe47a92b41f3b0e7c02",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "테러 모의 용의자 체포 → 경찰이 밝힌 모의 내용 → 합동 작전 기관이 이어지는 보도로 내용 일치 칸을 고등 이상으로 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Australian Federal Police have caught four",
+      "note": "첫 단락과 인용이 체포→까닭으로 서지만 출신 배경 표기는 가공 때 걷는다 — hostilities 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "91a5203f-e313-400b-913d-5ace16c71995",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19bd9416e6f90c46244495023761573d3730cf6a073973e77c50345745c595bb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "녹색당 후보가 의료·도시 확산·기후·지역 경제를 서로 이어진 문제로 논증하는 한쪽 입장 인터뷰로, 일자리 답변 단락이 주장·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "What we do currently, propping up",
+      "note": "지역 경제 단락은 문답 없이 서고 propping up·centralized 를 풀면 V6 로 내려간다 — 「Stay tuned」 안내와 「hell of a lot」 은 걷는다."
+    }
+  },
+  {
+    "id": "91a97a4e-5c96-461e-b469-0b8d1e0021d0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4102f6264f857c68fcb5b0d9e1b6f09578fd6461589a80523cac30507fbe85cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "용접 사고로 난 불 → 대피 → 크레인 붕괴 우려와 냉각 작업 → 도로 통제라는 원인·반응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Firefighters reported concern about a tower",
+      "note": "셋째 단락은 우려→대응이 서고 buckle·overhanging 을 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "91abbff3-deef-47dc-a828-db7d8266cc26",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67762832bafbe38ea8f8433af4344ca4efff8e75fd25c1246f7007a32fa6a11c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "촬영 중 스턴트 차량이 가로등을 들이받음 → 병원 검사 → 두 시간 뒤 퇴원·복귀라는 사건 흐름이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Actress Nicole Kidman was injured in",
+      "note": "첫 단락과 넷째 단락만으로 사건이 서고 evaluation 을 풀면 V3 까지 내려간다 — 인용 줄은 걷어도 된다."
+    }
+  }
+]

@@ -1,0 +1,898 @@
+[
+  {
+    "id": "91bb2caf-fd81-4cf2-a356-e7749ca9b468",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7efe2a00f063f0e041bc95f3aa0257935d112b89a1347c631718d28fd6fc7dff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미 상원 결의 → 이란 의회의 맞대응 지정 → 외무부 지지 → 실효 없음 전망으로 사건과 반응이 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Saturday, Majlis of Iran, Iran's",
+      "note": "첫 문단은 앞 문맥 없이 서고 designating·non-binding·ratified 를 labeling·symbolic·approved 로 바꾸면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "91e0f328-b7f2-4cc6-b2d2-3467be329c57",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7535bba5406a9aadab9735e8ef06ec4c18323f59ba49a00d0a67ca78ab11d164",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "체포 → 유죄 인정 → 기자회견에서 번복하는 흐름이 서지만 화장실 외설 행위 묘사 단락이 있어 성인 칸만 둔다(내용 일치).",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In his statement, Sen. Craig indicated",
+      "note": "번복 진술 단락은 혼자 서고 pled·misdemeanor 를 풀면 쉬워진다; 경찰관 진술의 신체 신호 묘사 단락은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "9218f9af-dc5e-4f90-8bf7-6b81d2e998ca",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7300c325d0656a26d3ff0cae5cdba86c4f547588b166856ecde3cbcd6c682c53",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "보고서 공개 한 문장 뒤로 13명·22명·4건·128건·9명 등 사고 유형별 건수만 되풀이돼 떼어 낸 문단에 논지·사건 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The report detailed 13 patients who",
+      "note": "수치를 걷으면 「사고 유형이 여럿이었다」만 남아 문항을 세울 문장 연결이 없다."
+    }
+  },
+  {
+    "id": "922b1423-3e6b-440e-94ee-ce59939ad867",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1aea22996164528bb0f58671d305bba81c582197adfe091a506d55b2ba1c9ff9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "착륙 중 타이어 폭발 → 화재 → 대사 포함 27명 무사로 원인과 결과가 짧게 이어지는 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A British plane caught on fire",
+      "note": "문장이 짧아 그대로 V5 이고 propeller·airstrip 을 풀면 V4 까지 내려간다; 사건이 얇아 내용 일치 외 유형은 어렵다."
+    }
+  },
+  {
+    "id": "926e0941-e4c6-4d26-96de-188f9c1048a5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "534396eceaafb2d0c00f33180a50f0030445dad5270e3c8128a41306cfdf13a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여당 의원 홀로 반대투표 → 법안은 17표 차 통과 → 야당 원내총무의 칭찬으로 행동과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hull was the only MP who",
+      "note": "crossed the floor·third reading 같은 의회 용어를 voted against·final vote 로 바꾸면 V7 로 내려가나 호주 정치 배경 없이 인용의 뜻이 약하다."
+    }
+  },
+  {
+    "id": "929a5f5a-8b5b-4540-a090-06fbe8bc4747",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "46ea8d76d4a57d7a7afbaa04cab0a7b5bbd64167728d8ecbc0d9db3eb5d2a26d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "에어컨 과열 → 창고 화재 → 방수포 아래 갇힌 연기 → 어린이 47명 사망 → 공무원 체포·사임으로 원인·결과·후속 절차가 촘촘해 순서·삽입·요약 칸까지 연다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary",
+        "long_reference"
+      ],
+      "levels": [
+        "V7",
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Officials have determined that the fire",
+      "note": "화재 원인 단락은 앞 문맥 없이 서고 short circuited·aluminum housing 을 쉬운 말로 바꾸면 V7 이 된다; 영아 사망 묘사라 중등 칸은 두지 않는다."
+    }
+  },
+  {
+    "id": "92ca465f-6158-412c-9c2e-57a4dce7b98e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f926ab3276b98242ad2c7d8e665a34a9bb6d2f63da7d5cfeffbc0c36a8dd1fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "학살 부정 토론회와 항의 시위의 충돌을 ICTY 판결 사실과 함께 전하는 보도라 선동이 아니고, 부정 발언은 한쪽 입장으로 옮겨져 있어 성인 칸 내용 일치로 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The panel was organized by a",
+      "note": "ICTY 판결을 담은 둘째 단락은 서지만 참가자의 동성애 비하 욕설 인용과 학살 규모 부정 수치는 맥락 없이 남기면 안 되므로 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "92e03c9b-1dd5-48a0-95de-81f03d9f34b4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "175eeb87024d3a2182f134ef9442021998fe40b9f43f541fc94eab628d412924",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유엔 대변인이 교전 중 사망과 포로 처형을 구별하며 조사가 필요한 이유를 대는 인용 단락이 주장-근거로 서서 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Summary executions are strictly illegal under",
+      "note": "인용 두 단락이 혼자 서고 summary executions·ascertain 을 killings without trial·find out 으로 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "92e1971e-075a-47d1-89f7-a8d36046c731",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1e5ed1edb0f2ecd183b2f22a99a03a091ce9ac1e057e177d28b7901c1552965",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "한 단락이지만 개항 → 엑스포 대비 → 기존 나고야 공항 대체와 코드 인계로 사실이 이어져 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chubu International Airport, Japan's third major",
+      "note": "gateway·artificial island 은 문맥으로 풀리고 IATA code 를 airport code 로 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "92ee2e5a-7bf9-4839-a99f-e2b81821b3af",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f27aaba63514ed4415572a417e331f01962f01df3c4c062d28e8beea02115277",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "대법원 기소 확정 → 가택연금 뒤로 진상위원회 집계와 콘도르 작전·쿠데타 배경이 이어져 사건과 역사 배경을 묻는 내용 일치·요약 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The crimes were allegedly committed as",
+      "note": "마지막 단락은 혼자 서고 tacit complicity·terrorization 을 quiet support·terror 로 바꾸면 V8 까지 내려가나 인명 밀도가 높다."
+    }
+  },
+  {
+    "id": "92faa894-fc23-4ac2-bb51-2e72478f9005",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ebe2aef579bcdf0cf13c26a64cfa80109ef030fc5383c86a9d135af3a7b7ca3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "지수 최고치 돌파를 시각·포인트·상승폭 수치와 상승 종목 이름 나열로만 전해 문장 사이를 잇는 원인이나 반응이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Market closed at 13,937.65 which was",
+      "note": "수치를 걷으면 「지수가 올랐다」 한 줄만 남고 종목 나열 단락은 쓸 데가 없다."
+    }
+  },
+  {
+    "id": "9302d2f7-4dda-4951-b67f-b1cc4637e7ab",
+    "source_updated_at": "2026-09-25T09:16:01.155919+00:00",
+    "body_sha256": "43a19189d558aae304e793c3e57576ef6f281579fe930b3ef13284e37aaf81c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "르완다 전시의 아르메니아 언급 → 터키 반발 → 문장 삭제 요구와 거부 → 전시 연기로 쟁점과 각 측 입장이 이어져 요약·순서·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary",
+        "claim"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Saturday, James Smith, the chief",
+      "note": "삭제 요구·거부 단락은 앞 문맥 없이 서고 submit·resistant 를 쉬운 말로 바꿀 수 있다; 둘째 단락의 끊어진 문장(Holocaust Hitler)은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "930f3fe0-7c3f-4511-844a-14216bd777d0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "67025c9ccaa971e244ed397dab76b8066c96a0ccc211c7cab3d3b32a7f05da78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "마지막 코만치 암호병의 부고로 입대 → 노르망디 상륙 → 훈장 → 모국어 금지와 자부심을 말한 회고 인용까지 한 사람의 생애가 이어져 전기·제목·심경 칸을 연다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "title",
+        "order",
+        "insert",
+        "mood"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It's strange, but growing up as",
+      "note": "회고 인용과 암호 설명 단락이 혼자 서고 declassified·bestowing 을 made public·giving 으로 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "931e79ff-d725-4923-af67-13d0d8ee9e7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "06db3ea0c4a36c4769c8ade78c8a52f874ed4717fae79f65016e934366e8e2e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "전사자 882명 대 657명 비교가 중심인 세 문장 단신인데 여론 우려·대통령 연설과의 시점을 잇는 끝 문장이 사건 연결로 볼 만큼인지 갈린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "These figures come amidst rising concerns",
+      "note": "수치를 걷으면 끝 문장의 「우려와 연설 시점」만 남아 사건 흐름으로 서는지 애매하다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "93719212-dee9-4c2a-987e-2d5f3ce925e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "19718e2ef0d2e25bc956c750614b9bd081e6aacb38b3c06070ea9075e12dab25",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "재검표 소송 판결 → 판사의 판결 이유 인용 → 패자의 항소 포기 → 당선자 반응으로 사건이 이어지고 판사 인용이 주장 칸을 받쳐 준다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Unless an election is clearly invalid,",
+      "note": "판사 인용과 판결 이유 문장은 혼자 서고 gubernatorial·verdict 를 governor's·decision 으로 바꾸면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "938de6bd-8398-4188-bdfc-cdc497dd5150",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d3318a09c248df0b725e4dd688b404f16136161e250e01af058488be4e47fce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아동성애 옹호 정당 창당 보도로 그들 주장과 반박·정치학자 해설을 함께 실어 선동은 아니나 소재가 아동 성착취라 성인 칸 내용 일치로만 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Political scientist Joop van Holsteyn thinks",
+      "note": "정치학자의 트로이 목마 해설 단락만 떼어 쓸 수 있고 아동 포르노 합법화 주장 단락은 전부 걷어내야 해 남는 분량이 적다."
+    }
+  },
+  {
+    "id": "93e3c9f5-903a-4ea0-b8d1-87f5ea5c48b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d3216d4606dc493aa1acb11716424c7ee496554c1c5fddabf6cb6de66fd877d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "영국 회사가 먼저 쓴 Gmail 상표 분쟁 → 구글의 이름 변경 → 신규·기존 가입자 도메인 처리로 원인·결과·후속 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following a dispute with London-based company",
+      "note": "첫 단락이 혼자 서고 dispute 는 문맥으로 풀리며 domain·IP address 만 풀어 주면 V6 가 된다."
+    }
+  },
+  {
+    "id": "93fc2291-b369-4b26-8d09-42981307c4a0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d123d4c8a67b25808462f11984fdc209cef1be0f9250c629cb80a25a00d1a492",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "호흡 정지로 입원·소생술 → 인공호흡기 제거와 안정 상태 → 폐렴 재발·심장마비 아님 소견으로 병세 경과가 이어져 짧은 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He was admitted Tuesday in a",
+      "note": "respiratory arrest·resuscitation 을 stopped breathing·brought back 으로 바꾸면 V7 이 되나 오타(ugraded)는 가공 때 고친다."
+    }
+  },
+  {
+    "id": "94153ded-a122-49a2-a95e-3239e847e335",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bfa3477185878714b89853c5c37f200d2b830185c76df2a6f68736bb9f26aad2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "흑해 백과사전 출간 소개에 저자가 발굴·옛 지명 연구가 왜 없었는지 묻는 인용 단락이 논지를 세워 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V9",
+        "V10"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "I don't know why no archeological",
+      "note": "저자 인용은 혼자 서지만 번역 영어가 어색하고(is not been made) 지명 나열이 많아 낱말 몇 개로는 밴드가 안 내려가며, 끝 단락의 펠라스기 흔적 주장은 추정이라 걷는다."
+    }
+  },
+  {
+    "id": "941f7063-114d-4735-84eb-d16be23cfd07",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "586b5af4177f9f31a3aa9882a470eb650279daf59fb60cb01b9d24895fb6431c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "낡은 퓨마 헬기를 멀린으로 교체 → 퓨마의 민간 보호 전용 검토 → 퓨마의 아조레스 구조 출동 사례로 교체 배경과 쓰임이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At dawn on Thursday, a Puma",
+      "note": "구조 출동 단락은 시간순으로 혼자 서고 appendicitis·refuelling 은 문맥으로 풀리나 기종·예산 수치 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "941f8b04-2b3c-4602-be00-325b1a419196",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c18a423729c36c10909f43b72fc41fb354c909e9c701ac0083dd99494ab4809",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "대사 두 명의 이름과 부임지만 바뀌어 되풀이되고 국명 자리 낱말까지 빠져(envoy to.) 문장 사이를 잇는 사건이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The n government has appointed Sudhir",
+      "note": "링크 낱말이 빠진 첫 문장부터 뜻이 안 서고 채워도 인사 이동 명단뿐이다."
+    }
+  },
+  {
+    "id": "9451e2a8-29fb-40eb-beb4-db0b4279e9e8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "34c63dd4933a42578bfce2e0160cc47b70efa2e7dfa70ca241bf73665f3ab400",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "국민투표 질문 문구가 공개됐다는 사실과 그 문구 인용 두 문장뿐이라 원인·결과·반응으로 이어지는 흐름이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The question in a referendum, expected",
+      "note": "질문 문구를 걷으면 남는 사실이 「법안의 일부로 공개됐다」 하나뿐이다."
+    }
+  },
+  {
+    "id": "9458d2d8-8f94-41b9-8c3d-a6680e1bdfda",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6f91954dbd61981adbe14bb49d2d43c71b53df2bcd17306f8df107b9a51a365",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "시상 단체 소개 뒤로 부문별 수상 작품·배우 이름만 되풀이되는 수상자 목록이라 문장 사이를 잇는 사건이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Awards for acting and performance went",
+      "note": "수상자 이름을 걷으면 「시상했다」만 남는다."
+    }
+  },
+  {
+    "id": "9460e9ca-7db9-4657-837a-27b68ee270aa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "962a69773b0212eac998655c8f5cf92efbcc8d2ac8fd00bc060a1eefa787b117",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "르완다군의 월경 목격 → 콩고의 대응 준비 → 유엔 중재와 양국 대통령의 맞선 입장으로 원인·반응이 이어지는 짧은 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Nations is attempting to",
+      "note": "둘째 단락이 혼자 서고 predatory·mediate 를 greedy·settle 로 바꾸면 V7 이 된다."
+    }
+  },
+  {
+    "id": "947b6009-5f47-44f5-9a8b-9cf5f11eedfe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "12056f700bcb203959e58b2f8641497558e6b520a6bcacc303d2cc23e40e8e72",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "광업 국가보조 승인 뒤로 EU 가입 조건과 새 연정의 자유화 방침 때문에 보조가 줄 것이라는 이유가 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "State aid to several industries, especially",
+      "note": "둘째 단락이 혼자 서고 subsidising·liberalising 을 paying for·opening up 으로 바꾸면 V8 로 내려간다."
+    }
+  }
+]
