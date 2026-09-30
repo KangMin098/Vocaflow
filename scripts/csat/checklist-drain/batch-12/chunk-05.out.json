@@ -1,0 +1,802 @@
+[
+ {
+  "id": "7f5e492a-3e0f-4060-bfca-1de2545a3860",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "She said they received permission from",
+  "note": "정치·군사 분쟁 인터뷰로 한쪽 입장이지만 선동하지 않음.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "csat", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f61727f-b87d-4760-9e9d-4c3915f38618",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A suicide car bomber partly demolished",
+  "note": "테러 사건 보도로 사건·피해·경과가 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "csat", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f61da41-f3b3-4b22-b765-266d3838daf2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "All water has drained out of",
+  "note": "환경 사건 보도로 원인·결과·대응이 서음.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["mid", "high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f76742d-a804-44ef-8dd0-90d0c156b7ce",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Zimbabwean government has allocated",
+  "note": "정책 발표 기사로 정부 계획·근거·진행 일정이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f79e283-cc34-487e-8db5-5bb48f3e1eca",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Kosova President Ibrahim Rugova, the",
+  "note": "지도자 사망 부고로 생애·질병·정치적 파장을 시간순으로 서술함.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "csat", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f7b0bb2-c961-4c5a-9e38-6983cbf79b35",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The newly appointed leader of",
+  "note": "선거 여론조사 기사로 수치 변화와 정치가 발언을 인용함.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f80bec4-f64e-4e1d-bfe4-8a007c450f97",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "In an article published on",
+  "note": "전쟁 이전 주장과 사후 증거의 대조로 논의가 이어짐.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high2", "high3", "adult"],
+    "purposes": ["mock", "csat", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f823a8d-758f-4840-b7b2-629beb80da3a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Leader of the opposition,",
+  "note": "정치 회담 보도로 당 지도자의 비판 발언과 정부 방어가 대조됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f8537e4-615d-4e69-9169-aa5e9735837c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A community forum was held",
+  "note": "폭력 범죄 보도로 사건·수사·커뮤니티 대응이 시간순으로 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f8728a7-4333-4898-902c-b1a1d9eeefa6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Bars and nightclubs in London,",
+  "note": "문화 기사로 새로운 사업 개시와 배경·반응이 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f8b1823-46e5-4e96-a505-e4c962b2abcb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "British television host Richard Whiteley,",
+  "note": "인물 부고로 생애·경력·유산이 요약됨.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f8c06fc-24f9-4695-a79d-1a89c45cfcbc",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The haze situation in Southeast",
+  "note": "짧은 단신(77어)으로 수치·장소 나열이 되풀이되지만 원인·영향이 서감.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f8d2d73-216f-4d83-82b4-4c1bff9f3dc9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A nail bomb has exploded",
+  "note": "폭탄 사건 보도로 사건 설명·피해·수사가 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f91246b-3de9-4e05-b649-0789ea221f59",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The World Cup is not",
+  "note": "출판 통계 기사로 미국과 영국 비교에 분석이 더해짐.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f96a999-ee3e-4fb0-91d0-53cb2b85d218",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Deputy Prime Minister Chidchai Vanasatidya",
+  "note": "태국 정책 기사로 사건·정부 입장·근거가 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7f9cb49a-0e10-411d-ac39-554926a36904",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On September 21st, the Court",
+  "note": "법원 판결 보도로 판결문·법적 원리·전문가 반응을 설명함.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fa02567-5ae7-4c5e-ba30-41b46010837d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "At least 10,300 gallons of",
+  "note": "환경 오염 사건 보도로 사건·피해·대응이 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fa02dc4-be5b-4069-9c70-a21d2f639530",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Labor has released its tax",
+  "note": "정책 발표 기사로 노동당 계획·정부 비판·정당한 논쟁이 펼쳐짐.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V4"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fae6a0f-f60f-442e-bfd2-3487569c07d1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The American Museum of Natural",
+  "note": "박물관 결정 기사로 조치·배경·의의가 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fb81f3e-aaa8-48ac-ac83-384dbfd15cf1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Morgan Tsvangirai, the main opposition",
+  "note": "인권 침해 보도로 체포·폭력·의료 치료·국제 비판이 시간순으로 서술됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fba0cf0-0ce8-45fb-8216-233b890a003c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Economics Legislation Committee of",
+  "note": "법안 보도로 위원회 조사·정당·권장·근거가 논리적으로 전개됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fbd4a05-cc2d-4ed6-8892-40454903edad",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Ben E King, the soul",
+  "note": "음악가 부고로 생애·경력·작품·추도가 시간순으로 전개됨.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V3"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fc56e25-10fd-487f-83a3-4661a3d62dab",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Standing Committee on IT",
+  "note": "회의 기사(125어)로 개최 목적·참가자·의제가 간결하게 설명됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["reading"],
+    "types": ["content_match"],
+    "levels": ["V5"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fc9c1b7-1974-4b4d-8596-a6a524545f5d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "United States air carrier Continental",
+  "note": "항공기 사고 소송 기사로 사건·원인·혐의·배경이 연결됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high1", "high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7fd767ff-2036-4e69-bdc0-3f8d20159ae8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The U.S. Senate has scheduled",
+  "note": "입법 기사로 법안·제안자·반대·지지·절차가 상세하게 전개됨.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": ["high2", "high3", "adult"],
+    "purposes": ["mock", "reading"],
+    "types": ["content_match"],
+    "levels": ["V6"],
+    "platform": []
+   }
+  }
+ }
+]
