@@ -1,5 +1,7 @@
 // scripts/knowledge/yt-import.mjs
-// 강사 영상 196편 요약(Codex 2026-09-27) → 학습 원리 등록부 「추출됨」 공부법 항목. 기본은 미리보기(DB 쓰기 없음).
+// 강사 영상 196편 요약(Codex 2026-09-27) → **후보 목록 + 주장 검토 틀**. DB 에 쓰지 않는다.
+// 요약은 영상 내용 요약이지 원문 대조가 아니다 — 여기서 나온 후보는 검토 전이며, 적재는 검토가 끝난 주장 파일만
+// scripts/knowledge/claims-import.mjs 가 한다(Codex 리뷰 2026-10-01: 절차 칸이 비어 있지 않다고 통과시키지 않는다).
 //
 // 입력: <폴더>/summary-data-all.json(영상별 재서술 요약) · <폴더>/extraction-manifest.json(영상 신원 검사).
 //   자막 원문·발췌(caption-review-selections.json)는 **읽지 않는다** — 재서술 요약과 영상 링크만 쓴다.
@@ -10,15 +12,14 @@
 //   ④ 위치가 확인된 것만 위치로 — 자막 전체 시작·끝 시간이나 문자 위치를 영상 초 위치로 쓰지 않는다(locator 비움)
 //   ⑤ 재실행 안전 — 영상 ID 에서 만든 고정 slug. 이미 있는 항목은 덮지 않는다(사람의 판정·수정 보존)
 //   ⑥ 원문 없음
-// 사용: node scripts/knowledge/yt-import.mjs <추출 폴더> <미리보기 출력 폴더> [--commit]
+// 사용: node scripts/knowledge/yt-import.mjs <추출 폴더> <출력 폴더>  → yt-import-preview.{md,json} · claims-template.jsonl
 import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
 const [srcDir, outDir] = process.argv.slice(2).filter((a) => !a.startsWith('--'))
-const COMMIT = process.argv.includes('--commit')
 if (!srcDir || !outDir) {
-  console.error('사용: node scripts/knowledge/yt-import.mjs <추출 폴더> <미리보기 출력 폴더> [--commit]')
+  console.error('사용: node scripts/knowledge/yt-import.mjs <추출 폴더> <출력 폴더>')
   process.exit(2)
 }
 
@@ -51,6 +52,13 @@ const REVIEW_LABEL = {
   distributed_caption_excerpt_review: '발췌 검토',
 }
 
+// Codex 재검토(2026-10-01)가 「학습 절차가 아니다」로 짚은 후보 — 사유를 남기고 제외
+const NOT_PROCEDURE = {
+  '7fWYlqUWZ0w': '직접적인 영어 학습 절차 없음(Codex 재검토)',
+  Wn3kQRB5qbI: '학습 관련 구간을 소개할 뿐 실행 방법 없음(Codex 재검토)',
+  AdyY3VuzYHE: '콘텐츠 구성을 설명할 뿐 학습 절차 없음(Codex 재검토)',
+}
+
 function slugOf(videoId) {
   // YouTube ID 는 대문자·밑줄을 쓴다 — slug 규칙(^[a-z0-9-]) 에 맞춰 해시로 고정한다(재실행해도 같다)
   return 'yt-' + crypto.createHash('sha1').update(videoId).digest('hex').slice(0, 12)
@@ -71,10 +79,11 @@ const rows = data.items.map((it) => {
   const procedure = String(it.procedure ?? '').trim()
   // 요지만 있고 절차가 없는 영상은 「방법 없음」이 아니라 「아직 뽑지 않음」 — 제외하지 않고 보류로 남긴다
   if (procedure.length === 0) return { ...base, verdict: '보류', reason: '절차 미추출 — 요지만 있음(재추출 필요)' }
+  if (NOT_PROCEDURE[it.videoId]) return { ...base, verdict: '제외', reason: NOT_PROCEDURE[it.videoId] }
   const map = classify(it.topic)
   return {
     ...base,
-    verdict: '항목',
+    verdict: '후보(검토 전)',
     reason: null,
     item: {
       layer: 'practice',
@@ -89,7 +98,6 @@ const rows = data.items.map((it) => {
     evidence: {
       grade: 'B',
       gradeWhy: '영상·채널 신원 확인(canonical URL·ID 일치) · 주장별 초 위치 미대조',
-      attribution: 'stated',
       url: it.sourceUrl,
       title: `${it.channel} · ${it.title}`.slice(0, 200),
       locator: null,
@@ -107,7 +115,7 @@ const short = (s, n) => (String(s ?? '').length > n ? String(s).slice(0, n - 1) 
 const md = [
   '# 강사 영상 → 학습 원리 가져오기 미리보기',
   '',
-  `원천: Codex 요약 ${data.items.length}편(${data.date}) · **DB 쓰기 없음**. 항목 ${count('항목')} · 제외 ${count('제외')} · 보류 ${count('보류')}.`,
+  `원천: Codex 요약 ${data.items.length}편(${data.date}) · **DB 쓰기 없음**. 후보(검토 전) ${count('후보(검토 전)')} · 제외 ${count('제외')} · 보류 ${count('보류')}.`,
   '모든 근거는 B(영상 신원 확인 · 주장별 위치 미대조), 위치 칸은 비움. 분류는 주제에서 옮긴 **제안** — 확정은 검토 대기에서.',
   '',
   '| 영상 ID | 채널 | 판정 | 추출 문장(학습 절차) | 층·분류 제안 | 근거 등급·위치 | 검토 범위 | 제외·보류 사유 |',
@@ -120,11 +128,34 @@ const md = [
   '',
 ].join('\n')
 fs.writeFileSync(path.join(outDir, 'yt-import-preview.md'), md)
-console.log(`항목 ${count('항목')} · 제외 ${count('제외')} · 보류 ${count('보류')} → ${outDir}`)
+console.log(`후보(검토 전) ${count('후보(검토 전)')} · 제외 ${count('제외')} · 보류 ${count('보류')} → ${outDir}`)
 
-if (!COMMIT) {
-  console.log('미리보기 끝 — DB 에 쓰려면 검토 후 --commit')
-  process.exit(0)
-}
-console.error('--commit 은 미리보기 검토·승인 뒤 구현한다(이 판에서는 쓰지 않는다)')
-process.exit(2)
+// 주장 검토 틀 — 후보마다 한 줄(검토자가 주장별로 나눠 늘린다). 종류·절차·구간·등급·판정은 비워 두어
+// 채우기 전에는 claims-import 검증을 통과하지 못한다(판정 없는 후보는 들어가지 않는다).
+const AGE = /^age:/
+const template = rows
+  .filter((r) => r.item || r.verdict === '제외')
+  .map((r) => {
+    const ids = r.item ? [...r.item.skill_ids, ...r.item.condition_ids] : []
+    const axis = (pick) => (ids.filter(pick).length ? ids.filter(pick) : '미명시')
+    return {
+      videoId: r.videoId,
+      claimId: `${r.videoId}#1`,
+      kind: null,
+      method: r.item?.statement ?? '',
+      procedure: [],
+      skill: axis((x) => x.startsWith('skill:')),
+      audience: axis((x) => AGE.test(x)),
+      conditions: axis((x) => !x.startsWith('skill:') && !AGE.test(x)),
+      segment: null,
+      reviewScope: r.review === '전체 열람' ? 'full' : 'excerpt',
+      grade: null,
+      verdict: r.item ? 'hold' : 'exclude',
+      reason: r.item ? '원문 대조 전 — kind·절차·구간·등급·판정을 채운다(초안은 Codex 요약)' : r.reason,
+      reviewer: '',
+      draftFrom: 'codex-summary-20260927',
+    }
+  })
+const NL = String.fromCharCode(10) // 줄바꿈 — 셸 heredoc 이 역슬래시 이스케이프를 먹는 사고(2026-10-01)를 피해 문자 코드로
+fs.writeFileSync(path.join(outDir, 'claims-template.jsonl'), template.map((t) => JSON.stringify(t)).join(NL) + NL)
+console.log(`주장 검토 틀 ${template.length}줄 → ${path.join(outDir, 'claims-template.jsonl')}`)
