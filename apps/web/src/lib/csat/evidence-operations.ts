@@ -11,9 +11,13 @@ import {
   type DefectCode,
   type EvidenceData,
   type EvidenceItem,
+  type EvidenceScope,
   type Filter,
+  parseEvidenceScope,
+  scopeQuery,
   type Measure,
 } from './evidence-fold'
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 
 export interface ReadinessAudit {
   total: number
@@ -24,6 +28,8 @@ export interface ReadinessAudit {
 export interface OperationsData extends EvidenceData {
   readiness: ReadinessAudit | null
   readinessError: string | null
+  /** 이 데이터가 본 집합. 학평이면 readiness 는 늘 null 이다(배포 판정 대상 아님) */
+  scope?: EvidenceScope
 }
 export const LEARNER_FIELDS: Record<string, string> = {
   answer: '정답',
@@ -51,7 +57,7 @@ export interface WorkIssue {
   label: string
   priority: 1 | 2 | 3 | 4
   stage: string
-  severity: '원천 검토' | '학습 후보 제외' | '보고서 점검'
+  severity: '원천 검토' | '학습 후보 제외' | '보고서 점검' | '분석 대기'
   why: string
   action: string
   location: string
@@ -60,6 +66,19 @@ export interface WorkIssue {
   field?: string
 }
 const QUALITY_ISSUES: WorkIssue[] = [
+  {
+    id: 'unanalyzed',
+    // defect 가 없다 — 결함이 아니라 상태다. hasIssue 가 analysisVersion 으로 직접 판정한다
+    label: '분석 없음',
+    priority: 2,
+    stage: '분석·검증',
+    severity: '분석 대기',
+    why: '공개된 분석이 없어 인용·검수·오답 근거를 잴 수 없습니다.',
+    action: '분석 드레인 export → 에이전트 분석·3인 검수 → validate → import',
+    location: 'scripts/csat/analysis-drain-*.mjs · csat_item_analyses',
+    technical:
+      '학평 문항은 --set hakpyeong 으로 드레인합니다. 결함이 아니라 아직 채우지 않은 몫이라 원천 검토 수와 따로 셉니다.',
+  },
   {
     id: 'body',
     defect: 'body',
@@ -195,6 +214,8 @@ export interface OperationsState {
   col: AxisId
   measure: Measure
   intersection: { axis: AxisId; keys: [string, string] } | null
+  /** 범위는 서버가 데이터를 다시 읽어야 바뀐다 — 링크로만 옮긴다(`change` 로 바꾸지 않는다) */
+  scope: EvidenceScope
 }
 type Params = URLSearchParams | Record<string, string | string[] | undefined>
 export function parseOperationsState(params: Params = {}): OperationsState {
@@ -240,6 +261,7 @@ export function parseOperationsState(params: Params = {}): OperationsState {
       AXES.some((a) => a.id === get('cellAxis')) && get('cellRow') && get('cellCol')
         ? { axis: get('cellAxis') as AxisId, keys: [get('cellRow'), get('cellCol')] }
         : null,
+    scope: parseEvidenceScope(params),
   }
 }
 export function operationsHref(state: OperationsState): string {
@@ -261,7 +283,8 @@ export function operationsHref(state: OperationsState): string {
     sp.set('col', state.col)
     sp.set('m', state.measure)
   }
-  return `/admin/csat/evidence?${sp}`
+  const scoped = scopeQuery(state.scope)
+  return `/admin/csat/evidence?${scoped ? `${scoped}&` : ''}${sp}`
 }
 export function readinessIndex(audit: ReadinessAudit | null) {
   return {
@@ -271,6 +294,8 @@ export function readinessIndex(audit: ReadinessAudit | null) {
 }
 export type ReadinessIndex = ReturnType<typeof readinessIndex>
 export function hasIssue(item: EvidenceItem, issue: WorkIssue, index: ReadinessIndex): boolean {
+  // `=== null` — 로더는 분석이 없으면 null 을 명시한다(undefined 는 이 칸을 모르는 옛 데이터라 미분석으로 보지 않는다)
+  if (issue.id === 'unanalyzed') return item.analysisVersion === null
   return issue.defect
     ? item.defects.includes(issue.defect)
     : (index.missing.get(item.id) ?? []).includes(issue.field ?? '')
@@ -349,7 +374,11 @@ export function makeWorkPackage(
   index = readinessIndex(null)
 ) {
   const ids = items.map((i) => i.id)
-  const safeIds = ids.every((id) => /^(?:\d{4}[AB]?|M\d{4})#\d{1,2}$/.test(id))
+  const safeIds = ids.every((id) => /^(?:\d{4}[AB]?|M\d{4}|H\d{4}G[123])#\d{1,2}$/.test(id))
+  // 한 패키지에 두 집합을 섞으면 명령 하나로 못 돌린다 — 섞이면 명령을 내지 않는다
+  const hp = ids.filter((id) => id.startsWith(HAKPYEONG_ID_PREFIX)).length
+  const mixed = hp > 0 && hp < ids.length
+  const setFlag = hp ? ' --set hakpyeong' : ''
   const issues = WORK_ISSUES.filter(
     (i) => i.id === state.issue || items.some((it) => hasIssue(it, i, index))
   )
@@ -357,6 +386,7 @@ export function makeWorkPackage(
     (i) =>
       i.defect === 'body' ||
       i.defect === 'quote' ||
+      i.id === 'unanalyzed' ||
       ['answer', 'evidence', 'intent'].includes(i.field ?? '')
   )
   return {
@@ -372,11 +402,11 @@ export function makeWorkPackage(
       caution: i.technical,
     })),
     commands:
-      analysisNeeded && safeIds && ids.length
+      analysisNeeded && safeIds && !mixed && ids.length
         ? {
-            export: `node scripts/csat/analysis-drain-export.mjs --redo '${ids.join(',')}'`,
-            validate: 'node scripts/csat/analysis-drain-validate.mjs',
-            preview: 'node scripts/csat/analysis-drain-import.mjs',
+            export: `node scripts/csat/analysis-drain-export.mjs${setFlag} --redo '${ids.join(',')}'`,
+            validate: `node scripts/csat/analysis-drain-validate.mjs${setFlag}`,
+            preview: `node scripts/csat/analysis-drain-import.mjs${setFlag}`,
           }
         : null,
     procedure: [

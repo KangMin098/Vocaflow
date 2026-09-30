@@ -2,6 +2,7 @@
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { loadEvidenceOperations } from '@/lib/csat/evidence-operations-loader'
 import { parseOperationsState } from '@/lib/csat/evidence-operations'
+import { parseEvidenceScope } from '@/lib/csat/evidence-fold'
 import { EvidenceConsole } from './EvidenceConsole'
 
 export const dynamic = 'force-dynamic'
@@ -12,6 +13,6 @@ export default async function AdminCsatEvidencePage({
   searchParams?: Record<string, string | string[] | undefined>
 }) {
   await requireAdmin('/admin/csat/evidence')
-  const data = await loadEvidenceOperations()
+  const data = await loadEvidenceOperations(parseEvidenceScope(searchParams))
   return <EvidenceConsole data={data} initialState={parseOperationsState(searchParams)} />
 }

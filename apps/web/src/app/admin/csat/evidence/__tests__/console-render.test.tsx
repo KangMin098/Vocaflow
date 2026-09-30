@@ -286,3 +286,48 @@ describe('기존 피벗·필터 무결성', () => {
     expect(cov.byField.reduce((n, f) => n + f.bad, 0)).toBe(cov.cells - cov.fill)
   })
 })
+
+describe('학평 범위 — 미분석은 결함이 아니다 (PR #125 재리뷰)', () => {
+  const HP_EXAMS: EvidenceExam[] = [
+    { id: 'H2603G3', label: '2026년 3월 고3 학력평가', kind: 'hakpyeong', year: 2027, month: 3, items: 2 },
+  ]
+  const hp = (over: Partial<EvidenceItem> & Pick<EvidenceItem, 'id'>) =>
+    item({ examId: 'H2603G3', examLabel: '2026년 3월 고3 학력평가', year: 2027, kind: 'hakpyeong', ...over })
+  const HP_ITEMS: EvidenceItem[] = [
+    hp({ id: 'H2603G3#31', no: 31 }),
+    // 미분석: 분석이 없어 인용을 못 잰다 — 결함 목록은 비어 있어야 한다
+    hp({ id: 'H2603G3#32', no: 32, analysisVersion: null, quoteLocated: false, reviewed3: false, defects: [] }),
+  ]
+  const HP: OperationsData = {
+    items: HP_ITEMS,
+    exams: HP_EXAMS,
+    types: TYPES,
+    generatedAt: '2026-09-28T00:00:00Z',
+    loadError: null,
+    readinessError: null,
+    readiness: null,
+    scope: { set: 'hakpyeong', grade: 3 },
+  }
+  const renderHp = (query = '') => render(`set=hakpyeong&grade=3&${query}`, HP)
+
+  it('미분석은 원천 검토 수·행 배지에 들어가지 않고, 작업 큐의 「분석 없음」으로 센다', () => {
+    const q = workQueue(HP_ITEMS, readinessIndex(null))
+    expect(q.find((i) => i.id === 'unanalyzed')?.count).toBe(1)
+    expect(q.some((i) => i.id === 'quote')).toBe(false)
+    expect(renderHp()).toContain('검토 필요 0문항')
+    // 행 배지(「원천 검토 N건」) — 상태 필터 이름 「원천 검토 필요」는 늘 있으므로 배지 문구로 좁힌다
+    expect(renderHp('view=questions')).not.toMatch(/원천 검토 \d+건/)
+    expect(renderHp('view=questions')).toContain('H2603G3#32')
+  })
+  it('상세는 「인용 대조 불일치」가 아니라 「분석 없음 · 인용 대조 적용 전」', () => {
+    const html = renderHp('view=questions&item=H2603G3%2332')
+    expect(html).toContain('분석 없음 · 인용 대조 적용 전')
+    expect(html).not.toContain('인용 대조 불일치')
+  })
+  it('준비도는 오류가 아니라 적용 안 함', () => {
+    const html = renderHp()
+    expect(html).toContain('적용 안 함')
+    expect(html).not.toContain('최신 판정을 확인한 뒤 배포를 판단하세요')
+    expect(html).not.toContain('학습자 판정 데이터를 다시 읽어 주세요')
+  })
+})

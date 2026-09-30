@@ -47,10 +47,10 @@ describe.skipIf(skip)('구운 오답 지도가 DB 와 맞는가 (실 DB)', () =>
     const db = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
 
     const items = await page<{ id: string; type_id: string | null }>((from, to) =>
-      db.from('csat_items').select('id, type_id').eq('in_scope', true).range(from, to),
+      db.from('csat_items').select('id, type_id').eq('in_scope', true).not('id', 'like', 'H%').range(from, to), // 평가원만 — 코드가 학평(보조·검증 집합)을 가르므로 기준값도 같은 범위로 센다
     )
     const analyses = await page<{ item_id: string; version: number; choice_analysis: unknown }>((from, to) =>
-      db.from('csat_item_analyses').select('item_id, version, choice_analysis').eq('status', 'published').range(from, to),
+      db.from('csat_item_analyses').select('item_id, version, choice_analysis').eq('status', 'published').not('item_id', 'like', 'H%').range(from, to), // 평가원만 — 코드가 학평(보조·검증 집합)을 가르므로 기준값도 같은 범위로 센다
     )
 
     // **문항마다 최신 버전 하나.** 이 한 줄이 빠지면 아래 수가 세 배가 된다.

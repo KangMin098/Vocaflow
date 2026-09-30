@@ -86,7 +86,9 @@ function linesOf(items) {
       s += it.str
       end = it.x + it.w
     }
-    return s.replace(/\s+$/, '')
+    // NUL(U+0000)은 유니코드 대응이 없는 기호 글리프다(요약문 40번의 ↓ 화살표 등). Postgres 텍스트가
+    // 받지 못해 적재가 `unsupported Unicode escape sequence` 로 통째로 멈춘다(2026-09-28 실측) — 지운다
+    return s.replace(/\u0000/g, '').replace(/\s+$/, '')
   })
 }
 
@@ -99,11 +101,16 @@ async function columnText(file) {
   const out = []
   for (let p = 1; p <= doc.numPages; p += 1) {
     const page = await doc.getPage(p)
-    const { width } = page.getViewport({ scale: 1 })
+    const { width, height } = page.getViewport({ scale: 1 })
     const tc = await page.getTextContent()
     const items = tc.items
       .filter((i) => typeof i.str === 'string' && i.str.length)
       .map((i) => ({ str: i.str, x: i.transform[4], y: i.transform[5], w: i.width ?? 0 }))
+      // 쪽 머리말(«고 3 영어 영역»·구분선)과 꼬리말(쪽 번호)은 위·아래 띠에만 있다. 줄로 거르면
+      // 늦다 — 본문 마지막 줄과 같은 높이면 한 줄로 합쳐져 선지 끝에 «8 영어 영역» 이 붙었다
+      // (2026-09-28 실측 선지 567건). 좌표로 먼저 버린다. 경계: 105회차 중 15회차 표본에서
+      // 본문은 쪽 높이의 0.096~0.849, 띠 안 글자는 쪽번호·«영어 영역»·«고 N»·구분선·1쪽 제목뿐이었다
+      .filter((i) => i.y / height <= 0.86 && i.y / height >= 0.09)
     const mid = width / 2
     const left = items.filter((i) => i.x < mid)
     const right = items.filter((i) => i.x >= mid)
