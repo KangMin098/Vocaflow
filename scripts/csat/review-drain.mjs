@@ -30,7 +30,9 @@
 // ── 운영자 명령 ───────────────────────────────────────────────────────
 //   export  [--size 8] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
-//   precheck [--items ...] [--out]                                    옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정
+//   precheck [--items ...] [--out] [--commit]                   옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정.
+//                                                               --commit 은 결과를 csat_review_prechecks 에(관리자 화면 「검수 진행」)
+//   ledger-import [--commit]                                    _metrics.jsonl · _followups.jsonl → csat_review_batches · csat_review_followups(자연키 upsert)
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
 //
 // 재실행 안전: start 는 매번 새 실행을 만든다(버려진 실행은 게이트가 세지 않는다) · solve 는 두 번 부르면
@@ -43,6 +45,7 @@ import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
 import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidence-units.mjs'
 import { isKiceExam } from './lib-exam-id.mjs'
 import { execFileSync } from 'node:child_process'
+import crypto from 'node:crypto'
 
 const [cmd, ...rest] = process.argv.slice(2)
 const arg = (n, d = null) => {
@@ -306,6 +309,29 @@ switch (cmd) {
     }
     console.log(`  대상 ${latest.length} · 사전 검사 실패 ${bad} · 통과 ${latest.length - bad}`)
     // --out: 결과를 기록한다. **자동 검사 적발 후보**일 뿐이다 — 통과는 결함 없음도, 독립 검수 통과도 아니다
+    if (has('commit')) {
+      // 정본은 DB(csat_review_prechecks). 판정은 위 precheckAnalysis 그대로 — 화면은 이 기록을 읽기만 한다.
+      // 키(분석·분석 해시·단위 해시·검사기 버전)가 같으면 같은 행을 갱신한다 — 재실행 안전.
+      const hashes = new Map()
+      for (let i = 0; i < latest.length; i += 200) {
+        const { data, error } = await db.from('csat_item_analyses').select('id, csat_analysis_hash').in('id', latest.slice(i, i + 200).map((a) => a.id))
+        if (error) die(error.message)
+        for (const r of data) hashes.set(r.id, r.csat_analysis_hash)
+      }
+      const units = await loadCurrentUnits(db, latest.map((a) => a.item_id))
+      let commitSha = null
+      try { commitSha = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim() } catch { /* git 없음 */ }
+      const rows = latest.map((a) => ({
+        analysis_id: a.id, item_id: a.item_id, analysis_hash: hashes.get(a.id), units_hash: units.get(a.item_id)?.units_hash ?? '',
+        units_version: units.get(a.item_id)?.units_version ?? null, precheck_version: PRECHECK_VERSION, commit: commitSha,
+        errors: pre.get(a.id)?.errors ?? [], warnings: pre.get(a.id)?.warnings ?? [], checked_at: new Date().toISOString(),
+      })).filter((r) => r.analysis_hash)
+      for (let i = 0; i < rows.length; i += 200) {
+        const { error } = await db.from('csat_review_prechecks').upsert(rows.slice(i, i + 200), { onConflict: 'analysis_id,analysis_hash,units_hash,precheck_version' })
+        if (error) die(error.message)
+      }
+      console.log(`  DB 기록 ${rows.length}행(csat_review_prechecks · 검사기 v${PRECHECK_VERSION}${commitSha ? ' · ' + commitSha : ''})`)
+    }
     if (has('out')) {
       const failed = latest.filter((a) => pre.get(a.id)?.errors.length)
       const hashes = new Map()
@@ -335,6 +361,43 @@ switch (cmd) {
     }
     break
   }
+  case 'ledger-import': {
+    // 로컬 원장(_metrics.jsonl · _followups.jsonl)을 DB 로 옮긴다 — 관리자 화면 「검수 진행」이 읽는다.
+    // 자연키 upsert(배치 이름 / 문항·출처·소견 해시) — 몇 번을 돌려도 같은 행. 토큰이 없으면 null(「미기록」)
+    const readJsonl = (name) => {
+      const p = path.join(WORK, name)
+      if (!fs.existsSync(p)) return []
+      return fs.readFileSync(p, 'utf8').split(/\r?\n/).filter((l) => l.trim()).map((l, i) => { try { return JSON.parse(l) } catch { die(`${name}:${i + 1} JSON 아님`) } })
+    }
+    const KNOWN = new Set(['date', 'batch', 'kind', 'chunk_size', 'items', 'agents', 'tokens', 'published', 'refused', 're_rejected', 'note'])
+    const batches = readJsonl('_metrics.jsonl').filter((m) => m.batch).map((m) => ({
+      batch: m.batch, run_date: m.date, kind: m.kind === 'rereview' ? 'rereview' : m.kind === 'correction' ? 'correction' : 'blind',
+      chunk_size: m.chunk_size ?? null, items: m.items, agents: m.agents ?? null, tokens: m.tokens ?? null,
+      published: m.published ?? null, refused: m.refused ?? null, re_rejected: m.re_rejected ?? null, note: m.note ?? null,
+      detail: Object.fromEntries(Object.entries(m).filter(([k]) => !KNOWN.has(k))),
+    }))
+    const keyOf = (t) => crypto.createHash('sha256').update(t).digest('hex')
+    const follow = new Map()
+    for (const f of readJsonl('_followups.jsonl')) {
+      const row = { item_id: f.item_id, source: f.source, finding_key: keyOf(f.finding), finding: f.finding, severity: f.severity, status: f.status, noted_on: f.date, updated_at: new Date().toISOString() }
+      follow.set(`${row.item_id}|${row.source}|${row.finding_key}`, row) // 같은 소견이 여러 줄이면 마지막 상태가 이긴다
+    }
+    const followups = [...follow.values()]
+    const { data: haveB, error: e1 } = await db.from('csat_review_batches').select('batch')
+    if (e1) die(e1.message)
+    const { data: haveF, error: e2 } = await db.from('csat_review_followups').select('item_id, source, finding_key')
+    if (e2) die(e2.message)
+    const hb = new Set(haveB.map((r) => r.batch))
+    const hf = new Set(haveF.map((r) => `${r.item_id}|${r.source}|${r.finding_key}`))
+    const newB = batches.filter((b) => !hb.has(b.batch)).length
+    const newF = followups.filter((f) => !hf.has(`${f.item_id}|${f.source}|${f.finding_key}`)).length
+    console.log(`  배치 ${batches.length}(새 ${newB} · 갱신 ${batches.length - newB}) · 추적 ${followups.length}(새 ${newF} · 갱신 ${followups.length - newF})`)
+    if (!has('commit')) { console.log('  미리보기 — 쓰려면 --commit'); break }
+    if (batches.length) { const { error } = await db.from('csat_review_batches').upsert(batches, { onConflict: 'batch' }); if (error) die(error.message) }
+    if (followups.length) { const { error } = await db.from('csat_review_followups').upsert(followups, { onConflict: 'item_id,source,finding_key' }); if (error) die(error.message) }
+    console.log('  기록 완료')
+    break
+  }
   case 'status': {
     const latest = await latestHakpyeong()
     const by = {}
@@ -346,6 +409,6 @@ switch (cmd) {
     break
   }
   default:
-    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|precheck|export|publish|status> …(머리 주석 참조)')
+    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|precheck|ledger-import|export|publish|status> …(머리 주석 참조)')
     process.exit(cmd ? 1 : 0)
 }
