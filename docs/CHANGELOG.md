@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 11 적재**(2026-09-30 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 983 · hold 9 · discard 8(바로 확정 82.4%). 감사 누적 wikinews 체크리스트 keep 312편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 9,823.
 - **체크리스트 배치 10 적재**(2026-09-28 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 974 · hold 19 · discard 7(바로 확정 80.4%). 감사 누적 wikinews 체크리스트 keep 271편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 10,823.
 - **체크리스트 배치 9 적재**(2026-09-28 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 973 · hold 16 · discard 11(바로 확정 **83.1%**, 지금까지 최고). 감사 누적 wikinews 체크리스트 keep 229편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 11,823. 모음 보류 2편은 쪼개기 대상 형식이 아닌 일회성 페이지(인도양 지진 포털 · 2020년 7월 선거 개관).
 - **체크리스트 배치 8 적재 · 부고 꼭지 머리말 교정**(2026-09-28 · DB: `gate.retain` 1,000행 + 꼭지 본문 3행 · migration 0): wikinews 1,000편 keep 974 · hold 19 · discard 7(바로 확정 80.3%). 감사 누적 wikinews 체크리스트 keep 189편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 12,823. 부고 모음을 쪼갤 때 첫 꼭지에 남은 머리말(「Deaths in 2008」「The following deaths were reported…:」)을 체크리스트가 「끊긴 목록」으로 읽었다 — `stripDigestHead` 로 쪼개기 단계에서 걷고, 이미 들어간 판정 전 꼭지 3행은 `wikinews-shorts-strip-head.mjs` 로 교정(판정 붙은 2행은 해시 결속 때문에 두었다).
