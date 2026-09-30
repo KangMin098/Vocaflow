@@ -1,0 +1,258 @@
+[
+  {
+    "id": "993c13d9-af41-4f24-827d-f00115e3eb2d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thirty countries, including New Zealand",
+    "note": "태평양 국가들이 해일 경보 체계의 효율성을 시험한 훈련 내용을 설명한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "993e9a53-ae9e-4eeb-ac82-da0a8bc60d9e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A report titled: Managing Excess",
+    "note": "영국이 조류 독감 대유행에 대비해 집단 묘지를 준비한다는 유출 보도 기사다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9942dcc9-c563-4a77-aedd-8e0a2d58cacb",
+    "answers": {
+      "blocked": "polemic",
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Christian televangelist Pat Robertson",
+    "note": "기독교 텔레반젤리스트 팻 로버트슨이 샤론 총리의 뇌졸중을 신의 징벌로 해석한 기사다.",
+    "record": {
+      "genre": "polemic",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9946df0b-a730-498a-8e1c-e95b46ae523c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "John Kerry, former Presidential candidate",
+    "note": "민주당 상원의원 존 케리가 이라크 전쟁 관련 발언으로 사과한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9950bf47-111f-4611-9b25-8ab4d5cd5f2b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In the latest of a",
+    "note": "브라질 교도소 폭동으로 수십 명의 사망자가 발생한 대규모 폭력 사건을 보도한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "9959fd58-23d5-43ea-9f7d-9209b9ce8060",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In a recent discovery by",
+    "note": "버섯산호가 성을 번갈아 바꾸는 현상을 텔아비브 대학 연구 결과로 설명한다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": ["high1", "high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "995f64e0-e15e-4511-93ae-869e8db85dcc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In anticipation of a Security",
+    "note": "수단이 다르푸르 전쟁범죄 용의자의 국제재판소 인도를 거부한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "995f7876-bbba-4a1e-a826-3da0035f7253",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "Ontario's Health Minister/Deputy Premier",
+    "note": "온타리오 보건부 장관의 여름 결혼식 계획 소식을 전하는 극단 짧은 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1"],
+        "purposes": ["mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  }
+]
