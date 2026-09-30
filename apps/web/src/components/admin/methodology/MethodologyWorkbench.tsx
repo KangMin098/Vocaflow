@@ -1,6 +1,7 @@
 // apps/web/src/components/admin/methodology/MethodologyWorkbench.tsx
 'use client'
 import { useMemo, useState } from 'react'
+import { isClaimExpanded } from '@/lib/methodology/expand'
 import { compareMethods, evidenceUrl, researchCoverage } from '@/lib/methodology/core'
 import { claimKinds, type ClaimKind, type KnowledgeBundle } from '@/lib/methodology/types'
 import styles from './methodology.module.css'
@@ -54,7 +55,7 @@ export function MethodologyWorkbench({ bundle, snapshotId }: { bundle: Knowledge
           <p className={styles.meta}>명시적 원칙: 전문가 {active.consensus.expertIds.length}명 · 출처 계보 {active.consensus.originGroups.length}개. {active.consensus.independentlyRepeated ? '여러 독립 계보에서 반복됨' : '독립적인 다수 합의 미확인'} · 효과 검증 미평가</p>
           <div className={styles.claims}>{claimKinds.flatMap(kind => active.claims.filter(c => c.kind === kind).map(claim => {
             const evidence = active.evidence.filter(e => e.claimId === claim.id)
-            const expanded = openClaim === claim.id || (!active.claims.some(c => c.id === openClaim) && kind === 'principle')
+            const expanded = isClaimExpanded(openClaim, claim.id, kind, active.claims.map(c => c.id))
             return <section className={styles.claimRow} key={claim.id} data-expanded={expanded}>
               <button className={styles.claim} aria-expanded={expanded} aria-controls={`evidence-${claim.id}`} onClick={() => setOpenClaim(expanded ? '' : claim.id)}><span className={styles.kind}>{kinds[kind]}{kind === 'procedure' ? ` ${claim.ordinal + 1}` : ''}</span><span>{claim.text}<small>{claim.attribution === 'analyst_inference' ? '분석자의 추론 · ' : ''}근거 {evidence.length}개 {expanded ? '접기 −' : '보기 +'}</small></span></button>
               <aside id={`evidence-${claim.id}`} className={styles.margin} hidden={!expanded}>{evidence.map(e => {

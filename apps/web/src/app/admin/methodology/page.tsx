@@ -14,7 +14,7 @@ export default async function MethodologyPage() {
   try { snapshot = await readMethodologySnapshot() } catch { failed = true }
   return <div className="p-4 md:p-8 break-keep">
     <header className="flex flex-wrap items-start justify-between gap-4 mb-6">
-      <div><Link href="/admin" className="inline-flex min-h-11 items-center text-[var(--t2)]">← 관리자</Link><h1 className="text-2xl">영어교육 방법론</h1><p className="mt-2 text-[var(--t2)]">누가, 어떤 조건에서, 무엇을 권하는지 원문 근거와 함께 읽습니다.</p></div>
+      <div><Link href="/admin" className="inline-flex min-h-11 items-center text-[var(--t2)]">← 관리자</Link><h1 className="text-2xl">가져오기 원장</h1><p className="mt-2 text-[var(--t2)]">누가, 어떤 조건에서, 무엇을 권하는지 원문 근거와 함께 읽습니다.</p></div>
       <AdminScreenHelp screen="methodology" />
     </header>
     {snapshot ? <MethodologyWorkbench bundle={snapshot.bundle} snapshotId={snapshot.id} /> : <section aria-live="polite" className="border-y border-[var(--bd)] py-8">

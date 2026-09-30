@@ -34,7 +34,7 @@ pnpm.cmd exec tsx scripts/methodology/drain.mts prepare tmp/new-research.json
 
 출력 디렉터리는 먼저 만든다. seed는 기존 파일을 덮어쓰지 않는다. `prepare`와 기본 `import`는 DB에 쓰지 않는다. 상세 추출·정규화·복구 절차는 [드레인 지시서](../../scripts/methodology/PROMPT.md).
 
-`/api/admin/methodology`는 기존 admin/curator 인증을 통과해야 한다. 기본은 DB 조회이며, 오류 때 연구 자료로 조용히 대체하지 않는다. `?mode=research`로 초기 자료를 명시적으로 조회할 수 있다. 특정 DB snapshot은 `?id=<64 hex>`로 읽는다. 전체 스냅샷 반환이므로 corpus가 커지면 페이징/검색 API를 먼저 확장해야 한다.
+방법론 연구 API `GET /api/admin/methodology`(2026-09-19 추가)는 **2026-09-30 삭제** — 부르는 곳이 없었다(링크 그래프·호출부 회귀). 가져오기 원장 화면 `/admin/methodology` 는 서버 함수 `lib/methodology/server.ts` 의 `readMethodologySnapshot` 으로 직접 읽는다.
 
 ## 저장소 변경안
 

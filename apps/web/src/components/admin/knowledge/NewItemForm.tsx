@@ -77,7 +77,7 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
         <legend className="mb-1 text-sm text-[var(--t2)]">층</legend>
         {layers.map((l) => (
           <label key={l} className="inline-flex min-h-11 items-center gap-2">
-            <input type="radio" name="layer" checked={layer === l} onChange={() => setLayer(l)} />
+            <input className="h-4 w-4 accent-[var(--p)]" type="radio" name="layer" checked={layer === l} onChange={() => setLayer(l)} />
             {LAYER_LABEL[l]}
             <span className="text-xs text-[var(--t3)]">{LAYER_QUESTION[l]}</span>
           </label>
@@ -100,7 +100,7 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
         <div className="flex flex-wrap gap-x-4">
           {skillOptions.map((t) => (
             <label key={t.id} className="inline-flex min-h-11 items-center gap-2 text-sm text-[var(--t1)]">
-              <input type="checkbox" checked={skills.includes(t.id)} onChange={() => toggle(skills, setSkills, t.id)} />
+              <input className="h-4 w-4 accent-[var(--p)]" type="checkbox" checked={skills.includes(t.id)} onChange={() => toggle(skills, setSkills, t.id)} />
               {t.label}
             </label>
           ))}
@@ -117,7 +117,7 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
               <div className="flex flex-wrap gap-x-4">
                 {g.options.map((t) => (
                   <label key={t.id} className="inline-flex min-h-11 items-center gap-2 text-sm text-[var(--t1)]">
-                    <input type="checkbox" checked={conditions.includes(t.id)} onChange={() => toggle(conditions, setConditions, t.id)} />
+                    <input className="h-4 w-4 accent-[var(--p)]" type="checkbox" checked={conditions.includes(t.id)} onChange={() => toggle(conditions, setConditions, t.id)} />
                     {t.label}
                   </label>
                 ))}
@@ -127,7 +127,7 @@ export function NewItemForm({ layers, taxonomy }: { layers: Layer[]; taxonomy: T
         </details>
       )}
       {error && (
-        <p role="alert" className="text-sm text-[var(--danger,#9C3A30)]">
+        <p role="alert" className="text-sm text-[var(--error-ink)]">
           {error}
         </p>
       )}

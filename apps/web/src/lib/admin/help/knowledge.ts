@@ -150,15 +150,18 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
         { label: '문항', detail: '같은 지문을 여러 문항이 쓰면(41–42번 등) 한 줄에 모두 적는다.' },
         { label: '근거', detail: '출판사·학술 페이지 링크. 시험 재게시물·학원 자료는 근거로 쓰지 않았다.' },
       ],
+      cautions: [
+        '씨앗 파일은 2026-09-28 시점 자료다. DB 에서 판정을 고친 뒤(예: A→B) 다시 돌려도 덮지 않고 「충돌」로만 보고한다 — 파일이 맞다고 판단되면 그 행만 사람이 고친다(재등급 트리거가 연결 근거와 채택 항목을 함께 처리한다).',
+      ],
       drain: {
         what: 'Codex 원천 조사 결과를 등록부(knowledge_csat_origins)에 적재한다.',
         prerequisites: ['docs/reports/csat-source-origin-results-20260928.jsonl 이 있다', 'apps/web/.env.local 의 service role 자격'],
         procedure: [
           { title: '미리보기', detail: 'node scripts/knowledge/import-seed.mjs — 등급별 개수만 출력하고 쓰지 않는다.' },
-          { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 upsert 713」' },
+          { title: '적재', detail: 'node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/import-seed.mjs --commit', done: '「원천 새로 N · 같음 M · 충돌 0」 — 충돌이 0 이 아니면 아래 주의를 본다' },
         ],
         verify: ['이 화면의 A·B·C·G 개수가 보고서와 같다(26·22·1·664).'],
-        recovery: ['재실행 안전 — 원천은 지문 해시로 upsert, 원리·공백은 이미 있으면 건너뛴다.'],
+        recovery: ['재실행 안전 — 원천은 새 행만 넣고, 이미 있는 행은 덮지 않는다. 원리·공백은 이미 있으면 건너뛴다.'],
       },
     },
   },

@@ -11,19 +11,19 @@ export const dynamic = 'force-dynamic'
 
 export default async function MethodsPage() {
   await requireAdmin('/admin/knowledge/methods')
-  const frame = { title: '방법론 · 공부법', question: '원리를 어떤 조건에서 어떤 절차로 쓰는가', help: <AdminScreenHelp screen="knowledge-methods" /> }
+  const frame = { question: '원리를 어떤 조건에서 어떤 절차로 쓰는가', help: <AdminScreenHelp screen="knowledge-methods" /> }
   let view
   try {
     view = await loadItemView({ layers: ['method', 'practice'] })
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="방법론 · 공부법" {...frame}>
         <LoadFailed what="방법론·공부법" href="/admin/knowledge/methods" />
       </KnowledgeFrame>
     )
   }
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="방법론 · 공부법" {...frame}>
       <NewItemForm layers={['method', 'practice']} taxonomy={view.taxonomy} />
       <ItemList
         {...view}

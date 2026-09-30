@@ -33,7 +33,7 @@ function useAction() {
 function Feedback({ result, okText }: { result: ActionResult | null; okText: string }) {
   if (!result) return null
   return (
-    <p role={result.ok ? 'status' : 'alert'} className={`mt-2 text-sm ${result.ok ? 'text-[var(--t2)]' : 'text-[var(--danger,#9C3A30)]'}`}>
+    <p role={result.ok ? 'status' : 'alert'} className={`mt-2 text-sm ${result.ok ? 'text-[var(--t2)]' : 'text-[var(--error-ink)]'}`}>
       {result.ok ? okText : result.error}
     </p>
   )
@@ -158,10 +158,10 @@ export function EvidenceForm({ itemId, origins }: { itemId: string; origins: Ori
       <fieldset className="mb-2 flex gap-4 text-sm text-[var(--t1)]">
         <legend className="sr-only">출처 종류</legend>
         <label className="inline-flex min-h-11 items-center gap-2">
-          <input type="radio" checked={mode === 'external'} onChange={() => setMode('external')} /> 링크
+          <input className="h-4 w-4 accent-[var(--p)]" type="radio" checked={mode === 'external'} onChange={() => setMode('external')} /> 링크
         </label>
         <label className="inline-flex min-h-11 items-center gap-2">
-          <input type="radio" checked={mode === 'csat'} onChange={() => setMode('csat')} /> 기출 원천
+          <input className="h-4 w-4 accent-[var(--p)]" type="radio" checked={mode === 'csat'} onChange={() => setMode('csat')} /> 기출 원천
         </label>
       </fieldset>
       <div className="grid gap-2">

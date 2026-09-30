@@ -11,19 +11,19 @@ export const dynamic = 'force-dynamic'
 
 export default async function PrinciplesPage() {
   await requireAdmin('/admin/knowledge/principles')
-  const frame = { title: '본질 · 원리', question: '영역마다 「잘한다」는 무엇이고, 왜 그렇게 배워지는가', help: <AdminScreenHelp screen="knowledge-principles" /> }
+  const frame = { question: '영역마다 「잘한다」는 무엇이고, 왜 그렇게 배워지는가', help: <AdminScreenHelp screen="knowledge-principles" /> }
   let view
   try {
     view = await loadItemView({ layers: ['essence', 'principle'] })
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="본질 · 원리" {...frame}>
         <LoadFailed what="본질·원리" href="/admin/knowledge/principles" />
       </KnowledgeFrame>
     )
   }
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="본질 · 원리" {...frame}>
       <NewItemForm layers={['essence', 'principle']} taxonomy={view.taxonomy} />
       <ItemList
         {...view}

@@ -5,27 +5,27 @@ import Link from 'next/link'
 import { GradeMark, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { GRADES, GRADE_LABEL } from '@/lib/knowledge/labels'
-import { countByGrade, listCsatOrigins, listEvidence, listItems } from '@/lib/knowledge/server'
+import { countByGrade, countEvidenceBySource, listCsatOrigins } from '@/lib/knowledge/server'
 
 export const dynamic = 'force-dynamic'
 
 export default async function SourcesPage() {
   await requireAdmin('/admin/knowledge/sources')
-  const frame = { title: '근거 · 출처', question: '어떤 출처가 들어와 있고, 어디까지 확인됐는가', help: <AdminScreenHelp screen="knowledge-sources" /> }
+  const frame = { question: '어떤 출처가 들어와 있고, 어디까지 확인됐는가', help: <AdminScreenHelp screen="knowledge-sources" /> }
   let data
   try {
-    const [origins, items] = await Promise.all([listCsatOrigins(), listItems()])
-    const evidence = await listEvidence(items.map((i) => i.id))
-    data = { origins, evidence }
+    // 근거는 개수만 필요하다 — 행을 가져와 세지 않고 DB 가 센다(1,000행 한도에 안 걸린다)
+    const [origins, bySource] = await Promise.all([listCsatOrigins(), countEvidenceBySource()])
+    data = { origins, bySource }
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="근거 · 출처" {...frame}>
         <LoadFailed what="출처" href="/admin/knowledge/sources" />
       </KnowledgeFrame>
     )
   }
   const grades = countByGrade(data.origins)
-  const bySource = data.evidence.reduce<Record<string, number>>((m, e) => ((m[e.sourceType] = (m[e.sourceType] ?? 0) + 1), m), {})
+  const bySource: Record<string, number> = data.bySource
 
   const kinds = [
     {
@@ -43,7 +43,7 @@ export default async function SourcesPage() {
   ]
 
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="근거 · 출처" {...frame}>
       <section aria-labelledby="kinds" className="mb-10">
         <h2 id="kinds" className="mb-3 text-lg font-semibold text-[var(--t1)]">출처 종류</h2>
         <ul className="divide-y divide-[var(--bd)] border-y border-[var(--bd)]">

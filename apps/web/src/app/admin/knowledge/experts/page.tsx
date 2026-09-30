@@ -14,19 +14,19 @@ const RESEARCH_LABEL: Record<string, string> = {
 
 export default async function ExpertsPage() {
   await requireAdmin('/admin/knowledge/experts')
-  const frame = { title: '전문가 · 채널', question: '누구의 무엇을 근거로 삼는가', help: <AdminScreenHelp screen="knowledge-experts" /> }
+  const frame = { question: '누구의 무엇을 근거로 삼는가', help: <AdminScreenHelp screen="knowledge-experts" /> }
   let experts
   try {
     experts = await listExperts()
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="전문가 · 채널" {...frame}>
         <LoadFailed what="전문가" href="/admin/knowledge/experts" />
       </KnowledgeFrame>
     )
   }
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="전문가 · 채널" {...frame}>
       {experts.length === 0 ? (
         <EmptyState
           title="가져온 전문가가 없습니다"

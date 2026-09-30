@@ -11,19 +11,19 @@ export const dynamic = 'force-dynamic'
 
 export default async function ReviewPage() {
   await requireAdmin('/admin/knowledge/review')
-  const frame = { title: '검토 대기', question: '사람의 판단을 기다리는 항목은 무엇인가', help: <AdminScreenHelp screen="knowledge-review" /> }
+  const frame = { question: '사람의 판단을 기다리는 항목은 무엇인가', help: <AdminScreenHelp screen="knowledge-review" /> }
   let view
   try {
     view = await loadItemView({ statuses: [...NEEDS_REVIEW] })
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="검토 대기" {...frame}>
         <LoadFailed what="검토 대기열" href="/admin/knowledge/review" />
       </KnowledgeFrame>
     )
   }
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="검토 대기" {...frame}>
       <p className="mb-4 text-sm text-[var(--t2)]">
         대기 <b className="tabular-nums text-[var(--t1)]">{view.items.length}</b>건 · 근거 없는 항목{' '}
         <b className="tabular-nums text-[var(--t1)]">{view.items.filter((i) => !view.evidenceCount[i.id]).length}</b>건

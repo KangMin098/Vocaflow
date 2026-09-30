@@ -3,7 +3,8 @@
 //   1) Codex 기출 원천 전수 조사 713 지문 → knowledge_csat_origins (지문 원문 없음 · 해시·서지·근거 URL 만)
 //   2) 미확인 지문 → knowledge_gaps 1건 (0 이 아니라 「모름」)
 //   3) 학습 과학 7 (LEARNING_MODEL) → L2 원리 항목 7개, 상태 in_review · 근거 미연결 공백 1건
-// 기본은 미리보기. --commit 일 때만 쓴다. 재실행 안전: 원천은 해시로 upsert, 원리는 slug, 공백은 질문 문장으로 중복 확인.
+// 기본은 미리보기. --commit 일 때만 쓴다. 재실행 안전: 원천은 **새 행만** 넣고 판정이 바뀐 행은 덮지 않고 충돌로 보고,
+// 원리는 slug, 공백은 질문 문장으로 중복 확인.
 // 사용: node --tls-max-v1.2 scripts/knowledge/import-seed.mjs [--commit]
 import fs from 'node:fs'
 import path from 'node:path'
@@ -100,13 +101,36 @@ if (!COMMIT) {
 
 const db = createScriptClient()
 
-for (let i = 0; i < origins.length; i += 200) {
+// 원천은 **새 행만** 넣는다. 이 파일은 2026-09-28 시점 자료라, 덮어쓰면 그 뒤 사람이 고친 판정
+// (예: A→B 교정)이 재실행 한 번에 옛 값으로 돌아가고 연결 근거 등급도 따라 바뀐다(Codex 리뷰 P2).
+// 이미 있는데 판정이 다르면 덮지 않고 충돌로 보고한다 — 어느 쪽이 맞는지는 사람이 정한다.
+const existing = new Map()
+for (let from = 0; ; from += 1000) {
+  // API 한 번에 최대 1,000행 — 페이지로 끝까지 읽는다(한 번만 읽으면 뒤쪽 행을 「없음」으로 오판한다)
+  const { data, error } = await db
+    .from('knowledge_csat_origins')
+    .select('passage_sha256,status')
+    .order('passage_sha256')
+    .range(from, from + 999)
+  if (error) throw new Error(`기존 원천 읽기 실패: ${error.message}`)
+  for (const r of data) existing.set(r.passage_sha256, r.status)
+  if (data.length < 1000) break
+}
+
+const fresh = origins.filter((o) => !existing.has(o.passage_sha256))
+const conflicts = origins.filter((o) => existing.has(o.passage_sha256) && existing.get(o.passage_sha256) !== o.status)
+for (let i = 0; i < fresh.length; i += 200) {
+  // ignoreDuplicates — 읽은 뒤 다른 세션이 같은 행을 넣었어도 덮지 않는다
   const { error } = await db
     .from('knowledge_csat_origins')
-    .upsert(origins.slice(i, i + 200), { onConflict: 'passage_sha256' })
+    .upsert(fresh.slice(i, i + 200), { onConflict: 'passage_sha256', ignoreDuplicates: true })
   if (error) throw new Error(`원천 적재 실패 (${i}~): ${error.message}`)
 }
-console.log(`원천 upsert ${origins.length}`)
+console.log(`원천 새로 ${fresh.length} · 같음 ${origins.length - fresh.length - conflicts.length} · 충돌 ${conflicts.length}(덮지 않음)`)
+for (const c of conflicts.slice(0, 20)) {
+  console.log(`  충돌 ${c.item_ids.join('·')} — DB ${existing.get(c.passage_sha256)} / 파일 ${c.status}`)
+}
+if (conflicts.length > 20) console.log(`  … 외 ${conflicts.length - 20}건`)
 
 const { data: existingItems, error: e1 } = await db
   .from('knowledge_items')

@@ -13,7 +13,6 @@ export const dynamic = 'force-dynamic'
 export default async function CsatOriginsPage() {
   await requireAdmin('/admin/knowledge/sources/csat')
   const frame = {
-    title: '기출 원천',
     question: '수능·모평 지문은 어떤 책·논문에서 왔는가',
     help: <AdminScreenHelp screen="knowledge-csat-origins" />,
     back: { href: '/admin/knowledge/sources', label: '근거 · 출처' },
@@ -23,7 +22,7 @@ export default async function CsatOriginsPage() {
     origins = await listCsatOrigins()
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="기출 원천" {...frame}>
         <LoadFailed what="기출 원천" href="/admin/knowledge/sources/csat" />
       </KnowledgeFrame>
     )
@@ -33,7 +32,7 @@ export default async function CsatOriginsPage() {
   const knownShare = share(known.length, origins.length)
 
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="기출 원천" {...frame}>
       <p className="mb-6 text-sm text-[var(--t2)]">
         고유 지문 <b className="tabular-nums text-[var(--t1)]">{origins.length}</b>개 중 원천을 댈 수 있는 것{' '}
         <b className="tabular-nums text-[var(--t1)]">{known.length}</b>개

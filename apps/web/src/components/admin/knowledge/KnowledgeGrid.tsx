@@ -70,9 +70,10 @@ export function KnowledgeGrid({ columns, cells, columnLabel }: KnowledgeGridProp
                     {tone === 'unknown' ? (
                       <div className={base}>{body}</div>
                     ) : (
+                      // 높이 토큰(min-h-11)을 여기 리터럴로도 적는다 — 터치 타깃 스캐너는 변수 안을 못 읽는다
                       <Link
                         href={cellHref(layer, cell)}
-                        className={`${base} hover:bg-[var(--bg)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]`}
+                        className={`min-h-11 ${base} hover:bg-[var(--bg)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]`}
                       >
                         {body}
                       </Link>

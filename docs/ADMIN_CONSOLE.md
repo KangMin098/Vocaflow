@@ -16,7 +16,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 원천 재고/과거 진단은 시각이 표시된 JSON 스냅샷, 개별 운영 큐는 DB 캐시다.
 감사는 DB/cache/snapshot 차이를 검출한다. [정상화 기록](./reports/csat-sources-normalization-20260918.md),
 [갱신·복구 절차](./LIBRARY_PIPELINE.md)를 따른다.
-방법론 연구 API(2026-09-19): `GET /api/admin/methodology`는 admin/curator에게 출처·주장·근거·방법의 검증된 번들을 제공한다. `mode=research`는 DB에 적재하지 않은 초기 조사 자료임을 명시하며 기본 DB 조회 실패 시 자동 폴백하지 않는다. [조사/드레인/SQL 상태](./methodology/README.md). 화면은 [4안](./design/compare/methodology.md) 선택 후 구현하므로 현재 사이드바 메뉴·화면도움말은 추가하지 않았다.
+방법론 연구 API `GET /api/admin/methodology`(2026-09-19 추가)는 **2026-09-30 삭제** — 부르는 곳이 없었다(링크 그래프·호출부 회귀). 가져오기 원장 화면 `/admin/methodology` 는 서버 함수 `lib/methodology/server.ts` 의 `readMethodologySnapshot` 으로 직접 읽는다.
 
 > 플랫폼 운영 영역 — `/admin/*`. 사용자 앱과 라우트/레이아웃/시각 컨텍스트 모두 분리.
 > 작성 시점: 2026-06-08 (v06.34).

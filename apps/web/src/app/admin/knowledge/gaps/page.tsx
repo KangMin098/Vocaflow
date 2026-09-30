@@ -10,19 +10,19 @@ export const dynamic = 'force-dynamic'
 
 export default async function GapsPage() {
   await requireAdmin('/admin/knowledge/gaps')
-  const frame = { title: '공백', question: '아직 모르는 것은 무엇이고, 다음에 무엇을 하는가', help: <AdminScreenHelp screen="knowledge-gaps" /> }
+  const frame = { question: '아직 모르는 것은 무엇이고, 다음에 무엇을 하는가', help: <AdminScreenHelp screen="knowledge-gaps" /> }
   let gaps
   try {
     gaps = await listGaps()
   } catch {
     return (
-      <KnowledgeFrame {...frame}>
+      <KnowledgeFrame title="공백" {...frame}>
         <LoadFailed what="공백" href="/admin/knowledge/gaps" />
       </KnowledgeFrame>
     )
   }
   return (
-    <KnowledgeFrame {...frame}>
+    <KnowledgeFrame title="공백" {...frame}>
       {gaps.length === 0 ? (
         <EmptyState title="기록된 공백이 없습니다" next="모르는 것이 없다는 뜻이 아닙니다 — 조사하면서 막힌 곳을 공백으로 남기세요." />
       ) : (
