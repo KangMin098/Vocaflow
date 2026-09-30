@@ -1639,7 +1639,7 @@ export const CSAT_HELP: HelpRegistry = {
           '`.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있는가 — 없으면 import 가 시작도 못 한다.',
           '교육청 학평(보조·검증 집합, 회차 id `H…`)은 **원장이 따로다**: `ingest-hakpyeong.mjs` → `build-corpus.mjs --set hakpyeong` → `corpus-sync.mjs --set hakpyeong --commit`. 집합을 가르지 않고 돌리면 평가원 문항이 «코퍼스에 없는 문항» 으로 잡힌다. 학평 원문(`columns2/H*.txt` · `*hakpyeong*.json`)은 EBSi 재배포 금지라 커밋하지 않는다(gitignore).',
           '학평 **근거 단위 목록**: `corpus-sync` 뒤 `node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong --commit` — DB 원문으로 목록(`csat_item_units`)을 만든다. **재실행 안전**(같은 원문·버전이면 건너뛴다). 같은 버전인데 목록이 다르면 멈춘다(분할 규칙을 바꿨으면 `UNITS_VERSION` 을 올린다). 원문이 바뀐 문항은 다시 돌리기 전까지 목록이 없어 export 가 경고하고, 분석 번호는 그 목록의 `n`·서술은 `[uN]` 이다. 목록이 바뀌면 그 목록으로 발행된 분석은 **자동 보류**되고 옛 승인은 다시 쓰이지 않는다.',
-          '학평 **독립 검수**: `review-drain.mjs export`(기본 8문항 청크) → 검수 에이전트가 `start → solve → reveal → submit`(분석만 교정됐으면 `rereview`) → `publish`. 발행은 DB 게이트가 판정한다(3인 pass · 자기 검수 금지 · 풀이 전 공개 금지 · 원문/정답/분석/근거 단위 해시 일치). **도표(R-CHART)는 발행 보류** — 이미지가 입력에 없어 검수·분석 모두 도표를 대조하지 못한다. export·status 가 「보류: 도표 이미지 없음」 으로 따로 세며 완료로 세지 않는다.',
+          '학평 **독립 검수**: `review-drain.mjs export`(기본 8문항 청크) → 검수 에이전트가 `start → solve → reveal → submit`(분석만 교정됐으면 `rereview`) → `publish`. 발행은 DB 게이트가 판정한다(3인 pass · 자기 검수 금지 · 풀이 전 공개 금지 · 원문/정답/분석/근거 단위 해시 일치). **도표(R-CHART)는 발행 보류** — 이미지가 입력에 없어 검수·분석 모두 도표를 대조하지 못한다. export·status 가 「보류: 도표 이미지 없음」 으로 따로 세며 완료로 세지 않는다. **검수 전 사전 검사**: `review-drain.mjs precheck` 가 옛 분석(목록 이전)도 근거 단위 번호 검사(V9 — 없는 번호·인용 위치 누락)를 거치게 하고, export 는 실패 문항을 「교정 먼저」 로 빼서 블라인드 청크에 넣지 않는다(읽기만 · 재실행 안전). 2026-09-30 대조: 검수자 판정 22건 중 오탐 0 · 번호 결함 5건 중 3건 검출 — 범위 안의 엉뚱한 번호와 「N번 문장」 서술은 못 잡으므로 **블라인드 검수를 대신하지 않는다**.',
         ],
         procedure: [
           {

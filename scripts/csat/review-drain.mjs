@@ -30,6 +30,7 @@
 // ── 운영자 명령 ───────────────────────────────────────────────────────
 //   export  [--size 8] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
+//   precheck [--items ...]                                      옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
 //   backfill-analyst-run [--commit]                              analyst_run 이 빈 과거 분석에 원장 출처를 적는다
 //
@@ -40,6 +41,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
+import { precheckAnalysis } from './lib-evidence-units.mjs'
 
 const [cmd, ...rest] = process.argv.slice(2)
 const arg = (n, d = null) => {
@@ -96,6 +98,19 @@ async function unitsView(itemId) {
   const u = (await loadCurrentUnits(db, [itemId])).get(itemId)
   return u ? { units_version: u.units_version, list: unitsForAgent(u.units), note: '분석의 sentence_index·[uN] 은 이 번호다 — 지문을 다시 세지 말고 이 목록으로 대조한다' }
     : { list: null, note: '근거 단위 목록 없음 — 번호 대조 불가(units-build 필요)' }
+}
+
+/** 분석 id → 사전 검사 결과(현재 근거 단위 목록 기준). 목록 없는 문항은 오류로 센다 */
+async function precheckMany(analyses) {
+  const out = new Map()
+  const units = await loadCurrentUnits(db, analyses.map((a) => a.item_id))
+  for (let i = 0; i < analyses.length; i += 200) {
+    const { data, error } = await db.from('csat_item_analyses').select('id, item_id, answer_locus, choice_analysis, answer_unknown')
+      .in('id', analyses.slice(i, i + 200).map((a) => a.id))
+    if (error) die(error.message)
+    for (const r of data) out.set(r.id, precheckAnalysis(r, units.get(r.item_id)?.units))
+  }
+  return out
 }
 
 /** 도표(R-CHART) 문항 id — 이미지 입력이 없어 발행 보류 대상 */
@@ -213,7 +228,11 @@ switch (cmd) {
     const all0 = (await latestHakpyeong()).filter((a) => a.status !== 'published' && (!only || only.has(a.item_id)))
     // 도표는 이미지 없이 검수할 수 없다 — 청크에서 빼되 **보류 건수로 남긴다**(조용히 제외하지 않는다 · DB 게이트도 발행 거부)
     const chartHeld = await chartItems(all0.map((a) => a.item_id))
-    const latest = all0.filter((a) => !chartHeld.has(a.item_id))
+    const latest0 = all0.filter((a) => !chartHeld.has(a.item_id))
+    // 기계로 잡히는 번호 결함은 블라인드 검수에 보내지 않는다 — 검수 3인이 같은 결함을 세 번 적는 비용이다(2026-09-30 배치 4: 반려 4/4 가 V9 결함)
+    const pre = await precheckMany(latest0)
+    const fixFirst = latest0.filter((a) => pre.get(a.id)?.errors.length)
+    const latest = latest0.filter((a) => !fixFirst.includes(a))
     const ids = latest.map((a) => a.id)
     const runs = []
     for (let i = 0; i < ids.length; i += 200) {
@@ -241,6 +260,7 @@ switch (cmd) {
       console.log(`  ${name}  ${todo.slice(i, i + size).map((t) => t.item_id).join(' ')}`)
     }
     console.log(`  보류: 도표 이미지 없음 ${chartHeld.size} (검수 청크에서 뺐다 · 완료로 세지 않는다)`)
+    console.log(`  교정 먼저: 사전 검사(V9) 실패 ${fixFirst.length}${fixFirst.length ? ' — ' + fixFirst.slice(0, 10).map((a) => a.item_id).join(' ') + (fixFirst.length > 10 ? ' …' : '') : ''}`)
     console.log(`  대상 ${latest.length} · 작업 중 ${busy.size} · analyst_run 없음 ${noRun.length} · 검수 필요 ${todo.length} · 새 청크 ${n}`)
     if (noRun.length) console.log('  ⚠ analyst_run 이 없는 분석은 게이트가 발행을 막는다 — backfill-analyst-run 먼저')
     break
@@ -257,6 +277,21 @@ switch (cmd) {
     }
     console.log(`  발행 ${ok} · 게이트 거부 ${refused.length}`)
     for (const r of refused.slice(0, 10)) console.log(`    · ${r}`)
+    break
+  }
+  case 'precheck': {
+    // 옛 분석도 현재 validator 의 번호 검사(V9)를 거친다 — 읽기만 한다(재실행 안전)
+    const only = arg('items') ? new Set(arg('items').split(',')) : null
+    const latest = (await latestHakpyeong()).filter((a) => (only ? only.has(a.item_id) : a.status !== 'published'))
+    const pre = await precheckMany(latest)
+    let bad = 0
+    for (const a of latest) {
+      const r = pre.get(a.id)
+      if (!r?.errors.length) continue
+      bad += 1
+      if (only || bad <= 30) console.log(`  ✗ ${a.item_id} v${a.version} — ${r.errors.join(' · ')}`)
+    }
+    console.log(`  대상 ${latest.length} · 사전 검사 실패 ${bad} · 통과 ${latest.length - bad}`)
     break
   }
   case 'status': {
@@ -290,6 +325,6 @@ switch (cmd) {
     break
   }
   default:
-    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|export|publish|status|backfill-analyst-run> …(머리 주석 참조)')
+    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|precheck|export|publish|status|backfill-analyst-run> …(머리 주석 참조)')
     process.exit(cmd ? 1 : 0)
 }

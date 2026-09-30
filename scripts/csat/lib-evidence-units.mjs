@@ -180,3 +180,22 @@ export function checkUnitRefs(a, units, bad, warn, id) {
   for (const m of prose.matchAll(/\[u(\d+)\]/g)) if (!inRange(Number(m[1]))) bad(id, `서술에 없는 단위 [u${m[1]}] (u1–u${N})`)
   if (/\d+\s*번\s*(?:째\s*)?문장/.test(prose)) warn(id, '서술에 「N번 문장」 표기가 있다 — 근거 단위 번호 [uN] 으로 쓴다')
 }
+
+/**
+ * **옛 분석(DB 행)도 같은 V9 검사를 거친다** — 목록 이전에 쓰인 분석은 units_hash 가 없어 validator 의 V9 를
+ * 건너뛰었다. 그래서 반려의 대부분(2026-09-30 배치 4: 4/4)이 기계로 잡을 수 있던 번호 결함이었다.
+ * 블라인드 검수 **전에** 이 함수로 거르고, 걸린 문항은 검수가 아니라 교정으로 보낸다.
+ *
+ * DB 행 모양(choice_analysis)과 드레인 결과 모양(choices)을 둘 다 받는다.
+ * @returns {{ errors: string[], warnings: string[] }}
+ */
+export function precheckAnalysis(row, units) {
+  const a = { ...row, choices: row.choices ?? row.choice_analysis ?? [] }
+  const errors = []
+  const warnings = []
+  if (!units?.length) return { errors: ['근거 단위 목록 없음 — units-build 필요'], warnings }
+  checkUnitRefs(a, units, (_, m) => errors.push(m), (_, m) => warnings.push(m), a.item_id ?? '')
+  const q = a.answer_locus?.quote
+  if (q && !a.answer_unknown && !unitsOfQuote('', units, q).length) errors.push('answer_locus.quote 가 근거 단위 목록 어디에도 없다')
+  return { errors, warnings }
+}

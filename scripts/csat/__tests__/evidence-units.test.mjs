@@ -7,7 +7,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import fs from 'node:fs'
 import path from 'node:path'
-import { buildUnits, checkUnitRefs, checkUnits, unitsHash, unitsOfQuote, UNITS_VERSION } from '../lib-evidence-units.mjs'
+import { buildUnits, checkUnitRefs, checkUnits, precheckAnalysis, unitsHash, unitsOfQuote, UNITS_VERSION } from '../lib-evidence-units.mjs'
 
 const texts = (p, o) => buildUnits(p, o).units.map((u) => u.text)
 
@@ -109,4 +109,21 @@ test('V9: quote located outside sentence_index is an error; "N번 문장" prose 
   assert.equal(r.bad.length, 1)
   assert.match(r.bad[0], /\[u5\]/)
   assert.equal(r.warn.length, 1)
+})
+
+// ── 옛 분석(DB 행 · units_hash 없음)도 사전 검사에서 실패해야 한다 ─────────
+test('precheck: legacy DB row whose quote unit is missing from sentence_index fails (H2603G3#37 shape)', () => {
+  const P = 'Order starts here. (A) One idea. Then another. So on. And more. It does not expand into anything. Next part. Final link here.'
+  const U = buildUnits(P).units
+  const row = { item_id: 'H0000G3#37', answer_locus: { sentence_index: [3, 4, 5, 7], quote: 'does not expand into anything' }, choice_analysis: [{ n: 2, verdict: 'correct', confirmed_at: { sentence_index: [5, 7] } }] }
+  const r = precheckAnalysis(row, U)
+  assert.equal(r.errors.length, 1)
+  assert.match(r.errors[0], /\[u6\]/)
+})
+test('precheck: legacy row pointing to a nonexistent unit fails; correct row passes; missing list is an error', () => {
+  const P = 'A one. B two. C three.'
+  const U = buildUnits(P).units
+  assert.ok(precheckAnalysis({ answer_locus: { sentence_index: [4], quote: 'C three' } }, U).errors.length >= 2)
+  assert.deepEqual(precheckAnalysis({ answer_locus: { sentence_index: [3], quote: 'C three' }, choice_analysis: [{ n: 1, confirmed_at: { sentence_index: [3] } }] }, U).errors, [])
+  assert.equal(precheckAnalysis({ answer_locus: { sentence_index: [1], quote: 'A one' } }, null).errors.length, 1)
 })
