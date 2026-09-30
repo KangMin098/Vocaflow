@@ -176,7 +176,7 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
         </div>
 
         <aside className="space-y-8 lg:border-l lg:border-[var(--bd)] lg:pl-8" aria-label="편집">
-          <StatusActions itemId={item.id} status={item.status} />
+          <StatusActions itemId={item.id} status={item.status} evidenceVersion={item.evidenceVersion} />
           <LinkForm
             itemId={item.id}
             layer={item.layer}
