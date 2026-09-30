@@ -1,0 +1,971 @@
+[
+  {
+    "id": "7571a860-c12e-4dc0-a52a-987fc9218f9f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "17d02ed69dadcbb984791e72949c006141f3b5b965ed52fc29168c616ae9e8b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "8개 점포 개설 계약 → 18개월 직영 → 가맹 모집으로 사건·다음 절차가 이어지고 아일랜드 피자 시장 문단이 배경을 받쳐 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "US pizza chain giant Little Caesars",
+      "note": "franchisees·expansive 를 바꾸면 V4 로 내려가고, 끝 문단의 업체 이름 나열은 걸러 낸다."
+    }
+  },
+  {
+    "id": "757e53f3-2c7a-4d13-baed-7e131be4c404",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c9436fd0e9d853da039983fd0faffafd9d64ba700e291a59f005e09a18d1f527",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "TradeMe 인수 발표 → 창업자 몫·경영 유지 발언 → 규제 승인 절차로 흐르는 인수 기사라 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "John Fairfax Holdings Limited announced today",
+      "note": "접속자·회원 수치 문단은 줄여도 인수 사건과 승인 절차가 선다; acquisitions·proportion 을 바꾸면 V5."
+    }
+  },
+  {
+    "id": "758bd9ab-7d23-461f-bfd6-d2e584ff2358",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5355ac3040352c84d98fa3ae9b08b9c10353bfc09e3ba42b71c7930189e759da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전쟁 예산 16억 달러를 국경 경비로 돌린 사건과 국방부 관계자의 반발 인용이 원인·반응으로 이어져 짧아도 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "United Press International (UPI) reports that",
+      "note": "상원 의원 이름을 걷어도 예산 전용 → 반발이 서고, supplemental·amendment 를 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "7593a730-8e35-4eac-93cb-b89aa51ff231",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a157eabc976e673c805d66afa5acbd103e90e145ab24a37deed88832ab2fb10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "배우 노아레의 암 사망 보도에 대표작·출생·결혼이 붙은 짧은 부고로, 사망 원인과 생애 사실이 한 사람에게 모여 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The French actor Philippe Noiret died",
+      "note": "세 문장 모두 한 인물의 사실이라 떼기는 쉽지만 사건 흐름이 짧아 내용 일치 외 유형은 어렵다."
+    }
+  },
+  {
+    "id": "7594b363-2d8d-4a68-aeaf-14b5eddd5d5a",
+    "source_updated_at": "2026-09-27T18:08:34.327789+00:00",
+    "body_sha256": "19095464e3e5aee1606a0a4ecf83bd288d847ec99efe6eaf1925f68f9e79307e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "모음 머리말 뒤에 그리스 배우 엘라 나타나엘 한 사람의 폐암 사망과 경력만 남은 두 문장 부고라 끊긴 글이 아니고 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Ella Nathanael, Greek actress died yesterday",
+      "note": "두 문장뿐이라 다른 부고와 묶거나 배경을 덧대야 문항 분량이 나오지만 사망 원인·경력은 선다."
+    }
+  },
+  {
+    "id": "75b42721-8ae3-48d6-aa66-5b8c96f169db",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7dc860ff3a1b2663c61e1ca56f1d868eff40dae0f6bb34d931fcdb77437e7579",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "8일 연속 비 → 홍수·사망자 → 비상사태 선포와 해제로 원인·결과·대응이 문장으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Saturday, the storm that blanketed",
+      "note": "blanketed·consecutive 를 바꾸면 V3 까지 내려가고 주 이름 나열만 줄이면 된다."
+    }
+  },
+  {
+    "id": "75ba6c39-3b73-4274-88a1-1a9ec270c3ff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fd8052ff93b09067abf2890d39ec28a7d8961a867b9837926bce5bd9a6266d20",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "민주당 출신 리버먼이 공화당 전당대회에서 연설한다는 보도에 본인 발언과 배경을 붙인 기사로 내용 일치·문장삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "United States (U.S.) Senator Joe Lieberman",
+      "note": "같은 배경(2000년 부통령 후보)이 두 번 나와 한 번 걷어야 하고, caucuses·staunchest 를 바꾸면 V5."
+    }
+  },
+  {
+    "id": "75bad6e1-0be7-445f-b1ff-dbb96f18c3c8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "843ce280587b0d1fd309e442a5b7c8665f79568c9b7d0a0dfcfa5ebe875ef9c8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모파즈의 이란 공격 발언 → 이란 국방장관 반박 → 미국의 외교 촉구로 양쪽 발언을 모두 전한 보도라 요약·내용 일치·주장-근거 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Israel and Iran are engaged in",
+      "note": "세 나라 발언이 문단마다 갈려 순서 배열에 좋고, 조롱 인용 한 문장은 가공 때 줄일 수 있다."
+    }
+  },
+  {
+    "id": "75bd4884-2dce-4594-b239-4e1c35510d75",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7b35cd391235017f0bfac7f80cbed965b16639cdc6f24981fb7e6b726e2892bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "캐나다 온라인 소매 방문자 증가를 전체·eBay·Amazon 수치와 업체·품목 이름만 바꿔 되풀이하고 문장 사이를 잇는 사건이 없어 칸 하나 수치 나열에 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Comscore Media Metrix Canada has reported that",
+      "note": "수치를 걷으면 「증가했다」 한 문장만 남아 논지·사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "75d8b05e-cf4a-4b1e-8702-dd7c10ece925",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bedce326f5f78ee0a850d57f3ae1eff2b4b2445522fa675ee966532a3740c710",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "오바마의 자유훈장 수여식에서 메르켈 불참·아프간 피살자 톰 리틀의 수상을 아내가 대신 받은 사연이 앞 두 문단으로 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "US President Barack Obama presented the",
+      "note": "끝 문단 수상자 이름 나열은 가공 때 걷고, meritorious·endeavors 를 바꾸면 V5."
+    }
+  },
+  {
+    "id": "75eb7bc1-572b-4d5e-8911-6bce37977542",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "50d9535acc5cc8dd96946f06a0ac6ab8df47aed58f6fea40df42700b363dafc3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사대 낙뢰 11회 → 점검 → 발사 24시간 연기 → 새 일정과 임무 소개로 원인·결과·다음 절차가 이어져 순서·문장삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The launch of Endeavour has been",
+      "note": "threshold·evaluate 정도만 바꾸면 V4 이고 사건 순서가 뚜렷해 문단 배열이 쉽다."
+    }
+  },
+  {
+    "id": "75f75780-af95-46bd-9655-d390b75c2411",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "565c835d05f58446336e0df100e635d8b0787f68065f30104b0b0db471c397ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "IEEE 의 새 FireWire 표준 승인과 속도·호환성·배포 일정을 USB 와 견줘 설명한 기사라 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Institute of Electrical and Electronics Engineers",
+      "note": "규격 이름·속도 수치를 걷으면 내용이 거의 남지 않아 어휘 조정만으로는 밴드를 내리기 어렵다."
+    }
+  },
+  {
+    "id": "75f7ef3c-a74f-43ea-969b-4c0d37c6254f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab5d2f68de526a11707b2fbd6a49f13b6a3806a174a76190657940b453e6a1d3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "BT 글로벌 서비스의 3년 계획(해외 매출 두 배·비용 절감)과 CEO 해명·매출 수치가 앞 세 문단으로 서고 뒤 「separate story」 두 문단은 걷어 낼 수 있어 요약·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "BT Global Services this week laid",
+      "note": "핸드셋 별건 두 문단은 가공 때 걷고, offshoring·procurement 를 풀어 쓰면 V6."
+    }
+  },
+  {
+    "id": "75fd4831-0381-4bab-a908-858db4a46dfe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b26597b0e8fd046a9fdd426e306463cabc0e02a8a443cf7dc1d4bc9cf6bbae2e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아베의 자민당 총재 선출과 전후 세대 첫 총리 전망, 당선 소감이 한 사건으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Shinzo Abe took 66% of the",
+      "note": "third-generation·postwar 정도만 풀면 되고 사건이 짧게 선다."
+    }
+  },
+  {
+    "id": "7602c5bc-8a13-4307-b18f-df7cf8bea6d4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8024394f1e19b33f7bade73199dc650ead0738034f975e14a69b6c423dd48809",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "페더러가 첫 세트를 내준 뒤 역전해 니시코리를 이긴 경기 흐름과 부상 복귀 소감이 시간순으로 이어져 순서·내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Yesterday, Swiss tennis player Roger Federer",
+      "note": "마지막 문단의 다른 경기 결과는 걷고, 세트 점수 수치는 줄여도 역전 흐름이 선다."
+    }
+  },
+  {
+    "id": "7607bdc8-26b5-4ee1-b902-f3b9df6f4861",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6aff734af51159552517f21666bcd9feec7bdcaff9c259bdf3e7fb98a15b1502",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "오클랜드 연구가 태평양계 청소년의 교회 출석과 비만의 상관을 TV 시청·식습관 요인과 함께 제시한 기사라 내용 일치·요지 칸을 채우고 수치 주장 검증 후보다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A study published this month in",
+      "note": "집단별 퍼센트가 빽빽해 대표 수치만 남겨야 하고, anthropometric·correlation 을 풀면 V6."
+    }
+  },
+  {
+    "id": "760c300f-5d16-4051-bf45-0fce895d2436",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5800e5bb96c401b9991a7f897c7da6c40773170b9baa49420ce5fba59641ced7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "포드가 4년 만에 연간 흑자로 돌아선 실적을 전년 손실·비용 절감·점유율과 CEO 발언으로 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ford Motors Co., the automobile manufacturing",
+      "note": "수치 문장이 많아 대표값만 남기고 pivotal·fragile 을 바꾸면 V5."
+    }
+  },
+  {
+    "id": "7625066b-327f-42a4-beba-eada0824a604",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9af6785be3d022bd9311d2a58e89656870e7db8d74b0495f0d7243fef829a7d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "애벗 텍사스 주지사 취임과 국경 경비 발언, 유가 하락 우려가 이어진 보도로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Greg Abbott was sworn in on",
+      "note": "sovereignty·inauguration 을 풀어 쓰면 되고, 휠체어 사용 문장은 떼어도 된다."
+    }
+  },
+  {
+    "id": "762c9a77-89ad-43f8-88bd-ea2c359d0493",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "01274e6d4090bca8872e925c497d102c591f2286db5b6b76f9dd4b5d7f9f13c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "구글 시가총액이 타임워너를 넘은 사실을 매출 격차와 성장률로 설명한 앞 두 문단이 서고 끝 순위 목록은 걷을 수 있어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Internet search engine, Google, saw its",
+      "note": "시가총액 순위 목록은 가공 때 걷고, flotation·capitalization 을 바꾸면 V5."
+    }
+  },
+  {
+    "id": "762d22ac-d2f6-4ea2-8e55-20f17ae3f9fe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b2e6907df330909d7faf67d16bd51772d8c1cd9a071b3fa540eadb9f939afc5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "국방부 정보팀 보도에 대한 국방부 부인·민주당 청문회 요구·공화당 반대를 양쪽 인용으로 전해 요약·주장-근거·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A recent article in the Washington Post",
+      "note": "의원 이름·소속은 걷어도 보도 → 부인 → 청문회 공방이 서고, clandestine·appropriated 를 바꾸면 V6."
+    }
+  },
+  {
+    "id": "7636c023-2783-4005-934c-ee129b0929fa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0367be865c153b8ee17b06a97aec8fe79770b2ae10b6575b6477d0ce8ece12cf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미국이 인도를 「세계 강국」으로 돕겠다는 발표와 전략 대화 내용, 익명 관리 인용이 한 사건으로 이어진 짧은 기사로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States announced plans to",
+      "note": "세 문단이 짧게 서지만 인용이 제목과 겹쳐 문항은 내용 일치 정도다."
+    }
+  },
+  {
+    "id": "7638fdde-3273-488a-a234-7450340ab428",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9a3786ad6b6dd4c0ed4b2f0eb5be1374a48c0d9e3f2bcd2f79731e9c26c0b56c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "제니트 로켓의 에코스타 11호 발사 → 분리 → 궤도 투입 → 관계자 소감 → 다음 발사 일정이 시간순으로 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "At 05:20:59 GMT this morning, the",
+      "note": "궤도·대역 수치와 고유명사가 많아 낱말 몇 개 바꿔서는 밴드가 안 내려가지만 사건 순서는 선다."
+    }
+  },
+  {
+    "id": "764b703a-aff5-486c-a3ef-a876df28e1ec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7e0fbdf1d3c7d3630cc5a89d0627d3626e1da10ea597eaec7bbbe8ef3aa9054a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "폭풍으로 인한 사망 사례들과 기상청 경보가 원인·결과로 이어진 기사로, 사망 묘사가 있어 고1 이상 칸에서 내용 일치를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Five people have now died from",
+      "note": "끝 문단 지역 이름 나열은 걷고, 사망 경위는 고1 이상에만 두며 hypothermia 를 풀면 V4."
+    }
+  },
+  {
+    "id": "76599576-3fbb-4fec-9009-0ef61091f91a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c9ae6b8282b13089dc70184b566ba29e72692930106132d0936871b4484f08d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "환경부 직원이 기후 계획 유출로 체포된 사건 → 경찰 설명 → 앞선 팩스 유출 경위 → 수사 계속으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A Canadian government employee of Environment",
+      "note": "breach of trust·privileged 를 풀어 쓰면 V6 이고, 부서·계획 이름은 줄여도 사건이 선다."
+    }
+  },
+  {
+    "id": "766e74e0-6ee8-4bf2-8ee3-5903de10f71f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "566fb95541083a8157b4a17ce467a4d9030d89cef6ed4034b542fe47bcff453f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카르자이가 초기 개표에서 격차를 넓혔다는 발표에 결선 투표 조건과 최종 결과 일정이 붙어 수치 나열을 넘어 다음 절차가 이어지므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Afghanistan's election commission has said that",
+      "note": "득표 수치를 백분율 하나로 줄이면 격차 확대 → 결선 조건 → 결과 일정이 선다."
+    }
+  }
+]

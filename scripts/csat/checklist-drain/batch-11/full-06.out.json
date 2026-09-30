@@ -1,0 +1,957 @@
+[
+  {
+    "id": "77e60255-82e1-4795-b1c1-ddd745161159",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9e60bc195549e257ce0a585a9c8586f05e67db20332520e3924f4fd992b04dd4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "IWC 가 경매 수익을 부에노스아이레스 빈곤 아동 단체에 준다는 목적과 경매품·단체 소개가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The International Watch Company (IWC) is",
+      "note": "첫 두 문단(경매 목적 → 단체 소개)이 떼어져 서고, reduced circumstances·perpetual calendar 를 poor·date function 으로 바꾸니 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "77ec1afd-aab3-4d21-af5b-0191baf7808a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "26ff5ef85b7c1cb12dda7605beb842a705e4fa5cc8defff6595073f15fb4f824",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쓰촨 지진 11일 뒤 구조된 80세 생존자와 아내가 먹여 살아남았다는 이유, 피해 규모·과거 탕산 지진 대조가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Xiao Zhihu, 80, who is said",
+      "note": "둘째 문단이 구조 → 생존 이유로 이어져 혼자 서고, paralyzed·prior to 를 unable to move·before 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "77fd5b48-19ce-4c43-b3dd-323ad43dbe89",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2dcc5a4cb8c75bff806190dce928bd0ac57420a9e49ef2105dccf48d07adb0f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "앱스토어 20억 다운로드가 다섯 달 만에 두 배가 됐다는 해석과 경쟁 플랫폼 비교·잡스 발언이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Monday, computer company Apple announced",
+      "note": "첫 문단이 수치 → 두 배라는 해석으로 이어져 서고, staggering·reinvented 를 huge·changed 로 바꾸면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "78165519-18c9-4575-8599-c6c88ac6c422",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6ce387dde916fa842f863123b7b5442261c0402108eb5aeabf587a1d199f171b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "타이베이 공구·DIY 전시회의 주최·규모와 생활 품질 수요에 맞춘 부대 행사·수출 목적 참가가 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "With people in Taiwan valuing on",
+      "note": "둘째 문단이 수요 → 부대 행사로 이어지지만 원문 영어가 어색해(valuing on · conjuncted) 가공 때 문장을 다듬어야 한다."
+    }
+  },
+  {
+    "id": "78572e45-aa7c-4aab-9db3-0ba6d4c71ee1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dc245ab9ed773975d7f43c957109bb54f39e9aef43184b07033b68c0d09575ce",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "로켓 발사 → 이스라엘 반격 → 각 세력 부인으로 사건은 서지만 「targets inside Lebanon after…」 문단이 문장 도중에서 시작해 앞 배경 문단이 빠져 있다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At least four Katyusha rockets were",
+      "note": "첫 세 문단은 떼어 서지만 2006년 전쟁 배경 문단이 앞머리가 잘려 받은 본문이 불완전하다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "78607509-a3c3-4e15-aa97-9beb711be4bb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "92bf40b160e8d70ea288c75f527a013da62172e27cd50793e7db5c5c2a7d811c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "96어 단신이지만 농업인 피살체 발견 → 스탱 수녀 사업 예정지였다는 연결 → 부검 이송으로 사건이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The man, identified as the agriculturist",
+      "note": "둘째 문단이 발견 장소와 스탱 수녀 사업을 잇고, autopsy 외에는 어려운 낱말이 적어 V5 에 맞는다 — 총격 소재라 고등 이상 칸만."
+    }
+  },
+  {
+    "id": "7869cc90-3265-404f-afbf-ecd17d3dc836",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b605faedb62d0caecc304f3bcff29f68411def5fa37e49ddaf2a9dcc55c52627",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "개 물림 사망 뒤 견주 형사 책임 조례안과 벌금 단계, 주 정부의 방관, 입법이 무엇을 정의해야 하는지에 대한 주장이 이어져 요지·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The legal wording the county might",
+      "note": "넷째 문단이 「종을 가리지 말고 애완동물·과실의 정의에 집중하라」는 주장으로 혼자 서고, indiscriminate·negligence 를 풀면 V5 가 된다 — 사망 사건 소재라 고등 이상."
+    }
+  },
+  {
+    "id": "786cc2c6-9de5-4d1b-921f-d23d2c0c148b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8271f5a8875b0de02026f84a5bdf0f90ef1a7fa36e4c0caec40c96da76e7b662",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "보다폰의 커넥스·오스카 인수와 지분 변화, 루마니아 최대 거래라는 의미, CEO 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The takeover of Connex is said",
+      "note": "둘째 문단이 거래 의미 → 지분 변화로 이어져 서고, majortarily 오기를 고치고 takeover 를 purchase 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "78768641-c753-4314-aecf-af86a8440287",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "58da9e420d4dbbeb9dfa87da012fb7f8d33ef3941e92a4f40683ed6f19f1458b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "travel",
+    "why": "핀추크의 중남미 단독 여행 발표회와 민속 음반 수집 취미(philophony) 설명이 이어져 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Listeners got acquainted with a map",
+      "note": "넷째 문단이 발표 내용 → 음반 수집 취미 → 그 이름으로 이어져 서고, 끝의 「Materials of a solo expedition」 머리(사진 모음 제목)는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "78774aa1-1b5e-4058-a70c-89897b4b4eef",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54346fb0499b12b8a1915a223d809224710454f5e78c2a632a32eba66a707c78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "셰나이 명인 비스밀라 칸의 별세와 국장·조기 게양이라는 후속 절차, 독립 선포식 연주 이력이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He also had the distinction of",
+      "note": "둘째 문단이 독립 선포식 연주 일화로 서고, heralding·mesmerizing·unfurling 을 welcoming·charming·raising 으로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "787a020c-dd54-42d7-8592-3fe7b2ef9b54",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "12013a64a793f8874ef07eded1fe6b3c60661ca00d1ab147d419700c9558a612",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "데스메탈 밴드 베이시스트의 암 투병 끝 사망과 밴드·음반사 대표의 추모 성명(티셔츠 일화)이 이어져 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It is with great regret that",
+      "note": "음반사 대표 성명 문단이 애도 → 일화 → 인품 평으로 이어져 혼자 서고 낱말이 쉬워 거의 손댈 것이 없다."
+    }
+  },
+  {
+    "id": "78949f2b-53b0-47c1-b157-09ee8212cbf8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f3c977c6d5f19c6d512c77f79bbc63804e085211d9d55a8502f09f577ed1cc25",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "호주 특수부대원 전사와 후송·사망 경위, 작전 세부 비공개 이유, 동료 구조를 칭찬한 사령관 발언이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Air Chief Marshal Angus Houston was",
+      "note": "셋째 문단이 비공개 결정 → 그 이유로 이어져 서고, aero-medical·extracting 을 medical·pulling 으로 바꾸면 쉬워진다 — 전사 소재라 고등 이상."
+    }
+  },
+  {
+    "id": "78b153dd-a6c2-4a3d-b8f8-e56093ef232b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "debadc14f9425b8fc8583d5fcc4d48bd2ccc03f54e8debf03a279e16aaf12520",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "아마르티아 센의 인문학 메달 수상과 빈곤·기근 연구로 생활 수준 측정을 바꿨다는 수상 이유가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A White House citation noted \"his",
+      "note": "둘째 문단이 수상 이유를 한 문장으로 서게 하고, famine·injustice 는 문맥으로 풀리지만 수상자 이름 나열 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "78bbd527-6fde-42a4-b0da-50a97b7dbbb2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "da5fbe591ba31b971fe7276758c805da9805eb9ea53a27b23cbfd629f3afc54d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "인도·네팔 외무 회담에서 마오주의 반군 평화 협상 현황과 경제 지원을 논의하고 이어진 프라찬다-코이랄라 회동까지 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The talk was important as Maoist",
+      "note": "넷째 문단이 회담의 의미 → 반군 지도자 회동 → 다음 협상 일정으로 이어져 서고, 무장 해제 표현(arm management)을 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "78d16faf-53ee-436b-b1c3-9e9a08d6397f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f0ea4bc5dac1db84ffaafa29dbfb766eb56e9b20f73999caca06fd97bd1bf0c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "아크레주와 아르헨티나 북부 두 지진이 문단마다 시각·규모·진앙·깊이만 바꿔 되풀이되고 「피해 보고 없음」 외에 문장을 잇는 사건이 없어 칸을 채우지 못한다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "At 12:34 (-3 UTC) another earthquake",
+      "note": "넷째 문단을 떼어 보니 규모·거리·깊이 수치 나열뿐이라 수치를 걷으면 남는 사건이 없다."
+    }
+  },
+  {
+    "id": "78e03366-f70f-4046-b24e-8f1045b9eb07",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1e8da8b65414636bb2504f71687b5189a0272b89af01bd61bd193c8b4f0316ff",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "돔 드루이즈의 별세와 영화·TV 경력, 요리책·아동서 저술로 이어지는 생애 서술이 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "DeLuise was also an avid chef,",
+      "note": "마지막 문단이 요리사·작가 면모 → 사망으로 이어져 서고, 영화 제목 나열 문단은 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "78f43178-ea33-4816-804d-8bb88bd25a96",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "05e5b2a74d0a6cbede215478b6879dab9ca0a082eaeae833e820446470ced46b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "80어 단신이지만 일리베스 당선 → 선거인단 방식·득표 → 이전 경력 → 10월 임기 시작으로 다음 절차까지 이어져 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Toomas Hendrik Ilves, currently a member",
+      "note": "한 문단짜리라 그대로 떼어지고, incumbent·enlarged 를 current·larger 로 바꾸면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "78fd8ac4-efd4-40b8-a241-aa2b575d79f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7b7849c5ccca39c9b5d253609e1cd916bbe3d010edd1165e4d0bdb10762c8cef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "재즈 밴드 리더 가라니안의 별세와 생애·이끈 악단, 예정 공연을 추모 공연으로 이어 간다는 후속이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The announced concert in Krasnodar won't",
+      "note": "마지막 문단이 공연 유지 → 추모 → 장례 일정으로 이어져 서고, 첫 문단의 사망 사실만 한 줄 붙이면 된다."
+    }
+  },
+  {
+    "id": "790c67ba-c379-4046-93bd-32b2beb97441",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "44cf668974f17bdd7cd053c260260e933442888f21ea142a63a5ac5b4b27a4d7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "미스 아메리카 우승과 가정폭력 피해 경험을 공약으로 삼았다는 소감·장학금이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The 22-year-old Kazantsev preformed \"Happy\" by",
+      "note": "둘째 문단이 공약 → 피해 경험 → 다짐으로 이어져 서고 오기(preformed)만 고치면 된다 — 준우승자 이름 문단은 걷는다."
+    }
+  },
+  {
+    "id": "7913b506-ff7e-4f2f-ad15-ed6a98324ffc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "326b3082a1189f8985305188bfe538f7b28ec266680760487b01ad9d50847eb1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "개각 명단을 둘러싼 당내 파벌 충돌 → 사퇴 → 좌파 리스 선출 → 취임으로 원인과 결과가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The right of the Labor party",
+      "note": "셋째 문단이 명단 제시 → 거부 → 사퇴 통첩 → 지지 철회로 흘러 순서 문항감이고, caucus·foisted 를 party members·forced 로 바꾸면 V6 이 된다."
+    }
+  },
+  {
+    "id": "79161160-ec3a-476f-a975-8cb2b959d690",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0ea634870269afe58d03ad5c0e5ceecbab551e76937be0c97847c63844566cef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "어린이 그룹 위글스가 스타 배우들을 제치고 수입 1위가 된 반전과 그 이유(부모까지 이해한 조기 진입)가 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The top money grossing entertainers in",
+      "note": "첫 두 문단이 통념 뒤집기 → 이유로 이어져 서고, grossing·tot-time 을 earning·children's 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "793472f1-6dd3-4004-8f3c-44378bf87442",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e00d35864b762c65dd43231d1c75dab5a4f57aa8e72393585f94dfa1cace242f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "피녜라의 52년 만의 보수 대통령 당선과 득표, 바첼레트 연임 불가, 당선·패배 소감이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"Better times are coming for Chile.",
+      "note": "당선 소감 문단이 창문을 여는 비유로 서고, concede 를 accept defeat 로 바꾸면 낱말 부담이 거의 없다."
+    }
+  },
+  {
+    "id": "7939cb8b-b283-411a-a95f-9597a45a5fb3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa5b146b92a673a390e75b7b0f05183ac28a159d249aa78779cba95432665506",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "명왕성 두 위성의 발견·명명과 크기·밝기 비교, 그리스 신화에서 따온 이름의 까닭이 이어져 내용 일치·어휘 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The names are derived from Greek",
+      "note": "마지막 문단이 이름의 뜻 → 카론과의 관계 → 충돌 기원 암시로 이어져 서고, allusion·borne 을 hint·born 으로 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "794670dc-0f32-4762-b22e-b7adfc06f43a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "86e91adac839296a5348527ef6346a4a812d3a1169a9d4468c964071b9e52df7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "연방법원 위헌 판결 → 항소법원 무효화 → 대법원 기각으로 이어진 경위와 정책 내용·오바마 입장·단체 반응이 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Under the terms of \"Don't ask,",
+      "note": "넷째 문단이 정책 조건과 금지를 혼자 설명하고, rescinded·injunction 을 cancelled·court order 로 바꾸면 V6 이 된다."
+    }
+  },
+  {
+    "id": "7960392a-ab90-4d67-b17b-98ec476529b0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "65d2ce189ee9c9720374f5907f641b311784bcaf6754650e7496ebb221bee1bf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "몰루카해 규모 6.1 지진이 피해가 없었고 쓰나미 경보를 낼 만큼 강하지 않았다는 판단까지 이어져 수치 나열을 넘어 내용 일치 칸 하나가 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to Dailin Wang of the",
+      "note": "셋째 문단이 규모 → 경보 불필요라는 이유로 이어져 서지만 나머지는 수치라 짧은 내용 일치 지문으로만 쓴다."
+    }
+  }
+]

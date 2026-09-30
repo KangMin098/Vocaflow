@@ -1,0 +1,968 @@
+[
+  {
+    "id": "797e9f83-0d2a-413c-b400-a1bf527414cf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ab88ed84c1f8e1c1d7a511338bb3c90663c817ae220bd165716c93c1d31fb074",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "기소 → 도주 후 자수 → EU 가입 조건이라는 두 문단이 사건과 그 의미로 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Serbian general, Nebojša Pavković, pled not",
+      "note": "indicted→charged, extradition→handover, feasibility report 걷으면 V6 로 내려가고 첫 문장부터 혼자 선다."
+    }
+  },
+  {
+    "id": "7988de28-cb3c-439f-a0a4-5fc754b4e016",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "539be47b598c68f7d5f84662f7a54c0e86bb245eca61f173f1424f060fcc8ab8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "블레어의 감군 발표와 그 조건·이유(바스라 상황, 바그다드와의 차이)·미국 반응이 문단마다 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Blair admitted that the situation in",
+      "note": "둘째 문단은 Blair 를 풀어 쓰면 떼어도 서고, orgy of terrorism·transition 을 바꾸면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "799e840c-b88d-40fa-8dc7-1111e2f78a4a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e70c448c78a2309e8fb2d42421688f2c5f73ec859dfe9765268fa7b9b7310473",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경보 체계 도입 → 설치 위치 → 신호로 경고 → 잦은 홍수라는 까닭까지 짧게 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hidroelectrica, Romania's largest hydroelectricity company, has",
+      "note": "고유명사를 「a power company」로 바꾸고 hydroelectric 만 풀면 중등 밴드까지 내려간다."
+    }
+  },
+  {
+    "id": "79a90064-49d4-46bb-9ea8-3e7e1a0d5c48",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2c3aa69d7bf4a68d65e16578082eea686454f7652e2b846cac054f07e7c321bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연쇄 폭발 네 건의 경과와 평화 협상 일정·석방 요구라는 배경이 이어져 내용 일치 칸을 채우며, 폭력 소재라 고1 이상으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The attacks come a day after",
+      "note": "셋째 문단은 ULFA 약칭을 한 번 풀어 주면 서고, separatist·lobbed 를 바꾸면 V6 이다."
+    }
+  },
+  {
+    "id": "79b8f332-63e7-4ca5-a6a1-46ea20c7070e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "043369958b382229bcc4fcba7c027ddc06d3362de7a4f36046fc18b15bb3318e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "법안 통과 과정에서 기요틴 사용 → 야당 반발 인용 → 수정안 부결 → 3독회 통과로 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The so-called \"guillotine\" was used and",
+      "note": "기요틴·3독회 같은 의회 절차 용어가 막혀 설명 한 줄을 덧대야 하고, 정당 이름을 걷으면 반발의 주체가 흐려진다."
+    }
+  },
+  {
+    "id": "79bef09a-b11c-4dca-963c-5c190c5183c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "29bc59163ab1fe17e13af4e446cd603a6ae942ef39dd48ea0415e05b3d3f31b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "「listed below」로 밝힌 대로 본문 대부분이 나라별 원조 금액 나열이고 마지막 구조 문단 하나만 사건이라 칸 하나를 수치 나열로 채우는 데 그친다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The European Union executive branch has",
+      "note": "나라마다 금액만 바뀌는 문장이라 떼어 낼 논지·흐름 문단이 없고, 끝 구조 문단은 두 문장뿐이다."
+    }
+  },
+  {
+    "id": "79bf7e35-abfe-4319-893d-707f125bf5e5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "abb3465d02acfdb51489ba502e7967518a70a91a45e278063490f84e7c76f090",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "첫 상업 비행 → 노선 확대 계획 → 설계·제작지 → 항공사 도입으로 한 기체의 취항 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The new aircraft was designed in",
+      "note": "glass cockpit·twinjet·lease contract 를 바꾸면 쉬워지지만 제원 수치 문장은 가공 때 줄여야 한다."
+    }
+  },
+  {
+    "id": "79cf06ea-cb06-401e-b3df-59ffc02e7a28",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "081ea9b05acca3fb38f121ad382a5171b8a4c4b9583e587f3f1e2a293bc080fa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "대회 개막과 자선 기부 취지, 후원사·장소 측의 지지 발언이 이어지나 영어가 서툴러 문장을 다듬어야 쓰는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the main organizer, Aztec",
+      "note": "「By the way for the sponsors, they identically agreed」 같은 비문을 고쳐 써야 해서 어법 칸은 달지 않는다."
+    }
+  },
+  {
+    "id": "79f710a8-f311-4095-8951-ec49dcea8e40",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "04fe99eca29019d6ddd4b32ac05cf06c991720845425daa202827e92dd851c7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "여론조사 결과 수치 외에 UMP 의 성격·결성 배경 문단과 드빌팽의 반응이 있어 수치만 되풀이되지 않고 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The UMP is one of the",
+      "note": "배경 문단은 혼자 서지만 셋째 문단은 지지율만 이어져 가공 때 한두 수치로 줄여야 한다."
+    }
+  },
+  {
+    "id": "79f7f619-14b7-4c6e-866e-dff2ce8cdf99",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ffa9ba9a56cde20199def80e17a25241a07e407f22a742585758a954fde4d094",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "GFDL 이 복잡하다는 문제 인정 → 개정안 초안을 약속받았다는 전화로 이유와 다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wales, asked what he is planning",
+      "note": "GFDL 을 「the license Wikipedia uses」로 풀면 셋째 문단만으로 문제와 해결 약속이 선다."
+    }
+  },
+  {
+    "id": "79fb337b-a59c-4ebc-b042-685265ecfdc1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "10f4d73dfbca8d53f22ed403c00395244592d5bf1c0c16a6469a1ae30466131f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "한 주제(신종플루 확산)의 나라별 현황이지만 WHO 경보 기준 논의·호주 장관 전망·러시아 검역 문단처럼 이유와 대응이 이어지는 문단이 있어 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The WHO's pandemic alert level is",
+      "note": "WHO 경보 단계 문단은 혼자 서며 severity·virulent 를 바꾸면 V6 이고, 중간의 「]」 잔재와 나라별 확진 수 나열은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "7a017fe8-d6cf-426e-9865-f224bf8ea35c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5c8225bba8ea431768955481b8887cb10da7069c077a302efcf4036825a7b27b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "두 체인의 법정관리 진입 → 규모·앞선 인수 → 회사 입장 → 금융위기 속 다른 사례로 원인과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two British footwear chains have entered",
+      "note": "administration 을 첫 문장이 스스로 풀어 주어 어휘 조정이 쉽고, 회사 이름은 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "7a48fb60-d7d5-4fdd-8849-9715ad462a8c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1d811ffbfd7d8b18c2ee532c1cbcddb8cb0ff6361c5a0bb6b662d007f153b109",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "기수 선정 발표 → 올림픽 금메달이라는 선정 배경 → 개막식 일정으로 한 사건이 이어져 짧지만 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was announced last night at",
+      "note": "문장 셋이 이름·일정 위주라 연결이 얇지만 선정 이유가 둘째 문단에 있어 사건으로 선다."
+    }
+  },
+  {
+    "id": "7a57fae2-973b-4835-a6f0-d418eb71cd45",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "12e61ced8d74aafa0bd08de1f20295fe2abafb973d3a85601edb1024629b0259",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "안보리 제재 결의에 대한 아마디네자드의 반발 인용과 결의 내용·해제 조건·이란의 대응 예고가 맞서 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V7",
+        "V8",
+        "V9"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The U.N. also said that Iran",
+      "note": "결의문 인용 문단은 proliferation·reprocessing 같은 전문어가 몰려 V9 이고, 반발 인용 문단 쪽을 떼어 enrichment 만 풀면 V7 이다."
+    }
+  },
+  {
+    "id": "7a840786-1cee-47c9-8d5f-81a7188a95a3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f581a76ddc190ed9e831d583a426a1e033be4911a218cb1885ef6c27603a8cfa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경비행기 충돌 → 탑승자 사망 → 잔해가 흩어져 접근이 어려움 → 신원 공개 보류로 사건과 다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The collision occurred between a Cirrus",
+      "note": "기종 이름을 「two small planes」로 바꾸면 둘째 문단이 혼자 서고 어휘도 쉽다."
+    }
+  },
+  {
+    "id": "7a9c54ee-fa5e-429b-be5f-10b00609fffe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dcb13f3ce02063905bca92f713fe4fa146354a0f6cb6adae47d592f940c987a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연쇄 살인 발견 → 과거 리퍼 사건과의 비교 → 경찰의 외출 자제 권고로 사건과 반응이 이어지며, 성매매·살인 소재라 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Detectives investigating the murders have confirmed",
+      "note": "둘째·넷째 문단은 떼어도 서고 unprecedented 를 바꾸면 되며, 「cited prostitutes to stay off」 같은 오용은 고쳐 써야 한다."
+    }
+  },
+  {
+    "id": "7aa525b0-a76d-4fb1-a259-a8cfc3fcf9f7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ad6c3b7562765d6ea965e5439f6f89e0e49f85bbc036ed1320be1e1c1a2351c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "인수 합의 → 승인 절차가 남음 → 양측 회사 배경으로 거래와 다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Media group, Scottish Radio Holdings (SRH),",
+      "note": "규제 기관 이름을 「regulators」로 묶으면 첫 문단이 혼자 서고 entitled to block 만 풀면 된다."
+    }
+  },
+  {
+    "id": "7ab8c059-4dc5-4e7a-895f-445e591a4b49",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "16584497914fc72afd73097ab9361b4770f94b405c896fd0ca7f21b2411d5607",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총격 사건에 대한 총독의 애도 성명 인용과 사건 경과 문단이 이어져 내용 일치 칸과 성명의 심경을 읽는 칸을 채우며, 총격 소재라 고1 이상으로 둔다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "purpose"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "It was with great sadness that",
+      "note": "성명 인용 문단은 편지처럼 혼자 서고 inexcusable·commend 를 바꾸면 V6 이다."
+    }
+  },
+  {
+    "id": "7ad51268-0f99-4b1e-b45e-171bebeca0e4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "52cd4b25e7f2bb8b2789a3e043d2b578fcd9f77efa890692f2cabc200535161a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모기장 무료 배포 → 몰린 인파가 담을 넘음 → 담 붕괴 → 사망·치료로 원인과 결과가 뚜렷이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The accident occurred in the town",
+      "note": "stampede·premises 둘만 바꾸면 쉬워지고 세 문단이 시간순이라 순서 문항으로 자르기 쉽다."
+    }
+  },
+  {
+    "id": "7adc8dbd-be73-4b9e-8cac-646cf665f0f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "50c68f99b2a7fae9d9ab6706fdf3c8ab188834fff7910ac3b6a0fdd6efb9c970",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지진 발생 → 담이 무너져 노인 사망 → 도로·재산 피해 → 1년 전 더 큰 지진과 비교로 사건이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Tuesday, an earthquake with a",
+      "note": "규모·거리 수치가 있어도 사망 경위 문장이 사건을 이어 주어 혼자 서고 어휘는 epicentre 하나만 풀면 된다."
+    }
+  },
+  {
+    "id": "7af854b9-e35c-4c98-95f3-89698a0c8570",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "42a1245407cc2d04935474b6804605773ddb2fccaef707a99f7f69f14f4e0365",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시위대 방화 → 체포·사상자 → 레바논 정부의 규탄과 덴마크에 대한 사과로 사건과 반응이 이어져 짧은 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "In Lebanon Sunday, protesters set fire",
+      "note": "시위의 까닭(만평 사건)이 본문에 없어 떼어 쓰면 배경 한 줄을 덧대야 한다."
+    }
+  },
+  {
+    "id": "7b0012b9-7c91-4301-860b-83bcf7d2d853",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d81451aae59025b6b35be8675ba3c24a606bf86586e61038d1c07cad56f82853",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "캘러핸의 사망 소식과 총리 재임기·자랑스러운 업적·추모 발언이 이어져 내용 일치 칸을 채우나 재임 전후 서술이 뒤엉켜 사실 확인이 필요하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "James Callaghan was prime minister from",
+      "note": "「before Thatcher … after the surprise resignation of Harold Wilson」가 순서를 뒤섞어 가공 때 고쳐 써야 하고 winter of discontent 는 풀어야 한다."
+    }
+  },
+  {
+    "id": "7b0fc684-2c6c-44e4-a463-f9e4351f93ec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c3e5b87b3c83565bfd8aa3387954be464183f618858ada0a75d57d79031e2b1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "2005년 여름이 관측 이래 가장 더웠다는 주장 → 연구 주체 → 해수면 온도 근거 인용으로 주장과 근거가 이어져 짧은 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Scientists in the UK, have claimed",
+      "note": "행 중간 줄바꿈과 오타(Hempisphere·Reasearch)를 걷어야 하고 본문이 짧아 한 문항 분량을 겨우 채운다."
+    }
+  },
+  {
+    "id": "7b0fd496-92f0-4487-ad47-e385d6d9f8be",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "24090159a9c73ef427046f9fe837810a34a032dceb1360d4fd6ef66a6127f524",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "부부 피살 → 아들의 신고 → 딸 실종 → 용의자 추정 → 앰버 경보로 사건과 다음 절차가 이어지며, 살인·유괴 소재라 고2 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Police believe that the abductor was",
+      "note": "셋째 문단의 인상착의 나열은 가공 때 걷고 abductor 만 풀면 둘째 문단이 혼자 선다."
+    }
+  },
+  {
+    "id": "7b1a9cc2-f7b2-4c78-a39b-45427835525b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6372d13d5674253a2df17ff37194f4f52e8332e0ad2614d7271cc305cb72cd02",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "기록적 폭염 → 50명 사망 → 변전소 화재로 전력 절감 요청 → 오하이오로 이동 예보로 원인·결과·다음 전망이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Kentucky, a fire broke out",
+      "note": "substation·heat index 둘만 풀면 중등 밴드로 내려가고 각 문단이 사건 하나씩이라 떼기 쉽다."
+    }
+  }
+]

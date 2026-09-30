@@ -1,0 +1,924 @@
+[
+  {
+    "id": "7b323ec0-781d-4b3a-8f83-7ec98fb078d5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be51366ca862f7248038952c2f1612c3c36d38638268ad15c221d21621131beb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아프리카 39개국 집속탄 금지 선언 → 남아공 반대 → 영미의 「유예기간」안과 미국의 반대 논리가 이어져 찬반 대비로 주제·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Cluster munitions are dropped from aircraft,",
+      "note": "무기 설명 문단과 찬반 문단을 묶으면 떼어 쓸 수 있고 proliferation·stockpiler·maiming 을 쉬운 말로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "7b33d25a-7f1f-4cd8-b5be-83f6f364199b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5a73394a43fac19a93f3f2dc5bbdda06924be495cc537682a0d57246843d1c77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "허리케인 피해 규모 → 미국 원조 거절 → 금수 조치를 이유로 든 반응이 두 단락으로 이어져 원인·반응이 선 단신으로 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Castro has rejected a $50,000 offer",
+      "note": "둘째 단락은 첫 단락 없이도 거절 이유가 서고 embargo·genocidal 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "7ba8915c-b498-4dbc-a5c6-2d4209b68c7b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b5cd3dcffad0c5f23f3f7aec07b3317e22ede9aa5c92a13eac9613ec171fffc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "파리클럽의 부채 80% 탕감 3단계 계획 → 이라크의 환영 → 불가리아·루마니아의 반대 이유 → 미·프 대립 배경으로 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The three-phase plan approved by the",
+      "note": "단계별 탕감 문단은 순서 문항으로 잘 떨어지고 recoup·culmination 을 바꾸면 V5 로 맞춰진다."
+    }
+  },
+  {
+    "id": "7bb00cc5-09b8-4277-94ee-aaa4e20f7c7f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37e4028ac17a5e8e9dd5689e56eb2e260b2e225df605050b2810e34f2ecff6f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "news",
+    "why": "월간 연재 모음으로 5월 경선 개관·Americans Elect 결정 반응·동성혼 반응·리버테리언 부통령 후보 인터뷰라는 서로 다른 꼭지를 한 행에 묶어 꼭지별로 쪼개 판정해야 한다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Americans Elect, the non-profit organization that",
+      "note": "Americans Elect 꼭지만 떼면 결정 → 후보별 반응으로 서지만 인명·득표 수가 많아 어휘보다 고유명사 정리가 먼저 막힌다."
+    }
+  },
+  {
+    "id": "7bb97dfc-e67e-47b5-a7d7-08991b52ca98",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d546f8e9db58c2ae6da4754f43658b720148a40a3deab93046d30b5412aa9826",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경보 발령 → 버뮤다 통과 후 약화 예측 → 높은 파도와 해안 침수 경고로 이어지고 끝 단락이 사피어-심프슨 등급을 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hurricanes are a form of tropical",
+      "note": "등급 설명 문단은 앞 문맥 없이 서고 sustain·classification 정도만 풀면 되지만 속도 수치는 걷어야 한다."
+    }
+  },
+  {
+    "id": "7bc60528-e7a0-42f3-9be2-8a0b5b93346c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "228590b699caed6c2df8780dcb78f3d74e198aeaddfcd9af1a93670f91dd0df8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "energy",
+    "why": "우라늄 수출 협정의 조건 → 중국 원전 수요라는 이유 → 야당 지지와 환경단체 반대가 이어져 찬반 대비로 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Australia will not allow uranium to",
+      "note": "수출 조건 문단은 혼자 서고 safeguards·signatory·fissile 을 풀어 쓰면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "7bd01758-c0ec-473f-bb48-a0e7cc95a668",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "754ad011e588d164ac642a678bd861e13294434a12230b217b1d2f1ef4354cdb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "왕세자빈 출산 → 이름 짓기를 두고 크리스티안·프레데릭을 번갈아 쓰는 덴마크 전통 → 왕위 계승 서열로 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The royal pregnancy was made public",
+      "note": "이름 전통 문단이 가장 쉽게 떨어지고 heir apparent·ascend 만 풀면 중등 밴드로 맞는다."
+    }
+  },
+  {
+    "id": "7bd89dfa-b608-4563-aa87-6d09acb0618a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ad2cb76da0e1ee5990cc36a02c4b6074efe84b9c69c56054152627da5fe2b0e2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "무장단체 성명 일곱 건을 번호로 늘어놓은 공격 목록뿐이라 항목끼리 잇는 사건·맥락이 없고 「목을 따겠다」는 성명 문구를 반론 없이 옮겨 칠 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "On Friday, April 21, 2006, a",
+      "note": "어느 항목을 떼도 날짜·장소·피해만 바뀌는 나열이라 논지나 사건 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "7bdb4038-ce73-4e13-9618-d95d44c75ae6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9463724f06a6cf5382d519f0fbeb3b3667a5b0d0f2b887d6407d0ba8088929f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "월터리드 병원 방치 추문 → 육군 의무감 사임 → 사실상 해임이라는 국방부 설명 → 비판 사유로 원인·결과가 이어진 단신이라 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although he officially resigned, Pentagon officials",
+      "note": "세 문장 전체가 한 덩어리라 떼기 쉽고 stripped of command·appalled 를 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "7bfdee40-24e4-4296-9590-40d28b5802a7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e0369d81cf930bacf0742f62a9e2ebaad43c53ecda797e767f74b8cd89c5b33f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아이슬란드 화산재 예보 → 스코틀랜드 영공 폐쇄 → 승객 안내·확산 전망 → 아일랜드의 「불확실한 여름」 경고로 원인·조치·반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The UK's Civil Aviation Authority (CAA)",
+      "note": "첫 두 단락이 원인·조치로 떨어지고 concentrations·sporadically 를 풀면 되지만 시각 표기는 걷어야 한다."
+    }
+  },
+  {
+    "id": "7c054a75-9a1e-420a-8a32-e5948357c125",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "47fd6188a2fcb699623017a478069113ca4ebece939c2ca5d95e65429c72b08e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "리신이 아니라는 확인 → 앞선 AP 보도 → 검사가 안전 쪽으로 오판하도록 설계된 까닭 → 런던의 비슷한 오경보로 이어져 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An earlier report by the Associated",
+      "note": "검사 설계 문단은 false positive 의 까닭이 서서 좋고 err on the side of caution 을 풀면 V5 로 맞는다."
+    }
+  },
+  {
+    "id": "7c098ca8-23c4-44ac-b161-39d109bd43f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6318b5cf4ecb75bf593f8c3cd3ed2c4a55389f3f6b25555056468bd0506dcd6e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "진화생물학 연구실 협박 → 경찰 수사·순찰 강화 → 창조-진화 논쟁에서 폭력 사례가 드물었다는 맥락이 이어져 짧은 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Friday, anonymous threats were sent",
+      "note": "첫 단락과 끝 단락을 이으면 사건과 맥락이 서고 affiliated·vigorous 두 낱말만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "7c1e63c4-d74d-4bfd-a95a-13c2990f40df",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5574eef7ec609ea8026e90c8dfe980801a0401b5785b804c5b9f43d6dc41d30c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아프간 전사자 신원 공개 → 전차 수리 중 사망 경위와 조사 착수 → 지휘관 추도 → 19번째 전사자라는 맥락이 이어진 단신이라 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Twenty-six year-old Lance Corporal Sean Tansey,",
+      "note": "추도 인용 한가운데 줄바꿈이 있을 뿐 글은 이어지고, reconnaissance 를 풀면 V5 로 맞는다."
+    }
+  },
+  {
+    "id": "7c4ef260-c097-4cb7-90d4-c606d6bd6377",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8504e2157f7d562d5dc96bff2cbea7ea8fae51b6642009cb85fb69526ca7bf5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "fragmentary",
+    "why": "사진 모음 기사로 본문은 전시 개요 한 단락에 「이미지를 눌러 보라」는 안내가 이어질 뿐이라 그림을 봐야 뜻이 서는 글이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The 58th Annual Pacific Orchid Exposition",
+      "note": "개요 단락은 날짜·장소·후원 나열에 테마 대비 한 구절뿐이고 나머지 내용은 사진에 있어 떼어 쓸 글이 없었다."
+    }
+  },
+  {
+    "id": "7c754182-4f16-4dba-8f63-4b94614b11f2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f37e8f0593814dc35483da1fd7bc68d8850a8e37d51759b350e08da37253a6ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "에어쇼 개막·출품 규모·폐막일 세 문장이 일정과 수치만 전하고 원인·결과·반응으로 잇는 사건이 없어 칠 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The popular airshow will feature about",
+      "note": "떼어 봐도 출품 목록과 날짜뿐이라 문항을 걸 흐름이 없었다."
+    }
+  },
+  {
+    "id": "7c9a626b-550e-4c29-9462-c663a994d606",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e16c30d5abaca5004584614244fefdf635eb6926ffeb49f42f3bae406ac7cb43",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "ILO 사무총장 선출 단신이 득표수 나열 두 단락과 이사회 역할·전임 경력 설명 두 단락으로 반씩 갈려 수치 나열 최소선에 걸리는지 애매하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The ILO governing body is composed",
+      "note": "이사회 역할 문단은 혼자 서지만 짧고, 선출 문단은 이름·표수를 걷으면 「첫 아프리카인」 한 줄만 남았다."
+    }
+  },
+  {
+    "id": "7ca6db47-b125-438c-a20d-9f3e03c19a8b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "812d81f38de3f3404ce1ef2aadbccfd26a77fd4fb74c4c6f3d48e355756a4d35",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "교회 봉헌식 참석자 명단과 재정 후원처·다음 일정만 이어지고 사건의 까닭이나 반응이 없어 이름 나열 단신이라 칠 칸이 없다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "The President of the Hellenic Republic,",
+      "note": "고유명사를 걷으면 「대통령이 봉헌식에 갔다」 한 줄만 남아 논지나 흐름이 서지 않았다."
+    }
+  },
+  {
+    "id": "7ca861a4-d26c-43fc-8274-12e3209ea787",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "18ab8584b7b44dd6815defc117d15e6da8583e1778ed1a226ea8d1b6beb482cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "배우 사망 → 약물 이력과 구급대 발견 경위 → 사인 미상으로 부검 예정이라는 다음 절차가 이어진 58어 단신이라 고등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Renfro, who had a history of",
+      "note": "한 단락 전체가 떨어지고 substance abuse·autopsy 를 풀면 되지만 문항 하나 분량에 그친다."
+    }
+  },
+  {
+    "id": "7ccf702e-c48e-4d75-ae01-73b07d1860e3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "79910e3c7b89382e16d6358524390048a0c68129962779bbddc54ca96d08c4c4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "literature",
+    "why": "해리 포터 7권 제목 공개 방식 → 작가의 복잡한 심경 인용 → 카페에서 쓰기 시작한 집필 배경으로 이어져 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rowling was inspired to write after",
+      "note": "집필 배경 문단은 혼자 서고 overwrought·reprieve 를 바꾸면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "7cd2882b-72ba-4925-ac44-e54f4b523098",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a22ad32e8d97b656173e7accb7bff939f6c495885526e24bcbb1e2c98ca5bdf6",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "플로리다 주의 US 슈거 매입 → 에버글레이즈 복원 목적 → 비료 인이 사초를 부들로 바꾸는 생태 영향까지 원인·결과가 서서 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Phosphorus alters Everglades ecosystems, allowing invasive",
+      "note": "인 문단은 원인-결과가 분명해 빈칸 자리가 나고 ppb 수치를 「열 배」로 바꾸고 invasive 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "7ce36e35-cc8c-451b-af27-78468ef18a04",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b1f0949f7d429bce151bfdfa686cc3bb028844bb2435d2ba402fee22368a3d10",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "technology",
+    "why": "타이베이 게임쇼 기사가 문법이 크게 어긋난 영어(「will be fallen down」「was apparently grown up」)로 쓰여 끝 단락 주장을 살리려면 문장을 새로 써야 해 가공 범위가 애매하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "According to the Taipei Computer Association,",
+      "note": "끝 단락에 산업 자립 주장이 있지만 어법이 틀린 문장이 많아 낱말 몇 개 교체로는 안 되고 재작성이 필요했다."
+    }
+  },
+  {
+    "id": "7ce5cb7b-1b5e-4794-9989-6a82c051cc63",
+    "source_updated_at": "2026-09-25T08:57:35.369528+00:00",
+    "body_sha256": "7479e02ee89e9bf891fc649e12d090f18d6aaf1e3e0b9a77a7a7b13858f4ff29",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "러시아군 체르노빌 철수 확인 → 붉은 숲 참호 파기 중 피폭 주장과 IAEA 의 유보 → 침공 초기 점령 배경으로 이어져 짧은 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "State-owned enterprise Energoatom, which operates",
+      "note": "피폭 문단이 혼자 서고 radiated·exclusion zone 을 풀면 되지만 문항 하나 분량이다."
+    }
+  },
+  {
+    "id": "7cf6ef33-08e4-4564-9ab7-274b1d4239c7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f97b0380e1a695c9bf5393623c3645862d41a021b5fde72ee383f1b3d3dc8474",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "프랑스 최대 아동 성학대 사건 판결 → 형량과 주범 → 빈곤 지역 배경과 피고 반응이 이어진 보도라 묘사는 없으나 소재상 고3·성인 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The abuses of children aged between",
+      "note": "배경 문단은 떼어지고 instigators·deprived 를 풀면 되나 소재 때문에 연령 칸을 좁혔다."
+    }
+  },
+  {
+    "id": "7cfb7fe0-9ae5-4bfe-b841-174b8faac287",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "36dd3fd5d11570fa4c3ca89b861c41788f5b8eb5a5626d0943e8eb751e72b8b5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "셰릴 콜 심사위원 하차 → 셔징어 교체와 진행자 변경 공식 발표 → 콜이 영국판 복귀도 24시간 제안도 거절한 반응이 이어져 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Having previously been released from her",
+      "note": "끝 단락이 거절 경위로 서고 vacate·solitary 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "7cfbcef4-a1f7-4e3a-b67e-bbbb5b628816",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ea45740dcd13819638f00e5d5ea14797e7d3d0d490072eb3e7c74b3ce9c6acd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "NATO 정상회의 둘째 날 의제 → 확장을 둘러싼 러시아와의 긴장 → 마케도니아 국명을 두고 그리스가 반대하는 까닭까지 갈등의 이유가 서서 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Greece refuses to recognise the former",
+      "note": "그리스 반대 두 단락은 앞 문맥 없이 까닭이 서고 brinkmanship·enlargement 를 풀면 V5 가 된다."
+    }
+  }
+]

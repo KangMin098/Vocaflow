@@ -1,0 +1,961 @@
+[
+  {
+    "id": "744edefc-4429-4dc0-8a16-16666e2f77e5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d422f9fe6d94c3575e2d36efbfc091fe6fa25e5743a926ed829b650b451c7cbc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "ACCC 압박으로 전국 휘발유값이 내렸는데 배서스트만 2센트 내리고 곧 되올렸다는 인과·비교가 다섯 문단에 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The petrol price reductions seen across",
+      "note": "첫 두 문단은 앞 문맥 없이 서고, publically·benchmarks·whopping 을 바꾸면 V5 로 내려가며 가격 수치는 반올림해도 비교가 선다."
+    }
+  },
+  {
+    "id": "744fb222-b0dc-419f-a784-c5f4e51a1d1a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e3712d616f19e6f86e1b09311209c727c98302ba636b06c4e3687ec58726315e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "밀랍 인형 공개 → 부모 참석·본인 불참 → 아버지 소감으로 사건과 반응이 이어져 짧은 단신이지만 내용 일치 칸이 선다(마약 언급으로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A wax model of British singer",
+      "note": "첫 문단은 혼자 서고 clad·likeness·emphysema 를 바꾸면 V4 로 내려간다 — 마지막 문단의 약물 언급은 가공 때 걷을 수 있다."
+    }
+  },
+  {
+    "id": "74520d64-4e1d-45f6-bf8f-ddbd32fa395b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33a09e38cebf58559c7d5ab1ee50409c631204477d4fc55bb265e14bca73e623",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "헬기 추락 발표 → 경착륙 표현·원인 조사 중 → 신원 보류 → 누적 전사자 수로 결과와 다음 절차가 문장으로 이어져 내용 일치 칸을 채운다(죽음 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States military in Iraq",
+      "note": "셋째 문단(원인 조사·신원 보류)이 떼어도 서고, withheld·invasion 정도만 바꾸면 되며 누적 수치는 빼도 사건이 선다."
+    }
+  },
+  {
+    "id": "74581736-0ed9-4470-9dba-e701aca97892",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6c8d0d958078110b6fcee0bf29752aceb55c7556157ae19a5a51bea5b1ff6fef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "신종 딱정벌레 65종 명명 중 셋에 정치인 이름을 붙인 까닭을 명명자의 인용으로 밝혀 사건과 이유가 이어지므로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While naming 65 new species of",
+      "note": "첫 두 문단이 명명과 그 이유로 서고, 학명 서식지 나열(넷째 문단)은 걷어도 되며 expedient·entomologists 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "7473d1f2-7487-4e58-b274-14a93dbdda06",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f128092c9b8a855f2153eeb8084634cce629dfd63a625f5ae7639941754c2d45",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "다른 각료는 사임했으나 럼즈펠드는 이라크전 종전까지 남겠다고 밝히고 철군 시한은 약속하지 않았다는 대비가 한 문단 안에서 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Donald Rumsfeld revealed today that he",
+      "note": "89어 한 문단이 통째로 자족하고 commit to·withdrawal 두셋만 풀면 V5 로 내려가며, 발행 연도를 밝히면 현재형 문제도 없다."
+    }
+  },
+  {
+    "id": "7479d748-7afa-4996-be62-264d8501904b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1a9a2b888ce4c1cd4709229a6025d2cded6f6bff6a6f18197026911ec3636ca2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "위키미디어 법률고문의 패널 불참 → 대체자 미지정 → 주최 측 해명 인용 → 공개 행사는 예정대로라는 흐름이 여러 문단에 걸쳐 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wikinews has learned that the Wikimedia",
+      "note": "첫 세 문단은 떼어도 서고 groundswell·designate 를 풀면 V5 에 맞으며, 끝의 재단 소개 문단과 겹치는 인용은 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "747a2847-27b7-4fa9-98c8-a1dddcd70a96",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "158bd5aa5b105a3569ad17b93bbe755396a7bdf85966771e48dcb97d7a48425a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "geography",
+    "why": "규모·깊이·진앙 거리 나열이 대부분이지만 마지막 문단이 피해 없음과 쓰나미 경보센터의 가능성 평가로 결과·반응을 이어 주어 내용 일치 칸 최소선을 겨우 넘는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A 6.4 moment magnitude earthquake has",
+      "note": "첫 문단과 마지막 문단만 이어 붙이면 사건→피해 없음→쓰나미 평가가 서고, 둘째 문단의 거리 나열은 걷어야 하며 epicenter·destructive 정도만 풀면 된다."
+    }
+  },
+  {
+    "id": "749846b8-3bd6-4f77-88a3-c042cd6510cf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4ba7eb0d2f50d612879e622b6d3914c12c6b61862eb98f3144e5114bb78e51bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "뉴스코프의 잠바 지분 인수 → 모비조 합병 → 마이스페이스 벨소리 판매 통합 전망 → 경영자 소감으로 인수와 그 까닭이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "News Corp. has purchased a controlling",
+      "note": "둘째 문단이 혼자 서고 controlling interest·integrate 를 풀면 되지만, 첫 문장의 「The $188 million give」 비문은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "74a03d00-7f53-4565-a9a1-2224c1c58b69",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bd47fd4a21184b1895bb6c63df8152832ec83e4a449865f5900f53ca176fc99a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "챗봇 대회를 소개하고 인기상 투표 마감이 열흘 남았으니 투표하라고 권유하는 누가·누구에게·무엇을이 서서 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "purpose",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Chatterbox Challenge is a competition",
+      "note": "첫 두 문단이 대회 소개와 투표 권유로 서고, 끝의 웹 주소 줄은 가공 때 걷으며 imitate·sheer 를 풀면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "74a47c24-13b2-4f3a-b1ea-2c0e14e4842a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "13f81e54f470b208a047a2955137a9d9c1b4bd3aadeb78dd422b99144c5249fd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "블랙풀 타워 무도회장 생방송 예고 → 출연자 도착 → 출연 배우의 들뜬 소감 인용이 이어져 내용 일치 칸과 심경 칸 재료가 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Speaking to Manchester Evening News journalist",
+      "note": "배우 인용 문단은 기자 이름만 걷으면 혼자 서고 어휘가 이미 쉬워 조정할 필요가 거의 없다."
+    }
+  },
+  {
+    "id": "74af1049-76ca-4943-93c2-227f09660722",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ffb89cf2b5588c9314d5697e627322a33cfa20d82fc7484d74e846b33eb39197",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "부쿠레슈티 첫 공식 춘절 행사의 일정·주최·취지와 음력설이 해마다 날짜가 바뀌는 까닭이 이어져 중등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Signifying the end of the winter",
+      "note": "마지막 문단은 혼자 서고 signifying·relative to 를 풀면 V3 로 내려가며, 기관명 나열은 걷어도 행사 소개가 선다."
+    }
+  },
+  {
+    "id": "74b394aa-aaf8-4c3b-9017-b36d7d52888f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fa9616bf163805ebb487eb69d174d5e3031e500f35ab2fdd647cdfe0d91fd304",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "식량 원조 필요 인원 추정 → 1월·8월 대비 증감 → 가뭄과 식량값이라는 원인이 문장으로 이어져 수치 나열을 넘는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Ethiopia's current food crisis has been",
+      "note": "마지막 문단(원인)과 첫 문단을 묶으면 서고 humanitarian·prolonged 를 풀면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "74bbbce6-eda3-4afd-9d0c-9f8e13c59e33",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "61336ab0008d8a46641ea81f771f2e6257ef7cfef4f23769a79f3e0876a52e0d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "travel",
+    "why": "여행 작가의 책 발표회에서 여정·방식·강물에 떠밀린 일화를 들었다는 사건 흐름이 서지만 내용이 성글어 내용 일치 칸 하나만 약하게 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The author described the route taken",
+      "note": "「(see link below)」 두 곳과 끝의 사진 머리 줄은 걷어야 하고, 번역투 문장(learned from the author of the literary work)은 다듬어야 읽힌다."
+    }
+  },
+  {
+    "id": "74bd0b6a-3502-4fd8-804b-dfd2553f8bce",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d80ed46ffb098c81478d83b92c8d5964927f1df1b2cd948ff9d32d367b0593a1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "히틀러 암살 모의 마지막 생존자의 별세와 그가 반히틀러로 돌아선 계기가 이어져 짧은 부고지만 역사 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He was born near the German",
+      "note": "셋째 문단이 계기를 혼자 말하고 cabal·orchestrated 를 풀면 V5 가 되며 독일어 칭호는 걷어도 된다."
+    }
+  },
+  {
+    "id": "74c0d8c6-7e58-4a72-98a8-25f1d8d5b309",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c5ce495094cc077830d0418e10a6c487eb4ccc9f27cecfdc1df3cd4a2b5a06b9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "라디오 진행자 피살 → 유엔 규탄과 수사 지원 → 협박 전화 정황 → 언론인 공격 추세가 여러 문단으로 이어져 내용 일치·요약 칸을 채운다(피살 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to Altidor, however, Radio Provinciale",
+      "note": "넷째·다섯째 문단이 협박과 갱단 폭력 증가로 이어져 떼어도 서고, impunity·assailants 를 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "74ce04fa-7872-43c4-98f4-800da625198f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a4b2e81dd4b146dcf3ebee9b55f6f548c94b2a608640ccb6f481ae8f485b421f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "독일·사우디 합작사가 아랍어 검색엔진을 시작하고 구글과 경쟁·해외 아랍권 진출을 노린다는 목표와 까닭이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the city of Riyadh, Saudi",
+      "note": "한 문단이 통째로 서지만 「Budai, which in China, which has made」 같은 비문과 began to start 중복을 가공 때 고쳐야 한다."
+    }
+  },
+  {
+    "id": "74d0aa63-c01a-4dec-8e26-bcd12bd92545",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3b86c3b8e880fdf202738e2d8fd9afa72eb26a9703ad858564868540c5fe3820",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "배터리 팔레트 투기 → 3년 궤도 → 재진입 중 파편 생존 → 주택 관통 → NASA 확인·분석이라는 인과가 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A pallet containing old nickel–hydride batteries",
+      "note": "둘째 문단이 혼자 사건을 세우고 disintegrate·re-entry 를 풀면 V4 에 맞으며 무게 수치는 빼도 흐름이 선다."
+    }
+  },
+  {
+    "id": "74da2dc2-5a0e-4b0c-9978-119f05574a0b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "483bc43b9b1093f4eb28346db578309e735e224ae24119cfb2410da48f12d9fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주점 주차장 살인 → 경찰 대거 출동 → 20대 남성 둘 체포 발표로 사건과 다음 절차가 이어져 짧지만 내용 일치 칸이 선다(살인 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A death, which has been treated",
+      "note": "86어 전체가 한 덩어리로 자족하고 어휘가 이미 쉬워 조정할 것이 거의 없다."
+    }
+  },
+  {
+    "id": "74dc1707-d9d0-4c2b-b01b-e6e4624d2d76",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3cb2b2c34c6bb25afaa36cb28670e85cf4c2d0ebe08ffacfbc1c1417711513ee",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "스워츠의 사망 보도에 JSTOR 기소 경위와 RSS·레딧·시민단체 활동 이력이 이어져 인물 내용 일치 칸을 채운다(자살 소재라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Swartz was active in the world",
+      "note": "셋째 문단(활동 이력)은 사망 언급 없이 떼어도 서고 syndicating·repository 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "74ea8922-09be-451a-b2f3-c621121c1121",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7a1c6cf08c90e6bbb3a39c77ab27183db2a7f59c68ecf52042b22298a69b85d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화물차·승용차 충돌로 여섯 명 사망 → 경찰의 목격자 제보 요청 → 도로 폐쇄로 결과·반응·다음 절차가 이어져 내용 일치 칸이 선다(사망 사고라 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Simon Adkin of the local police",
+      "note": "경찰 인용 문단이 사건 요지와 제보 요청을 혼자 담고, 희생자 나이 나열 문단은 걷어도 된다."
+    }
+  },
+  {
+    "id": "74f5ab75-37f3-4cf2-b6f4-f586609baab2",
+    "source_updated_at": "2026-09-25T08:58:57.784929+00:00",
+    "body_sha256": "8d76d3ca4504ef6e2cc3f08f112470db733feb944abb93ed0c19cfe04e344756",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "트럼프의 인질 석방 최후통첩 → 전쟁·휴전 배경 → 미국의 하마스 직접 접촉이라는 정책 전환 → 백악관 해명이 이어져 내용 일치·요약 칸을 채운다(발언은 보도로 옮겨진 것).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "US officials have confirmed that the",
+      "note": "셋째 문단(직접 접촉의 의미)이 혼자 서고 classification·long-established 를 풀면 V5 에 맞으며 거친 인용(sick and twisted)은 걷을 수 있다."
+    }
+  },
+  {
+    "id": "75054317-9a3d-488e-85ac-3708217a6b66",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d3426454b365dcd294396667b6b6d573a08876728b6be3034eb5360c7e803365",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "geography",
+    "why": "규모 7.2 지진 → 사상자·산사태·고립 → 재해구호법 발동 → 일본이 지진에 잦은 까닭(환태평양 조산대)이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Japan is particularly prone to earthquakes",
+      "note": "마지막 문단이 원인 설명으로 혼자 서고, 첫 문단의 비문(several press reports)을 다듬고 prone·invoke 를 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "750a9991-b60b-45f5-bb6b-8495d76613da",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bd121aa7c3fdd692e9d4d8092920a256e5ee3f1a41f622d24a9a6651d565c789",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "착륙 실패 추락 → 기종·운항사 안전 이력 → 폭풍 영향 조사 → 희생자 신원 → NTSB 조사로 사건과 다음 절차가 긴 기사 전체에 이어져 내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Both WCCO-TV and the Star Tribune",
+      "note": "폭풍 영향 문단과 은퇴 조종사 목격 문단을 묶으면 떼어도 서지만, 같은 전문가 인용이 두 번 되풀이되고 오탈자(to early·empoyee)가 있어 가공 때 정리해야 한다."
+    }
+  },
+  {
+    "id": "751b06fc-5d79-43d9-abb0-c5fe408cc643",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4f38e7b58bbc4382b3b5dd91803a82adbf52376731a2d1ee6a5be8d6d2d3df59",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "geography",
+    "why": "북극 해역 모의 구조 훈련의 목적·참가 함정·해빙으로 미지 수역을 지난다는 까닭과 기념행사가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two Canadian navy ships and two",
+      "note": "둘째 문단이 훈련 내용과 해빙 배경으로 혼자 서고, 셋째 문단의 직함 나열은 걷으며 commemorative·inaugural 을 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "752eb2b8-9198-449e-b7b1-7daf8eb1b711",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5203dcc26a398690c96475e74dabd61308647d0d92ab0f566bf1cf70d0b9576d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하마스 지도자가 인터뷰에서 이스라엘 팽창 계획을 주장하고 핵무기를 들어 반박하는 한쪽 입장 보도로, 선동문이 아니라 취재원 발언이라 주장 파악·내용 일치 칸을 고2 이상에 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Yesterday, Hamas leader Mahmoud al-Zahar responded",
+      "note": "세 문단이 한 인터뷰로 이어져 떼어도 서지만 반론·맥락이 없어 인명·주장을 걷으면 요지가 사라지므로 주장 파악형으로만 가공된다."
+    }
+  }
+]

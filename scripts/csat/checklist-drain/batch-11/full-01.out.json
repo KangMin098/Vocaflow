@@ -1,0 +1,945 @@
+[
+  {
+    "id": "711ac106-930e-4f88-a113-60a87f59e3f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4dcb449cabf9dace205cb7e185fe708f9b62fc7c85fcfd46d68482ab2c8d9710",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "영·프 헬기 공격 개시 → 나토 성명(유엔 결의 근거) → 리비아 정부 민간인 공격 의혹으로 원인·반응이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United Kingdom and France have",
+      "note": "Brega·Tonnerre 같은 고유명사를 걷어도 「민간인 보호 위해 헬기 투입」 사건이 서고, indiscriminately·installation 을 쉬운 말로 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "712fb924-d5af-4eba-9ddf-f5ad431ad1f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb1922da6aa48aced91c726f7f5b45821c3af21cacabfe95f52e84ec6a827a78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "기자 납치 → 통역 사망·운전사 탈출 → 편집장 석방 호소 → 책임 주장 없음으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Freelance writer Jill Carroll, currently working",
+      "note": "짧은 단락 넷이 시간순이라 순서 배열로 떼기 쉽고, invaluable·abduction 두 낱말만 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "71388e8c-4b63-4ce9-b5c5-d4b1c1c8203e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0595d1e816cb48e5664ccb3cd1e225381b1fb1c88e9ca15ff49a3d6273b93730",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "티토 사후 25주기 참배 장면과 방문객 발언(「민주주의는 없었지만 돈과 여권은 있었다」)이 추모 분위기를 이어 가며 내용 일치·심경 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Delegations from every region of ex-Yugoslavia,",
+      "note": "방문객 인용이 과거·현재 대비를 한 문장에 담아 논점이 서고, 지명(Vrbas·Tivat)을 걷어도 흐름이 유지된다."
+    }
+  },
+  {
+    "id": "713bc40b-052d-4c17-9ea6-cf093c85cf82",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "355de1c40c98795cfb181022f74c79ff283d3fadf5a38177c45b30e00d8a9ce1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "체르토프 지명 → 이전 후보 사퇴 때문에 「안전한」 후보로 평가 → 본인의 포부 발언으로 이유와 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "U.S. President George W. Bush nominated",
+      "note": "Kerik 사퇴를 이유로 드는 둘째 단락이 인과를 세우고, scrutiny·architects 를 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "714cc942-862b-4a77-b7ba-75d3174a15cb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a86958c5e6212baa2c4cfbb22959015b4499b2bfa8d8e5cad30ca66a7047b1ec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "news",
+    "why": "본문 첫 문장이 주어 없이 「has officially been taken off」로 시작해 수집 때 문장 앞이 잘렸다 — 나머지 해제 경위·의미 단락은 서므로 원천 재수집 뒤 내용 일치 칸 보관 후보다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "has officially been taken off the",
+      "note": "제목으로 주어를 복원하면 사건·의미가 서지만 원문이 잘린 채로 저장돼 있고, 마지막 북한 단락은 가공 때 걷을 후보다."
+    }
+  },
+  {
+    "id": "7156b8b4-5868-4e01-aece-7824c3387e8d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a66a434ee4ea3bcf4bf2547baa707b3920a4bc4ef4b0ba7ab1cf5e4c4778fc87",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "사망(원인 폐렴) → 출생 → 80년 경력과 거친 언어의 유머로 유명해진 경위가 두 단락으로 이어진 짧은 부고로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Brazilian comedienne and actress Dercy Gonçalves",
+      "note": "짧지만 사망 원인·경력·명성의 이유가 문장으로 이어지고, revues·comedienne 을 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "71645b32-5159-465f-b1cd-11029311bd5b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2f12ba83f6626594584a28da12f72e5f83bdf9a3b6743a9c3c138bc053ac371a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "강에서 시신 발견(개 산책자 신고) → 신원 미공개 → 80세 남성으로 확인·범죄 혐의 없음으로 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A body was pulled out of",
+      "note": "발견 → 확인 → 결론이 순서대로 놓여 순서 배열로 뗄 수 있고, foul play 만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "716a4f0b-cacd-45a9-8cc7-0f87c38354b9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c3478efcfa2e665743fcedc65d0c1a30c3c2f2eea3a8781791d316058a8266fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카라지치의 학살 부인 발언을 기소 내용과 스레브레니차 생존자 반발로 맥락 짓는 법정 보도라 polemic 이 아니며 주장·반응 대비로 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Radovan Karadzic, the wartime ex-Bosnian Serb",
+      "note": "부인 발언과 기소·반응이 한 편에 함께 있어 떼어도 균형이 서고, atrocities·indignant 를 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "716a5887-d02b-40e8-8ec7-348d8356cc56",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6f8dc150ffa9c329b3ec81e5f6d413811571ed2e427398287f15251e3089ef9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "NOAA 가 카트리나 피해 항공사진 3천 장을 공개하고 촬영 장비·목적(재난 대응·표준 연구)을 설명하는 단락이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The images from the plane was",
+      "note": "목적 단락은 혼자 서지만 마지막 「빨간 버튼을 누르라」 구글 지도 안내는 화면을 봐야 서므로 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "71875120-7a4e-4a27-a305-ce620478f0c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f86bf73dfc1ee403c245090ef0c3346d56fc3402c7b44d08d2133f883e04410c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "천수이볜 종신형 선고 → 횡령·뇌물 혐의 → 법원 밖 시위 → 대만 독립 갈등 배경으로 사건·반응·맥락이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chen Shui-bian, the former president of",
+      "note": "본문 중간 줄바꿈 한 곳을 이으면 문장이 온전하고, embezzling·breakaway 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "718dfae0-c218-48fa-bd52-05f9efa6ea08",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "89c4d77fe0694cf91b5fcf9edb76426d83e991e1fbde9987691e9d7a402e3b25",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "카르발라 쌍둥이 차량 폭탄 → 사상자 규모와 보건 당국 발언 → 순례객 방문 예정으로 사건과 다음 상황이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Twin car bombs killed 21 in",
+      "note": "세 단락이 짧게 이어져 떼기 쉽지만 제목(20)과 본문(21) 수치가 어긋나 내용 일치 문항에는 본문 수치만 쓴다."
+    }
+  },
+  {
+    "id": "7198ac7c-40e8-4b58-b9d0-e20a823beced",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6083544ddcb842887bbfbfe21b36c3c617936b41d8367cbb929270950ee58ca3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "하원 통과 → 상원 가결 → 서명으로 동성혼 법제화 절차가 이어지고 네 번째 국가라는 의미가 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "With a stroke of the pen,",
+      "note": "입법 절차가 시간순이라 순서 배열로 뗄 수 있고, legalized·grant 는 그대로 두어도 V5 안이다."
+    }
+  },
+  {
+    "id": "719bc899-0b8b-44eb-8275-f4214b1031ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7fec8582518f2e3b37650a2971e10bce7412c1ad6f5086851614989de2213bf2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "9·11 6주기에 두 번째 빈 라덴 영상 공개 → 음성으로 납치범 찬양 → 진위 미확인 → 첫 영상 공개 경위로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A second, 47 minute video that",
+      "note": "둘째 문장이 고유명사·영상 제목으로 길게 늘어져 걷으면 사건은 서지만 어휘보다 문장 길이가 난이도를 만든다."
+    }
+  },
+  {
+    "id": "71cc97a6-9591-4439-937d-d8935651f7a3",
+    "source_updated_at": "2026-09-27T18:08:33.614878+00:00",
+    "body_sha256": "e5cd28f712483b4dbbb842222874f4154d5342e7040cbdb3a09869f1da79dedb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "모음 머리말 뒤로 크리켓 선수 노먼 오닐 한 사람의 사망(지병) → 동료 선수의 회고 발언이 이어져 끊긴 글이 아니며 짧은 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Norm O'Neill, former Australian cricketer died",
+      "note": "머리말(Obituaries: 날짜)을 걷으면 본문이 혼자 서고, 관사 오류(an long·An cricketer)만 고치면 된다."
+    }
+  },
+  {
+    "id": "71cfcea9-c17f-4fee-a5e5-c5e52a4a26c9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f7cb24a6fabfb701fb1e6712d12ae171075809ff6bd2f24a2b591e378ff22f6a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "행사 일정과 연보 목록이 대부분이지만 「Although best known…」 단락이 1905년 논문들과 E=mc² 의 의미를 설명해 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Although best known for the theory",
+      "note": "설명 두 단락만 떼면 서고 행사·연보 목록은 가공 때 걷으며, Newtonion·mathmetical 오탈자를 고쳐야 한다."
+    }
+  },
+  {
+    "id": "71d29a2d-eace-485a-9c21-f7a68c1805ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "71e8cc84abb12ee8c7e1346e4e1e1aed78c9aa4901cd217145a8d7ae140a8eb2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "보육교사 등 3명의 아동 성학대 유죄 인정 법정 보도로 경찰 발언·혐의·재판 상황이 이어지나 소재 때문에 성인 칸만 두고 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The three people, who met on",
+      "note": "묘사는 구체적이지 않지만 소재상 성인 칸만 두고, 혐의 건수 나열 단락은 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "71d5d0ef-b84c-4b99-b2dc-ac352a77ac8f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fd8a22e990da6ced6e0d4171012df1525fe89c0861ea3bb742d5f804f7e8fd9b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "안보리가 제재를 예고한 까닭(반군 무장해제 지연·법 개정 논란)과 선거 일정 전망이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The peace process in Cote d'Ivoire",
+      "note": "마지막 단락이 원인·반박·국제 승인으로 서지만 disarmament·ratified·compliance 가 겹쳐 두세 낱말 교체로는 V7 아래로 안 내려간다."
+    }
+  },
+  {
+    "id": "71ee3941-02db-4c32-94ea-e47002093e9e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c9c09ee3ffdd524db64de336ef5a346b7d2e2302f37785d3802f69f847a2242",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아테네 사제 폭탄 세 발 → 무정부주의 단체의 보복 주장 → 핀란드 외무부의 「우연한 피해」 판단으로 원인·반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Three home made bombs exploded during",
+      "note": "한 단락짜리지만 사건·주장·반응이 문장으로 이어지고, retaliation 하나만 바꾸면 V5 안이다."
+    }
+  },
+  {
+    "id": "71f89965-96be-4476-96be-a06e3176cafc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5aa1e83f2d2c6dea80ab35b4d36288e0486f4e24f9f078673c08b5be04ff2b99",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "매슈 스트리트 축제 개막과 이름의 유래(캐번 클럽이 있던 거리), 지난해 관객 수가 첫 단락에서 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Mathew Street festival, an annual",
+      "note": "첫 단락은 유래·규모로 서지만 둘째 단락은 공연자·시간 나열이라 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "720f875d-fbed-490e-a2e1-7ade4dd17dfe",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a429adbc852b85087436d8fc065de14efbb80b08bc43e65170404606186a493f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "그래슬리 의원이 재정 비리 의혹으로 여섯 텔레비전 전도 단체의 기록을 요구했고 그중 셋이 이미 의혹을 받는 대학 이사라는 연결이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "United States Senator Charles Grassley of",
+      "note": "이름 여섯을 걷으면 「조사 요구 → 이유」 한 줄만 남아 얇지만, misconduct·ranking 을 바꾸면 V6 로 내려간다."
+    }
+  },
+  {
+    "id": "7213e5dd-88b9-41e9-aba1-9244d827e546",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6b9a1f4f48b515b0098b2634361597a58408f1ad630e23f7957c177df9b71860",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "헬기 추락으로 특수부대원 17명 사망 → 짙은 안개 속 산 충돌이 원인 → PKK 작전 배경과 무장세력 무관 판단으로 원인·맥락이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Investigations into the crash are ongoing,",
+      "note": "원인 단락과 배경 단락이 뚜렷이 갈려 문장 삽입으로 뗄 수 있고, autonomy·fatalities 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "72237079-edb7-41b9-8e91-4f4888888156",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "216cf1eaf88193fa3d804b7c025a3c8fd830b5737205a3862b86da6660c10d5f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "좀도둑질 중 들킬까 달아나며 아기를 두고 간 사건 → 경찰 보호 → 아버지 주장 → 전과 → 자수·기소로 시간순 이야기가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "While trying to shoplift, Suzette Gruber,",
+      "note": "사건이 시간순이라 떼고 끼우기 쉽고, accomplice·larceny·felony 를 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "724aac3b-30ea-47b1-8057-03f35ef5a9cb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c4b89f784267a420d2e6997dff7ba741470bfd5ef7f0932ecdf3184ce4d63d5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "예방접종 확대(원인) → 홍역 사망자 87만→45만 감소(결과)가 한 단락에서 인과로 이어져 짧은 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The World Health Organization and United",
+      "note": "수치가 주장 하나를 받치는 구조라 그대로 서고, immunization 은 vaccination 으로 바꿔도 된다."
+    }
+  },
+  {
+    "id": "72955615-d2ef-4b2e-8e86-7d84d7a273db",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5bc1b9974abf35aca67e415697f5a5968489138d43ada16f32ec69769cb67e4d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "교황 선출 콘클라베에 오스카보다 큰 내기가 몰렸다는 도박사 발언 → 배당 1·2·3위 후보와 그 배경으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bookmaker has been taking bets",
+      "note": "후보 소개가 순위별로 이어져 떼기 쉽고, confidante·dogma 를 바꾸면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "72a59deb-4b87-4f44-970f-068d3b25690c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2eb8e4e085b9f0ef960df7de0005891e73ef0c3564fb68624f484a3616e43ebc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "영국 인구 6천만 돌파 발표 → 연간 증가율 → 국제 이주가 1962년 이후 최대 증가의 큰 원인이라는 결과·원인이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "International migration played a large part",
+      "note": "수치 뒤에 원인 문장이 있어 단순 나열을 넘고, residing 하나만 바꾸면 V4 로 내려간다."
+    }
+  }
+]

@@ -1,0 +1,947 @@
+[
+  {
+    "id": "767942cc-34cf-4778-8ecd-358e47658ee1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eda4b18b740384edb74e4c4e6cd467aa0d1a92ce510c4d75e2ac837dc5e101a7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "2004년 12월 26~31일 기사 제목과 한 줄 요약 스무 개를 묶은 단신 모음이라 꼭지로 쪼개기 전에는 한 편으로 판정할 수 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "'Fockers' set to meet another weekend",
+      "note": "꼭지마다 제목과 한 줄뿐이라 어느 꼭지를 떼어도 사건 흐름이 서지 않았다 — 모음 행이다."
+    },
+    "hold_reason": "criteria-gap"
+  },
+  {
+    "id": "768bbeec-b51c-426b-ba7f-33b3fef75db2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c8fac0603fb217fe788c8f926dfbebe86e1bcc92631a3e292cbd1e4098474bc4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "차베스의 테헤란 방문 → 협력 약속 → 석유 부문 확대·반미 발언 → 중남미 지도자 연쇄 방문으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The visit of Chavez to Tehran,",
+      "note": "apt model to emulate→good example to follow, attained→gained 로 바꾸니 V5 로 내려갔고, 한쪽 발언 인용은 보도 맥락이 있다."
+    }
+  },
+  {
+    "id": "768c35d6-1ae9-4461-9c8c-13a2f1740b64",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1104fe99925ae93f498663346ccc1a0f88f6882be316ff8e28d5af28d156581",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "고이즈미가 아시아·아프리카 회의에서 과거 침략을 사과한 발언과 그 사과가 처음이라는 의미까지 이어져 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an address to the ongoing",
+      "note": "squarely faces→honestly faces, remorse→regret 로 바꾸면 V5 에 맞고 인용문이 사건의 중심이라 걷을 것이 없다."
+    }
+  },
+  {
+    "id": "769cf16e-1ace-48e1-9953-d1e9b9c9d4ff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33cfdd5388502b4d2e186fc9232d6c43b72faaf76cde7fd7605358177bb279a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "생일 파티 → 이탈리아 요리사 셋을 불러 비행기로 데려옴 → 차린 요리로 사건이 이어지는 짧은 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tom Cruise this week took the",
+      "note": "74어 전체가 한 사건이라 그대로 떼어지고 took ... to a whole new level 만 풀어 쓰면 V3 까지 내려간다."
+    }
+  },
+  {
+    "id": "76a031cd-5d81-4b1f-94cf-b197a3f3018d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "20c8ea94a731843d81f4ec814b813e5c6effa5084c67d25885ac4029960d5af0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "스리랑카 외교부 성명이 하나의 중국 지지 → 분리 반대 → 양안 교류 환영으로 이어지고 중국 반분열법 배경이 붙어 내용 일치 칸이 된다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the communiqué, the Sri Lankan",
+      "note": "inalienable→inseparable, promulgation→announcement, reiterated→repeated 로 바꾸니 V6 에 맞았고 외교 용어가 밀도 높다."
+    }
+  },
+  {
+    "id": "76b3696a-7b44-4a6a-adf2-22f377d76767",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3574c2cd63f961723cd30e1734a254f95724028c0cf509d47abc400fb5db2b6f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "캐나디안 아이돌 결승에서 아빌라가 근소한 표차로 우승 → 소감 → 준우승자 반응 → 음반·투어 계획이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Avila won by approximately 131,000 votes,",
+      "note": "득표 문단과 소감 인용이 앞 문맥 없이 서고 margin→difference 정도만 바꾸면 되며, 공연자 이름 나열 문단은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "76c1c1cf-fc0c-4197-b9be-9ea18309b14b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f70808dee3a703fc4285c849a6c7cffd098b807fe47f42273ec2c5a2a3ce2351",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭우량 발표 → 공항 폐쇄·요양원 대피 → 리스모어 침수와 새 제방이 도심을 지킨 결과가 이어지는 재해 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Further south the city of Lismore",
+      "note": "inundated→flooded, levy→wall 로 바꾸니 V4 가 되었고 강우량 수치는 문항 근거로 남겨 둘 만하다."
+    }
+  },
+  {
+    "id": "76d433d8-cf2c-49fd-bedb-02deb07ee291",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "33446002538162980477431c7ea0eda4d966a8e9c1c81825cb7b88d94c1e8968",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "파할감 공격 이후 인도 정부가 파키스탄 유튜브 채널 16곳을 차단한 까닭·결정 경로·당국 설명이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Monday, April 28, the Government",
+      "note": "incitement→encouraging violence, communally sensitive→likely to cause religious tension 로 풀었고 채널 이름 나열 문단은 걷는다."
+    }
+  },
+  {
+    "id": "76d7148f-dc03-43f6-8216-d717ea33e293",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "667a62d69e396c2fd1af2db120de95621bca203873b08b71b1471a6b5b42af56",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "여성 정치 참여 패널에서 플루크·월리스·클린턴·퀸·슈리옥이 각자 입장을 말한 보도(한쪽 입장)로 주제·요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Quinn informed the panel that when",
+      "note": "퀸 문단은 비판자들이 든 이유 → 반박으로 혼자 서고 cognizant→aware, cathartic→healing 으로 바꾸면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "76eb8daf-c6d3-4ba0-a885-f52cca741e87",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "830755675c799163b54f05aca9521973fe3b5d4d4fa5180daf7a0742f28df35f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하마스 대원의 해상 침투 → 이스라엘 합동군 대응·교전 → 양측 발표가 순서대로 이어지는 교전 보도라 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to reports by Israeli media,",
+      "note": "incursion→attack, dispatched→killed 로 바꿔 V5 로 맞췄고, 양측 발표를 나란히 두어 한쪽 선동이 아니지만 폭력 소재라 연령을 고등 이상으로 둔다."
+    }
+  },
+  {
+    "id": "771ebeb5-4487-4f7a-bcb0-ecf8000e149f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "04e6dcb6b7bdb39ef969fe5672442d28fabf9e4c205af0c3a6b8b5a5bc063a86",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "볼바키아 감염으로 수컷이 1%로 줄었다가 억제 유전자가 퍼져 39%로 회복한 관찰에서 기생체가 진화를 몬다는 결론까지 논지가 서 여러 수능 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "main_point",
+        "blank",
+        "summary",
+        "order",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wolbachia is a bacterium that is",
+      "note": "볼바키아 전파 방식 문단이 앞 문맥 없이 서고 cytoplasm→fluid inside cells, arthropods→insects and similar animals 로 바꾸면 V6 이 된다."
+    }
+  },
+  {
+    "id": "771f5228-8304-4177-844c-6ed238b25475",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2062956a0bb73dd799df8c53cd7c2a3faf3f6bafd5e8f0226fea3ae46b838443",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "출시 첫 며칠 20만 대 판매 → 이베이 재판매 → 매장별 추정 → 출시 전 열기로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The pre-release frenzy that preceded the",
+      "note": "frenzy→excitement, climaxed→peaked 로 바꾸니 V4 로 내려갔고 짧아서 전체를 한 지문으로 쓸 수 있다."
+    }
+  },
+  {
+    "id": "772f3493-c4c9-47e4-8585-0ae1fcc51af8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a2facc9f325925bfcd81175d5694a84e907e88c6b4cf9f3ed6bff1dd56daeaf1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "성 패트릭 데이 백악관 행사에서 부시가 아일랜드 이민사와 양국 우애를, 아헌이 평화 달성을 말한 연설 보도라 요지·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mr. Bush commented on the relationship",
+      "note": "부시 연설 문단은 기근 → 이민 → 오늘의 우애로 혼자 서고 McCain 농담 두 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "778315a4-74a3-41ac-af48-a3046b9793b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1d4ea7c5df7944ab205eb846be5283c1cf21e393673ca3bf45a8e40543363189",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "폐점 위기의 시 전문 서점 그롤리어를 새 주인이 사서 행사 유지·국제 작가 확대를 계획한다는 흐름이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Grolier is one of only two",
+      "note": "첫 문장 중간 줄바꿈만 이어 붙이면 되고 frequented→often visited 로 바꾸면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "7784aaf5-fdfe-4946-82a4-ac9d8275550b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "68dae412c7cc024db9c74e638c1a37aff6637a731f1ab53d736c72e05bfeea65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "판즈화 폭우 → 사상자·이재민 → 구호 작업과 피해액 추정 → 지난해 지진 배경이 이어지는 재해 단신이라 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "At present, emergency rescue and disaster",
+      "note": "preliminary→early, devoted→given 으로 바꾸니 V4 가 되고, 끝 문장의 지난해 지진 수치는 배경이라 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "77862490-63c4-461b-ad7f-426b03f3d1db",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37ade9587696570f02c5980afee2f79e5b92fe6c269e9256bc4b67bd619b8e18",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "아스널이 샤카 영입을 발표 → 선수 소감 → 이력 → 메디컬 통과와 합류 일정 → 감독 평이 이어지는 이적 기사라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Xhaka has passed his medical tests",
+      "note": "인용이 빠진 채 끝나는 「Max Eberl said,.」 한 문장은 가공 때 걷고, 그 밖의 사건 흐름은 그대로 선다."
+    }
+  },
+  {
+    "id": "778e7781-afc8-4b4a-a45c-f8de16c29371",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "22a791cc2f5d8638a4351aae4a9b29bd7e1cee0f992396ebda3f74f887f330a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아동 성매수 혐의로 체포된 뉴질랜드인이 비공개 재판을 받고 선고를 기다리며 캄보디아 당국 단속 배경이 붙어 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The trial took place behind closed",
+      "note": "묘사는 없고 절차만 있어 procuring→arranging, crack down on→take strong action against 로 바꾸면 되지만 소재상 고2 이상만 둔다."
+    }
+  },
+  {
+    "id": "7790c635-5a17-4de0-8a0d-594197b2898c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e97719f57083541adeebc7f9de1fec6f94b59f36907f5ff40158a11303dfc00c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아프간에서 오발로 숨진 캐나다 병사의 장례 → 사망 경위 → 추도 발언 → 파병 엿새 만의 죽음으로 이어져 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "\"He knew there were bad guys",
+      "note": "accidental discharge→accidental shot 로 풀면 V4 에 맞고, 첫 문단 시제가 섞인 부분(It leaves…)은 가공 때 고친다."
+    }
+  },
+  {
+    "id": "77974c3f-942c-434f-b9d4-a1a621dc1b01",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0100146a9c3fd6cac7d13b2d69d26f93024d86a4eb82e0f684b21abca54eb04d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "빅 브라더 10 우승 → 소감 → 시청자 감소로 인한 채널 4의 종영 결정 → 제작사 반응이 이어져 성인 소재를 걷으면 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Channel 4, the channel which has",
+      "note": "종영 결정 문단은 원인(시청자 600만 감소)과 결정이 혼자 서고, 플레이보이 누드 언급 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "77a5cf52-48bf-40ed-bef9-f2462cf097ac",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "287cfd2693c0ee7c1a3a52a1a2264712e87bf593c23a2c888cc86e529062d8d8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "사진 설명 제목이지만 본문은 벚꽃 개화 → 축제 → 1912년 도쿄 시장이 우호를 위해 나무를 기증한 유래로 이어져 혼자 서는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The accompanying National Cherry Blossom Festival",
+      "note": "그림 없이 뜻이 서고 commemorating→remembering, enhance→strengthen 로 바꾸면 V3 까지 내려간다."
+    }
+  },
+  {
+    "id": "77a743df-91f3-4ffc-825b-d4e933ae2501",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0c3fcd743d035249ab3261e13a6b8237684f808c8e0a8244c54cca26c198e896",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "캐머런이 우편 투표에서 데이비스를 2대 1로 이기고 당 개혁 의지를 밝혔다는 결과와 반응이 이어져 최소선의 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "David Cameron has been elected the",
+      "note": "61어 두 문장이 선출 → 개혁 공약으로 이어지지만 beating off→defeating, agenda→plan 로 바꿔도 문항 거리가 적다."
+    }
+  },
+  {
+    "id": "77ae2575-649d-418e-a3fb-9618ff2fc580",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "059b1c3e5d293ee5f704c94489ae043c00a3d52de3d3ed00ccce1e9c16702977",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "메이커 페어의 관객 네 배 증가 → 부스·야외 전시 → 새비지 강연 → 올해 주제로 행사 개관이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Maker Faire, the self-declared \"World's Largest",
+      "note": "crafters→craft makers, man booths→run booths 로 바꾸니 V4 가 되었고 문단마다 경계가 뚜렷하다."
+    }
+  },
+  {
+    "id": "77caf48d-689c-4dc2-a7d7-7f4bc5bcb5f1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "69156cd5703017306d00ddb328aae136315bed82b3c86928de1684daffb29061",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "health",
+    "why": "대주교 강연과 학장 발언은 서지만 「He replied that」「told Wikinews that」 뒤의 두 교수 답변이 통째로 빠져 글이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In his lecture, the Archbishop acknowledged",
+      "note": "강연 요지 문단은 혼자 서지만 위키뉴스 취재 인용 두 곳이 비어 있어 원문을 다시 받아야 한 편이 된다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "77d12ee8-36e2-47e6-a281-9d61bbbcd236",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4fdfe3e635faf3dd20166bb837f4514284bd480b9dab4156396b314344211ce1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이륙 실패한 경비행기가 관중을 덮쳐 사상자가 나고 보도마다 피해 규모·충돌 지점이 엇갈린다는 흐름이라 고등 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A spectator has been killed and",
+      "note": "ploughed into→crashed into, congregated→gathered 로 바꾸니 V5 가 되고 묘사가 구체적이지 않아 고1부터 둔다."
+    }
+  },
+  {
+    "id": "77d613ee-164a-4596-846b-fd0209177254",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc2177eabe94bb82addff3613d8ac86339b8b740e12f969d3862e44af5dc8cf3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "테바르 탄생 백 주년 행사가 폭력 우려 속 삼엄한 경비로 시작되고 그의 출생·독립운동 이력이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "U.Muthuramalinga Thevar, prominently known as",
+      "note": "이력 문단은 혼자 서지만 긴 인명·지명이 많아 걷으면 짧아지고 supremo→leader 정도만 바꾸면 된다."
+    }
+  }
+]
