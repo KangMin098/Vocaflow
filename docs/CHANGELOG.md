@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 12 적재**(2026-09-30 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 990 · hold 7 · discard 3(바로 확정 92.3%). 감사 누적 wikinews 체크리스트 keep 352편 · 오판 1(0.3%). 스크립트로 채운 체크리스트 출력 5청크는 폐기·재판정. 재실행 변경 0. 남은 비논문 대상 8,823.
 - **체크리스트 배치 11 적재**(2026-09-30 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 983 · hold 9 · discard 8(바로 확정 82.4%). 감사 누적 wikinews 체크리스트 keep 312편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 9,823.
 - **체크리스트 배치 10 적재**(2026-09-28 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 974 · hold 19 · discard 7(바로 확정 80.4%). 감사 누적 wikinews 체크리스트 keep 271편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 10,823.
 - **체크리스트 배치 9 적재**(2026-09-28 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 973 · hold 16 · discard 11(바로 확정 **83.1%**, 지금까지 최고). 감사 누적 wikinews 체크리스트 keep 229편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 11,823. 모음 보류 2편은 쪼개기 대상 형식이 아닌 일회성 페이지(인도양 지진 포털 · 2020년 7월 선거 개관).

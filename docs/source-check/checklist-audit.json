@@ -158,6 +158,26 @@
     }
    },
    "wrong": []
+  },
+  {
+   "batch": 12,
+   "date": "2026-09-30",
+   "criteria_version": 8,
+   "bySource": {
+    "wikinews": {
+     "audited": 50,
+     "auditedKeep": 40,
+     "wrongKeep": 1
+    }
+   },
+   "wrong": [
+    {
+     "id": "7ebab241-c58d-4504-8cb6-a76bfd653e6f",
+     "source": "wikinews",
+     "truth": "hold",
+     "rule": "keep"
+    }
+   ]
   }
  ]
 }
