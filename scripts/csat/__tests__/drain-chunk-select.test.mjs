@@ -70,6 +70,7 @@ async function withServer(fn) {
     reqs.push({ method: req.method, url: decodeURIComponent(req.url), body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
     if (req.method === 'GET') return res.end('[]')
+    if (req.method === 'POST' && req.url.startsWith('/rest/v1/rpc/')) return res.end('[]') // 집합을 돌려주는 RPC
     if (req.method === 'POST') return res.end(JSON.stringify({ id: '00000000-0000-0000-0000-00000000000' + reqs.length }))
     res.end('[]')
   })
@@ -184,5 +185,39 @@ test('units: analysis whose units_hash differs from its chunk list is blocked at
       const r = await runImport(dir, url, ['--chunk', 'revise-test'])
       assert.equal(r.code, 0, r.output)
     })
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+})
+
+test('import: same body but new units_hash/analyst_run is a new version, not a reuse of the old row (PR #126 P2-5)', async () => {
+  const { dir, work } = setup()
+  try {
+    const H = 'a'.repeat(64)
+    const units = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: H, units }] }))
+    const a = { ...goodAnalysis('H2603G3#18'), units_version: 1, units_hash: H, answer_locus: { sentence_index: [2], quote: 'each recall rebuilds the event from fragments' } }
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses: [a] }))
+    // 옛 행: 본문은 같고 목록 정보만 없다
+    const prevRow = { id: 'p1', version: 1, status: 'in_review', measured_ability: a.measured_ability, design_intent: a.design_intent, answer_locus: a.answer_locus,
+      choice_analysis: a.choices, solve_procedure: a.solve_procedure, analyst_run: a.analyst_run, units_version: null, units_hash: null }
+    const reqs = []
+    const server = http.createServer(async (req, res) => {
+      let body = ''
+      for await (const part of req) body += part
+      reqs.push({ method: req.method, url: decodeURIComponent(req.url), body: body ? JSON.parse(body) : null })
+      res.setHeader('Content-Type', 'application/json')
+      if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify([{ item_id: 'H2603G3#18', units_version: 1, units_hash: H, input_hash: 'x', units: [] }]))
+      if (req.method === 'GET') return res.end(JSON.stringify([prevRow]))
+      if (req.method === 'POST') return res.end(JSON.stringify({ id: 'n1' }))
+      res.end('[]')
+    })
+    await new Promise((r) => server.listen(0, '127.0.0.1', r))
+    try {
+      const r = await runImport(dir, `http://127.0.0.1:${server.address().port}`, ['--chunk', 'revise-test', '--commit'])
+      assert.equal(r.code, 0, r.output)
+      const ins = reqs.find((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_item_analyses'))
+      assert.ok(ins, '새 버전을 만들지 않고 옛 행을 재사용했다')
+      assert.equal(ins.body.units_hash, H)
+      assert.equal(ins.body.version, 2)
+    } finally { server.close() }
   } finally { fs.rmSync(dir, { recursive: true, force: true }) }
 })

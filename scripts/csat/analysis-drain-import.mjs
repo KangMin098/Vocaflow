@@ -204,7 +204,7 @@ for (const a of analyses) {
   const { data: prev } = await retry(`${a.item_id} 조회`, () =>
     db
       .from('csat_item_analyses')
-      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status')
+      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status, analyst_run, units_version, units_hash')
       .eq('item_id', a.item_id)
       .order('version', { ascending: false })
       .limit(1),
@@ -236,9 +236,14 @@ for (const a of analyses) {
     }
     return v
   }
+  //
+  // ⚠️ **검수·출처 칸도 비교한다**(PR #126 리뷰 P2-5). 본문이 같고 근거 단위 목록(units_version·units_hash)이나
+  //    분석 실행 주체(analyst_run)만 바뀐 교정을 «같다» 로 판정하면 옛 행을 재사용해 새 목록 정보가 버려진다 —
+  //    그러면 게이트는 옛 목록 기준으로 판정한다. 평가원 행은 세 칸이 모두 null 이라 비교에 영향이 없다.
   const shape = (x) =>
     JSON.stringify(
-      canon([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure]),
+      canon([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure,
+        x.analyst_run ?? null, x.units_version ?? null, x.units_hash ?? null]),
     )
   const same = last && shape(last) === shape(a)
   let aid = last?.id

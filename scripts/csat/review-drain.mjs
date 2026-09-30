@@ -198,15 +198,13 @@ switch (cmd) {
     const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run').eq('id', analysisId).single()
     if (ae) die(ae.message)
     if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
-    // 원문·정답이 지금과 같은 최초 블라인드 풀이 — 해시 비교는 DB 가 게이트에서 다시 한다
-    const { data: cands, error: pe } = await db.from('csat_review_runs')
-      .select('id, agent_run, solve_answer, solve_note, solve_committed_at, revealed_at, solve_answer_hash')
-      .eq('item_id', a.item_id).eq('persona', persona).eq('kind', 'blind')
-      .not('solve_committed_at', 'is', null).not('revealed_at', 'is', null).not('solve_answer_hash', 'is', null)
-      .order('solve_committed_at', { ascending: true })
+    // parent 는 **지금 원문·정답 해시와 맞는** 가장 최근 blind 풀이(DB 함수 — 게이트와 같은 조건).
+    // 예전에는 해시를 안 보고 가장 오래된 풀이를 골라, 원문 변경 뒤 새 blind 를 마쳐도 옛 풀이에 이어 게이트에서 계속 거부됐다(PR #126 리뷰 P2-7)
+    const { data: parentId, error: pe } = await db.rpc('csat_rereview_parent', { p_item: a.item_id, p_persona: persona, p_analyst_run: a.analyst_run ?? '' })
     if (pe) die(pe.message)
-    const parent = (cands ?? []).find((c) => c.agent_run !== a.analyst_run && Date.parse(c.solve_committed_at) < Date.parse(c.revealed_at))
-    if (!parent) die(`${a.item_id} ${persona}: 이을 블라인드 풀이가 없다 — start 로 새 블라인드부터`)
+    if (!parentId) die(`${a.item_id} ${persona}: 지금 원문·정답과 맞는 블라인드 풀이가 없다 — start 로 새 블라인드부터`)
+    const { data: parent, error: pe2 } = await db.from('csat_review_runs').select('id, solve_answer, solve_note').eq('id', parentId).single()
+    if (pe2) die(pe2.message)
     const { data: run, error: re } = await db.from('csat_review_runs')
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona, kind: 'rereview', parent_run_id: parent.id }).select('id').single()
     if (re) die(re.message)
@@ -246,8 +244,15 @@ switch (cmd) {
     const reviewedRuns = new Set(reviews.map((r) => r.review_run_id))
     const cutoff = Date.now() - CLAIM_HOURS * 3600e3
     const busy = new Set(runs.filter((r) => !reviewedRuns.has(r.id) && Date.parse(r.created_at) > cutoff).map((r) => r.analysis_id))
+    // 이미 받은 승인은 **게이트와 같은 기준**(DB 함수 csat_valid_review_personas)으로만 센다. 예전에는 과거 pass 의
+    // 페르소나를 그냥 세서, 원문 변경 등으로 무효가 된 승인이 재검수 배정을 막았다 — 발행은 거부되는데 청크에도 안
+    // 들어가는 상태가 생겼다(PR #126 리뷰 P2-6)
     const passed = new Map()
-    for (const r of reviews) if (r.verdict === 'pass') (passed.get(r.analysis_id) ?? passed.set(r.analysis_id, new Set()).get(r.analysis_id)).add(r.persona)
+    for (let i = 0; i < ids.length; i += 200) {
+      const { data, error } = await db.rpc('csat_valid_review_personas_many', { p_analyses: ids.slice(i, i + 200) })
+      if (error) die(error.message)
+      for (const r of data ?? []) passed.set(r.analysis_id, new Set(r.personas ?? []))
+    }
     const noRun = latest.filter((a) => !a.analyst_run)
     const todo = latest.filter((a) => a.analyst_run && !busy.has(a.id))
       .map((a) => ({ analysis_id: a.id, item_id: a.item_id, version: a.version, need: PERSONAS.filter((p) => !passed.get(a.id)?.has(p)) }))
