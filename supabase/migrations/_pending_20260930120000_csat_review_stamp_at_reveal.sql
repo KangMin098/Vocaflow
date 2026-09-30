@@ -11,7 +11,9 @@
 --     옛 원문의 목록 글을 받는 길을 막는다.
 --  4) 목록 생성 입력(원문 + 원문 해시)을 한 문장으로 돌려주는 함수, 그리고 **쓰기 시점 대조** 트리거
 --     (적재하려는 input_hash 가 지금 원문 해시와 다르면 거부).
---  6) 유효 승인 페르소나를 게이트와 **같은 함수**로 센다(csat_valid_review_personas) — export 도 이 함수를 쓴다.
+--  6) 유효 승인 페르소나를 게이트와 **같은 함수**로 센다(csat_valid_review_personas_row — 게이트는 NEW 를, export 는 저장된 행을
+--     넘긴다) · 현재 근거 목록과도 대조한다(재리뷰 2026-10-01 P1·P2).
+--  +) 발행은 서버 함수 csat_publish_hakpyeong 이 문항별 저장점으로 — 스크립트의 행마다 PATCH 를 없앤다.
 --  7) 재검수 parent 는 **지금 원문·정답 해시와 맞는** 가장 최근 blind 풀이만(csat_rereview_parent) · 삽입 검증도 같은 조건.
 
 begin;
@@ -95,15 +97,22 @@ begin
 end $$;
 
 -- ── 6. 유효 승인 페르소나 — 게이트와 export 의 단일 기준 ──────────────────
-create or replace function public.csat_valid_review_personas(p_analysis uuid) returns text[]
+-- ⚠️ **분석 행 자체를 인자로 받는다**(재리뷰 P1): BEFORE 트리거의 NEW 는 아직 표에 없다. id 로 옛 행을 읽어 세면
+--    발행과 함께 units_hash·analyst_run 을 바꾸는 UPDATE 가 옛 값 기준으로 통과한다(실측: 유효 승인 0 인데 발행).
+--    게이트는 NEW 를 그대로 넘기고, export 는 id 래퍼로 저장된 행을 넘긴다.
+-- ⚠️ **현재 목록과도 대조한다**(재리뷰 P2): 분석의 목록 해시만 보면, 목록이 바뀌어 자동 보류된 뒤에도 3명이
+--    세어져 export 가 재검수를 배정하지 않았다.
+create or replace function public.csat_valid_review_personas_row(a public.csat_item_analyses) returns text[]
 language plpgsql stable security definer set search_path = public as $$
-declare a csat_item_analyses; cur_in text; cur_ans text; cur_an text; out text[];
+declare cur_in text; cur_ans text; cur_an text; cur_units text; out text[];
 begin
-  select * into a from csat_item_analyses where id = p_analysis;
   if a.id is null or a.analyst_run is null then return '{}'; end if;
   cur_in := csat_item_input_hash(a.item_id);
   cur_ans := csat_item_answer_hash(a.item_id);
   cur_an := csat_analysis_hash(a);
+  cur_units := csat_current_units_hash(a.item_id);
+  -- 분석이 목록 기준으로 쓰였으면 그 목록이 지금 목록이어야 한다
+  if a.units_hash is not null and a.units_hash is distinct from cur_units then return '{}'; end if;
   select coalesce(array_agg(distinct r.persona order by r.persona), '{}') into out
     from csat_independent_reviews r
     join csat_review_runs run on run.id = r.review_run_id
@@ -113,6 +122,8 @@ begin
      and run.agent_run <> a.analyst_run
      and run.revealed_at is not null and run.revealed_at <= r.reviewed_at
      and r.item_input_hash = cur_in and r.item_answer_hash = cur_ans and r.analysis_hash = cur_an
+     -- 검수자가 목록을 보고 판정했으면 그 목록이 지금 목록이어야 하고, 분석의 목록과도 같아야 한다
+     and (r.units_hash is null or r.units_hash = cur_units)
      and (a.units_hash is null or r.units_hash = a.units_hash)
      and (
        (run.kind = 'blind' and run.solve_committed_at is not null and run.solve_committed_at < run.revealed_at
@@ -126,13 +137,18 @@ begin
   return out;
 end $$;
 
+create or replace function public.csat_valid_review_personas(p_analysis uuid) returns text[]
+language sql stable security definer set search_path = public as $$
+  select csat_valid_review_personas_row(x) from csat_item_analyses x where x.id = p_analysis
+$$;
+
 create or replace function public.csat_valid_review_personas_many(p_analyses uuid[])
 returns table(analysis_id uuid, personas text[])
 language sql stable security definer set search_path = public as $$
-  select x, csat_valid_review_personas(x) from unnest(p_analyses) x
+  select x.id, csat_valid_review_personas_row(x) from csat_item_analyses x where x.id = any(p_analyses)
 $$;
 
--- ── 게이트: 잠금 먼저 · 단일 기준 함수 사용 ──────────────────────────────
+-- ── 게이트: 잠금 먼저 · NEW 로 판정 ──────────────────────────────────────
 create or replace function public.csat_guard_published() returns trigger
 language plpgsql security definer set search_path = public as $$
 declare n_pass int; t text; ps text[];
@@ -155,16 +171,40 @@ begin
   if new.units_hash is not null and csat_current_units_hash(new.item_id) is distinct from new.units_hash then
     raise exception '학평 분석 %: 분석이 본 근거 단위 목록이 현재 목록과 다르다 — 번호를 다시 대조해야 한다', new.item_id using errcode = 'check_violation';
   end if;
-  -- BEFORE 트리거라 new 는 아직 표에 없다 — 같은 기준을 new 에 적용하기 위해 id 로 센다(분석 내용 칸은 발행 전환에서 안 바뀐다)
-  if csat_analysis_hash(new) is distinct from (select csat_analysis_hash(x) from csat_item_analyses x where x.id = new.id) then
-    raise exception '학평 분석 %: 발행과 동시에 분석 내용을 바꿀 수 없다', new.item_id using errcode = 'check_violation';
-  end if;
-  ps := csat_valid_review_personas(new.id);
+  ps := csat_valid_review_personas_row(new);          -- NEW 의 분석 내용·analyst_run·units_hash 그대로
   if coalesce(array_length(ps, 1), 0) < 3 then
     raise exception '학평 분석 %: 독립 검수 3인이 필요하다(자기 검수·풀이 전 공개·원문/정답/분석/근거 단위 변경 뒤 승인은 무효) — 현재 %', new.item_id, coalesce(array_length(ps, 1), 0)
       using errcode = 'check_violation';
   end if;
   return new;
+end $$;
+
+-- 게이트가 **검수 판정에 쓰이는 칸이 바뀔 때도** 돈다. 예전에는 `UPDATE OF status` 뿐이라, 이미 발행된 행의
+-- analyst_run·units_hash·units_version 만 바꾸면 게이트를 전혀 거치지 않았다(2026-10-01 롤백 시험에서 발견).
+-- 분석 본문이 바뀌는 경우는 csat_hold_on_analysis_change 가 in_review 로 내린다(트리거 이름순: guard → hold).
+drop trigger if exists csat_guard_published_trg on public.csat_item_analyses;
+create trigger csat_guard_published_trg before insert or update of status, analyst_run, units_hash, units_version on public.csat_item_analyses
+  for each row execute function public.csat_guard_published();
+
+-- ── 발행을 서버 안에서 문항별로 — 게이트 거부를 문항마다 따로 돌려준다 ──────────
+-- 스크립트가 행마다 PATCH 하던 것(단건 쓰기 예산 +1)을 없앤다. 한 행의 거부가 나머지를 막지 않게 행마다 저장점.
+create or replace function public.csat_publish_hakpyeong(p_analyses uuid[])
+returns table(analysis_id uuid, item_id text, ok boolean, reason text)
+language plpgsql security definer set search_path = public as $$
+declare x uuid; it text;
+begin
+  foreach x in array p_analyses loop
+    select a.item_id into it from csat_item_analyses a where a.id = x;
+    if it is null or not csat_is_hakpyeong_item(it) then
+      analysis_id := x; item_id := it; ok := false; reason := '학평 분석이 아니다'; return next; continue;
+    end if;
+    begin
+      update csat_item_analyses set status = 'published', updated_at = now() where id = x and status <> 'published';
+      analysis_id := x; item_id := it; ok := true; reason := null; return next;
+    exception when others then
+      analysis_id := x; item_id := it; ok := false; reason := sqlerrm; return next;
+    end;
+  end loop;
 end $$;
 
 -- ── 2·4. 목록 쓰기: 잠금 + 쓰기 시점 원문 대조 ───────────────────────────
@@ -233,7 +273,8 @@ begin
   return new;
 end $$;
 
-revoke all on function public.csat_valid_review_personas(uuid), public.csat_valid_review_personas_many(uuid[]),
+revoke all on function public.csat_valid_review_personas_row(public.csat_item_analyses), public.csat_publish_hakpyeong(uuid[]),
+  public.csat_valid_review_personas(uuid), public.csat_valid_review_personas_many(uuid[]),
   public.csat_item_units_guard(), public.csat_current_units_many(text[]), public.csat_units_build_input(),
   public.csat_rereview_parent(text, text, text), public.csat_review_run_check(), public.csat_review_reveal(uuid),
   public.csat_independent_review_stamp(), public.csat_guard_published() from public, anon, authenticated;
@@ -242,8 +283,9 @@ commit;
 
 -- ── 되돌리기 ──────────────────────────────────────────────────────────
 --  drop trigger csat_item_units_guard_trg on csat_item_units; drop function csat_item_units_guard();
---  drop function csat_valid_review_personas_many(uuid[]), csat_valid_review_personas(uuid), csat_current_units_many(text[]),
+--  drop function csat_publish_hakpyeong(uuid[]), csat_valid_review_personas_many(uuid[]), csat_valid_review_personas(uuid), csat_valid_review_personas_row(csat_item_analyses), csat_current_units_many(text[]),
 --    csat_units_build_input(), csat_rereview_parent(text, text, text);
+--  csat_guard_published_trg 를 `before insert or update of status` 로 다시 만든다;
 --  csat_review_reveal · csat_review_run_check 를 20260928143924 정의로, csat_independent_review_stamp · csat_guard_published 를
 --    20260928152323 정의로 create or replace;
 --  alter table csat_review_runs drop column reveal_units_hash, drop column reveal_analysis_hash, drop column reveal_answer_hash, drop column reveal_input_hash;
