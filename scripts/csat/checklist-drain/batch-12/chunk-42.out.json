@@ -1,0 +1,802 @@
+[
+  {
+    "id": "8b23637e-9182-4f04-b0ac-f3f76e8997a9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Caroline Kennedy, considered to be",
+    "note": "캐롤라인 케네디가 개인적 이유로 뉴욕 상원의원 입후보를 철회했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b26512d-19e2-458d-9750-d31d4ca625ee",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Evangelist Kent Hovind's ministry filed",
+    "note": "복음주의자 켄트 호빈드가 공개 영역 비디오에 저작권을 주장해 유튜브 계정 차단.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b2a2f76-faa5-4f51-b6ef-eb2cf130543a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A study by researchers at",
+    "note": "토론토 대학교 연구진이 텍스트 메시징이 청소년의 문법 능력 향상에 도움이 된다고 밝혔다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b2bb6f2-9c5f-46fd-89b8-f22b64e72c85",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Two suspected rebels in the",
+    "note": "카슈미르 지역의 정부군이 의심되는 반란군 2명을 총격으로 사살했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b36e3b8-0272-4489-99e4-293aa797d29a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Nelson Boys College was closed",
+    "note": "뉴질랜드 넬슨 보이스 칼리지 기숙사에서 40%의 학생이 위험한 노로바이러스에 감염되어 학교 폐쇄.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b3b3376-8ce3-400b-ba04-bf9b3fa46a5d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The National Hurricane Center (NHC)",
+    "note": "열대폭풍 돌로레스의 강도, 위치, 속도만 나열한 수치 중심의 단신으로 내용 없음.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": [],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b3fb88b-78be-43d8-b3dd-2c6530ee72dc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A survey, conducted by the",
+    "note": "영국 국립보건서비스(NHS) 감염 통제 문제를 조사한 환자 협회 설문 보고서.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b4315e1-a14a-49c4-9642-9303bb457b31",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Iran has warned Israel that",
+    "note": "이란이 이스라엘의 핵시설 공격 위협에 강경 대응을 경고했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b473dc1-75f8-4d93-8348-2b1dcde20220",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A delegation claiming to represent",
+    "note": "라코타 인디언 부족 활동가들이 미국 독립 선언문을 발표하고 US 국적 포기를 주장했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b47a8f3-ffe7-49fd-89a3-14b76541f80e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The human rights organization Amnesty",
+    "note": "국제 앰네스티가 이란 선거 이후 투옥된 기자들의 석방을 요구했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b498121-b318-40fd-96db-74a83f40eba2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "British Columbia's Premier Gordon Campbell",
+    "note": "캐나다 브리티시컬럼비아 주 총리 고든 캠벨이 조화 판매세 도입으로 인한 압박 속에 사직했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b4ed3a4-6b5a-4cba-ae61-fb9329d6a643",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A British church group has",
+    "note": "영국 종교 간 평화 단체가 BBC 다큐멘터리로 비판받은 모스크의 명성을 변호했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b5d5bff-ae18-4eba-89df-1fb1d6374556",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Robert 'Bob' Edmonds, who sued",
+    "note": "캐나다 로버트 에드먼즈가 온타리오 복권청을 제소해 25만 달러 당첨금을 회수한 소송 승리.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b5d947f-ee23-40ad-af8d-332a28a06561",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "On August 8, the High",
+    "note": "우간다 법원이 반대파 지도자 키자 베시게의 보석금 신청을 거부했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b63267d-88c2-4eba-bfa2-b227e599b755",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "An ATM in Virginia Beach",
+    "note": "버지니아 비치의 ATM이 해킹되어 오류로 4배 인출한 사건만 나열한 단순 사실 기사.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": [],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b652ca0-cbf4-477a-82be-e0fcb94eecf6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "This Sunday it was hoped",
+    "note": "달라이 라마가 불교 개종식에 불참한 단신으로 내용이 극도로 부족하다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": [],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b66952f-74a0-4ab0-a615-6a3b1063c8b5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A British serial killer has",
+    "note": "영국 연쇄살인범 스티폰 그리핀스가 3명 살해 혐의로 무죄 항변 후 종신형 선고.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b701733-667d-4bc3-b3c6-b5951b5e585a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "As gas prices have risen",
+    "note": "SEPTA 지역교통청이 늘어난 승객 수로 혼잡을 해결하기 위해 뉴저지 교통청으로부터 열차 구매.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b71f669-8454-45e7-a465-ac8236361517",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "According to a Government Official",
+    "note": "에콰도르 광산 붕괴로 4명의 광부가 150미터 지하에 고립되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b7293ff-fa74-4ebf-b00a-dd1ac91830a2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Two people, a nine year",
+    "note": "인도네시아가 조류독감 100번째 사망자를 보도한 수치 중심의 단신으로 내용 부족.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": [],
+        "levels": ["V2"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b764534-3b1a-4408-95ee-d3ce444b22aa",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Backbench Business Committee of",
+    "note": "영국 약물 정책 청원이 10만 서명을 달성하여 의회 토론 가능성이 생겼다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b785149-31aa-4c47-b2a2-0dbdab27c136",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Freelance journalist writing for Wikinews",
+    "note": "뉴질랜드 유명 블로거 데이비드 파라의 블로깅, 기술, 인터넷 정책에 관한 인터뷰.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b790deb-7bd5-433a-81e8-0461158f6225",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Comedic actor Bernie Mac has",
+    "note": "코미디 배우 버니 맥이 폐렴으로 50세에 사망했다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b79a91f-48a4-48f9-8e15-09a27c2196b6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "For the first time in",
+    "note": "14년 만에 복원된 애브로 벌컨 공군 폭격기가 영국 상공에서 비행을 재개했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b7f2607-8951-4811-8795-a2cfc85e252a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Indonesian government has ordered",
+    "note": "인도네시아 메라피 화산이 폭발 위험으로 11,000명 주민 대피령 발령.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  }
+]
