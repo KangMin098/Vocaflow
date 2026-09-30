@@ -1,0 +1,721 @@
+{
+  "counts": {
+    "gaps": 10,
+    "claims": 18,
+    "batches": 1,
+    "experts": 11,
+    "methods": 4,
+    "sources": 64,
+    "channels": 3,
+    "evidence": 18,
+    "taxonomy": 59,
+    "relations": 0
+  },
+  "tables": [
+    {
+      "rls": true,
+      "name": "methodology_batches",
+      "columns": [
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "verified_at",
+          "type": "date",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "schema_version",
+          "type": "integer",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "imported_by",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "parent_id",
+          "type": "text",
+          "default": null,
+          "nullable": true
+        },
+        {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "default": "clock_timestamp()",
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_batches_pkey ON public.methodology_batches USING btree (id)",
+        "CREATE INDEX methodology_batches_newest ON public.methodology_batches USING btree (created_at DESC, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "CHECK ((id ~ '^[a-f0-9]{64}$'::text))",
+        "CHECK (((length(imported_by) >= 1) AND (length(imported_by) <= 200)))",
+        "FOREIGN KEY (parent_id) REFERENCES methodology_batches(id)",
+        "PRIMARY KEY (id)",
+        "CHECK ((schema_version = 1))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_channels",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "url",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "expertIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "relationship",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "verificationSourceIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "verifiedAt",
+          "type": "date",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_channels_pkey ON public.methodology_channels USING btree (batch_id, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK ((relationship = ANY (ARRAY['personal'::text, 'platform'::text, 'institution'::text, 'guest'::text, 'reupload'::text, 'fan'::text])))",
+        "CHECK ((url ~~ 'https://%'::text))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_claims",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "methodId",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "text",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "ordinal",
+          "type": "integer",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "attribution",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_claims_pkey ON public.methodology_claims USING btree (batch_id, id)",
+        "CREATE UNIQUE INDEX \"methodology_claims_batch_id_methodId_kind_ordinal_key\" ON public.methodology_claims USING btree (batch_id, \"methodId\", kind, ordinal)",
+        "CREATE INDEX methodology_claims_method ON public.methodology_claims USING btree (batch_id, \"methodId\")"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "CHECK ((attribution = ANY (ARRAY['source_explicit'::text, 'analyst_inference'::text])))",
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "FOREIGN KEY (batch_id, \"methodId\") REFERENCES methodology_methods(batch_id, id)",
+        "UNIQUE (batch_id, \"methodId\", kind, ordinal)",
+        "CHECK ((kind = ANY (ARRAY['principle'::text, 'condition'::text, 'procedure'::text, 'rationale'::text, 'example'::text, 'failure'::text, 'exception'::text, 'transfer'::text])))",
+        "CHECK ((ordinal >= 0))",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK (((length(text) >= 1) AND (length(text) <= 1500)))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_evidence",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "claimId",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "sourceId",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "sourceRevision",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "expertIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "locator",
+          "type": "jsonb",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "stance",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "note",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_evidence_pkey ON public.methodology_evidence USING btree (batch_id, id)",
+        "CREATE INDEX methodology_evidence_claim ON public.methodology_evidence USING btree (batch_id, \"claimId\")"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id, \"claimId\") REFERENCES methodology_claims(batch_id, id)",
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "FOREIGN KEY (batch_id, \"sourceId\", \"sourceRevision\") REFERENCES methodology_sources(batch_id, id, revision)",
+        "CHECK (((jsonb_typeof(locator) = 'object'::text) AND ((locator ->> 'kind'::text) = ANY (ARRAY['section'::text, 'time'::text]))))",
+        "CHECK ((((((locator ->> 'kind'::text) = 'section'::text) AND ((locator - ARRAY['kind'::text, 'section'::text]) = '{}'::jsonb) AND ((length((locator ->> 'section'::text)) >= 1) AND (length((locator ->> 'section'::text)) <= 300))) OR (((locator ->> 'kind'::text) = 'time'::text) AND ((locator - ARRAY['kind'::text, 'start'::text, 'end'::text]) = '{}'::jsonb) AND (jsonb_typeof((locator -> 'start'::text)) = 'number'::text) AND (jsonb_typeof((locator -> 'end'::text)) = 'number'::text) AND (((locator ->> 'start'::text))::double precision >= (0)::double precision) AND (((locator ->> 'end'::text))::double precision > ((locator ->> 'start'::text))::double precision))) IS TRUE))",
+        "CHECK ((length(note) <= 800))",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK ((stance = ANY (ARRAY['supports'::text, 'qualifies'::text, 'opposes'::text])))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_experts",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "organization",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "specialties",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "profileSourceIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "researchStatus",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "verifiedAt",
+          "type": "date",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_experts_pkey ON public.methodology_experts USING btree (batch_id, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK ((\"researchStatus\" = ANY (ARRAY['candidate'::text, 'profile_verified'::text])))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_gaps",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "taxonomyIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "question",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "nextAction",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_gaps_pkey ON public.methodology_gaps USING btree (batch_id, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "PRIMARY KEY (batch_id, id)"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_methods",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "statement",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "taxonomyIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "review",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "reviewedBy",
+          "type": "text",
+          "default": null,
+          "nullable": true
+        },
+        {
+          "name": "reviewedAt",
+          "type": "date",
+          "default": null,
+          "nullable": true
+        },
+        {
+          "name": "efficacy",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "productApplications",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_methods_pkey ON public.methodology_methods USING btree (batch_id, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "CHECK (((review <> 'reviewed'::text) OR ((length(\"reviewedBy\") > 0) AND (\"reviewedAt\" IS NOT NULL) AND (\"reviewedBy\" IS NOT NULL))))",
+        "CHECK (((cardinality(\"productApplications\") = 0) OR (review = 'reviewed'::text)))",
+        "CHECK ((efficacy = 'not_assessed'::text))",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK ((review = ANY (ARRAY['extracted'::text, 'reviewed'::text, 'rejected'::text])))",
+        "CHECK (((length(statement) >= 1) AND (length(statement) <= 1500)))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_relations",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "fromId",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "toId",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "reason",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "evidenceIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "review",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_relations_pkey ON public.methodology_relations USING btree (batch_id, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "FOREIGN KEY (batch_id, \"fromId\") REFERENCES methodology_methods(batch_id, id)",
+        "FOREIGN KEY (batch_id, \"toId\") REFERENCES methodology_methods(batch_id, id)",
+        "CHECK ((\"fromId\" <> \"toId\"))",
+        "CHECK ((cardinality(\"evidenceIds\") > 0))",
+        "CHECK ((kind = ANY (ARRAY['equivalent_candidate'::text, 'contradicts'::text, 'context_differs'::text, 'complements'::text])))",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK ((review = ANY (ARRAY['extracted'::text, 'reviewed'::text, 'rejected'::text])))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_sources",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "url",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "kind",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "expertIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "channelId",
+          "type": "text",
+          "default": null,
+          "nullable": true
+        },
+        {
+          "name": "originGroup",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "publishedAt",
+          "type": "date",
+          "default": null,
+          "nullable": true
+        },
+        {
+          "name": "verifiedAt",
+          "type": "date",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "revision",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "access",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "rights",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "rightsBasis",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "durationSeconds",
+          "type": "double precision",
+          "default": null,
+          "nullable": true
+        },
+        {
+          "name": "taxonomyIds",
+          "type": "text[]",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "priority",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "priorityReason",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_sources_pkey ON public.methodology_sources USING btree (batch_id, id)",
+        "CREATE UNIQUE INDEX methodology_sources_batch_id_id_revision_key ON public.methodology_sources USING btree (batch_id, id, revision)",
+        "CREATE INDEX methodology_sources_origin ON public.methodology_sources USING btree (batch_id, \"originGroup\")"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "CHECK ((access = ANY (ARRAY['metadata_only'::text, 'document_read'::text, 'transcript_read'::text, 'unavailable'::text])))",
+        "FOREIGN KEY (batch_id, \"channelId\") REFERENCES methodology_channels(batch_id, id)",
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "UNIQUE (batch_id, id, revision)",
+        "CHECK (((access <> 'document_read'::text) OR (kind = 'document'::text)))",
+        "CHECK (((access <> 'transcript_read'::text) OR ((kind = 'video'::text) AND (rights = 'analysis_permitted'::text) AND (revision ~ '^sha256:[a-f0-9]{64}$'::text))))",
+        "CHECK (((\"durationSeconds\" > (0)::double precision) AND (\"durationSeconds\" < 'Infinity'::double precision)))",
+        "CHECK ((kind = ANY (ARRAY['document'::text, 'video'::text])))",
+        "PRIMARY KEY (batch_id, id)",
+        "CHECK ((priority = ANY (ARRAY['high'::text, 'normal'::text, 'low'::text])))",
+        "CHECK ((rights = ANY (ARRAY['link_only'::text, 'analysis_permitted'::text])))",
+        "CHECK ((url ~~ 'https://%'::text))"
+      ],
+      "authenticatedSelect": false
+    },
+    {
+      "rls": true,
+      "name": "methodology_taxonomy",
+      "columns": [
+        {
+          "name": "batch_id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "id",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "label",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "dimension",
+          "type": "text",
+          "default": null,
+          "nullable": false
+        },
+        {
+          "name": "parentId",
+          "type": "text",
+          "default": null,
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        "CREATE UNIQUE INDEX methodology_taxonomy_pkey ON public.methodology_taxonomy USING btree (batch_id, id)"
+      ],
+      "policies": [],
+      "anonSelect": false,
+      "constraints": [
+        "FOREIGN KEY (batch_id) REFERENCES methodology_batches(id)",
+        "FOREIGN KEY (batch_id, \"parentId\") REFERENCES methodology_taxonomy(batch_id, id) DEFERRABLE INITIALLY DEFERRED",
+        "CHECK ((dimension = ANY (ARRAY['age'::text, 'proficiency'::text, 'exam'::text, 'skill'::text, 'process'::text, 'question'::text])))",
+        "PRIMARY KEY (batch_id, id)"
+      ],
+      "authenticatedSelect": false
+    }
+  ]
+}

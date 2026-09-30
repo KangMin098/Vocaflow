@@ -16,6 +16,7 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 원천 재고/과거 진단은 시각이 표시된 JSON 스냅샷, 개별 운영 큐는 DB 캐시다.
 감사는 DB/cache/snapshot 차이를 검출한다. [정상화 기록](./reports/csat-sources-normalization-20260918.md),
 [갱신·복구 절차](./LIBRARY_PIPELINE.md)를 따른다.
+방법론 연구 API `GET /api/admin/methodology`(2026-09-19 추가)는 **2026-09-30 삭제** — 부르는 곳이 없었다(링크 그래프·호출부 회귀). 가져오기 원장 화면 `/admin/methodology` 는 서버 함수 `lib/methodology/server.ts` 의 `readMethodologySnapshot` 으로 직접 읽는다.
 
 > 플랫폼 운영 영역 — `/admin/*`. 사용자 앱과 라우트/레이아웃/시각 컨텍스트 모두 분리.
 > 작성 시점: 2026-06-08 (v06.34).
@@ -64,6 +65,17 @@ inspector는 본문, 사유, 발췌 후보, 문항, 교재 manifest, 시도 기�
 [ 단독 ]    대시보드 (LayoutDashboard)
 [ 교재 ]     (accent: var(--p))
    교재 공장 (Factory) — 하위 14칸(여덟 걸음 + 낸 뒤 살피기 · 기준을 세우는 곳 3 · 도움 2). 이름은 `PLAIN_STEPS` 에서 온다. 들어가면 자동으로 펴지고, 화살표로 직접 접고 편다
+[ 학습 원리 ] (accent: var(--p)) — 2026-09-28. 공급이 아니라 판단 기준이라 교재와 공급 사이
+   원리 지도          /admin/knowledge
+   본질 · 원리        /admin/knowledge/principles
+   방법론 · 공부법    /admin/knowledge/methods
+   검토 대기          /admin/knowledge/review
+   근거 · 출처        /admin/knowledge/sources — 하위 2칸(기출 원천 · 가져오기 원장 /admin/methodology)
+   전문가 · 채널      /admin/knowledge/experts
+   공백               /admin/knowledge/gaps
+   = 7 항목 · 화면도움말 lib/admin/help/knowledge.ts · 정본 docs/methodology/SYSTEM.md
+   쓰기: 항목 상세(/admin/knowledge/item/[slug])의 상태 변경·층 연결·근거 추가, 목록의 「새 항목 쓰기」
+   규칙 lib/knowledge/rules.ts — 근거 0 이면 채택 불가 · 반려는 이유 필수 · 「구현」은 바로 위 층만
 [ 콘텐츠 공급 ] (accent: var(--p))
    콘텐츠            /admin/library
    도서 수집   LCP   /admin/curation

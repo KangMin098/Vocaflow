@@ -142,8 +142,11 @@ const H1_TAG_RE = /<h1[\s>]/g
  * (실측 2026-09-13 `/admin/video`). 검사가 자기 주장을 못 재고 있던 자리다.
  *
  * 문자열 리터럴만 읽는다 — 표현식으로 넘기는 제목은 여전히 정적으로 못 읽고, 그건 맞다.
+ *
+ * 학습 원리 화면(2026-09-28)의 공용 판면 `<KnowledgeFrame title="…">` 도 같은 모양이라 함께 읽는다
+ * (h1 본문이 `{title}` 인 공용 머리글 — 위와 같은 사정).
  */
-const HEADER_TITLE_RE = /<AdminPageHeader\b[^>]*?\stitle="([^"]+)"/g
+const HEADER_TITLE_RE = /<(?:AdminPageHeader|KnowledgeFrame)\b[^>]*?\stitle="([^"]+)"/g
 
 function headerTitles(src: string): string[] {
   // `[^>]` 는 줄바꿈도 먹으므로 속성이 여러 줄에 걸쳐도 맞는다.

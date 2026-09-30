@@ -53,6 +53,9 @@ const CHECKBOX_ALLOWLIST: { file: string; count: number; labelWrapped: number }[
   { file: 'apps/web/src/components/admin/curation/AdvancedFetchPanel.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/BulkFetchTab.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/MyLibraryTab.tsx', count: 2, labelWrapped: 0 },
+  // 학습 원리(2026-09-28): 라디오·체크박스는 전부 min-h-11(44px) <label> 안에 있다 — 라벨이 탭 타깃
+  { file: 'apps/web/src/components/admin/knowledge/ItemEditor.tsx', count: 2, labelWrapped: 2 },
+  { file: 'apps/web/src/components/admin/knowledge/NewItemForm.tsx', count: 3, labelWrapped: 3 },
   { file: 'apps/web/src/components/admin/vcb/VcbStep6QaCard.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/vcb/VcbStep8PublishCard.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/vcb/preview/VcbPreviewFilters.tsx', count: 1, labelWrapped: 1 },
@@ -120,6 +123,12 @@ const CSS_MODULE_44PX: { file: string; module: string; guard: RegExp }[] = [
     file: 'apps/web/src/app/admin/csat/sources/SourceInventoryTable.tsx',
     module: 'apps/web/src/app/admin/csat/sources/sources.module.css',
     guard: /min-height:\s*44px/,
+  },
+  {
+    // 가져오기 원장 워크벤치(2026-09-19 · Codex). 단추·입력·선택·펼침 전부를 한 규칙으로 44px 로 받는다.
+    file: 'apps/web/src/components/admin/methodology/MethodologyWorkbench.tsx',
+    module: 'apps/web/src/components/admin/methodology/methodology.module.css',
+    guard: /\.workbench button, \.workbench input, \.workbench select, \.workbench summary\s*\{[^}]*min-height:\s*44px/s,
   },
   {
     // 소스 이름 자체가 프로필을 여는 단추다. 모듈이 이름의 탭 영역을 44px 로 보장한다.
@@ -195,10 +204,10 @@ describe('허용 목록 — 체크박스·라디오', () => {
       expect(entry.labelWrapped).toBeGreaterThanOrEqual(0)
       expect(entry.labelWrapped).toBeLessThanOrEqual(entry.count)
     }
-    // 12곳 중 8곳은 감싼 <label> 이 44px 이라 실제 탭 영역은 이미 44px 다.
+    // 17곳 중 13곳은 감싼 <label> 이 44px 이라 실제 탭 영역은 이미 44px 다 (학습 원리 +5, 2026-09-28).
     const total = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.count, 0)
     const wrapped = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.labelWrapped, 0)
-    expect([total, wrapped]).toEqual([12, 8])
+    expect([total, wrapped]).toEqual([17, 13])
   })
 })
 
