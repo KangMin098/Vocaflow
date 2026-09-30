@@ -1,0 +1,1098 @@
+[
+  {
+    "id": "71d5d0ef-b84c-4b99-b2dc-ac352a77ac8f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The peace process in Cote d'Ivoire",
+    "note": "무장해제 실패→반군의 이유 주장→국제사회 비준으로 이어지는 마지막 문단이 떼어 쓰기 좋고, 안보리 성명 인용만 걷으면 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71d7808e-d3ff-4a03-8b7f-f5f1972743c7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The rally was held after the",
+    "note": "농민 자살 뒤 집회→교통 마비→경찰 증원으로 원인·결과·반응이 이어지며, 인원 수치를 걷어도 시위 흐름이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71dcf2f2-81d2-46d7-8a13-9dad113e0ebc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Morgan County sheriff's Deputy, Steve Hoffman,",
+    "note": "당뇨 발작→개가 손전등을 물고 알림→경찰 발견→병원 이송의 시간순 이야기라 쉬운 낱말로 중등 칸까지 내릴 수 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order",
+          "title"
+        ],
+        "levels": [
+          "V3",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71e0c227-78f9-4534-96ea-5dd4616c0c46",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Proton itself performed nominally, and",
+    "note": "둘째 연소 고장→위성이 낮은 궤도에 남음→세 가지 선택지로 이어지는 셋째 문단이 쓸 만하고 둘째 문단의 발사 통계는 걷는다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71e22b42-678f-4f62-9363-7b8c0296231b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Located on the Palu'e Island, Mount",
+    "note": "분화→용암이 해변을 덮쳐 사망→뜨거운 퇴적물 탓에 수색 난항으로 원인·결과가 이어지는 짧은 재난 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71e9703e-d1f4-4e27-a12b-719a91ad0095",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "450 sheep leapt to their deaths",
+    "note": "한 마리가 떨어지자 연쇄로 따라갔고 쌓인 사체가 충격을 줄여 나머지가 살았다는 인과가 첫 문단에 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71ee3941-02db-4c32-94ea-e47002093e9e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Three home made bombs exploded during",
+    "note": "한 문단뿐이지만 폭발→무정부주의자의 보복 주장→핀란드 외무부의 우연 판단으로 이유와 반응이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71f33fd0-cfa5-4cb0-b490-9d11aa4fc7fa",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The plant was constructed in part",
+    "note": "시민단체 민원→하수 배출관 반대→민원을 반영한 처리장 건설로 이어지는 둘째 문단이 핵심이고 기관 이름은 걷을 수 있다.",
+    "record": {
+      "genre": "environment",
+      "slots": {
+        "ages": [
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71f4be58-5f44-413e-ae06-2ef02d90e330",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Because warmer water is more buoyant,",
+    "note": "따뜻한 물이 떠올라 균열을 찾아 빙붕을 녹인다는 인과 설명 문단이 떼어 내도 서며 과학 설명문 칸을 채운다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic",
+          "blank"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71f89965-96be-4476-96be-a06e3176cafc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Mathew Street festival, an annual",
+    "note": "축제 이름의 유래 한 줄 외에는 공연 팀·무대 수·날짜 나열이라 문장 사이 연결이 가늘다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71f90a2f-3ffb-45b1-8f48-de560fb8da49",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tomlinson was an innocent bystander caught",
+    "note": "경찰의 초기 해명→관광객 영상 공개→두 번째 부검으로 해명이 뒤집히는 흐름이 선명한 사건 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71ff5fb9-66f2-4f63-9bf4-7110fc45bff2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "When signalled by police, the 10-year-old",
+    "note": "트럭 기사 신고→순찰대 출동→아이가 할아버지를 찾아가려 했다는 이유까지 시간순으로 이어져 중등 칸에 맞다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72039182-402a-4fc6-a3d5-0235a6bf9b6f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Sunday, police stopped Istanbul Pride,",
+    "note": "주지사 금지 명령→경찰 저지→주최 측 성명으로 이어지며, 셋째 문단의 인용이 빠진 문장(Kavaf said,)은 가공 때 걷는다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7207275f-479e-4de9-89bb-2f509227c2f3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Wednesday, UK regulator the Competition",
+    "note": "CMA 인수 차단→Nware 계약이 경쟁 우려를 달래려는 시도로 읽힘→항소 예고로 원인·반응이 이어진다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V7",
+          "V8"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "720985e6-4968-48b1-8c32-0edd22117fb6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "While the government crackdown is succeeding",
+    "note": "비상통치 아래 선거 관리 내각 출범과 야당의 반발·연대가 여러 쪽 발언으로 이어지는 보도로 한쪽 선동이 아니다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V7",
+          "V8"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "720e0743-ef18-4aa5-90f1-0dc8090e861d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "After World War II, Japan was",
+    "note": "출생·입사·승진·일본 초청이 시간순으로 이어지는 부고 전기이고 일본 품질 위기 문단이 인과를 갖춘다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "720f875d-fbed-490e-a2e1-7ade4dd17dfe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "United States Senator Charles Grassley of",
+    "note": "한 문단에서 재정 기록 요구 이유 하나 뒤로 여섯 사역자 이름 나열이 이어져 연결이 하나뿐이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7213e5dd-88b9-41e9-aba1-9244d827e546",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Investigations into the crash are ongoing,",
+    "note": "짙은 안개 속 산 충돌이라는 원인과 PKK 배치 목적·무장세력 무관 설명이 이어지는 짧은 사고 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72145003-a077-4b1d-9c47-595c643074eb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Many were angered by a three-minute",
+    "note": "처형 영상 유포가 분노를 부르고 매장 뒤 시위로 이어지는 인과가 서며, 죽음 소재라 고1 이상 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V6",
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7215c8a3-d173-42b5-8141-551df1a2300c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Although all the mammals reportedly survived,",
+    "note": "화재 발생→휴장→강풍으로 확산→전기 고장 원인으로 이어지고 동물원 규모 수치는 걷어도 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72237079-edb7-41b9-8e91-4f4888888156",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "While trying to shoplift, Suzette Gruber,",
+    "note": "절도 중 들킬까 달아나며 아기를 두고 감→경찰 보호→자수·기소로 시간순 사건이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72284178-d7e7-4a40-849a-17c1cd1f7a83",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "New York Senator Chuck Schumer, who",
+    "note": "지명 발표에 양당 상원의원의 반응이 이어지고 경력 문단이 뒷받침해 요지와 반응 연결이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V7",
+          "V8"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "722f6c65-e17c-4b68-a423-46049cc33447",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "To avoid a no-fly zone over",
+    "note": "비행금지구역을 피하려 지부티를 거친 경로라는 이유와 파키스탄 구조에 대한 감사 반응이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72317459-44ed-4d37-9e08-57d93518cc8e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Cape Verde also hopes to increase",
+    "note": "첫 공립대학 설립을 돕기 위한 교수 훈련 지원과 박사 비율이 낮다는 까닭이 이어지는 교육 기사다.",
+    "record": {
+      "genre": "education",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72333854-dc2d-4bac-9009-ab1cb711181d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Prime Minister of East Timor,",
+    "note": "대통령 피격→비상사태·통금 선포→다윈 이송·치안군 파견으로 원인·결과·다음 절차가 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "topic"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

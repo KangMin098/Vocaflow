@@ -1,0 +1,1123 @@
+[
+  {
+    "id": "72339603-557d-4920-ac09-7104a05881d3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "At the start of the year,",
+    "note": "셋째 문단이 낮은 세율로 탈세가 줄었고 강한 법으로 더 줄이려 한다는 인과로 이어져 요지·요약·내용 일치 칸이 선다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "main_point",
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "723d2465-ada0-4f50-9242-a31a732f09f7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Following his conviction, Williams became an",
+    "note": "사형 집행·감형 거부·유죄 판결·반갱 활동이 차례로 이어져 내용 일치 칸이 서며 사형 소재라 고1 이상 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7241bea7-6a95-4511-ad12-9a8ed1c4c4af",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A spokesperson for Tops confirmed the",
+    "note": "경호원이 총을 꺼낸 사건에 회사의 정당방위 주장과 목격자 진술이 반응으로 이어져 내용 일치 칸이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "724376ff-bf42-4482-9786-8a7a1b3db695",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The naming came after Mr Cleese",
+    "note": "클리스의 비하 발언 때문에 매립지에 그 이름을 붙였다는 원인·결과와 시의 반응이 둘째 문단에서 이어진다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72473989-e67a-44b4-8b13-fc1ffa478a78",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Russia has repeatedly expressed its view",
+    "note": "미국 제안 거절의 이유와 러시아의 대응(칼리닌그라드 미사일 배치 경고)이 이어져 내용 일치·요지 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "724aac3b-30ea-47b1-8057-03f35ef5a9cb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The World Health Organization and United",
+    "note": "홍역 사망 감소 수치 뒤에 예방접종이 원인이라는 연결 하나뿐인 70어 단신이라 연결이 가늘다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "725c0f2a-200c-44a5-8874-ffa90ef4a5f3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Televison star Ryan Dunn was twice",
+    "note": "음주 과속으로 차가 나무에 부딪혀 불탔다는 인과와 동료들의 추모 반응이 이어져 내용 일치 칸이 선다(사망 사고라 고1 이상).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7260a15a-e66d-49fb-9344-cc7cdf24a8c6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Prime Minister Tony Blair, who attended",
+    "note": "7/7 테러 경과와 1주기 추모 행사가 시간순으로 이어지고 블레어 발언 문단이 떼어 쓰기 좋다(테러 소재라 고1 이상).",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72645fc4-19f4-46aa-b62c-068aabadea67",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The U.S. Justice Department, in papers",
+    "note": "비행 기록이 납치 주장을 뒷받침한다는 보도와 법무부의 반론·시리아 측 석방 이유가 맞물려 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72654e57-3e40-440d-91f2-b17ff5f98408",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Mohamed brought the digital clock he",
+    "note": "시계를 폭탄으로 오인해 체포됐고 그 결과 온라인 지지·백악관 초청이 이어졌다는 흐름이 서 내용 일치·순서 칸이 된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7267bd82-6291-49af-955a-2274e54388a1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The rocket carrying the craft, a",
+    "note": "발사 → 궤도 진입해 성공 판정 → 토요일 도킹 예정으로 절차가 이어지는 짧은 우주 화물선 단신이다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "726e563f-03bf-4722-af89-cfd32efe1fbd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ex-CIA agent Gary Berntsen said that",
+    "note": "알카에다 교신 포착과 그 목적(선거 영향)에 대한 전문가 해석이 이유로 이어져 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72713a1d-93c7-434d-bb21-889a59346a48",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to Father Dwraid Brbar of",
+    "note": "납치범이 대주교인 줄 몰랐다가 알고 몸값 없이 풀어 줬다는 이유·결과가 둘째 문단에서 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "727a0290-8bd7-4075-8d2c-fe123dc3c65c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Association says that the condition",
+    "note": "휴대전화 니켈이 피부염의 원인이며 오래 통화할수록 생긴다는 인과와 검사 권고까지 이어져 요지·요약 칸이 선다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "summary"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "727c56a7-a156-4390-b4eb-a2891e17a58c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The man was killed on Saturday",
+    "note": "폭발로 병사가 숨져 전사자 수가 늘었고 가족 통보·대변인 추모가 뒤따르는 짧은 사망 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "727f1d76-e966-41af-a9b7-b5535934793b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In Ontario, provincial police Detective Constable",
+    "note": "놀이터 펜타닐 발견에서 국경 폐쇄로 약값이 올라 섞어 판다는 인과·지원금과 과다복용의 상관 논쟁까지 이어진다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7283ae5b-714b-4d48-9372-86391c81fd92",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "MCOT Plc, which owns the channel,",
+    "note": "방송사가 경고 끝에 프로를 내린 이유와 진행자의 반박이 이어져 양쪽 입장을 가르는 내용 일치 칸이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7287b024-919d-4118-b538-883eea15252f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The accident is currently under investigation.",
+    "note": "앞바퀴 축이 부러져 활주로를 넘었다는 원인 추정과 대피 중 부상, 조사 절차가 이어지는 사고 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7289f5d0-0626-44e3-a0d4-88fb56056a29",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A supplier, National Grid, issued two",
+    "note": "한파로 가스 수요가 늘고 노르웨이 가스전 문제로 경보가 났다는 원인과 소금 절약 대응이 이어진다.",
+    "record": {
+      "genre": "energy",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "728e5fd3-52af-44e0-bcc5-d031354036f3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ten fire crews attended the blaze,",
+    "note": "창고 화재로 세트가 탔고 새 영화 세트는 아직 옮기지 않아 살아남았으며 안전 확보 뒤 조사한다는 흐름이다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72955615-d2ef-4b2e-8e86-7d84d7a273db",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The bookmaker has been taking bets",
+    "note": "교황 선출 배당 순위(1·2·3위 후보)를 차례로 대는 것이 대부분이라 연결이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7295bfaa-568e-4e1d-b65b-891bf68e7daa",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Around ten suspected muslim militants took",
+    "note": "습격 → 방화 → 진화 뒤 시신 발견, 폭죽으로 주의를 돌렸다는 순서가 서나 살해 묘사가 구체적이라 고2 이상 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72978fc3-c347-4326-93b3-18b3475277c1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "New reports say an EEG has",
+    "note": "진정제를 줄여 깨우려 하고 뇌파 활동이 보였으나 그것만으로 손상 정도를 알 수 없다는 의사 해석이 이어진다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "729eb73b-a7ba-4257-8499-385bbf989723",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "News Corporation, owned by Murdoch, owns",
+    "note": "녹음된 발언 때문에 장관이 인수 심사 권한을 잃었고 회사 반발·사과가 뒤따르는 원인·결과·반응이 선다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "72a59deb-4b87-4f44-970f-068d3b25690c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "International migration played a large part",
+    "note": "인구 6천만 돌파 수치를 대고 이주가 증가 원인이라는 한 줄뿐이라 수치를 걷으면 남는 문장이 하나다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V2",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

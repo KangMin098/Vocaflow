@@ -1,0 +1,1073 @@
+[
+  {
+    "id": "76599576-3fbb-4fec-9009-0ef61091f91a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A Canadian government employee of Environment",
+    "note": "환경부 직원이 기후 계획 유출로 체포된 경위(보안부 신고→체포, 팩스 오송→장관 공개)가 이어져 첫 두 문단으로 내용 일치·제목 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "title"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "765c41f3-49b7-46b4-a0e1-a5500df9135b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Haley, who has never lost a",
+    "note": "헤일리 출마 선언과 반대 측 반응, 경력 문단이 시간순으로 이어져 경력 문단으로 내용 일치·요지 칸을 채우며 후보 발언은 취재원 입장이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "765c6102-d1d9-4526-9b39-0a12e06f8d31",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Investigations are underway after the four-hour",
+    "note": "화학 공장 화재가 사망·대피·총리 조사 지시로 이어지고 오염 논란 배경이 붙어 둘째 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "765e3ac4-04f3-40ba-9de6-e6fba850d061",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The benefits change, would effect the",
+    "note": "연금 삭감 결정에 맞선 파업이 학교 폐쇄로 이어지고 노조·지자체 주장이 대립해 연금 규칙 문단으로 내용 일치·요지 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7661c133-4a3e-4e28-9951-460a0a3f1cf0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "It is yet to be confirmed",
+    "note": "지진이 케이블을 끊어 경보가 나고 날씨 탓에 분화 확인이 늦어진 인과가 이어져 셋째 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "76626483-8129-4812-8520-1c4c6b64a727",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The children were reportedly at the",
+    "note": "아이 셋 사망 화재가 수사·양육권 분쟁·살인 기소로 이어지는 사건 흐름이라 양육권 문단으로 내용 일치 칸을 채우되 죽음 소재라 고2 이상만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "long_reference"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7665b75f-30de-4a82-8bc7-b7e92929feec",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "This latest large-scale protest against the",
+    "note": "탁신 반대 시위가 1992년 유혈 사태를 떠올리게 해 평화 행진을 다짐한 연결이 있어 셋째 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "76673d11-c998-4fa7-87b5-b171567a8bdd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Nancy Kanter, the senior vice president",
+    "note": "디즈니 간부가 축제 공연에서 아이들 반응을 보고 계약을 결정한 경위가 이어져 셋째 문단으로 내용 일치·심경 칸을 채운다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "76688626-4b12-46e4-8c79-fe6eac6ef549",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The aircraft was on a training",
+    "note": "훈련 중 수송기가 착륙 접근 중 기울어 추락하고 화재·조사로 이어진 흐름이 짧게 서서 둘째 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7668e587-be90-411a-9fbc-ead145dcdad8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Choi became acting President after then-President",
+    "note": "최규하 전 대통령의 사망 경위와 생애가 시간순 전기로 이어져 대통령 승계 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "766bfade-3f69-4572-a4a9-e3f5002f3e69",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The first shipment of 200,000 PSP",
+    "note": "PSP 출시와 닌텐도 경쟁, 초기 결함→보증 교환이 이어지고 게임 목록·사양은 가공 때 걷어내 첫 네 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "766e74e0-6ee8-4bf2-8ee3-5903de10f71f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Karzai needs to take at least",
+    "note": "개표 득표수·득표율 되풀이가 대부분이고 결선 회피 조건 하나만 이어져 연결이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "767942cc-34cf-4778-8ecd-358e47658ee1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "none",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": true,
+      "strippedRemains": false
+    },
+    "sample": "Strongest earthquake in 40 years hits",
+    "note": "서로 무관한 단신 제목과 한 줄 요약을 묶은 위키뉴스 다이제스트(단신 모음)라 꼭지별로 쪼개 판정해야 한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7679ad45-8ead-4d18-9e18-c89811d990bf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The embassy would not provide visa",
+    "note": "스웨덴 가상 대사관의 역할과 싸게 젊은층에 닿으려는 이유가 이어져 둘째 문단으로 내용 일치·요지 칸을 채운다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "767bb335-30d7-44bd-90e2-af92e35d38e1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "US Secretary of State Mike Pompeo",
+    "note": "국무장관 서한→교통부 규정 발표, 그 이유와 쿠바의 반발, 항공사 유예가 이어져 둘째 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "76817be4-dcb1-4490-ba1d-b41dfbf48984",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The appeal also had exhausted lower",
+    "note": "의무 투표 위반 유죄에 대한 상고가 하급심을 거쳐 기각된 절차가 시간순으로 이어져 하급심 문단으로 내용 일치·요지 칸을 채운다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V8"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7688f117-7f42-4745-9511-dc6742c936eb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The virus, A/H2N2, was detected",
+    "note": "캐나다 연구소 발견→보건청→WHO 경고→폐기 촉구로 이어진 흐름이 서서 발견 문단으로 내용 일치 칸을 채우며 첫 줄 편집 안내는 걷는다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "768b0945-8dc3-4afb-a241-eda78e26a4ce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Mugabe co-founded the Zimbabwe African National",
+    "note": "무가베의 생애가 해방 투쟁·집권·토지 몰수·실각으로 시간순으로 이어져 해방 투쟁 문단으로 내용 일치·장문 칸을 채운다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "long_reference"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "768bbeec-b51c-426b-ba7f-33b3fef75db2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In a reference to the recent",
+    "note": "차베스·하메네이 회동의 협력 다짐과 발언 나열이 대부분이고 순방 순서 하나만 이어져 연결이 가늘다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "768c35d6-1ae9-4461-9c8c-13a2f1740b64",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In an address to the ongoing",
+    "note": "고이즈미 사과 발언을 옮기고 첫 사과라는 사실만 덧붙인 짧은 글이라 연결이 하나뿐이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "76921f13-5c7c-4ac2-a1e4-13cd7f37570f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "His party finished third in the",
+    "note": "선거 3위→지도부 신임 소문→사임과 후임 소문이 인과로 이어지고 경력 문단이 붙어 셋째 문단으로 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "769903a5-e24e-412c-b42f-9eb400b556f9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The ATSB said the manufacturing fault",
+    "note": "엔진 제조 결함이 균열·유류 화재 위험으로 이어져 항공사 점검을 부른 인과가 서서 셋째 문단으로 내용 일치·요지 칸을 채운다.",
+    "record": {
+      "genre": "engineering",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "769c6c7a-88fa-489c-a49c-877688eb2e20",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The attack occurred shortly before 02:00",
+    "note": "무장 세력 습격→탈옥→총격전 사망→추적 작전으로 이어진 사건 흐름이라 둘째 문단으로 내용 일치 칸을 채우되 폭력 소재라 고1 이상만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "769cf16e-1ace-48e1-9953-d1e9b9c9d4ff",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Tom Cruise this week took the",
+    "note": "생일을 맞아 셰프를 비행기로 불렀다는 일화 하나뿐인 76어 단신이라 연결이 하나다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "769e8540-808f-48fe-922f-766686459f35",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Women's right activist Kirti Singh told",
+    "note": "아동 성폭행 사건→전국 시위→사형 도입 조례와 사형 억지력 반론이 이어져 반론 문단으로 요지·내용 일치 칸을 채우되 성범죄 소재라 고3·성인만 둔다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V8"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  }
+]

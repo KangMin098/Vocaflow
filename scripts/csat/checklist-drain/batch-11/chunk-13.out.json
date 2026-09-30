@@ -1,0 +1,1097 @@
+[
+  {
+    "id": "74bd0b6a-3502-4fd8-804b-dfd2553f8bce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Philipp Freiherr von Boeselager, the last",
+    "note": "보셀라거 부고는 음모 가담·히틀러 증오의 계기 하나만 이어지고 나머지는 경력 사실 나열이라 연결이 가늘다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74be033f-6a03-4531-b19d-49bb580f0c5b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "YouTube user Chris Crocker experienced instant",
+    "note": "크로커 영상 게시가 언론 관심과 채널 조회 급증, 후속 영상으로 이어지는 흐름이 서 내용 일치 칸을 채운다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74bfe3cb-bf06-483c-9b25-22840f870d85",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Internet TV came one step closer",
+    "note": "Joost 계약 기사가 P2P 방식이 인터넷 TV 배포를 효율화하는 까닭까지 설명해 요지·요약 칸이 선다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "main_point",
+          "summary",
+          "content_match"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74c0d8c6-7e58-4a72-98a8-25f1d8d5b309",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The UN mission in Haiti on",
+    "note": "아이티 기자 피살과 유엔 규탄, 방송국 협박 전화·갱단 폭력 배경이 원인·반응으로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74c1ba1d-e88f-4555-addd-caff48707a8d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "At least nineteen people have been",
+    "note": "라타키아 시위 다음 날 진압이 시작되고 국영 방송이 이를 부인하는 원인·반응 흐름이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74c3977e-24a7-460a-997c-32ba71e8e95c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Each year on Memorial Day Weekend",
+    "note": "팬아니메 행사 기사는 코스프레가 미국에서 드물어 행인이 의아해한다는 까닭 등 연결이 여럿이다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74ce04fa-7872-43c4-98f4-800da625198f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In the city of Riyadh, Saudi",
+    "note": "아랍어 검색엔진 단신은 인터넷 보급이 낮아 해외 아랍 사회를 노린다는 연결 하나뿐이다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74d00f86-b49a-4081-9a3a-4f50d9480208",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Countess Andrée de Jongh, who as",
+    "note": "드용이 탈출로를 조직하고 체포·수용소를 거쳐 해방·서훈되는 생애가 시간순으로 이어진다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74d0aa63-c01a-4dec-8e26-bcd12bd92545",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "NASA confirmed on Monday an object",
+    "note": "배터리 팔레트 방출부터 재진입·주택 관통·나사 회수 분석까지 원인과 절차가 차례로 선다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74d53e27-7b8b-482a-bcaa-3bf6dab54d09",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "More than 400 senior managers within",
+    "note": "BBC 급여 동결이 수신료 부족과 신용경색에서 비롯되고 노조 반발을 부른다는 인과가 선다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74da2dc2-5a0e-4b0c-9978-119f05574a0b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A death, which has been treated",
+    "note": "브리스틀 살인 단신은 사건 뒤 두 명 체포라는 연결 하나뿐이고 나머지는 장소·보도문 인용이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74dc1707-d9d0-4c2b-b01b-e6e4624d2d76",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The programmer, activist, and early Reddit",
+    "note": "스워츠 사망 보도는 기소 뒤 무죄 주장 하나만 이어지고 나머지는 경력 나열이며 자살 소재라 고2 이상 칸이다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74dcec0c-53b0-4eba-9999-f98ea55b1c39",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The legality of speeding and parking",
+    "note": "관할 이관 때 법 개정 누락으로 벌금이 무효라는 주장과 관청·야당 반응이 인과로 이어진다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "74df541f-d94e-4162-95bf-6d9bea0af124",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Cassini Spacecraft has taken images",
+    "note": "타이탄 레이더 영상에서 호수의 액체 여부를 확신하게 된 근거와 성질 설명이 한 흐름이다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74e333dd-0a4e-4f6f-b420-1d9a82493b06",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Today, Wales extended the prohibition on",
+    "note": "웨일스 흡연 금지 확대의 목적·반대 논리·장관실 문답이 주장과 이유로 이어져 주장 칸이 선다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "claim",
+          "main_point",
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "74e56628-806b-4f07-ba4e-a71b6ef889b0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Chinese government has said that",
+    "note": "중국 홍수로 가옥 붕괴와 이재민이 생기고 강우량이 십 년 만에 최고라는 원인·결과가 선다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74e6726a-2e5b-45d4-8c47-4c068ce85000",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Dutch Minister of Justice, Piet",
+    "note": "돈너 장관의 샤리아 발언이 당내 반발과 사과·입장 재확인으로 이어지는 반응 흐름이 있다.",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74e959e9-e51a-4cad-92e1-34c62867c724",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Salt Lake City (Utah) resident and",
+    "note": "해킹 사건은 거짓말 발각이 살해 동기가 되고 자백·수색으로 이어지며 살인 묘사라 고2 이상이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "order"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74ea8922-09be-451a-b2f3-c621121c1121",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A car crash in the British",
+    "note": "레스터셔 충돌 사고는 도로 폐쇄라는 결과 하나만 이어지고 나머지는 희생자 나이 나열이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74f183a1-55cb-4253-b189-466619b9d6a7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Wild gorillas were seen using tools,",
+    "note": "야생 고릴라 도구 사용 관찰이 도구 사용의 진화 시점에 대한 함의로 이어져 요지가 선다.",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74f4f660-6724-4f5e-a630-20a1cc6f08d4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A new history textbook for middle",
+    "note": "한중일 공동 교과서가 역사 교과서 갈등에서 나온 배경과 쟁점을 설명하며 목록은 가공 때 줄인다.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "main_point",
+          "summary"
+        ],
+        "levels": [
+          "V7"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74f5ab75-37f3-4cf2-b6f4-f586609baab2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Wednesday, US President Donald Trump",
+    "note": "트럼프의 최후 경고와 하마스 직접 접촉 정책 전환, 백악관 해명이 이유·반응으로 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74f67959-8e35-4084-945e-14f4aecbeedd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to the United States military",
+    "note": "치안 개선이 교체 없는 철수의 이유이고 더 나아지면 추가 철수라는 조건 연결이 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "74f71cfd-8030-499d-ab5b-c8fcd1900e82",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A spokesperson for West Yorkshire Police",
+    "note": "가게 주인 살해 뒤 시민 제보로 체포가 이뤄지고 경찰이 추가 제보를 요청하는 절차가 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "75035a23-3f3a-4c66-a5ff-f1dbddfe93b4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Recently Wikia, a commercial company co-founded",
+    "note": "위키아 광고 확대가 커뮤니티 이탈 논의와 광고 차단 권고로 이어지는 원인·반응이 여럿이다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

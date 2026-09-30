@@ -1,0 +1,1033 @@
+[
+ {
+  "id": "7566ea7b-8cc3-41e0-8966-b971fdb52528",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "According to a report from the",
+  "note": "폭우 속 주택 붕괴와 부실 건축 원인·사상자 수습이 이어지는 재난 단신이라 내용 일치 칸을 채운다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7567a1c4-bacd-424c-a401-d128e8ca599d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In 2006, the fate of HBC",
+  "note": "허드슨스베이 회사 매각 경위와 새 소유주의 계획이 원인·다음 절차로 이어져 내용 일치 칸이 선다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7571a860-c12e-4dc0-a52a-987fc9218f9f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Dublin based Doughmaster will open the",
+  "note": "매장 개설 계약과 운영 절차 하나만 이어지고 나머지는 회사 연혁·경쟁사 매장 수 나열이다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7578f272-7f8e-4468-87cd-78f0785096c4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Reports suggest that the bus crashed",
+  "note": "버스 전복 경위와 타이어 파손 추정 원인·구조 과정이 시간순으로 이어져 내용 일치 칸을 채운다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75792307-ff5c-4da5-8491-b80e6e5b01c9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Some of these owners have received",
+  "note": "의심 가루 배달 → 예방 항생제 → 음성 결과로 이어지는 짧은 단신으로 연결이 둘 이상 있다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75792dca-2dac-4d25-8fd1-560c614d8a60",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Before they opened the collector, Brownlee",
+  "note": "혜성 먼지 채집기를 열어 본 과정과 과학자들 반응이 이어져 내용 일치·심경 칸을 채운다",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "mood"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "757e53f3-2c7a-4d13-baed-7e131be4c404",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The purchase follows acquisitions of other",
+  "note": "인수 발표 뒤 승인 절차 하나만 잇고 나머지는 금액·회원 수·트래픽 수치 나열이다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7583f8ee-a70e-48d8-8636-770dc25ef28c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The violence erupted after police shut",
+  "note": "사원 폐쇄가 분노와 충돌을 부른 원인·반응 흐름이 서는 보도로 한쪽 선동이 아니다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "758bd9ab-7d23-461f-bfd6-d2e584ff2358",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "United Press International (UPI) reports that",
+  "note": "전쟁 예산 전용과 익명 관리의 반응 하나만 이어지는 두 문단 단신이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7593a730-8e35-4eac-93cb-b89aa51ff231",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "none",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": false
+  },
+  "sample": "He is most known for his",
+  "note": "배우 사망·출연작·출생·결혼 사실만 나열되고 문장 사이 연결이 없다",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7594b363-2d8d-4a68-aeaf-14b5eddd5d5a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "none",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": false
+  },
+  "sample": "Ella Nathanael, Greek actress died yesterday",
+  "note": "두 문장짜리 부고로 사망·출생지·활동기만 나열해 문장 사이 연결이 없다",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7597fdcd-9df4-417a-90a2-68e4c6bcf041",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The latest understanding of events is",
+  "note": "총격 경위와 책임 주장·정치권 반응이 이어지는 사건 보도로 폭력 묘사가 있어 고등 이상 칸이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7598ccc7-c360-4c0d-9f2f-916908f17680",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Bob Murray, the mine's co-owner, said",
+  "note": "마지막 시추 결정과 가족들의 반발이 이유·반응으로 이어져 심경·내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "mood"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "759ea198-5cf4-420a-b17e-823e007a864f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The last complete US government shutdown",
+  "note": "막판 예산 합의 경위와 셧다운 제도 설명이 이어져 내용 일치 칸을 채운다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75b42721-8ae3-48d6-aa66-5b8c96f169db",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Some areas of New Jersey had",
+  "note": "폭우 피해와 비상사태 선포 이유 하나만 잇고 나머지는 주 이름·사망자 수 나열이다",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75b69fbd-71f3-4db1-ba6f-a8a96393c4ce",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "It remains unclear who is responsible",
+  "note": "모스크 폭탄 테러 뒤 책임 공방과 총리 반응·애도일 선포가 이어지는 보도다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75b6f021-3e41-47b4-90a2-2af1856d4aca",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Brigadier-General David Fraser, the Canadian commander",
+  "note": "오인 사격 경위와 조사 명령·지휘관 설명이 이어져 내용 일치 칸이 선다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75ba6c39-3b73-4274-88a1-1a9ec270c3ff",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The official who informed the press",
+  "note": "연설 예정 보도와 추측·당사자 발언이 되풀이되고 이어지는 사건은 지지 관계 하나뿐이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75bad6e1-0be7-445f-b1ff-dbb96f18c3c8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Iran has responded to Mofaz's statements",
+  "note": "공격 발언 → 이란 반발 → 미국 외교 촉구로 이어지는 반응 흐름이 서는 보도다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75bd4884-2dce-4594-b239-4e1c35510d75",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "none",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": false
+  },
+  "sample": "At the top of the list is",
+  "note": "온라인 쇼핑 방문자 수와 증가율만 업체별로 되풀이되는 수치 나열이다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75c07ab4-966e-4a68-9948-e9a6d123e4ec",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Estay's comment was denounced before the",
+  "note": "의원 발언 → 단체 고발 → 해명으로 이어지는 논란 보도이나 비속어 인용이 있어 성인 칸만 둔다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75c1132b-bd54-4c0b-a984-e194096cb732",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "It is not known what caused",
+  "note": "다리 붕괴 뒤 구조·원인 조사·우회 안내가 이어지며 정류장 목록은 가공 때 걷어낸다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75c2a919-9c39-4de5-aa62-7be9578e275b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Los Angeles Times reports that",
+  "note": "학교 개교식에 가던 차량 폭탄 테러 경위와 목격 증언·책임 주장이 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75c4e5d2-0393-4519-9b78-67ab1d833955",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Reports from witnesses state that after",
+  "note": "전쟁기념관 총격부터 의사당 진입·사살·봉쇄까지 시간순으로 흐르는 사건 보도다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75c4f80a-4ae2-42c2-bb72-af4288667570",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The scientists from the University of",
+  "note": "원자력 연구 주장과 근거, 환경단체 반론이 맞서 주장·요지·내용 일치 칸을 채운다",
+  "record": {
+   "genre": "energy",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ }
+]

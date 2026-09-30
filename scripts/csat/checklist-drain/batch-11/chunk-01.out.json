@@ -1,0 +1,1173 @@
+[
+  {
+    "id": "7102f981-ac8a-457f-91f1-702ead43ec42",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Earlier today, an Atlas V rocket",
+    "note": "발사 연기 이유·비행 경로·핵연료 우려가 한 흐름으로 이어지는 탐사선 발사 기사다. 명왕성을 아홉째 행성이라 부른 구절은 가공 때 걷는다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71035bfb-531c-490b-8505-d5604b78d35a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The comments were first raised with",
+    "note": "장관의 부적절한 발언 → 사퇴 요구 → 사과 → 불신임 동의 부결로 반응이 이어진다. 자살 시도 소재라 고등 이상 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7103b055-6aa3-46b0-a162-ac150ea5f08e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "PASOK, founded by the popular politician",
+    "note": "총선 패배가 당수 경선으로 이어졌다는 까닭과 후보·유세 소개가 선다. 마지막 문장 마침표가 빠졌을 뿐 끊긴 글은 아니다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71051847-9fef-4171-a424-002c8fff306d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Rescue efforts have been further hindered",
+    "note": "실종기 수색이 비·지형 때문에 막히고 총리가 포상금을 내건 반응까지 사건 흐름이 선명한 추락 사고 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7108acef-ded7-4298-9495-10dd0ec7cf4e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "TV shows are transmitted using a",
+    "note": "휴대폰 TV 시범 서비스와 DVB-H 기술이 긴 방송에 맞는 까닭이 설명된다. 채널 이름 나열 문단은 가공 때 걷는다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "710c95f9-5080-4e7a-80ad-3560b2e72028",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Martinez is best known for attending",
+    "note": "알몸 등교로 유명해진 학생이 퇴학·정신질환·수감 끝에 숨진 경과가 시간순으로 이어진다. 자살 소재라 고등 이상만.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71132cb6-4f85-41d9-bfcb-e9a921b9c1e9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A group of scientists at the",
+    "note": "부트 졸로키아 고추의 매운맛이 줄어든 원인으로 교잡과 재배 방식 변화를 드는 짧은 과학 소식이다. 원인-결과가 분명하다.",
+    "record": {
+      "genre": "agriculture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7114d32c-73ec-40d0-82ff-c6cac2c21711",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Voter turnout was low, mostly because",
+    "note": "보궐 예비선거 결과와 낮은 투표율의 까닭(시기·추위)·후보 반응이 이어진다. 후보 연설 인용이 많아 문단을 골라 쓴다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7119ee1a-41dd-4f95-b0de-7f897e01ab2b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to NASA, the gouge was",
+    "note": "우주왕복선 날개 손상 발견 → 평가 절차 → 수리 불가 시 대안까지 원인·다음 절차가 이어지는 기사다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "711ac106-930e-4f88-a113-60a87f59e3f6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United Kingdom and France have",
+    "note": "나토 헬기 투입과 그 명분(민간인 보호·유엔 결의)·리비아 정부에 대한 압박이 까닭으로 묶인다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71234b75-d735-42a5-b45f-38b1c483bda0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "About 200 cars were burned by",
+    "note": "차량 방화 → 경찰 출동 → 투석 → 진압 → 70명 체포로 사건이 이어지는 87어 단신이다. 상점 유리창 문장은 중복이라 걷는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V2",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7123df33-8273-4194-9d78-e406e5869653",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Indonesian Health Ministry has stated",
+    "note": "조류독감 의심 가족 군집 입원과 검사 대기·살처분 계획·5월 사례와의 관련이 한 주제로 이어진다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7125e437-6ad4-4308-b9ff-10281e6dfaf3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "After official results are published (on",
+    "note": "대통령이 네타냐후를 고른 두 까닭과 연정 구성 절차 설명이 선다. 의석수 계산 문단은 가공 때 줄인다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71263a89-570c-4dc4-8f36-38a7ee8162f3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Nicole John, the daughter of Eric",
+    "note": "대사 딸의 추락사 경위와 세입자 체포·위조 신분증 쟁점이 원인-결과로 이어진다. 음주·사망 소재라 고등 칸만 둔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "712759bf-66cb-4c8a-83df-bcdbfb18e5a9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Yakutia Flight 478 departed from Vnukovo",
+    "note": "이륙 20분 뒤 기체 이상 → 회항 결정 → 연료 소모 선회 → 무사 착륙의 절차가 선다. 둘째 문단 앞 인용문이 빠져 있어 그 문단은 쓰지 않는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "712aee35-6250-40af-9e39-405cb5ee9052",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "At an interview in Sydney, Mr",
+    "note": "실업률 30년 최저를 두고 정부는 노사관계 개혁 덕, 야당은 장기 성장 덕이라 맞서는 주장-반론 구조가 선다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "712f4001-3387-4edf-8875-0dfbaae1d8ac",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "This move is in response to",
+    "note": "미국 쿼터에 대응한 중국 수출관세 인상과 무역 불균형·위안화 논쟁을 설명한다. 뒤쪽 중국 경제 배경 문단은 따로 떼어 쓸 수 있다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "712fb924-d5af-4eba-9ddf-f5ad431ad1f5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Freelance writer Jill Carroll, currently working",
+    "note": "기자 납치와 통역 사망·편집장의 석방 호소가 이어지는 짧은 속보로 사건과 반응이 함께 선다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7135b6ae-72c1-46f9-a79a-37e26f904db6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to the police, a 20-year-old",
+    "note": "박물관 공룡 모형 도난 → 페이스북 제보 추적 → 회수 → 생일 장난이었다는 경위가 이어지는 가벼운 사건 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "elem",
+          "mid",
+          "high1"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V4",
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "71388e8c-4b63-4ce9-b5c5-d4b1c1c8203e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Delegations from every region of ex-Yugoslavia,",
+    "note": "티토 25주기 참배 기사로 추모 사실 하나에 방문객 소개·인용이 나열된다. 문장 사이 연결은 기일과 참배 하나뿐이다.",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7138a264-9421-4cea-b2ab-47fff0352ee2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thorning-Schmidt plans to increase taxes, invest",
+    "note": "덴마크 중도좌파 승리로 첫 여성 총리가 나오고 현 총리가 사임을 밝히며 새 정부의 정책 계획이 이어진다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "713afdad-ebe1-4ef5-b434-82b9ce4d74c8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "As a result of the terror",
+    "note": "다이애나 추모 공연이 테러 직후라 보안이 강화됐지만 관객이 몰린 경과와 수익 사용처가 한 흐름이다.",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "713bc40b-052d-4c17-9ea6-cf093c85cf82",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Judge Chertoff has been approved by",
+    "note": "국토안보부 장관 지명 단신으로 전임 후보 사퇴가 안전한 인선의 까닭이라는 연결 하나에 경력 소개가 붙는다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "713c159d-7578-424b-8fbc-4fbab2634f4e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The British Board of Film Classification",
+    "note": "영국 등급위원회가 잔혹 영화의 등급을 거부한 이유를 인용으로 설명한다. 성적 가학 언급이 있어 성인 쪽 칸만 둔다.",
+    "record": {
+      "genre": "art",
+      "slots": {
+        "ages": [
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "713c8a44-bdbb-4067-b24b-4ff4130c435f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "This encounter will provide a critical",
+    "note": "메신저호 수성 근접비행의 목적(중력 도움·자기장·핵 크기 탐사)을 까닭과 함께 설명하는 과학 기사다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V6",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

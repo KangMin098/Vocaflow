@@ -1,0 +1,767 @@
+[
+ {
+  "id": "72e3c0bf-225d-4704-ab17-8a3165ca9ba7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The video contains no sound and",
+  "note": "9/11 납치범 영상 보도로, 소리가 없어 입 모양 판독을 시도했으나 실패한 흐름과 영상 입수 경위가 이어져 내용 일치 칸을 채운다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72e4743b-7074-4dd3-815f-5e8e8524397b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "While largely symbolic, the tribunal plans",
+  "note": "집행 권한이 없는 법정이 배상 권고와 국제기구 제출을 택했다는 까닭-결과가 서고 고문 증언이 있어 고등 이상 내용 일치 칸이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72eca380-b7c4-4815-ae81-8df03e090304",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Many believe this new ban is",
+  "note": "이란의 서구 영화 금지와 그 배경(강경파 달래기)·우려(자기검열)가 짧게 이어져 요지와 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "topic"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72f0c09e-542d-4b42-b648-65a1c8063221",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The company structure remains unchanged and",
+  "note": "헝가리 국영기업의 방산업체 인수 경위·대출 조달·비판이 이어지나 「He noted,」 뒤 인용 한 곳이 빠져 가공 때 그 문장을 걷는다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V7",
+     "V8"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72f1b7b3-1580-41af-b15f-04cd38dee49b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Two areas on Devon Island about",
+  "note": "데번섬 백악기 화석에서 대륙 이동으로 섬이 따뜻한 남쪽 바다에 있었다는 원인 설명이 서서 과학 내용 일치 칸을 채운다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72f4a64f-2433-4fca-8f32-2674be41d847",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In the case of bacteria and",
+  "note": "스트레스 호르몬 NPY 가 면역세포를 억제하는 기전과 운동선수·직장인 사례가 인과로 이어져 요지·요약·빈칸 칸이 넉넉하다.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "summary",
+     "blank",
+     "content_match"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "72f6b5cb-a5fd-40c1-8d9a-8a9414b35fc5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Yes so: so AB Aurigae is",
+  "note": "원시행성 원반의 나선 꼬임이 행성 형성의 간접 증거라는 설명이 문답 전체에서 인과로 이어져 과학 설명·요약 칸을 채운다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "main_point",
+     "order"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72f92ff2-445a-4a8b-bfda-eb79f1b5b5dc",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Those killed — 35 of whom were",
+  "note": "잠긴 비상구로 노동자가 갇히고 톱 정비 불량이 불을 냈다는 원인과 소유주 체포라는 결과가 이어져 사건 서사·내용 일치 칸이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72f9a42f-bf42-4133-9dd8-f46b81beb83b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Several seconds later, he shouted \"God",
+  "note": "설교 중 일어나 총을 쏘고 외친 뒤 자폭한 순서와 지역 정세가 짧게 이어지는 단신이라 내용 일치 칸 하나로 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72faa144-2139-4d9f-aa06-bbad62558cbb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": true,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": false,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "After the vandalism, French politician Jean-Luc",
+  "note": "「Hidalgo tweeted, saying,」「written, and.」처럼 인용이 통째로 빠진 채 문장이 끝나 본문 일부가 사라진 불완전 원천이다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72fbe99c-5f77-48ee-935c-b7afcf7fc5ec",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Mamata Sharma, chair of the Indian",
+  "note": "성폭행 사건과 체포·물건 회수·대사관과 여성위원회 반응이 이어지며 소재가 무거워 고2 이상 칸만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72fd4384-3ea2-45f1-93fb-8e0f7ad48598",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "It is the second explosion in",
+  "note": "메탄 폭발로 광부들이 일산화탄소 중독돼 이송되고 기술자가 해임된 인과·반응이 이어져 단신 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72fdf7ec-e937-412c-ab49-6e11e4122662",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "\"Kiwi 1960\" could be charged with",
+  "note": "살해 위협으로 삭제된 블로그가 다시 열리고 형사처벌 가능성에 대한 교수 반론이 이어져 인과·반응 흐름이 있다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "72fe7df5-ed42-4184-be0a-297649357ce1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "After several days of fighting, during",
+  "note": "교전 뒤 그바그보가 벙커로 피신하고 휴전·항복 협상에서 안전 보장을 요구하는 절차가 이어져 사건 단신 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "730218ff-d983-4c3f-96b3-985f51ff3ab7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "RepuTex has announced this month a",
+  "note": "기업 사회책임 등급 발표로 평가 항목과 등급 순위가 중심이고 CSR 가치를 말하는 인용 하나만 이유로 이어져 연결이 가늘다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "73049bb7-ecfe-45ad-a726-807337695471",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The US had been allied with",
+  "note": "미군 시리아 철수 발표와 쿠르드·공화당 인사들의 반발, 트럼프 반박이 반응으로 이어지며 여러 입장을 함께 싣는 보도다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "claim"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "730d4367-907d-4e18-8ccb-fa68d7542c4b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Hilton recorded and uploaded a video",
+  "note": "매케인 광고가 힐턴을 끌어오자 힐턴이 조롱 영상으로 응수하고 오바마 쪽도 반박한 반응의 사슬이 있는 보도다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

@@ -1,0 +1,1121 @@
+[
+ {
+  "id": "7186ea84-3b93-4068-ad13-e5d8d2b44e66",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Hill wrote that it was this",
+  "note": "조카가 가족 단절 정책을 폭로하고 교회가 반박·압박하는 반응이 이어져 요지와 내용 일치 칸이 선다; 한쪽 입장 보도라 polemic 아님.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "718705e3-8414-424f-8f17-ee4f5e0e9366",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Sunak used the fall in",
+  "note": "임금 동결 이유·해제 계획·야당과 경제학자 반응이 이어지고 수치를 걷어도 정책 논쟁 흐름이 남는다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71875120-7a4e-4a27-a305-ce620478f0c9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Several hundred demonstrators protesting against Chen",
+  "note": "종신형 선고 뒤 시위 반응 한 가지 연결 외에는 경력·배경 사실 나열이라 연결이 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "718d2a78-0b56-4d7b-bbb6-3cc25907afd8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "I started the group Musique",
+  "note": "공연 소개→연주→연주자가 밝힌 결성 이유가 시간순으로 이어지고 결성 동기 문단은 떼어 쓸 수 있다.",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "718dfae0-c218-48fa-bd52-05f9efa6ea08",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Twin car bombs killed 21 in",
+  "note": "77어 폭탄 단신으로 사망·부상 수치와 순례 예정 한 줄뿐이라 사건 사이 연결이 하나에 그친다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "718f14ba-06bf-4479-8ef9-05bc0c0d73dd",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Even though homosexual couples would be",
+  "note": "위원회 권고→교회의 지지 방침→결혼 명칭을 달리하려는 이유가 이어져 요지와 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71900f63-888f-4d09-b99d-85b375611910",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The bomb made a shell-hole",
+  "note": "폭발→탈선·부상→수사 착수→운행 우회로 원인과 결과·다음 절차가 이어지는 사건 단신이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "719238bf-eb5a-4c85-867a-276e429eac46",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Five minutes into the display a",
+  "note": "폭풍 도착→나무 쓰러짐·사망→공황→총리 조사 지시로 이어지고 목격담 문단은 시간순 서사로 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "mood"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7198ac7c-40e8-4b58-b9d0-e20a823beced",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "With a stroke of the pen",
+  "note": "상원 표결 뒤 서명해 네 번째 국가가 됐다는 한 줄 절차 외에는 나라 이름 나열이라 연결이 가늘다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "719bc899-0b8b-44eb-8275-f4214b1031ab",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Reports are saying that the video",
+  "note": "영상 공개와 진위 미확인, 앞선 예고 한 가지 연결뿐이고 나머지는 이름·날짜 사실이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "719d3100-a152-492b-ba7a-167376ae795f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Test results thus far indicate this",
+  "note": "백조 표본 검사→저병원성 판단→확인 검사 예정으로 절차와 이유가 이어져 과학 보도 칸이 선다.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71a8071d-a531-4d23-930f-d6398ea10f5f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The group, which according to MAP",
+  "note": "테러 모의 혐의로 선고한 이유와 모의 내용, 2003년 폭탄 이후 단속 배경이 인과로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71a8850a-5bf0-433f-9b89-bc7d996f76d3",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The problem was caused by three",
+  "note": "제방 붕괴 원인→물막이→배수→양수 순서가 절차로 이어져 순서 배열 칸에도 맞다.",
+  "record": {
+   "genre": "engineering",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71b22776-9ee5-46d2-989b-2b670b2b33b2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The case of a Serbian diocesan",
+  "note": "여론 압박을 이유로 재판지를 옮기고 양측 변호인이 이유·반응을 내놓아 짧아도 연결이 둘 이상이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71b57d43-2fa1-4b12-a936-4496bf0fb7b2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Mr Beattie said he would lead",
+  "note": "연방 정계 진출 의향과 주정부 과제를 우선하는 이유, 후계 구상이 한 흐름으로 이어진다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71b7733e-5819-4cad-8209-9ace77f9bee4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "He also supported the validity of",
+  "note": "제재·무력 반대 주장과 근거(사실 확인 우선)가 이어져 주장·요지 칸을 채울 수 있다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "main_point"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "71c658b6-27d7-41e0-b6bb-531d4bd5bdf1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "States are doing their best to",
+  "note": "건설비 급등→보수 지연→노후화 악순환이라는 인과와 연방 지원 요구가 이어져 주장 칸이 선다.",
+  "record": {
+   "genre": "engineering",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71cc97a6-9591-4439-937d-d8935651f7a3",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": false,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Norm O'Neill, former Australian cricketer died",
+  "note": "부고 두 문장으로 병으로 숨졌다는 연결 하나와 동료의 회고 인용뿐이라 연결이 가늘다.",
+  "record": {
+   "genre": "sports",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71ce7c4a-5cc7-4e96-b2f3-6e19f38cd6e5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The US Navy also said they",
+  "note": "좌초→조사·구조 협조→벌금 조항과 전례로 사건의 결과와 다음 절차가 이어진다.",
+  "record": {
+   "genre": "environment",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71cfcea9-c17f-4fee-a5e5-c5e52a4a26c9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": true,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Although best known for the theory",
+  "note": "본문 대부분이 행사 일정과 연보 나열이고 1905년 논문 설명 문단만 인과로 이어져 연결이 가늘다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71d05e3d-b3ef-492a-ba47-cfd9b42adca9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The troops met some resistance from",
+  "note": "상륙→점령→저항→바카르 도주 소문→남아공 비판으로 사건과 반응이 시간순으로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71d10179-2eb0-480d-b809-abb402855fd6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Until recently, Linux distributions have not",
+  "note": "대중 요구로 우분투를 택한 이유와 편의성 개선 배경, 분석가 반응이 인과로 이어진다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71d1f253-881a-40e5-b6b9-ab9387c671f9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The train was traveling on the",
+  "note": "차가 선로에 진입→열차 정지·가벼운 접촉→운전자 진료·승객 대피로 사건 경과가 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71d29a2d-eace-485a-9c21-f7a68c1805ab",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The three people, who met on",
+  "note": "아동 성학대 유죄 보도로 혐의 목록과 신상 나열이 대부분이고 사건 사이 연결은 온라인 공유 하나라 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71d2ffac-a3f4-421e-8616-1e8dd980c85d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The tenants were not expecting a",
+  "note": "수상한 소포 신고→로봇 개봉→두 차례 폭파→파이프 폭탄 확인으로 절차가 시간순으로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

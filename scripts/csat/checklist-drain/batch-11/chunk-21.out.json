@@ -1,0 +1,241 @@
+[
+  {
+    "id": "770d3965-2a33-4ae1-8e54-1642c61959db",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Amy Scobee: I was 14 years",
+    "note": "사이언톨로지 전 간부가 가입·징벌·탈퇴 경험을 말하는 긴 인터뷰로 한쪽 입장이지만 취재원 발언이라 polemic 이 아니다. 성폭행·성생활 언급이 있어 성인 쪽 칸만 두고 입단 장면 문단을 떼어 쓴다.",
+    "record": {
+      "genre": "memoir",
+      "slots": {
+        "ages": [
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "mood",
+          "long_reference",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": [
+          "claim-evidence"
+        ]
+      }
+    }
+  },
+  {
+    "id": "770fb6a0-e01a-4df3-ba12-2a0c2e05e46c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Sarris attributed his resignation to the",
+    "note": "키프로스 재무장관이 구제금융 협상 불만과 조사 착수 때문에 사임한 까닭과 구제안 내용이 이어지는 기사다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7712bd86-f444-4276-ac2e-9701109a828c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A Colombian passenger jet carrying 152",
+    "note": "엔진 고장 보고 → 착륙 요청 → 교신 두절 → 폭발음 → 전원 사망 보도로 이어지는 짧은 추락 사고 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "7715ad2b-56f5-4e67-93b9-0c5441da40fb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A huge political storm has erupted",
+    "note": "러드의 스트립클럽 방문 논란이 뉴질랜드 야당 대표에게 질문으로 번져 방문을 인정하고 총리가 반응한 흐름이다. 소재상 고등 이상.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "77175c7f-62e5-4bb3-9a05-f2f3afec1a7a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An American inventor has patented a",
+    "note": "색과 달 모양으로 시각을 나타내는 새 시계 형식 특허를 설명하고 비판과 모바일 활용 가능성을 까닭과 함께 든다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "title",
+          "main_point"
+        ],
+        "levels": [
+          "V5",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

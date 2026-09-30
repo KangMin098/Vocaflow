@@ -1,0 +1,1131 @@
+[
+ {
+  "id": "75ca30ba-bd65-40dc-ab41-cccb1130c76c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In a continuing crackdown on tax",
+  "note": "국세청 의혹 제기 → 증권사 반박 → 직원 조사로 이어져 첫 두 문단을 떼면 탈세 의혹 사건이 선다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "order"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75cccfce-2774-413f-99e2-0902eacfc26f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In a press briefing on Wednesday,",
+  "note": "드론 충돌 경위와 미·러 양측 반응이 인과로 이어지며 인용이 많아도 사건 흐름이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V7",
+     "V8"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75cce8b4-db14-4abb-8034-3bdbb65a7f34",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Seven months after suspicions were first",
+  "note": "광우병 확진 지연 경위와 장관 불만·비판 측 반응이 이어져 검사 체계 논란의 요지가 선다.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75cf5402-391c-4525-88bd-a5949d8a498a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "According to a 2002 email exchange",
+  "note": "리눅스로 옮기면 델이 대당 50달러를 번다는 이유 설명이 있어 떼어 낸 인용 문단의 논지가 선다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75d8b05e-cf4a-4b1e-8702-dd7c10ece925",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "US President Barack Obama presented the",
+  "note": "수상자 이름 나열이 절반이고 연결은 부인이 대리 수상한 까닭 하나뿐이라 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75da5a9a-d3c8-46f1-8864-106496dd0247",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "State Police in Lafayette, Louisiana, have",
+  "note": "구조 선단이 되돌려 보내지고 친구들이 세 시간 대기 뒤 귀가하는 경위가 시간순으로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "long_reference"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75df5b49-8652-4653-be38-9ea3be88fda5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Indian stock market ended at",
+  "note": "디왈리 특별 거래의 유래 설명과 외국인 투자 유입 이유를 말하는 인용이 있어 수치 너머 논지가 선다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75e4e7bd-b8ab-404a-b96a-037fb5f68b63",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "NASA completed the first successful space",
+  "note": "날씨로 하루 미룬 발사 → 단 분리 → 회수 순서와 로켓 개발 배경이 이어져 흐름이 분명하다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75eb7bc1-572b-4d5e-8911-6bce37977542",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The launch of Endeavour has been",
+  "note": "낙뢰 11회 → 점검 → 발사 하루 연기와 새 일정이 원인·결과로 이어진 단신이다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75edd00c-23e6-4746-b9d6-72c947c4393f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In findings published on Wednesday in",
+  "note": "사육설을 세우고 미토콘드리아 DNA 다양성으로 야생 포획을 입증하는 추론 흐름이 선명하다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": [
+     "myth-rebuttal"
+    ]
+   }
+  }
+ },
+ {
+  "id": "75f13b62-25f1-478c-906f-17e354c3028b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Russian peacekeepers will stay in the",
+  "note": "무기 밀매 비난과 각 당국의 반박이 이어져 주둔 문제의 쟁점이 잡히지만 배경지식이 많이 든다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V7",
+     "V8"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75f27496-76a9-443d-8f88-dc6342806c18",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "President Bush ended his Middle East",
+  "note": "순방 마무리와 무바라크 지지, 부시의 낙관 이유와 개혁 촉구가 한 흐름으로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75f75780-af95-46bd-9655-d390b75c2411",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Institute of Electrical and Electronics",
+  "note": "새 규격의 특징을 차례로 늘어놓은 단신이라 문장 사이 연결은 하위 호환 설명 하나 정도다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75f7ef3c-a74f-43ea-969b-4c0d37c6254f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": true,
+   "strippedRemains": true
+  },
+  "sample": "BT Global Services this week laid",
+  "note": "매출 전략 기사 뒤에 「In a separate story」로 단말기 개발 소식이 붙어 두 이야기가 한 행에 섞였다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V7",
+     "V8"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75fd4831-0381-4bab-a908-858db4a46dfe",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Shinzo Abe took 66% of the",
+  "note": "고이즈미 임기 만료로 치른 선거와 다수당이라 총리가 될 전망이 이어진 짧은 단신이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "75fe6308-07ff-4c18-a026-f590d1067fc2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Governor of the state of",
+  "note": "통과는 어렵다고 보면서도 원칙 선언으로 법안을 낸다는 이유가 이어져 주지사의 입장이 선다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "purpose"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "7602c5bc-8a13-4307-b18f-df7cf8bea6d4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Yesterday, Swiss tennis player Roger Federer",
+  "note": "세트 점수·에이스 수가 주를 이루고 역전과 부상 복귀 맥락 정도만 문장 사이를 잇는다.",
+  "record": {
+   "genre": "sports",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7607bdc8-26b5-4ee1-b902-f3b9df6f4861",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "A study published this month in",
+  "note": "교회 출석과 비만의 상관을 집단별 비율로 되풀이하고 연구 의의 문장 하나만 이유로 잇는다.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": [
+     "data-claim"
+    ]
+   }
+  }
+ },
+ {
+  "id": "760b81a4-c131-4620-8644-62524bfc3c80",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "A 27-year-old former beauty student from",
+  "note": "마약 반입 혐의 재판에서 증인 진술과 아버지의 심경이 이어져 사건과 인물 반응이 함께 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "mood",
+     "order"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "760c1f4a-8bae-4aaf-944f-936aa6668f6f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "A Virginia recreation and fishing boat",
+  "note": "개체 수 증가 → 재산·위생 피해 → 도태와 경고문으로 이어지는 인과가 분명하다.",
+  "record": {
+   "genre": "nature",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "purpose"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "760c300f-5d16-4051-bf45-0fce895d2436",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Ford Motors Co., the automobile manufacturing",
+  "note": "흑자 전환 수치를 전년과 비교하는 문장이 대부분이고 회장 발언 하나가 이유를 붙인다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "760e2a97-98e3-433b-97df-a6f60b36cac7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The American civilian communications satellite Iridium",
+  "note": "충돌 뒤 교체 계획과 파편 연쇄 충돌 우려가 결과·반응으로 이어져 짧아도 흐름이 선다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "760f0bce-d4c2-47cd-8000-6312fcac7f7d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Lordi, described as \"cartoon metalheads\" wearing",
+  "note": "괴물 가면 밴드의 우승과 밴드의 해명, 다음 대회 개최지 결정까지 결과·반응이 이어진다.",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "mood"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "760f4612-75c1-4940-a8ba-d35532d99d64",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Researchers in the United States reported",
+  "note": "전구세포로 혈관을 키운 실험과 임상 목표·신중론 평가가 이어져 연구 요지가 선다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7614e3bb-4f7d-4372-b3e0-0778098963d8",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The West Jakarta District Court has",
+  "note": "폭탄 사건의 시간순 경위와 감형 사유가 이어진 판결 기사로 연령은 고등 이상만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "csat"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

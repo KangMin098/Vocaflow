@@ -1,0 +1,1113 @@
+[
+ {
+  "id": "74129846-6c46-43d9-b140-d2bfc99de23e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Greenpeace said many IT companies do",
+  "note": "그린피스 보고서의 주장과 모건의 반론이 원인·반응으로 이어져 요지·주장 칸이 서고 수치는 걷어도 논지가 남는다.",
+  "record": {
+   "genre": "environment",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "main_point",
+     "claim",
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "7412ddda-45b5-4605-b21c-d310e22973ad",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The militants' reported new offensive took",
+  "note": "공습 중단이 무장세력 재집결을 낳고 미·러 공방으로 이어지는 흐름이 있어 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7416fd80-33da-452c-8280-4f52bb3e63e1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Tent Embassy calls on all",
+  "note": "원주민 단체가 자기 입장을 말하는 보도라 선동이 아니며 선언·행진·반응이 이어져 주장·내용 일치 칸이 선다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "main_point"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "741a4821-2962-423b-a6c3-35db3a99ec08",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Many Latin American governments, most of",
+  "note": "정직 해제 표결과 미국 퇴장·중남미 환영 반응이 이어져 한 흐름으로 읽히고 요지가 한 문장으로 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "741b5799-c405-404c-aadc-d67e363dba1e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "ETA had been fighting a terrorist",
+  "note": "평화 협상 발표와 야당 반대, 휴전 배경의 까닭이 이어져 떼어 낸 배경 문단이 혼자 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "742b97d6-1f7b-47b9-97a1-f6a0ba07b56e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "According to Democrat claims, over 200",
+  "note": "선거관리위원회 청원과 후보 자격 시비·법원 판결이 원인과 반응으로 이어지나 이름이 많아 걷어 내는 가공이 필요하다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "743018ee-820d-43f5-9bc1-86535160ca3a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The agreement is a far cry",
+  "note": "코펜하겐 합의 발표와 개도국·환경단체 비판, 후속 회의 일정이 반응·절차로 이어져 요지·내용 일치 칸이 선다.",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7433d352-5246-48ae-a466-c856b72c74e7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": true,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In the press release, Wikimedia founder",
+  "note": "마지막 문장이 다섯 위키백과를 표로 보인다고 예고하고 표가 없이 끝나 글이 중간에서 끊겼다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7436e0aa-6797-4c14-8382-4afa55ddcb18",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The conflict is thought to be",
+  "note": "불법 파티 체포가 경찰서 습격으로 이어졌다는 원인·결과가 있어 짧은 사건 단신으로 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7437d214-7fe3-4576-b51a-0232000ff4e5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "None of the 'hacks' have yet",
+  "note": "브라우저 우회와 그 파생 해킹의 경위·까닭이 이어지며 끝의 링크 제목 줄은 가공 때 걷는다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "order"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "743c958b-5b1a-487f-b891-b5c5f636ed96",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "At 8:07 am local time on",
+  "note": "오경보 발송 경위와 비판, 재발 방지 절차가 원인·반응·다음 절차로 이어져 요지·순서 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744041c3-4131-4cf1-9d64-998f9858ee4c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The tsunami hit the Gambier archipelago",
+  "note": "지진이 쓰나미를 낳고 각국 경보·대피 권고로 이어지는 흐름이며 끝의 그림 안내 한 줄은 걷으면 된다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "74471803-98fb-441c-8045-a9f114d10a57",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Meanwhile, Egyptian President Hosni Mubarak has",
+  "note": "압바스의 호소와 미국·이집트·이스라엘 반응이 이어져 각자 입장을 말하는 보도로 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744b4245-3b09-4698-b57d-d9fbe69b4656",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Toyota is still at risk of",
+  "note": "결함 은폐 벌금과 소송 위험, 상한 규정의 까닭이 이어져 수치를 걷어도 벌금의 의미가 문장으로 남는다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744b80f4-1089-4b3a-8291-9d5d34ff6704",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "An aiplane from the Patrulla Aerea",
+  "note": "측풍에 밀려 추락하고 조종사가 뒤에 숨진 사건 흐름이 짧게라도 이어져 단신 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744b973d-38bd-403a-9111-8eaa442b8ccb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The dispute surrounds stall warning systems.",
+  "note": "실속 경보 설계 논쟁의 원리 설명과 조사 당국 반응이 이어져 떼어 낸 설명 문단이 혼자 선다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "insert"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744edefc-4429-4dc0-8a16-16666e2f77e5",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Following a threat by the Australian",
+  "note": "경쟁위원회 압박으로 값이 내렸다는 연결 하나 뒤는 지역별 휘발유 가격 수치만 바뀌어 되풀이된다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744f40aa-d9fb-44b7-aa5f-b468f0b7942a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Ms Greer had been criticised by",
+  "note": "발언 비판이 취소 청원으로, 청원이 경비 속 강연과 시위로 이어지는 흐름이라 양쪽 입장을 전한 보도로 선다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "744fb222-b0dc-419f-a784-c5f4e51a1d1a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "A wax model of British singer",
+  "note": "밀랍상 공개 사실에 부모 참석 까닭 하나가 붙고 나머지는 외모·문신 특징 나열이라 연결이 가늘다.",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7450f7e0-a2e9-4fb8-848a-18fbeb13454c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Micky Rosenfeld, a foreign press spokesman",
+  "note": "가방 속 장치가 버스 통과 때 터져 사상자가 났다는 원인·결과와 대응이 이어져 단신 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "74520d64-4e1d-45f6-bf8f-ddbd32fa395b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "According to the statement, the cause",
+  "note": "추락 발표 뒤 원인 조사 중과 신원 비공개 까닭 하나만 이어지고 나머지는 누적 사망자 수치라 연결이 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7456f9a5-9dc7-4f38-a871-0cd002498a80",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Louis Gérard Gilles, a former Lavalas",
+  "note": "본인 출석 규정으로 등록이 거부되고 소송·보이콧 가능성으로 이어지는 원인·결과가 있어 내용 일치 칸이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "74581736-0ed9-4470-9dba-e701aca97892",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "While naming 65 new species of",
+  "note": "지도자 이름을 붙인 까닭이 인용 하나로 서고 나머지는 서식지·다른 이름 출처 나열이라 연결이 가늘다.",
+  "record": {
+   "genre": "science",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "746003fb-bd0c-4765-9293-3044eddf424c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Moore's father, a detective sergeant, came",
+  "note": "출생부터 배우 데뷔·본드 배역·유니세프 활동까지 시간순 전기라 서사·내용 일치 칸이 선다.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "long_reference",
+     "order"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "74611274-4a0b-4391-bab8-0ded95da1a68",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Watts was driving a coach carrying",
+  "note": "졸음운전이 전복 사고를 낳고 배심원 유죄 평결과 선고 일정으로 이어져 짧아도 사건 흐름이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

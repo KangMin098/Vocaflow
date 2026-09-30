@@ -1,0 +1,1157 @@
+[
+ {
+  "id": "71406e9f-9d9b-46da-8845-a8e54c9af922",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Gaga tells her fans to not",
+  "note": "웨스트보로 교회 시위 예고와 가가의 대응 호소가 반응으로 이어지며, 혐오 발언 인용은 가공 때 걷어야 해 고1 이상 칸으로 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71427eac-9d69-4df2-abfc-43b014538b34",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The economy was a large focus",
+  "note": "스페인 총선 결과와 경제·ETA 테러가 선거에 미친 영향이 인과로 이어져 경제 쟁점 문단을 떼어 쓸 수 있다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "order"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71446c81-ac88-41e6-8e84-e85ce3b9f1ea",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "According to Gabon's constitution, the president",
+  "note": "봉고 대통령 사망 발표에서 헌법상 권한대행과 45일 내 선거라는 다음 절차로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "714cc942-862b-4a77-b7ba-75d3174a15cb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The ruling, which also applied to",
+  "note": "첫 낱말(주어)이 빠진 채 시작하고 여행 허가라는 결과 하나만 잇고 생일 공연·북한 명단 해제가 따로 붙어 연결이 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7153a3a6-6ddb-4f87-849e-a8300f306d73",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Education - Parents should not have",
+  "note": "녹색당 후보의 한쪽 입장 인터뷰로 보건·교육·기후 정책 문단마다 주장과 근거가 짝지어 있다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "claim",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "715401a5-5e5c-4e58-b6fb-cedf9b0eb6d2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "However, less than a minute later,",
+  "note": "경비원이 자리를 비운 뒤 남자가 저지선을 넘는 과정이 영상 순서대로 이어져 순서 배열 문단으로 쓰기 쉽다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "715629fb-7ce9-4410-84bf-71d7007bc4d9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Gray's conviction and death sentence were",
+  "note": "강간·살인 유죄에서 상소 기각·대통령 승인으로 이어지는 절차가 서지만 범죄 소재라 고2 이상 칸으로만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7156b8b4-5868-4e01-aece-7824c3387e8d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "She was born Dolores Gonçalves Costa",
+  "note": "68어 부고로 사망 원인 하나 외에는 출생·경력 사실만 이어져 연결이 가늘다.",
+  "record": {
+   "genre": "biography",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "715771f2-76a4-4c20-81e6-bdfd6dea1c89",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The deaths were mainly caused by",
+  "note": "폭우가 홍수를 낳고 가옥 붕괴·차량 고립이 사망 원인이 되는 인과가 짧은 단신 안에서 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "715cd084-bfa2-490d-8bcd-d2174cf18e05",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Unseasonably warm weather and wind gusts",
+  "note": "가뭄·고온·강풍이 산불 위험을 키운다는 원인 문단과 주·연방 대응 절차가 한 흐름으로 이어진다.",
+  "record": {
+   "genre": "environment",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "insert"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71645b32-5159-465f-b1cd-11029311bd5b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The body was determined to be",
+  "note": "시신 발견과 신원 확인·타살 혐의 없음만 되풀이 보도해 사건 사이 연결이 하나에 그친다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "716497bf-5472-4a8e-8dff-1eba054a5d52",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Low cloud and fog has prevented",
+  "note": "헬기에서 내리다 미끄러져 추락하고 안개로 수색이 늦어져 이튿날 수습하는 경과가 순서대로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "716a4f0b-cacd-45a9-8cc7-0f87c38354b9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In comments to the court, Karadzic",
+  "note": "카라지치의 전범 부인 발언을 보도하고 생존자 반응 하나로 맺어 연결이 가늘며 선동 인용이 대부분은 아니다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "716a5887-d02b-40e8-8ec7-348d8356cc56",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The images from the plane was",
+  "note": "카트리나 항공사진 공개를 알리며 촬영 목적 한 가지만 이유로 붙고 나머지는 장비·접속 경로 설명이다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "716a5b6e-07f7-47d5-9ff0-3be53ab30c4b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The reports state that the Church",
+  "note": "허위 구인 광고 의혹 수사가 압수수색으로 이어지고 교회가 반박하는 반응이 붙어 흐름이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "716bb519-5b45-40a7-b7ef-07c3a756c7ca",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Police have detonated a suspicious package",
+  "note": "폭탄 협박이 공항 대피와 항공편 지연으로 이어지고 ETA 휴전 파기가 경계 강화의 이유로 붙는다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71747787-57b3-40d1-9084-e06c772a38b4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Flying in Africa is considerably more",
+  "note": "추락 경과에 이어 아프리카 항공 위험의 원인을 투자 부족으로 설명하는 문단이 떼어 쓰기 좋다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71757fac-e78c-4feb-88e2-6591576fec23",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Residents throughout the province increasingly complained",
+  "note": "가정 전화 불통이 공중전화 투표 운동으로 이어지고 방송사가 지역 편파설을 반박하는 반응이 붙는다.",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "order"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7175a027-5679-4420-b2ae-d4b0ab1418c4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The decision came after Friday's alleged",
+  "note": "성폭행 혐의 사건이 우버 영업 중지 명령으로 이어지는 인과가 서지만 범행 묘사가 있어 고2 이상 칸만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71781931-ce10-42c1-bca7-0dc67756994a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The summit was marred by criticism",
+  "note": "정보사회 정상회의가 언론인 공격 비판에 휩싸인 경위를 사례로 잇고 끝 문장 노트북 시연은 가공 때 걷는다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7178a952-9360-4a08-822f-9881c3848dc7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The USDA adds that the virus",
+  "note": "야생 오리 저병원성 조류독감 검출과 인체 위험이 없는 이유를 설명하고 사냥꾼 위생 권고로 맺는다.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71796e2e-9e2f-441e-87d3-2ea1a174e9cc",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "On Monday, Brown and Cowen travelled",
+  "note": "치안·사법권 이양 협상 결렬과 48시간 시한, 양당 입장 차가 인과로 얽혀 요약 문항이 된다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "csat",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "order"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "717a0e2f-5050-4474-8981-081a72b94eb3",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "At around 8:15 p.m. the Catholic",
+  "note": "성당 미사 중 시위에서 고발·구금·보석으로 이어지는 경과와 교회·정부 양측 반응이 함께 실려 선동 기사가 아니다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "71805e5b-583e-41e9-ba9e-842ef807d705",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Johnson, who supports abortion rights, gay",
+  "note": "공화당 경선 지지 부족이 자유당 전환의 이유로 이어지고 3자 구도 여론조사 영향이 결과로 붙는다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5",
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7186b5b5-7efa-45c0-b84b-ed89b82d7a16",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Eva Hassett: The hotel has been",
+  "note": "호텔 규모 축소가 주차 부담 완화로 이어지고 공청회 추가 계획이 다음 절차로 제시되는 개발사 인터뷰다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

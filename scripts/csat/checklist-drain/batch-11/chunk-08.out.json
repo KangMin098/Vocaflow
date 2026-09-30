@@ -1,0 +1,1107 @@
+[
+ {
+  "id": "730e6606-e817-4cc1-924b-67566ba09494",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "In our opinion, there is incontrovertible",
+  "note": "의사협회가 에탄올 혼합 연료를 지지하는 까닭(배출 감소로 사망 감소)은 한 번 이어지고 나머지는 권고 항목 나열이라 연결이 가늘다.",
+  "record": {
+   "genre": "health",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7314aa91-b4cf-4adf-9f87-80b186d42faa",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Amidst fears of a third night",
+  "note": "시드니 인종 폭동의 경과·경찰 대응·의회 소집이 원인과 반응으로 이어지며 폭력 묘사와 비하 구호가 있어 고등 이상 칸만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "73154660-10a6-4557-9e8d-c8d616031e04",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "It is unclear whether Mayor Nagin",
+  "note": "카트리나 대피 때 버스를 못 쓴 책임을 두고 절차(FEMA 조정)와 관할 문제를 따지는 흐름이 서며 끝의 비속어 인용은 가공 때 걷는다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "731fb2ad-1c67-4d43-a236-cfd6d7006fbe",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The alleged misconduct predates Ponta's time",
+  "note": "루마니아 총리 기소의 경위·혐의·반응이 이어지며 대통령 발언 인용이 한 곳 빠져 있으나 글 끝은 온전하다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7322a3f2-462f-4270-9ad6-ba69a4ba2f50",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The fire brigade was first called",
+  "note": "커티삭 화재의 진화 경과·피해·복원 전망·경찰 수사와 배의 역사가 시간과 원인으로 이어져 떼어 쓰기 쉽다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order",
+     "insert"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "73273b04-0154-4fed-b9c0-df8a03507696",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Later, the Taliban claimed responsibility for",
+  "note": "카불 자폭 공격의 발생·사상자 추정·당국 반응·탈레반 책임 주장이 차례로 이어지는 단신이며 폭력 소재라 고1 이상 칸이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7327dd81-66f6-4358-bafa-5bed1cffcbe7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Mr. el-Nashar arrived in Britain in",
+  "note": "런던 폭탄 테러 배후 용의자 체포와 수사 경과가 이어지며 끝의 용의자 신상 목록은 가공 때 걷는다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "732d365a-1610-4e99-9358-54f2260131ce",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "By 8:22 p.m. local time the",
+  "note": "펜 역 천장 화재로 운행이 멈췄다가 복구되는 과정이 시간순으로 이어져 사건 흐름이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "732dd231-29ac-419a-b9e2-e1f3c3435f24",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The MET is to play a",
+  "note": "캐나다가 화성 탐사선에 기상 장비를 제공한 사실과 장비 구성·기대 효과가 이어지며 라이다 설명 문단이 떼어 쓰기 좋다.",
+  "record": {
+   "genre": "space",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "732ea23c-5041-4b48-a7fa-a07b54e0349f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Airbnb said they made the decision",
+  "note": "에어비앤비의 서안 정착촌 숙소 삭제 결정과 그 이유·양측 반응·국제법 배경이 원인과 반응으로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic",
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "733af9d7-d558-4d6c-b011-90ecfa2c578a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Government is proposing to retain",
+  "note": "인종차별법 개정안을 두고 표현의 자유 논리와 반대 측 우려가 맞서며 주장과 근거가 짝지어져 선다.",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "733cdf6f-3dd2-4106-ac25-f61c02e6e7f4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Police became suspicious when a 19-year-old",
+  "note": "프리츨 사건의 발각 경위와 재판 일정이 이어지나 근친 성폭력·시신 훼손 묘사가 있어 성인 칸만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "733ed989-cac5-4c0c-be05-5925dec2dafb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The man had escaped to cling",
+  "note": "호주 동부 폭풍의 지역별 피해와 구조가 원인과 결과로 이어지며 멜버른 폭우 문단은 수치가 많지만 사건이 선다.",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7341001a-9a48-4155-ab34-31c00412c2b0",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The workers, who had been on",
+  "note": "케냐 정부의 파업 보건 인력 해고와 그 이유·노조 반발이 원인과 반응으로 이어져 입장 대립이 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7342bb47-d0be-4310-bb4e-bb831193a898",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Khadr was 15 when on July",
+  "note": "관타나모 군사재판에 선 캐나다 청소년의 체포 경위와 재판 적법성 논란이 시간과 논쟁으로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "734bea26-1441-4d6f-8934-7fb834f4ee62",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Both Disney and the Orange County",
+  "note": "디즈니 티거 폭행 주장과 조사·과거 유사 소송이 이어지며 성추행 소송 문단이 있어 고1 이상 칸만 둔다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7350cb16-b8ef-4481-a9f5-9595ea2f774e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Gale Norton announced her resignation today",
+  "note": "내무장관 사임과 후임 지명 사이만 이어지고 로비 수사·재임 중 정책은 곁들인 사실이라 연결이 가늘다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7351ff87-98f7-4ce8-8e70-b9b069b9f2e9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The bus fell into a deep",
+  "note": "버스 추락과 사상자·수사 착수만 적은 71어 단신으로 첫 문장의 되풀이가 많아 연결이 하나뿐이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V3",
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "73538340-77c0-4b14-bb4d-700f04e30828",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Two women were injured today when",
+  "note": "풍선이 가로등을 치고 등이 떨어져 관객이 다친 인과와 날씨 논란·과거 사례가 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "736320e6-0e98-40e3-bed4-8af7b56c4430",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "New Zealand's handling of COVID-19 included",
+  "note": "뉴질랜드 금리 인상의 원인(물가·부양책·집값)과 다른 중앙은행의 대응이 인과로 이어지며 수치가 많아 고2 이상이다.",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary",
+     "blank"
+    ],
+    "levels": [
+     "V6",
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7363f1b6-3506-4131-aec4-e29169f9ff2f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The government did publicly announce the",
+  "note": "터키의 위키백과 차단과 정부 명분·재단 대응·숙청 배경이 원인과 반응으로 이어진다.",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "73660624-9e23-46ca-841d-e7bbce600069",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "She told Wikinews: \"Post offices are",
+  "note": "우체국 폐쇄 제한 법안 부결과 찬성 의원이 든 이유(노인·은행 부족)가 주장과 근거로 이어진다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V4",
+     "V5"
+    ],
+    "platform": [
+     "claim-evidence"
+    ]
+   }
+  }
+ },
+ {
+  "id": "736b7147-d71f-4426-ada4-827ccd488d0e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "thin",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Following delays to the counting process,",
+  "note": "이집트 총선 초기 개표의 정당별 예상 득표와 이후 일정이 대부분이고 개표 지연과 발표 일정 사이 연결 하나뿐이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "736dae45-10da-4963-b0c2-ce960112031c",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "As a result of the listing,",
+  "note": "오페라하우스 세계유산 등재와 그 평가·결과(완충 구역)·각계 반응이 이어져 한 흐름으로 선다.",
+  "record": {
+   "genre": "culture",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7376805f-f7c8-4d8e-85d2-9d45deca2dcd",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Alaska National Guard was called",
+  "note": "알래스카 비행기 추락과 구조 경과·희생자 약력이 이어지며 구조 문단이 시간순으로 선다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ }
+]

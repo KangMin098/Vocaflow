@@ -1,0 +1,976 @@
+[
+ {
+  "id": "7b4f6d36-57a1-430a-886e-797700790eeb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Germany's deteriorating bridges require increased financial",
+  "note": "노후 교량이 무거운 교통량을 못 견뎌 예산 증액이 필요하다는 이유·결과가 이어지는 감사원 경고 보도다",
+  "record": {
+   "genre": "engineering",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b4ffddb-57c3-4aa6-bcb1-c9ceba1b4eba",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "A statement from the president's office",
+  "note": "주택장관 해임 사유와 반부패 운동의 배경·앞선 해임 사례가 이유로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b528729-de33-49cf-b393-5a1eacfbb263",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Despite the agreement, Tsvangirai and other",
+  "note": "연립정부 합의와 야당 불만·국제 반응, 선거 경위가 원인·반응으로 이어지는 긴 보도다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "summary"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b5e4ba5-3483-4df8-91bb-f0407d9e125f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The initial explosion occurred on the",
+  "note": "실험실 폭발부터 화재 확산·대피·혼란·재개 예정까지 시간순으로 흐르는 사건 보도다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b5ec624-f39c-4d3d-ae05-c0344be7c58f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Juan Manuel Alvarez, 25, could well",
+  "note": "열차 충돌을 일으킨 운전자의 기소 경위와 사형 가능성의 법적 이유가 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b68cee2-cdde-446a-9834-72f45e1cd2eb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Under UK compulsory purchase laws to",
+  "note": "크로스레일 지하 터널 보상 절차와 50파운드 제시의 이유·주민 대응 경로가 이어진다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b72d953-edd9-4c32-bd2f-a3f55825fdd0",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Iraqi government disputed the figures.",
+  "note": "민간인 사망 통계 발표에 정부·미군의 반박과 저자의 주장이 맞서며 수치 문단은 가공 때 줄인다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": [
+     "data-claim"
+    ]
+   }
+  }
+ },
+ {
+  "id": "7b7d30ac-de41-4d17-b0f6-0e8644b5f18b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The scientists say CFC levels in",
+  "note": "프레온 배출 감소가 오존 구멍 축소로 이어진다는 인과와 반대 견해가 서는 과학 보도다",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "insert"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b7e628d-6740-4cb7-83d3-123ed9f87d4b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Animal Liberation and the Royal Society",
+  "note": "도축장 학대 영상 공개 → CCTV 의무화 요구 → 회사 조사 착수로 반응이 이어지며 묘사가 있어 고등 이상 칸이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b806935-def1-490b-89da-e784a48cf6c1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Now the country faces a second",
+  "note": "정치 폭력과 초인플레이션이 학교 붕괴로 이어진 원인·결과가 뚜렷해 요지·내용 일치 칸을 채운다",
+  "record": {
+   "genre": "education",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "main_point",
+     "topic"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b87b8a3-dec2-4b2e-bfa2-8e5e476e6c59",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "His campaign stressed that while his",
+  "note": "토론 배제에 대한 선거캠프의 연방통신위 진정 이유와 방송사 반응이 이어지는 한쪽 입장 보도다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b894faf-537e-4e58-a4a0-fcaaf8aee76e",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The Italian government has said that",
+  "note": "홍보 영상 → 이탈리아 정부 반발 → 대사 초치 → 방송사 대응으로 반응이 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b9169bc-9a3a-4aca-b41a-c6ec98a26b89",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Refugees from Lohachara and the nearby",
+  "note": "해수면 상승으로 섬이 잠기고 주민이 피난한 원인·결과가 이어지는 기후 보도다",
+  "record": {
+   "genre": "climate",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "topic"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b927d94-00fe-4d45-b101-8f245f969270",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "An anonymous caller contacted the Basque",
+  "note": "주유소 연쇄 폭발 뒤 제보 전화·교통 혼잡·대화 전망 악화가 결과로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b9ab2d6-3e67-4ac8-8c6a-a5e5839a5527",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Gomes was an English teacher in",
+  "note": "북한 수감 미국인 자살 시도 발표와 수감 경위·외교 긴장 배경이 이유로 이어진다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7b9e0a82-c23a-49be-9dfb-5fc441552772",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Rinder said the impact was more",
+  "note": "전 간부들의 폭행 증언과 교단의 부인·반박이 맞서는 탐사 보도 소개로 주장 칸을 쓸 수 있다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "claim"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7ba48afc-7262-4d5c-83f7-87e0cf4f29c6",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Lawyers for State Superintendent of Schools",
+  "note": "졸업시험 부활 판결과 교육감·원고·학생 반응이 이어지며 학생 심경 문단이 있다",
+  "record": {
+   "genre": "education",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "mood",
+     "claim"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7ba8915c-b498-4dbc-a5c6-2d4209b68c7b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The three-phase plan approved by the",
+  "note": "이라크 부채 탕감 단계 계획과 채권국 반응·미불 대립 배경이 절차·반응으로 이어진다",
+  "record": {
+   "genre": "economics",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7ba9e829-bb61-4682-a967-c1cb21db9fa2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Botha led the country first as",
+  "note": "아파르트헤이트 지도자의 집권·퇴진 이유와 만델라의 평가가 이어지는 부고 기사다",
+  "record": {
+   "genre": "history",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7baa2b73-53d1-4b04-90f1-566c0d79eddf",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "The couple was abducted by the",
+  "note": "2012년 납치부터 영상 공개·구출·송환까지 시간순으로 이어지는 단신이다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "order"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7baeec4e-c804-4831-be51-9a5eaf3e1da0",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "\"If I fight on in my",
+  "note": "롬니가 선거운동을 중단한 이유와 매케인 지명 전망이라는 결과가 이어지며 첫 줄 대시는 잔재다",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7bafea19-a075-49cc-a345-24bda432bed1",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Hussein said she was married at",
+  "note": "강제 결혼과 성폭력 끝의 사형 선고 경위·항소·국제 운동이 이어지나 성폭력 소재라 고3·성인 칸만 둔다",
+  "record": {
+   "genre": "social",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match",
+     "mood"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "7baffb02-1bef-4b1f-8b02-71c4b6551826",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "gap": false,
+   "strippedRemains": true
+  },
+  "sample": "Websites caught linking to or promoting",
+  "note": "호주 차단 목록 유출과 장관 경고·위키리크스 반박이 반응으로 이어지며 성적 묘사 문단은 가공 때 걷어낸다",
+  "record": {
+   "genre": "technology",
+   "slots": {
+    "ages": [
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "mock",
+     "reading"
+    ],
+    "types": [
+     "content_match"
+    ],
+    "levels": [
+     "V7"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
