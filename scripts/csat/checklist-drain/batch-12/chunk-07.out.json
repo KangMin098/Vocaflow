@@ -1,12 +1,349 @@
 [
   {
-    "id": "7dfea03a-0e3a-4784-a673-e08e9aadf2e9",
+    "id": "804c807a-b689-4515-99d1-88a37fef124d",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The Entertainment Software Association president",
+    "note": "ESA lawsuit against Oklahoma video game law.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "804f9fbd-ba9f-4552-88ee-6e39485b0dba",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Wintry conditions are causing widespread",
+    "note": "European winter weather disruption report.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8054bed6-539c-4a1b-84ef-a8af1cbe3615",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "On Monday, San Jose, California,",
+    "note": "Adobe acquisition of Magento Commerce.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "805d65e2-0463-4a79-af3a-e999499e3ca8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A coordinated set of Australian",
+    "note": "Australian anti-terror law protest coverage.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "80631b0c-74e1-4781-aa02-7a451dc5183a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A close encounter with the",
+    "note": "Discovery of hypersonic star from black hole.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "80668f99-a750-4deb-993c-5af3f4456e8d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Narayanhity Royal Palace, home to",
+    "note": "Nepal palace conversion to national museum.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8066cf53-f947-44b8-8923-dbfd781ab04d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "After Christopher R. Hill, the",
+    "note": "North Korea denies IAEA inspector entry.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8067adad-2aa7-4532-8d1e-e5fc760f142f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A huge fire set the",
+    "note": "Armando museum destroyed by fire.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8067eed1-8793-4ee8-97ef-8125a3d46bfe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": true,
       "notice": false,
@@ -15,44 +352,40 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "77-year-old pastor found guilty of child",
-    "note": "Item 1: 77-year-old pastor found guilty of child rape and ...",
+    "sample": "Zardad Faryadi Sarwar (also known",
+    "note": "Afghan warlord conviction for torture.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
-          "content_match",
-          "main_point"
+          "content_match"
         ],
         "levels": [
-          "V5",
-          "V6"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e03193a-1c73-474c-82d8-23ff54384783",
+    "id": "806c93d1-bd3d-407a-a29b-306464c26036",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -61,29 +394,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Greek prime minister reaffirms EastMed p",
-    "note": "Item 2: Greek prime minister reaffirms EastMed pipeline pr...",
+    "sample": "Statoil ASA (Statoil), a Norwegian",
+    "note": "Norwegian oil company acquisition.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -91,148 +420,14 @@
     }
   },
   {
-    "id": "7e06d7da-385b-443d-af05-0031ff89fa6c",
+    "id": "806fc750-f516-4fe4-9266-934236f59d47",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Report finds FBI missed multiple chances",
-    "note": "Item 3: Report finds FBI missed multiple chances to stop 9...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e0a8b71-2a81-4cf2-b6ec-f62fc2685eac",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "New Zealand's alcohol purchasing age not",
-    "note": "Item 4: New Zealand's alcohol purchasing age not to be rai...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e0cbd94-b161-426e-a8d1-6518a01b1b02",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Rumors say Cuban President Fidel Castro ",
-    "note": "Item 5: Rumors say Cuban President Fidel Castro has died...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e0e1774-be6d-4dab-a26d-ac21528ead47",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": true,
       "notice": false,
@@ -241,29 +436,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Iraqi President Talabani speaks on 50 de",
-    "note": "Item 6: Iraqi President Talabani speaks on 50 dead found i...",
+    "sample": "Europe's largest free ticketed music",
+    "note": "Radio music festival with alternate reality game.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -271,13 +462,56 @@
     }
   },
   {
-    "id": "7e1009f4-98c1-4fe3-8021-ba751f9432fe",
+    "id": "806fe14d-1e23-4db3-b066-6c5502d720e1",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Oxfam and several other fair",
+    "note": "World Fair Trade Day event reporting.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "807746a8-7b5a-4e26-b52a-659595893481",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -286,29 +520,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Ellen Macarthur sets round the world sol",
-    "note": "Item 7: Ellen Macarthur sets round the world solo sailing ...",
+    "sample": "The United States Geological Survey",
+    "note": "Honduras earthquake with casualty reports.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -316,13 +546,224 @@
     }
   },
   {
-    "id": "7e1615d4-6086-4c35-84aa-22b95582a9a6",
+    "id": "807d0b95-c8db-4719-be9a-ace46c795a92",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Somali pirates have released the",
+    "note": "Somali pirate ship release.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "807da31f-d675-4f3b-bc78-a52358c077bf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "In Sudan, Judge Muntasim Mohamed",
+    "note": "Sudan rebel attack sentencing.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "807f13d2-d7f0-4c21-bcb1-a90486f284ee",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "A 69-year-old man who allegedly",
+    "note": "Australian court appearance for alleged crime.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8082155d-e90a-4ca1-bd32-c1e0c14287fc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "George Bush's controversial nominee for",
+    "note": "UN nomination controversy and confirmation.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8082c7f4-fe19-4587-84a1-5511d4f85f48",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Merseyside Police concluded after a",
+    "note": "Liverpool police investigation of blog.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8083ffeb-7139-47b9-8cb4-3e46f97421ca",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": true,
       "notice": false,
@@ -331,29 +772,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Violence in East Timor causes United Nat",
-    "note": "Item 8: Violence in East Timor causes United Nations evacu...",
+    "sample": "Ed Stelmach was officially sworn",
+    "note": "Alberta premier biographical article.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -361,44 +798,83 @@
     }
   },
   {
-    "id": "7e21dcd7-e664-4d74-8577-99d6b3d13bad",
+    "id": "8084679e-8db2-47f2-973b-f6862c7c7d67",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": true,
+      "listOnly": false,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Investigations continued Thursday after a",
+    "note": "Iranian judge assassination report.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8084cb20-4d2f-4495-b09c-fe1a80828346",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
-      "narrative": true,
-      "notice": false,
+      "narrative": false,
+      "notice": true,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Changing position, President Trump says ",
-    "note": "Item 9: Changing position, President Trump says FBI Direct...",
+    "sample": "\"Localization of 'SEMI Safety Guideline'\",",
+    "note": "Semiconductor safety guideline announcement.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -406,13 +882,14 @@
     }
   },
   {
-    "id": "7e231285-3e25-488b-ac0d-a14d19cd9cbd",
+    "id": "80859264-b1ab-491b-b273-a0bab4ab7f36",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -421,29 +898,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "U2 walks over the Bosphorus Bridge befor",
-    "note": "Item 10: U2 walks over the Bosphorus Bridge before concert...",
+    "sample": "The United States 2008 federal",
+    "note": "US federal budget deficit statement.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -451,58 +924,14 @@
     }
   },
   {
-    "id": "7e25e245-ca9f-4394-a00b-556302ddc65a",
+    "id": "808682ee-8b39-4cbe-b39a-e61657124c2a",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Prison officers' strike ends in England ",
-    "note": "Item 11: Prison officers' strike ends in England and Wales...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e2f7bdc-028c-4c6e-be8f-02f5f3c3d45a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -511,29 +940,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Judge known for jailing pirates shot dea",
-    "note": "Item 12: Judge known for jailing pirates shot dead in Bossa...",
+    "sample": "A significant earthquake has impacted",
+    "note": "Mexico earthquake impact assessment.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -541,14 +966,15 @@
     }
   },
   {
-    "id": "7e30299a-179f-485b-94f6-8fef9bbf9a0b",
+    "id": "8088dc07-80c0-4400-b962-1e8244eaf1ee",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
+      "linkage": "thin",
+      "strippedRemains": false,
+      "mainPoint": false,
       "narrative": false,
       "notice": false,
       "detachable": true,
@@ -556,29 +982,25 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "NATO and Iran talk for first time in 30 ",
-    "note": "Item 13: NATO and Iran talk for first time in 30 years...",
+    "sample": "Gunmen shot seven teenagers at",
+    "note": "Detroit school shooting incident.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -586,449 +1008,41 @@
     }
   },
   {
-    "id": "7e31f3f5-4a85-481d-9518-2106d5406ada",
+    "id": "8088ff52-fbdd-4191-8447-59488c4ec391",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
-      "notice": false,
+      "notice": true,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Brazilian President party received money",
-    "note": "Item 14: Brazilian President party received money from FARC...",
+    "sample": "Authorities in India have started",
+    "note": "India health closure announcement.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
           "high1",
-          "high2",
-          "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "csat",
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e33f1cc-4de2-46c8-9cff-f7d9c1fe19ba",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Number of unemployed in the UK climbs to",
-    "note": "Item 15: Number of unemployed in the UK climbs to 2.4 milli...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e363538-ca16-43ba-90e5-5d3af0bbe4f3",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Several US universities ban Wikipedia as",
-    "note": "Item 16: Several US universities ban Wikipedia as primary s...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e378092-10dc-4d6a-9a4d-337c8d86c1be",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Moldovan president tells NATO over half ",
-    "note": "Item 17: Moldovan president tells NATO over half a million ...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e3dafc9-1c95-4d91-985a-fd9eb01937f8",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Dozens die in Iraq bombing, al-Sadr blam",
-    "note": "Item 18: Dozens die in Iraq bombing, al-Sadr blames occupat...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e4a28ef-7062-44f3-8dd1-62c16bd69e58",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Retired Indian police official shot in t",
-    "note": "Item 19: Retired Indian police official shot in train...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e4bc15c-f17c-43bc-80be-8d6b43705dde",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Researchers to launch expedition to find",
-    "note": "Item 20: Researchers to launch expedition to find remains o...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e5b0dfa-f314-4262-a51a-b0476c1eb4f3",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "U.S. nonprofit news agency shuts down te",
-    "note": "Item 21: U.S. nonprofit news agency shuts down...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e5dceb1-fdd7-4fd2-9b2d-a839f33757e8",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "'Evidence against ISI not clinching' say",
-    "note": "Item 22: 'Evidence against ISI not clinching' says Indian N...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e602d80-7db4-40df-a6e9-960355411f17",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Gunman charged with killing three in Wis",
-    "note": "Item 23: Gunman charged with killing three in Wisconsin sho...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
           "V5"
         ],
         "platform": []

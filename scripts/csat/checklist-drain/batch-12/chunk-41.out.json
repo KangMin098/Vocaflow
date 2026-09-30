@@ -1,6 +1,6 @@
 [
   {
-    "id": "7dfea03a-0e3a-4784-a673-e08e9aadf2e9",
+    "id": "8ad04013-5d1f-415f-aeb9-7c8780901bd9",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -18,8 +18,818 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "77-year-old pastor found guilty of child",
-    "note": "Item 1: 77-year-old pastor found guilty of child rape and ...",
+    "sample": "Three dead after ConAgra plant explosion",
+    "note": "Item 1: Three dead after ConAgra plant explosion, all insi...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8ad06293-cd2a-4718-9d78-b695d387a9bd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Australian government concedes the feder",
+    "note": "Item 2: Australian government concedes the federal budget ...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8ad39934-650f-4054-a002-d000b989392d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Students from Liceo María Luisa Bombal o",
+    "note": "Item 3: Students from Liceo María Luisa Bombal of Rancagua...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8adad0c9-3c77-43bd-b05d-493e4fc61957",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Austrian man kept daughter prisoner in c",
+    "note": "Item 4: Austrian man kept daughter prisoner in cellar for ...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8ae18fcb-0060-4f13-8551-7486e03a2fbe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "US Senate offices evacuated text",
+    "note": "Item 5: US Senate offices evacuated...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8ae4e254-ba32-4cb4-a3fe-20cb2e7a3e1a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Author claims Al Qaeda planned to gas Ne",
+    "note": "Item 6: Author claims Al Qaeda planned to gas New York's s...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8ae875bf-9ed0-4f54-9c94-d55c790f5160",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Mortar raid kills 15 in Somalia text",
+    "note": "Item 7: Mortar raid kills 15 in Somalia...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8ae9e41a-69b8-406f-89ea-8201b17f605c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Cat in Rhode Island, USA nursing home 's",
+    "note": "Item 8: Cat in Rhode Island, USA nursing home 'senses deat...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8aea755d-76b0-4680-813d-fca03ab0cb3d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Philippine shipwreck kills man; rescue b",
+    "note": "Item 9: Philippine shipwreck kills man; rescue boat also r...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8aeed855-edbc-4d1c-a201-93941902c3ff",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "United States announces blockade on the ",
+    "note": "Item 10: United States announces blockade on the Strait of ...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8af2ba0e-8899-421e-b825-c95661b28371",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Severe smog blankets Moscow text",
+    "note": "Item 11: Severe smog blankets Moscow...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8af43d66-53b4-4d06-b0be-78dc1d63c892",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Explicit Canadian workplace safety ads p",
+    "note": "Item 12: Explicit Canadian workplace safety ads pulled from...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8af47aff-4b28-4c6c-a1d8-c0006834af43",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Australia to explore a national identity",
+    "note": "Item 13: Australia to explore a national identity card...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8af5e4cd-575f-4926-a3c6-aeba6c9a3f22",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Standoffs remain after Mumbai attacks te",
+    "note": "Item 14: Standoffs remain after Mumbai attacks...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8afd96bc-d9ab-4d8f-9b2f-9ff3b741d134",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Congolese refugee death toll climbs text",
+    "note": "Item 15: Congolese refugee death toll climbs...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8afef250-f2b4-468e-9e53-1ff8ee8cc991",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "U.S. Senate majority goes to Democrats t",
+    "note": "Item 16: U.S. Senate majority goes to Democrats...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b054c66-4e6c-4730-bcea-e07a33151969",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Sydney off-ramp to charge $1.20 for 200m",
+    "note": "Item 17: Sydney off-ramp to charge $1.20 for 200m drive...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b097876-8cd2-4166-b4ea-8e9382aea8ab",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Colleges offering admission to displaced",
+    "note": "Item 18: Colleges offering admission to displaced New Orlea...",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading",
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8b0c4d47-d78b-45ba-b3e3-043000130cbd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "South Australian father and daughter in ",
+    "note": "Item 19: South Australian father and daughter in sexual rel...",
     "record": {
       "genre": "news",
       "slots": {
@@ -46,7 +856,7 @@
     }
   },
   {
-    "id": "7e03193a-1c73-474c-82d8-23ff54384783",
+    "id": "8b0ede44-76cb-4509-882a-8b6692a8fae3",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -64,8 +874,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Greek prime minister reaffirms EastMed p",
-    "note": "Item 2: Greek prime minister reaffirms EastMed pipeline pr...",
+    "sample": "Flights around the US disrupted because ",
+    "note": "Item 20: Flights around the US disrupted because of equipme...",
     "record": {
       "genre": "news",
       "slots": {
@@ -91,7 +901,7 @@
     }
   },
   {
-    "id": "7e06d7da-385b-443d-af05-0031ff89fa6c",
+    "id": "8b102c58-3113-400b-95f6-891c9fde37ac",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -109,8 +919,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Report finds FBI missed multiple chances",
-    "note": "Item 3: Report finds FBI missed multiple chances to stop 9...",
+    "sample": "African burial ground in New York City d",
+    "note": "Item 21: African burial ground in New York City dedicated a...",
     "record": {
       "genre": "news",
       "slots": {
@@ -136,97 +946,7 @@
     }
   },
   {
-    "id": "7e0a8b71-2a81-4cf2-b6ec-f62fc2685eac",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "New Zealand's alcohol purchasing age not",
-    "note": "Item 4: New Zealand's alcohol purchasing age not to be rai...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e0cbd94-b161-426e-a8d1-6518a01b1b02",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Rumors say Cuban President Fidel Castro ",
-    "note": "Item 5: Rumors say Cuban President Fidel Castro has died...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e0e1774-be6d-4dab-a26d-ac21528ead47",
+    "id": "8b103be0-5572-4dcc-b02d-f3008d0b0fc5",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -244,8 +964,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Iraqi President Talabani speaks on 50 de",
-    "note": "Item 6: Iraqi President Talabani speaks on 50 dead found i...",
+    "sample": "Seven killed in Chinese bombing text",
+    "note": "Item 22: Seven killed in Chinese bombing...",
     "record": {
       "genre": "news",
       "slots": {
@@ -271,52 +991,7 @@
     }
   },
   {
-    "id": "7e1009f4-98c1-4fe3-8021-ba751f9432fe",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Ellen Macarthur sets round the world sol",
-    "note": "Item 7: Ellen Macarthur sets round the world solo sailing ...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e1615d4-6086-4c35-84aa-22b95582a9a6",
+    "id": "8b17661b-97b9-4af5-8bda-1b8ba87dcdda",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -334,8 +1009,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Violence in East Timor causes United Nat",
-    "note": "Item 8: Violence in East Timor causes United Nations evacu...",
+    "sample": "John Howard announces $560 million for m",
+    "note": "Item 23: John Howard announces $560 million for medical res...",
     "record": {
       "genre": "news",
       "slots": {
@@ -361,7 +1036,7 @@
     }
   },
   {
-    "id": "7e21dcd7-e664-4d74-8577-99d6b3d13bad",
+    "id": "8b187830-39c3-48db-89e8-f451e3f9110d",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -379,8 +1054,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Changing position, President Trump says ",
-    "note": "Item 9: Changing position, President Trump says FBI Direct...",
+    "sample": "Mother of Californian firefighter calls ",
+    "note": "Item 24: Mother of Californian firefighter calls on arsonis...",
     "record": {
       "genre": "news",
       "slots": {
@@ -406,7 +1081,7 @@
     }
   },
   {
-    "id": "7e231285-3e25-488b-ac0d-a14d19cd9cbd",
+    "id": "8b1f0019-826e-4fbb-87c2-1f80874c8b7c",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -424,593 +1099,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "U2 walks over the Bosphorus Bridge befor",
-    "note": "Item 10: U2 walks over the Bosphorus Bridge before concert...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e25e245-ca9f-4394-a00b-556302ddc65a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Prison officers' strike ends in England ",
-    "note": "Item 11: Prison officers' strike ends in England and Wales...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e2f7bdc-028c-4c6e-be8f-02f5f3c3d45a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Judge known for jailing pirates shot dea",
-    "note": "Item 12: Judge known for jailing pirates shot dead in Bossa...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e30299a-179f-485b-94f6-8fef9bbf9a0b",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "NATO and Iran talk for first time in 30 ",
-    "note": "Item 13: NATO and Iran talk for first time in 30 years...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e31f3f5-4a85-481d-9518-2106d5406ada",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Brazilian President party received money",
-    "note": "Item 14: Brazilian President party received money from FARC...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e33f1cc-4de2-46c8-9cff-f7d9c1fe19ba",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Number of unemployed in the UK climbs to",
-    "note": "Item 15: Number of unemployed in the UK climbs to 2.4 milli...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e363538-ca16-43ba-90e5-5d3af0bbe4f3",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Several US universities ban Wikipedia as",
-    "note": "Item 16: Several US universities ban Wikipedia as primary s...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e378092-10dc-4d6a-9a4d-337c8d86c1be",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Moldovan president tells NATO over half ",
-    "note": "Item 17: Moldovan president tells NATO over half a million ...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e3dafc9-1c95-4d91-985a-fd9eb01937f8",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Dozens die in Iraq bombing, al-Sadr blam",
-    "note": "Item 18: Dozens die in Iraq bombing, al-Sadr blames occupat...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e4a28ef-7062-44f3-8dd1-62c16bd69e58",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Retired Indian police official shot in t",
-    "note": "Item 19: Retired Indian police official shot in train...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e4bc15c-f17c-43bc-80be-8d6b43705dde",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Researchers to launch expedition to find",
-    "note": "Item 20: Researchers to launch expedition to find remains o...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e5b0dfa-f314-4262-a51a-b0476c1eb4f3",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "U.S. nonprofit news agency shuts down te",
-    "note": "Item 21: U.S. nonprofit news agency shuts down...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e5dceb1-fdd7-4fd2-9b2d-a839f33757e8",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "'Evidence against ISI not clinching' say",
-    "note": "Item 22: 'Evidence against ISI not clinching' says Indian N...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e602d80-7db4-40df-a6e9-960355411f17",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Gunman charged with killing three in Wis",
-    "note": "Item 23: Gunman charged with killing three in Wisconsin sho...",
+    "sample": "Australian rules football: Gippsland Foo",
+    "note": "Item 25: Australian rules football: Gippsland Football Leag...",
     "record": {
       "genre": "news",
       "slots": {

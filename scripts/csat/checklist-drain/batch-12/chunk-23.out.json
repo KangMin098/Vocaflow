@@ -1,25 +1,25 @@
 [
   {
-    "id": "7dfea03a-0e3a-4784-a673-e08e9aadf2e9",
+    "id": "850a2136-7848-42e4-bb03-6cafba95672e",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
-      "narrative": true,
+      "narrative": false,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "77-year-old pastor found guilty of child",
-    "note": "Item 1: 77-year-old pastor found guilty of child rape and ...",
+    "sample": "The Schillings law firm in",
+    "note": "출판사의 검열 위협을 다룬 언론 자유 관련 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -30,15 +30,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
-          "content_match",
-          "main_point"
+          "content_match"
         ],
         "levels": [
-          "V5",
           "V6"
         ],
         "platform": []
@@ -46,13 +43,14 @@
     }
   },
   {
-    "id": "7e03193a-1c73-474c-82d8-23ff54384783",
+    "id": "850fb151-074a-4562-a460-15c4141546a3",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -61,13 +59,12 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Greek prime minister reaffirms EastMed p",
-    "note": "Item 2: Greek prime minister reaffirms EastMed pipeline pr...",
+    "sample": "Two different reasons for this",
+    "note": "마이크로소프트의 윈도우 비스타 출시 연기를 다룬 기술 뉴스",
     "record": {
-      "genre": "news",
+      "genre": "technology",
       "slots": {
         "ages": [
           "high1",
@@ -76,28 +73,27 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V4"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e06d7da-385b-443d-af05-0031ff89fa6c",
+    "id": "851040d5-b664-4903-8f23-12b6a00e6f52",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -106,11 +102,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Report finds FBI missed multiple chances",
-    "note": "Item 3: Report finds FBI missed multiple chances to stop 9...",
+    "sample": "It was also argued whether",
+    "note": "호주 정치가의 자살 시도와 언론 책임을 다룬 사회 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -121,28 +116,27 @@
           "adult"
         ],
         "purposes": [
-          "reading",
           "mock"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V6"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e0a8b71-2a81-4cf2-b6ec-f62fc2685eac",
+    "id": "85104446-f015-4bd1-8de8-bcf493a136d8",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -151,11 +145,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "New Zealand's alcohol purchasing age not",
-    "note": "Item 4: New Zealand's alcohol purchasing age not to be rai...",
+    "sample": "In scenes reminiscent of the",
+    "note": "러시아의 제2차 세계대전 전승 기념식을 다룬 행사 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -166,14 +159,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -181,13 +172,14 @@
     }
   },
   {
-    "id": "7e0cbd94-b161-426e-a8d1-6518a01b1b02",
+    "id": "851aae47-43a3-4e81-9844-f7f09bdc42e3",
     "answers": {
       "blocked": null,
       "needsVisual": false,
-      "truncated": false,
+      "truncated": true,
       "listOnly": false,
-      "linkage": "strong",
+      "linkage": "none",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -196,11 +188,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": true
     },
-    "sample": "Rumors say Cuban President Fidel Castro ",
-    "note": "Item 5: Rumors say Cuban President Fidel Castro has died...",
+    "sample": "A man has been killed",
+    "note": "위키뉴스 단신 모음에서 쪼개진 항목으로 제목이 중단됨",
     "record": {
       "genre": "news",
       "slots": {
@@ -211,14 +202,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -226,58 +215,14 @@
     }
   },
   {
-    "id": "7e0e1774-be6d-4dab-a26d-ac21528ead47",
+    "id": "851fa218-e2a6-46f3-8144-c11268dceb17",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Iraqi President Talabani speaks on 50 de",
-    "note": "Item 6: Iraqi President Talabani speaks on 50 dead found i...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e1009f4-98c1-4fe3-8021-ba751f9432fe",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -286,11 +231,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Ellen Macarthur sets round the world sol",
-    "note": "Item 7: Ellen Macarthur sets round the world solo sailing ...",
+    "sample": "This announcement follows a similar",
+    "note": "영국 보수당의 정책 공약을 다룬 정치 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -301,14 +245,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
           "mock"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -316,103 +258,14 @@
     }
   },
   {
-    "id": "7e1615d4-6086-4c35-84aa-22b95582a9a6",
+    "id": "852223f2-3e00-440c-84b8-9369ae9b37d8",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Violence in East Timor causes United Nat",
-    "note": "Item 8: Violence in East Timor causes United Nations evacu...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e21dcd7-e664-4d74-8577-99d6b3d13bad",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Changing position, President Trump says ",
-    "note": "Item 9: Changing position, President Trump says FBI Direct...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e231285-3e25-488b-ac0d-a14d19cd9cbd",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
+      "linkage": "thin",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -421,11 +274,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "U2 walks over the Bosphorus Bridge befor",
-    "note": "Item 10: U2 walks over the Bosphorus Bridge before concert...",
+    "sample": "He killed four people, including",
+    "note": "펜터라 멤버의 무대 총격 사건을 다룬 단신",
     "record": {
       "genre": "news",
       "slots": {
@@ -436,14 +288,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -451,58 +301,14 @@
     }
   },
   {
-    "id": "7e25e245-ca9f-4394-a00b-556302ddc65a",
+    "id": "85236823-1846-4258-9435-e5718898d2c5",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Prison officers' strike ends in England ",
-    "note": "Item 11: Prison officers' strike ends in England and Wales...",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high1",
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "reading",
-          "mock"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V4",
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "7e2f7bdc-028c-4c6e-be8f-02f5f3c3d45a",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -511,11 +317,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Judge known for jailing pirates shot dea",
-    "note": "Item 12: Judge known for jailing pirates shot dead in Bossa...",
+    "sample": "Earlier this year, a miner",
+    "note": "폴란드 탄광 폭발 사건을 다룬 재해 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -526,14 +331,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
           "mock"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -541,13 +344,14 @@
     }
   },
   {
-    "id": "7e30299a-179f-485b-94f6-8fef9bbf9a0b",
+    "id": "852d4881-098c-4b57-8aed-ab33eb968efc",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -556,13 +360,12 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "NATO and Iran talk for first time in 30 ",
-    "note": "Item 13: NATO and Iran talk for first time in 30 years...",
+    "sample": "The Gippsland Football League, officially",
+    "note": "호주 규칙 풋볼 경기를 다룬 스포츠 뉴스",
     "record": {
-      "genre": "news",
+      "genre": "sports",
       "slots": {
         "ages": [
           "high1",
@@ -571,28 +374,27 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V4"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e31f3f5-4a85-481d-9518-2106d5406ada",
+    "id": "852f7b73-bdf3-4136-a176-828af1829587",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -601,11 +403,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Brazilian President party received money",
-    "note": "Item 14: Brazilian President party received money from FARC...",
+    "sample": "The Air Force has 60",
+    "note": "미 공군 공중급유기 입찰 재심사 결정을 다룬 정부 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -616,28 +417,27 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V4"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e33f1cc-4de2-46c8-9cff-f7d9c1fe19ba",
+    "id": "8530ca38-b791-4083-95ce-0b404934d1de",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -646,13 +446,12 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Number of unemployed in the UK climbs to",
-    "note": "Item 15: Number of unemployed in the UK climbs to 2.4 milli...",
+    "sample": "According to the US Centers",
+    "note": "아이티 콜레라 발병 확산을 다룬 보건 뉴스",
     "record": {
-      "genre": "news",
+      "genre": "health",
       "slots": {
         "ages": [
           "high1",
@@ -661,28 +460,27 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V6"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e363538-ca16-43ba-90e5-5d3af0bbe4f3",
+    "id": "85363a11-d25a-4a91-bd46-12526d8a57e2",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -691,43 +489,42 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Several US universities ban Wikipedia as",
-    "note": "Item 16: Several US universities ban Wikipedia as primary s...",
+    "sample": "The protest took place in",
+    "note": "미국의 금융 정책 반대 시위를 다룬 사회 뉴스",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "mid",
           "high1",
           "high2",
           "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
           "mock"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V3"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e378092-10dc-4d6a-9a4d-337c8d86c1be",
+    "id": "85375525-7b55-4ae4-b1b8-fea5c5b31766",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -736,13 +533,12 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Moldovan president tells NATO over half ",
-    "note": "Item 17: Moldovan president tells NATO over half a million ...",
+    "sample": "At 5:57am local time",
+    "note": "일본 해안 지진과 쓰나미를 다룬 자연재해 뉴스",
     "record": {
-      "genre": "news",
+      "genre": "climate",
       "slots": {
         "ages": [
           "high1",
@@ -751,14 +547,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -766,13 +560,14 @@
     }
   },
   {
-    "id": "7e3dafc9-1c95-4d91-985a-fd9eb01937f8",
+    "id": "8537933f-44c0-4e2f-9206-993739d2530d",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -781,11 +576,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Dozens die in Iraq bombing, al-Sadr blam",
-    "note": "Item 18: Dozens die in Iraq bombing, al-Sadr blames occupat...",
+    "sample": "North Korea is banned from",
+    "note": "태국에서 압수된 북한 무기를 다룬 국제 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -796,14 +590,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
           "mock"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -811,13 +603,14 @@
     }
   },
   {
-    "id": "7e4a28ef-7062-44f3-8dd1-62c16bd69e58",
+    "id": "853cc4d5-039f-46e0-9a99-78744183bb76",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -826,11 +619,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Retired Indian police official shot in t",
-    "note": "Item 19: Retired Indian police official shot in train...",
+    "sample": "Those arrested are suspected of",
+    "note": "프랑스 경찰의 테러 용의자 체포를 다룬 보안 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -841,14 +633,12 @@
           "adult"
         ],
         "purposes": [
-          "reading",
           "mock"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
           "V5"
         ],
         "platform": []
@@ -856,13 +646,14 @@
     }
   },
   {
-    "id": "7e4bc15c-f17c-43bc-80be-8d6b43705dde",
+    "id": "854236a9-9396-41cd-9c4b-585422e365e8",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -871,11 +662,10 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Researchers to launch expedition to find",
-    "note": "Item 20: Researchers to launch expedition to find remains o...",
+    "sample": "Repeated incidents of controversial approaches",
+    "note": "독일의 중동 작전을 둘러싼 논쟁을 다룬 정부 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -886,28 +676,27 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V6"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e5b0dfa-f314-4262-a51a-b0476c1eb4f3",
+    "id": "8542c4dc-4f7b-49e4-8ad7-1350b7d60b5b",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -916,43 +705,42 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "U.S. nonprofit news agency shuts down te",
-    "note": "Item 21: U.S. nonprofit news agency shuts down...",
+    "sample": "Close beat out 274 other",
+    "note": "미국 전국 철자 대회 우승자를 소개하는 뉴스",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "mid",
           "high1",
           "high2",
           "high3",
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
-          "V5"
+          "V4"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "7e5dceb1-fdd7-4fd2-9b2d-a839f33757e8",
+    "id": "85453088-35ec-42d6-9ad0-fb6cfd15f65f",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
       "narrative": false,
       "notice": false,
@@ -961,11 +749,53 @@
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "'Evidence against ISI not clinching' say",
-    "note": "Item 22: 'Evidence against ISI not clinching' says Indian N...",
+    "sample": "The H7N7 strain can be",
+    "note": "영국 닭 농장의 조류 인플루엔자 발생을 다룬 보건 뉴스",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "85478ccc-c6ce-4cbc-8ac4-56ec60a19211",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "This decision promotes the PA",
+    "note": "팔레스타인 국제형사법원 옵서버 지위 획득을 다룬 정치 뉴스",
     "record": {
       "genre": "news",
       "slots": {
@@ -976,14 +806,140 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "85491b1e-84df-405b-bbca-7b2e740508c2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "During MS attacks the body's",
+    "note": "일산화탄소가 다발성경화증에 미치는 보호 효과를 다룬 과학 뉴스",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "854a3ae1-fb34-4c5e-b241-3a08c83d1e30",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Matt was lucky to make",
+    "note": "뉴질랜드 아이돌 3시즌 우승자를 소개하는 엔터테인먼트 뉴스",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "85516f72-03e4-4368-9944-93c0f5911429",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "Firefox 2.0 also has:",
+    "note": "파이어폭스 2.0 브라우저 출시를 다룬 기술 뉴스",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
           "V5"
         ],
         "platform": []
@@ -991,26 +947,26 @@
     }
   },
   {
-    "id": "7e602d80-7db4-40df-a6e9-960355411f17",
+    "id": "855c73f7-9cad-4807-b5c2-4114f3c0258c",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
       "linkage": "strong",
+      "strippedRemains": true,
       "mainPoint": true,
-      "narrative": true,
+      "narrative": false,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
+      "gap": false
     },
-    "sample": "Gunman charged with killing three in Wis",
-    "note": "Item 23: Gunman charged with killing three in Wisconsin sho...",
+    "sample": "The prominence of this term's",
+    "note": "산토룸 신조어가 정치 캠페인에 미치는 영향을 분석하는 기사",
     "record": {
       "genre": "news",
       "slots": {
@@ -1021,14 +977,98 @@
           "adult"
         ],
         "purposes": [
-          "reading",
-          "mock"
+          "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V4",
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "855e654f-d604-4088-af16-bc70b16cbd1c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "The mother of Australian soldier",
+    "note": "호주 군인의 관 혼동 사건을 다룬 사회 뉴스",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "8560396a-2f92-4488-a2c7-3532510c4d20",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "strippedRemains": true,
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false
+    },
+    "sample": "According to the information officer",
+    "note": "시애틀 인근의 연쇄 살인 사건을 다룬 범죄 뉴스",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
           "V5"
         ],
         "platform": []
