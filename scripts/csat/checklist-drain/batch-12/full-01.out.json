@@ -1,0 +1,1069 @@
+[
+  {
+    "id": "7e0a8b71-2a81-4cf2-b6ec-f62fc2685eac",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9abec06d5b211cfa5e804820af556f5fd39858f61bcb6d508e901123534abbde",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "음주 구매 연령 법안 부결 뒤 정부 재검토 발표를 두고 찬반 의원·단체 발언이 이어져 요약·순서·내용 일치 칸과 주장-근거 칸을 채운다(인용 속 성폭력 언급으로 고등 이상).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match",
+        "order",
+        "insert",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, the Labour-led government is being",
+      "note": "재검토 발표 문단은 앞 문맥 없이 서고 pre-empt·unorthodox 를 anticipate·unusual 로 바꾸니 V5 로 내려간다; Chester Burrows 인용(pissed·raped)은 가공 때 걷는다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "structured",
+      "vocab"
+    ]
+  },
+  {
+    "id": "7e4bc15c-f17c-43bc-80be-8d6b43705dde",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3b8038d7c83887f65f6dfc4b7c7fb5de5751f696c8c46d5ca4eb3c30f2f1d68c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "1937년 실종 → 니쿠마로로 섬 가설 → 이전 발견물 → 탐사 일정으로 사건과 근거가 이어져 내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "blank"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In 1937, Nikumaroro was known as",
+      "note": "가설 문단이 혼자 서고 consistent·uninhabited 를 similar·empty 로 바꾸면 V4 까지 내려간다; 문장이 길어 둘로 끊어야 한다."
+    },
+    "uses": [
+      "factual",
+      "sequence",
+      "structured",
+      "vocab"
+    ]
+  },
+  {
+    "id": "7ebab241-c58d-4504-8cb6-a76bfd653e6f",
+    "source_updated_at": "2026-09-25T09:16:30.076466+00:00",
+    "body_sha256": "2795f55d4849bd96db7288a310d04f1f61b5402699dedd283231cc8464eaf4cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "technology",
+    "why": "대만 자동차 연구 컨소시엄 행사 소개인데 인용 단락이 「1=」 잔재와 비문(crisis·self-independence·carbon dioxide wasting)으로 되어 있어 논지 칸이 서려면 거의 다시 써야 해 가공이 애매하다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "There were several crisis for the",
+      "note": "위기 → 기회 → 역할 논지는 보이지만 문장마다 어법이 무너져 낱말 두세 개 교체로는 안 되고 재저작이 필요하다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7ec4e2eb-c734-4a1a-86f4-dfd60eff3b65",
+    "source_updated_at": "2026-09-25T08:55:51.507738+00:00",
+    "body_sha256": "aca609b155778b4b05d488d42f49e52413869d52b83ac1f9ab91aaaf78fab659",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "103세 수학자의 부고로 교수 경력·글라이더 발견·체스 엔딩 연구·가족을 차례로 전해 인물 내용 일치 칸 하나를 온전히 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Richard Kenneth Guy, a British mathematician",
+      "note": "전체가 한 사람의 생애라 앞 문맥이 필요 없고 cellular automaton 풀이를 걷으면 V5 로 내려간다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7ee3d2e5-83da-41b0-94a4-14b6435ec878",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2aeabfacea3168abfe24249ceac7250b1d51a671966803ea63ea943d6de6b0e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "청년공산주의연맹 가입 소식에 8년 전 양육권 분쟁과 보트 사고 배경이 이유로 이어져 짧은 단신이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An international custody battle centering around",
+      "note": "배경 문단은 혼자 서고 custody battle 을 fight over who would raise him 으로 풀면 V4 에 맞는다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7ee6b33d-3958-4f9a-88a1-bd1ea76d3ad4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ae0cdb5581015bb9b5bfbd17f5fe24c735a10c7fe81e1b5cc45ebccdb43d073f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "스토크 맨더빌 병원의 C. difficile 변종 발병과 미국·캐나다 유입 추정, 보건청 조사 결과가 원인 추정으로 이어져 내용 일치 칸을 채운다(행 중간 줄바꿈은 형식 잔재).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The new variant of clostridium difficile,",
+      "note": "줄바꿈만 이으면 세 문장이 원인 추정 흐름으로 서고 speculated·variant 를 thought·type 으로 바꾸면 V5 다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7efdfa4e-b796-4e79-a62d-fd5a2b1971b8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "54e977154115a0e3537c8d257805719a20b7c4022a2f255170ded2e48cd37ade",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "용접 작업 중 폭발 → 화재 진화 → 부상자 이송 → 단발 사고라는 대변인 설명으로 사건이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A large explosion erupted from the",
+      "note": "둘째 문단이 원인·결과를 담아 혼자 서고 berthing·extinguished 를 sleeping·put out 으로 바꾸면 V4 다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "7f168bec-d2e3-40f1-a237-806525f60bd2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b3d9d1a563fab76b4a42cf59da5f31f0e9e0c570c50f66ef43336ad4f3dc64f9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "퀘이사 PG 1302-102 의 주기 신호가 초대질량 블랙홀 병합을 시사하고 「final parsec problem」 해명에 쓰일 수 있다는 발견·의의 구조로 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The discovery could clarify how black",
+      "note": "의의 문단이 혼자 서고 phenomenon·theorized 를 event·predicted 로 바꾸면 V5; 끝의 「see the 2D graph shown on the left」 는 걷는다."
+    },
+    "uses": [
+      "factual",
+      "argument",
+      "vocab"
+    ]
+  },
+  {
+    "id": "7f173ac5-d77b-4240-8703-592b7d98b5f5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e4f9d4fd95fb45bc11c1815715823b26e1d285935c0667d2d1494543a856da87",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "앞 세 문단은 지도 캡션이지만 넷째 문단부터 처녀자리 성단 발견·방법·선행 QUEST 관측으로 한 편이 서서 내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Astronomers at Sloan Digital Sky Survey",
+      "note": "지도 설명(Lambert projection 등) 세 문단은 그림을 봐야 서므로 걷고, photometric parallax·cannibalized 를 풀어 쓰면 V6 에 맞는다."
+    },
+    "uses": [
+      "factual",
+      "structured",
+      "sequence",
+      "vocab"
+    ]
+  },
+  {
+    "id": "7f1b0b6c-49b9-4190-bffe-073d45f929fc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "20899941a5d5c563f88c451abc9acd1058ffda771356064255155ae8e9626460",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "1991년 합의 → 아이튠즈 위반 주장 → 판사의 기각 논리 → 잡스 제안과 항소 결정으로 소송의 원인·결과·반응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Beatles' label Apple Corps lost",
+      "note": "첫 문단이 혼자 서고 breach·defence 를 break·argument 로 바꾸면 V4; 끝의 관련 기사 제목 한 줄은 걷는다."
+    },
+    "uses": [
+      "factual",
+      "sequence",
+      "structured"
+    ]
+  },
+  {
+    "id": "7f1ff525-4c16-4ff5-9fae-25d569c505c3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f76fcb33c9775946594f998ed6f4a78ea595f42fdcda064c8d4ef8f597f47b5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "지역지의 오보 → 정정 없는 삭제 → 원인(리버사이드 결과만 봄) → 1948년 사건과의 비교로 이어져 내용 일치·순서·제목 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "title"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However, The Valley News, a news",
+      "note": "오보 문단과 원인 문단이 이어서 서고 erroneous·precincts 를 wrong·voting areas 로 바꾸면 V5 다."
+    },
+    "uses": [
+      "factual",
+      "sequence",
+      "structured"
+    ]
+  },
+  {
+    "id": "7f30cef2-529f-4905-aab7-e3907169c8b4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3002c8571f9fe095dc64e7a2aafdc8e993c0c4d365fb54809f4b74920750df8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모스크 침입·방화 → 소방 출동 → 빈 건물이라 부상자 없음 → 경찰 수사로 원인·결과·다음 절차가 이어지는 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Emergency services arrived within a matter",
+      "note": "세 문단 전부 짧게 이어지고 billowing·confined 를 coming out·limited 로 바꾸면 V2~V3 다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "7f3bfef5-a294-4aa1-8a55-3377481d13cd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8af97376c1a8dc3c1b0d55b9a6fcb1cc106b03d335e4dc62e0e2ffcd1a16a214",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "런던 폭탄 테러 사망자가 50명 이상으로 늘었다는 발표에 정확한 수를 못 내는 이유와 경찰청장의 전망이 이어져 수치만의 나열이 아니고 내용 일치 칸을 채운다(죽음 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In a press conference this morning,",
+      "note": "첫 문단이 이유를 품고 서며 casualties 를 people hurt 로 바꾸면 V4 다; 괄호 속 초기 수치는 걷어도 된다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7f4927ab-4c0c-43f9-b5d3-aa1d4e613824",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8cc3d9796bfa55f3b83f31b2bf9cae76ff9f66355643a4100bb73d18763bf731",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "파나마 페이퍼스로 드러난 캐머런 세무 문제 → 행진 시작 → 경찰 요청 → 행진 경로로 원인과 반응이 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The protest was organised after it",
+      "note": "원인 문단이 혼자 서고 offshore investments 를 풀어 쓰면 V4; 거리 이름이 줄줄이 나오는 경로 문장은 줄인다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "7f5cc621-f722-4e60-a99e-ebadcfedb088",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e37bb59e06596f39154fd2cf9325c4066bcb4e6f82137050176cd24a15122169",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "우리베 대통령이 위장·미로염으로 차베스와의 회담을 취소하고 입원 중이라는 원인·결과 두 문장이 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Colombian President Alvaro Uribe Vélez",
+      "note": "전문이 42어라 통째로 쓰고 gastrointestinal and labyrinthitis problems 를 stomach and ear problems 로 바꾸면 V3 다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7f8c06fc-24f9-4695-a79d-1a89c45cfcbc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2baf1aabbe582490f08b0883d944c36e690aea2fd73f372be9e422745809b827",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "environment",
+    "why": "연무가 가라앉지 않았다는 첫 문장 뒤가 싱가포르 PSI 103·쿠알라룸푸르 API 103·위성 핫스폿 수 나열이라 사건 연결 단신과 수치 나열 사이 경계에 있다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The haze situation in Southeast Asia",
+      "note": "진화 노력에도 연무가 남았다는 연결 하나뿐이고 나머지는 지수·핫스폿 수치라 떼어 내면 논지·흐름이 거의 없다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "7fe52977-b853-4b19-9470-0fbde5e25f18",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e5cdd277fbd66fef43d0431ac214cce2eb2627a9f12e62bc221493341fb38c41",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "언론자유의 날 5분 방송 중단과 미해결 기자 살해 네 건, 언론 단체의 요구가 이어져 내용 일치·무관한 문장·요약 칸을 채운다(살해 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dada Vujasinović, a \"Duga\" journalist was",
+      "note": "사건 문단마다 따로 서고 forensics·renewed 를 experts·reopened 로 바꾸면 V5; 첫 문단의 「Four cases…:」 머리는 목록과 함께 가공한다."
+    },
+    "uses": [
+      "factual",
+      "structured",
+      "sequence"
+    ]
+  },
+  {
+    "id": "7fff6028-1cfa-4aaf-8773-c92ea6d6b1ea",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8b7f9d7af94a24cd246491bdc3665a81c03c1380fdfe913d153effe283a5a0da",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "백악관 티볼 개막 기사인데 본문이 참석자 이름·직함 나열과 환영 인사 한 줄뿐이라 문장 사이를 잇는 사건이 없어 이름만 바뀌는 단신이다.",
+    "slots": {
+      "ages": [
+        "mid"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "In attendance at the game were",
+      "note": "참석자 문단을 떼면 이름·직함 목록만 남고 원인·결과·반응이 없어 가공할 흐름이 없다."
+    },
+    "uses": []
+  },
+  {
+    "id": "8000d51d-ff18-4b1d-86bf-a291cba8b7d0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "56052dda35c216385e563406fcde08c54c441f791937cacb415f72ae0f080b1d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "차베스의 추가 국유화 → 선거 승리로 커진 권력 → 유가 하락으로 재원이 막혀 국유화가 궁여지책으로 보인다는 해석까지 원인-결과 논지가 서서 주제·요지·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But the financial crisis, especially the",
+      "note": "마지막 문단이 앞 문맥 없이 원인-결과 논지로 서고 expropriation·crippled 를 taking over·badly hurt 로 바꾸면 V5 다."
+    },
+    "uses": [
+      "argument",
+      "factual",
+      "vocab"
+    ]
+  },
+  {
+    "id": "80343390-6289-4627-96c8-bb5153d38434",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a7fef0559b1ca31df972e17af5b26141dd02ad8e09dae48935ac4284d064fcc8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "에르도안을 개로 그린 콜라주 → 총리 모욕죄 기소 → 최고 3년형 → 블레어에게 개입 요청으로 원인과 반응이 이어지는 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Tony Blair has been asked to",
+      "note": "69어 전문이 한 사건이라 그대로 서고 intervene·dignity 를 step in·honour 로 바꾸면 V5 다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "807f13d2-d7f0-4c21-bcb1-a90486f284ee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "116d870e17f8869b960be5d0ed17539fa0bb735b1fc78cc382543bb0c7c65a3c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아내·손주 살해 혐의 노인의 화상 출석 → 관할 법원 요청 기각 → 8월 25일 연기와 혐의 내용으로 다음 절차가 이어져 내용 일치 칸을 채운다(살인 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The court case has been adjourned",
+      "note": "연기 문단이 혼자 서고 adjourned·brief of evidence 를 put off·evidence file 로 바꾸면 V4 다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "8084679e-8db2-47f2-973b-f6862c7c7d67",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ec704e0daa302aab6dd77e3b96831dc3722542eea6c71415ed78d2ea566ca6b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이란 판사 모가다스 암살 → 경찰의 동기 설명 → 간지 선고·카제미 사건 등 논란의 경력이 이어져 내용 일치 칸이 선다(암살 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Judge Moghaddas presided over several controversial",
+      "note": "경력 문단이 혼자 서고 presided over·subpoenaed 를 led·ordered to court 로 바꾸면 V5 다."
+    },
+    "uses": [
+      "factual"
+    ]
+  },
+  {
+    "id": "8088dc07-80c0-4400-b962-1e8244eaf1ee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6c9332c4c30b8a11f3ba0397e799e9b90b15b89f814a77b602bd4b57b460c505",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "디트로이트 버스 정류장 총격 → 피해 학생 정보 → 학교 측의 교내 분쟁 무관 발언과 갱 활동 언급으로 사건·반응이 이어져 내용 일치 칸을 채운다(총격 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The victims were one block away",
+      "note": "둘째 문단이 경위를 담아 서고 approached·critical condition 을 walked up to·badly hurt 로 바꾸면 V4 다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  },
+  {
+    "id": "8094827d-9282-46b7-88d1-f814ca4b3759",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9bfb4581ccfa0ec9cf2b1a64743acb9130f2b3758fa0fec321de58445477cbd0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "food",
+    "why": "브리스톨 76개 업소 위생 0점 발표에 업주 해명·손님 반응·5점 업소 사례가 이어져 내용 일치·무관한 문장·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The owners of one of the",
+      "note": "업주·손님 반응 문단이 따로 서고 hygiene·unconcerned 를 cleanliness·not worried 로 바꾸면 V4 다; 대괄호 편집 주는 걷는다."
+    },
+    "uses": [
+      "factual",
+      "structured",
+      "spoken"
+    ]
+  },
+  {
+    "id": "809b9ffc-02af-4d90-a2d3-f521e1075fd4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ac0800005962598ed97ffa837858a191b1648966d97f96d0350773a8caf6386d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "그린라인 열차 탈선 → 16명 입원·대피 → 역 폐쇄와 셔틀 운행 → 월요일 정상화로 결과와 다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sixteen passengers were reported hospitalised, but",
+      "note": "둘째 문단이 결과·대응을 담아 서고 derailed·bypassing 을 left the track·going around 으로 바꾸면 V4; 행 중간 줄바꿈은 잇는다."
+    },
+    "uses": [
+      "factual",
+      "sequence"
+    ]
+  }
+]
