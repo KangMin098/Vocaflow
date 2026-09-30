@@ -29,6 +29,8 @@
 import crypto from 'node:crypto'
 
 export const UNITS_VERSION = 1
+/** 사전 검사(precheckAnalysis·checkUnitRefs) 규칙 버전 — 검사 기준이 바뀌면 올린다(기록된 결과를 어느 기준으로 냈는지 남기려고) */
+export const PRECHECK_VERSION = 1
 
 const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\.m|p\.m|No|Fig|approx|cf|Inc|Ltd|Co)\.$/
 const CLOSERS = /["'’”)\]]/

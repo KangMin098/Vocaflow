@@ -30,7 +30,7 @@
 // ── 운영자 명령 ───────────────────────────────────────────────────────
 //   export  [--size 8] [--limit N] [--items H2603G3#18,...]   독립 검수가 필요한 학평 분석을 청크로(작업 중 제외)
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
-//   precheck [--items ...]                                      옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정
+//   precheck [--items ...] [--out]                                    옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
 //   backfill-analyst-run [--commit]                              analyst_run 이 빈 과거 분석에 원장 출처를 적는다
 //
@@ -41,7 +41,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createClient } from '@supabase/supabase-js'
 import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
-import { precheckAnalysis } from './lib-evidence-units.mjs'
+import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidence-units.mjs'
+import { execFileSync } from 'node:child_process'
 
 const [cmd, ...rest] = process.argv.slice(2)
 const arg = (n, d = null) => {
@@ -292,6 +293,34 @@ switch (cmd) {
       if (only || bad <= 30) console.log(`  ✗ ${a.item_id} v${a.version} — ${r.errors.join(' · ')}`)
     }
     console.log(`  대상 ${latest.length} · 사전 검사 실패 ${bad} · 통과 ${latest.length - bad}`)
+    // --out: 결과를 기록한다. **자동 검사 적발 후보**일 뿐이다 — 통과는 결함 없음도, 독립 검수 통과도 아니다
+    if (has('out')) {
+      const failed = latest.filter((a) => pre.get(a.id)?.errors.length)
+      const hashes = new Map()
+      for (let i = 0; i < failed.length; i += 200) {
+        const { data, error } = await db.from('csat_item_analyses').select('id, csat_analysis_hash').in('id', failed.slice(i, i + 200).map((a) => a.id))
+        if (error) die(error.message)
+        for (const r of data) hashes.set(r.id, r.csat_analysis_hash)
+      }
+      const units = await loadCurrentUnits(db, failed.map((a) => a.item_id))
+      let commit = null
+      try { commit = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim() } catch { /* git 없음 */ }
+      const rec = {
+        kind: '자동 검사 적발 후보',
+        caution: '검사 통과는 결함 없음이나 독립 검수 통과가 아니다. 적발 후보는 교정 후보이지 결함률이 아니다(의미 오류·「N번 문장」 서술은 못 잡는다).',
+        generated_at: new Date().toISOString(),
+        checker: { units_version: UNITS_VERSION, precheck_version: PRECHECK_VERSION, commit },
+        scope: only ? 'items' : 'unpublished-latest',
+        counts: { checked: latest.length, flagged: failed.length },
+        items: failed.map((a) => ({ item_id: a.item_id, analysis_id: a.id, version: a.version, analysis_hash: hashes.get(a.id) ?? null,
+          units_version: units.get(a.item_id)?.units_version ?? null, units_hash: units.get(a.item_id)?.units_hash ?? null,
+          errors: pre.get(a.id).errors, warnings: pre.get(a.id).warnings })),
+      }
+      fs.mkdirSync(WORK, { recursive: true })
+      const file = path.join(WORK, `_precheck-${rec.generated_at.slice(0, 10)}.json`)
+      fs.writeFileSync(file, JSON.stringify(rec, null, 1))
+      console.log(`  기록: ${path.relative(process.cwd(), file)} (gitignore — 학평 작업물)`)
+    }
     break
   }
   case 'status': {
