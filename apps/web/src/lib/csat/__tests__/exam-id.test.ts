@@ -127,6 +127,9 @@ describe('흩어진 판정 금지', () => {
       ".in('id',",
       ".in('item_id',",
       ".in('analysis_id',",
+      // 이미 고른 회차로 짚는 조회(영어 진단: 회차 하나의 문항 · 정답표가 있는 회차들) — `.eq('id',` 와 같은 부류
+      ".eq('exam_id',",
+      ".in('exam_id',",
     ]
     const hits: string[] = []
     for (const f of walk(path.join(ROOT, 'apps/web/src'), [])) {

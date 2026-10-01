@@ -170,6 +170,20 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     kind: 'screen',
     section: '학습 관리',
   },
+  // 2026-10-01 — 영어 진단(시험 기록 시계열 → 역량 · 함정 · 습관 · 수능 시나리오). 엔진은 lib/csat/diagnosis.
+  {
+    path: '/csat/diagnosis',
+    screen: 'csat-diagnosis',
+    label: '내 영어 진단',
+    says: '지금 등급 · 수능 시나리오 · 강점과 약점 · 자주 걸리는 함정 · 풀이 습관 · 추천 학습.',
+    group: 'main',
+    kind: 'screen',
+    section: '학습 관리',
+  },
+  { path: '/csat/diagnosis/start', screen: 'csat-diagnosis-start', label: '진단 시작', group: 'main', kind: 'screen' },
+  { path: '/csat/diagnosis/attempts/new', screen: 'csat-diagnosis-attempt', label: '시험 기록 입력', group: 'main', kind: 'screen' },
+  { path: '/csat/diagnosis/test', screen: 'csat-diagnosis-test', label: '진단 테스트', group: 'main', kind: 'session' },
+  { path: '/csat/diagnosis/history', screen: 'csat-diagnosis-history', label: '진단 이력', group: 'main', kind: 'screen' },
   // 옛 주소 — 작업 공간이 기출 홈이 됐다(2026-09-24).
   { path: '/csat/space', screen: 'csat-space', label: '기출 작업 공간(옛 주소)', group: 'main', kind: 'redirect' },
   {
