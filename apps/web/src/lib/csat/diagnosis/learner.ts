@@ -20,7 +20,7 @@ export async function learnerSession(): Promise<{ db: SupabaseClient; userId: st
   return { db, userId: user?.id ?? null }
 }
 
-/** 홈 카드 — 실패해도 홈을 깨뜨리지 않는다(카드만 「진단 시작」으로) */
+/** 홈 카드 — 실패해도 홈을 깨뜨리지 않는다. 못 읽음(error)과 기록 없음(none)은 다른 상태다 */
 export async function loadHomeDiagnosis(): Promise<HomeDiagnosis> {
   try {
     const { db, userId } = await learnerSession()
@@ -29,6 +29,6 @@ export async function loadHomeDiagnosis(): Promise<HomeDiagnosis> {
     return latest ? { kind: 'has', snapshot: latest } : { kind: 'none' }
   } catch (e) {
     console.error('[csat-diagnosis] 홈 카드 조회 실패', e)
-    return { kind: 'none' }
+    return { kind: 'error' }
   }
 }

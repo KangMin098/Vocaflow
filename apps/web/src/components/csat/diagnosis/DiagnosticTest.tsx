@@ -36,14 +36,14 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (done || (e.target as HTMLElement)?.tagName === 'INPUT') return
+      if (done || busy || (e.target as HTMLElement)?.tagName === 'INPUT') return
       if (/^[1-5]$/.test(e.key)) setChosen((c) => ({ ...c, [item.id]: Number(e.key) }))
       else if (e.key === 'ArrowRight') setIdx((i) => Math.min(items.length - 1, i + 1))
       else if (e.key === 'ArrowLeft') setIdx((i) => Math.max(0, i - 1))
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [item, items.length, done])
+  }, [item, items.length, done, busy])
 
   const submit = async () => {
     setBusy(true)
@@ -102,6 +102,7 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
                 type="button"
                 role="radio"
                 aria-checked={on}
+                disabled={busy}
                 onClick={() => setChosen({ ...chosen, [item.id]: on ? null : v })}
                 aria-label={`${v}번`}
                 className={`${btn} min-w-[56px] justify-center text-[18px] font-[800] ${on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]' : 'border-[var(--bd)] text-[var(--t1)]'}`}
@@ -118,6 +119,7 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
               key={f}
               type="button"
               aria-pressed={flags[item.id] === f}
+              disabled={busy}
               onClick={() => setFlags((cur) => ({ ...cur, [item.id]: cur[item.id] === f ? 'sure' : f }))}
               className={`${btn} ${flags[item.id] === f ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t2)]'}`}
             >

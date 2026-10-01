@@ -15,9 +15,18 @@ const link =
 const primary =
   'inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[800] text-[var(--on-p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
 
-export type HomeDiagnosis = { kind: 'anon' } | { kind: 'none' } | { kind: 'has'; snapshot: SnapshotView }
+export type HomeDiagnosis = { kind: 'anon' } | { kind: 'none' } | { kind: 'error' } | { kind: 'has'; snapshot: SnapshotView }
 
 export function DiagnosisHomeCard({ state }: { state: HomeDiagnosis }) {
+  if (state.kind === 'error') {
+    // 못 읽은 것과 없는 것을 가른다 — 기존 학습자에게 「진단 시작」을 띄우지 않는다
+    return (
+      <section role="status" className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4" data-testid="dx-home-error">
+        <p className="break-keep font-body text-[14px] text-[var(--t1)]">내 진단을 지금 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</p>
+        <Link className={link} href="/csat/diagnosis">리포트 열어 보기</Link>
+      </section>
+    )
+  }
   if (state.kind !== 'has') {
     return (
       <section className="flex flex-wrap items-center justify-between gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4" data-testid="dx-home-start">
