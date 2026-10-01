@@ -297,7 +297,7 @@ function WrongTab({ report, name }: { report: ExamReport; name: (id: string) => 
           <tr><th>시험</th><th>번호</th><th>유형</th><th>고른 답</th><th>끌린 함정</th><th>해설</th></tr>
         </thead>
         <tbody>
-          {report.wrongAll.slice(0, 300).map((w) => (
+          {report.wrongAll.map((w) => (
             <tr key={`${w.sessionId}-${w.no}`}>
               <td><span className={s.num} style={{ color: 'var(--t2)', marginRight: 10 }}>{short(w.takenAt)}</span>{w.examLabel}</td>
               <td className={s.num}>{w.no}</td>

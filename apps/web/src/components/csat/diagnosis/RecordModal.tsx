@@ -16,6 +16,7 @@ import { track } from '@/lib/analytics/client'
 import type { PickerExam } from '@/lib/csat/diagnosis/report'
 
 import s from './board.module.css'
+import { useModalFocus } from './useModalFocus'
 import { AreaBars, ResultGridSection } from './ResultParts'
 import { GROUP_TINT, areaTint, gradeTint } from './tints'
 
@@ -41,6 +42,7 @@ export function RecordModal({
   userId?: string
 }) {
   const router = useRouter()
+  const dialogRef = useModalFocus<HTMLDivElement>()
   const [tab, setTab] = useState<'exam' | 'sheet'>('exam')
   const [group, setGroup] = useState<Group>('hakpyeong')
   const [grade, setGrade] = useState(1)
@@ -119,7 +121,7 @@ export function RecordModal({
 
   return (
     <div className={s.overlay} role="dialog" aria-modal="true" aria-labelledby="dx-modal-title">
-      <div className={s.modal}>
+      <div className={s.modal} ref={dialogRef}>
         <div className={s.modalHead}>
           <span className={s.modalTitle}>
             <span className={s.tint} style={{ '--tint': result ? gradeTint(result.grade) : GROUP_TINT[group] } as React.CSSProperties} aria-hidden="true">

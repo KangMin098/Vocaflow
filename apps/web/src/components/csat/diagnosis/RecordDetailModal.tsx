@@ -15,6 +15,7 @@ import type { ExamReport, WrongItem } from '@/lib/csat/diagnosis/engine/exam-rep
 import { toItemSlug } from '@/lib/csat/item-slug'
 
 import s from './board.module.css'
+import { useModalFocus } from './useModalFocus'
 import { AreaBars, ResultGridSection } from './ResultParts'
 import { areaTint, familyTint, gradeTint } from './tints'
 
@@ -51,6 +52,7 @@ export function RecordDetailModal({
   deleteEndpoint: string
 }) {
   const router = useRouter()
+  const dialogRef = useModalFocus<HTMLDivElement>()
   const [tab, setTab] = useState<'summary' | 'sheet' | 'wrong'>('summary')
   const [q, setQ] = useState('')
   const [confirm, setConfirm] = useState(false)
@@ -92,7 +94,7 @@ export function RecordDetailModal({
 
   return (
     <div className={s.overlay} role="dialog" aria-modal="true" aria-labelledby="dx-detail-title">
-      <div className={s.modal}>
+      <div className={s.modal} ref={dialogRef}>
         <div className={s.modalHead}>
           <span className={s.modalTitle}>
             <span className={`${s.tint} ${s.tintRound}`} style={{ '--tint': gradeTint(record.grade) } as React.CSSProperties} aria-hidden="true">{record.grade ?? '–'}</span>
