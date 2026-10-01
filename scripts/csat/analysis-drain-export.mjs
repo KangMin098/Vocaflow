@@ -127,10 +127,18 @@ if (REDO.size) {
 // Reserve individual items, not just filenames. Otherwise an old [A,B] chunk can
 // collide with a newly packed [A,C] chunk and silently leave C unassigned.
 const reserved = new Set()
+const recovery = new Set()
 for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
   const input = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
-  for (const it of input.items ?? []) if (it.item_id ?? it.id) reserved.add(it.item_id ?? it.id)
+  const hasOutput = fs.existsSync(path.join(WORK, f.replace(/\.json$/, '.out.json')))
+  for (const it of input.items ?? []) {
+    const id = it.item_id ?? it.id
+    if (!id) continue
+    if (!hasOutput) reserved.add(id)
+    else if (!done.has(id)) recovery.add(id)
+  }
 }
+const reexport = (id) => REDO.has(id) || recovery.has(id)
 const pool = corpus.items
   .filter((it) => it.in_scope)
   .filter((it) => (ONLY_TYPE ? it.type_id === ONLY_TYPE : true))
@@ -150,9 +158,9 @@ for (const arr of byType.values()) {
 // 문항이 많은 유형부터 — 회차 커버 곡선이 가장 빨리 오른다
 const types = [...byType.entries()].flatMap(([type, items]) => {
   // Explicit corrections must never share the filename/provenance of unfinished ordinary work.
-  return [items.filter((it) => REDO.has(it.id)), items.filter((it) => !REDO.has(it.id))]
+  return [items.filter((it) => reexport(it.id)), items.filter((it) => !reexport(it.id))]
     .filter((group) => group.length).map((group) => [type, group])
-}).sort((a, b) => Number(REDO.has(b[1][0].id)) - Number(REDO.has(a[1][0].id)) || b[1].length - a[1].length)
+}).sort((a, b) => Number(reexport(b[1][0].id)) - Number(reexport(a[1][0].id)) || b[1].length - a[1].length)
 
 /**
  * 지문이 미덥지 않은 문항에 싣는 **원문**.
@@ -267,7 +275,7 @@ outer: for (const [typeId, arr] of types) {
   for (let i = 0; i < arr.length; i += SIZE) {
     if (n >= LIMIT) break outer
     const slice = arr.slice(i, i + SIZE)
-    const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
+    const redoMark = reexport(slice[0].id) ? `redo-${REDO_TAG}-` : ''
     const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
     if (fs.existsSync(path.join(WORK, name))) {
       console.log(`  기존 입력 보존: ${name} — 낡은 원문은 --redo로 별도 청크에서 분석한다`)
