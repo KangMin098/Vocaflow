@@ -60,6 +60,27 @@ export function validateSettings(s: unknown, knownExams: Set<string>): string[] 
   inRange(x.recommend?.vulnerable_traps, 0, 9, 'recommend.vulnerable_traps')
   inRange(x.recommend?.max_lines, 1, 10, 'recommend.max_lines')
   inRange(x.diagnostic_test?.size, 5, 45, 'diagnostic_test.size')
-  if (num(x.diagnostic_test?.size) && !Number.isInteger(x.diagnostic_test.size)) e.push('diagnostic_test.size 는 정수')
+  // 개수·번호·회수는 정수여야 한다 — 소수면 slice() 가 잘라 비교가 영영 안 맞아 신호가 죽는다
+  const ints: [unknown, string][] = [
+    [x.diagnostic_test?.size, 'diagnostic_test.size'],
+    [x.min_observations, 'min_observations'],
+    [x.trap?.min_exposure, 'trap.min_exposure'],
+    [h?.time_collapse?.from_no, 'habits.time_collapse.from_no'],
+    [h?.time_collapse?.to_no, 'habits.time_collapse.to_no'],
+    [h?.time_collapse?.timeout_count, 'habits.time_collapse.timeout_count'],
+    [h?.guessing?.easy_wrong_count, 'habits.guessing.easy_wrong_count'],
+    [h?.cutline_90?.sessions, 'habits.cutline_90.sessions'],
+    [h?.listening?.to_no, 'habits.listening.to_no'],
+    [h?.listening?.wrong_count, 'habits.listening.wrong_count'],
+    [h?.listening?.consecutive, 'habits.listening.consecutive'],
+    [x.confidence?.high?.exams, 'confidence.high.exams'],
+    [x.confidence?.high?.responses, 'confidence.high.responses'],
+    [x.confidence?.medium?.exams, 'confidence.medium.exams'],
+    [x.confidence?.medium?.responses, 'confidence.medium.responses'],
+    [x.recommend?.weak_attributes, 'recommend.weak_attributes'],
+    [x.recommend?.vulnerable_traps, 'recommend.vulnerable_traps'],
+    [x.recommend?.max_lines, 'recommend.max_lines'],
+  ]
+  for (const [v, name] of ints) if (num(v) && !Number.isInteger(v)) e.push(`${name} 는 정수`)
   return e
 }

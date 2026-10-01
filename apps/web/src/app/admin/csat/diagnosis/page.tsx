@@ -26,7 +26,9 @@ export default async function DiagnosisDashboardPage() {
 
   return (
     <div className="flex flex-col gap-5">
-      <DxHeader title="영어 진단 — 현황" lead="학습자 진단이 믿을 만한지 보는 화면이에요. 태깅이 끝나 「진단 반영」을 켠 시험만 역량·함정 진단에 쓰이고, 나머지는 점수만 반영돼요.">
+      <DxHeader
+        heading={<h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">영어 진단 — 현황</h2>}
+        lead="학습자 진단이 믿을 만한지 보는 화면이에요. 태깅이 끝나 「진단 반영」을 켠 시험만 역량·함정 진단에 쓰이고, 나머지는 점수만 반영돼요.">
         <AdminScreenHelp screen="csat-diagnosis" />
       </DxHeader>
       <DxNav current="/admin/csat/diagnosis" />

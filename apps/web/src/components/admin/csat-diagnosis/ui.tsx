@@ -41,11 +41,12 @@ export function DxNav({ current }: { current: string }) {
   )
 }
 
-export function DxHeader({ title, lead, children }: { title: string; lead: string; children?: React.ReactNode }) {
+/** heading 을 넘기면 title 대신 그 요소를 제목으로 쓴다(사이드바 메뉴와 맞추는 화면은 h2 를 글자로 적는다) */
+export function DxHeader({ title, heading, lead, children }: { title?: string; heading?: React.ReactNode; lead: string; children?: React.ReactNode }) {
   return (
     <div className="flex flex-wrap items-start justify-between gap-3">
       <div className="flex max-w-[760px] flex-col gap-1">
-        <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">{title}</h2>
+        {heading ?? <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">{title}</h2>}
         <p className="break-keep font-body text-[14px] leading-relaxed text-[var(--t1)]">{lead}</p>
       </div>
       <div className="flex flex-wrap items-center gap-2">{children}</div>

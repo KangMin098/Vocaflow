@@ -135,6 +135,18 @@ describe('2. 난이도 보정', () => {
     expect(a.ability).toBeCloseTo((60 * 0.5 + 90) / 1.5, 1)
     expect(a.adjusted).toBe(false)
   })
+  it('보정된 회차와 안 된 회차를 섞어 평균하지 않는다 — 하나라도 안 되면 전부 원점수', () => {
+    const exams = { R: exam('R', { errorRate: () => 0.3 }), H: exam('H', { errorRate: () => 0.5 }), N: exam('N') }
+    const settings = { ...SETTINGS, reference_exam: 'R' }
+    const sessions = [
+      { ...session('a', 'H', '2026-10-01', responses()), rawScore: 80 }, // 보정하면 100
+      { ...session('b', 'N', '2026-10-01', responses()), rawScore: 80 }, // 오답률 없음
+    ]
+    const a = currentAbility(input({ exams, settings, sessions }))
+    expect(a).toEqual({ ability: 80, adjusted: false, fromDiagnostic: false })
+    const r = diagnose(input({ exams, settings, sessions }))
+    expect(r.trend.find((t) => t.sessionId === 'b')?.adjusted).toBeNull()
+  })
   it('진단 테스트만 있으면 정답률로 추정한다', () => {
     const item: ItemMeta = { itemId: 'P#1', examId: 'P', no: 30, errorRate: null, ebsLinked: null, attributes: { A1: 2 }, optionTraps: {} }
     const rs: ResponseIn[] = Array.from({ length: 4 }, (_, i) => ({ itemNo: i + 1, itemId: 'P#1', chosen: 1, isCorrect: i < 3, confidence: 'sure' }))

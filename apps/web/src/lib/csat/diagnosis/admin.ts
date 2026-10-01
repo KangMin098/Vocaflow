@@ -226,12 +226,13 @@ export async function loadLearners(db: Db): Promise<LearnerSummary[]> {
     )
   const [sessions, snapsRaw, profiles] = await Promise.all([
     byId<{ id: string; user_id: string; taken_at: string }>('csat_dx_session', 'id, user_id, taken_at'),
-    byId<{ id: string; user_id: string; computed_at: string; grade_est: number | null; adjusted_score: number | null; confidence: string }>(
-      'csat_dx_snapshot', 'id, user_id, computed_at, grade_est, adjusted_score, confidence',
+    byId<{ id: string; user_id: string; computed_at: string; inputs_as_of: string; grade_est: number | null; adjusted_score: number | null; confidence: string }>(
+      'csat_dx_snapshot', 'id, user_id, computed_at, inputs_as_of, grade_est, adjusted_score, confidence',
     ),
     byId<{ id: string; user_id: string }>('csat_dx_profile_hist', 'id, user_id'),
   ])
-  const snaps = snapsRaw.sort((a, b) => b.computed_at.localeCompare(a.computed_at))
+  // 학습자 화면과 같은 「최신」 — 입력 워터마크, 같으면 계산 시각(snapshot.ts loadSnapshots)
+  const snaps = snapsRaw.sort((a, b) => b.inputs_as_of.localeCompare(a.inputs_as_of) || b.computed_at.localeCompare(a.computed_at))
   const users = new Set([...sessions.map((s) => s.user_id), ...profiles.map((p) => p.user_id)])
   const out: LearnerSummary[] = []
   for (const userId of users) {

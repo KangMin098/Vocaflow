@@ -145,6 +145,7 @@ export async function loadItems(db: Db, itemIds: string[]): Promise<Record<strin
 
 interface SessionRow {
   id: string
+  created_at: string
   exam_id: string | null
   mode: SessionMode
   taken_at: string
@@ -160,16 +161,24 @@ interface ResponseRow {
 }
 
 export async function loadSessions(db: Db, userId: string): Promise<SessionIn[]> {
+  return (await loadSessionsWithWatermark(db, userId)).sessions
+}
+
+/**
+ * 세션 + 입력 워터마크(포함된 세션 중 가장 늦게 저장된 created_at). 스냅샷의 inputs_as_of 로 쓴다 —
+ * 동시에 두 기록이 저장돼 계산이 엇갈려도 **더 많은 기록을 본 스냅샷**이 최신으로 정렬된다.
+ */
+export async function loadSessionsWithWatermark(db: Db, userId: string): Promise<{ sessions: SessionIn[]; watermark: string | null }> {
   const sessions = (
     await keysetSelect<SessionRow, string>(
       (cursor, limit) => {
-        const q = db.from('csat_dx_session').select('id, exam_id, mode, taken_at, raw_score').eq('user_id', userId).order('id').limit(limit)
+        const q = db.from('csat_dx_session').select('id, exam_id, mode, taken_at, raw_score, created_at').eq('user_id', userId).order('id').limit(limit)
         return cursor === null ? q : q.gt('id', cursor)
       },
       (row) => row.id,
       'csat_dx_session',
     )
-  ).sort((a, b) => a.taken_at.localeCompare(b.taken_at) || a.id.localeCompare(b.id))
+  ).sort((a, b) => a.taken_at.localeCompare(b.taken_at) || a.created_at.localeCompare(b.created_at) || a.id.localeCompare(b.id))
   // 세션당 응답 ≤ 45행 → 20세션 묶음이면 900행
   const responses = await selectByChunks<ResponseRow>(
     sessions.map((s) => s.id),
@@ -191,7 +200,8 @@ export async function loadSessions(db: Db, userId: string): Promise<SessionIn[]>
       confidence: r.confidence,
     })
   }
-  return [...bySession.values()]
+  const watermark = sessions.reduce<string | null>((m, x) => (m === null || x.created_at > m ? x.created_at : m), null)
+  return { sessions: [...bySession.values()], watermark }
 }
 
 export interface ProfileRow {
@@ -213,10 +223,10 @@ export async function loadLatestProfile(db: Db, userId: string): Promise<Profile
 }
 
 /** 학습자 한 명의 EngineInput 을 조립한다 */
-export async function buildInput(db: Db, userId: string, now: Date): Promise<{ input: EngineInput; settingsId: number }> {
-  const [{ id, settings }, sessions, trapFamily, profile] = await Promise.all([
+export async function buildInput(db: Db, userId: string, now: Date): Promise<{ input: EngineInput; settingsId: number; watermark: string | null }> {
+  const [{ id, settings }, { sessions, watermark }, trapFamily, profile] = await Promise.all([
     loadActiveSettings(db),
-    loadSessions(db, userId),
+    loadSessionsWithWatermark(db, userId),
     loadTrapFamily(db),
     loadLatestProfile(db, userId),
   ])
@@ -231,6 +241,8 @@ export async function buildInput(db: Db, userId: string, now: Date): Promise<{ i
   const targetGrade = profile?.goal_detail?.target_grade
   return {
     settingsId: id,
+    // 입력 신선도 = 기록과 프로필 중 가장 늦은 것 — 목표를 바꾼 계산이 옛 목표 계산에 밀리지 않게
+    watermark: [watermark, profile?.valid_from ?? null].filter((x): x is string => Boolean(x)).sort().at(-1) ?? null,
     input: {
       now,
       settings,
@@ -253,7 +265,7 @@ export async function recomputeSnapshot(
   now: Date,
   sessionId: string | null = null,
 ): Promise<{ id: string; result: DiagnosisResult }> {
-  const { input, settingsId } = await buildInput(db, userId, now)
+  const { input, settingsId, watermark } = await buildInput(db, userId, now)
   const result = ENGINE.diagnose(input)
   const { data, error } = await db.from('csat_dx_snapshot').insert({
     user_id: userId,
@@ -261,7 +273,8 @@ export async function recomputeSnapshot(
     session_id: sessionId,
     engine_version: result.engineVersion,
     settings_id: settingsId,
-    inputs_as_of: now.toISOString(),
+    // 입력 워터마크 — 이 계산이 본 가장 늦은 기록. 최신 리포트는 이것으로 고른다(snapshot.ts)
+    inputs_as_of: watermark ?? now.toISOString(),
     raw_score: result.rawScore,
     adjusted_score: result.ability,
     grade_est: result.gradeEst,

@@ -24,7 +24,8 @@ export function ScoreTrend({ points }: { points: Point[] }) {
   const y = (v: number) => PAD.t + ((100 - v) * (H - PAD.t - PAD.b)) / 100
   const path = (key: 'raw' | 'adjusted') =>
     ps.map((p, i) => `${i === 0 ? 'M' : 'L'}${x(i).toFixed(1)},${y(p[key] ?? 0).toFixed(1)}`).join(' ')
-  const showAdjusted = ps.some((p) => p.adjusted !== null && p.adjusted !== p.raw)
+  // 모든 회차가 보정됐을 때만 보정 선을 긋는다 — 빈 자리를 0 으로 그리지 않는다
+  const showAdjusted = ps.every((p) => p.adjusted !== null) && ps.some((p) => p.adjusted !== p.raw)
 
   return (
     <figure className="flex flex-col gap-2">

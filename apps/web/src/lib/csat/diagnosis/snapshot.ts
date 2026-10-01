@@ -70,7 +70,8 @@ export function toView(r: Row): SnapshotView {
 /** 최근 스냅샷 n개(최신 먼저) — 표시용이라 의도적으로 자른다 */
 export async function loadSnapshots(db: SupabaseClient, userId: string, limit = 50): Promise<SnapshotView[]> {
   const { data, error } = await db.from('csat_dx_snapshot').select(COLS).eq('user_id', userId)
-    .order('computed_at', { ascending: false }).order('id').limit(limit)
+    // 더 많은 기록을 본 스냅샷이 먼저(inputs_as_of = 입력 워터마크), 같은 입력이면 늦게 계산한 것이 먼저
+    .order('inputs_as_of', { ascending: false }).order('computed_at', { ascending: false }).order('id').limit(limit)
   if (error) throw new Error(`진단 조회 실패: ${error.message}`)
   return (data ?? []).map((r) => toView(r as Row))
 }

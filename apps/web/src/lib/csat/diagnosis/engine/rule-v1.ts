@@ -250,14 +250,14 @@ export function currentAbility(input: EngineInput): { ability: number | null; ad
   const ref = input.settings.reference_exam ? input.exams[input.settings.reference_exam] : undefined
   const lives = input.sessions.filter((s) => s.mode === 'live' && s.examId && s.rawScore !== null)
   if (lives.length > 0) {
+    // 보정 점수와 원점수를 섞어 평균하지 않는다 — 한 회라도 보정이 안 되면 전부 원점수로 센다
+    const scored = lives.map((s) => ({ s, a: adjustScore(s.rawScore as number, input.exams[s.examId as string], ref) }))
+    const adjusted = scored.every((x) => x.a.adjusted)
     let num = 0
     let den = 0
-    let adjusted = true
-    for (const s of lives) {
-      const a = adjustScore(s.rawScore as number, input.exams[s.examId as string], ref)
-      adjusted &&= a.adjusted
+    for (const { s, a } of scored) {
       const w = decay(input.now, s.takenAt, input.settings.half_life_days)
-      num += w * a.value
+      num += w * (adjusted ? a.value : (s.rawScore as number))
       den += w
     }
     return { ability: den > 0 ? clampScore(num / den) : null, adjusted, fromDiagnostic: false }
@@ -381,7 +381,12 @@ export function diagnose(input: EngineInput): DiagnosisResult {
       takenAt: s.takenAt,
       mode: s.mode,
       raw: s.rawScore,
-      adjusted: s.rawScore === null ? null : adjustScore(s.rawScore, input.exams[s.examId as string], ref).value,
+      // 보정이 안 된 회차는 보정 점수를 비운다(원점수를 보정 점수인 척 그리지 않는다)
+      adjusted: (() => {
+        if (s.rawScore === null) return null
+        const a = adjustScore(s.rawScore, input.exams[s.examId as string], ref)
+        return a.adjusted ? a.value : null
+      })(),
     })),
   }
 }

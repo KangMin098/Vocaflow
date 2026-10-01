@@ -22,6 +22,7 @@ const TABS: { screen: DiagnosisScreen; href: string; label: string }[] = [
   { screen: 'report', href: '/csat/diagnosis', label: '내 진단 리포트' },
   { screen: 'attempt', href: '/csat/diagnosis/attempts/new', label: '시험 기록 입력' },
   { screen: 'history', href: '/csat/diagnosis/history', label: '진단 이력' },
+  { screen: 'start', href: '/csat/diagnosis/start', label: '프로필·목표' },
 ]
 
 export function DiagnosisShell({ exams, screen, children }: { exams: RailExam[]; screen: DiagnosisScreen; children: React.ReactNode }) {

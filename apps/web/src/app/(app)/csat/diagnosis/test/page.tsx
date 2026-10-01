@@ -18,6 +18,7 @@ import { todayKst } from '@/lib/csat/diagnosis/payload'
 import { loadActiveSettings, loadItems } from '@/lib/csat/diagnosis/server'
 import { railExams } from '@/lib/csat/rail-data'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 export const metadata: Metadata = { title: '진단 테스트 — 내 진단' }
 export const dynamic = 'force-dynamic'
@@ -32,12 +33,19 @@ export default async function DiagnosticTestPage() {
   const { userId } = await learnerSession()
   if (!userId) redirect('/login?next=/csat/diagnosis/test')
   const db = createAdminClient() as unknown as SupabaseClient
-  const [{ settings }, { data: pool, error }] = await Promise.all([
+  const [{ settings }, pool] = await Promise.all([
     loadActiveSettings(db),
-    db.from('csat_dx_pool').select('item_id').eq('active', true),
+    // 풀이 1,000을 넘어도 잘리지 않게 keyset 으로 끝까지
+    keysetSelect<{ item_id: string }, string>(
+      (cursor, limit) => {
+        const q = db.from('csat_dx_pool').select('item_id').eq('active', true).order('item_id').limit(limit)
+        return cursor === null ? q : q.gt('item_id', cursor)
+      },
+      (row) => row.item_id,
+      'csat_dx_pool',
+    ),
   ])
-  if (error) throw new Error(`진단 풀 조회 실패: ${error.message}`)
-  const metas = Object.values(await loadItems(db, (pool ?? []).map((p) => p.item_id as string)))
+  const metas = Object.values(await loadItems(db, pool.map((p) => p.item_id)))
   const picked = composeDiagnosticTest(metas, settings.diagnostic_test.size, seedOf(`${userId}:${todayKst(new Date())}`))
 
   let items: TestItem[] = []
