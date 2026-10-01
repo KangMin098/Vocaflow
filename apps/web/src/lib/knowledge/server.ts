@@ -11,6 +11,7 @@ import {
   isGrade,
   isLayer,
   isStatus,
+  type Attribution,
   type Grade,
   type ItemStatus,
   type Layer,
@@ -139,7 +140,7 @@ export interface EvidenceRow {
   id: string
   itemId: string
   grade: Exclude<Grade, 'G'>
-  attribution: 'stated' | 'inferred'
+  attribution: Attribution
   sourceType: 'methodology' | 'csat_origin' | 'external'
   title: string
   url: string | null

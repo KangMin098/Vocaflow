@@ -24,8 +24,8 @@
 
 ```
 node agents/scripts/lock.mjs status              # 누가 쓰는 중인가
-node agents/scripts/lock.mjs acquire <agent>     # 쓰기 전 (남이 살아서 쥐고 있으면 exit 3 → 읽기 전용)
-node agents/scripts/lock.mjs release <agent>     # 끝나면
+node agents/scripts/lock.mjs acquire <agent>     # 쓰기 전 (남이 살아서 쥐고 있으면 exit 3 → 읽기 전용 · 에이전트 프로세스를 못 찾으면 exit 64 → --pid <에이전트 pid>)
+node agents/scripts/lock.mjs release <agent>     # 끝나면 (이름·pid 가 모두 주인이어야 놓인다 — 같은 이름의 다른 세션은 exit 3)
 ```
 
 - 잠금에는 에이전트 **프로세스** pid 가 들어간다(조상 프로세스에서 `claude` / `codex` 를 찾는다). 프로세스가 죽었거나 12시간이 지나면 다음 acquire 가 고아 잠금으로 보고 해제한다.
