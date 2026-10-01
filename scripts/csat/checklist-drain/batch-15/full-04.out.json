@@ -1,0 +1,976 @@
+[
+  {
+    "id": "accf9d4d-75f0-4e61-85c0-c6eb3c80b5e0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "15adb13353dbcd1280b68dd66555a36cef4d6d45d0247900ae17d6a5ac732eea",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산불 확산 → 비상사태 선포 → 대피·피해·소방관 부상으로 사건이 원인·결과로 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Nearly 330,000 people in San Diego",
+      "note": "첫 문단이 사건 전체를 세워 그대로 떼어지고, evacuate·state of emergency 정도만 풀면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "acd9f03a-237b-4674-910a-12c6a2b4172a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a8f0f24ca789a5135caf5fedea01d92472a0d273a421fba7774e1d36413b9d7b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 연기 결정 → 밸브 결함 이력(Endeavour) → 책임자 발언으로 까닭이 이어져 내용 일치·요지 칸이 선다; 끝의 승무원 명단은 걷는다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Discovery had originally been scheduled for",
+      "note": "둘째 문단이 연기 이유를 혼자 설명한다; 트러스 사양과 승무원 이름 나열은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "ace0466b-7b5c-45f3-8e7e-21dc55dcbaeb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "347fd04e4bf394b9ae49f51d5defe5bef908f40370ea5c5fae66a2e8bac94e13",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "소환 → 블랙웰 거부·반박 → 선관위 구조에 대한 의혹 제기로 양측 입장이 이어지는 보도라 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The deposition was part of a",
+      "note": "재검표 결과와 남은 의문을 다룬 둘째 문단이 혼자 서고, deposition·irregularities 를 풀면 V6 까지 내려간다."
+    }
+  },
+  {
+    "id": "acf4f7f7-8812-49fc-ad17-3feb6358dca9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6e83506f9a99080591afc57af42d420f0610221715300d09265800bbe606b9e9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "공약 다섯 분야를 소제목으로 나눈 뒤 노동당·자민당 반응이 이어져 순서·삽입과 내용 일치 칸을 채운다; 오탈자는 가공 때 고친다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Better healthcare and cleaner hospitals: A",
+      "note": "분야별 문단은 혼자 서지만 beurocracy·Econimic·asylym 등 오탈자가 많아 손봐야 한다."
+    }
+  },
+  {
+    "id": "ad0af9bf-2b7d-4abb-a1bb-4571363b1184",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f856a55596416b653aa26aca759934b6858037eab6e3604f3f120efc406498f1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "블로거가 재심사를 청구 → 선행 기술 근거 제시 → 추가 자료·후원 요청으로 행동이 이어지는 짧은 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A lone blogger has recently mailed",
+      "note": "prior art·re-examination 을 풀면 뜻이 서지만 Wayback·Alexa 아이러니는 배경지식이 필요하다."
+    }
+  },
+  {
+    "id": "ad106ea0-33f6-4faf-8209-65dbc4a27dd3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4efc4708c7dae38ba782f7e6da71aa9b1bd2dd202f35748cf1dd9727e24784a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "무역적자 신기록의 원인을 허리케인 카트리나·리타로 돌리고 에너지 수입·식품 수출 변화로 풀어 원인-결과 문장이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Some of the increase is attributed",
+      "note": "수치가 많지만 문단마다 원인 진술이 있어 숫자 몇 개를 줄여도 인과가 남는다."
+    }
+  },
+  {
+    "id": "ad128dd0-0e59-461d-b66d-3de98c452967",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e259712add0075f42a1f088c2bb8234fecb007cba00c55ef9f5f80f4c25f4ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "개회 → 추도로 양원 휴회 → 신임 의원 선서·장관 소개로 절차가 이어지나 뒤 두 문단은 이름 나열이라 첫 두 문단만 내용 일치 칸에 쓴다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The Rajya Sabha was adjourned without",
+      "note": "휴회의 까닭(현직 의원 별세)은 서지만 이름을 걷으면 남는 사건이 얇아 짧은 단신 이상은 어렵다."
+    }
+  },
+  {
+    "id": "ad2cfbf1-7ecf-4400-8182-f26ed4addd67",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "700ded2deafd98a5bfac90eaa9c36f70c2dcd20000af992fb59cafe5f2b4bf0a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "성인 문해력 조사 결과를 세 유형 정의·집단별 변화·표본 구성 차이로 풀어 설명문 구조가 뚜렷해 요지·내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "order",
+        "summary"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An important difference between the 2003",
+      "note": "표본 구성 차이를 다룬 문단이 앞 문맥 없이 서고, 정의 목록은 한 문장으로 줄이면 된다."
+    }
+  },
+  {
+    "id": "ad31bcb6-7e45-45f9-89cd-8d5732d631c5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "97047b366b2f188e74c640604e4530f2dec8e60e14748159c8651caf8efe0c30",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "language",
+    "why": "올해의 낱말 선정 → 검색이 선거 뉴스 낱말에 몰린 까닭 → 블로그 정의에 대한 비판으로 이어져 중간 목록을 걷으면 내용 일치·어휘 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Reuters reports that the company said",
+      "note": "열 낱말 목록은 가공 때 걷고, 선정 이유를 말하는 인용 문단으로 이어 붙이면 된다."
+    }
+  },
+  {
+    "id": "ad6f1fb2-972b-407d-90ee-568102e5f649",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9380732a276699cea64354b30608c5f8d3cfaf4c85a21107d5ebb8354456c425",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산불 확산 → 진화 중 물을 채우다 헬기 추락 → 승무원 무사로 사건 흐름이 서는 짧은 사고 보도라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Since mid-August, the forest fires have",
+      "note": "어휘는 이미 쉽고, 첫 문단과 끝 문단이 같은 사고를 되풀이해 하나로 합쳐야 한다."
+    }
+  },
+  {
+    "id": "ad800784-fcc1-4934-9400-49c8cc42193a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba0a7e361edbd012cc52ea9e285158f49888abc54d197646c0c8048f4ca400df",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "흑점 감소와 허리케인 세기의 연관 주장 → 상층 대기 온도차라는 기제 → 다른 학자의 통계 반론으로 주장-근거-반론이 서서 요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Increased solar activity will allow more",
+      "note": "기제 문단이 혼자 서고 phenomenon·atmospheric 만 풀면 V5 에 맞는다."
+    }
+  },
+  {
+    "id": "ad8c059f-c101-45ed-babe-1233bb17eab7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7bf3d305bdc0c4cbda320375452474a28d4d158cc1354a92bd4693f1c1cfbb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭풍 → 정전 → 복구가 예상보다 빨랐다는 전력회사 발표로 원인·결과·다음 절차가 한 문단 안에서 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Parts of the northeastern coast of",
+      "note": "한 문단짜리라 떼기는 쉽지만 지문 길이로는 짧아 문항 하나 분량만 나온다."
+    }
+  },
+  {
+    "id": "ad940e1a-34a2-460a-a49a-56676465bda0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "64fe1aeb8aa325dabd65ae6a4ceacbd0076e246c8fb6578e3687f4381028def3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "수상한 냄새 → 비상 착륙 → 수색·조사 → 고의 없음으로 불기소·재탑승 불허까지 사건이 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An American Airlines flight from Washington",
+      "note": "flatulence·lavatory·disembarked 를 쉬운 말로 바꾸면 V5 로 내려가고 사건 순서는 그대로 남는다."
+    }
+  },
+  {
+    "id": "adb17a5f-1e27-42f1-b5ad-20b4c03f1b92",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8b2859306a71523464f250773dea7bef2981d0f1f26bab6cb331a14a85104bd1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "건물 폐쇄 → 수상한 소포로 일부 대피 → 허위 경보로 판명, 그리고 런던 공격 뒤 경계 강화라는 배경이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On Monday, Brittania House in Bradford,",
+      "note": "짧은 두 문단이 경위와 배경을 갖추나 last Thursday's attack 이 무엇인지 한 구절 보충이 필요하다."
+    }
+  },
+  {
+    "id": "adc37d44-dd2d-4ec4-8fe3-724af3fb0afb",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "70e2ffc717341ccd2381cf960e29d4d51dfecb0cd9009daf3fb3e127894c0a49",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "부채 두 배 전망과 적자 예측 상향 → 예산국장·여야 의원·전 CBO 국장의 엇갈린 해석이 이어져 주장 대비·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The United States Office of Management",
+      "note": "첫 문단이 혼자 서고 cumulative·sustainable 을 풀면 되며, 인용 나열은 두셋만 남긴다."
+    }
+  },
+  {
+    "id": "adcae0b9-d233-4922-88f6-95170f097cc1",
+    "source_updated_at": "2026-09-25T09:16:52.530936+00:00",
+    "body_sha256": "d64e54ade01c5bc3bd4eb2e0420f9a609bd0ee1345487327d20d78cdc7b0329d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "풍력 공장 폐쇄에 맞선 점거 → 해고·소송 압박 → 정당별 지지·정부 대책 → 회사의 철수 이유로 이어지는 긴 보도라 요약·순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "order",
+        "content_match",
+        "long_reference"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vestas attributes its pullout from the",
+      "note": "회사 측 이유를 다룬 문단이 혼자 서고 pullout·planning permission 만 풀면 된다; 정당 인물 나열은 걷는다."
+    }
+  },
+  {
+    "id": "ade40f77-549a-4b77-b369-81d74bf99464",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "03eaa7bacae85606bc758fb1985830ccdee101e084d8bf05086875b1b3dc8e77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "유출된 경찰 보고서의 아동 학대 폭로에 원주민 원로·장관·야당·경찰협회의 원인 진단과 반박이 이어지는 보도로, 묘사가 구체적이라 성인 칸만 요약·주장 칸으로 둔다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "claim",
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Lyla Coorey, author of a 2005",
+      "note": "원인 진단 문단은 떼어 서지만, 유아 강간 등 구체적 범죄 묘사는 가공 때 걷어야 한다."
+    }
+  },
+  {
+    "id": "adeafe87-6e9d-452a-8d5c-782775ab7b42",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a98566272fd45e2c04aba09ea23b13e67371cf04d81ceabf2db873f61ad12ad5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "sports",
+    "why": "두 문장이 「마지막 구간에 있다 → 55마일 남았다」로 같은 사실을 되풀이해 사건의 원인·결과·다음 절차가 서는지 갈려 보류한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Briton Dee Caffari and her 72",
+      "note": "떼기는 쉽지만 남는 것이 「첫 여성이 될 참」이라는 사실 하나뿐이라 문항 근거가 서지 않는다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "ae292a94-7282-433d-9c73-5da36c31b853",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "164705798f03cb4235ccd267b6cb9fbda25b4f0d5f4d637643628e637def5ac5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "쓰나미 원조 약속이 하루 새 두 배로 늘었다 → 그러나 물류에 몇 주가 걸려 사망자가 늘 것이라는 경고로 대조가 서서 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite the encouraging promises, the UN",
+      "note": "마지막 경고 문단이 혼자 서지만, 중간 「the United Kingdom and / Sweden」 문장은 줄바꿈으로 깨져 고쳐 써야 한다."
+    }
+  },
+  {
+    "id": "ae43805d-ad7f-4418-815d-4d91159875ed",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "006bdf13363f6c113f6ce0f65646a25bea918cbc233a761ab7bbea6d4fa7cd3f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "식량 운반선 납치범이 합의 서명을 거부하고 요구를 몸값에서 고향 분배로 바꿨다 → 원조 중단으로 사건 흐름이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Initially the hijackers asked for half",
+      "note": "요구 변화를 다룬 문단이 서고 WFP·IRIN 약어만 풀면 된다."
+    }
+  },
+  {
+    "id": "ae4db75f-d5f6-4ed2-8346-74a2afa9a54f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "98abcfdbe22f80315182f69b1b6f3b4103112503514ab1deecfa7513a35e44b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "첫 여성 유료 우주 관광객이 의료 사유로 빠진 사업가 대신 탑승 → 발사 → 도킹 예정으로 사건이 이어지고 인물 배경까지 있어 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Anousheh Ansari, 40, an Iranian-American became",
+      "note": "첫 문단이 혼자 서고 동승 우주인 이름 문단은 걷어도 된다."
+    }
+  },
+  {
+    "id": "ae59177d-0ed6-4b5d-a43b-13876db88863",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f4cffbd5a7c6ee323dd96a115a4dcf31079df91c3cad64fbadb2029823911ea2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "총선 진행 → 여당 단독 등록 지역 → 야당의 부정 주장과 정부 반박 → 국제 감시단 평가로 양측 입장이 갈마드는 보도라 요약·주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "summary",
+        "content_match",
+        "claim",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The ruling party says none of",
+      "note": "등록 거부를 둘러싼 양측 주장 문단이 혼자 서고 어휘는 이미 무난하다."
+    }
+  },
+  {
+    "id": "ae66da4b-5c7b-44fa-b4bd-74d081d37839",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fc21f523e5e00e40597a2c5d36c1bf7b28f785f906e73bdc6d11e9f122da1f77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "블로그 규제법 통과 배경 → 블로거·플랫폼 의무와 벌금 → 인권단체·업계 반발로 이어져 내용 일치·요지 칸을 채운다; 벌금 수치는 줄인다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Under the bill, bloggers with 3000",
+      "note": "루블·달러 이중 수치를 걷으면 의무 내용이 문장으로 남고 liability 만 풀면 된다."
+    }
+  },
+  {
+    "id": "ae853cab-155a-4dcd-9f37-ad06154ff98c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3c0cd78908f3c37b85e1ad68300e3936502d8858d110a38cdf1ab1ac170c156c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "런던 폭탄 뒤 지하철 휴대전화 비상 시설이 있다는 허위 이메일이 돈다 → 그런 설비가 없어 사실이 아니다로 주장과 반박이 서는 단신이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In what some consider a tasteless",
+      "note": "첫 문단으로 충분하고 끝의 「BBC 웹사이트 참고」 문장과 leeky feeder 용어는 걷는다."
+    }
+  },
+  {
+    "id": "ae8d04ce-b25c-45d8-845d-e1134fb29689",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cb4d32cb4cadb0387323fbb09ebf05dec60ab8d109dcf8aa2cce5b670ec7304c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "세계 민속음악 음반 전시 개막 → 수집가가 여행에서 모은 경위와 가난한 나라의 음반 제작 사정 → 관람 상황으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Museum of Simferopol History, located",
+      "note": "「called;」 뒤 전시명이 빠진 자리를 고쳐야 하고 philophonist 는 풀어 쓴다."
+    }
+  }
+]

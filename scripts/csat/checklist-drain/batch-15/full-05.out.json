@@ -1,0 +1,965 @@
+[
+  {
+    "id": "aeae8e9c-4043-43b5-924e-03602e7f000b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f1da1e324b8156a01ad3fcfa557d89201b30db69d1fe3ae44106e6f257b86c9c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "오클라호마 주 검사 재개 → 치안판사의 「one time」 보충 명령 → 양계 농가 단체의 「동의하지 않지만 따른다」 반응으로 사건이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Oklahoma officials resumed testing soil, water,",
+      "note": "법원 명령 인용문의 법률 문체(contiguous, supplemental)를 consecutive, additional 로 바꾸니 V5 로 내려갔다."
+    }
+  },
+  {
+    "id": "aeaed088-fd4d-4202-8f81-39d12cb45662",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1bd1e54e6894f0bca68238b59c419f531f8615011f0b7423bc7055becd750c21",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "이익 27% 감소 발표 → 주가 12% 하락, 유가·경기침체를 원인으로 든 CEO 발언과 경쟁사 하락·자사주 매입 계획까지 원인·결과가 이어져 내용 일치·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Irish airline Ryanair took a 12%",
+      "note": "첫 두 단락만으로 원인(유가·침체)-결과(이익 경고·주가 하락)가 선다; hedged·yields 를 풀어 쓰면 V5."
+    }
+  },
+  {
+    "id": "aec2166e-34f1-4f04-9160-fdf728132e3d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d215ec74bc7d0c1e7997029acd46db5410c51303d61cc158ad8210ac0bf65e01",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "인도 여성 평화유지 부대의 라이베리아 파견을 내전 배경·지휘관 소감·현지 여성 경찰 유입 기대로 이어 쓴 기사라 주제·내용 일치·문장 삽입 칸이 나온다(강간 언급이 있어 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "insert",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An Indian all-female United Nations peacekeeping",
+      "note": "같은 인용문(Alhassan)이 두 번 나와 한 번은 걷어야 하고, apprehensive·contingent 를 nervous·group 으로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "aece6fbe-59a2-467f-bad1-66ff4293fa9d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b2b28c1e76cb330f2b8f0ac9479dbd7750150a62cacd8fe88f15a7897ebb0352",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "art",
+    "why": "전시 개막·작품 수·전시 기한·총액·공로상 수여가 수치와 일정 위주로 나열되고 끝은 웹사이트 안내라, 사건 연결로 볼지 단신 나열로 볼지 갈린다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The National Cowboy & Western Heritage",
+      "note": "수치·이름을 걷으면 「전시가 열렸고 상을 준다」만 남아 논지·흐름이 거의 서지 않는다."
+    }
+  },
+  {
+    "id": "aed8f8a9-1dd2-401d-9548-20a191595b95",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4edf45ecf86fb1ba8e95256b07cf8c91c21da00b388bf7b5b5c31e0ee26c5ac1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "타이베이 도서전 아동관의 문구관 신설, 재활용 소재 후원(환경 의식 고취 목적), 과학잡지 세미나를 소개해 행사 소개형 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In order to promote some conceptions",
+      "note": "셋째 단락(재활용 소재 후원)은 목적-행동이 이어져 혼자 서고, conceptions·corrugated-fiberboard 를 ideas·cardboard 로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "aef120de-a813-461d-a1bd-aa890d084b3b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bda172ed16e9169b7dc7391ef5fec386b2a3d90b79941243a7a0dbab37742761",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "국무부 외교관의 「오만과 어리석음」 발언 → 녹취를 읽고 사과로 발언과 반응이 한 사건으로 이어지는 90어 단신이라 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an interview Saturday, October 21",
+      "note": "세 문장 모두 필요해 떼어 낼 것은 없고, misspoke·transcript 정도만 풀면 V5."
+    }
+  },
+  {
+    "id": "af0aeab1-3c3e-4af4-953f-a314b7f7312b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6223e0cdc2f24f059979ed501d3a9c7fff4c875312148bda2505de45d62c3867",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "교회의 「Anonymous 가 요켈라 총격 배후」 주장 → 핀란드 수사국 확인으로 반박되는 주장-검증 구조라 내용 일치·통념 교정 칸이 서고, 마지막 단락의 단정적 교단 비판은 가공 때 걷는다(총격·자살 언급으로 고2 이상).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Wikinews contacted the National Bureau of",
+      "note": "반박 단락(NBI 연락·Ahola 인용)은 혼자 서지만, 끝 단락 「fabricating lies」 같은 기사 측 단정은 걷어야 균형이 맞는다."
+    }
+  },
+  {
+    "id": "af5447ac-75ba-40e8-956a-350b44aefa5e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d9239e4baa88f68b4ba5527ac58af5f58256bbb05e652fdfa07ca7bed2e9656b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사고 광산 폭발 → 6명 탈출·13명 고립 → 메탄 축적으로 구조 난항 → 주민 대피로 원인·결과가 이어지는 짧은 속보라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "6 miners escaped shortly after the",
+      "note": "methane·disperse 를 gas·spread out 으로 바꾸니 중등 밴드까지 내려갔다."
+    }
+  },
+  {
+    "id": "af630fe6-884b-4d57-8ac9-8f7dcad4ee3f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "dfd1e3bbae2d0bbe1a7bbeff61d73bf6925c03e1e672c4f6277702d510f692a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "교역 확대 목적의 시험 화물열차 출범 → 운행 내용 → 성공 시 여객 열차·유럽 연결로 다음 단계가 이어져 목적·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Pakistani Prime Minister Yousaf Raza Gillani has",
+      "note": "이름과 기구명을 걷어도 「무역을 늘리려 열차를 시험 운행한다」가 서고, freight 를 cargo 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "af65f3cb-2383-4480-8e89-15361851e21d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a5adc8c9503ece71c6791cbfb27c2808f1212c495b8d22f163d34d2eae9b8d94",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "상장 직후 13% 급등 → 공모가 아래로 하락, 그 원인을 사모펀드 붐 정점론과 세법 「허점」 논의로 든 셋째 단락이 원인 추론 빈칸·내용 일치 칸을 연다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Some fear that the so-called \"Private",
+      "note": "capital gains tax·loopholes 는 바꾸면 논지가 사라져 어휘를 크게 낮추기 어렵다."
+    }
+  },
+  {
+    "id": "af8651ea-03a9-4396-acf8-b30c5f179d2d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "df77e6edbfa0f55ae3b59be20fbcf02c44cc8ca0834b842a1fbd0a16159b0af9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 무장단체의 루마니아 기자 납치에 정부·의회·이라크 대통령·시민 집회가 차례로 반응하는 긴 기사라 순서·내용 일치·문장 삽입 칸이 나온다(테러·처형 위협 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "topic"
+      ],
+      "levels": [
+        "V5",
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rallies continued to occur in Bucharest",
+      "note": "집회·기도 단락은 고유명사를 걷어도 시민 반응 흐름이 서고, solidarity·abduction 을 support·kidnapping 으로 바꾸면 V5."
+    }
+  },
+  {
+    "id": "af8b2c3a-8de7-4df3-a2a0-32f4b5a125fd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e18061d4e82dc08b610560dd01693824c576987ec3907cd6d553b98bd3c6f56d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "미그기 충돌 → 새·운석·로켓 등 가설 배제 → 조종사 착륙·조사 이관으로 사건이 이어져 내용 일치 칸이 서며, 1948년 「UFO 격추」 단락은 근거가 약해 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The recording shows solid bodies, which",
+      "note": "가설을 하나씩 지우는 둘째 단락은 혼자 서고, 마지막 Mantell 단락은 「allegedly」 의사과학 냄새가 있어 뺀다."
+    }
+  },
+  {
+    "id": "af9584e6-ac7b-462f-bf39-1d074aa18fc8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "167e4acc5c8a8296abd8f9151dd64bf67283cef658f966ecd680146374044da0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정체불명 피아니스트가 영국 배우라는 제보가 사실이 아님으로 밝혀진 앞 두 단락과, 제보자가 근거를 대는 문답 인터뷰가 있어 내용 일치·구어 칸을 채운다(끝의 링크 잔재는 걷는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Since publication of our first article,",
+      "note": "앞 두 단락은 제보 → 반증 → 단서 세 개로 축소가 서지만, 인터뷰 끝 「(...)」 생략과 「atfor」·링크 제목 나열은 걷어야 한다."
+    }
+  },
+  {
+    "id": "af95cba9-3827-4a0f-bbd1-9762510d8492",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95d18e417511105040201eaa994de9904dfee1a95a35b95891fc1f4fc463958d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "콜라 원전 사고 소문 → 원인은 3호기 긴급정지(SCRAM) → 스웨덴 당국이 확인해 소문이 거짓으로 보인다는 짧은 반증 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "myth-rebuttal"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Rumours of an accident at the",
+      "note": "세 문장뿐이지만 소문-원인-확인이 이어지고, SCRAM 을 풀어 쓰면 V5."
+    }
+  },
+  {
+    "id": "afb3b9ad-85b3-4b89-9d64-d8873ffd2b22",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3260f64a2c945de08064f788b3dcce916ea4f9fc7fc642f5a641c35b585539c0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "이라크 총선 날짜가 하루 새 두 번 바뀐 경위를 쿠르드 측 반대(알제 협정 기념일)와 선거법 지연이라는 원인으로 이어 써서 내용 일치·원인 빈칸 칸이 나온다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The vote was originally set for",
+      "note": "마지막 단락은 「선거법이 늦어져 연기」 원인-결과가 혼자 서고, postponed·constitution 정도만 남겨도 V5."
+    }
+  },
+  {
+    "id": "afbaa62f-06ae-4219-9c21-edd8933db6dd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "66863440918985edcef987c1e0a786d3cbdc0b7b1cb49cd09bca2ceac9c83f61",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "교전으로 반군 17명 사망 → 부족 원로들이 민간인 피해를 들어 작전 중단 요구로 반응이 이어지며, 무관한 셋째 단락(행구 납치)은 무관한 문장 칸 재료이자 가공 때 걷을 부분이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Meanwhile, elders of various tribes demanded",
+      "note": "원로 요구 단락은 원인(공습·민간인 피해)-요구가 서고, 셋째 단락은 다른 사건이라 뗀다."
+    }
+  },
+  {
+    "id": "afdfe9c9-4d6e-4b5c-ae30-508bfe03cb1e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "be00a702277c142ea8524398b20288df17dcb9cee439a29c6576b29afc9b120c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "바그다드·모술 연쇄 폭발의 위치·발견된 넷째 폭탄·외무부 건물 복구 상황을 이어 쓴 보도라 내용 일치·순서 칸을 채운다(폭력 소재로 고1 이상).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Baghdad explosions struck at the",
+      "note": "둘째 단락은 폭발-넷째 장치 발견·해체가 이어지고, nerve center·fortified 를 바꾸면 V5."
+    }
+  },
+  {
+    "id": "afe1226d-12f9-4840-9f52-74e9874ef13a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "82276fc8f08da1edc182114c9febf24794a2600addbc9ab6cf7361adb179d64c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "기독교유산당 후보가 인권 → 생명권 → 낙태 반대로 논증을 쌓는 첫 답변이 주장-근거 칸을 여는 한쪽 입장 인터뷰라 보관하되, 낙태 소재라 고2 이상으로 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "To find out, we must think",
+      "note": "「Why are you running」 답변은 수사의문문 연쇄로 주장이 혼자 서지만, 경력 화살표 표와 FAQ 참조 답변은 걷어야 한다."
+    }
+  },
+  {
+    "id": "b007b47a-b086-4916-b272-4e58debca9e1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "02c2d4b6ed799881eb556f610b2d91cad4c573802363b1e9be5bdde11f6ca4d4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "분기 이익 74% 증가에도 다음 분기 손실 전망 때문에 주가가 오히려 내렸다는 역접 구조가 있어 내용 일치·빈칸 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite the news shares in Take-Two",
+      "note": "수치를 걷어도 「실적 호조인데 전망 탓에 주가 하락」이 서고, forecasting 정도만 남으면 V5."
+    }
+  },
+  {
+    "id": "b0102f36-0b25-433f-b568-2b8168fb7d7d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "22061bfcf68f64c2a55557e9b68462b5676933b9d2f90172651dd4aa72bfd2c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "규모·발생 시각·진앙 거리·깊이만 문장마다 바뀌고 피해·쓰나미 경보 없음으로 끝나 문장 사이를 잇는 사건이 없는 수치 단신이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "According to the USGS, a 6.3",
+      "note": "수치와 지명을 걷으면 「지진이 났고 피해는 없다」만 남아 논지·흐름이 서지 않는다."
+    }
+  },
+  {
+    "id": "b01c287e-16f7-42be-95f8-9f633d3438ac",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a516bdf7b4c119b82ee8cecbc529107075bbe393d9e7c0f7f901e14f37294386",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "세관 정보 시스템 장애 → 승객 2만 명 적체 → 캐나다발 항공편 회항·지상 전원·식수 제공으로 원인·결과·대응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "irrelevant"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to airport staff, a system",
+      "note": "LAX 소개 둘째 단락은 사건과 무관해 무관한 문장 재료로 쓰거나 걷고, backlog·diverted 를 바꾸면 V4."
+    }
+  },
+  {
+    "id": "b0400dff-b5cc-4456-ae89-9d92c1724713",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "71a0fc4e9171afd7b94142b4ff30e1c654ede4d260853e0eb499620e32ea92d0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "규모·진앙 뒤에 NOAA 쓰나미 경보 발령 → 해제와 그 단서(해수면 자료 부족) · 피해 전망이 이어져 수치 나열을 넘어선 사건 흐름이 있어 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The NOAA issued a tsunami alert",
+      "note": "경보 단락은 발령-해제-단서가 혼자 서고, determination 을 deciding 으로 바꾸니 쉬워졌다."
+    }
+  },
+  {
+    "id": "b0513501-5381-4cf4-9634-aa25f8db02ec",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "432b0c669fea4bcfcf662b0366e778126f2dc362b3c0bd5b95265a1b4290f7e8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "2층 버스 전복 → 30명 부상·운전자 구조 → 도로 통제·조사 착수로 사건과 다음 절차가 이어지는 보도라 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The driver of the bus was",
+      "note": "구조·이송·단독 사고 단락은 혼자 서고, extracted·wreckage 를 pulled out·the damaged bus 로 바꾸면 V4."
+    }
+  },
+  {
+    "id": "b0758590-b779-4429-80ad-132bdfc90753",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1cfb342e2abdc780773d985e6a6662f9d516a05150b6d2428f235ffd6ed7d8fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "대통령 지명 → 15일 안 정부안 제출 · 의원 52명 승인이라는 다음 절차와 지명자의 경력 이력이 이어져 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "President Vladimir Voronin of Moldova today",
+      "note": "첫 단락은 지명-절차가 서지만 둘째 단락의 부서명(elaboration and analysis general directorate)은 걷어야 한다."
+    }
+  },
+  {
+    "id": "b07bd718-d999-49b0-8024-f16854021d3b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "66daaf944bfd1a18fc8f6f8d6b513a6585a93ee7a3211a1222533eb9ecb7a6a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "빌 게이츠가 한 해 이메일 4백만 통을 받고 대부분이 스팸이라 전담 부서가 걸러 낸다는 두 문장이 원인-대응으로 이어져 짧은 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "William Henry Gates III or just",
+      "note": "unsolicited 를 unwanted 로 바꾸면 중등 밴드에 맞고, 날짜·지명 머리말만 걷으면 된다."
+    }
+  }
+]
