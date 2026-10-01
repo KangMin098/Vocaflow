@@ -33,7 +33,7 @@ const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\
 const CLOSERS = /["'’”)\]]/
 // 빈칸(`______`)으로 시작하는 문장도 문장이다(연결어 빈칸 — 「______(B) , the new …」). 빠뜨리면 앞 문장에 삼켜진다(2015#34)
 const STARTERS = /[A-Z0-9“"‘'(_]/
-const SPEECH = /\b(?:said|says|say|asked|asks|ask|replied|replies|told|tells|answered|answers|added|adds|shouted|shouts|cried|cries|whispered|whispers|exclaimed|exclaims|explained|explains|continued|continues|called|calls|yelled|yells|muttered|mutters|sighed|sighs|wondered|wonders|thought|thinks|responded|responds|insisted|insists|urged|urges|remarked|remarks|suggested|suggests|announced|announces|screamed|screams|murmured|murmurs|laughed|laughs|smiled|smiles|protested|protests|agreed|agrees|begged|begs|pleaded|pleads|declared|declares|repeated|repeats|stated|states)\b/i
+const SPEECH = /\b(?:said|says|say|asked|asks|ask|replied|replies|told|tells|answered|answers|added|adds|shouted|shouts|cried|cries|whispered|whispers|exclaimed|exclaims|explained|explains|continued|continues|called|calls|yelled|yells|muttered|mutters|wondered|wonders|thought|thinks|responded|responds|insisted|insists|urged|urges|remarked|remarks|suggested|suggests|announced|announces|screamed|screams|murmured|murmurs|protested|protests|agreed|agrees|begged|begs|pleaded|pleads|declared|declares|repeated|repeats|stated|states)\b/i
 // 곧은 작은따옴표도 닫는 따옴표다 — 따옴표 모양에 따라 번호가 달라지면 안 된다(Codex 리뷰 2026-10-01)
 const QUOTE_CLOSE = /[”"’']$/
 // 선지 기호 ①~⑤ 는 경계를 만들지도, 지우지도 않는다 — 기호 뒤 첫 글자로 문장 시작을 판정한다
@@ -63,6 +63,14 @@ function isSpeechTag(clause) {
   return at >= 0 && !words.slice(0, at).some((w) => AUX.has(w))
 }
 
+/** 문장 끝 부호(+닫는 부호) 앞까지의 절 — 약어의 마침표(「Dr. Kim shouted」)에서는 멈추지 않는다 */
+function clauseAfter(rest) {
+  const re = /[.!?](?=["'’”)\]]*(\s|$))/g
+  let m
+  while ((m = re.exec(rest))) if (!ABBREV.test(rest.slice(0, m.index + 1))) return rest.slice(0, m.index)
+  return rest
+}
+
 /** 경계 오프셋(다음 문장 시작) 목록 — 규칙 1·2 */
 function rawCuts(p) {
   const cuts = []
@@ -81,10 +89,8 @@ function rawCuts(p) {
     if (!STARTERS.test(head[0] ?? '')) continue
     // 규칙 2 — 닫는 따옴표로 끝난 인용 문장 뒤 발화 설명이면 끊지 않는다(설명이 이 문장에 붙는다)
     if (QUOTE_CLOSE.test(p.slice(i, j))) {
-      const rest = p.slice(k)
-      const clauseEnd = rest.search(/[.!?](?=["'’”)\]]*(\s|$))/)
-      const clause = clauseEnd >= 0 ? rest.slice(0, clauseEnd) : rest
-      if (isSpeechTag(clause)) continue
+      // 선지 기호는 판정에서 빼고(규칙 4 — 세 낱말 칸을 차지하지 않게), 절 끝은 약어(Dr. · Mr.)를 건너뛰어 찾는다
+      if (isSpeechTag(clauseAfter(head))) continue
     }
     cuts.push(k)
     start = k

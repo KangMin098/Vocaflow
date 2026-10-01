@@ -74,6 +74,10 @@ test('홑따옴표로 이어지는 새 발화는 앞 인용의 설명이 아니�
   assert.equal(countSentences('‘Wait.’ She told him, ‘Come back.’ He left.').sentences.length, 3)
   assert.equal(countSentences("'No!' Nancy said in a 'firm' voice. She left.").sentences.length, 2)
   assert.equal(countSentences('‘No!’ Nancy’s mom said quietly. She left.').sentences.length, 2)
+  // 설명 절의 약어 마침표·선지 기호는 판정을 바꾸지 않는다
+  assert.equal(countSentences('"Stop!" Dr. Kim shouted. She left.').sentences.length, 2)
+  assert.equal(countSentences('"No!" ① Nancy reluctantly agreed. She left.').sentences.length, 2)
+  assert.equal(countSentences('"No!" Nancy reluctantly agreed. She left.').sentences.length, 2)
   // 설명 절 안의 소유격 홑따옴표는 그대로 설명으로 붙는다
   assert.deepEqual(texts("'Stop!' Nathan's mom said. She left."), ["'Stop!' Nathan's mom said.", 'She left.'])
 })
