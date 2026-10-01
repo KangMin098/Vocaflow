@@ -1,12 +1,12 @@
 // scripts/csat/__tests__/sentence-count.test.mjs
-// 평가원 해설 문장 번호 기준(kice-sentence-v2) — 합성 지문(평가원 원문 미포함)으로 경계 고정
+// 평가원 해설 문장 번호 기준(kice-sentence-v3) — 합성 지문(평가원 원문 미포함)으로 경계 고정
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { countSentences, SENTENCE_RULE } from '../lib-sentence-count.mjs'
 
 const texts = (p) => countSentences(p).sentences.map((s) => s.text)
 
-test('규칙 버전이 고정돼 있다', () => assert.equal(SENTENCE_RULE, 'kice-sentence-v2'))
+test('규칙 버전이 고정돼 있다', () => assert.equal(SENTENCE_RULE, 'kice-sentence-v3'))
 
 test('일반 산문 · 약어 · 소수점', () => {
   assert.deepEqual(texts('Mr. Kim left at 2 p.m. today. It cost 3.5 dollars. Then he rested!'),
@@ -28,6 +28,16 @@ test('대화문: 따옴표 안 독립 문장은 각각 센다', () => {
 test('발화 동사가 없는 다음 문장은 붙이지 않는다', () => {
   assert.deepEqual(texts('“Stop!” The car halted at once. Everyone was quiet.'),
     ['“Stop!”', 'The car halted at once.', 'Everyone was quiet.'])
+})
+
+test('인용 뒤 새 문장 속 발화 동사는 설명이 아니다(첫 세 낱말 · 조동사 · 단락 표지)', () => {
+  // 합성 문장 — 실제 지문에서 v2 가 삼킨 꼴과 같은 구조
+  assert.equal(countSentences('He said, “Let’s go!” Both Tom and Ann agreed and left.').sentences.length, 2)
+  assert.equal(countSentences('She shouted, “Look!” Her brother, however, seemed to say nothing.').sentences.length, 2)
+  assert.equal(countSentences('It is “twice unhappy.” Laurence Thomas has suggested that “negative” moods help.').sentences.length, 2)
+  assert.equal(countSentences('We ask, “What good are you?” (A) Abilities said to “make us human” exist.').sentences.length, 2)
+  // 진짜 설명은 그대로 붙는다
+  assert.equal(countSentences('“Fine,” Mia reluctantly agreed. She left.').sentences.length, 2)
 })
 
 test('장문 단락 표지 (A)~(D)는 세지 않고 문제지 순서로 잇는다', () => {
@@ -56,6 +66,10 @@ test('홑따옴표로 이어지는 새 발화는 앞 인용의 설명이 아니�
   assert.deepEqual(texts("'Stop!' 'He said no.' She left."), ["'Stop!'", "'He said no.'", 'She left.'])
   assert.equal(countSentences('“Stop!” “He said no.” She left.').sentences.length, 3)
   assert.equal(countSentences('‘Stop!’ ‘He said no.’ She left.').sentences.length, 3)
+  // 설명 절 안의 따옴표 낱말은 설명의 일부, 구두점 있는 인용은 새 발화
+  assert.equal(countSentences('"No!" Nancy said in a "firm" voice. She left.').sentences.length, 2)
+  assert.equal(countSentences('"No!" Nancy said in a firm voice. She left.').sentences.length, 2)
+  assert.equal(countSentences('"Wait." She told him, "Come back." He left.').sentences.length, 3)
   // 설명 절 안의 소유격 홑따옴표는 그대로 설명으로 붙는다
   assert.deepEqual(texts("'Stop!' Nathan's mom said. She left."), ["'Stop!' Nathan's mom said.", 'She left.'])
 })
