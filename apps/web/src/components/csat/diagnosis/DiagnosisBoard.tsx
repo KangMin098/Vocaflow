@@ -139,7 +139,8 @@ function Overview({ report, name, focus }: { report: ExamReport; name: (id: stri
         <div className={s.viz}>
           <Bars
             bars={(focus && !report.trend.slice(-10).some((t) => t.sessionId === focus)
-              ? [...report.trend.slice(-9), ...report.trend.filter((t) => t.sessionId === focus)]
+              // 선택한 시험이 최근 10회 밖이면 최근 9회 + 그 시험을 원래 시간순으로 놓는다(맨 뒤에 붙이면 순서가 뒤집힌다)
+              ? report.trend.filter((t, i, all) => t.sessionId === focus || i >= all.length - 9)
               : report.trend.slice(-10)
             ).map((t) => ({ key: t.sessionId, value: t.raw, label: short(t.takenAt), hollow: t.mode === 'retake', focus: t.sessionId === focus }))}
           />
@@ -203,7 +204,7 @@ function Overview({ report, name, focus }: { report: ExamReport; name: (id: stri
         <section className={s.card} style={{ flex: 1 }} aria-label="가장 많이 끌린 오답">
           <div className={s.label}>가장 많이 끌린 오답</div>
           <div className={s.big} style={{ fontSize: 16 }}>
-            {topTrap ? TRAP_FAMILY_NAME[topTrap.family as TrapFamily]?.admin ?? topTrap.family : '—'}
+            {topTrap ? TRAP_FAMILY_NAME[topTrap.family as TrapFamily]?.admin ?? '분류 전 함정' : '—'}
             {topTrap && <span className={s.bigSub}>{topTrap.count}번</span>}
           </div>
         </section>
@@ -272,7 +273,7 @@ function TrapsTab({ report }: { report: ExamReport }) {
         <tbody>
           {report.traps.map((t, i) => (
             <tr key={t.family}>
-              <td><span className={s.icon} style={{ color: seriesColor(i) }}>{t.family}</span>{TRAP_FAMILY_NAME[t.family as TrapFamily]?.admin ?? t.family}</td>
+              <td><span className={s.icon} style={{ color: seriesColor(i) }}>{i + 1}</span>{TRAP_FAMILY_NAME[t.family as TrapFamily]?.admin ?? '분류 전 함정'}</td>
               <td>{TRAP_FAMILY_NAME[t.family as TrapFamily]?.learner ?? ''}</td>
               <td className={s.num}>{t.count}</td>
               <td className={s.num}>

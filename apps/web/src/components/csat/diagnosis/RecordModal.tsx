@@ -132,7 +132,7 @@ export function RecordModal({
           </span>
           {result ? <span aria-hidden="true" /> : (
             <nav className={s.modalTabs} aria-label="기록 단계">
-              <button type="button" className={s.tab} aria-current={tab === 'exam' ? 'page' : undefined} onClick={() => setTab('exam')}><SlidersHorizontal size={14} aria-hidden="true" />시험</button>
+              <button type="button" className={s.tab} aria-current={tab === 'exam' ? 'page' : undefined} onClick={() => !saving && setTab('exam')} disabled={saving}><SlidersHorizontal size={14} aria-hidden="true" />시험</button>
               <button type="button" className={s.tab} aria-current={tab === 'sheet' ? 'page' : undefined} onClick={() => exam && setTab('sheet')} disabled={!exam}>
                 <FileText size={14} aria-hidden="true" />답안{answered ? <span className={s.tabCount}>{answered}</span> : null}
               </button>
@@ -157,21 +157,21 @@ export function RecordModal({
                 <div className={s.fieldRow}>
                   <label className={s.field}>
                     <span className={s.fieldLabel}>종류</span>
-                    <select className={s.select} value={group} onChange={(e) => { setGroup(e.target.value as Group); setExamId('') }}>
+                    <select className={s.select} disabled={locked} value={group} onChange={(e) => { setGroup(e.target.value as Group); setExamId('') }}>
                       {(Object.keys(GROUP_LABEL) as Group[]).map((g) => <option key={g} value={g}>{GROUP_LABEL[g]}</option>)}
                     </select>
                   </label>
                   {group === 'hakpyeong' && (
                     <label className={s.field}>
                       <span className={s.fieldLabel}>학년</span>
-                      <select className={s.select} value={grade} onChange={(e) => { setGrade(Number(e.target.value)); setExamId('') }}>
+                      <select className={s.select} disabled={locked} value={grade} onChange={(e) => { setGrade(Number(e.target.value)); setExamId('') }}>
                         {[1, 2, 3].map((g) => <option key={g} value={g}>고{g}</option>)}
                       </select>
                     </label>
                   )}
                   <label className={s.field} style={group === 'hakpyeong' ? undefined : { gridColumn: 'span 2' }}>
                     <span className={s.fieldLabel}>회차</span>
-                    <select className={s.select} value={examId} onChange={(e) => setExamId(e.target.value)}>
+                    <select className={s.select} disabled={locked} value={examId} onChange={(e) => setExamId(e.target.value)}>
                       <option value="">회차 선택</option>
                       {options.map((e) => <option key={e.id} value={e.id}>{e.label}</option>)}
                     </select>
@@ -181,7 +181,7 @@ export function RecordModal({
               <section className={s.section}>
                 <label className={s.field} style={{ maxWidth: 240 }}>
                   <span className={s.fieldLabel}>응시일</span>
-                  <input type="date" className={s.input} value={takenAt} max={today} onChange={(e) => setTakenAt(e.target.value)} />
+                  <input type="date" className={s.input} disabled={locked} value={takenAt} max={today} onChange={(e) => setTakenAt(e.target.value)} />
                 </label>
               </section>
               <section className={s.section}>
@@ -190,7 +190,7 @@ export function RecordModal({
                     <div className={s.sectionTitle}>다시 푼 기출</div>
                     <div className={s.sectionDesc}>이미 풀어 본 시험을 다시 푼 거라면 켜 주세요. 점수 흐름에는 보이되 유형 진단에는 넣지 않아요.</div>
                   </div>
-                  <button type="button" role="switch" aria-checked={retake} aria-label="다시 푼 기출" className={s.toggle} onClick={() => setRetake(!retake)}>
+                  <button type="button" role="switch" aria-checked={retake} aria-label="다시 푼 기출" className={s.toggle} disabled={locked} onClick={() => setRetake(!retake)}>
                     <span />
                   </button>
                 </div>

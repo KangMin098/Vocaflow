@@ -104,6 +104,14 @@ export function buildExamReport(
     if (s.mode === 'retake') continue
     for (const a of s.answers) {
       const it = map[a.no]
+      // 영역(듣기 · 독해)은 문항 번호로 센다 — 유형 정보가 없는 문항도 정답률에 들어가야 한다(빼면 정답률이 부풀려진다)
+      if (a.no <= 17) {
+        listenN += 1
+        listenC += a.correct ? 1 : 0
+      } else {
+        readN += 1
+        readC += a.correct ? 1 : 0
+      }
       const typeId = it?.typeId ?? (a.no <= 17 ? LISTENING_TYPE : null)
       if (!typeId) continue
       const t = acc.get(typeId) ?? { n: 0, c: 0, ln: 0, lc: 0, bn: 0, bc: 0 }
@@ -117,13 +125,6 @@ export function buildExamReport(
         t.bc += a.correct ? 1 : 0
       }
       acc.set(typeId, t)
-      if (a.no <= 17) {
-        listenN += 1
-        listenC += a.correct ? 1 : 0
-      } else {
-        readN += 1
-        readC += a.correct ? 1 : 0
-      }
       if (!a.correct && a.chosen !== null) {
         const fam = it?.traps[a.chosen] ? trapFamily[it.traps[a.chosen] as string] : null
         if (fam) trapCount.set(fam, (trapCount.get(fam) ?? 0) + 1)

@@ -73,4 +73,10 @@ describe('buildExamReport', () => {
     const r = buildExamReport([session('a', 'A', '2026-06-01', [18])], { A: one }, FAM, 3)
     expect(r.weakest.find((t) => t.typeId === 'R-PURPOSE')).toBeUndefined()
   })
+
+  it('유형 정보가 없는 독해 문항도 독해 정답률에 넣는다(빼면 정답률이 부풀려진다)', () => {
+    const partial: Record<number, ReportItem> = { 18: { no: 18, itemId: 'A#18', typeId: 'R-PURPOSE', traps: {} } }
+    const r = buildExamReport([session('a', 'A', '2026-06-01', [19, 20, 21])], { A: partial }, FAM)
+    expect(r.sections.reading).toBe(Math.round((25 / 28) * 1000) / 1000)
+  })
 })
