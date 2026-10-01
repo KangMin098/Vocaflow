@@ -29,10 +29,33 @@ const CHUNK = 200
 const chunks = <T,>(xs: T[]) => Array.from({ length: Math.ceil(xs.length / CHUNK) }, (_, i) => xs.slice(i * CHUNK, (i + 1) * CHUNK))
 
 interface AnalysisRow { id: string; item_id: string; version: number; status: string; analyst_run: string | null; units_hash: string | null; csat_analysis_hash: string }
-interface ReviewRow { analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
+interface ReviewRow { id: string; analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
 interface BatchRow { batch: string; run_date: string; kind: ReviewBatch['kind']; chunk_size: number | null; items: number; agents: number | null; tokens: ReviewBatch['tokens']; published: number | null; refused: number | null; re_rejected: number | null; note: string | null }
 interface FollowupRow { item_id: string; source: string; finding: string; severity: ReviewFollowup['severity']; status: ReviewFollowup['status']; noted_on: string }
 interface PrecheckRow { analysis_id: string; analysis_hash: string; units_hash: string; precheck_version: number; commit: string | null; errors: string[]; warnings: string[]; checked_at: string }
+
+// PostgREST 서버 상한(1,000행). OFFSET 페이징 예산(offset-paging-budget)을 늘리지 않으려고 두 방식만 쓴다
+const PAGE_CAP = 1000
+type Page = PromiseLike<{ data: unknown[] | null; error: { message: string } | null }>
+/** 고유 id 커서로 끝까지 — 뒤 페이지가 앞을 다시 훑지 않는다 */
+async function keysetById<T extends { id: string }>(build: (after: string | null) => Page): Promise<{ rows: T[]; error: string | null }> {
+  const rows: T[] = []
+  for (let after: string | null = null; ;) {
+    const res = await build(after)
+    if (res.error) return { rows, error: res.error.message }
+    const batch = (res.data ?? []) as T[]
+    rows.push(...batch)
+    if (batch.length < PAGE_CAP) return { rows, error: null }
+    after = batch[batch.length - 1].id
+  }
+}
+/** 한 번에 읽는 작은 장부 — 상한에 닿으면 조용히 자르지 않고 오류로 알린다 */
+async function capped<T>(q: Page): Promise<{ rows: T[]; error: string | null }> {
+  const res = await q
+  if (res.error) return { rows: [], error: res.error.message }
+  const rows = (res.data ?? []) as T[]
+  return rows.length >= PAGE_CAP ? { rows, error: `${PAGE_CAP}행 상한에 닿았다 — 잘렸을 수 있어 표시하지 않는다(커서 조회로 바꿀 것)` } : { rows, error: null }
+}
 
 const asStrings = (v: unknown): string[] => (Array.isArray(v) ? v.map((x) => (typeof x === 'string' ? x : JSON.stringify(x))) : [])
 
@@ -67,19 +90,21 @@ export async function loadHakpyeongReview(
     const verdicts = new Map<string, ReviewVerdict[]>()
     const prechecks = new Map<string, PrecheckRow>()
     for (const part of chunks(ids)) {
-      // 이력 표는 분석 200개에 대해서도 1000행을 넘을 수 있다 — 결정적 순서로 전 페이지를 읽는다(CONVENTIONS PostgREST 페이지)
+      // 이력 표는 분석 200개에 대해서도 1000행을 넘을 수 있다(CONVENTIONS PostgREST 페이지) — OFFSET 없이:
+      // 검수 판정은 id 커서로 끝까지, 사전 검사는 한 번에 읽되 상한에 닿으면 «잘렸을 수 있음» 오류로 알린다
       const [v, rv, pc] = await Promise.all([
         db.rpc('csat_valid_review_personas_many', { p_analyses: part }),
-        selectAllPages<ReviewRow>((from, to) => db.from('csat_independent_reviews')
-          .select('id, analysis_id, persona, verdict, findings, reviewed_at, csat_review_runs(kind)')
-          .in('analysis_id', part)
-          .order('analysis_id').order('reviewed_at').order('id')
-          .range(from, to)),
-        selectAllPages<PrecheckRow>((from, to) => db.from('csat_review_prechecks')
+        keysetById<ReviewRow>((after) => {
+          const q = db.from('csat_independent_reviews')
+            .select('id, analysis_id, persona, verdict, findings, reviewed_at, csat_review_runs(kind)')
+            .in('analysis_id', part)
+          return (after ? q.gt('id', after) : q).order('id').limit(PAGE_CAP)
+        }),
+        capped<PrecheckRow>(db.from('csat_review_prechecks')
           .select('analysis_id, analysis_hash, units_hash, precheck_version, commit, errors, warnings, checked_at')
           .in('analysis_id', part)
           .order('analysis_id').order('checked_at', { ascending: false }).order('analysis_hash').order('units_hash').order('precheck_version')
-          .range(from, to)),
+          .limit(PAGE_CAP)),
       ])
       if (v.error) return { ...empty, error: `유효 승인 조회: ${v.error.message}` }
       if (rv.error) return { ...empty, error: `검수 판정 조회: ${rv.error}` }
@@ -128,8 +153,8 @@ export async function loadHakpyeongReview(
     })
 
     const [bRes, fRes] = await Promise.all([
-      selectAllPages<BatchRow>((from, to) => db.from('csat_review_batches').select('batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected, note').order('run_date', { ascending: false }).order('batch').range(from, to)),
-      selectAllPages<FollowupRow>((from, to) => db.from('csat_review_followups').select('item_id, source, finding, severity, status, noted_on').order('noted_on', { ascending: false }).order('item_id').order('source').order('finding').range(from, to)),
+      capped<BatchRow>(db.from('csat_review_batches').select('batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected, note').order('run_date', { ascending: false }).order('batch').limit(PAGE_CAP)),
+      capped<FollowupRow>(db.from('csat_review_followups').select('item_id, source, finding, severity, status, noted_on').order('noted_on', { ascending: false }).order('item_id').order('source').order('finding').limit(PAGE_CAP)),
     ])
     if (bRes.error) return { ...empty, items: out, error: `배치 원장 조회: ${bRes.error}` }
     if (fRes.error) return { ...empty, items: out, error: `추적 목록 조회: ${fRes.error}` }
