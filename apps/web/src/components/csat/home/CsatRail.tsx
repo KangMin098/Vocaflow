@@ -4,7 +4,7 @@
 //
 // **기출분석공간 메뉴 — 모든 /csat 목록 화면(홈 · 서가 · 내 기록)이 같이 쓴다.** (ia-design §1-1)
 //
-//   홈 · 이어서·복습(n) · 내 기록 · 전체 서가
+//   홈 · 이어서·복습(n) · 내 기록 · 내 진단 · 전체 서가
 //   목적별  — 니즈 축. 한 줄 = 미리 짠 필터 한 벌(URL). 새 데이터가 없다.
 //   유형별  — 자료 축. 서가를 그 유형으로 연다.
 //   회차별  — 시험지 축. 서가를 그 회차로 연다.
@@ -15,14 +15,14 @@
 // 없는 것을 있는 것처럼 두지 않는다(ia-design §6).
 
 import Link from 'next/link'
-import { BookMarked, ChevronDown, Crosshair, Hash, History, Home, Layers, Library, Microscope, Search, Sparkles, Target, Timer } from 'lucide-react'
+import { BookMarked, ChevronDown, Crosshair, Hash, History, Home, Layers, Library, Microscope, Search, Stethoscope, Sparkles, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { ATLAS_TYPES, RECENT_FROM } from '@/lib/csat/trap-atlas'
 
 import styles from '../space/space.module.css'
 
-export type RailPlace = 'home' | 'continue' | 'record' | 'browse' | 'need' | 'type' | 'exam'
+export type RailPlace = 'home' | 'continue' | 'record' | 'diagnosis' | 'browse' | 'need' | 'type' | 'exam'
 export type NeedId = 'start' | 'killer' | 'trap' | 'evidence' | 'recent'
 
 export const NEEDS: { id: NeedId; label: string; href: string; Icon: typeof Home }[] = [
@@ -73,6 +73,10 @@ export function CsatRail({
         <Link className={styles.railItem} href="/csat/record" aria-current={cur(place === 'record')}>
           <BookMarked size={15} aria-hidden="true" />
           내 기록
+        </Link>
+        <Link className={styles.railItem} href="/csat/diagnosis" aria-current={cur(place === 'diagnosis')} data-testid="rail-diagnosis">
+          <Stethoscope size={15} aria-hidden="true" />
+          내 진단
         </Link>
         <Link className={styles.railItem} href="/csat/browse" aria-current={cur(place === 'browse')}>
           <Library size={15} aria-hidden="true" />

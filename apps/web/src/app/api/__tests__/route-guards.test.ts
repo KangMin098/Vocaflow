@@ -74,6 +74,13 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
     route: 'csat/session/reveal',
     why: '기출 세션 — 답을 고른 뒤에만 해설을 준다(docs/csat-learner-brief.md A4). 로그인 확인은 라우트 안',
   },
+  // 영어 진단 학습자 경로 — 넷 다 learnerContext() 가 auth.getUser() 로 401 을 내고, userId 는 로그인 세션에서만
+  // 온다(본문에서 받지 않는다). 쓰기는 service role 이지만 대상이 언제나 본인 행이다. 관리자 대리 입력은
+  // admin/csat/diagnosis/sessions(requireAdminApi)로 따로 있다.
+  { route: 'csat/diagnosis/sessions', why: '영어 진단 — 본인 시험 기록(OMR) 저장·채점. 로그인 확인은 라우트 안, 점수는 서버가 매긴다' },
+  { route: 'csat/diagnosis/test', why: '영어 진단 — 본인 진단 테스트 제출. 로그인 확인은 라우트 안, 활성 풀 문항만 받는다' },
+  { route: 'csat/diagnosis/profile', why: '영어 진단 — 본인 프로필 이력 추가. 로그인 확인은 라우트 안' },
+  { route: 'csat/diagnosis/habit', why: '영어 진단 — 본인 스냅샷의 습관 신호에 동의/비동의. 로그인 확인은 라우트 안, 남의 스냅샷은 거부' },
 ]
 
 const PUBLIC_ROUTES = new Set(PUBLIC.map((p) => p.route))

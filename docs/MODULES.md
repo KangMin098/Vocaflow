@@ -1183,3 +1183,9 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 ### CSAT 시각 분석 (2026-09-18)
 
 `QuestionArchitecture`는 실제 skeleton의 문장 길이·근거 위치에서 정답/오답 선지로 연결한다. 홈의 `PatternComparison`은 같은 공식 문항 두 개의 선택을 동기화하며 `PatternMap`은 공식 소속과 기기 기록을 표현한다. `AnalysisWorkbench`는 PDF 원문 선택 ↔ 구조도 ↔ 설명/TTS focus를 연결한다. `buildDissectionPassage`의 검증 구절 위치를 예측 화면과 분석 화면에서 공유한다. 데스크톱 학습 판면이며 새 API/저장 형식/패키지는 없다.
+
+## 영어 진단 — 시험 기록 시계열 진단 (2026-10-01)
+
+- 엔진: `lib/csat/diagnosis/engine/` — `rule-v1.ts`(diagnose) · `scoring.ts` · `compose.ts`(진단 테스트 출제) · `settings.ts`(설정 검사) · `types.ts`(`DiagnosisEngine` 인터페이스 — 통계 모델로 교체 지점).
+- 서버: `server.ts`(EngineInput 조립 · 채점 저장 · 스냅샷) · `admin.ts` · `learner.ts` · `snapshot.ts` · `labels.ts`(코드 ↔ 쉬운 말).
+- 컴포넌트(`components/csat/diagnosis`): `DiagnosisReport`(learner/admin 변형) · `OmrForm`(키보드 입력, 예외만 표시) · `DiagnosticTest` · `ProfileForm` · `HistoryCompare` · `ScoreTrend` · `HabitButtons` · `DiagnosisHomeCard`(/csat 홈) · `DiagnosisShell`(레일 「내 진단」).

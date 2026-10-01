@@ -50,6 +50,9 @@ const CHECKBOX = 'input[checkbox|radio]'
 const CHECKBOX_ALLOWLIST: { file: string; count: number; labelWrapped: number }[] = [
   { file: 'apps/web/src/app/admin/articles/BulkArticlesTab.tsx', count: 3, labelWrapped: 2 },
   { file: 'apps/web/src/app/admin/comic/AdminComicClient.tsx', count: 1, labelWrapped: 0 },
+  // 영어 진단(2026-10-01): 「채점 가능한 시험만 보기」 · 「미완료만 보기」 — 둘 다 min-h-[44px] <label> 안
+  { file: 'apps/web/src/app/admin/csat/diagnosis/exams/ExamsTable.tsx', count: 1, labelWrapped: 1 },
+  { file: 'apps/web/src/app/admin/csat/diagnosis/exams/[examId]/TaggingBoard.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/AdvancedFetchPanel.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/BulkFetchTab.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/MyLibraryTab.tsx', count: 2, labelWrapped: 0 },
@@ -207,7 +210,7 @@ describe('허용 목록 — 체크박스·라디오', () => {
     // 17곳 중 13곳은 감싼 <label> 이 44px 이라 실제 탭 영역은 이미 44px 다 (학습 원리 +5, 2026-09-28).
     const total = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.count, 0)
     const wrapped = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.labelWrapped, 0)
-    expect([total, wrapped]).toEqual([17, 13])
+    expect([total, wrapped]).toEqual([19, 15])
   })
 })
 
