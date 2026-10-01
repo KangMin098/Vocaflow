@@ -100,8 +100,15 @@ type Scanner = {
  *   스캐너가 한 SELECT 의 500자 창 안에 뒤 UPDATE 가 있으면 읽기 줄까지 쓰기로 중복 계산했다.
  *   첫 연산이 SELECT 인 후보를 빼도록 고치고 회귀를 추가했다. 실제 단건 쓰기를 없앤 척한 것이
  *   아니라 같은 UPDATE 를 두 번 세던 오탐을 제거한 결과이며, 깨끗한 LF 체크아웃 실측 137이다.
+ *
+ * 137 → 140 (2026-10-02, design/replica-first 에 main 병합 — 이 브랜치가 들인 세 파일):
+ *   +1  scripts/vcb/trade-covers/trade-import.mts      shared_word_sets 표지 사양 — 세트 55개, 바뀐 것만 쓴다
+ *   +1  scripts/csat/report-lines-refold.mjs           csat_type_reports — 유형 26행, 손댄 유형만
+ *   +1  scripts/csat/type-report-recount.mjs           csat_type_reports — 유형 26행, 수가 바뀐 것만
+ *   셋 다 상한이 수십 행인 표의 수동 1회성 손질이다. 일괄 upsert 는 shared_word_sets 의 NOT NULL 열 때문에
+ *   INSERT 경로가 깨질 수 있어 단건 UPDATE 가 더 안전하다(쓰기 폭주가 날 규모가 아니다).
  */
-const BASELINE = 137
+const BASELINE = 140
 
 let scanner: Scanner
 

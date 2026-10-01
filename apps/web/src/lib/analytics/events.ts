@@ -256,6 +256,12 @@ export type PublicEvent =
       props: { to: 'home' | 'type' | 'browse' }
     }
   /**
+   * 영어 진단(/csat/diagnosis) — 진입과 내부 상호작용(D2). 수치·불리언·닫힌 열거형만(D3).
+   * 질문: 진단 화면에 온 사람이 시험 기록까지 가는가.
+   */
+  | { name: 'csat_dx_viewed'; props: { screen: 'attempt' | 'report' } }
+  | { name: 'csat_dx_attempt_saved'; props: { ready: boolean; retake: boolean; answered: number } }
+  /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
    * 이 화면의 전제는 «근거를 눌러 가며 지문 위에서 풀이를 재구성한다» 인데, 그 전제가
@@ -582,6 +588,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_workspace_session_started: true,
   csat_workspace_edited: true,
   csat_workspace_suggestion_applied: true,
+  csat_dx_viewed: true,
+  csat_dx_attempt_saved: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

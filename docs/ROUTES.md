@@ -208,6 +208,9 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 
 ## admin/* 관리자 콘솔
 
+> 2026-10-01 재설계: 학습자 진단은 **`/csat/diagnosis`** 한 화면(탭 `?tab=overview|types|traps|wrong|records`, 팝업 `?modal=new` · `?record=<id>`, 강조 `?focus=<id>`). `/start` · `/test` · `/history` · `/admin/csat/diagnosis/pool` 삭제, `/attempts/new` 는 팝업으로 넘김. API `DELETE /api/csat/diagnosis/sessions?id=` · `/api/admin/csat/diagnosis/sessions?userId=&id=` 추가, `profile` · `test` · `habit` 삭제.
+> 2026-10-01 추가: **`/admin/csat/diagnosis`** 영어 진단 — `/exams` · `/exams/[examId]`(태깅) · `/pool` · `/learners` · `/learners/[id]`(대리 입력) · `/settings`. 학습자 쪽은 `/csat/diagnosis` · `/start` · `/attempts/new` · `/test` · `/history`, API `/api/csat/diagnosis/{sessions,test,profile,habit}` · `/api/admin/csat/diagnosis/sessions`.
+
 > 2026-09-24 추가: **`/admin/video/requests/[id]`** — 영상 요청 상세(기획 · 설계 · 검토 · 적용 · 평가). `/admin/video` 에 「요청」 탭(맨 앞, 기본 탭).
 > 2026-09-13 추가: **`/admin/video`** — 영상 공장(VFP) 콘솔. 탭 3(현황·구성요소·내보내기).
 > 실행 버튼이 없는 유일한 파이프라인 콘솔이다(렌더가 서버에서 돌 수 없어 명령을 건넨다).

@@ -11,5 +11,5 @@ export const metadata: Metadata = { title: '내 기록 — 기출분석공간' }
 export const dynamic = 'force-dynamic'
 
 export default async function CsatRecordPage() {
-  return <RecordScreen exams={railExams()} itemTypes={await itemTypeMap()} />
+  return <RecordScreen exams={await railExams()} itemTypes={await itemTypeMap()} />
 }

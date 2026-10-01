@@ -58,7 +58,7 @@ for (const it of items) {
   if (!byType.has(it.type_id)) byType.set(it.type_id, [])
   byType.get(it.type_id).push(it.id)
 }
-const { data: reps, error: e2 } = await db.from('csat_type_reports').select('type_id, n_analyzed').eq('status', 'published')
+const { data: reps, error: e2 } = await db.from('csat_type_reports').select('type_id, n_analyzed').eq('organizer', 'kice').eq('status', 'published')
 if (e2) throw new Error(e2.message)
 let changed = 0
 let total = 0
@@ -69,7 +69,7 @@ for (const r of reps.sort((a, b) => a.type_id.localeCompare(b.type_id))) {
   changed += 1
   console.log(`  ${r.type_id}  ${r.n_analyzed} → ${n}`)
   if (COMMIT) {
-    const { error } = await db.from('csat_type_reports').update({ n_analyzed: n }).eq('type_id', r.type_id)
+    const { error } = await db.from('csat_type_reports').update({ n_analyzed: n }).eq('organizer', 'kice').eq('type_id', r.type_id)
     if (error) throw new Error(`${r.type_id}: ${error.message}`)
   }
 }

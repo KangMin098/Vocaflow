@@ -5,7 +5,7 @@
 // **기출분석공간 메뉴 — 모든 /csat 목록 화면(홈 · 서가 · 내 기록 · Workspace)이 같이 쓴다.**
 // 2026-09-29 참조 3B 레일 결 · 사용자 지시 「메뉴 클릭 시 팝업 X」:
 //
-//   홈(= 내 Workspace 목록) · 이어서·복습(n) · 내 기록        ← 참조 Recents · Favorites · Chat 무리
+//   홈(= 내 Workspace 목록) · 이어서·복습(n) · 내 기록 · 내 진단← 참조 Recents · Favorites · Chat 무리
 //   ─
 //   유형 · 함정 · 전체 서가                                     ← 한 줄 = 한 화면. 누르면 **곧바로 이동**한다
 //   ─
@@ -16,14 +16,14 @@
 // 대응 자료가 없는 니즈(등급 판정 · 구문 · 정답률 · EBS 연계 · 시간 재기)는 메뉴에 두지 않는다(ia-design §6).
 
 import Link from 'next/link'
-import { BookMarked, Crosshair, FolderKanban, History, Home, Layers, Library, Microscope, Plus, Search, Sparkles, Target, Timer } from 'lucide-react'
+import { BookMarked, Crosshair, FolderKanban, History, Home, Layers, Library, Microscope, Plus, Search, Sparkles, Stethoscope, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { ATLAS_TYPES, RECENT_FROM, TRAPS } from '@/lib/csat/trap-atlas'
 
 import styles from '../space/space.module.css'
 
-export type RailPlace = 'home' | 'continue' | 'record' | 'browse' | 'need' | 'type' | 'exam' | 'types' | 'traps' | 'workspace'
+export type RailPlace = 'home' | 'continue' | 'record' | 'diagnosis' | 'browse' | 'need' | 'type' | 'exam' | 'types' | 'traps' | 'workspace'
 export type NeedId = 'start' | 'killer' | 'trap' | 'evidence' | 'recent'
 
 /** 목적 다섯 갈래 — 레일에서는 뺐고, 주소(`?need=`)와 Workspace 출발점이 쓴다 */
@@ -75,6 +75,9 @@ export function CsatRail({
         </Link>
         <Link className={styles.railItem} href="/csat/record" aria-current={cur(place === 'record')}>
           <BookMarked size={15} aria-hidden="true" />내 기록
+        </Link>
+        <Link className={styles.railItem} href="/csat/diagnosis" aria-current={cur(place === 'diagnosis')} data-testid="rail-diagnosis">
+          <Stethoscope size={15} aria-hidden="true" />내 진단
         </Link>
       </div>
 

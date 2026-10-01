@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function CsatWorkspacePage({ params }: { params: { id: string } }) {
   const id = decodeURIComponent(params.id).slice(0, 64)
-  const [index, exams] = [await loadWorkspaceIndex(), railExams()]
+  const [index, exams] = [await loadWorkspaceIndex(), await railExams()]
   return (
     <Suspense fallback={null}>
       <WorkspaceDetail id={id} index={index} exams={exams} />

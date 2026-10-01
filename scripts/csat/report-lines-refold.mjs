@@ -40,7 +40,7 @@ const WORK = path.resolve('scripts/csat/report-lines')
 fs.mkdirSync(WORK, { recursive: true })
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 
-const { data: reps, error } = await db.from('csat_type_reports').select('type_id, failure_modes, procedure_steps').eq('status', 'published')
+const { data: reps, error } = await db.from('csat_type_reports').select('type_id, failure_modes, procedure_steps').eq('organizer', 'kice').eq('status', 'published')
 if (error) throw new Error(error.message)
 const lineOf = (r, field, i) => (field === 'failure_modes' ? r.failure_modes?.[i] : r.procedure_steps?.[i]?.step) ?? ''
 
@@ -108,7 +108,7 @@ const backup = path.join(WORK, `backup-${stamp}.json`)
 fs.writeFileSync(backup, JSON.stringify(reps.filter((r) => touched.has(r.type_id)), null, 2) + '\n')
 for (const t of touched) {
   const r = byType.get(t)
-  const { error: e } = await db.from('csat_type_reports').update({ failure_modes: r.failure_modes, procedure_steps: r.procedure_steps }).eq('type_id', t)
+  const { error: e } = await db.from('csat_type_reports').update({ failure_modes: r.failure_modes, procedure_steps: r.procedure_steps }).eq('organizer', 'kice').eq('type_id', t)
   if (e) throw new Error(`${t}: ${e.message} (원본은 ${path.basename(backup)})`)
 }
 console.log(`  적재 유형 ${touched.size} · 줄 ${ready} · 원본 ${path.relative(process.cwd(), backup)}`)

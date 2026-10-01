@@ -57,7 +57,8 @@ const [reports, types] = await Promise.all([
   db
     .from('csat_type_reports')
     .select('type_id, n_analyzed, answer_locus_pattern, procedure_steps, recurring_traps, failure_modes, time_budget_sec')
-    .eq('status', 'published'),
+    .eq('status', 'published')
+    .eq('organizer', 'kice').eq('grade', 0),
   db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
 ])
 if (reports.error) throw new Error(`csat_type_reports: ${reports.error.message}`)

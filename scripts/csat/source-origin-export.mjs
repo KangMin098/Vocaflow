@@ -96,13 +96,18 @@ function selectFingerprints(passage, frequencies, documentCount) {
   return selected.sort((a, b) => a.start - b.start).map(({ text }) => text)
 }
 
+// keyset(id) 로 끝까지 — OFFSET 은 뒤 페이지가 앞을 다시 훑는다(scan-offset-paging 예산). 두 호출 모두 id 를 고른다.
 async function selectAll(db, table, columns) {
   const rows = []
-  for (let from = 0; ; from += PAGE_SIZE) {
-    const { data, error } = await db.from(table).select(columns).range(from, from + PAGE_SIZE - 1)
+  let cursor = null
+  for (;;) {
+    let q = db.from(table).select(columns).order('id').limit(PAGE_SIZE)
+    if (cursor !== null) q = q.gt('id', cursor)
+    const { data, error } = await q
     if (error) throw error
     rows.push(...data)
     if (data.length < PAGE_SIZE) return rows
+    cursor = data[data.length - 1].id
   }
 }
 

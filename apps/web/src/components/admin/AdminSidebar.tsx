@@ -38,6 +38,7 @@ import {
   Scale,
   Printer,
   ScanLine,
+  Stethoscope,
   ShieldCheck,
   Sliders,
   Sparkles,
@@ -197,6 +198,8 @@ function buildNavGroups(reportsBadge: number | null): NavGroup[] {
         // 기출 분석 뷰 — 2026-09-17 까지 학습자 `/csat` 밑에 있던 분석 화면(지도·유형·문항·지형·
         // 사정권·계획). 학습자는 이제 「오늘의 세션」 루프만 보고, 분석을 읽는 일은 여기서 한다.
         { href: '/admin/kice', label: '기출 분석 뷰', Icon: ScanLine },
+        // 영어 진단(2026-10-01) — 학습자 진단의 태깅 · 풀 · 엔진 설정
+        { href: '/admin/csat/diagnosis', label: '영어 진단', Icon: Stethoscope },
       ],
     },
     {

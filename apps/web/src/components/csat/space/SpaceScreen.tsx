@@ -35,6 +35,7 @@ import { PatternBand } from './PatternBand'
 import styles from './space.module.css'
 import home from '../home/home.module.css'
 import { ContinueCard } from '../home/ContinueCard'
+import { DiagnosisHomeCard, type HomeDiagnosis } from '../diagnosis/DiagnosisHomeCard'
 import { ContinuePanel } from '../home/ContinuePanel'
 import { CsatRail, type NeedId } from '../home/CsatRail'
 import { useCsatRecord } from '../home/useCsatRecord'
@@ -91,6 +92,7 @@ export function SpaceScreen({
   workspaceIndex,
   initialWorkspace = false,
   openNew = false,
+  diagnosis,
 }: {
   exams: SpaceExam[]
   /** 문항 id → 유형 id(넓이 · 「본 문항」 계산용). 서가 카탈로그에서 온다 */
@@ -106,6 +108,8 @@ export function SpaceScreen({
   initialWorkspace?: boolean
   /** `?new=1` — 만들기 팝업을 연 채로 */
   openNew?: boolean
+  /** 진단 요약 카드(서버가 읽는다). 없으면 카드를 그리지 않는다 */
+  diagnosis?: HomeDiagnosis
 }) {
   const head = useMemo(spaceHeadline, [])
   const all = useMemo(() => ({ type: typeRows(), trap: trapRows() }), [])
@@ -247,6 +251,8 @@ export function SpaceScreen({
             <div className={styles.bandVeil} aria-hidden="true" />
             <ContinueCard state={rec} />
           </div>
+
+          {diagnosis && view === 'home' ? <DiagnosisHomeCard state={diagnosis} /> : null}
 
           {/* ── ③ 판 ─────────────────────────────────────────────────── */}
           <div className={styles.panel}>

@@ -158,6 +158,8 @@ describe('허용 이벤트 목록', () => {
     'csat_workspace_session_started',
     'csat_workspace_edited',
     'csat_workspace_suggestion_applied',
+    'csat_dx_viewed',
+    'csat_dx_attempt_saved',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

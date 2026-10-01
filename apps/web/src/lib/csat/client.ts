@@ -16,6 +16,29 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createAdminClient } from '@/lib/supabase/admin'
 import { HAKPYEONG_ID_PREFIX } from './exam-id'
+import { itemIdFilter, type CsatScope } from './scope'
+
+/**
+ * **범위(학평 학년)의 문항을 id 커서로 끝까지** — 관리자 통계(유형 수·출제 지형)용, 서비스 역할.
+ * 학습자 뷰는 발행된 학평만 주므로 출제 수를 세는 데 쓸 수 없다. OFFSET(`.range(from, …)`)이 아니라 커서다 —
+ * offset-paging-budget 이 OFFSET 이 느는 것을 막는다. 문항 id 는 회차 id 로 시작하므로 `itemIdFilter` 가 그대로 맞는다.
+ */
+export async function selectScopeItems<T>(scope: CsatScope, cols: string, typeId?: string): Promise<T[]> {
+  const db = createCsatClient()
+  const out: T[] = []
+  for (let cursor = ''; ; ) {
+    let q = db.from('csat_items').select(`id, ${cols}`).eq('in_scope', true).filter('id', itemIdFilter(scope).op, itemIdFilter(scope).pattern)
+    if (typeId) q = q.eq('type_id', typeId)
+    if (cursor) q = q.gt('id', cursor)
+    const { data, error } = await q.order('id').limit(1000)
+    if (error) throw new Error(error.message)
+    const rows = (data ?? []) as unknown as (T & { id: string })[]
+    out.push(...rows)
+    if (rows.length < 1000) break
+    cursor = rows[rows.length - 1].id
+  }
+  return out
+}
 
 export function createCsatClient(): SupabaseClient {
   return createAdminClient() as unknown as SupabaseClient
@@ -123,7 +146,7 @@ export async function loadCsatOverview(): Promise<CsatOverview> {
     selectAllPages<{ item_id: string; status: string }>((from, to) =>
       db.from('csat_item_analyses').select('item_id, status').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),
-    db.from('csat_type_reports').select('type_id, n_analyzed, status'),
+    db.from('csat_type_reports').select('type_id, n_analyzed, status').eq('organizer', 'kice').eq('grade', 0), // 평가원 리포트 행만(유형 리포트는 집합별 — scope.ts reportKey)
     // 검수는 분석을 거쳐야 문항에 닿는다 — 평가원 분석의 검수만 센다
     db
       .from('csat_analysis_reviews')

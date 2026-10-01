@@ -11,5 +11,6 @@ it('권한 때문에 빈 분석 조회를 배포 결함으로 캐시하지 않�
   const { loadDissectionCatalog } = await import('../../dissect-catalog')
   await expect(loadDissectionCatalog()).rejects.toThrow('로그인 상태')
   await expect(loadDissectionCatalog()).rejects.toThrow('로그인 상태')
-  expect(read).toHaveBeenCalledTimes(4)
+  // 한 번에 세 조회(문항 · 평가원 분석 · 학평 분석) × 두 번 — 실패는 캐시하지 않아 두 번째도 다시 읽는다
+  expect(read).toHaveBeenCalledTimes(6)
 })

@@ -170,6 +170,21 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     kind: 'screen',
     section: '학습 관리',
   },
+  // 2026-09-29 — 학습 Workspace(docs/csat-learner/workspace-design.md). 목록 · 만들기는 홈 탭으로 넘기는 옛 주소, 한 Workspace 는 제 화면.
+  { path: '/csat/workspace', screen: 'csat-workspace-list', label: '내 Workspace(옛 주소 — 홈 탭으로)', group: 'main', kind: 'redirect' },
+  { path: '/csat/workspace/new', screen: 'csat-workspace-new', label: 'Workspace 만들기(옛 주소 — 홈 팝업으로)', group: 'main', kind: 'redirect' },
+  { path: '/csat/workspace/[id]', screen: 'csat-workspace', label: '기출 Workspace', says: '고른 유형 · 함정 · 회차의 문항 묶음 — 이어 풀기와 제안.', group: 'main', kind: 'screen', dynamic: true },
+  // 2026-10-01 — 영어 진단(시험 기록 시계열 → 역량 · 함정 · 습관 · 수능 시나리오). 엔진은 lib/csat/diagnosis.
+  {
+    path: '/csat/diagnosis',
+    screen: 'csat-diagnosis',
+    label: '내 영어 진단',
+    says: '기록한 학평 · 모평 · 수능 답안으로 점수 흐름 · 약한 유형 · 끌린 오답 · 틀린 문항.',
+    group: 'main',
+    kind: 'screen',
+    section: '학습 관리',
+  },
+  { path: '/csat/diagnosis/attempts/new', screen: 'csat-diagnosis-attempt', label: '시험 기록(옛 주소 — 내 진단 모달로)', group: 'main', kind: 'redirect' },
   // 옛 주소 — 작업 공간이 기출 홈이 됐다(2026-09-24).
   { path: '/csat/space', screen: 'csat-space', label: '기출 작업 공간(옛 주소)', group: 'main', kind: 'redirect' },
   {

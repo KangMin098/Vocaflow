@@ -10,7 +10,7 @@ import {
   setItemStatusAction,
   type ActionResult,
 } from '@/app/admin/knowledge/actions'
-import { LAYER_LABEL, LAYER_RANK, STATUS_LABEL, type ItemStatus, type Layer } from '@/lib/knowledge/labels'
+import { ATTRIBUTIONS, ATTRIBUTION_LABEL, LAYER_LABEL, LAYER_RANK, STATUS_LABEL, type ItemStatus, type Layer } from '@/lib/knowledge/labels'
 import { TRANSITIONS } from '@/lib/knowledge/rules'
 
 const FIELD =
@@ -177,8 +177,11 @@ export function EvidenceForm({ itemId, origins }: { itemId: string; origins: Ori
         <label className="text-sm text-[var(--t2)]">
           귀속
           <select value={attribution} onChange={(e) => setAttribution(e.target.value)} className={FIELD}>
-            <option value="stated">출처가 직접 말함</option>
-            <option value="inferred">분석자 추론</option>
+            {ATTRIBUTIONS.map((a) => (
+              <option key={a} value={a}>
+                {ATTRIBUTION_LABEL[a]}
+              </option>
+            ))}
           </select>
         </label>
         {mode === 'external' ? (

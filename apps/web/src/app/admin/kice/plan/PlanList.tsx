@@ -28,8 +28,9 @@ import type { CsatPlanRow } from '@/lib/csat/learner'
 import type { MyTrapSummary } from '@/lib/csat/my-traps'
 import { myMissCounts } from '@/lib/csat/my-traps'
 import { orderRows, riskByType, type PlanOrder } from '@/lib/csat/plan-order'
+import { KICE_SCOPE, withScope, type CsatScope } from '@/lib/csat/scope'
 
-export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSummary | null }) {
+export function PlanList({ rows, mine, scope }: { rows: CsatPlanRow[]; mine: MyTrapSummary | null; scope?: CsatScope }) {
   const [order, setOrder] = useState<PlanOrder>('exam')
 
   const risk = useMemo(() => (mine ? riskByType(myMissCounts(mine)) : new Map()), [mine])
@@ -91,7 +92,7 @@ export function PlanList({ rows, mine }: { rows: CsatPlanRow[]; mine: MyTrapSumm
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                 <span className="font-display text-sm font-bold tabular-nums text-[var(--t1)]">{r.no}번</span>
                 <Link
-                  href={`/admin/kice/${r.type_id}`}
+                  href={withScope(`/admin/kice/${r.type_id}`, scope ?? KICE_SCOPE)}
                   className="inline-flex min-h-[44px] items-center text-sm text-[var(--p)] underline-offset-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
                 >
                   {r.type_name}

@@ -17,6 +17,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 
 import { PlanTimeline } from '@/components/csat/PlanTimeline'
 import { loadCsatPlan } from '@/lib/csat/learner'
@@ -32,10 +34,11 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-export default async function CsatPlanPage() {
+export default async function CsatPlanPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const scope = parseScope(await searchParams)
   // 내 훈련 기록 — 있으면 「내 약한 것 먼저」 순서가 생긴다(⑤). 못 읽어도 화면은 그대로
   // 뜨고 토글만 없다: 계획은 기록과 무관하게 볼 수 있어야 한다.
-  const [plan, mine] = await Promise.all([loadCsatPlan(), createClient().then((db) => loadMyTraps(db))])
+  const [plan, mine] = await Promise.all([loadCsatPlan(scope), createClient().then((db) => loadMyTraps(db))])
   const pending = plan.rows.length - plan.ready_items
   const over = plan.budget_sec > plan.available_sec
   // ⚠️ **`<main>` 이 아니라 `<div>` 다.** 셸(`(main)/layout.tsx`)이 이미
@@ -47,7 +50,7 @@ export default async function CsatPlanPage() {
   return (
     <div className="mx-auto max-w-3xl">
       <Link
-        href="/admin/kice"
+        href={withScope('/admin/kice', scope)}
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← 유형 목록
@@ -56,6 +59,7 @@ export default async function CsatPlanPage() {
       <header className="mb-6 mt-2">
         <h1 className="font-editorial text-2xl font-[600] text-[var(--t1)]">한 회차 주파 계획</h1>
         <AdminScreenHelp screen="kice-plan" className="mt-2" />
+        <ScopeTabs scope={scope} basePath="/admin/kice/plan" className="mt-3" />
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[var(--t2)]">
           번호별 유형은 2019학년도부터 고정입니다. 그래서 <strong>번호를 보면 무엇을 할지 미리 정해
           둘 수 있어요.</strong> 아래는 {plan.exam_label || '최근 수능'} 기준입니다.
@@ -97,7 +101,8 @@ export default async function CsatPlanPage() {
 
           {/* ⑤ 주파 — 줄 세우기는 클라이언트가 한다(토글). 시간 띠는 **위에** 그대로 두어
               번호 순서를 잃지 않는다: 시험은 번호대로 치러지고, 이 순서는 공부할 순서다. */}
-          <PlanList rows={plan.rows} mine={mine} />
+          {/* 「내 약한 것 먼저」는 평가원 함정 분포(구운 값)로 순위를 낸다 — 학평 범위에서는 끈다(학년 분포 생기기 전) */}
+          <PlanList rows={plan.rows} mine={scope.set === 'kice' ? mine : null} scope={scope} />
 
         </>
       ) : null}

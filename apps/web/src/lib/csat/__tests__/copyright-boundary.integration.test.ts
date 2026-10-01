@@ -363,3 +363,53 @@ describe('강의 대본 데이터의 경계', () => {
     expect(hidden).toEqual([])
   })
 })
+
+// ── 학평(2026-10-01 학습자 공개) ───────────────────────────────────────────
+// 학습자 뷰는 «발행된 분석이 있는» 학평만 주고, 학평 골격(인용 조각)은 저장소가 아니라 DB 표에 있다.
+// 경계 두 가지를 실 DB 로 묶는다: (1) 미발행 학평 문항은 뷰에도 골격 표에도 안 보인다 (2) 비로그인은 골격 표를 못 읽는다.
+describe.skipIf(skip)('학평 학습자 경계 (실 DB)', () => {
+  let anon: SupabaseClient
+  let learner: SupabaseClient
+  let svc: SupabaseClient
+
+  beforeAll(async () => {
+    svc = createClient(SUPABASE_URL!, SERVICE_KEY!, { auth: { persistSession: false } })
+    anon = createClient(SUPABASE_URL!, ANON_KEY!, { auth: { persistSession: false } })
+    learner = createClient(SUPABASE_URL!, ANON_KEY!, { auth: { persistSession: false } })
+    const { error } = await learner.auth.signInWithPassword({ email: TEST_EMAIL, password: TEST_PASSWORD })
+    if (error) throw new Error(`검증 계정 로그인 실패: ${error.message}`)
+  })
+  afterAll(async () => {
+    await learner?.auth.signOut()
+  })
+
+  it('학습자 뷰의 학평 문항은 전부 발행된 분석이 있다(미발행은 안 보인다)', async () => {
+    const { data: rows, error } = await learner.from('csat_items_public').select('id').eq('organizer', 'edu_office').limit(1000)
+    expect(error).toBeNull()
+    const ids = (rows ?? []).map((r: { id: string }) => r.id)
+    expect(ids.length).toBeGreaterThan(0)
+    const { data: pub, error: e2 } = await svc.from('csat_item_analyses').select('item_id').in('item_id', ids).eq('status', 'published')
+    expect(e2).toBeNull()
+    const published = new Set((pub ?? []).map((r: { item_id: string }) => r.item_id))
+    expect(ids.filter((id) => !published.has(id))).toEqual([])
+  })
+
+  it('학평 골격 — 학습자는 발행된 문항 행만, 비로그인은 0행', async () => {
+    const { data: all, error: e0 } = await svc.from('csat_item_skeletons').select('item_id').limit(1000)
+    expect(e0).toBeNull()
+    const { data: seen, error: e1 } = await learner.from('csat_item_skeletons').select('item_id').limit(1000)
+    expect(e1).toBeNull()
+    const seenIds = (seen ?? []).map((r: { item_id: string }) => r.item_id)
+    const { data: pub } = await svc.from('csat_item_analyses').select('item_id').in('item_id', seenIds.length ? seenIds : ['-']).eq('status', 'published')
+    const published = new Set((pub ?? []).map((r: { item_id: string }) => r.item_id))
+    expect(seenIds.filter((id) => !published.has(id))).toEqual([])
+    expect(seenIds.length).toBeLessThanOrEqual((all ?? []).length)
+    const { data: anonRows } = await anon.from('csat_item_skeletons').select('item_id').limit(5)
+    expect(anonRows ?? []).toEqual([])
+  })
+
+  it('학평 문항도 stem 은 학습자에게 막혀 있다', async () => {
+    const { error } = await learner.from('csat_items_public').select('id, stem').eq('organizer', 'edu_office').limit(1)
+    expect(error).not.toBeNull()
+  })
+})

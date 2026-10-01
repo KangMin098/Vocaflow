@@ -40,7 +40,7 @@ export interface BrowseEntry {
 }
 
 const isEmpty = (f: BrowseFilter) =>
-  f.kind === 'all' && f.year === 'all' && f.type === 'all' && f.status === 'all' && f.query.trim() === '' && (f.exam ?? 'all') === 'all' && (f.from ?? 'all') === 'all'
+  f.kind === 'all' && (f.grade ?? 'all') === 'all' && f.year === 'all' && f.type === 'all' && f.status === 'all' && f.query.trim() === '' && (f.exam ?? 'all') === 'all' && (f.from ?? 'all') === 'all'
 
 export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog; exams: RailExam[]; entry: BrowseEntry }) {
   const rec = useCsatRecord()
@@ -62,6 +62,9 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
   const seen = useMemo(() => (rec ? touchedItems(rec.record) : new Set<string>()), [rec])
   const random = items.length ? items[Math.floor(Math.random() * items.length)] : null
   const { kind, year, type, status, query } = filter
+  const grade = filter.grade ?? 'all'
+  // 학력평가가 서가에 있을 때만 출처 칩에 「학력평가」·학년을 보인다(발행된 학평이 없으면 칩도 없다)
+  const hasHak = useMemo(() => browse.exams.some((e) => e.kind === 'hakpyeong'), [browse.exams])
   const exam = filter.exam ?? 'all'
   const reset = () => setFilter(EMPTY_FILTER)
 
@@ -122,11 +125,40 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
                 <span className="sr-only">유형 · 회차 · 번호로 찾기</span>
                 <input id="csat-library-search" type="search" value={query} placeholder="예: 빈칸 · 2026 · 31" onChange={(e) => set('query', e.target.value)} />
               </label>
-              {([['all', '수능·모의'], ['suneung', '수능'], ['mock', '모의평가']] as const).map(([value, label]) => (
-                <button key={value} type="button" className={home.chip} aria-pressed={kind === value} onClick={() => set('kind', value as ExamKind | 'all')}>
+              {(
+                [['all', hasHak ? '출처 전부' : '수능·모의'], ['suneung', '수능'], ['mock', '모의평가'], ...(hasHak ? ([['hakpyeong', '학력평가']] as const) : [])] as const
+              ).map(([value, label]) => (
+                <button
+                  key={value}
+                  type="button"
+                  className={home.chip}
+                  aria-pressed={kind === value}
+                  data-testid={`browse-kind-${value}`}
+                  onClick={() => setFilter((f) => ({ ...f, kind: value as ExamKind | 'all', grade: value === 'hakpyeong' ? (f.grade ?? 'all') : 'all' }))}
+                >
                   {label}
                 </button>
               ))}
+              {kind === 'hakpyeong' ? (
+                <>
+                  <label className="sr-only" htmlFor="csat-browse-grade">
+                    학년
+                  </label>
+                  <select
+                    id="csat-browse-grade"
+                    className={home.chip}
+                    value={String(grade)}
+                    onChange={(e) => set('grade', e.target.value === 'all' ? 'all' : (Number(e.target.value) as 1 | 2 | 3))}
+                  >
+                    <option value="all">학년 전체</option>
+                    {([3, 2, 1] as const).map((g) => (
+                      <option key={g} value={g}>
+                        고{g}
+                      </option>
+                    ))}
+                  </select>
+                </>
+              ) : null}
               {([['all', '상태 전부'], ['lecture', '강의 있음'], ['map', '지도 있음']] as const).map(([value, label]) => (
                 <button key={value} type="button" className={home.chip} aria-pressed={status === value} onClick={() => set('status', value as BrowseFilter['status'])}>
                   {label}
@@ -212,7 +244,7 @@ export function CsatWorkspace({ browse, exams, entry }: { browse: BrowseCatalog;
 
           <div className={styles.foot}>
             <p>
-              점선 칸은 해설 강의가 아직 없는 문항, 옅은 칸은 이미 연 문항이에요. 지문·선지는 평가원 저작물이라 서버에 싣지 않아요 — 받은 문제지 PDF 를 놓으면 이 기기에서만 보여요. 문항을 열면 근거
+              점선 칸은 해설 강의가 아직 없는 문항, 옅은 칸은 이미 연 문항이에요. 지문·선지는 평가원·교육청 저작물이라 서버에 싣지 않아요 — 받은 문제지 PDF 를 놓으면 이 기기에서만 보여요. 문항을 열면 근거
               자리와 오답 설계를 차례로 봅니다.
             </p>
           </div>

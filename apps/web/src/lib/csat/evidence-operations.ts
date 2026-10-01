@@ -18,6 +18,7 @@ import {
   type Measure,
 } from './evidence-fold'
 import { HAKPYEONG_ID_PREFIX } from './exam-id'
+import type { HakReviewData } from './hakpyeong-review'
 
 export interface ReadinessAudit {
   total: number
@@ -30,6 +31,8 @@ export interface OperationsData extends EvidenceData {
   readinessError: string | null
   /** 이 데이터가 본 집합. 학평이면 readiness 는 늘 null 이다(배포 판정 대상 아님) */
   scope?: EvidenceScope
+  /** 학평 독립 검수 모니터(「검수 진행」 탭) — 학평 범위에서만 읽는다. 평가원이면 없음 */
+  review?: HakReviewData | null
 }
 export const LEARNER_FIELDS: Record<string, string> = {
   answer: '정답',
@@ -186,7 +189,10 @@ export const WORK_ISSUES: WorkIssue[] = [
     }
   }),
 ]
-export const VIEWS = { overview: '운영 현황', issues: '작업 큐', questions: '문항 탐색' } as const
+export const VIEWS = { overview: '운영 현황', issues: '작업 큐', questions: '문항 탐색', review: '검수 진행' } as const
+/** 「검수 진행」은 학평(독립 검수 게이트) 전용 — 평가원 범위에서는 탭을 보이지 않는다 */
+export const viewsFor = (scope: EvidenceScope) =>
+  (Object.keys(VIEWS) as (keyof typeof VIEWS)[]).filter((v) => v !== 'review' || scope.set === 'hakpyeong')
 export const STATUSES = {
   all: '전체 상태',
   ready: '학습 준비',
@@ -227,10 +233,11 @@ export function parseOperationsState(params: Params = {}): OperationsState {
     values.includes(value as T) ? (value as T) : fallback
   const filter = filterFromQuery(params)
   const legacy = Boolean(get('row') || get('col') || Object.keys(filter).length)
+  const scope = parseEvidenceScope(params)
   return {
     view: one(
       get('view'),
-      Object.keys(VIEWS) as (keyof typeof VIEWS)[],
+      viewsFor(scope),
       legacy ? 'questions' : 'overview'
     ),
     status: one(get('status'), Object.keys(STATUSES) as (keyof typeof STATUSES)[], 'all'),
@@ -261,7 +268,7 @@ export function parseOperationsState(params: Params = {}): OperationsState {
       AXES.some((a) => a.id === get('cellAxis')) && get('cellRow') && get('cellCol')
         ? { axis: get('cellAxis') as AxisId, keys: [get('cellRow'), get('cellCol')] }
         : null,
-    scope: parseEvidenceScope(params),
+    scope,
   }
 }
 export function operationsHref(state: OperationsState): string {

@@ -5,6 +5,7 @@ import { loadDissectionCatalog } from './dissect-catalog'
 import { loadEvidence } from './evidence'
 import type { OperationsData, ReadinessAudit } from './evidence-operations'
 import { KICE_SCOPE, type EvidenceScope } from './evidence-fold'
+import { loadHakpyeongReview } from './hakpyeong-review-loader'
 
 /** Admin entry points must authenticate first. Neither reads nor writes the learner process cache. */
 export async function loadEvidenceOperations(scope: EvidenceScope = KICE_SCOPE): Promise<OperationsData> {
@@ -14,7 +15,9 @@ export async function loadEvidenceOperations(scope: EvidenceScope = KICE_SCOPE):
       items: [], exams: [], types: [], generatedAt: '',
       loadError: e instanceof Error ? e.message : '데이터를 읽지 못했습니다.',
     }))
-    return { ...data, generatedAt: new Date().toISOString(), readiness: null, readinessError: null, scope }
+    // 학평 독립 검수 모니터 — 읽기 실패는 review.error 로 화면에 드러난다(0건으로 삼키지 않는다)
+    const review = data.loadError ? null : await loadHakpyeongReview(scope.grade, data.items.map((i) => ({ id: i.id, typeId: i.typeId })))
+    return { ...data, generatedAt: new Date().toISOString(), readiness: null, readinessError: null, scope, review }
   }
   const [evidence, dissection] = await Promise.allSettled([
     loadEvidence(scope),

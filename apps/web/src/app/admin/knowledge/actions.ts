@@ -9,7 +9,7 @@ import { revalidatePath } from 'next/cache'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { requireAdmin } from '@/lib/auth/require-admin'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { isLayer, isStatus, type ItemStatus } from '@/lib/knowledge/labels'
+import { isAttribution, isLayer, isStatus, type ItemStatus } from '@/lib/knowledge/labels'
 import {
   checkExternalEvidence,
   checkImplements,
@@ -188,7 +188,7 @@ export async function addExternalEvidenceAction(input: {
   try {
     const who = await actor('/admin/knowledge')
     if (!['A', 'B', 'C'].includes(input.grade)) return { ok: false, error: '등급은 A·B·C 중 하나입니다' }
-    if (!['stated', 'inferred'].includes(input.attribution)) return { ok: false, error: '귀속을 고르세요' }
+    if (!isAttribution(input.attribution)) return { ok: false, error: '귀속을 고르세요' }
     const rule = checkExternalEvidence(input)
     if (!rule.ok) return rule
     const client = db()
@@ -221,7 +221,7 @@ export async function addCsatEvidenceAction(input: {
 }): Promise<ActionResult> {
   try {
     const who = await actor('/admin/knowledge')
-    if (!['stated', 'inferred'].includes(input.attribution)) return { ok: false, error: '귀속을 고르세요' }
+    if (!isAttribution(input.attribution)) return { ok: false, error: '귀속을 고르세요' }
     const client = db()
     const { data: origin, error } = await client
       .from('knowledge_csat_origins')

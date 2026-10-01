@@ -14,6 +14,7 @@ import {
   type ReadinessIndex,
   type WorkIssue,
 } from '@/lib/csat/evidence-operations'
+import { BLOCK_STATES, reviewBlock, type HakReviewItem } from '@/lib/csat/hakpyeong-review'
 import s from './evidence.module.css'
 
 export function EvidenceInspector({
@@ -28,6 +29,7 @@ export function EvidenceInspector({
   onRelated,
   verifyMessage,
   verifyError,
+  review,
 }: {
   item: EvidenceItem
   index: ReadinessIndex
@@ -41,6 +43,8 @@ export function EvidenceInspector({
   onRelated: (issue: WorkIssue) => void
   verifyMessage: string
   verifyError: string
+  /** 학평이면 독립 검수 상태(「검수 진행」 탭과 같은 판정) */
+  review?: HakReviewItem
 }) {
   const [full, setFull] = useState<CsatItemFull | null>(null)
   const [error, setError] = useState('')
@@ -177,6 +181,16 @@ export function EvidenceInspector({
         ) : null}
         <section className={s.section}>
           <h3>현재 판단</h3>
+          {review ? (() => {
+            const b = reviewBlock(review)
+            return (
+              <div className="mb-3" data-testid="inspector-review">
+                <p className={`${s.badge} ${b.state === 'published' ? s.good : b.state === 'waiting' ? s.warn : s.bad}`}>독립 검수 · {BLOCK_STATES[b.state]} · 유효 승인 {review.validPersonas.length}/3</p>
+                <p className="mt-1 text-sm break-keep">{b.reason}</p>
+                <p className={`${s.code} mt-1`}>{b.next}</p>
+              </div>
+            )
+          })() : null}
           {!readinessApplies ? (
             <p className={s.badge}>학습 판정 적용 안 함 · 보조·검증 집합(학평)</p>
           ) : (

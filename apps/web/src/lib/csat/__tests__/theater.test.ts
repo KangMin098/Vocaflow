@@ -175,10 +175,13 @@ describe('theaterBlocks — 오른쪽 부가 정보', () => {
 
 describe('examAxis — 회차 id 에서 종류와 학년도', () => {
   it('수능과 모의평가를 가른다', () => {
-    expect(examAxis('2026')).toEqual({ kind: 'suneung', year: 2026, month: null })
-    expect(examAxis('2014A')).toEqual({ kind: 'suneung', year: 2014, month: null })
-    expect(examAxis('M2606')).toEqual({ kind: 'mock', year: 2026, month: 6 })
-    expect(examAxis('M2709')).toEqual({ kind: 'mock', year: 2027, month: 9 })
+    expect(examAxis('2026')).toEqual({ kind: 'suneung', year: 2026, month: null, grade: null })
+    expect(examAxis('2014A')).toEqual({ kind: 'suneung', year: 2014, month: null, grade: null })
+    expect(examAxis('M2606')).toEqual({ kind: 'mock', year: 2026, month: 6, grade: null })
+    expect(examAxis('M2709')).toEqual({ kind: 'mock', year: 2027, month: 9, grade: null })
+  })
+  it('학력평가는 모의평가로 접히지 않는다 — 학년을 들고, 학년도로 줄 선다', () => {
+    expect(examAxis('H2503G1')).toEqual({ kind: 'hakpyeong', year: 2026, month: 3, grade: 1 })
   })
 })
 

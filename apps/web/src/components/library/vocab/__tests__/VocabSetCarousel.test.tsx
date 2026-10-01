@@ -75,67 +75,21 @@ function render(s: PublishedVocabSet): string {
   ).replace(/<!-- -->/g, '')
 }
 
-describe('히어로 표지 — 규격의 글자', () => {
-  it('kicker 를 표지 맨 위에 찍는다', () => {
-    expect(render(set())).toContain('VOCAFLOW VOCABULARY')
+/*
+  2026-09 — 히어로 표지(정사각 판형 · kicker · VOL.)는 3D 선반 + 시중 교재형 표지로 바뀌었다
+  (add73d52 · 7f60b8a4). 표지는 이제 브라우저에서만 그리므로(WebGL · tradeCoverSvg) SSR 로는 표지 글자를 볼 수 없다.
+  여기서는 SSR 이 지키는 것 — 선반의 키보드 안내 · 고른 권의 상세 자리 — 만 잠근다.
+*/
+describe('3D 선반 — 서버 렌더가 지키는 것', () => {
+  it('선반은 키보드 안내가 붙은 무리로 선다', () => {
+    expect(render(set())).toContain('aria-label="단어장 선반 — 화살표로 이동, Enter 로 열기"')
   })
 
-  it('계열 줄을 찍는다 — 색이 무엇을 뜻하는지 말하는 유일한 글자다', () => {
-    expect(render(set())).toContain('STRUCTURE · 구조 계열')
+  it('고른 권의 상세 자리가 그 권 이름으로 불린다', () => {
+    expect(render(set())).toContain('aria-label="어원으로 익히는 1,500 상세"')
   })
 
-  /*
-    ⚠️ 교재 표지가 여기서 값을 치렀다 — 5단 표지에 `5` 를 찍었는데 제목은 `… Reading 4` 였다.
-    계단(1~7)과 권 이름(Starter·1~6)이 한 칸 밀려 있어서다. 단어장은 같은 사다리를 탄다.
-  */
-  it('권 번호는 계단이 아니라 **권 이름**이다 — 5단 권에 VOL. 4', () => {
-    const html = render(set())
-    expect(html).toContain('VOL. 4')
-    expect(html).not.toContain('VOL. 5')
-  })
-
-  it('시리즈를 두 번 말하지 않는다 — kicker 가 있으면 중앙 시리즈 줄을 뺀다', () => {
-    expect(render(set())).not.toContain('Vocaflow Vocabulary 4')
-  })
-
-  it('계단을 못 정한 권은 번호 자리를 비운다 — 없는 수를 지어내지 않는다', () => {
-    const html = render(set({ ladderStep: null, cefrLevel: null, level: null, category: 'etymology' }))
-    expect(html).toContain('VOCAFLOW VOCABULARY')
-    expect(html).not.toContain('VOL.')
-  })
-
-  it('각인이 없는 권은 종전 그대로 — kicker 없이 시리즈 줄', () => {
-    const html = render(set({ brandLockup: null }))
-    expect(html).not.toContain('VOCAFLOW VOCABULARY')
-    expect(html).toContain('Vocaflow Vocabulary 4')
-  })
-
-  it('정사각 판형·스크림·도판 여백이 현재 선반 규격 값이다', () => {
-    const html = render(set())
-    expect(html).toContain('aspect-square w-[196px]')
-    expect(html).toContain('rgba(0,0,0,0.35) 62%')
-    // 코드 하한(hero 0.34)이 아니라 캔버스 값이어야 한다.
-    expect(html).not.toContain('rgba(0,0,0,0.34) 62%')
-    expect(html).toContain('padding:8% 8% 33%')
-  })
-
-  /*
-    구독 배지는 **아래로 내렸다** — 예전 자리(오른쪽 위)는 이제 권 번호가 쓴다.
-    되돌아오면 구독한 권만 번호가 가려지는데, 그건 구독하지 않으면 안 보이는 결함이다.
-  */
-  it('구독 배지가 권 번호 자리를 다시 차지하지 않는다', () => {
-    const html = renderToString(
-      <VocabSetCarousel
-        sets={[set()]}
-        subscribedIds={new Set([set().id])}
-        pendingId={null}
-        isLoggedIn
-        onPreview={() => {}}
-        onToggle={() => {}}
-        onSelectCategory={() => {}}
-      />,
-    )
-    expect(html).toContain('absolute bottom-2 right-2')
-    expect(html).not.toContain('absolute right-3 top-3')
+  it('옛 히어로 표지(정사각 판형)는 다시 그려지지 않는다', () => {
+    expect(render(set())).not.toContain('aspect-square w-[196px]')
   })
 })

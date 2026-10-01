@@ -18,6 +18,7 @@ import type { Metadata } from 'next'
 
 import type { NeedId } from '@/components/csat/home/CsatRail'
 import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
+import { loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
 import { itemTypeMap, railExams } from '@/lib/csat/rail-data'
 import { spaceHeadline } from '@/lib/csat/space-model'
 import { loadWorkspaceIndex } from '@/lib/csat/workspace-index'
@@ -42,7 +43,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const needParam = one(params.need)
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
-  const [exams, itemTypes] = [railExams(), await itemTypeMap()]
+  const [exams, itemTypes, diagnosis] = [await railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
   // 「내 Workspace」 줄의 문항 색인(원문 없음). 못 읽으면 줄만 빠지고 기존 화면은 그대로 선다
   const workspaceIndex = await loadWorkspaceIndex().catch(() => undefined)
   return (
@@ -57,6 +58,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
       workspaceIndex={workspaceIndex}
       initialWorkspace={!need && one(params.tab) !== 'type' && one(params.tab) !== 'trap' && one(params.view) !== 'continue'}
       openNew={one(params.new) === '1'}
+      diagnosis={diagnosis}
     />
   )
 }

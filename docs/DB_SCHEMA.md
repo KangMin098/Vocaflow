@@ -133,6 +133,7 @@ SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **IN
 - `20260928140000_knowledge_evidence_concurrency`(2026-09-28 적용): 채택·적용 쓰기가 근거 존재를 검사(`knowledge_items_require_evidence`) · 근거 삭제 트리거가 항목 행부터 FOR UPDATE · 기출 근거 추가가 원천 행을 FOR SHARE. 단일 세션 시험 통과 · 두 세션 시험(`scripts/knowledge/concurrency-test.mjs`) **6/6 통과**(2026-09-28 — 뒤쪽이 잠금에 막힘 확인, 시험 데이터 0).
 - `20260928150000_knowledge_regrade_locks_items`(2026-09-28 적용): 원천 재등급 트리거가 그 원천을 근거로 가진 항목 행을 상태와 무관하게 먼저 FOR UPDATE(id 순) — 재등급↔채택 경쟁 보정. 보정 전 실측 4/6 → 보정 후 6/6.
 - `20261001120000_knowledge_evidence_version`(2026-10-01 적용): `knowledge_items.evidence_version` — 근거 추가·삭제·변경(원천 재등급 포함) 때마다 트리거 `knowledge_evidence_bump_version` 이 +1(항목 행 잠금). 상태 변경은 「상태·근거 버전 = 화면에서 본 값」 한 문장 UPDATE. 두 세션 시험 11/11(운영).
+- `20261001130000_knowledge_evidence_observed`(2026-10-01 적용): 근거 귀속에 `observed`(수업 진행 관찰) · RPC `knowledge_import_claim(item, evidence)` — 항목·근거 한 트랜잭션, slug 충돌이면 `exists`(덮지 않음) · service_role 전용. DB 시험: 나쁜 근거 → 항목도 0 · 재호출 exists · observed 수용.
 - 전부 RLS · anon/authenticated 권한 없음 · service_role 전용. 씨앗 `scripts/knowledge/import-seed.mjs`(재실행 안전). 설계 [SYSTEM](./methodology/SYSTEM.md) · [단계·검증](./methodology/README.md).
 
 - **테이블**: **107** · **Views**: **11**(+ matview 4) · **Functions**: **360** · **인덱스**: **340** · **Migrations**: **528** · **용량 7,665 MB** (2026-08-31 DB 직접 쿼리 실측)
@@ -1247,6 +1248,10 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260928143924  csat_hakpyeong_rereview_link                 ← 게이트 v2: csat_review_runs.kind(blind|rereview)·parent_run_id·solve_answer_hash(+backfilled 18) · 분석만 바뀐 재검수는 같은 문항·페르소나의 최초 블라인드 풀이에 잇는다(원문·정답이 풀이 때와 같을 때만) · rereview 는 solve 불가
 20260928152323  csat_item_units                              ← 근거 단위 목록 csat_item_units(원문 해시·버전별 1행 · lib-evidence-units.mjs 생성 · 학평 2,910) · 분석/검수 units_hash · 학평 게이트: 목록 불일치·목록 없이 박제된 승인 불인정 · 목록 변경 시 자동 in_review · R-CHART 발행 보류(도표 이미지 근거 없음)
 20260930190349  csat_review_stamp_at_reveal                  ← 게이트 v3(PR #126 리뷰): 검수 해시를 공개(reveal) 시점에 박제·제출 시 대조 · blind 풀이=공개 입력 · 게이트는 NEW 로 판정(csat_valid_review_personas_row)·현재 근거 목록 대조 · 게이트 트리거가 analyst_run/units_hash/units_version 변경에도 · 발행·목록 쓰기 같은 행 잠금 · 목록 쓰기 시점 원문 대조 · RPC csat_current_units_many / csat_units_build_input / csat_valid_review_personas_many / csat_rereview_parent / csat_publish_hakpyeong
+20260930203522  csat_review_ledgers                          ← 학평 검수 모니터 원장 3개: csat_review_prechecks(사전 검사 · 키=분석·분석 해시·단위 해시·검사기 버전) · csat_review_batches(배치 비용 · tokens null=미기록) · csat_review_followups(추적 목록) — RLS on · anon/authenticated 권한 없음
+20261001062641  csat_review_prechecks_input_hash             ← csat_review_prechecks 에 input_hash(지문 입력 해시) 추가 · PK 에 포함 — units_hash 는 경계만 해시해 지문 글자 변경을 못 가른다(Codex 리뷰). 기존 행은 '' → 화면에서 「사전 검사 다시」
+20261001101635  csat_scope_type_reports_coverage             ← 학평 전면 적용 P1: csat_type_reports 에 organizer(kice·edu_office)·grade(평가원 0 · 학평 1~3) 열 + 짝 CHECK — 기존 26행 kice·0, 키는 아직 type_id(옛 importer 호환 · 확장은 P4) · csat_coverage_scoped(p_organizer, p_grade) 신설(service_role 만) — 기존 csat_coverage() 무변
+20261001110017  csat_hakpyeong_learner_exposure              ← 학평 전면 적용 P2: csat_items_public = 평가원 + 발행된 분석이 있는 학평(뷰가 정본) · 끝에 organizer·grade 열(+authenticated 열 권한, stem 차단 유지) · csat_item_skeletons(학평 골격 — 학평 원문 조각을 저장소 대신 DB에, 학습자는 발행분만 RLS, 쓰기 서비스 역할, item_id like 'H%' CHECK)
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다
@@ -1811,7 +1816,24 @@ RLS: 자기 행만 `select`/`insert`. **`update`·`delete` 정책은 일부러 �
 배수를 말한다. 그 아래에서는 센 것만 보여 준다 — 얇은 표본으로 「당신의 약점」을 적으면
 학습자가 없는 결함을 고치러 간다.
 
-## 담은 교재가 시리즈를 구별한다 — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
+## 영어 진단 — `csat_dx_*` ([20261001150000](../supabase/migrations/20261001150000_csat_diagnosis_mvp.sql))
+
+기존 표는 컬럼 추가만: `csat_exams.official_grade1_ratio · official_stats_source · diagnosis_ready(NOT NULL false)` · `csat_items.official_error_rate · ebs_linked(null=미확인)`.
+
+| 표 | 내용 | 접근 |
+|---|---|---|
+| `csat_dx_answer_key` | 회차 × 1~45 정답(`answers smallint[]`)·배점 — csat_items 에 없는 듣기 포함 | service role |
+| `csat_dx_type_attribute` · `csat_dx_item_attribute` | 유형 기본 / 문항 역량 가중치 A1~A9(0~2), `source type_default|admin` · `reviewed_at`(검수 완료 = A1 행에 찍힘) | service role |
+| `csat_dx_trap_family` · `csat_dx_option_trap` | 함정 라벨 → C1~C9 · 선지별 함정(최신 published 분석에서 시드, 원래 라벨 보존) | service role |
+| `csat_dx_pool` | 진단 테스트 문항 풀 | service role |
+| `csat_dx_settings` | 엔진 설정 jsonb, 버전으로 쌓고 활성 1개(부분 유니크) | service role |
+| `csat_dx_profile_hist` · `csat_dx_session` · `csat_dx_response` · `csat_dx_snapshot` · `csat_dx_habit_feedback` | 프로필 이력 · 시험 기록(`client_key` 멱등) · 응답 · 진단 누적(`settings_id`·`engine_version`) · 습관 응답 | 본인 SELECT 만, 쓰기는 서버 |
+
+RPC `csat_dx_record_session(p_session, p_responses)` — 세션+응답 한 트랜잭션, service_role 전용.
+RPC `csat_dx_activate_settings(p_settings, p_note, p_by)` · `csat_dx_save_item_tagging(p_item_id, p_weights, p_traps, p_error_rate, p_ebs, p_by)` ([20261001170000](../supabase/migrations/20261001170000_csat_diagnosis_atomic_writes.sql)) — 설정 전환 · 문항 검수 저장을 한 트랜잭션으로, service_role 전용.
+고유 인덱스 `csat_dx_snapshot_once_per_session` ([20261001180000](../supabase/migrations/20261001180000_csat_dx_snapshot_once_per_session.sql)) — 기록 저장으로 생긴 스냅샷은 세션당 하나.
+
+ — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면
 독해를 담은 것으로 기록되고, 하나를 빼면 둘이 같이 빠졌다. 시리즈 셋이 정의됐는데(각 6~7단,

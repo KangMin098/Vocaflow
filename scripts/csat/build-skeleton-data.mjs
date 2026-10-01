@@ -35,6 +35,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { isKiceExam } from './lib-exam-id.mjs'
 
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
@@ -83,7 +84,15 @@ for (const r of analyses) if (!latest.has(r.item_id)) latest.set(r.item_id, r)
 // ⚠️ `type_id` 를 함께 굽는다 — 없으면 «이 유형은 근거가 지문의 어디에 있나» 같은 분석이
 //    **매번 DB 를 타야** 하고, 망이 끊기면 못 한다(실측: 그 이유로 3사이클 미뤄졌다).
 //    골격이 스스로를 설명하게 두면 그 분석은 영원히 오프라인이다.
-const items = await page('csat_items', 'id, exam_id, no, type_id, passage, body_ok', (q) => q.order('id'))
+// 집합: 기본 평가원. 학평은 `--set hakpyeong` (학습자에게 열린 발행분만 굽는 단계는 별도 — 학평 전면 적용 P2).
+// 거르지 않으면 104개 학평 회차의 골격이 미발행분까지 저장소에 구워진다(2026-10-01 가드가 잡음).
+const SET_ARG = process.argv.indexOf('--set')
+const SET = SET_ARG >= 0 ? process.argv[SET_ARG + 1] : 'kice'
+if (SET !== 'kice' && SET !== 'hakpyeong') throw new Error(`--set ${SET}: kice | hakpyeong`)
+// 평가원 = 파일(커밋) · 학평 = DB 표 csat_item_skeletons(학평 원문 조각은 저장소에 넣지 않는다 · 학습자는 발행분만 RLS)
+const items = (await page('csat_items', 'id, exam_id, no, type_id, passage, body_ok', (q) => q.order('id'))).filter((r) =>
+  SET === 'kice' ? isKiceExam(r.exam_id) : !isKiceExam(r.exam_id),
+)
 
 // 한국어 산문에 박힌 영어 조각. 낱말 하나는 지문 어디에나 있어 «아무 데나 칠하기» 가 되므로
 // 구(句) 이상만 쓴다.
@@ -288,6 +297,59 @@ if (leaks.length) {
   process.exit(1)
 }
 console.log('  원문 유출                             0  <- 경계 지켜짐')
+
+if (SET === 'hakpyeong') {
+  // ── 학평: DB 표에 굽는다 ── 재실행 안전(같은 원천이면 같은 행 · upsert). 지금 굽히지 않는 학평 행은 지운다
+  //    (분석이 바뀌어 근거를 못 찾게 된 문항의 옛 골격이 남지 않게). 쓰기는 --commit 일 때만.
+  const crypto = await import('node:crypto')
+  const ids = [...byExam.keys()]
+  const { data: exRows, error: exErr } = ids.length ? await db.from('csat_exams').select('id, label').in('id', ids) : { data: [], error: null }
+  if (exErr) throw new Error(exErr.message)
+  const labelOf = new Map((exRows ?? []).map((e) => [e.id, e.label]))
+  const passageOf = new Map(items.map((it) => [it.id, it.passage]))
+  const rows = [...byExam].flatMap(([examId, list]) =>
+    list.map((sk) => ({
+      item_id: sk.id,
+      exam_id: examId,
+      exam_label: labelOf.get(examId) ?? examId,
+      data: sk,
+      source_hash: crypto.createHash('sha256').update(`${passageOf.get(sk.id) ?? ''}|${latest.get(sk.id)?.version ?? ''}`).digest('hex'),
+    })),
+  )
+  // 지금 표에 있는 행 전부 — 1,000행에서 잘리면 지울 옛 행을 놓친다(CONVENTIONS 페이징) → item_id 커서로 끝까지
+  const have = []
+  for (let cursor = ''; ; ) {
+    let q = db.from('csat_item_skeletons').select('item_id').order('item_id').limit(1000)
+    if (cursor) q = q.gt('item_id', cursor)
+    const { data, error: hErr } = await q
+    if (hErr) throw new Error(hErr.message)
+    have.push(...data)
+    if (data.length < 1000) break
+    cursor = data[data.length - 1].item_id
+  }
+  const keep = new Set(rows.map((r) => r.item_id))
+  const drop = have.map((r) => r.item_id).filter((id) => !keep.has(id))
+  console.log(`학평 골격 DB: 쓸 행 ${rows.length} · 지울 옛 행 ${drop.length} (회차 ${ids.length})`)
+  if (!process.argv.includes('--commit')) {
+    console.log('예행이다. DB 에 쓰려면 --commit')
+    process.exit(0)
+  }
+  // 순서: **옛 행 지우기 → 새 행 올리기.** 행 하나는 한 문항의 완결된 골격(그 문항의 원천만으로 구움)이라
+  // 중간에 실패해도 반쪽 행은 생기지 않는다. 해로운 것은 «분석이 바뀌었는데 옛 근거 자리가 계속 칠해지는» 낡은 행이므로
+  // 그것부터 없앤다 — 실패하면 최악은 「골격 없음」(화면은 지도를 안 그린다)이고, 재실행이 그대로 채운다(멱등).
+  // 지울 id 는 100개씩 나눠 보낸다(한 URL 에 전부 실으면 게이트웨이 URI 상한에 걸린다 — Codex 게이트 지적).
+  for (let i = 0; i < drop.length; i += 100) {
+    const { error } = await db.from('csat_item_skeletons').delete().in('item_id', drop.slice(i, i + 100))
+    if (error) throw new Error(`옛 골격 지우기: ${error.message}`)
+  }
+  for (let i = 0; i < rows.length; i += 200) {
+    const batch = rows.slice(i, i + 200).map((r) => ({ ...r, built_at: new Date().toISOString() }))
+    const { error } = await db.from('csat_item_skeletons').upsert(batch, { onConflict: 'item_id' })
+    if (error) throw new Error(`골격 적재: ${error.message}`)
+  }
+  console.log(`→ csat_item_skeletons ${rows.length}행 · 지움 ${drop.length}`)
+  process.exit(0)
+}
 
 if (!WRITE) {
   console.log('\n예행이다. 아무것도 안 썼다. 실제로 구우려면 --write 를 붙일 것.')

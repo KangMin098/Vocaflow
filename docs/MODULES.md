@@ -1102,6 +1102,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 판단부 | [`lib/csat/passage-map-model.ts`](../apps/web/src/lib/csat/passage-map-model.ts) — 무엇이 열리는가 · 계측을 셀 것인가 |
 | 로더 | [`lib/csat/skeleton.ts`](../apps/web/src/lib/csat/skeleton.ts) — **커밋된 JSON 만 읽는다.** 런타임이 `passage` 를 만질 길이 없다 |
 | 산출물 | `lib/csat/skeleton-data/*.json` — 29회차 415KB. `scripts/csat/build-skeleton-data.mjs` 가 굽는다 |
+| 학평 골격 | DB `csat_item_skeletons`(발행분만 RLS) — `build-skeleton-data.mjs --set hakpyeong --commit` 이 굽는다. 학습자 로더는 요청 앞머리 `primeLearnerHakpyeongSkeletons(학습자 RLS 클라이언트)` 로 읽어 두고(학습자 전용 캐시), 관리자는 `loadHakpyeongSkeletonAdmin` |
 | 화면 | [`components/csat/PassageMap.tsx`](../apps/web/src/components/csat/PassageMap.tsx) · [`ReportText.tsx`](../apps/web/src/components/csat/ReportText.tsx) |
 | 다음 걸음 | [`lib/csat/next-item.ts`](../apps/web/src/lib/csat/next-item.ts) — 해설 있고 **지도 있는 것을 먼저** |
 | PDF 결합 | [`lib/csat/pdf-text-locate.ts`](../apps/web/src/lib/csat/pdf-text-locate.ts) — 학습자 PDF 텍스트 레이어에서 근거를 찾아 밑줄 |
@@ -1184,3 +1185,9 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 ### CSAT 시각 분석 (2026-09-18)
 
 `QuestionArchitecture`는 실제 skeleton의 문장 길이·근거 위치에서 정답/오답 선지로 연결한다. 홈의 `PatternComparison`은 같은 공식 문항 두 개의 선택을 동기화하며 `PatternMap`은 공식 소속과 기기 기록을 표현한다. `AnalysisWorkbench`는 PDF 원문 선택 ↔ 구조도 ↔ 설명/TTS focus를 연결한다. `buildDissectionPassage`의 검증 구절 위치를 예측 화면과 분석 화면에서 공유한다. 데스크톱 학습 판면이며 새 API/저장 형식/패키지는 없다.
+
+## 영어 진단 — 시험 기록 시계열 진단 (2026-10-01)
+
+- 학습자 진단 계산: `lib/csat/diagnosis/engine/exam-report.ts`(점수 흐름 · 유형별 정답률 · 듣기/독해 · 끌린 함정 · 틀린 문항) · 조회 `report.ts`.
+- 관리자·태깅용 규칙 엔진 `engine/rule-v1.ts`(스냅샷)는 그대로 — 학습자 화면은 쓰지 않는다.
+- 컴포넌트(`components/csat/diagnosis`): `DiagnosisBoard`(판 · 알약 탭 · 벤토 · 표, `board.module.css`) · `charts`(도넛 · 막대 · 레이더 · 스파크라인) · `RecordsList` · `RecordModal`(새 기록 팝업) · `RecordDetailModal`(기록 팝업 · 삭제) · `ResultParts`(영역 막대 · 45칸 결과판) · `tints`(등급 · 영역 · 함정 색) · `DiagnosisHomeCard` · `DiagnosisShell`.
