@@ -14,6 +14,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/server'
 import { schoolYearOf } from './exam-id'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
+import { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
+export { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 
 /**
  * RLS 를 그대로 따르는 학습자 클라이언트. `@vocaflow/types` 의 `Database` 는 스키마에서
@@ -74,32 +76,6 @@ const arr = <T,>(v: unknown): T[] => (Array.isArray(v) ? (v as T[]) : [])
 const nonEmpty = (v: string | null | undefined): string | null => {
   const t = (v ?? '').trim()
   return t ? t : null
-}
-
-/**
- * 근거 인용의 **상한** — 낱말 수.
- *
- * ⚠️ 인용문은 평가원 원문의 조각이다. 이 화면은 원문을 싣지 않는다는 원칙 위에 서 있고
- *   (`csat_items_public` 에 지문 컬럼 자체가 없다), 인용은 「근거가 어디 있나」를 가리키는
- *   **짧은 발췌**로만 허용된다. 실측(2026-09-15 · 2,867개): 중앙값 17 · p95 28 · 최대 60낱말,
- *   40 초과는 **8건**뿐이다. 수능 지문 한 편이 약 140낱말이니 40 은 그 3할이다 —
- *   그보다 길면 발췌가 아니라 복제에 가까워진다.
- */
-export const QUOTE_WORD_CAP = 40
-
-/**
- * 인용을 상한으로 자른다. 잘랐으면 **말줄임을 붙인다** — 자른 사실을 숨기면 학습자가
- * 그 조각을 온전한 문장으로 읽는다.
- *
- * ⚠️ 이 값은 **글 화면**(지도가 없는 문항)만 쓴다. 지문 지도는 구운 골격을 따로 읽으므로
- *   여기서 자른다고 지도의 앵커가 어긋나지 않는다.
- */
-export function capQuoteWords(quote: string | null, cap = QUOTE_WORD_CAP): string | null {
-  const t = nonEmpty(quote)
-  if (!t) return null
-  const words = t.split(/\s+/)
-  if (words.length <= cap) return t
-  return `${words.slice(0, cap).join(' ')} …`
 }
 
 /** 학년도 — 회차 id 문법은 `exam-id.ts` 한곳이 읽는다 */
