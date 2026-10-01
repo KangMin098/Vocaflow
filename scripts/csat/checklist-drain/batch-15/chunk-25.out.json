@@ -1,0 +1,802 @@
+[
+  {
+    "id": "ae555a4b-e67a-471b-9871-d59fa5c85118",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A protest against a proposed",
+    "note": "호주 북부 영토 핵폐기물 처분장 반대 시위와 갈등",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae59177d-0ed6-4b5d-a43b-13876db88863",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Millions of voters in Ethiopia",
+    "note": "에티오피아 대선 투표 부정 의혹 민주주의 진전 평가",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae5d39f3-9cb7-4d17-933b-abac43261e32",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A recent study based on",
+    "note": "북극해 빙하 두께 감소 위성 레이더 관측 기후변화",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim", "main_point"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae5e4d97-c38c-4d71-90e5-5f4e8eaaa6f7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The Chicago city council passed",
+    "note": "시카고 대형마트 최저임금 인상 조례 통과 노동 정책",
+    "record": {
+      "genre": "social",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae5fc9fc-8bf5-4691-a475-492fbafb2b9e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Hugo Chávez, President of Venezuela",
+    "note": "차베스 대통령 미국의 베네수엘라 분리주의 지원 비난",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae656974-7a05-4303-b97d-a713796ba2fc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "At least 21 people were",
+    "note": "우크라이나 미사일·드론 러시아 공격 21명 사망",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae660d68-4b11-44e9-9971-a65a1fdafac1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On Tuesday, NASA's space probe",
+    "note": "뉴호라이즌 우주선 명왕성 최초 근접 비행 우주 탐사",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae66da4b-5c7b-44fa-b4bd-74d081d37839",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The Russian Parliament passed a",
+    "note": "러시아 인터넷 규제법 통과 블로거·소셜미디어 제약",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim", "main_point"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae69b404-0143-42cc-bd51-bece43dd99a1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "New Zealand Prime Minister Helen",
+    "note": "뉘질랜드 총리 일본의 태평양 국가 지원 과다 비판",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae6f788c-c3a0-4e94-9589-627a1597d9f7",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Kentucky State Police said yesterday",
+    "note": "켄터키 인구조사 요원 사망 자살로 판정 보험 사기 의혹",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae70633b-bb4e-4079-9556-6b5a5fa5d313",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On 11 November 1975, Australia",
+    "note": "호주 헌정 위기 30주년 총독의 총리 해임 기념",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae71a51e-b227-40da-a3ac-12f0b7dae786",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Wikinews held an exclusive interview",
+    "note": "영화 감독 피터 존 로스 인터뷰 독립영화 제작 경험",
+    "record": {
+      "genre": "art",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae772a0b-d047-41bd-9662-e58acb15e10f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Diplomats from Pakistan and India",
+    "note": "파키스탄 인도 협상 진행 미사일 협정 체결 계획",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae78d355-f923-4038-bade-56fdd0853142",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The First Minister of Northern",
+    "note": "이안 페이슬리 북아일랜드 지도자 사임 역사적 정치 변화",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae7ab8e1-b782-4303-baa4-739852422293",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Bangladesh reported its first human",
+    "note": "방글라데시 H5N1 조류독감 인간 감염 첫 확인 보건",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae7c43fe-015e-40d5-9b8d-2ebac4759742",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "State Bank of India and",
+    "note": "인도 은행들 금 예치금을 적립금 준비금 산입 제안",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae832da1-f081-4039-83f7-6732ba04986e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Today the National Archives of",
+    "note": "호주 1976년 내각 문서 공개 팔레스타인 암살 음모",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae853cab-155a-4dcd-9f37-ad06154ff98c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In what some consider a",
+    "note": "런던 지하철 테러 이후 휴대폰 신설 허위 이메일 유포",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae855cc3-18ac-4ec7-b774-d2f8233b7d99",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A cholera outbreak in the",
+    "note": "짐바브웨 콜레라 유행 500명 근처 사망 보건 위기",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae859ea9-98a0-4dda-82bb-e0dc306feea1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A finance spokesperson for the",
+    "note": "호주 광 수출국으로서 핵무기 확산 방지 역할 제안",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae8cdb79-932c-425e-afd9-b420d96cc5ec",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The Prime Minister of Somalia",
+    "note": "소말리아 총리 게디 국제 압력 속 사임",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae8d04ce-b25c-45d8-845d-e1134fb29689",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On May 17, Russian Wikinews",
+    "note": "크림 시페로폴 박물관 세계 민족 음악 CD 전시회 개최",
+    "record": {
+      "genre": "culture",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae9833f2-3d0f-4ed8-902d-b76d74dd3106",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "American author and journalist Hunter",
+    "note": "소설가 헌터 톰슨 사망 자살 라스베가스 공포 저자",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae993621-5cfa-4b44-9991-5f41c659219a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The head of GMM Grammy",
+    "note": "태국 매체 재벌 신문 인수 포기 언론자유 이슈",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "ae9b0cf5-3222-4cef-b49a-fd841eef42d5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Nokia Inc., the international mobile",
+    "note": "노키아 온라인 음악 게임 다운로드 스토어 개시 경쟁",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  }
+]

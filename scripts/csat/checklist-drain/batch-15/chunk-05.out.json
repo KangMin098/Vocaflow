@@ -1,0 +1,802 @@
+[
+  {
+    "id": "a82ef19b-7f6a-499e-bf6f-8bfa6a0eaf2c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A court in Saudi Arabia sentenced",
+    "note": "사형 판결과 인권 침해를 다룬 뉘앙스 있는 법정 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a830ff96-6a87-4b44-a6de-b3797f4fd2bf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "King had planned on going",
+    "note": "살인 및 강간 혐의에 대한 순차적 법정 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8372a58-9ae8-4ad7-83df-e82f8358dcb4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The government of Saudi Arabia",
+    "note": "소말리아와의 가축 무역 재개를 다룬 경제 보도",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a839a866-6cf9-4ebd-b2d3-c0c47594e98c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Chinese officials have said",
+    "note": "중국이 독일을 제치고 세계 최대 수출국이 되었다는 경제 뉴스",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a83c7815-e085-4f39-87ea-768841165dc1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In a unanimous 95-0 vote",
+    "note": "유전자 정보 차별 금지법 상원 만장일치 통과 뉴스",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim", "main_point"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a83d167a-e31e-499b-89d6-7fd70dcea88f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The Sea Express One formerly",
+    "note": "머지 강의 페리 충돌 사고에 관한 짧은 사실 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a83dc191-8c2b-4ea3-bdf4-5ce70e08b85a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The auction house Bonhams",
+    "note": "빅토리아 십자훈장 갤리폴리 전투 수훈자 경매기록 갱신",
+    "record": {
+      "genre": "history",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a83e2568-9ac8-45d8-89c9-882974779294",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A search-and-rescue mission was",
+    "note": "북해 헬리콥터 추락 사고 16명 사망 예상 긴급 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a83ef54e-6453-42d4-afc2-d1ba697304a8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The video sharing website YouTube",
+    "note": "과학종파 반대 영상 DMCA 삭제 논쟁에 대한 다각 보도",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4", "V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a84004bf-7c75-49d5-9614-cfd481921550",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "United States Vice President Dick",
+    "note": "부통령 체이니의 이라크 기습 방문 및 여정 순회 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8419695-c126-4900-97c2-4331fd5b3812",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A man who fell ill",
+    "note": "의약 임상시험 부작용 암 발병 주장 배상소송 기사",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8421025-17bd-42bf-b012-7db925a3857b",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A cholera epidemic in Angola",
+    "note": "앙골라 콜레라 유행 1200명 사망 전 아프리카 보건 위기",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6", "V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8475e7f-db41-4fe2-b4e9-62aff0de90cf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The US Justice Department said",
+    "note": "라 파밀리아 마약 조직 적발 300명 이상 검거 작전",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a848919e-e252-41d1-a918-522ecedaf560",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Ministers in Australia's federal",
+    "note": "호주 연방정부 장관들의 준주법 거부권 상실 민주주의 진전",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim", "main_point"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a849d03b-8460-4541-82ff-221ba4df3ef1",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "According to the United States",
+    "note": "미국과 북한 뉴욕에서 회담 개최 외교 절차",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "main_point"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a84c906c-4a40-486b-ad08-9365062fdcc0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Lord Howard, the former United",
+    "note": "브렉시트 주민투표 앞두고 정치인들 입장 발표 양론 대립",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a850fa17-2a99-4a3a-8b9b-65dd09ea4012",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Augustine Volcano in Alaska",
+    "note": "알래스카 오거스틴 화산 다섯 번 분화 항공편 취소",
+    "record": {
+      "genre": "nature",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a852ae6d-e4d2-4a28-b91f-3078b518db62",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In statements to the press",
+    "note": "루라 브라질 대통령 베네수엘라 민주주의 옹호 발언 정치",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a85451ad-f1a3-4d77-9f23-c405b41ab72f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Quoting Theodore Roosevelt, who",
+    "note": "소방관 협회 루스벨트 보존 파트너십 가입 환경 보호",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "claim"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a856e526-0655-470b-96aa-10004c649aa6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Police officers and government",
+    "note": "모로코 테러 위협 수준 최고 상향 조정 보안 경보",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a85daba6-176a-484d-adbd-30850740a1c9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On Sunday evening at 9:15",
+    "note": "프랑스 2007년 대선 1차 투표 결과 사르코지 로얄 결선 진출",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim", "main_point"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a861142a-b6d9-4599-a8d9-3df8fad48fec",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Turkish daily newspaper SABAH",
+    "note": "터키 무장 조직 지도자의 CIA 고문 혐의 주장 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a86116af-9860-4a27-b5b2-882372636c1a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Nepalese opposition groups have",
+    "note": "네팔 국왕 쿠데타에 항의하는 야당 시위 정치 보도",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8633406-cf98-47a1-afbc-8bca21c3e519",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Lebanese officials have said",
+    "note": "헤즈볼라와 이스라엘 포격 교전 민간인 피해 집계",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a86b8546-e4f2-403a-831c-812fa6213cb9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Australia's justice minister, Chris",
+    "note": "호주 내각이 핵에너지 안보 위험을 간과한 정책 결정",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  }
+]
