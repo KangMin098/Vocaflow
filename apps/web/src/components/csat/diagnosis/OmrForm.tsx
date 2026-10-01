@@ -78,6 +78,7 @@ export function OmrForm({
     setFlags({})
     setRetake(false)
     setResult(null)
+    setError(null)
   }
   const toggleFlag = (no: number, f: Flag) =>
     !result && !saving && setFlags((cur) => {
@@ -237,7 +238,7 @@ export function OmrForm({
         >
           {saving ? '저장하는 중…' : '저장하고 진단 받기'}
         </button>
-        {result && (
+        {(result || error) && (
           <button type="button" onClick={reset} className="inline-flex min-h-[48px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[14px] font-[700] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
             새 기록 입력
           </button>

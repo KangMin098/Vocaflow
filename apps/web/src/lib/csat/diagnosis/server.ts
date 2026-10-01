@@ -336,8 +336,9 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) 
   })
   if (error) throw new Error(`기록 저장 실패: ${error.message}`)
   // 같은 clientKey 재전송이면 RPC 는 처음 저장한 세션을 돌려준다 — 이번 요청의 채점이 아니라 저장된 값을 답한다
-  const { data: saved, error: se } = await db.from('csat_dx_session').select('raw_score, grade').eq('id', sessionId as string).single()
+  const { data: saved, error: se } = await db.from('csat_dx_session').select('raw_score, grade, exam_id, mode, taken_at').eq('id', sessionId as string).single()
   if (se) throw new Error(`저장 확인 실패: ${se.message}`)
+  await assertSameSubmission(db, sessionId as string, responses, saved.exam_id === sub.examId && saved.mode === sub.mode && saved.taken_at === sub.takenAt)
   const snapshot = await recomputeSnapshot(db, sub.userId, 'session', now, sessionId as string)
   return { sessionId: sessionId as string, raw: saved.raw_score as number, grade: saved.grade as number | null, ready: exam.ready, snapshotId: snapshot.id }
 }
@@ -347,6 +348,23 @@ export interface DiagnosticSubmission {
   clientKey: string
   takenAt: string
   answers: { itemId: string; chosen: number | null; confidence: ResponseConfidence }[]
+}
+
+/**
+ * 같은 clientKey 재전송인데 내용이 다르면 거부한다 — RPC 는 처음 저장한 세션을 돌려주므로, 그대로 두면
+ * 화면에 보이는 답과 저장된 답이 갈린 채 「저장했어요」가 뜬다. 학습자는 「새 기록 입력」으로 다시 넣는다.
+ */
+async function assertSameSubmission(
+  db: Db,
+  sessionId: string,
+  sent: { item_no: number; chosen_option: number | null; confidence: string }[],
+  sameMeta: boolean,
+) {
+  const { data, error } = await db.from('csat_dx_response').select('item_no, chosen_option, confidence').eq('session_id', sessionId)
+  if (error) throw new Error(`저장 확인 실패: ${error.message}`)
+  const stored = new Map((data ?? []).map((r) => [r.item_no as number, `${r.chosen_option ?? ''}|${r.confidence}`]))
+  const same = sameMeta && stored.size === sent.length && sent.every((r) => stored.get(r.item_no) === `${r.chosen_option ?? ''}|${r.confidence}`)
+  if (!same) throw new SubmissionError('이 기록은 이미 다른 내용으로 저장됐어요. 「새 기록 입력」으로 다시 넣어 주세요')
 }
 
 /** 진단 테스트 제출 — 문항 정답은 csat_items 에서 서버가 판정한다 */
@@ -372,6 +390,7 @@ export async function submitDiagnosticSession(db: Db, sub: DiagnosticSubmission,
   })
   if (re) throw new Error(`기록 저장 실패: ${re.message}`)
   // 재전송이면 처음 저장한 응답이 정본이다 — 저장된 행으로 센다
+  await assertSameSubmission(db, sessionId as string, responses, true)
   const { data: saved, error: se } = await db.from('csat_dx_response').select('is_correct').eq('session_id', sessionId as string)
   if (se) throw new Error(`저장 확인 실패: ${se.message}`)
   const snapshot = await recomputeSnapshot(db, sub.userId, 'session', now, sessionId as string)

@@ -69,11 +69,24 @@ export function toView(r: Row): SnapshotView {
 
 /** 최근 스냅샷 n개(최신 먼저) — 표시용이라 의도적으로 자른다 */
 export async function loadSnapshots(db: SupabaseClient, userId: string, limit = 50): Promise<SnapshotView[]> {
-  const { data, error } = await db.from('csat_dx_snapshot').select(COLS).eq('user_id', userId)
-    // 더 많은 기록을 본 스냅샷이 먼저(inputs_as_of = 입력 워터마크), 같은 입력이면 늦게 계산한 것이 먼저
-    .order('inputs_as_of', { ascending: false }).order('computed_at', { ascending: false }).order('id').limit(limit)
+  // 최근 계산분을 넉넉히 받아 「입력 리비전」으로 다시 줄 세운다 — 동시 저장에서는 늦게 끝난 계산이
+  // 더 적은 기록을 봤을 수 있다. 기록 수 → 입력 워터마크 → 계산 시각 순(sortByRevision)
+  const { data, error } = await db.from('csat_dx_snapshot').select(`${COLS}, inputs_as_of`).eq('user_id', userId)
+    .order('computed_at', { ascending: false }).order('id').limit(limit + 10)
   if (error) throw new Error(`진단 조회 실패: ${error.message}`)
-  return (data ?? []).map((r) => toView(r as Row))
+  return sortByRevision((data ?? []) as Row[]).slice(0, limit).map(toView)
+}
+
+/** 입력 리비전 순(최신 먼저) — 본 기록 수(세션은 지우지 않으므로 단조 증가) → 입력 워터마크 → 계산 시각 */
+export function sortByRevision<R extends Record<string, unknown>>(rows: R[]): R[] {
+  const count = (r: R) => {
+    const ev = (r.evidence ?? {}) as { examSessions?: number; diagnosticSessions?: number }
+    return (ev.examSessions ?? 0) + (ev.diagnosticSessions ?? 0)
+  }
+  return [...rows].sort((a, b) =>
+    count(b) - count(a)
+    || String(b.inputs_as_of ?? '').localeCompare(String(a.inputs_as_of ?? ''))
+    || String(b.computed_at ?? '').localeCompare(String(a.computed_at ?? '')))
 }
 
 export async function loadHabitFeedback(db: SupabaseClient, snapshotIds: string[]): Promise<Record<string, Record<string, boolean>>> {
