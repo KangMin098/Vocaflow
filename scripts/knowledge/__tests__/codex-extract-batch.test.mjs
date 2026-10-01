@@ -24,6 +24,16 @@ test('계약 검증 실패 줄(예: videoId 만)이 있으면 미완료 — 적�
   assert.equal(countInvalid([{ ...ok[0], skill: ['made-up'] }]), 1) // 접두사 없는 분류 id
 })
 
+test('내용이 다른 같은 claimId 는 미완료 — 적재기 중복 가드와 같은 판정(claims-lib.conflictingClaimIds)', () => {
+  const base = {
+    videoId: 'AAAAAAAAAAA', claimId: 'AAAAAAAAAAA#1', kind: 'recommendation', method: '오답 근거 문장을 다시 찾는다',
+    procedure: ['오답 표시'], skill: ['skill:reading'], audience: '미명시', conditions: '미명시',
+    segment: { startSec: 10, endSec: 30, paraphrase: '오답 근거를 다시 찾으라고 권함' }, reviewScope: 'full', grade: 'A', verdict: 'import', reviewer: 'codex',
+  }
+  assert.equal(countInvalid([base, { ...base }]), 0) // 같은 내용 중복은 적재기가 첫 줄만 쓴다 — 미완료 아님
+  assert.equal(countInvalid([base, { ...base, method: '다른 문장으로 바뀐 방법' }]), 2)
+})
+
 test('영상 0편 묶음은 완료가 아니다', () => {
   assert.equal(chunkComplete({ status: 0, limitHit: false, ids: [], claims: [] }), false)
 })

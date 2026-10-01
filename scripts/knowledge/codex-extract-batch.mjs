@@ -19,7 +19,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { validateClaim } from './claims-lib.mjs'
+import { conflictingClaimIds, validateClaim } from './claims-lib.mjs'
 
 const NL = String.fromCharCode(10)
 
@@ -66,7 +66,9 @@ export function countInvalid(claims) {
     const dim = String(id).split(':')[0]
     return PREFIX_DIM.includes(dim) ? [[id, dim]] : []
   }))
-  return claims.filter((c) => !validateClaim(c, taxonomy).ok).length
+  // 내용이 다른 같은 claimId 도 적재기가 거부한다 — 같은 함수로 세어 완료 판정과 적재 판정을 맞춘다
+  const conflicts = conflictingClaimIds(claims)
+  return claims.filter((c) => !validateClaim(c, taxonomy).ok || conflicts.has(c?.claimId)).length
 }
 
 /** 묶음 크기 — 1 이상의 정수만. 0·음수·숫자 아님이면 null(반복이 끝나지 않거나 잘못 자른다). */

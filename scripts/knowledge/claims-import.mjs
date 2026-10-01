@@ -12,7 +12,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createScriptClient } from '../lib/supabase-client.mjs'
-import { KIND_ATTRIBUTION, UNSPECIFIED, composeStatement, formatSegment, validateClaim } from './claims-lib.mjs'
+import { KIND_ATTRIBUTION, UNSPECIFIED, composeStatement, conflictingClaimIds, formatSegment, validateClaim } from './claims-lib.mjs'
 
 const [file, outDir] = process.argv.slice(2).filter((a) => !a.startsWith('--'))
 const COMMIT = process.argv.includes('--commit')
@@ -41,24 +41,19 @@ const lines = fs.readFileSync(file, 'utf8').split(/\r?\n/).filter((l) => l.trim(
 // 같은 claimId 가 여러 줄 — 같은 slug 를 받아 첫 줄만 들어가고 나머지는 「이미 있음」으로 **조용히 버려지며**
 // 재실행으로도 복구되지 않는다(Codex 게이트 P2, 2026-10-01). 쓰기 전에 입력 전체를 훑어 가른다:
 //   내용이 다르면 그 claimId 의 모든 줄을 검증 실패(어느 쪽이 맞는지는 검토자가 정한다) · 같으면 첫 줄만 쓴다.
-const canonical = (v) =>
-  v && typeof v === 'object'
-    ? Array.isArray(v)
-      ? `[${v.map(canonical).join(',')}]`
-      : `{${Object.keys(v).sort().map((k) => `${JSON.stringify(k)}:${canonical(v[k])}`).join(',')}}`
-    : JSON.stringify(v)
-const seen = new Map() // claimId → { first, forms:Set }
-lines.forEach((line, i) => {
-  let raw
+// 판정은 claims-lib.conflictingClaimIds — 추출 실행기의 완료 판정과 **같은 함수**(둘이 어긋나면 실행기가 완료로 친
+// 줄을 여기서 거부해 영영 못 들어간다).
+const parsedAll = lines.map((line) => {
   try {
-    raw = JSON.parse(line)
+    return JSON.parse(line)
   } catch {
-    return
+    return null
   }
-  if (!raw || typeof raw !== 'object' || typeof raw.claimId !== 'string') return
-  const e = seen.get(raw.claimId) ?? { first: i, forms: new Set() }
-  e.forms.add(canonical(raw))
-  seen.set(raw.claimId, e)
+})
+const conflicts = conflictingClaimIds(parsedAll)
+const firstIndex = new Map() // claimId → 처음 나온 줄(같은 내용 중복은 첫 줄만 쓴다)
+parsedAll.forEach((raw, i) => {
+  if (raw && typeof raw === 'object' && typeof raw.claimId === 'string' && !firstIndex.has(raw.claimId)) firstIndex.set(raw.claimId, i)
 })
 
 const rows = lines.map((line, i) => {
@@ -72,11 +67,11 @@ const rows = lines.map((line, i) => {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) {
     return { line: i + 1, outcome: '검증 실패', errors: ['주장 객체가 아니다'] }
   }
-  const dup = seen.get(raw.claimId)
-  if (dup && dup.forms.size > 1) {
-    return { line: i + 1, claimId: raw.claimId, outcome: '검증 실패', errors: [`claimId 중복 — 내용이 다른 줄이 ${dup.forms.size}가지(한 줄로 정리한다)`] }
+  if (conflicts.has(raw.claimId)) {
+    return { line: i + 1, claimId: raw.claimId, outcome: '검증 실패', errors: ['claimId 중복 — 내용이 다른 줄이 있다(한 줄로 정리한다)'] }
   }
-  if (dup && dup.first !== i) return { line: i + 1, claimId: raw.claimId, outcome: '중복(같은 내용)', reason: `${dup.first + 1}행과 같다` }
+  const first = firstIndex.get(raw.claimId)
+  if (first !== undefined && first !== i) return { line: i + 1, claimId: raw.claimId, outcome: '중복(같은 내용)', reason: `${first + 1}행과 같다` }
   const v = validateClaim(raw, taxonomy)
   if (!v.ok) return { line: i + 1, claimId: raw.claimId, outcome: '검증 실패', errors: v.errors }
   if (raw.verdict !== 'import') return { line: i + 1, claimId: raw.claimId, outcome: raw.verdict === 'hold' ? '보류' : '제외', reason: raw.reason }

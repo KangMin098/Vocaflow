@@ -88,6 +88,30 @@ export function validateClaim(raw, taxonomy) {
 }
 
 /** 초 → "m:ss–m:ss" (등록부 locator 형식). */
+/** 키 순서와 무관한 비교용 문자열(같은 내용 = 같은 문자열). */
+export function canonical(v) {
+  if (v && typeof v === 'object') {
+    if (Array.isArray(v)) return `[${v.map(canonical).join(',')}]`
+    return `{${Object.keys(v).sort().map((k) => `${JSON.stringify(k)}:${canonical(v[k])}`).join(',')}}`
+  }
+  return JSON.stringify(v)
+}
+
+/**
+ * 같은 claimId 에 **내용이 다른** 줄이 있는 claimId 집합. 적재기(쓰기 전 거부)와 추출 실행기(완료 판정)가
+ * 같은 이 함수를 쓴다 — 둘이 따로 판정하면 실행기가 「완료」로 표시한 줄을 적재기가 거부해 영영 못 들어간다(Codex 리뷰).
+ */
+export function conflictingClaimIds(claims) {
+  const forms = new Map()
+  for (const c of claims) {
+    if (!c || typeof c !== 'object' || typeof c.claimId !== 'string') continue
+    const s = forms.get(c.claimId) ?? new Set()
+    s.add(canonical(c))
+    forms.set(c.claimId, s)
+  }
+  return new Set([...forms].filter(([, s]) => s.size > 1).map(([id]) => id))
+}
+
 /** 등록부 statement 한도 — knowledge_items.statement CHECK(1~1500). */
 export const STATEMENT_MAX = 1500
 
