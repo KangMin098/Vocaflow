@@ -171,8 +171,9 @@ export async function loadHakpyeongReview(
         .sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))
         .map(({ snap, ...v }) => ({
           ...v, counted: vp.includes(v.persona),
-          stale: differs(snap.analysis_hash, a.csat_analysis_hash) || differs(snap.units_hash, cu?.units)
-            || differs(snap.item_input_hash, ih?.input) || differs(snap.item_answer_hash, ih?.answer),
+          // 문항 입력·정답이 바뀌면 블라인드 풀이까지 무효(csat_rereview_parent 가 거른다), 분석·단위만 바뀌면 재검수로 이을 수 있다
+          stale: differs(snap.item_input_hash, ih?.input) || differs(snap.item_answer_hash, ih?.answer) ? 'input' as const
+            : differs(snap.analysis_hash, a.csat_analysis_hash) || differs(snap.units_hash, cu?.units) ? 'analysis' as const : false,
         }))
       return {
         itemId: it.id, typeId: typeOf.get(it.id) ?? it.typeId, analysisId: a.id, version: a.version, status: a.status,

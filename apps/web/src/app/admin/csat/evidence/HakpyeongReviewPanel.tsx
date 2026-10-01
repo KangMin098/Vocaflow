@@ -104,7 +104,7 @@ export function HakpyeongReviewPanel({ data }: { data: HakReviewData | null | un
                             {it.verdicts.map((v, i) => (
                               <li key={i}>
                                 <strong>{v.persona}</strong> · {KIND[v.kind]} · {VERDICT[v.verdict]}
-                                {v.counted ? ' · 이 페르소나 유효 승인 있음' : ' · 이 페르소나 유효 승인 없음'}{v.stale ? ' · 검수 뒤 문항·분석이 바뀜(낡은 판정)' : ''} · {when(v.reviewedAt)} KST
+                                {v.counted ? ' · 이 페르소나 유효 승인 있음' : ' · 이 페르소나 유효 승인 없음'}{v.stale === 'input' ? ' · 검수 뒤 문항이 바뀜(낡은 판정 · 블라인드 풀이도 무효)' : v.stale === 'analysis' ? ' · 검수 뒤 분석이 바뀜(낡은 판정 · 재검수 가능)' : ''} · {when(v.reviewedAt)} KST
                                 {v.findings.length ? <div className={s.muted}>{v.findings.slice(0, 3).join(' / ')}</div> : null}
                               </li>
                             ))}

@@ -21,8 +21,11 @@ export interface ReviewVerdict {
    * 어느 기록이 그 승인인지는 모른다(화면도 「이 페르소나 유효 승인 있음」 으로 말한다)
    */
   counted: boolean
-  /** 검수 당시 스냅샷(문항 입력·정답·분석·근거 단위 해시)이 지금 값과 다르다 — 이 판정은 지금 문항을 본 것이 아니다 */
-  stale?: boolean
+  /**
+   * 검수 당시 스냅샷이 지금과 다르다 — 'input': 문항 지문·발문·선지·정답이 바뀜(블라인드 풀이도 무효 → 새 블라인드 검수),
+   * 'analysis': 분석·근거 단위만 바뀜(블라인드 풀이는 그대로 → 재검수 rereview 로 이어 갈 수 있다)
+   */
+  stale?: false | 'input' | 'analysis'
 }
 
 /**
@@ -167,10 +170,13 @@ export function reviewBlock(it: HakReviewItem): ReviewBlock {
   }
   const missing = PERSONAS.filter((p) => !it.validPersonas.includes(p))
   if (staleRejected.length && n < 3) {
+    const inputChanged = staleRejected.some((v) => v.stale === 'input')
     return {
       state: 'waiting',
-      reason: `유효 승인 ${n}/3 — ${staleRejected.map((v) => v.persona).join('·')} 의 반려는 검수 뒤 문항·분석이 바뀌어 낡았다(새 블라인드 검수 필요)`,
-      next: cmd(`export --items ${it.itemId}`),
+      reason: inputChanged
+        ? `유효 승인 ${n}/3 — ${staleRejected.map((v) => v.persona).join('·')} 의 반려는 검수 뒤 문항(지문·선지·정답)이 바뀌어 낡았다(블라인드 풀이도 무효 — 새 블라인드 검수)`
+        : `유효 승인 ${n}/3 — ${staleRejected.map((v) => v.persona).join('·')} 의 반려는 검수 뒤 분석이 바뀌어 낡았다(블라인드 풀이는 유효 — 재검수)`,
+      next: inputChanged ? cmd(`export --items ${it.itemId}`) : '같은 문항·페르소나의 블라인드 풀이에 이은 재검수(rereview)',
     }
   }
   if (n >= 3) {

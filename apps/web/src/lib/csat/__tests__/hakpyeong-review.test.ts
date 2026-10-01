@@ -48,11 +48,16 @@ describe('reviewBlock — 막힌 이유 우선순위', () => {
     const later = { ...pass('tutor'), verdict: 'revise' as const, reviewedAt: '2026-10-02T00:00:00Z', findings: ['새 소견'] }
     expect(reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), pass('tutor', false), later] })).state).toBe('rejected')
   })
-  it('검수 뒤 문항이 바뀐 반려(stale)는 막지 않고 새 블라인드 검수로 보낸다', () => {
-    const b = reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), { ...pass('tutor', false), verdict: 'revise' as const, stale: true }] }))
+  it('검수 뒤 문항이 바뀐 반려는 막지 않고 새 블라인드 검수로 보낸다', () => {
+    const b = reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), { ...pass('tutor', false), verdict: 'revise' as const, stale: 'input' as const }] }))
     expect(b.state).toBe('waiting')
-    expect(b.reason).toContain('낡았다')
+    expect(b.reason).toContain('블라인드 풀이도 무효')
     expect(b.next).toContain('export --items')
+  })
+  it('분석만 바뀐 반려는 블라인드 풀이를 살려 재검수로 보낸다', () => {
+    const b = reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), { ...pass('tutor', false), verdict: 'revise' as const, stale: 'analysis' as const }] }))
+    expect(b.state).toBe('waiting')
+    expect(b.next).toContain('rereview')
   })
   it('유효 승인은 게이트 함수 값 — pass 3개여도 유효 1이면 1/3', () => {
     const b = reviewBlock(base({ validPersonas: ['setter'], verdicts: [pass('setter'), pass('analyst', false), pass('tutor', false)] }))
