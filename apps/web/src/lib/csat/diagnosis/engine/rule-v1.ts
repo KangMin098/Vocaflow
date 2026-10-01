@@ -271,7 +271,7 @@ export function currentAbility(input: EngineInput): { ability: number | null; ad
   const eRef = expectedScore(ref)
   if (rates.length === rs.length && eRef !== null) {
     const expected = rates.reduce((s, x) => s + (1 - x), 0) / rates.length
-    return { ability: clampScore(eRef + (actual - expected) * 100), adjusted: true, fromDiagnostic: true }
+    return { ability: round1(eRef + (actual - expected) * 100), adjusted: true, fromDiagnostic: true }
   }
   return { ability: clampScore(actual * 100), adjusted: false, fromDiagnostic: true }
 }

@@ -69,7 +69,7 @@ export function OmrForm({
 
   const focusRow = (no: number) => rows.current[no - 1]?.focus()
   const pick = (no: number, v: number | null) => {
-    if (result) return // 저장한 기록은 잠근다 — 「새 기록 입력」을 눌러야 다시 쓴다(같은 기록이 두 번 쌓이지 않게)
+    if (result || saving) return // 저장 중·저장한 기록은 잠근다 — 「새 기록 입력」을 눌러야 다시 쓴다(같은 기록이 두 번 쌓이지 않게)
     setChoices((c) => ({ ...c, [no]: v }))
   }
   const reset = () => {
@@ -80,7 +80,7 @@ export function OmrForm({
     setResult(null)
   }
   const toggleFlag = (no: number, f: Flag) =>
-    !result && setFlags((cur) => {
+    !result && !saving && setFlags((cur) => {
       const next = { ...cur }
       if (next[no] === f) delete next[no]
       else next[no] = f
@@ -146,14 +146,14 @@ export function OmrForm({
           <select
             className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
             value={examId}
-            disabled={result !== null}
+            disabled={result !== null || saving}
             onChange={(e) => setExamId(e.target.value)}
           >
             {exams.map((e) => <option key={e.id} value={e.id}>{e.label}</option>)}
           </select>
         </label>
         <label className="flex min-h-[44px] items-center gap-2 break-keep font-body text-[14px] text-[var(--t1)]">
-          <input type="checkbox" className="h-5 w-5" checked={retake} onChange={(e) => setRetake(e.target.checked)} />
+          <input type="checkbox" className="h-5 w-5" disabled={result !== null || saving} checked={retake} onChange={(e) => setRetake(e.target.checked)} />
           이미 풀어 본 기출을 다시 푼 거예요
         </label>
         <label className="flex flex-col gap-1 font-body text-[14px] text-[var(--t1)]">
@@ -161,6 +161,7 @@ export function OmrForm({
           <input
             type="date"
             max={today}
+            disabled={result !== null || saving}
             className="min-h-[44px] w-[200px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
             value={takenAt}
             onChange={(e) => setTakenAt(e.target.value)}
