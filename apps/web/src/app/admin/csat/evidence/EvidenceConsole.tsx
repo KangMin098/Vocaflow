@@ -32,6 +32,7 @@ import {
   parseOperationsState,
   pipelineHealth,
   readinessIndex,
+  viewsFor,
   workQueue,
   type OperationsData,
   type OperationsState,
@@ -40,6 +41,7 @@ import {
 import { EvidenceAxisPanel } from './EvidenceAxisPanel'
 import { EvidenceMatrix } from './EvidenceMatrix'
 import { EvidenceInspector } from './EvidenceInspector'
+import { HakpyeongReviewPanel } from './HakpyeongReviewPanel'
 import s from './evidence.module.css'
 
 const nf = new Intl.NumberFormat('ko-KR')
@@ -263,7 +265,7 @@ export function EvidenceConsole({
           </div>
         ) : null}
         <nav className={s.nav} aria-label="Evidence 작업 화면">
-          {Object.entries(VIEWS).map(([key, label]) => (
+          {viewsFor(scope).map((key) => [key, VIEWS[key]] as const).map(([key, label]) => (
             <button
               key={key}
               aria-current={state.view === key ? 'page' : undefined}
@@ -466,6 +468,8 @@ export function EvidenceConsole({
               </div>
             </details>
           </>
+        ) : state.view === 'review' ? (
+          <HakpyeongReviewPanel data={data.review} />
         ) : state.view === 'issues' ? (
           <>
             <div className={s.line}>
@@ -901,6 +905,7 @@ export function EvidenceConsole({
             item={selected}
             index={index}
             readinessApplies={!na}
+            review={data.review?.items.find((r) => r.itemId === selected.id)}
             state={state}
             generatedAt={data.generatedAt}
             onClose={close}
