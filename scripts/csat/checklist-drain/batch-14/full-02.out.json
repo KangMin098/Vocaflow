@@ -1,0 +1,947 @@
+[
+  {
+    "id": "9b0e3918-1859-4087-a5e0-d5b07de6e040",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aed460c3ef74883b0161bf834b69a59e0ac3cbb412865053f2d18a8dd0e9d290",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "승인 결정 → 캐나다 채널 의무 조건 → 시민단체의 반대 논거로 사건이 이어져 둘째·셋째 단락으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Canada's communications regulator, the CRTC,",
+      "note": "regulator·subscription-based 를 government agency·paid 로 바꾸니 V5 로 내려가고, 비율 수치는 그대로 두어도 흐름이 선다."
+    }
+  },
+  {
+    "id": "9b216c65-2613-46f2-8e31-cf76c4d29504",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "43df687188449af4e6209644cb71c55b1984c990cd799166d338772a7b27fae2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "새 납부 방식 계획 → 지금의 납부 경로 → 휴대폰 보급이라는 배경이 이어져 두 단락으로 내용 일치·주제 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In Romania, which reached more than",
+      "note": "m-commerce·initiatives 를 mobile shopping·plans 로 바꾸면 V4 이하로 내려가고, 앞 단락 없이도 배경 단락이 선다."
+    }
+  },
+  {
+    "id": "9b226545-38fa-4a7a-8d30-c97a1360665d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "989065a4e2e76a9c15e857154a44a7a35df78beab0dcde9a38aff35d21cdac60",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "현충일 하나를 두고 지역별 추모 행사와 Les Dawson 유족의 말이 이어져 행사·지명 문단으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "North Staffordshire marked the event when",
+      "note": "꽃잎 15,500장이 전사자 수를 뜻한다는 연결이 있어 떼어도 서고, 지명만 나열한 둘째 단락은 가공 때 줄인다."
+    }
+  },
+  {
+    "id": "9b2c2333-de2c-429c-a792-57e3b1b346b3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d35856d19614ccf57dc269b4a842dd16e8d460e3b99ee798abc96c283fe45a38",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "테러 주모자의 성명 공개와 그 정당화 주장을 사건 맥락과 함께 전하는 보도라 선동이 아니고, 성명 단락으로 고등 이상 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the statement, the rebel leader",
+      "note": "사망자 수치는 걷어도 성명의 주장 흐름이 서고, cynical·offensives 를 cold·attacks 로 바꾸면 V5 로 내려간다. 테러 소재라 연령은 고2 이상."
+    }
+  },
+  {
+    "id": "9b43d929-6f3d-4682-ae04-82f1ae26ee6c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2ce7de58da563eb24934a5a963badb755728b1747fe23f507c22ef460efe0ac9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "발사 연기 → 엔진 시험과 안전장치 작동 → 원인 미공개와 머스크의 다음 절차 예고로 이어져 둘째 단락이 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A full engine test was conducted",
+      "note": "안전장치가 무엇을 막는지 설명하는 단락이라 앞 문맥 없이 서고, malfunction·payload 를 failure·cargo 로 바꾸면 쉬워진다."
+    }
+  },
+  {
+    "id": "9b470680-e222-4f43-bf29-b048532154bd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c03f3188f9ead6858e5f81ed45440346f82ed4163f536588d5ace793dca77926",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "nature",
+    "why": "분화 → 경보와 위험 구역 접근 자제 권고 → 앞선 지진 관측으로 원인·대응이 이어져 단신이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Philippine Institute of Volcanology and",
+      "note": "수치가 많지만 분화와 권고가 이어지고, seismic·permanent danger zone 을 earthquake·no-go area 로 바꾸면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "9b4d380e-4686-43fd-8ee0-631c0de14be0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4b121b7986d27efce6e7e0b3437e8ef86f2fde0f061c2e9858cbd3cb511febde",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공습 사망 발표 → 신원 확인 → 행적 → 후계 공백 전망과 각국 반응이 이어지는 긴 보도로, 폭격 묘사가 있어 고2 이상 내용 일치·장문 칸이다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "For the Iraqi government the killing",
+      "note": "이 단락은 사살 뒤의 불확실성을 말해 혼자 서며, 폭탄 기종·가격 단락은 걷고 figurehead·insurgency 를 leader·uprising 으로 바꿔 본다."
+    }
+  },
+  {
+    "id": "9b55e046-c3f4-4401-bdc6-c0c023c97f0c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b569b3ecd40b6d95eccd6a9208a7aafd08229c82278a4ceb2c6a473b753953b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "의자 주제 우편 미술전 개막 → 앞선 유사 전시 → 갤러리의 상설 공간 계획으로 이어져 마지막 두 단락으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Visual Arts Brampton's Fridge Front Gallery",
+      "note": "참가국 17개 나열 단락은 걷고 상설 공간 계획 단락을 쓰니 혼자 서며, mundane·defunct 를 ordinary·closed 로 바꿨다."
+    }
+  },
+  {
+    "id": "9b5c5f3a-e9c3-4094-b9cf-1b8d56a118b7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a3c46d28b608258f680297ea77784d96f42f7102205f7bc08fe069452bffc797",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "갑작스런 사망 경위에 이어 학력·정계·방송 경력·수상이 시간순으로 이어지는 한 사람의 부고라 경력 단락으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Russert entered politics as former New",
+      "note": "경력이 시간순으로 이어져 떼어도 서고, tenure·meritorious 를 time·respected 로 바꾸면 V4 에 맞는다."
+    }
+  },
+  {
+    "id": "9b6649c7-3db0-4117-9fcf-dc0f2fe0313b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b73ea1d5ff6f6d30ee817593318614e34b78d538ae6a508a4017849698e584d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "거래액 60% 증가의 까닭(카드 발급 증가·지출 증가)을 문장으로 밝히고 사용처 확대로 이어 수치 나열을 넘어서 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Total Romanian Visa card transactions rose",
+      "note": "원인 문장이 있어 수치를 일부 걷어도 서지만 카드 종류별 발급 수 문장은 순수 나열이라 걷는 편이 낫다."
+    }
+  },
+  {
+    "id": "9b6dedbc-efb9-496e-9b5f-fdec6cac6105",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ea4844adaa0f6be38ced8817558b55946755d3ef5f87c415725062a3c79cdbf3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "노후기 퇴역 결정 → 연료비라는 까닭 → 이익·성장 둔화 전망과 분석가 반응이 이어져 단신 한 편으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "WestJet Airlines is taking a CA$47.6",
+      "note": "결정·까닭·반응이 한 편에 다 있고, charge on its books 를 cost 로 바꾸면 V3 으로 내려간다."
+    }
+  },
+  {
+    "id": "9b742299-61bc-4a63-83ae-3ca3f41fb501",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1fb33b25d1359c932d1135af2afde501151286801051c32c08865d57b2013e5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "우승 결과와 개최 배경, 우크라이나의 기대, 영어 노래가 늘어난 규칙 변화까지 이어지는 행사 보도라 넷째 이후 단락으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "More than 6000 spectators attended the",
+      "note": "관중 → 국가 이미지·관광 기대 → EU 가입 목표로 이어져 혼자 서고, hiatus·pre-qualified 는 break·already chosen 으로 바꿨다."
+    }
+  },
+  {
+    "id": "9b89fa8a-e1f4-4e8c-b8d5-9cd9261ae2f9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d5728c5b169c1debb42d037b522b8a518ad7376711b6b8124c183700253fa8d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "성범죄 조사 확대 발표 → 의혹 경위 → 피해자 변호인·전 간호사의 반응으로 이어지는 보도로, 성범죄 소재라 고2 이상 내용 일치 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "About a year after Savile's death",
+      "note": "의혹이 불거진 경위 단락은 혼자 서지만 끝의 병원 19곳 이름 목록은 가공 때 걷어낸다."
+    }
+  },
+  {
+    "id": "9b911335-bb10-450d-bf02-00cb826d204a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0d1554914906e484e70a02134edcacaaf82b5684c4a8b3f7d290f0a9f2e50f7e",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "독일 건물 두 곳의 폴로늄 검출 → 런던 회동과 코브툰의 피폭 치료로 사건이 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The radiation was found in the",
+      "note": "전처·전 장모 집 검출과 회동이 연결돼 서고, radioactive·exposure 를 dangerous·contact 로 바꿔 본다."
+    }
+  },
+  {
+    "id": "9babd204-4cbf-46f1-9eff-e62f16f46058",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1d234df46af025ed009d03acfb6b4bde748c1b0442576878a6b848dd83f881b7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "병사 사망 확인 → 지휘관의 추모 → 이달 다섯째·누적 전사자라는 맥락으로 반응이 이어져 단신으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "The Ministry of Defence has confirmed",
+      "note": "이미 쉬운 문장이라 낱말 조정은 필요 없고, 이름·부대명을 걷어도 사망과 추모의 흐름이 남는다."
+    }
+  },
+  {
+    "id": "9be47aa4-17a6-41f8-b0d9-13476d56de6e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5909cc6605fa1ad3554fdf8e8ca22bb2e37d167afcc620010792c0ca0b716119",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "손실이 거의 두 배가 된 까닭(전년 7개월만 영업)과 회장의 반응, 경쟁사 비교가 이어져 수치 단신이지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Despite the losses, Hutchison Whampoa chairman",
+      "note": "통화 환산 괄호를 걷으면 손실과 반응의 대비가 선명해지고, pre-exceptional·incumbent 를 지우거나 existing 으로 바꿨다."
+    }
+  },
+  {
+    "id": "9c18aa61-bec5-4eb5-bd18-3fdfb22c6060",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d8923f73d16450ae0a916b28b4a17b6b9bfd5c94c904a3b37e8d8ec7c12b829b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "이라크 종파 대표들의 2차 핀란드 협상 → 주선 단체의 아체 중재 전례 → 북아일랜드 인사 참여와 1차 합의 내용으로 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Last year's four-day event's Helsinki I",
+      "note": "1차 합의의 두 원칙과 2차 일정이 이어져 혼자 서고, power sharing·disputes 는 그대로 두되 circumstances 를 situation 으로 바꿨다."
+    }
+  },
+  {
+    "id": "9c250f29-05a8-45c3-a571-5afad99823ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8be128c79c893056a5302a1a429b4ad3db9dc961b6134f4ecb20953b12e9299a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "보고서 공개 사실과 다루는 내용·입수처 안내뿐이라 사건 흐름이 얇고, 둘째 단락은 웹사이트·제목 안내에 가까워 단신 최소선에 걸린다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "A report by the United States",
+      "note": "첫 단락은 혼자 서지만 보고서의 실제 결론이 없어 문항거리가 공개 사실 하나뿐이고, 둘째 단락은 링크 안내라 걷으면 남는 것이 적다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "9c2ab5b0-e5cb-4943-b386-4dcfb7daf404",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a044e22ea91a3d0064ab64db47c5fac04336a7cebf2efbb1896d22153fc6d028",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전화선 차단 → 구급차를 못 불러 환자 사망 → 보건소장의 딸 증언으로 원인과 결과가 직접 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Centre director Radmila Trajković said, \"His",
+      "note": "딸의 증언 단락이 사건을 혼자 세우고, 둘째 단락의 줄바꿈 잔재는 합치며 angina·cerebral infraction 을 heart disease·stroke 로 바꿨다."
+    }
+  },
+  {
+    "id": "9c3e6520-2a93-4d69-8a00-536bafe2cd0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8d68381d06471173e17329c61c473c6de8762898355fc56c7d04bf9536ec53be",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "16% 단일세 도입 → 임금 상승이라는 효과 → 도입 목적으로 원인과 결과가 문장으로 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Romania's flat tax system is one",
+      "note": "레이 금액 단락은 걷고 정책 목적 단락과 첫 단락을 합치니 서며, fiscal·liberal 을 tax·open 으로 바꿨다."
+    }
+  },
+  {
+    "id": "9c4ab1f9-b45c-404b-b595-3a4209230963",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c3c0bc762fba389d5e193f286f5378720693b31e86e00ee6e954f9a26a270dec",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "서늘한 바다에서 생긴 이례적 허리케인 → 예보관이 놀란 까닭 → 약해져 흡수될 전망으로 이어져 짧은 글로 내용 일치·제목 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "school"
+      ],
+      "types": [
+        "content_match",
+        "title"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Vince caught forecasters by surprise, since",
+      "note": "이례성의 까닭이 문장으로 이어져 혼자 서고, extratropical·non-tropical low 를 ordinary storm·weather system 으로 바꾸면 V3 이다."
+    }
+  },
+  {
+    "id": "9c59dbd2-d8fe-4d3a-84d0-aab81848471c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "18fa203e8eb6572452fe35001fac00599caba9d3af4d70a25faf294ba1b21dc3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "반기 실적 수치에 해외 확장이라는 배경과 CEO 의 평가가 붙어 문장 사이 연결이 있어 내용 일치 칸 하나로 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The bank has been expanding to",
+      "note": "확장 문장과 CEO 평가는 서지만 끝의 「Landsbanki Website (English)」 링크 잔재와 크로나 환산은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "9c638903-b819-4d56-a8a1-35aec071db0d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "98563c164a57efbeeb2383d3aac3200d8645e559c838c16ec15913af1379edac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "부자 순위의 1·2·3·5위 이름과 재산만 바뀌어 되풀이되고 마지막 문장은 빠진 표를 가리켜, 문장 사이를 잇는 사건이 없는 순위 나열이다.",
+    "slots": {
+      "ages": [],
+      "purposes": [],
+      "types": [],
+      "levels": [],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Lakshmi Mittal has topped the Sunday",
+      "note": "순위와 이름을 걷으면 남는 사건이 없고 「The below table shows」 뒤 표가 없어 떼어 쓸 문단이 없다."
+    }
+  },
+  {
+    "id": "9c641c3a-7f32-4040-af73-db7d35324a48",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d1a3a1d6d4811e6c18e085ee86a8d8ed240620bcc2eabc2a23d758e1fc72ad1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "온실 존치 합의 → 고용 유지라는 효과 → 매입 자금 → 이스라엘 대사의 반응으로 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A last minute deal reached Saturday",
+      "note": "합의와 그 효과가 첫 두 단락에서 혼자 서고, dismantled·pullout 을 taken down·withdrawal 로 바꾸니 V4 이다."
+    }
+  },
+  {
+    "id": "9ca8ad4d-1a8e-4807-9220-6a4342122e06",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "520b84b52e5cdcc61a51e52ad53f1a219bac3e07347f3f4c85a25cbaba594b96",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모스크 총격 사상자 → 공격 경위와 경찰 증언 → 2004년 이후 분리주의 폭력이라는 맥락이 이어져 폭력 소재라 고1 이상 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incident is one of the",
+      "note": "맥락 단락이 사건을 받쳐 혼자 서고, indiscriminately·insurgency 를 randomly·rebellion 으로 바꿨다."
+    }
+  }
+]

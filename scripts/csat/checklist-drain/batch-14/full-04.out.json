@@ -1,0 +1,969 @@
+[
+  {
+    "id": "9f6cc485-c39c-41e9-a72f-9f9440837708",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8f9a590b6bbcc68a9a20267a6a781d138496726782928f9e7e169d24ba76b5c7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "나즈란 검문소 자폭 → 피해 → 분리주의 반군 지목 → 캅카스 공격 증가 배경으로 사건과 반응이 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A suicide bomber killed at least",
+      "note": "전문이 한 꼭지라 그대로 서고 neigbouring 오탈자·explosive material 정도만 고치면 V4 로 내려간다."
+    }
+  },
+  {
+    "id": "9f731831-1faa-40b6-8f71-e4457f48bf44",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1dac0d52d9bfc6472ba6d8fa69e29050afc1604ddb963af7bf1bb869baed9d12",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "셋째 단락이 보험 부문 매각 이유(낮은 주가수익배수·교차판매 효과 부재)를 논리로 풀어 요지·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "blank",
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Citigroup was previously known as Travelers",
+      "note": "이유 단락이 혼자 서고 underwriter·annuities·price to earnings multiple 을 풀어 쓰면 V5 가 된다."
+    }
+  },
+  {
+    "id": "9f7d4e48-b9ff-4c9a-8365-5b764cda1f74",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "da15120a0ea3597607ac299d824aad646ea6601a3b5213384338c1f34746a7fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "요르단 국왕이 베슬란 생존 학생을 초청해 공연·작품을 본 사건이 두 단락으로 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On November 5, 2006, King",
+      "note": "62어 한 사건이라 그대로 떼어지고 hostage crisis·cross-cultural 정도만 풀면 중등 밴드로 내려간다."
+    }
+  },
+  {
+    "id": "9f8893f1-9612-4341-a534-508bc0238e0e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9c8dbe340e8a1785837eccf71847d451693a7271f9855b004fad5fc08a5367ac",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "총리의 박람회 개막 일정·연설 예고에 이어 노조·축구팬 시위 계획이 반응으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "According to government officials, Karamanlis is",
+      "note": "첫 단락에 링크가 엉킨 「Helexpo71st International Fairwhich」 깨진 구절이 있어 다시 써야 하고 일정 시각 나열은 걷어야 한다."
+    }
+  },
+  {
+    "id": "9fa6d2a2-9c69-4a6b-bd74-5725a8a8b7b5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d1db75971432335b30911b57119a3385997cda59be69d6ed33a8d13d1bcdbfc2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "47어 두 문장이 녹음 인용 하나와 「나쁜 신호」라는 논평뿐이라 사건 연결이 서는지 단신 최소선 경계에 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "We have declared a bitter war",
+      "note": "인용을 걷으면 남는 사실이 「선거에 전쟁을 선포했다」 하나라 떼어 낸 문단에 흐름이 없다."
+    }
+  },
+  {
+    "id": "9face688-5383-4caf-bc19-5474249fcf5d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3acedb8e7ec373c7811623375ce06ba3c483862a0e9ff1408a3dc41b0cd64616",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "소음 위반 → 판사의 클래식 음악 감형 제안 → 15분 만에 포기 → 판사의 창의적 판결 취지와 피고 반응이 이어져 요지·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V3",
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When 24-year-old Andrew Vactor of Urbana,",
+      "note": "첫 단락이 사건 전체를 담아 혼자 서고 ordinance·misdemeanor·probation 을 바꾸면 V3 로 내려간다."
+    }
+  },
+  {
+    "id": "9fb6b1d5-ec17-4922-b159-d3b3928e0207",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f012832519afec97afa0d7fdf41bd1f9e3084638127cc25d39b97c76ab51edf7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "인텔 대 AMD·엔비디아의 USB 3.0 표준 경쟁에 FTC 조사와 인텔 대응이 이어져 갈등-반응 구조의 내용 일치·요지 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "main_point",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But AMD, nVidia, and VIA Technologies",
+      "note": "셋째 단락부터 갈등이 서고 specification·monopolizing 을 풀면 V5 가 되며 연도가 분명해 시대 비교 칸 후보다."
+    }
+  },
+  {
+    "id": "9fd1d217-4ef0-4f07-8842-616de7b8f9ae",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "829be261b08cb9ddd82faa44e02e6040f87c183f00212bedb174bcaf261d5690",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "드러머 스펜서 드라이든의 사망·투병·밴드 경력·이후 행보가 한 사람의 생애로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Spencer Dryden was a member of",
+      "note": "부고 한 편이라 그대로 서고 heyday·survived by 를 풀면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "9fd2ca98-5a4e-4999-94e9-d0f42b9eae3d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba34886ec19edcc7a27db347b26f6dd1747d39af95e5be77c7bbde95763ac041",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "incomplete-source",
+    "genre": "travel",
+    "why": "끝의 「described the traveler and his activities:」「added to what was said:」 뒤 인용이 통째로 빠지고 사진 머리만 남아 글이 중간에서 끊겼다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The traveler spoke about his adventures,",
+      "note": "앞 세 단락은 강연 행사로 서지만 philophonist 같은 낱말과 빠진 인용 때문에 결말이 없다."
+    }
+  },
+  {
+    "id": "9fdb7fdb-d4cb-4e86-8f0c-2980c7162423",
+    "source_updated_at": "2026-09-25T09:17:17.287861+00:00",
+    "body_sha256": "a5a2d8ce1dab63002fd42b5dcb9fecd0d592f9aa82719e1a392dbe0edf648e52",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "핀란드 NATO 가입 사건 → 러시아·NATO 반응 → 가입 지연 사정 → 중립 정책 역사까지 이어져 요지·순서·삽입·내용 일치 칸을 넉넉히 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "then-now"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the wake of Russia's invasion",
+      "note": "여론 변화·신청·터키 보류 단락이 원인-절차로 이어져 혼자 서고 non-aligned·asylum 을 풀면 V5 로 내려간다."
+    }
+  },
+  {
+    "id": "9fefe9e0-4760-4bbe-b117-7c748ade553b",
+    "source_updated_at": "2026-09-25T08:53:04.85102+00:00",
+    "body_sha256": "e4adf05d978aa30e935011ddb7c70ea466f3dd6e193c8c8840c16b72878005c2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "사망·실종 수치에 이어 16개국 구호 제공·적십자 평가·댐 붕괴 경고라는 반응이 문장으로 이어져 단신 최소선을 넘는 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sixteen countries including India, Russia, the",
+      "note": "수치 단락은 줄이고 반응 단락을 살리면 서며 torrential·displaced 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "9ffc2010-da68-4fdd-8234-57b144eccb11",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2dfd642e3ca2bde6703b44b4381f1ee6b7375f1ff5f25c05db243068628efad0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "RLDS 명칭 상표 소송 제기 → 다른 지부 상황 → 교단 분열 역사 → 지부 측 주장으로 분쟁의 원인과 경과가 서서 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In the 1980s, a split occurred",
+      "note": "분열 단락이 혼자 서지만 trademark dilution·disenfranchised·deliberative 같은 법·교단 용어가 많아 두세 낱말로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "9fff06d4-3841-4ded-97a2-c9aac7e18dff",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27d6db86411a8d1886fe554a3b00f5b95ac163b26b9540c970c35d8a1ced4901",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "포트홀 → 전복·발화 → 미니버스로 번짐 → 도로 정비 경고로 원인·결과·반응이 이어져 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "claim"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The incident took place in the",
+      "note": "113어 전문이 원인 사슬로 서고 debris·poorly-maintained 만 풀면 중등 밴드가 된다."
+    }
+  },
+  {
+    "id": "a0183b10-b8ec-4acb-86a0-aacfb8ad383f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "10f36c969df727a937c653820a4604e37d103010ace0ca75584ae4f7a2819db7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알자르카위 측근 체포 사실과 그가 위협으로 꼽힌 이유·최근 바그다드 폭탄 공격이 이어져 짧지만 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Sami Mohammad Ali Said al-Jaaf, also",
+      "note": "「has said to have been captured」 같은 어법 오류와 쉼표로 이은 긴 둘째 문장을 다시 써야 해 낱말 교체만으로는 안 된다."
+    }
+  },
+  {
+    "id": "a03a6366-a90c-4093-ae5a-3f9c2f2ee691",
+    "source_updated_at": "2026-09-25T09:15:51.541795+00:00",
+    "body_sha256": "a4050413f0bff2fd2256483bc64937c6aaffe386b356c02aef551f1119d901ad",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "정비 책임자가 활주로에서 낙타를 잡은 사건에 교통장관이 의회에서 두둔한 반응이 이어져 사건-반응 구조의 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Transportation Minister of Turkey, Mr.",
+      "note": "첫 단락이 앞 보도를 요약해 줘서 앞 문맥 없이 서고 tarmac·slaughter 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "a04bb620-4380-493d-af4e-c0754758db93",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0095d49d7f3f3b9704c499c853e4a4a88299902e897cf44e7262c3cbfc215ddf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "교육 예산 확대 서명에 교육감·교원노조·경쟁 후보의 찬반 반응이 이어져 주장-근거·요지 칸을 채우고 뒤 항목 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "claim",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Still, Kerr, said, the budget doesn't",
+      "note": "Kerr 단락은 「다음 단계 투자」 주장과 근거가 혼자 서고 Proposition 98 을 걷고 down payment 를 풀면 되며 끝의 부문별 예산 목록과 줄바꿈 깨진 인용은 걷는다."
+    }
+  },
+  {
+    "id": "a05f41df-f473-440e-a9e0-5c170c07a37b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23a4b5de78d98b4ff68c36bb951391ae3aff2ddb4edcd1851449cee2f1f53a77",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "노상 방뇨 민원 → 임시 소변기 시범 → 수거량 자료 → 사생활 비판·설문 반응으로 문제-해결 흐름이 서서 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A number of businesses in the",
+      "note": "민원 단락부터 사건이 서고 relieve themselves·on-the-spot fines 를 바꾸면 V4 이며 거리 이름 나열은 걷는다."
+    }
+  },
+  {
+    "id": "a0750370-6a99-4404-99cb-82f5cccce58d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ccaa68838117a0ca3222ad22aef42ce231beda02e9d21908ee593b315953e52a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "한쪽 입장 인터뷰로 마지막 답변의 「서로 없이 못 살고 함께도 못 산다 → 무력 금지 규칙 → 자유지상주의」 논증이 주장·요지·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "blank",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We humans have always found ourselves",
+      "note": "딜레마-해답 단락은 문답 없이 혼자 서고 fountainhead·panacea·pestilence 를 바꾸면 V5 이며 인용구·웹사이트 홍보는 걷는다."
+    }
+  },
+  {
+    "id": "a089674f-28a9-4e32-9177-7145bc534082",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "bd1d8bb17423a3c8215ebea9235347ed8829e95f45b9a487485674367148ff8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "history",
+    "why": "특수부대가 옛 고문실을 「블랙룸」으로 써 포로를 학대한 실태와 목적·위치가 이어져 고등 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Black Room was a garage-sized",
+      "note": "학대 묘사가 짧아 고등 칸만 두면 되고 putative·detainees 를 풀면 V5 다."
+    }
+  },
+  {
+    "id": "a08d3158-9afb-4177-8e74-8fdfec6ed40a",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6b8ce5f5cba15f633b1c29264622a1e567b2b77bb22f98d481553786c672af17",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "15세 소년이 바퀴 격납고에 숨어 2시간 비행 → 동상·입원 → 가출 이유 진술 → 당국 확인으로 사건이 시간순으로 흘러 순서·삽입·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert",
+        "long_reference"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When Scherbakov finally came to his",
+      "note": "진술 단락이 혼자 서고 stowaway·gangrene 을 바꾸면 V4 이며 절단 묘사가 있어 고등 이상만 둔다."
+    }
+  },
+  {
+    "id": "a091e938-40f8-4f43-9784-8254c20e0fdf",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a800683dc496335f4668026e9a93299a93bf621a5b025e5cb760e7f05f10ddc2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "borderline",
+    "genre": "news",
+    "why": "앞 두 단락만 추기경 모자 색의 뜻과 콘클라베 역할을 설명하고 나머지가 신임 추기경 이름 목록이라 이름 나열 최소선 경계에 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In addition to fulfilling vital roles",
+      "note": "목록을 걷으면 설명 두 문장만 남아 문단 하나가 겨우 서고 Consistory·Conclave 같은 교회 용어가 바뀌지 않는다."
+    }
+  },
+  {
+    "id": "a0b1b474-56ca-436a-ae6e-2e7a043360fd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f088b23165a3d5c32e2e66dd575b2cd8571997cf476981ce919eb51f51dd0068",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "율리우스력 부활절에 세르비아 총대주교·UNMIK·푸틴·교황이 각각 평화·화합 메시지를 낸 한 행사의 반응이 이어져 내용 일치 칸이다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an Easter Liturgy held in",
+      "note": "한 행사의 연설 묶음이라 떼어도 서고 enlightenment·mutual aid 를 풀면 V4 다."
+    }
+  },
+  {
+    "id": "a0fa67a5-67a4-484b-a076-aa737146d981",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fdf07b71d0cc23bb08601abadf202d2313ce3d0ed06118210ade799161d1cf75",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "공보국장 사퇴와 워터게이트 시절 행적 재조명·당내 의구심이 한 후보의 위기로 이어져 내용 일치 칸은 서지만 문장이 거칠다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Whereas, the day before reporter Jo",
+      "note": "「Whereas,」 연결과 셋째 단락 비문을 다시 써야 해 낱말 두세 개 교체로는 밴드가 안 내려간다."
+    }
+  },
+  {
+    "id": "a0fddefa-783c-43b7-bd04-42e3f137fa31",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "80423dce54739cf84abeed57b6e70c4377e054108cd5295fd48e4e8d6bafffb5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "파리 교외 소요가 감전사 → 모스크 최루탄 사건으로 번진 원인과 정부 대응이 이어져 고등 이상 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The uprisings erupted when two teenagers,",
+      "note": "발단 단락이 혼자 서고 electrocution·incite 를 풀면 V5 이며 경찰을 일방적으로 탓하는 서술과 「whores」 인용은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "a10b2962-5611-412d-9017-d8cd39431fa3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "95d2198cfc8e5091847bfa4018627f448958b93ffebb89ada92fadb17cba5391",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "애니상 시상 예고에 June Foray 가 1972년 상을 만든 계기와 ASIFA 소개·비미국작 부재 지적이 있어 후보 목록을 걷어도 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The awards were started in 1972,",
+      "note": "창설 계기 단락이 혼자 서고 benevolent 정도만 바꾸면 되며 부문별 후보작 나열은 가공 때 걷는다."
+    }
+  }
+]
