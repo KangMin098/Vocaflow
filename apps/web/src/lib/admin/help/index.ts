@@ -18,6 +18,7 @@ import { ACP_HELP } from './articles'
 import { CCP_HELP } from './comic'
 import { COMPOSE_HELP } from './compose'
 import { CSAT_HELP } from './csat'
+import { CSAT_DIAGNOSIS_HELP } from './csat-diagnosis'
 import { KICE_HELP } from './kice'
 import { KNOWLEDGE_HELP } from './knowledge'
 import { LCP_HELP } from './curation'
@@ -34,6 +35,7 @@ export const HELP_REGISTRY: HelpRegistry = {
   ...ACP_HELP,
   ...COMPOSE_HELP,
   ...CSAT_HELP,
+  ...CSAT_DIAGNOSIS_HELP,
   ...KICE_HELP,
   ...KNOWLEDGE_HELP,
   ...LCP_HELP,
