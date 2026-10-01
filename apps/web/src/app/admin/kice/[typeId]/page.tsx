@@ -26,6 +26,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 import { LocusBar } from '@/components/csat/LocusBar'
 import { ReportText } from '@/components/csat/ReportText'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
@@ -53,11 +55,18 @@ function charsLabel(n: number): string {
   return `약 ${(n / 1000).toFixed(1)}천 자`
 }
 
-export default async function CsatTypePage({ params }: { params: Promise<{ typeId: string }> }) {
+export default async function CsatTypePage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ typeId: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
+}) {
   const { typeId } = await params
+  const scope = parseScope(await searchParams)
   const [{ detail, error }, { items, error: itemsError }] = await Promise.all([
-    loadCsatTypeDetail(typeId),
-    loadCsatTypeItems(typeId),
+    loadCsatTypeDetail(typeId, scope),
+    loadCsatTypeItems(typeId, scope),
   ])
 
   if (!error && !detail) notFound()
@@ -70,9 +79,10 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
   // **이 유형의 기출을 실제로 세어** 근거 자리의 분포를 낸다. DB 를 치지 않는다 —
   // 커밋된 골격이 type_id 를 들고 있다. 표본이 8문항 미만이면 null 이고, 그때는 안 그린다:
   // 적은 표본으로 「대개 뒤쪽」이라고 적으면 학습자가 그것을 규칙으로 외운다.
-  const locus = typeLocus(typeId)
+  // 근거 자리 분포·오답 구성은 평가원 골격·함정 지도로 구운 값이다 — 학평 범위에서는 섞지 않고 안 그린다
+  const locus = scope.set === 'kice' ? typeLocus(typeId) : null
   // 이 유형의 오답 구성. 구운 지도에서 읽으므로 조회 왕복이 0 이다.
-  const traps = rankFor(typeId)
+  const traps = scope.set === 'kice' ? rankFor(typeId) : { ...rankFor(typeId), total: 0, rows: [] }
 
   // 접어 둘 산문의 분량 — 손잡이가 말해야 한다.
   const proseChars =
@@ -83,7 +93,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
   return (
     <div className="mx-auto max-w-3xl">
       <Link
-        href="/admin/kice"
+        href={withScope('/admin/kice', scope)}
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← 유형 목록
@@ -98,6 +108,7 @@ export default async function CsatTypePage({ params }: { params: Promise<{ typeI
           <header className="mb-5 mt-2">
             <h1 className="break-keep font-editorial text-2xl font-[600] text-[var(--t1)]">{detail.name}</h1>
             <AdminScreenHelp screen="kice-type" className="mt-2" />
+            <ScopeTabs scope={scope} basePath={`/admin/kice/${typeId}`} className="mt-3" />
             <p className="mt-1.5 text-xs text-[var(--t3)]">
               기출 {detail.items}문항
               {detail.n_analyzed > 0 ? ` · 분석 ${detail.n_analyzed}문항` : ''}

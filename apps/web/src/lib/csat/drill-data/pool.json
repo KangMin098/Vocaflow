@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-16",
+ "built_at": "2026-10-01",
  "per_trap": 120,
  "eligible": 1934,
  "cards": [
@@ -753,8 +753,8 @@
    "type_id": "R-REFER",
    "type_name": "지칭 추론(단문·폐지)",
    "choice": 3,
-   "tempting": "7번 문장의 주체가 My friend 이고 her heart was touched 의 her 도 친구이므로, 같은 문장 뒤쪽 명사구까지 친구 쪽으로 붙여 읽게 된다.",
-   "reject": "7번 문장에서 the distressed mother 는 compassion for 의 목적어다 — 동정을 느낀 주체는 친구, 그 대상은 바로 앞에 나온 the woman's woeful story 의 주인이다. 딸이 혼자 비행기에 있다고 우는 사람이 그 어머니이므로 대상은 여인이다.",
+   "tempting": "9번 문장의 주체가 My friend 이고 her heart was touched 의 her 도 친구이므로, 같은 문장 뒤쪽 명사구까지 친구 쪽으로 붙여 읽게 된다.",
+   "reject": "9번 문장에서 the distressed mother 는 compassion for 의 목적어다 — 동정을 느낀 주체는 친구, 그 대상은 바로 앞에 나온 the woman's woeful story 의 주인이다. 딸이 혼자 비행기에 있다고 우는 사람이 그 어머니이므로 대상은 여인이다.",
    "answer": "주체 역전",
    "options": [
     "부분 사실",
@@ -1742,7 +1742,7 @@
    "type_name": "빈칸 추론",
    "choice": 1,
    "tempting": "myth(통념·낭설)라는 낱말이 지문의 deceptive·misleading 과 같은 계열이라, 낱말만 보면 지문이 하는 말과 같아 보인다.",
-   "reject": "동사 expels(쫓아낸다)의 방향을 본다. 5번째 문장이 'the expression “multitasking” is inherently deceptive' 라고 하므로 속도는 오해를 없애는 것이 아니라 만드는 쪽이다. expels 를 넣으면 마지막 절 'so comparing computers to humans can be confusing' 과도 어긋난다 — 혼란이 남아 있어야 하기 때문이다.",
+   "reject": "동사 expels(쫓아낸다)의 방향을 본다. 4번째 문장이 'the expression “multitasking” is inherently deceptive' 라고 하므로 속도는 오해를 없애는 것이 아니라 만드는 쪽이다. expels 를 넣으면 마지막 절 'so comparing computers to humans can be confusing' 과도 어긋난다 — 혼란이 남아 있어야 하기 때문이다.",
    "answer": "반대 진술",
    "options": [
     "반대 진술",
@@ -1761,7 +1761,7 @@
    "type_name": "빈칸 추론",
    "choice": 3,
    "tempting": "속도가 무언가를 '감춘다' 는 방향은 지문의 기만 계열과 맞아떨어져, 다섯 선지 중 가장 그럴듯하게 읽힌다.",
-   "reject": "빈칸 뒤 that절이 무엇을 담고 있는지 본다 — 'everything happens at the same time'. conceals the fact that 을 넣으면 이 절이 '사실' 이 되는데, 8번째 문장은 컴퓨터가 한 번에 한 조각만 처리한다고 하므로 그 절은 사실이 아니다. 감춘다는 방향은 맞고 that절의 진리값 배정이 틀렸다.",
+   "reject": "빈칸 뒤 that절이 무엇을 담고 있는지 본다 — 'everything happens at the same time'. conceals the fact that 을 넣으면 이 절이 '사실' 이 되는데, 6번째 문장은 컴퓨터가 한 번에 한 조각만 처리한다고 하므로 그 절은 사실이 아니다. 감춘다는 방향은 맞고 that절의 진리값 배정이 틀렸다.",
    "answer": "부분 사실",
    "options": [
     "무관",
@@ -1780,7 +1780,7 @@
    "type_name": "빈칸 추론",
    "choice": 4,
    "tempting": "컴퓨터·처리 속도라는 소재가 실험·검증 이야기로 읽혀 hypothesis 가 학술적으로 무난해 보인다.",
-   "reject": "지문에 가설을 세우거나 검증하는 문장이 없다. 1~3번째 문장은 용어의 유래를, 5~9번째 문장은 그 용어가 왜 오해를 부르는지를 말할 뿐이다.",
+   "reject": "지문에 가설을 세우거나 검증하는 문장이 없다. 1~3번째 문장은 용어의 유래를, 4~8번째 문장은 그 용어가 왜 오해를 부르는지를 말할 뿐이다.",
    "answer": "무관",
    "options": [
     "반대 진술",
@@ -1817,8 +1817,8 @@
    "type_id": "R-BLANK",
    "type_name": "빈칸 추론",
    "choice": 4,
-   "tempting": "지식이 어떤 목적에도 쓰일 수 있다는 6번째 문장('It can be used for any purpose')을 '축적하면 적용도 늘어난다' 로 이어 읽으면 무난한 확장처럼 보인다.",
-   "reject": "7번째 문장이 지식과 그 쓰임을 별개 사안으로 갈라 놓았음을 본다. 축적이 곧 사회적 적용의 증대라는 진술은 그 분리를 무너뜨리고, 빈칸 앞 절이 인정한 '정당한 실망' 과 but 으로 이어질 내용도 아니다.",
+   "tempting": "지식이 어떤 목적에도 쓰일 수 있다는 4번째 문장('It can be used for any purpose')을 '축적하면 적용도 늘어난다' 로 이어 읽으면 무난한 확장처럼 보인다.",
+   "reject": "5번째 문장이 지식과 그 쓰임을 별개 사안으로 갈라 놓았음을 본다. 축적이 곧 사회적 적용의 증대라는 진술은 그 분리를 무너뜨리고, 빈칸 앞 절이 인정한 '정당한 실망' 과 but 으로 이어질 내용도 아니다.",
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
@@ -1837,7 +1837,7 @@
    "type_name": "빈칸 추론",
    "choice": 5,
    "tempting": "첫 문장이 '과학의 진보가 전쟁과 기아를 없애 세상의 병폐를 고치지 못했다' 는 친구의 실망을 길게 서술해, 그 내용이 지문의 주장처럼 기억에 남는다.",
-   "reject": "4번째 문장 'My friend made a common mistake ― a basic misunderstanding in the nature of knowledge' 를 본다. 과학의 진보가 곧 사회악의 치유라는 인과는 필자가 '흔한 오해' 로 지목한 것이다. 그것을 but 뒤 결론으로 넣으면 필자가 자기가 반박한 전제를 결론으로 삼는 셈이 된다.",
+   "reject": "2번째 문장 'My friend made a common mistake ― a basic misunderstanding in the nature of knowledge' 를 본다. 과학의 진보가 곧 사회악의 치유라는 인과는 필자가 '흔한 오해' 로 지목한 것이다. 그것을 but 뒤 결론으로 넣으면 필자가 자기가 반박한 전제를 결론으로 삼는 셈이 된다.",
    "answer": "인과 역전",
    "options": [
     "무관",
@@ -2407,7 +2407,7 @@
    "type_name": "빈칸 추론",
    "choice": 5,
    "tempting": "빈칸 뒤 예시가 미터법·인치·피트 같은 단위 규격이라, 빈칸을 '규격' 으로 좁혀 읽으면 그 예시 하나에는 꼭 맞는다.",
-   "reject": "앞의 6번째 문장 예시가 'men’s hair dyes designed to “get out the gray”' 라는 점을 본다. 염색약은 규격이 아니다. 빈칸은 두 예시를 함께 덮는 상위어여야 하므로 규격으로 좁히면 앞 예시가 빠진다.",
+   "reject": "앞의 5번째 문장 예시가 'men’s hair dyes designed to “get out the gray”' 라는 점을 본다. 염색약은 규격이 아니다. 빈칸은 두 예시를 함께 덮는 상위어여야 하므로 규격으로 좁히면 앞 예시가 빠진다.",
    "answer": "범위 과소",
    "options": [
     "무관",
@@ -2502,7 +2502,7 @@
    "type_name": "빈칸 추론",
    "choice": 2,
    "tempting": "종자 회사·상업 농업이라는 소재에서 농약·비료 의존이라는 흔한 이야기가 자동으로 떠오른다.",
-   "reject": "지문에서 회사가 통제하는 것은 종자뿐이다 — 7번째 문장은 parent lines 와 grain 만 말하고, 마지막 문장의 특허 확장도 'the area of seed varieties' 에 한정된다. 비료·농약이 나오는 문장이 없다.",
+   "reject": "지문에서 회사가 통제하는 것은 종자뿐이다 — 5번째 문장은 parent lines 와 grain 만 말하고, 마지막 문장의 특허 확장도 'the area of seed varieties' 에 한정된다. 비료·농약이 나오는 문장이 없다.",
    "answer": "지문 밖 상식",
    "options": [
     "지문 밖 상식",
@@ -2539,8 +2539,8 @@
    "type_id": "R-BLANK",
    "type_name": "빈칸 추론",
    "choice": 4,
-   "tempting": "hybrid breeding of maize 가 실제로 수확량을 높인 기술이라는 배경지식과, 5~6번째 문장의 '오늘날 대부분의 옥수수 종자는 잡종' 이 결합해 효율 이야기로 읽힌다.",
-   "reject": "지문이 잡종에 대해 말한 결과는 6~7번째 문장의 두 가지뿐이다 — 대부분이 잡종이라는 사실과, 그것이 채종을 불가능하게 한다는 것. 생산 효율이 올랐다는 서술은 없고, 빈칸 문장의 주어 The combination 이 묶는 것도 효율이 아니라 두 가지 차단 장치다.",
+   "tempting": "hybrid breeding of maize 가 실제로 수확량을 높인 기술이라는 배경지식과, 4번째 문장의 '오늘날 대부분의 옥수수 종자는 잡종' 이 결합해 효율 이야기로 읽힌다.",
+   "reject": "지문이 잡종에 대해 말한 결과는 4~5번째 문장의 두 가지뿐이다 — 대부분이 잡종이라는 사실과, 그것이 채종을 불가능하게 한다는 것. 생산 효율이 올랐다는 서술은 없고, 빈칸 문장의 주어 The combination 이 묶는 것도 효율이 아니라 두 가지 차단 장치다.",
    "answer": "부분 사실",
    "options": [
     "부분 사실",
@@ -3167,7 +3167,7 @@
    "type_name": "빈칸 추론",
    "choice": 1,
    "tempting": "여러 직군을 아우르는 문장을 만들려다 보면 '일반적인 목적에 맞게' 라는 표현이 그 나열을 포괄하는 것처럼 보인다.",
-   "reject": "6번째 문장의 세미콜론 나열이 강조하는 것은 직군마다 요구가 '다르다' 는 점이다. general purposes 는 그 차이를 지워 버리므로, 나열을 되받는 문장으로 성립하지 않는다.",
+   "reject": "5번째 문장의 세미콜론 나열이 강조하는 것은 직군마다 요구가 '다르다' 는 점이다. general purposes 는 그 차이를 지워 버리므로, 나열을 되받는 문장으로 성립하지 않는다.",
    "answer": "범위 과대",
    "options": [
     "반대 진술",
@@ -3186,7 +3186,7 @@
    "type_name": "빈칸 추론",
    "choice": 3,
    "tempting": "2~3번째 문장이 위성 영상의 시간 밀도가 '크고 인상적이며 늘고 있다' 고 말해, 해상도는 높을수록 좋다는 결론으로 이어질 것처럼 보인다.",
-   "reject": "그 다음 5번째 문장이 However 로 시작한다 — 'most applications in geography and environmental studies do not require extremely fine-grained temporal resolution'. 역접 뒤가 필자의 주장이므로 '언제나 최대한 높게' 는 정반대다.",
+   "reject": "그 다음 4번째 문장이 However 로 시작한다 — 'most applications in geography and environmental studies do not require extremely fine-grained temporal resolution'. 역접 뒤가 필자의 주장이므로 '언제나 최대한 높게' 는 정반대다.",
    "answer": "반대 진술",
    "options": [
     "반대 진술",
@@ -3280,8 +3280,8 @@
    "type_id": "R-BLANK",
    "type_name": "빈칸 추론",
    "choice": 4,
-   "tempting": "7번째 문장에 guarantee 와 respect 가 나란히 있어(providing a kind of guarantee of authenticity ... love and respect) 두 낱말을 합친 이 선지가 지문 요약처럼 보인다.",
-   "reject": "7번째 문장에서 존경의 대상은 'such dispositional sentiments as love and respect' — 타인을 향한 성향적 감정이다. 자기 자신에 대한 존경(respect for oneself)은 지문에 없고, 보증되는 것은 감정의 진정성이지 자기 존경이 아니다.",
+   "tempting": "5번째 문장에 guarantee 와 respect 가 나란히 있어(providing a kind of guarantee of authenticity ... love and respect) 두 낱말을 합친 이 선지가 지문 요약처럼 보인다.",
+   "reject": "5번째 문장에서 존경의 대상은 'such dispositional sentiments as love and respect' — 타인을 향한 성향적 감정이다. 자기 자신에 대한 존경(respect for oneself)은 지문에 없고, 보증되는 것은 감정의 진정성이지 자기 존경이 아니다.",
    "answer": "주체 역전",
    "options": [
     "어휘 함정",
@@ -3299,7 +3299,7 @@
    "type_id": "R-BLANK",
    "type_name": "빈칸 추론",
    "choice": 5,
-   "tempting": "negative sentiments 가 6번째 문장에 따옴표까지 붙어 나오는 핵심어라 그대로 옮긴 선지가 안전해 보인다.",
+   "tempting": "negative sentiments 가 5번째 문장에 따옴표까지 붙어 나오는 핵심어라 그대로 옮긴 선지가 안전해 보인다.",
    "reject": "빈칸 문장의 조건절은 'in the absence of the positive occurrent feelings' — 없는 것은 긍정 감정이다. 부정 감정이 더는 유지되지 않는다는 진술은 이 조건절과 대응하지 않고, 빈칸 뒤 문장이 곧바로 부정 감정(grief)이 작동한다고 하므로 시점도 어긋난다.",
    "answer": "무관",
    "options": [
@@ -3318,8 +3318,8 @@
    "type_id": "R-BLANK",
    "type_name": "빈칸 추론",
    "choice": 3,
-   "tempting": "5번째 문장에 'determined by our culture, our beliefs, and our expectations' 가 있어 culture 라는 낱말이 지문에서 왔고, 문화 이야기가 나온 이상 문화 간 상호작용도 다룰 것 같다.",
-   "reject": "그 5번째 문장에서 문화는 반응의 강도를 정하는 '우리' 쪽 변수 하나로만 쓰인다(our culture). 서로 다른 문화의 상호작용을 비교하는 서술은 없으므로, 한 문화 안의 경험을 문화 간 관계로 넓힌 진술이다.",
+   "tempting": "4번째 문장에 'determined by our culture, our beliefs, and our expectations' 가 있어 culture 라는 낱말이 지문에서 왔고, 문화 이야기가 나온 이상 문화 간 상호작용도 다룰 것 같다.",
+   "reject": "그 4번째 문장에서 문화는 반응의 강도를 정하는 '우리' 쪽 변수 하나로만 쓰인다(our culture). 서로 다른 문화의 상호작용을 비교하는 서술은 없으므로, 한 문화 안의 경험을 문화 간 관계로 넓힌 진술이다.",
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
@@ -6074,7 +6074,7 @@
    "type_name": "요지",
    "choice": 4,
    "tempting": "6번째 문장 '리뷰를 쓰기 전에 대중 의견을 확인한다' 의 구조가 그대로 남고 주어만 바뀐 형태라, 순서(확인 후 공개)가 지문과 같다고 느껴진다.",
-   "reject": "6번째 문장에서 대중 의견을 확인한 뒤 내놓는 것은 비평가의 review 이지 음악 자체가 아니다. 1번째 문장은 오히려 file-sharing 이후 신보가 먼저 퍼진다고 하므로, 음악 공개가 대중 기호 확인 뒤에 온다는 진술은 주체가 뒤바뀐 것이다.",
+   "reject": "6번째 문장에서 대중 의견을 확인한 뒤 내놓는 것은 비평가의 review 이지 음악 자체가 아니다. 3번째 문장은 오히려 file-sharing 이후 신보가 먼저 퍼진다고 하므로, 음악 공개가 대중 기호 확인 뒤에 온다는 진술은 주체가 뒤바뀐 것이다.",
    "answer": "주체 역전",
    "options": [
     "무관",
@@ -6929,7 +6929,7 @@
    "type_name": "제목",
    "choice": 3,
    "tempting": "첫 문장의 creativity 를 그대로 받아 '창의적인 수리공' 으로 이었고, 지문이 수리를 높이 평가하므로 방향이 맞아 보인다.",
-   "reject": "첫 문장 하나만 덮는다. 4~7번째 문장은 산업화 이후 제작과 수리가 갈라졌다는 대비를 다루는데 Tips and Ideas 라는 실용 지침 틀은 그 대비를 담지 못한다. 또 지문 어디에도 수리 요령을 알려 주는 명령형·조언 문장이 없다.",
+   "reject": "첫 문장 하나만 덮는다. 4~8번째 문장은 산업화 이후 제작과 수리가 갈라졌다는 대비를 다루는데 Tips and Ideas 라는 실용 지침 틀은 그 대비를 담지 못한다. 또 지문 어디에도 수리 요령을 알려 주는 명령형·조언 문장이 없다.",
    "answer": "범위 과소",
    "options": [
     "무관",
@@ -7954,7 +7954,7 @@
    "type_id": "R-CLAIM",
    "type_name": "필자 주장",
    "choice": 2,
-   "tempting": "6번째 문장에 leaders 와 clear 가 함께 나와 '지도자'와 '명확한'을 붙이면 '지도자는 명확한 가치관을 가져야 한다'가 지문 말처럼 들린다.",
+   "tempting": "4번째 문장의 clear 와 6번째 문장의 leaders 를 이어 붙여 '지도자'와 '명확한'을 합치면 '지도자는 명확한 가치관을 가져야 한다'가 지문 말처럼 들린다.",
    "reject": "6번째 문장에서 leaders 는 시각적 표현을 '사용해 코치하는' 쪽이고, clear 가 걸린 명사는 4번째 문장의 description(지침)이지 가치관이 아니다. 지도자의 가치관을 요구하는 문장이 없다.",
    "answer": "어휘 함정",
    "options": [
@@ -9361,7 +9361,7 @@
    "type_name": "주제",
    "choice": 4,
    "tempting": "speed 가 지문에서 가장 자주 반복되고 a faster service 라는 표현도 있어 고속화가 소재로 보인다",
-   "reject": "2번째 문장이 속도 우선을 a common motorist's error 라 부르고 8번째 문장이 waiting time will wipe out any time savings from a faster service 라고 못박는다. 고속화의 효과는 지문이 부정하는 쪽이다",
+   "reject": "2번째 문장이 속도 우선을 a common motorist's error 라 부르고 7번째 문장이 waiting time will wipe out any time savings from a faster service 라고 못박는다. 고속화의 효과는 지문이 부정하는 쪽이다",
    "answer": "반대 진술",
    "options": [
     "무관",
@@ -11565,7 +11565,7 @@
    "type_name": "심경·분위기",
    "choice": 5,
    "tempting": "한 시간 넘게 기다렸다는 서술이 지루함을 떠올리게 한다.",
-   "reject": "2~5번 문장이 기다림에 붙인 어구는 no sign of him, something bad might have happened, Getting concerned 다. 뒤 칸 amazed 도 12번 문장 relax 보다 강도가 크다.",
+   "reject": "2~5번 문장이 기다림에 붙인 어구는 no sign of him, something bad might have happened, Getting concerned 다. 뒤 칸 amazed 도 13번 문장 relax 보다 강도가 크다.",
    "answer": "지문 밖 상식",
    "options": [
     "지문 밖 상식",
@@ -12210,7 +12210,7 @@
    "type_id": "R-GIST",
    "type_name": "요지",
    "choice": 2,
-   "tempting": "8번 문장에 within the allowable time and given budget 이 있어 예산이 실제로 지문에 등장한다.",
+   "tempting": "7번 문장에 within the allowable time and given budget 이 있어 예산이 실제로 지문에 등장한다.",
    "reject": "그 자리에서 budget 은 given 이라는 수식을 달고 계획이 지켜야 할 제약으로 쓰인다. 예산을 확보한다는 술어가 지문 열 문장 어디에도 없다.",
    "answer": "부분 사실",
    "options": [
@@ -12249,7 +12249,7 @@
    "type_name": "요지",
    "choice": 5,
    "tempting": "detailed thinking 의 세부라는 말이 겹치고 project 를 대규모 사업으로 키워 읽으면 문장이 성립한다.",
-   "reject": "1번 문장의 주어는 Contractors that will construct a project 로 규모 조건이 없다. 8번 문장이 밝힌 목표도 within the allowable time and given budget 이지 지속적 성장이 아니다.",
+   "reject": "1번 문장의 주어는 Contractors that will construct a project 로 규모 조건이 없다. 7번 문장이 밝힌 목표도 within the allowable time and given budget 이지 지속적 성장이 아니다.",
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
@@ -12609,7 +12609,7 @@
    "type_id": "R-BLANK",
    "type_name": "빈칸 추론",
    "choice": 5,
-   "tempting": "6번 문장 Ecological relationships certainly have their own logic 을 근거로 삼으면 자연 조건이 맥락을 정한다는 진술이 앞 문장과 이어진다",
+   "tempting": "5번 문장 Ecological relationships certainly have their own logic 을 근거로 삼으면 자연 조건이 맥락을 정한다는 진술이 앞 문장과 이어진다",
    "reject": "그 문장은 But 앞에 놓인 양보 구간이다. But 이 꺾는 대상이 바로 '자연 쪽 논리'이므로 빈칸에 같은 말을 넣으면 접속사가 무의미해진다",
    "answer": "범위 과소",
    "options": [
@@ -13313,7 +13313,7 @@
    "type_name": "심경·분위기",
    "choice": 5,
    "tempting": "앞 칸이 부정이라는 점은 맞아 보이고, 놓칠 것 같다는 인용이 후회처럼 읽힌다.",
-   "reject": "3번 문장의 걱정 원인은 because of the traffic, 곧 자기 탓이 아니다. 뒤 칸 depressed 도 8번 문장 even better than I expected 와 부호가 반대다.",
+   "reject": "3번 문장의 걱정 원인은 because of the traffic, 곧 자기 탓이 아니다. 뒤 칸 depressed 도 9번 문장 even better than I expected 와 부호가 반대다.",
    "answer": "범위 과대",
    "options": [
     "범위 과대",
@@ -14567,7 +14567,7 @@
    "type_name": "심경·분위기",
    "choice": 3,
    "tempting": "예상보다 훨씬 적은 청구액이라는 사건의 크기가 뒤 칸을 강한 긍정으로 잡게 한다.",
-   "reject": "인물의 반응 어구는 7번 문장 felt at ease 로 조용하다. 앞 칸 bored 도 1~2번 문장의 왔다 갔다 하는 동작과 어긋난다.",
+   "reject": "인물의 반응 어구는 9번 문장 felt at ease 로 조용하다. 앞 칸 bored 도 1~2번 문장의 왔다 갔다 하는 동작과 어긋난다.",
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
@@ -14756,8 +14756,8 @@
    "type_id": "R-TITLE",
    "type_name": "제목",
    "choice": 5,
-   "tempting": "6번 문장에 the associated infrastructure invariably constituting the backbone of urban form 이 있어 인프라가 중요하다는 말이 지문에서 곧장 온다",
-   "reject": "그 구절은 이동 흐름을 설명하는 한 절이고, 글의 결론은 7~9번 문장의 접근성 위기다. 한 절을 제목으로 올리면 Yet 이하 세 문장이 통째로 빠진다",
+   "tempting": "5번 문장에 the associated infrastructure invariably constituting the backbone of urban form 이 있어 인프라가 중요하다는 말이 지문에서 곧장 온다",
+   "reject": "그 구절은 이동 흐름을 설명하는 한 절이고, 글의 결론은 6~8번 문장의 접근성 위기다. 한 절을 제목으로 올리면 Yet 이하 세 문장이 통째로 빠진다",
    "answer": "범위 과소",
    "options": [
     "반대 진술",
@@ -15232,7 +15232,7 @@
    "type_name": "심경·분위기",
    "choice": 5,
    "tempting": "뒤 칸이 강한 긍정이라는 방향은 맞아서 쌍 전체가 맞아 보인다.",
-   "reject": "앞 칸 indifferent 는 2번 문장 with a long sigh 및 3번 문장 thinking of all the interesting sights she wouldn’t be able to enjoy 와 어긋난다.",
+   "reject": "앞 칸 indifferent 는 3번 문장 with a long sigh 및 4번 문장 thinking of all the interesting sights she wouldn’t be able to enjoy 와 어긋난다.",
    "answer": "범위 과대",
    "options": [
     "어휘 함정",
@@ -15707,7 +15707,7 @@
    "type_name": "빈칸 추론",
    "choice": 2,
    "tempting": "교외 대량 주택 공급과 TV 시청이라는 소재가 '똑같아졌다'는 상식적 인상을 준다",
-   "reject": "지문에 여가가 서로 비슷해졌다는 비교 진술이 없다. 6번 문장이 드는 것은 집·마당이라는 장소이지 취향의 동질화가 아니다",
+   "reject": "지문에 여가가 서로 비슷해졌다는 비교 진술이 없다. 5번 문장이 드는 것은 집·마당이라는 장소이지 취향의 동질화가 아니다",
    "answer": "지문 밖 상식",
    "options": [
     "반대 진술",
@@ -18823,7 +18823,7 @@
    "type_name": "주제",
    "choice": 1,
    "tempting": "첫 문장의 telescoping of time 과 이어지는 시간 관련 서술(short lifetime, longer-lived)을 보고 time perceptions 를 지문 낱말의 요약으로 받아들인다. survival 도 마지막 문단의 인상과 겹친다",
-   "reject": "지문은 동물이 시간을 어떻게 지각하는지를 한 번도 말하지 않는다. 시간이 걸린 자리는 3~4번째 문장의 반응 속도와 수명(a short lifetime offers little time for learning from experience)이며, 이는 지각이 아니라 실제 시간 길이다",
+   "reject": "지문은 동물이 시간을 어떻게 지각하는지를 한 번도 말하지 않는다. 시간이 걸린 자리는 2~4번째 문장의 반응 속도와 수명(a short lifetime offers little time for learning from experience)이며, 이는 지각이 아니라 실제 시간 길이다",
    "answer": "어휘 함정",
    "options": [
     "어휘 함정",
@@ -18880,7 +18880,7 @@
    "type_name": "주제",
    "choice": 5,
    "tempting": "5번째 문장 being short-lived puts a premium on the effectiveness of preprogrammed behavior patterns 가 실제 진술이라 소형 동물 절반에는 그대로 들어맞는다",
-   "reject": "8번째 문장이 대형 동물에서는 preprogrammed behaviors 의 비중이 less 라고 못박는다. 선천적 행동은 크기에 따라 갈리는 결과항이지 글이 설명하려는 원인이 아니다",
+   "reject": "7번째 문장이 대형 동물에서는 preprogrammed behaviors 의 비중이 less 라고 못박는다. 선천적 행동은 크기에 따라 갈리는 결과항이지 글이 설명하려는 원인이 아니다",
    "answer": "부분 사실",
    "options": [
     "반대 진술",

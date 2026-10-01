@@ -1,5 +1,5 @@
 {
-  "built_at": "2026-09-16",
+  "built_at": "2026-10-01",
   "recent_from": 2023,
   "min_n": 8,
   "corpus": {
@@ -321,7 +321,7 @@
           "type_id": "R-MOOD",
           "choice": 2,
           "tempting": "1번 문장 moving slowly 와 교통 언급을 지루함으로 읽으면 앞 칸 bored 가 그럴듯해진다.",
-          "reject": "3번 문장에 sighed with concern 이라는 감정어가 직접 적혀 있다. 지루함을 가리키는 어구는 여덟 문장 어디에도 없다."
+          "reject": "3번 문장에 sighed with concern 이라는 감정어가 직접 적혀 있다. 지루함을 가리키는 어구는 지문 어디에도 없다."
         }
       ]
     },
@@ -392,7 +392,7 @@
           "type_id": "R-MOOD",
           "choice": 2,
           "tempting": "여행 중 일정이 바뀌는 이야기라 두 칸 중 하나에 부정어가 들어간 쌍이 형태상 그럴듯하다.",
-          "reject": "앞뒤가 정확히 뒤집혔다 — 2번 문장은 with a long sigh, 8번 문장은 What a turn of fortune 이다."
+          "reject": "앞뒤가 정확히 뒤집혔다 — 3번 문장은 with a long sigh, 13번 문장은 What a turn of fortune 이다."
         }
       ]
     },
@@ -463,8 +463,8 @@
           "no": 19,
           "type_id": "R-MOOD",
           "choice": 3,
-          "tempting": "4번 문장 there was a knock 이 갑작스러운 사건이라 앞 칸을 놀람으로 잡게 된다.",
-          "reject": "노크는 전환점 뒤의 사건이고 앞 칸은 1~3번 문장의 심경이다. 뒤 칸 annoyed 도 7~8번 문장의 서두름·감탄과 부호가 반대다."
+          "tempting": "5번 문장 there was a knock 이 갑작스러운 사건이라 앞 칸을 놀람으로 잡게 된다.",
+          "reject": "노크는 전환점 뒤의 사건이고 앞 칸은 1~3번 문장의 심경이다. 뒤 칸 annoyed 도 10~13번 문장의 서두름·감탄과 부호가 반대다."
         }
       ]
     },
@@ -816,8 +816,8 @@
           "no": 24,
           "type_id": "R-TITLE",
           "choice": 5,
-          "tempting": "6번 문장에 the associated infrastructure invariably constituting the backbone of urban form 이 있어 인프라가 중요하다는 말이 지문에서 곧장 온다",
-          "reject": "그 구절은 이동 흐름을 설명하는 한 절이고, 글의 결론은 7~9번 문장의 접근성 위기다. 한 절을 제목으로 올리면 Yet 이하 세 문장이 통째로 빠진다"
+          "tempting": "5번 문장에 the associated infrastructure invariably constituting the backbone of urban form 이 있어 인프라가 중요하다는 말이 지문에서 곧장 온다",
+          "reject": "그 구절은 이동 흐름을 설명하는 한 절이고, 글의 결론은 6~8번 문장의 접근성 위기다. 한 절을 제목으로 올리면 Yet 이하 세 문장이 통째로 빠진다"
         }
       ]
     },

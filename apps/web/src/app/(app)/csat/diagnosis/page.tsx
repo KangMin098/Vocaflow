@@ -50,7 +50,7 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
   ) : null
 
   return (
-    <DiagnosisShell exams={railExams()} screen="report">
+    <DiagnosisShell exams={await railExams()} screen="report">
       <DiagnosisBoard report={report} typeNames={typeNames} tab={tab} base={BASE} addHref={`${BASE}?tab=records&modal=new`} modal={modal} focus={searchParams.focus} />
     </DiagnosisShell>
   )

@@ -42,7 +42,7 @@ export default async function CsatHomePage({ searchParams }: { searchParams: Pro
   const needParam = one(params.need)
   const need = NEED_IDS.find((n) => n === needParam) ?? (one(params.tab) === 'trap' ? 'trap' : null)
   // 회차 목록은 구운 골격 JSON, 문항 → 유형은 서가 카탈로그(프로세스 캐시)에서 온다.
-  const [exams, itemTypes, diagnosis] = [railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
+  const [exams, itemTypes, diagnosis] = [await railExams(), await itemTypeMap(), await loadHomeDiagnosis()]
   return (
     // 쿼리가 바뀌면 다시 세운다 — 같은 경로 안의 링크 이동은 컴포넌트를 재사용해 첫 필터가 남는다(A2 실패 2026-09-25)
     <SpaceScreen

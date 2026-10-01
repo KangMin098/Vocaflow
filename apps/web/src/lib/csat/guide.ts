@@ -169,7 +169,8 @@ export async function loadCsatGuideSource(): Promise<{ source: CsatGuideSource |
       .select(
         'type_id, n_analyzed, recurring_traps, answer_locus_pattern, procedure_steps, failure_modes, time_budget_sec, status',
       )
-      .eq('status', 'published'),
+      .eq('status', 'published')
+      .eq('organizer', 'kice').eq('grade', 0),
     selectAllPages<ItemRow>((from, to) =>
       db.from('csat_items').select('id, type_id, exam_id, points').eq('in_scope', true).not('exam_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),

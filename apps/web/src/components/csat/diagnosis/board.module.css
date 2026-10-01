@@ -1318,8 +1318,8 @@ a.tagChip:hover {
   width: 34px;
   height: 34px;
   border-radius: 10px;
-  background: color-mix(in srgb, var(--tint) 16%, #fff);
-  color: color-mix(in srgb, var(--tint) 80%, #000);
+  background: color-mix(in srgb, var(--tint, #8b8984) 16%, #fff);
+  color: color-mix(in srgb, var(--tint, #8b8984) 80%, #000);
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 12px;
   font-weight: 700;
@@ -1327,14 +1327,14 @@ a.tagChip:hover {
 
 .tintRound {
   border-radius: 999px;
-  background: var(--tint);
+  background: var(--tint, #8b8984);
   color: #fff;
   font-family: var(--font-sans);
 }
 
 .tintChip {
-  background: color-mix(in srgb, var(--tint) 13%, #fff) !important;
-  color: color-mix(in srgb, var(--tint) 75%, #000) !important;
+  background: color-mix(in srgb, var(--tint, #8b8984) 13%, #fff) !important;
+  color: color-mix(in srgb, var(--tint, #8b8984) 75%, #000) !important;
 }
 
 /* 흰 안쪽 목록 — 「Member」 카드처럼 라벨 왼쪽 · 값 칸 오른쪽 */
@@ -1426,8 +1426,8 @@ a.tagChip:hover {
   height: 20px;
   padding: 0 7px;
   border-radius: 6px;
-  background: color-mix(in srgb, var(--tint) 13%, #fff);
-  color: color-mix(in srgb, var(--tint) 80%, #000);
+  background: color-mix(in srgb, var(--tint, #8b8984) 13%, #fff);
+  color: color-mix(in srgb, var(--tint, #8b8984) 80%, #000);
   font-size: 10.5px;
   font-weight: 600;
 }
@@ -1456,7 +1456,7 @@ a.tagChip:hover {
 }
 
 .cellTile[data-wrong='true'] {
-  background: var(--tint);
+  background: var(--tint, #8b8984);
   color: #fff;
   font-weight: 700;
 }
@@ -1485,5 +1485,5 @@ a.tagChip:hover {
 .areaFill {
   height: 100%;
   border-radius: 999px;
-  background: var(--tint);
+  background: var(--tint, #8b8984);
 }

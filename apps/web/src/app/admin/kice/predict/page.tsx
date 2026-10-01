@@ -14,6 +14,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 
 import { loadHeatmap } from '@/lib/csat/heatmap'
 import { BAND_LABEL, BAND_SAYS, buildPriority, recentYearCount, type Band } from '@/lib/csat/priority'
@@ -33,8 +35,9 @@ export const dynamic = 'force-dynamic'
 
 const BANDS: Band[] = ['A', 'B', 'C', 'gone']
 
-export default async function CsatPredictPage() {
-  const map = await loadHeatmap()
+export default async function CsatPredictPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const scope = parseScope(await searchParams)
+  const map = await loadHeatmap(scope)
   const rows = buildPriority(map)
   // 문구의 「N개년」은 세어서 쓴다 — 박아 두면 회차가 늘 때 아래 줄과 어긋난다.
   const recentN = recentYearCount(map.years)
@@ -44,6 +47,7 @@ export default async function CsatPredictPage() {
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="font-editorial text-xl font-[600] text-[var(--t1)]">사정권</h1>
         <AdminScreenHelp screen="kice-predict" className="mt-2" />
+        <ScopeTabs scope={scope} basePath="/admin/kice/predict" className="mt-3" />
         <p className="tabular-nums text-xs text-[var(--t3)]">
           {map.exams}회차 {map.items.toLocaleString()}문항을 센 결과
         </p>
@@ -52,7 +56,7 @@ export default async function CsatPredictPage() {
       <p className="mt-2 break-keep text-[13px] leading-relaxed text-[var(--t2)]">
         다음 시험을 맞히는 화면이 아니에요. <strong className="text-[var(--t1)]">최근 {recentN}개년에 몇 번
         나왔는지</strong>를 세어 묶은 것이고, 같은 숫자를{' '}
-        <Link href="/admin/kice/map" className="inline-flex min-h-[44px] items-center underline underline-offset-2">
+        <Link href={withScope('/admin/kice/map', scope)} className="inline-flex min-h-[44px] items-center underline underline-offset-2">
           지형
         </Link>
         에서 직접 확인할 수 있어요.
@@ -61,13 +65,14 @@ export default async function CsatPredictPage() {
       {map.error || !rows.length ? (
         <p className="mt-4 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 사정권을 계산하지 못했어요.{' '}
-          <Link href="/admin/kice" className="inline-flex min-h-[44px] items-center underline underline-offset-2">
+          <Link href={withScope('/admin/kice', scope)} className="inline-flex min-h-[44px] items-center underline underline-offset-2">
             오답 분포부터 보기 →
           </Link>
         </p>
       ) : (
         <div className="mt-5">
           <PriorityClient
+            scope={scope}
             rows={rows}
             bands={BANDS.map((b) => ({ band: b, label: BAND_LABEL[b], says: BAND_SAYS[b] }))}
             hardMark={AXIS.hard.mark}

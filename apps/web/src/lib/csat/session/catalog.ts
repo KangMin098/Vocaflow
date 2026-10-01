@@ -12,7 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { kiceSourceOf } from '@/lib/csat/kice-source'
 import { anchorCatalog } from '@/lib/csat/overlay'
-import { loadItemSkeleton, skeletonExams, skeletonSiblings } from '@/lib/csat/skeleton'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonExams, skeletonSiblings } from '@/lib/csat/skeleton'
 import { ATLAS_TYPES } from '@/lib/csat/trap-atlas'
 import { pagedSelect } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
@@ -51,6 +51,8 @@ export async function loadSessionCatalog(options: { db?: SupabaseClient; fresh?:
 }
 
 async function readSessionCatalog(client?: SupabaseClient): Promise<{ catalog: LearnerCatalog; error: string | null }> {
+  // 학평 골격(DB · 발행분만)을 학습자 클라이언트로 읽어 둔다 — 주입된 클라이언트로는 채우지 않는다(skeleton.ts)
+  if (!client) await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
   const types = ATLAS_TYPES.filter((t) => t.status !== 'retired' && t.recent > 0)
   const exams = skeletonExams().map((e) => e.exam_id)
 
@@ -72,10 +74,11 @@ async function readSessionCatalog(client?: SupabaseClient): Promise<{ catalog: L
     const db = client ?? (await createClient()) as unknown as SupabaseClient
     const [pts, reps] = await Promise.all([
       pagedSelect<{ id: string; points: number | null }>(
+        // 범위: 평가원 + 발행 학평 목록(문항 id → 배점 대조용)
         (from, to) => db.from('csat_items_public').select('id, points').eq('in_scope', true).range(from, to),
         'CSAT 세션 배점',
       ),
-      db.from('csat_type_reports').select('type_id, time_budget_sec'),
+      db.from('csat_type_reports').select('type_id, time_budget_sec').eq('organizer', 'kice').eq('grade', 0),
     ])
     const p = new Map(pts.map((r) => [r.id, r.points]))
     if (reps.error) throw new Error(reps.error.message)

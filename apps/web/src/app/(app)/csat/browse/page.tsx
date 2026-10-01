@@ -26,5 +26,5 @@ export default async function CsatBrowsePage({ searchParams }: { searchParams: P
     query: one(params.q)?.slice(0, 40),
   }
   // 쿼리가 바뀌면 다시 세운다 — 메뉴의 유형 · 회차 · 목적 링크는 같은 경로 안의 이동이다
-  return <CsatWorkspace key={JSON.stringify(entry)} browse={browse} exams={railExams()} entry={entry} />
+  return <CsatWorkspace key={JSON.stringify(entry)} browse={browse} exams={await railExams()} entry={entry} />
 }

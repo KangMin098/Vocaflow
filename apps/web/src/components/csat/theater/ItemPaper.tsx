@@ -20,6 +20,7 @@ import { REFLOW_VERSION } from '@/lib/csat/reflow/reflow'
 import type { CachedPaper } from '@/lib/csat/reflow/types'
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 import { loadPaper, savePaper } from '@/lib/csat/session/store'
+import { isKiceExam } from '@/lib/csat/exam-id'
 import { CIRCLED } from '@/lib/csat/theater'
 
 import styles from './theater.module.css'
@@ -96,8 +97,9 @@ export function ItemPaper({ catalog, examId, no, onPassageChange }: {
     return (
       <div className={styles.paperDrop} data-testid="item-paper-missing">
         <p className={styles.quiet}>
-          원문(발문·지문·선지)은 평가원 저작물이라 서버가 보내지 않아요. 공개 문제지 PDF 를 한 번 놓으면 이 기기에서
-          글자를 뽑아 이 회차 모든 문항에 보여 줘요.
+          {/* 학력평가는 교육청 출제·공개 문제지 링크가 없다 — 출처를 맞게 말한다 */}
+          원문(발문·지문·선지)은 {isKiceExam(examId) ? '평가원' : '교육청'} 저작물이라 서버가 보내지 않아요.{' '}
+          {isKiceExam(examId) ? '공개' : '받아 둔'} 문제지 PDF 를 한 번 놓으면 이 기기에서 글자를 뽑아 이 회차 모든 문항에 보여 줘요.
         </p>
         <PaperDrop
           catalog={catalog}

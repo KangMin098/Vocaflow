@@ -25,7 +25,10 @@ import { pickNextItem } from '@/lib/csat/next-item'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
 import { examOrder } from '@/lib/csat/session/model'
-import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
+import { isKiceExam } from '@/lib/csat/exam-id'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonSiblings } from '@/lib/csat/skeleton'
+import { createClient } from '@/lib/supabase/server'
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 
 export const dynamic = 'force-dynamic'
@@ -54,6 +57,8 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   }
 
   // 지도는 **구워 둔 골격**에서만 온다(DB 의 지문을 런타임에 만지는 경로가 없어야 한다).
+  // 학평 골격은 DB 의 구운 행(발행분만 · 학습자 RLS) — 지문 원본이 아니라 문장 길이와 해설 인용뿐이다
+  await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
   const skeleton = loadItemSkeleton(item.id)
   const anchors: MapAnchor[] = [
     ...(item.answer != null && !item.answer_unknown && item.why_correct
@@ -95,6 +100,8 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
   const nextPick = pickNextItem(siblings, item.id, () => true)
   const examId = item.id.split('#')[0]
   const paper = kiceSourceOf(examId)
+  // 평가원 회차는 링크가 없으면 평가원 게시판으로, 학평은 갈 곳이 없다(평가원 게시판으로 보내지 않는다)
+  const paperUrl = paper.paperUrl ?? paper.listUrl ?? (isKiceExam(examId) ? KICE_ARCHIVE_URL : null)
   // 왼쪽 열(기출문제 원본)이 쓰는 문제지 카탈로그 — 세션 카탈로그는 골격이 있는 문항만 담는다.
   // 이 문항이 빠져 있으면 추출기가 이 번호를 뽑지 않으므로 여기서 한 줄 보탠다(글자는 없다).
   const { catalog: base } = await loadSessionCatalog()
@@ -104,9 +111,9 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
       ? base.items
       : [...base.items, { id: item.id, exam_id: examId, no: item.no, type_id: item.type_id ?? '', points: item.points }],
     exams: base.exams[examId] ? base.exams : { ...base.exams, [examId]: { label: item.exam_label, order: examOrder(examId) } },
-    papers: base.papers[examId]
+    papers: base.papers[examId] || !paperUrl
       ? base.papers
-      : { ...base.papers, [examId]: { url: paper.paperUrl ?? paper.listUrl ?? KICE_ARCHIVE_URL, direct: paper.paperUrl != null } },
+      : { ...base.papers, [examId]: { url: paperUrl, direct: paper.paperUrl != null } },
   }
 
   const theater = (
@@ -130,8 +137,7 @@ export default async function CsatItemTheaterPage({ params }: { params: Promise<
         design: item.design,
       }}
       typeId={item.type_id ?? ''}
-      // 이 화면은 학습자 뷰(평가원 회차만)의 문항이라 listUrl 이 null 일 일은 없다 — 타입상 대비만 둔다
-      source={{ url: paper.paperUrl ?? paper.listUrl ?? KICE_ARCHIVE_URL, direct: paper.paperUrl != null, reason: paper.reason }}
+      source={{ url: paperUrl, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings
         .slice()
         .sort((a, b) => b.exam_label.localeCompare(a.exam_label) || a.no - b.no)

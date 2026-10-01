@@ -52,7 +52,7 @@ if (!files.length) {
   process.exit(0)
 }
 
-const cur = await db.from('csat_type_reports').select('type_id, answer_locus_pattern').eq('status', 'published')
+const cur = await db.from('csat_type_reports').select('type_id, answer_locus_pattern').eq('status', 'published').eq('organizer', 'kice').eq('grade', 0)
 if (cur.error) throw new Error(`csat_type_reports: ${cur.error.message}`)
 const original = new Map((cur.data ?? []).map((r) => [r.type_id, r.answer_locus_pattern ?? '']))
 
@@ -117,6 +117,7 @@ for (const r of ready) {
     .from('csat_type_reports')
     .update({ answer_locus_pattern: r.text, updated_at: new Date().toISOString() })
     .eq('type_id', r.type_id)
+    .eq('organizer', 'kice').eq('grade', 0)
   if (error) {
     console.log(`    ✗ ${r.type_id} 적재 실패 — ${error.message} (원본은 ${path.basename(backup)} 에 있다)`)
     continue

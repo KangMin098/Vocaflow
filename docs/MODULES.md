@@ -1101,6 +1101,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 판단부 | [`lib/csat/passage-map-model.ts`](../apps/web/src/lib/csat/passage-map-model.ts) — 무엇이 열리는가 · 계측을 셀 것인가 |
 | 로더 | [`lib/csat/skeleton.ts`](../apps/web/src/lib/csat/skeleton.ts) — **커밋된 JSON 만 읽는다.** 런타임이 `passage` 를 만질 길이 없다 |
 | 산출물 | `lib/csat/skeleton-data/*.json` — 29회차 415KB. `scripts/csat/build-skeleton-data.mjs` 가 굽는다 |
+| 학평 골격 | DB `csat_item_skeletons`(발행분만 RLS) — `build-skeleton-data.mjs --set hakpyeong --commit` 이 굽는다. 학습자 로더는 요청 앞머리 `primeLearnerHakpyeongSkeletons(학습자 RLS 클라이언트)` 로 읽어 두고(학습자 전용 캐시), 관리자는 `loadHakpyeongSkeletonAdmin` |
 | 화면 | [`components/csat/PassageMap.tsx`](../apps/web/src/components/csat/PassageMap.tsx) · [`ReportText.tsx`](../apps/web/src/components/csat/ReportText.tsx) |
 | 다음 걸음 | [`lib/csat/next-item.ts`](../apps/web/src/lib/csat/next-item.ts) — 해설 있고 **지도 있는 것을 먼저** |
 | PDF 결합 | [`lib/csat/pdf-text-locate.ts`](../apps/web/src/lib/csat/pdf-text-locate.ts) — 학습자 PDF 텍스트 레이어에서 근거를 찾아 밑줄 |
