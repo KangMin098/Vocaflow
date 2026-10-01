@@ -5,6 +5,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
@@ -46,6 +47,7 @@ export function ProfileForm({ initial, hasRecords }: { initial: ProfileInitial |
   const [target, setTarget] = useState<number | null>(initial?.targetGrade ?? null)
   const [bg, setBg] = useState<Record<string, string>>(initial?.background ?? {})
   const [hours, setHours] = useState(initial?.weeklyHours === null || initial?.weeklyHours === undefined ? '' : String(initial.weeklyHours))
+  const router = useRouter()
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -69,6 +71,7 @@ export function ProfileForm({ initial, hasRecords }: { initial: ProfileInitial |
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? '저장하지 못했어요')
       setSaved(true)
+      router.refresh() // 다시 계산된 리포트를 캐시가 아니라 새로 읽게
       track({ name: 'csat_dx_profile_saved', props: { goal } })
     } catch (e) {
       setError(e instanceof Error ? e.message : '저장하지 못했어요')

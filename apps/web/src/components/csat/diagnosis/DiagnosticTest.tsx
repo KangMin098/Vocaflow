@@ -7,6 +7,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
@@ -26,6 +27,7 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
   const [idx, setIdx] = useState(0)
   const [chosen, setChosen] = useState<Record<string, number | null>>({})
   const [flags, setFlags] = useState<Record<string, Flag>>({})
+  const router = useRouter()
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState<{ correct: number; total: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -58,6 +60,7 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
       const json = await res.json()
       if (!res.ok) throw new Error(json.error ?? '제출하지 못했어요')
       setDone({ correct: json.correct, total: json.total })
+      router.refresh() // 리포트·홈 카드가 새 스냅샷을 읽게
       track({ name: 'csat_dx_test_submitted', props: { correct: json.correct, total: json.total } })
     } catch (e) {
       setError(e instanceof Error ? e.message : '제출하지 못했어요')
