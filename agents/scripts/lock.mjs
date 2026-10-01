@@ -6,7 +6,7 @@
 //   node agents/scripts/lock.mjs acquire <agent> [--pid N] [--force]
 //       잡기. 남이 살아서 쥐고 있으면 exit 3 — **이름이 같은 다른 세션도 남이다**(DD-53 보완).
 //       같은 pid 의 재획득만 갱신이다. --force 는 사용자가 인수를 지시한 경우만.
-//   node agents/scripts/lock.mjs release <agent> [--force]   # 놓기. 남의 잠금이면 exit 3 (--force 는 사용자 지시 시만)
+//   node agents/scripts/lock.mjs release <agent> [--pid N] [--force]   # 놓기. 이름·pid 가 다른 살아 있는 잠금이면 exit 3 (--force 는 사용자 지시 시만)
 //   node agents/scripts/lock.mjs status                      # 보기 (항상 exit 0)
 //
 // 잠금 파일: <워크트리>/.agent-lock  {agent, pid, host, branch, started_at}  (gitignore)
@@ -84,7 +84,56 @@ export function state(lock) {
   return 'held'
 }
 
+// ── 보조 잠금(mutex) ─────────────────────────────────────────────
+// 「읽기 → 판정 → (고아) 삭제 → 생성」 을 한 번에 한 세션만 지나가게 한다. 옛 판은 두 세션이 같은 고아 잠금을 읽고,
+// 한쪽이 지우고 새로 잡은 뒤 다른 쪽이 낡은 판단으로 **새 잠금을 지우고** 자기도 잡았다(wx 는 이미 지워진 뒤라 못 막는다 ·
+// Codex 리뷰 2026-10-01). 보조 잠금이 오래 남아 있으면(프로세스가 죽은 흔적) 치우고 다시 시도한다.
+const MUTEX = `${LOCK_FILE}.mutex`
+const MUTEX_WAIT_MS = Number(process.env.AGENT_LOCK_MUTEX_WAIT_MS || 3000)
+const MUTEX_STALE_MS = 10_000
+const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+
+function withMutex(fn) {
+  const deadline = Date.now() + MUTEX_WAIT_MS
+  for (;;) {
+    try {
+      fs.writeFileSync(MUTEX, String(process.pid), { flag: 'wx' })
+      break
+    } catch (e) {
+      if (e.code !== 'EEXIST') throw e
+      try {
+        if (Date.now() - fs.statSync(MUTEX).mtimeMs > MUTEX_STALE_MS) {
+          fs.rmSync(MUTEX, { force: true })
+          continue
+        }
+      } catch {}
+      if (Date.now() > deadline) return { ok: false, code: 3, msg: '잠금 처리 중인 다른 세션이 있다 — 잠시 뒤 다시 시도' }
+      sleep(50)
+    }
+  }
+  try {
+    return fn()
+  } finally {
+    fs.rmSync(MUTEX, { force: true })
+  }
+}
+
+/** 잠금 주인 pid 로 쓸 수 있는가 — 양의 정수이고 살아 있어야 한다(죽었거나 엉터리면 곧바로 고아가 된다). */
+export function validOwnerPid(pid) {
+  return Number.isInteger(pid) && pid > 0 && alive(pid)
+}
+
 export function acquire(agent, pid, force = false) {
+  if (!validOwnerPid(pid))
+    return {
+      ok: false,
+      code: 64,
+      msg: `잠금 주인 pid 가 유효하지 않다(${pid}) — 살아 있는 에이전트 프로세스의 pid 를 --pid 로 준다. 짧게 사는 셸 pid 로 잡으면 곧 「고아」가 되어 남이 가져간다`,
+    }
+  return withMutex(() => acquireLocked(agent, pid, force))
+}
+
+function acquireLocked(agent, pid, force) {
   const cur = read()
   const st = state(cur)
   if (st === 'held' && cur.agent !== agent && !force)
@@ -120,13 +169,27 @@ export function acquire(agent, pid, force = false) {
   return { ok: true, code: 0, msg: [...notes, `잠금 획득: ${agent} (pid ${pid}, ${lock.branch})`].join('\n'), lock }
 }
 
-export function release(agent, force = false) {
-  const cur = read()
-  if (!cur) return { ok: true, code: 0, msg: '잠금 없음' }
-  if (cur.agent !== agent && !force && state(cur) === 'held')
-    return { ok: false, code: 3, msg: `남의 잠금이다: ${cur.agent}. 놓지 않는다(사용자 지시가 있으면 --force)` }
-  fs.rmSync(LOCK_FILE, { force: true })
-  return { ok: true, code: 0, msg: `잠금 해제: ${cur.agent}` }
+/**
+ * 놓기 — 살아 있는 잠금은 **이름과 pid 가 모두** 같은 주인만 놓는다. 옛 판은 이름만 봐서, 같은 이름의 다른 세션
+ * (acquire 를 거절당한 세션 포함)이 남의 잠금을 지웠다(Codex 리뷰 2026-10-01). 고아 잠금은 누구나 치울 수 있다.
+ * pid = 부른 쪽 에이전트 pid(못 찾으면 null — 주인임을 증명하지 못하니 놓지 않는다).
+ */
+export function release(agent, pid, force = false) {
+  return withMutex(() => {
+    const cur = read()
+    if (!cur) return { ok: true, code: 0, msg: '잠금 없음' }
+    if (!force && state(cur) === 'held') {
+      if (cur.agent !== agent) return { ok: false, code: 3, msg: `남의 잠금이다: ${cur.agent}. 놓지 않는다(사용자 지시가 있으면 --force)` }
+      if (cur.pid !== pid)
+        return {
+          ok: false,
+          code: 3,
+          msg: `같은 이름의 **다른 세션** 잠금이다: ${cur.agent} pid ${cur.pid} (부른 쪽 pid ${pid ?? '확인 못 함'}). 놓지 않는다 — 주인이면 --pid ${cur.pid}, 사용자 지시가 있으면 --force`,
+        }
+    }
+    fs.rmSync(LOCK_FILE, { force: true })
+    return { ok: true, code: 0, msg: `잠금 해제: ${cur.agent}` }
+  })
 }
 
 function main() {
@@ -135,12 +198,20 @@ function main() {
     const i = process.argv.indexOf(n)
     return i === -1 ? undefined : process.argv[i + 1]
   }
+  // 에이전트 pid — --pid 가 있으면 그것(검증은 acquire 가), 없으면 조상에서 찾는다. 못 찾아도 셸 pid(process.ppid)로
+  // 떨어지지 않는다: 셸은 명령이 끝나면 죽어 잠금이 곧 고아가 된다(Codex 리뷰 2026-10-01).
+  // AGENT_LOCK_DISCOVERY=off 는 탐색 실패를 흉내 내는 회귀용.
+  const discovered = () => (process.env.AGENT_LOCK_DISCOVERY === 'off' ? null : findAgentPid(agent))
+  const pidArg = flag('--pid')
+  const callerPid = pidArg !== undefined ? Number(pidArg) : discovered()
   let r
   if (cmd === 'acquire' && agent) {
-    const pid = flag('--pid') ? Number(flag('--pid')) : (findAgentPid(agent) ?? process.ppid)
-    r = acquire(agent, pid, process.argv.includes('--force'))
+    r =
+      callerPid === null
+        ? { ok: false, code: 64, msg: `에이전트(${agent}) 프로세스를 찾지 못했다 — 살아 있는 에이전트 pid 를 --pid 로 준다(셸 pid 로 잡지 않는다)` }
+        : acquire(agent, callerPid, process.argv.includes('--force'))
   } else if (cmd === 'release' && agent) {
-    r = release(agent, process.argv.includes('--force'))
+    r = release(agent, callerPid, process.argv.includes('--force'))
   } else if (cmd === 'status') {
     const cur = read()
     const st = state(cur)

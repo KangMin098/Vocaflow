@@ -53,7 +53,7 @@ test('--force 는 사용자 지시가 있을 때 인수를 허용한다', () => 
   assert.match(r.stdout, /--force/)
   assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).pid, process.pid)
   // 뒤 테스트가 기대하는 주인으로 되돌린다
-  run('release', 'claude')
+  run('release', 'claude', '--pid', String(process.pid))
   assert.equal(run('acquire', 'claude', '--pid', String(holder.pid)).status, 0)
 })
 
@@ -64,10 +64,10 @@ test('남의 잠금은 release 하지 않는다', () => {
 })
 
 test('주인이 release 하면 풀리고 다른 에이전트가 잡을 수 있다', () => {
-  assert.equal(run('release', 'claude').status, 0)
+  assert.equal(run('release', 'claude', '--pid', String(holder.pid)).status, 0)
   assert.ok(!fs.existsSync(LOCK))
   assert.equal(run('acquire', 'codex', '--pid', String(holder.pid)).status, 0)
-  assert.equal(run('release', 'codex').status, 0)
+  assert.equal(run('release', 'codex', '--pid', String(holder.pid)).status, 0)
 })
 
 test('고아 잠금(죽은 pid)은 자동 해제된다', () => {
@@ -82,7 +82,7 @@ test('고아 잠금(죽은 pid)은 자동 해제된다', () => {
   assert.equal(r.status, 0, r.stderr)
   assert.match(r.stdout, /고아 잠금 해제: codex/)
   assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).agent, 'claude')
-  run('release', 'claude')
+  run('release', 'claude', '--pid', String(holder.pid))
 })
 
 test('고아 잠금(TTL 초과)은 다른 호스트라도 해제된다', () => {
@@ -90,11 +90,76 @@ test('고아 잠금(TTL 초과)은 다른 호스트라도 해제된다', () => {
   fs.writeFileSync(LOCK, JSON.stringify({ agent: 'codex', pid: 1, host: 'other-host', branch: 'x', started_at: old }))
   const r = run('acquire', 'claude', '--pid', String(holder.pid))
   assert.equal(r.status, 0, r.stderr)
-  run('release', 'claude')
+  run('release', 'claude', '--pid', String(holder.pid))
 })
 
 test('다른 호스트의 최근 잠금은 pid 를 확인할 수 없으니 존중한다', () => {
   fs.writeFileSync(LOCK, JSON.stringify({ agent: 'codex', pid: 1, host: 'other-host', branch: 'x', started_at: new Date().toISOString() }))
   assert.equal(run('acquire', 'claude', '--pid', String(holder.pid)).status, 3)
   fs.rmSync(LOCK)
+})
+
+// ── 2026-10-01 Codex 리뷰 P2 세 건 ─────────────────────────────────
+
+test('같은 이름의 **다른 세션**은 살아 있는 잠금을 놓지 못한다(acquire 를 거절당한 세션 포함)', () => {
+  assert.equal(run('acquire', 'claude', '--pid', String(holder.pid)).status, 0)
+  assert.equal(run('acquire', 'claude', '--pid', String(process.pid)).status, 3) // 거절당한 세션
+  const r = run('release', 'claude', '--pid', String(process.pid))
+  assert.equal(r.status, 3)
+  assert.match(r.stderr, /다른 세션/)
+  assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).pid, holder.pid, '남의 잠금이 지워지면 안 된다')
+  assert.equal(run('release', 'claude', '--pid', String(holder.pid)).status, 0)
+})
+
+test('에이전트를 못 찾으면 셸 pid 로 잡지 않고 --pid 를 요구한다', () => {
+  const r = spawnSync(process.execPath, [CLI, 'acquire', 'claude'], { env: { ...env, AGENT_LOCK_DISCOVERY: 'off' }, encoding: 'utf8' })
+  assert.equal(r.status, 64)
+  assert.match(r.stderr, /--pid/)
+  assert.ok(!fs.existsSync(LOCK))
+})
+
+test('엉터리·죽은 pid 로는 잡지 못한다(곧바로 고아가 된다)', () => {
+  const dead = Number(spawnSync(process.execPath, ['-e', 'process.stdout.write(String(process.pid))'], { encoding: 'utf8' }).stdout)
+  for (const bad of ['abc', '0', '-5', String(dead)]) {
+    const r = run('acquire', 'claude', '--pid', bad)
+    assert.equal(r.status, 64, `--pid ${bad}`)
+    assert.ok(!fs.existsSync(LOCK), `--pid ${bad} 로 잠금이 생기면 안 된다`)
+  }
+})
+
+test('보조 잠금이 살아 있으면 기다리다 물러난다 · 오래된 보조 잠금은 치우고 잡는다', () => {
+  const mutex = `${LOCK}.mutex`
+  fs.writeFileSync(mutex, '999999')
+  const busy = spawnSync(process.execPath, [CLI, 'acquire', 'claude', '--pid', String(holder.pid)], {
+    env: { ...env, AGENT_LOCK_MUTEX_WAIT_MS: '200' },
+    encoding: 'utf8',
+  })
+  assert.equal(busy.status, 3)
+  assert.match(busy.stderr, /다른 세션/)
+  assert.ok(!fs.existsSync(LOCK))
+  const old = new Date(Date.now() - 60_000)
+  fs.utimesSync(mutex, old, old) // 죽은 프로세스가 남긴 흔적
+  assert.equal(run('acquire', 'claude', '--pid', String(holder.pid)).status, 0)
+  assert.ok(!fs.existsSync(mutex), '보조 잠금은 끝나면 지워진다')
+  assert.equal(run('release', 'claude', '--pid', String(holder.pid)).status, 0)
+})
+
+test('고아 잠금 정리와 획득이 동시에 일어나도 잠금은 하나만 남는다', async () => {
+  const deadPid = Number(spawnSync(process.execPath, ['-e', 'process.stdout.write(String(process.pid))'], { encoding: 'utf8' }).stdout)
+  fs.writeFileSync(LOCK, JSON.stringify({ agent: 'codex', pid: deadPid, host: os.hostname(), branch: 'x', started_at: new Date().toISOString() }))
+  const other = spawn(process.execPath, ['-e', 'setTimeout(() => {}, 60_000)'], { stdio: 'ignore' })
+  try {
+    const go = (pid) =>
+      new Promise((res) => {
+        const p = spawn(process.execPath, [CLI, 'acquire', 'claude', '--pid', String(pid)], { env, stdio: 'ignore' })
+        p.on('exit', (code) => res(code))
+      })
+    const codes = await Promise.all([go(holder.pid), go(other.pid)])
+    assert.deepEqual([...codes].sort(), [0, 3], `한쪽만 잡아야 한다: ${codes}`)
+    const owner = JSON.parse(fs.readFileSync(LOCK, 'utf8')).pid
+    assert.ok(owner === holder.pid || owner === other.pid)
+    assert.equal(run('release', 'claude', '--pid', String(owner)).status, 0)
+  } finally {
+    other.kill()
+  }
 })

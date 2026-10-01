@@ -59,7 +59,7 @@ test('D8: Claude → Codex → Claude 왕복', () => {
   assert.equal(node('handoff.mjs', '--validate').status, 0)
   // Codex 가 아직 잠금을 못 잡는다 — Claude 가 놓아야 한다
   assert.equal(node('lock.mjs', 'acquire', 'codex', '--pid', String(holder.pid)).status, 3)
-  assert.equal(node('lock.mjs', 'release', 'claude').status, 0)
+  assert.equal(node('lock.mjs', 'release', 'claude', '--pid', String(holder.pid)).status, 0)
 
   // ② Codex 세션 시작 — 주입을 받고, 이어졌는지 확인하고, 일한다
   const inj = node('handoff-inject.mjs', '--agent', 'codex')
@@ -75,7 +75,7 @@ test('D8: Claude → Codex → Claude 왕복', () => {
   const h2 = node('handoff.mjs', 'codex', 'claude',
     '--done', 'a.txt 커밋', '--todo', 'b.txt · c.txt 커밋', '--accept', 'b.txt 와 c.txt 가 커밋된다', '--next', 'b.txt 커밋')
   assert.equal(h2.status, 0, h2.stderr)
-  assert.equal(node('lock.mjs', 'release', 'codex').status, 0)
+  assert.equal(node('lock.mjs', 'release', 'codex', '--pid', String(holder.pid)).status, 0)
 
   // ③ Claude 가 돌아온다 — 두 번의 인계 모두 손실이 없어야 한다
   const hist = fs.readdirSync(path.join(repo, '.agent-handoff/history')).filter((f) => f.endsWith('.json')).sort()
