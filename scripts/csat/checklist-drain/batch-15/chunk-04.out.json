@@ -1,6 +1,6 @@
 [
   {
-    "id": "ae225530-2f49-4549-8e38-b0cd561c1ee9",
+    "id": "a7dd50f4-ba6a-450f-9055-64038aef5642",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -8,7 +8,53 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Nine people are confirmed dead",
+    "note": "화재로 인한 사망자와 부상자 규모를 보도하는 뉴스로, 사건의 시간적 흐름과 원인에 대한 진술이 명확하다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "csat",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3",
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a7e0fd07-e710-45f5-95ca-8dbfd72aba33",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -18,8 +64,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Two polls in the last",
-    "note": "미국 중간 선거 여론조사 결과를 보도하며, 양당 캠프의 전략과 쟁점을 설명한다.",
+    "sample": "Rep. Duncan Hunter called a",
+    "note": "미국 하원의 이라크 철수 결의안 투표를 다룬 정치 보도로, 정당별 입장과 의회 내 갈등을 상세히 서술한다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -44,7 +90,7 @@
     }
   },
   {
-    "id": "ae232643-7e72-4d7f-ab57-0555ef80552b",
+    "id": "a7e2bd29-1eaa-4087-a151-a0c154ce3967",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -52,20 +98,20 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
-      "vocabAdjustable": false,
+      "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "A team of European and",
-    "note": "새로운 행성 발견과 그 특성을 설명하는 과학 뉴스로, 물 존재 가능성과 생명 가능성을 다룬다.",
+    "sample": "Part of the facade at",
+    "note": "박물관 건물 외벽 붕괴 사건을 시간순으로 서술한 보도로, 발생 경위, 피해 규모, 기상 조건 등이 명확하다.",
     "record": {
-      "genre": "science",
+      "genre": "news",
       "slots": {
         "ages": [
           "high1",
@@ -89,26 +135,26 @@
     }
   },
   {
-    "id": "ae2449fa-d25c-4152-ac7b-02befaed86fc",
+    "id": "a7e82ff1-6246-49e0-ad11-39f9cfcce13a",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "strong",
+      "linkage": "thin",
       "mainPoint": true,
-      "narrative": true,
+      "narrative": false,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": false,
-      "factsMany": true,
+      "factsMany": false,
       "stereotypeCore": false,
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "A salvage ship owned and",
-    "note": "항공기 블랙박스 인양 작업을 보도하며, 침몰 사건의 경과와 구조 활동의 어려움을 설명한다.",
+    "sample": "Days after the Iranian",
+    "note": "이란 대통령의 이스라엘 경고 발언을 보도한 짧은 기사로, 직접 인용이 주를 이룬다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -118,47 +164,7 @@
           "adult"
         ],
         "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "summary"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae2503a1-b151-4628-baa2-d61a3ba4f9ab",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "An imam in the Belgian",
-    "note": "벨기에 시아파 모스크 공격으로 이맘이 사망한 사건을 보도하며, 종교 갈등과 당국 대응을 다룬다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
+          "csat",
           "reading"
         ],
         "types": [
@@ -172,7 +178,7 @@
     }
   },
   {
-    "id": "ae2881c0-f8fc-4234-b86c-84a5ccaceba4",
+    "id": "a7f73a83-8bf6-4cbe-a9a3-9eb852e7eff0",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -180,7 +186,7 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -190,16 +196,17 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The following is the fifth",
-    "note": "2012년 3월 미국 대선 캠프 활동을 월간으로 정리한 특집 기사로, 다양한 정치 사건을 시간순 나열한다.",
+    "sample": "A Romanian media workers",
+    "note": "이라크에서 납치된 루마니아 기자들의 구출을 위한 외교적 노력을 보도하는 기사이다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "high2",
+          "high3",
           "adult"
         ],
         "purposes": [
-          "csat",
           "reading"
         ],
         "types": [
@@ -214,7 +221,47 @@
     }
   },
   {
-    "id": "ae28f3bb-9847-46ec-a955-7ef17f0020b8",
+    "id": "a7fe0351-0214-4cca-8835-e67bdb5136fe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "American actor Peter Boyle",
+    "note": "배우 피터 보일의 사망 소식을 전하는 단신 기사로, 주요 이력과 사망 원인이 기술된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a7ff4310-632e-41e0-8fb6-cc9a82e4bf2c",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -232,8 +279,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Standard and Poor's downgraded Egypt's",
-    "note": "이집트의 경제 위기 - 관광 산업 부진과 외국 투자 감소를 보도하며, 통화 평가절하 위험을 다룬다.",
+    "sample": "At a press conference today",
+    "note": "케네디 암살 관련 문서 발견을 보도하면서 각계 전문가의 의견을 다각도로 서술한다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -258,15 +305,53 @@
     }
   },
   {
-    "id": "ae292a94-7282-433d-9c73-5da36c31b853",
+    "id": "a7ffe6d7-89da-4b9a-bb0e-555edaa49c94",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "thin",
-      "mainPoint": true,
+      "linkage": "strong",
+      "mainPoint": false,
       "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "is a Lithuanian software developer",
+    "note": "위키미디어 재단 이사 지명자와의 인터뷰로, 그의 경력과 비전에 대한 직접 응답이 주를 이룬다.",
+    "record": {
+      "genre": "interview",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a800c19a-1618-4342-b730-c6455631a003",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
@@ -276,8 +361,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "In an abrupt about face",
-    "note": "쓰나미 피해 지역에 대한 원조금 증가를 보도한 짧은 기사로, 각국의 기부금 규모가 나열된다.",
+    "sample": "According to the United States",
+    "note": "남부 캘리포니아 지진 발생 소식을 진도, 위치, 영향 범위 등으로 상세히 보도한다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -288,255 +373,12 @@
           "adult"
         ],
         "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae2a6b9c-21e1-4ada-9977-64eb795ab40f",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Croydon Tramlink The Unofficial Site",
-    "note": "팬 사이트가 법적 위협으로 뉴스 섹션을 폐쇄한 사건을 보도하며, 언론 자유와 기업 법적 대응을 다룬다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae2b95a0-ae7b-4458-82f2-c40494539af8",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "At the conclusion of the",
-    "note": "애너폴리스 회담 후 이스라엘-팔레스타인 공동 성명을 보도하며, 전문가들의 회의적 평가를 포함한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "high2",
-          "high3",
-          "adult"
-        ],
-        "purposes": [
-          "csat",
+          "mock",
           "reading"
         ],
         "types": [
           "content_match",
           "summary"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae2bd0b6-409b-4006-bd19-02dfd23b1a6d",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": true,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The Romanian government has approved",
-    "note": "루마니아 소수민족 법안 승인을 보도하며, 모국어 교육 권리 보장 내용을 상세히 기술한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "summary"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae2c06c9-d0ca-4c10-9d06-5540c84c0b33",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": true,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": true,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Local authorities in Chicago Illinois",
-    "note": "유명 배우의 친족 살인·납치 사건을 보도하며, 실종된 조카의 수색 활동과 경찰 조사를 설명한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae2fe3c0-eae1-4144-80ff-471fcfe779f8",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "The special TADA court hearing",
-    "note": "1993년 뭄바이 폭탄 테러 사건의 법원 판결을 보도하며, 유죄 판결과 무죄 판결의 분석을 포함한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae30cc13-f590-4a0c-a9fe-37225df7c82b",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "Three men have been arrested",
-    "note": "시드니 Cronulla 소동 관련 인물들이 경찰 수색 결과로 체포된 사건을 보도한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match"
         ],
         "levels": [
           "V4"
@@ -546,7 +388,7 @@
     }
   },
   {
-    "id": "ae331dde-e421-449f-bf1c-93673bbd709e",
+    "id": "a80284a1-6e80-489f-b2c4-f856ac4fcb79",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -564,49 +406,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "On Sunday Israel's Ministry of",
-    "note": "이스라엘이 BDS 운동 관련 20개 NGO의 입국을 금지한 정책을 보도하며, 인권 단체의 비판을 포함한다.",
-    "record": {
-      "genre": "news",
-      "slots": {
-        "ages": [
-          "adult"
-        ],
-        "purposes": [
-          "reading"
-        ],
-        "types": [
-          "content_match",
-          "claim"
-        ],
-        "levels": [
-          "V5"
-        ],
-        "platform": []
-      }
-    }
-  },
-  {
-    "id": "ae347536-8a15-4020-9775-a8fb9c63cf5f",
-    "answers": {
-      "blocked": null,
-      "needsVisual": false,
-      "truncated": false,
-      "listOnly": false,
-      "linkage": "strong",
-      "mainPoint": true,
-      "narrative": false,
-      "notice": false,
-      "detachable": true,
-      "standsAlone": true,
-      "vocabAdjustable": false,
-      "factsMany": true,
-      "stereotypeCore": false,
-      "gap": false,
-      "strippedRemains": true
-    },
-    "sample": "On Saturday Mikheil Saakashvili the",
-    "note": "그루지야-오세티야 전쟁 정전을 요청하는 대통령 발언을 보도하며, 러시아의 입장과 갈등 경과를 설명한다.",
+    "sample": "An Iowa district court judge",
+    "note": "아이오와 주의 동성결혼 금지 법률이 위헌이라는 법원 판결을 보도하며, 당사자와 정치인들의 반응을 기술한다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -631,7 +432,7 @@
     }
   },
   {
-    "id": "ae3815e7-f4d3-4d7b-a616-0f047ecba8cb",
+    "id": "a8034418-d1fa-4fea-9f59-de2930f9449c",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -649,18 +450,19 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The first free elections in",
-    "note": "이라크 첫 자유 선거 개최를 보도하며, 투표 과정에서의 폭력 사건과 해외 투표 체계를 상세히 설명한다.",
+    "sample": "At least 28 people drowned",
+    "note": "필리핀 여객선 침몰 사건의 경과와 구조 활동을 시간순으로 상세히 서술한다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "high1",
           "high2",
           "high3",
           "adult"
         ],
         "purposes": [
-          "csat",
+          "mock",
           "reading"
         ],
         "types": [
@@ -668,14 +470,14 @@
           "summary"
         ],
         "levels": [
-          "V5"
+          "V6"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "ae43805d-ad7f-4418-815d-4d91159875ed",
+    "id": "a805ee1b-7d00-4426-9325-e9d89a1ece4d",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -684,7 +486,7 @@
       "linkage": "thin",
       "mainPoint": true,
       "narrative": false,
-      "notice": false,
+      "notice": true,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
@@ -693,8 +495,132 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The hijackers of a ship",
-    "note": "소말리아 식량 원조 선박 납치 사건의 새로운 요구 사항을 보도한 짧은 기사이다.",
+    "sample": "Every Wednesday at 6 p.m",
+    "note": "위스콘신의 작가 모임 개최 소식을 알리는 짧은 공지문으로, 시간과 장소 정보가 중심이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "notice"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a80ab813-859e-4796-8e9d-21dd46473780",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A small nicely trained Jack",
+    "note": "뉴질랜드의 개가 어린이를 구한 사건을 시간순으로 서술하며, 소유자의 반응과 국제 언론 반응도 포함한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a812067c-b2f6-49ba-8afd-fe2a3690960c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An 11 year old daughter",
+    "note": "아프가니스탄에서 발생한 인권 침해 사건을 보도하며, 피해자 모의 증언과 관련자들의 책임 소재를 다룬다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8146e0b-b5ec-4311-8bcd-6460a8f3940c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A tornado has struck Kensal",
+    "note": "런던 토네이도 피해를 간단하게 보도한 짧은 기사로, 피해 규모와 피해액이 기술된다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -718,7 +644,7 @@
     }
   },
   {
-    "id": "ae452e7a-4381-4329-a1b5-833fc9e88535",
+    "id": "a81919d8-3ab9-4593-a716-15ee63ded147",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -736,8 +662,138 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "On Monday warplanes from the",
-    "note": "미국의 리비아 공습을 보도하며, GNA의 요청과 ISIL 소탕 진행 상황을 설명한다.",
+    "sample": "The unmanned Progress spacecraft",
+    "note": "우주선 도킹 실패 사건의 원인과 경과를 시간순으로 설명하는 과학 보도이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a81af28f-587d-46c7-b008-6d9160dbde59",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Parts of the English Lake",
+    "note": "영국 호수 지역 홍수 보도로, 영향 범위, 피난 조치, 당국의 대응 계획이 상세하게 기술된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a81d770d-c113-4c2f-a01a-649fcbee7371",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Taylor Mitchell a Canadian",
+    "note": "캐나다 가수가 코요테에 공격받아 사망한 사건을 시간순으로 서술하며, 희귀성과 당국 반응을 포함한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a8211966-f0a8-4737-93fb-319d2d629e9a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The 12th UN Climate Conference",
+    "note": "나이로비에서 열린 UN 기후 회담을 소개하며, 의제와 예상 효과를 설명한다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -751,17 +807,18 @@
           "reading"
         ],
         "types": [
-          "content_match"
+          "content_match",
+          "summary"
         ],
         "levels": [
-          "V6"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "ae455163-e1f9-4e6f-99b6-bdc471170e1e",
+    "id": "a82199e2-e5d5-4899-8511-22ac0e108ad0",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -779,29 +836,33 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The Indian Army observed Vijay",
-    "note": "인도군이 방글라데시 해방 35주년을 기념하는 행사를 보도하며, 1971년 전쟁의 역사적 의미를 설명한다.",
+    "sample": "Ministers from thirteen countries",
+    "note": "아시아 13개국의 호랑이 개체 수 증대 약속을 보도하며, 현재 위기 상황과 보존 전략을 설명한다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "high1",
+          "high2",
+          "high3",
           "adult"
         ],
         "purposes": [
+          "mock",
           "reading"
         ],
         "types": [
           "content_match"
         ],
         "levels": [
-          "V6"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "ae4874c4-a632-4cf2-aa6a-377b951849de",
+    "id": "a8258f5a-7908-459b-99ac-c75dc88a7d65",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -809,22 +870,25 @@
       "listOnly": false,
       "linkage": "strong",
       "mainPoint": true,
-      "narrative": false,
-      "notice": true,
+      "narrative": true,
+      "notice": false,
       "detachable": true,
       "standsAlone": true,
-      "vocabAdjustable": false,
+      "vocabAdjustable": true,
       "factsMany": true,
       "stereotypeCore": false,
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Police in Finland are collecting",
-    "note": "핀란드 경찰이 온라인 혐오 표현에 대한 법적 지침을 마련하려는 노력을 보도한다.",
+    "sample": "On Sunday a horse named",
+    "note": "애틀란타 번화가에서 발견된 말의 죽음을 보도하면서, 발견 경위와 당국 대응을 기술한다.",
     "record": {
       "genre": "news",
       "slots": {
         "ages": [
+          "high1",
+          "high2",
+          "high3",
           "adult"
         ],
         "purposes": [
@@ -834,14 +898,14 @@
           "content_match"
         ],
         "levels": [
-          "V6"
+          "V4"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "ae48d1c6-aee8-4a03-a934-8c6447ab66a0",
+    "id": "a829acb2-ae86-442b-8cb4-ead7e5d7176e",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -859,8 +923,8 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The government of Iran has",
-    "note": "이란이 인권 단체를 금지한 조치를 보도하며, 노벨 평화상 수상자의 단체 설명과 당국 입장을 포함한다.",
+    "sample": "The War on Drugs waged",
+    "note": "미국의 마약 전쟁이 라틴아메리카에 미친 부정적 영향을 다루는 비판적 보도이다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -875,14 +939,14 @@
           "claim"
         ],
         "levels": [
-          "V6"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "ae4b2ec9-7989-4149-9f90-c443aa3c819c",
+    "id": "a829c7b0-c507-45b1-8f0c-a736d40672f2",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -894,14 +958,14 @@
       "notice": false,
       "detachable": true,
       "standsAlone": true,
-      "vocabAdjustable": true,
+      "vocabAdjustable": false,
       "factsMany": true,
       "stereotypeCore": false,
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "The Bank of England has",
-    "note": "영국 중앙은행의 기준금리 결정을 보도하며, 양적 완화 정책 계속과 경제 회복 전망을 설명한다.",
+    "sample": "Guantanamo Bay detention camp",
+    "note": "그와나타모 수감자의 강제 급식 소송을 보도하며, 인권 문제를 다룬다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -922,26 +986,26 @@
     }
   },
   {
-    "id": "ae4db75f-d5f6-4ed2-8346-74a2afa9a54f",
+    "id": "a82b7472-f566-4497-8f67-5c87e4f47330",
     "answers": {
       "blocked": null,
       "needsVisual": false,
       "truncated": false,
       "listOnly": false,
-      "linkage": "thin",
+      "linkage": "strong",
       "mainPoint": true,
       "narrative": false,
       "notice": false,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": true,
-      "factsMany": false,
+      "factsMany": true,
       "stereotypeCore": false,
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Anousheh Ansari 40 an Iranian",
-    "note": "이란계 미국인 여성이 개인 비용 우주 여행객이 된 사건을 보도한 짧은 기사이다.",
+    "sample": "Former American Idol winner Ruben",
+    "note": "미국 아이돌 우승자가 전 매니저를 상대로 낸 소송에서 승리한 사건이다.",
     "record": {
       "genre": "news",
       "slots": {
@@ -955,14 +1019,14 @@
           "content_match"
         ],
         "levels": [
-          "V4"
+          "V5"
         ],
         "platform": []
       }
     }
   },
   {
-    "id": "ae5557df-5a9a-4b6b-8e87-972a1dee276d",
+    "id": "a82bde92-4a97-4c90-8762-ecbad2604fc5",
     "answers": {
       "blocked": null,
       "needsVisual": false,
@@ -971,7 +1035,7 @@
       "linkage": "strong",
       "mainPoint": true,
       "narrative": false,
-      "notice": false,
+      "notice": true,
       "detachable": true,
       "standsAlone": true,
       "vocabAdjustable": false,
@@ -980,18 +1044,18 @@
       "gap": false,
       "strippedRemains": true
     },
-    "sample": "Scientists confirmed today for the",
-    "note": "외계행성의 첫 직접 사진 촬영을 보도하며, 행성의 특성과 발견의 의미를 설명한다.",
+    "sample": "The accession treaty of Bulgaria",
+    "note": "불가리아와 루마니아의 EU 가입 조약 체결을 보도하며, 양국의 개혁 진전과 EU 확대 의미를 설명한다.",
     "record": {
-      "genre": "science",
+      "genre": "news",
       "slots": {
         "ages": [
-          "high1",
           "high2",
           "high3",
           "adult"
         ],
         "purposes": [
+          "csat",
           "reading"
         ],
         "types": [
@@ -999,7 +1063,7 @@
           "summary"
         ],
         "levels": [
-          "V4"
+          "V5"
         ],
         "platform": []
       }
