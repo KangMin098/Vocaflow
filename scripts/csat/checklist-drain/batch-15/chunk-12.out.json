@@ -1,0 +1,802 @@
+[
+  {
+    "id": "aa294899-1ea7-4e7f-bc24-d433c83ab6be",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Some French Muslim associations had",
+    "note": "프랑스 무슬림 단체들이 무함마드 풍자화 재인쇄에 대해 법적 조치를 시도했으나 법원이 절차상 이유로 거절했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa2ce37c-281d-4052-b75d-7ede2cca8ebf",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The hotel's sales manager Fulvio",
+    "note": "베네치아 크라운 플라자 호텔이 가격 책정 오류로 객실을 1센트에 판매했으나 회사가 가격을 준수하기로 약속했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V2", "V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa2e9bc6-9701-43a5-9d23-bcc2405b1430",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The United States has become",
+    "note": "유네스코가 협상한 문화 다양성 조약에서 미국이 자유무역 우려로 고립된 입장을 유지하고 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["claim", "topic", "purpose"],
+        "levels": ["V5", "V6"],
+        "platform": ["claim-evidence"]
+      }
+    }
+  },
+  {
+    "id": "aa361b69-b2d3-4bcd-b219-0e3da0d52401",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Friday, the United States",
+    "note": "미국 FBI가 강간의 정의를 확장하여 남성 피해자와 동의 부족을 포함하도록 수정했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "topic"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa37dc58-326d-4770-a120-20da13d929a2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A construction crane fell from",
+    "note": "뉴욕시 건설 크레인이 15-20층 높이에서 떨어져 주택을 파괴하고 건설 노동자 4명이 사망했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match", "mood"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa3bc7b4-15bd-413a-bd04-808a9e12d728",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Thirty-four summary executions were carried",
+    "note": "부룬디의 유엔 인권 특사가 정부군과 반군의 요약 처형 34건을 보고했고 처벌 문화가 지속되고 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa3ea87d-e482-4a60-a7fc-ff9d7c1713b4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Syrian residents are claiming that",
+    "note": "시리아 주민들이 미국의 폭격이 보도보다 더 심각하며 민간인 피해가 발생하고 있다고 주장한다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["claim", "content_match", "topic"],
+        "levels": ["V4", "V5"],
+        "platform": ["claim-evidence"]
+      }
+    }
+  },
+  {
+    "id": "aa4a507b-305a-411d-b06f-f920113a7750",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Former US presidential candidate Elizabeth",
+    "note": "엘리자베스 워렌이 조 바이든의 2020년 대선 후보 지지를 발표했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa4dabe9-11ae-437f-b16b-c5217d187380",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Global animal and health authorities",
+    "note": "필리핀에서 발견된 에볼라 레스톤 바이러스가 돼지에 감염되었으며 국제 전문가들이 인간 건강 위협을 평가하고 있다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["content_match", "summary"],
+        "levels": ["V6", "V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa550b0d-b984-44d8-af4f-3e693e749000",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Political activist Ralph Nader has",
+    "note": "랄프 네이더가 2008년 대선에 독립 후보로 출마하겠다고 발표했고 민주당은 그의 영향력을 우려하고 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa5755dc-378c-413b-9a30-1a4ae5a16aca",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "Crewmembers opened hatches between the",
+    "note": "러시아 소유즈 우주선이 국제우주정거장과 도킹했으며 우주비행사들의 교대가 이루어졌다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match", "summary"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa5b6011-c0e6-4c9d-a2cf-aa07fe9b34d0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Following similar threats by workers",
+    "note": "프랑스 JLG 공장의 해고 노동자들이 크레인 폭파 위협으로 €30,000의 위약금을 확보했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match", "mood", "long_reference"],
+        "levels": ["V6", "V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa60a68b-9468-4d56-82f9-412abc510e81",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "25-year-old man David Striegl",
+    "note": "캔버라 마운트 에인슬리에서 25세 조거 데이비드 슈트리글이 캥거루에게 맞아 의식을 잃었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "mood"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa61db6f-3719-4d8d-b0c7-aa648c698eb5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Nicki Jex, 27, from",
+    "note": "영국의 27세 남성 니키 젝스가 토끼 진동기로 위협하여 서점을 강도했고 5년형을 선고받았다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa656991-3c75-4b29-9593-22b526686b37",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "On Friday, the US",
+    "note": "나사가 메신저 우주선 데이터로 수성의 첫 전역 지형도를 발표했다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V6", "V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa6860cc-ef12-45ea-9859-7f83a4d5d27c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Colonel Lawrence Wilkerson, who was",
+    "note": "콜린 파월의 전 수석보좌관인 로렌스 윌커슨이 부시 행정부의 체니-럼스펠드 공모를 공개 비판했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["claim", "topic"],
+        "levels": ["V6", "V7"],
+        "platform": ["claim-evidence"]
+      }
+    }
+  },
+  {
+    "id": "aa686aaa-7c17-4174-869b-e152660362bc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Friday, the Los",
+    "note": "로스앤젤레스 경찰이 윅저 베이시스트의 아내 질리언 로렌과의 무장 대치 바디캠 영상을 공개했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "content_match", "mood"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa6ed1e8-a86a-46d7-9a18-473b559aec9f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Bombings across southern Thailand injured",
+    "note": "태국 남부 폭탄 테러로 17명이 다쳤고 정부가 3개 지역 학교 폐쇄를 명령했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V4", "V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa78d370-fe39-466d-b90a-bb4bd2d999a2",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Indian Supreme Court yesterday",
+    "note": "인도 대법원이 무슬림 남성에게만 허용된 삼중 이혼(탈락) 제도의 헌법성을 심사하기 시작했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match", "claim"],
+        "levels": ["V6", "V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa7a0c88-4d8d-4773-ad20-e97b07cf6c67",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "A freighter hit a",
+    "note": "파나마 선적 화물선이 수에즈 만에서 이집트 어선과 충돌하여 13명이 사망했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa7ad99a-2cde-4d93-a3b7-ef0bc3d64286",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Iraq has carried out",
+    "note": "사담 후세인 정권 붕괴 이후 이라크가 살인 혐의로 유죄 판결된 3명을 처형했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V6", "V7"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa7bb0b6-bb0d-4289-815d-b5a211e7e3c8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ukraine reported its first deaths",
+    "note": "우크라이나가 신종플루 확진을 보고하고 총리가 3주간 학교와 영화관 폐쇄를 명령했다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["purpose", "topic"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa7f7b2a-6ad1-4c36-a5a8-5ddc8c985a58",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Al Franken, a comedian",
+    "note": "미확인 정부 관계자의 보도에 따르면 코미디언 알 프랑켄이 2008년 미네소타 상원의원 선거 출마를 계획 중이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic"],
+        "levels": ["V3", "V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa80a86b-f0f1-4f65-b22d-fd774f11b0e5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "United States and United Kingdom",
+    "note": "이스라엘의 900가구 정착촌 확장 계획에 유엔, 미국, 영국이 평화 협상 방해를 우려하며 비판했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high2", "high3", "adult"],
+        "purposes": ["mock", "csat", "reading"],
+        "types": ["claim", "topic", "content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "aa8a08ee-7d35-4c13-8e4f-5fd6e1aaf72a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Today, Catalonia-based football club",
+    "note": "바르셀로나가 동경의 니산 스타디움에서 리버 플레이트를 3-0으로 꺾고 FIFA 클럽 월드컵 우승을 차지했다.",
+    "record": {
+      "genre": "sports",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["mock", "reading"],
+        "types": ["topic", "content_match"],
+        "levels": ["V5", "V6"],
+        "platform": []
+      }
+    }
+  }
+]
