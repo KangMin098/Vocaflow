@@ -22,6 +22,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { isKiceExam } from '../lib-exam-id.mjs'
+
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const DATA = path.resolve(HERE, '..', 'data')
 const COMMIT = process.argv.includes('--commit')
@@ -96,6 +98,8 @@ async function main() {
   const rejected = []
   for (const [exam, rows] of [...keys].sort(([a], [b]) => a.localeCompare(b))) {
     if (!known.has(exam)) { rejected.push([exam, 'csat_exams 에 없음']); continue }
+    // 정답 파일은 평가원(수능·모평) 것뿐이다 — 학평 id 가 섞여 들어오면 받지 않는다
+    if (!isKiceExam(exam)) { rejected.push([exam, '평가원 회차 아님']); continue }
     const why = checkKey(rows)
     if (why) { rejected.push([exam, why]); continue }
     // 회차별로 읽는다(행 상한에 잘리지 않게). DB 에 있는 18~45 문항은 전부 대조하고, 정답이 빈 문항이 있으면 거부

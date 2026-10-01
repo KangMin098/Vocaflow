@@ -3,14 +3,16 @@
 // 관리자 진단 화면의 조회. service role 로 읽는다 — 호출하는 페이지·액션이 먼저 requireAdmin.
 // 문항 「검수 완료」 = 그 문항의 역량 행에 reviewed_at 이 찍힘(관리자가 태깅 화면에서 저장).
 // 유형 기본값 시드(source=type_default)는 값이 있어도 검수 완료로 세지 않는다.
+// 진단 대상은 평가원(수능·모평)뿐이다 — 학평은 듣기 정답표가 없어 채점할 수 없으므로 목록에서 뺀다.
 
 import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { pagedSelect } from '@/lib/supabase/paged-select'
+import { keysetSelect } from '@/lib/supabase/keyset-select'
 
 import { ATTRIBUTE_CODES, type AttributeCode } from './engine/types'
+import { selectByChunks, selectSmall } from './fetch'
 
 type Db = SupabaseClient
 
@@ -30,23 +32,28 @@ export interface ExamTagging {
 }
 
 export async function loadExamTagging(db: Db): Promise<ExamTagging[]> {
-  const [exams, items, reviewed, keys] = await Promise.all([
-    pagedSelect<{ id: string; label: string; kind: string; year: number | null; month: number | null; diagnosis_ready: boolean; official_grade1_ratio: number | null; official_stats_source: string | null }>(
-      (f, t) => db.from('csat_exams').select('id, label, kind, year, month, diagnosis_ready, official_grade1_ratio, official_stats_source').order('id').range(f, t),
-      'csat_exams',
-    ),
-    pagedSelect<{ id: string; exam_id: string; official_error_rate: number | null }>(
-      (f, t) => db.from('csat_items').select('id, exam_id, official_error_rate').order('id').range(f, t),
+  const exams = await selectSmall<{ id: string; label: string; kind: string; year: number | null; month: number | null; diagnosis_ready: boolean; official_grade1_ratio: number | null; official_stats_source: string | null }>(
+    () => db.from('csat_exams').select('id, label, kind, year, month, diagnosis_ready, official_grade1_ratio, official_stats_source').eq('organizer', 'kice'),
+    'csat_exams',
+  )
+  const [items, reviewed, keys] = await Promise.all([
+    // 회차당 문항 ≤ 28 → 30회차 묶음이면 840행
+    selectByChunks<{ id: string; exam_id: string; official_error_rate: number | null }>(
+      exams.map((e) => e.id),
+      30,
+      (chunk) => db.from('csat_items').select('id, exam_id, official_error_rate').in('exam_id', chunk),
       'csat_items',
     ),
-    pagedSelect<{ item_id: string }>(
-      (f, t) => db.from('csat_dx_item_attribute').select('item_id').not('reviewed_at', 'is', null).eq('attribute_code', 'A1').order('item_id').range(f, t),
+    // 검수된 문항 = A1 행에 reviewed_at — 문항 하나에 한 행이라 item_id 가 커서가 된다
+    keysetSelect<{ item_id: string }, string>(
+      (cursor, limit) => {
+        const q = db.from('csat_dx_item_attribute').select('item_id').not('reviewed_at', 'is', null).eq('attribute_code', 'A1').order('item_id').limit(limit)
+        return cursor === null ? q : q.gt('item_id', cursor)
+      },
+      (row) => row.item_id,
       'csat_dx_item_attribute',
     ),
-    pagedSelect<{ exam_id: string }>(
-      (f, t) => db.from('csat_dx_answer_key').select('exam_id').eq('no', 1).order('exam_id').range(f, t),
-      'csat_dx_answer_key',
-    ),
+    selectSmall<{ exam_id: string }>(() => db.from('csat_dx_answer_key').select('exam_id').eq('no', 1), 'csat_dx_answer_key'),
   ])
   const reviewedSet = new Set(reviewed.map((r) => r.item_id))
   const keySet = new Set(keys.map((k) => k.exam_id))
@@ -130,8 +137,12 @@ export async function loadExamItemsForTagging(db: Db, examId: string): Promise<T
 
 /** 함정 선택지 — 계열이 정해진 라벨 + 이미 쓰인 라벨(롱테일 보존) */
 export async function loadTrapOptions(db: Db): Promise<{ key: string; family: string | null }[]> {
-  const rows = await pagedSelect<{ trap_key: string; family: string | null }>(
-    (f, t) => db.from('csat_dx_trap_family').select('trap_key, family').order('trap_key').range(f, t),
+  const rows = await keysetSelect<{ trap_key: string; family: string | null }, string>(
+    (cursor, limit) => {
+      const q = db.from('csat_dx_trap_family').select('trap_key, family').order('trap_key').limit(limit)
+      return cursor === null ? q : q.gt('trap_key', cursor)
+    },
+    (row) => row.trap_key,
     'csat_dx_trap_family',
   )
   return rows.map((r) => ({ key: r.trap_key, family: r.family }))
@@ -148,20 +159,27 @@ export interface PoolRow {
 }
 
 export async function loadPool(db: Db): Promise<PoolRow[]> {
-  const { data: pool, error } = await db.from('csat_dx_pool').select('item_id, active').order('item_id')
-  if (error) throw new Error(`진단 풀 조회 실패: ${error.message}`)
-  const ids = (pool ?? []).map((p) => p.item_id as string)
+  const pool = await keysetSelect<{ item_id: string; active: boolean }, string>(
+    (cursor, limit) => {
+      const q = db.from('csat_dx_pool').select('item_id, active').order('item_id').limit(limit)
+      return cursor === null ? q : q.gt('item_id', cursor)
+    },
+    (row) => row.item_id,
+    'csat_dx_pool',
+  )
+  const ids = pool.map((p) => p.item_id)
   if (ids.length === 0) return []
-  const [{ data: items, error: ie }, { data: attrs, error: ae }] = await Promise.all([
-    db.from('csat_items').select('id, exam_id, no, type_id').in('id', ids),
-    db.from('csat_dx_item_attribute').select('item_id, attribute_code, weight, reviewed_at').in('item_id', ids),
+  const [items, attrs] = await Promise.all([
+    selectByChunks<{ id: string; exam_id: string; no: number; type_id: string }>(ids, 500, (chunk) => db.from('csat_items').select('id, exam_id, no, type_id').in('id', chunk), 'csat_items'),
+    // 문항당 역량 ≤ 9행 → 100문항 묶음이면 900행
+    selectByChunks<{ item_id: string; attribute_code: string; weight: number; reviewed_at: string | null }>(
+      ids, 100, (chunk) => db.from('csat_dx_item_attribute').select('item_id, attribute_code, weight, reviewed_at').in('item_id', chunk), 'csat_dx_item_attribute',
+    ),
   ])
-  if (ie) throw new Error(`문항 조회 실패: ${ie.message}`)
-  if (ae) throw new Error(`역량 조회 실패: ${ae.message}`)
-  const byId = new Map((items ?? []).map((i) => [i.id as string, i]))
-  return (pool ?? []).map((p) => {
-    const i = byId.get(p.item_id as string)
-    const mine = (attrs ?? []).filter((a) => a.item_id === p.item_id)
+  const byId = new Map(items.map((i) => [i.id, i]))
+  return pool.map((p) => {
+    const i = byId.get(p.item_id)
+    const mine = attrs.filter((a) => a.item_id === p.item_id)
     return {
       itemId: p.item_id as string,
       active: p.active as boolean,
@@ -196,20 +214,24 @@ export interface LearnerSummary {
 }
 
 export async function loadLearners(db: Db): Promise<LearnerSummary[]> {
-  const [sessions, snaps, profiles] = await Promise.all([
-    pagedSelect<{ user_id: string; taken_at: string }>(
-      (f, t) => db.from('csat_dx_session').select('user_id, taken_at').order('id').range(f, t),
-      'csat_dx_session',
+  const byId = <T extends { id: string }>(table: string, cols: string) =>
+    keysetSelect<T, string>(
+      (cursor, limit) => {
+        // 컬럼 문자열이 인자라 PostgREST 타입 추론이 안 된다 — 결과 모양은 호출부의 T 가 정한다
+        const q = db.from(table).select(cols).order('id').limit(limit)
+        return (cursor === null ? q : q.gt('id', cursor)) as unknown as PromiseLike<{ data: T[] | null; error: { message: string } | null }>
+      },
+      (row) => row.id,
+      table,
+    )
+  const [sessions, snapsRaw, profiles] = await Promise.all([
+    byId<{ id: string; user_id: string; taken_at: string }>('csat_dx_session', 'id, user_id, taken_at'),
+    byId<{ id: string; user_id: string; computed_at: string; grade_est: number | null; adjusted_score: number | null; confidence: string }>(
+      'csat_dx_snapshot', 'id, user_id, computed_at, grade_est, adjusted_score, confidence',
     ),
-    pagedSelect<{ id: string; user_id: string; computed_at: string; grade_est: number | null; adjusted_score: number | null; confidence: string }>(
-      (f, t) => db.from('csat_dx_snapshot').select('id, user_id, computed_at, grade_est, adjusted_score, confidence').order('computed_at', { ascending: false }).order('id').range(f, t),
-      'csat_dx_snapshot',
-    ),
-    pagedSelect<{ user_id: string }>(
-      (f, t) => db.from('csat_dx_profile_hist').select('user_id').order('id').range(f, t),
-      'csat_dx_profile_hist',
-    ),
+    byId<{ id: string; user_id: string }>('csat_dx_profile_hist', 'id, user_id'),
   ])
+  const snaps = snapsRaw.sort((a, b) => b.computed_at.localeCompare(a.computed_at))
   const users = new Set([...sessions.map((s) => s.user_id), ...profiles.map((p) => p.user_id)])
   const out: LearnerSummary[] = []
   for (const userId of users) {

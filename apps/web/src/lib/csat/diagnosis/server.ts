@@ -8,7 +8,9 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
+import { keysetSelect } from '@/lib/supabase/keyset-select'
+
+import { selectByChunks, selectSmall } from './fetch'
 
 import { ruleEngineV1 } from './engine/rule-v1'
 import { gradeOf, scoreAnswers } from './engine/scoring'
@@ -42,8 +44,12 @@ export async function loadActiveSettings(db: Db): Promise<ActiveSettings> {
 }
 
 export async function loadTrapFamily(db: Db): Promise<Record<string, string | null>> {
-  const rows = await pagedSelect<{ trap_key: string; family: string | null }>(
-    (from, to) => db.from('csat_dx_trap_family').select('trap_key, family').order('trap_key').range(from, to),
+  const rows = await keysetSelect<{ trap_key: string; family: string | null }, string>(
+    (cursor, limit) => {
+      const q = db.from('csat_dx_trap_family').select('trap_key, family').order('trap_key').limit(limit)
+      return cursor === null ? q : q.gt('trap_key', cursor)
+    },
+    (row) => row.trap_key,
     'csat_dx_trap_family',
   )
   return Object.fromEntries(rows.map((r) => [r.trap_key, r.family]))
@@ -59,18 +65,17 @@ interface ItemRow {
 
 async function itemMetas(db: Db, items: ItemRow[]): Promise<ItemMeta[]> {
   const ids = items.map((i) => i.id)
-  const attrs = await pagedSelectIn<{ item_id: string; attribute_code: AttributeCode; weight: number }>(
+  // 문항당 역량 ≤ 9행 · 함정 ≤ 5행 → 100문항 묶음이면 900·500행으로 상한 아래
+  const attrs = await selectByChunks<{ item_id: string; attribute_code: AttributeCode; weight: number }>(
     ids,
-    (chunk, from, to) =>
-      db.from('csat_dx_item_attribute').select('item_id, attribute_code, weight').in('item_id', chunk)
-        .order('item_id').order('attribute_code').range(from, to),
+    100,
+    (chunk) => db.from('csat_dx_item_attribute').select('item_id, attribute_code, weight').in('item_id', chunk),
     'csat_dx_item_attribute',
   )
-  const traps = await pagedSelectIn<{ item_id: string; option_no: number; trap_key: string }>(
+  const traps = await selectByChunks<{ item_id: string; option_no: number; trap_key: string }>(
     ids,
-    (chunk, from, to) =>
-      db.from('csat_dx_option_trap').select('item_id, option_no, trap_key').in('item_id', chunk)
-        .order('item_id').order('option_no').range(from, to),
+    100,
+    (chunk) => db.from('csat_dx_option_trap').select('item_id, option_no, trap_key').in('item_id', chunk),
     'csat_dx_option_trap',
   )
   const byItem = new Map<string, ItemMeta>()
@@ -99,36 +104,40 @@ async function itemMetas(db: Db, items: ItemRow[]): Promise<ItemMeta[]> {
 export async function loadExams(db: Db, examIds: string[]): Promise<Record<string, ExamMeta>> {
   const ids = [...new Set(examIds.filter(Boolean))]
   if (ids.length === 0) return {}
-  const { data: exams, error } = await db.from('csat_exams').select('id, diagnosis_ready').in('id', ids)
-  if (error) throw new Error(`시험 조회 실패: ${error.message}`)
-  const keys = await pagedSelectIn<{ exam_id: string; no: number; answers: number[]; points: number }>(
+  // 회차당 정답 45행 · 문항 ≤ 28행 → 20회차 묶음이면 900·560행
+  const exams = await selectByChunks<{ id: string; diagnosis_ready: boolean }>(
     ids,
-    (chunk, from, to) =>
-      db.from('csat_dx_answer_key').select('exam_id, no, answers, points').in('exam_id', chunk)
-        .order('exam_id').order('no').range(from, to),
+    500,
+    (chunk) => db.from('csat_exams').select('id, diagnosis_ready').in('id', chunk),
+    'csat_exams',
+  )
+  const keys = await selectByChunks<{ exam_id: string; no: number; answers: number[]; points: number }>(
+    ids,
+    20,
+    (chunk) => db.from('csat_dx_answer_key').select('exam_id, no, answers, points').in('exam_id', chunk),
     'csat_dx_answer_key',
   )
-  const items = await pagedSelectIn<ItemRow>(
+  const items = await selectByChunks<ItemRow>(
     ids,
-    (chunk, from, to) =>
-      db.from('csat_items').select('id, exam_id, no, official_error_rate, ebs_linked').in('exam_id', chunk)
-        .order('id').range(from, to),
+    20,
+    (chunk) => db.from('csat_items').select('id, exam_id, no, official_error_rate, ebs_linked').in('exam_id', chunk),
     'csat_items',
   )
   const metas = await itemMetas(db, items)
   const out: Record<string, ExamMeta> = {}
-  for (const e of exams ?? []) out[e.id] = { id: e.id, ready: Boolean(e.diagnosis_ready), key: [], items: {} }
+  for (const e of exams) out[e.id] = { id: e.id, ready: Boolean(e.diagnosis_ready), key: [], items: {} }
   for (const k of keys) out[k.exam_id]?.key.push({ no: k.no, answers: k.answers, points: k.points })
+  for (const e of Object.values(out)) e.key.sort((a, b) => a.no - b.no)
   for (const m of metas) if (out[m.examId]) out[m.examId].items[m.no] = m
   return out
 }
 
 export async function loadItems(db: Db, itemIds: string[]): Promise<Record<string, ItemMeta>> {
   const ids = [...new Set(itemIds.filter(Boolean))]
-  const items = await pagedSelectIn<ItemRow>(
+  const items = await selectByChunks<ItemRow>(
     ids,
-    (chunk, from, to) =>
-      db.from('csat_items').select('id, exam_id, no, official_error_rate, ebs_linked').in('id', chunk).order('id').range(from, to),
+    500,
+    (chunk) => db.from('csat_items').select('id, exam_id, no, official_error_rate, ebs_linked').in('id', chunk),
     'csat_items',
   )
   return Object.fromEntries((await itemMetas(db, items)).map((m) => [m.itemId, m]))
@@ -151,19 +160,24 @@ interface ResponseRow {
 }
 
 export async function loadSessions(db: Db, userId: string): Promise<SessionIn[]> {
-  const sessions = await pagedSelect<SessionRow>(
-    (from, to) =>
-      db.from('csat_dx_session').select('id, exam_id, mode, taken_at, raw_score').eq('user_id', userId)
-        .order('taken_at').order('id').range(from, to),
-    'csat_dx_session',
-  )
-  const responses = await pagedSelectIn<ResponseRow>(
+  const sessions = (
+    await keysetSelect<SessionRow, string>(
+      (cursor, limit) => {
+        const q = db.from('csat_dx_session').select('id, exam_id, mode, taken_at, raw_score').eq('user_id', userId).order('id').limit(limit)
+        return cursor === null ? q : q.gt('id', cursor)
+      },
+      (row) => row.id,
+      'csat_dx_session',
+    )
+  ).sort((a, b) => a.taken_at.localeCompare(b.taken_at) || a.id.localeCompare(b.id))
+  // 세션당 응답 ≤ 45행 → 20세션 묶음이면 900행
+  const responses = await selectByChunks<ResponseRow>(
     sessions.map((s) => s.id),
-    (chunk, from, to) =>
-      db.from('csat_dx_response').select('session_id, item_no, item_id, chosen_option, is_correct, confidence')
-        .in('session_id', chunk).order('session_id').order('item_no').range(from, to),
+    20,
+    (chunk) => db.from('csat_dx_response').select('session_id, item_no, item_id, chosen_option, is_correct, confidence').in('session_id', chunk),
     'csat_dx_response',
   )
+  responses.sort((a, b) => a.item_no - b.item_no)
   const bySession = new Map<string, SessionIn>()
   for (const s of sessions) {
     bySession.set(s.id, { id: s.id, examId: s.exam_id, mode: s.mode, takenAt: s.taken_at, rawScore: s.raw_score, responses: [] })
@@ -347,8 +361,9 @@ export async function submitDiagnosticSession(db: Db, sub: DiagnosticSubmission,
 
 /** 시험 기록 입력에서 고를 수 있는 시험(정답표가 있는 회차) */
 export async function listScorableExams(db: Db) {
-  const keys = await pagedSelect<{ exam_id: string }>(
-    (from, to) => db.from('csat_dx_answer_key').select('exam_id').eq('no', 1).order('exam_id').range(from, to),
+  // 1번 정답 행 = 정답표가 있는 회차 하나 — 회차 수만큼이라 작다
+  const keys = await selectSmall<{ exam_id: string }>(
+    () => db.from('csat_dx_answer_key').select('exam_id').eq('no', 1),
     'csat_dx_answer_key',
   )
   const ids = keys.map((k) => k.exam_id)

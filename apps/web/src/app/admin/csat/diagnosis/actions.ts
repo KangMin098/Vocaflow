@@ -81,10 +81,8 @@ export interface ItemTaggingInput {
 export async function saveItemTaggingAction(input: ItemTaggingInput): Promise<ActionResult> {
   await requireAdmin(`${BASE}/exams`)
   if (!rate(input.errorRate)) return { ok: false, error: '오답률은 0~1 사이' }
-  for (const c of ATTRIBUTE_CODES) {
-    const w = input.weights[c]
-    if (![0, 1, 2].includes(w)) return { ok: false, error: `${c} 가중치는 0·1·2` }
-  }
+  const bad = ATTRIBUTE_CODES.find((c) => ![0, 1, 2].includes(input.weights[c]))
+  if (bad) return { ok: false, error: `${bad} 가중치는 0·1·2` }
   const c = db()
   const by = await adminId()
   const now = new Date().toISOString()
@@ -101,13 +99,7 @@ export async function saveItemTaggingAction(input: ItemTaggingInput): Promise<Ac
   const { error: ae } = await c.from('csat_dx_item_attribute').upsert(attrRows, { onConflict: 'item_id,attribute_code' })
   if (ae) return { ok: false, error: ae.message }
 
-  const set: { item_id: string; option_no: number; trap_key: string; source: string; reviewed_at: string; reviewed_by: string | null }[] = []
-  const clear: number[] = []
-  for (let n = 1; n <= 5; n++) {
-    const key = input.traps[n]
-    if (correct.has(n) || !key) clear.push(n)
-    else set.push({ item_id: input.itemId, option_no: n, trap_key: key, source: 'admin', reviewed_at: now, reviewed_by: by })
-  }
+  const { set, clear } = splitTraps(input, correct, now, by)
   if (set.length) {
     const { error } = await c.from('csat_dx_option_trap').upsert(set, { onConflict: 'item_id,option_no' })
     if (error) return { ok: false, error: error.message }
@@ -118,6 +110,16 @@ export async function saveItemTaggingAction(input: ItemTaggingInput): Promise<Ac
   }
   revalidatePath(`${BASE}/exams`)
   return { ok: true }
+}
+
+/** 선지 다섯 개를 「함정 있음」과 「비움(정답 선지 포함)」으로 가른다 — 쓰기는 각각 한 번씩만 */
+function splitTraps(input: ItemTaggingInput, correct: Set<number>, now: string, by: string | null) {
+  const options = [1, 2, 3, 4, 5]
+  const keep = (n: number) => !correct.has(n) && Boolean(input.traps[n])
+  const set = options.filter(keep).map((n) => ({
+    item_id: input.itemId, option_no: n, trap_key: input.traps[n] as string, source: 'admin', reviewed_at: now, reviewed_by: by,
+  }))
+  return { set, clear: options.filter((n) => !keep(n)) }
 }
 
 export async function setPoolItemAction(itemId: string, active: boolean | null): Promise<ActionResult> {
@@ -148,11 +150,22 @@ export async function saveSettingsAction(json: string, note: string): Promise<Ac
     return { ok: false, error: 'JSON 형식이 아니다' }
   }
   const c = db()
-  const { data: keys, error: ke } = await c.from('csat_dx_answer_key').select('exam_id').eq('no', 1)
-  if (ke) return { ok: false, error: ke.message }
-  const errors = validateSettings(parsed, new Set((keys ?? []).map((k) => k.exam_id as string)))
+  const known = await scorableExamIds(c)
+  if (typeof known === 'string') return { ok: false, error: known }
+  const errors = validateSettings(parsed, known)
   if (errors.length) return { ok: false, error: '설정 검사 실패', errors }
+  return activateSettings(c, parsed, note)
+}
 
+/** 정답표가 있는 회차 id — 시나리오·기준 시험으로 고를 수 있는 것. 실패하면 오류 문자열 */
+async function scorableExamIds(c: SupabaseClient): Promise<Set<string> | string> {
+  const { data, error } = await c.from('csat_dx_answer_key').select('exam_id').eq('no', 1)
+  if (error) return error.message
+  return new Set((data ?? []).map((k) => k.exam_id as string))
+}
+
+/** 새 버전을 더하고 활성으로 바꾼다. 활성화가 실패하면 이전 활성 버전을 되살린다 */
+async function activateSettings(c: SupabaseClient, parsed: unknown, note: string): Promise<ActionResult> {
   const { data: prev } = await c.from('csat_dx_settings').select('id').eq('active', true).maybeSingle()
   const { data: created, error: ie } = await c.from('csat_dx_settings')
     .insert({ settings: parsed, active: false, note: note.trim() || null, created_by: await adminId() }).select('id').single()
