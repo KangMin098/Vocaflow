@@ -1,6 +1,6 @@
 // apps/web/src/lib/csat/__tests__/hakpyeong-review.test.ts
 import { describe, expect, it } from 'vitest'
-import { batchTokens, reviewBlock, reviewCounts, type HakReviewItem, type ReviewBatch } from '../hakpyeong-review'
+import { batchTokens, PRECHECK_VERSION_CURRENT, reviewBlock, reviewCounts, type HakReviewItem, type ReviewBatch } from '../hakpyeong-review'
 import { parseOperationsState, viewsFor } from '../evidence-operations'
 
 const base = (over: Partial<HakReviewItem> = {}): HakReviewItem => ({
@@ -48,6 +48,12 @@ describe('reviewBlock — 막힌 이유 우선순위', () => {
     const later = { ...pass('tutor'), verdict: 'revise' as const, reviewedAt: '2026-10-02T00:00:00Z', findings: ['새 소견'] }
     expect(reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), pass('tutor', false), later] })).state).toBe('rejected')
   })
+  it('검수 뒤 문항이 바뀐 반려(stale)는 막지 않고 새 블라인드 검수로 보낸다', () => {
+    const b = reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), { ...pass('tutor', false), verdict: 'revise' as const, stale: true }] }))
+    expect(b.state).toBe('waiting')
+    expect(b.reason).toContain('낡았다')
+    expect(b.next).toContain('export --items')
+  })
   it('유효 승인은 게이트 함수 값 — pass 3개여도 유효 1이면 1/3', () => {
     const b = reviewBlock(base({ validPersonas: ['setter'], verdicts: [pass('setter'), pass('analyst', false), pass('tutor', false)] }))
     expect(b.state).toBe('waiting')
@@ -56,6 +62,14 @@ describe('reviewBlock — 막힌 이유 우선순위', () => {
   })
   it('유효 3/3 인데 아직 in_review → 발행 명령', () => {
     expect(reviewBlock(base({ validPersonas: ['setter', 'analyst', 'tutor'] })).next).toContain('publish --items')
+  })
+})
+
+describe('사전 검사기 버전', () => {
+  it('화면의 현재 버전 = CLI 검사기 버전(다르면 모든 기록이 낡거나, 낡은 기록이 현재로 보인다)', async () => {
+    // 저장소 스크립트(.mjs)를 직접 읽는다 — 두 숫자가 어긋나면 이 회귀가 떨어진다
+    const lib = await import('../../../../../../scripts/csat/lib-evidence-units.mjs')
+    expect(PRECHECK_VERSION_CURRENT).toBe(lib.PRECHECK_VERSION)
   })
 })
 

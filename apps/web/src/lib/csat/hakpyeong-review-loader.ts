@@ -16,6 +16,7 @@ import {
   type HakReviewData,
   type HakReviewItem,
   type Persona,
+  PRECHECK_VERSION_CURRENT,
   type PrecheckRecord,
   type ReviewBatch,
   type ReviewFollowup,
@@ -29,7 +30,7 @@ const CHUNK = 200
 const chunks = <T,>(xs: T[]) => Array.from({ length: Math.ceil(xs.length / CHUNK) }, (_, i) => xs.slice(i * CHUNK, (i + 1) * CHUNK))
 
 interface AnalysisRow { id: string; item_id: string; version: number; status: string; analyst_run: string | null; units_hash: string | null; csat_analysis_hash: string }
-interface ReviewRow { id: string; analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
+interface ReviewRow { id: string; analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; item_input_hash: string | null; item_answer_hash: string | null; analysis_hash: string | null; units_hash: string | null; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
 interface BatchRow { batch: string; run_date: string; kind: ReviewBatch['kind']; chunk_size: number | null; items: number; agents: number | null; tokens: ReviewBatch['tokens']; published: number | null; refused: number | null; re_rejected: number | null; note: string | null }
 interface FollowupRow { item_id: string; source: string; finding: string; severity: ReviewFollowup['severity']; status: ReviewFollowup['status']; noted_on: string }
 interface PrecheckRow { analysis_id: string; analysis_hash: string; units_hash: string; input_hash: string; precheck_version: number; commit: string | null; errors: string[]; warnings: string[]; checked_at: string }
@@ -88,7 +89,7 @@ export async function loadHakpyeongReview(
     const valid = new Map<string, Persona[]>()
     // 지금 근거 단위 목록 — 경계 해시와 지문 입력 해시 둘 다(경계가 같아도 지문 글자가 바뀌면 사전 검사는 낡는다)
     const curUnits = new Map<string, { units: string; input: string }>()
-    const verdicts = new Map<string, ReviewVerdict[]>()
+    const verdicts = new Map<string, (ReviewVerdict & { snap: Pick<ReviewRow, 'item_input_hash' | 'item_answer_hash' | 'analysis_hash' | 'units_hash'> })[]>()
     const prechecks = new Map<string, PrecheckRow>()
     for (const part of chunks(ids)) {
       // 이력 표는 분석 200개에 대해서도 1000행을 넘을 수 있다(CONVENTIONS PostgREST 페이지) — OFFSET 없이:
@@ -97,7 +98,7 @@ export async function loadHakpyeongReview(
         db.rpc('csat_valid_review_personas_many', { p_analyses: part }),
         keysetById<ReviewRow>((after) => {
           const q = db.from('csat_independent_reviews')
-            .select('id, analysis_id, persona, verdict, findings, reviewed_at, csat_review_runs(kind)')
+            .select('id, analysis_id, persona, verdict, findings, reviewed_at, item_input_hash, item_answer_hash, analysis_hash, units_hash, csat_review_runs(kind)')
             .in('analysis_id', part)
           return (after ? q.gt('id', after) : q).order('id').limit(PAGE_CAP)
         }),
@@ -115,7 +116,8 @@ export async function loadHakpyeongReview(
       }
       for (const r of rv.rows) {
         const list = verdicts.get(r.analysis_id) ?? []
-        list.push({ persona: r.persona, verdict: r.verdict, kind: r.csat_review_runs?.kind ?? 'blind', findings: asStrings(r.findings), reviewedAt: r.reviewed_at, counted: false })
+        list.push({ persona: r.persona, verdict: r.verdict, kind: r.csat_review_runs?.kind ?? 'blind', findings: asStrings(r.findings), reviewedAt: r.reviewed_at, counted: false, stale: false,
+          snap: { item_input_hash: r.item_input_hash, item_answer_hash: r.item_answer_hash, analysis_hash: r.analysis_hash, units_hash: r.units_hash } })
         verdicts.set(r.analysis_id, list)
       }
       for (const r of pc.rows) if (!prechecks.has(r.analysis_id)) prechecks.set(r.analysis_id, r)
@@ -124,6 +126,23 @@ export async function loadHakpyeongReview(
       const u = await db.rpc('csat_current_units_many', { p_items: part }).select('item_id, units_hash, input_hash')
       if (u.error) return { ...empty, error: `근거 단위 목록 조회: ${u.error.message}` }
       for (const r of (u.data ?? []) as { item_id: string; units_hash: string; input_hash: string }[]) curUnits.set(r.item_id, { units: r.units_hash, input: r.input_hash })
+    }
+
+    // 반려가 «지금» 막는지 가리려면 검수 당시 스냅샷(문항 입력·정답·분석·근거 단위 해시)을 지금 값과 맞춰야 한다.
+    // 문항 입력·정답 해시는 문항마다 DB 함수(게이트와 같은 정의)로만 나오므로, 페르소나별 최근 판정이 반려인 문항만 묻는다(수십 건)
+    const itemHash = new Map<string, { input: string | null; answer: string | null }>()
+    const candidates = analyses.filter((a) => {
+      const last = new Map<string, ReviewVerdict>()
+      for (const v of [...(verdicts.get(a.id) ?? [])].sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))) last.set(v.persona, v)
+      return [...last.values()].some((v) => v.verdict !== 'pass')
+    })
+    for (let i = 0; i < candidates.length; i += 8) {
+      const res = await Promise.all(candidates.slice(i, i + 8).map(async (a) => {
+        const [ih, ah] = await Promise.all([db.rpc('csat_item_input_hash', { p_item: a.item_id }), db.rpc('csat_item_answer_hash', { p_item: a.item_id })])
+        if (ih.error || ah.error) throw new Error(`문항 해시 조회(${a.item_id}): ${(ih.error ?? ah.error)?.message}`)
+        return [a.item_id, { input: (ih.data as string | null) ?? null, answer: (ah.data as string | null) ?? null }] as const
+      }))
+      for (const [k, v] of res) itemHash.set(k, v)
     }
 
     const typeOf = new Map(items.map((i) => [i.id, i.typeId]))
@@ -138,15 +157,23 @@ export async function loadHakpyeongReview(
         ? {
             errors: asStrings(pc.errors), warnings: asStrings(pc.warnings), checkedAt: pc.checked_at,
             precheckVersion: pc.precheck_version, commit: pc.commit,
-            current: pc.analysis_hash === a.csat_analysis_hash && pc.units_hash === (curUnits.get(a.item_id)?.units ?? '') && pc.input_hash === (curUnits.get(a.item_id)?.input ?? ''),
+            // 검사기 버전이 지금과 다르면 낡은 결과다(v1 은 풀이 절차 등의 [uN] 을 보지 않았다)
+            current: pc.precheck_version === PRECHECK_VERSION_CURRENT && pc.analysis_hash === a.csat_analysis_hash && pc.units_hash === (curUnits.get(a.item_id)?.units ?? '') && pc.input_hash === (curUnits.get(a.item_id)?.input ?? ''),
           }
         : null
       // RPC 는 «유효 승인이 있는 페르소나»만 돌려준다 — 어느 기록이 그 승인인지는 알 수 없다(분석 실행 주체가 바뀌면
       // 최근 통과가 자기 검수가 되고 옛 통과가 유효할 수 있다). 그래서 counted 는 «이 기록의 페르소나에 유효 승인이 있는가»이고,
       // 화면도 기록 단위가 아니라 페르소나 단위로 말한다(Codex 리뷰 — 기록 id 를 주려면 게이트 함수 변경이 필요)
-      const vs = [...(verdicts.get(a.id) ?? [])]
+      // 스냅샷이 지금 값과 다르면 낡은 판정(스냅샷이 없는 옛 기록은 알 수 없으니 낡았다고 하지 않는다)
+      const cu = curUnits.get(a.item_id), ih = itemHash.get(a.item_id)
+      const differs = (then: string | null, now: string | null | undefined) => Boolean(then && now && then !== now)
+      const vs: ReviewVerdict[] = [...(verdicts.get(a.id) ?? [])]
         .sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))
-        .map((v) => ({ ...v, counted: vp.includes(v.persona) }))
+        .map(({ snap, ...v }) => ({
+          ...v, counted: vp.includes(v.persona),
+          stale: differs(snap.analysis_hash, a.csat_analysis_hash) || differs(snap.units_hash, cu?.units)
+            || differs(snap.item_input_hash, ih?.input) || differs(snap.item_answer_hash, ih?.answer),
+        }))
       return {
         itemId: it.id, typeId: typeOf.get(it.id) ?? it.typeId, analysisId: a.id, version: a.version, status: a.status,
         analystRun: a.analyst_run, unitsBased: Boolean(a.units_hash), validPersonas: vp, verdicts: vs, precheck,

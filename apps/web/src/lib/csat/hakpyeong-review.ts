@@ -21,7 +21,15 @@ export interface ReviewVerdict {
    * 어느 기록이 그 승인인지는 모른다(화면도 「이 페르소나 유효 승인 있음」 으로 말한다)
    */
   counted: boolean
+  /** 검수 당시 스냅샷(문항 입력·정답·분석·근거 단위 해시)이 지금 값과 다르다 — 이 판정은 지금 문항을 본 것이 아니다 */
+  stale?: boolean
 }
+
+/**
+ * 지금 사전 검사기 버전 — scripts/csat/lib-evidence-units.mjs 의 PRECHECK_VERSION 과 같아야 한다(회귀가 묶는다).
+ * 다른 버전으로 낸 기록은 「오래된 결과」다.
+ */
+export const PRECHECK_VERSION_CURRENT = 2
 
 export interface PrecheckRecord {
   errors: string[]
@@ -144,7 +152,11 @@ export function reviewBlock(it: HakReviewItem): ReviewBlock {
   // 게이트가 이미 유효 승인으로 센 페르소나의 옛 반려도 막지 않는다(Codex 리뷰).
   const latestByPersona = new Map<string, (typeof it.verdicts)[number]>()
   for (const v of [...it.verdicts].sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))) latestByPersona.set(v.persona, v)
-  const rejected = [...latestByPersona.values()].filter((v) => v.verdict !== 'pass' && !it.validPersonas.includes(v.persona))
+  // 검수 뒤 문항 입력·정답·분석·근거 단위가 바뀐 반려(stale)는 지금 문항을 본 것이 아니다 — 교정·재검수가 아니라
+  // 새 블라인드 검수로 보낸다(rereview 는 바뀌기 전 블라인드 풀이를 다시 쓸 수 없다)
+  const open = [...latestByPersona.values()].filter((v) => v.verdict !== 'pass' && !it.validPersonas.includes(v.persona))
+  const rejected = open.filter((v) => !v.stale)
+  const staleRejected = open.filter((v) => v.stale)
   if (rejected.length) {
     const who = rejected.map((v) => v.persona).join('·')
     return {
@@ -154,6 +166,13 @@ export function reviewBlock(it: HakReviewItem): ReviewBlock {
     }
   }
   const missing = PERSONAS.filter((p) => !it.validPersonas.includes(p))
+  if (staleRejected.length && n < 3) {
+    return {
+      state: 'waiting',
+      reason: `유효 승인 ${n}/3 — ${staleRejected.map((v) => v.persona).join('·')} 의 반려는 검수 뒤 문항·분석이 바뀌어 낡았다(새 블라인드 검수 필요)`,
+      next: cmd(`export --items ${it.itemId}`),
+    }
+  }
   if (n >= 3) {
     return { state: 'waiting', reason: '유효 승인 3/3 — 발행 대기', next: cmd(`publish --items ${it.itemId}`) }
   }
