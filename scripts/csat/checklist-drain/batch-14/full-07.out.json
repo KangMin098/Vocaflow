@@ -1,0 +1,117 @@
+[
+  {
+    "id": "a6f319df-3dea-4fc5-ad84-e6e16b6e6521",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e54c8411b4b087cc32c15aca9182498883ad5f1afecf72c28c07a59f1de9a6e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "새 빙상 춤 프로그램 출연진의 사진 행사 → 토빌·딘의 진행과 대중 투표로 남는 방식 설명 → 출연자 소개로 이어지는 연예 단신이라 첫 단락의 프로그램 방식으로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Each celebrity will be partnered with",
+      "note": "「It girl」「Exec」를 걷고 마지막 출연자 이름 나열을 줄이면 프로그램 규칙 설명만으로 사실 선택지가 선다."
+    }
+  },
+  {
+    "id": "a6f9ccb8-4dc4-4bce-8f3b-8afcb03f6867",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9d811fab3acbfcc2f59f1c25c8a77ffb6c53cd00351bb86223c960bdc4a7aa52",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "무승부 예상 → 막판 분발로 1점 차 승리 → 양 팀 한 골씩과 놓친 기회(골대·선방)로 경기 흐름이 이어지는 경기 단신이라 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Allianz NFL Division 1A clash",
+      "note": "「hitting the woodwork」「finding the back of the net」를 hit the post·scored 로 바꾸면 되나 게일릭 풋볼 점수 표기(1-12)를 한 줄 풀어야 한다."
+    }
+  },
+  {
+    "id": "a70f25f7-d93b-46e1-9d8b-8084f881b971",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "f9257e87021e93700e55246ebb4e4afa8a3fc302a65e3137f1a3310ae92d8cf9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "안테나 수신 문제 → 리콜 대신 무료 범퍼·환불 → 잡스의 「모든 폰의 문제」 주장과 통화 끊김 통계 근거 → 컨슈머 리포트의 반론으로 주장·근거·반론이 단락마다 서서 요지·내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "order",
+        "insert",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Jobs acknowledged that \"a very small",
+      "note": "「alleviate」「blown out of proportion」을 reduce·exaggerated 로 바꾸니 V5 에 맞고, 날짜·가격을 걷어도 주장과 통계 근거의 짝이 선다."
+    }
+  }
+]
