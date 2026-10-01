@@ -91,6 +91,7 @@ export function attributeMastery(input: EngineInput, rows = diagnosedResponses(i
   const { listening } = input.settings
   for (const row of rows) {
     const w0 = decay(input.now, row.session.takenAt, input.settings.half_life_days) * modeWeight(input, row.session)
+    if (w0 <= 0) continue // 가중 0(예: retake_weight 0)은 관측으로 세지 않는다 — 기여 없는 응답이 「데이터 충분」을 만들지 않게
     const weights: Partial<Record<AttributeCode, number>> = row.meta
       ? row.meta.attributes
       : row.listening

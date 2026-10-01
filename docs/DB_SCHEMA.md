@@ -1827,6 +1827,7 @@ RLS: 자기 행만 `select`/`insert`. **`update`·`delete` 정책은 일부러 �
 
 RPC `csat_dx_record_session(p_session, p_responses)` — 세션+응답 한 트랜잭션, service_role 전용.
 RPC `csat_dx_activate_settings(p_settings, p_note, p_by)` · `csat_dx_save_item_tagging(p_item_id, p_weights, p_traps, p_error_rate, p_ebs, p_by)` ([20261001170000](../supabase/migrations/20261001170000_csat_diagnosis_atomic_writes.sql)) — 설정 전환 · 문항 검수 저장을 한 트랜잭션으로, service_role 전용.
+고유 인덱스 `csat_dx_snapshot_once_per_session` ([20261001180000](../supabase/migrations/20261001180000_csat_dx_snapshot_once_per_session.sql)) — 기록 저장으로 생긴 스냅샷은 세션당 하나.
 
  — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 

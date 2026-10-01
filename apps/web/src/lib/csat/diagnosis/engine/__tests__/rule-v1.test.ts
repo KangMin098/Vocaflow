@@ -174,6 +174,13 @@ describe('3. 역량 숙달도', () => {
     expect(r.gradeEst).toBe(1)
     expect(r.evidence.scoreOnlySessions).toBe(1)
   })
+  it('가중 0 인 retake 는 관측 수에 넣지 않는다', () => {
+    const e = exam('A')
+    const settings = { ...SETTINGS, retake_weight: 0 }
+    const retakes = ['2', '3', '4', '5'].map((id) => session(id, 'A', '2026-10-01', responses(), 'retake'))
+    const m = attributeMastery(input({ exams: { A: e }, settings, sessions: retakes }))
+    expect(m.A3).toEqual({ value: null, n: 0, status: 'insufficient' })
+  })
   it('retake 는 0.5 배로 센다', () => {
     const e = exam('A')
     const live = session('l', 'A', '2026-10-01', responses())

@@ -372,7 +372,17 @@ async function snapshotForSession(db: Db, userId: string, sessionId: string, now
   const { data, error } = await db.from('csat_dx_snapshot').select('id').eq('user_id', userId).eq('session_id', sessionId).limit(1).maybeSingle()
   if (error) throw new Error(`스냅샷 조회 실패: ${error.message}`)
   if (data) return { id: data.id as string }
-  return recomputeSnapshot(db, userId, 'session', now, sessionId)
+  try {
+    return await recomputeSnapshot(db, userId, 'session', now, sessionId)
+  } catch (e) {
+    // 동시에 온 재전송이 먼저 스냅샷을 넣었다(세션당 하나 — 고유 인덱스 csat_dx_snapshot_once_per_session)
+    if (e instanceof Error && e.message.includes('csat_dx_snapshot_once_per_session')) {
+      const { data: again, error: ae } = await db.from('csat_dx_snapshot').select('id').eq('user_id', userId).eq('session_id', sessionId).limit(1).maybeSingle()
+      if (ae || !again) throw e
+      return { id: again.id as string }
+    }
+    throw e
+  }
 }
 
 /** 진단 테스트 제출 — 문항 정답은 csat_items 에서 서버가 판정한다 */
