@@ -46,6 +46,9 @@ import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidenc
 import { isKiceExam } from './lib-exam-id.mjs'
 import { execFileSync } from 'node:child_process'
 import crypto from 'node:crypto'
+import { fileURLToPath } from 'node:url'
+// 기록하는 커밋은 «실행한 스크립트»의 저장소 것 — 다른 워크트리 cwd 에서 돌려도 섞이지 않게
+const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
 
 const [cmd, ...rest] = process.argv.slice(2)
 const arg = (n, d = null) => {
@@ -318,7 +321,7 @@ switch (cmd) {
       // 정본은 DB(csat_review_prechecks). 판정은 위 precheckAnalysis 그대로 — 화면은 이 기록을 읽기만 한다.
       // 키(분석·분석 해시·단위 해시·검사기 버전)가 같으면 같은 행을 갱신한다 — 재실행 안전.
       let commitSha = null
-      try { commitSha = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim() } catch { /* git 없음 */ }
+      try { commitSha = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8', cwd: SCRIPT_DIR }).trim() } catch { /* git 없음 */ }
       const rows = latest.map((a) => ({
         analysis_id: a.id, item_id: a.item_id, analysis_hash: pre.get(a.id)?.analysisHash, units_hash: pre.get(a.id)?.unitsHash ?? '', input_hash: pre.get(a.id)?.inputHash ?? '',
         units_version: pre.get(a.id)?.unitsVersion ?? null, precheck_version: PRECHECK_VERSION, commit: commitSha,
@@ -340,7 +343,7 @@ switch (cmd) {
       }
       const units = await loadCurrentUnits(db, failed.map((a) => a.item_id))
       let commit = null
-      try { commit = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim() } catch { /* git 없음 */ }
+      try { commit = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8', cwd: SCRIPT_DIR }).trim() } catch { /* git 없음 */ }
       const rec = {
         kind: '자동 검사 적발 후보',
         caution: '검사 통과는 결함 없음이나 독립 검수 통과가 아니다. 적발 후보는 교정 후보이지 결함률이 아니다(의미 오류·「N번 문장」 서술은 못 잡는다).',
