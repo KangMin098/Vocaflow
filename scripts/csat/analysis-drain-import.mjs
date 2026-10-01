@@ -154,14 +154,14 @@ for (const f of files) {
 // 분석의 번호는 그 목록에서만 뜻을 갖는다. 목록이 바뀐 뒤의 분석을 올리면 번호가 조용히 엉뚱한
 // 단위를 가리킨다 — 그래서 올리지 않고 수를 출력한다(DB 게이트도 발행 때 한 번 더 막는다).
 if (SET === 'hakpyeong') {
-  const withUnits = analyses.filter((a) => a.units_hash)
-  if (withUnits.length) {
-    const cur = await loadCurrentUnits(db, withUnits.map((a) => a.item_id))
-    const stale = new Set(withUnits.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
+  const candidates = analyses // legacy rows also need source provenance; absence must not bypass this gate
+  if (candidates.length) {
+    const cur = await loadCurrentUnits(db, candidates.map((a) => a.item_id))
+    const stale = new Set(candidates.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
     for (const id of stale) skipped.push(`${id}: 근거 단위 목록이 바뀌었다 — 다시 export 해 새 목록으로 번호를 대조한다`)
     // 목록 해시는 경계만 담는다 — 원문이 바뀌어도 경계가 같으면 그대로다. 그래서 export 때의 **원문 해시**도 지금 것과 대조한다
     // (Codex 게이트 P2, 2026-10-01). 원문 해시가 없는 옛 청크는 올리지 않는다 — 다시 export 하면 실린다
-    for (const a of withUnits) {
+    for (const a of candidates) {
       if (stale.has(a.item_id)) continue
       const h = exportHashOf.get(a)
       if (!h) { stale.add(a.item_id); skipped.push(`${a.item_id}: 입력 청크에 원문 해시(input_hash)가 없다 — 다시 export 한다`); continue }

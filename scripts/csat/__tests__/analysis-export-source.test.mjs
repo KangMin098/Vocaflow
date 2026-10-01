@@ -13,12 +13,13 @@ const CLI = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.ur
 const item = { id: 'H2603G3#18', exam: 'H2603G3', no: 18, year: 2026, month: 3, in_scope: true,
   type_id: 'R-TOPIC', passage: 'A memory can change. Each recall rebuilds it.', stem: '주제를 고르시오.', choices: ['a', 'b', 'c', 'd', 'e'], answer: 3, answers: [3] }
 
-async function run(dbItem, { existing = false, completed = false, changeDuringRead = false } = {}) {
+async function run(dbItem, { existing = false, completed = false, changeDuringRead = false, redo = false } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-export-source-'))
   const work = path.join(dir, 'scripts/csat/analysis-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
   fs.mkdirSync(path.join(dir, 'scripts/csat/data'), { recursive: true })
-  fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: [item] }))
+  const normal = { ...item, id: 'H2603G3#17', no: 17 }
+  fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: redo ? [normal, item] : [item] }))
   const input = path.join(work, 'chunk-R-TOPIC-H2603G3-18.json')
   const original = JSON.stringify({ items: [{ item_id: item.id, input_hash: 'old-export-input' }] })
   if (existing) fs.writeFileSync(input, original)
@@ -28,14 +29,14 @@ async function run(dbItem, { existing = false, completed = false, changeDuringRe
   const units = buildUnits(dbItem.passage)
   const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json')
-    if (req.url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify([dbItem]))
+    if (req.url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify(redo ? [normal, dbItem] : [dbItem]))
     reads += 1
-    res.end(JSON.stringify([{ item_id: item.id, units_version: units.version, units_hash: unitsHash(units),
-      input_hash: changeDuringRead && reads > 1 ? 'changed-input' : 'current-input', units: units.units }]))
+    res.end(JSON.stringify((redo ? [normal, item] : [item]).map((it) => ({ item_id: it.id, units_version: units.version, units_hash: unitsHash(units),
+      input_hash: changeDuringRead && reads > 1 ? 'changed-input' : 'current-input', units: units.units }))))
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   try {
-    const child = spawn(process.execPath, [CLI, '--set', 'hakpyeong', '--limit', '1'], {
+    const child = spawn(process.execPath, [CLI, '--set', 'hakpyeong', '--limit', '1', ...(redo ? ['--redo', item.id] : [])], {
       cwd: dir, windowsHide: true,
       env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     })
@@ -43,7 +44,8 @@ async function run(dbItem, { existing = false, completed = false, changeDuringRe
     child.stdout.on('data', (s) => { output += s })
     child.stderr.on('data', (s) => { output += s })
     const code = await new Promise((resolve, reject) => { child.on('error', reject); child.on('close', resolve) })
-    return { code, output, input: fs.existsSync(input) ? fs.readFileSync(input, 'utf8') : null, original }
+    const corrections = fs.readdirSync(work).filter((f) => f.startsWith('chunk-redo-')).map((f) => JSON.parse(fs.readFileSync(path.join(work, f), 'utf8')))
+    return { code, output, input: fs.existsSync(input) ? fs.readFileSync(input, 'utf8') : null, original, corrections }
   } finally {
     await new Promise((resolve) => server.close(resolve))
     fs.rmSync(dir, { recursive: true, force: true })
@@ -67,6 +69,13 @@ test('export refuses a source change during snapshot verification', async () => 
   const r = await run(item, { changeDuringRead: true })
   assert.notEqual(r.code, 0, r.output)
   assert.equal(r.input, null)
+})
+test('explicit redo gets a new chunk even with an earlier unfinished same-type item and limit one', async () => {
+  const r = await run(item, { existing: true, redo: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.input, r.original)
+  assert.equal(r.corrections.length, 1)
+  assert.deepEqual(r.corrections[0].items.map((it) => it.item_id), [item.id])
 })
 for (const completed of [false, true]) {
   test(`export preserves original hash provenance for ${completed ? 'completed' : 'in-flight'} chunks`, async () => {

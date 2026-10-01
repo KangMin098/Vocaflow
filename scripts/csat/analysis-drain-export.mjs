@@ -141,7 +141,11 @@ for (const arr of byType.values()) {
   arr.sort((a, b) => b.year - a.year || b.month - a.month || a.no - b.no)
 }
 // 문항이 많은 유형부터 — 회차 커버 곡선이 가장 빨리 오른다
-const types = [...byType.entries()].sort((a, b) => b[1].length - a[1].length)
+const types = [...byType.entries()].flatMap(([type, items]) => {
+  // Explicit corrections must never share the filename/provenance of unfinished ordinary work.
+  return [items.filter((it) => REDO.has(it.id)), items.filter((it) => !REDO.has(it.id))]
+    .filter((group) => group.length).map((group) => [type, group])
+}).sort((a, b) => Number(REDO.has(b[1][0].id)) - Number(REDO.has(a[1][0].id)) || b[1].length - a[1].length)
 
 /**
  * 지문이 미덥지 않은 문항에 싣는 **원문**.

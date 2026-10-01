@@ -18,15 +18,20 @@ const PASSAGE =
   'People often assume that memory works like a recorder. In fact, each recall rebuilds the event from fragments, and every rebuilding can change it slightly.'
 const CHOICES = ['a stable archive', 'a precise camera', 'an active reconstruction', 'a fading photograph', 'a shared diary']
 
+const HASH = 'a'.repeat(64)
+const UNITS = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
+const currentUnits = [{ item_id: 'H2603G3#18', units_version: 1, units_hash: HASH, input_hash: 'x', units: UNITS }]
+
 const item = (id) => ({ id, exam: 'H2603G3', no: Number(id.split('#')[1]), passage: PASSAGE, choices: CHOICES, answer: 3 })
 
 /** 게이트를 통과하는 최소 분석 */
 const goodAnalysis = (id) => ({
   item_id: id,
+  units_hash: HASH, units_version: 1,
   analyst_run: 'fix-rev-test-000001',
   measured_ability: '기억이 재구성된다는 주장을 사례 없이 추상 진술로 파악하는 능력',
   design_intent: '통념(기록 장치)과 필자 주장(재구성)을 대비시켜 주장 쪽을 고르게 한다',
-  answer_locus: { sentences: [2], quote: 'each recall rebuilds the event from fragments' },
+  answer_locus: { sentence_index: [2], quote: 'each recall rebuilds the event from fragments' },
   choices: [
     { n: 1, verdict: 'distractor', trap: '반대 진술', why_tempting: '통념 문장의 단어를 그대로 쓴다', how_to_reject: '1번 문장은 통념이고 2번 문장이 반박한다' },
     { n: 2, verdict: 'distractor', trap: '어휘 함정', why_tempting: 'recorder 와 camera 가 연상된다', how_to_reject: '1번 문장의 recorder 는 반박 대상이다' },
@@ -53,6 +58,7 @@ async function withPreviousAnalysis(previous, failTransition, fn) {
     for await (const part of req) body += part
     reqs.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify(currentUnits))
     if (req.method === 'GET') return res.end(JSON.stringify([previous]))
     if (req.method === 'PATCH' && failTransition) {
       res.statusCode = 400
@@ -70,6 +76,22 @@ const previousRow = (status) => {
   return { ...a, choice_analysis: choices, id: 'old-analysis', version: 4, status }
 }
 
+test('legacy analysis without units or an export hash cannot bypass source verification', async () => {
+  const { dir, work } = setup()
+  try {
+    const a = goodAnalysis('H2603G3#18')
+    delete a.units_hash
+    delete a.units_version
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item(a.item_id), item_id: a.item_id }] }))
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyses: [a] }))
+    await withServer(async (url, reqs) => {
+      const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+      assert.match(r.output, /적재 대상 0/)
+      assert.equal(reqs.filter((q) => !q.url.includes('/rpc/') && q.method !== 'GET').length, 0)
+    })
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+})
+
 for (const [field, oldValue] of [['time_budget_sec', 30], ['difficulty', { predicted: 0.1 }], ['required_vocab', []], ['answer_unknown', true], ['body_recovered', true]]) {
   test(`import preserves a correction to ${field} alone`, async () => {
     const { dir } = setup()
@@ -77,7 +99,7 @@ for (const [field, oldValue] of [['time_budget_sec', 30], ['difficulty', { predi
       await withPreviousAnalysis({ ...previousRow('in_review'), [field]: oldValue }, false, async (url, reqs) => {
         const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
         assert.equal(r.code, 0, r.output)
-        const insert = reqs.find((q) => q.method === 'POST')
+        const insert = reqs.find((q) => q.method === 'POST' && !q.url.includes('/rpc/'))
         assert.ok(insert, 'metadata-only correction was silently dropped')
         assert.equal(insert.body.version, 5)
       })
@@ -91,7 +113,7 @@ for (const status of ['draft', 'in_review', 'published']) {
       await withPreviousAnalysis(previousRow(status), false, async (url, reqs) => {
         const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
         assert.equal(r.code, 0, r.output)
-        assert.equal(reqs.filter((q) => q.method === 'POST').length, 0)
+        assert.equal(reqs.filter((q) => q.method === 'POST' && !q.url.includes('/rpc/')).length, 0)
         assert.equal(reqs.filter((q) => q.method === 'PATCH').length, status === 'draft' ? 1 : 0)
       })
     } finally { fs.rmSync(dir, { recursive: true, force: true }) }
@@ -104,7 +126,7 @@ test('failed draft transition names the item and exits nonzero for a retry', asy
       const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
       assert.notEqual(r.code, 0)
       assert.match(r.output, /H2603G3#18: in_review 전환 실패 — fixture transition refused/)
-      assert.equal(reqs.filter((q) => q.method === 'POST').length, 0)
+      assert.equal(reqs.filter((q) => q.method === 'POST' && !q.url.includes('/rpc/')).length, 0)
     })
   } finally { fs.rmSync(dir, { recursive: true, force: true }) }
 })
@@ -119,6 +141,7 @@ function setup() {
   const ids = ['H2603G3#18', 'H2603G3#19', 'H2603G3#20']
   fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: ids.map(item) }))
   const put = (name, analyses) => fs.writeFileSync(path.join(work, `chunk-${name}.out.json`), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses }))
+  fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: HASH, input_hash: 'x', units: UNITS }] }))
   put('revise-test', [goodAnalysis('H2603G3#18')])
   put('R-WAVE2-H2603G3-19', [badAnalysis('H2603G3#19')]) // 선택하지 않은 wave-2 — 게이트 오류가 있다
   put('broken', [badAnalysis('H2603G3#20')])
@@ -132,6 +155,7 @@ async function withServer(fn) {
     for await (const part of req) body += part
     reqs.push({ method: req.method, url: decodeURIComponent(req.url), body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify(currentUnits))
     if (req.method === 'GET') return res.end('[]')
     if (req.method === 'POST' && req.url.startsWith('/rest/v1/rpc/')) return res.end('[]') // 집합을 돌려주는 RPC
     if (req.method === 'POST') return res.end(JSON.stringify({ id: '00000000-0000-0000-0000-00000000000' + reqs.length }))
@@ -181,14 +205,14 @@ test('unselected wave-2 errors do not block; only selected items are written, as
       assert.equal(preview.code, 0, preview.output)
       assert.match(preview.output, /선택한 파일: chunk-revise-test\.out\.json/)
       assert.match(preview.output, /적재 대상 문항\(1\): H2603G3#18/)
-      assert.equal(reqs.length, 0, '미리보기는 DB 에 가지 않는다')
+      assert.ok(reqs.every((q) => q.url.includes('/rpc/csat_current_units_many')), '미리보기는 현재 목록만 읽는다')
 
       const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
       assert.equal(r.code, 0, r.output)
       assert.match(r.output, /PASS/)
       const touched = reqs.map((q) => q.url + JSON.stringify(q.body))
       assert.ok(touched.every((s) => !s.includes('#19') && !s.includes('#20')), '선택 밖 문항에 요청이 갔다')
-      const writes = reqs.filter((q) => q.method !== 'GET')
+      const writes = reqs.filter((q) => q.method !== 'GET' && !q.url.includes('/rpc/'))
       assert.deepEqual(writes.map((q) => q.method), ['POST', 'PATCH'])
       assert.equal(writes[0].body.item_id, 'H2603G3#18')
       assert.equal(writes[0].body.status, 'draft')
@@ -277,7 +301,7 @@ test('import: same body but new units_hash/analyst_run is a new version, not a r
     try {
       const r = await runImport(dir, `http://127.0.0.1:${server.address().port}`, ['--chunk', 'revise-test', '--commit'])
       assert.equal(r.code, 0, r.output)
-      const ins = reqs.find((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_item_analyses'))
+      const ins = reqs.find((q) => q.method === 'POST' && !q.url.includes('/rpc/') && q.url.startsWith('/rest/v1/csat_item_analyses'))
       assert.ok(ins, '새 버전을 만들지 않고 옛 행을 재사용했다')
       assert.equal(ins.body.units_hash, H)
       assert.equal(ins.body.version, 2)
@@ -309,7 +333,7 @@ for (const [label, chunkHash] of [['missing', undefined], ['mismatched', 'y']]) 
       try {
         const r = await runImport(dir, `http://127.0.0.1:${server.address().port}`, ['--chunk', 'src-test', '--commit'])
         assert.match(r.output, chunkHash ? /export 뒤 원문이 바뀌었다/ : /원문 해시\(input_hash\)가 없다/)
-        assert.ok(!reqs.some((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_item_analyses')), '원문이 맞는지 모르는 분석을 썼다')
+        assert.ok(!reqs.some((q) => q.method === 'POST' && !q.url.includes('/rpc/') && q.url.startsWith('/rest/v1/csat_item_analyses')), '원문이 맞는지 모르는 분석을 썼다')
       } finally { server.close() }
     } finally { fs.rmSync(dir, { recursive: true, force: true }) }
   })
