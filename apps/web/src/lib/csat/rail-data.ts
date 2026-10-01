@@ -7,7 +7,9 @@ import 'server-only'
 
 import { loadBrowseCatalog } from './browse'
 import { browseExamOrder, examAxis } from './browse-model'
-import { skeletonExamMeta } from './skeleton'
+import { primeLearnerHakpyeongSkeletons, skeletonExamMeta } from './skeleton'
+import { createClient } from '@/lib/supabase/server'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export interface RailExam {
   exam_id: string
@@ -15,7 +17,9 @@ export interface RailExam {
   items: number
 }
 
-export function railExams(): RailExam[] {
+/** 회차 목록 — 평가원(구운 파일) + 발행된 학평(DB 골격, 학습자 클라이언트로 읽음) */
+export async function railExams(): Promise<RailExam[]> {
+  await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
   return skeletonExamMeta()
     .map((exam) => ({ ...exam, id: exam.exam_id, ...examAxis(exam.exam_id) }))
     .sort(browseExamOrder)

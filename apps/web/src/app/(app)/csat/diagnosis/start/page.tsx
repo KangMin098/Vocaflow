@@ -22,7 +22,7 @@ export default async function DiagnosisStartPage() {
     db.from('csat_dx_session').select('id', { count: 'exact', head: true }).eq('user_id', userId),
   ])
   return (
-    <DiagnosisShell exams={railExams()} screen="start">
+    <DiagnosisShell exams={await railExams()} screen="start">
       <h1 className="text-[22px] font-[800] text-[var(--t1)]">진단 시작</h1>
       <ProfileForm
         hasRecords={(count ?? 0) > 0}

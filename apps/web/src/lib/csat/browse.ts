@@ -25,7 +25,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { examAxis, browseExamOrder, type BrowseCatalog, type BrowseExam, type BrowseItem, type BrowseType } from './browse-model'
 import { lectureMeta } from './lecture/store'
-import { loadItemSkeleton, skeletonExamMeta } from './skeleton'
+import { examLabelOf } from './exam-id'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonExamMeta } from './skeleton'
 import { ATLAS_TYPES } from './trap-atlas'
 import { PAGE_SIZE } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
@@ -56,7 +57,6 @@ interface Row {
 }
 
 async function readBrowseCatalog(client?: SupabaseClient): Promise<BrowseCatalog> {
-  const labels = new Map(skeletonExamMeta().map((e) => [e.exam_id, e.label]))
   const types = new Map(ATLAS_TYPES.map((t) => [t.id, t]))
 
   const rows: Row[] = []
@@ -64,10 +64,14 @@ async function readBrowseCatalog(client?: SupabaseClient): Promise<BrowseCatalog
   try {
     // `Database` 타입에 `csat_*` 가 없다 — `learner.ts` 의 `csatDb()` 와 같은 완화(한 줄)
     const db = client ?? ((await createClient()) as unknown as SupabaseClient)
+    // 학평 골격(DB · 발행분만)을 학습자 클라이언트로 읽어 둔다 — 주입된 클라이언트(회귀·관리자)로는 채우지 않는다
+    if (!client) await primeLearnerHakpyeongSkeletons(db)
+    // 학습자 뷰는 평가원 + 발행된 학평을 함께 준다(출처 필터로 가른다 · 2026-10-01 결정)
     // **커서 페이징이다 — `.range(from, …)` 를 쓰지 않는다.** 이 저장소는 OFFSET 페이징으로
     // 네 개의 명령이 죽었고(가장 큰 것 656,988행), `offset-paging-budget` 회귀가 그 수가
     // 느는 것을 막는다. `id` 는 고유하고 정렬 가능하므로 커서로 그대로 쓸 수 있다.
     for (let cursor = ''; ; ) {
+      // 범위: 평가원 + 발행 학평 목록(같은 목록 · 출처 필터로 가른다)
       let query = db.from('csat_items_public').select('id, exam_id, no, type_id, points').eq('in_scope', true)
       if (cursor) query = query.gt('id', cursor)
       const { data, error: queryError } = await query.order('id').limit(PAGE_SIZE)
@@ -102,8 +106,10 @@ async function readBrowseCatalog(client?: SupabaseClient): Promise<BrowseCatalog
     typeCount.set(row.type_id, (typeCount.get(row.type_id) ?? 0) + 1)
   }
 
+  // 이름: 구운 골격이 정본, 없으면(학평 골격 미발행·미굽기) id 규칙으로 — 그래도 없으면 id
+  const labels = new Map(skeletonExamMeta().map((e) => [e.exam_id, e.label]))
   const exams: BrowseExam[] = [...examCount]
-    .map(([id, n]) => ({ id, label: labels.get(id) ?? id, ...examAxis(id), items: n }))
+    .map(([id, n]) => ({ id, label: labels.get(id) ?? examLabelOf(id) ?? id, ...examAxis(id), items: n }))
     .sort(browseExamOrder)
 
   const browseTypes: BrowseType[] = [...typeCount]

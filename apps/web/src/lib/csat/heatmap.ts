@@ -147,6 +147,8 @@ export async function loadHeatmap(): Promise<Heatmap> {
             .from('csat_items_public')
             .select('type_id, exam_id, high_score')
             .eq('in_scope', true)
+            // 통계(출제 지형) — 평가원 집합만. 학습자 뷰는 발행된 학평도 주므로 여기서 좁힌다(통계는 집합별)
+            .eq('organizer', 'kice')
             .range(from, to),
         '기출 지형 문항',
       ),

@@ -33,7 +33,7 @@ export default async function DiagnosisReportPage() {
     : null
 
   return (
-    <DiagnosisShell exams={railExams()} screen="report">
+    <DiagnosisShell exams={await railExams()} screen="report">
       <h1 className="text-[22px] font-[800] text-[var(--t1)]">내 진단 리포트</h1>
       {latest ? (
         <DiagnosisReport snapshot={latest} previous={snaps[1] ?? null} variant="learner" feedback={feedback} goalText={goal} />
