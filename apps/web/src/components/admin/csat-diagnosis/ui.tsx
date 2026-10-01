@@ -19,7 +19,6 @@ export const tdCls = 'border-b border-[var(--bd)] px-2 py-2 align-top font-body 
 const NAV = [
   { href: '/admin/csat/diagnosis', label: '현황' },
   { href: '/admin/csat/diagnosis/exams', label: '시험·태깅' },
-  { href: '/admin/csat/diagnosis/pool', label: '진단 테스트 풀' },
   { href: '/admin/csat/diagnosis/learners', label: '학습자' },
   { href: '/admin/csat/diagnosis/settings', label: '엔진 설정' },
 ]

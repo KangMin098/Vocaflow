@@ -257,14 +257,10 @@ export type PublicEvent =
     }
   /**
    * 영어 진단(/csat/diagnosis) — 진입과 내부 상호작용(D2). 수치·불리언·닫힌 열거형만(D3).
-   * 질문: 진단을 시작한 사람이 기록 입력까지 가는가 · 습관 신호에 동의하는가.
+   * 질문: 진단 화면에 온 사람이 시험 기록까지 가는가.
    */
-  | { name: 'csat_dx_viewed'; props: { screen: 'start' | 'attempt' | 'test' | 'report' | 'history' } }
-  | { name: 'csat_dx_profile_saved'; props: { goal: 'susi_min' | 'jeongsi' | 'naesin' | 'keep' } }
+  | { name: 'csat_dx_viewed'; props: { screen: 'attempt' | 'report' } }
   | { name: 'csat_dx_attempt_saved'; props: { ready: boolean; retake: boolean; answered: number } }
-  | { name: 'csat_dx_test_submitted'; props: { correct: number; total: number } }
-  | { name: 'csat_dx_habit_answered'; props: { agreed: boolean } }
-  | { name: 'csat_dx_history_compared'; props: { snapshots: number } }
   /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
@@ -559,11 +555,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_path_chosen: true,
   csat_item_back: true,
   csat_dx_viewed: true,
-  csat_dx_profile_saved: true,
   csat_dx_attempt_saved: true,
-  csat_dx_test_submitted: true,
-  csat_dx_habit_answered: true,
-  csat_dx_history_compared: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

@@ -149,63 +149,6 @@ export async function loadTrapOptions(db: Db): Promise<{ key: string; family: st
   return rows.map((r) => ({ key: r.trap_key, family: r.family }))
 }
 
-export interface PoolRow {
-  itemId: string
-  active: boolean
-  examId: string
-  no: number
-  typeId: string
-  weights: Partial<Record<AttributeCode, number>>
-  reviewed: boolean
-}
-
-export async function loadPool(db: Db): Promise<PoolRow[]> {
-  const pool = await keysetSelect<{ item_id: string; active: boolean }, string>(
-    (cursor, limit) => {
-      const q = db.from('csat_dx_pool').select('item_id, active').order('item_id').limit(limit)
-      return cursor === null ? q : q.gt('item_id', cursor)
-    },
-    (row) => row.item_id,
-    'csat_dx_pool',
-  )
-  const ids = pool.map((p) => p.item_id)
-  if (ids.length === 0) return []
-  const [items, attrs] = await Promise.all([
-    selectByChunks<{ id: string; exam_id: string; no: number; type_id: string }>(ids, 500, (chunk) => db.from('csat_items').select('id, exam_id, no, type_id').in('id', chunk), 'csat_items'),
-    // 문항당 역량 ≤ 9행 → 100문항 묶음이면 900행
-    selectByChunks<{ item_id: string; attribute_code: string; weight: number; reviewed_at: string | null }>(
-      ids, 100, (chunk) => db.from('csat_dx_item_attribute').select('item_id, attribute_code, weight, reviewed_at').in('item_id', chunk), 'csat_dx_item_attribute',
-    ),
-  ])
-  const byId = new Map(items.map((i) => [i.id, i]))
-  return pool.map((p) => {
-    const i = byId.get(p.item_id)
-    const mine = attrs.filter((a) => a.item_id === p.item_id)
-    return {
-      itemId: p.item_id as string,
-      active: p.active as boolean,
-      examId: (i?.exam_id as string) ?? '',
-      no: (i?.no as number) ?? 0,
-      typeId: (i?.type_id as string) ?? '',
-      weights: Object.fromEntries(mine.filter((a) => (a.weight as number) > 0).map((a) => [a.attribute_code, a.weight])),
-      reviewed: mine.some((a) => a.reviewed_at),
-    }
-  })
-}
-
-/** 역량별 커버리지 — 활성 풀 문항의 가중치 합과 문항 수 */
-export function poolCoverage(rows: PoolRow[]): Record<AttributeCode, { items: number; weight: number }> {
-  const out = Object.fromEntries(ATTRIBUTE_CODES.map((c) => [c, { items: 0, weight: 0 }])) as Record<AttributeCode, { items: number; weight: number }>
-  for (const r of rows.filter((x) => x.active)) {
-    for (const [c, w] of Object.entries(r.weights)) {
-      if (!w) continue
-      out[c as AttributeCode].items += 1
-      out[c as AttributeCode].weight += w
-    }
-  }
-  return out
-}
-
 export interface LearnerSummary {
   userId: string
   email: string | null
