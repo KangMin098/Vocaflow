@@ -268,7 +268,8 @@ outer: for (const [typeId, arr] of types) {
       const u = unitsOf.get(it.id)
       if (!u) { unitsMissing += 1; return { ...p, units: null } }
       // 분석 출력에 units_version·units_hash 를 그대로 옮겨 적어야 적재된다(import 가 DB 현재 목록과 대조)
-      return { ...p, units_version: u.units_version, units_hash: u.units_hash, units: unitsForAgent(u.units) }
+      // input_hash: 이 목록을 만든 DB 원문 해시 — 목록 해시는 경계만 담아 원문이 바뀌어도 같을 수 있다(import 가 이것으로 대조)
+      return { ...p, units_version: u.units_version, units_hash: u.units_hash, input_hash: u.input_hash, units: unitsForAgent(u.units) }
     })
     const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
     const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`

@@ -193,7 +193,7 @@ test('import: same body but new units_hash/analyst_run is a new version, not a r
   try {
     const H = 'a'.repeat(64)
     const units = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
-    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: H, units }] }))
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: H, input_hash: 'x', units }] }))
     const a = { ...goodAnalysis('H2603G3#18'), units_version: 1, units_hash: H, answer_locus: { sentence_index: [2], quote: 'each recall rebuilds the event from fragments' } }
     fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses: [a] }))
     // 옛 행: 본문은 같고 목록 정보만 없다
@@ -221,3 +221,33 @@ test('import: same body but new units_hash/analyst_run is a new version, not a r
     } finally { server.close() }
   } finally { fs.rmSync(dir, { recursive: true, force: true }) }
 })
+
+for (const [label, chunkHash] of [['missing', undefined], ['mismatched', 'y']]) {
+  test(`import: export-time input_hash ${label} → analysis is skipped, nothing is inserted (Codex gate P2)`, async () => {
+    const { dir, work } = setup()
+    try {
+      const H = 'a'.repeat(64)
+      const units = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
+      const it = { ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: H, units }
+      if (chunkHash) it.input_hash = chunkHash
+      fs.writeFileSync(path.join(work, 'chunk-src-test.json'), JSON.stringify({ items: [it] }))
+      const a = { ...goodAnalysis('H2603G3#18'), units_version: 1, units_hash: H, answer_locus: { sentence_index: [2], quote: 'each recall rebuilds the event from fragments' } }
+      fs.writeFileSync(path.join(work, 'chunk-src-test.out.json'), JSON.stringify({ analyst_run: 'fix-src-test-000001', analyses: [a] }))
+      const reqs = []
+      const server = http.createServer(async (req, res) => {
+        let body = ''
+        for await (const part of req) body += part
+        reqs.push({ method: req.method, url: decodeURIComponent(req.url) })
+        res.setHeader('Content-Type', 'application/json')
+        if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify([{ item_id: 'H2603G3#18', units_version: 1, units_hash: H, input_hash: 'x', units: [] }]))
+        res.end('[]')
+      })
+      await new Promise((r) => server.listen(0, '127.0.0.1', r))
+      try {
+        const r = await runImport(dir, `http://127.0.0.1:${server.address().port}`, ['--chunk', 'src-test', '--commit'])
+        assert.match(r.output, chunkHash ? /export 뒤 원문이 바뀌었다/ : /원문 해시\(input_hash\)가 없다/)
+        assert.ok(!reqs.some((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_item_analyses')), '원문이 맞는지 모르는 분석을 썼다')
+      } finally { server.close() }
+    } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+  })
+}
