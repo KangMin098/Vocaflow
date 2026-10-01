@@ -67,6 +67,8 @@ node --tls-max-v1.2 --env-file=apps/web/.env.local scripts/knowledge/claims-impo
 
 검증 회귀: `node --test scripts/knowledge/__tests__/claims-lib.test.mjs`.
 
+대량 추출(Codex): `node scripts/knowledge/codex-extract-batch.mjs <claims-review 폴더> [--chunk 10] [--effort low] [--dry]` — 묶음마다 즉시 저장 · 판정된 영상 건너뜀 · 사용량 한도/일일 예산(`CODEX_DAILY_TOKEN_BUDGET`)에서 멈추고 다시 돌리면 이어서 · 쓴 토큰은 `~/.claude/codex-review/usage.jsonl`.
+
 ## 현황 (2026-10-01 · 시범 적재 후)
 
 - Codex 요약 196편 중 학습 절차가 적힌 영상 13편 → Codex 재검토로 3편은 절차가 아님(제외) · 10편은 **원문 대조 완료**(로컬 자막 캐시, 아래 시범 적재)

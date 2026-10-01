@@ -1,0 +1,133 @@
+// scripts/knowledge/codex-extract-batch.mjs
+// 강사 영상 주장 추출을 Codex 에 **묶음 단위**로 맡긴다 — 토큰 효율 · 중단해도 잃지 않기 (2026-10-01).
+//
+// 왜: 145편을 한 번에 맡긴 실행(2026-10-01)은 약 20만 토큰을 쓰고 사용량 한도에 걸려, 결과를 끝에 몰아 쓰려다
+//     형식 없는 중간 판정만 남겼다. 자막을 통째로 출력하며 읽어 로그가 1.2MB 였다.
+// 그래서:
+//   · 묶음(기본 10편)마다 codex exec 한 번 · 결과는 묶음 파일(claims-chunk-NN.jsonl)로 **즉시** 남긴다
+//   · 이미 판정된 영상(claims-chunk-*.jsonl · claims.partial.jsonl)은 건너뛴다 — 다시 돌리면 남은 묶음부터
+//   · 지시문은 짧게: 규칙은 CONTRACT.md 를 가리키기만, 자막은 필요한 구간만 읽고 통째 출력 금지
+//   · 사용량 한도 · 일일 예산(CODEX_DAILY_TOKEN_BUDGET, ~/.claude/codex-review/usage.jsonl 공용)에 닿으면 멈춘다
+//   · 끝에 claims.jsonl 로 합친다(중복 claimId 는 claims-import 가 쓰기 전에 가른다)
+// 사용: node scripts/knowledge/codex-extract-batch.mjs <claims-review 폴더> [--chunk 10] [--effort low] [--dry]
+import { spawnSync } from 'node:child_process'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+
+const args = process.argv.slice(2)
+const dir = path.resolve(args.find((a) => !a.startsWith('--')) ?? '')
+const opt = (k, d) => {
+  const i = args.indexOf(`--${k}`)
+  return i >= 0 && args[i + 1] ? args[i + 1] : d
+}
+const CHUNK = Number(opt('chunk', 10))
+const EFFORT = opt('effort', 'low')
+const DRY = args.includes('--dry')
+const NL = String.fromCharCode(10)
+if (!fs.existsSync(path.join(dir, 'target-videos.txt'))) {
+  console.error('사용: node scripts/knowledge/codex-extract-batch.mjs <claims-review 폴더(target-videos.txt · CONTRACT.md)> [--chunk 10] [--effort low] [--dry]')
+  process.exit(2)
+}
+
+const CACHE = path.join(os.tmpdir(), 'methodology-caption-analysis-20260927')
+const USAGE = path.join(os.homedir(), '.claude', 'codex-review', 'usage.jsonl')
+const BUDGET = Number(process.env.CODEX_DAILY_TOKEN_BUDGET ?? 250_000)
+
+function findCodex() {
+  if (process.env.CODEX_BIN && fs.existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN
+  const ext = path.join(os.homedir(), '.vscode', 'extensions')
+  const hits = fs
+    .readdirSync(ext)
+    .filter((d) => d.startsWith('openai.chatgpt-'))
+    .map((d) => path.join(ext, d, 'bin', 'windows-x86_64', 'codex.exe'))
+    .filter((p) => fs.existsSync(p))
+    .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)
+  return hits[0] ?? 'codex'
+}
+const todayTokens = () => {
+  const today = new Date().toLocaleDateString('sv')
+  let sum = 0
+  try {
+    for (const l of fs.readFileSync(USAGE, 'utf8').split(NL)) {
+      if (!l) continue
+      const r = JSON.parse(l)
+      if (new Date(r.at).toLocaleDateString('sv') === today && Number.isFinite(r.tokens)) sum += r.tokens
+    }
+  } catch {}
+  return sum
+}
+const readJsonl = (f) =>
+  fs.existsSync(f)
+    ? fs.readFileSync(f, 'utf8').split(NL).filter(Boolean).flatMap((l) => {
+        try {
+          return [JSON.parse(l)]
+        } catch {
+          return []
+        }
+      })
+    : []
+
+const target = fs.readFileSync(path.join(dir, 'target-videos.txt'), 'utf8').split(NL).filter(Boolean).map((l) => l.split('\t')[0])
+const chunkFiles = fs.readdirSync(dir).filter((f) => /^claims-chunk-\d+\.jsonl$/.test(f))
+const decided = new Set([...readJsonl(path.join(dir, 'claims.partial.jsonl')), ...chunkFiles.flatMap((f) => readJsonl(path.join(dir, f)))].map((c) => c.videoId))
+const remaining = target.filter((v) => !decided.has(v))
+console.log(`대상 ${target.length} · 판정됨 ${target.length - remaining.length} · 남음 ${remaining.length} · 묶음 ${Math.ceil(remaining.length / CHUNK)}(${CHUNK}편) · effort ${EFFORT}`)
+
+let next = chunkFiles.length ? Math.max(...chunkFiles.map((f) => Number(f.match(/\d+/)[0]))) + 1 : 1
+for (let i = 0; i < remaining.length; i += CHUNK) {
+  const ids = remaining.slice(i, i + CHUNK)
+  const out = `claims-chunk-${String(next).padStart(2, '0')}.jsonl`
+  if (todayTokens() >= BUDGET) {
+    console.log(`멈춤: 오늘 ${todayTokens().toLocaleString()} 토큰 ≥ 예산 ${BUDGET.toLocaleString()} — 다시 돌리면 이어서`)
+    break
+  }
+  // 짧은 지시 — 규칙은 계약 문서에 있다. 반복하지 않는 만큼 토큰이 준다.
+  const prompt = [
+    `영상 ${ids.length}편의 학습 방법 주장을 CONTRACT.md 형식 jsonl 로 ${out} 에 써라(이 폴더). 예시: ../claims-review-20261001/claims.jsonl.`,
+    `영상 ID: ${ids.join(' ')}`,
+    `자막: 로컬 캐시 ${CACHE} 만(네트워크 없음). 캐시 없으면 그 영상은 verdict hold · reason "캐시 없음".`,
+    '토큰 절약: 자막을 통째로 출력하지 말고, 학습 방법이 나오는 구간만 찾아 읽어라. 확인·요약 출력도 최소로.',
+    '지킬 것: CONTRACT.md 의 원칙 전부(원문 대조한 것만 import · 권고/관찰/추론 구분 · 재서술만 · A 는 대조 초 구간 · 합친 문장 1,500자 이하 · reviewer "codex").',
+    `모든 영상이 최소 한 줄. 다 쓰면 마지막 메시지로 "${out}: import N · hold N · exclude N" 한 줄만.`,
+  ].join(NL)
+  if (DRY) {
+    console.log(`[dry] ${out} · ${ids.length}편 · 지시문 ${prompt.length}자`)
+    next += 1
+    continue
+  }
+  const t0 = Date.now()
+  const r = spawnSync(
+    findCodex(),
+    ['exec', '-C', dir, '-s', 'workspace-write', '--skip-git-repo-check', '-c', `model_reasoning_effort="${EFFORT}"`, prompt],
+    { encoding: 'utf8', timeout: 1_800_000, maxBuffer: 64 << 20, windowsHide: true }
+  )
+  const secs = Math.round((Date.now() - t0) / 1000)
+  const both = `${r.stdout ?? ''}${NL}${r.stderr ?? ''}`
+  const tm = both.match(/tokens used\s*[:\n]?\s*([\d,]+)/i)
+  const tokens = tm ? Number(tm[1].replace(/,/g, '')) : null
+  try {
+    fs.mkdirSync(path.dirname(USAGE), { recursive: true })
+    fs.appendFileSync(USAGE, JSON.stringify({ at: new Date().toISOString(), kind: 'extract', tokens, secs, chunk: out }) + NL)
+  } catch {}
+  fs.writeFileSync(path.join(dir, out.replace('.jsonl', '.log')), both.slice(-20_000)) // 로그는 끝부분만 — 자막 구간을 쌓아 두지 않는다
+  const wrote = readJsonl(path.join(dir, out))
+  const covered = new Set(wrote.map((c) => c.videoId))
+  console.log(`${out} · ${secs}s · 토큰 ${tokens?.toLocaleString() ?? '?'} · 줄 ${wrote.length} · 영상 ${ids.filter((v) => covered.has(v)).length}/${ids.length}`)
+  if (/usage limit/i.test(both)) {
+    console.log('멈춤: Codex 사용량 한도 — 한도가 풀린 뒤 다시 돌리면 남은 묶음부터')
+    break
+  }
+  if (r.status !== 0) {
+    console.log(`멈춤: codex 종료 코드 ${r.status} — 로그 ${out.replace('.jsonl', '.log')}`)
+    break
+  }
+  next += 1
+}
+
+// 합치기 — 중간 판정 + 묶음 결과. claimId 중복은 claims-import 가 쓰기 전에 가른다.
+const all = [path.join(dir, 'claims.partial.jsonl'), ...fs.readdirSync(dir).filter((f) => /^claims-chunk-\d+\.jsonl$/.test(f)).sort().map((f) => path.join(dir, f))]
+const merged = all.flatMap(readJsonl)
+fs.writeFileSync(path.join(dir, 'claims.jsonl'), merged.map((c) => JSON.stringify(c)).join(NL) + (merged.length ? NL : ''))
+const left = target.filter((v) => !new Set(merged.map((c) => c.videoId)).has(v)).length
+console.log(`합침 → claims.jsonl ${merged.length}줄 · 아직 판정 없는 대상 ${left}편 · 오늘 Codex 토큰 ${todayTokens().toLocaleString()}`)
