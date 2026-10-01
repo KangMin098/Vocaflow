@@ -1,0 +1,170 @@
+[
+  {
+    "id": "9eb0f9e1-afe6-40ec-a3f2-c3babf8f3f9f",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Development in residential areas",
+    "note": "네 명의 후보자가 각각의 정책과 배경을 설명하는 선거 인터뷰 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9eb6ea27-568b-4809-bd4a-5bac7c16c6d8",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Indiana's Senate passed a",
+    "note": "동성결혼 헌법 수정안이 인디애나 상원을 통과한 절차와 반응을 다룬 정책 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock", "csat"], "types": ["content_match", "main_point"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9eba98a9-8368-4920-94f1-3004f476a9cd",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Three people were hospitalized",
+    "note": "텍사스 가스 시설에서 발생한 폭발 사고의 원인, 피해, 대응 과정을 순서대로 기술한 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "9ebcae0e-058f-4889-9791-f32fdf2b7389",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Younis Mohammad Ibrahim al-Hayyari",
+    "note": "알카에다 주요 지도자의 사우디 경찰과의 교전과 그 배경이 간결하게 정리된 단신 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V7"], "platform": []}}
+  },
+  {
+    "id": "9ebfdf5b-1f06-4800-84a3-0b24665c5c3f",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "On Sunday in Argentina's",
+    "note": "아르헨티나 대통령이 낙태 합법화 법안을 발의하겠다는 정치 정책 선언과 배경을 다룬 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match", "main_point"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ec794d5-0c57-4127-9a85-2dfa898a6e8b",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The United States' third-largest",
+    "note": "델타 항공이 항로를 축소하고 항공기를 매각하는 사유와 조치를 간단히 설명한 짧은 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ec808f8-d6d9-41da-830c-f042a67d96fd",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The Novak story that",
+    "note": "윤리 스캔들에 관련된 기자, 관리자들의 이야기를 시간순으로 정렬하여 이해하도록 한 타임라인 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ec8d0c3-f505-40a9-a9e7-91ff1bec54d1",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "WASHINTON D.C., USA – (Washington",
+    "note": "펜타곤의 새로운 비밀 정보 부서 창설과 그 법적 쟁점을 보도한 짧은 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ecd0b5e-8d84-41e2-b8b1-a985e822b92e",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "On Tuesday, a rash",
+    "note": "미국 대통령의 목 발진과 메이크업 사용에 관한 건강과 외모에 대한 보도다.",
+    "record": {"genre": "news", "slots": {"ages": ["adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ecec45c-bbc4-4d14-a124-790a12a05706",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "It has been confirmed",
+    "note": "바스라의 영국 영사관 호송대가 폭발 장치 공격으로 피해를 입은 사건을 보도한 단신이다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "9ed84938-d8b3-4bf7-98c3-a06fe432a220",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Yesterday, FC Barcelona collected",
+    "note": "메시의 해트트릭과 바르셀로나의 리그 선두 탈환을 시간순으로 묘사한 스포츠 기사다.",
+    "record": {"genre": "sports", "slots": {"ages": ["mid", "high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V2"], "platform": []}}
+  },
+  {
+    "id": "9ee01fd3-c1ad-46a9-b48a-c72a7d75222b",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "On October 30th Sprint",
+    "note": "스프린트와 코젠트 통신사 간의 피어링 분쟁 원인과 그로 인한 영향을 설명한 기술 뉴스다.",
+    "record": {"genre": "technology", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["school"], "types": ["content_match", "main_point"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "9ee237a1-0d79-4764-b8db-473deba0ccaf",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Brian Jackson is running",
+    "note": "온타리오 지방선 자유당 후보가 자신의 정책과 배경을 설명하는 정치 인터뷰 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ee45080-11b3-4a3e-9a2b-49c0eac647c5",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "During a seminar with",
+    "note": "가자 공습에서의 민간인 피해에 대한 이스라엘 군 복무자의 증언과 국제법적 논의를 다룬 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["school", "mock", "csat"], "types": ["content_match", "claim"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "9ee6cc00-afb0-4fc6-af20-0adce99fea0d",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Romano Prodi, prime minister",
+    "note": "이탈리아 총리 프로디가 신뢰투표에서 승리하여 연립 정부가 유지되는 정치 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9eeebcc8-8188-43ad-a986-2a5bf630907b",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Nematullah Shahrani, the Afghan",
+    "note": "아프가니스탄 공습으로 90명 이상의 민간인이 사망한 사건의 진실 공방과 국제법적 책임을 다룬 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock", "csat"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9eeed7f4-1058-44b6-ac76-43461e0deaad",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Goodluck Jonathan, the acting",
+    "note": "나이지리아 대통령 야르아두아의 사망 후 굿럭 조나단이 새로운 대통령으로 취임한 정치 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "9ef206f9-368a-4646-adf5-34b72c56ad09",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The United Nations High",
+    "note": "유엔이 이라크 난민을 받아들인 시리아와 요르단에 국제 사회의 지원을 촉구한 인도주의 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9ef23d47-2da1-4dff-8465-87f7d4ed5d34",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The final round of",
+    "note": "제네바에서 열린 국제 학생 무역법 토론 대회에서 공중보건과 특허 권리를 다룬 교육 뉴스다.",
+    "record": {"genre": "education", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["school"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "9ef299b3-aaf7-4001-9b22-bcd380feb630",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": true, "strippedRemains": true},
+    "sample": "Ryan Park, a 22",
+    "note": "육류 판매원이 여성을 성폭력한 혐의로 기소된 사건으로 성적 묘사가 구체적인 성인 대상 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V3"], "platform": []}}
+  },
+  {
+    "id": "9ef81883-2089-4306-9041-3348afa43944",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Prime Minister Anthony Albanese",
+    "note": "호주가 아랍에미리트의 요청으로 이란 방어를 위한 군사 장비와 인력을 파견하기로 결정한 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9efc1295-173e-4c3b-9f26-b759dfe2b890",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "This year's West Point",
+    "note": "9/11 테러 직후 입학해 전쟁에 참전하기로 결심한 웨스트포인트 졸업 반을 소개한 기사다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school", "mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9f00b36b-c8ec-4029-a112-6df500ffb882",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "New Zealand Post is",
+    "note": "뉴질랜드 우정 사업이 우편번호 체계를 4자리로 개편하고 자동화를 추진한다는 뉴스다.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "adult"], "purposes": ["school"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "9f0291ae-38a0-41c8-bc27-f75438b5ac39",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "On Sunday, the Bryan",
+    "note": "테니스 쌍둥이 브라이언 형제가 미국 데이비스컵 팀에서 물러난다고 발표한 스포츠 뉴스다.",
+    "record": {"genre": "sports", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  }
+]
