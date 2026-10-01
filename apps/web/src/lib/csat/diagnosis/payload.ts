@@ -8,7 +8,6 @@ import type { ResponseConfidence } from './engine/types'
 const CONF: ResponseConfidence[] = ['sure', 'unsure', 'guess', 'timeout']
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const DATE = /^\d{4}-\d{2}-\d{2}$/
-const ITEM_ID = /^[A-Za-z0-9_]{1,16}#[0-9]{1,2}$/
 
 const isObj = (v: unknown): v is Record<string, unknown> => typeof v === 'object' && v !== null && !Array.isArray(v)
 
@@ -64,67 +63,6 @@ export function parseExamPayload(body: unknown, today: string): ExamPayload | nu
     choices: outChoices,
     flags: outFlags,
   }
-}
-
-export interface DiagnosticPayload {
-  clientKey: string
-  answers: { itemId: string; chosen: number | null; confidence: ResponseConfidence }[]
-}
-
-export function parseDiagnosticPayload(body: unknown, maxItems: number): DiagnosticPayload | null {
-  if (!isObj(body)) return null
-  const { clientKey, answers } = body
-  if (typeof clientKey !== 'string' || !UUID.test(clientKey)) return null
-  if (!Array.isArray(answers) || answers.length === 0 || answers.length > maxItems) return null
-  const out: DiagnosticPayload['answers'] = []
-  for (const a of answers) {
-    if (!isObj(a) || typeof a.itemId !== 'string' || !ITEM_ID.test(a.itemId)) return null
-    if (a.chosen !== null && !(Number.isInteger(a.chosen) && (a.chosen as number) >= 1 && (a.chosen as number) <= 5)) return null
-    const confidence = (a.confidence ?? 'sure') as ResponseConfidence
-    if (!CONF.includes(confidence)) return null
-    out.push({ itemId: a.itemId, chosen: a.chosen as number | null, confidence })
-  }
-  return { clientKey, answers: out }
-}
-
-const GRADE_LEVELS = ['h1', 'h2', 'h3', 'n_su', 'adult']
-const GOALS = ['susi_min', 'jeongsi', 'naesin', 'keep']
-
-export interface ProfilePayload {
-  gradeLevel: string
-  goalType: string
-  goalDetail: { min_rule?: string; target_grade?: number }
-  background: Record<string, string>
-  weeklyHours: number | null
-}
-
-export function parseProfilePayload(body: unknown): ProfilePayload | null {
-  if (!isObj(body)) return null
-  const { gradeLevel, goalType, goalDetail, background, weeklyHours } = body
-  if (typeof gradeLevel !== 'string' || !GRADE_LEVELS.includes(gradeLevel)) return null
-  if (typeof goalType !== 'string' || !GOALS.includes(goalType)) return null
-  const detail: ProfilePayload['goalDetail'] = {}
-  if (goalDetail !== undefined) {
-    if (!isObj(goalDetail)) return null
-    if (goalDetail.min_rule !== undefined) {
-      if (typeof goalDetail.min_rule !== 'string' || goalDetail.min_rule.length > 20) return null
-      if (goalDetail.min_rule.trim()) detail.min_rule = goalDetail.min_rule.trim()
-    }
-    if (goalDetail.target_grade !== undefined && goalDetail.target_grade !== null) {
-      if (!Number.isInteger(goalDetail.target_grade) || (goalDetail.target_grade as number) < 1 || (goalDetail.target_grade as number) > 9) return null
-      detail.target_grade = goalDetail.target_grade as number
-    }
-  }
-  const bg: Record<string, string> = {}
-  if (background !== undefined) {
-    if (!isObj(background)) return null
-    for (const [k, v] of Object.entries(background)) {
-      if (k.length > 20 || typeof v !== 'string' || v.length > 20) return null
-      bg[k] = v
-    }
-  }
-  if (weeklyHours !== null && weeklyHours !== undefined && !(Number.isInteger(weeklyHours) && (weeklyHours as number) >= 0 && (weeklyHours as number) <= 80)) return null
-  return { gradeLevel, goalType, goalDetail: detail, background: bg, weeklyHours: (weeklyHours as number | null | undefined) ?? null }
 }
 
 export function todayKst(now: Date): string {

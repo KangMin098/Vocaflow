@@ -1,0 +1,536 @@
+/* apps/web/src/components/csat/diagnosis/diagnosis.module.css
+ *
+ * 내 진단 — 기출분석공간 홈과 같은 스킨(space.module.css .root 의 토큰) 위에서만 쓴다.
+ * 색은 잉크(--t1) · 회색(--t2) · 헤어라인(--bd) · 지면(--bg/--bg2)뿐이다. 강조는 굵기와 크기로 한다.
+ */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 24px 8px 64px;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--t2);
+}
+
+.card {
+  border: 1px solid var(--bd);
+  border-radius: var(--r-lg);
+  background: var(--bg);
+  padding: 20px;
+}
+
+.cardHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.cardNote {
+  font-size: 12.5px;
+  color: var(--t2);
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 900px) {
+  .grid2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ── 버튼 ─────────────────────────────── */
+.primary,
+.secondary {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 18px;
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+
+.primary {
+  background: var(--t1);
+  color: var(--bg);
+}
+
+.primary:hover {
+  background: #000;
+}
+
+.primary:disabled {
+  background: var(--bg3);
+  color: var(--t2);
+  cursor: not-allowed;
+}
+
+.secondary {
+  border: 1px solid var(--bd);
+  background: var(--bg);
+  color: var(--t1);
+}
+
+.secondary:hover {
+  border-color: var(--t1);
+}
+
+/* ── 점수 요약 ─────────────────────────── */
+.score {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+}
+
+.scoreBig {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.scoreUnit {
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 2px;
+}
+
+.gradePill {
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: var(--t1);
+  color: var(--bg);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.delta {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--t2);
+}
+
+.scoreLabel {
+  width: 100%;
+  font-size: 13px;
+  color: var(--t2);
+}
+
+/* ── 막대 · 행 ─────────────────────────── */
+.rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(96px, 160px) 1fr 56px;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  border-top: 1px solid var(--bd);
+}
+
+.row:first-child {
+  border-top: 0;
+}
+
+.rowName {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rowSub {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--t2);
+}
+
+.bar {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--bg3);
+  overflow: hidden;
+}
+
+.barFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: 999px;
+  background: var(--t1);
+}
+
+.rowValue {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.rowLink {
+  font-size: 12.5px;
+  color: var(--t2);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── 틀린 문항 칩 ──────────────────────── */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 12px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+a.chip:hover {
+  border-color: var(--t1);
+}
+
+.chipSub {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--t2);
+}
+
+/* ── 기록 목록 ─────────────────────────── */
+.records {
+  display: flex;
+  flex-direction: column;
+}
+
+.record {
+  display: grid;
+  grid-template-columns: 96px 1fr auto auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  border-top: 1px solid var(--bd);
+  font-size: 14px;
+}
+
+.record:first-child {
+  border-top: 0;
+}
+
+.recordDate {
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.recordScore {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.tag {
+  font-size: 12px;
+  color: var(--t2);
+}
+
+/* ── 빈 상태 · 절차 ────────────────────── */
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin: 8px 0 20px;
+  counter-reset: step;
+}
+
+@media (min-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.stepItem {
+  border: 1px solid var(--bd);
+  border-radius: var(--r-md);
+  padding: 16px;
+}
+
+.stepNum {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--t2);
+}
+
+.stepTitle {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.stepText {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--t2);
+}
+
+/* ── 시험 고르기 ───────────────────────── */
+.seg {
+  display: inline-flex;
+  padding: 4px;
+  gap: 4px;
+  border-radius: var(--r-md);
+  background: var(--bg2);
+}
+
+.segBtn {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--t2);
+}
+
+.segBtn[aria-pressed='true'] {
+  background: var(--bg);
+  color: var(--t1);
+  box-shadow: 0 0 0 1px var(--bd);
+}
+
+.yearList {
+  display: flex;
+  flex-direction: column;
+}
+
+.yearRow {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  border-top: 1px solid var(--bd);
+}
+
+.yearRow:first-child {
+  border-top: 0;
+}
+
+.yearName {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.examBtn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 14px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-md);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.examBtn:hover {
+  border-color: var(--t1);
+}
+
+.examBtn[aria-pressed='true'] {
+  background: var(--t1);
+  border-color: var(--t1);
+  color: var(--bg);
+}
+
+/* ── 답안지 ────────────────────────────── */
+.sheetMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.sheetMeta input[type='date'] {
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid var(--bd);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+}
+
+.sheet {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0 24px;
+}
+
+@media (min-width: 900px) {
+  .sheet {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
+.colHead {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 4px 6px;
+  border-bottom: 2px solid var(--t1);
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--t2);
+}
+
+.line {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  align-items: center;
+  min-height: 44px;
+  border-bottom: 1px solid var(--bd);
+}
+
+.line:focus-within,
+.line:focus-visible {
+  background: var(--bg2);
+}
+
+.lineNo {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.bubbles {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bubble {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+}
+
+.bubble span {
+  display: inline-flex;
+  width: 26px;
+  height: 26px;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--t2);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--t2);
+  transition: background var(--dur-fast) var(--ease);
+}
+
+.bubble[aria-checked='true'] span {
+  border-color: var(--t1);
+  background: var(--t1);
+  color: var(--bg);
+}
+
+.sheetFoot {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+  padding: 12px 0;
+  border-top: 1px solid var(--bd);
+  background: var(--bg);
+}
+
+.progress {
+  font-size: 14px;
+  color: var(--t2);
+  font-variant-numeric: tabular-nums;
+}
+
+.error {
+  font-size: 14px;
+  color: var(--t1);
+  font-weight: 700;
+}
+
+.check {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bubble span,
+  .primary,
+  .secondary {
+    transition: opacity var(--dur-fast) linear;
+  }
+}
