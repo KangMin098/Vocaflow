@@ -71,11 +71,13 @@ if (!process.env.SUPABASE_SERVICE_ROLE_KEY && !COMMIT) {
 const db = createScriptClient()
 
 const practiceRows = []
-for (let from = 0; ; from += 1000) {
-  const { data, error } = await db.from('knowledge_items').select('id,slug').eq('layer', 'practice').order('slug').range(from, from + 999)
+// keyset(slug > 마지막) — OFFSET 페이징 예산 회귀를 늘리지 않는다
+for (let last = ''; ; ) {
+  const { data, error } = await db.from('knowledge_items').select('id,slug').eq('layer', 'practice').gt('slug', last).order('slug').limit(1000)
   if (error) fail(`공부법 읽기 실패: ${error.message}`)
   practiceRows.push(...data)
   if (data.length < 1000) break
+  last = data[data.length - 1].slug
 }
 const dbPractice = new Set(practiceRows.map((r) => r.slug))
 const missing = [...practiceOf.keys()].filter((s) => !dbPractice.has(s))
