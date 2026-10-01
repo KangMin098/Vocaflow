@@ -6,7 +6,7 @@
 //   · 관측이 모자란 역량은 0 이 아니라 「데이터 부족」(value null)
 //   · 공식 오답률이 없으면 난이도 보정을 하지 않고 adjusted=false 로 알린다
 
-import { adjustScore, clampScore, expectedScore, gradeOf } from './scoring'
+import { adjustScore, clampScore, expectedScore, gradeOf, round1 } from './scoring'
 import {
   ATTRIBUTE_CODES,
   TRAP_FAMILIES,
@@ -260,7 +260,8 @@ export function currentAbility(input: EngineInput): { ability: number | null; ad
       num += w * (adjusted ? a.value : (s.rawScore as number))
       den += w
     }
-    return { ability: den > 0 ? clampScore(num / den) : null, adjusted, fromDiagnostic: false }
+    // 자르지 않은 값 — 시나리오 역변환에 쓴다. 표시할 때 diagnose() 가 자른다
+    return { ability: den > 0 ? round1(num / den) : null, adjusted, fromDiagnostic: false }
   }
   const diag = input.sessions.filter((s) => s.mode === 'diagnostic')
   const rs = diag.flatMap((s) => s.responses).filter((r) => r.itemId && input.items[r.itemId])
@@ -343,7 +344,8 @@ export function diagnose(input: EngineInput): DiagnosisResult {
   const mastery = attributeMastery(input, rows)
   const traps = trapVulnerability(input, rows)
   const habits = habitFlags(input, rows)
-  const { ability, adjusted, fromDiagnostic } = currentAbility(input)
+  const { ability: abilityRaw, adjusted, fromDiagnostic } = currentAbility(input)
+  const ability = abilityRaw === null ? null : clampScore(abilityRaw)
   const ref = input.settings.reference_exam ? input.exams[input.settings.reference_exam] : undefined
 
   const examSessions = input.sessions.filter(isExamSession).sort(byDate)
@@ -363,9 +365,9 @@ export function diagnose(input: EngineInput): DiagnosisResult {
     trapVulnerability: traps,
     habitFlags: habits,
     forecast: {
-      hard: scenario(input, ability, adjusted, sc.hard),
-      normal: scenario(input, ability, adjusted, sc.normal),
-      easy: scenario(input, ability, adjusted, sc.easy),
+      hard: scenario(input, abilityRaw, adjusted, sc.hard),
+      normal: scenario(input, abilityRaw, adjusted, sc.normal),
+      easy: scenario(input, abilityRaw, adjusted, sc.easy),
     },
     confidence: confidenceLevel(input, examSessions.length, totalResponses, mastery, fromDiagnostic),
     recommendedLines: recommend(input, mastery, traps, habits),
@@ -385,7 +387,7 @@ export function diagnose(input: EngineInput): DiagnosisResult {
       adjusted: (() => {
         if (s.rawScore === null) return null
         const a = adjustScore(s.rawScore, input.exams[s.examId as string], ref)
-        return a.adjusted ? a.value : null
+        return a.adjusted ? clampScore(a.value) : null
       })(),
     })),
   }

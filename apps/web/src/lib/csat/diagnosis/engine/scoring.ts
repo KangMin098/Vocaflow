@@ -57,7 +57,11 @@ export function expectedScore(exam: ExamMeta | undefined): number | null {
   }, 0)
 }
 
-/** 보정 점수 = 원점수 − E(그 시험) + E(기준 시험). 둘 중 하나라도 없으면 원점수 그대로(adjusted=false). */
+/**
+ * 보정 점수 = 원점수 − E(그 시험) + E(기준 시험). 둘 중 하나라도 없으면 원점수 그대로(adjusted=false).
+ * **여기서는 0~100 으로 자르지 않는다** — 평균·시나리오 역변환에 원래 값이 필요하다(잘라 두면 쉬운 시험에서
+ * 90 을 받은 학습자가 같은 시험 시나리오에서 70 으로 예측됐다). 화면에 낼 때만 clampScore.
+ */
 export function adjustScore(
   raw: number,
   exam: ExamMeta | undefined,
@@ -66,7 +70,11 @@ export function adjustScore(
   const e = expectedScore(exam)
   const eRef = expectedScore(reference)
   if (e === null || eRef === null) return { value: raw, adjusted: false }
-  return { value: clampScore(raw - e + eRef), adjusted: true }
+  return { value: round1(raw - e + eRef), adjusted: true }
+}
+
+export function round1(v: number): number {
+  return Math.round(v * 10) / 10
 }
 
 export function clampScore(v: number): number {

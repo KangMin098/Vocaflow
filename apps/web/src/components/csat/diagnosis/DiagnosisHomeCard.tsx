@@ -25,7 +25,7 @@ export function DiagnosisHomeCard({ state }: { state: HomeDiagnosis }) {
           <h2 className="flex items-center gap-1.5 text-[15px] font-[800] text-[var(--t1)]">
             <Stethoscope size={16} aria-hidden="true" /> 내 영어 진단
           </h2>
-          <p className="break-keep font-body text-[13px] text-[var(--t2)]">모의고사 기록이나 20문항 진단 테스트로 지금 등급과 약점을 알려 드려요.</p>
+          <p className="break-keep font-body text-[13px] text-[var(--t2)]">모의고사 기록이나 짧은 진단 테스트로 지금 등급과 약점을 알려 드려요.</p>
         </div>
         <Link className={primary} href={state.kind === 'anon' ? '/login?next=/csat/diagnosis/start' : '/csat/diagnosis/start'}>진단 시작</Link>
       </section>

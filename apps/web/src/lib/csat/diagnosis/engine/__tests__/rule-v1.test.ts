@@ -264,6 +264,13 @@ describe('6~8. 시나리오 · 추천 · 신뢰도', () => {
     const r = diagnose(input({ exams: { A: exam('A') }, sessions: [{ ...session('s', 'A', '2026-10-01', responses()), rawScore: 80 }], target: { grade: 2 } }))
     expect(r.forecast.hard).toEqual({ examId: null, expected: null, grade: null, meetsTarget: null, adjusted: false })
   })
+  it('100 을 넘는 보정 능력도 시나리오 역변환에서 원래 값으로 돌아온다(일찍 자르지 않는다)', () => {
+    const exams = { E: exam('E', { errorRate: () => 0.5 }), R: exam('R', { errorRate: () => 0.2 }) } // E 50 · R 80
+    const settings = { ...SETTINGS, reference_exam: 'R', scenario_exams: { hard: 'E', normal: 'R', easy: 'R' } }
+    const r = diagnose(input({ exams, settings, sessions: [{ ...session('s', 'E', '2026-10-01', responses()), rawScore: 90 }], target: { grade: 1 } }))
+    expect(r.ability).toBe(100) // 표시는 자른다(내부 120)
+    expect(r.forecast.hard).toMatchObject({ expected: 90, grade: 1, meetsTarget: true })
+  })
   it('추천은 최대 3개, 약한 역량 → 취약 함정 → 습관 순', () => {
     const traps = { 1: '인과 역전' }
     const e = exam('A', { traps })
