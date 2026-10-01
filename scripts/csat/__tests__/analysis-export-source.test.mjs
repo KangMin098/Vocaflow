@@ -8,6 +8,7 @@ import http from 'node:http'
 import { spawn } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { buildUnits, unitsHash } from '../lib-evidence-units.mjs'
+import { exportAnswerHash } from '../lib-units-db.mjs'
 
 const CLI = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.url))
 const item = { id: 'H2603G3#18', exam: 'H2603G3', no: 18, year: 2026, month: 3, in_scope: true,
@@ -54,7 +55,7 @@ async function run(dbItem, { existing = false, completed = false, changeDuringRe
   }
 }
 
-for (const [field, value] of [['passage', 'A memory may change. Each recall rebuilds it.'], ['stem', '다른 발문'], ['choices', ['e', 'd', 'c', 'b', 'a']], ['answer', 2]]) {
+for (const [field, value] of [['passage', 'A memory may change. Each recall rebuilds it.'], ['stem', '다른 발문'], ['choices', ['e', 'd', 'c', 'b', 'a']], ['answer', 2], ['answers', [2, 3]]]) {
   test(`export cannot stamp a DB hash onto stale local ${field}`, async () => {
     const r = await run({ ...item, [field]: value })
     assert.notEqual(r.code, 0, r.output)
@@ -66,6 +67,7 @@ test('export binds matching corpus text to current units', async () => {
   const r = await run(item)
   assert.equal(r.code, 0, r.output)
   assert.equal(JSON.parse(r.input).items[0].input_hash, 'current-input')
+  assert.equal(JSON.parse(r.input).items[0].answer_hash, exportAnswerHash(item))
 })
 test('export refuses a source change during snapshot verification', async () => {
   const r = await run(item, { changeDuringRead: true })

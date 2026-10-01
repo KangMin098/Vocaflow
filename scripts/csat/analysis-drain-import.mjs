@@ -25,7 +25,7 @@ import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
-import { loadCurrentUnits } from './lib-units-db.mjs'
+import { loadCurrentAnswerHashes, loadCurrentUnits } from './lib-units-db.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const WORK = WORK_DIR
@@ -82,11 +82,17 @@ const skipped = []
 // 분석 행 객체 → 그 분석을 낸 **같은 청크**의 export 시점 DB 원문 해시. 문항 id 로 묶으면 다른 청크(옛 redo)의 해시를
 // 빌려 올 수 있다(Codex 리뷰 P2) — 중복 제거가 객체를 고르므로 해시도 객체에 매단다
 const exportHashOf = new Map()
+const exportAnswerHashOf = new Map()
 for (const f of files) {
   const j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
   const inFile = path.join(WORK, f.replace(/\.out\.json$/, '.json'))
   const fileHash = new Map()
-  if (fs.existsSync(inFile)) for (const it of JSON.parse(fs.readFileSync(inFile, 'utf8')).items ?? []) if (it.input_hash) fileHash.set(it.id ?? it.item_id, it.input_hash)
+  const fileAnswerHash = new Map()
+  if (fs.existsSync(inFile)) for (const it of JSON.parse(fs.readFileSync(inFile, 'utf8')).items ?? []) {
+    const id = it.id ?? it.item_id
+    if (it.input_hash) fileHash.set(id, it.input_hash)
+    if (it.answer_hash) fileAnswerHash.set(id, it.answer_hash)
+  }
   for (const a of j.analyses ?? []) {
     // 빈 값·짧은 값은 넣지 않는다. 넣으면 다음 export 가 "완료" 로 세어 구멍이 영영 남는다.
     if (!a.item_id) { skipped.push(`${f}: item_id 없음`); continue }
@@ -118,6 +124,7 @@ for (const f of files) {
         : {}),
     })
     exportHashOf.set(analyses[analyses.length - 1], fileHash.get(a.item_id) ?? null)
+    exportAnswerHashOf.set(analyses[analyses.length - 1], fileAnswerHash.get(a.item_id) ?? null)
     reviewsOf.set(a.item_id, a.reviews ?? [])
   }
   const tr = j.type_report
@@ -157,6 +164,7 @@ if (SET === 'hakpyeong') {
   const candidates = analyses // legacy rows also need source provenance; absence must not bypass this gate
   if (candidates.length) {
     const cur = await loadCurrentUnits(db, candidates.map((a) => a.item_id))
+    const answers = await loadCurrentAnswerHashes(db, candidates.map((a) => a.item_id))
     const stale = new Set(candidates.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
     for (const id of stale) skipped.push(`${id}: 근거 단위 목록이 바뀌었다 — 다시 export 해 새 목록으로 번호를 대조한다`)
     // 목록 해시는 경계만 담는다 — 원문이 바뀌어도 경계가 같으면 그대로다. 그래서 export 때의 **원문 해시**도 지금 것과 대조한다
@@ -165,7 +173,12 @@ if (SET === 'hakpyeong') {
       if (stale.has(a.item_id)) continue
       const h = exportHashOf.get(a)
       if (!h) { stale.add(a.item_id); skipped.push(`${a.item_id}: 입력 청크에 원문 해시(input_hash)가 없다 — 다시 export 한다`); continue }
-      if (cur.get(a.item_id)?.input_hash !== h) { stale.add(a.item_id); skipped.push(`${a.item_id}: export 뒤 원문이 바뀌었다 — 다시 export 해 새 원문으로 분석한다`) }
+      if (cur.get(a.item_id)?.input_hash !== h) { stale.add(a.item_id); skipped.push(`${a.item_id}: export 뒤 원문이 바뀌었다 — 다시 export 해 새 원문으로 분석한다`); continue }
+      const answerHash = exportAnswerHashOf.get(a)
+      if (!answerHash || answerHash !== answers.get(a.item_id)) {
+        stale.add(a.item_id)
+        skipped.push(`${a.item_id}: export 정답 해시가 없거나 현재 정답과 다르다 — --redo로 다시 분석한다`)
+      }
     }
     if (stale.size) {
       const keep = analyses.filter((a) => !stale.has(a.item_id))

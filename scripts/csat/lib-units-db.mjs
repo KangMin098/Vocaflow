@@ -8,6 +8,22 @@
 //    원문 해시까지 묶어 한 번에 찾는다. 원문이 바뀌었는데 units-build 를 안 돌렸으면 현재 목록이 **없다**(null).
 
 import { isDeepStrictEqual } from 'node:util'
+import crypto from 'node:crypto'
+
+// Export-file provenance only; independent review hashes are still stamped by the DB.
+export const exportAnswerHash = (item) => crypto.createHash('sha256').update(JSON.stringify([item.answer ?? null, item.answers ?? null])).digest('hex')
+
+export async function loadCurrentAnswerHashes(db, itemIds) {
+  const out = new Map()
+  const ids = [...new Set(itemIds)]
+  for (let i = 0; i < ids.length; i += 200) {
+    const { data, error } = await db.from('csat_items').select('id,answer,answers').in('id', ids.slice(i, i + 200))
+    if (error) throw new Error(`정답 조회: ${error.message}`)
+    if (!Array.isArray(data)) throw new Error('정답 조회: 응답이 배열이 아니다')
+    for (const row of data) out.set(row.id, exportAnswerHash(row))
+  }
+  return out
+}
 
 /** 에이전트에게 보이는 모양 — 오프셋은 빼고 번호·글·종류만 */
 export const unitsForAgent = (units) => units.map((u) => ({ n: u.n, text: u.text, ...(u.kind === 'line' ? { kind: 'line' } : {}) }))

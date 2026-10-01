@@ -11,6 +11,7 @@ import http from 'node:http'
 import { spawn } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { chunkArgs, DrainSelectError, selectOutFiles } from '../lib-drain-select.mjs'
+import { exportAnswerHash } from '../lib-units-db.mjs'
 
 const IMPORT = fileURLToPath(new URL('../analysis-drain-import.mjs', import.meta.url))
 
@@ -19,6 +20,7 @@ const PASSAGE =
 const CHOICES = ['a stable archive', 'a precise camera', 'an active reconstruction', 'a fading photograph', 'a shared diary']
 
 const HASH = 'a'.repeat(64)
+const ANSWER_HASH = exportAnswerHash({ answer: 3 })
 const UNITS = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
 const currentUnits = [{ item_id: 'H2603G3#18', units_version: 1, units_hash: HASH, input_hash: 'x', units: UNITS }]
 
@@ -58,6 +60,7 @@ async function withPreviousAnalysis(previous, failTransition, fn) {
     for await (const part of req) body += part
     reqs.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/csat_items?')) return res.end(JSON.stringify([{ id: 'H2603G3#18', answer: 3, answers: null }]))
     if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify(currentUnits))
     if (req.method === 'GET') return res.end(JSON.stringify([previous]))
     if (req.method === 'PATCH' && failTransition) {
@@ -141,20 +144,21 @@ function setup() {
   const ids = ['H2603G3#18', 'H2603G3#19', 'H2603G3#20']
   fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: ids.map(item) }))
   const put = (name, analyses) => fs.writeFileSync(path.join(work, `chunk-${name}.out.json`), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses }))
-  fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: HASH, input_hash: 'x', units: UNITS }] }))
+  fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: HASH, input_hash: 'x', answer_hash: ANSWER_HASH, units: UNITS }] }))
   put('revise-test', [goodAnalysis('H2603G3#18')])
   put('R-WAVE2-H2603G3-19', [badAnalysis('H2603G3#19')]) // 선택하지 않은 wave-2 — 게이트 오류가 있다
   put('broken', [badAnalysis('H2603G3#20')])
   return { dir, work }
 }
 
-async function withServer(fn) {
+async function withServer(fn, currentAnswer = { answer: 3, answers: null }) {
   const reqs = []
   const server = http.createServer(async (req, res) => {
     let body = ''
     for await (const part of req) body += part
     reqs.push({ method: req.method, url: decodeURIComponent(req.url), body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/csat_items?')) return res.end(JSON.stringify([{ id: 'H2603G3#18', ...currentAnswer }]))
     if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify(currentUnits))
     if (req.method === 'GET') return res.end('[]')
     if (req.method === 'POST' && req.url.startsWith('/rest/v1/rpc/')) return res.end('[]') // 집합을 돌려주는 RPC
@@ -163,6 +167,29 @@ async function withServer(fn) {
   })
   await new Promise((r) => server.listen(0, '127.0.0.1', r))
   try { return await fn(`http://127.0.0.1:${server.address().port}`, reqs) } finally { server.close() }
+}
+
+for (const [reason, currentAnswer] of [
+  ['answer changed', { answer: 2, answers: null }],
+  ['answers changed', { answer: 3, answers: [2, 3] }],
+  ['missing export answer hash', { answer: 3, answers: null }],
+]) {
+  test(`import refuses stale answer provenance: ${reason}`, async () => {
+    const { dir, work } = setup()
+    try {
+      if (reason === 'missing export answer hash') {
+        const inputPath = path.join(work, 'chunk-revise-test.json')
+        const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'))
+        delete input.items[0].answer_hash
+        fs.writeFileSync(inputPath, JSON.stringify(input))
+      }
+      await withServer(async (url, reqs) => {
+        const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+        assert.match(r.output, /export 정답 해시/)
+        assert.equal(reqs.filter((q) => q.method !== 'GET' && !q.url.includes('/rpc/')).length, 0)
+      }, currentAnswer)
+    } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+  })
 }
 
 async function runImport(dir, url, args) {
@@ -205,7 +232,7 @@ test('unselected wave-2 errors do not block; only selected items are written, as
       assert.equal(preview.code, 0, preview.output)
       assert.match(preview.output, /선택한 파일: chunk-revise-test\.out\.json/)
       assert.match(preview.output, /적재 대상 문항\(1\): H2603G3#18/)
-      assert.ok(reqs.every((q) => q.url.includes('/rpc/csat_current_units_many')), '미리보기는 현재 목록만 읽는다')
+      assert.ok(reqs.every((q) => q.url.includes('/rpc/csat_current_units_many') || q.method === 'GET'), '미리보기는 현재 목록·정답만 읽는다')
 
       const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
       assert.equal(r.code, 0, r.output)
@@ -280,7 +307,7 @@ test('import: same body but new units_hash/analyst_run is a new version, not a r
   try {
     const H = 'a'.repeat(64)
     const units = [{ n: 1, text: PASSAGE.split('. ')[0] + '.' }, { n: 2, text: PASSAGE.split('. ')[1] }]
-    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: H, input_hash: 'x', units }] }))
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify({ items: [{ ...item('H2603G3#18'), item_id: 'H2603G3#18', units_version: 1, units_hash: H, input_hash: 'x', answer_hash: ANSWER_HASH, units }] }))
     const a = { ...goodAnalysis('H2603G3#18'), units_version: 1, units_hash: H, answer_locus: { sentence_index: [2], quote: 'each recall rebuilds the event from fragments' } }
     fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyst_run: 'fix-rev-test-000001', analyses: [a] }))
     // 옛 행: 본문은 같고 목록 정보만 없다
@@ -292,6 +319,7 @@ test('import: same body but new units_hash/analyst_run is a new version, not a r
       for await (const part of req) body += part
       reqs.push({ method: req.method, url: decodeURIComponent(req.url), body: body ? JSON.parse(body) : null })
       res.setHeader('Content-Type', 'application/json')
+      if (req.url.startsWith('/rest/v1/csat_items?')) return res.end(JSON.stringify([{ id: 'H2603G3#18', answer: 3, answers: null }]))
       if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify([{ item_id: 'H2603G3#18', units_version: 1, units_hash: H, input_hash: 'x', units: [] }]))
       if (req.method === 'GET') return res.end(JSON.stringify([prevRow]))
       if (req.method === 'POST') return res.end(JSON.stringify({ id: 'n1' }))
