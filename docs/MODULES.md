@@ -1186,6 +1186,6 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 
 ## 영어 진단 — 시험 기록 시계열 진단 (2026-10-01)
 
-- 엔진: `lib/csat/diagnosis/engine/` — `rule-v1.ts`(diagnose) · `scoring.ts` · `compose.ts`(진단 테스트 출제) · `settings.ts`(설정 검사) · `types.ts`(`DiagnosisEngine` 인터페이스 — 통계 모델로 교체 지점).
-- 서버: `server.ts`(EngineInput 조립 · 채점 저장 · 스냅샷) · `admin.ts` · `learner.ts` · `snapshot.ts` · `labels.ts`(코드 ↔ 쉬운 말).
-- 컴포넌트(`components/csat/diagnosis`): `DiagnosisReport`(learner/admin 변형) · `OmrForm`(키보드 입력, 예외만 표시) · `DiagnosticTest` · `ProfileForm` · `HistoryCompare` · `ScoreTrend` · `HabitButtons` · `DiagnosisHomeCard`(/csat 홈) · `DiagnosisShell`(레일 「내 진단」).
+- 학습자 진단 계산: `lib/csat/diagnosis/engine/exam-report.ts`(점수 흐름 · 유형별 정답률 · 듣기/독해 · 끌린 함정 · 틀린 문항) · 조회 `report.ts`.
+- 관리자·태깅용 규칙 엔진 `engine/rule-v1.ts`(스냅샷)는 그대로 — 학습자 화면은 쓰지 않는다.
+- 컴포넌트(`components/csat/diagnosis`): `DiagnosisBoard`(판 · 알약 탭 · 벤토 · 표, `board.module.css`) · `charts`(도넛 · 막대 · 레이더 · 스파크라인) · `RecordsList` · `RecordModal`(새 기록 팝업) · `RecordDetailModal`(기록 팝업 · 삭제) · `ResultParts`(영역 막대 · 45칸 결과판) · `tints`(등급 · 영역 · 함정 색) · `DiagnosisHomeCard` · `DiagnosisShell`.

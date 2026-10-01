@@ -340,14 +340,10 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) 
   if (se) throw new Error(`저장 확인 실패: ${se.message}`)
   await assertSameSubmission(db, sessionId as string, responses, saved.exam_id === sub.examId && saved.mode === sub.mode && saved.taken_at === sub.takenAt)
   const snapshot = await snapshotForSession(db, sub.userId, sessionId as string, now)
-  return { sessionId: sessionId as string, raw: saved.raw_score as number, grade: saved.grade as number | null, ready: exam.ready, snapshotId: snapshot.id }
-}
-
-export interface DiagnosticSubmission {
-  userId: string
-  clientKey: string
-  takenAt: string
-  answers: { itemId: string; chosen: number | null; confidence: ResponseConfidence }[]
+  const { data: wrongRows, error: we } = await db.from('csat_dx_response').select('item_no').eq('session_id', sessionId as string).eq('is_correct', false)
+  if (we) throw new Error(`오답 조회 실패: ${we.message}`)
+  const wrong = (wrongRows ?? []).map((r) => r.item_no as number).sort((x, y) => x - y)
+  return { sessionId: sessionId as string, raw: saved.raw_score as number, grade: saved.grade as number | null, ready: exam.ready, snapshotId: snapshot.id, wrong }
 }
 
 /**
@@ -385,34 +381,11 @@ async function snapshotForSession(db: Db, userId: string, sessionId: string, now
   }
 }
 
-/** 진단 테스트 제출 — 문항 정답은 csat_items 에서 서버가 판정한다 */
-export async function submitDiagnosticSession(db: Db, sub: DiagnosticSubmission, now: Date) {
-  const ids = sub.answers.map((a) => a.itemId)
-  const { data: pool, error: pe } = await db.from('csat_dx_pool').select('item_id').eq('active', true).in('item_id', ids)
-  if (pe) throw new Error(`진단 풀 조회 실패: ${pe.message}`)
-  const inPool = new Set((pool ?? []).map((p) => p.item_id as string))
-  if (ids.some((id) => !inPool.has(id)) || new Set(ids).size !== ids.length) throw new SubmissionError('진단 테스트 문항이 아니다')
-  const { data: items, error } = await db.from('csat_items').select('id, answer, answers').in('id', ids)
-  if (error) throw new Error(`문항 조회 실패: ${error.message}`)
-  const key = new Map((items ?? []).map((i) => [i.id as string, ((i.answers as number[] | null)?.length ? i.answers : [i.answer]) as number[]]))
-  const responses = sub.answers.map((a, idx) => ({
-    item_no: idx + 1,
-    item_id: a.itemId,
-    chosen_option: a.chosen,
-    is_correct: a.chosen !== null && (key.get(a.itemId) ?? []).includes(a.chosen),
-    confidence: a.confidence,
-  }))
-  const { data: sessionId, error: re } = await db.rpc('csat_dx_record_session', {
-    p_session: { user_id: sub.userId, exam_id: null, mode: 'diagnostic', taken_at: sub.takenAt, client_key: sub.clientKey, entered_by: 'learner' },
-    p_responses: responses,
-  })
-  if (re) throw new Error(`기록 저장 실패: ${re.message}`)
-  // 재전송이면 처음 저장한 응답이 정본이다 — 저장된 행으로 센다
-  await assertSameSubmission(db, sessionId as string, responses, true)
-  const { data: saved, error: se } = await db.from('csat_dx_response').select('is_correct').eq('session_id', sessionId as string)
-  if (se) throw new Error(`저장 확인 실패: ${se.message}`)
-  const snapshot = await snapshotForSession(db, sub.userId, sessionId as string, now)
-  return { sessionId: sessionId as string, correct: (saved ?? []).filter((r) => r.is_correct).length, total: (saved ?? []).length, snapshotId: snapshot.id }
+/** 기록 한 회 삭제 — 본인(userId) 세션만. 응답은 FK cascade 로 함께 지워지고, 그 세션을 가리키던 스냅샷은 session_id 가 비워진다 */
+export async function deleteExamSession(db: Db, userId: string, sessionId: string): Promise<boolean> {
+  const { data, error } = await db.from('csat_dx_session').delete().eq('id', sessionId).eq('user_id', userId).select('id')
+  if (error) throw new Error(`기록 삭제 실패: ${error.message}`)
+  return (data ?? []).length > 0
 }
 
 /** 시험 기록 입력에서 고를 수 있는 시험(정답표가 있는 회차) */
