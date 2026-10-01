@@ -101,7 +101,8 @@ export default async function CsatPlanPage({ searchParams }: { searchParams: Pro
 
           {/* ⑤ 주파 — 줄 세우기는 클라이언트가 한다(토글). 시간 띠는 **위에** 그대로 두어
               번호 순서를 잃지 않는다: 시험은 번호대로 치러지고, 이 순서는 공부할 순서다. */}
-          <PlanList rows={plan.rows} mine={mine} scope={scope} />
+          {/* 「내 약한 것 먼저」는 평가원 함정 분포(구운 값)로 순위를 낸다 — 학평 범위에서는 끈다(학년 분포 생기기 전) */}
+          <PlanList rows={plan.rows} mine={scope.set === 'kice' ? mine : null} scope={scope} />
 
         </>
       ) : null}
