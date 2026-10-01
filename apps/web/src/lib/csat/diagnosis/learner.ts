@@ -6,11 +6,8 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { createClient } from '@/lib/supabase/server'
-
 import type { HomeDiagnosis } from '@/components/csat/diagnosis/DiagnosisHomeCard'
-
-import { loadSnapshots } from './snapshot'
+import { createClient } from '@/lib/supabase/server'
 
 export async function learnerSession(): Promise<{ db: SupabaseClient; userId: string | null }> {
   const db = (await createClient()) as unknown as SupabaseClient
@@ -25,8 +22,21 @@ export async function loadHomeDiagnosis(): Promise<HomeDiagnosis> {
   try {
     const { db, userId } = await learnerSession()
     if (!userId) return { kind: 'anon' }
-    const [latest] = await loadSnapshots(db, userId, 1)
-    return latest ? { kind: 'has', snapshot: latest } : { kind: 'none' }
+    // 최근 한 회만 — 표시용으로 의도적으로 자른다. 개수는 count 로 따로 센다
+    const { data, error, count } = await db.from('csat_dx_session')
+      .select('exam_id, raw_score, grade, taken_at', { count: 'exact' })
+      .eq('user_id', userId).not('exam_id', 'is', null)
+      .order('taken_at', { ascending: false }).order('created_at', { ascending: false }).limit(1)
+    if (error) throw error
+    const last = data?.[0]
+    if (!last) return { kind: 'none' }
+    const { data: exam, error: ee } = await db.from('csat_exams').select('label').eq('id', last.exam_id as string).maybeSingle()
+    if (ee) throw ee
+    return {
+      kind: 'has',
+      count: count ?? 1,
+      latest: { label: (exam?.label as string | undefined) ?? (last.exam_id as string), raw: (last.raw_score as number | null) ?? 0, grade: last.grade as number | null, takenAt: last.taken_at as string },
+    }
   } catch (e) {
     console.error('[csat-diagnosis] 홈 카드 조회 실패', e)
     return { kind: 'error' }

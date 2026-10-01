@@ -210,6 +210,7 @@ scripts/csat/lecture-drain/
 
 # 두 에이전트(Claude Code · Codex CLI) 로컬 전용 — agents/router.md
 .agent-handoff/
+.agent-goal.md
 .agent-lock
 .agent-logs/
 .codex/auth.json
