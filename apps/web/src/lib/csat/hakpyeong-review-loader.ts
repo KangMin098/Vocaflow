@@ -30,6 +30,8 @@ const chunks = <T,>(xs: T[]) => Array.from({ length: Math.ceil(xs.length / CHUNK
 
 interface AnalysisRow { id: string; item_id: string; version: number; status: string; analyst_run: string | null; units_hash: string | null; csat_analysis_hash: string }
 interface ReviewRow { analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
+interface BatchRow { batch: string; run_date: string; kind: ReviewBatch['kind']; chunk_size: number | null; items: number; agents: number | null; tokens: ReviewBatch['tokens']; published: number | null; refused: number | null; re_rejected: number | null; note: string | null }
+interface FollowupRow { item_id: string; source: string; finding: string; severity: ReviewFollowup['severity']; status: ReviewFollowup['status']; noted_on: string }
 interface PrecheckRow { analysis_id: string; analysis_hash: string; units_hash: string; precheck_version: number; commit: string | null; errors: string[]; warnings: string[]; checked_at: string }
 
 const asStrings = (v: unknown): string[] => (Array.isArray(v) ? v.map((x) => (typeof x === 'string' ? x : JSON.stringify(x))) : [])
@@ -65,28 +67,32 @@ export async function loadHakpyeongReview(
     const verdicts = new Map<string, ReviewVerdict[]>()
     const prechecks = new Map<string, PrecheckRow>()
     for (const part of chunks(ids)) {
+      // 이력 표는 분석 200개에 대해서도 1000행을 넘을 수 있다 — 결정적 순서로 전 페이지를 읽는다(CONVENTIONS PostgREST 페이지)
       const [v, rv, pc] = await Promise.all([
         db.rpc('csat_valid_review_personas_many', { p_analyses: part }),
-        db.from('csat_independent_reviews')
-          .select('analysis_id, persona, verdict, findings, reviewed_at, csat_review_runs(kind)')
-          .in('analysis_id', part),
-        db.from('csat_review_prechecks')
+        selectAllPages<ReviewRow>((from, to) => db.from('csat_independent_reviews')
+          .select('id, analysis_id, persona, verdict, findings, reviewed_at, csat_review_runs(kind)')
+          .in('analysis_id', part)
+          .order('analysis_id').order('reviewed_at').order('id')
+          .range(from, to)),
+        selectAllPages<PrecheckRow>((from, to) => db.from('csat_review_prechecks')
           .select('analysis_id, analysis_hash, units_hash, precheck_version, commit, errors, warnings, checked_at')
           .in('analysis_id', part)
-          .order('checked_at', { ascending: false }),
+          .order('analysis_id').order('checked_at', { ascending: false }).order('analysis_hash').order('units_hash').order('precheck_version')
+          .range(from, to)),
       ])
       if (v.error) return { ...empty, error: `유효 승인 조회: ${v.error.message}` }
-      if (rv.error) return { ...empty, error: `검수 판정 조회: ${rv.error.message}` }
-      if (pc.error) return { ...empty, error: `사전 검사 조회: ${pc.error.message}` }
+      if (rv.error) return { ...empty, error: `검수 판정 조회: ${rv.error}` }
+      if (pc.error) return { ...empty, error: `사전 검사 조회: ${pc.error}` }
       for (const r of (v.data ?? []) as { analysis_id: string; personas: string[] | null }[]) {
         valid.set(r.analysis_id, (r.personas ?? []).filter((p): p is Persona => (PERSONAS as readonly string[]).includes(p)))
       }
-      for (const r of (rv.data ?? []) as unknown as ReviewRow[]) {
+      for (const r of rv.rows) {
         const list = verdicts.get(r.analysis_id) ?? []
         list.push({ persona: r.persona, verdict: r.verdict, kind: r.csat_review_runs?.kind ?? 'blind', findings: asStrings(r.findings), reviewedAt: r.reviewed_at, counted: false })
         verdicts.set(r.analysis_id, list)
       }
-      for (const r of (pc.data ?? []) as PrecheckRow[]) if (!prechecks.has(r.analysis_id)) prechecks.set(r.analysis_id, r)
+      for (const r of pc.rows) if (!prechecks.has(r.analysis_id)) prechecks.set(r.analysis_id, r)
     }
     for (const part of chunks(itemIds)) {
       const u = await db.rpc('csat_current_units_many', { p_items: part }).select('item_id, units_hash')
@@ -109,12 +115,12 @@ export async function loadHakpyeongReview(
             current: pc.analysis_hash === a.csat_analysis_hash && pc.units_hash === (curUnits.get(a.item_id) ?? ''),
           }
         : null
-      // RPC 는 «유효한 페르소나»만 돌려준다 — 같은 페르소나의 옛 통과(무효)까지 유효로 칠하지 않게,
-      // 유효 페르소나의 «가장 최근 통과 기록 하나»만 counted 로 표시한다(Codex 리뷰)
-      const sorted = [...(verdicts.get(a.id) ?? [])].sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))
-      const lastPass = new Map<string, number>()
-      sorted.forEach((v, i) => { if (v.verdict === 'pass') lastPass.set(v.persona, i) })
-      const vs = sorted.map((v, i) => ({ ...v, counted: v.verdict === 'pass' && vp.includes(v.persona) && lastPass.get(v.persona) === i }))
+      // RPC 는 «유효 승인이 있는 페르소나»만 돌려준다 — 어느 기록이 그 승인인지는 알 수 없다(분석 실행 주체가 바뀌면
+      // 최근 통과가 자기 검수가 되고 옛 통과가 유효할 수 있다). 그래서 counted 는 «이 기록의 페르소나에 유효 승인이 있는가»이고,
+      // 화면도 기록 단위가 아니라 페르소나 단위로 말한다(Codex 리뷰 — 기록 id 를 주려면 게이트 함수 변경이 필요)
+      const vs = [...(verdicts.get(a.id) ?? [])]
+        .sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))
+        .map((v) => ({ ...v, counted: vp.includes(v.persona) }))
       return {
         itemId: it.id, typeId: typeOf.get(it.id) ?? it.typeId, analysisId: a.id, version: a.version, status: a.status,
         analystRun: a.analyst_run, unitsBased: Boolean(a.units_hash), validPersonas: vp, verdicts: vs, precheck,
@@ -122,18 +128,18 @@ export async function loadHakpyeongReview(
     })
 
     const [bRes, fRes] = await Promise.all([
-      db.from('csat_review_batches').select('batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected, note').order('run_date', { ascending: false }).order('batch'),
-      db.from('csat_review_followups').select('item_id, source, finding, severity, status, noted_on').order('noted_on', { ascending: false }),
+      selectAllPages<BatchRow>((from, to) => db.from('csat_review_batches').select('batch, run_date, kind, chunk_size, items, agents, tokens, published, refused, re_rejected, note').order('run_date', { ascending: false }).order('batch').range(from, to)),
+      selectAllPages<FollowupRow>((from, to) => db.from('csat_review_followups').select('item_id, source, finding, severity, status, noted_on').order('noted_on', { ascending: false }).order('item_id').order('source').order('finding').range(from, to)),
     ])
-    if (bRes.error) return { ...empty, items: out, error: `배치 원장 조회: ${bRes.error.message}` }
-    if (fRes.error) return { ...empty, items: out, error: `추적 목록 조회: ${fRes.error.message}` }
-    const batches: ReviewBatch[] = (bRes.data ?? []).map((b) => ({
+    if (bRes.error) return { ...empty, items: out, error: `배치 원장 조회: ${bRes.error}` }
+    if (fRes.error) return { ...empty, items: out, error: `추적 목록 조회: ${fRes.error}` }
+    const batches: ReviewBatch[] = bRes.rows.map((b) => ({
       batch: b.batch, runDate: b.run_date, kind: b.kind, chunkSize: b.chunk_size, items: b.items, agents: b.agents,
       tokens: b.tokens ?? null, published: b.published, refused: b.refused, reRejected: b.re_rejected, note: b.note,
     }))
     // 이 학년 문항 + 규칙 과제(문항 id 가 아닌 것)
     const gradeMark = `G${grade}#`
-    const followups: ReviewFollowup[] = (fRes.data ?? [])
+    const followups: ReviewFollowup[] = fRes.rows
       .filter((f) => !f.item_id.startsWith(HAKPYEONG_ID_PREFIX) || f.item_id.includes(gradeMark))
       .map((f) => ({ itemId: f.item_id, source: f.source, finding: f.finding, severity: f.severity, status: f.status, notedOn: f.noted_on }))
     return { items: out, batches, followups, error: null }

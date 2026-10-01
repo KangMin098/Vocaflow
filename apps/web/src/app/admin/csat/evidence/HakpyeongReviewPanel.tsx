@@ -104,7 +104,7 @@ export function HakpyeongReviewPanel({ data }: { data: HakReviewData | null | un
                             {it.verdicts.map((v, i) => (
                               <li key={i}>
                                 <strong>{v.persona}</strong> · {KIND[v.kind]} · {VERDICT[v.verdict]}
-                                {v.verdict === 'pass' ? (v.counted ? ' · 유효 승인' : ' · 지금 기준으로 무효') : ''} · {when(v.reviewedAt)} KST
+                                {v.counted ? ' · 이 페르소나 유효 승인 있음' : ' · 이 페르소나 유효 승인 없음'} · {when(v.reviewedAt)} KST
                                 {v.findings.length ? <div className={s.muted}>{v.findings.slice(0, 3).join(' / ')}</div> : null}
                               </li>
                             ))}

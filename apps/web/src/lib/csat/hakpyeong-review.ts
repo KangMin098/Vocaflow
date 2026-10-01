@@ -16,7 +16,10 @@ export interface ReviewVerdict {
   kind: 'blind' | 'rereview'
   findings: string[]
   reviewedAt: string
-  /** 이 판정이 지금 게이트 기준으로 유효 승인에 들어가는가(pass 이고 유효 페르소나 목록에 있음) */
+  /**
+   * 이 기록의 «페르소나»에 지금 게이트 기준 유효 승인이 있는가. 기록 단위가 아니다 — 게이트 함수는 페르소나만 돌려주므로
+   * 어느 기록이 그 승인인지는 모른다(화면도 「이 페르소나 유효 승인 있음」 으로 말한다)
+   */
   counted: boolean
 }
 
