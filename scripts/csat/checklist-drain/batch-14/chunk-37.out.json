@@ -1,0 +1,802 @@
+[
+  {
+    "id": "a48ebd02-a4d2-459d-ba3d-5845a9d3f00d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "New outbreaks of the",
+    "note": "아시아 지역 조류독감 H5N1 바이러스의 확산과 각국의 대응 조치를 보도한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a48eed52-e133-406f-8522-4560087f5ab0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On Wednesday, Nigeria's Independent",
+    "note": "나이지리아 대선 결과와 야당의 부정 제기 및 국제 사회의 반응을 다룬 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4939308-cd8e-4bef-887e-244b6ae39d31",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Yesterday, a chilly Amsterdam",
+    "note": "암스테르담 위키미디어 국제 학술 회의에서 위키와 교육의 연계성을 다룬 이야기들을 정리한 기사다.",
+    "record": {
+      "genre": "education",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["school", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a496edf3-8721-441a-b9f3-83f01107b319",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "United States presidential candidate",
+    "note": "힐러리 클린턴이 이란 공격 시 보복 의사를 밝히고 오바마와 정책 입장이 갈린 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a496fbf9-ceac-41a6-93e4-1e52bab918f8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Former U.S. House Majority",
+    "note": "미국 정치인 톰 딜레이가 금전 세탁 혐의로 추가 기소된 법적 절차를 보도한 단신이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a49d1de2-977e-4f96-ab59-7b65a3a53f01",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "632 Air Canada flight",
+    "note": "에어캐나다가 유류비 인상으로 인해 노선을 축소하고 직원 정원을 줄이는 사업 재편 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a49daa55-a9c2-401e-a07e-128f25729d9d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "On November 13, Torontoians",
+    "note": "토론토 시의회 선거에서 트리니티 스파디나 지역의 후보자 한 명이 자신의 공약을 설명하는 인터뷰다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a49ed148-d4d1-4db0-83ce-070217a38247",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The inland city of",
+    "note": "뉴사우스웨일즈주 굴번 도시의 물 공급 위기와 강수량 악화의 인과관계를 다룬 환경 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4a4158b-2804-4e85-b49f-0c8035b0a927",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "An anti-APEC rally through",
+    "note": "시드니에서 열린 APEC 회의 반대 시위에서 18명이 체포되고 경찰이 부상한 사건을 보도한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4a4f22f-2b77-446c-b10e-260593f39059",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Australian Government has",
+    "note": "오스트레일리아가 쓰나미 피해 지역의 난민을 강제 송환하면서 발생한 인권 논쟁을 다룬 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4afc714-b2a3-4eb5-b10b-dc1b2b5110c9",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "According to officials, an",
+    "note": "멜버른 공항에서 에미레이트 항공사의 A340 항공기가 이착륙 중 꼬리가 활주로에 닿은 사고를 보도한 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "reading"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4b69465-8967-49c1-965e-fc13e7fcc0e3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Author Robert Asprin died",
+    "note": "판타지소설 작가 로버트 애스핀의 사망과 그의 저작, 활동 경력을 기술한 부고 기사다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V3"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4b9e314-8e69-47e3-9c36-31c1ae18f464",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "New television stars in",
+    "note": "호주 텔레비전 방송국 세븐이 RAGGS 아이들 밴드 시리즈를 방영한 엔터테인먼트 뉴스다.",
+    "record": {
+      "genre": "entertainment",
+      "slots": {
+        "ages": ["elem", "mid"],
+        "purposes": ["reading"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4c02981-0f67-4a4a-8cb5-62faf9071320",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Ma Ying-jeou, former Mayor",
+    "note": "대만 2008년 총통 선거에서 마잉주가 대승을 거두며 정치적 변화가 일어난 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4c0e997-36ca-49c9-a292-37917c4a47f3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "The Anglican Church in",
+    "note": "영국 남호주 성공회가 아동 성폭력 피해자들과 4백만 호주달러 합의를 이룬 법적 합의 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4c17849-6321-4151-8904-3e7e5a26ef41",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Croatia, Bulgaria and Hungary",
+    "note": "세르비아의 이웃 세 나라가 코소보 독립을 인정하면서 세르비아와의 외교적 갈등이 심화된 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4c1e892-a346-468e-aeb1-7e731e31b3cb",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Israeli Prime Minister Ariel",
+    "note": "이스라엘과 팔레스타인이 중동 정상회담에서 폭력 중단을 선언하고 평화 협상을 재개한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock", "csat"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4c9f4f2-0d19-45d0-88a2-57e4905fa73a",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Gioacchino Giuliani, a researcher",
+    "note": "이탈리아 지진을 예측했다고 주장하는 라돈 가스 모니터링 연구자의 주장과 당국의 대응을 다룬 기사다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match", "claim"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4cbf638-1c91-4667-8ef9-0425456e1447",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "During the night of",
+    "note": "부시 대통령이 반란 방지법을 개정해 대통령의 군 동원 권한을 크게 확대한 법안에 서명한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4cc839d-6600-45b5-b0fd-ad44433c64cd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "This Friday, 29th of",
+    "note": "덴마크 이스라엘 대사관 벽에 팔레스타인 관련 낙서를 한 용의자들의 신원과 수사 과정을 기술한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4ce5bd5-c86c-4dec-aea3-0d14a9e6e88f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "NASA says that the",
+    "note": "우주왕복선 디스커버리 발사를 위해 NASA가 안전성 문제에 대해 승인한 결정과 그 배경을 설명한 기사다.",
+    "record": {
+      "genre": "science",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school"],
+        "types": ["content_match"],
+        "levels": ["V4"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4d266c8-bf1a-4cd2-99ab-5585ccae498f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": true,
+      "linkage": "none",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": false
+    },
+    "sample": "This table shows the",
+    "note": "2010년 영국 총선의 선거구별 개별 결과 테이블로서 설명 없이 데이터만 나열한 참고 자료다.",
+    "record": {
+      "genre": "reference",
+      "slots": {
+        "ages": ["high1", "high2", "high3", "adult"],
+        "purposes": ["school"],
+        "types": [],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4d361c9-379b-4e69-bac1-3863476e2be0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "In an interview broadcast",
+    "note": "키르기스스탄의 강제 축출 대통령 아까예프가 러시아 방송 인터뷰에서 복귀 조건을 제시한 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V6"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4d47c24-878b-41c0-85e6-a4aef490072f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Workers are scouring New",
+    "note": "허리케인 카트리나 후 뉴올리언스에서 진행되는 수색 활동과 감염병 우려, 피난 조치를 다룬 뉴스다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school", "mock"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a4dd42ce-3958-401d-a6dd-ec5946c323c6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "gap": false,
+      "strippedRemains": true
+    },
+    "sample": "Since June 2019, the",
+    "note": "호주 남부 깁슬랜드 셔 지방선거에 독립 후보로 출마한 데이비드 리벨트의 정책 인터뷰다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": ["high1", "adult"],
+        "purposes": ["school"],
+        "types": ["content_match"],
+        "levels": ["V5"],
+        "platform": []
+      }
+    }
+  }
+]
