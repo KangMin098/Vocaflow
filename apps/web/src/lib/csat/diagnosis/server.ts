@@ -322,8 +322,11 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) 
     p_responses: responses,
   })
   if (error) throw new Error(`기록 저장 실패: ${error.message}`)
+  // 같은 clientKey 재전송이면 RPC 는 처음 저장한 세션을 돌려준다 — 이번 요청의 채점이 아니라 저장된 값을 답한다
+  const { data: saved, error: se } = await db.from('csat_dx_session').select('raw_score, grade').eq('id', sessionId as string).single()
+  if (se) throw new Error(`저장 확인 실패: ${se.message}`)
   const snapshot = await recomputeSnapshot(db, sub.userId, 'session', now, sessionId as string)
-  return { sessionId: sessionId as string, raw: scored.raw, grade, ready: exam.ready, snapshotId: snapshot.id }
+  return { sessionId: sessionId as string, raw: saved.raw_score as number, grade: saved.grade as number | null, ready: exam.ready, snapshotId: snapshot.id }
 }
 
 export interface DiagnosticSubmission {
@@ -355,8 +358,11 @@ export async function submitDiagnosticSession(db: Db, sub: DiagnosticSubmission,
     p_responses: responses,
   })
   if (re) throw new Error(`기록 저장 실패: ${re.message}`)
+  // 재전송이면 처음 저장한 응답이 정본이다 — 저장된 행으로 센다
+  const { data: saved, error: se } = await db.from('csat_dx_response').select('is_correct').eq('session_id', sessionId as string)
+  if (se) throw new Error(`저장 확인 실패: ${se.message}`)
   const snapshot = await recomputeSnapshot(db, sub.userId, 'session', now, sessionId as string)
-  return { sessionId: sessionId as string, correct: responses.filter((r) => r.is_correct).length, total: responses.length, snapshotId: snapshot.id }
+  return { sessionId: sessionId as string, correct: (saved ?? []).filter((r) => r.is_correct).length, total: (saved ?? []).length, snapshotId: snapshot.id }
 }
 
 /** 시험 기록 입력에서 고를 수 있는 시험(정답표가 있는 회차) */

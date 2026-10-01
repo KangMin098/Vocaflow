@@ -77,49 +77,23 @@ export interface ItemTaggingInput {
   ebsLinked: boolean | null
 }
 
-/** 문항 하나 검수 저장 — 역량 9개를 모두 쓰고(0 포함) reviewed_at 을 찍는다 */
+/** 문항 하나 검수 저장 — 메타 · 역량 9개(0 포함) · 선지 함정 · 검수 표지를 한 트랜잭션(RPC)으로 */
 export async function saveItemTaggingAction(input: ItemTaggingInput): Promise<ActionResult> {
   await requireAdmin(`${BASE}/exams`)
   if (!rate(input.errorRate)) return { ok: false, error: '오답률은 0~1 사이' }
   const bad = ATTRIBUTE_CODES.find((c) => ![0, 1, 2].includes(input.weights[c]))
   if (bad) return { ok: false, error: `${bad} 가중치는 0·1·2` }
-  const c = db()
-  const by = await adminId()
-  const now = new Date().toISOString()
-  const { data: item, error: ie } = await c.from('csat_items').select('id, answer, answers').eq('id', input.itemId).maybeSingle()
-  if (ie || !item) return { ok: false, error: ie?.message ?? '없는 문항' }
-  const correct = new Set(((item.answers as number[] | null)?.length ? item.answers : [item.answer]) as number[])
-
-  const { error: ue } = await c.from('csat_items').update({ official_error_rate: input.errorRate, ebs_linked: input.ebsLinked }).eq('id', input.itemId)
-  if (ue) return { ok: false, error: ue.message }
-
-  const attrRows = ATTRIBUTE_CODES.map((code) => ({
-    item_id: input.itemId, attribute_code: code, weight: input.weights[code], source: 'admin', reviewed_at: now, reviewed_by: by,
-  }))
-  const { error: ae } = await c.from('csat_dx_item_attribute').upsert(attrRows, { onConflict: 'item_id,attribute_code' })
-  if (ae) return { ok: false, error: ae.message }
-
-  const { set, clear } = splitTraps(input, correct, now, by)
-  if (set.length) {
-    const { error } = await c.from('csat_dx_option_trap').upsert(set, { onConflict: 'item_id,option_no' })
-    if (error) return { ok: false, error: error.message }
-  }
-  if (clear.length) {
-    const { error } = await c.from('csat_dx_option_trap').delete().eq('item_id', input.itemId).in('option_no', clear)
-    if (error) return { ok: false, error: error.message }
-  }
+  const { error } = await db().rpc('csat_dx_save_item_tagging', {
+    p_item_id: input.itemId,
+    p_weights: Object.fromEntries(ATTRIBUTE_CODES.map((c) => [c, input.weights[c]])),
+    p_traps: Object.fromEntries([1, 2, 3, 4, 5].map((n) => [String(n), input.traps[n] ?? null])),
+    p_error_rate: input.errorRate,
+    p_ebs: input.ebsLinked,
+    p_by: await adminId(),
+  })
+  if (error) return { ok: false, error: `저장하지 못했다(아무것도 바뀌지 않았다): ${error.message}` }
   revalidatePath(`${BASE}/exams`)
   return { ok: true }
-}
-
-/** 선지 다섯 개를 「함정 있음」과 「비움(정답 선지 포함)」으로 가른다 — 쓰기는 각각 한 번씩만 */
-function splitTraps(input: ItemTaggingInput, correct: Set<number>, now: string, by: string | null) {
-  const options = [1, 2, 3, 4, 5]
-  const keep = (n: number) => !correct.has(n) && Boolean(input.traps[n])
-  const set = options.filter(keep).map((n) => ({
-    item_id: input.itemId, option_no: n, trap_key: input.traps[n] as string, source: 'admin', reviewed_at: now, reviewed_by: by,
-  }))
-  return { set, clear: options.filter((n) => !keep(n)) }
 }
 
 export async function setPoolItemAction(itemId: string, active: boolean | null): Promise<ActionResult> {
@@ -140,7 +114,7 @@ export async function setPoolItemAction(itemId: string, active: boolean | null):
   return { ok: true }
 }
 
-/** 설정 저장 — 새 버전 행을 더하고 그것을 활성으로. 실패하면 이전 활성으로 되돌린다 */
+/** 설정 저장 — 검사 후 새 버전을 활성으로 */
 export async function saveSettingsAction(json: string, note: string): Promise<ActionResult & { errors?: string[] }> {
   await requireAdmin(`${BASE}/settings`)
   let parsed: unknown
@@ -164,21 +138,10 @@ async function scorableExamIds(c: SupabaseClient): Promise<Set<string> | string>
   return new Set((data ?? []).map((k) => k.exam_id as string))
 }
 
-/** 새 버전을 더하고 활성으로 바꾼다. 활성화가 실패하면 이전 활성 버전을 되살린다 */
+/** 새 버전을 더하고 활성으로 바꾼다 — 끄기·넣기가 한 트랜잭션(RPC)이라 활성 설정이 비는 순간이 없다 */
 async function activateSettings(c: SupabaseClient, parsed: unknown, note: string): Promise<ActionResult> {
-  const { data: prev } = await c.from('csat_dx_settings').select('id').eq('active', true).maybeSingle()
-  const { data: created, error: ie } = await c.from('csat_dx_settings')
-    .insert({ settings: parsed, active: false, note: note.trim() || null, created_by: await adminId() }).select('id').single()
-  if (ie) return { ok: false, error: ie.message }
-  if (prev) {
-    const { error } = await c.from('csat_dx_settings').update({ active: false }).eq('id', prev.id)
-    if (error) return { ok: false, error: error.message }
-  }
-  const { error: ae } = await c.from('csat_dx_settings').update({ active: true }).eq('id', created.id)
-  if (ae) {
-    if (prev) await c.from('csat_dx_settings').update({ active: true }).eq('id', prev.id)
-    return { ok: false, error: `활성화 실패(이전 설정으로 되돌림): ${ae.message}` }
-  }
+  const { error } = await c.rpc('csat_dx_activate_settings', { p_settings: parsed, p_note: note, p_by: await adminId() })
+  if (error) return { ok: false, error: `저장하지 못했다(이전 설정이 그대로 활성): ${error.message}` }
   revalidatePath(`${BASE}/settings`)
   return { ok: true }
 }

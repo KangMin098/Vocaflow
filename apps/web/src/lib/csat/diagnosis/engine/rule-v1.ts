@@ -275,8 +275,9 @@ export function currentAbility(input: EngineInput): { ability: number | null; ad
   return { ability: clampScore(actual * 100), adjusted: false, fromDiagnostic: true }
 }
 
-function scenario(input: EngineInput, ability: number | null, examId: string | null): ScenarioForecast {
-  if (ability === null) return { examId, expected: null, grade: null, meetsTarget: null, adjusted: false }
+function scenario(input: EngineInput, ability: number | null, abilityAdjusted: boolean, examId: string | null): ScenarioForecast {
+  // 능력이 기준 시험으로 보정되지 않았으면 시나리오 간 차이를 계산할 수 없다
+  if (ability === null || !abilityAdjusted) return { examId, expected: null, grade: null, meetsTarget: null, adjusted: false }
   const ref = input.settings.reference_exam ? input.exams[input.settings.reference_exam] : undefined
   const scn: ExamMeta | undefined = examId ? input.exams[examId] : undefined
   const eRef = expectedScore(ref)
@@ -362,9 +363,9 @@ export function diagnose(input: EngineInput): DiagnosisResult {
     trapVulnerability: traps,
     habitFlags: habits,
     forecast: {
-      hard: scenario(input, ability, sc.hard),
-      normal: scenario(input, ability, sc.normal),
-      easy: scenario(input, ability, sc.easy),
+      hard: scenario(input, ability, adjusted, sc.hard),
+      normal: scenario(input, ability, adjusted, sc.normal),
+      easy: scenario(input, ability, adjusted, sc.easy),
     },
     confidence: confidenceLevel(input, examSessions.length, totalResponses, mastery, fromDiagnostic),
     recommendedLines: recommend(input, mastery, traps, habits),

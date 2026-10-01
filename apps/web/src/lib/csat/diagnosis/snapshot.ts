@@ -88,7 +88,9 @@ export async function loadHabitFeedback(db: SupabaseClient, snapshotIds: string[
 export function summaryLine(s: SnapshotView): string {
   if (s.gradeEst === null) return '아직 진단할 기록이 부족해요.'
   const hard = s.forecast?.hard?.grade
-  const normal = s.forecast?.normal?.grade ?? s.gradeEst
+  const normal = s.forecast?.normal?.grade
+  // 난이도별 예측이 없으면(기준 시험·공식 오답률 미비) 「보통 난도 수능」이라고 말하지 않는다 — 지금 기록 기준만
+  if (!normal) return `지금까지 입력한 시험 기준으로 ${s.gradeEst}등급이에요. 시험 난이도를 맞춘 수능 예측은 아직 준비 중이에요.`
   if (hard && hard > normal) return `지금 실력이면 보통 난도 수능에서 ${normal}등급이에요. 어려운 시험에서는 ${hard}등급까지 내려갈 수 있어요.`
   return `지금 실력이면 보통 난도 수능에서 ${normal}등급이에요.`
 }

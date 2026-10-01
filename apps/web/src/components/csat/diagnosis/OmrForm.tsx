@@ -8,6 +8,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
@@ -59,6 +60,7 @@ export function OmrForm({
   const [saving, setSaving] = useState(false)
   const [result, setResult] = useState<OmrResult | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const router = useRouter()
   const clientKey = useRef<string>(crypto.randomUUID())
   const rows = useRef<(HTMLDivElement | null)[]>([])
 
@@ -124,6 +126,7 @@ export function OmrForm({
       setResult(json)
       if (trackEvents) track({ name: 'csat_dx_attempt_saved', props: { ready: Boolean(json.ready), retake, answered } })
       onSaved?.(json)
+      router.refresh() // 같은 화면의 리포트·기록 표(관리자 상세)가 새 스냅샷을 읽게
     } catch (e) {
       setError(e instanceof Error ? e.message : '저장하지 못했어요')
     } finally {
