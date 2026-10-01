@@ -18,8 +18,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { pagedSelect } from '@/lib/supabase/paged-select'
 import { createClient } from '@/lib/supabase/server'
-import { createCsatClient } from './client'
-import { examFilter, itemIdFilter, KICE_SCOPE, type CsatScope } from './scope'
+import { selectScopeItems } from './client'
+import { examFilter, KICE_SCOPE, type CsatScope } from './scope'
 import { schoolYearOf } from './exam-id'
 
 /** 한 칸 — (연도 × 유형). */
@@ -147,24 +147,20 @@ export async function loadHeatmap(scope: CsatScope = KICE_SCOPE): Promise<Heatma
       db.from('csat_types').select('id, name').eq('in_scope', true),
       // ⚠️ **페이징한다.** 802행이라 지금은 1,000 아래지만, 넘는 날 오류 없이
       //    「출제가 줄었다」로 보인다(`learner.ts` 가 같은 함정을 이미 겪었다).
-      pagedSelect<ItemRow>(
-        (from, to) =>
-          scope.set === 'kice'
-            ? db
+      // 학평은 문항 표 전체를 학년 범위로 id 커서(OFFSET 아님 · 서비스 역할) — 출제 지형은 분석 발행과 무관하다
+      scope.set === 'kice'
+        ? pagedSelect<ItemRow>(
+            (from, to) =>
+              db
                 .from('csat_items_public')
                 .select('type_id, exam_id, high_score')
                 .eq('in_scope', true)
                 // 통계(출제 지형) — 평가원 집합만. 학습자 뷰는 발행된 학평도 주므로 여기서 좁힌다(통계는 집합별)
                 .eq('organizer', 'kice')
-                .range(from, to)
-            : createCsatClient()
-                .from('csat_items')
-                .select('type_id, exam_id, high_score')
-                .eq('in_scope', true)
-                .filter('exam_id', itemIdFilter(scope).op, itemIdFilter(scope).pattern)
                 .range(from, to),
-        '기출 지형 문항',
-      ),
+            '기출 지형 문항',
+          )
+        : selectScopeItems<ItemRow>(scope, 'type_id, exam_id, high_score'),
       scope.set === 'kice'
         ? db.from('csat_exams').select('id', { count: 'exact', head: true }).eq('organizer', 'kice')
         : db.from('csat_exams').select('id', { count: 'exact', head: true }).eq('organizer', examFilter(scope).organizer).eq('grade', examFilter(scope).grade ?? 3),

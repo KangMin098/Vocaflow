@@ -13,8 +13,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
 import { examLabelOf, examOrder, schoolYearOf } from './exam-id'
-import { createCsatClient } from './client'
-import { examFilter, inScope as inScopeId, itemIdFilter, KICE_SCOPE, reportKey, type CsatScope } from './scope'
+import { createCsatClient, selectScopeItems } from './client'
+import { examFilter, inScope as inScopeId, KICE_SCOPE, reportKey, type CsatScope } from './scope'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
 import { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 export { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
@@ -95,7 +95,7 @@ const yearOf = schoolYearOf
  */
 export async function loadCsatTypeCards(scope: CsatScope = KICE_SCOPE): Promise<{ cards: CsatTypeCard[]; error: string | null }> {
   const db = await csatDb()
-  const svc = scope.set === 'kice' ? null : createCsatClient()
+  const svc = scope.set !== 'kice'
   const rk = reportKey(scope)
 
   // ⚠️ 문항은 **세는 것**이라 상한에 걸리면 안 된다. 2026-09-05 실측 802행으로 아직
@@ -108,14 +108,13 @@ export async function loadCsatTypeCards(scope: CsatScope = KICE_SCOPE): Promise<
   try {
     const [t, rows, r] = await Promise.all([
       db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
-      pagedSelect<ItemRow>(
-        // 유형 카드의 기출 수는 통계 — 범위의 집합만(평가원: 학습자 뷰 organizer · 학평: 문항 표 전체를 학년 범위로)
-        (from, to) =>
-          svc
-            ? svc.from('csat_items').select('type_id, exam_id').eq('in_scope', true).filter('exam_id', itemIdFilter(scope).op, itemIdFilter(scope).pattern).range(from, to)
-            : db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true).eq('organizer', 'kice').range(from, to),
-        'CSAT 유형 카드 문항',
-      ),
+      // 유형 카드의 기출 수는 통계 — 범위의 집합만(평가원: 학습자 뷰 organizer · 학평: 문항 표 전체를 학년 범위로, id 커서)
+      svc
+        ? selectScopeItems<ItemRow>(scope, 'type_id, exam_id')
+        : pagedSelect<ItemRow>(
+            (from, to) => db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true).eq('organizer', 'kice').range(from, to),
+            'CSAT 유형 카드 문항',
+          ),
       db.from('csat_type_reports').select('type_id, failure_modes, time_budget_sec').eq('status', 'published').eq('organizer', rk.organizer).eq('grade', rk.grade),
     ])
     types = t
@@ -168,7 +167,7 @@ export async function loadCsatTypeCards(scope: CsatScope = KICE_SCOPE): Promise<
 
 /** 유형 하나의 분석 상세. 없으면 null (아직 준비되지 않은 유형) */
 export async function loadCsatTypeDetail(typeId: string, scope: CsatScope = KICE_SCOPE): Promise<{ detail: CsatTypeDetail | null; error: string | null }> {
-  const svc = scope.set === 'kice' ? null : createCsatClient()
+  const svc = scope.set !== 'kice'
   const rk = reportKey(scope)
   const db = await csatDb()
 
@@ -180,13 +179,12 @@ export async function loadCsatTypeDetail(typeId: string, scope: CsatScope = KICE
   try {
     const [t, rows, r] = await Promise.all([
       db.from('csat_types').select('id, name').eq('id', typeId).maybeSingle(),
-      pagedSelect<{ type_id: string | null }>(
-        (from, to) =>
-          svc
-            ? svc.from('csat_items').select('type_id').eq('in_scope', true).eq('type_id', typeId).filter('exam_id', itemIdFilter(scope).op, itemIdFilter(scope).pattern).range(from, to)
-            : db.from('csat_items_public').select('type_id').eq('in_scope', true).eq('type_id', typeId).eq('organizer', 'kice').range(from, to),
-        'CSAT 유형 상세 문항',
-      ),
+      svc
+        ? selectScopeItems<{ type_id: string | null }>(scope, 'type_id', typeId)
+        : pagedSelect<{ type_id: string | null }>(
+            (from, to) => db.from('csat_items_public').select('type_id').eq('in_scope', true).eq('type_id', typeId).eq('organizer', 'kice').range(from, to),
+            'CSAT 유형 상세 문항',
+          ),
       db
         .from('csat_type_reports')
         .select('type_id, n_analyzed, recurring_traps, answer_locus_pattern, procedure_steps, failure_modes, time_budget_sec')
