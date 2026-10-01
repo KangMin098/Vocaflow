@@ -29,7 +29,9 @@ import crypto from 'node:crypto'
 
 export const SENTENCE_RULE = 'kice-sentence-v3'
 
-const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\.m|p\.m|No|Fig|approx|cf|Inc|Ltd|Co)\.$/
+const ABBREV_WORDS = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\.m|p\.m|Fig|approx|cf|Inc|Ltd|Co)\.$/
+// 「No.」 는 뒤에 숫자가 올 때만 약어다(bus No. 5) — 홀로 선 대답 「No. I cannot go.」 는 문장 끝
+const isAbbrev = (before, after) => ABBREV_WORDS.test(before) || (/\bNo\.$/.test(before) && /^\s*\d/.test(after))
 const CLOSERS = /["'’”)\]]/
 // 빈칸(`______`)으로 시작하는 문장도 문장이다(연결어 빈칸 — 「______(B) , the new …」). 빠뜨리면 앞 문장에 삼켜진다(2015#34)
 const STARTERS = /[A-Z0-9“"‘'(_]/
@@ -67,7 +69,7 @@ function isSpeechTag(clause) {
 function clauseAfter(rest) {
   const re = /[.!?](?=["'’”)\]]*(\s|$))/g
   let m
-  while ((m = re.exec(rest))) if (!ABBREV.test(rest.slice(0, m.index + 1))) return rest.slice(0, m.index)
+  while ((m = re.exec(rest))) if (!isAbbrev(rest.slice(0, m.index + 1), rest.slice(m.index + 1))) return rest.slice(0, m.index)
   return rest
 }
 
@@ -81,7 +83,7 @@ function rawCuts(p) {
     let j = i + 1
     while (j < p.length && CLOSERS.test(p[j])) j++
     if (j < p.length && !/\s/.test(p[j])) continue
-    if (ABBREV.test(p.slice(start, j))) continue
+    if (isAbbrev(p.slice(start, j), p.slice(j))) continue
     let k = j
     while (k < p.length && /\s/.test(p[k])) k++
     if (k >= p.length) break

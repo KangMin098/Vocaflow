@@ -11,6 +11,9 @@ test('규칙 버전이 고정돼 있다', () => assert.equal(SENTENCE_RULE, 'kic
 test('일반 산문 · 약어 · 소수점', () => {
   assert.deepEqual(texts('Mr. Kim left at 2 p.m. today. It cost 3.5 dollars. Then he rested!'),
     ['Mr. Kim left at 2 p.m. today.', 'It cost 3.5 dollars.', 'Then he rested!'])
+  // 「No.」 는 숫자 앞에서만 약어
+  assert.deepEqual(texts('No. I cannot go. We left.'), ['No.', 'I cannot go.', 'We left.'])
+  assert.deepEqual(texts('Take bus No. 5 today. We left.'), ['Take bus No. 5 today.', 'We left.'])
 })
 
 test('대화문: 인용 뒤 발화 설명은 붙인다(대문자 이름으로 시작해도)', () => {
