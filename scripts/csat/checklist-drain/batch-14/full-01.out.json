@@ -1,0 +1,968 @@
+[
+  {
+    "id": "996322dc-47fb-45ed-8145-0d26ff370c2b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c51e5731ff42b10c875a0c9c4cade92aa0f1bb295630d97537b227b41bb80e8a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "반정부 시위 → 대통령 위원회 권고 → 새 선거관리위원회 선서로 이어지는 원인·결과가 둘째 단락에서 서고, 유엔 평화유지군 반감 단락까지 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Martelly swore in a new Provisional",
+      "note": "둘째 단락은 혼자 시작하고 사건 사슬이 서며 decree·quorum·defunct 를 바꾸면 V6 로 내려간다; 기관 약칭(CEP)만 풀어 쓰면 된다."
+    }
+  },
+  {
+    "id": "996b174f-3223-471d-b349-ffd03d3d6b5f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1b8d3644ee1d19eb828a6ca47b4950441ba4331acdbf0638189260f36f1469aa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "실종 → 신고·수색 → 발견·용의자 확인 → 병원 이송이 시간순으로 이어지고 경찰 대변인의 심경 인용이 있어 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A wide net was cast in",
+      "note": "수색 단락은 이름만 바꾸면 혼자 서고 scouring·transient·instrumental 을 쉬운 말로 바꾸면 V5; 유괴 소재라 고1 이상만 둔다."
+    }
+  },
+  {
+    "id": "99723b04-39d4-4bd7-9dc9-e50644efe86d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ba41dde7acf1ef4572d54443763a35e811f1872c255a0825dc3c068368d081a9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "시신 발견 → 부검 예정 → 경찰이 의심 사망으로 수사한다는 다음 절차가 문장으로 이어져 짧은 단신이지만 내용 일치 칸 최소선을 넘는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Post-mortem examinations are anticipated to occur",
+      "note": "셋째 단락이 발견-부검-수사 절차를 잇는다; post-mortem·constabulary 를 바꾸면 쉬워지나 어린이 사망 소재라 고2 이상만."
+    }
+  },
+  {
+    "id": "9995e9b7-046f-4a78-a386-c02a0bac5f0d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "eb9ad9b88f85feee1feaebdc9bb284e7c592dec2603d9cf8349a3faa62c5ec06",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "processing-unclear",
+    "genre": "news",
+    "why": "중정기념당 개명·투표 절차를 둘러싼 범녹·범람 갈등이라는 사건 흐름은 있으나 「were never booed」「never a hot topic because」처럼 문장이 사실과 반대로 읽히는 오역투라 개작 때 사실을 추측해야 해 보류한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "After the Ministry of Education planned",
+      "note": "둘째 단락을 떼어 보니 원인-반발은 서지만 「some Pan-Greens criticized that Hau equaled to the PRC」 등 뜻이 불분명한 문장이 많아 어휘 교체로는 안 되고 사실 확인 없이 고쳐 쓸 수 없다; 「DAMN」 인용은 걷어야 한다."
+    }
+  },
+  {
+    "id": "99984121-8ae3-4799-9477-eab6839b4257",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "539c8cb5a17973e83d1dfce2fa3ebd796ffdc42b557ae3c790107b85bdbeefe3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "첫 단락이 2004년 축출 뒤 첫 선거라는 배경과 프레발의 당적 변화를 이어 말해 득표율 나열(둘째 단락)만은 아니므로 내용 일치 칸으로 남긴다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "An opinion poll conducted by CID",
+      "note": "첫 단락은 혼자 서고 frontrunner·overthrow 를 바꾸면 V5; 둘째 단락의 군소 후보 득표율 나열은 가공 때 앞 셋만 남기고 걷는다."
+    }
+  },
+  {
+    "id": "99aed282-2f39-4078-8326-6f52cedf711b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "cffeaac41e62417757d61ef50f231b3a9e40624e156fbc8bee3a07994c8a6352",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "연쇄 폭발 → 사상자·구조 난항 → 경계 강화·총리 성명·야당 비판 → 배후 추정으로 반응이 이어져 내용 일치·순서 칸을 채우며, 끝의 병원·비상 전화번호 목록은 가공 때 걷는다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Indian capital New Delhi has",
+      "note": "반응 단락은 혼자 서고 installations·hampered 를 바꾸면 V6; 테러 사상 소재라 고2 이상, 전화번호 목록 이하는 잘라낸다."
+    }
+  },
+  {
+    "id": "99d9baf7-091b-4bc2-ba40-79942f921906",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "51b8122a952eec16bdba26cabd6651b15a5b8bc56ea6bd073cefae479d0a89bc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "소프트웨어 특허 지침 부결의 경위(국민당 입장 변화 → 압도적 부결)와 로카르의 「나쁜 법보다 법이 없는 게 낫다」 논리, 양측 로비 비교가 이어져 내용 일치·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The rejection was welcomed by small",
+      "note": "마지막 단락은 혼자 서지만 길고 문장이 거칠다; heterogeneous·conciliation·patentability 를 풀면 V7 로 내려간다."
+    }
+  },
+  {
+    "id": "99ee0d87-fb76-4f83-94fd-bf910222b220",
+    "source_updated_at": "2026-09-25T09:16:32.641639+00:00",
+    "body_sha256": "4182263e403a4b312825525b356dcca9a227c41229e754fc3eae4354e63cee78",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "도시별 행사 나열은 약하지만 코너턴 인용 단락이 1970년 첫 지구의 날(스모그·불붙은 강) → 세계 운동으로의 확장을 이어 말해 주제·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On April 22, 1970, 20 million",
+      "note": "인용 단락은 따옴표만 걷으면 혼자 서고 stewards·grassroots 를 바꾸면 V5; 도시별 행사 단락은 걷는다."
+    }
+  },
+  {
+    "id": "99f0bcca-05e2-400c-a9e4-9c935cb822f4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "813cb62655d231dacc7eea06c16955dee72c6b8f860b27c65774335f4d5ff338",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "행사 소개 뒤가 출연진·패널 이름 나열이고 마지막 문장은 본문에 없는 사진을 가리켜, 문장 사이를 잇는 사건이 없어 칸을 채울 수 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Featured programming included reunions of cast",
+      "note": "둘째 단락을 떼어 보니 작품 제목만 바뀌는 나열이라 논지·사건이 서지 않는다; 어휘는 쉽다."
+    }
+  },
+  {
+    "id": "99f67ffb-c8f6-497e-9b08-a730cc43e366",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1eb5542e1f18288be3f79318e75b91ec6ab4c24702a68e10296de4487d3af5fe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "톱 킬 절차의 원리(진흙 주입 경로) → 실패 → 다음 대안 LMRP 캡 → 뉴올리언스 항의로 원인·결과·다음 절차가 이어져 순서·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The procedure involves pumping heavyweight drilling",
+      "note": "절차 단락은 혼자 서는 과정 설명이고 manifold·blowout preventer 만 풀어 주면 V5 로 읽힌다."
+    }
+  },
+  {
+    "id": "9a0cfae1-7be1-496c-bbdc-25c311742397",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1d44d753d7f558c0c69474faff448c674a1496659b861cd297d4079b239798af",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "도발 → 따귀 → 주먹 → 경비 제지 → 경범 폭행 소환으로 짧은 사건이 이어져 단신이지만 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Eye witnesses claim the fight started",
+      "note": "둘째 단락이 혼자 사건을 세우고 altercation·misdemeanor battery 를 바꾸면 쉽다; 연예인 이름은 걷어도 사건은 선다."
+    }
+  },
+  {
+    "id": "9a180c37-0ed0-45ab-85ea-882d24f96cfa",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c996d144344cd9ff08841f7281919998795bf1fd8605497277801871f435fc5b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "climate",
+    "why": "교토의정서 비준을 요구하는 시위대 주장과 경제 이익을 들어 거부하는 호주 정부 입장이 맞서고 몬트리올 회의·세계 시위로 넓어져 주장·요지·요약 칸을 채운다(끝의 국가 목록은 걷는다).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "claim",
+        "summary",
+        "content_match",
+        "blank"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Siding with the United States, the",
+      "note": "정부 입장 단락은 혼자 서고 ratify·regime 을 바꾸면 V5; 「Countries taking part…」 목록과 끝 줄임표는 가공 때 잘라낸다."
+    }
+  },
+  {
+    "id": "9a20e826-57ef-4529-9e49-1ba06a8b40e1",
+    "source_updated_at": "2026-09-25T09:16:28.642945+00:00",
+    "body_sha256": "ead54bb44d227499b0ca7dfb6ab96bb85c444feafc31c2b9d9a0022a799347e7",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "앞의 「1=」 잔재가 붙은 주최 측 인용은 거칠지만 넷째·다섯째 단락이 선수 낙차 → 경기 중단·중립화 → 재개 → 웡의 구간 우승으로 사건을 이어 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But before a brief interview to",
+      "note": "레이스 단락은 혼자 서지만 문법을 다듬어야 하고 neutralized 를 풀면 V5; 주최 측 인용과 저지 순위 목록은 걷는다."
+    }
+  },
+  {
+    "id": "9a274fb1-fa6a-4d6e-8db1-8681f2375084",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0aca2bfbae8817c3b1055ce3a55dbac0088eca0037b4e9e1836890e3712394e1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "첫 우주 로켓 발사 발표를 핵 갈등이라는 맥락과 미확인 보도라는 단서로 이어 읽게 하고 위성 계획 배경까지 있어 내용 일치·문장 삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "insert",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The announcement comes at a time",
+      "note": "둘째 단락은 혼자 서고 standoff·possess 를 바꾸면 V5; 발표가 확인되지 않았다는 점은 내용 일치 선지로 쓰기 좋다."
+    }
+  },
+  {
+    "id": "9a306253-c694-4d86-bb06-9959649ebfc1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3d2acda8011fe364cb0c95ce085272fd95448217a49445e11b7fbab040bf608f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "잡지 매각 사실 뒤가 인수사 잡지명·발행 주기·독자 단체 이름 나열뿐이라 원인·반응·다음 절차로 이어지는 문장이 없어 단신 최소선에 못 미친다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Plan, which was founded 35 years",
+      "note": "둘째 단락은 떼어지지만 창간 연도·부수·단체 이름만 바뀌는 사실 나열이라 사건이 서지 않는다."
+    }
+  },
+  {
+    "id": "9a37c8f0-a6fd-4177-a2f2-561ba982bdf8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7ae758ffcb7648f7996c0eefdf1d30ebbf5dc0e31d0f411be6775788e66970f5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "discard",
+    "genre": "reference",
+    "why": "파티 공연자·수상자·참석 예정 스타 수십 명의 이름 나열이 본문 대부분이고 마지막 줄은 사진을 가리켜 이어지는 사건이 없다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [],
+      "levels": [
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "sample": "Scheduled to attend were stars like",
+      "note": "가장 긴 단락이 사람 이름 목록이라 걷으면 남는 문장이 두셋뿐이고 사건 흐름이 없다."
+    }
+  },
+  {
+    "id": "9a499484-f900-4059-b505-d5cddb5ac3ad",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1a8f3f1246f37120fe01b052211314c867001071b3c5ada0c2ee280313cedae8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "유엔 특사 방문 → 연락 장관 임명 → 가택연금 중 회동으로 원인과 결과가 이어지는 짧은 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The appointment of a liaison minister",
+      "note": "셋째 단락이 원인-결과를 혼자 세우고 liaison·junta 를 풀면 V5; 끝 문장의 「yesterday」 중복은 고친다."
+    }
+  },
+  {
+    "id": "9a4d3cab-5c48-4697-9078-05748846517c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e70d258c7c34c690ff5f35d1d02150ee56ee8b2250cf49f964211b4b07e98f7f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "체포 → 유죄 → 조사위원회 → 6차 보고서의 결론(처방 과실에서 고의 살인으로) → 옥중 자살과 새 조사가 시간순으로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the Sixth Report of",
+      "note": "셋째 단락은 혼자 서고 recklessly·deliberate 는 문맥으로 잡히며 inquiry 만 풀면 된다; 연쇄살인·자살 소재라 고2 이상."
+    }
+  },
+  {
+    "id": "9a4df0f2-c0e0-4a34-99c4-d639310e8f05",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8410becafc6575e544d3988679159750c84dcf104bcdf392584a8119639c7a5",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "보안 돌파·탑승 → 쿠바행 요구 → 승객 석방·승무원 인질 → 경찰 진입·체포로 사건이 이어지고 보도 간 엇갈린 승객 수까지 있어 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The man broke through security and",
+      "note": "셋째 단락은 혼자 서고 contradictory·custody 를 바꾸면 V5; 출발지·기종 단락은 걷어도 된다."
+    }
+  },
+  {
+    "id": "9aaf1513-2b76-4794-a0ec-4fa58ca8a3f4",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ac472ffc8a770c39b6712571100faaaa50d0c3989983ca393e8a4eb05e6ac6d2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "엔진 고장 → 비상 착륙 시도 → 아파트 충돌·화재 → 탑승자·주민 사상으로 원인과 결과가 한 문장 사슬로 이어져 단신 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The air force airliner crashed at",
+      "note": "둘째 단락이 원인-결과를 담지만 한 문장이 길어 둘로 나누고 「has been killed」 문법을 고쳐야 한다."
+    }
+  },
+  {
+    "id": "9ab7d5dd-4f6a-4bd9-bf9f-464aecb2a755",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c7b0be86142cd78bb2e3106dc7dc90388932d788312ab46530825504b3e8d5c1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "education",
+    "why": "여학생 첫 석권이라는 사실을 과학계 여성 과소대표 논쟁(서머스 사퇴)·참가 비율 증가와 엮고 「격차가 닫혔다」와 「아직 뉴스거리면 평등이 아니다」 두 해석을 맞세워 요지·주장·빈칸 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "topic",
+        "main_point",
+        "blank",
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The success of the young ladies",
+      "note": "셋째 단락은 혼자 논지가 서고 underrepresented·innate 를 풀면 V5; 마지막 해석 문장의 문법(was when)만 고친다."
+    }
+  },
+  {
+    "id": "9aca72a2-fdc5-4716-a8f5-a34830968a33",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "25fa5667c0bf937c648e04a84acc18c0e898f4aecbbedad9dd22eba5559347cc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "environment",
+    "why": "강풍 → 충돌 → 염산 실은 배 침몰 → 수질 감시·선원 구조 → 화학물질 인양 예정으로 원인·반응·다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The report cited an official with",
+      "note": "둘째 단락은 혼자 서고 corrosive·stricken 을 바꾸면 V4~V5 로 내려간다."
+    }
+  },
+  {
+    "id": "9acd5abb-5344-491a-b2d6-7539b925dbcd",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "833b3284c8a5e358d0350ac728e08bd8c16c58a0d03e16ba5066d0ee96ef8afa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "2천 번째 전사자 발표와 그 사인(차량을 노린 급조폭발물 부상)이 두 단락으로 이어져 아주 짧지만 원인이 있는 사망 단신이라 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Sgt. Alexander, 34, died from injuries",
+      "note": "두 단락 전체가 떼어지고 improvised explosive device 만 풀면 쉽다; 분량이 적어 긴 지문에는 못 쓴다."
+    }
+  },
+  {
+    "id": "9af1d47c-1187-4888-a0c7-8123ecd3240d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4491b773c616356163954cecd9ced9bcaf505369fff2b8a699ac969f8e2f0b98",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "space",
+    "why": "맑은 하늘·적은 빛 덕분에 일곱 시 전 그림자가 드리우기 시작해 8시 37분 붉게 물드는 월식 관측 장면이 시간순으로 이어지고 관람객 감상이 있어 내용 일치·분위기 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "adult"
+      ],
+      "purposes": [
+        "school",
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "mood"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Mount Panorama provided perfect conditions for",
+      "note": "둘째 단락은 혼자 장면이 서고 eerie·bathed 를 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "9b0bd994-d9aa-4fa1-914f-7d389a0532c9",
+    "source_updated_at": "2026-09-25T09:16:01.690074+00:00",
+    "body_sha256": "33c4aac86b5b026e84325fbd38f3879ea78e25477332e1930d3b3f34511d071f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "폭탄 협박 쪽지 발견 → 휴강 공지 → 경찰 대피·수색 → 기숙사 귀환으로 이어지고 대학 공지문이 그대로 실려 내용 일치·목적 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "purpose",
+        "order"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Around noon police had completed an",
+      "note": "수색 단락은 혼자 서고 non-specific 만 풀면 쉽다; 공지문 인용은 목적 유형 지문으로 따로 뗄 수 있다."
+    }
+  }
+]

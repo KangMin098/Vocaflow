@@ -1,0 +1,944 @@
+[
+  {
+    "id": "a3253762-61d2-4518-9040-487b1cf6a426",
+    "source_updated_at": "2026-09-27T18:08:30.311987+00:00",
+    "body_sha256": "ac287cf5d503f7fbc34e552aa872b3a2ed4cb5f7bd97d5f525cc1e76316c8073",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "모음에서 떼어 낸 한 사람 부고로 끊기지는 않았으나, 사망(암 투병 뒤) 한 문장과 CBC 중계 경력 나열 한 문장뿐이라 문장 사이 사건 연결이 단신 최소선에 걸친다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "Veteran Canadian sportscaster Don Wittman died",
+      "note": "두 문장이 다 서지만 둘째 문장이 중계 이름 나열이라 내용 일치 선택지를 셋 이상 세우기 어렵다."
+    },
+    "hold_reason": "borderline"
+  },
+  {
+    "id": "a3a6e232-3d3c-42cc-9f3a-e8aa8c4b15ba",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "78329aed28bc070dccd410afb367334ab0a505a4e788b1a1ca86df730e7476fe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "첫 폭설 → 차바퀴에 다져진 눈이 얼음이 됨 → 차가 갇힘 → 저단 가속·흔들기로 빠져나옴의 인과가 두 단락에 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "vocab_choice"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Following the first major snow storm",
+      "note": "「extricate」「crystalline」「low-traction」를 get out·icy·slippery 로 바꾸니 V4 로 내려가고 지명을 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "a3aba126-a13a-41af-ad10-a18836bd767e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7eb907dc7e15117823da811d71d495c32a8318e958889cc880194f330186b65",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "1939년까지의 원소유 → 후손의 토지청구법원 승소 → 현 소유주와 합의 실패 → 첫 수용 명령으로 원인·결과가 이어지는 단신이라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Hannes Visser's family bought Leeuw-spruit Farm",
+      "note": "「expropriation」을 taking of land 로 풀면 쉬워지나 68어라 배경(토지 반환 정책) 한 문장을 보태야 문항이 넉넉해진다."
+    }
+  },
+  {
+    "id": "a3afba90-1aa9-412e-a717-eec33a30d649",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b2fa247004a52c4150fc970f8fecfd0264b67f82600a83ca8d2767d6110bbbfa",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "biography",
+    "why": "출생·훈련 → 골드코스트 비서 부임 → 은크루마와 가까워져 해임 → 복귀·망명기 연락 → 시에라리온 근무로 시간순 생애가 다섯 단락에 서서 내용 일치·순서·삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In February 1952, the Crown Agents",
+      "note": "「confidant」「resentment」를 trusted friend·anger 로 바꾸니 V5 에 맞고, 해임·복귀 흐름이 고유명사를 줄여도 선다."
+    }
+  },
+  {
+    "id": "a3b327b4-92d7-4dee-9701-49339952d02f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0184d9f7b8791fdd18ae5d22828ca11cb639d0b5304fc7d4e48008990892f2f4",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "쓰레기를 「원재료」로 보는 관점·불황기에 버려지는 자재가 는다는 답변 등 인터뷰 답이 한 단락씩 자기 논지를 세워 요지·내용 일치 칸이 서고, 비속어 한두 곳은 걷으면 된다(한쪽 입장).",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "main_point",
+        "content_match",
+        "topic"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "I dont look at junk as junk.",
+      "note": "「patina」「oxidised」를 worn look·rusted 로 바꾸면 V4 로 서고, 「crap」 문장과 톱날 던지기(WMD Tony) 단락은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "a3bf1357-58e3-4044-a595-212d896db628",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a246eb96efd9ef1b848425576af7106ea17e0823dd0354c58a7bbc1511fb9048",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "두 정상의 오찬이 브라질의 시장경제 지위 인정·중국의 수입 확대 약속이라는 경제 협정의 일부라는 마지막 단락이 사건의 까닭을 이어 줘 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This meeting is part of a",
+      "note": "둘째 단락의 장관 이름 나열을 걷어도 오찬 → 협정 맥락이 서고, 「market economy status」만 풀어 주면 된다."
+    }
+  },
+  {
+    "id": "a3ca1fee-6244-4602-a664-3abd64d8347f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "55fd9e861a5ceaecf96dbcfc6da8b2c12982b3b00e6fad8a4cb123462b29a7ef",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "technology",
+    "why": "Xbox 360 HDMI 지원 발표·HD-DVD 시연·게임 판촉으로 사건은 이어지나, 「consumers can fulfill enjoyment」 같은 비문이 단락마다 있어 문장을 고쳐 쓰지 않고는 어느 칸에도 싣기 애매하다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "Microsoft Taiwan invited DeltaMac Taiwan (Movie",
+      "note": "낱말 2~3개를 바꿔서는 안 되고 문장 구조(시제·관사·연결)를 다시 써야 해 가공이 사실상 재저작이 된다."
+    },
+    "hold_reason": "processing-unclear"
+  },
+  {
+    "id": "a3d225ad-2ff1-42da-aaf8-294fb62388ee",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "7d13adc841df6d122250a92d6bd149c90fb75a3e6b3819b413f56871462dbc7a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "산책 중 심장마비로 사망 → 병원 이송 실패 → 당·동료 의원의 반응 → 경력 순으로 원인·반응이 이어지는 부고 기사라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "On their Twitter page, the Co-operative",
+      "note": "「parliamentarian」「Backbencher」만 풀면 되고 지명을 줄여도 사망·반응 흐름이 선다."
+    }
+  },
+  {
+    "id": "a3d2df72-84a5-4528-8b64-6cbaa7366b68",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "158c81c633176584857a7b11788f27ea39b96d07a6257a4de592b70f156b4c69",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "위조 이라크 신분증 제시 → 세르비아 경찰 체포 → 지문으로 신원 확인 → 스페인의 송환 요청으로 사건과 다음 절차가 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "He was arrested on June 23rd",
+      "note": "「extradition」「forged」를 send back·fake 로 바꾸면 V4 이고 지명 몇 개를 걷어도 체포 경위가 선다."
+    }
+  },
+  {
+    "id": "a496fbf9-ceac-41a6-93e4-1e52bab918f8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9b225b905072b639887681ef4fe1cd642865325f01f1549fc800125670ec1511",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "새 대배심의 돈세탁 기소 → 시민단체의 「증거가 설득력 있다」 논평 → 들레이의 당파적 기소 반박과 검사 이력 반론으로 사건·반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "DeLay dismissed the charges as partisan",
+      "note": "「indicted」「redistricting」「grand jury」를 charged·map-drawing·court panel 로 풀면 한 밴드 내려가나 미국 정치 배경을 한 줄 보태야 한다."
+    }
+  },
+  {
+    "id": "a49d1de2-977e-4f96-ab59-7b65a3a53f01",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "9cd04945e6a496a0efc2345704dd43de13b15df98eacdf7e17d5583de4fd6e67",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "연료값 급등 → 노선 감축 → 기지 폐쇄로 승무원 632명 해고 → 노조의 비판 반응으로 원인·결과·반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Dramatic increases in fuel prices are",
+      "note": "수치를 걷어도 「연료값 → 감축 → 해고」가 서고 「cutbacks」만 풀면 된다."
+    }
+  },
+  {
+    "id": "a4cbf638-1c91-4667-8ef9-0425456e1447",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3ede1710c94362bd1e19ca3ef68c6d725f94711840f19da92c58ab8ddd106453",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "반란법 개정 서명과 그 결과(대통령의 비상사태 선포·연방군 투입·주방위군 지휘 권한)가 이어지는 64어 단신이라 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Public Law 109-364 allows the president",
+      "note": "법률 번호를 걷어도 「서명 → 권한 변화」가 서고 「suppress」「insurrection」만 풀면 되나 분량이 짧아 선택지가 셋 남짓이다."
+    }
+  },
+  {
+    "id": "a4d266c8-bf1a-4cd2-99ab-5585ccae498f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ce7cb362cefc32ea7ff02945fec4e58024407834c0e80f43edbbf0016bedb94a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "genre": "news",
+    "why": "첫 두 단락이 예고한 649개 선거구 결과 표가 본문에 통째로 없고 끝에 「Please this page periodically」 잔재가 남은 불완전 원천이나, 소선거구제 설명·헝 의회 단락은 혼자 서서 내용 일치 칸 후보다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the general election, people over",
+      "note": "표 설명 단락과 갱신 안내를 걷으면 선거 제도 → 출구조사 → 헝 의회 → 협상 흐름이 서지만 받은 원천이 표 빠진 판이다."
+    },
+    "hold_reason": "incomplete-source"
+  },
+  {
+    "id": "a4f0c3b4-d8a8-4ac4-b166-1fb7c2b300e1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "aca82714d6eeb17e6863ca2acb6a61e13bacafb59a93b2062fa001c540f6ae0b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "탈레반의 격추 주장과 NATO의 「악천후로 추락 추정」 발표가 맞서고 소유사 DynCorp 설명이 이어지는 단신으로, 엇갈린 주장을 가르는 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "NATO is reported as saying that",
+      "note": "끝의 「Note:」 기종 정정 줄과 회사 홍보 인용을 걷어도 주장 대 발표의 대립이 선다."
+    }
+  },
+  {
+    "id": "a50ec1d6-96f0-47f3-9bc0-0aa34d675a01",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e467f2432537c9e7ec4ad5f871eeab09b80ba4653611b9a4aa4dd48993d8a508",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "경찰서장이 배 나온 경관을 보다 못해 「Jelly Belly」 메모를 붙임 → 메모 내용과 체력 단련 이유 → 결국 사임으로 원인·결과가 서사로 이어져 내용 일치·순서·요약 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "summary",
+        "insert"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Winter Haven, Florida police chief Paul",
+      "note": "「liable to poop out」를 likely to get tired 로, 「straight talk」를 honest words 로 바꾸니 V4 에 맞고 사건 흐름이 짧고 또렷하다."
+    }
+  },
+  {
+    "id": "a522c58a-a89d-4a44-a554-70677433155f",
+    "source_updated_at": "2026-09-27T18:08:31.590971+00:00",
+    "body_sha256": "c161a81b149735068f6cdfd88a607ce087c9dc2e2e258bebd4df6bb21122583b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모음에서 떼어 낸 한 사건 꼭지로, 선거 후 폭력 속 경찰의 정치인 사살 → 소속당의 정치적 암살 규탄 → 한 주 새 두 번째 피살로 사건·반응이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Amid Kenya's post-election violence, Orange Democratic",
+      "note": "「(see Mugabe Were below)」 괄호와 끝의 「Related news」 잔재는 가공 때 걷고, 짧아 배경 한 줄이 있으면 문항이 넉넉해진다."
+    }
+  },
+  {
+    "id": "a54c7b8b-742f-426b-8fe9-a9cdf87e9f93",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "02a000b1899a2cd1d9ddebec51e4f3342f97e2605360dea762fe653c1acf5e6c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "신나치 집회 → 반대 시위와 폭동 → 비상사태·통금 → 시장·NSM·반대 단체 각자의 주장이 맞서는 보도라 사건 순서와 엇갈린 주장으로 내용 일치·순서·삽입 칸이 서고, 폭력 소재라 고등 이상 칸만 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Opposition to the rally was mounted",
+      "note": "「incite」「riled up」를 cause·angered 로 바꾸면 되고, Jenkins 인용 속 강간·나체사진 언급 문장은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "a5723382-a776-4ad3-aa9c-17676a9c18e1",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a6f92571ef9e3fec7301dd5e67c77f5548d07aeffa49b0e0df3b97ab502d434c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주민들의 UFO 목격 주장 → 흰빛·회전 묘사 → 이스탄불의 이전 목격과 UFO 박물관 개관이라는 맥락으로 이어지는 단신이며 「claimed」로 거리를 두어 의사과학이 아니라 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V2",
+        "V3"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "They said that the UFO was",
+      "note": "지명 「Bahçelievler district of Yenibosna」를 걷어도 목격 → 맥락이 서고 이미 쉬운 낱말이라 바꿀 것이 「revolved」 하나다."
+    }
+  },
+  {
+    "id": "a59173b1-49ab-4d0b-ae13-5194e449a2b0",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5d3fbe614d691ef9a1410fc4dbad0c1acc2e86e3d8cffcfb7b5da381749380fb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "400명 집회의 까닭(11월 총선을 공정하게)과 대통령에게 낸 요구(집회 보호·후보 평등·독립 언론·망명자 귀환)가 이어져 집회-요구의 이유 연결로 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Demonstrators requested from Ilham Aliyev, President",
+      "note": "정당 이름 나열을 걷으면 요구 네 가지가 남아 선택지를 세우기 쉽고 「sanctioned」만 allowed 로 바꾸면 된다."
+    }
+  },
+  {
+    "id": "a59964d2-fdda-4911-9954-c1d09bda594e",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "31056e81ce5f82dcf0e768f0e5ec38de762f176cd3188914cdcf5634d54d3344",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "종교혐오 선동 금지법에 맞서 쿠란 판매 기소를 밀겠다는 단체의 주장, 가디언·앳킨슨·캐리 경의 비판, 정부의 「신자를 보호하지 신앙을 보호하지 않는다」 반론이 나란히 실려 주장-근거·내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "main_point",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "But critics say that such protections",
+      "note": "「incitement」「satirisation」「sledgehammer to crack a nut」를 encouraging·making fun of·overreaction 으로 풀면 V5 이고, 쿠란이 살해를 부추긴다는 인용은 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "a5b6cc93-cd04-4147-86b7-c79e7b800130",
+    "source_updated_at": "2026-09-25T08:54:38.888122+00:00",
+    "body_sha256": "a370abeb8a000016e9b8726a091f73885c60d11fdffc67adfde3bce634a1ffbe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화장실에서 폭탄 그림 발견 → 승객 183명 대피 → 수색·전원 면담·CCTV 확인 → 체포 없음 → 항공사 사과로 사건과 다음 절차가 이어져 내용 일치·순서 칸이 선다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Czech foreign ministry's spokesperson said",
+      "note": "「inconvenience」만 trouble 로 풀면 V4 이고 항공편 이름을 걷어도 사건이 선다."
+    }
+  },
+  {
+    "id": "a64b413d-4fda-485c-a565-6f0f8ff12266",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "b0deb845adefe60e4e073e005e937807328612f8da7b6ca02d4e7c22c10ddfbd",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "시상식 개요 뒤 아이티 지진에 대한 참석자들의 마음, 스트립의 갈등 섞인 수상 소감, 클루니의 모금 방송 발표가 이어지는 앞 다섯 단락이 서고, 뒤의 수상자 목록은 가공 때 걷는다(내용 일치·심경).",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "mood",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In the midst of the festivities,",
+      "note": "「conflicted」「telethon」을 torn·fundraising show 로 바꾸면 V5 이고 목록 30줄을 걷어도 지진과 시상식의 대비가 선다."
+    }
+  },
+  {
+    "id": "a696e718-68a3-421d-beec-3098c5ca6ebc",
+    "source_updated_at": "2026-09-25T08:56:40.776984+00:00",
+    "body_sha256": "7b91d43ab4fa5ebeef024269408c7ba818ba2646695a88363512584a7132ecc3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "선거 불복 집회 → 저녁 무렵 반대 시위대와 충돌 → 20명 체포·경관 부상 → 대통령의 시장 비난 → 선거 당국의 「사기 증거 없음」으로 사건·반응·반론이 이어져 내용 일치 칸이 선다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "mock"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "As a result of Saturday's unrest,",
+      "note": "「projectiles」「conceded」를 objects·accepted defeat 로 바꾸면 V5 이고 인물 이름을 줄여도 집회 → 충돌 → 반응이 선다."
+    }
+  },
+  {
+    "id": "a699fcd4-2f28-4218-90b8-e6a7d72305d5",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "91d7a6b7fbe3495adf73217687cce2edaf4000a738c311b95897d3ac04077b0f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "독립 주유소가 Hess Express 로 바꾸며 수리 서비스 면제를 신청 → 청문회 일정, 그리고 1999년 지하 탱크 미교체로 폐쇄된 내력이 이어지는 지역 단신이라 내용 일치 칸 하나는 선다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Gas With a Smile was shut",
+      "note": "주소·조합 이름·면허 규정 인용을 걷으면 신청 → 청문 → 과거 폐쇄 이유만 남아 짧지만 사실 선택지는 셋 선다."
+    }
+  },
+  {
+    "id": "a6a682d4-16ba-475e-92f2-70290e372542",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e85220b4502901cc30819d2c1b7102a295b3c563b71e93083a19a8051fa6ba7f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "차베스의 9·11 내부 폭파 「그럴듯하다」 발언을 인용 보도하고 미 정부의 알카에다 소행 입장을 맞세운 한쪽 입장 보도라 의사과학 주장으로 막지 않고 발언-반론의 내용 일치 칸을 둔다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Chavez said in a speech Tuesday,",
+      "note": "「implosion」「orchestrated」를 collapse inward·planned 로 바꾸면 한 밴드 내려가나, 음모론이 본문의 대부분이라 미 정부 입장 줄을 반드시 남겨야 한다."
+    }
+  }
+]

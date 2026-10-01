@@ -1,0 +1,991 @@
+[
+  {
+    "id": "a113718a-f929-4279-bb0a-af87ef913f30",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e00ef9b8120f581aaba5ae0495f49e96d8cff3e8c9ce1a463f2cdd36f31cfcc8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "아들 사망 → 동석자·부검 일정 → 경찰 설명 → 어머니의 반응이 문장으로 이어져 사건 흐름이 서므로 고1 이상 내용 일치·순서 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The cause of death is currently",
+      "note": "부검 단락은 앞 문맥 없이 서고 inquest·toxicology 를 hearing·drug test 로 바꾸면 V4 로 내려간다; 끝 문장의 마침표 누락만 손본다."
+    }
+  },
+  {
+    "id": "a1272424-d827-4ce6-8a93-3e074b1456f6",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "81c6c4235e17712d96ab1fe942c0c71f9c29d11c0f6ff7ab802c752654b8e11a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "우정 민영화 법안 부결 → 하원 해산 → 압승 예측이라는 인과가 첫 단락에서 서서 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Japanese Prime Minister Junichiro Koizumi is",
+      "note": "첫 단락이 원인과 결과를 다 담아 떼기 쉽고 mandate·privatize·crossing the floor 를 풀어 쓰면 V5 까지 내려간다."
+    }
+  },
+  {
+    "id": "a1434b0e-3706-4812-9718-dae24ae3cab8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d7668984a2323e54c179b2e66d5820cba8d0c4a9a544045524c0635d442ce404",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "연료비 급등이 수입 증가를 지워 분기 손실이 났고 그 대응으로 킹피셔와 제휴했다는 원인·결과·대응이 이어져 수치만 나열한 단신이 아니다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "data-claim"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Faced with an economic slowdown and",
+      "note": "루피·유로 이중 표기 수치는 걷어도 연료비→손실→제휴 논지가 서고 crippling·offset 을 바꾸면 V5 가 된다."
+    }
+  },
+  {
+    "id": "a185a81d-30d1-41c1-bec0-88cfbd543000",
+    "source_updated_at": "2026-09-25T09:16:08.550302+00:00",
+    "body_sha256": "d79a5310f4ecc101e86fea592609f3e18a9edee9adb67653b14687a079cf6f45",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "health",
+    "why": "내성 결핵 환자 격리 → 여행 경로 → 승객 추적 → 본인의 해명이 시간순으로 이어져 내용 일치·순서·문장 삽입 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The man, who is from Fulton",
+      "note": "CDC 인용문의 항공편 번호·날짜 나열은 걷고 환자의 신혼여행 단락부터 쓰면 사건이 바로 서며 quarantine 은 남기고 respiratory isolation 만 풀면 된다."
+    }
+  },
+  {
+    "id": "a193a23c-cf7a-43b7-8d95-1dc093b2eb30",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "ce70874a88c4fc72737e4f2b9df2c29af44011c4698c4603833e76a8b358e306",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "조기 대선의 배경(시위 진압·비상사태)과 야권 후보들의 불공정 주장, 정부 부인, 여론 전망이 갈래별 단락으로 서서 내용 일치·주장 칸에 쓸 수 있다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Georgian presidential election is being",
+      "note": "배경 단락은 혼자 서고 incumbent·authoritarian·threshold 를 바꾸면 V6 으로 내려가며 후보 이름 여럿은 한둘로 줄인다."
+    }
+  },
+  {
+    "id": "a1aa9dd4-e2ee-44f3-a7a2-3a787a620dfc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "8640d17b32d6f3fbeedaa64335c6081e73c59462f206ffd6090952e206c6d49c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "경찰의 소화전 앞 주차를 찍어 올리는 시민의 동기·활동·반응을 그 사람 입으로 전하는 한쪽 입장 인터뷰로, 주장·근거와 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "main_point",
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "When Wikinews asked Justice why he",
+      "note": "동기를 밝히는 인용 단락이 주장(공무원도 같은 법을 지켜야 한다)과 근거를 함께 담아 떼기 쉽고 draconian·summons 를 바꾸면 V5 가 된다; 한쪽 입장이라 경찰 측 반론은 없다."
+    }
+  },
+  {
+    "id": "a1b3d37f-a406-4aa6-baa1-57b710c7f521",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "e8b5f32cef28e4842fababa6b554ecbb3bf7e87551e687f9c572e860e66487d9",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "신규 매장 두 곳 계획 뒤에 트란실바니아가 부유해 외국 투자가 몰린다는 까닭이 마지막 단락에 이어져 매장 목록만이 아닌 단신으로 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "German supermarket chain Selgros Cash and",
+      "note": "도시 이름 나열 단락은 걷고 첫 단락과 끝 단락(투자 이유)만 이으면 서며 prosperous 정도만 바꾸면 된다; 칸이 좁다."
+    }
+  },
+  {
+    "id": "a1bcefc8-3ce5-45c5-aa3e-dc6ab6447c8d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "37ac7337554029b82b76844763e455e4716b3db41a7478e28accde9c221991b3",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "화물열차 화재 → 34명 대피 → 운행 중단·점검 → 재개 전망과 승객 안내가 이어져 사건 흐름이 서는 단신으로 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Thirty-four people had to be evacuated",
+      "note": "중간의 문장 도중 줄바꿈(hopefully / resume)은 합치기만 하면 되고 lorry·backlog·progressive restart 를 풀면 V4 가 된다."
+    }
+  },
+  {
+    "id": "a2140ef9-71a4-45a2-99ae-4cd601ac6055",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "23f78c9a147d458d6ad0efda67a08afceab4eb250a4bb744f957d3727575b8dc",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "테러방지법의 위헌 시비를 두고 총리·야당·주 총리·헌법학자의 엇갈린 입장이 근거와 함께 단락별로 서서 주장·근거와 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "However Constitutional lawyer John Williams says",
+      "note": "헌법학자 단락은 혼자 서고 judicial independence 는 남기되 contentious·precedents 를 풀면 V6 이 되며, 끝의 마침표 누락·문장 조각(Telling ABC Radio…)은 다듬어야 한다."
+    }
+  },
+  {
+    "id": "a22b7d8f-658a-479a-adb6-5d6162fc0cd7",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "50a0aba547ca1d264ea87b7002f44b77d9587ed22c17d39ac1cb3d8217e6eb23",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "art",
+    "why": "수상작·수상자 나열이 본체이지만 최다 수상작에 대한 CNN 평과 제작자·수상자의 반응이 끝 단락에 이어져 내용 일치 칸 하나만 겨우 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The German anti-war film All Quiet",
+      "note": "작품·배우 이름을 걷으면 남는 것이 거의 없어 논지는 서지 않고, 수상 사실과 반응을 묻는 내용 일치로만 쓸 수 있다; conferred·bagged 만 바꾸면 V4."
+    }
+  },
+  {
+    "id": "a231ae6a-9338-495f-ab94-eb151ba6a5f3",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "6f9b779beeaedfd2ab5ed93b545030cc3d8fe55f7a83430eaa76b824ccbe5b8c",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "알마스리 사망 보도 → 무장단체의 부인 → DNA 확인 절차 → 미군의 신중한 입장이 이어져 확인되지 않은 보도를 다루는 흐름이 서므로 고1 이상 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "We are in discussions with the",
+      "note": "미군 대변인 인용 단락이 확인 절차의 이유를 담아 떼기 좋고 insurgent·preliminary 를 바꾸면 V5 가 된다; 지명은 걷어도 된다."
+    }
+  },
+  {
+    "id": "a231aef8-45cb-459f-b190-9df644fa48db",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4caa235a45a9924b05a7b28de298c34f586ddaf4e2c76ac98a21e06d86568976",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "갱단 두목의 보복 지시와 민병대의 반응, 갱단의 기원 설명이 이어지지만 고문·참수의 구체적 묘사가 둘째 단락에 있어 성인 칸으로만 보관한다.",
+    "slots": {
+      "ages": [
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "MS-13 gang now has about 20,000",
+      "note": "잔혹 묘사 인용문과 기자의 vicious 같은 평가어는 가공 때 걷어야 하고, 갱단 기원(1980년대 중미 정책) 단락은 Conservative Voice 의 한쪽 해석이라 출처를 밝힌 채 써야 한다."
+    }
+  },
+  {
+    "id": "a238ba9b-a146-4349-8717-37aae9ebc8c8",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "1c8c255aff41c340eb451c757cc1af3ae935f123cb69fae033e6eea0a20a2cd1",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "67어 단신이지만 정착촌 철거 계획에 반대한 평화 시위 → 인원 추산 차이 → 앞선 시위와의 관계가 문장으로 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Israel's Independence Day was marked by",
+      "note": "한 단락 전체가 혼자 서고 dismantling·turnout 을 바꾸면 V4 이며 where→were 오타만 고친다."
+    }
+  },
+  {
+    "id": "a23b52d7-cebc-4902-a5b4-735b742d853d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "d2dadbbdea71e29a31535276b2bc0fe7b840b4efcaa805062da7c7e4e9a92a4d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "호주군의 임무 전환(overwatch) 발표와 그 뜻, 철수 일정과의 대비, 녹색당의 반발이 단락별로 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Overwatch was \"a support program\" that",
+      "note": "맨 앞의 떠도는 ] 기호는 수집 잔재라 걷고, overwatch 를 정의하는 단락은 혼자 서며 rotation·draw downs 를 풀면 V5 가 된다."
+    }
+  },
+  {
+    "id": "a25999a3-bede-4eec-96d8-ac2cd334cdab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "55c2da39143a5ee510bedf26b5b87402a63a942d29dcd281a67217ff9b86be84",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하원 소위의 예산 삭감 의결 → 공영방송공사 지원 폐지 단계 → 1967년 이래 최대 삭감이라는 의미가 이어지는 짧은 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "A House subcommittee voted Thursday to",
+      "note": "첫 단락이 Sesame Street 예시로 바로 이해되고 마지막 문장의 빠진 since 와 오탈자(subcomittee·Broadasting)만 고치면 된다."
+    }
+  },
+  {
+    "id": "a279c964-058d-48b2-be99-fbe3025df9e9",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3df52eba4945d1519b3fafea2fc9f8a2ebb81ddbbe7720994d6e0cbf1f94a8cb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "주 총선 공고와 등록금 인상 반대 시위가 쟁점이 된 배경, 연방주의·분리주의 정당 구도 설명이 이어져 내용 일치·요지 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "summary",
+        "order"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "This election comes in the midst",
+      "note": "등록금 쟁점 단락과 정당 구도 단락은 혼자 서고 federalist·separatist 는 본문이 풀어 주며 drop the writ 만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "a282b4a3-e475-4edd-a2b6-6fe6cedc620f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c6ac9be3bd89f0d13f19dbc0902f374c61709fc7d9a29e15684be5891338396f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "인도 방문 중 우라늄 수출 방침을 두고 총리의 말이 하루 사이 흔들리고 야당이 「번복」이라 비판하는 대비가 단락별로 서서 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "In an interview later in the",
+      "note": "정책이 바뀔 수 있다고 한 단락은 앞 단락(현 정책)과 짝으로 떼면 흐름이 서고 ratified·non-proliferation 을 풀면 V6 이 된다."
+    }
+  },
+  {
+    "id": "a29301cc-cc65-4b4e-9c29-89087fd36e34",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5aec5645bc6c1fe911fb95649bf27ceb9027b14456c5bb84f97bd1009c059f74",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "정부 통신사가 자유 소프트웨어로 송출해 독점 프로그램 없이도 시청할 수 있게 됐다는 결과가 첫 단락에서 서고 2003년 전환이 덧붙어 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Brazilian government news agency Agencia",
+      "note": "코덱·방송국 이름 나열 단락은 걷고 첫 단락과 끝 문장만으로 서며 proprietary 만 풀면 된다; 칸이 좁다."
+    }
+  },
+  {
+    "id": "a294bf33-ad17-4e95-87c1-0fea852eebe2",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c904a4ba7816df4d28b63142d78c5f205080fb119e8c0dd9b56121944048818d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "출산 소식 → 출산휴가·임신 발표 시점 → BBC 경력의 시간순 이력 → 소속사 축하가 이어져 내용 일치·순서 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Kaplinsky first started to work for",
+      "note": "경력 단락은 시간순으로 혼자 서고 tenure 하나만 바꾸면 V4 가 된다."
+    }
+  },
+  {
+    "id": "a2a34be1-5172-4f2b-9126-4c3a042b43dc",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "0d6cd381d0c407b48be9f65b18223a1fbeb0019ba2e8b604d269d85429ec2df0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "culture",
+    "why": "장수 TV 만화의 극장판 개봉 확정과 방영 이력·시청자 감소·예고편 공개가 이어지는 단신으로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The Simpsons has been on television",
+      "note": "방영 이력 단락이 혼자 서고 낱말이 이미 쉬워 contracted 정도만 바꾸면 V3 이 된다; the The 중복만 고친다."
+    }
+  },
+  {
+    "id": "a2a4bfaf-4663-4b3d-b34f-16893642c482",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3e6c9d30b9d655cecc2cef5e6bc53aa2c255ed8af202de68a33d60ce38fb3ddf",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "전 BSkyB 임원의 영입과 맡을 일(중계권 확보), 그 배경인 세탄타의 사업 확장 계획이 이어져 인사 단신 이상의 흐름이 서서 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Setanta initially started out by broadcasting",
+      "note": "회사 성장 단락은 해외 교민 방송에서 출발해 확장하는 흐름이라 혼자 서고 GAA 는 풀어 쓰며 pursuing an ambitious plan 정도만 바꾸면 된다."
+    }
+  },
+  {
+    "id": "a2e3eb70-67ee-4bb7-9990-beddc673dd1f",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2d76c6ae58f3d50280e7adbc04d5f75e3c874676574b137bd8352db2d164a77a",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "science",
+    "why": "HIV 표면 단백질의 취약 지점 발견 → 항체 결합 원리(악수→포옹 비유) → 변이로 인한 한계 → 백신은 아직 멀다는 결론까지 논지가 서서 주제·빈칸·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "topic",
+        "title",
+        "blank",
+        "content_match",
+        "order",
+        "insert"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Researchers detailed the precise interaction as",
+      "note": "비유 단락이 혼자 서고 연구자 이름을 걷어도 논지가 남으며 neutralize·susceptible 을 바꾸면 V6 이 된다; b12·gp120 은 a protein 정도로 줄인다."
+    }
+  },
+  {
+    "id": "a2f08647-ac14-42f2-89c6-ff3bec82d547",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "3a83eb2263bf3763e5af9c2665bc6ab8842fb10d12a6678f1e75bd82c29fb8a0",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "hold",
+    "hold_reason": "criteria-gap",
+    "genre": "memoir",
+    "why": "본 기사(카드 수수료와 기름값)에 딸린 기자 취재 메모 하위 문서라 1인칭 짧은 경위는 서지만 본 기사와 사진을 전제해 원천 단위로 볼지 기준에 없어 보류한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V3",
+        "V4"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "sample": "The first thing to catch my",
+      "note": "리프트를 보고 가격 인상인 줄 알았다가 간판 교체였다는 경위는 서지만 「So I reported it」 과 사진 언급이 본 기사를 가리켜 떼면 핵심(수수료 이야기)이 빠진다."
+    }
+  },
+  {
+    "id": "a310c72b-da6f-4083-928a-3789702d68ea",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c841b4f271a7dd9114c1609649e29d5db45dcdb75be72175b58ba10cfab2befe",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "주 정부가 무면허 정신질환 치료·투약을 이유로 전환치료 캠프를 폐쇄했고 인권단체의 비판이 이어지는 사건 흐름이 서며, 비판은 단체 쪽 한쪽 입장이라 고1 이상 내용 일치 칸으로 보관한다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The state deemed that Love in",
+      "note": "폐쇄 사유 단락은 혼자 서고 deemed·dispensing 을 바꾸면 V5 가 되며, 셋째 단락의 단체 쪽 해석은 출처를 밝힌 채 두거나 걷는다."
+    }
+  },
+  {
+    "id": "a31b1ed1-09f9-44a6-a683-102ed294122d",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "090025bf17f827db6a0b47151c8ec1eebe8389231246549317898a80383392f2",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "현금수송차 강도 미수 뒤 사살된 두 사람의 신원 공개 → 공범 기소 → 차량 감식 → 경찰 총격 조사 착수가 이어지는 단신으로 고1 이상 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Terence Wallace, 25, also from London",
+      "note": "이름·나이를 걷어도 기소와 조사 절차가 서고 marksmen·forensic 을 바꾸면 V4 가 된다."
+    }
+  }
+]
