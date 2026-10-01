@@ -52,6 +52,14 @@ test('곧은 작은따옴표 대화에도 발화 설명이 붙는다(따옴표 �
   assert.equal(countSentences('“Stop!” Nathan shouted. She left.').sentences.length, 2)
 })
 
+test('홑따옴표로 이어지는 새 발화는 앞 인용의 설명이 아니다(겹따옴표와 같은 결과)', () => {
+  assert.deepEqual(texts("'Stop!' 'He said no.' She left."), ["'Stop!'", "'He said no.'", 'She left.'])
+  assert.equal(countSentences('“Stop!” “He said no.” She left.').sentences.length, 3)
+  assert.equal(countSentences('‘Stop!’ ‘He said no.’ She left.').sentences.length, 3)
+  // 설명 절 안의 소유격 홑따옴표는 그대로 설명으로 붙는다
+  assert.deepEqual(texts("'Stop!' Nathan's mom said. She left."), ["'Stop!' Nathan's mom said.", 'She left.'])
+})
+
 test('빈칸으로 시작하는 문장도 따로 센다(연결어 빈칸)', () => {
   assert.deepEqual(texts('Television adds code. ______(B) , the new phones are digital. (A) (B)'),
     ['Television adds code.', '______(B) , the new phones are digital. (A) (B)'])

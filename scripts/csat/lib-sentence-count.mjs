@@ -57,7 +57,9 @@ function rawCuts(p) {
       const clauseEnd = rest.search(/[.!?](?=["'’”)\]]*(\s|$))/)
       const clause = clauseEnd >= 0 ? rest.slice(0, clauseEnd) : rest
       const head = clause.split(/\s+/).slice(0, 6).join(' ')
-      if (!/["“”]/.test(clause) && SPEECH.test(head)) continue
+      // 다음 절이 여는 따옴표(겹·홑, 곧은·굽은)로 시작하면 새 발화다 — 그 안의 said 를 앞 인용의 설명으로 보지 않는다.
+      // 절 «안»의 홑따옴표는 소유격·축약(Nathan's)일 수 있어 시작 글자만 본다
+      if (!/["“”]/.test(clause) && !/^['‘]/.test(clause) && SPEECH.test(head)) continue
     }
     cuts.push(k)
     start = k
