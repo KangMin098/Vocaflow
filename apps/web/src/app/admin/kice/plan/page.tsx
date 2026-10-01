@@ -50,7 +50,7 @@ export default async function CsatPlanPage({ searchParams }: { searchParams: Pro
   return (
     <div className="mx-auto max-w-3xl">
       <Link
-        href="/admin/kice"
+        href={withScope('/admin/kice', scope)}
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← 유형 목록
@@ -101,7 +101,7 @@ export default async function CsatPlanPage({ searchParams }: { searchParams: Pro
 
           {/* ⑤ 주파 — 줄 세우기는 클라이언트가 한다(토글). 시간 띠는 **위에** 그대로 두어
               번호 순서를 잃지 않는다: 시험은 번호대로 치러지고, 이 순서는 공부할 순서다. */}
-          <PlanList rows={plan.rows} mine={mine} />
+          <PlanList rows={plan.rows} mine={mine} scope={scope} />
 
         </>
       ) : null}

@@ -44,7 +44,7 @@ export default async function CsatMapPage({ searchParams }: { searchParams: Prom
       {data.error ? (
         <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 지형을 불러오지 못했어요.{' '}
-          <Link href="/admin/kice" className="inline-flex min-h-[44px] items-center underline underline-offset-2">
+          <Link href={withScope('/admin/kice', scope)} className="inline-flex min-h-[44px] items-center underline underline-offset-2">
             허브에서 유형별로 보기 →
           </Link>
         </p>
@@ -52,13 +52,13 @@ export default async function CsatMapPage({ searchParams }: { searchParams: Prom
         // 빈 상태는 설명이 아니라 **다음 한 걸음**이다(브리프 A4 · D5).
         <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           아직 셀 기출이 없어요.{' '}
-          <Link href="/admin/kice" className="inline-flex min-h-[44px] items-center underline underline-offset-2">
+          <Link href={withScope('/admin/kice', scope)} className="inline-flex min-h-[44px] items-center underline underline-offset-2">
             오답 분포부터 보기 →
           </Link>
         </p>
       ) : (
         <div className="mt-4">
-          <MapClient data={data} />
+          <MapClient data={data} scope={scope} />
         </div>
       )}
     </div>
