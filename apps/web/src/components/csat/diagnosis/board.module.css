@@ -246,7 +246,7 @@
   border: 1px solid var(--bd);
   border-radius: 14px;
   background: var(--bg);
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .table {
@@ -1476,6 +1476,7 @@ a.tagChip:hover {
 }
 
 .areaTrack {
+  display: block;
   height: 6px;
   border-radius: 999px;
   background: var(--m-chip, var(--bg3));
@@ -1483,6 +1484,7 @@ a.tagChip:hover {
 }
 
 .areaFill {
+  display: block;
   height: 100%;
   border-radius: 999px;
   background: var(--tint, #8b8984);

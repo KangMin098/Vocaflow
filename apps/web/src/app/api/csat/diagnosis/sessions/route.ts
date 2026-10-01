@@ -38,7 +38,8 @@ export async function DELETE(req: Request) {
   if (!UUID.test(id)) return NextResponse.json({ error: '입력 형식이 맞지 않아요' }, { status: 400 })
   try {
     const ok = await deleteExamSession(ctx.db, ctx.userId, id)
-    return ok ? NextResponse.json({ ok: true }) : NextResponse.json({ error: '없는 기록이에요' }, { status: 404 })
+    // 이미 지워진 기록의 재시도도 성공 — 정리는 deleteExamSession 이 매번 마무리한다(멱등)
+    return NextResponse.json({ ok: true, deleted: ok })
   } catch (e) {
     return failure(e)
   }
