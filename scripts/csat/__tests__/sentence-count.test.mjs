@@ -1,12 +1,12 @@
 // scripts/csat/__tests__/sentence-count.test.mjs
-// 평가원 해설 문장 번호 기준(kice-sentence-v1) — 합성 지문(평가원 원문 미포함)으로 경계 고정
+// 평가원 해설 문장 번호 기준(kice-sentence-v2) — 합성 지문(평가원 원문 미포함)으로 경계 고정
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { countSentences, SENTENCE_RULE } from '../lib-sentence-count.mjs'
 
 const texts = (p) => countSentences(p).sentences.map((s) => s.text)
 
-test('규칙 버전이 고정돼 있다', () => assert.equal(SENTENCE_RULE, 'kice-sentence-v1'))
+test('규칙 버전이 고정돼 있다', () => assert.equal(SENTENCE_RULE, 'kice-sentence-v2'))
 
 test('일반 산문 · 약어 · 소수점', () => {
   assert.deepEqual(texts('Mr. Kim left at 2 p.m. today. It cost 3.5 dollars. Then he rested!'),
@@ -41,6 +41,15 @@ test('선지 기호는 경계를 만들지 않는다 · 구두점만 조각은 �
   assert.deepEqual(texts('There are no seats, ① an angry lady told the clerk. She left.'),
     ['There are no seats, ① an angry lady told the clerk.', 'She left.'])
   assert.equal(countSentences('One sentence here. . Another sentence there.').sentences.length, 2)
+})
+
+test('선지 기호로 시작하는 문장도 경계가 지워지지 않는다', () => {
+  assert.deepEqual(texts('He left. ① She stayed. They waited.'), ['He left.', '① She stayed.', 'They waited.'])
+})
+
+test('곧은 작은따옴표 대화에도 발화 설명이 붙는다(따옴표 모양과 무관)', () => {
+  assert.deepEqual(texts("'Stop!' Nathan shouted. She left."), ["'Stop!' Nathan shouted.", 'She left.'])
+  assert.equal(countSentences('“Stop!” Nathan shouted. She left.').sentences.length, 2)
 })
 
 test('빈칸으로 시작하는 문장도 따로 센다(연결어 빈칸)', () => {
