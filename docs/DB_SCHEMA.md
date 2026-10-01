@@ -1812,7 +1812,22 @@ RLS: 자기 행만 `select`/`insert`. **`update`·`delete` 정책은 일부러 �
 배수를 말한다. 그 아래에서는 센 것만 보여 준다 — 얇은 표본으로 「당신의 약점」을 적으면
 학습자가 없는 결함을 고치러 간다.
 
-## 담은 교재가 시리즈를 구별한다 — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
+## 영어 진단 — `csat_dx_*` ([20261001150000](../supabase/migrations/20261001150000_csat_diagnosis_mvp.sql))
+
+기존 표는 컬럼 추가만: `csat_exams.official_grade1_ratio · official_stats_source · diagnosis_ready(NOT NULL false)` · `csat_items.official_error_rate · ebs_linked(null=미확인)`.
+
+| 표 | 내용 | 접근 |
+|---|---|---|
+| `csat_dx_answer_key` | 회차 × 1~45 정답(`answers smallint[]`)·배점 — csat_items 에 없는 듣기 포함 | service role |
+| `csat_dx_type_attribute` · `csat_dx_item_attribute` | 유형 기본 / 문항 역량 가중치 A1~A9(0~2), `source type_default|admin` · `reviewed_at`(검수 완료 = A1 행에 찍힘) | service role |
+| `csat_dx_trap_family` · `csat_dx_option_trap` | 함정 라벨 → C1~C9 · 선지별 함정(최신 published 분석에서 시드, 원래 라벨 보존) | service role |
+| `csat_dx_pool` | 진단 테스트 문항 풀 | service role |
+| `csat_dx_settings` | 엔진 설정 jsonb, 버전으로 쌓고 활성 1개(부분 유니크) | service role |
+| `csat_dx_profile_hist` · `csat_dx_session` · `csat_dx_response` · `csat_dx_snapshot` · `csat_dx_habit_feedback` | 프로필 이력 · 시험 기록(`client_key` 멱등) · 응답 · 진단 누적(`settings_id`·`engine_version`) · 습관 응답 | 본인 SELECT 만, 쓰기는 서버 |
+
+RPC `csat_dx_record_session(p_session, p_responses)` — 세션+응답 한 트랜잭션, service_role 전용.
+
+ — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면
 독해를 담은 것으로 기록되고, 하나를 빼면 둘이 같이 빠졌다. 시리즈 셋이 정의됐는데(각 6~7단,

@@ -264,6 +264,19 @@ guard · nomock) + 전역 검사. `--fail-under=<점수>` 로 게이트(`pnpm ad
 
 ---
 
+## /admin/csat/diagnosis — 영어 진단 · 2026-10-01 신설
+
+| 경로 | 하는 일 |
+|---|---|
+| `/admin/csat/diagnosis` | 학습자 수 · 최근 진단 · 시험별 태깅 완료율 · 진단 테스트 풀 역량 커버리지 |
+| `/exams` | 평가원 회차 목록 · 공식 1등급 비율(+출처) · 진단 반영 켜기(45키 + 전 문항 검수일 때만, 서버 재확인) |
+| `/exams/[examId]` | 문항별 역량 가중치 · 오답 선지 함정 · 공식 오답률 · EBS 연계 검수, 미완료만 보기 · 다음 미완료 이동 |
+| `/pool` | 진단 테스트 풀 문항 넣기·쉬게 하기·빼기 |
+| `/learners` · `/learners/[id]` | 학습자 요약 · 코드·수치 리포트 · 시험 기록 · 습관 응답 · 대리 입력(entered_by=admin) |
+| `/settings` | 엔진 설정 JSON 검사 후 새 버전 활성(이전 버전 보존) |
+
+쓰기는 `app/admin/csat/diagnosis/actions.ts`, 도움말 `lib/admin/help/csat-diagnosis.ts`(7화면). 엔진은 학습자 화면과 공유(`lib/csat/diagnosis`).
+
 ## /admin/video — VFP (영상 공장) · 2026-09-13 신설
 
 > **2026-09-24 — 내리기 · 교체.** 구성요소 탭 「조치」 칸과 요청 상세의 발행된 편: 교체 요청 · 내리기(이유 필수) · 되살리기.
