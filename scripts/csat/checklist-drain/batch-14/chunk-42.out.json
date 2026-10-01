@@ -1,0 +1,802 @@
+[
+  {
+    "id": "a66e001a-e866-4bd7-bde2-2d98667b2370",
+    "title": "At least 45 killed in new wave of violence in Kenya",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "At least 45 people have been killed",
+    "note": "케냐 선거 후 민족 간 폭력의 배경, 증가, UN 중재 과정, 지도자들의 입장이 명확히 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "summary"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a66ef08a-58ec-4ae7-b23b-a49d1da1648a",
+    "title": "New company to research artificial brain",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A company named Numenta was founded",
+    "note": "기업 창립, 경영진의 배경, 기술 내용, 자금 조달, 향후 계획이 명확하게 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a66f15d2-8c8d-47f9-865b-21f57a7abc9d",
+    "title": "Texas man arrested after rescuing drowning swimmer",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "San Marcos resident, Dave Newman, was",
+    "note": "수영자 구조, 경찰 체포, 혐의, 보석, 향후 진전이 사건의 진행 순서로 제시되고 업데이트로 갱신된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a66f3684-c05e-42e2-96e3-8bbbd8689886",
+    "title": "Australian Senator Bob Brown calls for ban on junk food ads",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Australian Greens Senator Bob Brown",
+    "note": "의원의 광고 규제 주장, 배경 다큐멘터리, 이전 정부 대응, 향후 계획이 정책 의도로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a67136ca-7cb5-47c5-bfb0-143afe926ac3",
+    "title": "Records reveal US Senator John Sununu had ties to convicted lobbyist",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On October 24, 2001, convicted lobbyist",
+    "note": "의원과 로비스트의 관계, 이해관계 충돌, 기금 출처, 법적 결과가 체계적으로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a671723e-70a6-468b-83c7-c6f55c9ace1a",
+    "title": "US Senate passes stimulus package",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The United States Senate passed a",
+    "note": "상원 경기부양안 통과의 투표 결과, 야당의 반발, 대통령의 입장, 주식시장 반응이 명확하다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a673e95d-c906-48c9-a251-7351a1acf301",
+    "title": "Gaddafi loses African Union chair",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Muammar Gaddafi, leader of Libya",
+    "note": "가다피의 의장 재선 시도 실패, 대신 선출된 말라위 대통령, UN 사무총장의 기조연설이 사건의 맥락으로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a67b0726-7287-42cf-93ab-6f5ee157ffa4",
+    "title": "Randall Munroe, writer of xkcd, talks about the comic, politics and the internet",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Randall Munroe is the writer of",
+    "note": "인터뷰 형식으로 웹코믹의 창작 과정, 독자와의 상호작용, 정치관, 위키백과 평가가 Q&A로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a685daaf-eb3d-4e2a-a217-bf894ca4c159",
+    "title": "Ice, snow, and cold strike throughout Europe",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Freezing temperatures, combined with snow",
+    "note": "유럽 전역의 한파, 지역별 피해, 운송 마비, 사망자 통계가 명확하게 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a6880af2-6cf6-4050-87e9-103006c7cf91",
+    "title": "South American leaders end border dispute",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "An exchange of handshakes at a",
+    "note": "남미 국가들의 국경 분쟁 배경, 무기력했던 정상 회담, 지도자들의 입장, 합의 과정이 명확히 서술된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a688f27e-db03-4aac-ab6d-adc4520c5f2d",
+    "title": "After killing wife and children, police officer commits suicide in Noyon, France",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A police officer has shot and",
+    "note": "경찰의 가족 살해 사건의 배경(결혼 파기 통보), 발생 경과, 결과, 생존자 상황이 시간순으로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a6899b59-7600-45e9-9820-5dd80a4ac5db",
+    "title": "Russian ambassador to US recalled over President Biden's comments",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Russian ambassador to the United States",
+    "note": "대사 소환 사건의 계기(바이든의 발언), 발언 내용, 미국과 러시아의 입장이 명확하게 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a68c9072-7060-4622-b74a-4b2a38adb615",
+    "title": "Boeing 787 crashes into Indian medical school, killing hundreds",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Thursday, an Air India Boeing 787",
+    "note": "항공기 추락 사건의 시간, 위치, 인명 피해, 생존자 증언, 항공사 대응, 조사 계획이 사건의 진행으로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a696e718-68a3-421d-beec-3098c5ca6ebc",
+    "title": "Violence breaks out in Washington, DC at pro-Trump protest",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Violence broke out on Saturday when",
+    "note": "트럼프 지지 시위, 평화적 출발, 충돌 발생, 경찰 대응, 대통령 반응이 사건 진행 순서로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a699fcd4-2f28-4218-90b8-e6a7d72305d5",
+    "title": "Cambridge, MA, landmark \"Gas With a Smile\" requests waiver in conversion to Hess Express",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": false,
+      "gap": false
+    },
+    "sample": "Gas With a Smile, an independent gas",
+    "note": "지역 주유소의 회사 전환 절차와 역사 정보가 나열되고, 실질적 뉴스 가치가 약하다.",
+    "record": {
+      "genre": "reference",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a69eb1c4-89e8-4551-9181-cb6e6a0179ce",
+    "title": "India and China to discuss energy: cooperation or competition?",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Chinese Premier Wen Jiabao visits India",
+    "note": "중국 총리 방인도, 양국의 에너지 수급 경쟁, 공동 사업, 지정학적 의미가 명확히 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match",
+          "claim"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a6a682d4-16ba-475e-92f2-70290e372542",
+    "title": "Chavez says planted demolitions in World Trade Center 'plausible'",
+    "answers": {
+      "blocked": "pseudoscience",
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "none",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": false,
+      "gap": false
+    },
+    "sample": "Venezuelan President Hugo Chavez stated",
+    "note": "차베스가 9/11 사건에 대한 의사과학적 주장(통제 폭파 이론)을 제기했다는 뉴스 보도다.",
+    "record": {
+      "genre": "pseudoscience",
+      "slots": {
+        "ages": [],
+        "purposes": [],
+        "types": [],
+        "levels": [],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a6a74c47-076f-49cc-a2f2-14929dbd4dcd",
+    "title": "Bomb explosion kills two in Nepal church",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Police reports state that a bomb",
+    "note": "네팔 교회 폭탄 테러의 발생 시간, 위치, 피해, 책임 단체 주장, 배경이 명확히 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a6a7d380-8c5d-4c19-9155-8bf7e2356b29",
+    "title": "Disease outbreak feared after mass hysteria over \"sweet\" water in Mumbai",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "18 hours of mass hysteria broke out",
+    "note": "뭄바이의 수질 변화 사건 발생, 대중의 집단 히스테리, 당국의 우려, 과학적 설명이 인과관계로 제시된다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  }
+]
