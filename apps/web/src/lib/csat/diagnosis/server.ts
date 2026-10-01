@@ -339,7 +339,7 @@ export async function submitExamSession(db: Db, sub: ExamSubmission, now: Date) 
   const { data: saved, error: se } = await db.from('csat_dx_session').select('raw_score, grade, exam_id, mode, taken_at').eq('id', sessionId as string).single()
   if (se) throw new Error(`저장 확인 실패: ${se.message}`)
   await assertSameSubmission(db, sessionId as string, responses, saved.exam_id === sub.examId && saved.mode === sub.mode && saved.taken_at === sub.takenAt)
-  const snapshot = await recomputeSnapshot(db, sub.userId, 'session', now, sessionId as string)
+  const snapshot = await snapshotForSession(db, sub.userId, sessionId as string, now)
   return { sessionId: sessionId as string, raw: saved.raw_score as number, grade: saved.grade as number | null, ready: exam.ready, snapshotId: snapshot.id }
 }
 
@@ -357,14 +357,22 @@ export interface DiagnosticSubmission {
 async function assertSameSubmission(
   db: Db,
   sessionId: string,
-  sent: { item_no: number; chosen_option: number | null; confidence: string }[],
+  sent: { item_no: number; item_id: string | null; chosen_option: number | null; confidence: string }[],
   sameMeta: boolean,
 ) {
-  const { data, error } = await db.from('csat_dx_response').select('item_no, chosen_option, confidence').eq('session_id', sessionId)
+  const { data, error } = await db.from('csat_dx_response').select('item_no, item_id, chosen_option, confidence').eq('session_id', sessionId)
   if (error) throw new Error(`저장 확인 실패: ${error.message}`)
-  const stored = new Map((data ?? []).map((r) => [r.item_no as number, `${r.chosen_option ?? ''}|${r.confidence}`]))
-  const same = sameMeta && stored.size === sent.length && sent.every((r) => stored.get(r.item_no) === `${r.chosen_option ?? ''}|${r.confidence}`)
+  const stored = new Map((data ?? []).map((r) => [r.item_no as number, `${r.item_id ?? ''}|${r.chosen_option ?? ''}|${r.confidence}`]))
+  const same = sameMeta && stored.size === sent.length && sent.every((r) => stored.get(r.item_no) === `${r.item_id ?? ''}|${r.chosen_option ?? ''}|${r.confidence}`)
   if (!same) throw new SubmissionError('이 기록은 이미 다른 내용으로 저장됐어요. 「새 기록 입력」으로 다시 넣어 주세요')
+}
+
+/** 이 세션으로 이미 쌓인 스냅샷이 있으면 그것을 쓴다(재전송이 같은 진단을 두 번 쌓지 않게). 없을 때만 계산 */
+async function snapshotForSession(db: Db, userId: string, sessionId: string, now: Date): Promise<{ id: string }> {
+  const { data, error } = await db.from('csat_dx_snapshot').select('id').eq('user_id', userId).eq('session_id', sessionId).limit(1).maybeSingle()
+  if (error) throw new Error(`스냅샷 조회 실패: ${error.message}`)
+  if (data) return { id: data.id as string }
+  return recomputeSnapshot(db, userId, 'session', now, sessionId)
 }
 
 /** 진단 테스트 제출 — 문항 정답은 csat_items 에서 서버가 판정한다 */
@@ -393,7 +401,7 @@ export async function submitDiagnosticSession(db: Db, sub: DiagnosticSubmission,
   await assertSameSubmission(db, sessionId as string, responses, true)
   const { data: saved, error: se } = await db.from('csat_dx_response').select('is_correct').eq('session_id', sessionId as string)
   if (se) throw new Error(`저장 확인 실패: ${se.message}`)
-  const snapshot = await recomputeSnapshot(db, sub.userId, 'session', now, sessionId as string)
+  const snapshot = await snapshotForSession(db, sub.userId, sessionId as string, now)
   return { sessionId: sessionId as string, correct: (saved ?? []).filter((r) => r.is_correct).length, total: (saved ?? []).length, snapshotId: snapshot.id }
 }
 
