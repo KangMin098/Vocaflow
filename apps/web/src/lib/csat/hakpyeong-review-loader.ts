@@ -172,7 +172,10 @@ export async function loadHakpyeongReview(
         .map(({ snap, ...v }) => ({
           ...v, counted: vp.includes(v.persona),
           // 문항 입력·정답이 바뀌면 블라인드 풀이까지 무효(csat_rereview_parent 가 거른다), 분석·단위만 바뀌면 재검수로 이을 수 있다
-          stale: differs(snap.item_input_hash, ih?.input) || differs(snap.item_answer_hash, ih?.answer) ? 'input' as const
+          // 문항 해시를 읽은 문항(최근 판정에 반려가 있는 것)만 판정한다 — 안 읽은 문항에 「재검수 가능」 같은 말을 붙이지 않는다.
+          // 통과의 유효성은 게이트 함수(유효 승인 페르소나)가 이미 판정한다
+          stale: !ih ? false
+            : differs(snap.item_input_hash, ih.input) || differs(snap.item_answer_hash, ih.answer) ? 'input' as const
             : differs(snap.analysis_hash, a.csat_analysis_hash) || differs(snap.units_hash, cu?.units) ? 'analysis' as const : false,
         }))
       return {
