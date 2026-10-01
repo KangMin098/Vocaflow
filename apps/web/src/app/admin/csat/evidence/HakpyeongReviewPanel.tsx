@@ -62,11 +62,11 @@ export function HakpyeongReviewPanel({ data }: { data: HakReviewData | null | un
           유효 승인은 발행 게이트와 같은 DB 함수로 셉니다(과거 pass 개수가 아닙니다). 막힌 이유는 우선순위가 가장 높은 하나만 보입니다.
         </p>
         <div className={s.chips} role="group" aria-label="막힌 이유로 거르기">
-          <button aria-pressed={only === 'all'} onClick={() => { setOnly('all'); setLimit(PAGE) }}>
+          <button type="button" className="min-h-[44px]" aria-pressed={only === 'all'} onClick={() => { setOnly('all'); setLimit(PAGE) }}>
             전체 {nf.format(data.items.length)}
           </button>
           {ORDER.map((k) => (
-            <button key={k} aria-pressed={only === k} onClick={() => { setOnly(k); setLimit(PAGE) }} data-state={k}>
+            <button type="button" className="min-h-[44px]" key={k} aria-pressed={only === k} onClick={() => { setOnly(k); setLimit(PAGE) }} data-state={k}>
               {BLOCK_STATES[k]} {nf.format(counts[k])}
             </button>
           ))}
@@ -129,7 +129,7 @@ export function HakpyeongReviewPanel({ data }: { data: HakReviewData | null | un
               </tbody>
             </table>
             {shown.length > limit ? (
-              <button className={`${s.button} mt-3`} onClick={() => setLimit((n) => n + PAGE)}>
+              <button type="button" className={`${s.button} mt-3 min-h-[44px]`} onClick={() => setLimit((n) => n + PAGE)}>
                 {nf.format(shown.length - limit)}문항 더 보기
               </button>
             ) : null}

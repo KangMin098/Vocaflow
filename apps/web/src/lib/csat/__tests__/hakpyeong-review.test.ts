@@ -38,6 +38,16 @@ describe('reviewBlock — 막힌 이유 우선순위', () => {
     expect(b.state).toBe('rejected')
     expect(b.reason).toContain('tutor')
   })
+  it('반려 뒤 재검수 통과 → 옛 반려는 막지 않는다(페르소나별 최근 판정만)', () => {
+    const old = { ...pass('tutor'), verdict: 'revise' as const, reviewedAt: '2026-09-30T00:00:00Z', findings: ['옛 소견'] }
+    const b = reviewBlock(base({ validPersonas: ['setter', 'analyst', 'tutor'], verdicts: [old, pass('setter'), pass('analyst'), pass('tutor')] }))
+    expect(b.state).toBe('waiting')
+    expect(b.reason).toContain('3/3')
+  })
+  it('최근 판정이 반려면 여전히 반려', () => {
+    const later = { ...pass('tutor'), verdict: 'revise' as const, reviewedAt: '2026-10-02T00:00:00Z', findings: ['새 소견'] }
+    expect(reviewBlock(base({ validPersonas: ['setter', 'analyst'], verdicts: [pass('setter'), pass('analyst'), pass('tutor', false), later] })).state).toBe('rejected')
+  })
   it('유효 승인은 게이트 함수 값 — pass 3개여도 유효 1이면 1/3', () => {
     const b = reviewBlock(base({ validPersonas: ['setter'], verdicts: [pass('setter'), pass('analyst', false), pass('tutor', false)] }))
     expect(b.state).toBe('waiting')

@@ -109,10 +109,14 @@ async function precheckMany(analyses) {
   const out = new Map()
   const units = await loadCurrentUnits(db, analyses.map((a) => a.item_id))
   for (let i = 0; i < analyses.length; i += 200) {
-    const { data, error } = await db.from('csat_item_analyses').select('id, item_id, answer_locus, choice_analysis, answer_unknown')
+    // 검사한 입력의 해시를 «같은 읽기»에서 함께 잡는다 — 나중에 다시 읽으면 검사하지 않은 새 판에 옛 결과가 붙는다(Codex 리뷰)
+    const { data, error } = await db.from('csat_item_analyses').select('id, item_id, answer_locus, choice_analysis, answer_unknown, csat_analysis_hash')
       .in('id', analyses.slice(i, i + 200).map((a) => a.id))
     if (error) die(error.message)
-    for (const r of data) out.set(r.id, precheckAnalysis(r, units.get(r.item_id)?.units))
+    for (const r of data) {
+      const u = units.get(r.item_id)
+      out.set(r.id, { ...precheckAnalysis(r, u?.units), analysisHash: r.csat_analysis_hash, unitsHash: u?.units_hash ?? '', unitsVersion: u?.units_version ?? null })
+    }
   }
   return out
 }
@@ -312,18 +316,11 @@ switch (cmd) {
     if (has('commit')) {
       // 정본은 DB(csat_review_prechecks). 판정은 위 precheckAnalysis 그대로 — 화면은 이 기록을 읽기만 한다.
       // 키(분석·분석 해시·단위 해시·검사기 버전)가 같으면 같은 행을 갱신한다 — 재실행 안전.
-      const hashes = new Map()
-      for (let i = 0; i < latest.length; i += 200) {
-        const { data, error } = await db.from('csat_item_analyses').select('id, csat_analysis_hash').in('id', latest.slice(i, i + 200).map((a) => a.id))
-        if (error) die(error.message)
-        for (const r of data) hashes.set(r.id, r.csat_analysis_hash)
-      }
-      const units = await loadCurrentUnits(db, latest.map((a) => a.item_id))
       let commitSha = null
       try { commitSha = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim() } catch { /* git 없음 */ }
       const rows = latest.map((a) => ({
-        analysis_id: a.id, item_id: a.item_id, analysis_hash: hashes.get(a.id), units_hash: units.get(a.item_id)?.units_hash ?? '',
-        units_version: units.get(a.item_id)?.units_version ?? null, precheck_version: PRECHECK_VERSION, commit: commitSha,
+        analysis_id: a.id, item_id: a.item_id, analysis_hash: pre.get(a.id)?.analysisHash, units_hash: pre.get(a.id)?.unitsHash ?? '',
+        units_version: pre.get(a.id)?.unitsVersion ?? null, precheck_version: PRECHECK_VERSION, commit: commitSha,
         errors: pre.get(a.id)?.errors ?? [], warnings: pre.get(a.id)?.warnings ?? [], checked_at: new Date().toISOString(),
       })).filter((r) => r.analysis_hash)
       for (let i = 0; i < rows.length; i += 200) {

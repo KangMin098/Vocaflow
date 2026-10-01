@@ -109,9 +109,12 @@ export async function loadHakpyeongReview(
             current: pc.analysis_hash === a.csat_analysis_hash && pc.units_hash === (curUnits.get(a.item_id) ?? ''),
           }
         : null
-      const vs = (verdicts.get(a.id) ?? [])
-        .map((v) => ({ ...v, counted: v.verdict === 'pass' && vp.includes(v.persona) }))
-        .sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))
+      // RPC 는 «유효한 페르소나»만 돌려준다 — 같은 페르소나의 옛 통과(무효)까지 유효로 칠하지 않게,
+      // 유효 페르소나의 «가장 최근 통과 기록 하나»만 counted 로 표시한다(Codex 리뷰)
+      const sorted = [...(verdicts.get(a.id) ?? [])].sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))
+      const lastPass = new Map<string, number>()
+      sorted.forEach((v, i) => { if (v.verdict === 'pass') lastPass.set(v.persona, i) })
+      const vs = sorted.map((v, i) => ({ ...v, counted: v.verdict === 'pass' && vp.includes(v.persona) && lastPass.get(v.persona) === i }))
       return {
         itemId: it.id, typeId: typeOf.get(it.id) ?? it.typeId, analysisId: a.id, version: a.version, status: a.status,
         analystRun: a.analyst_run, unitsBased: Boolean(a.units_hash), validPersonas: vp, verdicts: vs, precheck,

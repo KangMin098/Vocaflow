@@ -137,7 +137,11 @@ export function reviewBlock(it: HakReviewItem): ReviewBlock {
       next: cmd(`precheck --items ${it.itemId} --commit`),
     }
   }
-  const rejected = it.verdicts.filter((v) => v.verdict !== 'pass')
+  // 페르소나마다 «가장 최근» 판정만 본다 — 반려 뒤 재검수에서 통과한 옛 반려는 막지 않는다.
+  // 게이트가 이미 유효 승인으로 센 페르소나의 옛 반려도 막지 않는다(Codex 리뷰).
+  const latestByPersona = new Map<string, (typeof it.verdicts)[number]>()
+  for (const v of [...it.verdicts].sort((x, y) => x.reviewedAt.localeCompare(y.reviewedAt))) latestByPersona.set(v.persona, v)
+  const rejected = [...latestByPersona.values()].filter((v) => v.verdict !== 'pass' && !it.validPersonas.includes(v.persona))
   if (rejected.length) {
     const who = rejected.map((v) => v.persona).join('·')
     return {
