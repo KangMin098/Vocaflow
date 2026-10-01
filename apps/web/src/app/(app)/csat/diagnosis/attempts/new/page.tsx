@@ -24,7 +24,7 @@ export default async function DiagnosisAttemptPage() {
   // 정답표 표는 학습자에게 열려 있지 않다 — 시험 이름·준비 여부만 서버에서 읽어 넘긴다(정답은 넘기지 않는다)
   const exams = await listScorableExams(createAdminClient() as unknown as SupabaseClient)
   return (
-    <DiagnosisShell exams={railExams()} screen="attempt">
+    <DiagnosisShell exams={await railExams()} screen="attempt">
       <h1 className="text-[22px] font-[800] text-[var(--t1)]">시험 기록 입력</h1>
       <OmrForm
         exams={exams.map((e) => ({ id: e.id, label: e.label, ready: e.diagnosis_ready }))}

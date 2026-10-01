@@ -64,7 +64,7 @@ export default async function DiagnosticTestPage() {
   }
 
   return (
-    <DiagnosisShell exams={railExams()} screen="test">
+    <DiagnosisShell exams={await railExams()} screen="test">
       <h1 className="text-[22px] font-[800] text-[var(--t1)]">진단 테스트</h1>
       {items.length === 0 ? (
         <p className="break-keep font-body text-[14px] text-[var(--t2)]">진단 테스트 문항을 준비하고 있어요. 최근 모의고사 결과가 있다면 시험 기록 입력으로 먼저 진단받을 수 있어요.</p>

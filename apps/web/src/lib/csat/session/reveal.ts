@@ -12,7 +12,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadCsatItemExplain } from '@/lib/csat/learner'
 import { lectureMeta } from '@/lib/csat/lecture/store'
 import type { AnchorOrigin } from '@/lib/csat/passage-skeleton'
-import { loadItemSkeleton } from '@/lib/csat/skeleton'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons } from '@/lib/csat/skeleton'
 import { createClient } from '@/lib/supabase/server'
 
 import { firstSentences, oneLiner } from './text'
@@ -71,6 +71,7 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
     firstStep = Array.isArray(steps) ? (steps[0]?.step ?? null) : null
   }
 
+  await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
   const sk = loadItemSkeleton(item.id)
   const skeleton = sk
     ? {

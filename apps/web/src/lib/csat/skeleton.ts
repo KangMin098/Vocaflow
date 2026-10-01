@@ -15,9 +15,67 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { HAKPYEONG_ID_PREFIX } from './exam-id'
 import type { AnchorOrigin, SkeletonSentence } from './passage-skeleton'
 
 const DATA_DIR = path.join(process.cwd(), 'src/lib/csat/skeleton-data')
+
+// ── 학평 골격은 DB 에 있다 ────────────────────────────────────────────────
+// 골격에는 근거 인용(지문 조각)이 들어간다. 평가원은 «해설의 일부» 로 커밋해 왔지만 학평 원문은 저장소에
+// 넣지 않는다(EBSi 재배포 금지 · 사용자 결정 2026-10-01). 그래서 학평 골격은 `csat_item_skeletons` 표에 굽고,
+// **발행된 학평 문항의 행만** 학습자에게 열린다(RLS). 동기 API(아래 함수들)를 그대로 쓰려고, 학습자 로더가
+// 요청 앞머리에서 `primeLearnerHakpyeongSkeletons(학습자 RLS 클라이언트)` 로 한 번 읽어 둔다.
+// ⚠️ 이 캐시는 **학습자 전용**이다 — 서비스 역할로 채우면 미발행 골격이 학습자 화면에 샌다. 관리자는
+//    `loadHakpyeongSkeletonAdmin` 으로 따로 읽는다(캐시를 건드리지 않는다).
+const HAK_TTL_MS = 5 * 60 * 1000
+let hak: { at: number; exams: Map<string, ExamFile> } | null = null
+let hakLoading: Promise<void> | null = null
+
+interface SkeletonRow { item_id: string; exam_id: string; exam_label: string; data: ItemSkeleton }
+
+/** 학습자 로더가 요청 앞머리에서 부른다. 실패하면 학평 골격 없이(평가원만) 선다 — 화면은 골격을 안 그린다 */
+export async function primeLearnerHakpyeongSkeletons(learnerDb: SupabaseClient): Promise<void> {
+  if (hak && Date.now() - hak.at < HAK_TTL_MS) return
+  hakLoading ??= (async () => {
+    try {
+      const exams = new Map<string, ExamFile>()
+      // 커서 페이징(OFFSET 금지 — offset-paging-budget). item_id 는 고유·정렬 가능
+      for (let cursor = ''; ; ) {
+        let q = learnerDb.from('csat_item_skeletons').select('item_id, exam_id, exam_label, data')
+        if (cursor) q = q.gt('item_id', cursor)
+        const { data, error } = await q.order('item_id').limit(1000)
+        if (error) throw error
+        const rows = (data ?? []) as SkeletonRow[]
+        for (const r of rows) {
+          // 학평이 아닌 행은 받지 않는다(평가원은 커밋된 파일이 정본)
+          if (!r.exam_id.startsWith(HAKPYEONG_ID_PREFIX)) continue
+          const f = exams.get(r.exam_id) ?? { exam_id: r.exam_id, exam_label: r.exam_label, items: [] }
+          f.items.push(r.data)
+          exams.set(r.exam_id, f)
+        }
+        if (rows.length < 1000) break
+        cursor = rows[rows.length - 1].item_id
+      }
+      for (const f of exams.values()) f.items.sort((a, b) => a.no - b.no)
+      hak = { at: Date.now(), exams }
+    } catch {
+      // 못 읽으면 지난 값을 그대로 쓴다(없으면 빈 것) — 다음 요청이 다시 읽는다
+      hak = hak ? { ...hak, at: Date.now() - HAK_TTL_MS + 30_000 } : { at: Date.now() - HAK_TTL_MS + 30_000, exams: new Map() }
+    } finally {
+      hakLoading = null
+    }
+  })()
+  await hakLoading
+}
+
+/** 관리자 화면용 — 서비스 역할 클라이언트로 한 문항을 읽는다(미발행 포함). 학습자 캐시를 건드리지 않는다 */
+export async function loadHakpyeongSkeletonAdmin(adminDb: SupabaseClient, itemId: string): Promise<ItemSkeleton | null> {
+  const { data, error } = await adminDb.from('csat_item_skeletons').select('data').eq('item_id', itemId).maybeSingle()
+  if (error || !data) return null
+  return (data as { data: ItemSkeleton }).data
+}
 
 /** 한 문항의 골격 — 커밋된 JSON 의 한 원소. */
 export interface ItemSkeleton {
@@ -43,6 +101,8 @@ interface ExamFile {
 const cache = new Map<string, ExamFile | null>()
 
 function loadExam(examId: string): ExamFile | null {
+  // 학평은 파일이 아니라 미리 읽어 둔 DB 행(발행분만). 읽어 두지 않았으면 없다 — 지어내지 않는다
+  if (examId.startsWith(HAKPYEONG_ID_PREFIX)) return hak?.exams.get(examId) ?? null
   if (cache.has(examId)) return cache.get(examId) ?? null
   // 회차 id 는 파일 이름이 된다 — 경로 조작을 막는다.
   if (!/^[A-Za-z0-9_-]{1,16}$/.test(examId)) {
@@ -78,12 +138,16 @@ export function loadItemSkeleton(itemId: string): ItemSkeleton | null {
 
 /** 구워 둔 회차 목록 — 화면이 "이 회차는 골격이 있다" 를 미리 알 때 쓴다. */
 export function skeletonExams(): { exam_id: string; items: number }[] {
+  let kice: { exam_id: string; items: number }[] = []
   try {
     const raw = fs.readFileSync(path.join(DATA_DIR, 'index.json'), 'utf8')
-    return (JSON.parse(raw) as { exams: { exam_id: string; items: number }[] }).exams
+    kice = (JSON.parse(raw) as { exams: { exam_id: string; items: number }[] }).exams
   } catch {
-    return []
+    kice = []
   }
+  // 학평: 미리 읽어 둔 발행분 회차(학습자 경로가 prime 한 뒤에만 있다)
+  const hk = [...(hak?.exams.values() ?? [])].map((f) => ({ exam_id: f.exam_id, items: f.items.length }))
+  return [...kice, ...hk]
 }
 
 /** 「다음 기출」이 고를 수 있는 한 줄 — 조회 0회로 만들어진다. */

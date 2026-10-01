@@ -1251,6 +1251,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260930203522  csat_review_ledgers                          ← 학평 검수 모니터 원장 3개: csat_review_prechecks(사전 검사 · 키=분석·분석 해시·단위 해시·검사기 버전) · csat_review_batches(배치 비용 · tokens null=미기록) · csat_review_followups(추적 목록) — RLS on · anon/authenticated 권한 없음
 20261001062641  csat_review_prechecks_input_hash             ← csat_review_prechecks 에 input_hash(지문 입력 해시) 추가 · PK 에 포함 — units_hash 는 경계만 해시해 지문 글자 변경을 못 가른다(Codex 리뷰). 기존 행은 '' → 화면에서 「사전 검사 다시」
 20261001101635  csat_scope_type_reports_coverage             ← 학평 전면 적용 P1: csat_type_reports 에 organizer(kice·edu_office)·grade(평가원 0 · 학평 1~3) 열 + 짝 CHECK — 기존 26행 kice·0, 키는 아직 type_id(옛 importer 호환 · 확장은 P4) · csat_coverage_scoped(p_organizer, p_grade) 신설(service_role 만) — 기존 csat_coverage() 무변
+20261001110017  csat_hakpyeong_learner_exposure              ← 학평 전면 적용 P2: csat_items_public = 평가원 + 발행된 분석이 있는 학평(뷰가 정본) · 끝에 organizer·grade 열(+authenticated 열 권한, stem 차단 유지) · csat_item_skeletons(학평 골격 — 학평 원문 조각을 저장소 대신 DB에, 학습자는 발행분만 RLS, 쓰기 서비스 역할, item_id like 'H%' CHECK)
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다

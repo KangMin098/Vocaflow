@@ -128,9 +128,9 @@ export function listeningEndOf(id: string): number {
 
 // ── DB 질의 범위 ─────────────────────────────────────────────────────
 //
-// 학평은 **보조·검증 집합**이라 평가원 통계(유형 비중·분석 완결도·유형 가이드)에 섞이면 안 된다.
-// 학습자 뷰 `csat_items_public` 과 `csat_coverage()` 는 DB 가 걸러 준다(마이그레이션
-// `20260927153152`). `csat_items` · `csat_exams` · `csat_item_analyses` · `csat_analysis_reviews` 를
+// 학평은 학습자 화면에서 평가원과 같은 목록에 서지만(발행분만 · 2026-10-01) **통계는 집합별로 따로** 낸다 —
+// 평가원 통계(유형 비중·분석 완결도·유형 가이드)에 섞이면 안 된다. 범위 정의는 `scope.ts`.
+// `csat_coverage()` 는 DB 가 평가원으로 거르고, 학습자 뷰 `csat_items_public` 은 평가원 + 발행된 학평을 준다. `csat_items` · `csat_exams` · `csat_item_analyses` · `csat_analysis_reviews` 를
 // **직접** 훑는 질의는 조건을 그 자리에 적는다:
 //   문항·분석  `.not('<id 칸>', 'like', `${HAKPYEONG_ID_PREFIX}%`)`   (문항 id 는 회차 id 로 시작한다)
 //   회차       `.eq('organizer', 'kice')`

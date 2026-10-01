@@ -124,7 +124,8 @@ export function AnalysisTheater({
   /** 이 유형의 서가 — 유형을 모르면 null */
   typeHref: string | null
   next: { href: string; label: string } | null
-  source: { url: string; direct: boolean; reason: string | null }
+  /** url 이 null 이면 갈 곳이 없다(학력평가 — 교육청 출제라 평가원 자료실에 없다). 링크 대신 사유만 보인다 */
+  source: { url: string | null; direct: boolean; reason: string | null }
   siblings: TheaterSibling[]
   examLabel: string
   /** 왼쪽 열 원본 — 기기의 문제지 추출본을 읽는다(서버는 원문을 보내지 않는다) */
@@ -437,9 +438,13 @@ export function AnalysisTheater({
                     <div>
                       <dt>문제지</dt>
                       <dd>
-                        <a href={source.url} target="_blank" rel="noreferrer">
-                          {source.direct ? '평가원 문제지 PDF 열기' : '평가원 게시판에서 찾기'} <ExternalLink size={13} aria-hidden />
-                        </a>
+                        {source.url ? (
+                          <a href={source.url} target="_blank" rel="noreferrer">
+                            {source.direct ? '평가원 문제지 PDF 열기' : '평가원 게시판에서 찾기'} <ExternalLink size={13} aria-hidden />
+                          </a>
+                        ) : (
+                          <span className="break-keep">원문 링크 없음 — 받아 둔 문제지 PDF 를 놓으면 이 기기에서만 보여요</span>
+                        )}
                       </dd>
                     </div>
                   </dl>

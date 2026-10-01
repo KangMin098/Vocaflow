@@ -19,7 +19,7 @@ export default async function DiagnosisHistoryPage() {
   if (!userId) redirect('/login?next=/csat/diagnosis/history')
   const snaps = await loadSnapshots(db, userId, 50)
   return (
-    <DiagnosisShell exams={railExams()} screen="history">
+    <DiagnosisShell exams={await railExams()} screen="history">
       <h1 className="text-[22px] font-[800] text-[var(--t1)]">진단 이력</h1>
       {snaps.length === 0 ? (
         <p className="font-body text-[14px] text-[var(--t2)]">아직 진단 이력이 없어요.</p>

@@ -12,7 +12,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { createClient } from '@/lib/supabase/server'
-import { schoolYearOf } from './exam-id'
+import { examLabelOf, examOrder, schoolYearOf } from './exam-id'
 import { pagedSelect, pagedSelectIn } from '@/lib/supabase/paged-select'
 import { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
 export { capQuoteWords, QUOTE_WORD_CAP } from './quote-display'
@@ -101,7 +101,8 @@ export async function loadCsatTypeCards(): Promise<{ cards: CsatTypeCard[]; erro
     const [t, rows, r] = await Promise.all([
       db.from('csat_types').select('id, name, section, status').eq('in_scope', true),
       pagedSelect<ItemRow>(
-        (from, to) => db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true).range(from, to),
+        // 유형 카드의 기출 수는 통계 — 평가원 집합만(학습자 뷰는 발행된 학평도 준다)
+        (from, to) => db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true).eq('organizer', 'kice').range(from, to),
         'CSAT 유형 카드 문항',
       ),
       db.from('csat_type_reports').select('type_id, failure_modes, time_budget_sec').eq('status', 'published').eq('organizer', 'kice').eq('grade', 0),
@@ -168,7 +169,7 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
       db.from('csat_types').select('id, name').eq('id', typeId).maybeSingle(),
       pagedSelect<{ type_id: string | null }>(
         (from, to) =>
-          db.from('csat_items_public').select('type_id').eq('in_scope', true).eq('type_id', typeId).range(from, to),
+          db.from('csat_items_public').select('type_id').eq('in_scope', true).eq('type_id', typeId).eq('organizer', 'kice').range(from, to),
         'CSAT 유형 상세 문항',
       ),
       db
@@ -442,11 +443,14 @@ export async function loadCsatTypeItems(
   typeId: string,
 ): Promise<{ items: CsatItemBrief[]; error: string | null }> {
   const db = await csatDb()
-  const [itemsRes, examsRes] = await Promise.all([
-    db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true),
-    // 평가원 회차만(학평은 보조·검증 집합) — 조건을 직접 적는 이유는 exam-id.ts 「DB 질의 범위」
-    db.from('csat_exams').select('id, label, year, month').eq('organizer', 'kice'),
-  ])
+  // 문항은 학습자 뷰(평가원 + 발행된 학평)에서, 회차 이름은 «받은 문항의 회차만» id 로 짚어 읽는다 —
+  // 회차 표를 통째로 평가원으로 좁히면 발행된 학평 문항의 이름이 비었다(2026-10-01 학평 전면 적용)
+  // 범위: 평가원 + 발행 학평 목록(같은 목록 · 출처로 가른다)
+  const itemsRes = await db.from('csat_items_public').select('id, exam_id, no, points, answer').eq('type_id', typeId).eq('in_scope', true)
+  const examIds = [...new Set(((itemsRes.data ?? []) as { exam_id: string }[]).map((r) => r.exam_id))]
+  const examsRes = examIds.length
+    ? await db.from('csat_exams').select('id, label, year, month').in('id', examIds)
+    : { data: [], error: null }
   if (itemsRes.error || examsRes.error) {
     return { items: [], error: itemsRes.error?.message ?? examsRes.error?.message ?? '기출 목록을 불러오지 못했어요.' }
   }
@@ -511,16 +515,15 @@ export async function loadCsatTypeItems(
     .map((it) => ({
       id: it.id,
       slug: toItemSlug(it.id),
-      exam_label: exam.get(it.exam_id)?.label ?? it.exam_id,
+      exam_label: exam.get(it.exam_id)?.label ?? examLabelOf(it.exam_id) ?? it.exam_id,
       no: it.no,
       points: it.points,
       answer: it.answer,
       explained: explained.has(it.id),
     }))
     .sort((a, b) => {
-      const ea = exam.get(a.id.split('#')[0])
-      const eb = exam.get(b.id.split('#')[0])
-      return (eb?.year ?? 0) - (ea?.year ?? 0) || (eb?.month ?? 0) - (ea?.month ?? 0) || a.no - b.no
+      // 최근 회차부터 — 학평의 학년·같은 달 순서까지 정렬 규칙 한곳(exam-id.ts examOrder)
+      return examOrder(b.id) - examOrder(a.id) || a.no - b.no
     })
 
   return { items: brief, error: null }

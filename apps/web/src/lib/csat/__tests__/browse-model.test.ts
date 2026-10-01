@@ -16,12 +16,13 @@ import {
   type BrowseItem,
 } from '../browse-model'
 
-const exam = (id: string, label: string, kind: 'suneung' | 'mock', year: number, month: number | null, items: number): BrowseExam => ({
+const exam = (id: string, label: string, kind: 'suneung' | 'mock' | 'hakpyeong', year: number, month: number | null, items: number, grade: 1 | 2 | 3 | null = null): BrowseExam => ({
   id,
   label,
   kind,
   year,
   month,
+  grade,
   items,
 })
 
@@ -126,5 +127,33 @@ describe('browseExamOrder — 같은 학년도 안에서는 시행 역순', () =
       exam('M2609', '2026학년도 9월 모의평가', 'mock', 2026, 9, 28),
     ].sort(browseExamOrder)
     expect(rows.map((e) => e.id)).toEqual(['2026', 'M2609', 'M2606'])
+  })
+  it('학평은 같은 학년도 안에서 시행 월 순, 같은 달이면 평가원 모평 다음 · 고3 → 고1', () => {
+    const rows = [
+      exam('H2509G1', '2025년 9월 고1 학력평가', 'hakpyeong', 2026, 9, 30, 1),
+      exam('M2606', '2026학년도 6월 모의평가', 'mock', 2026, 6, 28),
+      exam('H2509G3', '2025년 9월 고3 학력평가', 'hakpyeong', 2026, 9, 30, 3),
+      exam('M2609', '2026학년도 9월 모의평가', 'mock', 2026, 9, 28),
+      exam('2026', '2026학년도 수능', 'suneung', 2026, null, 28),
+    ].sort(browseExamOrder)
+    expect(rows.map((e) => e.id)).toEqual(['2026', 'M2609', 'H2509G3', 'H2509G1', 'M2606'])
+  })
+})
+
+describe('출처 필터 — 학력평가 · 학년', () => {
+  const HAK: BrowseCatalog = {
+    ...CATALOG,
+    exams: [...CATALOG.exams, exam('H2503G3', '2025년 3월 고3 학력평가', 'hakpyeong', 2026, 3, 2, 3), exam('H2503G1', '2025년 3월 고1 학력평가', 'hakpyeong', 2026, 3, 1, 1)],
+    items: [...CATALOG.items, item('H2503G3#30', 'R-BLANK'), item('H2503G3#31', 'R-ORDER'), item('H2503G1#30', 'R-BLANK')],
+  }
+  it('기본(전부)은 학평까지 함께 — 같은 목록', () => {
+    expect(filterBrowse(HAK, EMPTY_FILTER)).toHaveLength(HAK.items.length)
+  })
+  it('학력평가만 · 학년까지', () => {
+    expect(ids(filterBrowse(HAK, { ...EMPTY_FILTER, kind: 'hakpyeong' }))).toEqual(['H2503G1#30', 'H2503G3#30', 'H2503G3#31'])
+    expect(ids(filterBrowse(HAK, { ...EMPTY_FILTER, kind: 'hakpyeong', grade: 3 }))).toEqual(['H2503G3#30', 'H2503G3#31'])
+  })
+  it('모의평가를 고르면 학평은 안 나온다(접히지 않는다)', () => {
+    expect(filterBrowse(HAK, { ...EMPTY_FILTER, kind: 'mock' }).every((i) => i.exam_id.startsWith('M'))).toBe(true)
   })
 })
