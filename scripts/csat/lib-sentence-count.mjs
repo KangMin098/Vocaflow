@@ -54,6 +54,10 @@ function isSpeechTag(clause) {
   // 곧은 겹따옴표는 여닫이가 같은 글자라 개수의 홀짝으로 «열린 채»를 본다
   const leftOpen = (c.match(/"/g) ?? []).length % 2 === 1 || (c.match(/“/g) ?? []).length > (c.match(/”/g) ?? []).length
   if (leftOpen || /["“][^"”]*[,.!?][^"”]*["”]/.test(c)) return false
+  // 홑따옴표 발화 — 여는 홑따옴표는 공백·쉼표·쌍점 뒤에 올 때만 본다(낱말 안의 ’·' 는 축약·소유격: couldn’t · Nathan's).
+  // 닫히지 않은 채 절이 끝나거나(「She told him, 'Come back」) 안에 구두점이 있으면 새 발화
+  const sq = c.match(/(?:^|[\s,:;(])['‘]([^'’]*)(['’](?=[\s,.!?;:)]|$))?/)
+  if (sq && (!sq[2] || /[,.!?]/.test(sq[1]))) return false
   const words = c.split(/\s+/).slice(0, 3).map((w) => w.replace(/[^A-Za-z']/g, '').toLowerCase())
   const at = words.findIndex((w) => SPEECH.test(w))
   return at >= 0 && !words.slice(0, at).some((w) => AUX.has(w))
