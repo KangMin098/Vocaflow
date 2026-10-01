@@ -384,6 +384,35 @@ switch (cmd) {
       follow.set(`${row.item_id}|${row.source}|${row.finding_key}`, row) // 같은 소견이 여러 줄이면 마지막 상태가 이긴다
     }
     const followups = [...follow.values()]
+    // 쓰기 전에 두 장부를 모두 검사한다 — 표의 CHECK(20260930203522)에 걸리는 값이 하나라도 있으면 아무것도 쓰지 않는다.
+    // (배치를 먼저 올린 뒤 추적 목록에서 실패하면 반쯤 올라간 장부가 남고, 재실행도 같은 곳에서 멈춘다 — Codex 게이트 지적)
+    // 아래 조건은 표 정의(20260930203522)의 CHECK·NOT NULL 을 그대로 옮긴 것이다 — 표가 바뀌면 여기도 바꾼다
+    const SEVERITY = new Set(['minor', 'revise', 're-reject', 'reference', 'rule'])
+    const STATUS = new Set(['open', 'in_correction', 'fixed-published', 'dismissed'])
+    const isDate = (d) => typeof d === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(d) && !Number.isNaN(Date.parse(`${d}T00:00:00Z`)) && new Date(`${d}T00:00:00Z`).toISOString().slice(0, 10) === d
+    const nonNeg = (v) => v == null || (Number.isInteger(v) && v >= 0)
+    const bad = [
+      ...batches.flatMap((b) => {
+        const e = []
+        if (typeof b.batch !== 'string' || b.batch.length < 3 || b.batch.length > 120) e.push('batch 3~120자')
+        if (!isDate(b.run_date)) e.push(`date「${b.run_date}」`)
+        if (!Number.isInteger(b.items) || b.items < 0) e.push('items 0 이상 정수')
+        if (b.chunk_size != null && !(Number.isInteger(b.chunk_size) && b.chunk_size > 0)) e.push('chunk_size')
+        for (const k of ['agents', 'published', 'refused', 're_rejected']) if (!nonNeg(b[k])) e.push(k)
+        if (b.tokens != null && (typeof b.tokens !== 'object' || Array.isArray(b.tokens))) e.push('tokens 객체|null')
+        return e.length ? [`배치 ${b.batch ?? '(이름 없음)'}: ${e.join(' · ')}`] : []
+      }),
+      ...followups.flatMap((f) => {
+        const e = []
+        if (!f.item_id || !f.source) e.push('item_id·source 필수')
+        if (typeof f.finding !== 'string' || f.finding.length < 5) e.push('finding 5자 이상')
+        if (!SEVERITY.has(f.severity)) e.push(`severity「${f.severity}」(${[...SEVERITY].join('|')})`)
+        if (!STATUS.has(f.status)) e.push(`status「${f.status}」(${[...STATUS].join('|')})`)
+        if (!isDate(f.noted_on)) e.push(`date「${f.noted_on}」`)
+        return e.length ? [`추적 ${f.item_id ?? '?'}: ${e.join(' · ')}`] : []
+      }),
+    ]
+    if (bad.length) die(`장부 값 오류 ${bad.length}건 — 아무것도 쓰지 않았다:\n    ${bad.join('\n    ')}`)
     const { data: haveB, error: e1 } = await db.from('csat_review_batches').select('batch')
     if (e1) die(e1.message)
     const { data: haveF, error: e2 } = await db.from('csat_review_followups').select('item_id, source, finding_key')
