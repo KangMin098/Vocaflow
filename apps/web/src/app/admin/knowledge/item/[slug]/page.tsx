@@ -7,7 +7,7 @@ import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { EvidenceForm, LinkForm, StatusActions } from '@/components/admin/knowledge/ItemEditor'
 import { EmptyState, GradeMark, KnowledgeFrame, LoadFailed } from '@/components/admin/knowledge/KnowledgeFrame'
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { GRADE_LABEL, LAYER_LABEL, LAYER_QUESTION, LAYER_RANK, STATUS_LABEL } from '@/lib/knowledge/labels'
+import { ATTRIBUTION_LABEL, GRADE_LABEL, LAYER_LABEL, LAYER_QUESTION, LAYER_RANK, STATUS_LABEL } from '@/lib/knowledge/labels'
 import { listCsatOrigins, loadItemDetail } from '@/lib/knowledge/server'
 
 export const dynamic = 'force-dynamic'
@@ -19,7 +19,6 @@ const SIDE_LABEL: Record<string, string> = {
   duplicate_candidate: '중복 후보',
 }
 
-const ATTRIBUTION_LABEL = { stated: '출처가 직접 말함', inferred: '분석자 추론' } as const
 
 const LINK_CLASS =
   'inline-flex min-h-11 items-center underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]'
