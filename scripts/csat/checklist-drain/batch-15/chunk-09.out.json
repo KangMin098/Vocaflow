@@ -1,0 +1,1068 @@
+[
+  {
+    "id": "a9438bec-df4f-4c95-8fdf-1d15ee16922e",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On the back of new",
+    "note": "호주 이베이의 페이팔 의무 정책이 소비자 부담을 증가시킨다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a94b8a5b-b6f1-416d-89b4-5b1db1a3a2ac",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Former United States Central",
+    "note": "CIA 요원의 경력과 1980년 이란 인질 구출 작전이 영화로 제작되어 공개됐다.",
+    "record": {
+      "genre": "biography",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock",
+          "reading"
+        ],
+        "types": [
+          "content_match",
+          "long_reference"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a95926a4-0336-4a93-aa20-924b5da16718",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": true,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The newly appointed Ontario",
+    "note": "새 경찰청장이 Caledonia 토지 분쟁을 최우선 과제로 선언했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a95a57ce-b8da-40fc-ab20-e65692f200ce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Some of the eight",
+    "note": "필리핀 인질극에서 경찰의 아군 사격이 관광객 사망에 영향을 미쳤을 가능성이 제기되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a95c044f-d140-4aa2-952c-28363f034ee6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In London last weekend,",
+    "note": "Knight Foundation과 Mozilla가 저널리즘과 기술을 융합하는 펠로우 프로그램을 출범했다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a96188d5-08e9-4bec-ba07-1a5a7f3336fa",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Israeli prime minister Ariel",
+    "note": "이스라엘 총리 Sharon이 뇌졸중으로 입원했으며 그의 건강이 위태로워 보인다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a9619d66-7ad6-44f1-aafb-0335ece60c6d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On Wednesday, at least",
+    "note": "버지니아의 야구 연습 중 총격 사건으로 6명이 상처를 입었고 범인은 사살되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a965476f-0639-4201-bd3a-94cfb4fc7fab",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On Friday, a fire",
+    "note": "소말릴란드 수도의 중앙 시장이 화재로 파괴되어 경제에 큰 피해를 입혔다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a965bb72-eab4-4344-8e94-0f3c789feef8",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The leu, Romania's national",
+    "note": "루마니아 통화 레우가 유로와 달러에 대해 급격히 상승하여 수출에 부정적 영향을 미쳤다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a96a2be9-ab7c-4778-b6d9-807e7b89dfb0",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Glen Stollery is a",
+    "note": "웹사이트 개발자가 톰 크루즈와 과학교 비판 사이트를 만들어 저작권 소송 위협을 받았다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a96a87ec-32ef-484f-bef4-1c5767ec8401",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Barack Obama has set",
+    "note": "Obama 대통령이 2020년과 2050년 온실가스 감축 목표를 발표했다.",
+    "record": {
+      "genre": "climate",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a96e9222-9156-4f64-be6f-447160b4fc78",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "none",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Pope Benedict XVI told",
+    "note": "교황이 캐나다에 동성 결혼 금지를 촉구했으며 가톨릭 정치인들이 거기에 투표하지 말 것을 촉구했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a970b994-bdc9-4f17-815d-075942ba20af",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "During his address to",
+    "note": "Tony Blair 총리가 노동당 당 대회에서 공공 서비스 개혁을 강조했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a974f5b1-fb00-469c-ba09-62eedc6942cc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "John G. Roberts Jr.",
+    "note": "John Roberts가 미국 대법원 대법관으로 임명되었으며 78표 대 22표로 상원 승인을 받았다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a9768f88-30c9-4743-823f-b4ebb9eb4e6c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "United States astronaut Sunita",
+    "note": "우주 비행사 Sunita Williams가 여성의 가장 긴 우주 비행 기록을 경신했다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "elem",
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a97aba33-1089-4161-bbe1-9e95394f0015",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A male driver has",
+    "note": "영국 Suffolk에서 자동차가 주택에 충돌하여 운전자가 중상을 입었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a97b82b3-1546-4a94-9614-ce5c9becc7ae",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On October 14, 2008,",
+    "note": "동물 연대 정당의 지도자가 토론토 센터 선거구에서 입후보했고 환경과 동물 보호를 강조했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a97eadcd-e070-4447-9dc8-a32443d3c756",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Last night saw police",
+    "note": "태국 민주주의를 위한 인민동맹이 추도식을 위해 계획된 시위를 마지막 순간에 취소했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a97f1126-1f18-4e15-ac0b-7928d21da45f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "President Kirchner says that",
+    "note": "아르헨티나 대통령이 IMF 채무 98억 달러를 조기 상환할 계획을 발표했다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a984ceaa-67c9-45fd-bd8d-f4ce4aabca33",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": true,
+      "listOnly": false,
+      "linkage": "none",
+      "mainPoint": false,
+      "narrative": false,
+      "notice": false,
+      "detachable": false,
+      "standsAlone": false,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": false,
+      "gap": true
+    },
+    "sample": "",
+    "note": "매우 짧고 불완전한 단신으로 본문이 중간에 끊겨 있다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a98765ff-f223-4385-9149-b7816975228f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A Florida cinematographer, skydiving",
+    "note": "스카이다이버가 항공기의 날개에 다리를 절단당한 후 사망했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a98aa93d-7a0f-4ebb-bc90-986dcdde84a3",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "David Vitter, a Republican",
+    "note": "미국 상원의원이 창조론 교육 단체에 10만 달러를 배정했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a98b61d7-0aa1-4516-9c9d-b364100d6954",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Demosphere.net, an underground political",
+    "note": "민주주의 소프트웨어 개발 단체가 협력을 위해 새로운 위키를 시작했다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a98d6416-d4a3-41db-9685-929ce3a70514",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A UK court has",
+    "note": "런던의 튜브 역에서 테러 성격의 칼 공격이 발생했고 용의자가 체포되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "a98fca30-2bdd-4652-8fe8-8c1828dc6abc",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The Space Shuttle Discovery",
+    "note": "스페이스 셔틀 Discovery가 39번째이자 마지막 비행을 마치고 착륙했다.",
+    "record": {
+      "genre": "space",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  }
+]

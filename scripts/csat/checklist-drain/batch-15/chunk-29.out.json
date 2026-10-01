@@ -1,0 +1,1069 @@
+[
+  {
+    "id": "afa01b94-d32a-4609-a414-b8bad911d854",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "According to a report",
+    "note": "뉴욕 주지사가 고급 매매춘 조직과 관련된 연방 수사 대상이 되었다고 발표했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afa32a21-12cd-4596-8c58-45a8f9e45fb6",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The World Bank approved",
+    "note": "World Bank이 몰도바의 민간 부문 발전을 위해 980만 달러를 승인했다.",
+    "record": {
+      "genre": "economics",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afa8713a-2477-42f2-8cd9-9a4b71001a21",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Dutch Minister Alexander Pechtold's",
+    "note": "네덜란드의 20개 대도시 시장이 대마초 합법화를 지지했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb010f4-d40d-41b3-906b-288f478f40ce",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Gol Transportes Aéreos Flight",
+    "note": "브라질의 비행기 충돌로 149명이 사망했으며 부서진 기체 수색이 진행 중이다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb22428-6c3e-4a36-b95d-a8a455d10e82",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "United States Senator John",
+    "note": "George W. Bush 대통령이 공화당 대선 후보 John McCain을 공식 지지했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb3b9ad-85b3-4b89-9d64-d8873ffd2b22",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": false,
+      "gap": false
+    },
+    "sample": "Iraq has changed the",
+    "note": "이라크가 선거 날짜를 하루 미뤄 3월 7일로 정했으며 쿠르드족의 반발이 있었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb406f3-6112-4191-9b94-6e7670e47961",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "An Australian, Brenton Tarrant,",
+    "note": "호주인 Brenton Tarrant가 뉴질랜드 모스크에서 50명 이상을 살해했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb4ead0-8155-4861-bd99-7acebae383d4",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Two sculptures have been",
+    "note": "홍콩에서 천안문 추모 조각상이 당국에 압수되고 민주화 활동가 13명이 체포되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb662e2-1418-4044-aa26-b5b60dcf156f",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "In the United Kingdom",
+    "note": "영국 정부가 투표 연령을 16세로 낮추는 계획을 발표했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afb8c00a-35ec-443d-b7ba-df6671214cc5",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Maria Shriver has broken",
+    "note": "Maria Shriver가 남편 Schwarzenegger의 10년 전 외도와 혼외자 관련 침묵을 깨뜨렸다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afba85eb-717b-47b5-92d3-c70930a019ba",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "At a press conference",
+    "note": "석방된 저널리스트가 이란에 억류 중인 원조 활동가의 석방을 요청했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afbaa62f-06ae-4219-9c21-edd8933db6dd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "thin",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": false,
+      "gap": false
+    },
+    "sample": "Seventeen insurgents were killed",
+    "note": "파키스탄 Orakzai 지역의 교전에서 17명의 반군이 살해되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afbb522c-8f7a-4e42-8fb6-80064b58ce1d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "White House spokesman Tony",
+    "note": "White House 대변인 Tony Snow가 암과의 투병 과정에서 사임했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afbe599a-cd06-4efb-b1a4-673d7869eb89",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": false,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Pope Benedict XVI called",
+    "note": "교황이 중동 평화를 위한 전 세계 기도의 날을 촉구했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afc34bb4-650a-49a5-862b-03f56004ba73",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Last night, North Korea",
+    "note": "북한이 미국의 존중과 직접 대화를 조건으로 6자 회담에 복귀했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afc9c74e-f1e0-42c1-bdb9-3520e6d7c527",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The majority of radio",
+    "note": "소말리아의 이슬람 무장 단체가 음악 방송을 금지했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "mid",
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V2"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afcc822d-6862-4c05-9f5c-1eccb8ed3035",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "A recent survey carried",
+    "note": "루마니아의 TV 조사에서 야당이 여당보다 더 많은 방송 시간을 확보했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afcf6388-c61f-4a5e-b257-0b0d657a884c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The crisis at a",
+    "note": "일본 후쿠시마 원전 사태가 체르노빌 수준으로 상향 조정되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afd2ef41-c334-4b58-8559-5a4df053919c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "On Saturday, April 19,",
+    "note": "이란과 미국이 오만 중재자를 통해 간접 회담을 진행했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V4"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afd63a0d-1462-4894-a3cc-0dc8eea58742",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Toyota announced on Friday",
+    "note": "Toyota가 연료 누수 위험으로 Lexus 17,000대를 리콜했다.",
+    "record": {
+      "genre": "technology",
+      "slots": {
+        "ages": [
+          "adult"
+        ],
+        "purposes": [
+          "reading"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afd71e45-da11-4013-9f74-88e9909b1b4c",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Iranian police arrested 109",
+    "note": "이란 경찰이 미국 대사관 점거 30주년 기념식 중 야당 시위대 109명을 체포했다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afd89061-1e5c-4f1a-87f5-7e644073538d",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Michael Warren, the mayor",
+    "note": "Pitcairn Islands의 시장이 아동 음란물 소유 혐의로 체포되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V3"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afdc0e1d-22d1-4ff0-94f2-4282ba7835dd",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Prosecutors have withdrawn their",
+    "note": "JonBenet 살인 사건의 용의자 Karr에 대한 고소가 DNA 부재로 취하되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afde6b90-7edf-4c34-81d3-c62578dc1402",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": true,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "Six Italian armed guards",
+    "note": "6명의 이탈리아 보안 요원이 인도 어부를 해적으로 오인하여 살해한 혐의로 기소되었다.",
+    "record": {
+      "genre": "news",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V6"
+        ],
+        "platform": []
+      }
+    }
+  },
+  {
+    "id": "afdfdcae-4dfc-418d-bcc3-02c1c464dc28",
+    "answers": {
+      "blocked": null,
+      "needsVisual": false,
+      "truncated": false,
+      "listOnly": false,
+      "linkage": "strong",
+      "mainPoint": true,
+      "narrative": false,
+      "notice": false,
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "factsMany": true,
+      "stereotypeCore": false,
+      "strippedRemains": true,
+      "gap": false
+    },
+    "sample": "The first deaths from",
+    "note": "아르헨티나에서 돼지 독감으로 4명이 사망하였으며 WHO가 팬데믹을 선언했다.",
+    "record": {
+      "genre": "health",
+      "slots": {
+        "ages": [
+          "high1",
+          "high2",
+          "high3",
+          "adult"
+        ],
+        "purposes": [
+          "mock"
+        ],
+        "types": [
+          "content_match"
+        ],
+        "levels": [
+          "V5"
+        ],
+        "platform": []
+      }
+    }
+  }
+]
