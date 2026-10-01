@@ -14,6 +14,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 
 import { loadHeatmap } from '@/lib/csat/heatmap'
 import { BAND_LABEL, BAND_SAYS, buildPriority, recentYearCount, type Band } from '@/lib/csat/priority'
@@ -33,8 +35,9 @@ export const dynamic = 'force-dynamic'
 
 const BANDS: Band[] = ['A', 'B', 'C', 'gone']
 
-export default async function CsatPredictPage() {
-  const map = await loadHeatmap()
+export default async function CsatPredictPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const scope = parseScope(await searchParams)
+  const map = await loadHeatmap(scope)
   const rows = buildPriority(map)
   // 문구의 「N개년」은 세어서 쓴다 — 박아 두면 회차가 늘 때 아래 줄과 어긋난다.
   const recentN = recentYearCount(map.years)
@@ -44,6 +47,7 @@ export default async function CsatPredictPage() {
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="font-editorial text-xl font-[600] text-[var(--t1)]">사정권</h1>
         <AdminScreenHelp screen="kice-predict" className="mt-2" />
+        <ScopeTabs scope={scope} basePath="/admin/kice/predict" className="mt-3" />
         <p className="tabular-nums text-xs text-[var(--t3)]">
           {map.exams}회차 {map.items.toLocaleString()}문항을 센 결과
         </p>

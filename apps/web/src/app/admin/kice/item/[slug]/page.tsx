@@ -28,7 +28,9 @@ import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { lectureMeta } from '@/lib/csat/lecture/store'
 import { pickNextItem } from '@/lib/csat/next-item'
 import { offMapChoices, type MapAnchor } from '@/lib/csat/passage-map-model'
-import { loadItemSkeleton, skeletonSiblings } from '@/lib/csat/skeleton'
+import { loadItemSkeleton, primeLearnerHakpyeongSkeletons, skeletonSiblings } from '@/lib/csat/skeleton'
+import { createClient } from '@/lib/supabase/server'
+import type { SupabaseClient } from '@supabase/supabase-js'
 
 export const dynamic = 'force-dynamic'
 
@@ -94,6 +96,8 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   // 구워 둔 골격이 있으면 **지도가 해설을 대신한다** — 근거가 «지문의 어디인가» 까지 말하므로
   // 같은 내용을 산문으로 한 번 더 쌓을 이유가 없다. 없으면(지문이 잘린 210문항) 지금까지의
   // 산문 화면이 그대로 나온다. DB 를 치지 않는다 — 커밋된 JSON 을 읽는다.
+  // 학평 골격(DB) — 관리자도 로그인 세션(RLS) 클라이언트로 읽는다: 이 화면은 학습자 뷰(발행분)의 미리보기다
+  await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
   const skeleton = item ? loadItemSkeleton(item.id) : null
   const mapAnchors: MapAnchor[] = !item
     ? []

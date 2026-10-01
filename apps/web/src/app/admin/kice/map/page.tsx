@@ -11,6 +11,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 
 import { MapClient } from './MapClient'
 import { loadHeatmap } from '@/lib/csat/heatmap'
@@ -23,14 +25,16 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-export default async function CsatMapPage() {
-  const data = await loadHeatmap()
+export default async function CsatMapPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const scope = parseScope(await searchParams)
+  const data = await loadHeatmap(scope)
 
   return (
     <div className="mx-auto max-w-5xl">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="font-editorial text-xl font-[600] text-[var(--t1)]">지형</h1>
         <AdminScreenHelp screen="kice-map" className="mt-2" />
+        <ScopeTabs scope={scope} basePath="/admin/kice/map" className="mt-3" />
         {/* 수치는 늘 분모와 함께(브리프 E5). */}
         <p className="tabular-nums text-xs text-[var(--t3)]">
           {data.exams}회차 · {data.items.toLocaleString()}문항 · {data.rows.length}유형
