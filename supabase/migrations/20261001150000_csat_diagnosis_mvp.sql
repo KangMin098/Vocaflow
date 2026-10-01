@@ -62,7 +62,7 @@ CREATE TABLE IF NOT EXISTS public.csat_dx_item_attribute (
 
 CREATE TABLE IF NOT EXISTS public.csat_dx_trap_family (
   trap_key text PRIMARY KEY,
-  family   text CHECK (family ~ '^C[1-8]$'),   -- null = 계열 없음(구조 단서형 등) → 함정 진단 제외
+  family   text CHECK (family ~ '^C[1-9]$'),   -- C9 = 글 구조 단서(사용자 승인 2026-10-01) · null = 계열 없음 → 함정 진단 제외
   note     text
 );
 
@@ -231,7 +231,7 @@ REVOKE ALL ON FUNCTION public.csat_dx_record_session(jsonb, jsonb) FROM PUBLIC, 
 GRANT EXECUTE ON FUNCTION public.csat_dx_record_session(jsonb, jsonb) TO service_role;
 
 -- ── 8. 시드 ────────────────────────────────────────────────────────────────
--- 8-1. 함정 계열 — 정본 32종. 구조 단서형(지시어·첫 등장·단락 순서·연결 등)은 C1~C8 어디에도 맞지 않아 null.
+-- 8-1. 함정 계열 — 정본 32종. C1~C8 + C9 글 구조 단서(지시어·첫 등장·단락 순서 등 — 순서·삽입 유형의 핵심 함정).
 INSERT INTO public.csat_dx_trap_family (trap_key, family, note) VALUES
   ('어휘 함정', 'C1', NULL), ('어휘 반복 유인', 'C1', NULL), ('동어 반복 유인', 'C1', NULL),
   ('무관', 'C2', NULL), ('총론-각론 역전', 'C2', NULL),
@@ -241,12 +241,12 @@ INSERT INTO public.csat_dx_trap_family (trap_key, family, note) VALUES
   ('대소 비교 뒤집기', 'C5', NULL), ('등장인물 혼동', 'C5', NULL), ('항목 짝 바꾸기', 'C5', NULL),
   ('반대 진술', 'C6', NULL), ('연결사 방향 충돌', 'C6', NULL),
   ('지문 밖 상식', 'C7', NULL),
-  ('지시어 선행사 절단', NULL, '구조 단서형'), ('지시어 선행사 없음', NULL, '구조 단서형'),
-  ('지시어 선행사 앞당김', NULL, '구조 단서형'), ('첫 등장 위반', NULL, '구조 단서형'),
-  ('첫 등장 뒤집힘', NULL, '구조 단서형'), ('첫 등장 역전', NULL, '구조 단서형'),
-  ('단락 순서 교란', NULL, '구조 단서형'), ('단락 순서 오판', NULL, '구조 단서형'),
-  ('열거·병렬 절단', NULL, '구조 단서형'), ('예고–응답 분리', NULL, '구조 단서형'),
-  ('마무리 문장 위치 오판', NULL, '구조 단서형'), ('국소 어색함', NULL, '어법·어휘 국소형')
+  ('지시어 선행사 절단', 'C9', '글 구조 단서'), ('지시어 선행사 없음', 'C9', '글 구조 단서'),
+  ('지시어 선행사 앞당김', 'C9', '글 구조 단서'), ('첫 등장 위반', 'C9', '글 구조 단서'),
+  ('첫 등장 뒤집힘', 'C9', '글 구조 단서'), ('첫 등장 역전', 'C9', '글 구조 단서'),
+  ('단락 순서 교란', 'C9', '글 구조 단서'), ('단락 순서 오판', 'C9', '글 구조 단서'),
+  ('열거·병렬 절단', 'C9', '글 구조 단서'), ('예고–응답 분리', 'C9', '글 구조 단서'),
+  ('마무리 문장 위치 오판', 'C9', '글 구조 단서'), ('국소 어색함', NULL, '어법·어휘 국소형')
 ON CONFLICT (trap_key) DO NOTHING;
 
 -- 8-2. 선지 함정 — 문항별 최신 published 분석, 오답 선지만, 원래 라벨 그대로
