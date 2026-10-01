@@ -87,10 +87,12 @@ export function state(lock) {
 // ── 보조 잠금(mutex) ─────────────────────────────────────────────
 // 「읽기 → 판정 → (고아) 삭제 → 생성」 을 한 번에 한 세션만 지나가게 한다. 옛 판은 두 세션이 같은 고아 잠금을 읽고,
 // 한쪽이 지우고 새로 잡은 뒤 다른 쪽이 낡은 판단으로 **새 잠금을 지우고** 자기도 잡았다(wx 는 이미 지워진 뒤라 못 막는다 ·
-// Codex 리뷰 2026-10-01). 보조 잠금이 오래 남아 있으면(프로세스가 죽은 흔적) 치우고 다시 시도한다.
+// Codex 리뷰 2026-10-01).
+// 남은 보조 잠금을 **자동으로 지우지 않는다.** 「오래됐으니 지운다」는 판단도 두 세션이 동시에 하면 한쪽이 새로 만든
+// 보조 잠금을 다른 쪽이 지운다(같은 모양의 경쟁 · Codex 재리뷰). 보조 잠금은 수 ms 만 쥐므로 남아 있다면 그 사이 프로세스가
+// 죽은 드문 경우다 — 주인 pid 상태와 경로를 알려 주고 사람이 확인해 지운다.
 const MUTEX = `${LOCK_FILE}.mutex`
 const MUTEX_WAIT_MS = Number(process.env.AGENT_LOCK_MUTEX_WAIT_MS || 3000)
-const MUTEX_STALE_MS = 10_000
 const sleep = (ms) => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
 
 function withMutex(fn) {
@@ -101,13 +103,20 @@ function withMutex(fn) {
       break
     } catch (e) {
       if (e.code !== 'EEXIST') throw e
-      try {
-        if (Date.now() - fs.statSync(MUTEX).mtimeMs > MUTEX_STALE_MS) {
-          fs.rmSync(MUTEX, { force: true })
-          continue
+      if (Date.now() > deadline) {
+        let owner = NaN
+        try {
+          owner = Number(fs.readFileSync(MUTEX, 'utf8'))
+        } catch {}
+        const dead = Number.isInteger(owner) && owner > 0 && !alive(owner)
+        return {
+          ok: false,
+          code: 3,
+          msg: dead
+            ? `잠금 처리 중 멈춘 흔적이 있다(보조 잠금 주인 pid ${owner} 는 죽었다) — 다른 세션이 잠금을 다루는 중이 아님을 확인한 뒤 ${MUTEX} 를 지우고 다시 시도`
+            : `잠금 처리 중인 다른 세션이 있다(pid ${Number.isFinite(owner) ? owner : '?'}) — 잠시 뒤 다시 시도`,
         }
-      } catch {}
-      if (Date.now() > deadline) return { ok: false, code: 3, msg: '잠금 처리 중인 다른 세션이 있다 — 잠시 뒤 다시 시도' }
+      }
       sleep(50)
     }
   }

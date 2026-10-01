@@ -127,18 +127,30 @@ test('엉터리·죽은 pid 로는 잡지 못한다(곧바로 고아가 된다)'
   }
 })
 
-test('보조 잠금이 살아 있으면 기다리다 물러난다 · 오래된 보조 잠금은 치우고 잡는다', () => {
+test('보조 잠금이 남아 있으면 기다리다 물러난다 · 자동으로 지우지 않는다(지우는 판단끼리 경쟁한다)', () => {
   const mutex = `${LOCK}.mutex`
-  fs.writeFileSync(mutex, '999999')
-  const busy = spawnSync(process.execPath, [CLI, 'acquire', 'claude', '--pid', String(holder.pid)], {
-    env: { ...env, AGENT_LOCK_MUTEX_WAIT_MS: '200' },
-    encoding: 'utf8',
-  })
+  const quick = (pid) =>
+    spawnSync(process.execPath, [CLI, 'acquire', 'claude', '--pid', String(pid)], {
+      env: { ...env, AGENT_LOCK_MUTEX_WAIT_MS: '200' },
+      encoding: 'utf8',
+    })
+  // 살아 있는 주인의 보조 잠금 — 잠시 뒤 다시
+  fs.writeFileSync(mutex, String(holder.pid))
+  const busy = quick(holder.pid)
   assert.equal(busy.status, 3)
   assert.match(busy.stderr, /다른 세션/)
-  assert.ok(!fs.existsSync(LOCK))
+  // 죽은 주인의 보조 잠금 — 오래돼도 지우지 않고, 죽었다고 알리며 사람이 지우게 한다
+  const dead = Number(spawnSync(process.execPath, ['-e', 'process.stdout.write(String(process.pid))'], { encoding: 'utf8' }).stdout)
+  fs.writeFileSync(mutex, String(dead))
   const old = new Date(Date.now() - 60_000)
-  fs.utimesSync(mutex, old, old) // 죽은 프로세스가 남긴 흔적
+  fs.utimesSync(mutex, old, old)
+  const stale = quick(holder.pid)
+  assert.equal(stale.status, 3)
+  assert.match(stale.stderr, /죽었다/)
+  assert.ok(fs.existsSync(mutex), '보조 잠금을 자동으로 지우면 안 된다')
+  assert.ok(!fs.existsSync(LOCK))
+  // 사람이 확인하고 지운 뒤에는 잡힌다 · 끝나면 보조 잠금도 지워진다
+  fs.rmSync(mutex)
   assert.equal(run('acquire', 'claude', '--pid', String(holder.pid)).status, 0)
   assert.ok(!fs.existsSync(mutex), '보조 잠금은 끝나면 지워진다')
   assert.equal(run('release', 'claude', '--pid', String(holder.pid)).status, 0)
