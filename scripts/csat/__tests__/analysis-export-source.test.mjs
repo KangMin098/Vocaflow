@@ -14,7 +14,7 @@ const CLI = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.ur
 const item = { id: 'H2603G3#18', exam: 'H2603G3', no: 18, year: 2026, month: 3, in_scope: true,
   type_id: 'R-TOPIC', passage: 'A memory can change. Each recall rebuilds it.', stem: '주제를 고르시오.', choices: ['a', 'b', 'c', 'd', 'e'], answer: 3, answers: [3] }
 
-async function run(dbItem, { existing = false, completed = false, changeDuringRead = false, redo = false, unclaimed = false } = {}) {
+async function run(dbItem, { existing = false, completed = false, changeDuringRead = false, redo = false, unclaimed = false, missingUnits = false } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-export-source-'))
   const work = path.join(dir, 'scripts/csat/analysis-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
@@ -31,6 +31,7 @@ async function run(dbItem, { existing = false, completed = false, changeDuringRe
   const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'application/json')
     if (req.url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify(redo || unclaimed ? [normal, dbItem] : [dbItem]))
+    if (missingUnits) return res.end('[]')
     reads += 1
     res.end(JSON.stringify((redo || unclaimed ? [normal, item] : [item]).map((it) => ({ item_id: it.id, units_version: units.version, units_hash: unitsHash(units),
       input_hash: changeDuringRead && reads > 1 ? 'changed-input' : 'current-input', units: units.units }))))
@@ -63,6 +64,12 @@ for (const [field, value] of [['passage', 'A memory may change. Each recall rebu
     assert.match(r.output, /원문|코퍼스/)
   })
 }
+test('missing units fail before reserving a hashless input chunk', async () => {
+  const r = await run(item, { missingUnits: true })
+  assert.notEqual(r.code, 0, r.output)
+  assert.equal(r.input, null, 'a failed prerequisite must not reserve the item on the next export')
+  assert.match(r.output, /units-build/)
+})
 test('export binds matching corpus text to current units', async () => {
   const r = await run(item)
   assert.equal(r.code, 0, r.output)

@@ -49,7 +49,6 @@ if (SET === 'hakpyeong') {
   if (!u || !k) throw new Error('학평 export 는 근거 단위 목록을 DB 에서 읽는다 — SUPABASE_URL / SERVICE_ROLE_KEY 가 필요하다')
   unitsDb = createClient(u, k, { auth: { persistSession: false } })
 }
-let unitsMissing = 0
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -289,7 +288,7 @@ outer: for (const [typeId, arr] of types) {
       const p = pack(it)
       if (!unitsOf) return p
       const u = unitsOf.get(it.id)
-      if (!u) { unitsMissing += 1; return { ...p, units: null } }
+      if (!u) throw new Error(`${it.id}: 현재 근거 단위 목록이 없다 — 원문 확인 후 units-build.mjs --set hakpyeong --commit을 실행하고 export를 다시 실행한다(이 청크는 저장하지 않음)`)
       // 분석 출력에 units_version·units_hash 를 그대로 옮겨 적어야 적재된다(import 가 DB 현재 목록과 대조)
       // input_hash: 이 목록을 만든 DB 원문 해시 — 목록 해시는 경계만 담아 원문이 바뀌어도 같을 수 있다(import 가 이것으로 대조)
       return { ...p, units_version: u.units_version, units_hash: u.units_hash, input_hash: u.input_hash,
@@ -327,7 +326,6 @@ fs.writeFileSync(path.join(WORK, '_MANIFEST.json'), JSON.stringify({ built_at: n
 
 const total = corpus.items.filter((it) => it.in_scope).length
 console.log(`  사정권 ${total} · 완료 ${done.size} · 검수 미완 ${partial} · 남은 몫 ${pool.length}`)
-if (unitsMissing) console.log(`  ⚠ 근거 단위 목록이 없는 문항 ${unitsMissing} — units-build.mjs --set hakpyeong --commit 먼저(원문이 바뀌었을 수 있다)`)
 console.log(`  끝난 청크 ${removed}개 삭제 · 새로 뽑은 청크 ${n}개 (청크당 ${SIZE})`)
 // ⚠️ **이미 돌고 있는 청크를 다시 띄우지 않게** 이름을 따로 찍는다.
 //    2026-09-02 에 실제로 겪었다 — 앞 배치에서 띄운 청크가 아직 out 을 안 썼으니 «남은 몫» 에
