@@ -32,7 +32,7 @@ export function DxNav({ current }: { current: string }) {
           key={n.href}
           href={n.href}
           aria-current={current === n.href ? 'page' : undefined}
-          className={`${btnCls} ${current === n.href ? 'border-[var(--admin)] text-[var(--admin)]' : ''}`}
+          className={`min-h-[44px] ${btnCls} ${current === n.href ? 'border-[var(--admin)] text-[var(--admin)]' : ''}`}
         >
           {n.label}
         </Link>

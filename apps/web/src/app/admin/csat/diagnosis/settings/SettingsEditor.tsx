@@ -26,7 +26,7 @@ export function SettingsEditor({ initial, exams }: { initial: string; exams: { i
       <label htmlFor="dx-settings" className="font-display text-[13px] font-[700] text-[var(--t1)]">설정 JSON</label>
       <textarea
         id="dx-settings"
-        className={`${inputCls} min-h-[420px] font-mono text-[12.5px]`}
+        className={`min-h-[44px] ${inputCls} min-h-[420px] font-mono text-[12.5px]`}
         spellCheck={false}
         value={text}
         onChange={(e) => setText(e.target.value)}
@@ -38,9 +38,9 @@ export function SettingsEditor({ initial, exams }: { initial: string; exams: { i
       <div className="flex flex-wrap items-end gap-2">
         <label className="flex flex-col gap-1 font-body text-[12px] text-[var(--t1)]">
           메모(무엇을 왜 바꿨나)
-          <input className={`${inputCls} w-[320px]`} value={note} onChange={(e) => setNote(e.target.value)} />
+          <input className={`min-h-[44px] ${inputCls} w-[320px]`} value={note} onChange={(e) => setNote(e.target.value)} />
         </label>
-        <button type="button" className={primaryBtnCls} disabled={pending} onClick={save}>검사 후 저장</button>
+        <button type="button" className={`min-h-[44px] ${primaryBtnCls}`} disabled={pending} onClick={save}>검사 후 저장</button>
         {msg && <span role="status" className="font-body text-[12px] text-[var(--t2)]">{msg}</span>}
       </div>
       {errors.length > 0 && (

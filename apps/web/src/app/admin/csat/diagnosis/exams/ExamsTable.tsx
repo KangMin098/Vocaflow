@@ -30,7 +30,7 @@ function Row({ e }: { e: ExamTagging }) {
   return (
     <tr>
       <td className={tdCls}>
-        <Link className="underline" href={`/admin/csat/diagnosis/exams/${encodeURIComponent(e.id)}`}>{e.label}</Link>
+        <Link className="inline-flex min-h-[44px] items-center underline" href={`/admin/csat/diagnosis/exams/${encodeURIComponent(e.id)}`}>{e.label}</Link>
         <div className="text-[12px] text-[var(--t2)]">{e.id} · {e.hasKey ? '정답표 있음' : '정답표 없음 — 채점 불가'}</div>
       </td>
       <td className={tdCls}>{e.reviewed}/{e.items} ({pct(e.reviewed, e.items)})</td>
@@ -38,14 +38,14 @@ function Row({ e }: { e: ExamTagging }) {
       <td className={tdCls}>
         <div className="flex flex-wrap items-center gap-1">
           <label className="sr-only" htmlFor={`r-${e.id}`}>1등급 비율</label>
-          <input id={`r-${e.id}`} className={`${inputCls} w-[90px]`} inputMode="decimal" placeholder="0.0612" value={ratio} onChange={(x) => setRatio(x.target.value)} />
+          <input id={`r-${e.id}`} className={`min-h-[44px] ${inputCls} w-[90px]`} inputMode="decimal" placeholder="0.0612" value={ratio} onChange={(x) => setRatio(x.target.value)} />
           <label className="sr-only" htmlFor={`s-${e.id}`}>출처</label>
-          <input id={`s-${e.id}`} className={`${inputCls} w-[140px]`} placeholder="출처(채점결과 발표)" value={source} onChange={(x) => setSource(x.target.value)} />
-          <button type="button" className={btnCls} disabled={pending} onClick={saveStats}>저장</button>
+          <input id={`s-${e.id}`} className={`min-h-[44px] ${inputCls} w-[140px]`} placeholder="출처(채점결과 발표)" value={source} onChange={(x) => setSource(x.target.value)} />
+          <button type="button" className={`min-h-[44px] ${btnCls}`} disabled={pending} onClick={saveStats}>저장</button>
         </div>
       </td>
       <td className={tdCls}>
-        <button type="button" className={btnCls} disabled={pending || !e.hasKey} onClick={toggle} aria-pressed={e.ready}>
+        <button type="button" className={`min-h-[44px] ${btnCls}`} disabled={pending || !e.hasKey} onClick={toggle} aria-pressed={e.ready}>
           {e.ready ? '켜짐 · 끄기' : '꺼짐 · 켜기'}
         </button>
         {msg && <div role="status" className="mt-1 break-keep text-[12px] text-[var(--t2)]">{msg}</div>}

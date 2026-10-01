@@ -31,7 +31,7 @@ export default async function DiagnosisLearnersPage() {
           <tbody>
             {learners.map((l) => (
               <tr key={l.userId}>
-                <td className={tdCls}><Link className="underline" href={`/admin/csat/diagnosis/learners/${l.userId}`}>{l.email ?? l.userId}</Link></td>
+                <td className={tdCls}><Link className="inline-flex min-h-[44px] items-center underline" href={`/admin/csat/diagnosis/learners/${l.userId}`}>{l.email ?? l.userId}</Link></td>
                 <td className={tdCls}>{l.sessions}회</td>
                 <td className={tdCls}>{l.lastTaken ?? '—'}</td>
                 <td className={tdCls}>{l.snapshot?.ability ?? '—'}</td>

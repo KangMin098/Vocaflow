@@ -55,7 +55,7 @@ export default async function DiagnosisDashboardPage() {
             <tbody>
               {learners.slice(0, 10).map((l) => (
                 <tr key={l.userId}>
-                  <td className={tdCls}><Link className="underline" href={`/admin/csat/diagnosis/learners/${l.userId}`}>{l.email ?? l.userId.slice(0, 8)}</Link></td>
+                  <td className={tdCls}><Link className="inline-flex min-h-[44px] items-center underline" href={`/admin/csat/diagnosis/learners/${l.userId}`}>{l.email ?? l.userId.slice(0, 8)}</Link></td>
                   <td className={tdCls}>{l.sessions}회</td>
                   <td className={tdCls}>{l.snapshot?.ability ?? '—'}</td>
                   <td className={tdCls}>{l.snapshot?.gradeEst ? `${l.snapshot.gradeEst}등급` : '—'}</td>
@@ -75,7 +75,7 @@ export default async function DiagnosisDashboardPage() {
           <tbody>
             {scorable.map((e) => (
               <tr key={e.id}>
-                <td className={tdCls}><Link className="underline" href={`/admin/csat/diagnosis/exams/${encodeURIComponent(e.id)}`}>{e.label} <span className="text-[var(--t2)]">({e.id})</span></Link></td>
+                <td className={tdCls}><Link className="inline-flex min-h-[44px] items-center underline" href={`/admin/csat/diagnosis/exams/${encodeURIComponent(e.id)}`}>{e.label} <span className="text-[var(--t2)]">({e.id})</span></Link></td>
                 <td className={tdCls}>{e.reviewed}/{e.items}</td>
                 <td className={tdCls}>{pct(e.reviewed, e.items)}</td>
                 <td className={tdCls}>{e.errorRates}/{e.items}</td>

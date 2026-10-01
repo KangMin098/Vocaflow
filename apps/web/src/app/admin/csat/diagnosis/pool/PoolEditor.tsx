@@ -26,9 +26,9 @@ export function PoolEditor({ rows }: { rows: PoolRow[] }) {
       <div className="flex flex-wrap items-end gap-2">
         <label className="flex flex-col gap-1 font-body text-[12px] text-[var(--t1)]">
           문항 id 추가
-          <input className={`${inputCls} w-[160px]`} placeholder="2026#31" value={id} onChange={(e) => setId(e.target.value.trim())} />
+          <input className={`min-h-[44px] ${inputCls} w-[160px]`} placeholder="2026#31" value={id} onChange={(e) => setId(e.target.value.trim())} />
         </label>
-        <button type="button" className={primaryBtnCls} disabled={pending || !id} onClick={() => run(id, true, `${id} 를 넣었어요`)}>넣기</button>
+        <button type="button" className={`min-h-[44px] ${primaryBtnCls}`} disabled={pending || !id} onClick={() => run(id, true, `${id} 를 넣었어요`)}>넣기</button>
         {msg && <span role="status" className="font-body text-[12px] text-[var(--t2)]">{msg}</span>}
       </div>
       {rows.length === 0 ? (
@@ -46,10 +46,10 @@ export function PoolEditor({ rows }: { rows: PoolRow[] }) {
                 <td className={tdCls}>{r.active ? '활성' : '쉼'}</td>
                 <td className={tdCls}>
                   <div className="flex gap-1">
-                    <button type="button" className={btnCls} disabled={pending} onClick={() => run(r.itemId, !r.active, r.active ? '쉬게 했어요' : '활성으로 바꿨어요')}>
+                    <button type="button" className={`min-h-[44px] ${btnCls}`} disabled={pending} onClick={() => run(r.itemId, !r.active, r.active ? '쉬게 했어요' : '활성으로 바꿨어요')}>
                       {r.active ? '쉬게 하기' : '활성으로'}
                     </button>
-                    <button type="button" className={btnCls} disabled={pending} onClick={() => run(r.itemId, null, '뺐어요')}>빼기</button>
+                    <button type="button" className={`min-h-[44px] ${btnCls}`} disabled={pending} onClick={() => run(r.itemId, null, '뺐어요')}>빼기</button>
                   </div>
                 </td>
               </tr>

@@ -57,7 +57,7 @@ function ItemCard({ item, trapOptions, onSaved }: { item: TaggingItem; trapOptio
           {ATTRIBUTE_CODES.map((c) => (
             <label key={c} className="flex flex-col gap-1 font-body text-[12px] text-[var(--t1)]">
               <span>{c} {ATTRIBUTE_NAME[c].admin}</span>
-              <select className={inputCls} value={weights[c]} onChange={(e) => setWeights({ ...weights, [c]: Number(e.target.value) })}>
+              <select className={`min-h-[44px] ${inputCls}`} value={weights[c]} onChange={(e) => setWeights({ ...weights, [c]: Number(e.target.value) })}>
                 {[0, 1, 2].map((w) => <option key={w} value={w}>{w}</option>)}
               </select>
             </label>
@@ -78,7 +78,7 @@ function ItemCard({ item, trapOptions, onSaved }: { item: TaggingItem; trapOptio
                 <label className="sr-only" htmlFor={`t-${item.id}-${n}`}>{n}번 선지 함정</label>
                 <select
                   id={`t-${item.id}-${n}`}
-                  className={inputCls}
+                  className={`min-h-[44px] ${inputCls}`}
                   disabled={correct}
                   value={traps[n] ?? ''}
                   onChange={(e) => setTraps({ ...traps, [n]: e.target.value || null })}
@@ -97,17 +97,17 @@ function ItemCard({ item, trapOptions, onSaved }: { item: TaggingItem; trapOptio
       <div className="flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1 font-body text-[12px] text-[var(--t1)]">
           공식 오답률(0~1)
-          <input className={`${inputCls} w-[110px]`} inputMode="decimal" value={errorRate} onChange={(e) => setErrorRate(e.target.value)} />
+          <input className={`min-h-[44px] ${inputCls} w-[110px]`} inputMode="decimal" value={errorRate} onChange={(e) => setErrorRate(e.target.value)} />
         </label>
         <label className="flex flex-col gap-1 font-body text-[12px] text-[var(--t1)]">
           EBS 연계
-          <select className={inputCls} value={ebs} onChange={(e) => setEbs(e.target.value as typeof ebs)}>
+          <select className={`min-h-[44px] ${inputCls}`} value={ebs} onChange={(e) => setEbs(e.target.value as typeof ebs)}>
             <option value="null">미확인</option>
             <option value="true">연계</option>
             <option value="false">비연계</option>
           </select>
         </label>
-        <button type="button" className={primaryBtnCls} disabled={pending} onClick={save}>검수 저장</button>
+        <button type="button" className={`min-h-[44px] ${primaryBtnCls}`} disabled={pending} onClick={save}>검수 저장</button>
         {msg && <span role="status" className="font-body text-[12px] text-[var(--t2)]">{msg}</span>}
       </div>
     </article>
@@ -136,7 +136,7 @@ export function TaggingBoard({ items, trapOptions }: { items: TaggingItem[]; tra
           <input type="checkbox" className="h-5 w-5" checked={onlyPending} onChange={(e) => setOnlyPending(e.target.checked)} />
           미완료만 보기
         </label>
-        <button type="button" className={btnCls} onClick={goNext}>다음 미완료로 이동</button>
+        <button type="button" className={`min-h-[44px] ${btnCls}`} onClick={goNext}>다음 미완료로 이동</button>
         <span className="font-body text-[13px] text-[var(--t2)]">남은 문항 {items.filter((i) => !isDone(i)).length}</span>
       </div>
       <div ref={listRef} className="flex flex-col gap-3">
