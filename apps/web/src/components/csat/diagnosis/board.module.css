@@ -877,7 +877,8 @@
 }
 
 /* 팝업(680px) 안에서는 두 단 — 세 단이면 한 단이 ~170px 이라 44px 동그라미 다섯이 넘친다(2026-10-01 실측) */
-@media (min-width: 560px) {
+/* 두 단은 팝업이 제 폭(680px)을 다 받을 때만 — 한 단 ≈ 270px = 번호 32 + 동그라미 44×5. 좁으면 한 단 */
+@media (min-width: 760px) {
   .miniSheet {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -885,12 +886,12 @@
 
 .miniSheet .bubbles {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(44px, 1fr));
 }
 
 .miniSheet .bubble {
   width: 100%;
-  min-width: 0;
+  min-width: 44px;
   height: 44px;
 }
 
