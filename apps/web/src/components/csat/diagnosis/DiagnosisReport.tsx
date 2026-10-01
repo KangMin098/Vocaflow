@@ -14,7 +14,7 @@ import { toItemSlug } from '@/lib/csat/item-slug'
 import { HabitButtons } from './HabitButtons'
 import { ScoreTrend } from './ScoreTrend'
 
-const h3 = 'font-display text-[16px] font-[800] text-[var(--t1)]'
+const h3 = 'text-[16px] font-[800] text-[var(--t1)]'
 const card = 'flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4'
 const small = 'break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]'
 
@@ -188,7 +188,7 @@ export function DiagnosisReport({
               const t = lineText(l.code)
               return (
                 <li key={l.code} className="flex flex-col gap-0.5">
-                  <span className="font-display text-[14px] font-[800] text-[var(--t1)]">{i + 1}. {t.title}{admin ? ` (${l.code})` : ''}</span>
+                  <span className="text-[14px] font-[800] text-[var(--t1)]">{i + 1}. {t.title}{admin ? ` (${l.code})` : ''}</span>
                   <span className={small}>{t.why}</span>
                 </li>
               )
@@ -196,12 +196,13 @@ export function DiagnosisReport({
           </ol>
         )}
         {!admin && (
-          <Link
-            href="/csat/workspace/new"
-            className="inline-flex min-h-[44px] w-fit items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[14px] font-[800] text-[var(--on-p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          // Workspace(학습 작업공간)는 아직 main 에 없다 — 연결 자리만 둔다(지시문: 비활성 자리)
+          <span
+            aria-disabled="true"
+            className="inline-flex min-h-[44px] w-fit items-center rounded-[var(--r-md)] border border-dashed border-[var(--bd)] px-4 font-display text-[14px] font-[700] text-[var(--t2)]"
           >
-            학습 작업공간 만들기
-          </Link>
+            Workspace로 시작하기 · 준비 중
+          </span>
         )}
       </section>
     </div>

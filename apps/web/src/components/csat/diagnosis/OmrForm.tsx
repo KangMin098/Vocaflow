@@ -7,6 +7,7 @@
 
 'use client'
 
+import Link from 'next/link'
 import { useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
@@ -38,6 +39,7 @@ export function OmrForm({
   today,
   onSaved,
   trackEvents = true,
+  reportHref,
 }: {
   exams: OmrExam[]
   endpoint: string
@@ -46,6 +48,8 @@ export function OmrForm({
   onSaved?: (r: OmrResult) => void
   /** 관리자 대리 입력은 학습자 퍼널에 세지 않는다 */
   trackEvents?: boolean
+  /** 저장 뒤 보여 줄 리포트 링크(학습자 화면) */
+  reportHref?: string
 }) {
   const [examId, setExamId] = useState(exams[0]?.id ?? '')
   const [retake, setRetake] = useState(false)
@@ -228,6 +232,12 @@ export function OmrForm({
         {result && (
           <p className="break-keep font-body text-[15px] font-[700] text-[var(--t1)]">
             {result.raw}점, {result.grade ?? '—'}등급. {result.ready ? '진단을 업데이트했어요.' : '점수만 반영했어요. 상세 진단은 준비 중이에요.'}
+            {reportHref && (
+              <>
+                {' '}
+                <Link href={reportHref} className="underline">리포트 보기</Link>
+              </>
+            )}
           </p>
         )}
         {error && <p role="alert" className="break-keep font-body text-[14px] text-[var(--t1)]">{error}</p>}
