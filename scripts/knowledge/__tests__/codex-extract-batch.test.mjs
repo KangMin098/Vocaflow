@@ -1,7 +1,25 @@
 // scripts/knowledge/__tests__/codex-extract-batch.test.mjs — node --test scripts/knowledge/__tests__/codex-extract-batch.test.mjs
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { chunkComplete, decidedVideos, parseJsonl, parseTargets } from '../codex-extract-batch.mjs'
+import { chunkComplete, countMalformed, decidedVideos, parseChunkSize, parseJsonl, parseTargets } from '../codex-extract-batch.mjs'
+
+test('깨진 줄이 있으면 나머지가 영상을 다 덮어도 미완료 — 버려진 주장을 다시 뽑게', () => {
+  const text = '{"videoId":"A"}\n{broken\n{"videoId":"B"}\nnull\n'
+  assert.equal(countMalformed(text), 2)
+  const claims = parseJsonl(text)
+  assert.equal(chunkComplete({ status: 0, limitHit: false, ids: ['A', 'B'], claims, malformed: 2 }), false)
+  assert.equal(chunkComplete({ status: 0, limitHit: false, ids: ['A', 'B'], claims, malformed: 0 }), true)
+})
+
+test('영상 0편 묶음은 완료가 아니다', () => {
+  assert.equal(chunkComplete({ status: 0, limitHit: false, ids: [], claims: [] }), false)
+})
+
+test('묶음 크기는 1 이상의 정수만 — 0·음수·숫자 아님은 거부(무한 반복 방지)', () => {
+  assert.equal(parseChunkSize('10'), 10)
+  assert.equal(parseChunkSize(10), 10)
+  for (const bad of ['0', '-3', 'abc', '2.5', '']) assert.equal(parseChunkSize(bad), null)
+})
 
 test('CRLF 대상 목록에서도 ID 끝에 \\r 이 남지 않는다', () => {
   const text = 'AAAAAAAAAAA\t채널\t제목\r\nBBBBBBBBBBB\t채널\t제목\r\n'

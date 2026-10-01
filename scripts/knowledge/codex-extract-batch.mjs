@@ -41,6 +41,23 @@ export const parseJsonl = (text) =>
     }
   })
 
+/** 깨진 줄(파싱 실패 · 객체 아님)의 수 — 묶음 완료 판정에 쓴다. */
+export const countMalformed = (text) =>
+  splitLines(text).filter((l) => {
+    try {
+      const v = JSON.parse(l)
+      return !(v && typeof v === 'object' && !Array.isArray(v))
+    } catch {
+      return true
+    }
+  }).length
+
+/** 묶음 크기 — 1 이상의 정수만. 0·음수·숫자 아님이면 null(반복이 끝나지 않거나 잘못 자른다). */
+export const parseChunkSize = (v) => {
+  const n = Number(v)
+  return Number.isInteger(n) && n >= 1 ? n : null
+}
+
 /**
  * 판정된 영상 = 중간 판정(partial) + **완료 표시가 있는** 묶음의 영상. 완료 표시 없는 묶음은 무시한다.
  * chunks: [{ name, claims, done }]
@@ -52,8 +69,12 @@ export function decidedVideos(partialClaims, chunks) {
 }
 
 /** 묶음이 완료인가 — 정상 종료 + 한도 아님 + 맡긴 영상 전부가 결과에 있다. */
-export function chunkComplete({ status, limitHit, ids, claims }) {
+export function chunkComplete({ status, limitHit, ids, claims, malformed = 0 }) {
   if (status !== 0 || limitHit) return false
+  // 영상 0편 묶음은 완료가 아니다(빈 목록이면 「전부 판정」이 공허하게 참이 된다)
+  if (!Array.isArray(ids) || ids.length === 0) return false
+  // 깨진 줄이 하나라도 있으면 미완료 — 그 줄의 주장을 버린 채 완료 표시하면 다시 뽑히지 않는다
+  if (malformed > 0) return false
   const covered = new Set(claims.map((c) => c.videoId))
   return ids.every((v) => covered.has(v))
 }
@@ -83,7 +104,11 @@ function main() {
     const i = args.indexOf(`--${k}`)
     return i >= 0 && args[i + 1] ? args[i + 1] : d
   }
-  const CHUNK = Number(opt('chunk', 10))
+  const CHUNK = parseChunkSize(opt('chunk', 10))
+  if (CHUNK === null) {
+    console.error(`--chunk 는 1 이상의 정수여야 한다(받은 값: ${opt('chunk', 10)})`)
+    process.exit(2)
+  }
   const EFFORT = opt('effort', 'low')
   const DRY = args.includes('--dry')
   if (!fs.existsSync(path.join(dir, 'target-videos.txt'))) {
@@ -159,8 +184,11 @@ function main() {
       fs.appendFileSync(USAGE, JSON.stringify({ at: new Date().toISOString(), kind: 'extract', tokens, secs, chunk: out }) + NL)
     } catch {}
     fs.writeFileSync(path.join(dir, out.replace('.jsonl', '.log')), both.slice(-20_000)) // 로그는 끝부분만 — 자막 구간을 쌓아 두지 않는다
-    const wrote = parseJsonl(read(path.join(dir, out)))
-    const complete = chunkComplete({ status: r.error ? -1 : r.status, limitHit, ids, claims: wrote })
+    const outText = read(path.join(dir, out))
+    const wrote = parseJsonl(outText)
+    const malformed = countMalformed(outText)
+    if (malformed) console.log(`  깨진 줄 ${malformed} — 이 묶음은 미완료로 둔다`)
+    const complete = chunkComplete({ status: r.error ? -1 : r.status, limitHit, ids, claims: wrote, malformed })
     if (complete) fs.writeFileSync(path.join(dir, out.replace('.jsonl', '.done')), JSON.stringify({ ids, lines: wrote.length, tokens, at: new Date().toISOString() }) + NL)
     const covered = new Set(wrote.map((c) => c.videoId))
     console.log(`${out} · ${secs}s · 토큰 ${tokens?.toLocaleString() ?? '?'} · 줄 ${wrote.length} · 영상 ${ids.filter((v) => covered.has(v)).length}/${ids.length} · ${complete ? '완료' : '미완료(다음 실행에서 다시)'}`)
