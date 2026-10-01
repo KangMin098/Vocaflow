@@ -19,6 +19,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { validateClaim } from './claims-lib.mjs'
 
 const NL = String.fromCharCode(10)
 
@@ -52,6 +53,22 @@ export const countMalformed = (text) =>
     }
   }).length
 
+/**
+ * 계약 검증(claims-lib.validateClaim)을 통과 못 한 줄의 수. 실행기는 DB 를 읽지 않으니 분류 id 는 **접두사로만**
+ * 차원을 정한다(skill: age: proficiency: exam: process: question:) — 존재 확인은 적재기가 DB 분류 축으로 다시 한다.
+ * 형식만 맞는 JSON(예: videoId 만 있는 줄)을 완료로 세면 적재기가 거부한 그 영상이 영영 다시 안 뽑힌다(Codex 리뷰).
+ */
+const PREFIX_DIM = ['skill', 'age', 'proficiency', 'exam', 'process', 'question']
+export function countInvalid(claims) {
+  const ids = new Set()
+  for (const c of claims) for (const k of ['skill', 'audience', 'conditions']) if (Array.isArray(c?.[k])) for (const id of c[k]) ids.add(id)
+  const taxonomy = new Map([...ids].flatMap((id) => {
+    const dim = String(id).split(':')[0]
+    return PREFIX_DIM.includes(dim) ? [[id, dim]] : []
+  }))
+  return claims.filter((c) => !validateClaim(c, taxonomy).ok).length
+}
+
 /** 묶음 크기 — 1 이상의 정수만. 0·음수·숫자 아님이면 null(반복이 끝나지 않거나 잘못 자른다). */
 export const parseChunkSize = (v) => {
   const n = Number(v)
@@ -69,7 +86,9 @@ export function decidedVideos(partialClaims, chunks) {
 }
 
 /** 묶음이 완료인가 — 정상 종료 + 한도 아님 + 맡긴 영상 전부가 결과에 있다. */
-export function chunkComplete({ status, limitHit, ids, claims, malformed = 0 }) {
+export function chunkComplete({ status, limitHit, ids, claims, malformed = 0, invalid = 0 }) {
+  // 계약 검증 실패 줄이 있으면 미완료 — 적재기가 거부할 줄로 영상을 「판정됨」 처리하지 않는다
+  if (invalid > 0) return false
   if (status !== 0 || limitHit) return false
   // 영상 0편 묶음은 완료가 아니다(빈 목록이면 「전부 판정」이 공허하게 참이 된다)
   if (!Array.isArray(ids) || ids.length === 0) return false
@@ -187,8 +206,10 @@ function main() {
     const outText = read(path.join(dir, out))
     const wrote = parseJsonl(outText)
     const malformed = countMalformed(outText)
+    const invalid = countInvalid(wrote)
     if (malformed) console.log(`  깨진 줄 ${malformed} — 이 묶음은 미완료로 둔다`)
-    const complete = chunkComplete({ status: r.error ? -1 : r.status, limitHit, ids, claims: wrote, malformed })
+    if (invalid) console.log(`  계약 검증 실패 줄 ${invalid} — 이 묶음은 미완료로 둔다`)
+    const complete = chunkComplete({ status: r.error ? -1 : r.status, limitHit, ids, claims: wrote, malformed, invalid })
     if (complete) fs.writeFileSync(path.join(dir, out.replace('.jsonl', '.done')), JSON.stringify({ ids, lines: wrote.length, tokens, at: new Date().toISOString() }) + NL)
     const covered = new Set(wrote.map((c) => c.videoId))
     console.log(`${out} · ${secs}s · 토큰 ${tokens?.toLocaleString() ?? '?'} · 줄 ${wrote.length} · 영상 ${ids.filter((v) => covered.has(v)).length}/${ids.length} · ${complete ? '완료' : '미완료(다음 실행에서 다시)'}`)
