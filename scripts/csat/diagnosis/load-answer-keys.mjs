@@ -7,6 +7,7 @@
 //   · scripts/csat/data/answers.json            — 수능(평가원)
 //   · scripts/csat/data/mock-answers.json       — 모의평가(주 파이프라인)
 //   · scripts/csat/data/mock-answers-kice.json  — 모의평가(정답표 PDF 기계 해독, 위 파일에 없는 회차만)
+//   · scripts/csat/data/hakpyeong-answers.json  — 학력평가(ingest-hakpyeong.mjs 가 해설지에서 해독 · gitignore — 원본 PDF 가 있는 PC 에서만)
 //
 // 손으로 옮겨 적지 않는다. 회차마다 다시 검산하고, 하나라도 어긋나면 그 회차는 넣지 않는다:
 //   ① 1~45 빠짐없음 ② 정답 1~5 · 배점 2|3 ③ 배점 합 100 ④ csat_exams 에 있는 회차
@@ -27,11 +28,14 @@ import { isKiceExam } from '../lib-exam-id.mjs'
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const DATA = path.resolve(HERE, '..', 'data')
 const COMMIT = process.argv.includes('--commit')
+// 집합: kice(수능·모평) · hakpyeong(학평) · all(기본)
+const SET = (() => { const i = process.argv.indexOf('--set'); return i >= 0 ? process.argv[i + 1] : 'all' })()
+if (!['kice', 'hakpyeong', 'all'].includes(SET)) throw new Error(`--set 은 kice|hakpyeong|all: ${SET}`)
 // 회차마다 DB 정답과 최소 이만큼은 대조돼야 받는다(18~45 = 28문항, 폐지 유형으로 한두 개 빠진 회차가 있다)
 const MIN_COMPARED = 25
 
 // 앞의 파일이 우선 — 뒤 파일은 앞에서 못 채운 회차만 채운다
-const SOURCES = ['answers.json', 'mock-answers.json', 'mock-answers-kice.json']
+const SOURCES = ['answers.json', 'mock-answers.json', 'mock-answers-kice.json', 'hakpyeong-answers.json']
 
 function env(name) {
   if (process.env[name]) return process.env[name]
@@ -98,8 +102,9 @@ async function main() {
   const rejected = []
   for (const [exam, rows] of [...keys].sort(([a], [b]) => a.localeCompare(b))) {
     if (!known.has(exam)) { rejected.push([exam, 'csat_exams 에 없음']); continue }
-    // 정답 파일은 평가원(수능·모평) 것뿐이다 — 학평 id 가 섞여 들어오면 받지 않는다
-    if (!isKiceExam(exam)) { rejected.push([exam, '평가원 회차 아님']); continue }
+    // 고른 집합 밖의 회차는 건너뛴다(평가원 판정은 lib-exam-id 정본)
+    if (SET === 'kice' && !isKiceExam(exam)) continue
+    if (SET === 'hakpyeong' && isKiceExam(exam)) continue
     const why = checkKey(rows)
     if (why) { rejected.push([exam, why]); continue }
     // 회차별로 읽는다(행 상한에 잘리지 않게). DB 에 있는 18~45 문항은 전부 대조하고, 정답이 빈 문항이 있으면 거부

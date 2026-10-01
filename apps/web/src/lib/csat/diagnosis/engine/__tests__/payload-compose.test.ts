@@ -4,10 +4,8 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { parseDiagnosticPayload, parseExamPayload, parseProfilePayload, todayKst } from '../../payload'
-import { composeDiagnosticTest } from '../compose'
+import { parseExamPayload, todayKst } from '../../payload'
 import { validateSettings } from '../settings'
-import type { ItemMeta } from '../types'
 
 const KEY = '2b1f6a0e-7c1d-4e8a-9f3b-1a2b3c4d5e6f'
 
@@ -30,42 +28,9 @@ describe('parseExamPayload', () => {
   })
 })
 
-describe('parseDiagnosticPayload', () => {
-  it('문항 수 상한과 문항 id 형식을 지킨다', () => {
-    const a = { itemId: '2026#31', chosen: 2 }
-    expect(parseDiagnosticPayload({ clientKey: KEY, answers: [a] }, 20)?.answers[0].confidence).toBe('sure')
-    expect(parseDiagnosticPayload({ clientKey: KEY, answers: Array(21).fill(a) }, 20)).toBeNull()
-    expect(parseDiagnosticPayload({ clientKey: KEY, answers: [{ itemId: 'x; drop', chosen: 1 }] }, 20)).toBeNull()
-  })
-})
-
-describe('parseProfilePayload', () => {
-  it('목표 등급 1~9 · 알 수 없는 학년 거부', () => {
-    expect(parseProfilePayload({ gradeLevel: 'h1', goalType: 'susi_min', goalDetail: { min_rule: '3합6', target_grade: 2 } })?.goalDetail).toEqual({ min_rule: '3합6', target_grade: 2 })
-    expect(parseProfilePayload({ gradeLevel: 'h9', goalType: 'keep' })).toBeNull()
-    expect(parseProfilePayload({ gradeLevel: 'h1', goalType: 'keep', goalDetail: { target_grade: 10 } })).toBeNull()
-  })
-})
-
 describe('todayKst', () => {
   it('UTC 15시 이후는 한국 날짜로 다음 날', () => {
     expect(todayKst(new Date('2026-09-30T15:30:00Z'))).toBe('2026-10-01')
-  })
-})
-
-describe('composeDiagnosticTest', () => {
-  const meta = (id: string, attrs: ItemMeta['attributes']): ItemMeta => ({ itemId: id, examId: 'E', no: 30, errorRate: null, ebsLinked: null, attributes: attrs, optionTraps: {} })
-  const pool = [
-    ...Array.from({ length: 30 }, (_, i) => meta(`E#${i}`, { A3: 2 })),
-    meta('F#1', { A1: 2 }), meta('F#2', { A8: 2 }), meta('F#3', { A5: 2 }),
-  ]
-  it('같은 seed 면 같은 출제, 지정 문항 수를 넘지 않는다', () => {
-    expect(composeDiagnosticTest(pool, 10, 7)).toEqual(composeDiagnosticTest(pool, 10, 7))
-    expect(composeDiagnosticTest(pool, 10, 7)).toHaveLength(10)
-  })
-  it('드문 역량 문항이 먼저 뽑힌다(고르게 덮기)', () => {
-    const picked = composeDiagnosticTest(pool, 5, 1)
-    expect(picked).toEqual(expect.arrayContaining(['F#1', 'F#2', 'F#3']))
   })
 })
 

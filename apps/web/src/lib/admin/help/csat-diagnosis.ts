@@ -8,18 +8,17 @@ export const CSAT_DIAGNOSIS_HELP: HelpRegistry = {
   'csat-diagnosis': {
     title: '영어 진단 — 현황',
     screen: {
-      summary: '학습자 진단이 믿을 만한지 보는 첫 화면이에요. 학습자 수, 최근 진단, 시험별 태깅 완료율, 진단 테스트 풀의 역량 커버리지를 즉석 조회로 보여 줘요.',
+      summary: '학습자 수, 최근 진단, 시험별 태깅 완료율을 즉석 조회로 보여 줘요. 학습자 진단(점수 흐름 · 약한 유형 · 끌린 오답 · 틀린 문항)은 태깅 없이 기록한 답과 문항 유형·선지 함정으로 바로 나와요 — 태깅은 이후 역량 진단을 위한 준비예요.',
       when: '진단 품질을 점검할 때, 학습자가 「진단이 이상하다」고 할 때.',
       steps: [
         { title: '태깅 완료율을 봐요', detail: '진단 반영이 꺼진 시험은 학습자가 입력해도 점수·등급만 반영돼요. 학습자가 많이 입력하는 시험부터 태깅을 끝내요.', done: '완료율 100% 인 시험은 「시험·태깅」에서 진단 반영을 켤 수 있어요.' },
-        { title: '풀 커버리지를 봐요', detail: '역량이 비어 있으면 진단 테스트로 그 역량을 판정할 수 없어요. A7 듣기는 진단 테스트에 듣기 문항이 없어 비는 것이 정상이에요.' },
       ],
       fields: [
         { label: '채점 가능한 시험', detail: '45문항 정답표(csat_dx_answer_key)가 있는 회차. 학습자 시험 기록 입력에 나오는 시험이 이것뿐이에요.' },
         { label: '진단 반영 시험', detail: 'diagnosis_ready 가 켜진 회차. 이 시험의 응답만 역량·함정·습관 진단에 들어가요.' },
       ],
       cautions: [
-        '학평(교육청)은 듣기 정답이 없어 아직 채점할 수 없어요 — 학습자 선택지에 나오지 않아요.',
+        '학평 104회는 원본 해설지에서 뽑은 45문항 정답표로 채점해요(scripts/csat/diagnosis/load-answer-keys.mjs --set hakpyeong). 원본 PDF 가 있는 PC 에서만 다시 만들 수 있어요.',
         '2014학년도 A·B형은 DB 문항이 23개뿐이라 정답표 대조를 통과하지 못해 빠졌어요(scripts/csat/diagnosis/load-answer-keys.mjs).',
       ],
       seeAlso: [
@@ -61,20 +60,6 @@ export const CSAT_DIAGNOSIS_HELP: HelpRegistry = {
       cautions: ['함정을 「없음」으로 저장하면 분석에서 온 라벨이 지워져요(분석 원본 csat_item_analyses 는 그대로).'],
     },
   },
-  'csat-diagnosis-pool': {
-    title: '진단 테스트 풀',
-    screen: {
-      summary: '기록이 없는 학습자가 푸는 진단 테스트 문항 풀이에요. 출제는 역량이 고르게 덮이도록 이 풀에서 뽑아요.',
-      steps: [
-        { title: '문항을 넣어요', detail: '문항 id(예: 2026#31)를 넣어요. 검수된 문항을 넣는 것이 좋아요.' },
-        { title: '커버리지를 봐요', detail: '비어 있는 역량이 없게 채워요(A7 듣기 제외).' },
-      ],
-      cautions: [
-        '풀이 비면 학습자 「진단 테스트」가 열리지 않아요.',
-        '진단 테스트만 있는 학습자의 신뢰도는 언제나 「낮음」이에요 — 실제 모의고사 기록 입력을 유도해요.',
-      ],
-    },
-  },
   'csat-diagnosis-learners': {
     title: '진단 학습자',
     screen: {
@@ -84,9 +69,9 @@ export const CSAT_DIAGNOSIS_HELP: HelpRegistry = {
   'csat-diagnosis-learner': {
     title: '학습자 상세',
     screen: {
-      summary: '코드와 수치가 들어간 상세 리포트, 시험 기록, 습관 신호 응답, 대리 입력이 있는 화면이에요.',
+      summary: '학습자가 보는 것과 같은 진단과, 학습자 대신 시험을 기록하는 대리 기록이 있는 화면이에요.',
       steps: [
-        { title: '대리 입력', detail: '학습자 대신 OMR 을 넣어요(entered_by=admin). 저장하면 그 학습자의 진단이 다시 계산돼 스냅샷이 하나 늘어요.' },
+        { title: '대리 기록', detail: '시험을 고르고 학습자의 답을 적어요(entered_by=admin). 저장하면 위 진단이 바로 다시 그려져요.' },
       ],
       cautions: ['대리 입력은 이 화면에서 지울 수 없어요. 잘못 넣지 않게 시험과 응시일을 먼저 확인해요.'],
     },

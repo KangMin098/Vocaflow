@@ -9,9 +9,8 @@ import Link from 'next/link'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { DxHeader, DxNav, pct, tdCls, thCls } from '@/components/admin/csat-diagnosis/ui'
 import { requireAdmin } from '@/lib/auth/require-admin'
-import { loadExamTagging, loadLearners, loadPool, poolCoverage } from '@/lib/csat/diagnosis/admin'
-import { ATTRIBUTE_CODES } from '@/lib/csat/diagnosis/engine/types'
-import { ATTRIBUTE_NAME, CONFIDENCE_LABEL } from '@/lib/csat/diagnosis/labels'
+import { loadExamTagging, loadLearners } from '@/lib/csat/diagnosis/admin'
+import { CONFIDENCE_LABEL } from '@/lib/csat/diagnosis/labels'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const dynamic = 'force-dynamic'
@@ -19,10 +18,8 @@ export const dynamic = 'force-dynamic'
 export default async function DiagnosisDashboardPage() {
   await requireAdmin('/admin/csat/diagnosis')
   const db = createAdminClient() as unknown as SupabaseClient
-  const [exams, learners, pool] = await Promise.all([loadExamTagging(db), loadLearners(db), loadPool(db)])
+  const [exams, learners] = await Promise.all([loadExamTagging(db), loadLearners(db)])
   const scorable = exams.filter((e) => e.hasKey)
-  const coverage = poolCoverage(pool)
-  const activePool = pool.filter((p) => p.active).length
 
   return (
     <div className="flex flex-col gap-5">
@@ -88,22 +85,6 @@ export default async function DiagnosisDashboardPage() {
         </table>
       </section>
 
-      <section className="flex flex-col gap-2">
-        <h3 className="font-display text-[15px] font-[800] text-[var(--t1)]">진단 테스트 풀 — 활성 {activePool}문항</h3>
-        <table className="w-full border-collapse">
-          <thead><tr><th className={thCls}>역량</th><th className={thCls}>덮는 문항</th><th className={thCls}>가중치 합</th></tr></thead>
-          <tbody>
-            {ATTRIBUTE_CODES.map((c) => (
-              <tr key={c}>
-                <td className={tdCls}>{c} {ATTRIBUTE_NAME[c].admin}</td>
-                <td className={tdCls}>{coverage[c].items}{coverage[c].items === 0 && c !== 'A7' ? ' — 비어 있음' : ''}</td>
-                <td className={tdCls}>{coverage[c].weight}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <p className="break-keep font-body text-[12px] text-[var(--t2)]">A7 듣기는 진단 테스트에 듣기 문항이 없어 비어 있는 것이 정상이에요.</p>
-      </section>
     </div>
   )
 }

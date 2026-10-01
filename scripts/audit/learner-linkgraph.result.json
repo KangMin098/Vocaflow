@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-10-01T07:16:24.313Z",
+  "generatedAt": "2026-10-01T11:46:00.688Z",
   "totals": {
-    "pageRoutes": 191,
-    "learnerPages": 102,
-    "apiRoutes": 91,
-    "linkedLearnerPages": 72
+    "pageRoutes": 187,
+    "learnerPages": 99,
+    "apiRoutes": 88,
+    "linkedLearnerPages": 69
   },
   "deadLinks": [],
   "orphanLearnerPages": [
@@ -13,6 +13,7 @@
   ],
   "redirectAliasesExcluded": [
     "/comics",
+    "/csat/diagnosis/attempts/new",
     "/csat/space",
     "/library",
     "/my",
