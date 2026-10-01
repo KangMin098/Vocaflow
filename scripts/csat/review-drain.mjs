@@ -109,8 +109,9 @@ async function precheckMany(analyses) {
   const out = new Map()
   const units = await loadCurrentUnits(db, analyses.map((a) => a.item_id))
   for (let i = 0; i < analyses.length; i += 200) {
+    // 서술 필드 전부를 읽는다 — checkUnitRefs 는 받은 행 전체에서 [uN] 을 찾으므로 안 읽은 필드(풀이 절차 등)의 번호는 놓친다.
     // 검사한 입력의 해시를 «같은 읽기»에서 함께 잡는다 — 나중에 다시 읽으면 검사하지 않은 새 판에 옛 결과가 붙는다(Codex 리뷰)
-    const { data, error } = await db.from('csat_item_analyses').select('id, item_id, answer_locus, choice_analysis, answer_unknown, csat_analysis_hash')
+    const { data, error } = await db.from('csat_item_analyses').select('id, item_id, answer_locus, choice_analysis, solve_procedure, measured_ability, design_intent, answer_unknown, csat_analysis_hash')
       .in('id', analyses.slice(i, i + 200).map((a) => a.id))
     if (error) die(error.message)
     for (const r of data) {
