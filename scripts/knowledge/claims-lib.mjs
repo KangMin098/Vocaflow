@@ -74,6 +74,12 @@ export function validateClaim(raw, taxonomy) {
     }
     if (!['A', 'B', 'C'].includes(c.grade)) errors.push('grade: import 는 A | B | C')
     if (c.grade === 'A' && seg == null) errors.push('grade A: 대조한 segment(시작·종료 초 + 재서술)가 있어야 한다')
+    // 적재기는 방법 + 절차를 한 문장으로 합친다. DB 한도를 넘으면 잘라 넣지 않고 여기서 돌려보낸다 —
+    // 잘린 채 들어가면 재실행도 「이미 있음」으로 건너뛰어 잘린 상태가 굳는다(Codex 리뷰 P2, 2026-10-01).
+    if (errors.length === 0) {
+      const len = composeStatement(c).length
+      if (len > STATEMENT_MAX) errors.push(`method + procedure: 합친 문장 ${len}자 > ${STATEMENT_MAX}자 — 주장을 나누거나 줄인다(잘라 넣지 않는다)`)
+    }
   } else if (typeof c.reason !== 'string' || c.reason.trim() === '') {
     errors.push(`reason: ${c.verdict} 는 사유 필수`)
   }
@@ -82,6 +88,14 @@ export function validateClaim(raw, taxonomy) {
 }
 
 /** 초 → "m:ss–m:ss" (등록부 locator 형식). */
+/** 등록부 statement 한도 — knowledge_items.statement CHECK(1~1500). */
+export const STATEMENT_MAX = 1500
+
+/** 방법 + 절차 → 등록부 statement. 적재기와 검증기가 **같은 함수**를 쓴다(길이 판정이 어긋나지 않게). */
+export function composeStatement(c) {
+  return `${c.method.trim()} — 절차: ${c.procedure.map((s, k) => `${k + 1}) ${s.trim()}`).join(' ')}`
+}
+
 export function formatSegment(seg) {
   const t = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`
   return `${t(seg.startSec)}–${t(seg.endSec)}`

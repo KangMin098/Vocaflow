@@ -12,7 +12,7 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { createScriptClient } from '../lib/supabase-client.mjs'
-import { KIND_ATTRIBUTION, UNSPECIFIED, formatSegment, validateClaim } from './claims-lib.mjs'
+import { KIND_ATTRIBUTION, UNSPECIFIED, composeStatement, formatSegment, validateClaim } from './claims-lib.mjs'
 
 const [file, outDir] = process.argv.slice(2).filter((a) => !a.startsWith('--'))
 const COMMIT = process.argv.includes('--commit')
@@ -61,7 +61,8 @@ const rows = lines.map((line, i) => {
       layer: 'practice',
       slug: 'yt-' + crypto.createHash('sha1').update(raw.claimId).digest('hex').slice(0, 12),
       title: raw.method.trim().slice(0, 120),
-      statement: `${raw.method.trim()} — 절차: ${raw.procedure.map((s, k) => `${k + 1}) ${s.trim()}`).join(' ')}`.slice(0, 1500),
+      // 자르지 않는다 — 길이는 검증(claims-lib)이 이미 막았다. 잘린 문장이 들어가면 재실행으로 못 고친다
+      statement: composeStatement(raw),
       skill_ids: axis(raw.skill),
       condition_ids: [...axis(raw.audience), ...axis(raw.conditions)],
       status: 'extracted',

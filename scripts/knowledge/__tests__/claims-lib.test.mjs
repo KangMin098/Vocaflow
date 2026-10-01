@@ -1,7 +1,7 @@
 // scripts/knowledge/__tests__/claims-lib.test.mjs — node --test scripts/knowledge/__tests__/claims-lib.test.mjs (Windows 는 폴더 경로를 못 받는다)
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { KIND_ATTRIBUTION, formatSegment, validateClaim } from '../claims-lib.mjs'
+import { KIND_ATTRIBUTION, STATEMENT_MAX, composeStatement, formatSegment, validateClaim } from '../claims-lib.mjs'
 
 const TAX = new Map([
   ['skill:reading', 'skill'],
@@ -72,6 +72,15 @@ test('보류·제외는 사유 필수, 판정 없는 줄은 거부', () => {
 
 test('구간 재서술 길이 제한(원문 인용 방지)', () => {
   assert.equal(validateClaim({ ...good, segment: { ...good.segment, paraphrase: 'x'.repeat(301) } }, TAX).ok, false)
+})
+
+test('합친 문장이 DB 한도를 넘으면 잘라 넣지 않고 검증 실패 — 재실행으로 못 고치는 잘린 적재를 막는다', () => {
+  const long = { ...good, procedure: ['가'.repeat(800), '나'.repeat(800)] }
+  assert.ok(composeStatement(long).length > STATEMENT_MAX)
+  const r = validateClaim(long, TAX)
+  assert.equal(r.ok, false)
+  assert.ok(r.errors.some((e) => e.includes('합친 문장')))
+  assert.equal(validateClaim({ ...good, procedure: ['가'.repeat(700)] }, TAX).ok, true)
 })
 
 test('초 → m:ss–m:ss', () => {
