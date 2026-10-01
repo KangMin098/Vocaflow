@@ -19,6 +19,7 @@ import { CCP_HELP } from './comic'
 import { COMPOSE_HELP } from './compose'
 import { CSAT_HELP } from './csat'
 import { KICE_HELP } from './kice'
+import { KNOWLEDGE_HELP } from './knowledge'
 import { LCP_HELP } from './curation'
 import { OPS_HELP } from './ops'
 import { PDCP_HELP } from './pd-comics'
@@ -34,6 +35,7 @@ export const HELP_REGISTRY: HelpRegistry = {
   ...COMPOSE_HELP,
   ...CSAT_HELP,
   ...KICE_HELP,
+  ...KNOWLEDGE_HELP,
   ...LCP_HELP,
   ...CCP_HELP,
   ...PDCP_HELP,

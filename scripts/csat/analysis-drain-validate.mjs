@@ -10,10 +10,14 @@
 //   사람 검수는 그럴듯한 것을 통과시킨다. 문자열 대조는 안 봐준다.
 //
 // 실행: node scripts/csat/analysis-drain-validate.mjs [--chunk 1]
+//       (적재기는 `--strict --chunk <정확한 이름,…>` 로 부른다 — 적재할 파일과 같은 목록)
 // 실패하면 exit 1.
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { CORPUS_FILE, WORK_DIR } from './lib-drain-set.mjs'
+import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { checkUnitRefs } from './lib-evidence-units.mjs'
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -21,8 +25,8 @@ const arg = (n, d = null) => {
 }
 
 const DIR = path.resolve('scripts/csat/data')
-const WORK = path.resolve('scripts/csat/analysis-drain')
-const corpus = JSON.parse(fs.readFileSync(path.join(DIR, 'corpus.json'), 'utf8'))
+const WORK = WORK_DIR
+const corpus = JSON.parse(fs.readFileSync(CORPUS_FILE, 'utf8'))
 const itemOf = new Map(corpus.items.map((it) => [it.id, it]))
 
 const PERSONAS = ['setter', 'analyst', 'tutor']
@@ -161,8 +165,17 @@ function quotesChoice(why, it) {
   return false
 }
 
-const all = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
-const files = arg('chunk') ? all.filter((f) => f.includes(arg('chunk'))) : all
+// `--strict` 는 적재기가 부르는 모드다 — 적재기와 **같은 함수·같은 규칙**으로 목록을 만든다(lib-drain-select).
+// 없으면 분석 에이전트의 자기 점검용(파일 이름 조각).
+let files
+try {
+  files = selectOutFiles(WORK, chunkArgs(process.argv), { loose: !process.argv.includes('--strict') })
+} catch (e) {
+  if (!(e instanceof DrainSelectError)) throw e
+  console.log(`  ✗ ${e.message}`)
+  process.exit(1)
+}
+if (process.argv.includes('--strict') && process.argv.includes('--chunk')) console.log(`  검사 파일: ${files.join(' · ')}`)
 
 if (!files.length) {
   console.log('  검사할 .out.json 이 없다')
@@ -209,6 +222,42 @@ for (const f of files) {
   }
   const bad = (id, msg) => fails.push(`${f} ${id} — ${msg}`)
   const warn = (id, msg) => warns.push(`${f} ${id} — ${msg}`)
+
+  // 원본 청크가 실어 보낸 근거 단위 목록(학평). 없으면 옛 청크 — V9 를 건너뛴다
+  const srcUnits = new Map()
+  {
+    const srcPath = path.join(WORK, f.replace('.out.json', '.json'))
+    if (fs.existsSync(srcPath)) {
+      try {
+        for (const it of JSON.parse(fs.readFileSync(srcPath, 'utf8')).items ?? []) {
+          if (it.units !== undefined) srcUnits.set(it.item_id, it)
+        }
+      } catch { /* 원본 청크 파싱 실패는 V7 이 따로 알린다 */ }
+    }
+  }
+
+  // ── 검수 틀 찍기 ───────────────────────────────────────────────────
+  // 3인 검수는 **문항마다** 한 판정이어야 한다. 한 페르소나의 findings 가 청크 문항 절반 이상에
+  // 글자 그대로 반복되면(숫자만 다른 것 포함) 그것은 검수가 아니라 스크립트가 찍은 틀이다.
+  // 실측 2026-09-28 학평 드레인: 4문항 이상 청크 42개 중 40개가 이 모양이었다(「1차 반려(revise)…」
+  // 까지 12문항에 똑같이 찍혀 있었다). 평가원 드레인 81청크는 0건 — 정상 검수는 여기 안 걸린다.
+  {
+    const A = (j.analyses ?? []).filter((a) => a.item_id)
+    if (A.length >= 4) {
+      for (const persona of ['setter', 'analyst', 'tutor']) {
+        const seen = new Map()
+        for (const a of A) {
+          const r = (a.reviews ?? []).find((x) => x.persona === persona)
+          const key = JSON.stringify(r?.findings ?? []).replace(/\d+/g, '#')
+          seen.set(key, (seen.get(key) ?? 0) + 1)
+        }
+        const top = Math.max(...seen.values())
+        if (top / A.length >= 0.5) {
+          bad('(청크)', `${persona} 검수 소견이 ${A.length}문항 중 ${top}문항에 똑같다 — 문항별 검수가 아니라 틀로 찍은 것이다. 문항마다 실제로 본 것을 적어라`)
+        }
+      }
+    }
+  }
 
   for (const a of j.analyses ?? []) {
     // 나중 원장이 이 문항을 다시 썼으면 여기서는 건너뛴다(§나중 파일만 본다)
@@ -324,7 +373,8 @@ for (const f of files) {
         if (!c.how_to_reject || c.how_to_reject.length < 10) bad(id, `선지 ${c.n} 의 how_to_reject 가 부실하다`)
         // **배제 근거에 위치가 있어야 한다.** "지문과 다르다" 는 검증도 재현도 안 된다 —
         // 학습자가 그 자리를 직접 짚어 확인할 수 있어야 길 안내가 된다(실측 473/606 만 갖췄다).
-        else if (!/문장|줄|번째|앞|뒤|단락|첫|끝|마지막|[a-zA-Z]{4}/.test(c.how_to_reject)) {
+        // 근거 단위 표기 `[u5]` 도 위치다(§1-a) — 빠뜨렸더니 교정 에이전트가 경고를 끄려고 영어 어구를 덧붙였다(2026-09-29)
+        else if (!/문장|줄|번째|앞|뒤|단락|첫|끝|마지막|\[u\d+\]|[a-zA-Z]{4}/.test(c.how_to_reject)) {
           warn(id, `선지 ${c.n} 의 how_to_reject 에 위치·인용이 없다 — "${c.how_to_reject.slice(0, 40)}…"`)
         }
       }
@@ -360,6 +410,17 @@ for (const f of files) {
           }
         }
         if (norm(q).length < 20) warn(id, '인용이 20자 미만 — 근거로 삼기엔 짧다')
+      }
+    }
+
+    // V9 근거 단위 — 청크가 목록을 실어 보냈거나 분석이 units_hash 를 적었으면 검사한다
+    {
+      const src = srcUnits.get(a.item_id)
+      if (src?.units || a.units_hash) {
+        if (!src?.units) bad(id, 'units_hash 가 있는데 원본 청크에 근거 단위 목록이 없다 — 청크를 지웠거나 목록이 없는 문항이다')
+        else if (a.units_hash !== src.units_hash || a.units_version !== src.units_version) {
+          bad(id, '분석의 units_version·units_hash 가 청크의 목록과 다르다 — 청크 값을 그대로 옮겨 적는다')
+        } else checkUnitRefs(a, src.units, bad, warn, id)
       }
     }
 

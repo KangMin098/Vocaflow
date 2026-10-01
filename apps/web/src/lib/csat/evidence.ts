@@ -24,6 +24,8 @@ import {
   type EvidenceExam,
   type EvidenceItem,
   type EvidenceType,
+  type EvidenceScope,
+  KICE_SCOPE,
 } from './evidence-fold'
 import { normalizeForMatch } from './quote-match'
 import { HAKPYEONG_ID_PREFIX } from './exam-id'
@@ -167,7 +169,7 @@ function quoteLocated(passage: string | null, quote: string | null | undefined):
  * `csat_analysis_reviews` 9,207행 · `csat_items` 802행. 전부 `selectAllPages` 를 지나간다.
  * (이 저장소는 PostgREST 가 **오류 없이 1,000행에서 자르는** 것에 여러 번 데었다.)
  */
-export async function loadEvidence(): Promise<EvidenceData> {
+export async function loadEvidence(scope: EvidenceScope = KICE_SCOPE): Promise<EvidenceData> {
   const db = createCsatClient()
   const empty: EvidenceData = {
     items: [],
@@ -177,6 +179,9 @@ export async function loadEvidence(): Promise<EvidenceData> {
     loadError: null,
   }
 
+  /** 문항·분석 id 범위: 평가원은 학평 접두어 «아님», 학평은 그 학년만(`H____G3%` — 문항 id 도 회차 id 로 시작한다) */
+  const idPattern = scope.set === 'kice' ? `${HAKPYEONG_ID_PREFIX}%` : `${HAKPYEONG_ID_PREFIX}____G${scope.grade}%`
+
   // ── 1단계: 가벼운 것 + 「어느 판이 최신인가」만 ───────────────────────
   //
   // 분석은 덮지 않고 **버전을 올려 새 행**으로 쌓인다 — 802문항에 3,069행이다. 무거운 칸
@@ -184,8 +189,10 @@ export async function loadEvidence(): Promise<EvidenceData> {
   // 것으로 끝나지 않고 **statement timeout 으로 빈 화면이 된다**(실측 2026-09-16). 그래서
   // 먼저 id·버전만 받아 최신 802개를 고르고, 무거운 칸은 그 802개만 가져온다.
   const [examsRes, typesRes, reportsRes, itemsPaged, headsPaged] = await Promise.all([
-    // 평가원 회차만(학평은 보조·검증 집합) — 조건을 직접 적는 이유는 exam-id.ts 「DB 질의 범위」
-    db.from('csat_exams').select('id, label, kind, year, month').eq('organizer', 'kice'),
+    // 범위(평가원 · 학평 학년 하나) — 조건을 직접 적는 이유는 exam-id.ts 「DB 질의 범위」
+    scope.set === 'kice'
+      ? db.from('csat_exams').select('id, label, kind, year, month').eq('organizer', 'kice')
+      : db.from('csat_exams').select('id, label, kind, year, month').eq('organizer', 'edu_office').eq('grade', scope.grade),
     db.from('csat_types').select('id, name, status').eq('in_scope', true),
     db
       .from('csat_type_reports')
@@ -202,12 +209,12 @@ export async function loadEvidence(): Promise<EvidenceData> {
         .from('csat_items')
         .select('id, exam_id, no, type_id, points, answer, answers, high_score, body_ok, passage')
         .eq('in_scope', true)
-        .not('exam_id', 'like', `${HAKPYEONG_ID_PREFIX}%`)
+        .filter('exam_id', scope.set === 'kice' ? 'not.like' : 'like', idPattern)
         .order('id', { ascending: true })
         .range(from, to),
     ),
     selectAllPages<{ id: string; item_id: string; version: number }>((from, to) =>
-      db.from('csat_item_analyses').select('id, item_id, version').eq('status', 'published').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
+      db.from('csat_item_analyses').select('id, item_id, version').eq('status', 'published').filter('item_id', scope.set === 'kice' ? 'not.like' : 'like', idPattern).range(from, to),
     ),
   ])
 
@@ -268,7 +275,8 @@ export async function loadEvidence(): Promise<EvidenceData> {
 
   const examRows = (examsRes.data ?? []) as ExamRow[]
   const typeRows = (typesRes.data ?? []) as TypeRow[]
-  const reportRows = (reportsRes.data ?? []) as ReportRow[]
+  // 유형 리포트는 평가원 분석으로 만든 것이다 — 학평 문항을 그 잣대로 결함 판정하지 않는다
+  const reportRows = (scope.set === 'kice' ? (reportsRes.data ?? []) : []) as ReportRow[]
 
   const examById = new Map(examRows.map((e) => [e.id, e]))
   const typeById = new Map(typeRows.map((t) => [t.id, t]))
@@ -328,7 +336,10 @@ export async function loadEvidence(): Promise<EvidenceData> {
 
     const defects: DefectCode[] = []
     if (!it.body_ok) defects.push('body')
-    if (!located) defects.push('quote')
+    // 분석이 없으면 인용을 잴 수 없다 — 결함이 아니라 아직 채우지 않은 몫이다. **결함 목록에 넣지 않는다**:
+    // 넣으면 「원천 검토 필요」 수·행 배지·상세에 섞여 미분석 924문항이 결함처럼 보인다(PR #125 재리뷰).
+    // 미분석은 `analysisVersion == null` 로 따로 센다(evidence-operations 의 「분석 없음」 작업).
+    if (a && !located) defects.push('quote')
     if (it.high_score !== (points === 3)) defects.push('scoring')
     if (answerCount > 1) defects.push('answerKey')
     if (it.type_id && typeTextBad.has(it.type_id)) defects.push('reportText')
@@ -341,7 +352,7 @@ export async function loadEvidence(): Promise<EvidenceData> {
       examId: it.exam_id,
       examLabel: exam?.label ?? it.exam_id,
       year: exam?.year ?? 0,
-      kind: exam?.kind === 'suneung' ? 'suneung' : 'mock',
+      kind: exam?.kind === 'suneung' ? 'suneung' : exam?.kind === 'hakpyeong' ? 'hakpyeong' : 'mock',
       no: it.no,
       typeId: it.type_id ?? '—',
       typeName: type?.name ?? it.type_id ?? '미분류',
@@ -370,7 +381,7 @@ export async function loadEvidence(): Promise<EvidenceData> {
   const exams: EvidenceExam[] = examRows.map((e) => ({
     id: e.id,
     label: e.label,
-    kind: e.kind === 'suneung' ? 'suneung' : 'mock',
+    kind: e.kind === 'suneung' ? 'suneung' : e.kind === 'hakpyeong' ? 'hakpyeong' : 'mock',
     year: e.year,
     month: e.month,
     items: itemsPerExam.get(e.id) ?? 0,

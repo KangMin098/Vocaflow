@@ -61,8 +61,10 @@ export function itemBlocks(exam, no) {
   const ls = lines(exam)
   if (!ls) return []
   const starts = []
-  const re = new RegExp(`^\\s*${no}\\s*[.．]`)
-  const reNext = new RegExp(`^\\s*${no + 1}\\s*[.．]`)
+  // `(?!\d)` — 마침표 뒤에 숫자가 오면 문항 머리가 아니라 수치다. 도표 문항의 «32.4» 가
+  // 32번 머리로 잡혀 32번 지문 자리에 도표 본문이 붙었다(2026-09-28 학평 H2306G1#32).
+  const re = new RegExp(`^\\s*${no}\\s*[.．](?!\\d)`)
+  const reNext = new RegExp(`^\\s*${no + 1}\\s*[.．](?!\\d)`)
   ls.forEach((l, i) => { if (re.test(l)) starts.push(i) })
   // 다음 문항 번호에서 끊는다. **세트 머리글 `[41~42]` 에서도 끊어야 한다** —
   // 40번은 바로 뒤가 장문 세트라, 머리글을 무시하면 41번 줄까지 넘어가
@@ -81,7 +83,7 @@ export function itemBlocks(exam, no) {
   //    실측 2026-09-02: `,         36.`(앞에 쉼표) · `② …equality        36.`(줄 끝에서 끝남) ·
   //    `* deterioration: (품질의) 저하        40. 다음 글의…`(각주 뒤). 앞뒤로 무엇이 오든
   //    **두 칸 이상 띄운 뒤의 번호**면 문항 머리로 본다.
-  const mid = new RegExp(`\\s{2,}${no}\\s*[.．]`)
+  const mid = new RegExp(`\\s{2,}${no}\\s*[.．](?!\\d)`)
   ls.forEach((l, i) => { if (!starts.includes(i) && mid.test(l)) starts.push(i) })
 
   // 개별 번호가 어디에도 없는 문항이 있다 — 세트 머리글만 있는 경우다.
@@ -127,7 +129,7 @@ export function setBlockFor(exam, no) {
   const h = heads.find((x) => no >= x.from && no <= x.to)
   if (!h) return null
   // 세트 지문은 머리글 다음부터 첫 문항 번호 직전까지
-  const end = ls.findIndex((l, k) => k > h.i && new RegExp(`^\\s*${h.from}\\s*[.．]`).test(l))
+  const end = ls.findIndex((l, k) => k > h.i && new RegExp(`^\\s*${h.from}\\s*[.．](?!\\d)`).test(l))
   return ls.slice(h.i + 1, end < 0 ? Math.min(h.i + 80, ls.length) : end)
 }
 

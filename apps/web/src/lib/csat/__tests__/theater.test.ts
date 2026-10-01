@@ -118,6 +118,14 @@ describe('blockKeyForTarget — 차례와 블록을 잇는다', () => {
 })
 
 describe('theaterBlocks — 오른쪽 부가 정보', () => {
+  it('인용 표시 상한 여부를 전달해도 설명과 풀이 절차는 보존한다', () => {
+    const normal = theaterBlocks(FULL)
+    const truncated = theaterBlocks({ ...FULL, evidence_quote_truncated: true })
+    expect(truncated.find((b) => b.kind === 'answer')?.quoteTruncated).toBe(true)
+    expect(normal.find((b) => b.kind === 'answer')?.quoteTruncated).toBe(false)
+    expect(truncated.map((b) => b.body)).toEqual(normal.map((b) => b.body))
+  })
+
   it('있는 것만 그린다', () => {
     const kinds = theaterBlocks(FULL).map((b) => b.kind)
     expect(kinds).toEqual(['head', 'ability', 'intent', 'answer', 'reject', 'reject', 'procedure', 'vocab'])

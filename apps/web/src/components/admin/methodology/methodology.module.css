@@ -1,0 +1,73 @@
+/* apps/web/src/components/admin/methodology/methodology.module.css */
+.workbench { color: var(--t1); max-width: 1500px; margin: auto; word-break: keep-all; overflow-wrap: anywhere; }
+.workbench button, .workbench input, .workbench select, .workbench summary { min-height: 44px; }
+.workbench button, .workbench a, .workbench summary { transition: opacity var(--dur-normal) var(--ease); }
+.workbench button { text-align: left; color: var(--p); padding: 8px 12px; border: 1px solid var(--bd); background: var(--bg); }
+.workbench button:hover, .workbench a:hover, .workbench summary:hover { opacity: .8; }
+.workbench button:active, .workbench a:active, .workbench summary:active { opacity: .65; }
+.workbench button:focus-visible, .workbench a:focus-visible, .workbench summary:focus-visible, .workbench input:focus-visible, .workbench select:focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
+.workbench button:disabled { opacity: .5; cursor: not-allowed; }
+.workbench button[aria-pressed=true] { border-color: var(--p); background: var(--bg2); font-weight: 600; }
+.workbench a { color: var(--p); text-decoration: underline; text-underline-offset: 3px; display: inline-flex; align-items: center; min-height: 44px; }
+.workbench label { display: flex; flex-direction: column; gap: 6px; color: var(--t2); font-size: 13px; }
+.workbench select, .workbench input[type=search] { background: var(--bg); color: var(--t1); border: 1px solid var(--bd); padding: 8px; min-width: 0; width: 100%; }
+.workbench small { display: block; color: var(--t2); font-size: 12px; font-weight: 400; margin-top: 6px; }
+.workbench details > summary { cursor: pointer; padding: 12px 0; font-weight: 600; color: var(--p); }
+.workbench details p { line-height: 1.7; margin-bottom: 12px; }
+.notice { border-left: 2px solid var(--p); padding: 8px 14px; font-size: 13px; color: var(--t2); max-width: 1000px; }
+.notice strong { font-weight: 500; }
+.filters { display: flex; align-items: end; flex-wrap: wrap; gap: 12px; margin: 24px 0 12px; }
+.filters label { flex: 1 1 130px; max-width: 220px; }
+.scope { font-size: 13px; padding-bottom: 16px; color: var(--t2); }
+.sheet { display: grid; grid-template-columns: minmax(180px, 22%) minmax(0, 1fr); border-top: 2px solid var(--p); border-bottom: 1px solid var(--bd); background: var(--bg); }
+.index { border-right: 1px solid var(--bd); padding: 24px 14px 24px 0; }
+.index h2 { font-size: 14px; padding: 0 10px 16px; }
+.indexEntry { border-bottom: 1px solid var(--bd); padding-bottom: 10px; margin-bottom: 12px; }
+.workbench .methodButton { width: 100%; display: flex; gap: 12px; border: none; font-size: 14px; line-height: 1.7; }
+.number { font-family: var(--font-mono); color: var(--ju); }
+.workbench .compareCheck { flex-direction: row; align-items: center; margin-left: 12px; min-height: 44px; cursor: pointer; }
+.compareCheck input { width: 18px; accent-color: var(--p); margin-right: 6px; }
+.paper { padding: 26px clamp(16px, 3vw, 40px); min-width: 0; }
+.eyebrow { font-size: 12px; color: var(--t2); display: flex; justify-content: space-between; gap: 12px; }
+.eyebrow span { color: var(--ju); }
+.statement { font-size: clamp(20px, 2vw, 26px); font-family: var(--font-ko-display); font-weight: 500; line-height: 1.65; max-width: 780px; margin: 14px 0; }
+.tags { font-size: 12px; color: var(--t2); line-height: 1.8; }
+.meta { font-size: 12px; line-height: 1.8; border-bottom: 1px solid var(--bd); padding: 14px 0 20px; margin-bottom: 8px; color: var(--t2); }
+.claimRow { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border-bottom: 1px solid var(--bd); }
+.workbench .claim { display: grid; grid-template-columns: 64px minmax(0, 1fr); align-content: start; gap: 12px; border: none; color: var(--t1); padding: 18px 20px 18px 0; font-size: 15px; line-height: 1.8; background: transparent; }
+.kind { font-size: 12px; color: var(--t2); }
+.claimRow[data-expanded=true] .claim { color: var(--p); }
+.margin { border-left: 1px solid var(--ju); padding: 14px 0 14px 22px; position: relative; font-size: 12px; line-height: 1.7; }
+.margin[hidden] { display: none; }
+.citation { position: relative; }
+.connector { position: absolute; left: -29px; top: 4px; color: var(--ju); background: var(--bg); }
+.citation a { font-weight: 600; font-size: 13px; }
+.note { color: var(--t2); padding-top: 8px; }
+.missing { padding: 16px 0 8px; color: var(--t2); font-size: 12px; }
+.expansion { border-bottom: 1px solid var(--bd); padding: 8px 0 12px; }
+.expansion > summary { font-size: 16px; }
+.expansion > p { font-size: 13px; color: var(--t2); }
+.comparison { display: flex; flex-wrap: wrap; gap: 26px; padding: 18px 0; }
+.comparison > section { flex: 1 1 260px; border-left: 2px solid var(--p); padding: 0 18px; }
+.comparison h3 { font-size: 18px; line-height: 1.7; margin-bottom: 16px; }
+.comparison dl > div { margin-bottom: 18px; }
+.comparison dt { font-size: 12px; color: var(--t2); margin-bottom: 5px; }
+.comparison dd { font-size: 14px; line-height: 1.8; }
+.tableScroll { overflow-x: auto; max-width: 100%; }
+.tableScroll table { width: 100%; border-collapse: collapse; }
+.tableScroll caption { text-align: left; padding: 14px 0; }
+.tableScroll th, .tableScroll td { border-bottom: 1px solid var(--bd); padding: 8px; text-align: left; }
+.tableScroll button { width: 100%; white-space: nowrap; font-family: var(--font-mono); }
+.tableScroll small { font-family: var(--font-display); }
+.expansion h3 { margin: 20px 0 12px; }
+.expansion ul { list-style: disc; margin-left: 20px; font-size: 13px; }
+.experts { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 24px; }
+.sources { display: grid; grid-template-columns: minmax(180px, 38%) minmax(0, 1fr); gap: 24px; margin-top: 18px; }
+.sourceList { max-height: 420px; overflow-y: auto; padding: 4px; }
+.sourceList button { width: 100%; margin-bottom: 6px; }
+.sources section { border-left: 1px solid var(--bd); padding-left: 24px; font-size: 14px; }
+.sources h4 { margin: 18px 0 8px; }
+.footer { padding: 24px 0; color: var(--t2); font-size: 11px; }
+@media (max-width: 1100px) { .claimRow { grid-template-columns: 1fr; } .margin { margin: 0 0 18px 76px; } }
+@media (max-width: 700px) { .sheet { grid-template-columns: 1fr; } .index { border-right: 0; border-bottom: 1px solid var(--bd); padding: 16px 0 0; } .paper { padding: 20px 12px; } .filters label { max-width: none; } .sources { grid-template-columns: 1fr; } .sources section { padding-left: 12px; } .margin { margin-left: 12px; } .claimRow .claim { grid-template-columns: 52px 1fr; } }
+@media (prefers-reduced-motion: reduce) { .workbench button, .workbench a, .workbench summary { transition: opacity var(--dur-fast) var(--ease); } }

@@ -126,6 +126,15 @@ SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **IN
 
 ## 요약
 
+**학습 원리 지식층**
+- `methodology_*` 10개 + RPC `methodology_import` · `methodology_read` — 가져오기 스냅샷 원장(`20260919120000`, 원장 버전 `20260919031959`, 적용됨). 모든 행이 `batch_id` 에 묶인다. 원본 자막 미저장.
+- `knowledge_*` 6개 — 살아 있는 등록부(`20260928120000_knowledge_registry`, 2026-09-28 적용). `knowledge_items`(층 essence·principle·method·practice · 상태 extracted→in_review→adopted/rejected→applied · 반려는 이유 필수 · 문장 변경 시 version+1) · `knowledge_links`(`implements` 는 한 층 위로만 — 트리거 `knowledge_links_check_layer`) · `knowledge_evidence`(등급 A/B/C · stated/inferred · 출처는 methodology 스냅샷 / 기출 원천 / 외부 링크 중 정확히 하나) · `knowledge_csat_origins`(지문 해시 PK · 서지·근거 URL · 등급 A/B/C/G 생성 열 · **지문 원문 열 없음**) · `knowledge_gaps`(원인 5종) · `knowledge_reviews`(상태 전이를 트리거 `knowledge_items_track` 가 자동 기록).
+- `20260928130000_knowledge_evidence_invariants`(2026-09-28 적용 · 규칙 3개 DB 시험 후 되돌림): 기출 원천 근거 등급을 원천에 맞추고 G 거부(`knowledge_evidence_sync_csat_grade`) · 원천 등급 하락 시 채택 항목 재검토·G 면 근거 삭제(`knowledge_csat_origin_regrade`) · 근거 0 이 되면 재검토(`knowledge_evidence_after_delete`).
+- `20260928140000_knowledge_evidence_concurrency`(2026-09-28 적용): 채택·적용 쓰기가 근거 존재를 검사(`knowledge_items_require_evidence`) · 근거 삭제 트리거가 항목 행부터 FOR UPDATE · 기출 근거 추가가 원천 행을 FOR SHARE. 단일 세션 시험 통과 · 두 세션 시험(`scripts/knowledge/concurrency-test.mjs`) **6/6 통과**(2026-09-28 — 뒤쪽이 잠금에 막힘 확인, 시험 데이터 0).
+- `20260928150000_knowledge_regrade_locks_items`(2026-09-28 적용): 원천 재등급 트리거가 그 원천을 근거로 가진 항목 행을 상태와 무관하게 먼저 FOR UPDATE(id 순) — 재등급↔채택 경쟁 보정. 보정 전 실측 4/6 → 보정 후 6/6.
+- `20261001120000_knowledge_evidence_version`(2026-10-01 적용): `knowledge_items.evidence_version` — 근거 추가·삭제·변경(원천 재등급 포함) 때마다 트리거 `knowledge_evidence_bump_version` 이 +1(항목 행 잠금). 상태 변경은 「상태·근거 버전 = 화면에서 본 값」 한 문장 UPDATE. 두 세션 시험 11/11(운영).
+- 전부 RLS · anon/authenticated 권한 없음 · service_role 전용. 씨앗 `scripts/knowledge/import-seed.mjs`(재실행 안전). 설계 [SYSTEM](./methodology/SYSTEM.md) · [단계·검증](./methodology/README.md).
+
 - **테이블**: **107** · **Views**: **11**(+ matview 4) · **Functions**: **360** · **인덱스**: **340** · **Migrations**: **528** · **용량 7,665 MB** (2026-08-31 DB 직접 쿼리 실측)
 - RLS: 107 중 **106** enabled. 유일한 예외 `textbook_shelf_stats_meta` 는 anon 에 GRANT 되어 있지 않다.
 - 주요 계열 — CTP 3종 `reading_fluency_log`·`csat_stage_gates`·`csat_item_attempts` · 추출신뢰 `word_familiarity` · 어원 `word_roots`·`word_root_links` · 추출품질 `extraction_judgments`
@@ -1232,6 +1241,12 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260927153152  csat_exams_hakpyeong                       ← 학평 수용: kind+hakpyeong · organizer(kice|edu_office) · grade · exam_year. csat_items_public·csat_coverage 는 평가원만
 20260927161216  csat_items_public_restore_authenticated_select  ← ⚠ 오판(hide_stem 을 무력화) — 20260927172604 으로 원복
 20260927172604  csat_items_public_rehide_stem                ← authenticated 는 컬럼 단위 SELECT 만(stem 제외) — hide_stem 원복
+20260928140054  csat_hakpyeong_hold_self_reviewed            ← 학평 분석 328건(첫 묶음 300 + 파일럿 28) published → in_review — 자기 검수(틀 찍기)라 독립 검수 전 보류
+20260928141215  csat_hakpyeong_independent_review_gate       ← 학평 발행 게이트: csat_review_runs(실행·두 단계 독립 풀이) · csat_independent_reviews(회차 누적) · DB 계산 해시 박제 · 자기 검수/풀이 전 공개/변경 뒤 승인 차단 · 변경·철회 시 자동 in_review
+20260928141253  csat_hakpyeong_gate_hygiene                  ← csat_analysis_hash search_path 고정 · 새 트리거 함수 anon/authenticated 실행 회수
+20260928143924  csat_hakpyeong_rereview_link                 ← 게이트 v2: csat_review_runs.kind(blind|rereview)·parent_run_id·solve_answer_hash(+backfilled 18) · 분석만 바뀐 재검수는 같은 문항·페르소나의 최초 블라인드 풀이에 잇는다(원문·정답이 풀이 때와 같을 때만) · rereview 는 solve 불가
+20260928152323  csat_item_units                              ← 근거 단위 목록 csat_item_units(원문 해시·버전별 1행 · lib-evidence-units.mjs 생성 · 학평 2,910) · 분석/검수 units_hash · 학평 게이트: 목록 불일치·목록 없이 박제된 승인 불인정 · 목록 변경 시 자동 in_review · R-CHART 발행 보류(도표 이미지 근거 없음)
+20260930190349  csat_review_stamp_at_reveal                  ← 게이트 v3(PR #126 리뷰): 검수 해시를 공개(reveal) 시점에 박제·제출 시 대조 · blind 풀이=공개 입력 · 게이트는 NEW 로 판정(csat_valid_review_personas_row)·현재 근거 목록 대조 · 게이트 트리거가 analyst_run/units_hash/units_version 변경에도 · 발행·목록 쓰기 같은 행 잠금 · 목록 쓰기 시점 원문 대조 · RPC csat_current_units_many / csat_units_build_input / csat_valid_review_personas_many / csat_rereview_parent / csat_publish_hakpyeong
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)
 20260912235900  funnel_events_video                        ← 영상 관측 2종을 허용목록에 (없으면 조용히 버려진다)
 20260906093000  grade_dcp_item_explain_on_correct          ← 정답일 때도 해설을 돌려준다

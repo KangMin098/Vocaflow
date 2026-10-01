@@ -116,6 +116,8 @@ export interface TheaterBlock {
   body: string[]
   /** 근거 인용(짧은 발췌) — 없으면 null */
   quote: string | null
+  /** 표시 상한으로 붙인 말줄임표만 매칭에서 제외한다. */
+  quoteTruncated?: boolean
 }
 
 /** 블록을 만들 때 필요한 것만 — 로더의 전체 모양에 묶이지 않게 좁혀 받는다 */
@@ -136,6 +138,7 @@ export interface TheaterSource {
   design_intent: string | null
   why_correct: string | null
   evidence_quote: string | null
+  evidence_quote_truncated?: boolean
   evidence_reasoning: string | null
   distractors: { n: number; trap: string | null; why_tempting: string | null; how_to_reject: string | null }[]
   procedure: { step: string; on_fail?: string }[]
@@ -222,6 +225,7 @@ export function theaterBlocks(item: TheaterSource): TheaterBlock[] {
       ],
       body: [...text(item.why_correct), ...text(item.evidence_reasoning)],
       quote: item.evidence_quote?.trim() || null,
+      quoteTruncated: item.evidence_quote_truncated === true,
     })
   }
 

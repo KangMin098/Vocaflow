@@ -125,7 +125,7 @@ export interface EvidenceItem {
   examLabel: string
   /** 학년도. `csat_exams.year`. */
   year: number
-  kind: 'suneung' | 'mock'
+  kind: 'suneung' | 'mock' | 'hakpyeong'
   no: number
   typeId: string
   typeName: string
@@ -165,7 +165,7 @@ export interface EvidenceItem {
 export interface EvidenceExam {
   id: string
   label: string
-  kind: 'suneung' | 'mock'
+  kind: 'suneung' | 'mock' | 'hakpyeong'
   year: number
   month: number
   items: number
@@ -181,6 +181,32 @@ export interface EvidenceType {
   reportN: number | null
   /** 학습자 화면에 나가는 세 필드에서 발견된 작업 로그 표지. 비어야 배포 가능하다. */
   analystMeta: string[]
+}
+
+/**
+ * **근거 매트릭스가 보는 집합.** 평가원(본 근거 집합)이 기본이고, 학평은 학년 하나씩 본다
+ * (104회차를 한 매트릭스에 펴면 열이 읽히지 않는다). 학평은 보조·검증 집합이라 학습자 배포
+ * 판정(준비도)과 평가원 유형 리포트 대조 결함(reportText·reportCount)을 적용하지 않는다.
+ */
+export type EvidenceScope = { set: 'kice' } | { set: 'hakpyeong'; grade: 1 | 2 | 3 }
+export const KICE_SCOPE: EvidenceScope = { set: 'kice' }
+
+type ScopeParams = URLSearchParams | Record<string, string | string[] | undefined>
+export function parseEvidenceScope(params: ScopeParams = {}): EvidenceScope {
+  const get = (key: string) => {
+    const v = params instanceof URLSearchParams ? params.get(key) : params[key]
+    return (Array.isArray(v) ? v[0] : v) ?? ''
+  }
+  if (get('set') !== 'hakpyeong') return KICE_SCOPE
+  const g = Number(get('grade'))
+  return { set: 'hakpyeong', grade: g === 1 || g === 2 ? g : 3 }
+}
+/** URL 에 싣는 범위 조각 — 평가원(기본)은 싣지 않는다 */
+export function scopeQuery(scope: EvidenceScope): string {
+  return scope.set === 'kice' ? '' : `set=hakpyeong&grade=${scope.grade}`
+}
+export function scopeLabel(scope: EvidenceScope): string {
+  return scope.set === 'kice' ? '평가원' : `학평 고${scope.grade}`
 }
 
 export interface EvidenceData {

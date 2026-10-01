@@ -4,11 +4,20 @@ import { createCsatClient } from './client'
 import { loadDissectionCatalog } from './dissect-catalog'
 import { loadEvidence } from './evidence'
 import type { OperationsData, ReadinessAudit } from './evidence-operations'
+import { KICE_SCOPE, type EvidenceScope } from './evidence-fold'
 
 /** Admin entry points must authenticate first. Neither reads nor writes the learner process cache. */
-export async function loadEvidenceOperations(): Promise<OperationsData> {
+export async function loadEvidenceOperations(scope: EvidenceScope = KICE_SCOPE): Promise<OperationsData> {
+  // 학평은 학습자 배포 대상이 아니다 — 준비도(해부 카탈로그 대조)를 재지 않는다
+  if (scope.set !== 'kice') {
+    const data = await loadEvidence(scope).catch((e: unknown) => ({
+      items: [], exams: [], types: [], generatedAt: '',
+      loadError: e instanceof Error ? e.message : '데이터를 읽지 못했습니다.',
+    }))
+    return { ...data, generatedAt: new Date().toISOString(), readiness: null, readinessError: null, scope }
+  }
   const [evidence, dissection] = await Promise.allSettled([
-    loadEvidence(),
+    loadEvidence(scope),
     Promise.resolve().then(() => loadDissectionCatalog({ db: createCsatClient(), fresh: true })),
   ])
   const error = (reason: unknown) =>
@@ -43,5 +52,5 @@ export async function loadEvidenceOperations(): Promise<OperationsData> {
       readiness = null
     }
   }
-  return { ...data, generatedAt: new Date().toISOString(), readiness, readinessError }
+  return { ...data, generatedAt: new Date().toISOString(), readiness, readinessError, scope }
 }

@@ -17,6 +17,7 @@
 // 실행:
 //   node scripts/csat/analysis-drain-export.mjs                 (남은 전부)
 //   node scripts/csat/analysis-drain-export.mjs --type R-BLANK  (한 유형만)
+//   node scripts/csat/analysis-drain-export.mjs --set hakpyeong --exam H2603G3  (학평 · 한 회차만)
 //   node scripts/csat/analysis-drain-export.mjs --size 10       (청크당 문항 수, 기본 12)
 //   node scripts/csat/analysis-drain-export.mjs --limit 5       (청크 수 상한)
 //   node scripts/csat/analysis-drain-export.mjs --redo 2026#30,M1809#30
@@ -25,6 +26,30 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor } from './lib-passage.mjs'
+import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
+import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
+
+// ── 학평: 근거 단위 목록(DB csat_item_units)을 청크에 싣는다 ─────────────
+// 분석자가 지문 문장을 스스로 세지 않게 한다 — 검수자와 같은 번호를 보게 하는 것이 목적이다
+// (2026-09-29 검수 시험: revise 대부분이 문장 번호 오류). 목록이 없는 문항은 싣지 않고 수를 출력한다.
+let unitsDb = null
+if (SET === 'hakpyeong') {
+  const { createClient } = await import('@supabase/supabase-js')
+  const env = (name) => {
+    if (process.env[name]) return process.env[name]
+    for (const f of ['.env.local', '.env', 'apps/web/.env.local', 'apps/web/.env']) {
+      if (!fs.existsSync(f)) continue
+      const m = fs.readFileSync(f, 'utf8').match(new RegExp(`^${name}\\s*=\\s*(.+)$`, 'm'))
+      if (m) return m[1].trim().replace(/^["']|["']$/g, '')
+    }
+    return null
+  }
+  const u = env('NEXT_PUBLIC_SUPABASE_URL') ?? env('SUPABASE_URL')
+  const k = env('SUPABASE_SERVICE_ROLE_KEY') ?? env('SUPABASE_SERVICE_KEY')
+  if (!u || !k) throw new Error('학평 export 는 근거 단위 목록을 DB 에서 읽는다 — SUPABASE_URL / SERVICE_ROLE_KEY 가 필요하다')
+  unitsDb = createClient(u, k, { auth: { persistSession: false } })
+}
+let unitsMissing = 0
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -32,12 +57,14 @@ const arg = (n, d = null) => {
 }
 
 const DIR = path.resolve('scripts/csat/data')
-const WORK = path.resolve('scripts/csat/analysis-drain')
+const WORK = WORK_DIR // --set hakpyeong 이면 analysis-drain-hakpyeong/
 fs.mkdirSync(WORK, { recursive: true })
 
 const SIZE = Number(arg('size', 12))
 const LIMIT = arg('limit') ? Number(arg('limit')) : Infinity
 const ONLY_TYPE = arg('type')
+/** 한 회차만 — 새 집합의 파일럿용(`--set hakpyeong --exam H2603G3`) */
+const ONLY_EXAM = arg('exam')
 
 /**
  * **이미 끝난 문항을 일부러 다시 뽑는다** — `--redo 2026#30,M1809#30`.
@@ -63,7 +90,8 @@ const REDO = new Set(
 )
 const REDO_TAG = new Date().toISOString().slice(0, 10).replace(/-/g, '')
 
-const corpus = JSON.parse(fs.readFileSync(path.join(DIR, 'corpus.json'), 'utf8'))
+const corpus = JSON.parse(fs.readFileSync(CORPUS_FILE, 'utf8'))
+console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
 
 // ── 이미 채워진 몫 ────────────────────────────────────────────────────
 // out 파일에 있고 **검수 3인이 서로 다른 페르소나로 붙어 있는 것**만 완료로 센다.
@@ -100,6 +128,7 @@ if (REDO.size) {
 const pool = corpus.items
   .filter((it) => it.in_scope)
   .filter((it) => (ONLY_TYPE ? it.type_id === ONLY_TYPE : true))
+  .filter((it) => (ONLY_EXAM ? it.exam === ONLY_EXAM : true))
   .filter((it) => !done.has(it.id))
 
 // 유형별 → 최신 회차 먼저
@@ -232,6 +261,15 @@ outer: for (const [typeId, arr] of types) {
     // 첫 문항 id 로 이름을 지으면 같은 몫은 늘 같은 이름, 다른 몫은 늘 다른 이름이다.
     // 다시 뽑는 몫은 이름에 `redo-<날짜>` 를 끼워 **옛 `.out.json` 을 덮지 않는다.**
     // 같은 문항을 두 번째로 다시 뽑는 날이 와도 날짜가 달라 또 겹치지 않는다.
+    const unitsOf = unitsDb ? await loadCurrentUnits(unitsDb, slice.map((it) => it.id)) : null
+    const packed = slice.map((it) => {
+      const p = pack(it)
+      if (!unitsOf) return p
+      const u = unitsOf.get(it.id)
+      if (!u) { unitsMissing += 1; return { ...p, units: null } }
+      // 분석 출력에 units_version·units_hash 를 그대로 옮겨 적어야 적재된다(import 가 DB 현재 목록과 대조)
+      return { ...p, units_version: u.units_version, units_hash: u.units_hash, units: unitsForAgent(u.units) }
+    })
     const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
     const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
     const payload = {
@@ -255,7 +293,7 @@ outer: for (const [typeId, arr] of types) {
       // 주장을 글로는 못 가른다). **오탐이 잦은 검사는 곧 무시당한다.** 그래서 잡는 대신
       // 처음부터 사실을 쥐여 준다.
       type_answer_distribution: answerDist(typeId),
-      items: slice.map(pack),
+      items: packed,
     }
     fs.writeFileSync(path.join(WORK, name), JSON.stringify(payload, null, 1))
     manifest.push({ seq: n, file: name, type_id: typeId, type_name: slice[0].type_name, count: slice.length })
@@ -266,6 +304,7 @@ fs.writeFileSync(path.join(WORK, '_MANIFEST.json'), JSON.stringify({ built_at: n
 
 const total = corpus.items.filter((it) => it.in_scope).length
 console.log(`  사정권 ${total} · 완료 ${done.size} · 검수 미완 ${partial} · 남은 몫 ${pool.length}`)
+if (unitsMissing) console.log(`  ⚠ 근거 단위 목록이 없는 문항 ${unitsMissing} — units-build.mjs --set hakpyeong --commit 먼저(원문이 바뀌었을 수 있다)`)
 console.log(`  끝난 청크 ${removed}개 삭제 · 새로 뽑은 청크 ${n}개 (청크당 ${SIZE})`)
 // ⚠️ **이미 돌고 있는 청크를 다시 띄우지 않게** 이름을 따로 찍는다.
 //    2026-09-02 에 실제로 겪었다 — 앞 배치에서 띄운 청크가 아직 out 을 안 썼으니 «남은 몫» 에
