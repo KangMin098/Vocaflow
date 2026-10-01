@@ -9,7 +9,7 @@
 ---
 ## Unreleased (v06.34 → next)
 
-- **학습 원리 — 강사 영상 주장 적재 준비**(2026-10-01 · 사용자 승인 · migration `20261001130000_knowledge_evidence_observed`): 요약에서 가져오지 않고 **검토된 주장 단위**만 적재(`claims-import` · 계약 [claim-extraction](./methodology/claim-extraction.md)). 귀속 권고/관찰/추론 · 항목·근거 한 트랜잭션 RPC · 검증기는 형식만(실행 가능성·원문 복사는 검토자 판정). 적재 0 — 10편 원문 대조·145편 재추출 대기.
+- **학습 원리 — 강사 영상 주장 적재 준비**(2026-10-01 · 사용자 승인 · migration `20261001130000_knowledge_evidence_observed`): 요약에서 가져오지 않고 **검토된 주장 단위**만 적재(`claims-import` · 계약 [claim-extraction](./methodology/claim-extraction.md)). 귀속 권고/관찰/추론 · 항목·근거 한 트랜잭션 RPC · 검증기는 형식만(실행 가능성·원문 복사는 검토자 판정). 시범 적재 12(권고 9 · 관찰 3, 전부 A — Codex 10편 원문 대조, 보류 1) · 재실행 건너뜀 12 확인 · 145편 재추출 대기.
 
 - **학습 원리 — 근거 버전 확인**(2026-10-01 · 사용자 승인 · migration `20261001120000_knowledge_evidence_version`): 채택 요청에 화면에서 본 근거 집합 버전을 싣고, 그 사이 근거가 추가·삭제·변경(원천 재등급 포함)되면 거부. 비교와 변경은 한 문장 UPDATE. 두 세션 시험 11/11(운영) · Codex 리뷰 통과.
 - **학평 검수 게이트 v3 — PR #126 리뷰 보정 적용**(2026-10-01 · migration `20260930190349_csat_review_stamp_at_reveal` · 사용자 승인): 검수자가 공개받은 것의 해시로 판정(제출 시 대조) · 게이트는 발행하려는 NEW 로·현재 근거 목록과 대조 · 발행된 행의 판정 칸 변경도 게이트 통과 필요 · 발행·목록 쓰기 동일 잠금(Codex 두 연결 경쟁 시험 통과) · 발행은 서버 함수 csat_publish_hakpyeong · 적용 뒤 기존 발행 46행 재판정 통과.
