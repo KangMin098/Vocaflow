@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest'
 
 import { parseDiagnosticPayload, parseExamPayload, parseProfilePayload, todayKst } from '../../payload'
 import { composeDiagnosticTest } from '../compose'
+import { validateSettings } from '../settings'
 import type { ItemMeta } from '../types'
 
 const KEY = '2b1f6a0e-7c1d-4e8a-9f3b-1a2b3c4d5e6f'
@@ -65,5 +66,12 @@ describe('composeDiagnosticTest', () => {
   it('드문 역량 문항이 먼저 뽑힌다(고르게 덮기)', () => {
     const picked = composeDiagnosticTest(pool, 5, 1)
     expect(picked).toEqual(expect.arrayContaining(['F#1', 'F#2', 'F#3']))
+  })
+})
+
+describe('validateSettings', () => {
+  it('진단 테스트 문항 수는 정수여야 한다(20.5 면 21문항 출제 → 제출 거부)', () => {
+    const errs = validateSettings({ diagnostic_test: { size: 20.5 } }, new Set())
+    expect(errs).toContain('diagnostic_test.size 는 정수')
   })
 })

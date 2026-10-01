@@ -60,5 +60,6 @@ export function validateSettings(s: unknown, knownExams: Set<string>): string[] 
   inRange(x.recommend?.vulnerable_traps, 0, 9, 'recommend.vulnerable_traps')
   inRange(x.recommend?.max_lines, 1, 10, 'recommend.max_lines')
   inRange(x.diagnostic_test?.size, 5, 45, 'diagnostic_test.size')
+  if (num(x.diagnostic_test?.size) && !Number.isInteger(x.diagnostic_test.size)) e.push('diagnostic_test.size 는 정수')
   return e
 }

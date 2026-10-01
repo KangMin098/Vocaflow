@@ -1,6 +1,7 @@
 // apps/web/src/components/csat/diagnosis/DiagnosticTest.tsx
 //
-// 진단 테스트 풀이 — 한 화면에 한 문항. 답을 고르고(모르면 비움), 헷갈렸거나 찍었으면 표시한다.
+// 진단 테스트 풀이 — 한 화면에 한 문항. 학습자는 **자기 문제지**에서 그 회차 그 번호를 풀고 답만 고른다.
+// 원문은 이 화면에 없다(학습자 원문은 기기 PDF 에서만 — csat-learner-brief A5). 헷갈렸거나 찍었으면 표시한다.
 // 키보드: 1~5 고르기 · → 다음 · ← 이전. 마지막에 한 번에 제출한다(채점은 서버).
 
 'use client'
@@ -12,9 +13,8 @@ import { track } from '@/lib/analytics/client'
 
 export interface TestItem {
   id: string
-  stem: string
-  passage: string
-  choices: string[]
+  examLabel: string
+  no: number
 }
 
 type Flag = 'sure' | 'unsure' | 'guess'
@@ -87,10 +87,10 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
         <span>답한 문항 {answered}</span>
       </div>
       <article className="flex flex-col gap-3" aria-labelledby={`q-${item.id}`}>
-        <h2 id={`q-${item.id}`} className="break-keep text-[16px] font-[800] text-[var(--t1)]">{item.stem}</h2>
-        {item.passage && <div className="whitespace-pre-wrap rounded-[var(--r-md)] border border-[var(--bd)] p-4 font-body text-[15px] leading-relaxed text-[var(--t1)]" lang="en">{item.passage}</div>}
-        <div role="radiogroup" aria-label="선지" className="flex flex-col gap-2">
-          {item.choices.map((c, k) => {
+        <h2 id={`q-${item.id}`} className="break-keep text-[18px] font-[800] text-[var(--t1)]">{item.examLabel} {item.no}번</h2>
+        <p className="break-keep font-body text-[14px] text-[var(--t2)]">문제지에서 이 문항을 풀고, 고른 답을 눌러 주세요. 모르면 비워 두세요.</p>
+        <div role="radiogroup" aria-label="고른 답" className="flex flex-wrap gap-2">
+          {CIRCLED.map((c, k) => {
             const v = k + 1
             const on = chosen[item.id] === v
             return (
@@ -100,10 +100,10 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
                 role="radio"
                 aria-checked={on}
                 onClick={() => setChosen({ ...chosen, [item.id]: on ? null : v })}
-                className={`${btn} justify-start text-left ${on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]' : 'border-[var(--bd)] text-[var(--t1)]'}`}
+                aria-label={`${v}번`}
+                className={`${btn} min-w-[56px] justify-center text-[18px] font-[800] ${on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]' : 'border-[var(--bd)] text-[var(--t1)]'}`}
               >
-                <span className="mr-2 font-[800]">{CIRCLED[k]}</span>
-                <span className="break-keep">{c}</span>
+                {c}
               </button>
             )
           })}

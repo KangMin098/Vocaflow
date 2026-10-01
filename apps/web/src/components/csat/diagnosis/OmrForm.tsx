@@ -67,11 +67,18 @@ export function OmrForm({
 
   const focusRow = (no: number) => rows.current[no - 1]?.focus()
   const pick = (no: number, v: number | null) => {
+    if (result) return // 저장한 기록은 잠근다 — 「새 기록 입력」을 눌러야 다시 쓴다(같은 기록이 두 번 쌓이지 않게)
     setChoices((c) => ({ ...c, [no]: v }))
+  }
+  const reset = () => {
+    clientKey.current = crypto.randomUUID()
+    setChoices({})
+    setFlags({})
+    setRetake(false)
     setResult(null)
   }
   const toggleFlag = (no: number, f: Flag) =>
-    setFlags((cur) => {
+    !result && setFlags((cur) => {
       const next = { ...cur }
       if (next[no] === f) delete next[no]
       else next[no] = f
@@ -116,7 +123,6 @@ export function OmrForm({
       if (!res.ok) throw new Error(json.error ?? '저장하지 못했어요')
       setResult(json)
       if (trackEvents) track({ name: 'csat_dx_attempt_saved', props: { ready: Boolean(json.ready), retake, answered } })
-      clientKey.current = crypto.randomUUID()
       onSaved?.(json)
     } catch (e) {
       setError(e instanceof Error ? e.message : '저장하지 못했어요')
@@ -137,7 +143,8 @@ export function OmrForm({
           <select
             className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
             value={examId}
-            onChange={(e) => { setExamId(e.target.value); setResult(null) }}
+            disabled={result !== null}
+            onChange={(e) => setExamId(e.target.value)}
           >
             {exams.map((e) => <option key={e.id} value={e.id}>{e.label}</option>)}
           </select>
@@ -203,8 +210,8 @@ export function OmrForm({
                   <button
                     key={f}
                     type="button"
-                    tabIndex={-1}
                     aria-pressed={flags[no] === f}
+                    aria-label={`${no}번 ${FLAG_LABEL[f]}`}
                     onClick={() => toggleFlag(no, f)}
                     className={`${btn} px-2 text-[12px] ${flags[no] === f ? 'border-[var(--p)] text-[var(--p)]' : 'text-[var(--t2)]'}`}
                   >
@@ -220,12 +227,17 @@ export function OmrForm({
       <div className="flex flex-wrap items-center gap-3">
         <button
           type="button"
-          disabled={saving || !examId}
+          disabled={saving || !examId || result !== null}
           onClick={submit}
           className="inline-flex min-h-[48px] items-center justify-center rounded-[var(--r-md)] bg-[var(--p)] px-5 font-display text-[15px] font-[800] text-[var(--on-p)] disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
         >
           {saving ? '저장하는 중…' : '저장하고 진단 받기'}
         </button>
+        {result && (
+          <button type="button" onClick={reset} className="inline-flex min-h-[48px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[14px] font-[700] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+            새 기록 입력
+          </button>
+        )}
         <span className="font-body text-[13px] text-[var(--t2)]">입력 {answered}/45 · 표시 {Object.keys(flags).length}</span>
       </div>
       <div aria-live="polite">

@@ -3,6 +3,8 @@
 // 진단 테스트 — 기록이 없는 학습자용. 활성 풀에서 역량이 고르게 덮이도록 설정 수(기본 20)만큼 뽑는다.
 // 출제는 (학습자 · 날짜) seed 로 결정적이라 새로고침해도 같은 문항이 나온다.
 // 정답은 화면에 넘기지 않는다 — 채점은 제출 뒤 서버가 한다.
+// ⚠️ 원문(지문·발문·선지)도 넘기지 않는다 — 학습자 화면의 원문은 학습자 PDF 에서 브라우저 안에서만
+//    읽는다(docs/csat-learner-brief.md A5). 여기서는 「어느 회차 몇 번」만 넘기고, 학습자는 자기 문제지로 푼다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Metadata } from 'next'
@@ -40,13 +42,16 @@ export default async function DiagnosticTestPage() {
 
   let items: TestItem[] = []
   if (picked.length > 0) {
-    const { data, error: ie } = await db.from('csat_items').select('id, stem, passage, choices').in('id', picked)
+    const { data, error: ie } = await db.from('csat_items').select('id, exam_id, no').in('id', picked)
     if (ie) throw new Error(`문항 조회 실패: ${ie.message}`)
     const byId = new Map((data ?? []).map((r) => [r.id as string, r]))
+    const examIds = [...new Set((data ?? []).map((r) => r.exam_id as string))]
+    const { data: exams, error: ee } = await db.from('csat_exams').select('id, label').in('id', examIds)
+    if (ee) throw new Error(`회차 조회 실패: ${ee.message}`)
+    const label = new Map((exams ?? []).map((e) => [e.id as string, e.label as string]))
     items = picked.flatMap((id) => {
       const r = byId.get(id)
-      if (!r || !Array.isArray(r.choices) || r.choices.length !== 5) return []
-      return [{ id, stem: (r.stem as string | null) ?? '', passage: (r.passage as string | null) ?? '', choices: r.choices as string[] }]
+      return r ? [{ id, examLabel: label.get(r.exam_id as string) ?? (r.exam_id as string), no: r.no as number }] : []
     })
   }
 

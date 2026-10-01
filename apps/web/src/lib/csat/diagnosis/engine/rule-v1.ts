@@ -281,8 +281,11 @@ function scenario(input: EngineInput, ability: number | null, examId: string | n
   const scn: ExamMeta | undefined = examId ? input.exams[examId] : undefined
   const eRef = expectedScore(ref)
   const eScn = expectedScore(scn)
-  const adjusted = eRef !== null && eScn !== null
-  const expected = adjusted ? clampScore(ability - (eRef as number) + (eScn as number)) : ability
+  // 기준·시나리오 시험의 기대점수가 없으면 난이도별 예측을 하지 않는다 — 능력을 그대로 베끼면
+  // 「어려운 해에도 목표 충족」 같은 근거 없는 말이 된다(CONVENTIONS 폴백 공개 원칙)
+  if (eRef === null || eScn === null) return { examId, expected: null, grade: null, meetsTarget: null, adjusted: false }
+  const adjusted = true
+  const expected = clampScore(ability - eRef + eScn)
   const grade = gradeOf(expected, input.settings.grade_cuts)
   return {
     examId,

@@ -248,6 +248,10 @@ describe('6~8. 시나리오 · 추천 · 신뢰도', () => {
     expect(r.forecast.normal).toMatchObject({ expected: 85, grade: 2, meetsTarget: true })
     expect(r.forecast.easy).toMatchObject({ expected: 95, grade: 1, meetsTarget: true })
   })
+  it('기준·시나리오 시험의 기대점수가 없으면 난이도별 예측을 하지 않는다(능력을 그대로 베끼지 않는다)', () => {
+    const r = diagnose(input({ exams: { A: exam('A') }, sessions: [{ ...session('s', 'A', '2026-10-01', responses()), rawScore: 80 }], target: { grade: 2 } }))
+    expect(r.forecast.hard).toEqual({ examId: null, expected: null, grade: null, meetsTarget: null, adjusted: false })
+  })
   it('추천은 최대 3개, 약한 역량 → 취약 함정 → 습관 순', () => {
     const traps = { 1: '인과 역전' }
     const e = exam('A', { traps })
