@@ -1,0 +1,1072 @@
+[
+ {
+  "id": "b043fe39-5bdd-48c0-842d-e5fef9cad2e4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Ted Williams a former radio",
+  "note": "노숙자 테드 윌리엄스가 목소리로 인터넷 센세이션이 되어 새로운 기회를 얻게 되었다는 긍정적 뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "summary",
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0486c9f-5954-4709-b2e5-35e06674781a",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A woman who was taking",
+  "note": "학교 버스 운전사 시험 중 차량이 전신주와 충돌했다는 사건뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b048cb95-f9bb-4dc4-b08f-8a1c8fc5aefb",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Women's rights advocate and Georgetown",
+  "note": "여성인권운동가 샌드라 플루크가 민주당전당대회의 주요 연설자로 참석했다는 정치뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0492522-f8fc-46d8-bb8c-e441b8a6932d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Police in Britain have recovered",
+  "note": "경찰이 2003년 도난당했던 레오나르도 다빈치의 회화를 회수했다는 범죄뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V2"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b049f289-62a3-470f-b337-d6cb2f6352b7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A teenager belonging to the",
+  "note": "익명 그룹에 속한 10대 해커가 scientology.org 사이트에 DDoS 공격을 가했다고 인정했다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b04d3913-cf9e-462c-bbf6-6b75807be7df",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A study published by researchers",
+  "note": "존스홉킨스대 연구팀이 환각약물이 신비로운 영적 경험을 유도한다는 연구결과를 발표했다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b04f0e36-4335-41db-b975-a4b85f116af0",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Youths in the Norfolk town",
+  "note": "영국 노폴크 지역이 청소년들의 기물파괴 행위를 막기 위해 계란과 토마토소스 판매를 제한했다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b04f1bf2-0fa2-4456-8d02-63c2eaa6188b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A report on May 10",
+  "note": "웹 분석 회사의 보고서에 따르면 인터넷익스플로러의 시장 점유율이 90% 아래로 내려갔다는 기술뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b04fa73b-e2f4-42eb-ae77-4e807237abf2",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Television presenter and BBC Radio",
+  "note": "BBC 라디오 진행자 조나단 로스가 2010년 7월 계약 만료 후 방송사를 떠난다고 발표했다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b04fa74d-bd10-46dc-8018-fbc6a4696d86",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "On Thursday German football club",
+  "note": "보루시아 도르트문트가 18세 프랑스 선수를 5년 계약으로 영입했다는 축구뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0513501-5381-4cf4-9634-aa25f8db02ec",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A double-decker bus has overturned",
+  "note": "북아일랜드 벨파스트에서 이층버스가 전복되어 30명이 다쳤다는 사건뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b056a76d-36e5-4e70-9d52-42b2a88f48a7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "A Boeing 737 with 69",
+  "note": "보잉 737 항공기가 엔진 진동으로 모스크바 공항에 비상착륙했다는 항공뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0580973-82c8-4c51-98b4-6c6da06b29c9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Judith Durham known as the",
+  "note": "오스트레일리아 밴드 시커스의 리드보컬 주디스 더럼이 별세했다는 추도뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b05d7bbc-00ca-4971-b2d7-135bd7020af4",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Mexico's main opposition party the",
+  "note": "멕시코 야당이 전임 시장을 새 지도자로 선출했다는 정치뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b05ee429-adea-44c1-b769-822e37252d0d",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Nationals MP Vince Catania who",
+  "note": "서호주의 국회의원이 17년 경력을 마치고 가족을 우선하기 위해 사직한다고 발표했다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b05f52d8-44c3-4dde-b90a-3695e18ff6e9",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": false,
+   "stereotypeCore": false,
+   "strippedRemains": false,
+   "gap": false
+  },
+  "sample": "A new species of dolphin",
+  "note": "호주 해역에서 이라와디 돌고래와 다른 새로운 돌고래 종이 발견되었다는 과학뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "mid",
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b06a0d95-d06e-477a-bda5-eda861aeec88",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Former Louisiana governor Buddy Roemer",
+  "note": "전임 루이지애나 주지사 버디 로에머가 2012년 대선 캠프를 중단했다는 정치뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b06be1e0-a87d-455f-92a6-cde0b688ce43",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "Volunteers and interested people could",
+  "note": "벨기에 인디미디어가 참여저널리즘을 주제로 개방 토론회를 열었다는 미디어뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b06d1f24-0ba5-4fcf-a7da-b051b5d0e3ee",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": true,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "This week parts of the",
+  "note": "카테고리 4 허리케인 피오나가 카리브해 지역을 휩쓸었다는 재해뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "summary"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0748363-994e-45a8-b46e-f0ba0b9e81f7",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The United States air-carrier Spirit",
+  "note": "항공사 스피릿 에어라인스가 기내수하물에 45달러 수수료를 부과하기로 발표했다는 비즈니스뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V4"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0758590-b779-4429-80ad-132bdfc90753",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": false,
+   "gap": false
+  },
+  "sample": "President Vladimir Voronin of Moldova",
+  "note": "몰도바의 대통령이 지나이다 그레첸이를 총리로 지명했다는 정치뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0780be9-ec3d-4cce-83ed-2cb70d9af3e0",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "American President George Bush Canadian",
+  "note": "미국, 캐나다, 멕시코 지도자들이 북미 보안경제협력 협정에 서명했다는 국제뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b07bd718-d999-49b0-8024-f16854021d3b",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "none",
+   "mainPoint": false,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": false,
+   "vocabAdjustable": true,
+   "factsMany": false,
+   "stereotypeCore": false,
+   "strippedRemains": false,
+   "gap": true
+  },
+  "sample": "November 18 USA William Henry",
+  "note": "빌 게이츠가 매년 400만통의 스팸메일을 받는다는 극도로 짧은 사실 단신이다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high1",
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading"
+    ],
+    "types": [],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0830695-2047-4cb6-879c-10e9a175639f",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "The Emir of Qatar Sheikh",
+  "note": "카타르 지도자가 가자지구를 방문하여 팔레스타인 단결과 재건을 촉구했다는 국제뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V6"
+    ],
+    "platform": []
+   }
+  }
+ },
+ {
+  "id": "b0887ad0-fd7b-4e07-a8ac-c9974150dc55",
+  "answers": {
+   "blocked": null,
+   "needsVisual": false,
+   "truncated": false,
+   "listOnly": false,
+   "linkage": "strong",
+   "mainPoint": true,
+   "narrative": false,
+   "notice": false,
+   "detachable": true,
+   "standsAlone": true,
+   "vocabAdjustable": true,
+   "factsMany": true,
+   "stereotypeCore": false,
+   "strippedRemains": true,
+   "gap": false
+  },
+  "sample": "In a televised Pentagon press",
+  "note": "미국 국방부가 이란에서 이라크로 들어온 무기를 적발했다고 발표했다는 국제뉴스다.",
+  "record": {
+   "genre": "news",
+   "slots": {
+    "ages": [
+     "high2",
+     "high3",
+     "adult"
+    ],
+    "purposes": [
+     "reading",
+     "mock"
+    ],
+    "types": [
+     "main_point"
+    ],
+    "levels": [
+     "V5"
+    ],
+    "platform": []
+   }
+  }
+ }
+]
