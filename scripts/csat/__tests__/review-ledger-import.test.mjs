@@ -1,0 +1,80 @@
+// scripts/csat/__tests__/review-ledger-import.test.mjs
+import assert from 'node:assert/strict'
+import test from 'node:test'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import http from 'node:http'
+import { spawn } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+
+const CLI = fileURLToPath(new URL('../review-drain.mjs', import.meta.url))
+const batch = { batch: 'review-test', date: '2026-10-02', kind: 'blind', items: 1 }
+const followup = { item_id: 'H2603G3#18', source: 'test', finding: '근거 번호를 다시 확인한다', severity: 'revise', status: 'open', date: '2026-10-02' }
+
+async function run(metrics, followups) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-ledger-'))
+  const work = path.join(dir, 'scripts/csat/review-drain-hakpyeong')
+  fs.mkdirSync(work, { recursive: true })
+  fs.writeFileSync(path.join(work, '_metrics.jsonl'), metrics)
+  fs.writeFileSync(path.join(work, '_followups.jsonl'), followups)
+  const requests = []
+  const server = http.createServer(async (req, res) => {
+    let body = ''
+    for await (const part of req) body += part
+    requests.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
+    res.setHeader('Content-Type', 'application/json')
+    res.end('[]')
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  try {
+    const child = spawn(process.execPath, [CLI, 'ledger-import', '--commit'], {
+      cwd: dir, windowsHide: true,
+      env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
+    })
+    let output = ''
+    child.stdout.on('data', (s) => { output += s })
+    child.stderr.on('data', (s) => { output += s })
+    const code = await new Promise((resolve, reject) => { child.on('error', reject); child.on('close', resolve) })
+    return { code, output, requests }
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+}
+
+for (const [label, metrics, followups, location] of [
+  ['missing batch', [{ ...batch, batch: undefined }], [followup], '_metrics.jsonl:1'],
+  ['unknown kind', [{ ...batch, kind: 're-review' }], [followup], '_metrics.jsonl:1'],
+  ['Postgres character length', [batch], [{ ...followup, finding: '😀😀😀' }], '_followups.jsonl:1'],
+  ['integer out of range', [{ ...batch, items: 2147483648 }], [followup], '_metrics.jsonl:1'],
+  ['invalid finding type', [batch], [{ ...followup, finding: null }], '_followups.jsonl:1'],
+  ['invalid date', [batch], [{ ...followup, date: '2026-02-30' }], '_followups.jsonl:1'],
+  ['invalid severity', [batch], [{ ...followup, severity: 'typo' }], '_followups.jsonl:1'],
+]) {
+  test(`ledger-import rejects ${label} before either table is written`, async () => {
+    const r = await run(metrics.map(JSON.stringify).join('\n'), followups.map(JSON.stringify).join('\n'))
+    assert.notEqual(r.code, 0, r.output)
+    assert.ok(r.output.includes(location), r.output)
+    assert.equal(r.requests.filter((q) => q.method === 'POST').length, 0, 'invalid ledger caused a partial write')
+  })
+}
+
+test('ledger-import reports physical line numbers including blank lines', async () => {
+  const r = await run(`\n${JSON.stringify(batch)}\n\n{`, '')
+  assert.notEqual(r.code, 0)
+  assert.match(r.output, /_metrics\.jsonl:4/)
+  assert.equal(r.requests.length, 0)
+})
+
+test('ledger-import upserts each natural key once using the last entry', async () => {
+  const r = await run([batch, { ...batch, published: 1 }].map(JSON.stringify).join('\n'),
+    [followup, { ...followup, status: 'fixed-published' }].map(JSON.stringify).join('\n'))
+  assert.equal(r.code, 0, r.output)
+  const writes = r.requests.filter((q) => q.method === 'POST')
+  assert.equal(writes.length, 2)
+  assert.equal(writes[0].body.length, 1, 'duplicate batch would fail ON CONFLICT')
+  assert.equal(writes[0].body[0].published, 1)
+  assert.equal(writes[1].body.length, 1)
+  assert.equal(writes[1].body[0].status, 'fixed-published')
+})

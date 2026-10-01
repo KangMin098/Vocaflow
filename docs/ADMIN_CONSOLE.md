@@ -765,7 +765,7 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
     배치 비용(토큰 없으면 「미기록」) · 추적 목록. 유효 승인은 발행 게이트 함수(`csat_valid_review_personas_many`),
     사전 검사는 `review-drain.mjs precheck --commit` 기록(`csat_review_prechecks`)을 읽는다 — 화면은 판정 기준을
     새로 만들지 않고, 읽기 실패는 경고만 보인다(0건으로 그리지 않음). 판정 `lib/csat/hakpyeong-review.ts` ·
-    로더 `hakpyeong-review-loader.ts` · 도움말 탭 「검수 진행」.
+    로더 `hakpyeong-review-loader.ts` · 도움말 탭 「검수 진행」. `ledger-import`는 두 JSONL 원장의 모든 행을 쓰기 전에 검사하고 오류 파일·줄을 표시한다. 같은 배치·추적 키는 마지막 기록만 upsert하며 통신 중 실패 시 같은 원장으로 재실행한다.
     기존 **8축·64조합** 매트릭스는 문항 탐색의 교차 진단으로 유지한다. 고유 문항 총합과
     중복 칸 합을 구별하고 셀 클릭으로 정확한 조건을 연결한다. 같은 다중 축 교차는 AND다.
     검토 패널에는 원문 공식 링크·분석·앵커·변경 이력·수정 위치를 단계적으로 공개한다.
