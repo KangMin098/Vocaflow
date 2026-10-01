@@ -115,7 +115,7 @@ async function precheckMany(analyses) {
     if (error) die(error.message)
     for (const r of data) {
       const u = units.get(r.item_id)
-      out.set(r.id, { ...precheckAnalysis(r, u?.units), analysisHash: r.csat_analysis_hash, unitsHash: u?.units_hash ?? '', unitsVersion: u?.units_version ?? null })
+      out.set(r.id, { ...precheckAnalysis(r, u?.units), analysisHash: r.csat_analysis_hash, unitsHash: u?.units_hash ?? '', inputHash: u?.input_hash ?? '', unitsVersion: u?.units_version ?? null })
     }
   }
   return out
@@ -319,12 +319,12 @@ switch (cmd) {
       let commitSha = null
       try { commitSha = execFileSync('git', ['rev-parse', '--short', 'HEAD'], { encoding: 'utf8' }).trim() } catch { /* git 없음 */ }
       const rows = latest.map((a) => ({
-        analysis_id: a.id, item_id: a.item_id, analysis_hash: pre.get(a.id)?.analysisHash, units_hash: pre.get(a.id)?.unitsHash ?? '',
+        analysis_id: a.id, item_id: a.item_id, analysis_hash: pre.get(a.id)?.analysisHash, units_hash: pre.get(a.id)?.unitsHash ?? '', input_hash: pre.get(a.id)?.inputHash ?? '',
         units_version: pre.get(a.id)?.unitsVersion ?? null, precheck_version: PRECHECK_VERSION, commit: commitSha,
         errors: pre.get(a.id)?.errors ?? [], warnings: pre.get(a.id)?.warnings ?? [], checked_at: new Date().toISOString(),
       })).filter((r) => r.analysis_hash)
       for (let i = 0; i < rows.length; i += 200) {
-        const { error } = await db.from('csat_review_prechecks').upsert(rows.slice(i, i + 200), { onConflict: 'analysis_id,analysis_hash,units_hash,precheck_version' })
+        const { error } = await db.from('csat_review_prechecks').upsert(rows.slice(i, i + 200), { onConflict: 'analysis_id,analysis_hash,units_hash,input_hash,precheck_version' })
         if (error) die(error.message)
       }
       console.log(`  DB 기록 ${rows.length}행(csat_review_prechecks · 검사기 v${PRECHECK_VERSION}${commitSha ? ' · ' + commitSha : ''})`)

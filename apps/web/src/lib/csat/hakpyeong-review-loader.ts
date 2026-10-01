@@ -32,7 +32,7 @@ interface AnalysisRow { id: string; item_id: string; version: number; status: st
 interface ReviewRow { id: string; analysis_id: string; persona: Persona; verdict: 'pass' | 'revise' | 'fail'; findings: unknown; reviewed_at: string; csat_review_runs: { kind: 'blind' | 'rereview' } | null }
 interface BatchRow { batch: string; run_date: string; kind: ReviewBatch['kind']; chunk_size: number | null; items: number; agents: number | null; tokens: ReviewBatch['tokens']; published: number | null; refused: number | null; re_rejected: number | null; note: string | null }
 interface FollowupRow { item_id: string; source: string; finding: string; severity: ReviewFollowup['severity']; status: ReviewFollowup['status']; noted_on: string }
-interface PrecheckRow { analysis_id: string; analysis_hash: string; units_hash: string; precheck_version: number; commit: string | null; errors: string[]; warnings: string[]; checked_at: string }
+interface PrecheckRow { analysis_id: string; analysis_hash: string; units_hash: string; input_hash: string; precheck_version: number; commit: string | null; errors: string[]; warnings: string[]; checked_at: string }
 
 // PostgREST 서버 상한(1,000행). OFFSET 페이징 예산(offset-paging-budget)을 늘리지 않으려고 두 방식만 쓴다
 const PAGE_CAP = 1000
@@ -86,7 +86,8 @@ export async function loadHakpyeongReview(
     const itemIds = analyses.map((a) => a.item_id)
 
     const valid = new Map<string, Persona[]>()
-    const curUnits = new Map<string, string>()
+    // 지금 근거 단위 목록 — 경계 해시와 지문 입력 해시 둘 다(경계가 같아도 지문 글자가 바뀌면 사전 검사는 낡는다)
+    const curUnits = new Map<string, { units: string; input: string }>()
     const verdicts = new Map<string, ReviewVerdict[]>()
     const prechecks = new Map<string, PrecheckRow>()
     for (const part of chunks(ids)) {
@@ -101,7 +102,7 @@ export async function loadHakpyeongReview(
           return (after ? q.gt('id', after) : q).order('id').limit(PAGE_CAP)
         }),
         capped<PrecheckRow>(db.from('csat_review_prechecks')
-          .select('analysis_id, analysis_hash, units_hash, precheck_version, commit, errors, warnings, checked_at')
+          .select('analysis_id, analysis_hash, units_hash, input_hash, precheck_version, commit, errors, warnings, checked_at')
           .in('analysis_id', part)
           .order('analysis_id').order('checked_at', { ascending: false }).order('analysis_hash').order('units_hash').order('precheck_version')
           .limit(PAGE_CAP)),
@@ -120,9 +121,9 @@ export async function loadHakpyeongReview(
       for (const r of pc.rows) if (!prechecks.has(r.analysis_id)) prechecks.set(r.analysis_id, r)
     }
     for (const part of chunks(itemIds)) {
-      const u = await db.rpc('csat_current_units_many', { p_items: part }).select('item_id, units_hash')
+      const u = await db.rpc('csat_current_units_many', { p_items: part }).select('item_id, units_hash, input_hash')
       if (u.error) return { ...empty, error: `근거 단위 목록 조회: ${u.error.message}` }
-      for (const r of (u.data ?? []) as { item_id: string; units_hash: string }[]) curUnits.set(r.item_id, r.units_hash)
+      for (const r of (u.data ?? []) as { item_id: string; units_hash: string; input_hash: string }[]) curUnits.set(r.item_id, { units: r.units_hash, input: r.input_hash })
     }
 
     const typeOf = new Map(items.map((i) => [i.id, i.typeId]))
@@ -137,7 +138,7 @@ export async function loadHakpyeongReview(
         ? {
             errors: asStrings(pc.errors), warnings: asStrings(pc.warnings), checkedAt: pc.checked_at,
             precheckVersion: pc.precheck_version, commit: pc.commit,
-            current: pc.analysis_hash === a.csat_analysis_hash && pc.units_hash === (curUnits.get(a.item_id) ?? ''),
+            current: pc.analysis_hash === a.csat_analysis_hash && pc.units_hash === (curUnits.get(a.item_id)?.units ?? '') && pc.input_hash === (curUnits.get(a.item_id)?.input ?? ''),
           }
         : null
       // RPC 는 «유효 승인이 있는 페르소나»만 돌려준다 — 어느 기록이 그 승인인지는 알 수 없다(분석 실행 주체가 바뀌면
