@@ -1,0 +1,177 @@
+[
+  {
+    "id": "a908a2df-6181-4229-98e1-722750d6c765",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "According to a government official, at least",
+    "note": "모스크 보수 중 통로 차단으로 혼잡이 악화되어 참사가 발생한 사건.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a90c4d6a-f0eb-48ef-9228-36bcbddfb392",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": true, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The U.S. Army installation at Fort Lee",
+    "note": "미군 기지 민간인 출입 신원확인 제도의 도입 및 운영 절차를 설명하는 글.",
+    "record": {"genre": "news", "slots": {"ages": ["adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a90d2b31-c4be-4660-80f6-5ae6a12df1d4",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": true, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": false, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": false},
+    "sample": "Tony Blair, leader of the ruling",
+    "note": "2문장만으로 법안 통과 사실을 전달하는 극도로 짧은 단신.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock", "reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a9181ea9-6f30-4eea-95b3-2e9172190211",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": false},
+    "sample": "On Saturday 10, 2005, the world",
+    "note": "아일랜드 춤 경기 기록 경신 행사에 대한 단신 기사.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "a91a12a2-b6e7-4e0f-b24e-cf183ba1bb32",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": true, "strippedRemains": true},
+    "sample": "On Tuesday and Wednesday, United States",
+    "note": "정치적 논쟁의 중심에 있는 정책 보도로, v8 기준상 한쪽 입장 인터뷰 형식이지만 객관적 보도.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a91aa016-f8ea-4c74-8aad-76f6728199d9",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": false, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Alan Keyes wants everyone to know",
+    "note": "선거 후보 인터뷰 및 캠페인 전략을 다룬 정치 보도.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a91b051f-e946-4cf0-b716-cda70dd35b6b",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Trevor Wilkinson, who founded the UK",
+    "note": "기업 창립자의 생애와 사망 뉴스를 담은 전기 기사.",
+    "record": {"genre": "biography", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a91b5f31-dfaa-4cc3-9e55-e6663d70d3d0",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "A US flight en-route from Washington",
+    "note": "항공기 승객의 비상 상황 대응 및 사건 처리 과정을 담은 뉴스.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "a91b932b-84da-4332-afda-c167bbf00ca3",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": true, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Health Minister of Chile, Jaime Mañalich",
+    "note": "광산 붕괴 사건의 구조 계획 및 일정을 발표하는 뉴스.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a91c1940-41c2-47a8-b83e-8bccdd531e75",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "A headless man was found near",
+    "note": "경찰의 신원 미상자 유해 발견 보도.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "a91dc3b7-1711-4aee-b524-e968ad1d20a0",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "In the Midwestern United States, floodwaters",
+    "note": "자연 재해로 인한 수질 오염 위험과 대응을 다루는 기사.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a925d280-1ac8-4ce6-8675-63ff48740fd8",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Saturday night in the UK, three",
+    "note": "테러 공격 사건의 피해 규모, 용의자 신원, 정부 대응을 담은 뉴스.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a9260f6e-6a61-4116-ad60-1c503ebb0069",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Melbourne writer Harry Nicolaides, 41, was",
+    "note": "타국의 법정 판결 및 국제 외교 문제를 다루는 복잡한 보도.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a927486c-f715-4c71-9880-473ddeedca17",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The Portuguese Ministry of Culture suspended",
+    "note": "역사 유물 발굴 사업의 일시 중단과 절차 문제를 다루는 기사.",
+    "record": {"genre": "news", "slots": {"ages": ["adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a928129e-1feb-4dc3-b56e-1b8cabf65fb4",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": false, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Three people in the Greater Toronto",
+    "note": "복권 당첨 결과를 보도하는 단신.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "a92a7471-27f6-47d7-b4bc-bbce7a6960f1",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "According to new information about the",
+    "note": "대규모 지진 발생의 과학적 특성을 전문가 인용으로 설명하는 기사.",
+    "record": {"genre": "science", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a92cb627-244b-4e44-a073-5f8d79b03a51",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "thin", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": false, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": false},
+    "sample": "Two days of ministerial talks have",
+    "note": "국제 무역 협상 결렬을 보도하는 극히 짧은 단신.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a92d15e2-88dc-4c1b-b123-30bf8919b281",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Tony Blair, former Prime Minister of",
+    "note": "정치인의 종교 개종 사건을 다양한 입장 인터뷰로 보도하는 뉴스.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a934cd86-0662-4e0f-96db-653503ce6be8",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": true, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "A man shot and killed a Broward",
+    "note": "경찰견 피살 사건의 배경 및 법적 절차를 담은 뉴스.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a93582e8-2279-4c32-ac8a-28ce17d96484",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "U.S. Congressional Democrats are asking the",
+    "note": "정부 기관의 증거 파기 의혹에 대한 정치적 논쟁을 보도.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["mock"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a93a6dc4-1c1a-4556-911f-bb30a49fddf7",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Embattled Canadian junior cabinet minister",
+    "note": "정치인의 사임과 그 배경이 된 스캔들을 다루는 정치 보도.",
+    "record": {"genre": "news", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V7"], "platform": []}}
+  },
+  {
+    "id": "a93ae3b3-f6b9-4103-97f9-99ee4d234f51",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": true, "detachable": true, "standsAlone": true, "vocabAdjustable": false, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Space Exploration Technologies Corp., a commercial",
+    "note": "상업 우주 기업의 규제 승인과 우주 산업 발전을 다루는 보도.",
+    "record": {"genre": "technology", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V6"], "platform": []}}
+  },
+  {
+    "id": "a940ff4c-b803-4c30-b7d1-5614357fa78c",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "Possible under reporting of bird flu",
+    "note": "감염병 확산 억제의 어려움을 중국의 구체적 사례로 설명하는 심층 기사.",
+    "record": {"genre": "health", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  },
+  {
+    "id": "a9411c65-3e43-4948-b34c-5a8eb386d0cf",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "The United Nations Office on Drugs",
+    "note": "국제 범죄의 규모와 대응 노력을 보도하는 사회 문제 기사.",
+    "record": {"genre": "social", "slots": {"ages": ["high1", "high2", "high3", "adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V4"], "platform": []}}
+  },
+  {
+    "id": "a9420e63-fcd6-457d-8280-d3af97323b15",
+    "answers": {"blocked": null, "needsVisual": false, "truncated": false, "listOnly": false, "linkage": "strong", "mainPoint": true, "narrative": false, "notice": false, "detachable": true, "standsAlone": true, "vocabAdjustable": true, "factsMany": true, "stereotypeCore": false, "gap": false, "strippedRemains": true},
+    "sample": "According to the Washington Post, nearly",
+    "note": "정부 인사 정책 변화와 노동력 수급 계획을 다루는 기사.",
+    "record": {"genre": "news", "slots": {"ages": ["adult"], "purposes": ["reading"], "types": ["content_match"], "levels": ["V5"], "platform": []}}
+  }
+]
