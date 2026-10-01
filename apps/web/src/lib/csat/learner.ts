@@ -104,7 +104,7 @@ export async function loadCsatTypeCards(): Promise<{ cards: CsatTypeCard[]; erro
         (from, to) => db.from('csat_items_public').select('type_id, exam_id').eq('in_scope', true).range(from, to),
         'CSAT 유형 카드 문항',
       ),
-      db.from('csat_type_reports').select('type_id, failure_modes, time_budget_sec').eq('status', 'published'),
+      db.from('csat_type_reports').select('type_id, failure_modes, time_budget_sec').eq('status', 'published').eq('organizer', 'kice').eq('grade', 0),
     ])
     types = t
     itemRows = rows
@@ -175,6 +175,7 @@ export async function loadCsatTypeDetail(typeId: string): Promise<{ detail: Csat
         .from('csat_type_reports')
         .select('type_id, n_analyzed, recurring_traps, answer_locus_pattern, procedure_steps, failure_modes, time_budget_sec')
         .eq('type_id', typeId)
+        .eq('organizer', 'kice').eq('grade', 0)
         .eq('status', 'published')
         .maybeSingle(),
     ])
@@ -301,7 +302,7 @@ export async function loadCsatPlan(): Promise<CsatPlan> {
   const [itemsRes, typesRes, repsRes] = await Promise.all([
     db.from('csat_items_public').select('no, type_id, points').eq('exam_id', exam.id).eq('in_scope', true),
     db.from('csat_types').select('id, name'),
-    db.from('csat_type_reports').select('type_id, time_budget_sec, procedure_steps').eq('status', 'published'),
+    db.from('csat_type_reports').select('type_id, time_budget_sec, procedure_steps').eq('status', 'published').eq('organizer', 'kice').eq('grade', 0),
   ])
   const bad = [itemsRes, typesRes, repsRes].find((r) => r.error)
   if (bad?.error) return { ...empty, exam_id: exam.id, exam_label: exam.label, error: bad.error.message }

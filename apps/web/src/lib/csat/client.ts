@@ -123,7 +123,7 @@ export async function loadCsatOverview(): Promise<CsatOverview> {
     selectAllPages<{ item_id: string; status: string }>((from, to) =>
       db.from('csat_item_analyses').select('item_id, status').not('item_id', 'like', `${HAKPYEONG_ID_PREFIX}%`).range(from, to),
     ),
-    db.from('csat_type_reports').select('type_id, n_analyzed, status'),
+    db.from('csat_type_reports').select('type_id, n_analyzed, status').eq('organizer', 'kice').eq('grade', 0), // 평가원 리포트 행만(유형 리포트는 집합별 — scope.ts reportKey)
     // 검수는 분석을 거쳐야 문항에 닿는다 — 평가원 분석의 검수만 센다
     db
       .from('csat_analysis_reviews')

@@ -22,6 +22,7 @@
 //    판정해 `EvidenceItem.quoteLocated` 불리언 하나로 넘긴다. 원문은 서버 밖으로 안 나간다.
 
 import { detectAnalystMeta, foldTrapFamilies, type TrapFamily } from './guide-fold'
+import type { CsatScope } from './scope'
 
 export type { TrapFamily } from './guide-fold'
 
@@ -188,26 +189,9 @@ export interface EvidenceType {
  * (104회차를 한 매트릭스에 펴면 열이 읽히지 않는다). 학평은 보조·검증 집합이라 학습자 배포
  * 판정(준비도)과 평가원 유형 리포트 대조 결함(reportText·reportCount)을 적용하지 않는다.
  */
-export type EvidenceScope = { set: 'kice' } | { set: 'hakpyeong'; grade: 1 | 2 | 3 }
-export const KICE_SCOPE: EvidenceScope = { set: 'kice' }
-
-type ScopeParams = URLSearchParams | Record<string, string | string[] | undefined>
-export function parseEvidenceScope(params: ScopeParams = {}): EvidenceScope {
-  const get = (key: string) => {
-    const v = params instanceof URLSearchParams ? params.get(key) : params[key]
-    return (Array.isArray(v) ? v[0] : v) ?? ''
-  }
-  if (get('set') !== 'hakpyeong') return KICE_SCOPE
-  const g = Number(get('grade'))
-  return { set: 'hakpyeong', grade: g === 1 || g === 2 ? g : 3 }
-}
-/** URL 에 싣는 범위 조각 — 평가원(기본)은 싣지 않는다 */
-export function scopeQuery(scope: EvidenceScope): string {
-  return scope.set === 'kice' ? '' : `set=hakpyeong&grade=${scope.grade}`
-}
-export function scopeLabel(scope: EvidenceScope): string {
-  return scope.set === 'kice' ? '평가원' : `학평 고${scope.grade}`
-}
+// 정의는 공용 범위 모듈(scope.ts) 하나 — 근거 콘솔은 그 이름을 그대로 쓴다
+export type EvidenceScope = CsatScope
+export { KICE_SCOPE, parseScope as parseEvidenceScope, scopeQuery, scopeLabel } from './scope'
 
 export interface EvidenceData {
   items: EvidenceItem[]

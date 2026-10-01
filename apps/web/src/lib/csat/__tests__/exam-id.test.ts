@@ -117,6 +117,8 @@ describe('흩어진 판정 금지', () => {
     const SCOPED = [
       'HAKPYEONG_ID_PREFIX',
       'idPattern', // evidence 의 범위(평가원 · 학평 학년) 분기
+      'itemIdFilter', // 공용 범위(scope.ts) — `.filter(col, f.op, f.pattern)`
+      'examFilter',
       ".eq('organizer', 'kice')",
       ".eq('organizer', 'edu_office')",
       ".eq('kind', 'suneung')",
@@ -140,14 +142,35 @@ describe('흩어진 판정 금지', () => {
     expect(hits).toEqual([])
   })
 
+  // 유형 리포트는 집합별로 따로 쌓인다(키 type_id·organizer·grade — 2026-10-01). 읽기·쓰기 모두 어느 집합인지
+  // 적지 않으면 평가원·학평 리포트가 한 화면에 섞이거나 maybeSingle 이 두 행에 깨진다.
+  it('유형 리포트 질의는 집합(organizer)을 적는다', () => {
+    const hits: string[] = []
+    for (const d of ['apps/web/src', 'scripts']) {
+      for (const f of walk(path.join(ROOT, d), [])) {
+        const rel = path.relative(ROOT, f).split(path.sep).join('/')
+        const src = fs.readFileSync(f, 'utf8')
+        for (const m of src.matchAll(/\.from\(\s*['"]csat_type_reports['"]\s*\)/g)) {
+          const at = m.index ?? 0
+          const next = src.indexOf('.from(', at + 6)
+          const window = src.slice(at, next < 0 ? at + 700 : Math.min(next, at + 700))
+          if (!/organizer/.test(window)) hits.push(`${rel}:${src.slice(0, at).split('\n').length}`)
+        }
+      }
+    }
+    expect(hits).toEqual([])
+  })
+
   // 스크립트는 받아 온 뒤 거르는 경우가 많아 **파일 단위**로 본다: `csat_items` 를 읽는 스크립트는
   // `isKiceExam` 으로 거르거나(측정·드레인), 집합을 명시적으로 고르거나(`--set`) 해야 한다.
+  // 읽기 헬퍼(`page('csat_items', …)`)를 거치는 스크립트도 잡는다 — 처음 가드가 `.from(` 만 봐서
+  // 함정 지도 굽기가 학평 발행분을 섞는 것을 못 잡았다(2026-10-01 실측: 오답 3,208 → 3,388).
   it('csat_items 를 읽는 스크립트는 집합을 가른다', () => {
     const hits: string[] = []
     for (const d of ['scripts']) {
       for (const f of walk(path.join(ROOT, d), [])) {
         const src = fs.readFileSync(f, 'utf8')
-        if (!/\.from\(\s*['"]csat_items['"]\s*\)/.test(src)) continue
+        if (!/(?:\.from|\b\w+)\(\s*['"]csat_items['"]\s*[,)]/.test(src)) continue
         if (src.includes('isKiceExam') || src.includes("'--set'")) continue
         hits.push(path.relative(ROOT, f).split(path.sep).join('/'))
       }
