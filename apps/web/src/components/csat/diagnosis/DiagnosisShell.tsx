@@ -12,6 +12,7 @@ import { useCsatRecord } from '@/components/csat/home/useCsatRecord'
 import styles from '@/components/csat/space/space.module.css'
 import { track } from '@/lib/analytics/client'
 import { activeSet, dueNow } from '@/lib/csat/continuity'
+import { railWorkspaces } from '@/lib/csat/workspace'
 import type { RailExam } from '@/lib/csat/rail-data'
 
 export type DiagnosisScreen = 'report' | 'attempt'
@@ -24,7 +25,7 @@ export function DiagnosisShell({ exams, screen, children }: { exams: RailExam[];
 
   return (
     <div className={styles.root} data-testid={`csat-dx-${screen}`}>
-      <CsatRail place="diagnosis" exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} />
+      <CsatRail place="diagnosis" exams={exams} dueCount={rec ? dueNow(rec.record, rec.now).length + (activeSet(rec.record) ? 1 : 0) : null} workspaces={railWorkspaces(rec?.record)} />
       <div className="min-w-0">
         <header className={styles.topbar}>
           <span className={styles.topPill}>
