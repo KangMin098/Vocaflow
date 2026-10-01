@@ -1,0 +1,407 @@
+[
+  {
+    "id": "b2b1a3f3-1212-489d-8d96-2f4b6d2a8964",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "419672dd9f2e90d18b6e28bfe5d07545e7a326a0dbfd616ec7d3fec727f3981d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "직장 폐쇄 지속 → 쟁점은 정규직 비율 → 경영진의 「유연성」 논리와 노조의 「제 돈으로 매수」 반박이 두 단락에 짝을 이뤄 주장·내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "CBC management wants to increase the",
+      "note": "둘째 단락이 양측 입장을 한데 담아 혼자 서고 veiled·fixed-term 을 hidden·short-term 으로 바꾸니 V6 이 됐다."
+    }
+  },
+  {
+    "id": "b2b2e4eb-f45c-4127-a41a-51bd23277d1b",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "27140c173ea299e1adaee518bbdb49ea1ee46f490b199f6802d5ce7646e2694d",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "임신한 아내 살해 유죄 → 배심의 사형 권고 → 공식 선고 날짜로 세 문장이지만 판결의 다음 절차가 이어져 고등 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The jury in the Scott Peterson",
+      "note": "본문 전체가 한 덩어리로 떼어지고 sentence 정도만 풀면 되지만 너무 짧아 문항은 내용 일치 하나뿐이었다."
+    }
+  },
+  {
+    "id": "b2fd365c-275d-4378-8684-351af6cbfb59",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "4951f68eb414b27e68d1aab09c0ff0d5163b514dbd649335334c84bd4ca04d16",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "모델 피살 재판 개시 → 검찰이 밝힌 공모와 증거(CCTV·DNA) → 불륜과 협박이라는 동기 → 법관 교체 요청과 지연까지 길게 이어져 성인·고3 내용 일치·장문 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "content_match",
+        "long_reference",
+        "order"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The sequence of events would be",
+      "note": "증거 제시 단락들은 순서가 분명해 떼기 쉽고 abetted·beset 을 helped·troubled 로 바꾸면 V7 이 된다; C-4 로 시신을 폭파한 묘사는 가공 때 걷는다."
+    }
+  },
+  {
+    "id": "b313255c-f58d-4d39-8fcd-d8d5ae3f9d51",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c24d8940b59e10915f18af3589b4583af96b320f12206778e572ac7c8478a9b8",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "sports",
+    "why": "대회 개최와 참가자 → 남자부 접전 끝 우승 → 다음 대회 일정 발표로 사건이 이어져 내용 일치 칸 하나를 채우나 기업 명단 단락과 비문은 고쳐 써야 한다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "A great intensive competition is still",
+      "note": "경기 결과와 다음 일정 문장은 이어지지만 원문 비문이 많아 낱말 몇 개 교체로는 안 되고 문장을 다시 써야 했다; 참가 기업 나열 단락은 걷는다."
+    }
+  },
+  {
+    "id": "b31b6f52-02bb-4d35-ac99-1d185b55bb47",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "2afe107fd239c70d16e77544754737086809d84f40ca7969200527351e3bc617",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "social",
+    "why": "시위 앞 50명 체포 → 왕정의 사치와 빈곤이라는 시위 배경 → 노조원 행방 불명 → 앰네스티의 「괴롭힘」 비판으로 원인·반응이 이어져 내용 일치·주장 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2",
+        "high3"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match",
+        "claim"
+      ],
+      "levels": [
+        "V6",
+        "V7"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The King of Swaziland, Mswati III,",
+      "note": "배경 단락과 앰네스티 논평을 붙이면 체포의 맥락이 서고 arbitrary·custody 를 unfair·jail 로 바꾸니 V6 이 됐다."
+    }
+  },
+  {
+    "id": "b31f1f43-c1c3-43c9-94b6-1d1318e6dc48",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "827ce09ceb60cfb4437c8277d20ba45c818db70741afbf6f7764809dd90f069f",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "기념관 현판 철거 시위 중 트럭이 기자 다섯을 치고 → 운전자가 체포·구타당하고 → 후보의 막말과 양당 정치인의 비판이 이어져 사건·반응이 서므로 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5",
+        "V6"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "According to witnesses and Chien-chiang Wang",
+      "note": "사건-반응 흐름은 서지만 비문(under arrested·without respects)이 많아 낱말 교체로는 부족하고 문장을 다시 써야 했다; 정치인 직함 나열은 걷는다."
+    }
+  },
+  {
+    "id": "b3251083-dbf2-459f-9136-582b80935580",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "a56149325aec59a4225b2a0e4d95b5cebf46da319b8a8024de89c383b8725371",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "전투기 추락과 조종사 사망 → 국방부의 「고고도라 격추 아님」 추론 → 원인 조사 착수로 짧지만 원인·다음 절차가 이어져 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "The plane was flying at a",
+      "note": "국방부 인용이 이유-결론을 갖춰 떼기 쉽고 ruled out 을 shown not 으로 바꾸면 V5 로 맞았다."
+    }
+  },
+  {
+    "id": "b3285bb4-73c0-4e50-aed9-d28ead05e73c",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "5485f03872692a66c3c83d220f9b8d93bc05a89b3de6748d1a591ebf79a4fb60",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "technology",
+    "why": "슈퍼마켓의 지문 결제 도입 → 계산 시간 40초 단축 주장과 확대 계획 → 기술 업체와 고객 등록 수로 새 기술의 작동과 효과가 이어져 중등부터 내용 일치 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "mid",
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "mock",
+        "reading",
+        "vocab"
+      ],
+      "types": [
+        "content_match",
+        "order"
+      ],
+      "levels": [
+        "V4",
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Customers can have their fingerprint put",
+      "note": "도입-작동-효과 문장이 바로 이어져 떼기 쉽고 biometrics·shaves 를 body-scan·cuts 로 바꾸니 V4 로 내려갔다."
+    }
+  },
+  {
+    "id": "b331831a-c68a-45a1-92ea-9a708da3f0ab",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "c99554d69ff9cc73b07a5c5ed2752c6060deb6f0807868062cbdf4588f008f6b",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "economics",
+    "why": "대만 브랜드 포럼에서 「규모가 아니라 품질·혁신이 브랜드 가치를 정한다」는 연사들의 주장이 스마일 커브 이론과 함께 이어져 요지·주장 칸을 채우나 비문이 많아 고쳐 써야 한다.",
+    "slots": {
+      "ages": [
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "reading",
+        "csat"
+      ],
+      "types": [
+        "main_point",
+        "claim"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": false,
+      "sample": "In the final of Panel Discussion,",
+      "note": "결론 단락이 요지를 담아 떼어지지만 ODM·OEM·OBM 약어와 비문 때문에 낱말 교체로는 안 되고 문장을 다시 써야 했다; 직함 나열은 걷는다."
+    }
+  },
+  {
+    "id": "b377b839-53b7-46d8-ad64-5946dea85c78",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "fbbf6d6131a5ef0fe2b35e4006d4c7542e3228e2c2258b7243b48b3eb981d140",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "UN 보고서가 부토 피살을 「막을 수 있었다」고 결론 → 현장 청소·증거 미수집 등 근거 → 남편 측 경호 부족과 내무장관 비판으로 주장과 근거가 짝지어 주장·요약 칸을 채운다.",
+    "slots": {
+      "ages": [
+        "high2",
+        "high3",
+        "adult"
+      ],
+      "purposes": [
+        "mock",
+        "csat",
+        "reading"
+      ],
+      "types": [
+        "claim",
+        "summary",
+        "content_match"
+      ],
+      "levels": [
+        "V7",
+        "V8"
+      ],
+      "platform": [
+        "claim-evidence"
+      ]
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "According to the commission, \"irreparable damage",
+      "note": "증거 훼손 단락이 결론의 근거로 혼자 서고 indict·damning 을 blame·harsh 로 바꾸면 V7 로 내려갔다."
+    }
+  },
+  {
+    "id": "b379b914-1441-4eb9-b030-5001a23b1f52",
+    "source_updated_at": "2026-09-25T08:47:08.641861+00:00",
+    "body_sha256": "32506dd4f949bcc9193d292f150c95eb0d0a87f2f60670d0d659f33b55ebaefb",
+    "kind": "retain",
+    "basis": "full",
+    "criteria_version": 8,
+    "retention": "keep",
+    "genre": "news",
+    "why": "하이데라바드 두 곳 폭발로 약 40명 사망 → 부상자 이송과 대피 → 폭발 장소와 시각으로 사건과 결과가 이어진 단신이라 고등 이상 내용 일치 칸 하나를 채운다.",
+    "slots": {
+      "ages": [
+        "high1",
+        "high2"
+      ],
+      "purposes": [
+        "reading"
+      ],
+      "types": [
+        "content_match"
+      ],
+      "levels": [
+        "V5"
+      ],
+      "platform": []
+    },
+    "processing": {
+      "detachable": true,
+      "standsAlone": true,
+      "vocabAdjustable": true,
+      "sample": "Two explosions have been reported in",
+      "note": "본문 전체가 한 편으로 떼어지고 eat-out·rocked 를 restaurant·hit 로 바꾸면 쉬워지나 원인·반응이 없어 문항은 하나뿐이다."
+    }
+  }
+]
