@@ -178,6 +178,32 @@
      "rule": "keep"
     }
    ]
+  },
+  {
+   "batch": 13,
+   "date": "2026-09-30",
+   "criteria_version": 8,
+   "bySource": {
+    "wikinews": {
+     "audited": 50,
+     "auditedKeep": 41,
+     "wrongKeep": 2
+    }
+   },
+   "wrong": [
+    {
+     "id": "8ec2217e-e81f-479f-a703-06feb97573a3",
+     "source": "wikinews",
+     "truth": "hold",
+     "rule": "keep"
+    },
+    {
+     "id": "96d95744-cec5-4e36-8979-f3163caef1cd",
+     "source": "wikinews",
+     "truth": "hold",
+     "rule": "keep"
+    }
+   ]
   }
  ]
 }
