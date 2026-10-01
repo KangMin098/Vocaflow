@@ -102,20 +102,34 @@ export function chunkComplete({ status, limitHit, ids, claims, malformed = 0, in
 
 // ── 실행 ──────────────────────────────────────────────────────────
 
-function findCodex() {
-  if (process.env.CODEX_BIN && fs.existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN
-  // VS Code 확장이 없는 환경(독립 CLI 설치)에서도 PATH 의 codex 로 떨어지게 — 폴더가 없으면 readdirSync 가 던진다
+/** 폴더 안 하위 폴더들 중 rel 경로가 있는 것 — 폴더가 없으면 빈 목록(readdirSync 가 던지지 않게). */
+function existingUnder(base, filter, rel) {
   try {
-    const ext = path.join(os.homedir(), '.vscode', 'extensions')
-    const hits = fs
-      .readdirSync(ext)
-      .filter((d) => d.startsWith('openai.chatgpt-'))
-      .map((d) => path.join(ext, d, 'bin', 'windows-x86_64', 'codex.exe'))
+    return fs
+      .readdirSync(base)
+      .filter(filter)
+      .map((d) => path.join(base, d, ...rel))
       .filter((p) => fs.existsSync(p))
       .sort((a, b) => fs.statSync(b).mtimeMs - fs.statSync(a).mtimeMs)
-    if (hits[0]) return hits[0]
-  } catch {}
-  return 'codex'
+  } catch {
+    return []
+  }
+}
+
+function findCodex() {
+  if (process.env.CODEX_BIN && fs.existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN
+  // ① VS Code 확장에 든 실행 파일
+  const vscode = existingUnder(path.join(os.homedir(), '.vscode', 'extensions'), (d) => d.startsWith('openai.chatgpt-'), ['bin', 'windows-x86_64', 'codex.exe'])
+  if (vscode[0]) return vscode[0]
+  if (process.platform === 'win32') {
+    // ② npm 전역 설치 — PATH 의 codex 는 셸 없이 못 부르는 대행 스크립트(codex.cmd)라 ENOENT 가 난다.
+    //    패키지 안의 실제 실행 파일(vendor/<대상>/codex/codex.exe)을 찾는다. 셸로 우회하면 여러 줄 지시문 인용이 깨진다.
+    const npmRoot = path.join(process.env.APPDATA ?? path.join(os.homedir(), 'AppData', 'Roaming'), 'npm', 'node_modules', '@openai', 'codex', 'vendor')
+    const npm = existingUnder(npmRoot, () => true, ['codex', 'codex.exe'])
+    if (npm[0]) return npm[0]
+    throw new Error('Codex 실행 파일을 못 찾았다 — VS Code 확장 또는 npm 전역 설치(@openai/codex)가 필요하다. 다른 위치면 CODEX_BIN 에 codex.exe 경로를 준다')
+  }
+  return 'codex' // macOS·Linux 는 PATH 의 codex 가 실행 파일이다
 }
 
 function main() {
