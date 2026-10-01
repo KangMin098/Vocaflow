@@ -125,11 +125,19 @@ if (REDO.size) {
 }
 
 // ── 남은 몫 ──────────────────────────────────────────────────────────
+// Reserve individual items, not just filenames. Otherwise an old [A,B] chunk can
+// collide with a newly packed [A,C] chunk and silently leave C unassigned.
+const reserved = new Set()
+for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
+  const input = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
+  for (const it of input.items ?? []) if (it.item_id ?? it.id) reserved.add(it.item_id ?? it.id)
+}
 const pool = corpus.items
   .filter((it) => it.in_scope)
   .filter((it) => (ONLY_TYPE ? it.type_id === ONLY_TYPE : true))
   .filter((it) => (ONLY_EXAM ? it.exam === ONLY_EXAM : true))
   .filter((it) => !done.has(it.id))
+  .filter((it) => REDO.has(it.id) || !reserved.has(it.id))
 
 // 유형별 → 최신 회차 먼저
 const byType = new Map()
