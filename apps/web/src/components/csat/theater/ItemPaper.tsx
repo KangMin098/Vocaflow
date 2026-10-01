@@ -1,6 +1,5 @@
-'use client'
-
 // apps/web/src/components/csat/theater/ItemPaper.tsx
+'use client'
 //
 // **해설 극장 왼쪽 열 — 기출문제 원본(발문 · 지문 · 선지).** (2026-09-25 재설계)
 //
@@ -45,7 +44,17 @@ async function devPaper(catalog: LearnerCatalog, examId: string): Promise<Cached
   return r.paper
 }
 
-export function ItemPaper({ catalog, examId, no }: { catalog: LearnerCatalog; examId: string; no: number }) {
+export interface PaperPassage {
+  itemId: string
+  passage: string | null
+}
+
+export function ItemPaper({ catalog, examId, no, onPassageChange }: {
+  catalog: LearnerCatalog
+  examId: string
+  no: number
+  onPassageChange?: (value: PaperPassage) => void
+}) {
   // null = 여는 중 · 'missing' = 기기에 이 회차 추출본이 없다
   const [paper, setPaper] = useState<CachedPaper | 'missing' | null>(null)
   const [fromDev, setFromDev] = useState(false)
@@ -68,6 +77,13 @@ export function ItemPaper({ catalog, examId, no }: { catalog: LearnerCatalog; ex
     }
   }, [catalog, examId])
 
+  const item = !paper || paper === 'missing' || paper.exam_id !== examId
+    ? null : paper.items.find((i) => i.no === no) ?? null
+  const passage = item?.ok ? item.passage : null
+  useEffect(() => {
+    onPassageChange?.({ itemId: `${examId}#${no}`, passage })
+  }, [examId, no, passage, onPassageChange])
+
   if (paper === null) {
     return (
       <p className={styles.quiet} aria-busy="true">
@@ -76,7 +92,6 @@ export function ItemPaper({ catalog, examId, no }: { catalog: LearnerCatalog; ex
     )
   }
 
-  const item = paper === 'missing' ? null : paper.items.find((i) => i.no === no) ?? null
   if (!item) {
     return (
       <div className={styles.paperDrop} data-testid="item-paper-missing">
@@ -97,7 +112,10 @@ export function ItemPaper({ catalog, examId, no }: { catalog: LearnerCatalog; ex
   }
 
   const again = (
-    <button type="button" className={styles.paperAgain} onClick={() => setPaper('missing')}>
+    <button type="button" className={styles.paperAgain} onClick={() => {
+      onPassageChange?.({ itemId: `${examId}#${no}`, passage: null })
+      setPaper('missing')
+    }}>
       <RotateCcw size={12} aria-hidden /> 문제지 다시 놓기
     </button>
   )

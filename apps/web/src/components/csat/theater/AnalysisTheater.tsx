@@ -1,6 +1,5 @@
-'use client'
-
 // apps/web/src/components/csat/theater/AnalysisTheater.tsx
+'use client'
 //
 // **해설 극장 — 참조(3B 워크스페이스) 골격을 문항 해설로 옮긴 것.**
 //
@@ -64,7 +63,8 @@ import { OPEN_BEFORE_COMMIT, committedOf, grade, maskChip, maskName, toPredictio
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
-import { ItemPaper } from './ItemPaper'
+import { ItemPaper, type PaperPassage } from './ItemPaper'
+import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff, PredictGate } from './PredictGate'
 import styles from './theater.module.css'
 
@@ -134,6 +134,9 @@ export function AnalysisTheater({
   typeId: string
 }) {
   const lec = useLecture()
+  const [quotePassage, setQuotePassage] = useState<PaperPassage | null>(null)
+  // 문항 이동 직후에는 이전 문항의 지문으로 인용을 검증하지 않는다.
+  const currentPassage = quotePassage?.itemId === itemId ? quotePassage.passage : null
   // 연 문항을 기록에 남긴다 — 넓이 · 「최근 연 문항」 · 공백 판정의 재료(ia-design §2-5)
   useEffect(() => {
     let alive = true
@@ -333,7 +336,7 @@ export function AnalysisTheater({
             <span className={styles.railTime}>{examLabel}</span>
           </p>
           <div className={styles.stream}>
-            <ItemPaper catalog={paper.catalog} examId={paper.examId} no={paper.no} />
+            <ItemPaper key={itemId} catalog={paper.catalog} examId={paper.examId} no={paper.no} onPassageChange={setQuotePassage} />
           </div>
 
           <div className={styles.composer}>
@@ -486,7 +489,7 @@ export function AnalysisTheater({
                         {b.body.map((p, i) => (
                           <p key={i}>{p}</p>
                         ))}
-                        {b.quote ? <blockquote lang="en">{b.quote}</blockquote> : null}
+                        <EvidenceQuote passage={currentPassage} quote={b.quote} truncated={b.quoteTruncated} />
                       </article>
                     ))}
                     {!revealed ? (
