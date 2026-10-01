@@ -99,22 +99,12 @@ if (!COMMIT) {
 let created = 0
 let skipped = 0
 for (const r of rows.filter((x) => x.outcome === '적재 후보')) {
-  const { data: exists, error } = await db.from('knowledge_items').select('id').eq('slug', r.item.slug).maybeSingle()
-  if (error) throw new Error(`항목 확인 실패 ${r.claimId}: ${error.message}`)
-  if (exists) {
-    skipped += 1 // 사람이 이미 판정·수정했을 수 있다 — 덮지 않는다
-    continue
-  }
-  const { data: item, error: ei } = await db.from('knowledge_items').insert(r.item).select('id').single()
-  if (ei) {
-    if (ei.code === '23505') {
-      skipped += 1 // 동시에 다른 실행이 먼저 넣었다
-      continue
-    }
-    throw new Error(`항목 적재 실패 ${r.claimId}: ${ei.message}`)
-  }
-  const { error: ee } = await db.from('knowledge_evidence').insert({ ...r.evidence, item_id: item.id })
-  if (ee) throw new Error(`근거 적재 실패 ${r.claimId}: ${ee.message} — 항목 ${r.item.slug} 은 근거 없이 남았다(검토 대기에 「근거 없음」으로 보인다)`)
-  created += 1
+  // 항목과 근거를 한 트랜잭션으로(knowledge_import_claim, 20261001130000). 근거가 실패하면 항목도 되돌려져
+  // 「근거 없는 항목이 남고 재실행이 그걸 건너뛰어 영영 복구 안 되는」 상태가 생기지 않는다(Codex P1).
+  const { data: outcome, error } = await db.rpc('knowledge_import_claim', { p_item: r.item, p_evidence: r.evidence })
+  if (error) throw new Error(`적재 실패 ${r.claimId}: ${error.message} — 이 주장은 항목·근거 모두 들어가지 않았다(재실행 안전)`)
+  if (outcome === 'exists') skipped += 1 // 사람이 이미 판정·수정했을 수 있다 — 덮지 않는다
+  else if (outcome === 'created') created += 1
+  else throw new Error(`알 수 없는 적재 결과 ${r.claimId}: ${String(outcome)}`)
 }
 console.log(`적재 — 새 항목 ${created} · 이미 있어 건너뜀 ${skipped}${NL}`)

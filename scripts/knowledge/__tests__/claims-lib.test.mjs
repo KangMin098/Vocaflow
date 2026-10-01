@@ -46,8 +46,15 @@ test('구간은 시작 < 종료 초', () => {
   assert.equal(validateClaim({ ...good, segment: { ...good.segment, endSec: 100 } }, TAX).ok, false)
 })
 
-test('import 는 실제 절차 단계가 있어야 한다 — 소개·구성 설명만으로는 안 된다', () => {
+test('import 는 절차 단계가 1개 이상이어야 한다(빈 배열 거부)', () => {
   assert.equal(validateClaim({ ...good, procedure: [] }, TAX).ok, false)
+})
+
+// 한계를 박아 둔다 — 검증기는 형식만 본다. 의미(실행 가능한 절차인가)는 원문 검토자가 판정한다.
+// 이 테스트가 실패하도록 검증기를 「의미까지 본다」고 바꾸려면, 그 판정 근거부터 이 파일에 적는다.
+test('한계: 소개 문장도 형식상 통과한다 — 절차의 의미는 검토자 몫', () => {
+  const r = validateClaim({ ...good, procedure: ['The video introduces the course structure.'] }, TAX)
+  assert.equal(r.ok, true)
 })
 
 test('영역·대상·조건: 언급 없으면 미명시, 빈 배열·없는 id·차원 틀림은 거부', () => {

@@ -34,7 +34,13 @@ function checkAxis(name, value, taxonomy, dims, errors) {
 }
 
 /**
- * 한 줄 검증. taxonomy = Map<id, dimension>. 반환 { ok, errors, claim }.
+ * 한 줄 검증 — **형식만 본다.** taxonomy = Map<id, dimension>. 반환 { ok, errors, claim }.
+ *
+ * 보장하지 않는 것(Codex 리뷰 P2, 2026-10-01):
+ *   · 절차가 실제로 실행 가능한지 — 「영상이 강좌 구성을 소개한다」 같은 문장도 형식상 통과한다
+ *   · 원문을 옮겨 적지 않았는지 — 300자 제한은 긴 인용을 줄일 뿐 복사를 막지 못한다
+ *   · 구간 재서술이 그 초 구간의 내용과 맞는지
+ * 이 셋은 원문을 가진 검토자가 판정한다. 검증을 통과했다고 「확인된 방법」이 아니다.
  * import 판정은 방법·절차·등급이 있어야 하고, A 는 대조 구간(시작<종료 초 + 재서술)이 있어야 한다.
  */
 export function validateClaim(raw, taxonomy) {
