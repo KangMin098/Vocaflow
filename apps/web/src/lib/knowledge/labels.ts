@@ -52,6 +52,18 @@ export const GRADE_LABEL: Record<Grade, string> = {
   G: '미확인',
 }
 
+/** 근거 귀속 — DB CHECK(20261001130000)와 같은 값. 주장 종류(권고·관찰·추론)와 1:1 — scripts/knowledge/claims-lib.mjs */
+export const ATTRIBUTIONS = ['stated', 'observed', 'inferred'] as const
+export type Attribution = (typeof ATTRIBUTIONS)[number]
+export const ATTRIBUTION_LABEL: Record<Attribution, string> = {
+  stated: '출처가 직접 말함',
+  observed: '수업 진행 관찰',
+  inferred: '분석자 추론',
+}
+export function isAttribution(v: unknown): v is Attribution {
+  return typeof v === 'string' && (ATTRIBUTIONS as readonly string[]).includes(v)
+}
+
 export const GAP_CAUSE_LABEL: Record<string, string> = {
   no_transcript: '자막 미확보',
   rights_unknown: '권리 미확인',

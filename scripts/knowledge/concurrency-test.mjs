@@ -1,6 +1,7 @@
 // scripts/knowledge/concurrency-test.mjs
 // 학습 원리 근거 불변식 — 두 세션 경쟁 조건 검증 (migration 20260928140000 · 20260928150000, Codex 재리뷰 P2 세 건).
-// 시나리오 6: 근거 삭제↔채택 양방향(P2-1) · 재등급→G↔근거 추가 양방향(P2-2) · A→B 재등급↔채택 양방향(P2-3).
+// 시나리오 11: 근거 삭제↔채택 양방향(P2-1) · 재등급→G↔근거 추가 양방향(P2-2) · A→B 재등급↔채택 양방향(P2-3)
+//   · 근거 버전 V-1~5(20261001120000 — 화면을 연 뒤 근거가 추가·삭제·재등급되면 채택 0행).
 // 단일 세션 시험으로는 안 보이는 경쟁을 두 연결로 재현한다. 시험 데이터는 zz- 접두·가짜 해시로 만들고 끝에 지운다.
 //
 // 사용 (pg 는 저장소 의존성이 아니다 — 외부 폴더에 설치해 경로로 넘긴다):
@@ -229,6 +230,111 @@ try {
     const s = await csatState(id)
     record('P2-3b A→B 재등급 먼저 → 채택', blocked && r.ok && s.status === 'adopted' && s.grade === 'B',
       `막힘 ${blocked} · 채택 ${r.ok ? '성공' : r.error} · 최종 ${s.status}/근거 ${s.grade}`)
+    await c1.end(); await c2.end()
+  }
+
+  // ── 근거 버전(20261001120000) — 앱의 채택 문장과 같다: 상태·근거 버전이 본 그대로일 때만 바꾼다
+  async function versionOf(id) {
+    const { rows } = await admin.query('select evidence_version::int v from knowledge_items where id = $1', [id])
+    return rows[0].v
+  }
+  function adoptSeen(client, id, seen) {
+    return client.query(
+      `update knowledge_items set status = 'adopted', updated_by = 'test'
+        where id = $1 and status = 'in_review' and evidence_version = $2 returning id`,
+      [id, seen]
+    )
+  }
+  function addExternal(client, id) {
+    return client.query(
+      `insert into knowledge_evidence (item_id, grade, attribution, source_type, external_url, external_title, created_by)
+       values ($1, 'C', 'inferred', 'external', 'https://example.org/more', 'more', 'test')`,
+      [id]
+    )
+  }
+
+  // V-1 그 사이 변화 없음 → 채택 성공
+  {
+    const id = await setupItemWithEvidence()
+    const seen = await versionOf(id)
+    const c = await connect()
+    const r = await adoptSeen(c, id, seen)
+    const s = await itemState(id)
+    record('V-1 변화 없음 → 채택', r.rowCount === 1 && s.status === 'adopted', `바뀐 행 ${r.rowCount} · 최종 ${s.status}`)
+    await c.end()
+  }
+
+  // V-2 근거 추가가 먼저 잠금 → 채택이 기다렸다가 버전이 달라 0행
+  {
+    const id = await setupItemWithEvidence()
+    const seen = await versionOf(id)
+    const c1 = await connect()
+    const c2 = await connect()
+    await c1.query('begin')
+    await addExternal(c1, id)
+    const adopt = adoptSeen(c2, id, seen)
+    const blocked = await isBlocked(adopt)
+    await c1.query('commit')
+    const r = await adopt
+    const s = await itemState(id)
+    record('V-2 근거 추가 먼저 → 채택', blocked && r.rowCount === 0 && s.status === 'in_review',
+      `막힘 ${blocked} · 바뀐 행 ${r.rowCount} · 최종 ${s.status}/근거 ${s.n}`)
+    await c1.end(); await c2.end()
+  }
+
+  // V-3 근거 삭제가 먼저 잠금(근거 2 → 1) → 채택이 기다렸다가 0행
+  {
+    const id = await setupItemWithEvidence()
+    await addExternal(admin, id)
+    const seen = await versionOf(id)
+    const c1 = await connect()
+    const c2 = await connect()
+    await c1.query('begin')
+    await c1.query("delete from knowledge_evidence where item_id = $1 and external_title = 'more'", [id])
+    const adopt = adoptSeen(c2, id, seen)
+    const blocked = await isBlocked(adopt)
+    await c1.query('commit')
+    const r = await adopt
+    const s = await itemState(id)
+    record('V-3 근거 삭제 먼저 → 채택', blocked && r.rowCount === 0 && s.status === 'in_review' && s.n === 1,
+      `막힘 ${blocked} · 바뀐 행 ${r.rowCount} · 최종 ${s.status}/근거 ${s.n}`)
+    await c1.end(); await c2.end()
+  }
+
+  // V-4 원천 A→B 재등급이 먼저 잠금 → 채택이 기다렸다가 근거 등급이 바뀌어 0행
+  {
+    const id = await setupItemWithCsatEvidence()
+    const seen = await versionOf(id)
+    const c1 = await connect()
+    const c2 = await connect()
+    await c1.query('begin')
+    await c1.query("update knowledge_csat_origins set status = 'supported_candidate' where passage_sha256 = $1", [SHA])
+    const adopt = adoptSeen(c2, id, seen)
+    const blocked = await isBlocked(adopt)
+    await c1.query('commit')
+    const r = await adopt
+    const s = await csatState(id)
+    record('V-4 A→B 재등급 먼저 → 채택', blocked && r.rowCount === 0 && s.status === 'in_review' && s.grade === 'B',
+      `막힘 ${blocked} · 바뀐 행 ${r.rowCount} · 최종 ${s.status}/근거 ${s.grade}`)
+    await c1.end(); await c2.end()
+  }
+
+  // V-5 채택이 먼저 잠금 → 근거 추가가 기다렸다가 진행(채택 → 추가 순서와 같다) · 버전은 +1
+  {
+    const id = await setupItemWithEvidence()
+    const seen = await versionOf(id)
+    const c1 = await connect()
+    const c2 = await connect()
+    await c1.query('begin')
+    const r = await adoptSeen(c1, id, seen)
+    const add = addExternal(c2, id)
+    const blocked = await isBlocked(add)
+    await c1.query('commit')
+    const a = await settle(add)
+    const s = await itemState(id)
+    const v = await versionOf(id)
+    record('V-5 채택 먼저 → 근거 추가', blocked && r.rowCount === 1 && a.ok && s.status === 'adopted' && v === seen + 1,
+      `막힘 ${blocked} · 채택 ${r.rowCount} · 추가 ${a.ok ? '성공' : a.error} · 최종 ${s.status} · 버전 ${seen}→${v}`)
     await c1.end(); await c2.end()
   }
 } finally {

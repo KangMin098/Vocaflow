@@ -132,6 +132,8 @@ SECURITY **DEFINER** 라 영향이 없었다. 깨져 있던 것은 SECURITY **IN
 - `20260928130000_knowledge_evidence_invariants`(2026-09-28 적용 · 규칙 3개 DB 시험 후 되돌림): 기출 원천 근거 등급을 원천에 맞추고 G 거부(`knowledge_evidence_sync_csat_grade`) · 원천 등급 하락 시 채택 항목 재검토·G 면 근거 삭제(`knowledge_csat_origin_regrade`) · 근거 0 이 되면 재검토(`knowledge_evidence_after_delete`).
 - `20260928140000_knowledge_evidence_concurrency`(2026-09-28 적용): 채택·적용 쓰기가 근거 존재를 검사(`knowledge_items_require_evidence`) · 근거 삭제 트리거가 항목 행부터 FOR UPDATE · 기출 근거 추가가 원천 행을 FOR SHARE. 단일 세션 시험 통과 · 두 세션 시험(`scripts/knowledge/concurrency-test.mjs`) **6/6 통과**(2026-09-28 — 뒤쪽이 잠금에 막힘 확인, 시험 데이터 0).
 - `20260928150000_knowledge_regrade_locks_items`(2026-09-28 적용): 원천 재등급 트리거가 그 원천을 근거로 가진 항목 행을 상태와 무관하게 먼저 FOR UPDATE(id 순) — 재등급↔채택 경쟁 보정. 보정 전 실측 4/6 → 보정 후 6/6.
+- `20261001120000_knowledge_evidence_version`(2026-10-01 적용): `knowledge_items.evidence_version` — 근거 추가·삭제·변경(원천 재등급 포함) 때마다 트리거 `knowledge_evidence_bump_version` 이 +1(항목 행 잠금). 상태 변경은 「상태·근거 버전 = 화면에서 본 값」 한 문장 UPDATE. 두 세션 시험 11/11(운영).
+- `20261001130000_knowledge_evidence_observed`(2026-10-01 적용): 근거 귀속에 `observed`(수업 진행 관찰) · RPC `knowledge_import_claim(item, evidence)` — 항목·근거 한 트랜잭션, slug 충돌이면 `exists`(덮지 않음) · service_role 전용. DB 시험: 나쁜 근거 → 항목도 0 · 재호출 exists · observed 수용.
 - 전부 RLS · anon/authenticated 권한 없음 · service_role 전용. 씨앗 `scripts/knowledge/import-seed.mjs`(재실행 안전). 설계 [SYSTEM](./methodology/SYSTEM.md) · [단계·검증](./methodology/README.md).
 
 - **테이블**: **107** · **Views**: **11**(+ matview 4) · **Functions**: **360** · **인덱스**: **340** · **Migrations**: **528** · **용량 7,665 MB** (2026-08-31 DB 직접 쿼리 실측)

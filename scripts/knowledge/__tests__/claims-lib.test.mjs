@@ -1,0 +1,88 @@
+// scripts/knowledge/__tests__/claims-lib.test.mjs — node --test scripts/knowledge/__tests__/claims-lib.test.mjs (Windows 는 폴더 경로를 못 받는다)
+import assert from 'node:assert/strict'
+import { test } from 'node:test'
+import { KIND_ATTRIBUTION, STATEMENT_MAX, composeStatement, formatSegment, validateClaim } from '../claims-lib.mjs'
+
+const TAX = new Map([
+  ['skill:reading', 'skill'],
+  ['age:high', 'age'],
+  ['exam:csat', 'exam'],
+])
+
+const good = {
+  videoId: 'Wn3kQRB5qbI',
+  claimId: 'Wn3kQRB5qbI#1',
+  kind: 'recommendation',
+  method: '틀린 문항의 근거 문장을 다시 찾는다',
+  procedure: ['오답 표시', '근거 문장 표시', '다음 날 다시 풀기'],
+  skill: ['skill:reading'],
+  audience: ['age:high'],
+  conditions: ['exam:csat'],
+  segment: { startSec: 192, endSec: 245, paraphrase: '오답은 근거 문장을 찾아 다시 푼다고 권함' },
+  reviewScope: 'full',
+  grade: 'A',
+  verdict: 'import',
+  reviewer: 'codex',
+}
+
+test('통과하는 import 주장', () => {
+  assert.equal(validateClaim(good, TAX).ok, true)
+})
+
+test('수업 진행 관찰은 권고(stated)로 바뀌지 않는다', () => {
+  assert.equal(KIND_ATTRIBUTION.observation, 'observed')
+  assert.equal(KIND_ATTRIBUTION.recommendation, 'stated')
+  assert.equal(KIND_ATTRIBUTION.inference, 'inferred')
+})
+
+test('A 는 대조 구간이 있어야 한다', () => {
+  const r = validateClaim({ ...good, segment: null }, TAX)
+  assert.equal(r.ok, false)
+  assert.ok(r.errors.some((e) => e.startsWith('grade A')))
+  assert.equal(validateClaim({ ...good, segment: null, grade: 'B' }, TAX).ok, true)
+})
+
+test('구간은 시작 < 종료 초', () => {
+  assert.equal(validateClaim({ ...good, segment: { ...good.segment, endSec: 100 } }, TAX).ok, false)
+})
+
+test('import 는 절차 단계가 1개 이상이어야 한다(빈 배열 거부)', () => {
+  assert.equal(validateClaim({ ...good, procedure: [] }, TAX).ok, false)
+})
+
+// 한계를 박아 둔다 — 검증기는 형식만 본다. 의미(실행 가능한 절차인가)는 원문 검토자가 판정한다.
+// 이 테스트가 실패하도록 검증기를 「의미까지 본다」고 바꾸려면, 그 판정 근거부터 이 파일에 적는다.
+test('한계: 소개 문장도 형식상 통과한다 — 절차의 의미는 검토자 몫', () => {
+  const r = validateClaim({ ...good, procedure: ['The video introduces the course structure.'] }, TAX)
+  assert.equal(r.ok, true)
+})
+
+test('영역·대상·조건: 언급 없으면 미명시, 빈 배열·없는 id·차원 틀림은 거부', () => {
+  assert.equal(validateClaim({ ...good, skill: '미명시', audience: '미명시', conditions: '미명시' }, TAX).ok, true)
+  assert.equal(validateClaim({ ...good, skill: [] }, TAX).ok, false)
+  assert.equal(validateClaim({ ...good, skill: ['skill:made-up'] }, TAX).ok, false)
+  assert.equal(validateClaim({ ...good, skill: ['age:high'] }, TAX).ok, false)
+})
+
+test('보류·제외는 사유 필수, 판정 없는 줄은 거부', () => {
+  assert.equal(validateClaim({ ...good, verdict: 'exclude' }, TAX).ok, false)
+  assert.equal(validateClaim({ ...good, verdict: 'exclude', reason: '학습 절차 없음' }, TAX).ok, true)
+  assert.equal(validateClaim({ ...good, verdict: undefined }, TAX).ok, false)
+})
+
+test('구간 재서술 길이 제한(원문 인용 방지)', () => {
+  assert.equal(validateClaim({ ...good, segment: { ...good.segment, paraphrase: 'x'.repeat(301) } }, TAX).ok, false)
+})
+
+test('합친 문장이 DB 한도를 넘으면 잘라 넣지 않고 검증 실패 — 재실행으로 못 고치는 잘린 적재를 막는다', () => {
+  const long = { ...good, procedure: ['가'.repeat(800), '나'.repeat(800)] }
+  assert.ok(composeStatement(long).length > STATEMENT_MAX)
+  const r = validateClaim(long, TAX)
+  assert.equal(r.ok, false)
+  assert.ok(r.errors.some((e) => e.includes('합친 문장')))
+  assert.equal(validateClaim({ ...good, procedure: ['가'.repeat(700)] }, TAX).ok, true)
+})
+
+test('초 → m:ss–m:ss', () => {
+  assert.equal(formatSegment({ startSec: 192, endSec: 245 }), '3:12–4:05')
+})
