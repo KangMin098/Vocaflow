@@ -91,11 +91,15 @@ export async function loadExamReport(db: Db, userId: string): Promise<{ report: 
     'csat_dx_option_trap',
   )
 
+  // 해설 링크는 학습자에게 공개된 문항(csat_items_public)만 — 미발행 학평 문항으로 가면 404 다
+  const publicIds = new Set(
+    (await selectByChunks<{ id: string }>(itemRows.map((i) => i.id), 300, (chunk) => db.from('csat_items_public').select('id').in('id', chunk), 'csat_items_public')).map((r) => r.id),
+  )
   const labelOf = new Map(exams.map((e) => [e.id, e.label]))
   const items: Record<string, Record<number, ReportItem>> = {}
   const byItemId = new Map<string, ReportItem>()
   for (const i of itemRows) {
-    const it: ReportItem = { no: i.no, itemId: i.id, typeId: i.type_id, traps: {} }
+    const it: ReportItem = { no: i.no, itemId: publicIds.has(i.id) ? i.id : null, typeId: i.type_id, traps: {} }
     ;(items[i.exam_id] ??= {})[i.no] = it
     byItemId.set(i.id, it)
   }

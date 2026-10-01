@@ -88,8 +88,10 @@ export function buildExamReport(
 ): ExamReport {
   const ordered = [...sessions].sort(chrono)
   const lives = ordered.filter((s) => s.mode === 'live')
-  const last = lives.at(-1) ?? ordered.at(-1) ?? null
-  const prevLive = last ? lives.filter((s) => s.id !== last.id).at(-1) ?? null : null
+  // 「최근 시험」= 가장 최근 기록(다시 푼 기출 포함) · 유형의 최근/이전 비교 = 가장 최근 실제 응시 — 둘을 섞지 않는다
+  const newest = ordered.at(-1) ?? null
+  const lastLive = lives.at(-1) ?? null
+  const prevLive = newest && newest.mode === 'live' ? lives.filter((s) => s.id !== newest.id).at(-1) ?? null : null
 
   const acc = new Map<string, { n: number; c: number; ln: number; lc: number; bn: number; bc: number }>()
   let listenN = 0
@@ -117,7 +119,7 @@ export function buildExamReport(
       const t = acc.get(typeId) ?? { n: 0, c: 0, ln: 0, lc: 0, bn: 0, bc: 0 }
       t.n += 1
       t.c += a.correct ? 1 : 0
-      if (last && s.id === last.id) {
+      if (lastLive && s.id === lastLive.id) {
         t.ln += 1
         t.lc += a.correct ? 1 : 0
       } else {
@@ -161,7 +163,7 @@ export function buildExamReport(
         }
       })
   }
-  const wrongLatest: WrongItem[] = last ? wrongsOf(last) : []
+  const wrongLatest: WrongItem[] = newest ? wrongsOf(newest) : []
   const wrongAll: WrongItem[] = [...ordered].reverse().flatMap(wrongsOf)
   const gradeCounts: Record<number, number> = {}
   for (const s of lives) if (s.grade !== null) gradeCounts[s.grade] = (gradeCounts[s.grade] ?? 0) + 1
@@ -176,8 +178,8 @@ export function buildExamReport(
       wrong: s.answers.filter((a) => !a.correct).length, listening: share(s, 1, 17), reading: share(s, 18, 45),
       answers: s.answers,
     })),
-    latest: last
-      ? { sessionId: last.id, label: last.examLabel, raw: last.raw, grade: last.grade, delta: prevLive && last.mode === 'live' ? last.raw - prevLive.raw : null }
+    latest: newest
+      ? { sessionId: newest.id, label: newest.examLabel, raw: newest.raw, grade: newest.grade, delta: prevLive ? newest.raw - prevLive.raw : null }
       : null,
     sections: { listening: listenN > 0 ? rate(listenC, listenN) : null, reading: readN > 0 ? rate(readC, readN) : null },
     types,

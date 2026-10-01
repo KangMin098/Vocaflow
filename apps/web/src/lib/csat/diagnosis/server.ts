@@ -385,14 +385,15 @@ async function snapshotForSession(db: Db, userId: string, sessionId: string, now
 export async function deleteExamSession(db: Db, userId: string, sessionId: string): Promise<boolean> {
   const { data, error } = await db.from('csat_dx_session').delete().eq('id', sessionId).eq('user_id', userId).select('id')
   if (error) throw new Error(`기록 삭제 실패: ${error.message}`)
-  if ((data ?? []).length === 0) return false
+  const found = (data ?? []).length > 0
+  // 스냅샷 정리는 지운 기록이 없어도 한다 — 앞선 요청이 기록만 지우고 정리 중에 실패했으면 재시도가 여기서 마무리한다(멱등)
   // 스냅샷은 기록에서 만든 파생값이다 — 지운 기록을 본 스냅샷이 「최신」으로 남지 않게 지우고, 남은 기록으로 하나 다시 쌓는다
   const { error: se } = await db.from('csat_dx_snapshot').delete().eq('user_id', userId)
   if (se) throw new Error(`스냅샷 정리 실패: ${se.message}`)
   const { count, error: ce } = await db.from('csat_dx_session').select('id', { count: 'exact', head: true }).eq('user_id', userId)
   if (ce) throw new Error(`기록 수 조회 실패: ${ce.message}`)
   if ((count ?? 0) > 0) await recomputeSnapshot(db, userId, 'session', new Date())
-  return true
+  return found
 }
 
 /** 시험 기록 입력에서 고를 수 있는 시험(정답표가 있는 회차) */

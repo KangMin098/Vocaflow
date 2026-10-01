@@ -84,6 +84,12 @@ function main() {
   const raw = (r.stdout || '').trim()
   const findings = raw.split('\n').filter((l) => /^\s*\[P[123]\]/.test(l))
   const out = findings.length ? [...new Set(findings.map((l) => l.trim()))].join('\n') : raw.includes('NO_FINDINGS') ? 'NO_FINDINGS' : raw
+  // 명시적 NO_FINDINGS 나 형식 맞는 지적만 결과로 인정한다 — 빈 답 · 「검토 불가」 안내는 통과가 아니다
+  if (!findings.length && out !== 'NO_FINDINGS') {
+    console.error(`[review] 리뷰 결과를 읽지 못했다(통과 아님):
+${raw.slice(-1500)}`)
+    return 1
+  }
   console.log(out)
   console.log(goalText ? `\n[review] 목적 파일: ${goalPath}` : '\n[review] 목적 파일 없음 — .agent-goal.md 를 쓰고 다시 돌린다')
   return /\[P[12]\]/.test(out) ? 2 : 0
