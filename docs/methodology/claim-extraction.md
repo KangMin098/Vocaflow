@@ -53,7 +53,7 @@
 | 이미 같은 slug 가 있음 | **건너뛴다** — 사람이 바꾼 판정·문장을 덮지 않는다 |
 | `hold`·`exclude`·검증 실패 | 적재하지 않고 사유와 함께 센다 |
 
-관찰(`observed`) 귀속은 migration `20261001130000_knowledge_evidence_observed` 적용 뒤 `--observed-ok` 로 받는다.
+관찰(`observed`) 귀속은 migration `20261001130000_knowledge_evidence_observed`(2026-10-01 적용) 이후이므로 `--observed-ok` 로 받는다. 항목·근거는 RPC `knowledge_import_claim` 한 번(한 트랜잭션)으로 들어간다.
 
 ## 실행
 
