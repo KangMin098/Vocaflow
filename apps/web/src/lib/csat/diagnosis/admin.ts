@@ -227,8 +227,8 @@ export async function loadLearners(db: Db): Promise<LearnerSummary[]> {
     )
   const [sessions, snapsRaw, profiles] = await Promise.all([
     byId<{ id: string; user_id: string; taken_at: string }>('csat_dx_session', 'id, user_id, taken_at'),
-    byId<{ id: string; user_id: string; computed_at: string; inputs_as_of: string; evidence: Record<string, unknown>; grade_est: number | null; adjusted_score: number | null; confidence: string }>(
-      'csat_dx_snapshot', 'id, user_id, computed_at, inputs_as_of, evidence, grade_est, adjusted_score, confidence',
+    byId<{ id: string; user_id: string; computed_at: string; inputs_as_of: string; settings_id: number | null; evidence: Record<string, unknown>; grade_est: number | null; adjusted_score: number | null; confidence: string }>(
+      'csat_dx_snapshot', 'id, user_id, computed_at, inputs_as_of, settings_id, evidence, grade_est, adjusted_score, confidence',
     ),
     byId<{ id: string; user_id: string }>('csat_dx_profile_hist', 'id, user_id'),
   ])

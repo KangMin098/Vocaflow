@@ -31,21 +31,24 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
   const [busy, setBusy] = useState(false)
   const [done, setDone] = useState<{ correct: number; total: number } | null>(null)
   const [error, setError] = useState<string | null>(null)
+  // 한 번 보낸 답은 바꾸지 않는다 — 저장은 됐는데 응답만 끊겼을 수 있어, 같은 키·같은 답으로만 다시 보낸다
+  const [sent, setSent] = useState(false)
   const clientKey = useRef<string>(crypto.randomUUID())
   const item = items[idx]
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (done || busy || (e.target as HTMLElement)?.tagName === 'INPUT') return
+      if (done || busy || sent || (e.target as HTMLElement)?.tagName === 'INPUT') return
       if (/^[1-5]$/.test(e.key)) setChosen((c) => ({ ...c, [item.id]: Number(e.key) }))
       else if (e.key === 'ArrowRight') setIdx((i) => Math.min(items.length - 1, i + 1))
       else if (e.key === 'ArrowLeft') setIdx((i) => Math.max(0, i - 1))
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [item, items.length, done, busy])
+  }, [item, items.length, done, busy, sent])
 
   const submit = async () => {
+    setSent(true)
     setBusy(true)
     setError(null)
     try {
@@ -102,7 +105,7 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
                 type="button"
                 role="radio"
                 aria-checked={on}
-                disabled={busy}
+                disabled={busy || sent}
                 onClick={() => setChosen({ ...chosen, [item.id]: on ? null : v })}
                 aria-label={`${v}번`}
                 className={`${btn} min-w-[56px] justify-center text-[18px] font-[800] ${on ? 'border-[var(--p)] bg-[var(--p)] text-[var(--on-p)]' : 'border-[var(--bd)] text-[var(--t1)]'}`}
@@ -119,7 +122,7 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
               key={f}
               type="button"
               aria-pressed={flags[item.id] === f}
-              disabled={busy}
+              disabled={busy || sent}
               onClick={() => setFlags((cur) => ({ ...cur, [item.id]: cur[item.id] === f ? 'sure' : f }))}
               className={`${btn} ${flags[item.id] === f ? 'border-[var(--p)] text-[var(--p)]' : 'border-[var(--bd)] text-[var(--t2)]'}`}
             >
@@ -138,7 +141,12 @@ export function DiagnosticTest({ items }: { items: TestItem[] }) {
           </button>
         )}
       </div>
-      {error && <p role="alert" className="font-body text-[14px] text-[var(--error-ink)]">{error}</p>}
+      {error && (
+        <div className="flex flex-col gap-2">
+          <p role="alert" className="font-body text-[14px] text-[var(--error-ink)]">{error}</p>
+          <p className="break-keep font-body text-[13px] text-[var(--t2)]">「제출하고 진단 받기」를 다시 누르면 같은 답으로 다시 보내요.</p>
+        </div>
+      )}
     </div>
   )
 }

@@ -8,7 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
-- **영어 진단 MVP**(2026-10-01 · 사용자 승인 · migration `20261001150000_csat_diagnosis_mvp` 적용 · `20261001160000_funnel_allow_csat_diagnosis` 미적용): 학습자 `/csat/diagnosis`(리포트 · start · attempts/new OMR · test 20문항 · history) + 관리자 `/admin/csat/diagnosis`(현황 · 시험·태깅 · 풀 · 학습자 · 엔진 설정). 규칙 엔진 rule-v1(`lib/csat/diagnosis/engine`, 순수 함수 · settings 버전) — 채점 · 난이도 보정(공식 오답률 없으면 미보정) · 역량 A1~A9 · 함정 계열 C1~C9(C9 글 구조 단서 신설) · 습관 6 · 수능 시나리오 · 추천 · 신뢰도. 45문항 정답키 평가원 27회 1,215행 적재(`scripts/csat/diagnosis/load-answer-keys.mjs`, 2014A·B 대조 부족으로 제외) · 선지 함정 3,387 · 역량 10,266 시드(검수 전). 학평은 듣기 정답 부재로 MVP 제외. vitest 32.
+- **영어 진단 MVP**(2026-10-01 · 사용자 승인 · migration `20261001150000_csat_diagnosis_mvp` 적용 · `20261001160000_funnel_allow_csat_diagnosis` · `20261001170000_csat_diagnosis_atomic_writes` · `20261001180000_csat_dx_snapshot_once_per_session` 적용): 학습자 `/csat/diagnosis`(리포트 · start · attempts/new OMR · test 20문항 · history) + 관리자 `/admin/csat/diagnosis`(현황 · 시험·태깅 · 풀 · 학습자 · 엔진 설정). 규칙 엔진 rule-v1(`lib/csat/diagnosis/engine`, 순수 함수 · settings 버전) — 채점 · 난이도 보정(공식 오답률 없으면 미보정) · 역량 A1~A9 · 함정 계열 C1~C9(C9 글 구조 단서 신설) · 습관 6 · 수능 시나리오 · 추천 · 신뢰도. 45문항 정답키 평가원 27회 1,215행 적재(`scripts/csat/diagnosis/load-answer-keys.mjs`, 2014A·B 대조 부족으로 제외) · 선지 함정 3,387 · 역량 10,266 시드(검수 전). 학평은 듣기 정답 부재로 MVP 제외. vitest 32.
 - **학습자 문항 해설 인용 대조**(2026-10-01 · migration 0): `/csat/item/[slug]` 인용 블록을 기기에서 읽은 현재 지문과 `findQuote`로 대조해 불일치·미확보·추출 실패 시 숨긴다. 설명은 유지하고 표시 상한의 말줄임을 원래 인용과 구별한다. DB 변경 없음.
 - **PR #130 인용 표시 전수 검증**(2026-10-01 · DB 읽기 전용): 원본 PDF 29개·최신 발행 분석 802건을 재추출·대조해 DB 매칭 인용 **785/785 표시**, 불일치 **17/17 숨김**, 추가 누락 **0건**을 확인했다. 지문 자체는 정규화 후 30건이 달랐다. 재실행 도구와 문항별 해시·판정을 [측정 기록](./csat-learner/quote-visibility-20261001.md)에 남겼다.
 

@@ -30,7 +30,7 @@ export const TRAP_FAMILY_NAME: Record<TrapFamily, { admin: string; learner: stri
 }
 
 export const HABIT_TEXT: Record<HabitFlag['code'], { admin: string; learner: string }> = {
-  time_collapse: { admin: '시간 붕괴(41~45 오답 집중 · timeout)', learner: '마지막 장문(41~45번)에서 오답이 몰려요. 시간이 부족한 것 같아요.' },
+  time_collapse: { admin: '시간 붕괴(41~45 오답 집중 · timeout)', learner: '시간이 부족했던 흔적이 보여요. 마지막 장문(41~45번)에 오답이 몰리거나 시간 부족 표시가 여러 개예요.' },
   guessing: { admin: '추측 풀이(guess 비율 · 쉬운 문항 오답)', learner: '찍은 문항이 많거나, 쉬운 문항에서 실수가 나와요.' },
   word_reuse: { admin: '단어 재활용 편중(오답 중 C1 비율)', learner: '틀린 문제의 상당수가 본문 단어를 그대로 쓴 선지예요.' },
   cutline_90: { admin: '90점 커트라인(최근 live 3회 86~93)', learner: '1등급 경계(90점) 근처에서 계속 머물러 있어요.' },

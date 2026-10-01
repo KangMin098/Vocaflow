@@ -77,7 +77,7 @@ export async function loadSnapshots(db: SupabaseClient, userId: string, limit = 
   return sortByRevision((data ?? []) as Row[]).slice(0, limit).map(toView)
 }
 
-/** 입력 리비전 순(최신 먼저) — 본 기록 수(세션은 지우지 않으므로 단조 증가) → 입력 워터마크 → 계산 시각 */
+/** 입력 리비전 순(최신 먼저) — 본 기록 수(세션은 지우지 않으므로 단조 증가) → 입력 워터마크 → 설정 버전 → 계산 시각 */
 export function sortByRevision<R extends Record<string, unknown>>(rows: R[]): R[] {
   const count = (r: R) => {
     const ev = (r.evidence ?? {}) as { examSessions?: number; diagnosticSessions?: number }
@@ -86,6 +86,8 @@ export function sortByRevision<R extends Record<string, unknown>>(rows: R[]): R[
   return [...rows].sort((a, b) =>
     count(b) - count(a)
     || String(b.inputs_as_of ?? '').localeCompare(String(a.inputs_as_of ?? ''))
+    // 같은 입력이면 더 새 설정 버전으로 계산한 것이 최신(설정 전환을 사이에 둔 동시 계산)
+    || Number(b.settings_id ?? 0) - Number(a.settings_id ?? 0)
     || String(b.computed_at ?? '').localeCompare(String(a.computed_at ?? '')))
 }
 
