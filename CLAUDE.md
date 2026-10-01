@@ -12,7 +12,7 @@
 - 드레인 청크 팬아웃은 `.claude/agents/` 의 전용 서브에이전트로: `csat-item-analyst` · `pending-words-judge` · `vcb-enrich-chunk` · `vcb-seed-validator` · `vcb-curation-comparator` · `video-request-designer`(영상 요청 설계, `pnpm video requests:export` 뒤). 진입은 슬래시 명령(`/pending-words-drain` · `/vcb-batch-enrich` · `/vcb-seed-validate` · `/vcb-curate-compare`).
 - DB 위험 작업은 `/db-checkpoint` 로 앞뒤 스냅샷, 장애는 `/db-incident`, 헬스 판정·조치는 `/db-health-audit` → `/db-remediate`.
 - 서브에이전트는 **독립 청크를 병렬로 돌릴 때와 넓은 탐색**에만 쓴다. 파일 하나·사실 하나 확인은 직접 한다.
-- 3개 이상 영역에 걸치거나 되돌리기 어려운 변경은 plan mode 로 계획부터 세운다.
+- 3개 이상 영역에 걸치거나 되돌리기 어려운 변경은 plan mode 로 계획부터 세우고, ExitPlanMode 전에 계획을 `.agent-plan.md` 로 써서 `node agents/scripts/review.mjs --plan .agent-plan.md`(Codex) 를 돌려 결과를 계획에 붙인다.
 
 ## Supabase MCP (Claude 쪽)
 

@@ -5,6 +5,7 @@
 //
 //   node agents/scripts/review.mjs                     # 현재 브랜치 vs main, 목적 = .agent-goal.md
 //   node agents/scripts/review.mjs --base origin/main --goal path/to/goal.md
+//   node agents/scripts/review.mjs --plan plan.md      # 계획·설계안 리뷰(코드 쓰기 전 · 사용자 승인 요청 전)
 //   node agents/scripts/review.mjs --print             # 실행하지 않고 지시문만 출력
 //
 // 목적 파일이 없으면 리뷰는 돌리되, 지시문이 「목적 파일 없음」을 [P2] 로 보고하게 한다.
@@ -42,6 +43,35 @@ export function goalReviewPrompt(goalText, { base = 'main' } = {}) {
   ].join('\n')
 }
 
+/** 계획·설계안 리뷰 지시문 — 코드를 쓰기 전에 계획이 목적으로 가는지와 사실·위험을 본다 */
+export function planReviewPrompt(goalText, planText) {
+  const goal = goalText && goalText.trim()
+    ? ['Stated goal file (.agent-goal.md) — the user\'s intent:', '```markdown', goalText.trim(), '```'].join('\n')
+    : 'No goal file (.agent-goal.md) was found. Report exactly one finding: "[P2] .agent-goal.md — 목적 파일 없음 — 목적 대조를 못 했다".'
+  return [
+    'Review the implementation PLAN / design below BEFORE any code is written. Do not modify anything. Answer in Korean.',
+    'You may read repository files to verify claims the plan makes (tables, routes, components, existing assets).',
+    'Report two kinds of findings with the same severity scale:',
+    '1. Plan defects: claims that are false against the repository (missing table/route/column, wrong name),',
+    '   reuses ignored (an existing asset already does this), irreversible or risky steps without a guard',
+    '   (migrations, data rewrites), missing data the plan silently depends on, steps that cannot meet an acceptance criterion.',
+    '2. Goal drift — compare the plan with the goal file:',
+    '   [P1] reintroduces anything under 「하지 않을 것」, goes against the goal, or cannot satisfy an acceptance criterion.',
+    '   [P2] plans features/screens/settings/steps the user did not ask for, omits an acceptance criterion,',
+    '        or shows the same information in two places.',
+    '   [P3] wording or minor ordering issues.',
+    '   Only report drift that contradicts the user\'s stated words — not taste or alternative designs.',
+    goal,
+    'Plan under review:',
+    '```markdown',
+    planText.trim(),
+    '```',
+    'Output format (no preamble, max 10 items, most severe first):',
+    '[P1|P2|P3] <plan section or path:line> — (계획 결함|목적 이탈) — what — fix (one line each)',
+    'If there are no findings, output exactly: NO_FINDINGS',
+  ].join('\n')
+}
+
 export function findCodex() {
   if (process.env.CODEX_BIN && fs.existsSync(process.env.CODEX_BIN)) return process.env.CODEX_BIN
   const ext = path.join(os.homedir(), '.vscode', 'extensions')
@@ -66,7 +96,12 @@ function main() {
   const base = arg('--base', 'main')
   const goalPath = path.resolve(arg('--goal', path.join(process.cwd(), '.agent-goal.md')))
   const goalText = fs.existsSync(goalPath) ? fs.readFileSync(goalPath, 'utf8') : null
-  const prompt = goalReviewPrompt(goalText, { base })
+  const planPath = arg('--plan', null)
+  if (planPath && !fs.existsSync(planPath)) {
+    console.error(`[review] 계획 파일이 없다: ${planPath}`)
+    return 1
+  }
+  const prompt = planPath ? planReviewPrompt(goalText, fs.readFileSync(planPath, 'utf8')) : goalReviewPrompt(goalText, { base })
   if (argv.includes('--print')) {
     console.log(prompt)
     return 0

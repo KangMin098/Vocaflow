@@ -151,7 +151,7 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 - 같은 워크트리 동시 쓰기 금지: 쓰기 전에 `lock.mjs acquire <agent>`, 끝나면 `release`. 잠금이 남의 것이면 읽기 전용으로만 일한다. 장기 병행은 `pnpm wt new <suffix>`.
 - 한도·중단 시 `handoff.mjs <from> <to>` → `.agent-handoff/latest.md`. **받는 쪽의 첫 동작은 그 파일을 읽고 수용 기준부터 재확인.** 받은 기능은 받은 쪽이 끝낸다.
 - MCP 정의는 `agents/mcp.source.json` 만 고친다 — `.mcp.json` · `.codex/config.toml` 의 `mcp_servers` 는 생성물.
-- **리뷰는 결함 + 목적 이탈 둘 다 본다**([agents/goal-review.md](./agents/goal-review.md)). 작업 시작에 목적 · 수용 기준 · 하지 않을 것을 워크트리 루트 `.agent-goal.md` 에 쓰고, 방향이 바뀌면 그 자리에서 고치고, PR 본문에 옮긴다. 머지 전 `node agents/scripts/review.mjs` — 목적 파일이 없으면 통과가 아니다.
+- **리뷰는 결함 + 목적 이탈 둘 다 본다**([agents/goal-review.md](./agents/goal-review.md)). 작업 시작에 목적 · 수용 기준 · 하지 않을 것을 워크트리 루트 `.agent-goal.md` 에 쓰고, 방향이 바뀌면 그 자리에서 고치고, PR 본문에 옮긴다. 머지 전 `node agents/scripts/review.mjs` — 목적 파일이 없으면 통과가 아니다. **계획·설계안도 승인 요청 전에** `review.mjs --plan <파일>` 로 반대 에이전트 리뷰를 받고 결과를 계획과 함께 낸다.
 - **git 훅은 인덱스를 고치지 않는다**(검사·안내만) — 훅의 `git add` 는 `--only` 를 깨고 커밋 뒤에도 남는다(DD-49).
 - **안전장치가 최신인 워크트리에서만 일한다.** 세션 시작에 「[안전장치 낡음]」 이 뜨면 쓰기 전에 사용자에게 알리고 `git merge origin/main` — 옛 가드는 Codex 에서 파괴 명령을 막지 못한다(2026-09-26 실측: 워크트리 13/15).
 - **에이전트를 바꿀 때는 한도가 아니어도** 커밋·push → `lock.mjs release` → `handoff.mjs <from> <to>` 순서. 커밋 안 된 변경을 남긴 채 넘기지 않는다. 절차 [router.md §5](./agents/router.md).
