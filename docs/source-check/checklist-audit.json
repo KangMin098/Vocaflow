@@ -204,6 +204,19 @@
      "rule": "keep"
     }
    ]
+  },
+  {
+   "batch": 14,
+   "date": "2026-10-01",
+   "criteria_version": 8,
+   "bySource": {
+    "wikinews": {
+     "audited": 50,
+     "auditedKeep": 42,
+     "wrongKeep": 0
+    }
+   },
+   "wrong": []
   }
  ]
 }

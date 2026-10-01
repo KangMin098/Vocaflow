@@ -8,6 +8,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- **체크리스트 배치 14 적재**(2026-10-01 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 987 · hold 9 · discard 4(바로 확정 89.2%). 감사 이번 배치 42편 오판 0 · 누적 wikinews 체크리스트 keep 435편 · 오판 3(0.7%). 재실행 변경 0. 남은 비논문 대상 6,823.
 - **체크리스트 배치 13 적재**(2026-09-30 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 983 · hold 6 · discard 11(바로 확정 87.9%). 감사 이번 배치 41편 중 오판 2(모두 hold) · 누적 wikinews 체크리스트 keep 393편 · 오판 3(0.8%). 스크립트로 채운 체크리스트 출력 2청크는 조립 전 점검에서 걸러 재판정. 재실행 변경 0. 남은 비논문 대상 7,823.
 - **체크리스트 배치 12 적재**(2026-09-30 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 990 · hold 7 · discard 3(바로 확정 92.3%). 감사 누적 wikinews 체크리스트 keep 352편 · 오판 1(0.3%). 스크립트로 채운 체크리스트 출력 5청크는 폐기·재판정. 재실행 변경 0. 남은 비논문 대상 8,823.
 - **체크리스트 배치 11 적재**(2026-09-30 · DB: `gate.retain` 1,000행 · migration 0): wikinews 1,000편 keep 983 · hold 9 · discard 8(바로 확정 82.4%). 감사 누적 wikinews 체크리스트 keep 312편 · 오판 0. 재실행 변경 0. 남은 비논문 대상 9,823.
