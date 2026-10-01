@@ -569,6 +569,8 @@ KPI 카드는 §13 StatCard 와 다른 디자인 — delta 변화율 (`▲ 12%`)
 
 ## /admin/kice — 기출 분석 뷰 (2026-09-17 학습자 `/csat` 에서 이전)
 
+> **집합 범위 탭(2026-10-01 · 학평 전면 적용)** — 다섯 화면(유형 지도 · 유형 리포트 · 출제 지형 · 사정권 · 한 회차 주파 계획) 머리에 「평가원 / 학평 고1·고2·고3」 탭(`components/admin/csat/ScopeTabs.tsx`, `?set=hakpyeong&grade=N`, 기본 평가원). 통계는 섞지 않는다: 학평 출제 수·지형은 그 학년 회차 전체(서비스 역할, 분석 발행 무관), 유형 리포트는 `csat_type_reports`(organizer·grade) 그 학년 행. 함정 지도·근거 자리 분포·오답 구성은 평가원 구운 값이라 학평 범위에서는 안 그린다(빈 상태 안내). 문항 목록·문항 화면은 학습자 뷰를 따라 발행된 학평만 열린다. 범위 정의 `lib/csat/scope.ts`.
+
 학습자 `/csat` 이 「오늘의 세션」 루프 하나로 바뀌면서(docs/csat-learner-brief.md) 분석을 **읽는** 화면이 관리자
 몫이 됐다. 화면 자체는 그대로 옮겼고 학습자 링크(훈련·오버레이)만 걷었다. 사이드바 「교재」 묶음의 「기출 분석 뷰」.
 화면도움말 `lib/admin/help/kice.ts`(6 화면). 처분표 [csat-learner/gate0-routes.md](./csat-learner/gate0-routes.md).

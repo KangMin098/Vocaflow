@@ -11,6 +11,7 @@
 import { useMemo, useState } from 'react'
 
 import type { Band, PriorityRow } from '@/lib/csat/priority'
+import { KICE_SCOPE, withScope, type CsatScope } from '@/lib/csat/scope'
 
 interface BandInfo {
   band: Band
@@ -21,12 +22,14 @@ interface BandInfo {
 const ORDER: Band[] = ['A', 'B', 'C', 'gone']
 
 export function PriorityClient({
+  scope,
   rows,
   bands,
   hardMark,
   hardFg,
   formatFg,
 }: {
+  scope?: CsatScope
   rows: PriorityRow[]
   bands: BandInfo[]
   hardMark: string
@@ -85,7 +88,7 @@ export function PriorityClient({
             >
               <div className="flex flex-wrap items-baseline justify-between gap-2">
                 <a
-                  href={`/admin/kice/${r.typeId}`}
+                  href={withScope(`/admin/kice/${r.typeId}`, scope ?? KICE_SCOPE)}
                   className="inline-flex min-h-[44px] items-center font-editorial text-[15px] font-[600] text-[var(--t1)] underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
                 >
                   {r.name}

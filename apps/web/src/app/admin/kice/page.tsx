@@ -22,6 +22,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
 import { loadCsatTypeCards } from '@/lib/csat/learner'
 import { loadMyTraps } from '@/lib/csat/my-traps'
@@ -38,11 +40,13 @@ export const dynamic = 'force-dynamic'
 /** 칩에 올릴 유형 — 최근 출제가 많은 순 8개. 26개를 다 올리면 칩 줄이 화면을 먹는다. */
 const CHIP_COUNT = 8
 
-export default async function CsatHubPage() {
+export default async function CsatHubPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  // 집합 범위 — 평가원(기본) / 학평 학년(scope.ts). 통계는 집합끼리 섞지 않는다
+  const scope = parseScope(await searchParams)
   // 내 훈련 기록 — 있으면 지도에 「내 기록」 칩이 생겨 **같은 막대를 내 오답으로 다시 센다.**
   // 못 읽어도 화면은 그대로 뜬다(칩만 없다) — 지도는 로그인과 무관하게 볼 수 있어야 한다.
   const [{ cards, error }, mine] = await Promise.all([
-    loadCsatTypeCards(),
+    loadCsatTypeCards(scope),
     createClient().then((db) => loadMyTraps(db)),
   ])
   const ready = cards.filter((c) => c.ready).length
@@ -55,8 +59,16 @@ export default async function CsatHubPage() {
           네트워크 왕복 없이 그 유형의 분포로 다시 세어진다(I3). */}
       <h1 className="text-[22px] font-[800] text-[var(--t1)]">기출 분석 뷰</h1>
       <AdminScreenHelp screen="kice" className="mb-4 mt-2" />
+      <ScopeTabs scope={scope} basePath="/admin/kice" className="mb-6" />
 
-      <TrapAtlas chips={chips} as="h2" mine={mine} />
+      {/* 함정 지도는 평가원 분석으로 구운 파일이다 — 학평 지도는 학년별로 따로 굽는다(별도 작업). 섞어 보이지 않는다 */}
+      {scope.set === 'kice' ? (
+        <TrapAtlas chips={chips} as="h2" mine={mine} />
+      ) : (
+        <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
+          학평 고{scope.grade} 함정 지도는 아직 굽지 않았어요. 아래 유형 카드의 출제 수는 이 학년 회차 전체로 셉니다.
+        </p>
+      )}
 
       {/* 학습자 쪽에 있던 네 갈래(지도·지형·사정권·계획)를 관리자 뷰로 옮겼다(2026-09-17).
           학습자는 이제 이 분석을 읽지 않고 **세션 구성**으로 결과만 받는다 —
@@ -69,7 +81,7 @@ export default async function CsatHubPage() {
         ].map((l) => (
           <Link
             key={l.href}
-            href={l.href}
+            href={withScope(l.href, scope)}
             className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--admin)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--admin)] active:bg-[var(--bd)] motion-reduce:transition-none"
           >
             {l.label} →
@@ -83,8 +95,10 @@ export default async function CsatHubPage() {
             유형별로 보기
           </h2>
           <p className="text-xs text-[var(--t3)]">
-            {CORPUS.exams}회차 {CORPUS.items.toLocaleString()}문항 · 분석 {ready}/{cards.length} 유형 · 듣기는 다루지
-            않습니다
+            {scope.set === 'kice'
+              ? `${CORPUS.exams}회차 ${CORPUS.items.toLocaleString()}문항`
+              : `학평 고${scope.grade} ${cards.reduce((n, c) => n + c.items, 0).toLocaleString()}문항`}{' '}
+            · 분석 {ready}/{cards.length} 유형 · 듣기는 다루지 않습니다
           </p>
         </div>
 
@@ -108,11 +122,11 @@ export default async function CsatHubPage() {
           {cards.map((c) => {
             // **잘린 산문 대신 센 것을 단다.** 전체 분포보다 유난히 잦은 함정만 고르므로
             // 어느 카드를 봐도 「어휘 함정 · 부분 사실」이 반복되지 않는다.
-            const standout = standoutFor(c.type_id).slice(0, 3)
+            const standout = scope.set === 'kice' ? standoutFor(c.type_id).slice(0, 3) : []
             return (
               <li key={c.type_id}>
                 <Link
-                  href={`/admin/kice/${c.type_id}`}
+                  href={withScope(`/admin/kice/${c.type_id}`, scope)}
                   className="group flex h-full min-h-[44px] flex-col rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                 >
                   <div className="flex items-start justify-between gap-3">

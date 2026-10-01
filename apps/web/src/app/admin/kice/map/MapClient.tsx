@@ -11,8 +11,9 @@ import { useState } from 'react'
 
 import { Heatmap } from '@/components/csat/Heatmap'
 import type { Heatmap as HeatmapData } from '@/lib/csat/heatmap'
+import { KICE_SCOPE, withScope, type CsatScope } from '@/lib/csat/scope'
 
-export function MapClient({ data }: { data: HeatmapData }) {
+export function MapClient({ data, scope }: { data: HeatmapData; scope?: CsatScope }) {
   const [pick, setPick] = useState<{ typeId: string; year: number } | null>(null)
   const row = pick ? data.rows.find((r) => r.typeId === pick.typeId) : null
 
@@ -26,7 +27,7 @@ export function MapClient({ data }: { data: HeatmapData }) {
           className="flex flex-wrap gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3"
         >
           <a
-            href={`/admin/kice/${pick.typeId}`}
+            href={withScope(`/admin/kice/${pick.typeId}`, scope ?? KICE_SCOPE)}
             className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 text-sm text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] motion-reduce:transition-none"
           >
             {row.name} 유형 해부 →

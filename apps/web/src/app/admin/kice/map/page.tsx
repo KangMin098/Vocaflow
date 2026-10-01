@@ -11,6 +11,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
+import { parseScope, withScope } from '@/lib/csat/scope'
 
 import { MapClient } from './MapClient'
 import { loadHeatmap } from '@/lib/csat/heatmap'
@@ -23,14 +25,16 @@ export const metadata: Metadata = {
 
 export const dynamic = 'force-dynamic'
 
-export default async function CsatMapPage() {
-  const data = await loadHeatmap()
+export default async function CsatMapPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const scope = parseScope(await searchParams)
+  const data = await loadHeatmap(scope)
 
   return (
     <div className="mx-auto max-w-5xl">
       <header className="flex flex-wrap items-baseline justify-between gap-2">
         <h1 className="font-editorial text-xl font-[600] text-[var(--t1)]">지형</h1>
         <AdminScreenHelp screen="kice-map" className="mt-2" />
+        <ScopeTabs scope={scope} basePath="/admin/kice/map" className="mt-3" />
         {/* 수치는 늘 분모와 함께(브리프 E5). */}
         <p className="tabular-nums text-xs text-[var(--t3)]">
           {data.exams}회차 · {data.items.toLocaleString()}문항 · {data.rows.length}유형
@@ -40,7 +44,7 @@ export default async function CsatMapPage() {
       {data.error ? (
         <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           지금은 지형을 불러오지 못했어요.{' '}
-          <Link href="/admin/kice" className="inline-flex min-h-[44px] items-center underline underline-offset-2">
+          <Link href={withScope('/admin/kice', scope)} className="inline-flex min-h-[44px] items-center underline underline-offset-2">
             허브에서 유형별로 보기 →
           </Link>
         </p>
@@ -48,13 +52,13 @@ export default async function CsatMapPage() {
         // 빈 상태는 설명이 아니라 **다음 한 걸음**이다(브리프 A4 · D5).
         <p className="mt-3 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
           아직 셀 기출이 없어요.{' '}
-          <Link href="/admin/kice" className="inline-flex min-h-[44px] items-center underline underline-offset-2">
+          <Link href={withScope('/admin/kice', scope)} className="inline-flex min-h-[44px] items-center underline underline-offset-2">
             오답 분포부터 보기 →
           </Link>
         </p>
       ) : (
         <div className="mt-4">
-          <MapClient data={data} />
+          <MapClient data={data} scope={scope} />
         </div>
       )}
     </div>
