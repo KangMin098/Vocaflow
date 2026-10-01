@@ -285,7 +285,13 @@ for (const a of analyses) {
     // 내용이 같아도 행이 draft 로 남아 있으면(지난 실행이 insert 뒤 전환 전에 끊겼다) 여기서 마저 전환한다(Codex 게이트 P2)
     if (!same || last?.status === 'draft') {
       const { error: se } = await db.from('csat_item_analyses').update({ status: 'in_review' }).eq('id', aid)
-      if (se) { skipped.push(`${a.item_id}: in_review 전환 실패 — ${se.message}`); failed += 1; continue }
+      if (se) {
+        const message = `${a.item_id}: in_review 전환 실패 — ${se.message}`
+        skipped.push(message)
+        console.log(`\n  ✗ ${message}`)
+        failed += 1
+        continue
+      }
     }
     republished += 1
     process.stdout.write(`\r  적재 ${republished}/${analyses.length} (학평 — 독립 검수 대기)`)

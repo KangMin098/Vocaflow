@@ -1656,6 +1656,7 @@ export const CSAT_HELP: HelpRegistry = {
         prerequisites: [
           '`node scripts/csat/build-corpus.mjs` 로 원장이 최신인가 (`test-corpus-integrity.mjs` PASS).',
           '`node scripts/csat/corpus-sync.mjs --commit` 으로 유형·회차·문항이 DB 에 올라와 있는가.',
+          '학평 export는 로컬 코퍼스의 원문·발문·선지·정답과 DB를 대조합니다. 불일치는 덮어쓰지 않고 원문을 먼저 확인합니다. 기존 입력 청크는 완료 후에도 해시 증거로 보존하며 재실행해도 덮지 않습니다. 원문 교정 후에는 --redo로 시각별 새 청크를 만들고 다시 분석합니다. 입력 해시가 없거나 현재 원문과 다르면 import가 건너뛴 문항을 출력합니다. draft → in_review 전환 실패는 문항·오류를 표시하고 실패 종료하며, 같은 청크로 재실행하면 이어서 전환합니다. --chunk 부분 적재는 유형 리포트를 갱신하지 않습니다.',
           '`.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있는가 — 없으면 import 가 시작도 못 한다.',
           '교육청 학평(보조·검증 집합, 회차 id `H…`)은 **원장이 따로다**: `ingest-hakpyeong.mjs` → `build-corpus.mjs --set hakpyeong` → `corpus-sync.mjs --set hakpyeong --commit`. 집합을 가르지 않고 돌리면 평가원 문항이 «코퍼스에 없는 문항» 으로 잡힌다. 학평 원문(`columns2/H*.txt` · `*hakpyeong*.json`)은 EBSi 재배포 금지라 커밋하지 않는다(gitignore).',
           '학평 **근거 단위 목록**: `corpus-sync` 뒤 `node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong --commit` — DB 원문으로 목록(`csat_item_units`)을 만든다. **재실행 안전**(같은 원문·버전이면 건너뛴다). 같은 버전인데 목록이 다르면 멈춘다(분할 규칙을 바꿨으면 `UNITS_VERSION` 을 올린다). 원문이 바뀐 문항은 다시 돌리기 전까지 목록이 없어 export 가 경고하고, 분석 번호는 그 목록의 `n`·서술은 `[uN]` 이다. 목록이 바뀌면 그 목록으로 발행된 분석은 **자동 보류**되고 옛 승인은 다시 쓰이지 않는다.',

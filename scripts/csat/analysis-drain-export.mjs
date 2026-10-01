@@ -27,7 +27,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor } from './lib-passage.mjs'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
-import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
+import { loadVerifiedExportUnits, unitsForAgent } from './lib-units-db.mjs'
 
 // ── 학평: 근거 단위 목록(DB csat_item_units)을 청크에 싣는다 ─────────────
 // 분석자가 지문 문장을 스스로 세지 않게 한다 — 검수자와 같은 번호를 보게 하는 것이 목적이다
@@ -88,7 +88,7 @@ const REDO = new Set(
     .map((s) => s.trim())
     .filter(Boolean),
 )
-const REDO_TAG = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+const REDO_TAG = new Date().toISOString().replace(/[-:.]/g, '') // same-day corrections need distinct immutable input files
 
 const corpus = JSON.parse(fs.readFileSync(CORPUS_FILE, 'utf8'))
 console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
@@ -237,6 +237,8 @@ let removed = 0
 let kept = 0
 const keptNames = []
 for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
+  // import needs the original export hash even after the output is complete.
+  if (fs.existsSync(path.join(WORK, f.replace(/\.json$/, '.out.json')))) { kept += 1; keptNames.push(f); continue }
   let ids = []
   try {
     ids = (JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8')).items ?? []).map((i) => i.item_id)
@@ -254,6 +256,15 @@ outer: for (const [typeId, arr] of types) {
   for (let i = 0; i < arr.length; i += SIZE) {
     if (n >= LIMIT) break outer
     const slice = arr.slice(i, i + SIZE)
+    const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
+    const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
+    if (fs.existsSync(path.join(WORK, name))) {
+      console.log(`  기존 입력 보존: ${name} — 낡은 원문은 --redo로 별도 청크에서 분석한다`)
+      continue
+    }
+    if (fs.existsSync(path.join(WORK, name.replace(/\.json$/, '.out.json')))) {
+      throw new Error(`${name}: 입력 없이 결과만 남아 있다 — 옛 분석에 새 원문 해시를 붙일 수 없다. --redo로 새 분석을 만든다`)
+    }
     n += 1
     // **청크 이름에 일련번호를 쓰지 않는다.** export 를 다시 돌리면 남은 몫이 줄어
     // `chunk-01` 이 어제와 다른 문항을 담는다. 그러면 `chunk-01.out.json` 이
@@ -261,7 +272,7 @@ outer: for (const [typeId, arr] of types) {
     // 첫 문항 id 로 이름을 지으면 같은 몫은 늘 같은 이름, 다른 몫은 늘 다른 이름이다.
     // 다시 뽑는 몫은 이름에 `redo-<날짜>` 를 끼워 **옛 `.out.json` 을 덮지 않는다.**
     // 같은 문항을 두 번째로 다시 뽑는 날이 와도 날짜가 달라 또 겹치지 않는다.
-    const unitsOf = unitsDb ? await loadCurrentUnits(unitsDb, slice.map((it) => it.id)) : null
+    const unitsOf = unitsDb ? await loadVerifiedExportUnits(unitsDb, slice) : null
     const packed = slice.map((it) => {
       const p = pack(it)
       if (!unitsOf) return p
@@ -271,8 +282,6 @@ outer: for (const [typeId, arr] of types) {
       // input_hash: 이 목록을 만든 DB 원문 해시 — 목록 해시는 경계만 담아 원문이 바뀌어도 같을 수 있다(import 가 이것으로 대조)
       return { ...p, units_version: u.units_version, units_hash: u.units_hash, input_hash: u.input_hash, units: unitsForAgent(u.units) }
     })
-    const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
-    const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
     const payload = {
       chunk: n,
       // 청크는 뽑힌 시점의 코퍼스를 담는다. 파서를 고치면 코퍼스가 바뀌므로 **작업 중이던
@@ -312,7 +321,7 @@ console.log(`  끝난 청크 ${removed}개 삭제 · 새로 뽑은 청크 ${n}�
 //    그대로 있었고, 다음 export 목록만 보고 같은 청크에 에이전트를 한 번 더 띄웠다.
 //    두 판이 같은 이름으로 써서 앞 판이 덮였다(git 에는 남아 손실은 없었다).
 if (keptNames.length) {
-  console.log(`  ⚠ 아직 작업 중이라 남긴 청크 ${keptNames.length}개 — **다시 띄우지 말 것**:`)
+  console.log(`  ⚠ 작업 중이거나 결과의 출처로 보존한 청크 ${keptNames.length}개 — **다시 띄우지 말 것**:`)
   for (const f of keptNames) console.log(`      ${f}`)
 }
 const fresh = manifest.map((m) => m.file).filter((f) => !keptNames.includes(f))

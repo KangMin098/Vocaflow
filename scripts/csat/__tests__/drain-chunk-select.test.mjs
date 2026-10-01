@@ -46,6 +46,69 @@ const goodAnalysis = (id) => ({
 })
 const badAnalysis = (id) => ({ item_id: id, analyst_run: 'wave2-templated-01', measured_ability: '짧다', reviews: [] })
 
+async function withPreviousAnalysis(previous, failTransition, fn) {
+  const reqs = []
+  const server = http.createServer(async (req, res) => {
+    let body = ''
+    for await (const part of req) body += part
+    reqs.push({ method: req.method, url: req.url, body: body ? JSON.parse(body) : null })
+    res.setHeader('Content-Type', 'application/json')
+    if (req.method === 'GET') return res.end(JSON.stringify([previous]))
+    if (req.method === 'PATCH' && failTransition) {
+      res.statusCode = 400
+      return res.end(JSON.stringify({ message: 'fixture transition refused', code: '23514' }))
+    }
+    res.end(req.method === 'POST' ? JSON.stringify({ id: 'new-analysis' }) : '[]')
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  try { return await fn(`http://127.0.0.1:${server.address().port}`, reqs) }
+  finally { await new Promise((resolve) => server.close(resolve)) }
+}
+
+const previousRow = (status) => {
+  const { reviews, choices, ...a } = goodAnalysis('H2603G3#18')
+  return { ...a, choice_analysis: choices, id: 'old-analysis', version: 4, status }
+}
+
+for (const [field, oldValue] of [['time_budget_sec', 30], ['difficulty', { predicted: 0.1 }], ['required_vocab', []], ['answer_unknown', true], ['body_recovered', true]]) {
+  test(`import preserves a correction to ${field} alone`, async () => {
+    const { dir } = setup()
+    try {
+      await withPreviousAnalysis({ ...previousRow('in_review'), [field]: oldValue }, false, async (url, reqs) => {
+        const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+        assert.equal(r.code, 0, r.output)
+        const insert = reqs.find((q) => q.method === 'POST')
+        assert.ok(insert, 'metadata-only correction was silently dropped')
+        assert.equal(insert.body.version, 5)
+      })
+    } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+  })
+}
+for (const status of ['draft', 'in_review', 'published']) {
+  test(`same-content ${status} rerun recovers only a draft without inserting another version`, async () => {
+    const { dir } = setup()
+    try {
+      await withPreviousAnalysis(previousRow(status), false, async (url, reqs) => {
+        const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+        assert.equal(r.code, 0, r.output)
+        assert.equal(reqs.filter((q) => q.method === 'POST').length, 0)
+        assert.equal(reqs.filter((q) => q.method === 'PATCH').length, status === 'draft' ? 1 : 0)
+      })
+    } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+  })
+}
+test('failed draft transition names the item and exits nonzero for a retry', async () => {
+  const { dir } = setup()
+  try {
+    await withPreviousAnalysis(previousRow('draft'), true, async (url, reqs) => {
+      const r = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+      assert.notEqual(r.code, 0)
+      assert.match(r.output, /H2603G3#18: in_review 전환 실패 — fixture transition refused/)
+      assert.equal(reqs.filter((q) => q.method === 'POST').length, 0)
+    })
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+})
+
 function setup() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-chunk-select-'))
   const work = path.join(dir, 'scripts/csat/analysis-drain-hakpyeong')
