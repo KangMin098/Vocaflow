@@ -36,6 +36,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { isKiceExam } from './lib-exam-id.mjs'
 
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
@@ -85,12 +86,16 @@ async function page(table, sel, tune = (q) => q) {
 }
 
 console.log('· 읽는 중…')
-const [items, exams, types, analyses] = await Promise.all([
+const [itemsAll, examsAll, typesAll, analysesAll] = await Promise.all([
   page('csat_items', 'id, exam_id, no, type_id', (q) => q.eq('in_scope', true)),
   page('csat_exams', 'id, label, year'),
   page('csat_types', 'id, name, status', (q) => q.eq('in_scope', true)),
   page('csat_item_analyses', 'item_id, version, choice_analysis', (q) => q.eq('status', 'published')),
 ])
+// 평가원 집합만 — 학평 발행분이 평가원 함정 지도·드릴에 섞이지 않게(유형 통계는 집합별로 따로 · scope.ts).
+// 학평 지도는 `--set hakpyeong` 산출물로 따로 굽는다(별도 작업). 받아 온 뒤 거르는 이유: page() 헬퍼가 조건 없이 전 행을 읽는다
+const kiceOnly = (rows, key) => rows.filter((r) => isKiceExam(r[key]))
+const [items, exams, types, analyses] = [kiceOnly(itemsAll, 'exam_id'), kiceOnly(examsAll, 'id'), typesAll, kiceOnly(analysesAll, 'item_id')]
 console.log(`  문항 ${items.length} · 회차 ${exams.length} · 유형 ${types.length} · 분석행 ${analyses.length}`)
 
 // ── 문항마다 최신 버전 하나만 ────────────────────────────────────────

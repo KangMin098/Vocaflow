@@ -29,6 +29,7 @@ import {
 } from './evidence-fold'
 import { normalizeForMatch } from './quote-match'
 import { HAKPYEONG_ID_PREFIX } from './exam-id'
+import { reportKey } from './scope'
 
 type ExamRow = { id: string; label: string; kind: string; year: number; month: number }
 type TypeRow = { id: string; name: string; status: string }
@@ -197,7 +198,10 @@ export async function loadEvidence(scope: EvidenceScope = KICE_SCOPE): Promise<E
     db
       .from('csat_type_reports')
       .select('type_id, n_analyzed, answer_locus_pattern, failure_modes, procedure_steps')
-      .eq('status', 'published'),
+      .eq('status', 'published')
+      // 이 범위의 유형 리포트(평가원 kice·0 / 학평 edu_office·학년) — 집합끼리 섞지 않는다
+      .eq('organizer', reportKey(scope).organizer)
+      .eq('grade', reportKey(scope).grade),
     // ⚠️ **지문을 1,000행씩 끌어오면 8초 예산을 넘긴다.** `authenticator` 의
     //    `statement_timeout` 은 8s 이고, 802행 × 평균 1,123자 = 876kB 를 한 요청에 담으면
     //    DB 가 한가할 때만 통과한다 — 드레인이 도는 시각에는 `canceling statement due to

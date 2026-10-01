@@ -75,7 +75,7 @@ async function readSessionCatalog(client?: SupabaseClient): Promise<{ catalog: L
         (from, to) => db.from('csat_items_public').select('id, points').eq('in_scope', true).range(from, to),
         'CSAT 세션 배점',
       ),
-      db.from('csat_type_reports').select('type_id, time_budget_sec'),
+      db.from('csat_type_reports').select('type_id, time_budget_sec').eq('organizer', 'kice').eq('grade', 0),
     ])
     const p = new Map(pts.map((r) => [r.id, r.points]))
     if (reps.error) throw new Error(reps.error.message)

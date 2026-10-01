@@ -65,6 +65,7 @@ export async function loadReveal(itemId: string): Promise<{ payload: RevealPaylo
       .from('csat_type_reports')
       .select('procedure_steps')
       .eq('type_id', item.type_id)
+      .eq('organizer', 'kice').eq('grade', 0)
       .maybeSingle()
     const steps = (data as { procedure_steps?: { step?: string }[] } | null)?.procedure_steps
     firstStep = Array.isArray(steps) ? (steps[0]?.step ?? null) : null
