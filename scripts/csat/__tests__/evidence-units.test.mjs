@@ -21,6 +21,16 @@ test('abbreviations and decimals do not split; single-letter "initials" do (Gen 
   assert.deepEqual(texts('The share of Gen X was twice that of Gen X. ⑤ The share of Gen Z rose.'), ['The share of Gen X was twice that of Gen X.', '⑤ The share of Gen Z rose.'])
 })
 
+test('v2: a middle initial inside a name does not split; common nouns and sentence starters still do', () => {
+  assert.deepEqual(texts('Behaviorists led by John B. Watson believed it. They were wrong.'), ['Behaviorists led by John B. Watson believed it.', 'They were wrong.'])
+  assert.deepEqual(texts('Jeffrey A. Rodgers, a vice president, spoke. He left.'), ['Jeffrey A. Rodgers, a vice president, spoke.', 'He left.'])
+  assert.deepEqual(texts('the paintings of Robert D. Parker’s studio. Then rain.'), ['the paintings of Robert D. Parker’s studio.', 'Then rain.'])
+  // 실제 문장 끝(2026-10-01 코퍼스 오탐 3건 모양)
+  assert.deepEqual(texts('at the height of World War I. By 1972, he retired.'), ['at the height of World War I.', 'By 1972, he retired.'])
+  assert.deepEqual(texts('We meet in Meeting Room A. After that, lunch.'), ['We meet in Meeting Room A.', 'After that, lunch.'])
+  assert.deepEqual(texts('a talent for the English I. Different words are used.'), ['a talent for the English I.', 'Different words are used.'])
+})
+
 test('circled numbers start a unit after terminal punctuation (position / chart types)', () => {
   const u = texts('The graph shows usage. ① Teens used it most. ② Adults used it least.', { typeId: 'R-CHART' })
   assert.deepEqual(u, ['The graph shows usage.', '① Teens used it most.', '② Adults used it least.'])

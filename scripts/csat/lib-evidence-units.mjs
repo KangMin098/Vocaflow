@@ -16,6 +16,9 @@
 //      시작 글자: 대문자 · 여는 따옴표 · `(` `[` · ①–⑤ · 목록 기호.
 //   2. 약어에서는 끊지 않는다: ABBREV(Mr. Dr. e.g. i.e. U.S. a.m. p.m. No. Fig. …). **한 글자 이니셜은 약어로 보지 않는다** — «Gen X.» «vitamin C.» 가 문장 끝인 경우가 이름 이니셜보다 흔하다(도표 선지 ⑤ 가 앞 단위에 삼켜졌다).
 //      소수점(3.5)은 뒤에 공백이 없으므로 규칙 1 에서 이미 안 끊긴다.
+//   2b. (v2) **이름 가운데 이니셜**에서는 끊지 않는다 — «John B. Watson» «Jeffrey A. Rodgers». 앞 낱말이 대문자로 시작하는
+//      이름 꼴이고(NOT_NAME 의 보통명사 «War I.» «Room A.» «English I.» 제외) 뒤 낱말이 대문자 성(姓) 꼴이며 흔한 문장 첫 낱말
+//      (After·By·The …)이 아닐 때만. v1 은 이 자리를 끊어 해설 번호가 한 칸씩 밀렸다(2026-10-01 학평 검수 24문항 · 발행 0).
 //   3. **따옴표 안에서는 끊지 않는다.** “…A. B.…” 는 한 단위 — 따옴표를 닫은 **바로 뒤**에서는 끊을 수 있다
 //      (“Which came first…?” For bees… → 두 단위). 짝이 안 맞는 따옴표가 있으면 이 규칙을 끈다(전부 삼키지 않게).
 //   4. ①–⑤ 는 경계를 만들지 않지만, 종결부호 뒤에 오면 **다음 단위의 머리**다(위치형·도표 선지 문장).
@@ -28,13 +31,26 @@
 
 import crypto from 'node:crypto'
 
-export const UNITS_VERSION = 1
+// v2(2026-10-01): 규칙 2b. 경계가 v1 과 같은 문항은 v2 행을 만들지 않는다(units-build) — 해시에 버전이 들어가 발행분이 자동 보류되지 않게
+export const UNITS_VERSION = 2
 /** 사전 검사(precheckAnalysis·checkUnitRefs) 규칙 버전 — 검사 기준이 바뀌면 올린다(기록된 결과를 어느 기준으로 냈는지 남기려고) */
 // v2(2026-10-01): DB 행 사전 검사가 풀이 절차·측정 능력·설계 의도의 [uN] 도 본다(v1 은 정답 근거·선지 해설만 읽어 놓쳤다 — Codex 리뷰)
 export const PRECHECK_VERSION = 2
 
 const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|Mt|vs|etc|e\.g|i\.e|U\.S|U\.K|a\.m|p\.m|No|Fig|approx|cf|Inc|Ltd|Co)\.$/
 const CLOSERS = /["'’”)\]]/
+// 규칙 2b — 이름 가운데 이니셜
+const INITIAL_TAIL = /\b([A-Z][a-z]+) [A-Z]\.$/
+const NOT_NAME = new Set(['War', 'Room', 'English', 'Gen', 'Generation', 'Vitamin', 'Level', 'Grade', 'Class', 'Part', 'Section', 'Chapter', 'Appendix', 'Type', 'Plan', 'Team', 'Group', 'Phase', 'Stage', 'Zone', 'Building', 'Gate', 'Unit', 'Hall', 'Exhibit', 'Figure', 'Table', 'Option', 'Block', 'Area', 'Court', 'Lot', 'Track', 'Line', 'Route', 'Model', 'Size', 'Row', 'Floor', 'Wing', 'Studio', 'Stadium', 'Field', 'Category', 'Division'])
+const SURNAME_HEAD = /^([A-Z][a-z]+)(?:[’']s)?\b/
+const COMMON_FIRST = new Set(['A', 'An', 'The', 'This', 'That', 'These', 'Those', 'After', 'Before', 'By', 'In', 'On', 'At', 'For', 'From', 'With', 'Without', 'As', 'But', 'And', 'Or', 'So', 'Yet', 'If', 'When', 'While', 'Although', 'Though', 'Because', 'Since', 'Once', 'Then', 'Thus', 'Therefore', 'However', 'Moreover', 'Instead', 'Still', 'Also', 'Different', 'Some', 'Many', 'Most', 'Such', 'Each', 'Every', 'Other', 'Another', 'It', 'Its', 'He', 'She', 'They', 'We', 'You', 'I', 'His', 'Her', 'Their', 'Our', 'Your', 'My', 'There', 'Here', 'What', 'Why', 'How', 'Who', 'Which', 'Where', 'Today', 'Now', 'Later', 'During', 'Unlike', 'Like', 'Not', 'No', 'One', 'Two', 'Three', 'Please', 'Do', 'Does', 'Did', 'Is', 'Are', 'Was', 'Were', 'Can', 'Could', 'Will', 'Would', 'Should', 'Let', 'To'])
+/** 규칙 2b — unit 이 이름 가운데 이니셜로 끝나고 next 가 성으로 시작하는가 */
+function middleInitial(unit, next) {
+  const m = unit.match(INITIAL_TAIL)
+  if (!m || NOT_NAME.has(m[1])) return false
+  const s = next.match(SURNAME_HEAD)
+  return !!s && !COMMON_FIRST.has(s[1])
+}
 const STARTERS = /[A-Z“"('‘[①②③④⑤∙•▪▰※]/
 const BULLETS = new Set(['∙', '•', '▪', '▰', '※'])
 const OPEN_Q = '“'
@@ -86,6 +102,7 @@ function boundaries(p, typeId) {
     while (k < p.length && /\s/.test(p[k])) k += 1
     if (k >= p.length) break
     if (!STARTERS.test(p[k])) continue
+    if (middleInitial(p.slice(unitStart, j), p.slice(k, k + 40))) continue // 규칙 2b
     cuts.add(k)
     unitStart = k
     i = k - 1
