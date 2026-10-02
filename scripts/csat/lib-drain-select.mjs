@@ -18,7 +18,7 @@ import path from 'node:path'
 
 /** Missing work may only be supplied by a successor, never by an older result. */
 export function replacesOutput(workDir, successor, previous) {
-  if (!successor || successor === previous) return false
+  if (!successor || !previous || successor === previous) return false
   const links = (file) => {
     const inputPath = path.join(workDir, file.replace(/\.out\.json$/, '.json'))
     if (!fs.existsSync(inputPath)) return null

@@ -28,7 +28,7 @@ import path from 'node:path'
 import { itemBlocks, setBlockFor } from './lib-passage.mjs'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { exportAnswerHash, loadVerifiedExportUnits, unitsForAgent } from './lib-units-db.mjs'
-import { analysisWinners } from './lib-drain-select.mjs'
+import { analysisWinners, replacesOutput } from './lib-drain-select.mjs'
 
 // ── 학평: 근거 단위 목록(DB csat_item_units)을 청크에 싣는다 ─────────────
 // 분석자가 지문 문장을 스스로 세지 않게 한다 — 검수자와 같은 번호를 보게 하는 것이 목적이다
@@ -98,6 +98,7 @@ console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
 // 분석만 있고 검수가 비면 완료가 아니다 — 여기서 느슨하게 세면 구멍이 영영 남는다.
 const done = new Set()
 const outputIds = new Map()
+const reportedIds = new Map()
 let partial = 0
 const outputFiles = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
 const outputWinner = analysisWinners(WORK, outputFiles)
@@ -109,6 +110,7 @@ for (const f of outputFiles) {
     console.log(`  ⚠ ${f} 파싱 실패 — 완료로 세지 않는다 (${e.message})`)
     continue
   }
+  reportedIds.set(f, new Set((j.analyses ?? []).map((a) => a.item_id).filter(Boolean)))
   for (const a of j.analyses ?? []) {
     if (a.item_id) {
       if (!outputIds.has(a.item_id)) outputIds.set(a.item_id, new Set())
@@ -145,8 +147,10 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.e
     if (!id) continue
     if (!hasOutput) reserved.add(id)
     else {
+      const outputFile = f.replace(/\.json$/, '.out.json')
+      if (done.has(id) && !reportedIds.get(outputFile)?.has(id) && replacesOutput(WORK, outputFile, outputWinner.get(id))) done.delete(id)
       if (!outputIds.has(id)) outputIds.set(id, new Set())
-      outputIds.get(id).add(f.replace(/\.json$/, '.out.json'))
+      outputIds.get(id).add(outputFile)
       if (!done.has(id)) recovery.add(id)
     }
   }
