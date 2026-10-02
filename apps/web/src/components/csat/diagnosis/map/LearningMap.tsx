@@ -163,7 +163,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
   const gapScore = model.currentScore !== null && goal > model.currentScore ? goal - model.currentScore : null
 
   return (
-    <div className={s.root} data-testid="csat-learning-map">
+    <div className={`${s.root} ${selected ? s.popOpen : ''}`} data-testid="csat-learning-map">
       <div className={s.head}>
         <span className={s.title}>학습 지도</span>
         <span className={s.sub}>
@@ -184,8 +184,14 @@ export function LearningMap({ data }: { data: MapPageData }) {
           </svg>
 
           <div className={s.cols}>
-            <div className={s.col}>
-              <div className={s.colHead}>최종 목표</div>
+            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 1 }}>최종 목표</div>
+            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 2 }}>영역</div>
+            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 3 }}>학습 라인</div>
+            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 4 }}>근거 원리</div>
+            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 5 }}>접근 트랙</div>
+
+            {/* 목표 · 원리 · 트랙은 스크롤을 따라와 긴 라인 열 옆에 계속 보인다 */}
+            <div className={s.sticky} style={{ gridRow: `2 / span ${byKind.lineGroups.length}`, gridColumn: 1 }}>
               {byKind.goal && (
                 <div ref={register(byKind.goal.code)} className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''}`}>
                   <button type="button" className={s.goalOpen} onClick={() => choose(byKind.goal.code)} aria-pressed={selected === byKind.goal.code}>
@@ -224,27 +230,21 @@ export function LearningMap({ data }: { data: MapPageData }) {
               )}
             </div>
 
-            <div className={s.col}>
-              <div className={s.colHead}>영역</div>
-              {byKind.axes.map((n) => (
-                <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
-              ))}
-            </div>
+            {/* 영역은 자기 라인 묶음의 가운데에 — 연결선이 한 점에서 부채꼴로 퍼지지 않게 */}
+            {byKind.axes.map((n, gi) => (
+              <div key={n.code} className={s.axisCell} style={{ gridRow: gi + 2, gridColumn: 2 }}>
+                <MapNode node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
+              </div>
+            ))}
+            {byKind.lineGroups.map((group, gi) => (
+              <div key={gi} className={s.groupLines} style={{ gridRow: gi + 2, gridColumn: 3 }}>
+                {group.map((n) => (
+                  <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
+                ))}
+              </div>
+            ))}
 
-            <div className={s.col}>
-              <div className={s.colHead}>학습 라인</div>
-              {byKind.lineGroups.map((group, gi) => (
-                <div key={gi} className={s.col}>
-                  {gi > 0 && <div className={s.gap} />}
-                  {group.map((n) => (
-                    <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
-                  ))}
-                </div>
-              ))}
-            </div>
-
-            <div className={s.col}>
-              <div className={s.colHead}>근거 원리</div>
+            <div className={s.sticky} style={{ gridRow: `2 / span ${byKind.lineGroups.length}`, gridColumn: 4 }}>
               {byKind.principles.map((n) => (
                 <MapNode
                   key={n.code}
@@ -261,9 +261,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
                 />
               ))}
             </div>
-
-            <div className={s.col}>
-              <div className={s.colHead}>접근 트랙</div>
+            <div className={s.sticky} style={{ gridRow: `2 / span ${byKind.lineGroups.length}`, gridColumn: 5 }}>
               {byKind.tracks.map((n) => (
                 <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.code} />
               ))}
@@ -345,9 +343,9 @@ function MapNode({
       <span className={s.nodeTop}>
         <span className={s.code}>{node.code}</span>
         <span className={s.name}>{node.name}</span>
-        {badge && <span className={s.badge}>{badge}</span>}
         {dot && <i className={`${s.trackDot} ${dot}`} aria-hidden="true" />}
       </span>
+      {badge && <span className={s.badge}>{badge}</span>}
       {value && value.status !== 'no_items' ? <Meter value={value} /> : <span className={s.meterRow}>{value?.note ?? '연결 문항 없음'}</span>}
     </button>
   )

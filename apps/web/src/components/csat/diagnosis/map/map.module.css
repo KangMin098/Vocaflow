@@ -66,15 +66,35 @@
 }
 .stage {
   position: relative;
-  min-width: 1180px;
+  min-width: 820px;
 }
 .cols {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1.25fr 1fr 1.15fr 1.15fr 1fr;
-  gap: 0 56px;
+  grid-template-columns: minmax(150px, 1.3fr) minmax(120px, 1fr) minmax(140px, 1.1fr) minmax(140px, 1.1fr) minmax(120px, 1fr);
+  column-gap: 32px;
+  row-gap: 10px;
   align-items: start;
+}
+.sticky {
+  position: sticky;
+  top: 12px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.axisCell {
+  align-self: center;
+}
+.groupLines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.popOpen .scroller {
+  margin-right: 388px;
 }
 .colHead {
   font-size: 12px;
@@ -239,7 +259,7 @@
   color: var(--m-short-ink);
 }
 .badge {
-  flex: none;
+  align-self: flex-start;
   padding: 0 6px;
   border: 1px dotted var(--m-g600);
   border-radius: 6px;
@@ -324,10 +344,12 @@
 }
 .goalForm {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 8px;
 }
 .goalForm label {
+  white-space: nowrap;
   font-size: 12px;
   color: var(--m-ink2);
 }
@@ -401,7 +423,7 @@
   z-index: 40;
   display: flex;
   flex-direction: column;
-  width: min(460px, 100vw);
+  width: min(380px, 100vw);
   height: 100dvh;
   background: var(--m-bg);
   border-left: 1px solid var(--m-line);
