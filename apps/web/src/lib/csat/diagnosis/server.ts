@@ -10,6 +10,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
+import { mapEvidenceFor } from '../map/evidence'
 import { selectByChunks, selectSmall } from './fetch'
 
 import { ruleEngineV1 } from './engine/rule-v1'
@@ -267,6 +268,8 @@ export async function recomputeSnapshot(
 ): Promise<{ id: string; result: DiagnosisResult }> {
   const { input, settingsId, watermark } = await buildInput(db, userId, now)
   const result = ENGINE.diagnose(input)
+  // 학습 지도용 값(A·B·C 성취율) — 지도 전용 처리 전체가 map/evidence 안에서 격리된다(실패해도 던지지 않는다)
+  const map = await mapEvidenceFor(db, input)
   const { data, error } = await db.from('csat_dx_snapshot').insert({
     user_id: userId,
     trigger,
@@ -284,7 +287,7 @@ export async function recomputeSnapshot(
     forecast: result.forecast,
     confidence: result.confidence,
     recommended_lines: result.recommendedLines,
-    evidence: { ...result.evidence, adjusted: result.adjusted, trend: result.trend },
+    evidence: { ...result.evidence, adjusted: result.adjusted, trend: result.trend, ...(map.evidence ?? {}), mapStatus: map.status },
   }).select('id').single()
   if (error) throw new Error(`스냅샷 저장 실패: ${error.message}`)
   return { id: data.id as string, result }

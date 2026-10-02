@@ -2,6 +2,7 @@
 //
 // csat_dx_snapshot 한 행의 화면용 모양 + 조회. 학습자(본인 RLS)·관리자(service role) 모두 같은 함수로 읽는다.
 
+import type { LineStat as MapLineStat } from './engine/map-evidence'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import type {
@@ -38,6 +39,11 @@ export interface SnapshotView {
     diagnosedResponses: number
     scoreOnlySessions: number
     adjusted?: boolean
+    /** 학습 지도용 성취율(가산 키 — 옛 스냅샷에는 없다) */
+    lineAccuracy?: Record<string, MapLineStat>
+    attributePoints?: Record<string, MapLineStat>
+    trapAvoidance?: Record<string, MapLineStat>
+    mapStatus?: 'ok' | 'off' | 'failed'
     trend?: { sessionId: string; takenAt: string; mode: SessionMode; raw: number | null; adjusted: number | null }[]
   }
 }
