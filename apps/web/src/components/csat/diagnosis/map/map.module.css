@@ -1,0 +1,629 @@
+/* apps/web/src/components/csat/diagnosis/map/map.module.css
+ *
+ * 학습 지도 — 레퍼런스(neon-currant · Tines 3B 앱) 실측 토큰을 이 범위(.root)에서만 쓴다(2026-10-02 번들 CSS 실측).
+ * 글자 먹색 #0d0d17 · 보조 #5e5f6b · 면 #fff / #fbf9f7 · 선 #0d0d171a · 회색 사다리 #eeebe7 #d0cdc9 #918f8b ·
+ * 상태 = green/yellow/red-600 · 트랙 = sky/purple/pink-600. 기존 /csat 화면 값은 건드리지 않는다.
+ * 색은 상태의 보조일 뿐 — 모든 상태는 글자로도 보인다. 한글은 keep-all(I7). 터치 타깃 44px.
+ */
+
+.root {
+  --m-bg: #fff;
+  --m-canvas: #fbf9f7;
+  --m-ink: #0d0d17;
+  --m-ink2: #5e5f6b;
+  --m-line: #0d0d171a;
+  --m-hover: #f8f7f5;
+  --m-g200: #eeebe7;
+  --m-g400: #d0cdc9;
+  --m-g600: #918f8b;
+  --m-met: #00a370;
+  --m-met-ink: #006d4b;
+  --m-met-bg: #e4eee7;
+  --m-near: #d68b00;
+  --m-near-ink: #9a5a00;
+  --m-near-bg: #ffebd0;
+  --m-short: #f04e49;
+  --m-short-ink: #b02727;
+  --m-short-bg: #ffe5e0;
+  --m-t1: #009bca;
+  --m-t2: #9274f4;
+  --m-t3: #ed52a6;
+  --m-elev: 0 6px 12px 0 #0d0d170a, 0 1px 3px 0 #0d0d170d, 0 1px 0 0 #0d0d1705;
+  color: var(--m-ink);
+  background: var(--m-canvas);
+  word-break: keep-all;
+  position: relative;
+  border-radius: 12px;
+}
+
+.root :is(button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ── 상단 줄 ── */
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  padding: 16px 20px 0;
+}
+.title {
+  font-size: 15px;
+  font-weight: 600;
+}
+.sub {
+  font-size: 12.5px;
+  color: var(--m-ink2);
+}
+
+/* ── 지도 ── */
+.scroller {
+  overflow-x: auto;
+  padding: 12px 20px 28px;
+}
+.stage {
+  position: relative;
+  min-width: 1180px;
+}
+.cols {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1.15fr 1.15fr 1fr;
+  gap: 0 56px;
+  align-items: start;
+}
+.colHead {
+  font-size: 12px;
+  color: var(--m-ink2);
+  padding: 0 2px 8px;
+}
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.gap {
+  height: 10px;
+}
+.edges {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.edge {
+  fill: none;
+  stroke: var(--m-g400);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+.edgeInferred {
+  stroke-dasharray: 5 5;
+}
+.edgePending {
+  stroke-dasharray: 1.5 4.5;
+  stroke-linecap: round;
+}
+.hasSel .edge {
+  opacity: 0.12;
+}
+.hasSel .edgeOn {
+  opacity: 1;
+  stroke: var(--m-ink);
+  stroke-width: 1.6;
+}
+
+/* ── 노드 ── */
+.node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px 9px;
+  text-align: left;
+  background: var(--m-bg);
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.node:hover {
+  background: var(--m-hover);
+}
+.nodeSel {
+  border-color: var(--m-ink);
+  box-shadow: 0 0 0 1px var(--m-ink);
+}
+.nodeDim {
+  opacity: 0.35;
+}
+.nodeTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.code {
+  flex: none;
+  min-width: 26px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: var(--m-g200);
+  font-size: 11.5px;
+  font-weight: 600;
+  text-align: center;
+}
+.name {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.trackDot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.t1 {
+  background: var(--m-t1);
+}
+.t2 {
+  background: var(--m-t2);
+}
+.t3 {
+  background: var(--m-t3);
+}
+
+/* 막대 = 채움(성취) + 눈금(목표) */
+.meter {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--m-g200);
+}
+.fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+  background: var(--m-g600);
+}
+.fillMet {
+  background: var(--m-met);
+}
+.fillNear {
+  background: var(--m-near);
+}
+.fillShort {
+  background: var(--m-short);
+}
+.tick {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--m-ink);
+  border-radius: 1px;
+}
+.meterRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--m-ink2);
+}
+.statusText {
+  font-weight: 600;
+}
+.sMet {
+  color: var(--m-met-ink);
+}
+.sNear {
+  color: var(--m-near-ink);
+}
+.sShort {
+  color: var(--m-short-ink);
+}
+.badge {
+  flex: none;
+  padding: 0 6px;
+  border: 1px dotted var(--m-g600);
+  border-radius: 6px;
+  font-size: 10.5px;
+  color: var(--m-ink2);
+}
+
+/* ── 목표 노드 ── */
+.goal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: var(--m-bg);
+  border: 1px solid var(--m-line);
+  border-radius: 14px;
+  box-shadow: var(--m-elev);
+}
+.goalSel {
+  border-color: var(--m-ink);
+  box-shadow: 0 0 0 1px var(--m-ink), var(--m-elev);
+}
+.goalOpen {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 44px;
+  padding: 0;
+  text-align: left;
+  background: none;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.goalLabel {
+  font-size: 12px;
+  color: var(--m-ink2);
+}
+.goalNum {
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.goalNum small {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--m-ink2);
+  margin-left: 2px;
+}
+.goalNow {
+  font-size: 13px;
+  color: var(--m-ink2);
+}
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--m-line);
+  border-radius: 999px;
+  background: var(--m-bg);
+  font: inherit;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  cursor: pointer;
+}
+.chip:hover {
+  background: var(--m-hover);
+}
+.chipOn {
+  background: var(--m-ink);
+  border-color: var(--m-ink);
+  color: #fcf9f5;
+}
+.goalForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.goalForm label {
+  font-size: 12px;
+  color: var(--m-ink2);
+}
+.input {
+  width: 72px;
+  min-height: 44px;
+  padding: 0 10px;
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  background: var(--m-bg);
+  color: inherit;
+}
+.btn {
+  min-height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--m-ink);
+  border-radius: 10px;
+  background: var(--m-ink);
+  color: #fcf9f5;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.btnGhost {
+  background: var(--m-bg);
+  color: var(--m-ink);
+  border-color: var(--m-line);
+}
+.err {
+  font-size: 12px;
+  color: var(--m-short-ink);
+}
+
+/* ── 범례 ── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 0 20px 16px;
+  font-size: 12px;
+  color: var(--m-ink2);
+}
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.legendLine {
+  width: 22px;
+  height: 0;
+  border-top: 1.6px solid var(--m-ink);
+}
+.legendDashed {
+  border-top-style: dashed;
+}
+.legendDotted {
+  border-top-style: dotted;
+}
+
+/* ── 팝업(우측 · 비모달 — 지도의 강조 경로가 보이게) ── */
+.popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  width: min(460px, 100vw);
+  height: 100dvh;
+  background: var(--m-bg);
+  border-left: 1px solid var(--m-line);
+  box-shadow: -8px 0 24px #0d0d170f;
+  color: var(--m-ink);
+  word-break: keep-all;
+}
+.popHead {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 16px 12px 20px;
+  border-bottom: 1px solid var(--m-line);
+}
+.popTitle {
+  flex: 1;
+  min-width: 0;
+}
+.popKind {
+  font-size: 12px;
+  color: var(--m-ink2);
+}
+.popName {
+  margin: 2px 0 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.close {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  font-size: 20px;
+  color: var(--m-ink2);
+  cursor: pointer;
+  border-radius: 10px;
+}
+.close:hover {
+  background: var(--m-hover);
+}
+.popBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: 4px 20px 32px;
+}
+.sec {
+  padding: 18px 0 4px;
+  border-bottom: 1px solid var(--m-line);
+}
+.sec:last-child {
+  border-bottom: 0;
+}
+.secTitle {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--m-ink2);
+}
+.big {
+  font-size: 30px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.p {
+  margin: 6px 0 12px;
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+.muted {
+  color: var(--m-ink2);
+}
+.warn {
+  margin: 8px 0 12px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--m-near-bg);
+  color: var(--m-near-ink);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.tableWrap {
+  max-height: 232px;
+  overflow: auto;
+  margin: 8px 0 14px;
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+.table th {
+  position: sticky;
+  top: 0;
+  background: var(--m-canvas);
+  text-align: left;
+  font-weight: 500;
+  color: var(--m-ink2);
+}
+.table th,
+.table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--m-line);
+  font-variant-numeric: tabular-nums;
+}
+.table tr:last-child td {
+  border-bottom: 0;
+}
+.tasks {
+  list-style: none;
+  margin: 8px 0 14px;
+  padding: 0;
+}
+.task {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-height: 44px;
+  padding: 8px 0;
+  border-top: 1px solid var(--m-line);
+}
+.task:first-child {
+  border-top: 0;
+}
+.taskBox {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  margin: -8px 0 -8px -12px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+.taskBox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--m-ink);
+}
+.taskTitle {
+  font-size: 14px;
+  font-weight: 500;
+}
+.taskDone .taskTitle {
+  color: var(--m-ink2);
+  text-decoration: line-through;
+}
+.taskMeta {
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--m-ink2);
+}
+.matPast,
+.matCore {
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.matPast {
+  background: #e3edf1;
+  color: #00688d;
+}
+.matCore {
+  background: #ffe4ee;
+  color: #ad2a71;
+}
+.linkBtn {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--m-ink);
+  cursor: pointer;
+}
+.list {
+  list-style: none;
+  margin: 8px 0 14px;
+  padding: 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+.list li {
+  padding: 6px 0;
+  border-top: 1px solid var(--m-line);
+}
+.list li:first-child {
+  border-top: 0;
+}
+.src {
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.srcStatus {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 0 6px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.srcOk {
+  background: var(--m-met-bg);
+  color: var(--m-met-ink);
+}
+.srcReview {
+  background: var(--m-near-bg);
+  color: var(--m-near-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root * {
+    transition: none !important;
+  }
+}

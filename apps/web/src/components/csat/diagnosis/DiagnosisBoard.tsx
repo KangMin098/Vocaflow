@@ -5,7 +5,7 @@
 // 시험 기록 안에 보조 전환(기록 · 유형 · 오답 함정 · 틀린 문항, ?view=) — 세부 표는 전부 여기 모인다.
 // 예전 ?tab=types|traps|wrong 주소는 parseBoardTab 이 시험 기록의 같은 보기로 옮긴다. 데이터는 기록한 답안에서만 온다.
 
-import { ClipboardList, Crosshair, LayoutGrid, Layers, ListX, Plus } from 'lucide-react'
+import { ClipboardList, Crosshair, LayoutGrid, Layers, ListX, Network, Plus } from 'lucide-react'
 import Link from 'next/link'
 
 import type { ExamReport } from '@/lib/csat/diagnosis/engine/exam-report'
@@ -17,12 +17,17 @@ import s from './board.module.css'
 import { Bars, Donut, Radar, Sparkline, seriesColor } from './charts'
 import { RecordsList } from './RecordsList'
 
-export type BoardTab = 'overview' | 'records'
+export type BoardTab = 'overview' | 'records' | 'map'
+/** 화면 기능 — 학습 지도는 학습자 화면에만 있다(Admin 학습자 보기에는 없다) */
+export interface BoardFeatures {
+  map?: boolean
+}
 export type RecordsView = 'list' | 'types' | 'traps' | 'wrong'
 
 const TABS: { key: BoardTab; label: string; Icon: typeof LayoutGrid }[] = [
   { key: 'overview', label: '개요', Icon: LayoutGrid },
   { key: 'records', label: '시험 기록', Icon: ClipboardList },
+  { key: 'map', label: '학습 지도', Icon: Network },
 ]
 
 const VIEWS: { key: RecordsView; label: string; Icon: typeof LayoutGrid }[] = [
@@ -33,7 +38,8 @@ const VIEWS: { key: RecordsView; label: string; Icon: typeof LayoutGrid }[] = [
 ]
 
 /** ?tab= · ?view= 를 읽는다. 예전 상단 탭(types · traps · wrong)은 시험 기록의 같은 보기로 옮긴다. */
-export function parseBoardTab(tab?: string, view?: string): { tab: BoardTab; view: RecordsView } {
+export function parseBoardTab(tab?: string, view?: string, features: BoardFeatures = {}): { tab: BoardTab; view: RecordsView } {
+  if (tab === 'map') return { tab: features.map ? 'map' : 'overview', view: 'list' }
   const legacy = VIEWS.find((v) => v.key !== 'list' && v.key === tab)
   if (legacy) return { tab: 'records', view: legacy.key }
   if (tab !== 'records') return { tab: 'overview', view: 'list' }
@@ -43,6 +49,7 @@ export function parseBoardTab(tab?: string, view?: string): { tab: BoardTab; vie
 /** 모달을 닫고 돌아갈 주소 — 지금 보던 탭 · 보기 그대로 */
 export function boardHref(base: string, tab: BoardTab, view: RecordsView) {
   if (tab === 'overview') return base
+  if (tab === 'map') return `${base}?tab=map`
   return view === 'list' ? `${base}?tab=records` : `${base}?tab=records&view=${view}`
 }
 
@@ -54,19 +61,21 @@ export function BoardFrame({
   tab,
   counts,
   addHref,
+  features = {},
   children,
 }: {
   base: string
   tab: BoardTab | 'add'
   counts?: Partial<Record<BoardTab, number>>
   addHref: string
+  features?: BoardFeatures
   children: React.ReactNode
 }) {
   return (
     <div className={s.board}>
       <div className={s.tabbar}>
         <nav className={s.tabs} aria-label="내 진단">
-          {TABS.map(({ key, label, Icon }) => (
+          {TABS.filter(({ key }) => key !== 'map' || features.map).map(({ key, label, Icon }) => (
             <Link key={key} href={key === 'overview' ? base : `${base}?tab=${key}`} className={s.tab} aria-current={tab === key ? 'page' : undefined}>
               <Icon size={15} strokeWidth={1.8} aria-hidden="true" />
               {label}
@@ -342,6 +351,8 @@ export function DiagnosisBoard({
   addHref,
   modal,
   focus,
+  features,
+  mapSlot,
 }: {
   report: ExamReport
   typeNames: Record<string, string>
@@ -353,14 +364,19 @@ export function DiagnosisBoard({
   modal?: React.ReactNode
   /** 팝업의 「진단에서 보기」로 온 시험 — 개요에서 강조하고 바닥에 선택 표시 */
   focus?: string
+  features?: BoardFeatures
+  /** 학습 지도 탭의 본문 — 페이지가 서버에서 로드해 그려 넘긴다 */
+  mapSlot?: React.ReactNode
 }) {
   const focused = focus ? report.trend.find((t) => t.sessionId === focus) : undefined
   const name = (id: string) => typeNames[id] ?? id
   const counts = { records: report.trend.length }
   const viewCounts: Partial<Record<RecordsView, number>> = { list: report.trend.length, types: report.types.length, wrong: report.wrongAll.length }
   return (
-    <BoardFrame base={base} tab={tab} counts={counts} addHref={addHref}>
-      {!report.latest ? (
+    <BoardFrame base={base} tab={tab} counts={counts} addHref={addHref} features={features}>
+      {tab === 'map' && mapSlot ? (
+        mapSlot
+      ) : !report.latest ? (
         <Empty
           title="아직 기록한 시험이 없어요"
           text="학력평가 · 모의평가 · 수능 중 푼 시험을 고르고 내 답만 적으면, 점수 흐름과 약한 유형이 여기에 나와요."

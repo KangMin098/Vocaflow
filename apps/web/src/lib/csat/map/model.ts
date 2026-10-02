@@ -129,6 +129,8 @@ export interface MapModel {
   /** 오답률이 없어 반드시로 둔 문항 수(기준 시험 합계) · 남은 예산으로 미관측 문항이 더 들어갈 수 있는 시험이 있나 */
   missingRate: number
   mayOverstate: boolean
+  /** 스냅샷 전체 기준 근거 데이터 수(노드별 시험 수는 저장하지 않는다) — 스냅샷이 없으면 null */
+  evidence: { examSessions: number; responses: number } | null
   nodes: Record<string, NodeValue>
 }
 
@@ -249,6 +251,7 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
     },
     missingRate,
     mayOverstate,
+    evidence: raw.snapshot ? { examSessions: raw.snapshot.examSessions, responses: raw.snapshot.responses } : null,
     nodes,
   }
 }
