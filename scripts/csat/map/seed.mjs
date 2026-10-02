@@ -44,7 +44,13 @@ export function listeningLinks(table = read('listening-approved.json')) {
   return table.exams.flatMap((e) => e.items.map((i) => ({ line: i.line, kind: 'item_no', ref: `${e.examId}#${i.no}` })))
 }
 
-export function buildPayload(rawMap = read('learning-map.json'), src = read('sources.json'), overrides = read('overrides.json'), listening = read('listening-approved.json')) {
+/** 승인된 독해 유형 → B6~B13 연결(link_kind='type') */
+export function readingTypeLinks(table = read('reading-types-approved.json')) {
+  if (table.status !== 'approved') throw new Error('독해 유형표가 승인 상태가 아니다')
+  return Object.entries(table.lines).flatMap(([line, v]) => v.types.map((ref) => ({ line, kind: 'type', ref })))
+}
+
+export function buildPayload(rawMap = read('learning-map.json'), src = read('sources.json'), overrides = read('overrides.json'), listening = read('listening-approved.json'), reading = read('reading-types-approved.json')) {
   const map = applyOverrides(rawMap, overrides)
   const nodes = [
     { code: 'GOAL', kind: 'goal', name: '최종 목표', summary: '목표 점수에서 잃어도 되는 점수만큼 놓치는 문항을 정하고, 나머지를 반드시 맞혀야 하는 문항으로 둔다.', sort: 0 },
@@ -67,6 +73,7 @@ export function buildPayload(rawMap = read('learning-map.json'), src = read('sou
     ...TRAP_LINES.map((c) => ({ line: c, kind: 'trap_family', ref: c })),
     ...Object.entries(HABIT_LINE).map(([line, ref]) => ({ line, kind: 'habit', ref })),
     ...listeningLinks(listening),
+    ...readingTypeLinks(reading),
   ]
   return {
     sources: src.sources,
