@@ -14,6 +14,7 @@ import { chunkArgs, DrainSelectError, selectOutFiles } from '../lib-drain-select
 import { exportAnswerHash } from '../lib-units-db.mjs'
 
 const IMPORT = fileURLToPath(new URL('../analysis-drain-import.mjs', import.meta.url))
+const EXPORT = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.url))
 
 const PASSAGE =
   'People often assume that memory works like a recorder. In fact, each recall rebuilds the event from fragments, and every rebuilding can change it slightly.'
@@ -169,6 +170,50 @@ async function withServer(fn, currentAnswer = { answer: 3, answers: null }) {
   try { return await fn(`http://127.0.0.1:${server.address().port}`, reqs) } finally { server.close() }
 }
 
+test('partial export recovery satisfies full import without hiding an unselected missing item', async () => {
+  const { dir, work } = setup()
+  const ids = ['H2603G3#18', 'H2603G3#19']
+  const rows = ids.map((id) => ({ ...item(id), type_id: 'R-TOPIC', in_scope: true, year: 2026, month: 3, stem: null, answers: null }))
+  const requests = []
+  const server = http.createServer(async (req, res) => {
+    let raw = ''
+    for await (const part of req) raw += part
+    requests.push({ method: req.method, url: req.url, body: raw ? JSON.parse(raw) : null })
+    res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/rpc/csat_current_units_many')) return res.end(JSON.stringify(ids.map((id) => ({ ...currentUnits[0], item_id: id }))))
+    if (req.url.startsWith('/rest/v1/csat_items?')) return res.end(JSON.stringify(rows))
+    if (req.method === 'GET') return res.end('[]')
+    res.end(req.method === 'POST' ? JSON.stringify({ id: `analysis-${requests.length}` }) : '[]')
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  try {
+    for (const f of ['chunk-broken.out.json', 'chunk-R-WAVE2-H2603G3-19.out.json']) fs.rmSync(path.join(work, f))
+    fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: rows }))
+    const inputPath = path.join(work, 'chunk-revise-test.json')
+    const original = JSON.stringify({ items: rows.map((it) => ({ ...it, item_id: it.id, units: UNITS, units_hash: HASH, units_version: 1, input_hash: 'x', answer_hash: ANSWER_HASH })) })
+    fs.writeFileSync(inputPath, original)
+    const url = `http://127.0.0.1:${server.address().port}`
+    const exported = await runImport(dir, url, ['--limit', '1'], EXPORT)
+    assert.equal(exported.code, 0, exported.output)
+    const recovery = fs.readdirSync(work).find((f) => f.startsWith('chunk-redo-') && f.endsWith('.json'))
+    assert.ok(recovery, exported.output)
+    const pending = await runImport(dir, url, ['--commit'])
+    assert.notEqual(pending.code, 0, 'a recovery input alone must not satisfy missing output')
+    fs.writeFileSync(path.join(work, recovery.replace('.json', '.out.json')), JSON.stringify({ analyses: [goodAnalysis(ids[1])] }))
+    const isolated = await runImport(dir, url, ['--chunk', 'revise-test', '--commit'])
+    assert.notEqual(isolated.code, 0, 'an unselected recovery must not hide missing analysis')
+    assert.equal(requests.filter((q) => q.method !== 'GET' && !q.url.includes('/rpc/')).length, 0)
+    const imported = await runImport(dir, url, ['--commit'])
+    assert.equal(imported.code, 0, imported.output)
+    const inserts = requests.filter((q) => q.method === 'POST' && q.url.startsWith('/rest/v1/csat_item_analyses'))
+    assert.deepEqual(inserts.map((q) => q.body.item_id).sort(), ids)
+    assert.equal(fs.readFileSync(inputPath, 'utf8'), original)
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+})
+
 for (const [reason, currentAnswer] of [
   ['answer changed', { answer: 2, answers: null }],
   ['answers changed', { answer: 3, answers: [2, 3] }],
@@ -192,8 +237,8 @@ for (const [reason, currentAnswer] of [
   })
 }
 
-async function runImport(dir, url, args) {
-  const child = spawn(process.execPath, [IMPORT, '--set', 'hakpyeong', ...args], {
+async function runImport(dir, url, args, cli = IMPORT) {
+  const child = spawn(process.execPath, [cli, '--set', 'hakpyeong', ...args], {
     cwd: dir,
     env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: url, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     windowsHide: true,

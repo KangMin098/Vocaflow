@@ -195,9 +195,9 @@ const warns = []
 // 도표 2문항을 다시 썼는데 옛 원장의 같은 인용으로 오류 2건이 그대로 남았다).
 //
 // 판정 대상은 **실제로 적재될 것**이어야 한다. 그렇지 않으면 게이트는 아무도 안 쓸 글을 막는다.
-// ⚠️ `--chunk` 로 한 청크만 볼 때는 이 접기를 하지 않는다 — 그때는 그 파일을 보러 온 것이다.
+// `--chunk`로 골랐을 때도 선택한 파일 안에서만 접는다 — 적재기와 같은 마지막 결과를 검사한다.
 const winner = new Map()
-if (!arg('chunk')) {
+{
   for (const f of files) {
     let j
     try {
@@ -451,7 +451,9 @@ for (const f of files) {
   if (fs.existsSync(src)) {
     const want = JSON.parse(fs.readFileSync(src, 'utf8')).items.map((i) => i.item_id)
     const got = new Set((j.analyses ?? []).map((a) => a.item_id))
-    const miss = want.filter((x) => !got.has(x))
+    // 보존한 옛 입력의 누락은 이번에 선택한 후속 결과가 채울 수 있다.
+    // 선택 밖 결과는 winner에 없으므로 누락을 숨기지 못한다.
+    const miss = want.filter((x) => !got.has(x) && !winner.has(x))
     if (miss.length) bad('(청크)', `분석이 빠진 문항 ${miss.length}: ${miss.slice(0, 5).join(' ')}`)
   }
 
