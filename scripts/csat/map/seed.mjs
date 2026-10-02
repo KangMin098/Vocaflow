@@ -24,7 +24,28 @@ const ATTRIBUTE_LINES = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A8', 'A9']
 // 함정 계열이 DB 에 있는 코드(C8 은 연결 함정이 0 — 일부러 비운다. C9 는 지도에 연결하지 않는다 — 2026-10-02 결정)
 const TRAP_LINES = ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7']
 
-export function buildPayload(map = read('learning-map.json'), src = read('sources.json')) {
+/** 승인된 문구 수정(overrides.json)을 추출 데이터 위에 덮는다 — 라인의 why · signal 과 과제 제목 · 방법 */
+export function applyOverrides(map, overrides) {
+  const lines = map.lines.map((l) => {
+    const o = overrides.lines?.[l.id]
+    return o ? { ...l, ...(o.why ? { why: o.why } : {}), ...(o.signal ? { signal: o.signal } : {}) } : l
+  })
+  const tasks = Object.fromEntries(
+    Object.entries(map.tasks).map(([line, rows]) => {
+      const o = overrides.lines?.[line]?.tasks
+      return [line, o ? rows.map((r) => (o[String(r.ord)] ? { ...r, ...o[String(r.ord)] } : r)) : rows]
+    }),
+  )
+  return { ...map, lines, tasks }
+}
+
+/** 승인된 듣기 번호표 → B 라인의 item_no 연결(회차별 — 승인된 회차만) */
+export function listeningLinks(table = read('listening-approved.json')) {
+  return table.exams.flatMap((e) => e.items.map((i) => ({ line: i.line, kind: 'item_no', ref: `${e.examId}#${i.no}` })))
+}
+
+export function buildPayload(rawMap = read('learning-map.json'), src = read('sources.json'), overrides = read('overrides.json'), listening = read('listening-approved.json')) {
+  const map = applyOverrides(rawMap, overrides)
   const nodes = [
     { code: 'GOAL', kind: 'goal', name: '최종 목표', summary: '목표 점수에서 잃어도 되는 점수만큼 놓치는 문항을 정하고, 나머지를 반드시 맞혀야 하는 문항으로 둔다.', sort: 0 },
     ...map.axes.map((a, i) => ({ code: a.id, kind: 'axis', name: a.name, summary: a.desc, sort: i + 1 })),
@@ -45,6 +66,7 @@ export function buildPayload(map = read('learning-map.json'), src = read('source
     ...ATTRIBUTE_LINES.map((c) => ({ line: c, kind: 'attribute', ref: c })),
     ...TRAP_LINES.map((c) => ({ line: c, kind: 'trap_family', ref: c })),
     ...Object.entries(HABIT_LINE).map(([line, ref]) => ({ line, kind: 'habit', ref })),
+    ...listeningLinks(listening),
   ]
   return {
     sources: src.sources,
