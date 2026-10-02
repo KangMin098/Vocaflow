@@ -33,7 +33,14 @@ const SETTINGS = {
   min_observations: 1,
   listening: { attribute: 'A7', weight: 2 },
   trap: { min_exposure: 1, vulnerable_ratio: 0.3 },
-  habits: { listening: { to_no: 17, wrong_count: 2, consecutive: 2 } },
+  habits: {
+    time_collapse: { from_no: 41, to_no: 45, ratio: 1.5, timeout_count: 2 },
+    guessing: { guess_ratio: 0.15, easy_error_rate: 0.2, easy_wrong_count: 2 },
+    word_reuse: { family: 'C1', ratio: 0.4 },
+    cutline_90: { sessions: 3, lo: 86, hi: 93 },
+    ebs: { gap: 0.2 },
+    listening: { to_no: 17, wrong_count: 2, consecutive: 2 },
+  },
 } as unknown as EngineSettings
 
 const INPUT: EngineInput = {

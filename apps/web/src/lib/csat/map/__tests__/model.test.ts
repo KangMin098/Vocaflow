@@ -84,8 +84,30 @@ describe('buildMapModel', () => {
     const m = buildMapModel(raw())
     expect(m.nodes.D1).toMatchObject({ status: 'tasks_only', habit: 'active', tasks: { done: 1, total: 2, rate: 0.5 } })
     expect(m.nodes.D).toMatchObject({ status: 'tasks_only', target: null, tasks: { done: 1, total: 2 } })
-    expect(buildMapModel(raw({ snapshot: { ...raw().snapshot!, habitCodes: [] } })).nodes.D1.habit).toBe('not_observed')
     expect(buildMapModel(raw({ snapshot: null })).nodes.D1.habit).toBeNull()
+  })
+
+  it('습관 신호 3상태 — 신호 있음 · 해소됨(평가 가능 + 신호 없음) · 판단 불가(평가 불가 · 옛 스냅샷)', () => {
+    const snap = (habitCodes: string[], habitEvaluable?: Record<string, { evaluable: boolean; n: number; need: number }>) => raw({ snapshot: { ...raw().snapshot!, habitCodes, habitEvaluable } })
+    const ev = (evaluable: boolean) => ({ listening: { evaluable, n: 2, need: 2 } })
+    expect(buildMapModel(snap(['listening'], ev(false))).nodes.D1.habit).toBe('active') // 신호가 있으면 평가 가능 여부와 무관
+    expect(buildMapModel(snap([], ev(true))).nodes.D1).toMatchObject({ habit: 'resolved', habitBasis: { n: 2, need: 2 } })
+    expect(buildMapModel(snap([], ev(false))).nodes.D1.habit).toBe('unknown')
+    expect(buildMapModel(snap([], undefined)).nodes.D1.habit).toBe('unknown') // 키 없는 옛 스냅샷
+    expect(buildMapModel(snap(['listening'], undefined)).nodes.D1.habit).toBe('active') // 옛 스냅샷의 활성 신호는 유지
+  })
+
+  it('집계 노드는 연결 라인이 저장한 관측 건수의 합을 가진다(중복 포함), 건수가 없으면 null', () => {
+    const m = buildMapModel(raw())
+    expect(m.nodes.A.n).toBe(10) // A1(5) + A2(5), A3 는 건수 없음
+    expect(m.nodes.GOAL.n).toBe(10)
+    expect(m.nodes.D.n).toBeNull() // 과제 전용 — 관측 건수 없음
+  })
+
+  it('1999/2000 처럼 만점에 못 미치는 성취율은 만점 목표에서 달성이 아니다', () => {
+    const m = buildMapModel(raw({ snapshot: { ...raw().snapshot!, attributePoints: { A1: { n: 5, value: 1999 / 2000, status: 'ok' } } } }))
+    expect(m.nodes.A1.target).toBe(1)
+    expect(m.nodes.A1.status).toBe('near') // 99.95% — 달성(met)이 아니다
   })
 
   it('원리 집계는 reason 연결선으로 이어진 라인만', () => {

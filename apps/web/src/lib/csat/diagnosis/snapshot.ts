@@ -43,6 +43,7 @@ export interface SnapshotView {
     lineAccuracy?: Record<string, MapLineStat>
     attributePoints?: Record<string, MapLineStat>
     trapAvoidance?: Record<string, MapLineStat>
+    habitEvaluable?: Record<string, { evaluable: boolean; n: number; need: number }>
     mapStatus?: 'ok' | 'off' | 'failed'
     trend?: { sessionId: string; takenAt: string; mode: SessionMode; raw: number | null; adjusted: number | null }[]
   }

@@ -69,6 +69,8 @@ export interface SnapshotInput {
   trapAvoidance: Record<string, MapStat>
   /** 활성 습관 신호 코드(habit_flags[].code) */
   habitCodes: string[]
+  /** 습관별 평가 가능 여부(evidence.habitEvaluable) — 옛 스냅샷에는 없다 */
+  habitEvaluable?: Record<string, { evaluable: boolean; n: number; need: number }>
   /** 최신 기록 원점수 — 목표 노드의 「현재 점수」 */
   currentScore: number | null
   examSessions: number
@@ -95,7 +97,8 @@ export interface MapRaw {
 }
 
 export type NodeStatus = AggregateStatus | 'tasks_only'
-export type HabitState = 'active' | 'not_observed'
+/** 신호 있음 · 해소됨(지금 근거로 보아 나타나지 않음) · 판단 불가(근거 부족 · 옛 스냅샷) */
+export type HabitState = 'active' | 'resolved' | 'unknown'
 
 export interface NodeValue {
   /** 목표율 0~1 — 눈금. 연결 문항이 없으면 null */
@@ -105,12 +108,14 @@ export interface NodeValue {
   status: NodeStatus
   /** 집계 노드: 진단된 라인 배점 비율(0~1) */
   coverage: number | null
-  /** 지표가 저장한 기여 건수(라인) / 연결 배점(집계의 가중치는 points) */
+  /** 지표가 저장한 기여 건수. 집계 노드는 연결 라인 건수의 합(중복 포함) — 서로 다른 응답 수가 아니다 */
   n: number | null
   points: number
   /** 과제 완료 */
   tasks: { done: number; total: number; rate: number | null }
   habit: HabitState | null
+  /** 습관 판정 근거(관측 n / 필요 need) — 팝업 「현 상태」 */
+  habitBasis: { n: number; need: number } | null
   /** 계산 근거 — 반드시 맞혀야 하는 문항(라인) */
   mustItems: RefItem[]
   /** 사람이 읽는 사유(「연결 문항 없음」 「진단 필요」 「노출 부족」…) */
@@ -130,7 +135,7 @@ export interface MapModel {
 const prefix = (code: string) => code.charAt(0)
 
 function emptyValue(): NodeValue {
-  return { target: null, achieved: null, status: 'no_items', coverage: null, n: null, points: 0, tasks: { done: 0, total: 0, rate: null }, habit: null, mustItems: [], note: null }
+  return { target: null, achieved: null, status: 'no_items', coverage: null, n: null, points: 0, tasks: { done: 0, total: 0, rate: null }, habit: null, habitBasis: null, mustItems: [], note: null }
 }
 
 export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = {}): MapModel {
@@ -191,7 +196,12 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
       v.status = 'tasks_only'
       if (p === 'D') {
         const code = Object.entries(raw.habitLine).find(([, line]) => line === l.code)?.[0]
-        if (code && raw.snapshot) v.habit = raw.snapshot.habitCodes.includes(code) ? 'active' : 'not_observed'
+        if (code && raw.snapshot) {
+          // 신호 있음 = 활성(옛 스냅샷에도 유지) · 해소됨 = 평가 가능한데 신호 없음 · 그 밖(평가 불가 · 키 없음)은 판단 불가
+          const ev = raw.snapshot.habitEvaluable?.[code]
+          v.habit = raw.snapshot.habitCodes.includes(code) ? 'active' : ev?.evaluable ? 'resolved' : 'unknown'
+          if (ev) v.habitBasis = { n: ev.n, need: ev.need }
+        }
       }
     }
     nodes[l.code] = v
@@ -219,6 +229,9 @@ export function buildMapModel(raw: MapRaw, examLabels: Record<string, string> = 
     v.status = agg.status
     v.points = codes.reduce((s, c) => s + (nodes[c]?.points ?? 0), 0)
     v.tasks = tasksOf(codes)
+    // 관측 합계(중복 포함) — 연결 라인이 저장한 기여 건수의 합. 같은 응답이 여러 라인에 들어갈 수 있어 서로 다른 응답 수가 아니다
+    const ns = codes.map((c) => nodes[c]?.n).filter((n): n is number => typeof n === 'number')
+    v.n = ns.length > 0 ? ns.reduce((s, n) => s + n, 0) : null
     // 연결 라인이 전부 과제 전용이면 진단 지표가 없다 — 완료율이 막대가 된다
     if (agg.status === 'no_items' && v.tasks.total > 0) v.status = 'tasks_only'
     v.note = agg.status === 'needs_diagnosis' ? '진단 필요' : agg.status === 'no_items' && v.tasks.total === 0 ? '연결 문항 없음' : null

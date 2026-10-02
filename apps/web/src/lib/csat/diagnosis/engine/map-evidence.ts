@@ -9,7 +9,7 @@
 // 목표율이 「반드시 맞혀야 하는 문항」의 배점 비율이라 같은 단위(맞혔나)로 비교해야 한다.
 
 import { TRAP_FAMILIES, type AttributeCode, type EngineInput, type ResponseIn, type SessionIn, type TrapFamily } from './types'
-import { decay, diagnosedResponses, modeWeight } from './rule-v1'
+import { byDate, decay, diagnosedResponses, isExamSession, modeWeight } from './rule-v1'
 
 export interface MapLineInput {
   /** 문항 유형 → B 라인(B6–B13 등, 승인된 표) */
@@ -25,17 +25,27 @@ export interface MapLineInput {
 export interface LineStat {
   /** 이 지표에 실제 기여한 응답 수(가중 0 · 배점 결측 · 무응답(함정) 제외) */
   n: number
-  /** 배점 가중 비율 0~1. 근거 부족이면 null */
+  /** 배점 가중 비율 0~1 — **반올림하지 않은 원래 값**(1999/2000 이 100% 로 저장되어 달성으로 판정되면 안 된다. 표시할 때만 반올림). 근거 부족이면 null */
   value: number | null
   status: 'ok' | 'insufficient'
   /** 배점을 못 찾아 빠진 응답 수 */
   unweighted: number
 }
 
+/** 습관 신호 하나를 지금 근거로 판정할 수 있는가 — 신호가 없을 때 「해소됨」과 「판단 불가」를 가른다 */
+export interface HabitEvaluable {
+  evaluable: boolean
+  /** 판정에 쓴 관측 수 */
+  n: number
+  /** 판정에 필요한 관측 수 */
+  need: number
+}
+
 export interface MapEvidence {
   lineAccuracy: Record<string, LineStat>
   attributePoints: Record<string, LineStat>
   trapAvoidance: Record<string, LineStat>
+  habitEvaluable: Record<string, HabitEvaluable>
 }
 
 interface Acc {
@@ -46,7 +56,6 @@ interface Acc {
 }
 
 const keyOf = (examId: string, no: number) => `${examId}#${no}`
-const round3 = (v: number) => Math.round(v * 1000) / 1000
 
 function add(map: Record<string, Acc>, code: string, weight: number, points: number | undefined, hit: boolean) {
   const a = (map[code] ??= { num: 0, den: 0, n: 0, unweighted: 0 })
@@ -63,7 +72,7 @@ function finish(map: Record<string, Acc>, minObservations: number): Record<strin
   const out: Record<string, LineStat> = {}
   for (const [code, a] of Object.entries(map)) {
     const ok = a.n >= minObservations && a.den > 0
-    out[code] = { n: a.n, value: ok ? round3(a.num / a.den) : null, status: ok ? 'ok' : 'insufficient', unweighted: a.unweighted }
+    out[code] = { n: a.n, value: ok ? a.num / a.den : null, status: ok ? 'ok' : 'insufficient', unweighted: a.unweighted }
   }
   return out
 }
@@ -126,5 +135,67 @@ export function computeMapEvidence(input: EngineInput, lines: MapLineInput): Map
     }
   }
 
-  return { lineAccuracy: finish(b, minObs), attributePoints: finish(a, minObs), trapAvoidance: finish(c, input.settings.trap.min_exposure) }
+  return {
+    lineAccuracy: finish(b, minObs),
+    attributePoints: finish(a, minObs),
+    trapAvoidance: finish(c, input.settings.trap.min_exposure),
+    habitEvaluable: habitEvaluable(input),
+  }
+}
+
+/**
+ * 습관마다 「지금 근거로 신호 부재를 확정할 수 있나」. 활성 판정(rule-v1 habitFlags)과 같은 입력 집합 · 설정값을 쓴다 —
+ * 신호가 여러 분기 중 하나로 켜지는 습관은 **모든 분기의 자료가 갖춰질 때만** evaluable.
+ */
+export function habitEvaluable(input: EngineInput): Record<string, HabitEvaluable> {
+  const h = input.settings.habits
+  const minObs = input.settings.min_observations
+  const minExposure = input.settings.trap.min_exposure
+  const exams = input.sessions.filter(isExamSession).sort(byDate)
+  const latest = exams[exams.length - 1]
+  const rows = diagnosedResponses(input)
+  const out: Record<string, HabitEvaluable> = {}
+
+  // 시간 붕괴 — 최근 시험에 구간(from~to) 응답이 있어야 한다
+  const tail = latest ? latest.responses.filter((r) => r.itemNo >= h.time_collapse.from_no && r.itemNo <= h.time_collapse.to_no).length : 0
+  out.time_collapse = { evaluable: tail > 0, n: tail, need: 1 }
+
+  // 추측 풀이 — 확신 태그 분기(응답이 있으면 충족) + 오답률 분기(공식 오답률이 있는 문항이 있어야 한다). 둘 다 갖춰야 부재를 확정한다
+  const exam = latest?.examId ? input.exams[latest.examId] : undefined
+  const rated = latest ? latest.responses.filter((r) => typeof exam?.items[r.itemNo]?.errorRate === 'number').length : 0
+  out.guessing = { evaluable: Boolean(latest) && latest.responses.length > 0 && rated > 0, n: rated, need: 1 }
+
+  // 단어 재활용 — ⓐ 계열 확인 오답이 표본 기준을 채우면 기존 판정 그대로 ⓑ 모자라면 그 계열 함정 문항에 충분히 응답했고 그 계열을 한 번도 안 골랐을 때만
+  {
+    const family = h.word_reuse.family
+    let wrongWithFamily = 0
+    let exposure = 0
+    let picks = 0
+    for (const { response, meta } of rows) {
+      if (!meta) continue
+      const famOf = (key: string | undefined) => (key ? (input.trapFamily[key] ?? null) : null)
+      const hasFamily = Object.values(meta.optionTraps).some((k) => famOf(k) === family)
+      if (hasFamily && response.chosen !== null) exposure += 1
+      if (!response.isCorrect && response.chosen !== null && famOf(meta.optionTraps[response.chosen]) !== null) {
+        wrongWithFamily += 1
+        if (famOf(meta.optionTraps[response.chosen]) === family) picks += 1
+      }
+    }
+    const ok = wrongWithFamily >= minExposure || (exposure >= minExposure && picks === 0)
+    out.word_reuse = { evaluable: ok, n: Math.max(wrongWithFamily, exposure), need: minExposure }
+  }
+
+  // 90점 커트라인 — 점수가 있는 live 시험이 기준 회수 이상
+  const lives = exams.filter((s) => s.mode === 'live' && s.rawScore !== null).length
+  out.cutline_90 = { evaluable: lives >= h.cutline_90.sessions, n: lives, need: h.cutline_90.sessions }
+
+  // EBS 의존 — 연계 · 비연계 문항 응답이 각각 관측 기준 이상
+  const linked = rows.filter((r) => r.meta?.ebsLinked === true).length
+  const unlinked = rows.filter((r) => r.meta?.ebsLinked === false).length
+  out.ebs = { evaluable: linked >= minObs && unlinked >= minObs, n: Math.min(linked, unlinked), need: minObs }
+
+  // 듣기 소홀 — 최근 연속 N회 시험이 있어야 한다
+  out.listening = { evaluable: exams.length >= h.listening.consecutive, n: Math.min(exams.length, h.listening.consecutive), need: h.listening.consecutive }
+
+  return out
 }

@@ -4,7 +4,7 @@
 
 import { describe, expect, it } from 'vitest'
 
-import { computeMapEvidence, type MapLineInput } from '../map-evidence'
+import { computeMapEvidence, habitEvaluable, type MapLineInput } from '../map-evidence'
 import type { EngineInput, EngineSettings, ExamMeta, ItemMeta, ResponseIn, SessionIn } from '../types'
 
 const NOW = new Date('2026-10-01T00:00:00Z')
@@ -175,5 +175,48 @@ describe('C — 함정 비선택률', () => {
   it('노출이 trap.min_exposure 미만이면 값 대신 근거 부족', () => {
     const ev = computeMapEvidence(build({ responses: [resp(30, true)] }), LINES)
     expect(ev.trapAvoidance.C1).toMatchObject({ n: 1, value: null, status: 'insufficient' })
+  })
+})
+
+describe('반올림 없음', () => {
+  it('성취율은 원래 값으로 저장한다 — 1999/2000 이 1 로 올림되지 않는다', () => {
+    const lines: MapLineInput = { ...LINES, pointsOf: { ...POINTS, 'E#30': 1999, 'E#31': 1 } }
+    const ev = computeMapEvidence(build({ responses: [resp(30, true), resp(31, false)] }), lines)
+    expect(ev.attributePoints.A3.value).toBe(1999 / 2000)
+    expect(ev.attributePoints.A3.value).not.toBe(1)
+  })
+})
+
+describe('habitEvaluable — 신호 부재를 확정할 수 있나', () => {
+  const live = (id: string, rawScore: number | null, responses: ResponseIn[]): SessionIn => ({ id, examId: 'E', mode: 'live', takenAt: TAKEN, rawScore, responses })
+
+  it('공식 오답률이 없으면 추측 풀이는 평가 불가(오답률 분기 자료 없음)', () => {
+    const e = habitEvaluable(build({ responses: [resp(30, true)] }))
+    expect(e.guessing).toMatchObject({ evaluable: false, n: 0 })
+  })
+
+  it('공식 오답률이 있는 문항이 있으면 추측 풀이 평가 가능', () => {
+    const items = [meta('E', 30, { errorRate: 0.5 })]
+    expect(habitEvaluable(build({ items, responses: [resp(30, true)] })).guessing.evaluable).toBe(true)
+  })
+
+  it('시간 붕괴는 구간 응답이 있어야, 듣기 소홀은 연속 시험 수가 차야, 커트라인은 live 점수 회수가 차야 평가 가능', () => {
+    const none = habitEvaluable(build({ responses: [resp(30, true)] }))
+    expect(none.time_collapse.evaluable).toBe(false)
+    expect(none.listening).toMatchObject({ evaluable: false, n: 1, need: 2 })
+    expect(none.cutline_90).toMatchObject({ evaluable: false, n: 0, need: 3 })
+    const many = habitEvaluable(build({ responses: [resp(44, true)], extraSessions: [live('s2', 90, [resp(1, true)]), live('s3', 88, [resp(44, true)])] }))
+    expect(many.time_collapse.evaluable).toBe(true)
+    expect(many.listening.evaluable).toBe(true)
+    expect(many.cutline_90.evaluable).toBe(false) // 점수 있는 live 가 2회뿐(s1 점수 없음)
+  })
+
+  it('단어 재활용: 전부 정답이어도 계열 노출이 충분하면 해소 판정 가능 · 노출 부족이면 불가 · 그 계열을 골랐으면 표본이 모자랄 때 불가', () => {
+    const exposed = build({ responses: [resp(30, true), resp(31, true)] }) // C1 함정(T-A) 문항 두 개에 응답, 노출 2 = min_exposure
+    expect(habitEvaluable(exposed).word_reuse).toMatchObject({ evaluable: true, need: 2 })
+    expect(habitEvaluable(build({ responses: [resp(30, true)] })).word_reuse.evaluable).toBe(false) // 노출 1 < 2
+    // 노출은 충분하지만 계열 선택이 1건(오답 표본 1 < 2) → 선택 0 이 아니라서 부재를 확정하지 못한다
+    const picked = build({ responses: [resp(30, false, { chosen: 1 }), resp(31, true), resp(32, true)] })
+    expect(habitEvaluable(picked).word_reuse.evaluable).toBe(false)
   })
 })

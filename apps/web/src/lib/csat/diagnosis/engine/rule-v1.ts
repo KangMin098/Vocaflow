@@ -41,9 +41,9 @@ export function decay(now: Date, takenAt: string, halfLife: number): number {
   return halfLife > 0 ? Math.pow(0.5, ageDays(now, takenAt) / halfLife) : 1
 }
 
-const isExamSession = (s: SessionIn) => s.examId !== null && (s.mode === 'live' || s.mode === 'retake' || s.mode === 'app')
+export const isExamSession = (s: SessionIn) => s.examId !== null && (s.mode === 'live' || s.mode === 'retake' || s.mode === 'app')
 
-function byDate(a: SessionIn, b: SessionIn) {
+export function byDate(a: SessionIn, b: SessionIn) {
   return a.takenAt < b.takenAt ? -1 : a.takenAt > b.takenAt ? 1 : 0
 }
 
