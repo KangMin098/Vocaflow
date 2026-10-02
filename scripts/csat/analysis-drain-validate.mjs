@@ -16,7 +16,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
-import { analysisWinners, chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { analysisWinners, chunkArgs, DrainSelectError, replacesOutput, selectOutFiles } from './lib-drain-select.mjs'
 import { checkUnitRefs } from './lib-evidence-units.mjs'
 
 const arg = (n, d = null) => {
@@ -444,7 +444,7 @@ for (const f of files) {
     const got = new Set((j.analyses ?? []).map((a) => a.item_id))
     // 보존한 옛 입력의 누락은 이번에 선택한 후속 결과가 채울 수 있다.
     // 선택 밖 결과는 winner에 없으므로 누락을 숨기지 못한다.
-    const miss = want.filter((x) => !got.has(x) && !winner.has(x))
+    const miss = want.filter((x) => !got.has(x) && !replacesOutput(WORK, winner.get(x), f))
     if (miss.length) bad('(청크)', `분석이 빠진 문항 ${miss.length}: ${miss.slice(0, 5).join(' ')}`)
   }
 

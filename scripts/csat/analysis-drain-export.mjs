@@ -144,7 +144,11 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.e
     const id = it.item_id ?? it.id
     if (!id) continue
     if (!hasOutput) reserved.add(id)
-    else if (!done.has(id)) recovery.add(id)
+    else {
+      if (!outputIds.has(id)) outputIds.set(id, new Set())
+      outputIds.get(id).add(f.replace(/\.json$/, '.out.json'))
+      if (!done.has(id)) recovery.add(id)
+    }
   }
 }
 const reexport = (id) => REDO.has(id) || recovery.has(id)

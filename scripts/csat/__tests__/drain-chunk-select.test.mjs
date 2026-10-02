@@ -220,6 +220,23 @@ for (const revise of [false, true]) test(`partial export recovery satisfies full
   }
 })
 
+test('an older result cannot fill an omission in its selected replacement', async () => {
+  const { dir, work } = setup()
+  try {
+    const input = JSON.parse(fs.readFileSync(path.join(work, 'chunk-revise-test.json'), 'utf8'))
+    input.items.push({ ...input.items[0], item_id: 'H2603G3#19', id: 'H2603G3#19' })
+    input.supersedes = ['chunk-revise-test.out.json']
+    fs.writeFileSync(path.join(work, 'chunk-redo-new.json'), JSON.stringify(input))
+    fs.writeFileSync(path.join(work, 'chunk-redo-new.out.json'), JSON.stringify({ analyses: [goodAnalysis('H2603G3#19')] }))
+    await withServer(async (url, reqs) => {
+      const r = await runImport(dir, url, ['--chunk', 'revise-test,redo-new', '--commit'])
+      assert.notEqual(r.code, 0, r.output)
+      assert.match(r.output, /분석이 빠진 문항 1: H2603G3#18/)
+      assert.equal(reqs.length, 0)
+    })
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
+})
+
 test('superseded template reviews do not block independently corrected selected results', async () => {
   const { dir, work } = setup()
   try {

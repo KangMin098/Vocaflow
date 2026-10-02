@@ -16,6 +16,22 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+/** Missing work may only be supplied by a successor, never by an older result. */
+export function replacesOutput(workDir, successor, previous) {
+  if (!successor || successor === previous) return false
+  const links = (file) => {
+    const inputPath = path.join(workDir, file.replace(/\.out\.json$/, '.json'))
+    if (!fs.existsSync(inputPath)) return null
+    const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'))
+    return Array.isArray(input.supersedes) ? input.supersedes : null
+  }
+  const next = links(successor)
+  const old = links(previous)
+  if (old?.includes(successor)) return false
+  if (next !== null) return next.includes(previous)
+  return old === null && successor > previous
+}
+
 /** Choose once, before content filtering, using explicit replacement links when available. */
 export function analysisWinners(workDir, files) {
   const parsed = new Map()
