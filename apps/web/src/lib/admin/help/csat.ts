@@ -1615,7 +1615,7 @@ export const CSAT_HELP: HelpRegistry = {
         { label: '사전 검사', detail: 'CLI(review-drain.mjs precheck --commit)가 기록한 결과를 읽습니다. 화면이 다른 판정을 하지 않습니다. 검사 당시 분석 해시·근거 단위 해시·지문 입력 해시·검사기 버전 중 하나라도 지금과 다르면 「오래된 결과」로 보고 「사전 검사 다시」로 분류합니다. 통과는 결함 없음·검수 통과가 아닙니다(의미 오류는 못 잡는다).' },
         { label: '검수 근거', detail: '행을 펼치면 현재 분석 버전에 대한 판정(페르소나·블라인드/재검수·통과/반려·그 페르소나의 유효 승인 유무·검수 뒤 문항이 바뀐 낡은 판정 표시·소견)과 사전 검사 오류, 다음 조치 명령이 보입니다. 낡은 반려는 막지 않고 「검수 대기」로 갑니다 — 지문·선지·정답이 바뀌었으면 새 블라인드 검수, 분석만 바뀌었으면 재검수(rereview). 명령은 복사해 CLI 에서 실행합니다 — 이 화면은 아무것도 실행하지 않습니다.' },
         { label: '배치 비용', detail: 'csat_review_batches. 토큰을 기록하지 않은 배치는 「미기록」(0 이 아님). 문항당 값은 관측값이며 청크 크기의 효과로 단정하지 않습니다.' },
-        { label: '추적 목록', detail: 'csat_review_followups — 경미한 소견·반려·규칙 과제. 열린 것(open·in_correction)이 먼저 보입니다.' },
+        { label: '추적 목록', detail: 'csat_review_followups — 경미한 소견·반려·규칙 과제. 열린 것(open·in_correction)이 먼저 보입니다. review-drain.mjs ledger-import로 미리 본 뒤 --commit으로 기록합니다(재실행 안전). 두 원장의 모든 행을 쓰기 전에 검증하며 오류는 파일·줄 번호로 표시합니다. 중첩 JSON의 키·값까지 NUL·짝이 없는 유니코드 서로게이트를 거부하므로 오류가 나면 해당 줄을 고친 뒤 재실행합니다. 같은 자연키는 마지막 기록을 사용합니다. DB 통신 중 실패하면 일부만 반영될 수 있으므로 원인을 해결한 뒤 같은 원장으로 재실행합니다.' },
       ] },
     },
     screen: {
@@ -1660,7 +1660,7 @@ export const CSAT_HELP: HelpRegistry = {
           '`node scripts/csat/corpus-sync.mjs --commit` 으로 유형·회차·문항이 DB 에 올라와 있는가.',
           '`.env.local` 에 `SUPABASE_SERVICE_ROLE_KEY` 가 있는가 — 없으면 import 가 시작도 못 한다.',
           '교육청 학평(보조·검증 집합, 회차 id `H…`)은 **원장이 따로다**: `ingest-hakpyeong.mjs` → `build-corpus.mjs --set hakpyeong` → `corpus-sync.mjs --set hakpyeong --commit`. 집합을 가르지 않고 돌리면 평가원 문항이 «코퍼스에 없는 문항» 으로 잡힌다. 학평 원문(`columns2/H*.txt` · `*hakpyeong*.json`)은 EBSi 재배포 금지라 커밋하지 않는다(gitignore).',
-          '학평 **근거 단위 목록**: `corpus-sync` 뒤 `node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong --commit` — DB 원문으로 목록(`csat_item_units`)을 만든다. **재실행 안전**(같은 원문·버전이면 건너뛴다). 같은 버전인데 목록이 다르면 멈춘다(분할 규칙을 바꿨으면 `UNITS_VERSION` 을 올린다). 원문이 바뀐 문항은 다시 돌리기 전까지 목록이 없어 export 가 경고하고, 분석 번호는 그 목록의 `n`·서술은 `[uN]` 이다. 목록이 바뀌면 그 목록으로 발행된 분석은 **자동 보류**되고 옛 승인은 다시 쓰이지 않는다.',
+          '학평 **근거 단위 목록**: `corpus-sync` 뒤 `node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong --commit` — DB 원문으로 목록(`csat_item_units`)을 만든다. **재실행 안전**(같은 원문·버전이면 건너뛴다). 같은 버전인데 목록이 다르면 멈춘다(분할 규칙을 바꿨으면 `UNITS_VERSION` 을 올린다). 버전을 올려도 **경계가 그대로인 문항은 옛 버전 행을 유지**한다(목록 해시에 버전이 들어가 발행분이 통째로 보류되지 않게) — 규칙이 실제로 바꾼 문항만 `↻` 로 출력하고 새 행을 쓴다(v2 이름 가운데 이니셜: 21문항). 원문이 바뀐 문항은 다시 돌리기 전까지 목록이 없어 export 가 경고하고, 분석 번호는 그 목록의 `n`·서술은 `[uN]` 이다. 목록이 바뀌면 그 목록으로 발행된 분석은 **자동 보류**되고 옛 승인은 다시 쓰이지 않는다.',
           '학평 **독립 검수**: `review-drain.mjs export`(기본 8문항 청크) → 검수 에이전트가 `start → solve → reveal → submit`(분석만 교정됐으면 `rereview`) → `publish`. 발행은 DB 게이트가 판정한다(3인 pass · 자기 검수 금지 · 풀이 전 공개 금지 · 원문/정답/분석/근거 단위 해시 일치). **도표(R-CHART)는 발행 보류** — 이미지가 입력에 없어 검수·분석 모두 도표를 대조하지 못한다. export·status 가 「보류: 도표 이미지 없음」 으로 따로 세며 완료로 세지 않는다. **검수 전 사전 검사**: `review-drain.mjs precheck` 가 옛 분석(목록 이전)도 근거 단위 번호 검사(V9 — 없는 번호·인용 위치 누락)를 거치게 하고, export 는 실패 문항을 「교정 먼저」 로 빼서 블라인드 청크에 넣지 않는다(읽기만 · 재실행 안전). 2026-09-30 대조: 검수자 판정 22건 중 오탐 0 · 번호 결함 5건 중 3건 검출 — 범위 안의 엉뚱한 번호와 「N번 문장」 서술은 못 잡으므로 **블라인드 검수를 대신하지 않는다**.',
         ],
         procedure: [
