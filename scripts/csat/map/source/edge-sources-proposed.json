@@ -1,0 +1,89 @@
+{
+  "status": "proposed",
+  "note": "승인 전 — 시드하지 않는다. 연결선(라인 → 원리 · 원리 → 트랙)마다 「주장」과 출처의 「뒷받침 내용」을 대조한 제안. 승인된 것만 csat_map_edge_source 로 시드하면 트리거가 그 연결선의 basis 를 basis_claimed(직접/추론)로 올린다. 여기 없는 연결선은 계속 「보류」다.",
+  "principle": "출처가 연결선의 주장을 직접 뒷받침할 때만 잇는다. 원리 노드의 출처(P3 · P4 · P5 · P7)를 연결선에 자동으로 물려주지 않는다.",
+  "proposals": [
+    {
+      "edge": { "from": "D7", "to": "P3", "kind": "reason" },
+      "claimed": "direct",
+      "sources": ["kice-grade"],
+      "strength": "direct",
+      "rationale": "D7(90점 커트라인 전략)의 근거는 평가원이 1등급 비율 하락 원인으로 90점만 넘기려는 전략적 태도를 지목했다는 것 — 출처의 뒷받침 내용과 같은 주장."
+    },
+    {
+      "edge": { "from": "A1", "to": "P4", "kind": "reason" },
+      "claimed": "direct",
+      "sources": ["coxhead-2000", "nation-2006"],
+      "strength": "direct",
+      "rationale": "어휘는 누적 노출로 쌓인다 — AWL 이 학술 글 단어의 약 10%(Coxhead), 편하게 읽으려면 수천 단어군 커버리지(Nation)."
+    },
+    {
+      "edge": { "from": "A6", "to": "P4", "kind": "reason" },
+      "claimed": "direct",
+      "sources": ["recht-leslie-1988"],
+      "strength": "direct",
+      "rationale": "배경지식이 독해와 글 기억을 좌우한다는 연구(야구 연구) — 배경지식은 노출로 쌓인다."
+    },
+    {
+      "edge": { "from": "I8", "to": "P4", "kind": "reason" },
+      "claimed": "direct",
+      "sources": ["recht-leslie-1988"],
+      "strength": "indirect",
+      "rationale": "주제별 묶음 읽기가 배경지식을 쌓는 방법이라는 것은 연구가 직접 보인 것이 아니라 그 결과를 방법에 적용한 것 — 승인 시 「추론」으로 낮추는 것을 권한다."
+    },
+    {
+      "edge": { "from": "A2", "to": "P5", "kind": "reason" },
+      "claimed": "direct",
+      "sources": ["sentence-reconstruction"],
+      "strength": "direct",
+      "rationale": "구문 처리는 반복으로 자동화된다 — 문장 재구성 개입 연구. 출처가 「검토 필요」(서지 미확인)라 화면에 「검토 필요」로 표시된다."
+    },
+    {
+      "edge": { "from": "I2", "to": "P5", "kind": "reason" },
+      "claimed": "direct",
+      "sources": ["sentence-reconstruction"],
+      "strength": "direct",
+      "rationale": "문장 풀어쓰기는 문장 재구성 훈련 그 자체. 출처가 「검토 필요」."
+    },
+    {
+      "edge": { "from": "P7", "to": "T3", "kind": "route" },
+      "claimed": "direct",
+      "sources": ["powers-rock-1999"],
+      "strength": "direct",
+      "rationale": "단기 대비의 효과가 작다(코칭 효과 6~8점/800)는 연구 → 언어 능력은 기출 접근이 아니라 본질 학습(성장형) 트랙. 우리 시험(수능)은 유형이 고정돼 형식 익숙화 효과가 더 클 수 있다는 차이가 있다."
+    },
+    {
+      "edge": { "from": "A1", "to": "P7", "kind": "reason" },
+      "claimed": "inferred",
+      "sources": ["powers-rock-1999"],
+      "strength": "indirect",
+      "rationale": "어휘는 단기 대비로 안 움직인다는 주장 — 연구는 시험 코칭 전반의 효과를 보인 것이라 어휘에 직접 적용한 것은 추론."
+    },
+    {
+      "edge": { "from": "A2", "to": "P7", "kind": "reason" },
+      "claimed": "inferred",
+      "sources": ["powers-rock-1999"],
+      "strength": "indirect",
+      "rationale": "구문력도 단기 대비 효과가 제한적이라는 추론(같은 한계)."
+    },
+    {
+      "edge": { "from": "A6", "to": "P7", "kind": "reason" },
+      "claimed": "inferred",
+      "sources": ["powers-rock-1999"],
+      "strength": "indirect",
+      "rationale": "배경지식도 같은 한계 — 추론."
+    }
+  ],
+  "unassigned": [
+    "cummins-bics-calp — 아티팩트가 어느 라인 · 원리를 뒷받침하는지 지정하지 않았다(학술 언어 능력은 수년에 걸쳐 쌓인다는 점에서 A1 · A3 · A6 후보). 사용자가 지정하면 잇는다.",
+    "delatorre-2009 — 오답 선지 선택 패턴으로 인지 상태를 진단하는 모형. C 라인(함정) 진단 방법의 근거이지만 어느 연결선의 「주장」을 뒷받침하는지는 아니다. P1(유한한 패턴)과의 연결은 근거가 약해 제안하지 않는다.",
+    "ebsi-error-rate · kice-grade 의 나머지 — 오답률은 목표율 계산의 입력이고, 평가원 채점결과는 D7 외의 연결선(일반적인 절차 교정 주장)을 뒷받침하지 않는다."
+  ],
+  "decisions": [
+    "구조 연결선(목표 → 영역 6 · 영역 → 라인 54)은 정의상의 소속이라 출처가 없다 — 이 둘을 「보류」 표시에서 빼고 구조 선으로 따로 그릴지, 계속 보류로 둘지",
+    "I8 → P4 를 직접 근거로 둘지 추론으로 낮출지",
+    "서지가 미확인인 문장 재구성 연구(검토 필요)를 연결선 근거로 쓰는 것을 허용할지",
+    "Cummins(BICS/CALP)를 어느 노드에 이을지"
+  ],
+  "effect": "승인되면 reason 87 · route 13 중 10개 연결선이 보류에서 풀리고(직접 5~6 · 추론 3~4), 나머지 90개는 계속 보류다."
+}
