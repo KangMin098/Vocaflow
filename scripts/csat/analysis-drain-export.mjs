@@ -27,7 +27,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor } from './lib-passage.mjs'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
-import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
+import { exportAnswerHash, loadVerifiedExportUnits, unitsForAgent } from './lib-units-db.mjs'
+import { analysisWinners, replacesOutput } from './lib-drain-select.mjs'
 
 // ── 학평: 근거 단위 목록(DB csat_item_units)을 청크에 싣는다 ─────────────
 // 분석자가 지문 문장을 스스로 세지 않게 한다 — 검수자와 같은 번호를 보게 하는 것이 목적이다
@@ -49,7 +50,6 @@ if (SET === 'hakpyeong') {
   if (!u || !k) throw new Error('학평 export 는 근거 단위 목록을 DB 에서 읽는다 — SUPABASE_URL / SERVICE_ROLE_KEY 가 필요하다')
   unitsDb = createClient(u, k, { auth: { persistSession: false } })
 }
-let unitsMissing = 0
 
 const arg = (n, d = null) => {
   const i = process.argv.indexOf(`--${n}`)
@@ -88,7 +88,7 @@ const REDO = new Set(
     .map((s) => s.trim())
     .filter(Boolean),
 )
-const REDO_TAG = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+const REDO_TAG = new Date().toISOString().replace(/[-:.]/g, '') // same-day corrections need distinct immutable input files
 
 const corpus = JSON.parse(fs.readFileSync(CORPUS_FILE, 'utf8'))
 console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
@@ -97,8 +97,12 @@ console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
 // out 파일에 있고 **검수 3인이 서로 다른 페르소나로 붙어 있는 것**만 완료로 센다.
 // 분석만 있고 검수가 비면 완료가 아니다 — 여기서 느슨하게 세면 구멍이 영영 남는다.
 const done = new Set()
+const outputIds = new Map()
+const reportedIds = new Map()
 let partial = 0
-for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json'))) {
+const outputFiles = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
+const outputWinner = analysisWinners(WORK, outputFiles)
+for (const f of outputFiles) {
   let j
   try {
     j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
@@ -106,7 +110,13 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json'))) {
     console.log(`  ⚠ ${f} 파싱 실패 — 완료로 세지 않는다 (${e.message})`)
     continue
   }
+  reportedIds.set(f, new Set((j.analyses ?? []).map((a) => a.item_id).filter(Boolean)))
   for (const a of j.analyses ?? []) {
+    if (a.item_id) {
+      if (!outputIds.has(a.item_id)) outputIds.set(a.item_id, new Set())
+      outputIds.get(a.item_id).add(f)
+    }
+    if (a.item_id && outputWinner.get(a.item_id) !== f) continue
     const personas = new Set((a.reviews ?? []).filter((r) => r.verdict === 'pass').map((r) => r.persona))
     if (a.item_id && personas.size >= 3) done.add(a.item_id)
     else if (a.item_id) partial += 1
@@ -125,11 +135,49 @@ if (REDO.size) {
 }
 
 // ── 남은 몫 ──────────────────────────────────────────────────────────
+// Reserve individual items, not just filenames. Otherwise an old [A,B] chunk can
+// collide with a newly packed [A,C] chunk and silently leave C unassigned.
+const reserved = new Set()
+const recovery = new Set()
+const inputs = new Map(fs.readdirSync(WORK)
+  .filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))
+  .map((f) => [f, JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))]))
+// Replacement links apply only to the successor's items; other items in an older chunk stay reserved.
+const supersededItems = new Map()
+for (const input of inputs.values()) {
+  for (const previous of Array.isArray(input.supersedes) ? input.supersedes : []) {
+    if (!supersededItems.has(previous)) supersededItems.set(previous, new Set())
+    for (const it of input.items ?? []) {
+      const id = it.item_id ?? it.id
+      if (id) supersededItems.get(previous).add(id)
+    }
+  }
+}
+for (const [f, input] of inputs) {
+  const outputFile = f.replace(/\.json$/, '.out.json')
+  const hasOutput = fs.existsSync(path.join(WORK, f.replace(/\.json$/, '.out.json')))
+  for (const it of input.items ?? []) {
+    const id = it.item_id ?? it.id
+    if (!id) continue
+    // Keep provenance for inputs still running, so a late old output cannot overtake a correction.
+    if (!outputIds.has(id)) outputIds.set(id, new Set())
+    outputIds.get(id).add(outputFile)
+    // A missing successor invalidates old completion even when a newer recovery supersedes it.
+    if (hasOutput && done.has(id) && !reportedIds.get(outputFile)?.has(id) && replacesOutput(WORK, outputFile, outputWinner.get(id))) done.delete(id)
+    if (supersededItems.get(outputFile)?.has(id)) continue
+    if (!hasOutput) reserved.add(id)
+    else {
+      if (!done.has(id)) recovery.add(id)
+    }
+  }
+}
+const reexport = (id) => REDO.has(id) || recovery.has(id)
 const pool = corpus.items
   .filter((it) => it.in_scope)
   .filter((it) => (ONLY_TYPE ? it.type_id === ONLY_TYPE : true))
   .filter((it) => (ONLY_EXAM ? it.exam === ONLY_EXAM : true))
   .filter((it) => !done.has(it.id))
+  .filter((it) => REDO.has(it.id) || !reserved.has(it.id))
 
 // 유형별 → 최신 회차 먼저
 const byType = new Map()
@@ -141,7 +189,11 @@ for (const arr of byType.values()) {
   arr.sort((a, b) => b.year - a.year || b.month - a.month || a.no - b.no)
 }
 // 문항이 많은 유형부터 — 회차 커버 곡선이 가장 빨리 오른다
-const types = [...byType.entries()].sort((a, b) => b[1].length - a[1].length)
+const types = [...byType.entries()].flatMap(([type, items]) => {
+  // Explicit corrections must never share the filename/provenance of unfinished ordinary work.
+  return [items.filter((it) => reexport(it.id)), items.filter((it) => !reexport(it.id))]
+    .filter((group) => group.length).map((group) => [type, group])
+}).sort((a, b) => Number(reexport(b[1][0].id)) - Number(reexport(a[1][0].id)) || b[1].length - a[1].length)
 
 /**
  * 지문이 미덥지 않은 문항에 싣는 **원문**.
@@ -237,13 +289,15 @@ let removed = 0
 let kept = 0
 const keptNames = []
 for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
+  // import needs the original export hash even after the output is complete.
+  if (fs.existsSync(path.join(WORK, f.replace(/\.json$/, '.out.json')))) { kept += 1; keptNames.push(f); continue }
   let ids = []
   try {
     ids = (JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8')).items ?? []).map((i) => i.item_id)
   } catch {
     ids = [] // 못 읽는 청크는 소모품으로 본다
   }
-  if (ids.length && !ids.every((id) => done.has(id))) { kept += 1; keptNames.push(f); continue }
+  if (ids.length && (ids.some((id) => reserved.has(id)) || !ids.every((id) => done.has(id)))) { kept += 1; keptNames.push(f); continue }
   fs.rmSync(path.join(WORK, f))
   removed += 1
 }
@@ -254,6 +308,15 @@ outer: for (const [typeId, arr] of types) {
   for (let i = 0; i < arr.length; i += SIZE) {
     if (n >= LIMIT) break outer
     const slice = arr.slice(i, i + SIZE)
+    const redoMark = reexport(slice[0].id) ? `redo-${REDO_TAG}-` : ''
+    const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
+    if (fs.existsSync(path.join(WORK, name))) {
+      console.log(`  기존 입력 보존: ${name} — 낡은 원문은 --redo로 별도 청크에서 분석한다`)
+      continue
+    }
+    if (fs.existsSync(path.join(WORK, name.replace(/\.json$/, '.out.json')))) {
+      throw new Error(`${name}: 입력 없이 결과만 남아 있다 — 옛 분석에 새 원문 해시를 붙일 수 없다. --redo로 새 분석을 만든다`)
+    }
     n += 1
     // **청크 이름에 일련번호를 쓰지 않는다.** export 를 다시 돌리면 남은 몫이 줄어
     // `chunk-01` 이 어제와 다른 문항을 담는다. 그러면 `chunk-01.out.json` 이
@@ -261,17 +324,17 @@ outer: for (const [typeId, arr] of types) {
     // 첫 문항 id 로 이름을 지으면 같은 몫은 늘 같은 이름, 다른 몫은 늘 다른 이름이다.
     // 다시 뽑는 몫은 이름에 `redo-<날짜>` 를 끼워 **옛 `.out.json` 을 덮지 않는다.**
     // 같은 문항을 두 번째로 다시 뽑는 날이 와도 날짜가 달라 또 겹치지 않는다.
-    const unitsOf = unitsDb ? await loadCurrentUnits(unitsDb, slice.map((it) => it.id)) : null
+    const unitsOf = unitsDb ? await loadVerifiedExportUnits(unitsDb, slice) : null
     const packed = slice.map((it) => {
       const p = pack(it)
       if (!unitsOf) return p
       const u = unitsOf.get(it.id)
-      if (!u) { unitsMissing += 1; return { ...p, units: null } }
+      if (!u) throw new Error(`${it.id}: 현재 근거 단위 목록이 없다 — 원문 확인 후 units-build.mjs --set hakpyeong --commit을 실행하고 export를 다시 실행한다(이 청크는 저장하지 않음)`)
       // 분석 출력에 units_version·units_hash 를 그대로 옮겨 적어야 적재된다(import 가 DB 현재 목록과 대조)
-      return { ...p, units_version: u.units_version, units_hash: u.units_hash, units: unitsForAgent(u.units) }
+      // input_hash: 이 목록을 만든 DB 원문 해시 — 목록 해시는 경계만 담아 원문이 바뀌어도 같을 수 있다(import 가 이것으로 대조)
+      return { ...p, units_version: u.units_version, units_hash: u.units_hash, input_hash: u.input_hash,
+        answer_hash: exportAnswerHash(it), units: unitsForAgent(u.units) }
     })
-    const redoMark = REDO.has(slice[0].id) ? `redo-${REDO_TAG}-` : ''
-    const name = `chunk-${redoMark}${typeId}-${slice[0].id.replace('#', '-')}.json`
     const payload = {
       chunk: n,
       // 청크는 뽑힌 시점의 코퍼스를 담는다. 파서를 고치면 코퍼스가 바뀌므로 **작업 중이던
@@ -279,6 +342,7 @@ outer: for (const [typeId, arr] of types) {
       // 게이트는 코퍼스를 건초더미로 쓰므로, 둘이 다르면 **코퍼스가 정본**이다.
       corpus_built_at: corpus.report?.built_at ?? null,
       exported_at: new Date().toISOString(),
+      supersedes: [...new Set(slice.flatMap((it) => [...(outputIds.get(it.id) ?? [])]))],
       type_id: typeId,
       type_name: slice[0].type_name,
       count: slice.length,
@@ -304,14 +368,13 @@ fs.writeFileSync(path.join(WORK, '_MANIFEST.json'), JSON.stringify({ built_at: n
 
 const total = corpus.items.filter((it) => it.in_scope).length
 console.log(`  사정권 ${total} · 완료 ${done.size} · 검수 미완 ${partial} · 남은 몫 ${pool.length}`)
-if (unitsMissing) console.log(`  ⚠ 근거 단위 목록이 없는 문항 ${unitsMissing} — units-build.mjs --set hakpyeong --commit 먼저(원문이 바뀌었을 수 있다)`)
 console.log(`  끝난 청크 ${removed}개 삭제 · 새로 뽑은 청크 ${n}개 (청크당 ${SIZE})`)
 // ⚠️ **이미 돌고 있는 청크를 다시 띄우지 않게** 이름을 따로 찍는다.
 //    2026-09-02 에 실제로 겪었다 — 앞 배치에서 띄운 청크가 아직 out 을 안 썼으니 «남은 몫» 에
 //    그대로 있었고, 다음 export 목록만 보고 같은 청크에 에이전트를 한 번 더 띄웠다.
 //    두 판이 같은 이름으로 써서 앞 판이 덮였다(git 에는 남아 손실은 없었다).
 if (keptNames.length) {
-  console.log(`  ⚠ 아직 작업 중이라 남긴 청크 ${keptNames.length}개 — **다시 띄우지 말 것**:`)
+  console.log(`  ⚠ 작업 중이거나 결과의 출처로 보존한 청크 ${keptNames.length}개 — **다시 띄우지 말 것**:`)
   for (const f of keptNames) console.log(`      ${f}`)
 }
 const fresh = manifest.map((m) => m.file).filter((f) => !keptNames.includes(f))

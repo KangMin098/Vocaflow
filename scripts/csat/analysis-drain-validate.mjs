@@ -15,8 +15,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { CORPUS_FILE, WORK_DIR } from './lib-drain-set.mjs'
-import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
+import { analysisWinners, chunkArgs, DrainSelectError, replacesOutput, selectOutFiles } from './lib-drain-select.mjs'
 import { checkUnitRefs } from './lib-evidence-units.mjs'
 
 const arg = (n, d = null) => {
@@ -195,19 +195,8 @@ const warns = []
 // 도표 2문항을 다시 썼는데 옛 원장의 같은 인용으로 오류 2건이 그대로 남았다).
 //
 // 판정 대상은 **실제로 적재될 것**이어야 한다. 그렇지 않으면 게이트는 아무도 안 쓸 글을 막는다.
-// ⚠️ `--chunk` 로 한 청크만 볼 때는 이 접기를 하지 않는다 — 그때는 그 파일을 보러 온 것이다.
-const winner = new Map()
-if (!arg('chunk')) {
-  for (const f of files) {
-    let j
-    try {
-      j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
-    } catch {
-      continue
-    }
-    for (const a of j.analyses ?? []) if (a.item_id) winner.set(a.item_id, f)
-  }
-}
+// `--chunk`로 골랐을 때도 선택한 파일 안에서만 접는다 — 적재기와 같은 마지막 결과를 검사한다.
+const winner = analysisWinners(WORK, files)
 const superseded = []
 
 for (const f of files) {
@@ -242,7 +231,7 @@ for (const f of files) {
   // 실측 2026-09-28 학평 드레인: 4문항 이상 청크 42개 중 40개가 이 모양이었다(「1차 반려(revise)…」
   // 까지 12문항에 똑같이 찍혀 있었다). 평가원 드레인 81청크는 0건 — 정상 검수는 여기 안 걸린다.
   {
-    const A = (j.analyses ?? []).filter((a) => a.item_id)
+    const A = (j.analyses ?? []).filter((a) => a.item_id && winner.get(a.item_id) === f)
     if (A.length >= 4) {
       for (const persona of ['setter', 'analyst', 'tutor']) {
         const seen = new Map()
@@ -271,6 +260,8 @@ for (const f of files) {
     if (!it) { bad(id, '코퍼스에 없는 item_id'); continue }
 
     // V1 필수 서술
+    const analystRun = a.analyst_run ?? j.analyst_run
+    if (SET === 'hakpyeong' && (!analystRun || String(analystRun).length < 8)) bad(id, 'analyst_run 없음(학평은 필수)')
     for (const k of ['measured_ability', 'design_intent']) {
       if (!a[k] || String(a[k]).trim().length < 20) bad(id, `${k} 가 비었거나 20자 미만`)
     }
@@ -451,7 +442,9 @@ for (const f of files) {
   if (fs.existsSync(src)) {
     const want = JSON.parse(fs.readFileSync(src, 'utf8')).items.map((i) => i.item_id)
     const got = new Set((j.analyses ?? []).map((a) => a.item_id))
-    const miss = want.filter((x) => !got.has(x))
+    // 보존한 옛 입력의 누락은 이번에 선택한 후속 결과가 채울 수 있다.
+    // 선택 밖 결과는 winner에 없으므로 누락을 숨기지 못한다.
+    const miss = want.filter((x) => !got.has(x) && !replacesOutput(WORK, winner.get(x), f))
     if (miss.length) bad('(청크)', `분석이 빠진 문항 ${miss.length}: ${miss.slice(0, 5).join(' ')}`)
   }
 

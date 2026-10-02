@@ -192,11 +192,31 @@ describe('흩어진 판정 금지', () => {
     for (const d of ['scripts']) {
       for (const f of walk(path.join(ROOT, d), [])) {
         const src = fs.readFileSync(f, 'utf8')
-        if (!/(?:\.from|\b\w+)\(\s*['"]csat_items['"]\s*[,)]/.test(src)) continue
+        const reads = [...src.matchAll(/(?:\.from|\b\w+)\(\s*['"]csat_items['"]\s*[,)]/g)]
+        if (!reads.length) continue
         if (src.includes('isKiceExam') || src.includes("'--set'")) continue
+        // 호출자가 이미 고른 id로 짚는 직접 조회는 전량 집계가 아니다(웹 가드와 동일).
+        // 파일 어딘가의 .in()을 보지 않고 모든 조회의 체인마다 범위를 확인한다.
+        if (reads.every((m) => m[0].startsWith('.from') && hasSelectedItemScope(src.slice(m.index)))) continue
         hits.push(path.relative(ROOT, f).split(path.sep).join('/'))
       }
     }
     expect(hits).toEqual([])
   })
+
+  it('선택 문항 조회의 예외는 다른 전량 조회나 읽기 헬퍼까지 면제하지 않는다', () => {
+    expect(hasSelectedItemScope(".from('csat_items').select('id').in('id', ids)")).toBe(true)
+    expect(hasSelectedItemScope(".from('csat_items').select('id').eq('exam_id', exam)")).toBe(true)
+    expect(hasSelectedItemScope(".from('csat_items').select('id')\nconst q = db.from('other').in('id', ids)")).toBe(false)
+    expect(hasSelectedItemScope(".from('csat_items').select('id')\nconst selected = db.in('id', ids)")).toBe(false)
+    expect(hasSelectedItemScope(".from('csat_items').select('id').eq('type_id', type)")).toBe(false)
+  })
 })
+
+/** Only inspect the uninterrupted query expression, never the following statement. */
+function hasSelectedItemScope(source: string): boolean {
+  // A leading .from is expected. Trim at a following query or statement before looking for id filters.
+  const tail = source.replace(/^\.from\(/, '')
+  const chain = tail.split(/;|\n\s*(?:const|let|var|return|if|for|await)\b|\.from\(/)[0]
+  return /\.(?:eq|in)\(\s*['"](?:id|exam_id)['"]\s*,/.test(chain)
+}
