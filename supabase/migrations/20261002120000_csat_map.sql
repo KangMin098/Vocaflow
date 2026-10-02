@@ -136,7 +136,7 @@ END $$;
 CREATE TRIGGER csat_map_node_evidence BEFORE INSERT OR UPDATE ON public.csat_map_node
   FOR EACH ROW EXECUTE FUNCTION public.csat_map_recompute_node();
 
--- ⓑ 출처 연결 변경 AFTER 트리거: OLD · NEW 부모를 **식별자 오름차순으로** 잠그고(교착 방지) UPDATE 로 ⓐ 를 다시 태운다.
+-- ⓑ 출처 연결 변경 AFTER 트리거: OLD · NEW 부모를 **식별자 오름차순으로** 잠그고(교착 방지 — 외래키 검사의 KEY SHARE 를 올리지 않도록 FOR NO KEY UPDATE) UPDATE 로 ⓐ 를 다시 태운다.
 CREATE OR REPLACE FUNCTION public.csat_map_edge_source_touch() RETURNS trigger
 LANGUAGE plpgsql SET search_path = public AS $$
 DECLARE ids bigint[];
@@ -144,7 +144,7 @@ BEGIN
   ids := ARRAY(SELECT DISTINCT x FROM unnest(ARRAY[
     CASE WHEN TG_OP IN ('UPDATE', 'DELETE') THEN OLD.edge_id END,
     CASE WHEN TG_OP IN ('UPDATE', 'INSERT') THEN NEW.edge_id END]) x WHERE x IS NOT NULL ORDER BY x);
-  PERFORM 1 FROM csat_map_edge WHERE id = ANY (ids) ORDER BY id FOR UPDATE;
+  PERFORM 1 FROM csat_map_edge WHERE id = ANY (ids) ORDER BY id FOR NO KEY UPDATE;
   UPDATE csat_map_edge SET basis_claimed = basis_claimed WHERE id = ANY (ids);
   RETURN NULL;
 END $$;
@@ -158,7 +158,7 @@ BEGIN
   codes := ARRAY(SELECT DISTINCT x FROM unnest(ARRAY[
     CASE WHEN TG_OP IN ('UPDATE', 'DELETE') THEN OLD.node_code END,
     CASE WHEN TG_OP IN ('UPDATE', 'INSERT') THEN NEW.node_code END]) x WHERE x IS NOT NULL ORDER BY x);
-  PERFORM 1 FROM csat_map_node WHERE code = ANY (codes) ORDER BY code FOR UPDATE;
+  PERFORM 1 FROM csat_map_node WHERE code = ANY (codes) ORDER BY code FOR NO KEY UPDATE;
   UPDATE csat_map_node SET name = name WHERE code = ANY (codes);
   RETURN NULL;
 END $$;
