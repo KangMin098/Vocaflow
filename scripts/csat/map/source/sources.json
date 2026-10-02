@@ -1,0 +1,80 @@
+{
+  "sources": [
+    {
+      "id": "kice-grade",
+      "citation": "한국교육과정평가원, 대학수학능력시험·모의평가 채점결과(영어 영역 등급 비율, 절대평가 고정 등급 컷)",
+      "supports": "영어 영역은 원점수 90점 이상이 1등급인 고정 컷이며, 1등급 비율 변화의 원인으로 평가원이 90점만 넘기려는 전략적 태도를 언급했다.",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "ebsi-error-rate",
+      "citation": "EBSi 수능·모의평가 문항별 오답률 서비스(공개 TOP15 표본)",
+      "supports": "문항별 오답률. 공개 범위는 오답률 상위 표본이라 영어 45문항 전체는 아니다(평가원 전수 오답률은 미확보).",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "coxhead-2000",
+      "citation": "Coxhead, A. (2000). A new academic word list. TESOL Quarterly, 34(2), 213–238.",
+      "supports": "학술 핵심 어휘(Academic Word List)는 학술 글 단어의 약 10%, 소설에서는 약 1.4%를 차지한다.",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "nation-2006",
+      "citation": "Nation, I. S. P. (2006). How large a vocabulary is needed for reading and listening? Canadian Modern Language Review, 63(1), 59–82.",
+      "supports": "글을 편하게 읽으려면 수천 단어군 수준의 어휘 커버리지가 필요하다.",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "recht-leslie-1988",
+      "citation": "Recht, D. R., & Leslie, L. (1988). Effect of prior knowledge on good and poor readers' memory of text. Journal of Educational Psychology, 80(1), 16–20.",
+      "supports": "주제에 대한 배경지식이 독해와 글 기억을 좌우한다(야구 연구).",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "powers-rock-1999",
+      "citation": "Powers, D. E., & Rock, D. A. (1999). Effects of coaching on SAT I: Reasoning Test scores. Journal of Educational Measurement, 36(2), 93–118.",
+      "supports": "집단 차이를 보정한 SAT 코칭 효과는 언어 영역에서 작았다(800점 만점 기준 6~8점).",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "cummins-bics-calp",
+      "citation": "Cummins, J. BICS/CALP — 일상 회화 언어 능력(BICS)과 학습 언어 능력(CALP)의 구분 (서지 세부는 대조표 승인 때 확정)",
+      "supports": "학습 언어 능력은 일상 회화와 달리 수년에 걸쳐 쌓인다.",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "delatorre-2009",
+      "citation": "de la Torre, J. (2009). A cognitive diagnosis model for cognitively based multiple-choice options. Applied Psychological Measurement, 33(3), 163–183.",
+      "supports": "객관식 오답 선지의 선택 패턴으로 응시자의 인지 상태를 진단하는 모형(MC-DINA).",
+      "status": "verified",
+      "url": null
+    },
+    {
+      "id": "sentence-reconstruction",
+      "citation": "(서지 미확인) 복잡한 문장을 단순화·재구성하는 훈련이 고등학생의 독해력을 높였다는 개입 연구 — 첨부 자료에 연구 이름 · 저자 · 연도가 없다.",
+      "supports": "문장 재구성 훈련이 독해 향상에 기여한다는 주장. 서지를 확인해야 한다.",
+      "status": "needs_review",
+      "url": null
+    }
+  ],
+  "nodeSources": [
+    { "node": "P3", "source": "kice-grade" },
+    { "node": "P4", "source": "coxhead-2000" },
+    { "node": "P4", "source": "recht-leslie-1988" },
+    { "node": "A1", "source": "nation-2006" },
+    { "node": "P5", "source": "sentence-reconstruction" },
+    { "node": "P7", "source": "powers-rock-1999" }
+  ],
+  "pendingAssignments": [
+    "cummins-bics-calp — 어느 노드가 뒷받침받는지(아티팩트가 지정하지 않음) · 대조표 승인 대기",
+    "delatorre-2009 — C 라인(함정 진단) 연결 여부 · 대조표 승인 대기",
+    "ebsi-error-rate — csat_map_item_rate 적재 때 문항별로 붙는다"
+  ]
+}

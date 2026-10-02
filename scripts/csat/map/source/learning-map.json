@@ -1,0 +1,2644 @@
+{
+  "axes": [
+    {
+      "id": "A",
+      "name": "본질 역량",
+      "color": "#13967a",
+      "desc": "영어를 처리하는 능력 자체. 대부분 꾸준한 학습으로만 자랍니다."
+    },
+    {
+      "id": "B",
+      "name": "문항 유형",
+      "color": "#b8860b",
+      "desc": "45문항의 출제 형식. 형식은 기출로 익히지만 고난도 유형의 성과는 본질 역량에 달려 있습니다."
+    },
+    {
+      "id": "C",
+      "name": "선지 함정",
+      "color": "#d14b86",
+      "desc": "오답 선지가 사람을 속이는 방식. 패턴 수가 정해져 있어 기출 분석의 핵심 강점 영역입니다."
+    },
+    {
+      "id": "D",
+      "name": "풀이 습관",
+      "color": "#e07b2e",
+      "desc": "학습자가 스스로 놓치는 습관. 대부분 오답 분석으로 교정되지만 일부는 근본 원인이 본질 역량입니다."
+    },
+    {
+      "id": "I",
+      "name": "공부 방법",
+      "color": "#2f9fc0",
+      "desc": "처방으로 쓰는 학습 방법 모듈. 기출 방법과 본질 방법이 나뉩니다."
+    },
+    {
+      "id": "J",
+      "name": "시험 운영",
+      "color": "#64748b",
+      "desc": "시간·순서·난이도 변동·컨디션. 실전 기출로 훈련하는 영역입니다."
+    }
+  ],
+  "tracks": [
+    {
+      "id": "T1",
+      "name": "기출 접근",
+      "sub": "교정형 · 2~4주",
+      "horizon": "2~4주",
+      "eval": "다음 시험이나 기출 세트에서 해당 함정·유형의 오답이 줄었는지로 판정합니다.",
+      "material": "기출 문항(학평·모평·수능)",
+      "desc": "패턴이 유한하고, 풀기부터 교정까지 기출 안에서 끝나는 영역입니다."
+    },
+    {
+      "id": "T2",
+      "name": "혼합",
+      "sub": "기출로 진단, 본질로 처방",
+      "horizon": "4~12주",
+      "eval": "기출 오답 추세와 본질 지표(어휘·문장 풀어쓰기 등)를 함께 봅니다.",
+      "material": "진단은 기출, 처방은 본질 학습 모듈",
+      "desc": "기출 오답에서 약점을 찾아내고, 꾸준한 학습으로 고친 뒤 다시 기출로 확인합니다."
+    },
+    {
+      "id": "T3",
+      "name": "본질 학습",
+      "sub": "성장형 · 3~6개월",
+      "horizon": "3~6개월",
+      "eval": "한 번의 시험이 아니라 여러 시험의 난이도 보정 점수 추세로 평가합니다.",
+      "material": "기출 밖 재료(저작권 만료 원문, 직접 쓴 지문, 교양 논픽션, 듣기 자료)",
+      "desc": "양이 쌓이거나 처리가 자동화되어야 하는 능력입니다. 단기 대비로는 잘 움직이지 않습니다."
+    }
+  ],
+  "principles": [
+    {
+      "id": "P1",
+      "name": "유한한 패턴",
+      "desc": "유형 구성과 함정 계열이 정해져 있어 목록화하고 반복 훈련할 수 있습니다.",
+      "ev": "45문항 유형 구성이 매년 거의 고정되어 있고, 기출분석공간에서 함정을 32종으로 정리할 수 있다는 점이 근거입니다."
+    },
+    {
+      "id": "P2",
+      "name": "기출 안에서 완결",
+      "desc": "풀기, 오답 분석, 교정, 다음 기출로 확인하는 순환이 기출만으로 이어집니다.",
+      "ev": "추론입니다. 오답 원인(몰라서·해석·함정·시간)을 기출 응답 데이터로 분류할 수 있다는 데 기반합니다."
+    },
+    {
+      "id": "P3",
+      "name": "태도·절차 교정",
+      "desc": "습관과 풀이 절차는 몇 주 안에 바꿀 수 있습니다.",
+      "ev": "평가원은 1등급 비율 하락 원인으로 90점만 넘기려는 전략적 태도를 지목한 바 있습니다. 태도가 점수에 직접 작용한다는 근거입니다."
+    },
+    {
+      "id": "P4",
+      "name": "누적 노출",
+      "desc": "어휘 폭, 배경지식, 장르 경험처럼 양이 쌓여야 하는 지식입니다.",
+      "ev": "학술 핵심 어휘(AWL)는 학술 글 단어의 약 10%, 소설에서는 1.4%를 차지합니다. 배경지식이 독해를 좌우한다는 연구(야구 연구 등)도 있습니다."
+    },
+    {
+      "id": "P5",
+      "name": "처리 자동화",
+      "desc": "구문 처리, 소리 해독, 읽기 속도는 반복을 통해 자동화됩니다.",
+      "ev": "복잡한 문장을 단순화·재구성하는 훈련이 고등학생의 독해력을 유의미하게 높였다는 개입 연구가 있습니다."
+    },
+    {
+      "id": "P6",
+      "name": "어휘 폭 의존",
+      "desc": "같은 뜻의 다른 표현을 알아보려면 표현 레퍼토리가 필요합니다.",
+      "ev": "추론입니다. 빈칸·요약 정답이 주제를 다른 말로 바꾼 표현이라는 출제 특성에 기반합니다."
+    },
+    {
+      "id": "P7",
+      "name": "단기 대비 효과 제한",
+      "desc": "언어 능력은 단기 시험 대비로 잘 움직이지 않습니다.",
+      "ev": "미국 SAT 연구에서 집단 차이를 보정한 코칭 효과는 언어 영역 6~8점(800점 만점)으로 작았습니다. 수능은 유형이 고정되어 있어 형식 익숙화 효과가 더 클 수 있다는 차이가 있습니다."
+    },
+    {
+      "id": "P8",
+      "name": "기초 선행",
+      "desc": "기초 어휘와 문법이 없으면 기출 분석이 작동하지 않습니다.",
+      "ev": "추론입니다. 주로 하위권(6등급 이하)에 해당합니다."
+    }
+  ],
+  "lines": [
+    {
+      "id": "A1",
+      "axis": "A",
+      "name": "어휘",
+      "track": "T3",
+      "why": "수능을 편하게 읽으려면 수천 단어군이 필요해 기출 어휘만으로는 모자랍니다. 기출은 빈출 어휘를 확인하는 용도로 씁니다.",
+      "signal": "어휘 수준 테스트 추세, 기출 어휘 관련 오답 수",
+      "principles": [
+        {
+          "principle": "P4",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P7",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A2",
+      "axis": "A",
+      "name": "구문",
+      "track": "T3",
+      "why": "긴 문장의 뼈대를 잡는 처리 능력은 반복 훈련으로 자랍니다. 기출 문장은 좋은 연습 재료지만 양이 부족합니다.",
+      "signal": "문장 풀어쓰기 정확도, 여러 시험의 보정 점수 추세",
+      "principles": [
+        {
+          "principle": "P5",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P8",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P7",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A3",
+      "axis": "A",
+      "name": "논리 흐름",
+      "track": "T2",
+      "why": "연결어 패턴은 기출로 익히지만, 추상적인 논증을 따라가는 힘은 독서량에 달려 있습니다.",
+      "signal": "순서·삽입 오답 추세, 문단 역할 표시 정확도",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P4",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A4",
+      "axis": "A",
+      "name": "재진술",
+      "track": "T2",
+      "why": "기출 분석으로 바꿔 말하기를 알아보는 감각을 훈련할 수 있습니다. 같은 뜻의 다른 표현을 알아보려면 어휘 폭이 필요합니다.",
+      "signal": "빈칸·요약 오답, 단어 재활용 함정 선택률",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A5",
+      "axis": "A",
+      "name": "근거 판단",
+      "track": "T1",
+      "why": "지문 문장만 근거로 삼는 태도의 문제라 오답 분석으로 빠르게 교정됩니다.",
+      "signal": "상식 개입 함정 선택률",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A6",
+      "axis": "A",
+      "name": "배경지식",
+      "track": "T3",
+      "why": "주제별 독서가 쌓여야 합니다. 기출 지문만으로는 범위가 좁습니다.",
+      "signal": "주제군별 정답률 차이가 줄어드는지",
+      "principles": [
+        {
+          "principle": "P4",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P7",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A7",
+      "axis": "A",
+      "name": "듣기 해독",
+      "track": "T3",
+      "why": "소리를 실시간으로 처리하는 능력은 매일 듣는 양으로 자랍니다. 대본을 보면 이해되는데 들을 때 놓친다면 해독의 문제입니다.",
+      "signal": "듣기 오답 추세, 배속 받아쓰기 정확도",
+      "principles": [
+        {
+          "principle": "P5",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "A8",
+      "axis": "A",
+      "name": "어법",
+      "track": "T1",
+      "why": "평가원 단골 어법 포인트는 수가 정해져 있습니다. 단, 기초 문법이 없는 학습자는 본질 학습부터 해야 합니다.",
+      "signal": "29번 정답률, 어법 포인트별 오답",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P8",
+          "basisClaimed": "pending"
+        }
+      ]
+    },
+    {
+      "id": "A9",
+      "axis": "A",
+      "name": "속도·지구력",
+      "track": "T3",
+      "why": "읽는 양에 비례해 늘어납니다. 시간 배분 전략은 시험 운영에서 따로 다룹니다.",
+      "signal": "뒤쪽 문항 미응답과 시간 부족 태그 추세",
+      "principles": [
+        {
+          "principle": "P5",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P4",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "axis": "B",
+      "name": "듣기 대의",
+      "track": "T1",
+      "why": "목적·의견·요지·관계를 묻는 문항입니다. 형식이 고정되어 기출로 익숙해집니다.",
+      "signal": "해당 문항 오답 여부",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "axis": "B",
+      "name": "듣기 세부",
+      "track": "T1",
+      "why": "그림·할 일·이유·언급 여부. 정보가 나오는 위치를 예측할 수 있는 유형입니다.",
+      "signal": "해당 문항 오답 여부",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "B3",
+      "axis": "B",
+      "name": "듣기 계산",
+      "track": "T1",
+      "why": "듣기 안에서 오답률이 높은 편인 금액 계산 문항입니다. 메모 절차로 교정됩니다.",
+      "signal": "계산 문항 오답 여부",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B4",
+      "axis": "B",
+      "name": "듣기 응답",
+      "track": "T2",
+      "why": "짧은 대화 응답(12·13번)은 마지막 한 줄로 결정되어 소리 해독력에 기대는 비중이 큽니다.",
+      "signal": "12·13번 오답, 듣기 해독 지표",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P5",
+          "basisClaimed": "pending"
+        }
+      ]
+    },
+    {
+      "id": "B5",
+      "axis": "B",
+      "name": "듣기 세트",
+      "track": "T1",
+      "why": "16·17번. 형식이 고정된 세트 문항입니다.",
+      "signal": "해당 문항 오답 여부",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "B6",
+      "axis": "B",
+      "name": "독해 대의",
+      "track": "T1",
+      "why": "목적·심경·주장·요지·주제·제목. 최근 이 유형도 어려워지는 추세라 절차 훈련이 필요합니다.",
+      "signal": "18~24번 오답 추세",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B7",
+      "axis": "B",
+      "name": "함축 의미",
+      "track": "T2",
+      "why": "밑줄 표현의 비유를 글 전체 주제로 풀어야 해 재진술 능력에 기댑니다.",
+      "signal": "21번 오답, 재진술 지표",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B8",
+      "axis": "B",
+      "name": "세부 정보",
+      "track": "T1",
+      "why": "도표·내용 일치·안내문. 대조 절차만 지키면 실수를 줄일 수 있습니다.",
+      "signal": "25~28번 오답 여부",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B9",
+      "axis": "B",
+      "name": "어법·어휘",
+      "track": "T1",
+      "why": "29·30번. 출제 포인트가 반복되어 기출로 범위를 잡을 수 있습니다.",
+      "signal": "29·30번 오답 여부",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "axis": "B",
+      "name": "빈칸 추론",
+      "track": "T2",
+      "why": "풀이 절차는 기출로 익히지만, 정답률은 구문·재진술·배경지식에 달려 있습니다.",
+      "signal": "31~34번 오답, 선택한 오답 선지의 함정 계열",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "axis": "B",
+      "name": "흐름",
+      "track": "T2",
+      "why": "무관한 문장·순서·삽입. 연결어와 지시어 단서는 기출로, 추상적 논증 파악은 독서로 채웁니다.",
+      "signal": "35~39번 오답 추세",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "axis": "B",
+      "name": "요약",
+      "track": "T2",
+      "why": "40번. 본문 핵심을 다른 말로 옮긴 표현을 찾아야 합니다.",
+      "signal": "40번 오답, 재진술 지표",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "B13",
+      "axis": "B",
+      "name": "장문",
+      "track": "T1",
+      "why": "41~45번. 시간 압박 속에서 쉬운 문항을 지키는 운영의 문제가 큽니다.",
+      "signal": "41~45번 오답·미응답",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "C1",
+      "axis": "C",
+      "name": "단어 재활용",
+      "track": "T1",
+      "why": "지문 단어를 그대로 가져온 오답 선지입니다. 반복되는 패턴이라 기출로 학습됩니다.",
+      "signal": "C1 선지 선택률(노출 대비)",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "C2",
+      "axis": "C",
+      "name": "핵심 아님",
+      "track": "T1",
+      "why": "본문에 있지만 글의 핵심은 아닌 선지입니다.",
+      "signal": "C2 선지 선택률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "C3",
+      "axis": "C",
+      "name": "부분을 전체로",
+      "track": "T1",
+      "why": "일부에만 해당하는 내용을 전체로 확대한 선지입니다.",
+      "signal": "C3 선지 선택률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "C4",
+      "axis": "C",
+      "name": "인과 전도",
+      "track": "T1",
+      "why": "원인과 결과를 뒤집은 선지입니다.",
+      "signal": "C4 선지 선택률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "C5",
+      "axis": "C",
+      "name": "범위·강도 변형",
+      "track": "T1",
+      "why": "대상·시점·범위·강도를 살짝 바꾼 선지입니다.",
+      "signal": "C5 선지 선택률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "C6",
+      "axis": "C",
+      "name": "방향 반대",
+      "track": "T1",
+      "why": "필자 주장과 반대 방향의 선지입니다.",
+      "signal": "C6 선지 선택률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "C7",
+      "axis": "C",
+      "name": "상식 개입",
+      "track": "T1",
+      "why": "상식으로는 맞지만 지문 근거가 없는 선지입니다.",
+      "signal": "C7 선지 선택률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "direct"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "C8",
+      "axis": "C",
+      "name": "비유 선지",
+      "track": "T2",
+      "why": "추상·비유 표현을 해석해야 해서 어휘 폭이 함께 필요합니다.",
+      "signal": "C8 선지 선택률, 어휘 지표",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "pending"
+        }
+      ]
+    },
+    {
+      "id": "D1",
+      "axis": "D",
+      "name": "선지에 끌림",
+      "track": "T1",
+      "why": "선지를 먼저 보고 매력적 오답에 끌리는 습관입니다. 예상 답을 먼저 만드는 절차로 교정합니다.",
+      "signal": "C1 함정 편중 여부",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "axis": "D",
+      "name": "추측 풀이",
+      "track": "T3",
+      "why": "아는 단어 몇 개로 추측하는 습관입니다. 근본 원인이 구문력이라 본질 학습이 필요합니다.",
+      "signal": "찍음 태그 비율, 쉬운 문항 오답",
+      "principles": [
+        {
+          "principle": "P8",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P5",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "axis": "D",
+      "name": "상식 판단",
+      "track": "T1",
+      "why": "느낌과 상식으로 선지를 고르는 습관입니다. 근거 문장 표시 훈련으로 교정합니다.",
+      "signal": "C7 함정 선택률",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "axis": "D",
+      "name": "해석은 되는데 틀림",
+      "track": "T2",
+      "why": "논리 흐름과 재진술의 문제입니다. 기출 오답으로 원인을 찾고 본질 학습으로 처방합니다.",
+      "signal": "고난도 유형 오답과 확신 태그의 조합",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P6",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "D5",
+      "axis": "D",
+      "name": "시간 붕괴",
+      "track": "T1",
+      "why": "운영 전략으로 바로 개선되지만, 근본적으로는 읽기 속도와 연결됩니다.",
+      "signal": "41~45번 오답·미응답, 시간 부족 태그",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P5",
+          "basisClaimed": "pending"
+        }
+      ]
+    },
+    {
+      "id": "D6",
+      "axis": "D",
+      "name": "오답 분석 없음",
+      "track": "T1",
+      "why": "풀고 끝내는 습관입니다. 오답 원인 분류를 루틴으로 만들면 바로 바뀝니다.",
+      "signal": "오답 분류 기록 여부",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "D7",
+      "axis": "D",
+      "name": "90점 커트라인 전략",
+      "track": "T1",
+      "why": "평가원이 1등급 비율 하락 원인으로 지목한 태도입니다. 목표를 높게 다시 잡는 것으로 교정합니다.",
+      "signal": "최근 원점수가 90점 근처에 반복되는지",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "D8",
+      "axis": "D",
+      "name": "EBS 암기 의존",
+      "track": "T1",
+      "why": "고난도 문항이 대부분 비연계였다는 분석에 근거합니다. 논지 요약 방식으로 전환합니다.",
+      "signal": "연계·비연계 정답률 차이",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "D9",
+      "axis": "D",
+      "name": "듣기 소홀",
+      "track": "T2",
+      "why": "기출 듣기 오답으로 드러나지만, 회복에는 매일 듣는 루틴이 필요합니다.",
+      "signal": "1~17번 오답 반복 여부",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P5",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I1",
+      "axis": "I",
+      "name": "기출 분해",
+      "track": "T1",
+      "why": "재진술 관계와 근거 문장을 표시하며 기출을 다시 읽는 방법입니다.",
+      "signal": "같은 유형 재풀이 정답률",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I2",
+      "axis": "I",
+      "name": "문장 풀어쓰기",
+      "track": "T3",
+      "why": "어려운 문장을 \"누가 무엇을 했는가\"로 풀어 쓰는 방법입니다. 매일 3~5문장이면 충분합니다.",
+      "signal": "풀어쓰기 정확도 추세",
+      "principles": [
+        {
+          "principle": "P5",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "I3",
+      "axis": "I",
+      "name": "오답 원인 분류",
+      "track": "T1",
+      "why": "틀린 문항을 몰라서·해석·함정·시간으로 나눠 기록합니다.",
+      "signal": "같은 원인의 오답 반복 여부",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I4",
+      "axis": "I",
+      "name": "실전 모의고사 운영",
+      "track": "T1",
+      "why": "정해진 시간 안에 45문항을 푸는 실전 루틴입니다.",
+      "signal": "시간 부족 태그, 뒤쪽 문항 오답",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I5",
+      "axis": "I",
+      "name": "EBS 논지 요약",
+      "track": "T2",
+      "why": "지문 암기 대신 논지를 한 줄로 요약하고, 같은 주제의 글을 묶어 읽습니다.",
+      "signal": "연계·비연계 정답률 차이 축소",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P4",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I6",
+      "axis": "I",
+      "name": "어휘 간격 반복",
+      "track": "T3",
+      "why": "간격을 두고 반복해 어휘를 장기 기억으로 옮깁니다.",
+      "signal": "어휘 테스트 추세",
+      "principles": [
+        {
+          "principle": "P4",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I7",
+      "axis": "I",
+      "name": "받아쓰기·쉐도잉",
+      "track": "T3",
+      "why": "배속 듣기, 받아쓰기, 소리 내어 따라 읽기로 소리 해독을 자동화합니다.",
+      "signal": "받아쓰기 정확도, 듣기 오답",
+      "principles": [
+        {
+          "principle": "P5",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I8",
+      "axis": "I",
+      "name": "주제별 묶음 읽기",
+      "track": "T3",
+      "why": "한 주제의 글을 5~10편 연속으로 읽어 어휘와 배경지식을 함께 쌓습니다.",
+      "signal": "주제군별 정답률",
+      "principles": [
+        {
+          "principle": "P4",
+          "basisClaimed": "direct"
+        }
+      ]
+    },
+    {
+      "id": "I9",
+      "axis": "I",
+      "name": "셀프 설명",
+      "track": "T1",
+      "why": "각 선지가 왜 답이 아닌지 말로 설명합니다.",
+      "signal": "함정 선택률 변화",
+      "principles": [
+        {
+          "principle": "P2",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "I10",
+      "axis": "I",
+      "name": "예상 답 먼저 쓰기",
+      "track": "T1",
+      "why": "빈칸 앞뒤를 읽고 예상 답을 짧게 만든 뒤 선지를 봅니다.",
+      "signal": "빈칸 오답, C1 함정 선택률",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "J1",
+      "axis": "J",
+      "name": "시간 배분",
+      "track": "T1",
+      "why": "고난도 문항에 쓸 시간을 확보하고 버릴 문항의 기준을 정합니다.",
+      "signal": "시간 부족 태그, 미응답 수",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "J2",
+      "axis": "J",
+      "name": "풀이 순서",
+      "track": "T1",
+      "why": "듣기 시간에 일부 독해를 푸는 멀티태스킹처럼, 순서는 형식이 고정되어 있어 미리 설계할 수 있습니다.",
+      "signal": "총 소요시간, 뒤쪽 문항 정답률",
+      "principles": [
+        {
+          "principle": "P1",
+          "basisClaimed": "inferred"
+        },
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "J3",
+      "axis": "J",
+      "name": "난이도 변동 대응",
+      "track": "T1",
+      "why": "모평 점수에서 10~15점을 뺀 하방 시나리오로 판단하는 습관입니다.",
+      "signal": "시나리오별 예상 등급과 실제 결과 비교",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "inferred"
+        }
+      ]
+    },
+    {
+      "id": "J4",
+      "axis": "J",
+      "name": "시험 불안",
+      "track": "T1",
+      "why": "영어 실력 문제는 아니지만 실전 점수를 바꿉니다. 근거가 부족해 분류는 보류 상태입니다.",
+      "signal": "실모 대비 실전 점수 차이",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "pending"
+        }
+      ]
+    },
+    {
+      "id": "J5",
+      "axis": "J",
+      "name": "컨디션·집중",
+      "track": "T1",
+      "why": "듣기 집중 유지와 수면·루틴 관리입니다. 근거가 부족해 분류는 보류 상태입니다.",
+      "signal": "듣기 구간 실수 패턴",
+      "principles": [
+        {
+          "principle": "P3",
+          "basisClaimed": "pending"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "principle": "P1",
+      "track": "T1",
+      "basisClaimed": "direct"
+    },
+    {
+      "principle": "P1",
+      "track": "T2",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P2",
+      "track": "T1",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P2",
+      "track": "T2",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P3",
+      "track": "T1",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P4",
+      "track": "T3",
+      "basisClaimed": "direct"
+    },
+    {
+      "principle": "P4",
+      "track": "T2",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P5",
+      "track": "T3",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P5",
+      "track": "T2",
+      "basisClaimed": "pending"
+    },
+    {
+      "principle": "P6",
+      "track": "T2",
+      "basisClaimed": "inferred"
+    },
+    {
+      "principle": "P6",
+      "track": "T3",
+      "basisClaimed": "pending"
+    },
+    {
+      "principle": "P7",
+      "track": "T3",
+      "basisClaimed": "direct"
+    },
+    {
+      "principle": "P8",
+      "track": "T3",
+      "basisClaimed": "inferred"
+    }
+  ],
+  "tasks": {
+    "A1": [
+      {
+        "ord": 1,
+        "title": "어휘 수준 측정",
+        "how": "어휘 크기 테스트로 단어군 수준과 학술 어휘 구간 점수를 확인합니다.",
+        "cadence": "첫 주 1회, 이후 8주마다",
+        "doneWhen": "기준 점수 기록",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "간격 반복 학습",
+        "how": "수능 필수 어휘와 학술 어휘를 문장째로 간격 반복합니다.",
+        "cadence": "매일 20~30개, 15분",
+        "doneWhen": "주간 복습 정답률 85% 이상",
+        "material": "core",
+        "methodLine": "I6"
+      },
+      {
+        "ord": 3,
+        "title": "기출 어휘 점검",
+        "how": "최근 기출에서 모른 단어를 표시해 반복 목록에 추가합니다.",
+        "cadence": "시험 1회마다",
+        "doneWhen": "모른 단어 수가 줄어드는 추세",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "A2": [
+      {
+        "ord": 1,
+        "title": "막히는 문장 수집",
+        "how": "최근 기출 고난도 지문에서 해석이 막힌 문장 5개를 고르고 유형(명사화·삽입·도치)을 적습니다.",
+        "cadence": "시험 1회마다",
+        "doneWhen": "문장 유형 분류 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "문장 풀어쓰기",
+        "how": "명사를 동사로 되돌리고 \"누가 무엇을 했는가\"로 풀어 씁니다.",
+        "cadence": "매일 3~5문장, 15분",
+        "doneWhen": "풀어쓰기 정확도 90%",
+        "material": "core",
+        "methodLine": "I2"
+      },
+      {
+        "ord": 3,
+        "title": "압축 연습",
+        "how": "쉬운 문장 2~3개를 명사화로 합쳐 한 문장으로 만듭니다.",
+        "cadence": "주 2회",
+        "doneWhen": "뜻을 유지한 압축문 작성",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "A3": [
+      {
+        "ord": 1,
+        "title": "연결어 방향 표시",
+        "how": "기출 지문의 연결어마다 같음·반대·인과·예시를 표시합니다.",
+        "cadence": "하루 3지문",
+        "doneWhen": "표시 정확도 90%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "문단 역할 적기",
+        "how": "교양 에세이를 읽으며 문단마다 주장·근거·반론·예시 중 하나를 적습니다.",
+        "cadence": "주 3편",
+        "doneWhen": "에세이를 3문장으로 요약",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "순서·삽입 재확인",
+        "how": "36~39번 기출 세트를 풀고 판단 단서를 근거로 적습니다.",
+        "cadence": "2주마다 1세트",
+        "doneWhen": "순서·삽입 오답 감소",
+        "material": "past",
+        "methodLine": "B11"
+      }
+    ],
+    "A4": [
+      {
+        "ord": 1,
+        "title": "재진술 사슬 찾기",
+        "how": "기출 지문에서 주제어가 다른 말로 바뀐 표현을 모두 이어 표시합니다.",
+        "cadence": "하루 2지문",
+        "doneWhen": "지문당 사슬 3개 이상",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "바꿔 쓰기 확장",
+        "how": "핵심 문장을 뜻을 유지한 채 다른 표현으로 2가지씩 바꿔 씁니다.",
+        "cadence": "매일 3문장",
+        "doneWhen": "같은 뜻 유지",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "빈칸·요약 확인",
+        "how": "빈칸·요약 기출을 예상 답 먼저 쓰고 풉니다.",
+        "cadence": "주 1세트",
+        "doneWhen": "단어 재활용 함정 선택률 감소",
+        "material": "past",
+        "methodLine": "B10"
+      }
+    ],
+    "A5": [
+      {
+        "ord": 1,
+        "title": "근거 문장 표시",
+        "how": "정답 선지마다 지문의 근거 문장 번호를 적습니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "근거 없는 정답 0개",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "오답 반박 쓰기",
+        "how": "오답 선지마다 지문과 어긋나는 지점을 한 줄로 적습니다.",
+        "cadence": "하루 5문항",
+        "doneWhen": "반박 근거가 모두 지문 안",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "상식 함정 점검",
+        "how": "상식 개입 함정이 있는 문항만 모아 풉니다.",
+        "cadence": "2주마다 10문항",
+        "doneWhen": "상식 개입 선택률 감소",
+        "material": "past",
+        "methodLine": "C7"
+      }
+    ],
+    "A6": [
+      {
+        "ord": 1,
+        "title": "약한 주제 찾기",
+        "how": "주제군별 정답률을 비교해 약한 주제 2개를 고릅니다.",
+        "cadence": "진단할 때마다",
+        "doneWhen": "약한 주제 확정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "주제별 묶음 읽기",
+        "how": "한 주제의 교양 글 5~10편을 연속으로 읽습니다.",
+        "cadence": "주 3~5편",
+        "doneWhen": "주제 핵심 개념 10개 정리",
+        "material": "core",
+        "methodLine": "I8"
+      },
+      {
+        "ord": 3,
+        "title": "한국어 교양서 병행",
+        "how": "같은 주제를 한국어 교양서로 먼저 이해하고 영어 용어와 연결합니다.",
+        "cadence": "주 1챕터",
+        "doneWhen": "개념-영어 용어 짝 정리",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "A7": [
+      {
+        "ord": 1,
+        "title": "놓친 구간 확인",
+        "how": "틀린 듣기 문항의 대본에서 안 들린 구간을 표시하고 원인(연음·속도·어휘)을 적습니다.",
+        "cadence": "시험 1회마다",
+        "doneWhen": "원인 분류 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "받아쓰기·쉐도잉",
+        "how": "짧은 대화를 받아쓰고 소리 내어 따라 합니다.",
+        "cadence": "매일 15분",
+        "doneWhen": "받아쓰기 정확도 90%",
+        "material": "core",
+        "methodLine": "I7"
+      },
+      {
+        "ord": 3,
+        "title": "배속 듣기",
+        "how": "1.2~1.5배속으로 듣기 세트를 풉니다.",
+        "cadence": "주 2회",
+        "doneWhen": "정속 듣기 만점",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "A8": [
+      {
+        "ord": 1,
+        "title": "어법 포인트 진단",
+        "how": "29번 기출의 출제 포인트별 정답률을 확인합니다.",
+        "cadence": "첫 주 1회",
+        "doneWhen": "약한 포인트 3개 확정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "포인트별 기출 반복",
+        "how": "약한 포인트만 모은 밑줄 문항을 풀고 이유를 말로 설명합니다.",
+        "cadence": "주 3회, 10문항",
+        "doneWhen": "설명 정확도 90%",
+        "material": "past",
+        "methodLine": "I9"
+      },
+      {
+        "ord": 3,
+        "title": "기초 문법 보강",
+        "how": "기초가 부족하면 중등 문법부터 다시 정리합니다.",
+        "cadence": "필요할 때 매일 20분",
+        "doneWhen": "기본 문장 성분 분석 가능",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "A9": [
+      {
+        "ord": 1,
+        "title": "읽기 속도 측정",
+        "how": "쉬운 지문을 읽고 분당 단어 수를 잽니다.",
+        "cadence": "4주마다",
+        "doneWhen": "기준 속도 기록",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "쉬운 글 많이 읽기",
+        "how": "수준보다 약간 쉬운 영어 글을 많이 읽습니다.",
+        "cadence": "매일 20분",
+        "doneWhen": "주간 독서량 증가",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "연속 풀이 지구력",
+        "how": "독해 28문항을 끊지 않고 풉니다.",
+        "cadence": "주 1회",
+        "doneWhen": "뒤쪽 문항 정답률 유지",
+        "material": "past",
+        "methodLine": "J1"
+      }
+    ],
+    "B1": [
+      {
+        "ord": 1,
+        "title": "발문 먼저 읽기",
+        "how": "지시문과 선지를 먼저 보고 무엇을 들을지 정합니다.",
+        "cadence": "듣기 세트마다",
+        "doneWhen": "습관으로 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "대의 문항 모음 풀이",
+        "how": "목적·의견·요지·관계 기출만 모아 풉니다.",
+        "cadence": "주 1세트",
+        "doneWhen": "2회 연속 만점",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "결정 문장 찾기",
+        "how": "틀리면 대본에서 답을 결정한 문장을 찾습니다.",
+        "cadence": "오답마다",
+        "doneWhen": "결정 문장 표시",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B2": [
+      {
+        "ord": 1,
+        "title": "정보 위치 패턴 정리",
+        "how": "그림·할 일·이유 문항에서 정보가 나오는 위치를 정리합니다.",
+        "cadence": "첫 주",
+        "doneWhen": "패턴 목록 작성",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "세부 문항 모음 풀이",
+        "how": "세부 유형 기출만 모아 풉니다.",
+        "cadence": "주 1세트",
+        "doneWhen": "2회 연속 만점",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "번복 표현 모으기",
+        "how": "말했다가 바꾸는 표현을 모아 둡니다.",
+        "cadence": "오답마다",
+        "doneWhen": "번복 표현 목록",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B3": [
+      {
+        "ord": 1,
+        "title": "메모 양식 고정",
+        "how": "가격·수량·할인을 적는 메모 칸을 정해 둡니다.",
+        "cadence": "첫 주",
+        "doneWhen": "양식 확정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "계산 문항 모음 풀이",
+        "how": "계산 기출만 모아 메모하며 풉니다.",
+        "cadence": "주 5문항",
+        "doneWhen": "연속 정답 10개",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "조건 함정 정리",
+        "how": "쿠폰·회원·수량 조건처럼 놓친 조건을 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "조건 놓침 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B4": [
+      {
+        "ord": 1,
+        "title": "마지막 발화 집중",
+        "how": "응답 문항은 마지막 한 줄에 집중해 듣습니다.",
+        "cadence": "주 2세트",
+        "doneWhen": "습관으로 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "짧은 대화 쉐도잉",
+        "how": "12·13번 대본을 따라 읽고 받아씁니다.",
+        "cadence": "매일 5개",
+        "doneWhen": "받아쓰기 정확도 90%",
+        "material": "core",
+        "methodLine": "A7"
+      },
+      {
+        "ord": 3,
+        "title": "응답 문항 확인",
+        "how": "응답 유형만 모아 풉니다.",
+        "cadence": "2주마다",
+        "doneWhen": "오답 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B5": [
+      {
+        "ord": 1,
+        "title": "두 문항 함께 메모",
+        "how": "16·17번 질문을 먼저 읽고 두 문항을 함께 메모합니다.",
+        "cadence": "세트마다",
+        "doneWhen": "습관으로 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "세트 모음 풀이",
+        "how": "16·17번 기출만 모아 풉니다.",
+        "cadence": "주 3세트",
+        "doneWhen": "오답 0",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "놓친 항목 기록",
+        "how": "언급된 항목을 놓쳤다면 위치를 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 실수 반복 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B6": [
+      {
+        "ord": 1,
+        "title": "필자 주장 먼저 표시",
+        "how": "주제·요지·제목 문항은 필자의 주장 문장부터 표시합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "주장 문장 표시",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "대의 문항 모음 풀이",
+        "how": "18~24번 기출만 모아 풉니다.",
+        "cadence": "주 2세트",
+        "doneWhen": "정답률 90%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "헷갈린 선지 비교",
+        "how": "정답과 가장 헷갈린 선지의 차이를 한 줄로 적습니다.",
+        "cadence": "오답마다",
+        "doneWhen": "차이 설명 완료",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B7": [
+      {
+        "ord": 1,
+        "title": "밑줄 풀어 쓰기",
+        "how": "밑줄 표현을 글의 주제로 풀어 쓴 문장을 만듭니다.",
+        "cadence": "하루 2문항",
+        "doneWhen": "주제와 연결된 문장",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "재진술 과제 병행",
+        "how": "재진술 라인의 과제를 함께 합니다.",
+        "cadence": "재진술 라인 기준",
+        "doneWhen": "재진술 라인 완료 기준",
+        "material": "core",
+        "methodLine": "A4"
+      },
+      {
+        "ord": 3,
+        "title": "함축 문항 확인",
+        "how": "21번 기출을 모아 풉니다.",
+        "cadence": "2주마다 10문항",
+        "doneWhen": "정답률 80%",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B8": [
+      {
+        "ord": 1,
+        "title": "선지별 대조",
+        "how": "선지 하나씩 지문 위치를 찾아 대조합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "근거 위치 표시",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "도표 표현 점검",
+        "how": "도표 문항의 증감·배수·순위 표현을 따로 확인합니다.",
+        "cadence": "주 5문항",
+        "doneWhen": "실수 0",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "세부 문항 모음 풀이",
+        "how": "25~28번 세트를 풉니다.",
+        "cadence": "주 1세트",
+        "doneWhen": "2회 연속 만점",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "B9": [
+      {
+        "ord": 1,
+        "title": "출제 포인트 목록",
+        "how": "29번 빈출 어법 포인트 목록을 만듭니다.",
+        "cadence": "첫 주",
+        "doneWhen": "목록 완성",
+        "material": "past",
+        "methodLine": "A8"
+      },
+      {
+        "ord": 2,
+        "title": "문맥 어휘 절차",
+        "how": "30번은 밑줄 어휘가 문맥상 반대인지 확인하는 절차로 풉니다.",
+        "cadence": "주 5문항",
+        "doneWhen": "정답률 90%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "오답 이유 설명",
+        "how": "틀린 밑줄마다 정답 근거를 말로 설명합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "설명 완료",
+        "material": "past",
+        "methodLine": "I9"
+      }
+    ],
+    "B10": [
+      {
+        "ord": 1,
+        "title": "예상 답 먼저 쓰기",
+        "how": "선지를 가리고 빈칸 내용을 한국어로 먼저 적습니다.",
+        "cadence": "하루 2문항",
+        "doneWhen": "예상과 정답의 방향 일치",
+        "material": "past",
+        "methodLine": "I10"
+      },
+      {
+        "ord": 2,
+        "title": "고른 오답 해부",
+        "how": "고른 오답이 어떤 함정 계열인지 적습니다.",
+        "cadence": "오답마다",
+        "doneWhen": "함정 계열 기록",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "구문·재진술 병행",
+        "how": "구문과 재진술 라인의 과제를 함께 합니다.",
+        "cadence": "4~12주",
+        "doneWhen": "빈칸 오답 추세 감소",
+        "material": "core",
+        "methodLine": "A4"
+      }
+    ],
+    "B11": [
+      {
+        "ord": 1,
+        "title": "단서 표시",
+        "how": "연결어·지시어·관사 단서를 표시하고 순서를 정합니다.",
+        "cadence": "하루 2문항",
+        "doneWhen": "단서로 순서 설명",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "무관한 문장 판단",
+        "how": "35번은 주제와의 거리로 판단합니다.",
+        "cadence": "주 5문항",
+        "doneWhen": "정답률 90%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "논리 흐름 병행",
+        "how": "논리 흐름 라인의 과제를 함께 합니다.",
+        "cadence": "4~12주",
+        "doneWhen": "35~39번 오답 감소",
+        "material": "core",
+        "methodLine": "A3"
+      }
+    ],
+    "B12": [
+      {
+        "ord": 1,
+        "title": "요약문 먼저 읽기",
+        "how": "요약문의 빈칸 (A)(B)가 무엇을 묻는지 먼저 정합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "질문 확정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "본문 표현 연결",
+        "how": "빈칸에 해당하는 본문 표현을 찾아 바꿔 말합니다.",
+        "cadence": "주 5문항",
+        "doneWhen": "근거 표현 표시",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "재진술 병행",
+        "how": "재진술 라인의 과제를 함께 합니다.",
+        "cadence": "4~12주",
+        "doneWhen": "40번 오답 감소",
+        "material": "core",
+        "methodLine": "A4"
+      }
+    ],
+    "B13": [
+      {
+        "ord": 1,
+        "title": "장문 시간 확보",
+        "how": "41~45번에 쓸 시간을 정하고 지킵니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "시간 안에 완료",
+        "material": "past",
+        "methodLine": "J1"
+      },
+      {
+        "ord": 2,
+        "title": "순서·지칭 절차",
+        "how": "43~45번 순서와 지칭을 단서로 풉니다.",
+        "cadence": "주 2세트",
+        "doneWhen": "정답률 90%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "쉬운 문항 지키기",
+        "how": "장문 쉬운 문항의 실수를 점검합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "실수 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D1": [
+      {
+        "ord": 1,
+        "title": "선지 가리고 읽기",
+        "how": "고난도 문항은 선지를 가리고 지문부터 읽습니다.",
+        "cadence": "하루 3문항",
+        "doneWhen": "습관으로 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "예상 답 먼저 쓰기",
+        "how": "예상 답을 만든 뒤 선지를 봅니다.",
+        "cadence": "하루 2문항",
+        "doneWhen": "예상과 정답의 방향 일치",
+        "material": "past",
+        "methodLine": "I10"
+      },
+      {
+        "ord": 3,
+        "title": "끌림 확인",
+        "how": "단어 재활용 함정 선택률을 다시 확인합니다.",
+        "cadence": "2주마다",
+        "doneWhen": "선택률 감소",
+        "material": "past",
+        "methodLine": "C1"
+      }
+    ],
+    "D2": [
+      {
+        "ord": 1,
+        "title": "찍음 표시",
+        "how": "확신 없이 고른 답에 \"찍음\"을 표시합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "구문 훈련",
+        "how": "구문 라인의 과제로 문장을 정확히 읽는 힘을 키웁니다.",
+        "cadence": "3~6개월",
+        "doneWhen": "구문 라인 완료 기준",
+        "material": "core",
+        "methodLine": "A2"
+      },
+      {
+        "ord": 3,
+        "title": "쉬운 문항 정확도",
+        "how": "쉬운 문항 오답 0을 목표로 점검합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "쉬운 문항 오답 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D3": [
+      {
+        "ord": 1,
+        "title": "근거 번호 쓰기",
+        "how": "고른 답의 근거 문장 번호를 적습니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "근거 없는 선택 0",
+        "material": "past",
+        "methodLine": "A5"
+      },
+      {
+        "ord": 2,
+        "title": "상식 함정 모음",
+        "how": "상식 개입 함정 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "선택률 감소",
+        "material": "past",
+        "methodLine": "C7"
+      },
+      {
+        "ord": 3,
+        "title": "셀프 설명",
+        "how": "선지마다 왜 답이 아닌지 말로 설명합니다.",
+        "cadence": "하루 3문항",
+        "doneWhen": "설명 막힘 0",
+        "material": "past",
+        "methodLine": "I9"
+      }
+    ],
+    "D4": [
+      {
+        "ord": 1,
+        "title": "원인 쪼개기",
+        "how": "틀린 고난도 문항을 흐름·재진술·함정 중 어디서 막혔는지 분류합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "원인 기록",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "원인별 본질 처방",
+        "how": "원인에 맞는 본질 과제(흐름·재진술)를 합니다.",
+        "cadence": "4~12주",
+        "doneWhen": "해당 라인 완료 기준",
+        "material": "core",
+        "methodLine": "A4"
+      },
+      {
+        "ord": 3,
+        "title": "4주 뒤 재풀이",
+        "how": "같은 유형을 4주 뒤에 다시 풉니다.",
+        "cadence": "4주마다",
+        "doneWhen": "같은 원인 오답 감소",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D5": [
+      {
+        "ord": 1,
+        "title": "시간 기록",
+        "how": "문항 묶음별 소요 시간을 기록합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "기록 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "시간 배분표 적용",
+        "how": "시간 배분 라인의 기준표를 적용합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "시간표 준수",
+        "material": "past",
+        "methodLine": "J1"
+      },
+      {
+        "ord": 3,
+        "title": "넘기기 기준",
+        "how": "한 문항에 2분이 넘으면 표시하고 넘어갑니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "미응답 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D6": [
+      {
+        "ord": 1,
+        "title": "오답 4분류",
+        "how": "모든 오답을 몰라서·해석·함정·시간으로 분류합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "분류율 100%",
+        "material": "past",
+        "methodLine": "I3"
+      },
+      {
+        "ord": 2,
+        "title": "오답 다시 풀기",
+        "how": "1주 뒤 오답만 다시 풉니다.",
+        "cadence": "주 1회",
+        "doneWhen": "재풀이 정답률 90%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "처방 연결",
+        "how": "같은 원인이 2번 나오면 해당 라인 과제로 연결합니다.",
+        "cadence": "2주마다",
+        "doneWhen": "처방 연결 완료",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D7": [
+      {
+        "ord": 1,
+        "title": "목표 다시 잡기",
+        "how": "목표를 95점으로 잡고, 어려운 시험 기준 예상 등급을 확인합니다.",
+        "cadence": "진단할 때마다",
+        "doneWhen": "어려운 시험에서도 목표 등급",
+        "material": "past",
+        "methodLine": "J3"
+      },
+      {
+        "ord": 2,
+        "title": "고난도 세트",
+        "how": "1등급 경계용 고난도 세트를 풉니다.",
+        "cadence": "주 1세트",
+        "doneWhen": "고난도 정답률 상승",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "여유 폭 점검",
+        "how": "최근 3회 점수가 90점 근처에 몰려 있는지 확인합니다.",
+        "cadence": "진단할 때마다",
+        "doneWhen": "90점 위 여유 5점 이상",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D8": [
+      {
+        "ord": 1,
+        "title": "연계·비연계 비교",
+        "how": "연계와 비연계 문항의 정답률을 비교합니다.",
+        "cadence": "진단할 때마다",
+        "doneWhen": "차이 확인",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "논지 요약 전환",
+        "how": "EBS 지문을 외우지 않고 논지를 한 줄로 요약합니다.",
+        "cadence": "하루 3지문",
+        "doneWhen": "요약 완료",
+        "material": "core",
+        "methodLine": "I5"
+      },
+      {
+        "ord": 3,
+        "title": "비연계 고난도 풀이",
+        "how": "비연계 고난도 문항 세트를 풉니다.",
+        "cadence": "주 1세트",
+        "doneWhen": "정답률 차이 10%p 이하",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "D9": [
+      {
+        "ord": 1,
+        "title": "듣기 루틴 고정",
+        "how": "매일 듣기 시간을 정해 둡니다.",
+        "cadence": "매일 15분",
+        "doneWhen": "4주 유지",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "듣기 해독 과제",
+        "how": "듣기 해독 라인의 과제를 합니다.",
+        "cadence": "3~6개월",
+        "doneWhen": "듣기 해독 완료 기준",
+        "material": "core",
+        "methodLine": "A7"
+      },
+      {
+        "ord": 3,
+        "title": "듣기 만점 확인",
+        "how": "시험마다 1~17번 결과를 확인합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "2회 연속 만점",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "I1": [
+      {
+        "ord": 1,
+        "title": "실전처럼 풀기",
+        "how": "시간을 재고 한 회분을 풉니다.",
+        "cadence": "주 1회분",
+        "doneWhen": "채점 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "분해 표시",
+        "how": "근거 문장, 재진술 관계, 오답 선지의 함정을 표시합니다.",
+        "cadence": "지문당 10분",
+        "doneWhen": "모든 문항 표시",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "논지 한 줄 정리",
+        "how": "지문마다 논지를 한 줄로 적습니다.",
+        "cadence": "풀이 후",
+        "doneWhen": "정리 완료",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "I2": [
+      {
+        "ord": 1,
+        "title": "문장 고르기",
+        "how": "어려운 문장 3~5개를 고릅니다.",
+        "cadence": "매일",
+        "doneWhen": "선택 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "뼈대 찾기",
+        "how": "주어와 동사를 표시하고 수식어를 괄호로 묶습니다.",
+        "cadence": "문장당 2분",
+        "doneWhen": "뼈대 표시",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "풀어 쓰기",
+        "how": "\"누가 무엇을 했는가\"로 풀어 씁니다.",
+        "cadence": "문장당 2분",
+        "doneWhen": "정확도 90%",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "I3": [
+      {
+        "ord": 1,
+        "title": "4분류 기록",
+        "how": "오답을 몰라서·해석·함정·시간으로 나눠 기록합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "분류율 100%",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "원인별 집계",
+        "how": "원인별 오답 수를 시험마다 비교합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "추세 확인",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "라인 연결",
+        "how": "많이 나온 원인을 해당 학습 라인으로 연결합니다.",
+        "cadence": "2주마다",
+        "doneWhen": "연결 완료",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "I4": [
+      {
+        "ord": 1,
+        "title": "실전 조건 맞추기",
+        "how": "70분, 듣기 포함, OMR 표기까지 실전처럼 풉니다.",
+        "cadence": "주 1회",
+        "doneWhen": "조건 준수",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "묶음별 시간 기록",
+        "how": "듣기·18~30·31~40·41~45 묶음별 시간을 적습니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "기록 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "다음 날 리뷰",
+        "how": "오답 분류와 운영 점검을 다음 날 합니다.",
+        "cadence": "실전 모의고사 다음 날",
+        "doneWhen": "리뷰 완료",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "I5": [
+      {
+        "ord": 1,
+        "title": "논지 한 줄",
+        "how": "EBS 지문마다 논지를 한 줄로 적습니다.",
+        "cadence": "하루 3지문",
+        "doneWhen": "요약 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "같은 주제 묶기",
+        "how": "같은 주제의 지문을 묶어 비교합니다.",
+        "cadence": "주 1회",
+        "doneWhen": "주제 묶음 정리",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "반대 논지 써 보기",
+        "how": "교재 논지와 반대되는 주장을 한 줄로 적어 봅니다.",
+        "cadence": "주 2지문",
+        "doneWhen": "반대 논지 작성",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "I6": [
+      {
+        "ord": 1,
+        "title": "단어 등록",
+        "how": "모른 단어를 예문과 함께 등록합니다.",
+        "cadence": "매일",
+        "doneWhen": "등록 완료",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "간격 복습",
+        "how": "알림에 맞춰 복습합니다.",
+        "cadence": "매일 15분",
+        "doneWhen": "복습 누락 0",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "문맥 확인",
+        "how": "외운 단어를 새 글에서 다시 만나면 표시합니다.",
+        "cadence": "주 1회",
+        "doneWhen": "문맥 이해 확인",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "I7": [
+      {
+        "ord": 1,
+        "title": "받아쓰기",
+        "how": "짧은 대화를 받아씁니다.",
+        "cadence": "매일 5개",
+        "doneWhen": "정확도 90%",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "쉐도잉",
+        "how": "대본을 보며 소리 내어 따라 합니다.",
+        "cadence": "매일 10분",
+        "doneWhen": "끊김 없이 따라 하기",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "배속 듣기",
+        "how": "1.2~1.5배속으로 듣습니다.",
+        "cadence": "주 2회",
+        "doneWhen": "정속에서 만점",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "I8": [
+      {
+        "ord": 1,
+        "title": "주제 고르기",
+        "how": "약한 주제군 하나를 고릅니다.",
+        "cadence": "2주마다",
+        "doneWhen": "주제 확정",
+        "material": "past",
+        "methodLine": "A6"
+      },
+      {
+        "ord": 2,
+        "title": "연속 읽기",
+        "how": "그 주제의 글 5~10편을 연속으로 읽습니다.",
+        "cadence": "주 3~5편",
+        "doneWhen": "완독",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "개념 정리",
+        "how": "반복된 개념과 표현을 정리합니다.",
+        "cadence": "주제마다",
+        "doneWhen": "개념 10개 정리",
+        "material": "core",
+        "methodLine": null
+      }
+    ],
+    "I9": [
+      {
+        "ord": 1,
+        "title": "선지별 설명",
+        "how": "각 선지가 왜 답이 아닌지 소리 내어 설명합니다.",
+        "cadence": "하루 3문항",
+        "doneWhen": "설명 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "막힌 설명 표시",
+        "how": "설명이 막힌 선지를 표시합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "다시 설명",
+        "how": "막힌 선지를 1주 뒤 다시 설명합니다.",
+        "cadence": "주 1회",
+        "doneWhen": "막힘 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "I10": [
+      {
+        "ord": 1,
+        "title": "선지 가리기",
+        "how": "빈칸 문항은 선지를 가리고 읽습니다.",
+        "cadence": "하루 2문항",
+        "doneWhen": "습관으로 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "예상 답 쓰기",
+        "how": "빈칸 앞뒤를 읽고 예상 답을 한국어로 짧게 적습니다.",
+        "cadence": "문항마다",
+        "doneWhen": "예상 답 작성",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "방향 대조",
+        "how": "단어가 달라도 논리 방향이 같은 선지를 찾습니다.",
+        "cadence": "문항마다",
+        "doneWhen": "방향 일치",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "J1": [
+      {
+        "ord": 1,
+        "title": "기준 시간표",
+        "how": "듣기 중 독해, 18~30번, 31~40번, 41~45번의 목표 시간을 정합니다.",
+        "cadence": "첫 주",
+        "doneWhen": "시간표 확정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "실전 적용",
+        "how": "실전 모의고사에서 시간표를 지킵니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "시간표 준수",
+        "material": "past",
+        "methodLine": "I4"
+      },
+      {
+        "ord": 3,
+        "title": "시간표 조정",
+        "how": "기록을 보고 시간표를 조정합니다.",
+        "cadence": "2주마다",
+        "doneWhen": "미응답 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "J2": [
+      {
+        "ord": 1,
+        "title": "풀이 순서 설계",
+        "how": "듣기 시간에 풀 독해 문항과 고난도 순서를 정합니다.",
+        "cadence": "첫 주",
+        "doneWhen": "순서 확정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "멀티태스킹 연습",
+        "how": "듣기 사이 공백에 쉬운 독해를 풉니다.",
+        "cadence": "주 2회",
+        "doneWhen": "듣기 오답 없이 진행",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "순서 점검",
+        "how": "순서 때문에 잃은 점수가 있는지 확인합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "순서로 인한 손실 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "J3": [
+      {
+        "ord": 1,
+        "title": "하방 시나리오 확인",
+        "how": "진단의 어려운 시험 시나리오 예상 등급을 확인합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "시나리오 확인",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "어려운 회차 실전",
+        "how": "1등급 비율이 낮았던 역대 회차를 실전처럼 풉니다.",
+        "cadence": "월 1회",
+        "doneWhen": "어려운 회차에서도 목표 등급",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "최저 전략 점검",
+        "how": "어려운 시험 기준으로 수시 최저 충족을 판단합니다.",
+        "cadence": "원서 전, 9월 이후",
+        "doneWhen": "대체 영역 확보",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "J4": [
+      {
+        "ord": 1,
+        "title": "흔들린 순간 기록",
+        "how": "실전 모의고사에서 흔들린 순간과 문항을 적습니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "기록 완료",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "시작 루틴 만들기",
+        "how": "시험 시작 전 할 일을 정해 반복합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "루틴 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "실전 차이 확인",
+        "how": "실전 모의고사와 실제 시험 점수 차이를 비교합니다.",
+        "cadence": "시험마다",
+        "doneWhen": "차이 축소",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "J5": [
+      {
+        "ord": 1,
+        "title": "수능 시간대 풀이",
+        "how": "실제 영어 시험 시간대에 실전 모의고사를 풉니다.",
+        "cadence": "주 1회",
+        "doneWhen": "시간대 적응",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "수면 고정",
+        "how": "시험 기상 시간에 맞춰 수면 시간을 고정합니다.",
+        "cadence": "D-30부터 매일",
+        "doneWhen": "4주 유지",
+        "material": "core",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "듣기 집중 점검",
+        "how": "듣기 구간 실수가 컨디션과 관련 있는지 확인합니다.",
+        "cadence": "실전 모의고사마다",
+        "doneWhen": "듣기 실수 0",
+        "material": "past",
+        "methodLine": null
+      }
+    ],
+    "C1": [
+      {
+        "ord": 1,
+        "title": "함정 표시",
+        "how": "오답 선지 중 지문 단어를 그대로 가져온 선지를 표시합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "단어 재활용 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C2": [
+      {
+        "ord": 1,
+        "title": "핵심 문장 먼저",
+        "how": "주제 문장을 먼저 정하고, 선지가 핵심인지 곁가지인지 판단합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "핵심 아님 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C3": [
+      {
+        "ord": 1,
+        "title": "범위어 표시",
+        "how": "all, always, only처럼 범위를 키우는 표현을 표시합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "부분을 전체로 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C4": [
+      {
+        "ord": 1,
+        "title": "인과 화살표 그리기",
+        "how": "지문의 원인과 결과를 화살표로 적고 선지와 방향을 비교합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "인과 전도 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C5": [
+      {
+        "ord": 1,
+        "title": "수식어 대조",
+        "how": "선지의 대상·시점·정도 표현을 지문과 하나씩 대조합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "범위·강도 변형 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C6": [
+      {
+        "ord": 1,
+        "title": "필자 입장 표시",
+        "how": "필자가 지지하는 대상과 비판하는 대상을 +, −로 표시합니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "방향 반대 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C7": [
+      {
+        "ord": 1,
+        "title": "근거 번호 쓰기",
+        "how": "정답의 근거 문장 번호를 적고, 근거 없는 선지는 지웁니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "상식 개입 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "끌린 이유 한 줄",
+        "how": "걸렸을 때 왜 끌렸는지 한 줄로 기록합니다.",
+        "cadence": "오답마다",
+        "doneWhen": "같은 이유 반복 0",
+        "material": "past",
+        "methodLine": "I3"
+      }
+    ],
+    "C8": [
+      {
+        "ord": 1,
+        "title": "비유 풀어 쓰기",
+        "how": "비유 표현을 문자 그대로의 뜻으로 바꿔 적습니다.",
+        "cadence": "풀이마다",
+        "doneWhen": "표시 습관 고정",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 2,
+        "title": "비유 선지 모음 풀이",
+        "how": "이 함정 선지가 있는 기출 문항만 모아 풉니다.",
+        "cadence": "주 10문항",
+        "doneWhen": "노출 대비 선택률 30% 이하",
+        "material": "past",
+        "methodLine": null
+      },
+      {
+        "ord": 3,
+        "title": "어휘 폭 병행",
+        "how": "재진술 라인의 바꿔 쓰기 과제를 함께 합니다.",
+        "cadence": "4~12주",
+        "doneWhen": "비유 선지 선택률 감소",
+        "material": "core",
+        "methodLine": "A4"
+      }
+    ]
+  }
+}
