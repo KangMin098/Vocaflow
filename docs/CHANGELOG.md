@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(csat): 학평 P4 — `csat_type_reports` 기본 키를 (type_id, organizer, grade)로 확장(마이그레이션 20261002060000, 승인 후 적용). 학평 유형 리포트를 학년별로 평가원 행을 덮지 않고 쓸 수 있다. importer 의 upsert 충돌 대상도 같이 변경.
+
 > Vocaflow 변경 이력. 최신 3개 버전(v06.32~34) + 현재 작업 중인 마이그레이션 + 세션 변경 사항을 보존.
 > 이전 v06.0~v06.31 의 누적 변경은 git 이력 (`git log`) 으로만 추적.
 >

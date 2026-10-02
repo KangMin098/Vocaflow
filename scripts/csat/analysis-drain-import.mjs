@@ -419,8 +419,8 @@ for (const [tid, list] of typeReports) {
   const m = mergeReports(list)
   const { error } = await db.from('csat_type_reports').upsert(
     { type_id: tid, organizer: 'kice', grade: 0, ...m, status: 'published', updated_at: new Date().toISOString() },
-    // 키는 아직 type_id(마이그레이션 20261001101635 주석) — 집합 열은 값으로만 싣는다. 키 확장(P4) 때 바꾼다
-    { onConflict: 'type_id' },
+    // 키는 (type_id, organizer, grade) — 마이그레이션 20261002060000. 평가원 행만 쓰므로 (kice, 0) 한 행에 닿는다
+    { onConflict: 'type_id,organizer,grade' },
   )
   if (error) throw new Error(`유형 리포트 ${tid}: ${error.message}`)
 }
