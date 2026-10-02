@@ -78,6 +78,8 @@ const PUBLIC: ReadonlyArray<{ route: string; why: string }> = [
   // 온다(본문에서 받지 않는다). 쓰기는 service role 이지만 대상이 언제나 본인 행이다. 관리자 대리 입력은
   // admin/csat/diagnosis/sessions(requireAdminApi)로 따로 있다.
   { route: 'csat/diagnosis/sessions', why: '영어 진단 — 본인 시험 기록(OMR) 저장·채점. 로그인 확인은 라우트 안, 점수는 서버가 매긴다' },
+  { route: 'csat/diagnosis/map/goal', why: '학습 지도 — 본인 목표 점수(0~100). 로그인 확인은 라우트 안(learnerContext), userId 는 세션에서만 온다' },
+  { route: 'csat/diagnosis/map/tasks/[id]', why: '학습 지도 — 본인 과제 완료 체크. 로그인 확인은 라우트 안(learnerContext), 과제 id 는 형식 검증 + FK' },
 ]
 
 const PUBLIC_ROUTES = new Set(PUBLIC.map((p) => p.route))
