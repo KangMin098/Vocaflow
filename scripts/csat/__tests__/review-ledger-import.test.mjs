@@ -45,6 +45,14 @@ async function run(metrics, followups) {
 
 for (const [label, metrics, followups, location] of [
   ['missing batch', [{ ...batch, batch: undefined }], [followup], '_metrics.jsonl:1'],
+  ['empty metric object', [{}], [followup], '_metrics.jsonl:1'],
+  ['date-only metric object', [{ date: batch.date }], [followup], '_metrics.jsonl:1'],
+  ['note missing its date', [{ note: '메모' }], [followup], '_metrics.jsonl:1'],
+  ['annotation with invalid date', [{ date: '2026-02-30', note: '메모' }], [followup], '_metrics.jsonl:1'],
+  ['annotation with numeric note', [{ date: batch.date, note: 42 }], [followup], '_metrics.jsonl:1'],
+  ['annotation with null note', [{ date: batch.date, note: null }], [followup], '_metrics.jsonl:1'],
+  ['annotation with empty note', [{ date: batch.date, note: '' }], [followup], '_metrics.jsonl:1'],
+  ['annotation with whitespace note', [{ date: batch.date, note: '  ' }], [followup], '_metrics.jsonl:1'],
   ['unknown kind', [{ ...batch, kind: 're-review' }], [followup], '_metrics.jsonl:1'],
   ['Postgres character length', [batch], [{ ...followup, finding: '😀😀😀' }], '_followups.jsonl:1'],
   ['integer out of range', [{ ...batch, items: 2147483648 }], [followup], '_metrics.jsonl:1'],
@@ -63,6 +71,17 @@ for (const [label, metrics, followups, location] of [
     assert.equal(r.requests.length, 0, 'invalid ledger caused a DB request')
   })
 }
+
+test('ledger-import skips note-only annotation lines but still rejects a batch line missing its name', async () => {
+  const note = { date: '2026-09-29', note: '비용 해석 주의 — 주석 줄' }
+  const ok = await run([note, batch].map(JSON.stringify).join('\n'), JSON.stringify(followup))
+  assert.equal(ok.code, 0, ok.output)
+  assert.match(ok.output, /장부 주석 1줄/)
+  assert.equal(ok.requests.filter((q) => q.method === 'POST')[0].body.length, 1, 'the annotation must not become a batch row')
+  const bad = await run(JSON.stringify({ ...batch, batch: undefined }), JSON.stringify(followup))
+  assert.notEqual(bad.code, 0)
+  assert.match(bad.output, /_metrics\.jsonl:1/)
+})
 
 test('ledger-import reports physical line numbers including blank lines', async () => {
   const r = await run(`\n${JSON.stringify(batch)}\n\n{`, '')

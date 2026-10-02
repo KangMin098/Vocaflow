@@ -369,10 +369,11 @@ switch (cmd) {
       const p = path.join(WORK, name)
       return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : ''
     }
-    let batches, followups
+    let batches, followups, notes
     try {
-      ;({ batches, followups } = prepareReviewLedgers(readLedger('_metrics.jsonl'), readLedger('_followups.jsonl'), new Date().toISOString()))
+      ;({ batches, followups, notes } = prepareReviewLedgers(readLedger('_metrics.jsonl'), readLedger('_followups.jsonl'), new Date().toISOString()))
     } catch (e) { die(e.message) }
+    if (notes) console.log(`  장부 주석 ${notes}줄은 배치가 아니라 건너뛰었다`)
     const { data: haveB, error: e1 } = await db.from('csat_review_batches').select('batch')
     if (e1) die(e1.message)
     const { data: haveF, error: e2 } = await db.from('csat_review_followups').select('item_id, source, finding_key')
