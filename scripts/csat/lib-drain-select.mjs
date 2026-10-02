@@ -14,6 +14,44 @@
 // 이름 형태는 셋 다 받는다: `revise-20260928` · `chunk-revise-20260928` · `chunk-revise-20260928.out.json`.
 
 import fs from 'node:fs'
+import path from 'node:path'
+
+/** Missing work may only be supplied by a successor, never by an older result. */
+export function replacesOutput(workDir, successor, previous) {
+  if (!successor || !previous || successor === previous) return false
+  const links = (file) => {
+    const inputPath = path.join(workDir, file.replace(/\.out\.json$/, '.json'))
+    if (!fs.existsSync(inputPath)) return null
+    const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'))
+    return Array.isArray(input.supersedes) ? input.supersedes : null
+  }
+  const next = links(successor)
+  const old = links(previous)
+  if (old?.includes(successor)) return false
+  if (next !== null) return next.includes(previous)
+  return old === null && successor > previous
+}
+
+/** Choose once, before content filtering, using explicit replacement links when available. */
+export function analysisWinners(workDir, files) {
+  const parsed = new Map()
+  const replaces = new Map()
+  for (const file of files) {
+    try { parsed.set(file, JSON.parse(fs.readFileSync(path.join(workDir, file), 'utf8'))) } catch { continue }
+    const inputPath = path.join(workDir, file.replace(/\.out\.json$/, '.json'))
+    if (!fs.existsSync(inputPath)) continue
+    const input = JSON.parse(fs.readFileSync(inputPath, 'utf8'))
+    replaces.set(file, new Set(Array.isArray(input.supersedes) ? input.supersedes : []))
+  }
+  const winner = new Map()
+  for (const file of files) for (const a of parsed.get(file)?.analyses ?? []) {
+    if (!a.item_id) continue
+    const previous = winner.get(a.item_id)
+    if (previous && replaces.get(previous)?.has(file) && !replaces.get(file)?.has(previous)) continue
+    winner.set(a.item_id, file)
+  }
+  return winner
+}
 
 export class DrainSelectError extends Error {}
 

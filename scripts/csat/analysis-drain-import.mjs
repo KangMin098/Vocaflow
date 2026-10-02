@@ -24,8 +24,8 @@ import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
-import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
-import { loadCurrentUnits } from './lib-units-db.mjs'
+import { analysisWinners, chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { loadCurrentAnswerHashes, loadCurrentUnits } from './lib-units-db.mjs'
 
 const COMMIT = process.argv.includes('--commit')
 const WORK = WORK_DIR
@@ -79,9 +79,23 @@ const reviewsOf = new Map()
 const typeReports = new Map()
 const skipped = []
 
+// 분석 행 객체 → 그 분석을 낸 **같은 청크**의 export 시점 DB 원문 해시. 문항 id 로 묶으면 다른 청크(옛 redo)의 해시를
+// 빌려 올 수 있다(Codex 리뷰 P2) — 중복 제거가 객체를 고르므로 해시도 객체에 매단다
+const exportHashOf = new Map()
+const exportAnswerHashOf = new Map()
+const winner = analysisWinners(WORK, files)
 for (const f of files) {
   const j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
+  const inFile = path.join(WORK, f.replace(/\.out\.json$/, '.json'))
+  const fileHash = new Map()
+  const fileAnswerHash = new Map()
+  if (fs.existsSync(inFile)) for (const it of JSON.parse(fs.readFileSync(inFile, 'utf8')).items ?? []) {
+    const id = it.id ?? it.item_id
+    if (it.input_hash) fileHash.set(id, it.input_hash)
+    if (it.answer_hash) fileAnswerHash.set(id, it.answer_hash)
+  }
   for (const a of j.analyses ?? []) {
+    if (a.item_id && winner.get(a.item_id) !== f) continue
     // 빈 값·짧은 값은 넣지 않는다. 넣으면 다음 export 가 "완료" 로 세어 구멍이 영영 남는다.
     if (!a.item_id) { skipped.push(`${f}: item_id 없음`); continue }
     if (!a.measured_ability || a.measured_ability.length < 20) { skipped.push(`${a.item_id}: measured_ability 부실`); continue }
@@ -111,6 +125,8 @@ for (const f of files) {
         ? { analyst_run: analystRun, units_version: a.units_version ?? null, units_hash: a.units_hash ?? null }
         : {}),
     })
+    exportHashOf.set(analyses[analyses.length - 1], fileHash.get(a.item_id) ?? null)
+    exportAnswerHashOf.set(analyses[analyses.length - 1], fileAnswerHash.get(a.item_id) ?? null)
     reviewsOf.set(a.item_id, a.reviews ?? [])
   }
   const tr = j.type_report
@@ -147,11 +163,25 @@ for (const f of files) {
 // 분석의 번호는 그 목록에서만 뜻을 갖는다. 목록이 바뀐 뒤의 분석을 올리면 번호가 조용히 엉뚱한
 // 단위를 가리킨다 — 그래서 올리지 않고 수를 출력한다(DB 게이트도 발행 때 한 번 더 막는다).
 if (SET === 'hakpyeong') {
-  const withUnits = analyses.filter((a) => a.units_hash)
-  if (withUnits.length) {
-    const cur = await loadCurrentUnits(db, withUnits.map((a) => a.item_id))
-    const stale = new Set(withUnits.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
+  const candidates = analyses // legacy rows also need source provenance; absence must not bypass this gate
+  if (candidates.length) {
+    const cur = await loadCurrentUnits(db, candidates.map((a) => a.item_id))
+    const answers = await loadCurrentAnswerHashes(db, candidates.map((a) => a.item_id))
+    const stale = new Set(candidates.filter((a) => cur.get(a.item_id)?.units_hash !== a.units_hash).map((a) => a.item_id))
     for (const id of stale) skipped.push(`${id}: 근거 단위 목록이 바뀌었다 — 다시 export 해 새 목록으로 번호를 대조한다`)
+    // 목록 해시는 경계만 담는다 — 원문이 바뀌어도 경계가 같으면 그대로다. 그래서 export 때의 **원문 해시**도 지금 것과 대조한다
+    // (Codex 게이트 P2, 2026-10-01). 원문 해시가 없는 옛 청크는 올리지 않는다 — 다시 export 하면 실린다
+    for (const a of candidates) {
+      if (stale.has(a.item_id)) continue
+      const h = exportHashOf.get(a)
+      if (!h) { stale.add(a.item_id); skipped.push(`${a.item_id}: 입력 청크에 원문 해시(input_hash)가 없다 — 다시 export 한다`); continue }
+      if (cur.get(a.item_id)?.input_hash !== h) { stale.add(a.item_id); skipped.push(`${a.item_id}: export 뒤 원문이 바뀌었다 — 다시 export 해 새 원문으로 분석한다`); continue }
+      const answerHash = exportAnswerHashOf.get(a)
+      if (!answerHash || answerHash !== answers.get(a.item_id)) {
+        stale.add(a.item_id)
+        skipped.push(`${a.item_id}: export 정답 해시가 없거나 현재 정답과 다르다 — --redo로 다시 분석한다`)
+      }
+    }
     if (stale.size) {
       const keep = analyses.filter((a) => !stale.has(a.item_id))
       analyses.length = 0
@@ -199,12 +229,13 @@ async function retry(label, fn, tries = 4) {
 
 let inserted = 0
 let republished = 0
+let failed = 0 // 상태 전환 실패 — 0 이 아니면 exit 1
 for (const a of analyses) {
   // 같은 문항의 최신 버전을 보고, 내용이 같으면 건너뛴다(재실행 안전).
   const { data: prev } = await retry(`${a.item_id} 조회`, () =>
     db
       .from('csat_item_analyses')
-      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, status, analyst_run, units_version, units_hash')
+      .select('id, version, measured_ability, design_intent, answer_locus, choice_analysis, solve_procedure, time_budget_sec, difficulty, required_vocab, answer_unknown, body_recovered, status, analyst_run, units_version, units_hash')
       .eq('item_id', a.item_id)
       .order('version', { ascending: false })
       .limit(1),
@@ -242,7 +273,9 @@ for (const a of analyses) {
   //    그러면 게이트는 옛 목록 기준으로 판정한다. 평가원 행은 세 칸이 모두 null 이라 비교에 영향이 없다.
   const shape = (x) =>
     JSON.stringify(
+      // 적재가 쓰는 칸은 **전부** 비교한다 — 시간·난이도·어휘만 고친 교정이 «같다» 로 버려지지 않게(Codex 게이트 P2)
       canon([x.measured_ability, x.design_intent, x.answer_locus, x.choice_analysis, x.solve_procedure,
+        x.time_budget_sec ?? null, x.difficulty ?? null, x.required_vocab ?? [], x.answer_unknown === true, x.body_recovered === true,
         x.analyst_run ?? null, x.units_version ?? null, x.units_hash ?? null]),
     )
   const same = last && shape(last) === shape(a)
@@ -264,9 +297,16 @@ for (const a of analyses) {
   //    과거 검수 984행을 덮어쓰지 않고(재검수는 csat_independent_reviews 에 회차로 쌓는다),
   //    발행은 review-drain.mjs publish 가 독립 검수 3인이 모인 뒤에만 시도한다(DB 게이트가 최종 판정).
   if (SET === 'hakpyeong') {
-    if (!same) {
+    // 내용이 같아도 행이 draft 로 남아 있으면(지난 실행이 insert 뒤 전환 전에 끊겼다) 여기서 마저 전환한다(Codex 게이트 P2)
+    if (!same || last?.status === 'draft') {
       const { error: se } = await db.from('csat_item_analyses').update({ status: 'in_review' }).eq('id', aid)
-      if (se) { skipped.push(`${a.item_id}: in_review 전환 실패 — ${se.message}`); continue }
+      if (se) {
+        const message = `${a.item_id}: in_review 전환 실패 — ${se.message}`
+        skipped.push(message)
+        console.log(`\n  ✗ ${message}`)
+        failed += 1
+        continue
+      }
     }
     republished += 1
     process.stdout.write(`\r  적재 ${republished}/${analyses.length} (학평 — 독립 검수 대기)`)
@@ -370,6 +410,11 @@ if (SET !== 'kice') {
   console.log(`  · 유형 리포트 ${typeReports.size}건은 DB 에 쓰지 않았다(집합 ${SET}) — ${path.basename(out)} 에 대조용으로 남김`)
   typeReports.clear()
 }
+// 골라 올리기(--chunk)는 일부 청크만 읽으므로 합친 리포트가 부분 집계다 — upsert 하면 온전한 리포트를 덮는다(Codex 게이트 P1)
+if (CHUNKS && typeReports.size) {
+  console.log(`  · 골라 올리기라 유형 리포트 ${typeReports.size}건은 쓰지 않았다 — 전체 적재(--chunk 없이)로 다시 합친다`)
+  typeReports.clear()
+}
 for (const [tid, list] of typeReports) {
   const m = mergeReports(list)
   const { error } = await db.from('csat_type_reports').upsert(
@@ -382,3 +427,4 @@ for (const [tid, list] of typeReports) {
 
 console.log(`  새 분석 ${inserted} · ${SET === 'hakpyeong' ? `in_review ${republished}` : `published ${republished}`} · 유형 리포트 ${typeReports.size} · 건너뜀 ${skipped.length}`)
 console.log('→ csat_item_analyses · csat_analysis_reviews · csat_type_reports')
+if (failed) { console.log(`  ✗ 상태 전환 실패 ${failed} — 다시 돌리면 draft 행을 이어서 전환한다`); process.exit(1) }

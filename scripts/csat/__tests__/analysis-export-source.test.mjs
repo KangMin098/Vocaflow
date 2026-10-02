@@ -1,0 +1,168 @@
+// scripts/csat/__tests__/analysis-export-source.test.mjs
+import assert from 'node:assert/strict'
+import test from 'node:test'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import http from 'node:http'
+import { spawn } from 'node:child_process'
+import { fileURLToPath } from 'node:url'
+import { buildUnits, unitsHash } from '../lib-evidence-units.mjs'
+import { exportAnswerHash } from '../lib-units-db.mjs'
+import { analysisWinners } from '../lib-drain-select.mjs'
+
+const CLI = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.url))
+const item = { id: 'H2603G3#18', exam: 'H2603G3', no: 18, year: 2026, month: 3, in_scope: true,
+  type_id: 'R-TOPIC', passage: 'A memory can change. Each recall rebuilds it.', stem: '주제를 고르시오.', choices: ['a', 'b', 'c', 'd', 'e'], answer: 3, answers: [3] }
+
+async function run(dbItem, { existing = false, completed = false, changeDuringRead = false, redo = false, unclaimed = false, missingUnits = false, partial = false, recoveryInFlight = false, missingReplacement = false, failedReplacement = false, lateOriginal = false, replacementRecoveryInFlight = false } = {}) {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-export-source-'))
+  const work = path.join(dir, 'scripts/csat/analysis-drain-hakpyeong')
+  fs.mkdirSync(work, { recursive: true })
+  fs.mkdirSync(path.join(dir, 'scripts/csat/data'), { recursive: true })
+  const normal = { ...item, id: unclaimed ? 'H2603G3#19' : 'H2603G3#17', no: unclaimed ? 19 : 17 }
+  fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: redo || unclaimed || partial ? [normal, item] : [item] }))
+  const input = path.join(work, lateOriginal ? 'chunk-revise-existing.json' : 'chunk-R-TOPIC-H2603G3-18.json')
+  const original = JSON.stringify({ items: [{ item_id: item.id, input_hash: 'old-export-input' }, ...(partial ? [{ item_id: normal.id, input_hash: 'old-export-input' }] : [])] })
+  if (existing) fs.writeFileSync(input, original)
+  if (recoveryInFlight) fs.writeFileSync(path.join(work, 'chunk-redo-existing.json'), JSON.stringify({ items: [{ item_id: normal.id }] }))
+  if (completed) fs.writeFileSync(input.replace('.json', '.out.json'), JSON.stringify({ analyses: [{ item_id: item.id,
+    reviews: ['setter', 'analyst', 'tutor'].map((persona) => ({ persona, verdict: 'pass' })) }] }))
+  if (missingReplacement || failedReplacement) {
+    fs.writeFileSync(path.join(work, 'chunk-redo-prior.json'), JSON.stringify({ items: [{ item_id: item.id }], supersedes: [path.basename(input).replace('.json', '.out.json')] }))
+    fs.writeFileSync(path.join(work, 'chunk-redo-prior.out.json'), JSON.stringify({ analyses: failedReplacement ? [{ item_id: item.id, reviews: [{ persona: 'setter', verdict: 'revise' }] }] : [] }))
+  }
+  const replacementRecoveryPath = path.join(work, 'chunk-redo-recovery.json')
+  if (replacementRecoveryInFlight) fs.writeFileSync(replacementRecoveryPath, JSON.stringify({ items: [{ item_id: item.id }],
+    supersedes: ['chunk-redo-prior.out.json', path.basename(input).replace('.json', '.out.json')] }))
+  let reads = 0
+  const units = buildUnits(dbItem.passage)
+  const server = http.createServer((req, res) => {
+    res.setHeader('Content-Type', 'application/json')
+    if (req.url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify(redo || unclaimed || partial ? [normal, dbItem] : [dbItem]))
+    if (missingUnits) return res.end('[]')
+    reads += 1
+    res.end(JSON.stringify((redo || unclaimed || partial ? [normal, item] : [item]).map((it) => ({ item_id: it.id, units_version: units.version, units_hash: unitsHash(units),
+      input_hash: changeDuringRead && reads > 1 ? 'changed-input' : 'current-input', units: units.units }))))
+  })
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
+  try {
+    const child = spawn(process.execPath, [CLI, '--set', 'hakpyeong', '--limit', '1', ...(redo ? ['--redo', item.id] : [])], {
+      cwd: dir, windowsHide: true,
+      env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
+    })
+    let output = ''
+    child.stdout.on('data', (s) => { output += s })
+    child.stderr.on('data', (s) => { output += s })
+    const code = await new Promise((resolve, reject) => { child.on('error', reject); child.on('close', resolve) })
+    const corrections = fs.readdirSync(work).filter((f) => f.startsWith('chunk-redo-') && !f.endsWith('.out.json')).map((f) => JSON.parse(fs.readFileSync(path.join(work, f), 'utf8')))
+    let winner = null
+    if (lateOriginal && redo) {
+      const correctionFile = fs.readdirSync(work).find((f) => f.startsWith('chunk-redo-') && !f.endsWith('.out.json'))
+      fs.writeFileSync(path.join(work, correctionFile.replace('.json', '.out.json')), JSON.stringify({ analyses: [{ item_id: item.id }] }))
+      fs.writeFileSync(input.replace('.json', '.out.json'), JSON.stringify({ analyses: [{ item_id: item.id }] }))
+      winner = analysisWinners(work, fs.readdirSync(work).filter((f) => f.endsWith('.out.json')).sort()).get(item.id)
+    }
+    const fresh = path.join(work, 'chunk-R-TOPIC-H2603G3-19.json')
+    return { code, output, input: fs.existsSync(input) ? fs.readFileSync(input, 'utf8') : null, original, corrections, winner,
+      recoveryInputPreserved: fs.existsSync(replacementRecoveryPath),
+      fresh: fs.existsSync(fresh) ? JSON.parse(fs.readFileSync(fresh, 'utf8')) : null }
+  } finally {
+    await new Promise((resolve) => server.close(resolve))
+    fs.rmSync(dir, { recursive: true, force: true })
+  }
+}
+
+for (const [field, value] of [['passage', 'A memory may change. Each recall rebuilds it.'], ['stem', '다른 발문'], ['choices', ['e', 'd', 'c', 'b', 'a']], ['answer', 2], ['answers', [2, 3]]]) {
+  test(`export cannot stamp a DB hash onto stale local ${field}`, async () => {
+    const r = await run({ ...item, [field]: value })
+    assert.notEqual(r.code, 0, r.output)
+    assert.equal(r.input, null)
+    assert.match(r.output, /원문|코퍼스/)
+  })
+}
+test('missing units fail before reserving a hashless input chunk', async () => {
+  const r = await run(item, { missingUnits: true })
+  assert.notEqual(r.code, 0, r.output)
+  assert.equal(r.input, null, 'a failed prerequisite must not reserve the item on the next export')
+  assert.match(r.output, /units-build/)
+})
+test('export binds matching corpus text to current units', async () => {
+  const r = await run(item)
+  assert.equal(r.code, 0, r.output)
+  assert.equal(JSON.parse(r.input).items[0].input_hash, 'current-input')
+  assert.equal(JSON.parse(r.input).items[0].answer_hash, exportAnswerHash(item))
+})
+test('export refuses a source change during snapshot verification', async () => {
+  const r = await run(item, { changeDuringRead: true })
+  assert.notEqual(r.code, 0, r.output)
+  assert.equal(r.input, null)
+})
+test('explicit redo gets a new chunk even with an earlier unfinished same-type item and limit one', async () => {
+  const r = await run(item, { existing: true, redo: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.input, r.original)
+  assert.equal(r.corrections.length, 1)
+  assert.deepEqual(r.corrections[0].items.map((it) => it.item_id), [item.id])
+})
+
+test('redo supersedes an in-flight input so its late result cannot replace the correction', async () => {
+  const r = await run(item, { existing: true, redo: true, lateOriginal: true })
+  assert.equal(r.code, 0, r.output)
+  assert.ok(r.corrections[0].supersedes.includes('chunk-revise-existing.out.json'))
+  assert.ok(r.winner.startsWith('chunk-redo-'), `late original won: ${r.winner}`)
+  assert.equal(r.input, r.original)
+})
+
+for (const failedReplacement of [false, true]) {
+  test(`a ${failedReplacement ? 'failed' : 'missing'} redo result releases only its item from the old in-flight reservation`, async () => {
+    const r = await run(item, { existing: true, partial: true, missingReplacement: !failedReplacement, failedReplacement })
+    assert.equal(r.code, 0, r.output)
+    const fresh = r.corrections.filter((c) => c.items?.some((it) => it.answer_hash))
+    assert.deepEqual(fresh.flatMap((c) => c.items.map((it) => it.item_id)), [item.id])
+    assert.ok(fresh[0].supersedes.includes('chunk-redo-prior.out.json'))
+    assert.match(r.output, /남은 몫 1/)
+    assert.equal(r.input, r.original)
+  })
+}
+
+test('an in-flight recovery survives an omitted replacement after an older completed result', async () => {
+  const r = await run(item, { existing: true, completed: true, missingReplacement: true, replacementRecoveryInFlight: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.recoveryInputPreserved, true, 'active recovery input was removed based on an old completed output')
+  assert.equal(r.corrections.length, 2, 'a duplicate recovery was exported')
+  assert.match(r.output, /완료 0/)
+})
+test('a partial output reassigns the missing item without overwriting original provenance', async () => {
+  const r = await run(item, { existing: true, completed: true, partial: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.input, r.original)
+  assert.deepEqual(r.corrections.flatMap((chunk) => chunk.items.map((it) => it.item_id)), ['H2603G3#17'])
+})
+test('an already running recovery remains reserved despite an older partial output', async () => {
+  const r = await run(item, { existing: true, completed: true, partial: true, recoveryInFlight: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.input, r.original)
+  assert.equal(r.corrections.length, 1, 'only the original recovery input should remain')
+})
+test('an omission in a replacement clears old completion and is exported for recovery', async () => {
+  const r = await run(item, { existing: true, completed: true, missingReplacement: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.input, r.original)
+  const fresh = r.corrections.filter((c) => c.items?.some((it) => it.answer_hash))
+  assert.deepEqual(fresh.flatMap((c) => c.items.map((it) => it.item_id)), [item.id])
+  assert.ok(fresh[0].supersedes.includes('chunk-redo-prior.out.json'))
+})
+test('an existing earlier item does not swallow a fresh later item into a filename collision', async () => {
+  const r = await run(item, { existing: true, unclaimed: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.input, r.original)
+  assert.deepEqual(r.fresh?.items.map((it) => it.item_id), ['H2603G3#19'])
+})
+for (const completed of [false, true]) {
+  test(`export preserves original hash provenance for ${completed ? 'completed' : 'in-flight'} chunks`, async () => {
+    const r = await run(item, { existing: true, completed })
+    assert.equal(r.code, 0, r.output)
+    assert.equal(r.input, r.original, 'existing analysis input was removed or rebound to a new hash')
+  })
+}
