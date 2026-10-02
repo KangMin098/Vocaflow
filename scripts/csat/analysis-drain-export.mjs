@@ -139,18 +139,33 @@ if (REDO.size) {
 // collide with a newly packed [A,C] chunk and silently leave C unassigned.
 const reserved = new Set()
 const recovery = new Set()
-for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))) {
-  const input = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
+const inputs = new Map(fs.readdirSync(WORK)
+  .filter((f) => f.startsWith('chunk-') && f.endsWith('.json') && !f.endsWith('.out.json'))
+  .map((f) => [f, JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))]))
+// Replacement links apply only to the successor's items; other items in an older chunk stay reserved.
+const supersededItems = new Map()
+for (const input of inputs.values()) {
+  for (const previous of Array.isArray(input.supersedes) ? input.supersedes : []) {
+    if (!supersededItems.has(previous)) supersededItems.set(previous, new Set())
+    for (const it of input.items ?? []) {
+      const id = it.item_id ?? it.id
+      if (id) supersededItems.get(previous).add(id)
+    }
+  }
+}
+for (const [f, input] of inputs) {
+  const outputFile = f.replace(/\.json$/, '.out.json')
   const hasOutput = fs.existsSync(path.join(WORK, f.replace(/\.json$/, '.out.json')))
   for (const it of input.items ?? []) {
     const id = it.item_id ?? it.id
     if (!id) continue
+    // Keep provenance for inputs still running, so a late old output cannot overtake a correction.
+    if (!outputIds.has(id)) outputIds.set(id, new Set())
+    outputIds.get(id).add(outputFile)
+    if (supersededItems.get(outputFile)?.has(id)) continue
     if (!hasOutput) reserved.add(id)
     else {
-      const outputFile = f.replace(/\.json$/, '.out.json')
       if (done.has(id) && !reportedIds.get(outputFile)?.has(id) && replacesOutput(WORK, outputFile, outputWinner.get(id))) done.delete(id)
-      if (!outputIds.has(id)) outputIds.set(id, new Set())
-      outputIds.get(id).add(outputFile)
       if (!done.has(id)) recovery.add(id)
     }
   }
