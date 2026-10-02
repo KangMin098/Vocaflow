@@ -49,6 +49,23 @@ describe('splitMust', () => {
     expect(r.missingRate).toBe(2)
   })
 
+  it('TOP-N 만 관측된 자료: 관측 문항이 예산을 다 쓰면 과대 추정 아님, 예산이 남으면 과대 추정 가능', () => {
+    // 상위 3문항(각 3점)만 오답률이 있고 나머지 문항은 미관측
+    const top = [item(30, 3, 0.7), item(31, 3, 0.65), item(33, 3, 0.6)]
+    const rest = [item(1, 2, null), item(2, 2, null), item(3, 3, null)]
+    const all = [...top, ...rest]
+    expect(splitMust(all, 91).mayOverstate).toBe(false) // L=9 → 3문항으로 정확히 소진, 남은 0
+    expect(splitMust(all, 100).mayOverstate).toBe(false) // 예산 0
+    expect(splitMust(all, 70).mayOverstate).toBe(true) // L=30 → 관측 9점만 쓰고 21점 남음 → 미관측이 더 들어갈 수 있다
+  })
+
+  it('남은 예산이 미관측 문항의 배점보다 작으면 과대 추정이 아니다', () => {
+    const all = [item(30, 3, 0.7), item(31, 3, 0.6), item(1, 3, null)]
+    expect(splitMust(all, 94).mayOverstate).toBe(false) // L=6 → 관측 6점 소진
+    expect(splitMust([item(30, 3, 0.7), item(1, 3, null)], 96).mayOverstate).toBe(false) // L=4 → 3점 쓰고 1점 남지만 미관측 3점 문항은 안 들어간다
+    expect(splitMust([item(30, 3, 0.7), item(1, 2, null)], 95).mayOverstate).toBe(true) // L=5 → 3점 쓰고 2점 남아 미관측 2점 문항이 들어갈 수 있다
+  })
+
   it('같은 오답률은 번호 순(재실행해도 같은 결과)', () => {
     const r = splitMust([item(7, 2, 0.5), item(3, 2, 0.5)], 98) // L=2 → 3번만
     expect([...r.skip]).toEqual([itemKey(item(3, 2, 0))])

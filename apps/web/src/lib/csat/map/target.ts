@@ -54,6 +54,12 @@ export interface MustSplit {
   skip: Set<ItemKey>
   /** 오답률이 없어 무조건 「반드시」로 둔 문항 수 */
   missingRate: number
+  /**
+   * 남은 예산에 오답률 없는 문항이 더 들어갈 수 있어 목표율이 실제보다 높을 수 있다.
+   * 오답률이 TOP-N 처럼 상위만 관측된 자료(미관측 문항은 관측 문항보다 오답률이 낮다)에서는, 관측 문항으로
+   * 예산을 다 쓰면 false — 그 경우 미관측 문항을 「반드시」로 둔 계산이 순서 면에서 정확하다.
+   */
+  mayOverstate: boolean
 }
 
 /**
@@ -77,7 +83,9 @@ export function splitMust(items: RefItem[], goal: number): MustSplit {
     }
   }
   for (const i of items) (skippable.has(itemKey(i)) ? skip : must).add(itemKey(i))
-  return { must, skip, missingRate: items.filter((i) => i.errorRate === null).length }
+  const unobserved = items.filter((i) => i.errorRate === null)
+  const left = budget - spent
+  return { must, skip, missingRate: unobserved.length, mayOverstate: unobserved.some((i) => i.points <= left) }
 }
 
 export interface LineTarget {
