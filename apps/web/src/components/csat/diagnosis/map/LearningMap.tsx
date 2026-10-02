@@ -17,7 +17,7 @@ import type { MapNodeRow, NodeValue } from '@/lib/csat/map/model'
 
 import { BADGE_LABEL, STATUS_LABEL, evidenceBadge, pct, toneOf } from './format'
 import s from './map.module.css'
-import { NodePopup } from './NodePopup'
+import { NodePopup, tileClass } from './NodePopup'
 
 const TONE_TEXT = { met: s.sMet, near: s.sNear, short: s.sShort, muted: '' } as const
 const FILL = { met: s.fillMet, near: s.fillNear, short: s.fillShort, muted: '' } as const
@@ -163,7 +163,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
   const gapScore = model.currentScore !== null && goal > model.currentScore ? goal - model.currentScore : null
 
   return (
-    <div className={`${s.root} ${selected ? s.popOpen : ''}`} data-testid="csat-learning-map">
+    <div className={s.root} data-testid="csat-learning-map">
       <div className={s.head}>
         <span className={s.title}>학습 지도</span>
         <span className={s.sub}>
@@ -311,6 +311,16 @@ function meterLabel(v: NodeValue): string {
   return `${STATUS_LABEL[v.status]}${v.achieved !== null ? ` · 지금 ${pct(v.achieved)}` : ''}${v.target !== null ? ` · 목표 ${pct(v.target)}` : ''}`
 }
 
+/** 노드 보조 줄 — 상태(글자) + 지금 · 목표. 색은 막대가 보조한다 */
+function subline(value: NodeValue | undefined): string {
+  if (!value) return ''
+  if (value.status === 'tasks_only') return value.tasks.total > 0 ? `과제 ${value.tasks.done}/${value.tasks.total}` : '과제 없음'
+  if (value.status === 'no_items') return value.note ?? '연결 문항 없음'
+  const now = value.achieved !== null ? ` ${pct(value.achieved)}` : ''
+  const goal = value.target !== null ? ` · 목표 ${pct(value.target)}` : ''
+  return `${STATUS_LABEL[value.status]}${now}${goal}`
+}
+
 function MapNode({
   node,
   value,
@@ -330,7 +340,9 @@ function MapNode({
   trackCode?: string | null
   badge?: string | null
 }) {
-  const dot = trackCode === 'T1' ? s.t1 : trackCode === 'T2' ? s.t2 : trackCode === 'T3' ? s.t3 : null
+  const tone = value ? toneOf(value.status) : 'muted'
+  const rate = value ? (value.status === 'tasks_only' ? value.tasks.rate : value.achieved) : null
+  const showBar = value && value.status !== 'no_items'
   return (
     <button
       ref={register}
@@ -340,13 +352,22 @@ function MapNode({
       aria-label={`${node.code} ${node.name}${value ? ` — ${STATUS_LABEL[value.status]}` : ''}`}
       onClick={onClick}
     >
-      <span className={s.nodeTop}>
-        <span className={s.code}>{node.code}</span>
-        <span className={s.name}>{node.name}</span>
-        {dot && <i className={`${s.trackDot} ${dot}`} aria-hidden="true" />}
+      <span className={s.nodeRow}>
+        <span className={`${s.tile} ${tileClass(node.kind, trackCode)}`} aria-hidden="true">
+          {node.code}
+        </span>
+        <span className={s.nodeText}>
+          <span className={s.name}>{node.name}</span>
+          <span className={`${s.sub} ${TONE_TEXT[tone]}`}>{subline(value)}</span>
+        </span>
       </span>
       {badge && <span className={s.badge}>{badge}</span>}
-      {value && value.status !== 'no_items' ? <Meter value={value} /> : <span className={s.meterRow}>{value?.note ?? '연결 문항 없음'}</span>}
+      {showBar && value && (
+        <span className={s.meter} role="img" aria-label={meterLabel(value)}>
+          {rate !== null && <span className={`${s.fill} ${FILL[tone]}`} style={{ width: `${Math.min(100, rate * 100)}%` }} />}
+          {value.target !== null && <span className={s.tick} style={{ left: `${Math.min(100, value.target * 100)}%` }} />}
+        </span>
+      )}
     </button>
   )
 }

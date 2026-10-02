@@ -93,9 +93,6 @@
   flex-direction: column;
   gap: 8px;
 }
-.popOpen .scroller {
-  margin-right: 388px;
-}
 .colHead {
   font-size: 12px;
   color: var(--m-ink2);
@@ -118,9 +115,9 @@
 }
 .edge {
   fill: none;
-  stroke: var(--m-g400);
+  stroke: #e6e3df;
   stroke-width: 1;
-  opacity: 0.55;
+  opacity: 0.9;
 }
 .edgeInferred {
   stroke-dasharray: 5 5;
@@ -130,7 +127,7 @@
   stroke-linecap: round;
 }
 .hasSel .edge {
-  opacity: 0.12;
+  opacity: 0.35;
 }
 .hasSel .edgeOn {
   opacity: 1;
@@ -143,13 +140,13 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
   width: 100%;
   min-height: 44px;
   padding: 8px 10px 9px;
   text-align: left;
   background: var(--m-bg);
-  border: 1px solid var(--m-line);
+  border: 1px solid #0d0d1712;
   border-radius: 10px;
   cursor: pointer;
   font: inherit;
@@ -165,51 +162,68 @@
 .nodeDim {
   opacity: 0.35;
 }
-.nodeTop {
+.nodeRow {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 9px;
   min-width: 0;
 }
-.code {
-  flex: none;
-  min-width: 26px;
-  padding: 1px 6px;
-  border-radius: 6px;
-  background: var(--m-g200);
-  font-size: 11.5px;
-  font-weight: 600;
-  text-align: center;
-}
-.name {
+.nodeText {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   min-width: 0;
-  font-size: 13.5px;
+}
+.name {
+  font-size: 13px;
   font-weight: 500;
+  line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.trackDot {
+.sub {
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--m-ink2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* 아이콘 타일 — 참조의 노드 아이콘. 라인은 접근 트랙 색, 나머지는 중립 */
+.tile {
+  display: grid;
+  place-items: center;
   flex: none;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
-.t1 {
-  background: var(--m-t1);
+.tileNeutral {
+  background: var(--m-g200);
+  color: var(--m-ink);
 }
-.t2 {
-  background: var(--m-t2);
+.tileT1 {
+  background: #e3edf1;
+  color: #00688d;
 }
-.t3 {
-  background: var(--m-t3);
+.tileT2 {
+  background: #ece8fd;
+  color: #6741bf;
+}
+.tileT3 {
+  background: #ffe4ee;
+  color: #ad2a71;
 }
 
 /* 막대 = 채움(성취) + 눈금(목표) */
 .meter {
   position: relative;
-  height: 6px;
+  display: block;
+  height: 5px;
   border-radius: 3px;
   background: var(--m-g200);
 }
@@ -416,83 +430,15 @@
 }
 
 /* ── 팝업(우측 · 비모달 — 지도의 강조 경로가 보이게) ── */
-.popup {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 40;
-  display: flex;
-  flex-direction: column;
-  width: min(380px, 100vw);
-  height: 100dvh;
-  background: var(--m-bg);
-  border-left: 1px solid var(--m-line);
-  box-shadow: -8px 0 24px #0d0d170f;
-  color: var(--m-ink);
-  word-break: keep-all;
-}
-.popHead {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 16px 16px 12px 20px;
-  border-bottom: 1px solid var(--m-line);
-}
-.popTitle {
-  flex: 1;
-  min-width: 0;
-}
-.popKind {
-  font-size: 12px;
-  color: var(--m-ink2);
-}
-.popName {
-  margin: 2px 0 0;
-  font-size: 20px;
-  font-weight: 600;
-  line-height: 1.3;
-}
-.close {
-  flex: none;
-  width: 44px;
-  height: 44px;
-  border: 0;
-  background: none;
-  font-size: 20px;
-  color: var(--m-ink2);
-  cursor: pointer;
-  border-radius: 10px;
-}
-.close:hover {
-  background: var(--m-hover);
-}
-.popBody {
-  flex: 1;
-  overflow-y: auto;
-  padding: 4px 20px 32px;
-}
-.sec {
-  padding: 18px 0 4px;
-  border-bottom: 1px solid var(--m-line);
-}
-.sec:last-child {
-  border-bottom: 0;
-}
-.secTitle {
-  margin: 0 0 8px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--m-ink2);
-}
 .big {
-  font-size: 30px;
+  font-size: 26px;
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.02em;
 }
 .p {
-  margin: 6px 0 12px;
-  font-size: 13.5px;
+  margin: 6px 0 10px;
+  font-size: 12.5px;
   line-height: 1.65;
 }
 .muted {
@@ -510,9 +456,11 @@
 .tableWrap {
   max-height: 232px;
   overflow: auto;
-  margin: 8px 0 14px;
-  border: 1px solid var(--m-line);
+  margin: 8px 0 0;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
   border-radius: 10px;
+  scrollbar-width: thin;
 }
 .table {
   width: 100%;
@@ -538,8 +486,11 @@
 }
 .tasks {
   list-style: none;
-  margin: 8px 0 14px;
-  padding: 0;
+  margin: 0;
+  padding: 0 14px;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  border-radius: 10px;
 }
 .task {
   display: flex;
@@ -611,9 +562,12 @@
 }
 .list {
   list-style: none;
-  margin: 8px 0 14px;
-  padding: 0;
-  font-size: 13px;
+  margin: 0;
+  padding: 0 14px;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  border-radius: 10px;
+  font-size: 12.5px;
   line-height: 1.6;
 }
 .list li {
@@ -642,6 +596,178 @@
 .srcReview {
   background: var(--m-near-bg);
   color: var(--m-near-ink);
+}
+
+/* ── 팝업(가운데 모달 — 참조(3B 앱 Access map)의 모달 형태) ──
+ * 보이는 크기는 참조처럼 작게(알약 30px · 닫기 아이콘 16px) 두고, 클릭 영역만 투명하게 44px 로 늘린다(터치 타깃 규칙). */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #0d0d1729;
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: min(600px, 100%);
+  height: min(740px, calc(100dvh - 64px));
+  border-radius: 16px;
+  background: var(--m-bg);
+  box-shadow: 0 24px 64px #0d0d1730, 0 0 0 1px #0d0d170d;
+  color: var(--m-ink);
+  word-break: keep-all;
+}
+.modal :is(button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+.modalHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px 8px 14px;
+  border-bottom: 1px solid #0d0d170f;
+}
+.modalWho {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.tileHead {
+  width: 32px;
+  height: 32px;
+  background: #f4f2ef;
+}
+.modalTitle {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pillTabs {
+  display: flex;
+  gap: 0;
+}
+.pillTab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--m-ink2);
+  cursor: pointer;
+}
+.pillTabIn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.pillTab:hover .pillTabIn {
+  background: var(--m-hover);
+}
+.pillTabOn,
+.pillTab:hover .pillTabOn {
+  background: #f4f2ef;
+  color: var(--m-ink);
+  font-weight: 500;
+}
+.close {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--m-ink);
+  cursor: pointer;
+}
+.close:hover {
+  background: var(--m-hover);
+}
+.modalBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  padding: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--m-g400) transparent;
+}
+.card {
+  padding: 22px 28px 24px;
+  background: var(--m-canvas);
+  border: 1px solid #0d0d170d;
+  border-radius: 12px;
+}
+.cardTitle {
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.cardDesc {
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--m-ink2);
+}
+.cardBody {
+  margin-top: 14px;
+}
+.cardBody > :first-child {
+  margin-top: 0;
+}
+.cardBody > :last-child {
+  margin-bottom: 0;
+}
+.modalFoot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-top: 1px solid #0d0d170f;
+}
+.pillBtn {
+  position: relative;
+  height: 34px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--m-ink);
+  color: #fcf9f5;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+/* 보이는 크기는 34px · 클릭 영역은 44px */
+.pillBtn::after,
+.pillTab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -5px;
+  bottom: -5px;
 }
 
 @media (prefers-reduced-motion: reduce) {
