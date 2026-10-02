@@ -164,14 +164,40 @@ export function LearningMap({ data }: { data: MapPageData }) {
 
   return (
     <div className={s.root} data-testid="csat-learning-map">
-      <div className={s.head}>
-        <span className={s.title}>학습 지도</span>
-        <span className={s.sub}>
-          목표 {goal}점 · 기준 시험 {model.reference.exams.length}회{model.reference.shortfall > 0 ? ` (적격 시험 부족 — 원하는 ${model.reference.wanted}회)` : ''}
+      {/* 목표 설정 줄 — 참조의 도구 줄(검색 · 버튼) 자리 */}
+      <div className={s.toolbar}>
+        <div className={s.goalBar} role="group" aria-label="목표 점수 정하기">
+          <span className={s.goalBarLabel}>목표 점수</span>
+          <div className={s.presets}>
+            {settings.goal_presets.map((p) => (
+              <button key={p} type="button" className={`${s.chip} ${p === goal ? s.chipOn : ''}`} aria-pressed={p === goal} onClick={() => applyGoal(p)} disabled={pending}>
+                {p}
+              </button>
+            ))}
+          </div>
+          <form
+            className={s.goalForm}
+            onSubmit={(e) => {
+              e.preventDefault()
+              applyGoal(Number(draft))
+            }}
+          >
+            <label className={s.inputWrap} htmlFor="map-goal-input">
+              <span className={s.inputLabel}>직접 입력</span>
+              <input id="map-goal-input" className={s.input} inputMode="numeric" value={draft} onChange={(e) => setDraft(e.target.value)} />
+            </label>
+            <button type="submit" className={s.applyBtn} disabled={pending}>
+              적용
+            </button>
+          </form>
+          {goalErr && <span className={s.err} role="alert">{goalErr}</span>}
+        </div>
+        <span className={s.toolbarNote}>
+          기준 시험 {model.reference.exams.length}회{model.reference.shortfall > 0 ? ` (적격 시험 부족 — 원하는 ${model.reference.wanted}회)` : ''}
         </span>
       </div>
 
-      <div className={s.scroller}>
+      <div className={s.panel}>
         <div ref={stageRef} className={`${s.stage} ${path ? s.hasSel : ''}`}>
           <svg className={s.edges} width="100%" height="100%" aria-hidden="true">
             {drawn.map((e) => (
@@ -183,68 +209,53 @@ export function LearningMap({ data }: { data: MapPageData }) {
             ))}
           </svg>
 
-          <div className={s.cols}>
-            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 1 }}>최종 목표</div>
-            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 2 }}>영역</div>
-            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 3 }}>학습 라인</div>
-            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 4 }}>근거 원리</div>
-            <div className={s.colHead} style={{ gridRow: 1, gridColumn: 5 }}>접근 트랙</div>
+          <div className={s.heads} data-map-heads="">
+            {['최종 목표', '영역', '학습 라인', '근거 원리', '접근 트랙'].map((h) => (
+              <div key={h} className={s.colHead}>{h}</div>
+            ))}
+          </div>
 
+          <div className={s.cols} data-map-cols="">
             {/* 목표 · 원리 · 트랙은 스크롤을 따라와 긴 라인 열 옆에 계속 보인다 */}
-            <div className={s.sticky} style={{ gridRow: `2 / span ${byKind.lineGroups.length}`, gridColumn: 1 }}>
-              {byKind.goal && (
-                <div ref={register(byKind.goal.code)} className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''}`}>
-                  <button type="button" className={s.goalOpen} onClick={() => choose(byKind.goal.code)} aria-pressed={selected === byKind.goal.code}>
-                    <span className={s.goalLabel}>목표 점수</span>
-                    <span className={s.goalNum}>
-                      {goal}
-                      <small>점</small>
-                    </span>
-                    <span className={s.goalNow}>
-                      {model.currentScore !== null ? `현재 ${model.currentScore}점${gapScore !== null ? ` · ${gapScore}점 남았어요` : ' · 목표에 닿았어요'}` : '현재 점수 — 시험을 기록하면 보여요'}
-                    </span>
-                  </button>
-                  {goalNode && <Meter value={goalNode} />}
-                  <div className={s.presets} role="group" aria-label="목표 점수 고르기">
-                    {settings.goal_presets.map((p) => (
-                      <button key={p} type="button" className={`${s.chip} ${p === goal ? s.chipOn : ''}`} aria-pressed={p === goal} onClick={() => applyGoal(p)} disabled={pending}>
-                        {p}
-                      </button>
-                    ))}
-                  </div>
-                  <form
-                    className={s.goalForm}
-                    onSubmit={(e) => {
-                      e.preventDefault()
-                      applyGoal(Number(draft))
-                    }}
-                  >
-                    <label htmlFor="map-goal-input">직접 입력</label>
-                    <input id="map-goal-input" className={s.input} inputMode="numeric" value={draft} onChange={(e) => setDraft(e.target.value)} />
-                    <button type="submit" className={s.btn} disabled={pending}>
-                      적용
-                    </button>
-                  </form>
-                  {goalErr && <div className={s.err} role="alert">{goalErr}</div>}
-                </div>
+            <div className={s.sticky} style={{ gridRow: `1 / span ${byKind.lineGroups.length}`, gridColumn: 1 }}>
+              {byKind.goal && goalNode && (
+                <button
+                  ref={register(byKind.goal.code)}
+                  type="button"
+                  data-map-node={byKind.goal.code}
+                  className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''} ${path && !path.nodes.has(byKind.goal.code) ? s.nodeDim : ''}`}
+                  aria-pressed={selected === byKind.goal.code}
+                  aria-label={`목표 ${goal}점 — ${STATUS_LABEL[goalNode.status]}`}
+                  onClick={() => choose(byKind.goal.code)}
+                >
+                  <span className={s.goalLabel}>최종 목표</span>
+                  <span className={s.goalNum}>
+                    {goal}
+                    <small>점</small>
+                  </span>
+                  <span className={s.goalNow}>
+                    {model.currentScore !== null ? `현재 ${model.currentScore}점${gapScore !== null ? ` · ${gapScore}점 남음` : ' · 목표에 닿음'}` : '현재 점수 — 시험을 기록하면 보여요'}
+                  </span>
+                  <Meter value={goalNode} />
+                </button>
               )}
             </div>
 
             {/* 영역은 자기 라인 묶음의 가운데에 — 연결선이 한 점에서 부채꼴로 퍼지지 않게 */}
             {byKind.axes.map((n, gi) => (
-              <div key={n.code} className={s.axisCell} style={{ gridRow: gi + 2, gridColumn: 2 }}>
+              <div key={n.code} className={s.axisCell} style={{ gridRow: gi + 1, gridColumn: 2 }}>
                 <MapNode node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
               </div>
             ))}
             {byKind.lineGroups.map((group, gi) => (
-              <div key={gi} className={s.groupLines} style={{ gridRow: gi + 2, gridColumn: 3 }}>
+              <div key={gi} className={s.groupLines} style={{ gridRow: gi + 1, gridColumn: 3 }}>
                 {group.map((n) => (
                   <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
                 ))}
               </div>
             ))}
 
-            <div className={s.sticky} style={{ gridRow: `2 / span ${byKind.lineGroups.length}`, gridColumn: 4 }}>
+            <div className={s.sticky} style={{ gridRow: `1 / span ${byKind.lineGroups.length}`, gridColumn: 4 }}>
               {byKind.principles.map((n) => (
                 <MapNode
                   key={n.code}
@@ -255,13 +266,13 @@ export function LearningMap({ data }: { data: MapPageData }) {
                   register={register(n.code)}
                   onClick={() => choose(n.code)}
                   badge={(() => {
-                    const b = evidenceBadge(data.nodeSources[n.code], data.sources)
-                    return b === 'sourced' ? null : BADGE_LABEL[b]
+                    const bd = evidenceBadge(data.nodeSources[n.code], data.sources)
+                    return bd === 'sourced' ? null : BADGE_LABEL[bd]
                   })()}
                 />
               ))}
             </div>
-            <div className={s.sticky} style={{ gridRow: `2 / span ${byKind.lineGroups.length}`, gridColumn: 5 }}>
+            <div className={s.sticky} style={{ gridRow: `1 / span ${byKind.lineGroups.length}`, gridColumn: 5 }}>
               {byKind.tracks.map((n) => (
                 <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.code} />
               ))}
@@ -275,7 +286,6 @@ export function LearningMap({ data }: { data: MapPageData }) {
         <span className={s.legendItem}><i className={`${s.legendLine} ${s.legendDashed}`} />추론</span>
         <span className={s.legendItem}><i className={`${s.legendLine} ${s.legendDotted}`} />보류(출처 없음)</span>
         <span className={s.legendItem}>막대: 채움 = 지금 · 눈금 = 목표</span>
-        <span className={s.legendItem}>달성 · 근접 · 미달 · 판정 보류 · 진단 필요</span>
       </div>
 
       {selected && (
@@ -311,14 +321,14 @@ function meterLabel(v: NodeValue): string {
   return `${STATUS_LABEL[v.status]}${v.achieved !== null ? ` · 지금 ${pct(v.achieved)}` : ''}${v.target !== null ? ` · 목표 ${pct(v.target)}` : ''}`
 }
 
-/** 노드 보조 줄 — 상태(글자) + 지금 · 목표. 색은 막대가 보조한다 */
-function subline(value: NodeValue | undefined): string {
+/** 노드 보조 줄 — 상태(글자) + 지금. 목표 %는 이름 줄 오른쪽에, 막대의 눈금이 목표를 보인다 */
+function subline(value: NodeValue | undefined, badge?: string | null): string {
   if (!value) return ''
-  if (value.status === 'tasks_only') return value.tasks.total > 0 ? `과제 ${value.tasks.done}/${value.tasks.total}` : '과제 없음'
-  if (value.status === 'no_items') return value.note ?? '연결 문항 없음'
-  const now = value.achieved !== null ? ` ${pct(value.achieved)}` : ''
-  const goal = value.target !== null ? ` · 목표 ${pct(value.target)}` : ''
-  return `${STATUS_LABEL[value.status]}${now}${goal}`
+  let base: string
+  if (value.status === 'tasks_only') base = value.tasks.total > 0 ? `과제 ${value.tasks.done}/${value.tasks.total}` : '과제 없음'
+  else if (value.status === 'no_items') base = value.note ?? '연결 문항 없음'
+  else base = `${STATUS_LABEL[value.status]}${value.achieved !== null ? ` ${pct(value.achieved)}` : ''}`
+  return badge ? `${base} · ${badge}` : base
 }
 
 function MapNode({
@@ -347,23 +357,24 @@ function MapNode({
     <button
       ref={register}
       type="button"
+      data-map-node={node.code}
       className={`${s.node} ${selected ? s.nodeSel : ''} ${dim ? s.nodeDim : ''}`}
       aria-pressed={selected}
       aria-label={`${node.code} ${node.name}${value ? ` — ${STATUS_LABEL[value.status]}` : ''}`}
       onClick={onClick}
     >
-      <span className={s.nodeRow}>
-        <span className={`${s.tile} ${tileClass(node.kind, trackCode)}`} aria-hidden="true">
-          {node.code}
-        </span>
-        <span className={s.nodeText}>
-          <span className={s.name}>{node.name}</span>
-          <span className={`${s.sub} ${TONE_TEXT[tone]}`}>{subline(value)}</span>
-        </span>
+      <span className={`${s.tile} ${tileClass(node.kind, trackCode)}`} aria-hidden="true">
+        {node.code}
       </span>
-      {badge && <span className={s.badge}>{badge}</span>}
+      <span className={s.nodeText}>
+        <span className={s.nameRow}>
+          <span className={s.name}>{node.name}</span>
+          {value?.target !== null && value?.target !== undefined && <span className={s.tgt}>{pct(value.target)}</span>}
+        </span>
+        <span className={`${s.sub} ${TONE_TEXT[tone]}`}>{subline(value, badge)}</span>
+      </span>
       {showBar && value && (
-        <span className={s.meter} role="img" aria-label={meterLabel(value)}>
+        <span className={s.nodeBar} role="img" aria-label={meterLabel(value)}>
           {rate !== null && <span className={`${s.fill} ${FILL[tone]}`} style={{ width: `${Math.min(100, rate * 100)}%` }} />}
           {value.target !== null && <span className={s.tick} style={{ left: `${Math.min(100, value.target * 100)}%` }} />}
         </span>

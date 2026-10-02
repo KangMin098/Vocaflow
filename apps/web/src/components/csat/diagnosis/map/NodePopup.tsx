@@ -91,8 +91,8 @@ export function NodePopup({
 
   return (
     <div className={s.overlay} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={dialogRef} className={s.modal} role="dialog" aria-modal="true" aria-labelledby="map-popup-title">
-        <div className={s.modalHead}>
+      <div ref={dialogRef} className={s.modal} data-map-modal="" role="dialog" aria-modal="true" aria-labelledby="map-popup-title">
+        <div className={s.modalHead} data-map-modal-head="">
           <div className={s.modalWho}>
             <span className={`${s.tile} ${s.tileNeutral} ${s.tileHead}`} aria-hidden="true">
               {node.code === 'GOAL' ? '◎' : node.code}
@@ -300,7 +300,7 @@ export function NodePopup({
           )}
         </div>
 
-        <div className={s.modalFoot}>
+        <div className={s.modalFoot} data-map-modal-foot="">
           <button type="button" className={s.pillBtn} onClick={onClose}>
             닫기
           </button>
@@ -312,7 +312,7 @@ export function NodePopup({
 
 function Card({ title, desc, children }: { title: string; desc?: string; children: React.ReactNode }) {
   return (
-    <section className={s.card}>
+    <section className={s.card} data-map-card="">
       <div className={s.cardTitle}>{title}</div>
       {desc && <div className={s.cardDesc}>{desc}</div>}
       <div className={s.cardBody}>{children}</div>

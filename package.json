@@ -15,6 +15,8 @@
     "prepare": "node scripts/setup-git-hooks.mjs",
     "sync:memory": "node scripts/sync-export-memory.mjs --refresh-context",
     "docs:db-stats": "node scripts/docs/gen-db-stats.mjs",
+    "design:ref-measure": "node scripts/design/ref-measure.mjs",
+    "design:ref-compare": "node --env-file=apps/web/.env.local scripts/design/ref-compare.mjs",
     "docs:db-stats:check": "node scripts/docs/gen-db-stats.mjs --check",
     "csat:atlas": "node scripts/csat/build-trap-atlas.mjs --write",
     "csat:atlas:check": "node scripts/csat/build-trap-atlas.mjs --check",

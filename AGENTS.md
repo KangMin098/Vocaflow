@@ -168,5 +168,6 @@ Admin Console: `/admin/*`(route group 미사용) · 액센트 = `--p` + `ShieldC
 - 시계를 직접 읽는 코드·테스트 — `Date.now()` · `new Date()` 를 로직 안에서 부르면 고정 날짜 픽스처가 시간이 지나며 **저절로** 떨어진다(`feed-discovery` 2026-09-19). 시각은 주입(`now` 인자·deps)하고, 테스트는 고정 시각을 넘기거나 `vi.useFakeTimers()`+`setSystemTime`.
 - 규칙이 정당한 코드를 걸면 코드가 아니라 **규칙을 고친다**(「루프 애니메이션 금지」가 로더 20곳을 걸었다).
 - node 가 Supabase 에 TLS 로 못 붙으면 `node --tls-max-v1.2`.
+- **참조 화면을 「느낌」으로 맞추기** — 크기·간격은 참조 캡처를 `pnpm design:ref-measure` 로 재서 `docs/design/refs/3b/access-map/spec.json` 에 두고 CSS 변수로만 쓴다(`geometry.test.ts` 가 지킨다). 완료 보고에는 `pnpm design:ref-compare` 표를 붙인다 — 표 없이 「참조와 같다」고 쓰지 않는다(2026-10-03 학습 지도에서 세 번 어긋났다). 절차 [README](./docs/design/refs/3b/access-map/README.md).
 - 구조적 결함을 보고만 하고 넘기기 — 그 작업 안에서 영향 측정 → 오탐 확인 → 가드까지 만든다.
 - **일화를 근거로 다음 작업을 권고하기** — 사례 두셋을 보고 "이렇게 하면 크게 준다/살아난다" 고 적으면 재 볼 때마다 틀렸다(2026-09-23 한 세션에서 셋: 하베스트 사전 필터 18.9% · 꼭지 분할 472→100편 · 「본문 중복」 실측 1편). **권고 전에 전량에 대 보고, 자동 분류는 표본을 눈으로 본다**(정확도 지표만 보면 `(MUSIC)` 처럼 조각 수가 많아 그럴듯한 오분류를 못 잡는다).

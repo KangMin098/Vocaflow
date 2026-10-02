@@ -7,6 +7,23 @@
  */
 
 .root {
+  /* ── 측정 명세(참조 3B Access map, 2094px 폭 캡처 · scripts/design/ref-measure.mjs) — 고치려면 spec.json 부터 ── */
+  --g-node-w: 206px;
+  --g-node-h: 46px;
+  --g-pitch: 272px;
+  --g-row-gap: 14px;
+  --g-pad-x: 26px;
+  --g-head-h: 49px;
+  --g-first-y: 25px;
+  /* 팝업(참조 모달) — spec.json 의 modal */
+  --p-w: 680px;
+  --p-h: 760px;
+  --p-head: 56px;
+  --p-foot: 56px;
+  --p-side: 17px;
+  --p-gap: 18px;
+  --p-card-px: 31px;
+  --p-card-py: 26px;
   --m-bg: #fff;
   --m-canvas: #fbf9f7;
   --m-ink: #0d0d17;
@@ -43,69 +60,8 @@
 }
 
 /* ── 상단 줄 ── */
-.head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px 16px;
-  padding: 16px 20px 0;
-}
-.title {
-  font-size: 15px;
-  font-weight: 600;
-}
-.sub {
-  font-size: 12.5px;
-  color: var(--m-ink2);
-}
 
 /* ── 지도 ── */
-.scroller {
-  overflow-x: auto;
-  padding: 12px 20px 28px;
-}
-.stage {
-  position: relative;
-  min-width: 820px;
-}
-.cols {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: minmax(150px, 1.3fr) minmax(120px, 1fr) minmax(140px, 1.1fr) minmax(140px, 1.1fr) minmax(120px, 1fr);
-  column-gap: 32px;
-  row-gap: 10px;
-  align-items: start;
-}
-.sticky {
-  position: sticky;
-  top: 12px;
-  align-self: start;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.axisCell {
-  align-self: center;
-}
-.groupLines {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.colHead {
-  font-size: 12px;
-  color: var(--m-ink2);
-  padding: 0 2px 8px;
-}
-.col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.gap {
-  height: 10px;
-}
 .edges {
   position: absolute;
   inset: 0;
@@ -115,9 +71,9 @@
 }
 .edge {
   fill: none;
-  stroke: #e6e3df;
+  stroke: #ebe8e4;
   stroke-width: 1;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 .edgeInferred {
   stroke-dasharray: 5 5;
@@ -136,60 +92,6 @@
 }
 
 /* ── 노드 ── */
-.node {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  width: 100%;
-  min-height: 44px;
-  padding: 8px 10px 9px;
-  text-align: left;
-  background: var(--m-bg);
-  border: 1px solid #0d0d1712;
-  border-radius: 10px;
-  cursor: pointer;
-  font: inherit;
-  color: inherit;
-}
-.node:hover {
-  background: var(--m-hover);
-}
-.nodeSel {
-  border-color: var(--m-ink);
-  box-shadow: 0 0 0 1px var(--m-ink);
-}
-.nodeDim {
-  opacity: 0.35;
-}
-.nodeRow {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  min-width: 0;
-}
-.nodeText {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-}
-.name {
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.sub {
-  font-size: 11px;
-  line-height: 1.35;
-  color: var(--m-ink2);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 /* 아이콘 타일 — 참조의 노드 아이콘. 라인은 접근 트랙 색, 나머지는 중립 */
 .tile {
   display: grid;
@@ -220,13 +122,6 @@
 }
 
 /* 막대 = 채움(성취) + 눈금(목표) */
-.meter {
-  position: relative;
-  display: block;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--m-g200);
-}
 .fill {
   position: absolute;
   left: 0;
@@ -272,146 +167,14 @@
 .sShort {
   color: var(--m-short-ink);
 }
-.badge {
-  align-self: flex-start;
-  padding: 0 6px;
-  border: 1px dotted var(--m-g600);
-  border-radius: 6px;
-  font-size: 10.5px;
-  color: var(--m-ink2);
-}
 
 /* ── 목표 노드 ── */
-.goal {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 14px;
-  background: var(--m-bg);
-  border: 1px solid var(--m-line);
-  border-radius: 14px;
-  box-shadow: var(--m-elev);
-}
-.goalSel {
-  border-color: var(--m-ink);
-  box-shadow: 0 0 0 1px var(--m-ink), var(--m-elev);
-}
-.goalOpen {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-height: 44px;
-  padding: 0;
-  text-align: left;
-  background: none;
-  border: 0;
-  font: inherit;
-  color: inherit;
-  cursor: pointer;
-}
-.goalLabel {
-  font-size: 12px;
-  color: var(--m-ink2);
-}
-.goalNum {
-  font-size: 44px;
-  line-height: 1;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-}
-.goalNum small {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--m-ink2);
-  margin-left: 2px;
-}
-.goalNow {
-  font-size: 13px;
-  color: var(--m-ink2);
-}
-.presets {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-.chip {
-  min-height: 44px;
-  min-width: 44px;
-  padding: 0 12px;
-  border: 1px solid var(--m-line);
-  border-radius: 999px;
-  background: var(--m-bg);
-  font: inherit;
-  font-size: 13px;
-  font-variant-numeric: tabular-nums;
-  color: inherit;
-  cursor: pointer;
-}
-.chip:hover {
-  background: var(--m-hover);
-}
-.chipOn {
-  background: var(--m-ink);
-  border-color: var(--m-ink);
-  color: #fcf9f5;
-}
-.goalForm {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-.goalForm label {
-  white-space: nowrap;
-  font-size: 12px;
-  color: var(--m-ink2);
-}
-.input {
-  width: 72px;
-  min-height: 44px;
-  padding: 0 10px;
-  border: 1px solid var(--m-line);
-  border-radius: 10px;
-  font: inherit;
-  font-variant-numeric: tabular-nums;
-  background: var(--m-bg);
-  color: inherit;
-}
-.btn {
-  min-height: 44px;
-  padding: 0 14px;
-  border: 1px solid var(--m-ink);
-  border-radius: 10px;
-  background: var(--m-ink);
-  color: #fcf9f5;
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-}
-.btn:disabled {
-  opacity: 0.45;
-  cursor: default;
-}
-.btnGhost {
-  background: var(--m-bg);
-  color: var(--m-ink);
-  border-color: var(--m-line);
-}
 .err {
   font-size: 12px;
   color: var(--m-short-ink);
 }
 
 /* ── 범례 ── */
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  padding: 0 20px 16px;
-  font-size: 12px;
-  color: var(--m-ink2);
-}
 .legendItem {
   display: inline-flex;
   align-items: center;
@@ -613,8 +376,8 @@
 .modal {
   display: flex;
   flex-direction: column;
-  width: min(600px, 100%);
-  height: min(740px, calc(100dvh - 64px));
+  width: min(var(--p-w), 100%);
+  height: min(var(--p-h), calc(100dvh - 64px));
   border-radius: 16px;
   background: var(--m-bg);
   box-shadow: 0 24px 64px #0d0d1730, 0 0 0 1px #0d0d170d;
@@ -630,7 +393,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 10px 8px 14px;
+  height: var(--p-head);
+  flex: none;
+  padding: 0 10px 0 16px;
   border-bottom: 1px solid #0d0d170f;
 }
 .modalWho {
@@ -707,14 +472,15 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--p-gap);
   overflow-y: auto;
-  padding: 16px;
+  padding: var(--p-gap) var(--p-side);
   scrollbar-width: thin;
   scrollbar-color: var(--m-g400) transparent;
 }
 .card {
-  padding: 22px 28px 24px;
+  flex: none;
+  padding: var(--p-card-py) var(--p-card-px);
   background: var(--m-canvas);
   border: 1px solid #0d0d170d;
   border-radius: 12px;
@@ -743,7 +509,9 @@
   justify-content: flex-end;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  height: var(--p-foot);
+  flex: none;
+  padding: 0 16px;
   border-top: 1px solid #0d0d170f;
 }
 .pillBtn {
@@ -774,4 +542,304 @@
   .root * {
     transition: none !important;
   }
+}
+
+/* ── 지도 판 · 고정 기하(참조 측정값) ── */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 10px 14px 10px;
+}
+.goalBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+}
+.goalBarLabel {
+  font-size: 12px;
+  font-weight: 500;
+}
+.toolbarNote {
+  font-size: 12px;
+  color: var(--m-ink2);
+}
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+/* 보이는 크기 30px · 클릭 영역 44px */
+.chip {
+  position: relative;
+  height: 30px;
+  min-width: 34px;
+  margin: 7px 2px;
+  padding: 0 12px;
+  border: 1px solid #0d0d1714;
+  border-radius: 999px;
+  background: var(--m-bg);
+  font: inherit;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+  cursor: pointer;
+}
+.chip::after,
+.applyBtn::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: -7px;
+  bottom: -7px;
+}
+.chip:hover {
+  background: var(--m-hover);
+}
+.chipOn {
+  background: var(--m-ink);
+  border-color: var(--m-ink);
+  color: #fcf9f5;
+}
+.goalForm {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.inputWrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  cursor: text;
+}
+.inputLabel {
+  font-size: 12px;
+  color: var(--m-ink2);
+  white-space: nowrap;
+}
+.input {
+  width: 64px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid #0d0d1714;
+  border-radius: 8px;
+  background: var(--m-bg);
+  font: inherit;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: inherit;
+}
+.applyBtn {
+  position: relative;
+  height: 30px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--m-ink);
+  color: #fcf9f5;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.applyBtn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.panel {
+  margin: 0 14px;
+  overflow-x: auto;
+  background: var(--m-canvas);
+  border: 1px solid #e2e1e0;
+  border-radius: 10px;
+}
+.stage {
+  position: relative;
+  width: max-content;
+  min-width: 100%;
+}
+.heads {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, var(--g-node-w));
+  column-gap: calc(var(--g-pitch) - var(--g-node-w));
+  align-items: center;
+  height: var(--g-head-h);
+  padding: 0 var(--g-pad-x);
+  border-bottom: 1px solid #eeeceb;
+}
+.colHead {
+  padding-left: 7px;
+  font-size: 12px;
+  color: var(--m-ink2);
+}
+.cols {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(5, var(--g-node-w));
+  column-gap: calc(var(--g-pitch) - var(--g-node-w));
+  row-gap: calc(var(--g-row-gap) * 2);
+  align-items: start;
+  padding: var(--g-first-y) var(--g-pad-x) 28px;
+}
+.sticky {
+  position: sticky;
+  top: 12px;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-row-gap);
+}
+.axisCell {
+  align-self: center;
+}
+.groupLines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--g-row-gap);
+}
+
+/* 노드 — 206×46 고정(참조 측정). 타일 · 이름 · 보조 줄 · 하단 막대 */
+.node {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: var(--g-node-w);
+  height: var(--g-node-h);
+  padding: 0 8px;
+  overflow: hidden;
+  text-align: left;
+  background: var(--m-bg);
+  border: 1px solid #e8e6e3;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.node:hover {
+  background: var(--m-hover);
+}
+.nodeSel {
+  border-color: var(--m-ink);
+  box-shadow: 0 0 0 1px var(--m-ink);
+}
+.nodeDim {
+  opacity: 0.35;
+}
+.nodeText {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding-bottom: 2px;
+}
+.nameRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+}
+.name {
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tgt {
+  flex: none;
+  font-size: 10.5px;
+  color: var(--m-ink2);
+  font-variant-numeric: tabular-nums;
+}
+.sub {
+  font-size: 10.5px;
+  line-height: 1.3;
+  color: var(--m-ink2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.nodeBar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--m-g200);
+}
+.nodeBar .tick {
+  top: -4px;
+  bottom: auto;
+  height: 11px;
+}
+
+/* 목표 노드 — 같은 206px 폭, 높이만 크게(큰 숫자 · 현재 점수) */
+.goal {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: var(--g-node-w);
+  padding: 12px 12px 14px;
+  text-align: left;
+  background: var(--m-bg);
+  border: 1px solid #e8e6e3;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.goalSel {
+  border-color: var(--m-ink);
+  box-shadow: 0 0 0 1px var(--m-ink);
+}
+.goalLabel {
+  font-size: 11px;
+  color: var(--m-ink2);
+}
+.goalNum {
+  font-size: 34px;
+  line-height: 1.1;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.goalNum small {
+  margin-left: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--m-ink2);
+}
+.goalNow {
+  margin-bottom: 4px;
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--m-ink2);
+}
+.meter {
+  position: relative;
+  display: block;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--m-g200);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 12px 18px 16px;
+  font-size: 11.5px;
+  color: var(--m-ink2);
 }
