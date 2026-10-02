@@ -231,7 +231,7 @@ for (const f of files) {
   // 실측 2026-09-28 학평 드레인: 4문항 이상 청크 42개 중 40개가 이 모양이었다(「1차 반려(revise)…」
   // 까지 12문항에 똑같이 찍혀 있었다). 평가원 드레인 81청크는 0건 — 정상 검수는 여기 안 걸린다.
   {
-    const A = (j.analyses ?? []).filter((a) => a.item_id)
+    const A = (j.analyses ?? []).filter((a) => a.item_id && winner.get(a.item_id) === f)
     if (A.length >= 4) {
       for (const persona of ['setter', 'analyst', 'tutor']) {
         const seen = new Map()

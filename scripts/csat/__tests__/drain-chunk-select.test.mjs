@@ -15,6 +15,7 @@ import { exportAnswerHash } from '../lib-units-db.mjs'
 
 const IMPORT = fileURLToPath(new URL('../analysis-drain-import.mjs', import.meta.url))
 const EXPORT = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.url))
+const VALIDATE = fileURLToPath(new URL('../analysis-drain-validate.mjs', import.meta.url))
 
 const PASSAGE =
   'People often assume that memory works like a recorder. In fact, each recall rebuilds the event from fragments, and every rebuilding can change it slightly.'
@@ -217,6 +218,27 @@ for (const revise of [false, true]) test(`partial export recovery satisfies full
     await new Promise((resolve) => server.close(resolve))
     fs.rmSync(dir, { recursive: true, force: true })
   }
+})
+
+test('superseded template reviews do not block independently corrected selected results', async () => {
+  const { dir, work } = setup()
+  try {
+    const ids = [18, 19, 20, 21].map((no) => `H2603G3#${no}`)
+    fs.writeFileSync(path.join(dir, 'scripts/csat/data/corpus-hakpyeong.json'), JSON.stringify({ items: ids.map(item) }))
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyses: ids.map(goodAnalysis) }))
+    const input = { items: ids.map((id) => ({ ...item(id), item_id: id, units: UNITS, units_hash: HASH, units_version: 1, input_hash: 'x', answer_hash: ANSWER_HASH })) }
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.json'), JSON.stringify(input))
+    fs.writeFileSync(path.join(work, 'chunk-redo-new.json'), JSON.stringify({ ...input, supersedes: ['chunk-revise-test.out.json'] }))
+    fs.writeFileSync(path.join(work, 'chunk-redo-new.out.json'), JSON.stringify({ analyses: ids.map((id, i) => {
+      const a = goodAnalysis(id)
+      for (const r of a.reviews) r.findings = [`${r.persona} evidence ${['alpha', 'beta', 'gamma', 'delta'][i]}`]
+      return a
+    }) }))
+    const old = await runImport(dir, 'http://127.0.0.1:1', ['--strict', '--chunk', 'revise-test'], VALIDATE)
+    assert.notEqual(old.code, 0, 'template reviews must still fail when they are the selected current results')
+    const r = await runImport(dir, 'http://127.0.0.1:1', ['--strict', '--chunk', 'revise-test,redo-new'], VALIDATE)
+    assert.equal(r.code, 0, r.output)
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
 })
 
 test('a selected latest result missing analyst_run never falls back to an unvalidated older analysis', async () => {
