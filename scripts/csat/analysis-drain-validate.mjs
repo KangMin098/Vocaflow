@@ -15,8 +15,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { CORPUS_FILE, WORK_DIR } from './lib-drain-set.mjs'
-import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
+import { analysisWinners, chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
 import { checkUnitRefs } from './lib-evidence-units.mjs'
 
 const arg = (n, d = null) => {
@@ -196,18 +196,7 @@ const warns = []
 //
 // 판정 대상은 **실제로 적재될 것**이어야 한다. 그렇지 않으면 게이트는 아무도 안 쓸 글을 막는다.
 // `--chunk`로 골랐을 때도 선택한 파일 안에서만 접는다 — 적재기와 같은 마지막 결과를 검사한다.
-const winner = new Map()
-{
-  for (const f of files) {
-    let j
-    try {
-      j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
-    } catch {
-      continue
-    }
-    for (const a of j.analyses ?? []) if (a.item_id) winner.set(a.item_id, f)
-  }
-}
+const winner = analysisWinners(WORK, files)
 const superseded = []
 
 for (const f of files) {
@@ -271,6 +260,8 @@ for (const f of files) {
     if (!it) { bad(id, '코퍼스에 없는 item_id'); continue }
 
     // V1 필수 서술
+    const analystRun = a.analyst_run ?? j.analyst_run
+    if (SET === 'hakpyeong' && (!analystRun || String(analystRun).length < 8)) bad(id, 'analyst_run 없음(학평은 필수)')
     for (const k of ['measured_ability', 'design_intent']) {
       if (!a[k] || String(a[k]).trim().length < 20) bad(id, `${k} 가 비었거나 20자 미만`)
     }

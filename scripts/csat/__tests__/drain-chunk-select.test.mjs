@@ -170,7 +170,7 @@ async function withServer(fn, currentAnswer = { answer: 3, answers: null }) {
   try { return await fn(`http://127.0.0.1:${server.address().port}`, reqs) } finally { server.close() }
 }
 
-test('partial export recovery satisfies full import without hiding an unselected missing item', async () => {
+for (const revise of [false, true]) test(`partial export recovery satisfies full import: ${revise ? 'failed revise output' : 'missing output'}`, async () => {
   const { dir, work } = setup()
   const ids = ['H2603G3#18', 'H2603G3#19']
   const rows = ids.map((id) => ({ ...item(id), type_id: 'R-TOPIC', in_scope: true, year: 2026, month: 3, stem: null, answers: null }))
@@ -192,6 +192,11 @@ test('partial export recovery satisfies full import without hiding an unselected
     const inputPath = path.join(work, 'chunk-revise-test.json')
     const original = JSON.stringify({ items: rows.map((it) => ({ ...it, item_id: it.id, units: UNITS, units_hash: HASH, units_version: 1, input_hash: 'x', answer_hash: ANSWER_HASH })) })
     fs.writeFileSync(inputPath, original)
+    if (revise) {
+      const failed = goodAnalysis(ids[1])
+      failed.reviews[0].verdict = 'revise'
+      fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyses: [goodAnalysis(ids[0]), failed] }))
+    }
     const url = `http://127.0.0.1:${server.address().port}`
     const exported = await runImport(dir, url, ['--limit', '1'], EXPORT)
     assert.equal(exported.code, 0, exported.output)
@@ -212,6 +217,28 @@ test('partial export recovery satisfies full import without hiding an unselected
     await new Promise((resolve) => server.close(resolve))
     fs.rmSync(dir, { recursive: true, force: true })
   }
+})
+
+test('a selected latest result missing analyst_run never falls back to an unvalidated older analysis', async () => {
+  const { dir, work } = setup()
+  try {
+    const latest = goodAnalysis('H2603G3#18')
+    delete latest.analyst_run
+    const older = goodAnalysis('H2603G3#18')
+    older.answer_locus.quote = 'fabricated evidence that never appears in this passage'
+    fs.writeFileSync(path.join(work, 'chunk-revise-test.out.json'), JSON.stringify({ analyses: [older] }))
+    fs.copyFileSync(path.join(work, 'chunk-revise-test.json'), path.join(work, 'chunk-zz.json'))
+    fs.writeFileSync(path.join(work, 'chunk-zz.out.json'), JSON.stringify({ analyses: [latest] }))
+    await withServer(async (url, reqs) => {
+      const r = await runImport(dir, url, ['--chunk', 'revise-test,zz', '--commit'])
+      assert.notEqual(r.code, 0, r.output)
+      assert.match(r.output, /analyst_run/)
+      assert.equal(reqs.length, 0)
+      const preview = await runImport(dir, url, ['--chunk', 'revise-test,zz'])
+      assert.match(preview.output, /적재 대상 문항\(0\)/)
+      assert.equal(reqs.length, 0)
+    })
+  } finally { fs.rmSync(dir, { recursive: true, force: true }) }
 })
 
 for (const [reason, currentAnswer] of [

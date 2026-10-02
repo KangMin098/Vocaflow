@@ -24,7 +24,7 @@ import { execFileSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
-import { chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
+import { analysisWinners, chunkArgs, DrainSelectError, selectOutFiles } from './lib-drain-select.mjs'
 import { loadCurrentAnswerHashes, loadCurrentUnits } from './lib-units-db.mjs'
 
 const COMMIT = process.argv.includes('--commit')
@@ -83,6 +83,7 @@ const skipped = []
 // 빌려 올 수 있다(Codex 리뷰 P2) — 중복 제거가 객체를 고르므로 해시도 객체에 매단다
 const exportHashOf = new Map()
 const exportAnswerHashOf = new Map()
+const winner = analysisWinners(WORK, files)
 for (const f of files) {
   const j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
   const inFile = path.join(WORK, f.replace(/\.out\.json$/, '.json'))
@@ -94,6 +95,7 @@ for (const f of files) {
     if (it.answer_hash) fileAnswerHash.set(id, it.answer_hash)
   }
   for (const a of j.analyses ?? []) {
+    if (a.item_id && winner.get(a.item_id) !== f) continue
     // 빈 값·짧은 값은 넣지 않는다. 넣으면 다음 export 가 "완료" 로 세어 구멍이 영영 남는다.
     if (!a.item_id) { skipped.push(`${f}: item_id 없음`); continue }
     if (!a.measured_ability || a.measured_ability.length < 20) { skipped.push(`${a.item_id}: measured_ability 부실`); continue }

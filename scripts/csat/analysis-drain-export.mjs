@@ -28,6 +28,7 @@ import path from 'node:path'
 import { itemBlocks, setBlockFor } from './lib-passage.mjs'
 import { CORPUS_FILE, SET, WORK_DIR } from './lib-drain-set.mjs'
 import { exportAnswerHash, loadVerifiedExportUnits, unitsForAgent } from './lib-units-db.mjs'
+import { analysisWinners } from './lib-drain-select.mjs'
 
 // ── 학평: 근거 단위 목록(DB csat_item_units)을 청크에 싣는다 ─────────────
 // 분석자가 지문 문장을 스스로 세지 않게 한다 — 검수자와 같은 번호를 보게 하는 것이 목적이다
@@ -96,8 +97,11 @@ console.log(`  집합 ${SET} · 원장 ${path.basename(CORPUS_FILE)}`)
 // out 파일에 있고 **검수 3인이 서로 다른 페르소나로 붙어 있는 것**만 완료로 센다.
 // 분석만 있고 검수가 비면 완료가 아니다 — 여기서 느슨하게 세면 구멍이 영영 남는다.
 const done = new Set()
+const outputIds = new Map()
 let partial = 0
-for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json'))) {
+const outputFiles = fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json')).sort()
+const outputWinner = analysisWinners(WORK, outputFiles)
+for (const f of outputFiles) {
   let j
   try {
     j = JSON.parse(fs.readFileSync(path.join(WORK, f), 'utf8'))
@@ -106,6 +110,11 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.endsWith('.out.json'))) {
     continue
   }
   for (const a of j.analyses ?? []) {
+    if (a.item_id) {
+      if (!outputIds.has(a.item_id)) outputIds.set(a.item_id, new Set())
+      outputIds.get(a.item_id).add(f)
+    }
+    if (a.item_id && outputWinner.get(a.item_id) !== f) continue
     const personas = new Set((a.reviews ?? []).filter((r) => r.verdict === 'pass').map((r) => r.persona))
     if (a.item_id && personas.size >= 3) done.add(a.item_id)
     else if (a.item_id) partial += 1
@@ -309,6 +318,7 @@ outer: for (const [typeId, arr] of types) {
       // 게이트는 코퍼스를 건초더미로 쓰므로, 둘이 다르면 **코퍼스가 정본**이다.
       corpus_built_at: corpus.report?.built_at ?? null,
       exported_at: new Date().toISOString(),
+      supersedes: [...new Set(slice.flatMap((it) => [...(outputIds.get(it.id) ?? [])]))],
       type_id: typeId,
       type_name: slice[0].type_name,
       count: slice.length,
