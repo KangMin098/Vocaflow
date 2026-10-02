@@ -3,7 +3,7 @@
 // 학습 지도 시드 — source/learning-map.json + source/sources.json → csat_map_seed(jsonb) RPC 한 번(원자적 · 재실행 안전).
 //
 //   node scripts/csat/map/seed.mjs             # 기본 = dry-run: 페이로드 개수 · 보류 현황만 출력(DB 접속 없음)
-//   node --tls-max-v1.2 scripts/csat/map/seed.mjs --commit   # 적용(마이그레이션 20261002120000 이 먼저 적용돼 있어야 한다)
+//   node --tls-max-v1.2 scripts/csat/map/seed.mjs --commit   # 적용(마이그레이션 20261002120000 · 20261002130000 이 먼저 적용돼 있어야 한다)
 //
 // 입력에 없는 것은 넣지 않는다: 연결선별 출처(edge_sources) · 듣기·유형 번호표(B 라인) · 오답률은 승인 뒤 별도 파일로.
 // 출처 0건 연결선은 DB 트리거가 pending 으로 저장한다 — 이 스크립트는 그 수를 미리 보여 준다.
@@ -50,6 +50,13 @@ export function readingTypeLinks(table = read('reading-types-approved.json')) {
   return Object.entries(table.lines).flatMap(([line, v]) => v.types.map((ref) => ({ line, kind: 'type', ref })))
 }
 
+/** EBSi 오답률 관측 원장(extract-ebsi-rates.mjs 산출) — 없으면 빈 배열 */
+export function readItemRates() {
+  const file = path.join(DIR, 'item-rates-ebsi.json')
+  if (!fs.existsSync(file)) return []
+  return JSON.parse(fs.readFileSync(file, 'utf8')).rows
+}
+
 export function buildPayload(rawMap = read('learning-map.json'), src = read('sources.json'), overrides = read('overrides.json'), listening = read('listening-approved.json'), reading = read('reading-types-approved.json')) {
   const map = applyOverrides(rawMap, overrides)
   const nodes = [
@@ -83,7 +90,7 @@ export function buildPayload(rawMap = read('learning-map.json'), src = read('sou
     edge_sources: [],
     tasks,
     line_links,
-    item_rates: [],
+    item_rates: readItemRates(),
     settings: SETTINGS,
   }
 }
@@ -108,6 +115,7 @@ async function main() {
   console.log(`노드 ${p.nodes.length} · 연결선 ${p.edges.length} · 과제 ${p.tasks.length} · 출처 ${p.sources.length} · 라인 연결 ${p.line_links.length}`)
   for (const [k, v] of Object.entries(s.byKind)) console.log(`  연결선 ${k}: 보류 ${v.pending} / 전체 ${v.total}`)
   console.log(`  원리 근거 보류: ${s.principlesPending.join(' · ')} (${s.principlesPending.length}/8)`)
+  console.log(`  오답률 관측(EBSi TOP15): ${p.item_rates.length}행 · ${new Set(p.item_rates.map((r) => r.exam)).size}회 — DB 에 없는 회차는 --commit 때 건너뛴다`)
   if (!process.argv.includes('--commit')) {
     console.log('dry-run — DB 에 쓰지 않았다. 적용은 --commit.')
     return
@@ -128,6 +136,18 @@ async function main() {
   if (!url || !key) throw new Error('SUPABASE_URL / SERVICE_ROLE_KEY 가 필요하다')
   console.log(`대상 DB: ${new URL(url).host}`)
   const db = createClient(url, key, { auth: { persistSession: false } })
+  // 오답률 관측 원장 컬럼(마이그레이션 20261002130000)이 있어야 한다 — 없으면 옛 시드 함수가 metric · 수집일 · 순위를 조용히 버린다
+  if (p.item_rates.length > 0) {
+    const probe = await db.from('csat_map_item_rate').select('metric, retrieved_at, rank, unreported_choice_rate').limit(1)
+    if (probe.error) throw new Error(`오답률 원장 컬럼이 없다(마이그레이션 20261002130000 필요) — 적재 중단: ${probe.error.message}`)
+  }
+  // 오답률은 DB 에 있는 회차만 — 없는 회차는 외래키 위반으로 시드 전체가 롤백되므로 미리 걸러 수를 보인다
+  const { data: examRows, error: examErr } = await db.from('csat_exams').select('id')
+  if (examErr) throw new Error(`회차 조회 실패: ${examErr.message}`)
+  const known = new Set(examRows.map((e) => e.id))
+  const dropped = [...new Set(p.item_rates.filter((r) => !known.has(r.exam)).map((r) => r.exam))]
+  p.item_rates = p.item_rates.filter((r) => known.has(r.exam))
+  if (dropped.length > 0) console.log(`  DB 에 없는 회차 ${dropped.length}회 건너뜀: ${dropped.join(' · ')}`)
   const { data, error } = await db.rpc('csat_map_seed', { p })
   if (error) throw new Error(`시드 실패(전체 롤백됨): ${error.message}`)
   console.log('적용 결과:', JSON.stringify(data))
