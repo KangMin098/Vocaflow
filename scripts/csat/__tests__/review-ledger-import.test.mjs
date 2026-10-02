@@ -64,6 +64,16 @@ for (const [label, metrics, followups, location] of [
   })
 }
 
+test('ledger-import skips note-only annotation lines but still rejects a batch line missing its name', async () => {
+  const note = { date: '2026-09-29', note: '비용 해석 주의 — 주석 줄' }
+  const ok = await run([note, batch].map(JSON.stringify).join('\n'), JSON.stringify(followup))
+  assert.equal(ok.code, 0, ok.output)
+  assert.equal(ok.requests.filter((q) => q.method === 'POST')[0].body.length, 1, 'the annotation must not become a batch row')
+  const bad = await run(JSON.stringify({ ...batch, batch: undefined }), JSON.stringify(followup))
+  assert.notEqual(bad.code, 0)
+  assert.match(bad.output, /_metrics\.jsonl:1/)
+})
+
 test('ledger-import reports physical line numbers including blank lines', async () => {
   const r = await run(`\n${JSON.stringify(batch)}\n\n{`, '')
   assert.notEqual(r.code, 0)
