@@ -1,14 +1,14 @@
 // apps/web/src/components/csat/diagnosis/map/NodePopup.tsx
 //
-// 학습 지도 팝업 — 노드를 누르면 하나만 열린다. 참조(3B 앱)의 모달 형태: 가운데 모달 · 헤더(아이콘 타일 · 이름 · 알약 탭 · 닫기) ·
-// 옅은 바탕의 둥근 카드 · 하단 검은 알약 버튼. 탭 넷 = 섹션 넷:
-//   목표(목표율 · 계산 근거 문항) · 달성(성취율 · 근거 데이터 수) · 현 상태(차이 · 과제 순서 · 완료 체크) · 근거(출처 · 근거 유형)
+// 학습 지도 팝업 — 노드를 누르면 하나만 열린다. 참조(3B 앱)의 팝업 패턴으로 구성한다(부품: PopupParts · 패턴 표: popup-patterns.md):
+//   머리(타일 · 이름 · 알약 탭 · 닫기) · 배너(경로 보기) · 카드 · 검색창 · 목록 박스(타일 + 두 줄 + 칩) · 바닥 알약 버튼.
+//   탭 넷 = 섹션 넷: 목표(목표율 · 계산 근거 문항) · 달성(성취율 · 근거 데이터) · 현 상태(차이 · 과제 · 완료 체크) · 근거(출처 · 연결선)
 // 같은 정보를 두 곳에 두지 않는다 — 지도의 노드는 막대와 상태만, 근거 문장과 과제는 여기에만.
 
 'use client'
 
-import { BookOpenCheck, Gauge, ListChecks, Target, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { BookOpen, BookOpenCheck, CalendarDays, FileText, Gauge, Link2, ListChecks, Network, Sprout, Target, X } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
 
 import type { MapPageData } from '@/lib/csat/map/load'
 
@@ -16,6 +16,8 @@ import { useModalFocus } from '../useModalFocus'
 
 import { BASIS_LABEL, EDGE_KIND_LABEL, KIND_LABEL, STATUS_LABEL, pct, shortExam, toneOf } from './format'
 import s from './map.module.css'
+import p from './popup.module.css'
+import { Banner, BigMeter, Card, Chip, Empty, ListBox, ListRow, SearchBox, type ChipTone } from './PopupParts'
 
 type TabKey = 'goal' | 'reached' | 'now' | 'basis'
 
@@ -27,12 +29,14 @@ const TABS: { key: TabKey; label: string; Icon: typeof Target }[] = [
 ]
 
 const TONE_TEXT = { met: s.sMet, near: s.sNear, short: s.sShort, muted: '' } as const
+const statusChipTone = (t: ReturnType<typeof toneOf>): ChipTone => (t === 'met' ? 'good' : t === 'near' ? 'warn' : t === 'short' ? 'bad' : 'neutral')
 
 /** 노드 종류별 아이콘 타일 색 — 라인은 접근 트랙 색, 나머지는 중립 */
 export function tileClass(kind: string, trackCode: string | null | undefined): string {
   if (kind === 'track' || kind === 'line') return trackCode === 'T1' ? s.tileT1 : trackCode === 'T2' ? s.tileT2 : trackCode === 'T3' ? s.tileT3 : s.tileNeutral
   return s.tileNeutral
 }
+const rowTone = (track: string | null | undefined) => (track === 'T1' ? 'sky' : track === 'T2' ? 'purple' : track === 'T3' ? 'pink' : 'neutral') as 'sky' | 'purple' | 'pink' | 'neutral'
 
 export function NodePopup({
   data,
@@ -41,6 +45,7 @@ export function NodePopup({
   taskError,
   onToggle,
   onClose,
+  onShowPath,
   onOpenNode,
 }: {
   data: MapPageData
@@ -48,18 +53,25 @@ export function NodePopup({
   done: ReadonlySet<string>
   taskError: string | null
   onToggle: (taskId: string, next: boolean) => void
+  /** 팝업만 닫는다(선택 · 경로 강조는 유지) */
   onClose: () => void
+  /** 팝업을 닫고 지도에서 경로를 본다 */
+  onShowPath: () => void
   onOpenNode: (code: string) => void
 }) {
   const dialogRef = useModalFocus<HTMLDivElement>()
   const [tab, setTab] = useState<TabKey>('goal')
+  const [qMust, setQMust] = useState('')
+  const [qSrc, setQSrc] = useState('')
   const model = data.model
   const node = data.nodes.find((n) => n.code === code)
   const value = model.nodes[code]
 
-  // 다른 노드로 옮겨 가면 첫 탭부터
+  // 다른 노드로 옮겨 가면 첫 탭 · 빈 검색부터
   useEffect(() => {
     setTab('goal')
+    setQMust('')
+    setQSrc('')
   }, [code])
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -69,6 +81,7 @@ export function NodePopup({
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
+  const examLabel = useMemo(() => new Map(model.reference.exams.map((e) => [e.id, e.label])), [model.reference.exams])
   if (!node || !value) return null
   const nameOf = (c: string) => data.nodes.find((n) => n.code === c)?.name ?? c
   const srcById = new Map(data.sources.map((x) => [x.id, x]))
@@ -78,8 +91,20 @@ export function NodePopup({
   const gap = hasTarget && value.achieved !== null ? value.target! - value.achieved : null
   const lineTasks = data.tasks.filter((t) => t.line_code === code)
   const edges = data.edges.filter((e) => e.from_code === code || e.to_code === code)
-  const edgeCounts = edges.reduce<Record<string, number>>((acc, e) => ({ ...acc, [e.basis]: (acc[e.basis] ?? 0) + 1 }), {})
   const trackName = node.track ? nameOf(node.track) : null
+
+  // 기준 시험별 「반드시」 문항 요약(라인) — 시험 행의 보조 줄
+  const byExam = new Map<string, { n: number; pts: number }>()
+  for (const i of value.mustItems) {
+    const cur = byExam.get(i.examId) ?? { n: 0, pts: 0 }
+    byExam.set(i.examId, { n: cur.n + 1, pts: cur.pts + i.points })
+  }
+
+  const mustRows = value.mustItems.filter((i) => {
+    if (!qMust.trim()) return true
+    const label = shortExam(examLabel.get(i.examId) ?? i.examId)
+    return `${label} ${i.no}`.includes(qMust.trim())
+  })
 
   // 집계 노드: 먼저 볼 라인 — 목표까지 격차가 큰 순
   const childLines = isLine ? [] : data.nodes.filter((n) => n.kind === 'line' && linesOfNode(data, node.code).includes(n.code))
@@ -89,79 +114,108 @@ export function NodePopup({
     .sort((a, b) => b.v.target! - b.v.achieved! - (a.v.target! - a.v.achieved!))
     .slice(0, 4)
 
+  const q = qSrc.trim()
+  const edgesShown = edges.filter((e) => !q || `${e.from_code} ${nameOf(e.from_code)} ${e.to_code} ${nameOf(e.to_code)} ${BASIS_LABEL[e.basis]}`.includes(q))
+  const nodeSrcIds = data.nodeSources[code] ?? []
+  const srcShown = nodeSrcIds.map((id) => srcById.get(id)).filter((x): x is MapPageData['sources'][number] => Boolean(x)).filter((x) => !q || `${x.citation} ${x.supports}`.includes(q))
+
   return (
-    <div className={s.overlay} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={dialogRef} className={s.modal} data-map-modal="" role="dialog" aria-modal="true" aria-labelledby="map-popup-title">
-        <div className={s.modalHead} data-map-modal-head="">
-          <div className={s.modalWho}>
-            <span className={`${s.tile} ${s.tileNeutral} ${s.tileHead}`} aria-hidden="true">
-              {node.code === 'GOAL' ? '◎' : node.code}
-            </span>
-            <h2 id="map-popup-title" className={s.modalTitle}>{node.name}</h2>
+    <div className={p.overlay} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
+      <div ref={dialogRef} className={p.modal} data-map-modal="" role="dialog" aria-modal="true" aria-labelledby="map-popup-title">
+        <div className={p.head} data-map-modal-head="">
+          <div className={p.who}>
+            <span className={p.headTile} aria-hidden="true">{node.code === 'GOAL' ? '◎' : node.code}</span>
+            <h2 id="map-popup-title" className={p.title}>{node.name}</h2>
           </div>
-          <div className={s.pillTabs} role="tablist" aria-label="팝업 구역">
+          <div className={p.tabs} role="tablist" aria-label="팝업 구역">
             {TABS.map(({ key, label, Icon }) => (
-              <button key={key} type="button" role="tab" aria-selected={tab === key} className={s.pillTab} onClick={() => setTab(key)}>
-                <span className={`${s.pillTabIn} ${tab === key ? s.pillTabOn : ''}`}>
+              <button key={key} type="button" role="tab" aria-selected={tab === key} className={p.tab} onClick={() => setTab(key)}>
+                <span className={`${p.tabIn} ${tab === key ? p.tabOn : ''}`}>
                   <Icon size={14} strokeWidth={1.8} aria-hidden="true" />
                   {label}
                 </span>
               </button>
             ))}
           </div>
-          <button type="button" className={s.close} onClick={onClose} aria-label="팝업 닫기">
+          <button type="button" className={p.close} onClick={onClose} aria-label="팝업 닫기">
             <X size={16} aria-hidden="true" />
           </button>
         </div>
 
-        <div className={s.modalBody} role="tabpanel">
+        <div className={p.body} role="tabpanel">
           {tab === 'goal' && (
             <>
-              <Card
-                title="목표율"
-                desc={`${KIND_LABEL[node.kind]}${trackName ? ` · ${trackName}` : ''} — ${isLine ? '반드시 맞혀야 하는 문항의 배점 비율이에요.' : '연결된 라인의 배점 가중 평균이에요.'}`}
-              >
+              <Banner
+                title="지도에서 경로 보기"
+                desc={`${KIND_LABEL[node.kind]}${trackName ? ` · ${trackName}` : ''} — 이 노드와 이어진 영역 · 라인 · 원리 · 트랙을 지도에서 한눈에 봐요.`}
+                actionLabel="경로 보기"
+                actionIcon={<Network size={14} strokeWidth={1.8} aria-hidden="true" />}
+                onAction={onShowPath}
+              />
+              <Card title="목표율" desc={isLine ? '반드시 맞혀야 하는 문항의 배점 비율이에요.' : '연결된 라인의 배점 가중 평균이에요.'}>
                 {hasTarget ? (
-                  <div className={s.big}>{pct(value.target)}</div>
+                  <div className={p.bigRow}>
+                    <span className={p.big}>{pct(value.target)}</span>
+                    <Chip>목표 {model.goal}점 기준</Chip>
+                    <Chip>기준 시험 {model.reference.exams.length}회</Chip>
+                    {model.reference.shortfall > 0 && <Chip tone="warn">적격 시험 부족 · 원하는 {model.reference.wanted}회</Chip>}
+                  </div>
                 ) : (
-                  <p className={`${s.p} ${s.muted}`}>{value.status === 'tasks_only' ? '문항과 연결되지 않아 목표율 대신 과제 완료율로 봐요.' : value.note ?? '연결 문항이 없어요.'}</p>
+                  <Empty>{value.status === 'tasks_only' ? '문항과 연결되지 않아 목표율 대신 과제 완료율로 봐요.' : (value.note ?? '연결 문항이 없어요.')}</Empty>
                 )}
-                {hasTarget && (
-                  <p className={s.p}>
-                    목표 {model.goal}점 · 기준 시험 {model.reference.exams.length}회
-                    {model.reference.shortfall > 0 ? ` (원하는 ${model.reference.wanted}회 중 적격 시험이 모자라요)` : ''}
-                  </p>
-                )}
-              </Card>
-              <Card title="기준 시험" desc="정답표가 완전한 평가원 시험 중 최근 순이에요.">
-                <p className={s.p}>{model.reference.exams.map((e) => shortExam(e.label)).join(' · ') || '없음'}</p>
-                {model.reference.skipped.length > 0 && <p className={`${s.p} ${s.muted}`}>정답표가 완전하지 않아 건너뜀: {model.reference.skipped.map(shortExam).join(' · ')}</p>}
               </Card>
               {model.goal < 100 && (
-                <div className={s.warn}>
+                <div className={p.warn}>
                   놓쳐도 되는 문항은 <strong>EBSi 응답자 집계</strong>의 오답률(시험별 상위 15문항)로 정해요 — 평가원 공식 오답률이 아니에요.
                   {model.missingRate > 0 && model.mayOverstate ? ' 오답률이 없는 문항은 모두 반드시로 계산해서 목표율이 실제보다 높을 수 있어요.' : ''}
                 </div>
               )}
+              <Card title="기준 시험" desc="정답표가 완전한 평가원 시험 중 최근 순이에요.">
+                {model.reference.exams.length === 0 ? (
+                  <Empty>기준 시험이 없어요.</Empty>
+                ) : (
+                  <ListBox>
+                    {model.reference.exams.map((e) => {
+                      const sum = byExam.get(e.id)
+                      return (
+                        <ListRow
+                          key={e.id}
+                          tile={<CalendarDays size={16} strokeWidth={1.8} />}
+                          title={shortExam(e.label)}
+                          sub={isLine ? (sum ? `반드시 ${sum.n}문항 · ${sum.pts}점` : '연결된 문항 없음') : e.label}
+                          right={<Chip>{e.label.includes('수능') ? '수능' : '모의평가'}</Chip>}
+                        />
+                      )
+                    })}
+                  </ListBox>
+                )}
+                {model.reference.skipped.length > 0 && <p className={`${p.p} ${p.muted}`}>정답표가 완전하지 않아 건너뜀: {model.reference.skipped.map(shortExam).join(' · ')}</p>}
+              </Card>
               {isLine && value.mustItems.length > 0 && (
                 <Card title={`반드시 맞혀야 하는 문항 ${value.mustItems.length}개`} desc="목표율 계산에 들어간 문항이에요.">
-                  <div className={s.tableWrap}>
-                    <table className={s.table}>
-                      <thead>
-                        <tr><th>시험</th><th>번호</th><th>배점</th><th>오답률</th></tr>
-                      </thead>
-                      <tbody>
-                        {value.mustItems.map((i) => (
-                          <tr key={`${i.examId}#${i.no}`}>
-                            <td>{shortExam(model.reference.exams.find((e) => e.id === i.examId)?.label ?? i.examId)}</td>
-                            <td>{i.no}</td>
-                            <td>{i.points}점</td>
-                            <td>{i.errorRate === null ? '미관측' : pct(i.errorRate)}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
+                  <SearchBox value={qMust} onChange={setQMust} placeholder="시험 · 번호로 찾기…" label="반드시 맞혀야 하는 문항 찾기" />
+                  <ListBox head={['시험 · 번호', '배점 · 오답률']}>
+                    <div className={p.scroll}>
+                      {mustRows.length === 0 ? (
+                        <Empty>찾는 문항이 없어요.</Empty>
+                      ) : (
+                        mustRows.map((i) => (
+                          <ListRow
+                            key={`${i.examId}#${i.no}`}
+                            tile={i.no}
+                            title={shortExam(examLabel.get(i.examId) ?? i.examId)}
+                            sub={`${i.no}번`}
+                            right={
+                              <>
+                                <Chip>{i.points}점</Chip>
+                                <Chip tone={i.errorRate !== null && i.errorRate >= 0.5 ? 'warn' : 'neutral'}>{i.errorRate === null ? '미관측' : pct(i.errorRate)}</Chip>
+                              </>
+                            }
+                          />
+                        ))
+                      )}
+                    </div>
+                  </ListBox>
                 </Card>
               )}
             </>
@@ -170,26 +224,34 @@ export function NodePopup({
           {tab === 'reached' && (
             <>
               <Card title="현재 성취율" desc="최신 진단 기록 기준이에요.">
-                <div className={`${s.big} ${TONE_TEXT[tone]}`}>{value.achieved !== null ? pct(value.achieved) : '—'}</div>
-                <p className={s.p}>
-                  <strong className={TONE_TEXT[tone]}>{STATUS_LABEL[value.status]}</strong>
-                  {value.note && value.note !== STATUS_LABEL[value.status] ? ` · ${value.note}` : ''}
-                  {value.coverage !== null && value.coverage < 1 && value.status !== 'no_items' ? ` · 진단된 라인 ${Math.round(value.coverage * 100)}%` : ''}
-                </p>
+                <div className={p.bigRow}>
+                  <span className={`${p.big} ${TONE_TEXT[tone]}`}>{value.achieved !== null ? pct(value.achieved) : '—'}</span>
+                  <Chip tone={statusChipTone(tone)}>{STATUS_LABEL[value.status]}</Chip>
+                  {value.note && value.note !== STATUS_LABEL[value.status] && <Chip>{value.note}</Chip>}
+                  {value.coverage !== null && value.coverage < 1 && value.status !== 'no_items' && <Chip tone="warn">진단된 라인 {Math.round(value.coverage * 100)}%</Chip>}
+                </div>
+                {(value.achieved !== null || hasTarget) && <BigMeter rate={value.achieved} target={value.target} tone={tone} />}
+                {hasTarget && <p className={`${p.p} ${p.muted}`}>눈금이 목표 {pct(value.target)} 예요.</p>}
               </Card>
               <Card title="근거 데이터" desc="이 값이 얼마나 쌓인 기록에서 나왔는지예요.">
-                <p className={s.p}>{value.n !== null ? `${isLine ? '관측' : '관측 합계(중복 포함)'} ${value.n}건` : '관측 건수 없음'}</p>
-                {model.evidence && <p className={`${s.p} ${s.muted}`}>기록 전체 기준: 시험 {model.evidence.examSessions}회 · 응답 {model.evidence.responses}개</p>}
+                <ListBox>
+                  <ListRow tile={<Gauge size={16} strokeWidth={1.8} />} title="관측 건수" sub={isLine ? '이 지표에 실제로 들어간 응답' : '연결 라인 관측 건수의 합(중복 포함)'} right={<Chip>{value.n !== null ? `${value.n}건` : '없음'}</Chip>} />
+                  {model.evidence && <ListRow tile={<FileText size={16} strokeWidth={1.8} />} title="기록 전체" sub="노드별 시험 수는 저장하지 않아요" right={<Chip>시험 {model.evidence.examSessions}회 · 응답 {model.evidence.responses}개</Chip>} />}
+                  {value.coverage !== null && <ListRow tile={<ListChecks size={16} strokeWidth={1.8} />} title="진단 범위" sub="진단된 라인의 배점 비율" right={<Chip>{Math.round(value.coverage * 100)}%</Chip>} />}
+                </ListBox>
               </Card>
-              <Card title="추세" desc="진단이 쌓이면 보여요.">
-                <p className={`${s.p} ${s.muted}`}>지도 지표를 담은 진단이 둘 이상일 때 변화를 보여 줘요.</p>
+              <Card title="추세" desc="진단이 쌓이면 보여요." right={<Chip>준비 중</Chip>}>
+                <p className={`${p.p} ${p.muted}`}>지도 지표를 담은 진단이 둘 이상일 때 변화를 보여 줘요.</p>
               </Card>
               {value.tasks.total > 0 && (
                 <Card title="과제 완료" desc="이 노드에 연결된 과제예요.">
-                  <p className={s.p}>
-                    {value.tasks.done} / {value.tasks.total}
-                    {value.tasks.rate !== null ? ` (${pct(value.tasks.rate)})` : ''}
-                  </p>
+                  <div className={p.bigRow}>
+                    <span className={p.big}>
+                      {value.tasks.done}/{value.tasks.total}
+                    </span>
+                    {value.tasks.rate !== null && <Chip tone={value.tasks.rate >= 1 ? 'good' : 'neutral'}>{pct(value.tasks.rate)}</Chip>}
+                  </div>
+                  <BigMeter rate={value.tasks.rate} target={null} tone="muted" />
                 </Card>
               )}
             </>
@@ -199,64 +261,84 @@ export function NodePopup({
             <>
               <Card title="목표와의 차이" desc="목표율 눈금과 지금 성취율의 차이예요.">
                 {gap !== null ? (
-                  <p className={s.p}>
-                    {gap > 1e-9 ? `목표까지 ${Math.round(gap * 100)}%p 남았어요${value.status === 'hold' ? ' (추정 — 진단 안 된 라인이 있어요)' : ''}.` : '목표에 닿았어요.'}
-                  </p>
+                  <div className={p.bigRow}>
+                    <span className={p.big}>{gap > 1e-9 ? `${Math.round(gap * 100)}%p` : '0%p'}</span>
+                    <Chip tone={gap > 1e-9 ? statusChipTone(tone) : 'good'}>{gap > 1e-9 ? '목표까지' : '목표에 닿았어요'}</Chip>
+                    {value.status === 'hold' && <Chip tone="warn">추정 — 진단 안 된 라인이 있어요</Chip>}
+                  </div>
                 ) : (
-                  <p className={`${s.p} ${s.muted}`}>{hasTarget ? '진단이 쌓이면 목표와의 차이를 보여 줘요.' : '목표와의 차이는 문항에 연결된 라인에서만 보여요.'}</p>
+                  <Empty>{hasTarget ? '진단이 쌓이면 목표와의 차이를 보여 줘요.' : '목표와의 차이는 문항에 연결된 라인에서만 보여요.'}</Empty>
                 )}
                 {isLine && value.habit !== null && (
-                  <p className={s.p}>
-                    습관 신호: <strong>{value.habit === 'active' ? '신호 있음' : value.habit === 'resolved' ? '해소됨' : '판단 불가'}</strong>
-                    {value.habitBasis ? ` (관측 ${value.habitBasis.n} / 필요 ${value.habitBasis.need})` : ''}
+                  <p className={p.p}>
+                    습관 신호{' '}
+                    <Chip tone={value.habit === 'active' ? 'bad' : value.habit === 'resolved' ? 'good' : 'neutral'}>
+                      {value.habit === 'active' ? '신호 있음' : value.habit === 'resolved' ? '해소됨' : '판단 불가'}
+                    </Chip>
+                    {value.habitBasis ? ` 관측 ${value.habitBasis.n} / 필요 ${value.habitBasis.need}` : ''}
                     {value.habit === 'unknown' ? ' — 지금 근거로는 신호가 없다고 확정할 수 없어요.' : ''}
                   </p>
                 )}
               </Card>
               {isLine ? (
                 lineTasks.length > 0 && (
-                  <Card title="차이를 줄이는 과제" desc="순서대로 하나씩 — 끝낸 것은 체크해요.">
-                    <ol className={s.tasks}>
+                  <Card title="차이를 줄이는 과제" desc="순서대로 하나씩 — 끝낸 것은 체크해요." right={<Chip>{value.tasks.done}/{value.tasks.total} 완료</Chip>}>
+                    <ListBox>
                       {lineTasks.map((t) => {
                         const checked = done.has(t.id)
                         return (
-                          <li key={t.id} className={`${s.task} ${checked ? s.taskDone : ''}`}>
-                            <label className={s.taskBox}>
-                              <input type="checkbox" checked={checked} onChange={(e) => onToggle(t.id, e.target.checked)} aria-label={`${t.title} 완료`} />
-                            </label>
-                            <div>
-                              <div className={s.taskTitle}>
-                                {t.ord}. {t.title}
-                                <span className={t.material === 'past' ? s.matPast : s.matCore}>{t.material === 'past' ? '기출' : '본질'}</span>
-                              </div>
-                              <div className={s.taskMeta}>{t.how}</div>
-                              <div className={s.taskMeta}>
-                                {t.cadence} · 완료 기준: {t.done_when}
-                                {t.method_line ? ` · 방법: ${nameOf(t.method_line)}` : ''}
-                              </div>
-                            </div>
-                          </li>
+                          <div key={t.id} className={checked ? p.rowDone : ''}>
+                            <ListRow
+                              leading={
+                                <label className={p.check}>
+                                  <input type="checkbox" checked={checked} onChange={(e) => onToggle(t.id, e.target.checked)} aria-label={`${t.title} 완료`} />
+                                </label>
+                              }
+                              tile={t.material === 'past' ? <FileText size={16} strokeWidth={1.8} /> : <Sprout size={16} strokeWidth={1.8} />}
+                              tileTone={t.material === 'past' ? 'sky' : 'pink'}
+                              title={`${t.ord}. ${t.title}`}
+                              sub={
+                                <>
+                                  {t.how}
+                                  <br />
+                                  완료 기준: {t.done_when}
+                                  {t.method_line ? ` · 방법: ${nameOf(t.method_line)}` : ''}
+                                </>
+                              }
+                              right={
+                                <>
+                                  <Chip>{t.cadence}</Chip>
+                                  <Chip tone={t.material === 'past' ? 'neutral' : 'warn'}>{t.material === 'past' ? '기출' : '본질'}</Chip>
+                                </>
+                              }
+                            />
+                          </div>
                         )
                       })}
-                    </ol>
-                    {taskError && <div className={s.err} role="alert">{taskError}</div>}
+                    </ListBox>
+                    {taskError && <div className={p.err} role="alert">{taskError}</div>}
                   </Card>
                 )
               ) : (
-                focus.length > 0 && (
-                  <Card title="먼저 볼 라인" desc="목표까지 격차가 큰 순이에요.">
-                    <ul className={s.list}>
+                <Card title="먼저 볼 라인" desc="목표까지 격차가 큰 순이에요.">
+                  {focus.length === 0 ? (
+                    <Empty>진단이 쌓이면 먼저 볼 라인을 골라 줘요.</Empty>
+                  ) : (
+                    <ListBox>
                       {focus.map(({ l, v }) => (
-                        <li key={l.code}>
-                          <button type="button" className={s.linkBtn} onClick={() => onOpenNode(l.code)}>
-                            {l.code} {l.name}
-                          </button>
-                          <span className={s.muted}> · 목표 {pct(v.target)} · 지금 {pct(v.achieved)}</span>
-                        </li>
+                        <ListRow
+                          key={l.code}
+                          tile={l.code}
+                          tileTone={rowTone(l.track)}
+                          title={l.name}
+                          sub={`목표 ${pct(v.target)} · 지금 ${pct(v.achieved)}`}
+                          right={<Chip tone="bad">{Math.round((v.target! - v.achieved!) * 100)}%p</Chip>}
+                          onClick={() => onOpenNode(l.code)}
+                        />
                       ))}
-                    </ul>
-                  </Card>
-                )
+                    </ListBox>
+                  )}
+                </Card>
               )}
             </>
           )}
@@ -265,68 +347,59 @@ export function NodePopup({
             <>
               {(isLine ? node.why : node.summary) && (
                 <Card title={isLine ? '왜 이렇게 분류했나' : '설명'}>
-                  <p className={s.p}>{(isLine ? node.why : node.summary)!.split('\n').map((l, i) => <span key={i}>{l}<br /></span>)}</p>
-                  {isLine && node.signal && <p className={`${s.p} ${s.muted}`}>진단에서 보는 지표: {node.signal}</p>}
+                  <p className={p.p}>{(isLine ? node.why : node.summary)!.split('\n').map((l, i) => <span key={i}>{l}<br /></span>)}</p>
+                  {isLine && node.signal && <p className={`${p.p} ${p.muted}`}>진단에서 보는 지표: {node.signal}</p>}
                 </Card>
               )}
-              <Card title="이 노드의 출처" desc="출처가 없으면 보류로 둬요.">
-                {(data.nodeSources[code] ?? []).length === 0 ? (
-                  <p className={`${s.p} ${s.muted}`}>출처가 없어 <strong>보류</strong>로 두었어요.</p>
+              <Card title="출처와 연결선" desc="출처가 없으면 보류로 둬요. 연결선도 출처가 있어야 직접 근거 · 추론이 돼요.">
+                <SearchBox value={qSrc} onChange={setQSrc} placeholder="출처 · 연결선 찾기…" label="출처와 연결선 찾기" />
+                <div className={p.cardTitle} style={{ margin: '4px 0 8px' }}>이 노드의 출처 {nodeSrcIds.length}</div>
+                {nodeSrcIds.length === 0 ? (
+                  <Empty>출처가 없어 <strong>보류</strong>로 두었어요.</Empty>
+                ) : srcShown.length === 0 ? (
+                  <Empty>찾는 출처가 없어요.</Empty>
                 ) : (
-                  <ul className={s.list}>
-                    {(data.nodeSources[code] ?? []).map((id) => {
-                      const src = srcById.get(id)
-                      return src ? <SourceRow key={id} src={src} /> : null
-                    })}
-                  </ul>
+                  <ListBox>
+                    {srcShown.map((x) => (
+                      <ListRow key={x.id} tile={<BookOpen size={16} strokeWidth={1.8} />} tileTone="teal" title={x.citation} sub={x.supports} right={<Chip tone={x.status === 'verified' ? 'good' : 'warn'}>{x.status === 'verified' ? '확인됨' : '검토 필요'}</Chip>} />
+                    ))}
+                  </ListBox>
                 )}
-              </Card>
-              <Card title={`연결선 ${edges.length}개`} desc={(['direct', 'inferred', 'pending'] as const).map((b) => `${BASIS_LABEL[b]} ${edgeCounts[b] ?? 0}`).join(' · ')}>
-                <ul className={s.list}>
-                  {edges.slice(0, 8).map((e) => {
-                    const ids = data.edgeSources[e.id] ?? []
-                    return (
-                      <li key={e.id}>
-                        {e.from_code} {nameOf(e.from_code)} → {e.to_code} {nameOf(e.to_code)}
-                        <span className={s.muted}> · {EDGE_KIND_LABEL[e.kind]} · {BASIS_LABEL[e.basis]}</span>
-                        {ids.length > 0 ? <div className={s.src}>{ids.map((id) => srcById.get(id)?.citation ?? id).join(' / ')}</div> : <div className={`${s.src} ${s.muted}`}>출처 없음 — 보류</div>}
-                      </li>
-                    )
-                  })}
-                </ul>
-                {edges.length > 8 && <p className={`${s.p} ${s.muted}`}>그 밖 {edges.length - 8}개는 같은 방식이에요.</p>}
+                <div className={p.cardTitle} style={{ margin: '16px 0 8px' }}>
+                  연결선 {edges.length} · {(['direct', 'inferred', 'pending'] as const).map((b) => `${BASIS_LABEL[b]} ${edges.filter((e) => e.basis === b).length}`).join(' · ')}
+                </div>
+                {edgesShown.length === 0 ? (
+                  <Empty>찾는 연결선이 없어요.</Empty>
+                ) : (
+                  <ListBox>
+                    <div className={p.scroll}>
+                      {edgesShown.map((e) => {
+                        const ids = data.edgeSources[e.id] ?? []
+                        return (
+                          <ListRow
+                            key={e.id}
+                            tile={<Link2 size={16} strokeWidth={1.8} />}
+                            title={`${e.from_code} ${nameOf(e.from_code)} → ${e.to_code} ${nameOf(e.to_code)}`}
+                            sub={`${EDGE_KIND_LABEL[e.kind]} · ${ids.length > 0 ? ids.map((id) => srcById.get(id)?.citation ?? id).join(' / ') : '출처 없음 — 보류'}`}
+                            right={<Chip tone={e.basis === 'direct' ? 'good' : e.basis === 'inferred' ? 'warn' : 'neutral'}>{BASIS_LABEL[e.basis]}</Chip>}
+                          />
+                        )
+                      })}
+                    </div>
+                  </ListBox>
+                )}
               </Card>
             </>
           )}
         </div>
 
-        <div className={s.modalFoot} data-map-modal-foot="">
-          <button type="button" className={s.pillBtn} onClick={onClose}>
+        <div className={p.foot} data-map-modal-foot="">
+          <button type="button" className={p.pillBtn} onClick={onClose}>
             닫기
           </button>
         </div>
       </div>
     </div>
-  )
-}
-
-function Card({ title, desc, children }: { title: string; desc?: string; children: React.ReactNode }) {
-  return (
-    <section className={s.card} data-map-card="">
-      <div className={s.cardTitle}>{title}</div>
-      {desc && <div className={s.cardDesc}>{desc}</div>}
-      <div className={s.cardBody}>{children}</div>
-    </section>
-  )
-}
-
-function SourceRow({ src }: { src: MapPageData['sources'][number] }) {
-  return (
-    <li>
-      <span className={`${s.srcStatus} ${src.status === 'verified' ? s.srcOk : s.srcReview}`}>{src.status === 'verified' ? '확인됨' : '검토 필요'}</span>
-      <span className={s.src}>{src.citation}</span>
-      <div className={`${s.src} ${s.muted}`}>{src.supports}</div>
-    </li>
   )
 }
 

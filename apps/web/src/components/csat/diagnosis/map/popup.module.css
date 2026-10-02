@@ -1,0 +1,501 @@
+/* apps/web/src/components/csat/diagnosis/map/popup.module.css
+ *
+ * 학습 지도 팝업 — 참조(3B 앱)의 모달 패턴. 크기 변수(--p-*)와 색 토큰(--m-*)은 map.module.css 의 .root 에 있고
+ * 팝업은 그 안에 렌더돼 상속받는다(geometry.test.ts 가 --p-* 를 spec.json 과 대조한다).
+ * 보이는 크기는 참조처럼 작게, 클릭 영역만 투명하게 44px 로 늘린다(터치 타깃 규칙). 한글은 keep-all.
+ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #0d0d1729;
+}
+.modal {
+  display: flex;
+  flex-direction: column;
+  width: min(var(--p-w), 100%);
+  height: min(var(--p-h), calc(100dvh - 64px));
+  border-radius: 16px;
+  background: var(--m-bg);
+  box-shadow: 0 24px 64px #0d0d1730, 0 0 0 1px #0d0d170d;
+  color: var(--m-ink);
+  word-break: keep-all;
+}
+.modal :is(button, input, [tabindex]):focus-visible {
+  outline: 2px solid var(--m-ink);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ── 머리 ── */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--p-head);
+  flex: none;
+  padding: 0 10px 0 16px;
+  border-bottom: 1px solid #0d0d170f;
+}
+.who {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.headTile {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f4f2ef;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tabs {
+  display: flex;
+}
+.tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 2px;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--m-ink2);
+  cursor: pointer;
+}
+.tabIn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.tab:hover .tabIn {
+  background: var(--m-hover);
+}
+.tabOn,
+.tab:hover .tabOn {
+  background: #f4f2ef;
+  color: var(--m-ink);
+  font-weight: 500;
+}
+.close {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--m-ink);
+  cursor: pointer;
+}
+.close:hover {
+  background: var(--m-hover);
+}
+
+/* ── 본문 · 바닥 ── */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--p-gap);
+  overflow-y: auto;
+  padding: var(--p-gap) var(--p-side);
+  scrollbar-width: thin;
+  scrollbar-color: var(--m-g400) transparent;
+}
+.foot {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  height: var(--p-foot);
+  flex: none;
+  padding: 0 16px;
+  border-top: 1px solid #0d0d170f;
+}
+.pillBtn,
+.whitePill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.pillBtn {
+  background: var(--m-ink);
+  color: #fcf9f5;
+}
+.whitePill {
+  background: var(--m-bg);
+  color: var(--m-ink);
+  box-shadow: 0 0 0 1px #0d0d1714;
+}
+.whitePill:hover {
+  background: var(--m-hover);
+}
+/* 보이는 크기는 34px · 클릭 영역은 44px */
+.pillBtn::after,
+.whitePill::after,
+.tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -5px;
+  bottom: -5px;
+}
+
+/* ── 카드 · 배너 ── */
+.card {
+  flex: none;
+  padding: var(--p-card-py) var(--p-card-px);
+  background: var(--m-canvas);
+  border: 1px solid #0d0d170d;
+  border-radius: 12px;
+}
+.cardHead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.cardTitle {
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.cardDesc {
+  margin-top: 2px;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--m-ink2);
+}
+.cardBody {
+  margin-top: 14px;
+}
+.cardBody > :first-child {
+  margin-top: 0;
+}
+.cardBody > :last-child {
+  margin-bottom: 0;
+}
+.banner {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 82px;
+  padding: 0 28px;
+  overflow: hidden;
+  background: var(--m-canvas);
+  border: 1px solid #0d0d170d;
+  border-radius: 12px;
+}
+.bannerText {
+  position: relative;
+  max-width: 300px;
+}
+.banner .whitePill {
+  position: relative;
+  flex: none;
+}
+.bannerArt {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ── 검색창 · 목록 박스 ── */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 48px;
+  padding: 0 16px;
+  margin-bottom: 12px;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  border-radius: 10px;
+  color: var(--m-ink2);
+  cursor: text;
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: none;
+  font: inherit;
+  font-size: 12.5px;
+  color: var(--m-ink);
+}
+.search input::placeholder {
+  color: #9a98a3;
+}
+.search:focus-within {
+  border-color: var(--m-ink);
+}
+.listBox {
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.listHead {
+  display: grid;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  font-size: 11px;
+  color: var(--m-ink2);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 56px;
+  padding: 10px 16px;
+  border: 0;
+  border-top: 1px solid #0d0d170f;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+}
+.row:first-child {
+  border-top: 0;
+}
+.rowBtn {
+  cursor: pointer;
+}
+.rowBtn:hover {
+  background: var(--m-hover);
+}
+.rowTile {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #f4f2ef;
+  color: var(--m-ink);
+  font-size: 11px;
+  font-weight: 600;
+}
+.tileTeal {
+  background: #ddf1ed;
+  color: #007472;
+}
+.tilePink {
+  background: #ffe4ee;
+  color: #ad2a71;
+}
+.tileSky {
+  background: #e3edf1;
+  color: #00688d;
+}
+.tilePurple {
+  background: #ece8fd;
+  color: #6741bf;
+}
+.rowText {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  gap: 1px;
+}
+.rowTitle {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+.rowSub {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--m-ink2);
+}
+.rowRight {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  max-width: 55%;
+}
+.rowDone .rowTitle {
+  color: var(--m-ink2);
+  text-decoration: line-through;
+}
+.check {
+  flex: none;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: -10px 0 -10px -14px;
+  cursor: pointer;
+}
+.check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--m-ink);
+}
+
+/* ── 칩 ── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 22px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #f1efec;
+  color: #3b3a42;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.chipGood {
+  background: var(--m-met-bg);
+  color: var(--m-met-ink);
+}
+.chipWarn {
+  background: var(--m-near-bg);
+  color: var(--m-near-ink);
+}
+.chipBad {
+  background: var(--m-short-bg);
+  color: var(--m-short-ink);
+}
+.chipInk {
+  background: var(--m-ink);
+  color: #fcf9f5;
+}
+
+/* ── 큰 숫자 · 막대 · 글 ── */
+.big {
+  font-size: 28px;
+  line-height: 1.1;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.bigRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 12px;
+}
+.bigMeter {
+  position: relative;
+  height: 8px;
+  margin: 14px 0 4px;
+  border-radius: 4px;
+  background: var(--m-g200);
+}
+.bigFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 4px;
+  background: var(--m-g600);
+}
+.fMet {
+  background: var(--m-met);
+}
+.fNear {
+  background: var(--m-near);
+}
+.fShort {
+  background: var(--m-short);
+}
+.bigTick {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 1px;
+  background: var(--m-ink);
+}
+.p {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+.muted {
+  color: var(--m-ink2);
+}
+.warn {
+  flex: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--m-near-bg);
+  color: var(--m-near-ink);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.empty {
+  margin: 0;
+  padding: 18px 16px;
+  font-size: 12px;
+  color: var(--m-ink2);
+  text-align: center;
+}
+.err {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--m-short-ink);
+}
+.scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal * {
+    transition: none !important;
+  }
+}

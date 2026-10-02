@@ -90,6 +90,9 @@
   stroke: var(--m-ink);
   stroke-width: 1.6;
 }
+.edge {
+  transition: opacity 0.18s, stroke 0.18s, stroke-width 0.18s;
+}
 
 /* ── 노드 ── */
 /* 아이콘 타일 — 참조의 노드 아이콘. 라인은 접근 트랙 색, 나머지는 중립 */
@@ -193,349 +196,95 @@
 }
 
 /* ── 팝업(우측 · 비모달 — 지도의 강조 경로가 보이게) ── */
-.big {
-  font-size: 26px;
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-}
-.p {
-  margin: 6px 0 10px;
-  font-size: 12.5px;
-  line-height: 1.65;
-}
-.muted {
-  color: var(--m-ink2);
-}
-.warn {
-  margin: 8px 0 12px;
-  padding: 8px 10px;
-  border-radius: 8px;
-  background: var(--m-near-bg);
-  color: var(--m-near-ink);
-  font-size: 12.5px;
-  line-height: 1.55;
-}
-.tableWrap {
-  max-height: 232px;
-  overflow: auto;
-  margin: 8px 0 0;
-  background: var(--m-bg);
-  border: 1px solid #0d0d1714;
-  border-radius: 10px;
-  scrollbar-width: thin;
-}
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 12.5px;
-}
-.table th {
-  position: sticky;
-  top: 0;
-  background: var(--m-canvas);
-  text-align: left;
-  font-weight: 500;
-  color: var(--m-ink2);
-}
-.table th,
-.table td {
-  padding: 7px 10px;
-  border-bottom: 1px solid var(--m-line);
-  font-variant-numeric: tabular-nums;
-}
-.table tr:last-child td {
-  border-bottom: 0;
-}
-.tasks {
-  list-style: none;
-  margin: 0;
-  padding: 0 14px;
-  background: var(--m-bg);
-  border: 1px solid #0d0d1714;
-  border-radius: 10px;
-}
-.task {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  min-height: 44px;
-  padding: 8px 0;
-  border-top: 1px solid var(--m-line);
-}
-.task:first-child {
-  border-top: 0;
-}
-.taskBox {
-  flex: none;
-  width: 44px;
-  height: 44px;
-  margin: -8px 0 -8px -12px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-}
-.taskBox input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--m-ink);
-}
-.taskTitle {
-  font-size: 14px;
-  font-weight: 500;
-}
-.taskDone .taskTitle {
-  color: var(--m-ink2);
-  text-decoration: line-through;
-}
-.taskMeta {
-  margin-top: 2px;
-  font-size: 12.5px;
-  line-height: 1.55;
-  color: var(--m-ink2);
-}
-.matPast,
-.matCore {
-  margin-left: 6px;
-  padding: 0 6px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 500;
-}
-.matPast {
-  background: #e3edf1;
-  color: #00688d;
-}
-.matCore {
-  background: #ffe4ee;
-  color: #ad2a71;
-}
-.linkBtn {
-  min-height: 44px;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  font-size: 13px;
-  text-align: left;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  color: var(--m-ink);
-  cursor: pointer;
-}
-.list {
-  list-style: none;
-  margin: 0;
-  padding: 0 14px;
-  background: var(--m-bg);
-  border: 1px solid #0d0d1714;
-  border-radius: 10px;
-  font-size: 12.5px;
-  line-height: 1.6;
-}
-.list li {
-  padding: 6px 0;
-  border-top: 1px solid var(--m-line);
-}
-.list li:first-child {
-  border-top: 0;
-}
-.src {
-  font-size: 12.5px;
-  line-height: 1.55;
-}
-.srcStatus {
-  display: inline-block;
-  margin-right: 6px;
-  padding: 0 6px;
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-}
-.srcOk {
-  background: var(--m-met-bg);
-  color: var(--m-met-ink);
-}
-.srcReview {
-  background: var(--m-near-bg);
-  color: var(--m-near-ink);
-}
 
-/* ── 팝업(가운데 모달 — 참조(3B 앱 Access map)의 모달 형태) ──
- * 보이는 크기는 참조처럼 작게(알약 30px · 닫기 아이콘 16px) 두고, 클릭 영역만 투명하게 44px 로 늘린다(터치 타깃 규칙). */
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
+
+/* ── 하단 떠 있는 알약(참조: 왼쪽 선택 요약 · 오른쪽 범례 + 접기) ── */
+.dock {
+  position: sticky;
+  bottom: 12px;
+  z-index: 4;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: #0d0d1729;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px;
+  pointer-events: none;
 }
-.modal {
-  display: flex;
-  flex-direction: column;
-  width: min(var(--p-w), 100%);
-  height: min(var(--p-h), calc(100dvh - 64px));
-  border-radius: 16px;
-  background: var(--m-bg);
-  box-shadow: 0 24px 64px #0d0d1730, 0 0 0 1px #0d0d170d;
-  color: var(--m-ink);
-  word-break: keep-all;
+.dock > * {
+  pointer-events: auto;
 }
-.modal :is(button, input, [tabindex]):focus-visible {
-  outline: 2px solid var(--m-ink);
-  outline-offset: 2px;
-  border-radius: 8px;
-}
-.modalHead {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: var(--p-head);
-  flex: none;
-  padding: 0 10px 0 16px;
-  border-bottom: 1px solid #0d0d170f;
-}
-.modalWho {
-  display: flex;
-  flex: 1;
+.pill {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
-  min-width: 0;
+  min-height: 40px;
+  padding: 4px 8px 4px 10px;
+  background: var(--m-bg);
+  border: 1px solid #0d0d1714;
+  border-radius: 999px;
+  box-shadow: 0 6px 16px #0d0d1714;
+  font-size: 11.5px;
+  color: var(--m-ink2);
 }
-.tileHead {
-  width: 32px;
-  height: 32px;
-  background: #f4f2ef;
+.pillTile {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
 }
-.modalTitle {
-  margin: 0;
-  font-size: 13px;
+.pillName {
+  font-size: 12px;
   font-weight: 500;
-  line-height: 1.3;
+  color: var(--m-ink);
+}
+.pillMeta {
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-.pillTabs {
-  display: flex;
-  gap: 0;
-}
-.pillTab {
+.pillBtn,
+.pillIcon,
+.pillToggle {
   position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 44px;
-  padding: 0 2px;
+  gap: 5px;
+  height: 28px;
+  padding: 0 11px;
   border: 0;
-  background: none;
+  border-radius: 999px;
+  background: #f4f2ef;
   font: inherit;
-  color: var(--m-ink2);
+  font-size: 11.5px;
+  color: var(--m-ink);
   cursor: pointer;
 }
-.pillTabIn {
+.pillIcon {
+  width: 28px;
+  padding: 0;
+  justify-content: center;
+  background: none;
+}
+.pillBtn::after,
+.pillIcon::after,
+.pillToggle::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  right: -2px;
+  top: -8px;
+  bottom: -8px;
+}
+.pillToggle:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.pillToggleOn {
+  background: var(--m-ink);
+  color: #fcf9f5;
+}
+.legendItem {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  height: 30px;
-  padding: 0 12px;
-  border-radius: 999px;
-  font-size: 12px;
-}
-.pillTab:hover .pillTabIn {
-  background: var(--m-hover);
-}
-.pillTabOn,
-.pillTab:hover .pillTabOn {
-  background: #f4f2ef;
   color: var(--m-ink);
-  font-weight: 500;
-}
-.close {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 999px;
-  background: none;
-  color: var(--m-ink);
-  cursor: pointer;
-}
-.close:hover {
-  background: var(--m-hover);
-}
-.modalBody {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: var(--p-gap);
-  overflow-y: auto;
-  padding: var(--p-gap) var(--p-side);
-  scrollbar-width: thin;
-  scrollbar-color: var(--m-g400) transparent;
-}
-.card {
-  flex: none;
-  padding: var(--p-card-py) var(--p-card-px);
-  background: var(--m-canvas);
-  border: 1px solid #0d0d170d;
-  border-radius: 12px;
-}
-.cardTitle {
-  font-size: 12.5px;
-  font-weight: 500;
-}
-.cardDesc {
-  margin-top: 2px;
-  font-size: 11px;
-  line-height: 1.5;
-  color: var(--m-ink2);
-}
-.cardBody {
-  margin-top: 14px;
-}
-.cardBody > :first-child {
-  margin-top: 0;
-}
-.cardBody > :last-child {
-  margin-bottom: 0;
-}
-.modalFoot {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 8px;
-  height: var(--p-foot);
-  flex: none;
-  padding: 0 16px;
-  border-top: 1px solid #0d0d170f;
-}
-.pillBtn {
-  position: relative;
-  height: 34px;
-  padding: 0 16px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--m-ink);
-  color: #fcf9f5;
-  font: inherit;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-}
-/* 보이는 크기는 34px · 클릭 영역은 44px */
-.pillBtn::after,
-.pillTab::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -5px;
-  bottom: -5px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -653,8 +402,12 @@
 }
 
 .panel {
-  margin: 0 14px;
-  overflow-x: auto;
+  position: relative;
+  height: calc(100dvh - 232px);
+  min-height: 480px;
+  margin: 0 14px 14px;
+  overflow: auto;
+  overscroll-behavior: contain;
   background: var(--m-canvas);
   border: 1px solid #e2e1e0;
   border-radius: 10px;
@@ -665,8 +418,10 @@
   min-width: 100%;
 }
 .heads {
-  position: relative;
-  z-index: 1;
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  background: var(--m-canvas);
   display: grid;
   grid-template-columns: repeat(5, var(--g-node-w));
   column-gap: calc(var(--g-pitch) - var(--g-node-w));
@@ -692,7 +447,7 @@
 }
 .sticky {
   position: sticky;
-  top: 12px;
+  top: calc(var(--g-head-h) + 12px);
   align-self: start;
   display: flex;
   flex-direction: column;
@@ -727,13 +482,22 @@
 }
 .node:hover {
   background: var(--m-hover);
+  border-color: var(--m-g400);
+}
+.node {
+  transition: opacity 0.18s, border-color 0.18s, background-color 0.18s;
 }
 .nodeSel {
   border-color: var(--m-ink);
-  box-shadow: 0 0 0 1px var(--m-ink);
 }
 .nodeDim {
-  opacity: 0.35;
+  opacity: 0.3;
+}
+.nodeHidden {
+  display: none;
+}
+.colsCollapsed {
+  row-gap: var(--g-row-gap);
 }
 .nodeText {
   display: flex;
@@ -803,7 +567,6 @@
 }
 .goalSel {
   border-color: var(--m-ink);
-  box-shadow: 0 0 0 1px var(--m-ink);
 }
 .goalLabel {
   font-size: 11px;
@@ -834,12 +597,4 @@
   height: 5px;
   border-radius: 3px;
   background: var(--m-g200);
-}
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 18px;
-  padding: 12px 18px 16px;
-  font-size: 11.5px;
-  color: var(--m-ink2);
 }

@@ -7,6 +7,7 @@
 
 'use client'
 
+import { Layers, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition } from 'react'
 
@@ -32,6 +33,10 @@ export function LearningMap({ data }: { data: MapPageData }) {
   const router = useRouter()
   const { model, nodes, edges, settings } = data
   const [selected, setSelected] = useState<string | null>(null)
+  /** 팝업 열림 — 닫아도 선택(경로 강조)은 남는다 */
+  const [open, setOpen] = useState(false)
+  /** 접기 — 선택한 경로의 노드만 보인다 */
+  const [collapsed, setCollapsed] = useState(false)
   const [done, setDone] = useState<Set<string>>(() => new Set(data.doneTaskIds))
   const [goal, setGoal] = useState(model.goal)
   const [draft, setDraft] = useState(String(model.goal))
@@ -93,7 +98,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
       ro.disconnect()
       window.removeEventListener('resize', measure)
     }
-  }, [measure, model])
+  }, [measure, model, collapsed, selected])
   const register = (code: string) => (el: HTMLElement | null) => {
     if (el) els.current.set(code, el)
     else els.current.delete(code)
@@ -103,14 +108,30 @@ export function LearningMap({ data }: { data: MapPageData }) {
 
   const choose = (code: string) => {
     setTaskErr(null)
-    if (selected === code) {
+    if (selected === code && !open) {
       setSelected(null)
+      setCollapsed(false)
       return
     }
     setSelected(code)
+    setOpen(true)
     const kind = nodes.find((n) => n.code === code)?.kind
     if (kind) track({ name: 'csat_map_node_opened', props: { kind } })
   }
+  const clearSelection = () => {
+    setSelected(null)
+    setOpen(false)
+    setCollapsed(false)
+  }
+  const summary = useMemo(() => {
+    if (!selected || !path) return null
+    const n = nodes.find((x) => x.code === selected)
+    if (!n) return null
+    const count = (k: MapNodeRow['kind']) => nodes.filter((x) => x.kind === k && path.nodes.has(x.code) && x.code !== selected).length
+    const parts = [`영역 ${count('axis')}`, `라인 ${count('line')}`, `원리 ${count('principle')}`, `트랙 ${count('track')}`]
+    return { code: n.code, name: n.name, kind: n.kind, track: n.kind === 'track' ? n.code : n.track, counts: parts.join(' · ') }
+  }, [selected, path, nodes])
+  const isHidden = (code: string) => collapsed && Boolean(path) && !path?.nodes.has(code)
 
   // ── 목표 ──
   const applyGoal = async (next: number) => {
@@ -215,7 +236,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
             ))}
           </div>
 
-          <div className={s.cols} data-map-cols="">
+          <div className={`${s.cols} ${collapsed ? s.colsCollapsed : ''}`} data-map-cols="">
             {/* 목표 · 원리 · 트랙은 스크롤을 따라와 긴 라인 열 옆에 계속 보인다 */}
             <div className={s.sticky} style={{ gridRow: `1 / span ${byKind.lineGroups.length}`, gridColumn: 1 }}>
               {byKind.goal && goalNode && (
@@ -223,7 +244,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
                   ref={register(byKind.goal.code)}
                   type="button"
                   data-map-node={byKind.goal.code}
-                  className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''} ${path && !path.nodes.has(byKind.goal.code) ? s.nodeDim : ''}`}
+                  className={`${s.goal} ${selected === byKind.goal.code ? s.goalSel : ''} ${path && !path.nodes.has(byKind.goal.code) ? s.nodeDim : ''} ${isHidden(byKind.goal.code) ? s.nodeHidden : ''}`}
                   aria-pressed={selected === byKind.goal.code}
                   aria-label={`목표 ${goal}점 — ${STATUS_LABEL[goalNode.status]}`}
                   onClick={() => choose(byKind.goal.code)}
@@ -244,13 +265,13 @@ export function LearningMap({ data }: { data: MapPageData }) {
             {/* 영역은 자기 라인 묶음의 가운데에 — 연결선이 한 점에서 부채꼴로 퍼지지 않게 */}
             {byKind.axes.map((n, gi) => (
               <div key={n.code} className={s.axisCell} style={{ gridRow: gi + 1, gridColumn: 2 }}>
-                <MapNode node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
+                <MapNode node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} />
               </div>
             ))}
             {byKind.lineGroups.map((group, gi) => (
               <div key={gi} className={s.groupLines} style={{ gridRow: gi + 1, gridColumn: 3 }}>
                 {group.map((n) => (
-                  <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
+                  <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.track} />
                 ))}
               </div>
             ))}
@@ -262,7 +283,7 @@ export function LearningMap({ data }: { data: MapPageData }) {
                   node={n}
                   value={model.nodes[n.code]}
                   selected={selected === n.code}
-                  dim={Boolean(path) && !path?.nodes.has(n.code)}
+                  dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)}
                   register={register(n.code)}
                   onClick={() => choose(n.code)}
                   badge={(() => {
@@ -274,22 +295,55 @@ export function LearningMap({ data }: { data: MapPageData }) {
             </div>
             <div className={s.sticky} style={{ gridRow: `1 / span ${byKind.lineGroups.length}`, gridColumn: 5 }}>
               {byKind.tracks.map((n) => (
-                <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.code} />
+                <MapNode key={n.code} node={n} value={model.nodes[n.code]} selected={selected === n.code} dim={Boolean(path) && !path?.nodes.has(n.code)} hidden={isHidden(n.code)} register={register(n.code)} onClick={() => choose(n.code)} trackCode={n.code} />
               ))}
+            </div>
+          </div>
+          {/* 하단에 떠 있는 알약 — 왼쪽: 선택 요약(자세히 · 해제) / 오른쪽: 범례 + 접기 */}
+          <div className={s.dock}>
+            <div className={s.dockLeft}>
+              {selected && summary && (
+                <div className={s.pill} role="status">
+                  <span className={`${s.tile} ${tileClass(summary.kind, summary.track)} ${s.pillTile}`} aria-hidden="true">
+                    {summary.code === 'GOAL' ? '◎' : summary.code}
+                  </span>
+                  <span className={s.pillName}>{summary.name}</span>
+                  <span className={s.pillMeta}>{summary.counts}</span>
+                  <button type="button" className={s.pillBtn} onClick={() => setOpen(true)}>
+                    자세히
+                  </button>
+                  <button type="button" className={s.pillIcon} onClick={clearSelection} aria-label="선택 해제">
+                    <X size={14} aria-hidden="true" />
+                  </button>
+                </div>
+              )}
+            </div>
+            <div className={s.dockRight}>
+              <div className={s.pill} aria-label="범례">
+                <button type="button" className={`${s.pillToggle} ${collapsed ? s.pillToggleOn : ''}`} aria-pressed={collapsed} disabled={!selected} title={selected ? '선택한 경로만 보기' : '노드를 먼저 고르세요'} onClick={() => setCollapsed((v) => !v)}>
+                  <Layers size={14} strokeWidth={1.8} aria-hidden="true" />
+                  접기
+                </button>
+                <span className={s.legendItem}><i className={s.legendLine} />직접 근거</span>
+                <span className={s.legendItem}><i className={`${s.legendLine} ${s.legendDashed}`} />추론</span>
+                <span className={s.legendItem}><i className={`${s.legendLine} ${s.legendDotted}`} />보류</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={s.legend} aria-label="범례">
-        <span className={s.legendItem}><i className={s.legendLine} />직접 근거</span>
-        <span className={s.legendItem}><i className={`${s.legendLine} ${s.legendDashed}`} />추론</span>
-        <span className={s.legendItem}><i className={`${s.legendLine} ${s.legendDotted}`} />보류(출처 없음)</span>
-        <span className={s.legendItem}>막대: 채움 = 지금 · 눈금 = 목표</span>
-      </div>
-
-      {selected && (
-        <NodePopup data={data} code={selected} done={done} taskError={taskErr} onToggle={toggleTask} onClose={() => setSelected(null)} onOpenNode={choose} />
+      {selected && open && (
+        <NodePopup
+          data={data}
+          code={selected}
+          done={done}
+          taskError={taskErr}
+          onToggle={toggleTask}
+          onClose={() => setOpen(false)}
+          onShowPath={() => setOpen(false)}
+          onOpenNode={choose}
+        />
       )}
     </div>
   )
@@ -336,6 +390,7 @@ function MapNode({
   value,
   selected,
   dim,
+  hidden,
   register,
   onClick,
   trackCode,
@@ -345,6 +400,7 @@ function MapNode({
   value: NodeValue | undefined
   selected: boolean
   dim: boolean
+  hidden?: boolean
   register: (el: HTMLElement | null) => void
   onClick: () => void
   trackCode?: string | null
@@ -358,7 +414,7 @@ function MapNode({
       ref={register}
       type="button"
       data-map-node={node.code}
-      className={`${s.node} ${selected ? s.nodeSel : ''} ${dim ? s.nodeDim : ''}`}
+      className={`${s.node} ${selected ? s.nodeSel : ''} ${dim ? s.nodeDim : ''} ${hidden ? s.nodeHidden : ''}`}
       aria-pressed={selected}
       aria-label={`${node.code} ${node.name}${value ? ` — ${STATUS_LABEL[value.status]}` : ''}`}
       onClick={onClick}
