@@ -42,7 +42,10 @@ export function prepareReviewLedgers(metrics, followups, now) {
   read(metrics, '_metrics.jsonl', (m, at) => {
     // 메모 전용 줄({date, note} 뿐 — batch·items 없음)은 배치가 아니라 장부의 주석이다. 예전 importer 는 batch 없는 줄을 건너뛰었고
     // 실제 장부에 그런 줄이 있다(2026-09-29 비용 해석 메모). 배치 필드가 하나라도 있으면 여전히 검증한다 — 오타를 주석으로 삼키지 않게
-    if (m.batch == null && m.items == null && Object.keys(m).every((k) => k === 'date' || k === 'note')) { notes += 1; return }
+    if (Object.keys(m).every((k) => k === 'date' || k === 'note') && date(m.date) && text(m.note) && m.note.trim()) {
+      notes += 1
+      return
+    }
     const e = []
     if (length(m.batch) < 3 || length(m.batch) > 120) e.push('batch 3~120자')
     if (!date(m.date)) e.push('date 실제 날짜 YYYY-MM-DD')
