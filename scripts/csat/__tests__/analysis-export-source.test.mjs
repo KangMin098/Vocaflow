@@ -15,7 +15,7 @@ const CLI = fileURLToPath(new URL('../analysis-drain-export.mjs', import.meta.ur
 const item = { id: 'H2603G3#18', exam: 'H2603G3', no: 18, year: 2026, month: 3, in_scope: true,
   type_id: 'R-TOPIC', passage: 'A memory can change. Each recall rebuilds it.', stem: '주제를 고르시오.', choices: ['a', 'b', 'c', 'd', 'e'], answer: 3, answers: [3] }
 
-async function run(dbItem, { existing = false, completed = false, changeDuringRead = false, redo = false, unclaimed = false, missingUnits = false, partial = false, recoveryInFlight = false, missingReplacement = false, failedReplacement = false, lateOriginal = false } = {}) {
+async function run(dbItem, { existing = false, completed = false, changeDuringRead = false, redo = false, unclaimed = false, missingUnits = false, partial = false, recoveryInFlight = false, missingReplacement = false, failedReplacement = false, lateOriginal = false, replacementRecoveryInFlight = false } = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-export-source-'))
   const work = path.join(dir, 'scripts/csat/analysis-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
@@ -32,6 +32,9 @@ async function run(dbItem, { existing = false, completed = false, changeDuringRe
     fs.writeFileSync(path.join(work, 'chunk-redo-prior.json'), JSON.stringify({ items: [{ item_id: item.id }], supersedes: [path.basename(input).replace('.json', '.out.json')] }))
     fs.writeFileSync(path.join(work, 'chunk-redo-prior.out.json'), JSON.stringify({ analyses: failedReplacement ? [{ item_id: item.id, reviews: [{ persona: 'setter', verdict: 'revise' }] }] : [] }))
   }
+  const replacementRecoveryPath = path.join(work, 'chunk-redo-recovery.json')
+  if (replacementRecoveryInFlight) fs.writeFileSync(replacementRecoveryPath, JSON.stringify({ items: [{ item_id: item.id }],
+    supersedes: ['chunk-redo-prior.out.json', path.basename(input).replace('.json', '.out.json')] }))
   let reads = 0
   const units = buildUnits(dbItem.passage)
   const server = http.createServer((req, res) => {
@@ -62,6 +65,7 @@ async function run(dbItem, { existing = false, completed = false, changeDuringRe
     }
     const fresh = path.join(work, 'chunk-R-TOPIC-H2603G3-19.json')
     return { code, output, input: fs.existsSync(input) ? fs.readFileSync(input, 'utf8') : null, original, corrections, winner,
+      recoveryInputPreserved: fs.existsSync(replacementRecoveryPath),
       fresh: fs.existsSync(fresh) ? JSON.parse(fs.readFileSync(fresh, 'utf8')) : null }
   } finally {
     await new Promise((resolve) => server.close(resolve))
@@ -121,6 +125,14 @@ for (const failedReplacement of [false, true]) {
     assert.equal(r.input, r.original)
   })
 }
+
+test('an in-flight recovery survives an omitted replacement after an older completed result', async () => {
+  const r = await run(item, { existing: true, completed: true, missingReplacement: true, replacementRecoveryInFlight: true })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.recoveryInputPreserved, true, 'active recovery input was removed based on an old completed output')
+  assert.equal(r.corrections.length, 2, 'a duplicate recovery was exported')
+  assert.match(r.output, /완료 0/)
+})
 test('a partial output reassigns the missing item without overwriting original provenance', async () => {
   const r = await run(item, { existing: true, completed: true, partial: true })
   assert.equal(r.code, 0, r.output)

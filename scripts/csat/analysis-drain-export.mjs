@@ -162,10 +162,11 @@ for (const [f, input] of inputs) {
     // Keep provenance for inputs still running, so a late old output cannot overtake a correction.
     if (!outputIds.has(id)) outputIds.set(id, new Set())
     outputIds.get(id).add(outputFile)
+    // A missing successor invalidates old completion even when a newer recovery supersedes it.
+    if (hasOutput && done.has(id) && !reportedIds.get(outputFile)?.has(id) && replacesOutput(WORK, outputFile, outputWinner.get(id))) done.delete(id)
     if (supersededItems.get(outputFile)?.has(id)) continue
     if (!hasOutput) reserved.add(id)
     else {
-      if (done.has(id) && !reportedIds.get(outputFile)?.has(id) && replacesOutput(WORK, outputFile, outputWinner.get(id))) done.delete(id)
       if (!done.has(id)) recovery.add(id)
     }
   }
@@ -296,7 +297,7 @@ for (const f of fs.readdirSync(WORK).filter((f) => f.startsWith('chunk-') && f.e
   } catch {
     ids = [] // 못 읽는 청크는 소모품으로 본다
   }
-  if (ids.length && !ids.every((id) => done.has(id))) { kept += 1; keptNames.push(f); continue }
+  if (ids.length && (ids.some((id) => reserved.has(id)) || !ids.every((id) => done.has(id)))) { kept += 1; keptNames.push(f); continue }
   fs.rmSync(path.join(WORK, f))
   removed += 1
 }
