@@ -8,6 +8,8 @@
 //   node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong            (미리보기)
 //   node --tls-max-v1.2 scripts/csat/units-build.mjs --set hakpyeong --commit
 //
+// **경계가 지금 목록과 같으면 새 버전 행을 쓰지 않는다**(v2, 2026-10-01) — 목록 해시에 버전이 들어가므로 버전만 올린 행을 쓰면
+// 발행 분석이 전부 자동 보류된다(csat_hold_on_units_change). 규칙이 실제로 바꾼 문항만 새 버전 행을 얻는다.
 // 재실행 안전: (문항, 버전, 원문 해시) 행이 이미 있으면 건너뛴다. 같은 키에 다른 목록이 있으면
 // (= 같은 버전인데 규칙이 바뀌었다 → UNITS_VERSION 을 안 올렸다) **멈춘다** — 조용히 덮지 않는다.
 // 원문이 없는 문항(듣기 등)은 목록을 만들지 않고 수를 출력한다.
@@ -54,15 +56,22 @@ for (let f = 0; ; f += 1000) {
 }
 
 const have = new Map()
+const current = new Map() // (문항|원문 해시) → 가장 높은 버전 행의 경계 서명 — 버전 무관
+const sig = (units) => units.map((u) => `${u.start}-${u.end}`).join(',')
 for (let f = 0; ; f += 1000) {
-  const { data, error } = await db.from('csat_item_units').select('item_id, units_version, input_hash, units_hash')
-    .eq('units_version', UNITS_VERSION).range(f, f + 999)
+  const { data, error } = await db.from('csat_item_units').select('item_id, units_version, input_hash, units_hash, units')
+    .order('item_id').order('units_version').order('input_hash').range(f, f + 999)
   if (error) throw new Error(error.message)
-  for (const r of data) have.set(`${r.item_id}|${r.input_hash}`, r.units_hash)
+  for (const r of data) {
+    const key = `${r.item_id}|${r.input_hash}`
+    if (r.units_version === UNITS_VERSION) have.set(key, r.units_hash)
+    const c = current.get(key)
+    if (!c || r.units_version > c.v) current.set(key, { v: r.units_version, sig: sig(r.units) })
+  }
   if (data.length < 1000) break
 }
 
-let noPassage = 0, same = 0, conflict = 0
+let noPassage = 0, same = 0, conflict = 0, unchanged = 0
 const toWrite = []
 for (const it of items) {
   if (!it.passage?.trim()) { noPassage += 1; continue }
@@ -70,10 +79,13 @@ for (const it of items) {
   const h = unitsHash(built)
   const prev = have.get(`${it.id}|${it.input_hash}`)
   if (prev === h) { same += 1; continue }
+  const cur = current.get(`${it.id}|${it.input_hash}`)
+  if (!prev && cur && cur.v < UNITS_VERSION && cur.sig === sig(built.units)) { unchanged += 1; continue } // 규칙이 이 문항을 안 바꿨다
   if (prev) { conflict += 1; console.log(`  ✗ ${it.id}: 같은 버전(v${UNITS_VERSION})인데 목록이 다르다 — UNITS_VERSION 을 올려야 한다`); continue }
   toWrite.push({ item_id: it.id, units_version: UNITS_VERSION, input_hash: it.input_hash, units: built.units, units_hash: h })
+  if (cur) console.log(`  ↻ ${it.id}: v${cur.v} → v${UNITS_VERSION} 경계 변경`)
 }
-console.log(`  학평 문항 ${items.length} · 원문 없음 ${noPassage} · 이미 있음 ${same} · 새로 ${toWrite.length} · 충돌 ${conflict} (v${UNITS_VERSION})`)
+console.log(`  학평 문항 ${items.length} · 원문 없음 ${noPassage} · 이미 있음 ${same} · 경계 불변(옛 버전 유지) ${unchanged} · 새로 ${toWrite.length} · 충돌 ${conflict} (v${UNITS_VERSION})`)
 if (conflict) process.exit(1)
 if (!COMMIT) { console.log('  미리보기 — 쓰려면 --commit'); process.exit(0) }
 
