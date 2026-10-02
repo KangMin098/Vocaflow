@@ -51,12 +51,16 @@ for (const [label, metrics, followups, location] of [
   ['invalid finding type', [batch], [{ ...followup, finding: null }], '_followups.jsonl:1'],
   ['invalid date', [batch], [{ ...followup, date: '2026-02-30' }], '_followups.jsonl:1'],
   ['invalid severity', [batch], [{ ...followup, severity: 'typo' }], '_followups.jsonl:1'],
+  ['unpaired high surrogate in finding', [batch], [{ ...followup, finding: '\ud800abcd' }], '_followups.jsonl:1'],
+  ['unpaired low surrogate in source', [batch], [{ ...followup, source: 'test\udc00' }], '_followups.jsonl:1'],
+  ['unpaired surrogate in nested token value', [{ ...batch, tokens: { details: ['\ud800'] } }], [followup], '_metrics.jsonl:1'],
+  ['unpaired surrogate in nested detail key', [{ ...batch, extra: { ['\udc00']: 'value' } }], [followup], '_metrics.jsonl:1'],
 ]) {
   test(`ledger-import rejects ${label} before either table is written`, async () => {
     const r = await run(metrics.map(JSON.stringify).join('\n'), followups.map(JSON.stringify).join('\n'))
     assert.notEqual(r.code, 0, r.output)
     assert.ok(r.output.includes(location), r.output)
-    assert.equal(r.requests.filter((q) => q.method === 'POST').length, 0, 'invalid ledger caused a partial write')
+    assert.equal(r.requests.length, 0, 'invalid ledger caused a DB request')
   })
 }
 
@@ -77,4 +81,15 @@ test('ledger-import upserts each natural key once using the last entry', async (
   assert.equal(writes[0].body[0].published, 1)
   assert.equal(writes[1].body.length, 1)
   assert.equal(writes[1].body[0].status, 'fixed-published')
+})
+
+test('ledger-import preserves valid surrogate pairs in text and nested JSON', async () => {
+  const r = await run(JSON.stringify({ ...batch, note: '정상 😀', tokens: { '😀': ['😎'] } }),
+    JSON.stringify({ ...followup, finding: '😀abcd' }))
+  assert.equal(r.code, 0, r.output)
+  const writes = r.requests.filter((q) => q.method === 'POST')
+  assert.equal(writes.length, 2)
+  assert.equal(writes[0].body[0].note, '정상 😀')
+  assert.deepEqual(writes[0].body[0].tokens, { '😀': ['😎'] })
+  assert.equal(writes[1].body[0].finding, '😀abcd')
 })

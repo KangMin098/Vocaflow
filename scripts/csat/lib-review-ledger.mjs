@@ -8,7 +8,13 @@ const KNOWN = new Set(['date', 'batch', 'kind', 'chunk_size', 'items', 'agents',
 const object = (v) => v !== null && typeof v === 'object' && !Array.isArray(v)
 const hasNullByte = (v) => typeof v === 'string' ? v.includes('\0') :
   Array.isArray(v) ? v.some(hasNullByte) : object(v) ? Object.entries(v).some(([k, x]) => hasNullByte(k) || hasNullByte(x)) : false
-const text = (v) => typeof v === 'string' && !v.includes('\0')
+// Iteration yields a full code point for a valid pair, but leaves lone surrogates in this range.
+const hasUnpairedSurrogate = (v) => typeof v === 'string' ? [...v].some((c) => {
+  const code = c.codePointAt(0)
+  return code >= 0xd800 && code <= 0xdfff
+}) : Array.isArray(v) ? v.some(hasUnpairedSurrogate) : object(v) ?
+  Object.entries(v).some(([k, x]) => hasUnpairedSurrogate(k) || hasUnpairedSurrogate(x)) : false
+const text = (v) => typeof v === 'string' && !hasNullByte(v) && !hasUnpairedSurrogate(v)
 const length = (v) => text(v) ? [...v].length : -1 // PostgreSQL length(text) counts code points
 const integer = (v, min = 0) => Number.isInteger(v) && v >= min && v <= 2147483647
 const date = (v) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) && !v.startsWith('0000') &&
@@ -28,6 +34,7 @@ export function prepareReviewLedgers(metrics, followups, now) {
       if (!object(value)) { errors.push(`${at}: 객체가 필요하다`); continue }
       // PostgreSQL text/jsonb cannot represent a zero byte, including nested detail/tokens values.
       if (hasNullByte(value)) { errors.push(`${at}: NUL 문자는 저장할 수 없다`); continue }
+      if (hasUnpairedSurrogate(value)) { errors.push(`${at}: 짝이 없는 유니코드 서로게이트는 저장할 수 없다`); continue }
       visit(value, at)
     }
   }
