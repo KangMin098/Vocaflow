@@ -1833,6 +1833,16 @@ RPC `csat_dx_record_session(p_session, p_responses)` — 세션+응답 한 트�
 RPC `csat_dx_activate_settings(p_settings, p_note, p_by)` · `csat_dx_save_item_tagging(p_item_id, p_weights, p_traps, p_error_rate, p_ebs, p_by)` ([20261001170000](../supabase/migrations/20261001170000_csat_diagnosis_atomic_writes.sql)) — 설정 전환 · 문항 검수 저장을 한 트랜잭션으로, service_role 전용.
 고유 인덱스 `csat_dx_snapshot_once_per_session` ([20261001180000](../supabase/migrations/20261001180000_csat_dx_snapshot_once_per_session.sql)) — 기록 저장으로 생긴 스냅샷은 세션당 하나.
 
+**학습 지도(`csat_map_*`, [20261002120000](../supabase/migrations/20261002120000_csat_map.sql))** — 내 진단 「학습 지도」 저장소. 기존 테이블은 바꾸지 않았다.
+| 테이블 | 내용 | 접근 |
+|---|---|---|
+| `csat_map_node` · `csat_map_edge` | 노드(목표 1 · 영역 6 · 라인 54 · 원리 8 · 트랙 3) · 연결선 160(goal 6 · member 54 · reason 87 · route 13). `basis`(저장된 유효 근거 유형) · `evidence_status` 는 트리거가 출처 수로 맞춘다 — 출처 0건이면 `pending`(보류). 직접 써도 덮인다 | authenticated SELECT 만 |
+| `csat_map_source` · `csat_map_node_source` · `csat_map_edge_source` | 출처(확인됨 8 · 검토 필요 1) · 노드/연결선↔출처 | SELECT 만 |
+| `csat_map_task` · `csat_map_line_link` · `csat_map_item_rate` | 과제 162 · 라인↔문항·신호 대응 · 문항 오답률(지도 전용, `csat_items.official_error_rate` 는 불변) | SELECT 만 |
+| `csat_map_goal` · `csat_map_task_done` | 학습자 목표 점수(0–100) · 과제 완료 | 본인 SELECT 만, 쓰기는 서버 API |
+| `csat_map_settings` | 지도 설정(활성 1행: 목표 기본값 · 기준 시험 수 · 근접 기준 · 최소 진단 범위) | SELECT 만 |
+RPC `csat_map_seed(jsonb)`(service_role 전용 · 한 트랜잭션 · advisory lock) — 시드 `scripts/csat/map/seed.mjs`. 목표율 · 성취율은 저장하지 않고 화면을 열 때 계산한다(`lib/csat/map/target.ts`).
+
  — `user_textbook_selections.series` ([20260912221500](../supabase/migrations/20260912221500_user_textbook_selections_series.sql))
 
 PK 가 `(user_id, step)` 이던 동안 **어휘 5단과 독해 5단이 같은 행**이었다 — 어휘 권을 담으면

@@ -84,18 +84,20 @@ async function main() {
     return
   }
   const { createClient } = await import('@supabase/supabase-js')
-  const env = (name) => {
-    if (process.env[name]) return process.env[name]
+  // 명시한 프로세스 환경 변수(두 이름 모두)를 로컬 파일보다 먼저 본다 — 파일 값이 명시한 대상을 덮어쓰지 않게
+  const fromFiles = (name) => {
     for (const f of ['.env.local', '.env', 'apps/web/.env.local', 'apps/web/.env']) {
       if (!fs.existsSync(f)) continue
-      const m = fs.readFileSync(f, 'utf8').match(new RegExp(`^${name}\\s*=\\s*(.+)$`, 'm'))
+      const m = fs.readFileSync(f, 'utf8').match(new RegExp(String.raw`^${name}\s*=\s*(.+)$`, 'm'))
       if (m) return m[1].trim().replace(/^["']|["']$/g, '')
     }
     return null
   }
-  const url = env('NEXT_PUBLIC_SUPABASE_URL') ?? env('SUPABASE_URL')
-  const key = env('SUPABASE_SERVICE_ROLE_KEY') ?? env('SUPABASE_SERVICE_KEY')
+  const pick = (...names) => names.map((n) => process.env[n]).find(Boolean) ?? names.map(fromFiles).find(Boolean) ?? null
+  const url = pick('SUPABASE_URL', 'NEXT_PUBLIC_SUPABASE_URL')
+  const key = pick('SUPABASE_SERVICE_ROLE_KEY', 'SUPABASE_SERVICE_KEY')
   if (!url || !key) throw new Error('SUPABASE_URL / SERVICE_ROLE_KEY 가 필요하다')
+  console.log(`대상 DB: ${new URL(url).host}`)
   const db = createClient(url, key, { auth: { persistSession: false } })
   const { data, error } = await db.rpc('csat_map_seed', { p })
   if (error) throw new Error(`시드 실패(전체 롤백됨): ${error.message}`)
