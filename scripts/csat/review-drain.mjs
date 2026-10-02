@@ -45,7 +45,7 @@ import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
 import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidence-units.mjs'
 import { isKiceExam } from './lib-exam-id.mjs'
 import { execFileSync } from 'node:child_process'
-import crypto from 'node:crypto'
+import { prepareReviewLedgers } from './lib-review-ledger.mjs'
 import { fileURLToPath } from 'node:url'
 // 기록하는 커밋은 «실행한 스크립트»의 저장소 것 — 다른 워크트리 cwd 에서 돌려도 섞이지 않게
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
@@ -365,25 +365,14 @@ switch (cmd) {
   case 'ledger-import': {
     // 로컬 원장(_metrics.jsonl · _followups.jsonl)을 DB 로 옮긴다 — 관리자 화면 「검수 진행」이 읽는다.
     // 자연키 upsert(배치 이름 / 문항·출처·소견 해시) — 몇 번을 돌려도 같은 행. 토큰이 없으면 null(「미기록」)
-    const readJsonl = (name) => {
+    const readLedger = (name) => {
       const p = path.join(WORK, name)
-      if (!fs.existsSync(p)) return []
-      return fs.readFileSync(p, 'utf8').split(/\r?\n/).filter((l) => l.trim()).map((l, i) => { try { return JSON.parse(l) } catch { die(`${name}:${i + 1} JSON 아님`) } })
+      return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : ''
     }
-    const KNOWN = new Set(['date', 'batch', 'kind', 'chunk_size', 'items', 'agents', 'tokens', 'published', 'refused', 're_rejected', 'note'])
-    const batches = readJsonl('_metrics.jsonl').filter((m) => m.batch).map((m) => ({
-      batch: m.batch, run_date: m.date, kind: m.kind === 'rereview' ? 'rereview' : m.kind === 'correction' ? 'correction' : 'blind',
-      chunk_size: m.chunk_size ?? null, items: m.items, agents: m.agents ?? null, tokens: m.tokens ?? null,
-      published: m.published ?? null, refused: m.refused ?? null, re_rejected: m.re_rejected ?? null, note: m.note ?? null,
-      detail: Object.fromEntries(Object.entries(m).filter(([k]) => !KNOWN.has(k))),
-    }))
-    const keyOf = (t) => crypto.createHash('sha256').update(t).digest('hex')
-    const follow = new Map()
-    for (const f of readJsonl('_followups.jsonl')) {
-      const row = { item_id: f.item_id, source: f.source, finding_key: keyOf(f.finding), finding: f.finding, severity: f.severity, status: f.status, noted_on: f.date, updated_at: new Date().toISOString() }
-      follow.set(`${row.item_id}|${row.source}|${row.finding_key}`, row) // 같은 소견이 여러 줄이면 마지막 상태가 이긴다
-    }
-    const followups = [...follow.values()]
+    let batches, followups
+    try {
+      ;({ batches, followups } = prepareReviewLedgers(readLedger('_metrics.jsonl'), readLedger('_followups.jsonl'), new Date().toISOString()))
+    } catch (e) { die(e.message) }
     const { data: haveB, error: e1 } = await db.from('csat_review_batches').select('batch')
     if (e1) die(e1.message)
     const { data: haveF, error: e2 } = await db.from('csat_review_followups').select('item_id, source, finding_key')
