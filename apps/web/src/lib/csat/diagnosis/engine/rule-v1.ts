@@ -37,7 +37,7 @@ function ageDays(now: Date, takenAt: string): number {
   return Math.max(0, (now.getTime() - t) / DAY_MS)
 }
 
-function decay(now: Date, takenAt: string, halfLife: number): number {
+export function decay(now: Date, takenAt: string, halfLife: number): number {
   return halfLife > 0 ? Math.pow(0.5, ageDays(now, takenAt) / halfLife) : 1
 }
 
@@ -48,14 +48,14 @@ function byDate(a: SessionIn, b: SessionIn) {
 }
 
 /** 진단(역량·함정)에 쓸 수 있는 응답 — 준비된 시험의 응답 또는 진단 테스트 응답 */
-interface DiagnosedResponse {
+export interface DiagnosedResponse {
   session: SessionIn
   response: ResponseIn
   meta: ItemMeta | null
   listening: boolean
 }
 
-function diagnosedResponses(input: EngineInput): DiagnosedResponse[] {
+export function diagnosedResponses(input: EngineInput): DiagnosedResponse[] {
   const out: DiagnosedResponse[] = []
   const listenTo = input.settings.habits.listening.to_no
   for (const s of input.sessions) {
@@ -76,7 +76,7 @@ function diagnosedResponses(input: EngineInput): DiagnosedResponse[] {
   return out
 }
 
-function modeWeight(input: EngineInput, s: SessionIn): number {
+export function modeWeight(input: EngineInput, s: SessionIn): number {
   return s.mode === 'retake' ? input.settings.retake_weight : 1
 }
 
