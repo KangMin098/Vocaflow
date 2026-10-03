@@ -1,6 +1,6 @@
--- supabase/migrations/_pending_csat_error_evidence.rollback.sql
+-- scripts/csat/error-evidence/rollback.sql
 --
--- _pending_csat_error_evidence.sql 되돌리기. **적용하지 않는다.**
+-- 20261003230000_csat_error_evidence.sql 되돌리기 — 마이그레이션 폴더 밖에 두어 자동 실행되지 않는다. 표가 비어 있을 때만 성공한다.
 -- 되돌릴 수 있는 조건: 새 테이블이 모두 비어 있을 때(아래 첫 블록이 확인한다). 행이 있으면 멈춘다 —
 -- 그때 되돌리기는 데이터 손실(DROP)이라 사용자 확인이 따로 필요하다(AGENTS.md 「항상 사용자 확인」).
 -- 기존 테이블에 건 것은 csat_dx_response 의 트리거 하나뿐이다 — 그것만 지우면 기존 동작은 그대로다.

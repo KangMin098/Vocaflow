@@ -1,7 +1,7 @@
--- supabase/migrations/_pending_csat_error_evidence.sql
+-- supabase/migrations/20261003230000_csat_error_evidence.sql
 --
--- 오답 원인 Evidence 모델 — 물리 스키마 초안(2026-10-03). **적용하지 않는다(_pending_).** 승인 뒤 버전 번호를 붙여 옮긴다.
--- 설계: docs/csat-learner/ERROR_EVIDENCE_DESIGN.md §15 · 되돌리기: _pending_csat_error_evidence.rollback.sql
+-- 오답 원인 Evidence 모델 — 물리 스키마(2026-10-03). 격리 PostgreSQL 17 에서 실행 검증(scripts/csat/error-evidence/isolated-pg) 뒤 개발 Supabase DB 에 적용.
+-- 설계: docs/csat-learner/ERROR_EVIDENCE_DESIGN.md §15 · 되돌리기: scripts/csat/error-evidence/rollback.sql
 --
 -- 원칙
 --   · 응답(원 기록) → 입력 품질 → 수행 증거 → 오답 원인 → (별도) 직접 진단. 이 파일은 「수행 증거 · 오답 원인」 층만 만든다.

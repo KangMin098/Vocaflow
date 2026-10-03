@@ -51,7 +51,7 @@ describe('choice-traps 버전 파일', () => {
     })
     it(`${f} — DB manifest(csat_ec_choice_trap_map_approved)의 해시가 파일 실제 해시와 같다`, () => {
       // 마이그레이션이 승인 목록으로 박아 둔 「버전:sha256」 — 파일을 바꾸면(새 버전 없이) 여기서 실패한다
-      const sql = readFileSync(join(process.cwd(), '..', '..', 'supabase', 'migrations', '_pending_csat_error_evidence.sql'), 'utf8')
+      const sql = readFileSync(join(process.cwd(), '..', '..', 'supabase', 'migrations', '20261003230000_csat_error_evidence.sql'), 'utf8')
       const fn = sql.slice(sql.indexOf('function public.csat_ec_choice_trap_map_approved'))
       const listed = [...fn.slice(0, fn.indexOf('$$;')).matchAll(/'(v\d+\.\d+):([0-9a-f]{64})'/g)].map((m) => ({ v: m[1], h: m[2] }))
       const entry = listed.find((x) => x.v === a.version)

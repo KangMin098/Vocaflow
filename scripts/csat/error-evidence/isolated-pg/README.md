@@ -1,6 +1,6 @@
 # 격리 PostgreSQL 검증 — 오답 원인 Evidence 마이그레이션
 
-운영 · 공유 DB 를 건드리지 않고 `_pending_csat_error_evidence.sql` 을 **실제 PostgreSQL 17** 에 적용해 함수 · 권한 · 수명주기 · 동시성 · rollback 을 실행 검증한다.
+운영 · 공유 DB 를 건드리지 않고 `20261003230000_csat_error_evidence.sql` 을 **실제 PostgreSQL 17** 에 적용해 함수 · 권한 · 수명주기 · 동시성 · rollback 을 실행 검증한다.
 Supabase 브랜치를 쓸 수 없는 환경(MCP 에 비용 확인 도구 없음)에서 같은 조건을 재현하려고 만들었다.
 
 ## 실행

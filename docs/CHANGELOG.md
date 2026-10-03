@@ -13,7 +13,7 @@
 
 - feat(csat): 학습 지도 정보 구조 재편 — 첫 화면 72노드 → 핵심 6카드(V/S/R/E/L + X, 규칙 기반 proxy · 정밀 진단 미실시 표기 · A7 데이터 없음 · 진단 처방 · Route 미정), 54라인 지도는 `?view=full` 상세(3열, P/T 는 팝업 근거 탭). 「달성」 라벨 제거. DB 변경 없음.
 - test(csat): 오답 원인 Evidence 마이그레이션 격리 PostgreSQL 17 실행 검증 — 196/196 + rollback 6/6(권한 225칸 · blind 수명주기 · 경합 14 · rq-1 TS↔SQL 동치 · 봉인 · 삭제 경계). 실행으로 찾은 결함 4건 수정(대상 서버 계산 · 판정자 자기 응답 · 시작 중 대상 교체 · adjudicator 원자료). 하네스 `scripts/csat/error-evidence/isolated-pg/`. 운영 DB 변경 없음
-- docs(csat): 오답 원인 Evidence 물리 스키마 초안(미적용) — `_pending_csat_error_evidence.sql`(9 테이블 · 덧붙이기 전용 · blind 회차 수명주기 · RPC 전용 접근 · rq-1 SQL 강제) + rollback · 검증 쿼리 · Choice Trap v0.1 대응표. Codex SQL 리뷰 P0/P1 0
+- docs(csat): 오답 원인 Evidence 물리 스키마 초안(미적용) — `20261003230000_csat_error_evidence.sql`(9 테이블 · 덧붙이기 전용 · blind 회차 수명주기 · RPC 전용 접근 · rq-1 SQL 강제) + rollback · 검증 쿼리 · Choice Trap v0.1 대응표. Codex SQL 리뷰 P0/P1 0
 - fix(csat): Record Quality Layer(rq-1) — 한 번호 일괄 입력 · 의심 기록을 역량 proxy · 함정 · 습관 · 추천 · 지도 · 시험 기록 유형/함정 집계에서 제외(기록 · 응답 · 점수 유지, 엔진 rule-v1.1). 옛 엔진 스냅샷은 지도가 저장 없이 다시 계산. 실제 계정(전부 ② · 전부 ③) 검증: 추천 「듣기 소홀」·신뢰도 medium → 추천 없음 · low, 핵심 지도 전 축 진단 근거 부족. 지도 C = 선지 함정 · 문항 특성
 - docs(csat): C 오답 원인 Evidence 모델 설계안(미승인) — Choice Trap / Learner Error Cause 분리, 원인 20코드 초안, 검수 · 승격 2단계, Pilot 계획. 실측: 실사용 시험 기록 2회가 한 번호 입력(②만 · ③만)이라 원인 Pilot 표본 0건. `docs/csat-learner/ERROR_EVIDENCE_DESIGN.md`
 - fix(csat): rule_proxy 상태를 관찰 수준으로 — 핵심 카드 · 전체 지도 A 노드 「관찰 낮음 · 중간 · 높음」(목표율 대비 상태 · 눈금 · 판정 색 제거), 「우선 확인 후보」는 추천 영역에만.

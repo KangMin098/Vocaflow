@@ -804,7 +804,7 @@ erDiagram
 
 ## 15. 물리 스키마 초안 (2026-10-03 — 미적용)
 
-> 파일: `supabase/migrations/_pending_csat_error_evidence.sql`(적용 안 됨 · `_pending_`) · 되돌리기 `_pending_csat_error_evidence.rollback.sql` · 검증 `scripts/csat/error-evidence/verify-schema.sql` · Choice Trap `docs/csat-learner/choice-traps/v0.1.json`(+ 스키마 테스트).
+> 파일: `supabase/migrations/20261003230000_csat_error_evidence.sql`(적용 안 됨 · `_pending_`) · 되돌리기 `scripts/csat/error-evidence/rollback.sql` · 검증 `scripts/csat/error-evidence/verify-schema.sql` · Choice Trap `docs/csat-learner/choice-traps/v0.1.json`(+ 스키마 테스트).
 > 이 절이 §5 · §14 의 테이블 구성을 대체한다(§5 의 SQL 은 논리 설계 기록으로 남긴다). 테이블 접두사 `csat_ec_`.
 
 ### A. ERD
@@ -902,8 +902,8 @@ blind 시작 뒤 이 컬럼들은 트리거로 바뀌지 않는다 — rq-2 가 
 
 | 파일 | 내용 | 상태 |
 |---|---|---|
-| `supabase/migrations/_pending_csat_error_evidence.sql` | 9 테이블 · 트리거 15 · 정책 5 · 함수 37(SECURITY DEFINER 21) · 인덱스 26 · 제약 81 · 권한 | 미적용(운영). **격리 PostgreSQL 17.9 에서 적용 · 실행 검증 완료 — §16** |
-| `supabase/migrations/_pending_csat_error_evidence.rollback.sql` | 비어 있을 때만 되돌림(행이 있으면 중단 — DROP 데이터 손실은 사용자 확인) | 미적용 |
+| `supabase/migrations/20261003230000_csat_error_evidence.sql` | 9 테이블 · 트리거 15 · 정책 5 · 함수 37(SECURITY DEFINER 21) · 인덱스 26 · 제약 81 · 권한 | 미적용(운영). **격리 PostgreSQL 17.9 에서 적용 · 실행 검증 완료 — §16** |
+| `scripts/csat/error-evidence/rollback.sql` | 비어 있을 때만 되돌림(행이 있으면 중단 — DROP 데이터 손실은 사용자 확인) | 미적용 |
 | `scripts/csat/error-evidence/verify-schema.sql` | PRE 4 · POST 8 검증(초기 행 0 포함) | 읽기 전용 |
 | `docs/csat-learner/choice-traps/v0.1.json` + `choice-traps-artifact.test.ts` | Choice Trap 9코드 · 31 key 대응 · 스키마 · 봉인 해시 고정 | 테스트 통과 |
 
