@@ -2,7 +2,11 @@
 
 > 적용 대기(2026-10-04): `20261004010000_csat_review_ledger_atomic.sql`의 `csat_review_ledgers_import(p_batches jsonb, p_followups jsonb)`는 검수 배치·추적 장부의 자연키 upsert를 한 트랜잭션으로 묶는다. SECURITY INVOKER·빈 search_path·service_role 전용이며 삭제·기존 테이블 변경이 없다. 사용자 승인 후 적용한다.
 
+> 장부 운영용 SQL: `review-drain.mjs ledger-import --sql-out _ledger-이름.sql`은 두 원장을 먼저 검증하고 기존 `csat_review_batches`·`csat_review_followups`에 자연키로 쓰는 단일 DML을 출력한다. 생성 시 DB 요청이 없으며, 실행 시 두 upsert가 같은 문장에서 성공하거나 함께 롤백된다. 새 RPC를 적용하기 전에도 스키마 변경 없이 사용할 수 있다.
+
 > P4 생성기: `node scripts/csat/build-scoped-type-reports.mjs [--commit]`은 학평 최신 발행 분석을 학년별로 집계해 `csat_type_reports`의 `(type_id, edu_office, 1~3)` 행만 upsert한다. 보류된 교정의 옛 발행본은 집계하지 않고, 평가원 `(kice, 0)` 행은 실행 전후 비교한다. `n_analyzed`는 문항 수, `recurring_traps.count`는 정답을 제외한 오답 선지 수다.
+
+> 근거 단위 v3(2026-10-04): 이름 앞·연속 이니셜을 보존하며 실제 경계가 바뀐 문항만 새 `csat_item_units` 행을 만든다(스키마 변경 없음). DB 원문 2,912문항 미리보기에서 13문항 변경·2,897문항 경계 유지·원문 없음 2·충돌 0을 확인했다. `corpus-sync --set hakpyeong --items <ids>`는 지정 원문만 동기화하고 삭제·유형·회차 쓰기는 하지 않는다. 원문/단위 변경 시 옛 분석 발행과 승인은 기존 DB 게이트가 보류한다.
 
 ## DB 전수 조사 조치 (2026-09-23, migration 5건 `20260923103943`~`20260923105031`)
 

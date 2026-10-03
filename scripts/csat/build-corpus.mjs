@@ -297,10 +297,13 @@ for (const q of rows) {
   // 학평 수집기는 좌표의 빈 자리를 `______` 로 복원한다(ingest-hakpyeong 「빈칸 복원」). 빈칸 유형이
   // 아니면 그 표시는 표·목록의 짧은 줄을 오인한 것이다(실측: 안내문 72 · 도표 19) — 지운다.
   // 요약문은 (A)·(B) 글자가 자리를 이미 가리키므로 역시 빈칸 표시가 필요 없다.
+  const reconstructed = SET === 'hakpyeong' && body.passage
+    ? body.passage.replace(/_{3,}(?:\s+_{3,})+/g, '______') // one blank may wrap onto two printed lines
+    : body.passage
   const passage =
     SET === 'hakpyeong' && body.passage && !/BLANK/.test(q.type ?? '')
-      ? body.passage.replace(/ ?______ ?/g, ' ').replace(/ {2,}/g, ' ')
-      : body.passage
+      ? reconstructed.replace(/ ?______ ?/g, ' ').replace(/ {2,}/g, ' ')
+      : reconstructed
   items.push({
     id: `${q.exam}#${String(q.no).padStart(2, '0')}`,
     exam: q.exam,

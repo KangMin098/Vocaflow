@@ -30,12 +30,12 @@ async function run(kind, existing, solveAnswer = null, overrides = {}) {
       if (url.includes('csat_independent_reviews')) return res.end(JSON.stringify(existing ? [{ id: 'existing-run', solve_answer: solveAnswer, solve_input_hash: 'input-hash', solve_answer_hash: 'answer-hash', csat_independent_reviews: [], ...overrides }] : []))
       return res.end(JSON.stringify({ id: 'parent', solve_answer: 2, solve_note: 'An independently committed solution.' }))
     }
-    if (url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify({ id: 'H2603G3#18', passage: 'A synthetic passage.' }))
+    if (url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify({ id: 'H2603G3#18', stem: 'Which purpose?', passage: 'A synthetic passage.', choices: ['A', 'B', 'C', 'D', 'E'] }))
     return res.end('[]')
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   try {
-    const child = spawn(process.execPath, [CLI, kind, '--analysis', 'analysis', '--persona', 'setter', '--agent-run', 'reviewer', '--out', '_out-test.json'], {
+    const child = spawn(process.execPath, [CLI, kind, '--analysis', 'analysis', '--persona', 'setter', '--agent-run', 'reviewer', '--out', '_out-test.json', '--before', '2026-10-03T21:34:35.336Z'], {
       cwd: dir, windowsHide: true,
       env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     })
@@ -63,7 +63,11 @@ for (const kind of ['start', 'rereview']) {
     assert.match(lookup.url, /persona=eq.setter/)
     assert.match(lookup.url, /agent_run=eq.reviewer/)
     assert.match(lookup.url, /csat_independent_reviews=is.null/)
-    if (kind === 'rereview') assert.match(lookup.url, /parent_run_id=eq.parent/)
+    if (kind === 'rereview') {
+      assert.match(lookup.url, /parent_run_id=eq.parent/)
+      assert.equal(r.result.item.stem, 'Which purpose?')
+      assert.deepEqual(r.result.item.choices, ['A', 'B', 'C', 'D', 'E'])
+    }
     else assert.equal('official_answer' in r.result, false)
   })
   test(`${kind} creates a run when this execution has no open one`, async () => {
@@ -96,4 +100,14 @@ test('blind source changes do not reuse an old committed solve', async () => {
   assert.equal(r.code, 0, r.output)
   assert.equal(r.result.run_id, 'new-run')
   assert.match(r.result.next, /^solve/)
+})
+
+test('open-runs is a scoped read-only anti-join using the caller-provided cutoff', async () => {
+  const r = await run('open-runs', true)
+  assert.equal(r.code, 0, r.output)
+  const lookup = r.requests.find((q) => q.url.includes('csat_independent_reviews'))
+  assert.match(lookup.url, /item_id=like.H%/)
+  assert.match(lookup.url, /created_at=lt.2026-10-03T21:34:35.336Z/)
+  assert.match(lookup.url, /csat_independent_reviews=is.null/)
+  assert.ok(r.requests.every((q) => q.method === 'GET'))
 })

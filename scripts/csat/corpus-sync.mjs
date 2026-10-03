@@ -22,6 +22,7 @@
 //   node scripts/csat/corpus-sync.mjs --commit
 //   node scripts/csat/corpus-sync.mjs --commit --prune-listening
 //   node scripts/csat/corpus-sync.mjs --commit --prune-stale        (코퍼스에서 빠진 문항 · 분석 0건일 때만)
+//   node scripts/csat/corpus-sync.mjs --set hakpyeong --items H2603G1#31,... [--commit] (지정 원문만 · 유형/회차 불변)
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -42,7 +43,9 @@ const DIR = path.resolve('scripts/csat/data')
  * 이걸 안 가르면 학평을 올리는 순간 평가원 802문항이 «코퍼스에 없는 문항» 이 된다.
  */
 const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
+const ONLY = process.argv.includes('--items') ? new Set((process.argv[process.argv.indexOf('--items') + 1] ?? '').split(',')) : null
 if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
+if (ONLY && (ONLY.has('') || PRUNE_LISTENING || PRUNE_STALE)) throw new Error('--items 는 비어 있거나 삭제 옵션과 함께 쓸 수 없다')
 const inSet = (id) => (SET === 'kice' ? isKiceExam(id) : !isKiceExam(id))
 // 미리보기에서도 거부한다 — 잘못된 조합을 --commit 을 붙이는 순간에야 알게 하지 않는다
 if (PRUNE_LISTENING && SET !== 'kice') {
@@ -76,7 +79,9 @@ const typeTable = JSON.parse(fs.readFileSync(path.join(DIR, 'classified.json'), 
 //    올려 두면 `csat_items` 를 세는 모든 화면·질의가 우리가 손대지도 않는 520문항을 함께 세고,
 //    유형 목록에는 학습자가 영원히 못 볼 듣기 유형 18개가 남는다.
 //    원장(corpus.json)에는 남겨 둔다 — 거기서는 "45문항 중 28을 떴다" 를 확인하는 자리 표시다.
-const scopeItems = corpus.items.filter((i) => i.in_scope)
+const available = corpus.items.filter((i) => i.in_scope)
+if (ONLY && [...ONLY].some((id) => !available.some((i) => i.id === id))) throw new Error('--items 에 현재 집합의 사정권 원장에 없는 문항이 있다')
+const scopeItems = available.filter((i) => !ONLY || ONLY.has(i.id))
 const usedTypes = new Set(scopeItems.map((i) => i.type_id).filter(Boolean))
 const recentTypes = new Set(scopeItems.filter((i) => i.year >= 2023 && i.type_id).map((i) => i.type_id))
 const types = typeTable
@@ -141,6 +146,7 @@ const items = scopeItems.map((it) => ({
 console.log(`  유형 ${types.length} · 회차 ${exams.length} · 사정권 문항 ${items.length} (듣기 ${corpus.items.length - items.length}문항 제외)`)
 console.log(`  정답 보유 ${items.filter((i) => i.answer != null).length}`)
 console.log(`  현행 유형 ${types.filter((t) => t.status === 'active').length} · 폐지 ${types.filter((t) => t.status === 'retired').length}`)
+if (ONLY) console.log('  지정 문항 원문만 갱신 — 유형·회차·다른 문항·기존 분석을 쓰거나 삭제하지 않는다')
 
 if (!COMMIT) {
   console.log('\n  미리보기다 — 아무것도 쓰지 않았다. 올리려면 --commit')
@@ -156,6 +162,11 @@ async function upsert(table, rows, chunk = 500) {
   process.stdout.write('\n')
 }
 
+if (ONLY) {
+  await upsert('csat_items', items)
+  console.log('  지정 문항 동기화 완료 — 원문 해시가 바뀐 분석은 DB 게이트가 자동 보류한다')
+  process.exit(0)
+}
 if (SET === 'kice') {
   await upsert('csat_types', types)
 } else {

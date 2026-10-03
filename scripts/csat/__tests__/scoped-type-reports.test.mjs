@@ -37,3 +37,11 @@ test('previous report keys with no remaining scoped items become empty drafts in
   assert.equal(reports[0].n_analyzed, 0)
   assert.deepEqual(reports[0].recurring_traps, [])
 })
+
+test('a missing type holds only that item while normal grade reports continue', () => {
+  const items = [{ id: 'H2603G1#23', type_id: null }, { id: 'H2603G1#24', type_id: 'R-TITLE' }]
+  const reports = scopedTypeReports(items, items.map((i) => ({ item_id: i.id, version: 1, status: 'published' })), 'fixed')
+  assert.equal(reports.length, 1)
+  assert.equal(reports[0].type_id, 'R-TITLE')
+  assert.equal(reports[0].n_analyzed, 1)
+})

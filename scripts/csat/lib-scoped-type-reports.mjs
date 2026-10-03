@@ -26,7 +26,7 @@ const PROCEDURES = {
 PROCEDURES['X-BLANK'] = PROCEDURES['R-BLANK']
 
 export function scopedTypeReports(items, analyses, now, knownScopes = []) {
-  const itemOf = new Map(items.filter((i) => i.in_scope !== false && parseExamId(examIdOf(i.id))?.kind === 'hakpyeong').map((i) => [i.id, i]))
+  const itemOf = new Map(items.filter((i) => i.in_scope !== false && i.type_id && parseExamId(examIdOf(i.id))?.kind === 'hakpyeong').map((i) => [i.id, i]))
   const latest = new Map()
   for (const a of analyses) if (!latest.has(a.item_id) || a.version > latest.get(a.item_id).version) latest.set(a.item_id, a)
   const groups = new Map()

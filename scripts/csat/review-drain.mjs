@@ -32,8 +32,9 @@
 //   publish [--items ...]                                       독립 검수 3인이 모인 분석을 발행 시도(게이트가 판정)
 //   precheck [--items ...] [--out] [--commit]                   옛 분석도 근거 단위 번호 검사(V9) — 실패는 검수 전에 교정.
 //                                                               --commit 은 결과를 csat_review_prechecks 에(관리자 화면 「검수 진행」)
-//   ledger-import [--commit]                                    _metrics.jsonl · _followups.jsonl → csat_review_batches · csat_review_followups(자연키 upsert)
+//   ledger-import [--commit | --sql-out _ledger-*.sql]           원장 2종 원자적 upsert / 검증된 단일 DML 파일 출력(DB 쓰기 없음)
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
+//   open-runs --before <ISO UTC 시각>                           지정 시각 이전 미제출 실행 목록(읽기 전용 · 삭제 없음)
 //
 // 재실행 안전: start/rereview 는 같은 실행 주체의 미제출 실행을 재사용한다 · solve 는 두 번 부르면
 // DB 가 거부 · reveal 은 몇 번 불러도 같은 값 · submit 은 (분석, 페르소나, 실행) 당 한 번 · publish 는 몇 번이든 안전.
@@ -45,7 +46,7 @@ import { loadCurrentUnits, unitsForAgent } from './lib-units-db.mjs'
 import { precheckAnalysis, PRECHECK_VERSION, UNITS_VERSION } from './lib-evidence-units.mjs'
 import { isKiceExam } from './lib-exam-id.mjs'
 import { execFileSync } from 'node:child_process'
-import { prepareReviewLedgers } from './lib-review-ledger.mjs'
+import { prepareReviewLedgers, reviewLedgerSql } from './lib-review-ledger.mjs'
 import { fileURLToPath } from 'node:url'
 // 기록하는 커밋은 «실행한 스크립트»의 저장소 것 — 다른 워크트리 cwd 에서 돌려도 섞이지 않게
 const SCRIPT_DIR = path.dirname(fileURLToPath(import.meta.url))
@@ -160,6 +161,12 @@ async function latestHakpyeong() {
   return [...latest.values()]
 }
 
+async function reviewItem(itemId) {
+  const { data, error } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', itemId).single()
+  if (error) die(error.message)
+  return data
+}
+
 // A lost CLI response must not create another unsubmitted run. Same execution only.
 async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
   let q = db.from('csat_review_runs')
@@ -227,6 +234,7 @@ switch (cmd) {
     const row = data?.[0]
     const { data: r } = await db.from('csat_review_runs').select('solve_answer').eq('id', run).single()
     out({ run_id: run, official_answer: row?.answer, official_answers: row?.answers, your_solve: r?.solve_answer, matches: r?.solve_answer === row?.answer, analysis: forReviewer(row?.analysis),
+      item: row?.analysis?.item_id ? await reviewItem(row.analysis.item_id) : null,
       units: row?.analysis?.item_id ? await unitsView(row.analysis.item_id) : null,
       next: `submit --run ${run} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
     break
@@ -273,7 +281,7 @@ switch (cmd) {
     const { data: prior } = await db.from('csat_independent_reviews').select('verdict, findings').eq('review_run_id', parent.id)
     out({ run_id: run.id, resumed: !!existing, kind: 'rereview', parent_run: parent.id,
       original_solve: { answer: parent.solve_answer, note: parent.solve_note, matches: parent.solve_answer === row?.answer },
-      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: forReviewer(row?.analysis), units: await unitsView(a.item_id),
+      prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, item: await reviewItem(a.item_id), analysis: forReviewer(row?.analysis), units: await unitsView(a.item_id),
       next: `submit --run ${run.id} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })
     break
   }
@@ -411,6 +419,8 @@ switch (cmd) {
   case 'ledger-import': {
     // 로컬 원장(_metrics.jsonl · _followups.jsonl)을 DB 로 옮긴다 — 관리자 화면 「검수 진행」이 읽는다.
     // 자연키 upsert(배치 이름 / 문항·출처·소견 해시) — 몇 번을 돌려도 같은 행. 토큰이 없으면 null(「미기록」)
+    const sqlOut = arg('sql-out')
+    if (sqlOut && (has('commit') || path.basename(sqlOut) !== sqlOut || !/^_ledger-[A-Za-z0-9_-]+\.sql$/.test(sqlOut))) die('--sql-out 은 _ledger-*.sql 파일명이며 --commit 과 함께 쓸 수 없다')
     const readLedger = (name) => {
       const p = path.join(WORK, name)
       return fs.existsSync(p) ? fs.readFileSync(p, 'utf8') : ''
@@ -420,6 +430,12 @@ switch (cmd) {
       ;({ batches, followups, notes } = prepareReviewLedgers(readLedger('_metrics.jsonl'), readLedger('_followups.jsonl'), new Date().toISOString()))
     } catch (e) { die(e.message) }
     if (notes) console.log(`  장부 주석 ${notes}줄은 배치가 아니라 건너뛰었다`)
+    if (sqlOut) {
+      fs.mkdirSync(WORK, { recursive: true })
+      fs.writeFileSync(path.join(WORK, sqlOut), reviewLedgerSql({ batches, followups }), 'utf8')
+      console.log(`  배치 ${batches.length} · 추적 ${followups.length} → ${sqlOut} (단일 DML · DB 쓰기 없음)`)
+      break
+    }
     const { data: haveB, error: e1 } = await db.from('csat_review_batches').select('batch')
     if (e1) die(e1.message)
     const { data: haveF, error: e2 } = await db.from('csat_review_followups').select('item_id, source, finding_key')
@@ -435,6 +451,16 @@ switch (cmd) {
     console.log('  기록 완료')
     break
   }
+  case 'open-runs': {
+    const before = must(arg('before'), 'before')
+    if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(before) || !Number.isFinite(Date.parse(before))) die('before 는 ISO UTC 시각이어야 한다')
+    const runs = await all(() => db.from('csat_review_runs')
+      .select('id,item_id,analysis_id,persona,agent_run,kind,created_at,solve_committed_at,revealed_at,csat_independent_reviews(id)')
+      .like('item_id', 'H%').lt('created_at', before).is('csat_independent_reviews', null).order('created_at').order('id'))
+    out({ before, count: runs.length, runs: runs.map(({ csat_independent_reviews, ...run }) => run),
+      recovery: '같은 analysis/persona/agent_run의 유효한 미제출 실행은 start/rereview로 재개한다. 해시가 바뀐 실행과 과거 기록은 삭제하지 않는다.' })
+    break
+  }
   case 'status': {
     const latest = await latestHakpyeong()
     const by = {}
@@ -446,6 +472,6 @@ switch (cmd) {
     break
   }
   default:
-    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|precheck|ledger-import|export|publish|status> …(머리 주석 참조)')
+    console.log('usage: review-drain.mjs <start|solve|reveal|submit|rereview|precheck|ledger-import|export|publish|open-runs|status> …(머리 주석 참조)')
     process.exit(cmd ? 1 : 0)
 }

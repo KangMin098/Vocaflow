@@ -7,12 +7,23 @@ import path from 'node:path'
 import http from 'node:http'
 import { spawn } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
+import { prepareReviewLedgers, reviewLedgerSql } from '../lib-review-ledger.mjs'
 
 const CLI = fileURLToPath(new URL('../review-drain.mjs', import.meta.url))
 const batch = { batch: 'review-test', date: '2026-10-02', kind: 'blind', items: 1 }
 const followup = { item_id: 'H2603G3#18', source: 'test', finding: '근거 번호를 다시 확인한다', severity: 'revise', status: 'open', date: '2026-10-02' }
 
-async function run(metrics, followups, rpcError = false) {
+test('data-only SQL holds both ledgers in one statement and safely quotes dollar tags', () => {
+  const prepared = prepareReviewLedgers(JSON.stringify({ ...batch, note: "apostrophe ' and $csat_ledger$ ; drop table x;" }), JSON.stringify(followup), '2026-10-04T00:00:00Z')
+  const sql = reviewLedgerSql(prepared)
+  assert.match(sql, /with batch_write as/)
+  assert.match(sql, /followup_write as/)
+  assert.match(sql, /\$csat_ledger_\$/)
+  const literals = [...sql.matchAll(/(\$csat_ledger_*\$)(.*?)\1::jsonb/gs)].map((m) => JSON.parse(m[2]))
+  assert.deepEqual(literals, [prepared.batches, prepared.followups])
+})
+
+async function run(metrics, followups, rpcError = false, exportSql = false) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-ledger-'))
   const work = path.join(dir, 'scripts/csat/review-drain-hakpyeong')
   fs.mkdirSync(work, { recursive: true })
@@ -32,7 +43,7 @@ async function run(metrics, followups, rpcError = false) {
   })
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve))
   try {
-    const child = spawn(process.execPath, [CLI, 'ledger-import', '--commit'], {
+    const child = spawn(process.execPath, [CLI, 'ledger-import', ...(exportSql ? ['--sql-out', '_ledger-test.sql'] : ['--commit'])], {
       cwd: dir, windowsHide: true,
       env: { ...process.env, NEXT_PUBLIC_SUPABASE_URL: `http://127.0.0.1:${server.address().port}`, SUPABASE_SERVICE_ROLE_KEY: 'test-only' },
     })
@@ -40,12 +51,21 @@ async function run(metrics, followups, rpcError = false) {
     child.stdout.on('data', (s) => { output += s })
     child.stderr.on('data', (s) => { output += s })
     const code = await new Promise((resolve, reject) => { child.on('error', reject); child.on('close', resolve) })
-    return { code, output, requests }
+    return { code, output, requests, sql: fs.existsSync(path.join(work, '_ledger-test.sql')) ? fs.readFileSync(path.join(work, '_ledger-test.sql'), 'utf8') : null }
   } finally {
     await new Promise((resolve) => server.close(resolve))
     fs.rmSync(dir, { recursive: true, force: true })
   }
 }
+
+test('SQL export works before the RPC exists and makes no database requests', async () => {
+  const r = await run(JSON.stringify(batch), JSON.stringify(followup), true, true)
+  assert.equal(r.code, 0, r.output)
+  assert.deepEqual(r.requests, [])
+  assert.match(r.sql, /review-test/)
+  assert.match(r.sql, /근거 번호를 다시 확인한다/)
+  assert.match(r.output, /DB 쓰기 없음/)
+})
 
 for (const [label, metrics, followups, location] of [
   ['missing batch', [{ ...batch, batch: undefined }], [followup], '_metrics.jsonl:1'],

@@ -31,8 +31,9 @@
 
 import crypto from 'node:crypto'
 
-// v2(2026-10-01): 규칙 2b. 경계가 v1 과 같은 문항은 v2 행을 만들지 않는다(units-build) — 해시에 버전이 들어가 발행분이 자동 보류되지 않게
-export const UNITS_VERSION = 2
+// v3(2026-10-04): 이름 앞 이니셜(F. Carson), 연속 이니셜(A. Y.), 붙여 쓴 이니셜(A.L. Parker)도 보존한다.
+// 실제 문장 끝의 vitamin C. / Room A. / Gen X. 등은 유지한다. 경계가 같으면 옛 버전 행을 유지한다(units-build).
+export const UNITS_VERSION = 3
 /** 사전 검사(precheckAnalysis·checkUnitRefs) 규칙 버전 — 검사 기준이 바뀌면 올린다(기록된 결과를 어느 기준으로 냈는지 남기려고) */
 // v2(2026-10-01): DB 행 사전 검사가 풀이 절차·측정 능력·설계 의도의 [uN] 도 본다(v1 은 정답 근거·선지 해설만 읽어 놓쳤다 — Codex 리뷰)
 export const PRECHECK_VERSION = 2
@@ -50,6 +51,18 @@ function middleInitial(unit, next) {
   if (!m || NOT_NAME.has(m[1])) return false
   const s = next.match(SURNAME_HEAD)
   return !!s && !COMMON_FIRST.has(s[1])
+}
+/** v3: leading / consecutive name initials, including compact A.L. surnames. */
+function nameInitial(unit, next) {
+  const m = unit.match(/(?:^|[^A-Za-z.])((?:[A-Z]\.\s*)+)$/)
+  if (!m) return false
+  const prefix = unit.slice(0, unit.length - m[1].length)
+  const previous = prefix.match(/([A-Za-z]+)\s*$/)?.[1]
+  if (previous && NOT_NAME.has(previous[0].toUpperCase() + previous.slice(1))) return false
+  // A. Y. may be used alone (followed by a verb or a closing parenthesis).
+  if (/^[A-Z]\.(?:\s|[),]|$)/.test(next)) return true
+  const surname = next.match(SURNAME_HEAD)
+  return !!surname && !COMMON_FIRST.has(surname[1])
 }
 const STARTERS = /[A-Z“"('‘[①②③④⑤∙•▪▰※]/
 const BULLETS = new Set(['∙', '•', '▪', '▰', '※'])
@@ -102,7 +115,7 @@ function boundaries(p, typeId) {
     while (k < p.length && /\s/.test(p[k])) k += 1
     if (k >= p.length) break
     if (!STARTERS.test(p[k])) continue
-    if (middleInitial(p.slice(unitStart, j), p.slice(k, k + 40))) continue // 규칙 2b
+    if (middleInitial(p.slice(unitStart, j), p.slice(k, k + 40)) || nameInitial(p.slice(unitStart, j), p.slice(k, k + 80))) continue // 규칙 2b/v3
     cuts.add(k)
     unitStart = k
     i = k - 1

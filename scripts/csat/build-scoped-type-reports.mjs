@@ -30,6 +30,7 @@ const [items, analyses, knownScopes] = await Promise.all([
   all(() => db.from('csat_type_reports').select('type_id,grade').eq('organizer', 'edu_office').order('grade').order('type_id')),
 ])
 const reports = scopedTypeReports(items, analyses, new Date().toISOString(), knownScopes)
+console.log(`유형 미지정 보류 ${items.filter((i) => !i.type_id).length}문항(유형 집계에서 제외)`)
 const file = path.resolve('scripts/csat/analysis-drain-hakpyeong/_type-reports-scoped.json')
 fs.mkdirSync(path.dirname(file), { recursive: true })
 fs.writeFileSync(file, JSON.stringify(reports, null, 1) + '\n')
