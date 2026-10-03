@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url'
 
 const CLI = fileURLToPath(new URL('../review-drain.mjs', import.meta.url))
 
-async function run(kind, existing, solveAnswer = null) {
+async function run(kind, existing, solveAnswer = null, overrides = {}) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'csat-resume-'))
   const requests = []
   const server = http.createServer(async (req, res) => {
@@ -19,12 +19,15 @@ async function run(kind, existing, solveAnswer = null) {
     const url = decodeURIComponent(req.url)
     requests.push({ method: req.method, url, body: body ? JSON.parse(body) : null })
     res.setHeader('Content-Type', 'application/json')
-    if (url.startsWith('/rest/v1/csat_item_analyses')) return res.end(JSON.stringify({ id: 'analysis', item_id: 'H2603G3#18', analyst_run: 'writer' }))
+    if (url.startsWith('/rest/v1/csat_item_analyses')) return res.end(JSON.stringify({ id: 'analysis', item_id: 'H2603G3#18', analyst_run: 'writer', csat_analysis_hash: 'analysis-hash' }))
+    for (const [name, hash] of [['csat_item_input_hash', 'input-hash'], ['csat_item_answer_hash', 'answer-hash'], ['csat_current_units_hash', 'units-hash']]) {
+      if (url.startsWith(`/rest/v1/rpc/${name}`)) return res.end(JSON.stringify(hash))
+    }
     if (url.startsWith('/rest/v1/rpc/csat_rereview_parent')) return res.end('"parent"')
     if (url.startsWith('/rest/v1/rpc/csat_review_reveal')) return res.end(JSON.stringify([{ answer: 2, analysis: { item_id: 'H2603G3#18' } }]))
     if (url.startsWith('/rest/v1/csat_review_runs')) {
       if (req.method === 'POST') return res.end(JSON.stringify({ id: 'new-run' }))
-      if (url.includes('csat_independent_reviews')) return res.end(JSON.stringify(existing ? [{ id: 'existing-run', solve_answer: solveAnswer, csat_independent_reviews: [] }] : []))
+      if (url.includes('csat_independent_reviews')) return res.end(JSON.stringify(existing ? [{ id: 'existing-run', solve_answer: solveAnswer, solve_input_hash: 'input-hash', solve_answer_hash: 'answer-hash', csat_independent_reviews: [], ...overrides }] : []))
       return res.end(JSON.stringify({ id: 'parent', solve_answer: 2, solve_note: 'An independently committed solution.' }))
     }
     if (url.startsWith('/rest/v1/csat_items')) return res.end(JSON.stringify({ id: 'H2603G3#18', passage: 'A synthetic passage.' }))
@@ -59,7 +62,7 @@ for (const kind of ['start', 'rereview']) {
     assert.match(lookup.url, /analysis_id=eq.analysis/)
     assert.match(lookup.url, /persona=eq.setter/)
     assert.match(lookup.url, /agent_run=eq.reviewer/)
-    assert.match(lookup.url, /csat_independent_reviews.id=is.null/)
+    assert.match(lookup.url, /csat_independent_reviews=is.null/)
     if (kind === 'rereview') assert.match(lookup.url, /parent_run_id=eq.parent/)
     else assert.equal('official_answer' in r.result, false)
   })
@@ -77,4 +80,20 @@ test('a resumed committed blind solve goes directly to reveal without solving tw
   assert.equal(r.code, 0, r.output)
   assert.match(r.result.next, /^reveal --run existing-run$/)
   assert.equal('official_answer' in r.result, false)
+})
+
+for (const field of ['reveal_input_hash', 'reveal_answer_hash', 'reveal_analysis_hash', 'reveal_units_hash']) {
+  test(`rereview does not reuse an exposure with stale ${field}`, async () => {
+    const r = await run('rereview', true, null, { revealed_at: '2026-10-01T00:00:00Z', reveal_input_hash: 'input-hash', reveal_answer_hash: 'answer-hash', reveal_analysis_hash: 'analysis-hash', reveal_units_hash: 'units-hash', [field]: 'old' })
+    assert.equal(r.code, 0, r.output)
+    assert.equal(r.result.run_id, 'new-run')
+    assert.equal(r.result.resumed, false)
+  })
+}
+
+test('blind source changes do not reuse an old committed solve', async () => {
+  const r = await run('start', true, 2, { solve_input_hash: 'old-input' })
+  assert.equal(r.code, 0, r.output)
+  assert.equal(r.result.run_id, 'new-run')
+  assert.match(r.result.next, /^solve/)
 })

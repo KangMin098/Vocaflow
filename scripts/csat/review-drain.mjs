@@ -161,17 +161,31 @@ async function latestHakpyeong() {
 }
 
 // A lost CLI response must not create another unsubmitted run. Same execution only.
-async function reusableRun(analysisId, persona, agentRun, kind, parentId = null) {
+async function reusableRun(analysis, persona, agentRun, kind, parentId = null) {
   let q = db.from('csat_review_runs')
-    .select('id, solve_answer, csat_independent_reviews(id)')
-    .eq('analysis_id', analysisId).eq('persona', persona).eq('agent_run', agentRun)
+    .select('id, solve_answer, solve_input_hash, solve_answer_hash, revealed_at, reveal_input_hash, reveal_answer_hash, reveal_analysis_hash, reveal_units_hash, csat_independent_reviews(id)')
+    .eq('analysis_id', analysis.id).eq('persona', persona).eq('agent_run', agentRun)
     .eq('role', 'reviewer').eq('kind', kind)
-    .is('csat_independent_reviews.id', null)
+    .is('csat_independent_reviews', null)
     .order('created_at', { ascending: false }).limit(1)
   if (parentId) q = q.eq('parent_run_id', parentId)
   const { data, error } = await q
   if (error) die(error.message)
-  return data?.[0] ?? null
+  const run = data?.[0]
+  if (!run) return null
+  if (run.revealed_at || (kind === 'blind' && run.solve_answer != null)) {
+    const values = await Promise.all([
+      db.rpc('csat_item_input_hash', { p_item: analysis.item_id }),
+      db.rpc('csat_item_answer_hash', { p_item: analysis.item_id }),
+      db.rpc('csat_current_units_hash', { p_item: analysis.item_id }),
+    ])
+    for (const r of values) if (r.error) die(r.error.message)
+    const [inputHash, answerHash, unitsHash] = values.map((r) => r.data)
+    if (kind === 'blind' && (run.solve_input_hash !== inputHash || run.solve_answer_hash !== answerHash)) return null
+    if (run.revealed_at && (run.reveal_input_hash !== inputHash || run.reveal_answer_hash !== answerHash
+      || run.reveal_analysis_hash !== analysis.csat_analysis_hash || (run.reveal_units_hash ?? '') !== (unitsHash ?? ''))) return null
+  }
+  return run
 }
 
 switch (cmd) {
@@ -181,12 +195,12 @@ switch (cmd) {
     const persona = must(arg('persona'), 'persona')
     const agentRun = must(arg('agent-run'), 'agent-run')
     if (!PERSONAS.includes(persona)) die(`persona 는 ${PERSONAS.join('|')}`)
-    const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run').eq('id', analysisId).single()
+    const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run, csat_analysis_hash').eq('id', analysisId).single()
     if (ae) die(ae.message)
     if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
     // 이 도구는 **학평(보조·검증 집합) 전용**이다 — 평가원 분석은 csat_analysis_reviews 규약을 따른다
     if (isKiceExam(a.item_id)) die(`${a.item_id}: 평가원 문항은 이 도구로 검수하지 않는다(학평 전용)`)
-    const existing = await reusableRun(a.id, persona, agentRun, 'blind')
+    const existing = await reusableRun(a, persona, agentRun, 'blind')
     const { data: run, error: re } = existing ? { data: existing } : await db.from('csat_review_runs')
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona }).select('id').single()
     if (re) die(re.message)
@@ -239,7 +253,7 @@ switch (cmd) {
     const persona = must(arg('persona'), 'persona')
     const agentRun = must(arg('agent-run'), 'agent-run')
     if (!PERSONAS.includes(persona)) die(`persona 는 ${PERSONAS.join('|')}`)
-    const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run').eq('id', analysisId).single()
+    const { data: a, error: ae } = await db.from('csat_item_analyses').select('id, item_id, analyst_run, csat_analysis_hash').eq('id', analysisId).single()
     if (ae) die(ae.message)
     if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
     // parent 는 **지금 원문·정답 해시와 맞는** 가장 최근 blind 풀이(DB 함수 — 게이트와 같은 조건).
@@ -249,7 +263,7 @@ switch (cmd) {
     if (!parentId) die(`${a.item_id} ${persona}: 지금 원문·정답과 맞는 블라인드 풀이가 없다 — start 로 새 블라인드부터`)
     const { data: parent, error: pe2 } = await db.from('csat_review_runs').select('id, solve_answer, solve_note').eq('id', parentId).single()
     if (pe2) die(pe2.message)
-    const existing = await reusableRun(a.id, persona, agentRun, 'rereview', parent.id)
+    const existing = await reusableRun(a, persona, agentRun, 'rereview', parent.id)
     const { data: run, error: re } = existing ? { data: existing } : await db.from('csat_review_runs')
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona, kind: 'rereview', parent_run_id: parent.id }).select('id').single()
     if (re) die(re.message)

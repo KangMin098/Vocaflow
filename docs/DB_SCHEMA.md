@@ -2,6 +2,8 @@
 
 > 적용 대기(2026-10-04): `20261004010000_csat_review_ledger_atomic.sql`의 `csat_review_ledgers_import(p_batches jsonb, p_followups jsonb)`는 검수 배치·추적 장부의 자연키 upsert를 한 트랜잭션으로 묶는다. SECURITY INVOKER·빈 search_path·service_role 전용이며 삭제·기존 테이블 변경이 없다. 사용자 승인 후 적용한다.
 
+> P4 생성기: `node scripts/csat/build-scoped-type-reports.mjs [--commit]`은 학평 최신 발행 분석을 학년별로 집계해 `csat_type_reports`의 `(type_id, edu_office, 1~3)` 행만 upsert한다. 보류된 교정의 옛 발행본은 집계하지 않고, 평가원 `(kice, 0)` 행은 실행 전후 비교한다. `n_analyzed`는 문항 수, `recurring_traps.count`는 정답을 제외한 오답 선지 수다.
+
 ## DB 전수 조사 조치 (2026-09-23, migration 5건 `20260923103943`~`20260923105031`)
 
 조사·근거 전문: [reports/db-audit-2026-09-23.md](./reports/db-audit-2026-09-23.md) ·

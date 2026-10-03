@@ -36,7 +36,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { isKiceExam } from './lib-exam-id.mjs'
+import { isKiceExam, parseExamId, examIdOf } from './lib-exam-id.mjs'
 
 for (const f of ['apps/web/.env.local', '.env.local']) {
   try {
@@ -51,7 +51,14 @@ for (const f of ['apps/web/.env.local', '.env.local']) {
 
 const WRITE = process.argv.includes('--write')
 const CHECK = process.argv.includes('--check')
-const OUT = path.resolve('apps/web/src/lib/csat/trap-atlas.json')
+const arg = (name, fallback = null) => {
+  const i = process.argv.indexOf(`--${name}`)
+  return i < 0 ? fallback : process.argv[i + 1]
+}
+const SET = arg('set', 'kice')
+const GRADE = Number(arg('grade', '0'))
+if (!['kice', 'hakpyeong'].includes(SET) || (SET === 'hakpyeong' ? ![1, 2, 3].includes(GRADE) : GRADE !== 0)) throw new Error('--set kice는 grade 0, --set hakpyeong은 --grade 1|2|3이 필요하다')
+const OUT = path.resolve('apps/web/src/lib/csat', SET === 'kice' ? 'trap-atlas.json' : `trap-atlas-hakpyeong-g${GRADE}.json`)
 
 /** 지도에 이름을 남기는 하한. 이보다 드문 것은 「그 밖」으로 합친다 — 한 번 나온 함정을
  *  이름으로 외우게 하면 26유형을 외우던 문제를 513가지로 옮긴 것뿐이다. */
@@ -90,12 +97,13 @@ const [itemsAll, examsAll, typesAll, analysesAll] = await Promise.all([
   page('csat_items', 'id, exam_id, no, type_id', (q) => q.eq('in_scope', true)),
   page('csat_exams', 'id, label, year'),
   page('csat_types', 'id, name, status', (q) => q.eq('in_scope', true)),
-  page('csat_item_analyses', 'item_id, version, choice_analysis', (q) => q.eq('status', 'published')),
+  page('csat_item_analyses', 'item_id, version, choice_analysis, status', (q) => SET === 'kice' ? q.eq('status', 'published') : q.like('item_id', 'H%')),
 ])
 // 평가원 집합만 — 학평 발행분이 평가원 함정 지도·드릴에 섞이지 않게(유형 통계는 집합별로 따로 · scope.ts).
 // 학평 지도는 `--set hakpyeong` 산출물로 따로 굽는다(별도 작업). 받아 온 뒤 거르는 이유: page() 헬퍼가 조건 없이 전 행을 읽는다
-const kiceOnly = (rows, key) => rows.filter((r) => isKiceExam(r[key]))
-const [items, exams, types, analyses] = [kiceOnly(itemsAll, 'exam_id'), kiceOnly(examsAll, 'id'), typesAll, kiceOnly(analysesAll, 'item_id')]
+const inScope = (id) => SET === 'kice' ? isKiceExam(id) : parseExamId(examIdOf(id))?.kind === 'hakpyeong' && parseExamId(examIdOf(id))?.grade === GRADE
+const scopeOnly = (rows, key) => rows.filter((r) => inScope(r[key]))
+const [items, exams, types, analyses] = [scopeOnly(itemsAll, 'exam_id'), scopeOnly(examsAll, 'id'), typesAll, scopeOnly(analysesAll, 'item_id')]
 console.log(`  문항 ${items.length} · 회차 ${exams.length} · 유형 ${types.length} · 분석행 ${analyses.length}`)
 
 // ── 문항마다 최신 버전 하나만 ────────────────────────────────────────
@@ -106,6 +114,7 @@ for (const a of analyses) {
   const prev = latest.get(a.item_id)
   if (!prev || a.version > prev.version) latest.set(a.item_id, a)
 }
+if (SET === 'hakpyeong') for (const [id, a] of latest) if (a.status !== 'published') latest.delete(id)
 
 const examOf = new Map(exams.map((e) => [e.id, e]))
 const itemOf = new Map(items.map((i) => [i.id, i]))
@@ -119,6 +128,7 @@ for (const [itemId, a] of latest) {
   const exam = examOf.get(item.exam_id)
   const year = exam?.year ?? 0
   for (const ch of Array.isArray(a.choice_analysis) ? a.choice_analysis : []) {
+    if (ch?.verdict !== 'distractor') continue
     const trap = typeof ch?.trap === 'string' ? ch.trap.trim() : ''
     if (!trap) continue
     rows.push({
@@ -204,7 +214,8 @@ const traps = [...agg.values()]
     by_type_recent: Object.fromEntries(
       [...e.typesRecent.entries()].sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)),
     ),
-    examples: pickExamples(e.cands),
+    // 학평 원문·인용은 저장소에 내보내지 않는다. 예시 해설 정본은 DB다.
+    examples: SET === 'hakpyeong' ? [] : pickExamples(e.cands),
   }))
 
 const named = traps.reduce((a, t) => a + t.n, 0)
@@ -235,6 +246,7 @@ const typeList = [...typeAgg.values()]
   .sort((a, b) => Number(a.status === 'retired') - Number(b.status === 'retired') || b.recent - a.recent || b.n - a.n)
 
 const atlas = {
+  ...(SET === 'hakpyeong' ? { organizer: 'edu_office', grade: GRADE } : {}),
   // 언제 센 것인지 화면이 말할 수 있어야 한다 — 「최근 4개년」이 언제 기준인지 모르면 수치가 뜬다.
   built_at: new Date().toISOString().slice(0, 10),
   recent_from: RECENT_FROM,
