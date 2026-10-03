@@ -29,7 +29,7 @@ export function MapScreen({ data, view, base }: { data: MapPageData; view: MapVi
               <ArrowLeft size={14} strokeWidth={1.8} aria-hidden="true" />
               핵심 지도로
             </Link>
-            <span>전체 지도 — 역량(A) 막대는 규칙 기반 관찰값이에요(목표율 연결은 보정 뒤). 문항유형 · 오답 원인 · 행동 · 방법은 목표율을 두지 않아요.</span>
+            <span>전체 지도 — 역량(A) 막대는 규칙 기반 관찰값이에요(목표율 연결은 보정 뒤). 문항유형 · 선지 함정 · 행동 · 방법은 목표율을 두지 않아요.</span>
           </div>
           <LearningMap data={data} />
         </>

@@ -116,6 +116,11 @@ function Overview({ report, name, focus }: { report: ExamReport; name: (id: stri
 
   return (
     <div className={s.bento}>
+      {report.qualityExcluded > 0 && (
+        <p className={`${s.card} ${s.span4} ${s.qualityNote}`} role="note" data-testid="quality-note">
+          한 번호로 입력된 기록 {report.qualityExcluded}회는 유형 · 함정 · 학습 지도 진단에서 뺐어요. 점수와 기록은 그대로 남아 있어요.
+        </p>
+      )}
       <section className={`${s.card} ${s.span1} ${s.row2}`} aria-label="최근 점수">
         <div className={s.label}>최근 점수</div>
         <div className={s.big} style={{ fontSize: 24 }}>{latest.raw}</div>

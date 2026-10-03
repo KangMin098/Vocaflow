@@ -1,4 +1,5 @@
 /* apps/web/src/components/csat/diagnosis/map/popup.module.css
+ * tokens-from: ./map.module.css — 이 모듈은 map.module.css 의 .root 안에 렌더돼 --m-* · --g-* · --p-* 를 상속받는다
  *
  * 학습 지도 팝업 — 참조(3B 앱)의 모달 패턴. 크기 변수(--p-*)와 색 토큰(--m-*)은 map.module.css 의 .root 에 있고
  * 팝업은 그 안에 렌더돼 상속받는다(geometry.test.ts 가 --p-* 를 spec.json 과 대조한다).

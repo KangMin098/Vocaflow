@@ -1490,3 +1490,12 @@ a.tagChip:hover {
   border-radius: 999px;
   background: var(--tint, #8b8984);
 }
+
+/* 입력 신뢰도 안내(Record Quality Layer) — 진단에서 뺀 기록이 있을 때만 */
+.qualityNote {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  word-break: keep-all;
+}

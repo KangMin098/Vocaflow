@@ -258,6 +258,20 @@ export async function buildInput(db: Db, userId: string, now: Date): Promise<{ i
 
 export type SnapshotTrigger = 'session' | 'profile' | 'admin' | 'settings'
 
+/**
+ * 저장하지 않고 지금 입력으로 진단 · 지도 지표를 계산한다. 저장된 스냅샷이 옛 엔진 버전일 때
+ * 지도가 그 값(예: 품질 판정 전 일괄 입력 기록이 섞인 관찰값)을 보이지 않도록 쓴다.
+ */
+export async function computeSnapshotNow(db: Db, userId: string, now: Date) {
+  const { input } = await buildInput(db, userId, now)
+  const result = ENGINE.diagnose(input)
+  const map = await mapEvidenceFor(db, input)
+  return {
+    result,
+    evidence: { ...result.evidence, adjusted: result.adjusted, trend: result.trend, ...(map.evidence ?? {}), mapStatus: map.status },
+  }
+}
+
 /** 전체 재계산 후 스냅샷 한 행을 더한다(덮어쓰지 않는다) */
 export async function recomputeSnapshot(
   db: Db,

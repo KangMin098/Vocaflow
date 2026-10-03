@@ -6,6 +6,7 @@
 //   · 관측이 모자란 역량은 0 이 아니라 「데이터 부족」(value null)
 //   · 공식 오답률이 없으면 난이도 보정을 하지 않고 adjusted=false 로 알린다
 
+import { QUALITY_RULES_VERSION, isDiagnosable, recordQuality } from './record-quality'
 import { adjustScore, clampScore, expectedScore, gradeOf, round1 } from './scoring'
 import {
   ATTRIBUTE_CODES,
@@ -27,7 +28,8 @@ import {
   type TrapVulnerability,
 } from './types'
 
-export const ENGINE_VERSION = 'rule-v1'
+// rule-v1.1 — Record Quality Layer(rq-1): 일괄 입력 · 의심 기록을 진단 집계에서 뺀다(점수 · 추이는 그대로)
+export const ENGINE_VERSION = 'rule-v1.1'
 
 const DAY_MS = 86_400_000
 
@@ -45,6 +47,18 @@ export const isExamSession = (s: SessionIn) => s.examId !== null && (s.mode === 
 
 export function byDate(a: SessionIn, b: SessionIn) {
   return a.takenAt < b.takenAt ? -1 : a.takenAt > b.takenAt ? 1 : 0
+}
+
+/** 기록 한 회의 입력 신뢰도(Record Quality Layer) */
+export const qualityOf = (s: SessionIn) => recordQuality(s.responses.map((r) => ({ no: r.itemNo, chosen: r.chosen })))
+
+/**
+ * 진단 집계용 입력 — 품질 판정을 통과한(trusted) 기록만 남긴다. 점수 · 추이 · 예측은 원래 입력을 쓴다(기록 자체는 유지).
+ * 역량 proxy · 함정 · 습관 · 추천 · 지도 지표는 모두 이 입력으로 계산한다.
+ */
+export function diagnosticInput(input: EngineInput): EngineInput {
+  const sessions = input.sessions.filter((s) => isDiagnosable(qualityOf(s)))
+  return sessions.length === input.sessions.length ? input : { ...input, sessions }
 }
 
 /** 진단(역량·함정)에 쓸 수 있는 응답 — 준비된 시험의 응답 또는 진단 테스트 응답 */
@@ -341,10 +355,12 @@ export function confidenceLevel(
 }
 
 export function diagnose(input: EngineInput): DiagnosisResult {
-  const rows = diagnosedResponses(input)
-  const mastery = attributeMastery(input, rows)
-  const traps = trapVulnerability(input, rows)
-  const habits = habitFlags(input, rows)
+  // 진단 집계는 품질 통과 기록만(dx) — 점수 · 추이 · 예측은 전체 기록(input)
+  const dx = diagnosticInput(input)
+  const rows = diagnosedResponses(dx)
+  const mastery = attributeMastery(dx, rows)
+  const traps = trapVulnerability(dx, rows)
+  const habits = habitFlags(dx, rows)
   const { ability: abilityRaw, adjusted, fromDiagnostic } = currentAbility(input)
   const ability = abilityRaw === null ? null : clampScore(abilityRaw)
   const ref = input.settings.reference_exam ? input.exams[input.settings.reference_exam] : undefined
@@ -370,13 +386,16 @@ export function diagnose(input: EngineInput): DiagnosisResult {
       normal: scenario(input, abilityRaw, adjusted, sc.normal),
       easy: scenario(input, abilityRaw, adjusted, sc.easy),
     },
-    confidence: confidenceLevel(input, examSessions.length, totalResponses, mastery, fromDiagnostic),
-    recommendedLines: recommend(input, mastery, traps, habits),
+    confidence: confidenceLevel(dx, dx.sessions.filter(isExamSession).length, dx.sessions.reduce((n, s) => n + s.responses.length, 0), mastery, fromDiagnostic),
+    recommendedLines: recommend(dx, mastery, traps, habits),
     evidence: {
       examSessions: examSessions.length,
       diagnosticSessions: input.sessions.filter((s) => s.mode === 'diagnostic').length,
       responses: totalResponses,
       diagnosedResponses: rows.length,
+      // 품질 판정으로 진단 집계에서 뺀 기록 수 · 규칙 버전(기록 · 점수는 그대로)
+      qualityExcludedSessions: input.sessions.length - dx.sessions.length,
+      qualityRules: QUALITY_RULES_VERSION,
       scoreOnlySessions: scoreOnly,
     },
     trend: examSessions.map((s) => ({

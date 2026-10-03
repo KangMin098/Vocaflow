@@ -1,4 +1,5 @@
 /* apps/web/src/components/csat/diagnosis/map/core.module.css
+ * tokens-from: ./map.module.css — 이 모듈은 map.module.css 의 .root 안에 렌더돼 --m-* · --g-* · --p-* 를 상속받는다
  *
  * 핵심 지도 요약 — 색 토큰(--m-*)은 map.module.css 의 .root 에서 상속한다. 상태는 글자로 항상 보이고 색은 보조.
  */

@@ -750,3 +750,54 @@ AI 단독 · 학생 단독 · AI 신뢰도 high 는 「확인된 원인」이 �
 4. Pilot 표본: 현재 41건은 한 번호 입력(②만 · ③만 — 입력 신뢰도 확인 전)이라 리허설 전용. 원인 검증에는 **풀이 과정 증거**가 필수라 실제 표본은 경로 (나) — 학습자 3명 이상이 기출을 실제로 풀고 틀린 문항마다 과정 증거를 남기는 것 — 를 권장. (가) 대기는 설명 적합성 점검까지만, (다) 합성은 표현력 점검까지만. 판정자 2명 구성(독립성 조건 §10)
 5. 지도 C 의 의미: 지금 「오답 원인 분류」로 쓰인 C1~C8 을 **「선지 함정(문항 특성)」** 으로 바꿀지(목표 파일 「C = 오답 원인 분류」 개정 포함) — 바꾸면 엔진 `trap_vulnerability` 화면 문구도 「선지 함정 노출」로 함께 바꾼다
 6. **입력 신뢰도 가드**(§13): 시험 1회분 응답의 90%(잠정) 이상이 같은 선지면 「입력 신뢰도 확인 필요」로 표시하고, 학습자 확인(응시 · 선지별 판단) 전까지 역량 · 함정 · 원인 집계에서 뺀다(점수 · 추이와 기록 자체는 유지). 지금 실사용 기록 2회가 이 경우다. 진단 결과가 바뀌는 변경이라 승인 뒤 별도 커밋으로.
+
+## 14. ERD · 테이블 필요성 검토 (2026-10-03 — 승인 조건 2)
+
+> 사용자 결정: 논리 요구사항(append-only · taxonomy 버전 보존 · blind 결과 보존 · provenance · adjudication · 판정 입력 해시 · 재판정 이력 · 학습자 기록 삭제 외 이력 삭제 금지)은 **승인**, 물리 13테이블은 **미승인**.
+> 기준: 각 테이블이 **독립 수명 · 무결성(FK/유일성) · 접근 권한 · 카디널리티** 중 하나 이상 때문에 따로 있어야 하는가. 아니면 합친다. Pilot 을 위해 필요 이상으로 정규화하지 않는다.
+
+### 테이블별 판정
+
+| # | 테이블(§5 초안) | 책임 | PK | FK | 카디널리티 | 수명 | 권한(학생) | 불변 | 따로 있어야 하나 | 결론 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | `csat_taxonomy_version` | 사전 버전 · 봉인 | version | — | 1 : N 코드 | 봉인 전 · 후 두 단계 | 읽기 | 봉인 뒤 불변 | **예** — 봉인은 버전 단위 상태라 코드 행에 둘 수 없다(코드마다 sealed_at 을 복제하면 불일치 가능) | 유지 |
+| 2 | `csat_error_cause_code` | 원인 코드 정의 | (code, version) | → 1 | N : 1 버전 | 버전과 같이 | 읽기 | 불변 | **예** — evidence · 검수의 FK 대상(없는 코드 금지) | 유지 |
+| 3 | `csat_choice_trap_map` | trap_key 문자열 → 9코드 | (trap_key, version) | → 1 | 525 key | 버전과 같이 | 읽기 | 불변 | **아니요(Pilot 동안)** — 문항 쪽 참고값이라 FK 로 지킬 대상이 없고, 판정 입력에는 값이 해시로 박힌다 | **저장소 JSON 파일**(`choice-trap-map.v0.json`)로. DB 화는 Pilot 뒤 |
+| 4 | `csat_choice_trap_override` | 문항 · 선지별 재정의 | (item, option, version) | → 문항 | 선별 | 버전과 같이 | 읽기 | 불변 | **아니요** — 3 과 같은 성격 · 같은 수명 | 3 과 **같은 파일**에 합침(`overrides` 구역) |
+| 5 | `csat_error_evidence` | 원인 주장(학생 범주 · AI · reviewer) | id | → 응답 · 실행 · 코드 | 응답당 0~N | 응답과 같이(연쇄 삭제) | 자기 student 행 읽기 | 주장 불변 · 상태만 전환 | **예** — 응답당 0~N · 출처별 권한 · FK | 유지 |
+| 6 | `csat_error_judgment_run` | AI 실행(원인 0개 결과 포함) | id | → 응답 | 응답당 실행 N | 덧붙이기 | 없음 | 불변 | **예** — 「원인 0개」 결과는 evidence 행이 없어 실행 행이 아니면 남을 곳이 없다 | 유지 |
+| 7 | `csat_error_judgment_input` | 실행 입력 전문 | run_id | → 6 | 1 : 1 | 6 과 같음 | 없음 | 불변 | **아니요** — 6 과 1:1 · 같은 수명 · 같은 권한 | 6 에 **`input jsonb` 컬럼**으로 합침 |
+| 8 | `csat_error_review_round` | 검수 회차 · 대상 봉인 · 공개 시각 | round | — | 회차 N | 시작 → 봉인 → 공개 → 완료/취소 | 없음 | 상태 전환만 | **예** — 회차 단위 상태(봉인 · 공개 · 취소)가 blind 독립성의 근거 | 유지 |
+| 9 | `csat_error_review_roster` | 회차 판정자 명부 | (round, label) | → 8 | 회차당 2 | 8 과 같음 | 없음 | 봉인 뒤 불변 | **아니요** — 회차당 2명 · 회차와 같은 수명 · 같은 권한. 독립성 검사(판정자 키 대조)는 jsonb 로도 된다 | 8 에 **`reviewers jsonb`** 로 합침(봉인 트리거가 함께 고정) |
+| 10 | `csat_error_review` | 판정자 개별 판정(blind · verify) | id | → 응답 · 8 · 5 | 응답 × 판정자 × 단계 | 덧붙이기 | 없음 | **불변**(계정 삭제 NULL 전환만) | **예** — 최초 blind 판정을 지우지 않고 보존해야 한다(합의만 남기면 일치도를 잴 수 없다) | 유지 |
+| 11 | `csat_error_review_lock` | 검수 중 자기보고 수정 잠금 | (응답, round) | → 응답 · 8 | — | 8 과 같음 | 없음 | 취소만 | **아니요** — 「열린 회차의 대상인가」는 8 의 `targets` · 상태에서 계산된다 | **없앰**(8 에서 도출) |
+| 12 | `csat_dx_session_attestation` | 학습자 「실제로 풀었다」 확인 | (session, answers_hash, revision) | → 세션 | 세션당 revision N | 학생 작성 · 덧붙이기 | 자기 행 읽기(RPC 쓰기) | 불변 | **예** — 작성자 · 수명이 다르고(학생), 품질 상태와 **다른 개념**으로 둬야 한다(사용자 결정 8) | 유지 |
+| 13 | `csat_error_process_note` | 풀이 과정 증거(고른 이유 · 막힌 곳) | (응답, revision) | → 응답 | 응답당 revision N | 학생 작성 · 덧붙이기 | 자기 행 읽기(RPC 쓰기) | 불변 | **예** — 범주 자기보고(5)와 수명이 다르고(철회해도 남아야 함) 검증 규칙이 다르다 | 유지 |
+
+**결과: 13 → 8 테이블 + 저장소 파일 1개.**
+
+- DB: `csat_taxonomy_version` · `csat_error_cause_code` · `csat_error_evidence` · `csat_error_judgment_run`(+ `input jsonb`) · `csat_error_review_round`(+ `reviewers jsonb`, 잠금은 도출) · `csat_error_review` · `csat_dx_session_attestation` · `csat_error_process_note`
+- 파일: `docs/csat-learner/choice-trap-map.v0.json`(문자열 기본 대응 + 문항 · 선지 재정의 · taxonomy_version 표기)
+- **Record Quality Layer 는 테이블이 없다** — 응답 패턴에서 매번 계산한다(`engine/record-quality.ts`, 규칙 버전 `rq-1`). 사람의 품질 검토 결과를 저장해야 할 때(예: 「검토 결과 정상」)만 테이블을 더한다 — 그 전에는 학습자 확인(12)과 섞지 않는다.
+
+### ERD (8 테이블)
+
+```mermaid
+erDiagram
+  csat_dx_session ||--o{ csat_dx_response : "응답 45"
+  csat_dx_session ||--o{ csat_dx_session_attestation : "학습자 확인(revision)"
+  csat_dx_response ||--o{ csat_error_process_note : "과정 증거(revision)"
+  csat_dx_response ||--o{ csat_error_evidence : "원인 주장 0..N"
+  csat_dx_response ||--o{ csat_error_judgment_run : "AI 실행 0..N"
+  csat_error_judgment_run ||--o{ csat_error_evidence : "AI 행"
+  csat_taxonomy_version ||--o{ csat_error_cause_code : "코드"
+  csat_error_cause_code ||--o{ csat_error_evidence : "error_code"
+  csat_taxonomy_version ||--o{ csat_error_judgment_run : "버전"
+  csat_error_review_round ||--o{ csat_error_review : "회차"
+  csat_dx_response ||--o{ csat_error_review : "blind(응답 단위)"
+  csat_error_evidence ||--o{ csat_error_review : "verify(행 단위)"
+```
+
+- 모든 신규 테이블은 응답 · 세션 FK `on delete cascade` — 학습자 기록 삭제가 유일한 삭제 경로다(§5-1 권한 원칙).
+- 합친 결과로 바뀌는 규칙: 잠금 판정 = 「그 응답이 `cancelled_at IS NULL` 이고 완료 전인 회차의 `targets` 에 있는가」(RPC 안에서 회차 행을 잠그고 확인). 판정자 독립성 = 회차 `reviewers` jsonb 의 `reviewer_key` 대조.
+- 다음 단계: 이 8 테이블로 마이그레이션 초안(SQL)을 써서 **승인 요청** — 적용은 승인 뒤.

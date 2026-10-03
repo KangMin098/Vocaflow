@@ -37,7 +37,7 @@ export default async function DiagnosisPage({ searchParams }: { searchParams: { 
   ])
   const closeHref = boardHref(BASE, tab, view)
   // 학습 지도 탭일 때만 지도 데이터를 읽는다(다른 탭의 속도를 건드리지 않는다)
-  const mapData = tab === 'map' ? await loadMapPage(db, userId) : null
+  const mapData = tab === 'map' ? await loadMapPage(db, userId, new Date()) : null
   const mapSlot = tab === 'map' ? mapData ? <MapScreen data={mapData} view={parseMapView(searchParams.view)} base={BASE} /> : <MapPreparing /> : undefined
   const record = searchParams.record ? report.trend.find((t) => t.sessionId === searchParams.record) : undefined
 

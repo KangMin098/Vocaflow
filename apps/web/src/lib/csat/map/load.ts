@@ -9,6 +9,8 @@ import 'server-only'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { selectByChunks, selectSmall } from '../diagnosis/fetch'
+import { ENGINE_VERSION } from '../diagnosis/engine/rule-v1'
+import { computeSnapshotNow } from '../diagnosis/server'
 import { loadSnapshots } from '../diagnosis/snapshot'
 
 import { NO_DATA_ATTRIBUTES } from './core'
@@ -81,7 +83,7 @@ function group<T, K extends string | number>(rows: T[], key: (r: T) => K, val: (
   return out
 }
 
-export async function loadMapPage(db: Db, userId: string): Promise<MapPageData | null> {
+export async function loadMapPage(db: Db, userId: string, now: Date): Promise<MapPageData | null> {
   // 게이트 — 테이블 없음(미설치)과 시드 전을 가른다
   const probe = await db.from('csat_map_node').select('code').limit(1)
   if (probe.error) {
@@ -185,8 +187,14 @@ export async function loadMapPage(db: Db, userId: string): Promise<MapPageData |
     listening: { attribute: dx.listening?.attribute ?? 'A7', weight: dx.listening?.weight ?? 0, toNo: dx.habits?.listening?.to_no ?? 17 },
   })
 
-  // 최신 스냅샷 → 현재 성취율
-  const [snap] = await loadSnapshots(db, userId, 1)
+  // 최신 스냅샷 → 현재 관찰값. 옛 엔진 버전(예: Record Quality Layer 전 rule-v1)이면 그 값을 쓰지 않고
+  // 저장 없이 지금 입력으로 다시 계산한다 — 일괄 입력 기록이 섞인 관찰값이 지도에 남지 않게
+  const [stored] = await loadSnapshots(db, userId, 1)
+  let snap = stored
+  if (stored && stored.engineVersion !== ENGINE_VERSION) {
+    const fresh = await computeSnapshotNow(db, userId, now)
+    snap = { ...stored, engineVersion: fresh.result.engineVersion, rawScore: fresh.result.rawScore, habitFlags: fresh.result.habitFlags, evidence: fresh.evidence as typeof stored.evidence }
+  }
   const ev = snap?.evidence
   const trendRaw = [...(ev?.trend ?? [])].reverse().find((t) => t.raw !== null)?.raw ?? null
   const snapshot: SnapshotInput | null = snap

@@ -15,7 +15,7 @@ const USER = process.env.MAP_LIVE_USER
 describe.skipIf(!USER)('loadMapPage (live)', () => {
   it('실제 DB 에서 지도를 조립한다', async () => {
     const db = createAdminClient()
-    const data = await loadMapPage(db as never, USER as string)
+    const data = await loadMapPage(db as never, USER as string, new Date('2026-10-03T12:00:00Z'))
     expect(data).not.toBeNull()
     const d = data!
     const m = d.model

@@ -43,11 +43,13 @@ export const CORE_AXES: CoreAxisDef[] = [
 export const NO_DATA_ATTRIBUTES: readonly string[] = ['A7']
 
 /** 영역(축) 역할 — 학생 숙달 노드인지, 측정 렌즈 · 오답 분류 · 행동 진단 · 방법 도구인지 */
-export type AxisRole = 'ability_proxy' | 'lens' | 'error' | 'behavior' | 'method' | 'performance'
+export type AxisRole = 'ability_proxy' | 'lens' | 'error' | 'behavior' | 'method' | 'performance'  // 'error' = 선지 함정(Choice Trap) — 이름은 호환을 위해 유지
 export const AXIS_ROLE: Record<string, { role: AxisRole; label: string; desc: string }> = {
   A: { role: 'ability_proxy', label: '역량 관찰(규칙 기반)', desc: '유형 → 역량 대응표에서 상속된 관찰값이에요. 실제 실력 수준이 아니에요.' },
   B: { role: 'lens', label: '측정 렌즈', desc: '문항유형은 능력이 아니라, 학생 능력이 관찰되는 조건이에요.' },
-  C: { role: 'error', label: '오답 원인 분류', desc: '틀렸을 때 왜 틀렸는지를 설명하는 분류예요. 공부할 영역이 아니에요.' },
+  // C = Choice Trap — 오답 선지가 지문을 비튼 방식(문항 · 선지 특성). 학생이 왜 틀렸는지(Learner Error Cause)는 지도 노드가 아니라
+  // Attempt Evidence Layer 에서 다룬다(2026-10-03 사용자 결정 · docs/csat-learner/ERROR_EVIDENCE_DESIGN.md).
+  C: { role: 'error', label: '선지 함정 · 문항 특성', desc: '오답 선지가 지문을 어떻게 비틀었는지예요. 학생이 왜 틀렸는지는 이 노드가 말하지 않아요 — 원인은 풀이 기록으로 따로 확인해요.' },
   D: { role: 'behavior', label: '행동 진단', desc: '풀이 습관 신호예요. 능력이 아니라 행동을 봐요.' },
   I: { role: 'method', label: '학습 방법', desc: '진단 결과에 따라 꺼내 쓰는 방법 도구예요. 달성할 대상이 아니에요.' },
   J: { role: 'performance', label: '시험 운영', desc: '실전 실행(시간 · 순서 · 집중)에 속해요.' },

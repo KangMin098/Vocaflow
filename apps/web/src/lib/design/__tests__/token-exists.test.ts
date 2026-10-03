@@ -29,7 +29,7 @@
 // · `--sidebar-w` 처럼 JS 가 `style.setProperty` 로 넣는 것 — 그 사실을 아래 목록에 적는다.
 
 import { readFileSync, readdirSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
@@ -97,11 +97,18 @@ describe('CSS 변수 — 부르는 이름이 실제로 정의돼 있다', () => 
       // ⚠️ **주석을 먼저 지운다.** 이 저장소에서 주석은 측정 기록이라 코드 예시를 자주 담는다 —
       //    `// ctx.strokeStyle = 'var(--x)' 는 무시된다` 같은 줄이 위반으로 잡힌다.
       //    같은 함정을 세 번 겪었다(일괄 치환 · preload 검사 · 여기).
-      const src = stripComments(readFileSync(path, 'utf8'))
+      const raw = readFileSync(path, 'utf8')
+      const src = stripComments(raw)
+      // 상속 스코프 — CSS 모듈이 조상 요소의 변수를 받아 쓰는 경우(예: 학습 지도 팝업 · 핵심 요약은 map.module.css 의 .root 안에 렌더된다).
+      // 머리 주석에 `tokens-from: ./map.module.css` 로 적은 파일의 정의를 이 파일의 지역 변수로 인정한다(주석은 지우기 전 원문에서 읽는다).
+      const inherited = [...raw.matchAll(/tokens-from:\s*(\S+\.css)/g)].flatMap((m) =>
+        [...stripComments(readFileSync(resolve(dirname(path), m[1]), 'utf8')).matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)].map((x) => x[1]),
+      )
       // 이 파일이 스스로 정의하는 지역 변수는 제외한다.
       // ⚠️ CSS 의 `--x:` 만 보면 안 된다. 아케이드·게임은 인라인 style 객체로
       //    `{ '--fall': ... }` 처럼 **JS 에서** 변수를 넘긴다 — 그것도 정의다.
       const local = new Set([
+        ...inherited,
         ...[...src.matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)].map((m) => m[1]),
         // `{ '--fall': … }` · `{ ['--m-accent']: … }` · `{ ['--cn-group' as string]: … }` 전부.
         ...[...src.matchAll(/['"`](--[a-zA-Z0-9-]+)['"`][^\n:]{0,24}:/g)].map((m) => m[1]),

@@ -9,7 +9,7 @@
 // 목표율이 「반드시 맞혀야 하는 문항」의 배점 비율이라 같은 단위(맞혔나)로 비교해야 한다.
 
 import { TRAP_FAMILIES, type AttributeCode, type EngineInput, type ResponseIn, type SessionIn, type TrapFamily } from './types'
-import { byDate, decay, diagnosedResponses, isExamSession, modeWeight } from './rule-v1'
+import { byDate, decay, diagnosedResponses, diagnosticInput, isExamSession, modeWeight } from './rule-v1'
 
 export interface MapLineInput {
   /** 문항 유형 → B 라인(B6–B13 등, 승인된 표) */
@@ -86,7 +86,9 @@ function locate(input: EngineInput, s: SessionIn, r: ResponseIn): { examId: stri
   return s.examId ? { examId: s.examId, no: r.itemNo, hasMeta: false } : null
 }
 
-export function computeMapEvidence(input: EngineInput, lines: MapLineInput): MapEvidence {
+export function computeMapEvidence(raw: EngineInput, lines: MapLineInput): MapEvidence {
+  // 품질 통과 기록만 — 일괄 입력 기록은 지도 관찰값에 들어가지 않는다(Record Quality Layer)
+  const input = diagnosticInput(raw)
   const minObs = input.settings.min_observations
   const weightOf = (s: SessionIn) => decay(input.now, s.takenAt, input.settings.half_life_days) * modeWeight(input, s)
 
@@ -147,7 +149,8 @@ export function computeMapEvidence(input: EngineInput, lines: MapLineInput): Map
  * 습관마다 「지금 근거로 신호 부재를 확정할 수 있나」. 활성 판정(rule-v1 habitFlags)과 같은 입력 집합 · 설정값을 쓴다 —
  * 신호가 여러 분기 중 하나로 켜지는 습관은 **모든 분기의 자료가 갖춰질 때만** evaluable.
  */
-export function habitEvaluable(input: EngineInput): Record<string, HabitEvaluable> {
+export function habitEvaluable(raw: EngineInput): Record<string, HabitEvaluable> {
+  const input = diagnosticInput(raw)
   const h = input.settings.habits
   const minObs = input.settings.min_observations
   const minExposure = input.settings.trap.min_exposure
