@@ -108,7 +108,7 @@ async function loadArticles(db: SupabaseClient): Promise<PortalArticle[]> {
     db.from('library_articles').select('id, title, cefr_level, reading_minutes'),
   )
     .order('published_at', { ascending: false, nullsFirst: false })
-    .limit(5)
+    .limit(6) // 허브 글 카드 3열 × 2줄
   if (error) {
     console.error('[hub-portal] 새 글 조회 실패', error.message)
     return []

@@ -38,7 +38,7 @@ const ENDPOINT = 'https://dashscope-intl.aliyuncs.com/api/v1/services/aigc/multi
 
 async function generate(s) {
   const body = {
-    model: 'qwen-image-max',
+    model: process.env.ILLO_MODEL || 'qwen-image-max', // 한도 소진 시 ILLO_MODEL=qwen-image-plus 등으로 바꾼다
     input: { messages: [{ role: 'user', content: [{ text: `${s.scene} ${s.style}` }] }] },
     parameters: { n: 1, size: s.size, watermark: false, prompt_extend: false, negative_prompt: NEG },
   }

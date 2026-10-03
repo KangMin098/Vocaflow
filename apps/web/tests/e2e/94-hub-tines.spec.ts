@@ -48,7 +48,7 @@ for (const width of [1440, 1280]) for (const dark of [false, true]) test(`Tines 
   await expect(page.locator('.hub-garden')).toBeVisible()
   expect(await contrast(page.locator('.hub-hero h1'), hub.locator('..').locator('..'))).toBeGreaterThanOrEqual(3)
   await page.screenshot({ path: path.join(out, `hero-${width}-${dark}.png`) })
-  for (const name of ['hub-solution', 'hub-reading', 'hub-why']) {
+  for (const name of ['hub-statement', 'hub-solution', 'hub-reading', 'hub-wall', 'hub-why']) {
     const section = hub.locator(`.${name}`)
     await section.scrollIntoViewIfNeeded()
     const images = section.locator('img')
@@ -58,6 +58,17 @@ for (const width of [1440, 1280]) for (const dark of [false, true]) test(`Tines 
   const features = page.locator('.hub-solution-features article')
   expect(new Set(await features.evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor))).size).toBe(4)
   for (const card of await features.all()) expect(await contrast(card.locator('p'), card)).toBeGreaterThanOrEqual(4.5)
+  // 하위 화면 어휘(2026-10-04): 웨비나형 글 카드 · 메이슨리 서가 벽 · 파스텔 USP — 면마다 색이 달라야 하고 글자는 읽혀야 한다
+  const articleCards = page.locator('.hub-reading ul').first().locator('li > div')
+  if (await articleCards.count() > 1) {
+    expect(new Set(await articleCards.evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor))).size).toBeGreaterThanOrEqual(2)
+    for (const card of await articleCards.all()) expect(await contrast(card.locator('button > span').nth(1), card)).toBeGreaterThanOrEqual(4.5)
+  }
+  const usp = page.locator('.hub-why li > a')
+  expect(new Set(await usp.evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor))).size).toBe(4)
+  for (const card of await usp.all()) expect(await contrast(card.locator('p'), card)).toBeGreaterThanOrEqual(4.5)
+  const wall = page.locator('.hub-wall > div a, .hub-wall > div > div > div')
+  expect(new Set(await wall.evaluateAll(nodes => nodes.map(node => getComputedStyle(node).backgroundColor))).size).toBeGreaterThanOrEqual(4)
   const reading = hub.locator('.hub-reading')
   expect(await contrast(reading.getByRole('heading', { level: 2 }), reading)).toBeGreaterThanOrEqual(3)
   const tabs = page.getByRole('tablist', { name: 'Vocaflow 플랫폼' })

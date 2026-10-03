@@ -28,7 +28,7 @@ import {
 import type { HubPortal, PortalBook } from '@/lib/learner/hub-portal-query'
 import type { WayfinderModel } from '@/lib/learner/wayfinder'
 
-import { PortalArticles } from './PortalArticles'
+import { PortalArticleCards } from './PortalArticleCards'
 import { PromoLink } from './PromoLink'
 
 const ILLO = '/illustrations/tines'
@@ -667,24 +667,24 @@ const TRACK_SPOT: Record<string, string> = {
 export function ReadingSection({ portal }: { portal: HubPortal }) {
   const { articles, facts } = portal
   return (
-    <div className="grid gap-12 lg:grid-cols-[1.1fr_1fr] lg:gap-16">
+    <div className="flex flex-col gap-14">
       {articles.length > 0 && (
         <div>
-          <div className="flex items-baseline justify-between gap-4 border-b-2 border-[var(--t1)] pb-3">
-            <h3 className={`${KICKER} text-[var(--t1)]`}>새로 올라온 글</h3>
+          <div className="flex items-baseline justify-between gap-4">
+            <h3 className="font-serif text-[20px] font-[400] text-[var(--t1)]">새로 올라온 글</h3>
             {facts.articles !== null && <span className="font-mono text-[12px] font-[700] tabular-nums text-[var(--ju)]">전체 {fmt(facts.articles)}편</span>}
           </div>
-          <PortalArticles articles={articles} />
+          <div className="mt-6">
+            <PortalArticleCards articles={articles} />
+          </div>
           <PromoLink href="/library/scripts" slot="reading" index={99} className={`${BTN.text} mt-4`}>
             글 전체 보기 <ArrowRight size={14} aria-hidden />
           </PromoLink>
         </div>
       )}
       <div>
-        <div className="border-b-2 border-[var(--t1)] pb-3">
-          <h3 className={`${KICKER} text-[var(--t1)]`}>주제별 시리즈 · {SOURCE_TRACKS.length}</h3>
-        </div>
-        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+        <h3 className="font-serif text-[20px] font-[400] text-[var(--t1)]">주제별 시리즈 · {SOURCE_TRACKS.length}</h3>
+        <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {SOURCE_TRACKS.map((t, i) => (
             <li key={t.key}>
               <PromoLink
@@ -716,29 +716,34 @@ const USP = [
   { lead: '학급과 함께.', rest: '초대코드 하나로 학생을 모으고, 학급의 어휘 진행을 한 화면에서 봅니다.', spot: 'spot-teacher', href: '/teacher' },
 ]
 
+/** 참조 솔루션 페이지 카드 — 옅은 면마다 다른 색 + 같은 계열 1px 테두리 + 그 색의 짙은 세리프 제목. */
+const USP_TINTS = ['lavender', 'pink', 'peach', 'green'] as const
+
 export function UspCards() {
   return (
-    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
       {USP.map((u, i) => (
         <li key={u.href}>
           <PromoLink
             href={u.href}
             slot="bento"
             index={50 + i}
-            className={`group flex h-full min-h-[320px] flex-col rounded-[14px] bg-[var(--ju)] p-6 text-[var(--on-ju)] transition-[filter] duration-[var(--dur-quick)] hover:brightness-110 lg:min-h-[400px] ${FOCUS}`}
+            className={`${TINT_CLASS[USP_TINTS[i]]} group flex h-full min-h-[320px] flex-col rounded-[10px] border border-[color-mix(in_srgb,var(--t1)_30%,transparent)] p-6 transition-[filter] duration-[var(--dur-quick)] hover:brightness-[1.02] lg:min-h-[380px] ${FOCUS}`}
           >
-            <p className="break-keep font-serif text-[23px] leading-[1.22] md:text-[25px]">
-              <strong className="font-[700]">{u.lead}</strong> {u.rest}
-            </p>
-            <Image
-              src={`${ILLO}/${u.spot}.webp`}
-              alt=""
-              width={1328}
-              height={1328}
-              sizes="120px"
-              className="vf-float mt-auto w-[108px] select-none pt-6"
-              style={{ '--float-dur': '5s', '--float-y': '7%', '--float-delay': `${i * 0.3}s` } as CSSProperties}
-            />
+            <h3 className="break-keep font-serif text-[22px] font-[400] leading-[1.2] tracking-[-0.01em] text-[var(--t1)]">{u.lead}</h3>
+            <p className="mt-5 break-keep font-body text-[14px] leading-[1.6] text-[var(--t1)]">{u.rest}</p>
+            <span className="mt-auto flex items-end justify-between pt-6">
+              <Image
+                src={`${ILLO}/${u.spot}.webp`}
+                alt=""
+                width={1328}
+                height={1328}
+                sizes="96px"
+                className="vf-float w-[88px] select-none"
+                style={{ '--float-dur': '5s', '--float-y': '7%', '--float-delay': `${i * 0.3}s` } as CSSProperties}
+              />
+              <ArrowRight size={16} aria-hidden className="mb-1 text-[var(--t1)] transition-transform duration-[var(--dur-quick)] group-hover:translate-x-0.5 motion-reduce:transform-none" />
+            </span>
           </PromoLink>
         </li>
       ))}

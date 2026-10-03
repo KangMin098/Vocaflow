@@ -69,7 +69,9 @@
   :root[data-skin="tines"] .hub-reading > header h2 { font-family: var(--font-serif); font-size: var(--hub-title); line-height: 1.1; }
   :root[data-skin="tines"] .hub-reading > div { background: var(--bg); border-radius: var(--hub-card-radius); padding: var(--hub-bento-pad); }
   :root[data-skin="tines"] .hub-why > header { padding-right: calc(var(--hub-art) + var(--hub-inset)); background: url('/illustrations/tines/spot-memory.webp') right center / var(--hub-art) no-repeat; min-height: var(--hub-art); }
-  :root[data-skin="tines"] .hub-why > div > ul > li > a > p { font-size: var(--hub-usp-title); line-height: var(--hub-usp-line); }
+  :root[data-skin="tines"] .hub-why > div > ul > li > a > h3 { font-size: var(--hub-usp-title); line-height: var(--hub-usp-line); }
+  /* 서가 벽(참조 /customers 메이슨리) — 구획 머리 오른쪽 소품은 다른 구획과 같은 문법 */
+  :root[data-skin="tines"] .hub-wall > header { padding-right: calc(var(--hub-art) + var(--hub-inset)); background: url('/illustrations/tines/spot-dashboard.webp') right center / var(--hub-art) no-repeat; min-height: var(--hub-art); }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
   :root[data-skin="tines"] .tines-hub { --hub-inset: 24px; --hub-heading: 44px; --hub-heading-line: 48.4px; --hub-art: 200px; }

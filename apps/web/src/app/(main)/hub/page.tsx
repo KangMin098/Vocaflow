@@ -39,6 +39,7 @@ import {
   UspCards,
   platformTabs,
 } from '@/components/hub/portal/sections'
+import { HeroFlanks, ShelfWall, StatementBand } from '@/components/hub/portal/tines-bands'
 import { TitleMarquee } from '@/components/hub/portal/TitleMarquee'
 import { fetchHubPortal } from '@/lib/learner/hub-portal-query'
 import { buildWayfinder } from '@/lib/learner/wayfinder'
@@ -60,7 +61,9 @@ export default async function HubPage() {
       <div className="tines-hub mx-auto flex w-full max-w-[1360px] flex-col gap-24 px-4 pb-24 pt-6 md:gap-[156px] md:pt-10 lg:px-10">
         {/* ── 히어로 + 서명 줄 + 제품 액자 (참조 ThreeBHero 세 칸) ── */}
         <div className="hub-intro flex flex-col gap-10 md:gap-12">
-          <section className="hub-hero" aria-label="오늘">
+          {/* PC: 참조 /solutions 히어로 — 가운데 정렬 + 양옆 떠 있는 판(HeroFlanks). 모바일 골격은 그대로 왼쪽 정렬. */}
+          <section className="hub-hero relative md:flex md:flex-col md:items-center md:pb-6 md:pt-10 md:text-center" aria-label="오늘">
+            <HeroFlanks />
             {/* 기출 이어서 — 멈춘 세트 · 오늘 복습이 있을 때만 선다(docs/csat/ia-design.md §3) */}
             <CsatContinueLine />
             {newest && (
@@ -77,7 +80,7 @@ export default async function HubPage() {
               </PromoLink>
             )}
             <h1
-              className="vf-rise mt-7 max-w-[22ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]"
+              className="vf-rise relative mt-7 max-w-[22ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]"
               style={{ '--rise-delay': '50ms' } as CSSProperties}
             >
               읽을 것, 외울 것, <br className="sm:hidden" />
@@ -86,12 +89,12 @@ export default async function HubPage() {
               한 서가에 있습니다.
             </h1>
             <p
-              className="vf-rise mt-6 max-w-[56ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]"
+              className="vf-rise relative mt-6 max-w-[56ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]"
               style={{ '--rise-delay': '100ms' } as CSSProperties}
             >
               {model ? model.now.headline : 'Vocaflow 는 내가 아는 비율을 재고, 지금 읽을 수 있는 것부터 꺼내 줍니다.'}
             </p>
-            <div className="vf-rise mt-8 flex flex-wrap gap-3" style={{ '--rise-delay': '150ms' } as CSSProperties}>
+            <div className="vf-rise relative mt-8 flex flex-wrap gap-3 md:justify-center" style={{ '--rise-delay': '150ms' } as CSSProperties}>
               <PromoLink href={primary.href} slot="hero" index={1} className={BTN.primary}>
                 {primary.label}
               </PromoLink>
@@ -107,6 +110,11 @@ export default async function HubPage() {
 
           <ProductFrame model={model} books={portal.newBooks} facts={portal.facts} />
         </div>
+
+        {/* ── 가는 선 사이 2단 진술 (참조 /solutions 의 첫 띠) ── */}
+        <section className="hub-statement" aria-label="Vocaflow 가 단어를 다루는 방식">
+          <StatementBand />
+        </section>
 
         {/* ── 플랫폼 색 탭 (참조 HomeUseCasesSection) ── */}
         <section className="hub-platforms" aria-label="플랫폼">
@@ -130,6 +138,14 @@ export default async function HubPage() {
           <SectionHead kicker="Read today" title="짧은 글로 매일 한 편." byline="원어민 낭독 · 쉬운 백과 · 과학 기사 · 논증문 — 지금 수준에서 읽히는 글부터 골라 드려요." />
           <div className="mt-12 md:mt-16">
             <ReadingSection portal={portal} />
+          </div>
+        </section>
+
+        {/* ── 서가 벽 (참조 /customers 메이슨리) — DB 수치 · 발행 표지만 ── */}
+        <section className="hub-wall" aria-label="서가에 있는 것">
+          <SectionHead kicker="On the shelf" title={'숫자와 표지로 보는\n오늘의 서가.'} byline="지금 발행돼 있는 것만 셉니다. 숫자를 누르면 그 서가로 바로 갑니다." />
+          <div className="mt-12 md:mt-16">
+            <ShelfWall portal={portal} />
           </div>
         </section>
 
