@@ -1,0 +1,1178 @@
+[
+ {
+  "area": "적용",
+  "name": "PRE-1 이름 충돌 없음",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "적용",
+  "name": "PRE-2 같은 이름 트리거 없음",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "적용",
+  "name": "PRE-3 의존 함수(is_admin · digest)",
+  "pass": true,
+  "detail": "{\"is_admin\":\"1\",\"digest\":\"2\"}"
+ },
+ {
+  "area": "적용",
+  "name": "마이그레이션 적용(postgres 역할)",
+  "pass": true,
+  "detail": "116ms"
+ },
+ {
+  "area": "적용",
+  "name": "기존 객체 비의도 변경 없음(추가는 응답 삭제 트리거 1개뿐)",
+  "pass": true,
+  "detail": "{\"diff\":[],\"responseTriggers\":[\"csat_ec_cancel_rounds_on_response_delete\"]}"
+ },
+ {
+  "area": "함수",
+  "name": "add_student_claim — 봉인 전 taxonomy 거부",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy 로만 남긴다"
+ },
+ {
+  "area": "함수",
+  "name": "taxonomy_seal — 비관리자 거부",
+  "pass": true,
+  "detail": "csat_ec: 관리자만"
+ },
+ {
+  "area": "함수",
+  "name": "taxonomy_seal — 관리자 봉인",
+  "pass": true,
+  "detail": "4e03a9e981f961ddc5ec4bb80d15e5cfc2c2aff6ee7ba1ad83470a11090ba53e"
+ },
+ {
+  "area": "함수",
+  "name": "taxonomy_seal — 재봉인(중복) 거부",
+  "pass": true,
+  "detail": "csat_ec: draft 버전만 봉인한다"
+ },
+ {
+  "area": "함수",
+  "name": "taxonomy_seal — NULL 거부",
+  "pass": true,
+  "detail": "csat_ec: draft 버전만 봉인한다"
+ },
+ {
+  "area": "함수",
+  "name": "taxonomy_seal — 없는 버전 거부",
+  "pass": true,
+  "detail": "csat_ec: draft 버전만 봉인한다"
+ },
+ {
+  "area": "함수",
+  "name": "학습자 RPC(확인 · 과정 증거 · 범주 보고) — L1",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "학습자 RPC(확인 · 과정 증거 · 범주 보고) — L2",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "학습자 RPC(확인 · 과정 증거 · 범주 보고) — L3",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "학습자 RPC(확인 · 과정 증거 · 범주 보고) — L5",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "AI export · import — 48건(학습자 4)",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "round_create — 관리자",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "함수",
+  "name": "round_set_targets — 48 대상(오답 36 · 대조 12)",
+  "pass": true,
+  "detail": "{\"n\":48}"
+ },
+ {
+  "area": "함수",
+  "name": "round_assign — A",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "함수",
+  "name": "round_assign — B",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "함수",
+  "name": "round_assign — adjudicator",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "수명주기",
+  "name": "draft — blind 큐 비어 있음(blind_review 아님)",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "area": "수명주기",
+  "name": "draft — 대상 다시 설정 가능",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 시작",
+  "pass": true,
+  "detail": "22719bca20519561bb347684173b6472a5e7810d17723fff8f4adf0a98b013d7"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — 대상 변경 거부",
+  "pass": true,
+  "detail": "csat_ec: draft 회차만 대상을 바꾼다"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — 판정자 추가 거부",
+  "pass": true,
+  "detail": "csat_ec: 시작된 회차에는 판정자를 더할 수 없다"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — taxonomy_version 직접 UPDATE(슈퍼유저) 같은 값 통과",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — quality_rule_version 직접 UPDATE(슈퍼유저) 거부",
+  "pass": true,
+  "detail": "csat_ec: blind 시작 뒤 회차 입력은 봉인돼 있다"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — choice_trap_map 직접 UPDATE(슈퍼유저) 거부",
+  "pass": true,
+  "detail": "csat_ec: blind 시작 뒤 회차 입력은 봉인돼 있다"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — targets 직접 UPDATE(슈퍼유저) 거부",
+  "pass": true,
+  "detail": "csat_ec: blind 시작 뒤 회차 입력은 봉인돼 있다"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — targets_hash 직접 UPDATE(슈퍼유저) 거부",
+  "pass": true,
+  "detail": "csat_ec: blind 시작 뒤 회차 입력은 봉인돼 있다"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — 과정 증거(판정 입력) UPDATE 거부",
+  "pass": true,
+  "detail": "csat_ec: csat_ec_process_evidence 는 덧붙이기 전용이다(UPDATE 금지)"
+ },
+ {
+  "area": "수명주기",
+  "name": "blind 뒤 — 학습자 증거 추가 거부",
+  "pass": true,
+  "detail": "csat_ec: 검수 중인 문항이라 바꿀 수 없다"
+ },
+ {
+  "area": "blind",
+  "name": "A 의 blind 큐 — 48행 · AI · 범주 보고 없음",
+  "pass": true,
+  "detail": "48"
+ },
+ {
+  "area": "blind",
+  "name": "배정 안 된 사용자 blind 큐 거부",
+  "pass": true,
+  "detail": "csat_ec: 배정된 회차가 아니다"
+ },
+ {
+  "area": "blind",
+  "name": "관리자도 배정 없이는 blind 큐 거부",
+  "pass": true,
+  "detail": "csat_ec: 배정된 회차가 아니다"
+ },
+ {
+  "area": "blind",
+  "name": "adjudicator 는 blind 큐 거부(A · B 만)",
+  "pass": true,
+  "detail": "csat_ec: 배정된 회차가 아니다"
+ },
+ {
+  "area": "blind",
+  "name": "A 전체 제출 48건",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "submit_blind — 같은 대상 중복 제출 거부",
+  "pass": true,
+  "detail": "duplicate key value violates unique constraint \"csat_ec_judgment_blind_once\""
+ },
+ {
+  "area": "blind",
+  "name": "A 제출 후 — A 의 reveal_view 거부(B 판정 · AI 비공개)",
+  "pass": true,
+  "detail": "csat_ec: 아직 공개 전이다"
+ },
+ {
+  "area": "blind",
+  "name": "A 제출 후 — B 의 reveal_view 거부(A 판정 · AI 비공개)",
+  "pass": true,
+  "detail": "csat_ec: 아직 공개 전이다"
+ },
+ {
+  "area": "blind",
+  "name": "B 의 판정 표 직접 조회 거부",
+  "pass": true,
+  "detail": "permission denied for table csat_ec_judgment"
+ },
+ {
+  "area": "blind",
+  "name": "B 미제출 — reveal 거부",
+  "pass": true,
+  "detail": "csat_ec: 모든 대상에 A · B blind 판정이 있어야 공개한다"
+ },
+ {
+  "area": "blind",
+  "name": "B 전체 제출 48건(3건은 A 와 불일치)",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "blind",
+  "name": "A · B 모두 제출 · reveal 전 — 자동 공개 없음",
+  "pass": true,
+  "detail": "csat_ec: 아직 공개 전이다"
+ },
+ {
+  "area": "수명주기",
+  "name": "reveal — 필수 판정 모두 있을 때 성공",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "함수",
+  "name": "round_reveal — 재호출 거부",
+  "pass": true,
+  "detail": "csat_ec: blind 단계가 아니다"
+ },
+ {
+  "area": "blind",
+  "name": "reveal 뒤 blind 제출 거부",
+  "pass": true,
+  "detail": "csat_ec: blind 단계가 아니다"
+ },
+ {
+  "area": "수명주기",
+  "name": "reveal 뒤 — 비교 자료(판정 96 · claim 72)",
+  "pass": true,
+  "detail": "{\"j\":96,\"c\":72}"
+ },
+ {
+  "area": "수명주기",
+  "name": "verify 제출 144건",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "submit_verify — 비배정 거부",
+  "pass": true,
+  "detail": "csat_ec: 배정된 판정자가 아니다"
+ },
+ {
+  "area": "함수",
+  "name": "submit_verify — 없는 claim 거부",
+  "pass": true,
+  "detail": "csat_ec: 이 회차에 봉인된 claim 이 아니다"
+ },
+ {
+  "area": "P1 수정",
+  "name": "adjudicator — 공개 뒤 원자료(문항 · 정답 · 고른 답 · 봉인 증거 · 학생 범주) 조회",
+  "pass": true,
+  "detail": "48"
+ },
+ {
+  "area": "P1 수정",
+  "name": "원자료 — 비배정 거부",
+  "pass": true,
+  "detail": "csat_ec: 배정된 회차가 아니다"
+ },
+ {
+  "area": "P1 수정",
+  "name": "원자료 — blind 진행 중(공개 전) 회차는 A · adjudicator 모두 거부",
+  "pass": true,
+  "detail": "[null,\"csat_ec: 아직 공개 전이다\",\"csat_ec: 아직 공개 전이다\"]"
+ },
+ {
+  "area": "수명주기",
+  "name": "adjudication 진입(verify 완료)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "수명주기",
+  "name": "불일치 3건 합의 전 closed 거부",
+  "pass": true,
+  "detail": "csat_ec: 불일치 대상에 합의 판정이 없어 닫을 수 없다"
+ },
+ {
+  "area": "수명주기",
+  "name": "합의 판정 3건",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "함수",
+  "name": "submit_adjudication — 같은 응답 중복 거부",
+  "pass": true,
+  "detail": "duplicate key value violates unique constraint \"csat_ec_judgment_adjudication_once\""
+ },
+ {
+  "area": "함수",
+  "name": "submit_adjudication — A 판정자 거부",
+  "pass": true,
+  "detail": "csat_ec: 배정된 adjudicator 가 아니다"
+ },
+ {
+  "area": "수명주기",
+  "name": "합의 뒤 최초 A · B blind 행 그대로",
+  "pass": true,
+  "detail": "{\"before\":96,\"after\":96}"
+ },
+ {
+  "area": "수명주기",
+  "name": "closed",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "수명주기",
+  "name": "closed 뒤 상태 변경(취소) 거부",
+  "pass": true,
+  "detail": "csat_ec: 끝난 회차 1 는 바꿀 수 없다"
+ },
+ {
+  "area": "수명주기",
+  "name": "closed 뒤 판정 UPDATE 거부",
+  "pass": true,
+  "detail": "csat_ec: csat_ec_judgment 는 덧붙이기 전용이다(UPDATE 금지)"
+ },
+ {
+  "area": "RLS",
+  "name": "표 9 × 역할 5 × (SELECT · INSERT · UPDATE · DELETE · TRUNCATE) 기대와 일치",
+  "pass": true,
+  "detail": "위반 0건 / 45칸"
+ },
+ {
+  "area": "RLS",
+  "name": "학습자 L1 — 자기 학생 claim 만(타인 · AI 0) · 타인 증거 · 확인 0",
+  "pass": true,
+  "detail": "{\"c\":\"12\",\"other\":\"0\",\"ai\":\"0\",\"pe_other\":\"0\",\"conf_other\":\"0\"}"
+ },
+ {
+  "area": "RLS",
+  "name": "외부 사용자 — claim · 증거 · 확인 0행",
+  "pass": true,
+  "detail": "{\"c\":\"0\",\"pe\":\"0\",\"conf\":\"0\"}"
+ },
+ {
+  "area": "RLS",
+  "name": "service_role(AI) — 사람 판정 표 SELECT 권한 거부(BYPASSRLS 여도 GRANT 없음)",
+  "pass": true,
+  "detail": "permission denied for table csat_ec_judgment"
+ },
+ {
+  "area": "RLS",
+  "name": "service_role(AI) — claim 표(학생 범주 보고 포함) SELECT 거부",
+  "pass": true,
+  "detail": "permission denied for table csat_ec_claim"
+ },
+ {
+  "area": "RLS",
+  "name": "service_role — 판정자 RPC 실행 권한 없음",
+  "pass": true,
+  "detail": "permission denied for function csat_ec_blind_queue"
+ },
+ {
+  "area": "RLS",
+  "name": "anon — 학습자 RPC 실행 권한 없음",
+  "pass": true,
+  "detail": "permission denied for function csat_ec_confirm_session"
+ },
+ {
+  "area": "RLS",
+  "name": "authenticated — AI RPC 실행 권한 없음",
+  "pass": true,
+  "detail": "permission denied for function csat_ec_ai_export"
+ },
+ {
+  "area": "RLS",
+  "name": "계산 함수(해시 · 품질) — 직접 실행 권한 없음",
+  "pass": true,
+  "detail": "permission denied for function csat_ec_judgment_input_hash"
+ },
+ {
+  "area": "DEFINER",
+  "name": "SECURITY DEFINER 21개 — 모두 search_path 고정",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "DEFINER",
+  "name": "함수 37개 전부 search_path 고정(INVOKER 포함)",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "DEFINER",
+  "name": "소유자 = postgres(운영과 같은 비 superuser · BYPASSRLS)",
+  "pass": true,
+  "detail": "[\"postgres\"]"
+ },
+ {
+  "area": "DEFINER",
+  "name": "PUBLIC · anon 실행 권한 0",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "DEFINER",
+  "name": "동적 SQL(EXECUTE format) 사용 함수 0개",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "DEFINER",
+  "name": "학습자가 public 에 함수 생성(그림자) 거부",
+  "pass": true,
+  "detail": "permission denied for schema public"
+ },
+ {
+  "area": "DEFINER",
+  "name": "pg_temp 그림자 표(타인 세션을 내 것으로 위장)로 소유 확인 우회 불가",
+  "pass": true,
+  "detail": "csat_ec: 자기 기록만 확인할 수 있다"
+ },
+ {
+  "area": "함수",
+  "name": "confirm_session — NULL 세션 거부",
+  "pass": true,
+  "detail": "csat_ec: 자기 기록만 확인할 수 있다"
+ },
+ {
+  "area": "함수",
+  "name": "confirm_session — 없는 세션 거부",
+  "pass": true,
+  "detail": "csat_ec: 자기 기록만 확인할 수 있다"
+ },
+ {
+  "area": "함수",
+  "name": "confirm_session — 타인 세션 거부",
+  "pass": true,
+  "detail": "csat_ec: 자기 기록만 확인할 수 있다"
+ },
+ {
+  "area": "함수",
+  "name": "confirm_session — 「응시 안 함 · 선지별 판단」 모순 거부",
+  "pass": true,
+  "detail": "new row for relation \"csat_ec_session_confirmation\" violates check constraint \"csat_ec_session_confirmation_check\""
+ },
+ {
+  "area": "함수",
+  "name": "confirm_session — 재호출은 새 revision(덮어쓰지 않음)",
+  "pass": true,
+  "detail": "[{\"rev\":1},{\"rev\":2}]"
+ },
+ {
+  "area": "함수",
+  "name": "confirm_session — 답안 해시는 서버 계산값",
+  "pass": true,
+  "detail": "2"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — 없는 세션 거부",
+  "pass": true,
+  "detail": "csat_ec: 자기 응답에만 남길 수 있다"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — reason 빈 객체 거부(CHECK 가 NULL 로 통과하지 않음)",
+  "pass": true,
+  "detail": "new row for relation \"csat_ec_process_evidence\" violates check constraint \"csat_ec_process_evidence_check2\""
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — blocked_span 필수 키 누락 거부",
+  "pass": true,
+  "detail": "csat_ec: 표시한 위치가 이 응답의 문항이 아니다"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — 다른 문항 위치 거부",
+  "pass": true,
+  "detail": "csat_ec: 표시한 위치가 이 응답의 문항이 아니다"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — 원문 범위 밖 거부",
+  "pass": true,
+  "detail": "csat_ec: 표시한 위치가 문항 원문 범위 밖이다"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — 없는 선지 번호 거부",
+  "pass": true,
+  "detail": "csat_ec: 표시한 위치가 문항 원문 범위 밖이다"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — 정정은 supersede(원래 행 남음) · 같은 행 두 번 정정 거부",
+  "pass": true,
+  "detail": "[null,null,\"duplicate key value violates unique constraint \\\"csat_ec_process_supersede_once\\\"\"]"
+ },
+ {
+  "area": "함수",
+  "name": "add_process_evidence — 다른 종류로 정정 거부",
+  "pass": true,
+  "detail": "csat_ec: 과정 증거 정정은 같은 종류끼리만"
+ },
+ {
+  "area": "함수",
+  "name": "add_student_claim — 범주와 세부 코드 불일치 거부",
+  "pass": true,
+  "detail": "csat_ec: 고른 범주와 세부 원인이 맞지 않는다"
+ },
+ {
+  "area": "함수",
+  "name": "add_student_claim — 「잘 모르겠음」에 코드 거부",
+  "pass": true,
+  "detail": "csat_ec: 고른 범주와 세부 원인이 맞지 않는다"
+ },
+ {
+  "area": "함수",
+  "name": "add_student_claim — 정답 문항 거부(오답에만)",
+  "pass": true,
+  "detail": "csat_ec: 자기 오답에만 남길 수 있다"
+ },
+ {
+  "area": "함수",
+  "name": "add_student_claim — supersede 없이 두 번째 활성 보고 거부",
+  "pass": true,
+  "detail": "[null,\"duplicate key value violates unique constraint \\\"csat_ec_claim_student_root_once\\\"\"]"
+ },
+ {
+  "area": "품질",
+  "name": "ai_export — 전부 ② 기록(rq-1 excluded) 거부",
+  "pass": true,
+  "detail": "csat_ec: Pilot 적격(품질 · 학습자 확인 · 과정 증거) 못 갖춘 응답은 판정하지 않는다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_export — 없는 세션 거부",
+  "pass": true,
+  "detail": "csat_ec: Pilot 적격(품질 · 학습자 확인 · 과정 증거) 못 갖춘 응답은 판정하지 않는다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 같은 입력 · 판정기 재시도는 같은 id(멱등)",
+  "pass": true,
+  "detail": "[{\"id\":\"1\"}]"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 같은 키 다른 claim 거부",
+  "pass": true,
+  "detail": "csat_ec: 같은 입력 · 판정기의 다른 결과가 이미 있다(실행 1)"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 원문에 없는 인용 거부",
+  "pass": true,
+  "detail": "csat_ec: AI 근거에 요약 · 출처 표시 인용이 없거나, 표시한 원문(지문 · 발문 · 선지 n)에 없는 인용이 있다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 출처를 틀리게 단 인용 거부",
+  "pass": true,
+  "detail": "csat_ec: AI 근거에 요약 · 출처 표시 인용이 없거나, 표시한 원문(지문 · 발문 · 선지 n)에 없는 인용이 있다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — primary 2개 거부",
+  "pass": true,
+  "detail": "duplicate key value violates unique constraint \"csat_ec_claim_ai_primary\""
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — B(행동) 코드 거부",
+  "pass": true,
+  "detail": "csat_ec: AI 는 V/S/R/E 원인만 제안한다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 원인 없음 실행에 claim 거부",
+  "pass": true,
+  "detail": "csat_ec: 원인을 내지 않은 실행에는 claim 이 없어야 한다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 원인 없음(claim 0) 정상 기록",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 지금 입력과 다른 해시 거부",
+  "pass": true,
+  "detail": "csat_ec: 입력 해시가 지금 입력과 다르다"
+ },
+ {
+  "area": "함수",
+  "name": "ai_import — 봉인 안 된 taxonomy 거부",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy 로만 판정한다"
+ },
+ {
+  "area": "함수",
+  "name": "round_create — 비관리자 거부",
+  "pass": true,
+  "detail": "csat_ec: 관리자만"
+ },
+ {
+  "area": "함수",
+  "name": "round_create — 모르는 품질 규칙 거부",
+  "pass": true,
+  "detail": "csat_ec: 이 DB 가 아는 품질 규칙은 rq-1 뿐이다"
+ },
+ {
+  "area": "함수",
+  "name": "round_create — choice_trap_map 형식 거부",
+  "pass": true,
+  "detail": "csat_ec: choice_trap_map 은 「v0.1:<sha256>」 형식"
+ },
+ {
+  "area": "함수",
+  "name": "round_create — NULL taxonomy 거부",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy 로만 회차를 만든다"
+ },
+ {
+  "area": "함수",
+  "name": "round_set_targets — 없는 응답 거부",
+  "pass": true,
+  "detail": "csat_ec: 없는 응답이 대상에 있다"
+ },
+ {
+  "area": "함수",
+  "name": "round_set_targets — 없는 회차 거부",
+  "pass": true,
+  "detail": "csat_ec: 없는 회차"
+ },
+ {
+  "area": "표본",
+  "name": "eligibility 로 승인 규모를 낮춰도 시작 거부(학습자 1 · 오답 3)",
+  "pass": true,
+  "detail": "csat_ec: 표본 구성(학습자 3+ · 오답 30~50 · 정답 대조 10~20)을 채우지 못한다"
+ },
+ {
+  "area": "품질",
+  "name": "전부 ② 기록이 섞인 회차 시작 거부",
+  "pass": true,
+  "detail": "csat_ec: Pilot 적격(품질 · 학습자 확인 · 과정 증거) 못 갖춘 대상이 있다"
+ },
+ {
+  "area": "표본",
+  "name": "set_targets — 중복 대상은 하나로 합쳐 저장",
+  "pass": true,
+  "detail": "{\"n\":48}"
+ },
+ {
+  "area": "함수",
+  "name": "round_assign — 대상 학생을 판정자로 거부",
+  "pass": true,
+  "detail": "csat_ec: 자기 응답을 판정할 수 없다"
+ },
+ {
+  "area": "함수",
+  "name": "round_assign — 없는 사용자 거부",
+  "pass": true,
+  "detail": "csat_ec: 없는 사용자"
+ },
+ {
+  "area": "함수",
+  "name": "round_advance — 허용 안 된 목표 상태 거부",
+  "pass": true,
+  "detail": "csat_ec: 이 RPC 로 갈 수 없는 상태 reveal"
+ },
+ {
+  "area": "함수",
+  "name": "round_advance — draft 에서 closed(건너뛰기) 거부",
+  "pass": true,
+  "detail": "csat_ec: 불일치 대상에 합의 판정이 없어 닫을 수 없다"
+ },
+ {
+  "area": "함수",
+  "name": "round_advance — draft 취소",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "함수",
+  "name": "취소 사유가 남는다",
+  "pass": true,
+  "detail": "{\"status\":\"cancelled\",\"cancel_reason\":\"TEST 취소\"}"
+ },
+ {
+  "area": "rq-1",
+  "name": "all_2(45) → SQL excluded_pending_review · TS excluded_pending_review",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "all_3(45) → SQL excluded_pending_review · TS excluded_pending_review",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "ratio_90_exact(36/40, 5 무응답) → SQL suspicious · TS suspicious",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "ratio_just_below(40/45=88.9%) → SQL trusted · TS trusted",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "ratio_above(41/45=91.1%) → SQL suspicious · TS suspicious",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "streak_15_exact → SQL suspicious · TS suspicious",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "streak_14 → SQL trusted · TS trusted",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "streak_16 → SQL suspicious · TS suspicious",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "answered_19_same → SQL trusted · TS trusted",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "answered_20_same → SQL excluded_pending_review · TS excluded_pending_review",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "normal_spread → SQL trusted · TS trusted",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "normal_with_nulls → SQL trusted · TS trusted",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "all_unanswered → SQL trusted · TS trusted",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "streak_across_null(무응답은 건너뛴다) → SQL suspicious · TS suspicious",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rq-1",
+  "name": "TS ↔ SQL 불일치 0 / 14 fixture",
+  "pass": true,
+  "detail": "[]"
+ },
+ {
+  "area": "rq-1",
+  "name": "비정상 선택값(7) · 문항 번호(46)는 기존 CHECK 가 입력 단계에서 거부",
+  "pass": true,
+  "detail": "new row for relation \"csat_dx_response\" violates check constraint \"csat_dx_response_chosen_option_check\""
+ },
+ {
+  "area": "해시",
+  "name": "같은 입력 두 번 계산 — 같은 값",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "선지 함정 행 입력 순서 바뀜 — 같은 해시",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "JSON 키 순서 · 구문 공백 — jsonb 정규화로 같은 해시",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "UUID 대소문자 표기 — uuid 형으로 같은 값",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "고른 답 변경 — 다른 해시",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "고른 답 되돌림 — 원래 해시로 복원",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "선지 함정 값 변경 — 다른 해시",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "문항 태깅이 바뀐 동안 다른 학습자 과정 증거 무효 → 되돌리면 다시 유효",
+  "pass": true,
+  "detail": "{\"otherBefore\":\"0\",\"otherAfter\":\"2\"}"
+ },
+ {
+  "area": "해시",
+  "name": "과정 증거 추가 — 판정 입력 해시 변경",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "글자 값 안 공백 차이 — 다른 해시(학생 글 · 원문은 의미가 있는 값으로 본다)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "해시",
+  "name": "같은 대상 · 같은 입력으로 만든 회차들 — targets_hash 같음",
+  "pass": true,
+  "detail": "2회차 · 서로 다른 값 1"
+ },
+ {
+  "area": "입력 변경",
+  "name": "회차 중 문항 원문 UPDATE — 제출 거부(감지)",
+  "pass": true,
+  "detail": "csat_ec: 봉인 뒤 입력이 바뀌었다 — 회차를 취소하고 다시 만든다"
+ },
+ {
+  "area": "입력 변경",
+  "name": "회차 중 문항 원문 UPDATE — blind 큐도 자료 제공 중단",
+  "pass": true,
+  "detail": "csat_ec: 봉인 뒤 입력이 바뀐 회차다 — 판정 자료를 내주지 않는다(회차 취소 대상)"
+ },
+ {
+  "area": "입력 변경",
+  "name": "회차 중 문항 원문 UPDATE — 공개 거부(정상 결과처럼 진행 안 함)",
+  "pass": true,
+  "detail": "csat_ec: 모든 대상에 A · B blind 판정이 있어야 공개한다"
+ },
+ {
+  "area": "입력 변경",
+  "name": "취소 사유가 감사 기록으로 남음",
+  "pass": true,
+  "detail": "{\"status\":\"cancelled\",\"cancel_reason\":\"input_changed\"}"
+ },
+ {
+  "area": "봉인",
+  "name": "draft — 코드 추가 · 정의 수정 · 삭제 가능",
+  "pass": true,
+  "detail": "[null,null,null,null]"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 해시 = 코드 전체 별도 재계산값",
+  "pass": true,
+  "detail": "{\"returned\":\"fd7d2810e56c\",\"re\":\"fd7d2810e56c\"}"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 insert 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 에 코드를 더할 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 definition 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 의 코드는 바꿀 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 inclusion 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 의 코드는 바꿀 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 rename 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 의 코드는 바꿀 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 move 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 의 코드는 바꿀 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 delete 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 의 코드는 바꿀 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 unseal 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 는 바꿀 수 없다 — 새 버전을 만든다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 rehash 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 는 바꿀 수 없다 — 새 버전을 만든다"
+ },
+ {
+  "area": "봉인",
+  "name": "봉인 뒤 dropVersion 거부(소유자 postgres 로 직접 시도)",
+  "pass": true,
+  "detail": "csat_ec: taxonomy 버전은 지우지 않는다"
+ },
+ {
+  "area": "봉인",
+  "name": "draft 코드를 봉인된 버전으로 옮기기 거부",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.3 에 코드를 더할 수 없다"
+ },
+ {
+  "area": "봉인",
+  "name": "새 의미는 새 버전(draft)에서만 가능",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "P1 수정",
+  "name": "(a) 배정 뒤 판정자 자기 응답을 대상에 추가 — 거부",
+  "pass": true,
+  "detail": "csat_ec: 판정자의 자기 응답이 대상에 있다"
+ },
+ {
+  "area": "P1 수정",
+  "name": "(b) 대상을 직접 바꿔 판정자 응답을 넣어도 — blind 시작 거부",
+  "pass": true,
+  "detail": "csat_ec: 판정자의 자기 응답이 대상에 있다"
+ },
+ {
+  "area": "P1 수정",
+  "name": "(c) 시작 중 대상 교체 — 시작 거부 · 회차 draft 유지 · 교착 없음",
+  "pass": true,
+  "detail": "{\"start\":\"csat_ec: 시작하는 동안 대상이 바뀌었다 — 다시 시도한다\",\"st\":{\"status\":\"draft\",\"targets_hash\":null}}"
+ },
+ {
+  "area": "P1 수정",
+  "name": "(c) 다시 시도하면 새 대상으로 정상 시작",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "동시성",
+  "name": "1a. A · B 같은 대상 동시 제출 — 둘 다 성공",
+  "pass": true,
+  "detail": "[null,null]"
+ },
+ {
+  "area": "동시성",
+  "name": "1b. 같은 판정자 동시 중복 제출 — 1행만",
+  "pass": true,
+  "detail": "{\"n\":1,\"x\":\"duplicate key value violates unique constraint \\\"csat_ec_judgment_blind_once\\\"\"}"
+ },
+ {
+  "area": "동시성",
+  "name": "2a. 마지막 제출(진행 중) + reveal — reveal 은 기다린 뒤 성공 · 공개 뒤 blind 행 0",
+  "pass": true,
+  "detail": "{\"blindAfter\":0}"
+ },
+ {
+  "area": "동시성",
+  "name": "2b. reveal · 마지막 제출 동시 — 결과 일관(완전할 때만 공개)",
+  "pass": true,
+  "detail": "{\"st\":\"reveal\",\"total\":96}"
+ },
+ {
+  "area": "동시성",
+  "name": "3. reveal 동시 2회 — 정확히 1회 성공",
+  "pass": true,
+  "detail": "[null,\"csat_ec: blind 단계가 아니다\"]"
+ },
+ {
+  "area": "동시성",
+  "name": "4. 합의 판정 동시 중복 — 1행만",
+  "pass": true,
+  "detail": "{\"n\":1,\"errs\":[\"duplicate key value violates unique constraint \\\"csat_ec_judgment_adjudication_once\\\"\",null]}"
+ },
+ {
+  "area": "동시성",
+  "name": "6a. 제출 진행 중 취소 — 제출 커밋 뒤 취소 성공",
+  "pass": true,
+  "detail": "{\"st\":\"cancelled\"}"
+ },
+ {
+  "area": "동시성",
+  "name": "6b. 취소 진행 중 제출 — 제출 거부 · 판정 0행",
+  "pass": true,
+  "detail": "{\"r2\":\"csat_ec: blind 단계가 아니다\",\"n\":0}"
+ },
+ {
+  "area": "동시성",
+  "name": "7. 같은 응답 학생 보고 동시 생성 — 활성 1행",
+  "pass": true,
+  "detail": "{\"n\":1,\"errs\":[\"duplicate key value violates unique constraint \\\"csat_ec_claim_student_root_once\\\"\",null]}"
+ },
+ {
+  "area": "동시성",
+  "name": "8a. 봉인 동시 2회 — 1회만 성공",
+  "pass": true,
+  "detail": "[\"csat_ec: draft 버전만 봉인한다\",null]"
+ },
+ {
+  "area": "동시성",
+  "name": "8b. 코드 추가(진행 중) + 봉인 — 봉인은 기다리고, 해시에 추가된 코드가 포함",
+  "pass": true,
+  "detail": "{\"seal\":\"640eeef6d278\",\"n\":\"2\"}"
+ },
+ {
+  "area": "동시성",
+  "name": "8c. 봉인 뒤 코드 추가 거부",
+  "pass": true,
+  "detail": "csat_ec: 봉인된 taxonomy v9.2 에 코드를 더할 수 없다"
+ },
+ {
+  "area": "동시성",
+  "name": "5a. 제출(진행 중) + 학습자 기록 삭제 — 교착 없음 · 삭제 성공 · 회차 취소 · 그 학생 판정 0",
+  "pass": true,
+  "detail": "{\"st\":{\"status\":\"cancelled\",\"cancel_reason\":\"target_deleted\"},\"left\":0}"
+ },
+ {
+  "area": "동시성",
+  "name": "5b. 학습자 기록 삭제(진행 중) + 제출 — 교착 없음 · 제출 거부 · 회차 취소 · 다른 학생 증거 유지",
+  "pass": true,
+  "detail": "{\"r2\":\"csat_ec: blind 단계가 아니다\",\"st2\":{\"status\":\"cancelled\",\"cancel_reason\":\"target_deleted\"},\"other\":56}"
+ },
+ {
+  "area": "삭제",
+  "name": "판정자 계정 삭제 — 성공 · 배정 reviewer_id NULL · 판정 행 그대로",
+  "pass": true,
+  "detail": "{\"asg\":{\"nulls\":\"15\",\"n\":\"15\"},\"jBefore\":224,\"jAfter\":224}"
+ },
+ {
+  "area": "삭제",
+  "name": "회차 생성자 계정 삭제 — 성공(닫힌 회차 포함) · created_by NULL",
+  "pass": true,
+  "detail": "0"
+ },
+ {
+  "area": "삭제",
+  "name": "학습자 기록 삭제 — 트리거가 삭제를 막지 않는다",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "삭제",
+  "name": "그 학생의 증거 · claim · AI 실행 · 판정 · 확인은 연쇄 삭제",
+  "pass": true,
+  "detail": "{\"before\":{\"pe\":28,\"judg\":230},\"after\":{\"pe\":0,\"claim\":0,\"run\":0,\"judg\":0,\"conf\":0}}"
+ },
+ {
+  "area": "삭제",
+  "name": "taxonomy · 코드 사전 · 회차 · 배정은 그대로",
+  "pass": true,
+  "detail": "{\"before\":{\"tax\":5,\"code\":15,\"rounds\":15,\"asg\":45,\"L2pe\":28,\"L2claim\":24,\"L2run\":12,\"L2judg\":224,\"L2conf\":1},\"after\":{\"tax\":5,\"code\":15,\"rounds\":15,\"asg\":45,\"L2pe\":28,\"L2claim\":24,\"L2run\":12,\"L2judg\":224,\"L2conf\":1}}"
+ },
+ {
+  "area": "삭제",
+  "name": "다른 학생(L2)의 증거 · claim · AI 실행 · 판정 · 확인 그대로",
+  "pass": true,
+  "detail": "{\"before\":{\"tax\":5,\"code\":15,\"rounds\":15,\"asg\":45,\"L2pe\":28,\"L2claim\":24,\"L2run\":12,\"L2judg\":224,\"L2conf\":1},\"after\":{\"tax\":5,\"code\":15,\"rounds\":15,\"asg\":45,\"L2pe\":28,\"L2claim\":24,\"L2run\":12,\"L2judg\":224,\"L2conf\":1}}"
+ },
+ {
+  "area": "삭제",
+  "name": "그 학생이 대상인 열린 회차는 취소(target_deleted)",
+  "pass": true,
+  "detail": "[{\"id\":\"3\",\"status\":\"cancelled\",\"cancel_reason\":\"target_deleted\"}]"
+ },
+ {
+  "area": "삭제",
+  "name": "닫힌 회차는 상태 그대로(그 학생 판정 행만 학습자 삭제권으로 사라짐 — 설계대로)",
+  "pass": true,
+  "detail": "[{\"id\":\"1\",\"status\":\"closed\"}]"
+ },
+ {
+  "area": "삭제",
+  "name": "학습자 계정 삭제 — 성공 · 그 학생 행 0",
+  "pass": true,
+  "detail": "0"
+ }
+]

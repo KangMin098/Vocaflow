@@ -27,12 +27,14 @@ drop function if exists public.csat_ec_submit_adjudication(bigint, uuid, smallin
 drop function if exists public.csat_ec_round_advance(bigint, text, text);
 drop function if exists public.csat_ec_submit_verify(bigint, uuid, text, text);
 drop function if exists public.csat_ec_reveal_view(bigint);
+drop function if exists public.csat_ec_round_material(bigint);
 drop function if exists public.csat_ec_round_reveal(bigint);
 drop function if exists public.csat_ec_submit_blind(bigint, uuid, smallint, text, text, text[], text[], text);
 drop function if exists public.csat_ec_blind_queue(bigint);
 drop function if exists public.csat_ec_round_start_blind(bigint);
 drop function if exists public.csat_ec_round_assign(bigint, uuid, text, text[]);
-drop function if exists public.csat_ec_round_create(text, text, text, jsonb, jsonb);
+drop function if exists public.csat_ec_round_set_targets(bigint, jsonb);
+drop function if exists public.csat_ec_round_create(text, text, text, jsonb);
 drop function if exists public.csat_ec_add_student_claim(uuid, smallint, text, text, text, uuid);
 drop function if exists public.csat_ec_add_process_evidence(uuid, smallint, text, jsonb, uuid);
 drop function if exists public.csat_ec_confirm_session(uuid, boolean, boolean);

@@ -652,7 +652,7 @@ begin
 end $$;
 
 -- 관리자: 회차 ───────────────────────────────────────────────────────────────
-create or replace function public.csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb, p_targets jsonb)
+create or replace function public.csat_ec_round_create(p_taxonomy text, p_quality_rule text, p_choice_trap_map text, p_eligibility jsonb)
 returns bigint language plpgsql security definer set search_path = '' as $$
 declare v_id bigint;
 begin
@@ -660,10 +660,59 @@ begin
   if not exists (select 1 from public.csat_ec_taxonomy_version where version = p_taxonomy and status = 'sealed') then
     raise exception 'csat_ec: 봉인된 taxonomy 로만 회차를 만든다';
   end if;
-  insert into public.csat_ec_review_round (taxonomy_version, quality_rule_version, choice_trap_map, eligibility, targets, created_by)
-  values (p_taxonomy, p_quality_rule, p_choice_trap_map, p_eligibility, p_targets, (select auth.uid()))
+  if p_quality_rule is distinct from 'rq-1' then raise exception 'csat_ec: 이 DB 가 아는 품질 규칙은 rq-1 뿐이다'; end if;
+  if coalesce(p_choice_trap_map, '') !~ '^v[0-9]+\.[0-9]+:[0-9a-f]{64}$' then raise exception 'csat_ec: choice_trap_map 은 「v0.1:<sha256>」 형식'; end if;
+  insert into public.csat_ec_review_round (taxonomy_version, quality_rule_version, choice_trap_map, eligibility, created_by)
+  values (p_taxonomy, p_quality_rule, p_choice_trap_map, coalesce(p_eligibility, '{}'), (select auth.uid()))
   returning id into v_id;
   return v_id;
+end $$;
+
+-- 대상 채우기(draft 만) — 관리자는 (session_id, item_no) 목록만 준다. 해시 · 확인 revision · 유효 과정 증거 · 품질 신호 ·
+-- 최신 성공 AI 실행 · 봉인할 claim(학생 활성 보고 + 그 실행의 AI claim)은 서버가 계산한다(클라이언트 값을 봉인하지 않는다)
+create or replace function public.csat_ec_round_set_targets(p_round bigint, p_refs jsonb)
+returns int language plpgsql security definer set search_path = '' as $$
+declare v public.csat_ec_review_round; v_targets jsonb;
+begin
+  if not public.is_admin() then raise exception 'csat_ec: 관리자만'; end if;
+  if jsonb_typeof(p_refs) is distinct from 'array' then raise exception 'csat_ec: 대상은 배열'; end if;
+  -- 잠금 순서: 세션 → 회차
+  perform 1 from public.csat_dx_session s
+   where s.id in (select (x->>'session_id')::uuid from jsonb_array_elements(p_refs) x) order by s.id for share;
+  select * into v from public.csat_ec_review_round where id = p_round for update;
+  if v.id is null then raise exception 'csat_ec: 없는 회차'; end if;
+  if v.status <> 'draft' then raise exception 'csat_ec: draft 회차만 대상을 바꾼다'; end if;
+  if exists (select 1 from public.csat_ec_review_assignment a join public.csat_dx_session s on s.user_id = a.reviewer_id
+              where a.round_id = p_round and s.id in (select (x->>'session_id')::uuid from jsonb_array_elements(p_refs) x)) then
+    raise exception 'csat_ec: 판정자의 자기 응답이 대상에 있다';
+  end if;
+  select coalesce(jsonb_agg(jsonb_build_object(
+           'session_id', r.session_id, 'item_no', r.item_no, 'item_id', r.item_id,
+           'input_hash', public.csat_ec_judgment_input_hash(r.session_id, r.item_no),
+           'confirmation_revision', (select max(c.revision) from public.csat_ec_session_confirmation c where c.session_id = r.session_id),
+           'process_evidence_ids', coalesce((select jsonb_agg(e.id order by e.id) from public.csat_ec_valid_process_evidence(r.session_id, r.item_no) e), '[]'),
+           'quality', jsonb_build_object('rule', 'rq-1', 'status', public.csat_ec_record_quality_rq1(r.session_id)),
+           'ai_run_id', ar.id,
+           'claim_ids', coalesce((select jsonb_agg(c.id order by c.id) from public.csat_ec_claim c
+                                   where c.session_id = r.session_id and c.item_no = r.item_no and c.taxonomy_version = v.taxonomy_version
+                                     and ((c.source = 'student' and c.item_input_hash = public.csat_ec_item_input_hash(r.session_id, r.item_no)
+                                           and not exists (select 1 from public.csat_ec_claim s2 where s2.supersedes_id = c.id))
+                                          or (ar.id is not null and c.ai_run_id = ar.id))), '[]')
+         ) order by r.session_id, r.item_no), '[]')
+    into v_targets
+    from (select distinct (x->>'session_id')::uuid as sid, (x->>'item_no')::smallint as no from jsonb_array_elements(p_refs) x) ref
+    join public.csat_dx_response r on r.session_id = ref.sid and r.item_no = ref.no
+    left join lateral (
+      select a.id from public.csat_ec_ai_run a
+       where a.session_id = r.session_id and a.item_no = r.item_no and a.taxonomy_version = v.taxonomy_version
+         and a.outcome <> 'failed' and a.quality_rule_version = v.quality_rule_version and a.choice_trap_map = v.choice_trap_map
+         and a.input_hash = public.csat_ec_judgment_input_hash(r.session_id, r.item_no)
+       order by a.id desc limit 1) ar on true;
+  if jsonb_array_length(v_targets) <> (select count(distinct ((x->>'session_id'), (x->>'item_no'))) from jsonb_array_elements(p_refs) x) then
+    raise exception 'csat_ec: 없는 응답이 대상에 있다';
+  end if;
+  update public.csat_ec_review_round set targets = v_targets where id = p_round;
+  return jsonb_array_length(v_targets);
 end $$;
 
 create or replace function public.csat_ec_round_assign(p_round bigint, p_reviewer uuid, p_slot text, p_pre_disclosed text[] default '{}')
@@ -683,15 +732,26 @@ end $$;
 
 create or replace function public.csat_ec_round_start_blind(p_round bigint)
 returns text language plpgsql security definer set search_path = '' as $$
-declare v public.csat_ec_review_round; v_hash text;
+declare v public.csat_ec_review_round; v_hash text; v_locked uuid[];
 begin
   if not public.is_admin() then raise exception 'csat_ec: 관리자만'; end if;
   -- 잠금 순서는 모든 경로에서 「세션 → 회차」(세션 삭제 → 응답 삭제 트리거 → 회차 갱신과 같은 순서 — 교착 방지)
-  perform 1 from public.csat_dx_session s
-   where s.id in (select (t->>'session_id')::uuid from public.csat_ec_review_round rr, jsonb_array_elements(rr.targets) t where rr.id = p_round)
-   order by s.id for update;
+  select coalesce(array_agg(s.id order by s.id), '{}') into v_locked from (
+    select s.id from public.csat_dx_session s
+     where s.id in (select (t->>'session_id')::uuid from public.csat_ec_review_round rr, jsonb_array_elements(rr.targets) t where rr.id = p_round)
+     order by s.id for update) s;
   select * into v from public.csat_ec_review_round where id = p_round for update;
   if v.status <> 'draft' then raise exception 'csat_ec: draft 회차만 시작한다'; end if;
+  -- 회차를 잠근 뒤 대상 세션 집합이 잠근 집합과 같은지 다시 본다 — 그 사이 대상이 바뀌었으면 새 세션은 잠기지 않았으므로 거부(다시 시도)
+  if v_locked is distinct from (select coalesce(array_agg(distinct (t->>'session_id')::uuid order by (t->>'session_id')::uuid), '{}')
+                                  from jsonb_array_elements(v.targets) t) then
+    raise exception 'csat_ec: 시작하는 동안 대상이 바뀌었다 — 다시 시도한다';
+  end if;
+  -- 판정자는 대상 응답의 학생이 아니어야 한다 — 배정 뒤 대상을 바꾼 경우까지 시작 시점에 다시 검사
+  if exists (select 1 from public.csat_ec_review_assignment a join public.csat_dx_session s on s.user_id = a.reviewer_id
+              where a.round_id = p_round and s.id = any (v_locked)) then
+    raise exception 'csat_ec: 판정자의 자기 응답이 대상에 있다';
+  end if;
   if (select count(*) from public.csat_ec_review_assignment a join auth.users u on u.id = a.reviewer_id
        where a.round_id = p_round and a.slot in ('A', 'B', 'adjudicator')) <> 3 then
     raise exception 'csat_ec: 판정자 A · B · adjudicator 가 모두 유효한 계정으로 배정돼야 한다';
@@ -863,12 +923,38 @@ begin
     raise exception 'csat_ec: 배정된 회차가 아니다';
   end if;
   select * into v from public.csat_ec_review_round where id = p_round;
-  if v.status not in ('reveal', 'adjudication', 'closed') then raise exception 'csat_ec: 아직 공개 전이다'; end if;
+  -- 공개된 적이 있으면(공개 뒤 취소된 회차 포함 — 감사용) 배정자가 본다. 공개 전에는 누구도 못 본다
+  if v.revealed_at is null then raise exception 'csat_ec: 아직 공개 전이다'; end if;
   return jsonb_build_object(
     'judgments', (select coalesce(jsonb_agg(to_jsonb(j) order by j.id), '[]') from public.csat_ec_judgment j where j.round_id = p_round),
     'claims', (select coalesce(jsonb_agg(to_jsonb(c)), '[]') from jsonb_array_elements(v.targets) t
                 cross join lateral jsonb_array_elements_text(coalesce(t->'claim_ids', '[]')) cid
                 join public.csat_ec_claim c on c.id = cid::uuid));   -- 회차에 봉인된 claim 만
+end $$;
+
+create or replace function public.csat_ec_round_material(p_round bigint)
+returns table (session_id uuid, item_no smallint, item_id text, stem text, passage text, choices jsonb, answer jsonb, chosen_option smallint,
+               process_evidence jsonb, student_category jsonb)
+language plpgsql stable security definer set search_path = '' as $$
+declare v public.csat_ec_review_round;
+begin
+  if not exists (select 1 from public.csat_ec_review_assignment a where a.round_id = p_round and a.reviewer_id = (select auth.uid())) then
+    raise exception 'csat_ec: 배정된 회차가 아니다';
+  end if;
+  select * into v from public.csat_ec_review_round where id = p_round;
+  if v.revealed_at is null then raise exception 'csat_ec: 아직 공개 전이다'; end if;
+  return query
+  select (t->>'session_id')::uuid, (t->>'item_no')::smallint, t->>'item_id', i.stem, i.passage, to_jsonb(i.choices),
+         public.csat_ec_effective_answer(r.session_id, r.item_no), r.chosen_option,
+         coalesce((select jsonb_agg(jsonb_build_object('kind', p.kind, 'value', p.value) order by p.created_at)
+                     from jsonb_array_elements_text(coalesce(t->'process_evidence_ids', '[]')) pid
+                     join public.csat_ec_process_evidence p on p.id = pid::uuid), '[]'),
+         coalesce((select jsonb_agg(jsonb_build_object('group', c.student_group, 'code', c.code))
+                     from jsonb_array_elements_text(coalesce(t->'claim_ids', '[]')) cid
+                     join public.csat_ec_claim c on c.id = cid::uuid and c.source = 'student'), '[]')
+    from jsonb_array_elements(v.targets) t
+    join public.csat_dx_response r on r.session_id = (t->>'session_id')::uuid and r.item_no = (t->>'item_no')::smallint
+    left join public.csat_items i on i.id = r.item_id;
 end $$;
 
 create or replace function public.csat_ec_submit_verify(p_round bigint, p_claim uuid, p_verdict text, p_note text)
@@ -1095,13 +1181,15 @@ begin
     'csat_ec_cancel_rounds_on_confirmation()',
     'csat_ec_item_input_hash(uuid,smallint)',
     'csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid)',
-    'csat_ec_round_create(text,text,text,jsonb,jsonb)',
+    'csat_ec_round_create(text,text,text,jsonb)',
+    'csat_ec_round_set_targets(bigint,jsonb)',
     'csat_ec_round_assign(bigint,uuid,text,text[])',
     'csat_ec_round_start_blind(bigint)',
     'csat_ec_blind_queue(bigint)',
     'csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text)',
     'csat_ec_round_reveal(bigint)',
     'csat_ec_reveal_view(bigint)',
+    'csat_ec_round_material(bigint)',
     'csat_ec_submit_verify(bigint,uuid,text,text)',
     'csat_ec_round_advance(bigint,text,text)',
     'csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text)',
@@ -1121,13 +1209,15 @@ grant execute on function public.csat_ec_ai_taxonomy(text) to service_role;
 grant execute on function public.csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) to authenticated;
 grant execute on function public.csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid) to authenticated;
 -- 판정자 · 관리자 RPC 는 함수 안에서 배정 · is_admin() 을 확인한다
-grant execute on function public.csat_ec_round_create(text,text,text,jsonb,jsonb) to authenticated;
+grant execute on function public.csat_ec_round_create(text,text,text,jsonb) to authenticated;
+grant execute on function public.csat_ec_round_set_targets(bigint,jsonb) to authenticated;
 grant execute on function public.csat_ec_round_assign(bigint,uuid,text,text[]) to authenticated;
 grant execute on function public.csat_ec_round_start_blind(bigint) to authenticated;
 grant execute on function public.csat_ec_blind_queue(bigint) to authenticated;
 grant execute on function public.csat_ec_submit_blind(bigint,uuid,smallint,text,text,text[],text[],text) to authenticated;
 grant execute on function public.csat_ec_round_reveal(bigint) to authenticated;
 grant execute on function public.csat_ec_reveal_view(bigint) to authenticated;
+grant execute on function public.csat_ec_round_material(bigint) to authenticated;
 grant execute on function public.csat_ec_submit_verify(bigint,uuid,text,text) to authenticated;
 grant execute on function public.csat_ec_round_advance(bigint,text,text) to authenticated;
 grant execute on function public.csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text) to authenticated;

@@ -1,0 +1,38 @@
+[
+ {
+  "area": "객체",
+  "name": "실제 생성 개수",
+  "pass": true,
+  "detail": "{\"tables\":\"9\",\"functions\":\"37\",\"triggers\":\"15\",\"policies\":\"5\",\"named_indexes\":\"26\",\"all_indexes\":\"26\",\"constraints\":\"81\",\"definer\":\"21\"}"
+ },
+ {
+  "area": "rollback",
+  "name": "빈 상태 — 성공",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rollback",
+  "name": "남은 csat_ec_* 객체 0(표 · 함수 · 트리거 · 정책 · 인덱스 · 제약)",
+  "pass": true,
+  "detail": "{\"tables\":\"0\",\"functions\":\"0\",\"triggers\":\"0\",\"policies\":\"0\",\"named_indexes\":\"0\",\"all_indexes\":\"0\",\"constraints\":\"0\",\"definer\":\"0\"}"
+ },
+ {
+  "area": "rollback",
+  "name": "응답 삭제 트리거 원복 · 기존 데이터 그대로",
+  "pass": true,
+  "detail": "{\"b0\":{\"s\":\"1\",\"r\":\"45\",\"i\":\"45\",\"resp_triggers\":\"0\"},\"b1\":{\"s\":\"1\",\"r\":\"45\",\"i\":\"45\",\"resp_triggers\":\"0\"}}"
+ },
+ {
+  "area": "rollback",
+  "name": "재적용 성공(되돌린 뒤 같은 마이그레이션을 다시 적용 가능)",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "area": "rollback",
+  "name": "행이 있으면 거부(데이터 손실 방지) · 객체 그대로",
+  "pass": true,
+  "detail": "{\"err\":\"rollback 중단: csat_ec_taxonomy_version 에 1 행이 있다 — 데이터 손실 확인 필요\",\"tables\":\"9\"}"
+ }
+]

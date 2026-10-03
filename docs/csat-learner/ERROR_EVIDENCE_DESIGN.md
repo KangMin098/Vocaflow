@@ -902,7 +902,7 @@ blind 시작 뒤 이 컬럼들은 트리거로 바뀌지 않는다 — rq-2 가 
 
 | 파일 | 내용 | 상태 |
 |---|---|---|
-| `supabase/migrations/_pending_csat_error_evidence.sql` | 9 테이블 · 인덱스 16 · FK · CHECK · 트리거 15 · 정책 5 · 함수 35 · 권한 | 미적용. PostgreSQL 파서(libpg-query 16)로 103문 파싱 통과. **plpgsql 함수 본문은 아직 실행 검증 전**(이 환경에 plpgsql 파서 없음 — 격리 브랜치에서) |
+| `supabase/migrations/_pending_csat_error_evidence.sql` | 9 테이블 · 트리거 15 · 정책 5 · 함수 37(SECURITY DEFINER 21) · 인덱스 26 · 제약 81 · 권한 | 미적용(운영). **격리 PostgreSQL 17.9 에서 적용 · 실행 검증 완료 — §16** |
 | `supabase/migrations/_pending_csat_error_evidence.rollback.sql` | 비어 있을 때만 되돌림(행이 있으면 중단 — DROP 데이터 손실은 사용자 확인) | 미적용 |
 | `scripts/csat/error-evidence/verify-schema.sql` | PRE 4 · POST 8 검증(초기 행 0 포함) | 읽기 전용 |
 | `docs/csat-learner/choice-traps/v0.1.json` + `choice-traps-artifact.test.ts` | Choice Trap 9코드 · 31 key 대응 · 스키마 · 봉인 해시 고정 | 테스트 통과 |
@@ -957,8 +957,67 @@ blind 시작 뒤 이 컬럼들은 트리거로 바뀌지 않는다 — rq-2 가 
 
 ### J. 적용 시 예상 DB 변화
 
-- 새 테이블 9 · 새 함수 35(학습자 · 판정자 · 관리자 · AI RPC 와 계산 함수 25 · 트리거 함수 10) · 새 트리거 15 · 새 정책 5 · 새 인덱스 16(PK · 유일 제약 인덱스 제외).
+- 새 테이블 9 · 새 함수 37(SECURITY DEFINER 21) · 새 트리거 15 · 새 정책 5 · 새 인덱스 26(PK · 유일 포함) · 제약 81 — 격리 적용에서 실측(§16).
 - **기존 테이블 변경: `csat_dx_response` 에 BEFORE DELETE 트리거 1개**(대상 응답이 지워지면 열린 회차 취소). 컬럼 · 데이터 변경 없음 · 기존 행 0 영향.
 - 기존 표에 대한 잠금: 학습자 증거 작성 · 판정 제출이 `csat_dx_session` 행을 `FOR SHARE` 로, blind 시작이 대상 세션을 `FOR UPDATE` 로 잠근다(짧은 트랜잭션). 기존 기록 저장 · 삭제 흐름은 바뀌지 않는다.
 - 초기 행 전부 0. taxonomy v0.1 시드(버전 1 · 코드 20)는 **별도 마이그레이션**으로, 코드별 정의 · 포함 · 제외 기준 문장을 확정한 뒤.
 - 앱 코드 변경 없음(아직 아무도 새 표를 읽거나 쓰지 않는다).
+
+## 16. 격리 PostgreSQL 실행 검증 결과 (2026-10-03)
+
+> 하네스: `scripts/csat/error-evidence/isolated-pg/`(README · 결과 `results.json` · `results-rollback.json`). 운영 · 공유 DB 변경 없음.
+> Supabase 브랜치 대신 로컬 PostgreSQL 17.9 를 운영과 같은 역할 · 기본 권한 · 기존 표 정의로 재현했다 — MCP 에 브랜치 비용 확인 도구가 없어 브랜치를 만들 수 없었다.
+
+### 결과 요약
+
+| 영역 | 결과 |
+|---|---|
+| 적용 | PRE 3 통과 · postgres(비 superuser · BYPASSRLS)로 적용 성공 · 기존 객체 비의도 변경 0(추가는 응답 삭제 트리거 1) · POST 기대값 일치(초기 행 0) |
+| 실제 생성 객체 | 표 9 · 함수 37(SECURITY DEFINER 21) · 트리거 15 · 정책 5 · 인덱스 26(PK · 유일 포함) · 제약 81 |
+| 함수 실행 | 학습자 · 관리자 · 판정자 · AI RPC 전부 정상 · NULL · 없는 ID · 비권한 · 잘못된 상태 · 중복 · 재시도(멱등) 실행 |
+| SECURITY DEFINER | 21개 모두 `search_path=''` · 소유자 postgres · PUBLIC/anon 실행 0 · 동적 SQL 0 · 그림자 객체(public 함수 생성 · pg_temp 위장 표) 공격 거부 |
+| RLS 실제 권한 | 표 9 × 역할 5(anon · 학습자 · 판정자 · 관리자 · service_role) × SELECT/INSERT/UPDATE/DELETE/TRUNCATE = 225칸 기대와 일치 · service_role 은 판정 · claim 표 SELECT 권한 거부(BYPASSRLS 여도 GRANT 없음) |
+| blind 수명주기 | draft → blind → reveal → adjudication → closed 끝까지 · 단계별 금지 동작 전부 거부 · 노출 0건 |
+| 동시성 | 겹친 트랜잭션 14 시나리오 · 교착(40P01) 0 · 중복 행 0 · 공개 뒤 blind 행 0 · 부분 커밋 0 |
+| rq-1 동치 | fixture 14 · TS ↔ SQL 불일치 0 |
+| 정규화 해시 | 의미 없는 차이 4종 같은 해시 · 의미 변화 4종 다른 해시 · 같은 대상 회차의 targets_hash 일치 |
+| taxonomy 봉인 | draft 수정 가능 · 봉인 뒤 추가 · 정의 · 포함/제외 · 이름 · 이동 · 삭제 · 봉인 해제 · 해시 변경 · 버전 삭제 모두 거부(소유자 직접 시도 포함) · 봉인 해시 = 별도 재계산값 |
+| 삭제 경계 | 학습자 기록 · 계정 삭제는 성공하고 그 학생 행만 연쇄 삭제 · taxonomy · 사전 · 회차 · 배정 · 다른 학생 행 그대로 · 열린 회차 취소(target_deleted) · 판정자 · 관리자 계정 삭제 뒤 판정 224행 그대로 |
+| rollback | 빈 상태 성공 · 남은 객체 0 · 응답 트리거 원복 · 기존 데이터 그대로 · 재적용 성공 · 행이 있으면 거부 |
+| **합계** | **본 테스트 196/196 · rollback 6/6** |
+
+### 실행으로 찾아 고친 것
+
+| 발견 | 고친 것 |
+|---|---|
+| 관리자가 회차 대상의 해시 · 확인 revision · 과정 증거 목록을 넘겨야 했는데 계산 함수는 누구도 실행할 수 없음 | `csat_ec_round_set_targets` — 관리자는 (세션, 문항)만, 서버가 전부 계산해 채움 |
+| (Codex P1) 배정 뒤 대상을 바꾸면 판정자 자기 응답이 들어감 | 대상 설정 · blind 시작 둘 다에서 판정자 ↔ 대상 학생 충돌 재검사 |
+| (Codex P1) blind 시작이 대상 세션을 잠근 뒤 다른 관리자가 대상을 바꾸면 새 세션이 안 잠긴 채 봉인 | 회차를 잠근 뒤 잠근 세션 집합 = 대상 세션 집합인지 재확인, 다르면 거부(재시도) |
+| (Codex P1) adjudicator 가 원 응답 · 과정 증거를 볼 경로가 없어 합의 판정 불가 | `csat_ec_round_material` — 공개된 적 있는 회차의 봉인 원자료를 배정자에게 · reveal_view 도 「공개 뒤 취소」 회차 감사 허용 |
+
+하네스 쪽 오류(테스트 데이터 · 검사식)도 여러 번 고쳤다 — 고친 뒤 검사가 실제로 의미를 갖는지(형식 통과가 아닌지) 다시 확인했다(예: 판정자 계정 삭제 검사는 판정 0행일 때 통과하던 것을 224행 상태로 옮김).
+
+### 최종 Codex 리뷰(실행 검증한 SQL 기준)
+
+**P0 0 · P1 0.** P2 는 고치지 않고 아래처럼 분류했다(사용자 지시 13).
+
+| # | P2 | 분류 | 근거 · 조건 |
+|---|---|---|---|
+| 1 | AI 실행은 입력 참조 + 해시만 — 원문 · 정답 수정 뒤 과거 입력 전문 복원 불가 | production 전에 수정 | Pilot 결과 감사에는 해시 대조로 충분, 장기 보존에는 비공개 입력 스냅샷 필요 |
+| 2 | 문항 · 정답 · 태깅 **직접 UPDATE** 를 즉시 막지 않음 | **Pilot 수용**(조건 실측 통과) | 실측: 회차 중 문항 원문 UPDATE → 제출 거부 · blind 큐 중단 · 공개 거부 · 취소 사유 `input_changed` 기록. 조용한 진행 0 |
+| 3 | `choice_trap_map` 은 형식만 검사(존재하는 버전 · 해시 대조 없음) | Pilot 전에 수정 | 회차 · AI 실행의 출처가 틀리면 결과 의미가 흔들린다 — 승인된 버전 · 해시 목록과 대조 |
+| 4 | 회차 대상의 `quality` 에 status 만, signals 는 미봉인 | Pilot 전에 수정 | 원 응답에서 다시 계산은 되지만 봉인 약속(§15 G)과 다름 — SQL 신호 계산 추가 |
+| 5 | AI `input_refs` 는 호출자 값을 그대로 저장 | Pilot 전에 수정 | 해시는 서버값과 대조되지만 감사용 참조가 틀릴 수 있음 — 서버 생성 |
+| 6 | `ai_export` 가 해시에 들어간 원문 · 정답 · 함정을 같이 내주지 않음 | Pilot 전에 수정 | AI 가 받은 입력 = 해시 입력임을 보장하려면 같은 스냅샷에서 함께 반환 |
+| 7 | `round_material` 은 공개 뒤 입력이 바뀌면 현재 값을 보여 줌 | Pilot 에서 관찰 | 2 의 감지로 회차는 취소되므로 영향은 취소 회차 감사 화면 — 입력 불일치 표시 추가 검토 |
+| 8 | 판정의 원인 코드 축과 `excluded_axes` 가 겹쳐도 저장 | Pilot 전에 수정 | 모순 판정이 반증 집계(§9)에 들어간다 — 삽입 가드 한 줄 |
+| 9 | AI 사전 · 적재가 deprecated 코드도 허용 | Pilot 전에 수정 | 신규 제안은 active 만 |
+| 10 | 문항 원문 · 태깅을 고치면 그 문항의 **모든 학습자 과정 증거가 무효**(실행에서 발견) | Pilot 에서 관찰 + 운영 절차 | 설계대로(작성 당시 문항에 묶음). Pilot 기간 대상 문항은 수정 동결, 오탈자 수정이 필요하면 재수집 안내 |
+
+### 운영 DB 적용 시 남은 위험
+
+1. **검증 환경 차이** — 로컬 17.9 · Windows · 재현한 역할/권한. Supabase 고유 요소(PostgREST 캐시 · `pg_graphql` · 다른 확장 · 실제 기존 트리거 `csat_hold_on_item_change_trg` 와의 상호작용)는 재현하지 않았다. 적용 직후 `verify-schema.sql` POST 와 `get_advisors(security)` 를 운영에서 다시 확인해야 한다.
+2. **기존 표 영향** — `csat_dx_response` BEFORE DELETE 트리거 1개. 학습자 기록 삭제마다 열린 회차 검색이 한 번 돈다(지금 회차 0 → 비용 무시 가능, 회차가 쌓이면 `targets` jsonb 포함 검색 인덱스 검토).
+3. **Pilot 전 P2 6건**(3 · 4 · 5 · 6 · 8 · 9) — 운영 적용 전에 고치고 이 하네스를 다시 돌리는 것이 순서상 맞다.
+4. **taxonomy 시드 미작성** — 운영 적용만으로는 아무 것도 쓰이지 않는다(사전 0행). 코드 20개의 정의 · 포함 · 제외 · 예 · 반례 확정 뒤 별도 시드 마이그레이션.
+5. **문항 수정 = 증거 무효**(P2-10) — 운영 절차(Pilot 문항 동결)로 막아야 한다.
