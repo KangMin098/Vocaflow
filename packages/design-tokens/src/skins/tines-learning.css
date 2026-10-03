@@ -332,3 +332,23 @@
   :root[data-skin="tines"] .pairflip-hub { grid-template-columns: 1fr; }
   :root[data-skin="tines"] .pairflip-hub > section:last-child { grid-column: 1; grid-row: auto; }
 }
+
+/* 솔루션형 가운데 히어로(참조 /solutions/security · 2026-10-04) — ModuleHero 의 `tines-solutions-hero`.
+   색 면 상자를 걷고 크림 바탕에 가운데 정렬 · 모노 눈썹 · 세리프 제목 · 양옆 떠 있는 판 삽화. PC 전용. */
+.tines-hero-flanks { display: none; }
+@media (min-width: 768px) {
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero { background: transparent; background-image: none; border: 0; border-radius: 0; overflow: visible; min-height: 360px; padding: 56px clamp(200px, 22vw, 320px) 36px; text-align: center; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > div:not(.tines-hero-flanks) { display: flex; flex-direction: column; align-items: center; padding-right: 0; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > div > span[aria-hidden],
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > div:not(.tines-hero-flanks) > img,
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero .module-path-art { display: none; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > div > div > p:first-child { color: var(--ju); font-weight: 700; letter-spacing: .08em; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero h1 { font-family: var(--font-serif); font-weight: 400; font-size: 52px; line-height: 1.06; letter-spacing: -.02em; color: var(--ju); }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > div > div > p:last-child { margin-inline: auto; max-width: 560px; font-size: 15px; color: var(--ju); }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > ul { justify-content: center; gap: 48px; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > ul li { align-items: center; }
+  :root[data-skin="tines"] .tines-hero-flanks { display: block; position: absolute; inset: 0; pointer-events: none; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > .tines-hero-flanks > img { display: block; position: absolute; width: clamp(170px, 18vw, 260px); height: auto; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > .tines-hero-flanks > img:first-child { left: 0; top: 12px; }
+  :root[data-skin="tines"] .tines-module-hero.tines-solutions-hero > .tines-hero-flanks > img:last-child { right: 0; top: 42%; width: clamp(150px, 16vw, 230px); }
+}
