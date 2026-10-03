@@ -251,7 +251,10 @@ export function passageOf(block, opts = {}) {
     if (!l) continue
     // 각주 — `* monist: 일원론의` · `* be entitled to: (~할) 권한이 있다` · `** entail: 내포하다`.
     // 낱말에 공백이 있어 `\S+` 로는 안 잡힌다(실측: 2014A#33 의 `be entitled to`).
-    if (/^\*+\s/.test(l) || /^\*+[^:：]{1,40}[:：]/.test(l)) continue
+    const starred = /^\*+\s/.test(l) || /^\*+[^:：]{1,40}[:：]/.test(l)
+    // 학평 안내문은 * 뒤의 영어 운영 조건도 본문이다. 한국어 어휘 각주는 계속 제외한다.
+    const noticeNote = opts.keepEnglishNotes && /^\*+\s+[A-Z]/.test(l) && !/[가-힣]/.test(l)
+    if (starred && !noticeNote) continue
     if (koRatio(l) >= 0.3) continue // 발문·안내·배점 표기
     // 발문 꼬리가 문장 앞에 붙어 있으면 거기까지 떼어 낸다 (`적절한 것은? [3점] As we all know,`).
     // 고유명사가 섞인 발문(`Harmony Youth Orchestra Auditions에 관한 다음 안내문의`)은

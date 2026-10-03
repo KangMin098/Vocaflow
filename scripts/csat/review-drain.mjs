@@ -35,7 +35,7 @@
 //   ledger-import [--commit]                                    _metrics.jsonl · _followups.jsonl → csat_review_batches · csat_review_followups(자연키 upsert)
 //   status                                                      학평 분석 상태·독립 검수 진행 요약
 //
-// 재실행 안전: start 는 매번 새 실행을 만든다(버려진 실행은 게이트가 세지 않는다) · solve 는 두 번 부르면
+// 재실행 안전: start/rereview 는 같은 실행 주체의 미제출 실행을 재사용한다 · solve 는 두 번 부르면
 // DB 가 거부 · reveal 은 몇 번 불러도 같은 값 · submit 은 (분석, 페르소나, 실행) 당 한 번 · publish 는 몇 번이든 안전.
 
 import fs from 'node:fs'
@@ -72,6 +72,13 @@ if (!URL || !KEY) throw new Error('SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY 를 
 const db = createClient(URL, KEY, { auth: { persistSession: false } })
 
 const WORK = path.resolve('scripts/csat/review-drain-hakpyeong') // gitignore — 문항 id 만 담지만 학평 작업물과 같은 규칙
+// Validate output paths before creating a review run.
+if (['start', 'rereview', 'reveal'].includes(cmd) && arg('out')) {
+  const name = arg('out')
+  if (path.basename(name) !== name || !name.startsWith('_out-') || !name.endsWith('.json')) throw new Error('--out 은 _out-*.json 파일명만 받는다')
+  fs.mkdirSync(WORK, { recursive: true })
+  fs.accessSync(WORK, fs.constants.W_OK)
+}
 const PERSONAS = ['setter', 'analyst', 'tutor']
 /** 이 시간 안에 만들어졌는데 판정이 없는 실행은 «작업 중» 으로 보고 다시 배정하지 않는다 */
 const CLAIM_HOURS = 3
@@ -85,7 +92,16 @@ const forReviewer = (a) => {
   const { analyst_run, body_recovered, created_at, updated_at, ...rest } = a
   return rest
 }
-const out = (v) => console.log(JSON.stringify(v, null, 1))
+const out = (v) => {
+  const json = JSON.stringify(v, null, 1)
+  if (arg('out')) {
+    const name = arg('out')
+    if (path.basename(name) !== name || !name.startsWith('_out-') || !name.endsWith('.json')) die('--out 은 _out-*.json 파일명만 받는다(검수 작업 폴더에 저장)')
+    fs.mkdirSync(WORK, { recursive: true })
+    fs.writeFileSync(path.join(WORK, name), json + '\n')
+    console.log(`저장: ${name}`)
+  } else console.log(json)
+}
 const die = (msg) => { console.error(`✗ ${msg}`); process.exit(1) }
 const must = (v, name) => (v == null || v === '' ? die(`--${name} 가 필요하다`) : v)
 
@@ -144,6 +160,20 @@ async function latestHakpyeong() {
   return [...latest.values()]
 }
 
+// A lost CLI response must not create another unsubmitted run. Same execution only.
+async function reusableRun(analysisId, persona, agentRun, kind, parentId = null) {
+  let q = db.from('csat_review_runs')
+    .select('id, solve_answer, csat_independent_reviews(id)')
+    .eq('analysis_id', analysisId).eq('persona', persona).eq('agent_run', agentRun)
+    .eq('role', 'reviewer').eq('kind', kind)
+    .is('csat_independent_reviews.id', null)
+    .order('created_at', { ascending: false }).limit(1)
+  if (parentId) q = q.eq('parent_run_id', parentId)
+  const { data, error } = await q
+  if (error) die(error.message)
+  return data?.[0] ?? null
+}
+
 switch (cmd) {
   // ── 검수 에이전트 ───────────────────────────────────────────────────
   case 'start': {
@@ -156,13 +186,14 @@ switch (cmd) {
     if (a.analyst_run && a.analyst_run === agentRun) die('분석을 쓴 실행 주체는 그 분석을 검수할 수 없다')
     // 이 도구는 **학평(보조·검증 집합) 전용**이다 — 평가원 분석은 csat_analysis_reviews 규약을 따른다
     if (isKiceExam(a.item_id)) die(`${a.item_id}: 평가원 문항은 이 도구로 검수하지 않는다(학평 전용)`)
-    const { data: run, error: re } = await db.from('csat_review_runs')
+    const existing = await reusableRun(a.id, persona, agentRun, 'blind')
+    const { data: run, error: re } = existing ? { data: existing } : await db.from('csat_review_runs')
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona }).select('id').single()
     if (re) die(re.message)
     // 정답(answer·answers)과 분석은 **주지 않는다** — solve 뒤 reveal 에서만
     const { data: it, error: ie } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices').eq('id', a.item_id).single()
     if (ie) die(ie.message)
-    out({ run_id: run.id, item: it, units: await unitsView(a.item_id), next: `solve --run ${run.id} --answer <1-5> --note "<근거>"` })
+    out({ run_id: run.id, resumed: !!existing, item: it, units: await unitsView(a.item_id), next: existing?.solve_answer != null ? `reveal --run ${run.id}` : `solve --run ${run.id} --answer <1-5> --note "<근거>"` })
     break
   }
   case 'solve': {
@@ -218,14 +249,15 @@ switch (cmd) {
     if (!parentId) die(`${a.item_id} ${persona}: 지금 원문·정답과 맞는 블라인드 풀이가 없다 — start 로 새 블라인드부터`)
     const { data: parent, error: pe2 } = await db.from('csat_review_runs').select('id, solve_answer, solve_note').eq('id', parentId).single()
     if (pe2) die(pe2.message)
-    const { data: run, error: re } = await db.from('csat_review_runs')
+    const existing = await reusableRun(a.id, persona, agentRun, 'rereview', parent.id)
+    const { data: run, error: re } = existing ? { data: existing } : await db.from('csat_review_runs')
       .insert({ item_id: a.item_id, analysis_id: a.id, role: 'reviewer', agent_run: agentRun, persona, kind: 'rereview', parent_run_id: parent.id }).select('id').single()
     if (re) die(re.message)
     const { data, error } = await db.rpc('csat_review_reveal', { p_run: run.id })
     if (error) die(error.message)
     const row = data?.[0]
     const { data: prior } = await db.from('csat_independent_reviews').select('verdict, findings').eq('review_run_id', parent.id)
-    out({ run_id: run.id, kind: 'rereview', parent_run: parent.id,
+    out({ run_id: run.id, resumed: !!existing, kind: 'rereview', parent_run: parent.id,
       original_solve: { answer: parent.solve_answer, note: parent.solve_note, matches: parent.solve_answer === row?.answer },
       prior_review_on_old_analysis: prior ?? [], official_answer: row?.answer, analysis: forReviewer(row?.analysis), units: await unitsView(a.item_id),
       next: `submit --run ${run.id} --verdict <pass|revise|fail> --findings '[...]' --checked '[...]'` })

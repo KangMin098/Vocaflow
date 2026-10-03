@@ -218,7 +218,7 @@ async function retry(label, fn, tries = 4) {
     // Cloudflare 는 오류를 **HTML 페이지**로 돌려주기도 한다 — 그때 msg 는 <!DOCTYPE html> 로 시작한다.
     // JSON 문자열만 보고 판정하면 그 경우를 못 잡아 「재시도 가능한 오류」에 그대로 죽는다.
     const transient =
-      /5dd|timed out|timeout|fetch failed|ECONNRESET|socket hang up|unavailable|<!DOCTYPE html|cloudflare/i.test(msg)
+      /5\d\d|timed out|timeout|fetch failed|ECONNRESET|socket hang up|unavailable|<!DOCTYPE html|cloudflare/i.test(msg)
     if (!transient || i >= tries) throw new Error(`${label}: ${msg}`)
     const wait = 15_000 * i
     console.log(`
@@ -231,6 +231,8 @@ let inserted = 0
 let republished = 0
 let failed = 0 // 상태 전환 실패 — 0 이 아니면 exit 1
 for (const a of analyses) {
+  // Versioned writes must stay sequential; cap the two writes per item below 6/s.
+  await sleep(350)
   // 같은 문항의 최신 버전을 보고, 내용이 같으면 건너뛴다(재실행 안전).
   const { data: prev } = await retry(`${a.item_id} 조회`, () =>
     db

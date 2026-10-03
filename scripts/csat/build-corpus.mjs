@@ -115,6 +115,7 @@ function bodyOf(exam, no, typeId) {
   // `passageOf` 가 줄머리 ① 을 선지 블록 머리로 오인해 지문을 거기서 끊는다
   // (실측 2026-09-13: 27문항 · 최악 M1809#30 은 958자 중 106자만 남았다 — `INLINE_SYMBOL_TYPES` 주석).
   const symbolsInline = INLINE_SYMBOL_TYPES.has(typeId)
+  const keepEnglishNotes = SET === 'hakpyeong' && typeId === 'R-NOTICE'
   const man = manualBody.get(`${exam}#${no}`)
   const blocks = itemBlocks(exam, no)
   if (!blocks.length) {
@@ -129,13 +130,13 @@ function bodyOf(exam, no, typeId) {
   let passage = null
   let choices = null
   for (const b of blocks) {
-    if (!passage) passage = passageOf(b, { symbolsInline }) || null
+    if (!passage) passage = passageOf(b, { symbolsInline, keepEnglishNotes }) || null
     if (!choices) choices = choicesOf(b)
     if (passage && choices) break
   }
   const set = setBlockFor(exam, no)
   if (set && (!passage || passage.length < 200)) {
-    const sp = passageOf(set, { symbolsInline })
+    const sp = passageOf(set, { symbolsInline, keepEnglishNotes })
     if (sp && sp.length > (passage?.length ?? 0)) passage = sp
   }
   // 자동 추출이 빈손일 때만 손으로 적은 것을 쓴다
