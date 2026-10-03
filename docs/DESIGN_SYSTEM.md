@@ -4,8 +4,8 @@
 
 > 디자인 작업 진입: [DESIGN.md](../DESIGN.md) · 캡처·비평·수정과 로컬 픽셀 비교: [디자인 작업 절차](design/06-workflow.md).
 
-> Vocaflow 디자인 시스템 **현행 SSoT** — v07 「주묵 판면」(Reading Room 지면 위 주묵 한 색) · 2026-09-18 축약판.
-> **값의 정본은 코드다**: `packages/design-tokens/src/tokens.css`(웹) · `colors.ts`(RN) · `apps/web/src/app/globals.css`(앱 도메인 토큰).
+> 아래는 **기본 토큰 재료** — v07 「주묵 판면」의 2026-09-18 축약판. 웹의 현재 디자인은 위 두 라우트 스킨을 따른다.
+> **값의 정본은 코드다**: `packages/design-tokens/src/skins/{tines,csat-app}.css`(웹 스킨) · `tokens.css`(기본값) · `colors.ts`(RN) · `apps/web/src/app/globals.css`(앱 도메인 토큰).
 > 이 문서의 값은 2026-09-18 에 그 파일들에서 읽었다. 어긋나면 코드가 맞고 이 문서가 낡은 것이다.
 >
 > **이력은 본문에 두지 않는다** — iOS Indigo SSoT(v06.38, 폐기값) · World-class 벤치마크 · Reading Room 정제 경위 ·
@@ -14,6 +14,11 @@
 > 형태를 **만드는** 절차(§G)는 [vocaflow-design](../.claude/skills/vocaflow-design/SKILL.md), 이 문서는 **재료**다.
 
 ---
+
+팝업 내부 별칭도 루트의 면·글자·선 토큰을 따른다. 1차 행동은 `--p`/`--on-p`,
+상태 표식은 `--success|warning|error-ink`와 대응 `-light` 면을 함께 사용한다.
+밝은 면과 다크 글자를 혼합하지 않도록 실제 렌더 대비를 검증한다. CSAT 루트의 `color-scheme`은
+테마와 일치시켜 네이티브 날짜·선택 컨트롤도 같은 테마를 받는다.
 
 ## 🎯 공개 화면 · 계측 · 모션 토큰
 

@@ -47,4 +47,17 @@ describe('사용자가 지정한 두 디자인의 기본 적용', () => {
       expect(read(`apps/web/src/components/csat/diagnosis/map/${file}`)).not.toMatch(/color:\s*#fcf9f5/)
     }
   })
+
+  it('시험 기록과 지도 상태의 전경·배경이 같은 테마를 따른다', () => {
+    const board = read('apps/web/src/components/csat/diagnosis/board.module.css')
+    for (const [local, global] of [['m-field', 'bg'], ['m-t1', 't1'], ['m-t2', 't2']]) {
+      expect(board).toContain(`--${local}: var(--${global});`)
+    }
+    expect(board).toMatch(/\.modal \.done\s*\{[^}]*background: var\(--p\);[^}]*color: var\(--on-p\);/)
+    const map = read('apps/web/src/components/csat/diagnosis/map/map.module.css')
+    for (const [status, semantic] of [['met', 'success'], ['near', 'warning'], ['short', 'error']]) {
+      expect(map).toContain(`--m-${status}-ink: var(--${semantic}-ink);`)
+      expect(map).toContain(`--m-${status}-bg: var(--${semantic}-light);`)
+    }
+  })
 })

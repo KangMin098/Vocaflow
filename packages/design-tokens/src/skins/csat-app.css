@@ -17,6 +17,7 @@
  */
 
 :root:has([data-design-scope="csat"]) {
+  color-scheme: light;
   --design-family: three-b;
   /* ── 1차 행동 — 레퍼런스 --control-bg / --control-fg ── */
   --p: #0d0d17;
@@ -130,6 +131,7 @@
 
 /* 다크 — 레퍼런스 light-dark() 의 두 번째 값 */
 :root[data-theme="dark"]:has([data-design-scope="csat"]) {
+  color-scheme: dark;
   --p: #fcf9f5;
   --p-hover: #eeebe7;
   --p-light: #252530;

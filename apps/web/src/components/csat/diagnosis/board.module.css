@@ -1070,18 +1070,17 @@ a.tagChip:hover {
   color: var(--t2);
 }
 
-/* ══ 팝업 판면 — 참조(3B) 팝업 실측 색감 (2026-10-01 스크린샷 3장) ══════════════
-   따뜻한 미색 카드 · 미색 헤어라인 · 따뜻한 회색 설명. 강조는 검정, 토글만 초록, 보라는 쓰지 않는다.
-   팝업 안에서만 덮는다(보드의 다른 곳은 그대로). */
+/* ══ 팝업 판면 — 참조(3B) 팝업의 면·선·잉크 역할을 CSAT 라이트/다크 토큰에 연결한다.
+   팝업 내부 별칭도 루트와 같은 테마를 따라 입력·목록·행동의 전경/배경이 갈라지지 않는다. */
 .overlay {
-  --m-card: #f9f8f6;
-  --m-bd: #ebe9e4;
-  --m-field: #ffffff;
-  --m-field-ro: #f2f0eb;
-  --m-chip: #f2f1ee;
-  --m-t2: #8b8984;
-  --m-t1: #1c1b19;
-  background: rgb(28 27 25 / 0.12);
+  --m-card: var(--bg2);
+  --m-bd: var(--bd);
+  --m-field: var(--bg);
+  --m-field-ro: var(--bg3);
+  --m-chip: var(--bg3);
+  --m-t2: var(--t2);
+  --m-t1: var(--t1);
+  background: var(--modal-backdrop);
 }
 
 .modal {
@@ -1100,7 +1099,7 @@ a.tagChip:hover {
   height: 34px;
   border-color: var(--m-bd);
   border-radius: 10px;
-  background: #fff;
+  background: var(--m-field);
 }
 
 .modalSub {
@@ -1112,7 +1111,7 @@ a.tagChip:hover {
 }
 
 .modal .tab {
-  min-height: 34px;
+  min-height: 44px;
   padding: 0 12px;
   font-size: 12px;
   font-weight: 500;
@@ -1173,10 +1172,11 @@ a.tagChip:hover {
 
 .modal .input,
 .modal .select {
-  min-height: 34px;
+  min-height: 44px;
   border-color: var(--m-bd);
   border-radius: 8px;
   background-color: var(--m-field);
+  color: var(--m-t1);
   font-size: 13px;
 }
 
@@ -1193,17 +1193,17 @@ a.tagChip:hover {
 }
 
 .modal .search {
-  min-height: 34px;
+  min-height: 44px;
   border-color: var(--m-bd);
   border-radius: 8px;
-  background: #fff;
+  background: var(--m-field);
 }
 
 .modal .tableWrap,
 .modal .miniSheet {
   border-color: var(--m-bd);
   border-radius: 12px;
-  background: #fff;
+  background: var(--m-field);
 }
 
 .modal .table th {
@@ -1228,27 +1228,27 @@ a.tagChip:hover {
   font-family: var(--font-mono, ui-monospace, monospace);
   font-size: 10.5px;
   font-weight: 500;
-  color: #55534f;
+  color: var(--m-t2);
 }
 
 .modal .avatar {
   border: 1px solid var(--m-bd);
   border-radius: 8px;
-  background: #fff;
+  background: var(--m-field);
   color: var(--m-t1);
 }
 
 .modal .linkBtn {
-  min-height: 34px;
+  min-height: 44px;
   border-color: var(--m-bd);
   font-size: 12.5px;
   font-weight: 500;
 }
 
 .modal .danger {
-  min-height: 32px;
-  background: #fde8e6;
-  color: #e5484d;
+  min-height: 44px;
+  background: var(--error-light);
+  color: var(--error-ink);
   font-size: 12.5px;
   font-weight: 500;
 }
@@ -1264,9 +1264,10 @@ a.tagChip:hover {
 }
 
 .modal .done {
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 16px;
-  background: var(--m-t1);
+  background: var(--p);
+  color: var(--on-p);
   font-size: 13px;
   font-weight: 600;
 }
@@ -1307,7 +1308,7 @@ a.tagChip:hover {
 
 .modal .code {
   padding: 24px 32px;
-  color: #4a4844;
+  color: var(--m-t1);
 }
 
 /* ══ 팝업 색 표식 — 참조의 이니셜 원 · 민트 그룹 타일처럼 「작은 면」에만 색을 준다 ══ */
@@ -1342,7 +1343,7 @@ a.tagChip:hover {
 .kv {
   border: 1px solid var(--m-bd, var(--bd));
   border-radius: 12px;
-  background: #fff;
+  background: var(--m-field, var(--bg));
 }
 
 .kvRow {
@@ -1399,7 +1400,7 @@ a.tagChip:hover {
 
 .modal .bubble span {
   border-color: var(--m-bd);
-  background: #fff;
+  background: var(--m-field);
   color: var(--m-t2);
   font-variant-numeric: tabular-nums;
 }
@@ -1441,7 +1442,7 @@ a.tagChip:hover {
   padding: 14px;
   border: 1px solid var(--m-bd, var(--bd));
   border-radius: 12px;
-  background: #fff;
+  background: var(--m-field, var(--bg));
 }
 
 .cellTile {
