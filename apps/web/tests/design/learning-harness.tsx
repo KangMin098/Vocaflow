@@ -13,6 +13,7 @@ import { WordOrreryGame } from '../../src/components/game/word-orrery/WordOrrery
 import { PirateQuestUI, PirateGate, type PirateUIProps } from '../../src/components/pirate-quest/PirateQuestUI'
 import type { Dive } from '../../src/components/pirate-quest/logic'
 import { ModuleHero } from '../../src/components/hub/ModuleHero'
+import { Screen } from '../../src/components/ui/ios'
 import SettingsPage from '../../src/app/(main)/settings/page'
 import DiagnosticHistoryPage from '../../src/app/(main)/diagnostic/history/page'
 import { setNavigate } from './learning-boundary.mjs'
@@ -24,7 +25,7 @@ function App() {
   if(route==='/diagnostic') return <DiagnosticClient />
   if(route==='/diagnostic/history') return <HistoryFixture />
   if(route==='/settings') return <SettingsPage />
-  if(route==='/pairflip') return <PairFlipHub poolWords={words} ownedTotal={words.length} />
+  if(route==='/pairflip') return <Screen width="content" background="bg2" padX="md"><PairFlipHub poolWords={words} ownedTotal={words.length} /></Screen>
   if(route==='/pairflip/play') {
     const config = JSON.parse(sessionStorage.getItem(STORAGE_KEYS.config) ?? '{"level":"easy","mode":"word_meaning"}') as PairFlipConfig
     return <PairFlipGameScreen config={config} pairs={MOCK_PAIRS} />
@@ -44,7 +45,7 @@ function PirateFixture({phase}:{phase:PirateUIProps['phase']}) {
   const [current,setCurrent] = useState(phase)
   const dive: Dive = {index:1,markers:words.slice(0,3).map((word,i)=>({badge:i+1,slot:i+6,word,hauled:false,liftPx:0})),queue:[2,3],asking:1,scanMs:5000,lantern:false,pending:80,hauled:1}
   const exit = () => setCurrent('done')
-  const props: PirateUIProps = {phase:current,dive,scanFrac:.8,scanSeconds:5,tideFrac:.7,tideWarning:false,tideSeconds:50,tideCapped:false,score:140,combo:3,comboMult:1.5,tierLabel:null,bankPreview:80,nextChainMult:1.5,askKo:words[0].ko,lastHaul:words[0],miss:{target:words[0],picked:words[1],lost:80,near:false,hauledPick:false},recall:{word:words[0],options:words.slice(0,3).map(word=>word.ko)},knewMeaning:null,settle:{points:80,seconds:5,full:false,items:2,lantern:false,capped:false},done:{score:140,bankedItems:2,bestCombo:3,bestChain:2,missed:words.slice(0,2),strandedPending:0,best:{prev:null,now:140,improved:true}},lanternLeft:2,substitutedPool:false,muted:true,burstKey:0,burstColors:[],onToggleMute:()=>{},onExit:exit,onDiveNow:()=>setCurrent('haul'),onBank:()=>setCurrent('settle'),onPushLuck:()=>setCurrent('haul'),onLantern:()=>{},onRecallPick:()=>setCurrent('reveal'),onContinue:()=>setCurrent('scan'),onRestart:()=>setCurrent('scan')}
+  const props: PirateUIProps = {phase:current,dive,scanFrac:.8,scanSeconds:5,tideFrac:.7,tideWarning:false,tideSeconds:50,tideCapped:false,score:140,combo:3,comboMult:1.5,tierLabel:'항해자',bankPreview:80,nextChainMult:1.5,askKo:words[0].ko,lastHaul:words[0],miss:{target:words[0],picked:words[1],lost:80,near:false,hauledPick:false},recall:{word:words[0],options:words.slice(0,3).map(word=>word.ko)},knewMeaning:null,settle:{points:80,seconds:5,full:false,items:2,lantern:false,capped:false},done:{score:140,bankedItems:2,bestCombo:3,bestChain:2,missed:words.slice(0,2),strandedPending:0,best:{prev:null,now:140,improved:true}},lanternLeft:2,substitutedPool:false,muted:true,burstKey:0,burstColors:[],onToggleMute:()=>{},onExit:exit,onDiveNow:()=>setCurrent('haul'),onBank:()=>setCurrent('settle'),onPushLuck:()=>setCurrent('haul'),onLantern:()=>{},onRecallPick:()=>setCurrent('reveal'),onContinue:()=>setCurrent('scan'),onRestart:()=>setCurrent('scan')}
   return <div style={{minHeight:'100vh',background:'linear-gradient(#e7d8ba,#c59c70)'}}>{current==='loading'?<PirateGate progress={65} onExit={exit} />:<PirateQuestUI {...props} />}</div>
 }
 createRoot(document.getElementById('root')!).render(<App />)

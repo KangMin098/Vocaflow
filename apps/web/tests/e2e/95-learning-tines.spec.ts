@@ -63,9 +63,8 @@ async function open(page: Page,screen:string,width:number,dark:boolean,extra='')
   },dark?'dark':'light')
   await page.goto(`${base}/?screen=${encodeURIComponent(screen)}${extra}`)
   await expect(page.locator('html')).toHaveAttribute('data-theme',dark?'dark':'light')
-  const surface=await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)
-  if(!before && !dark) expect(surface).toBe('rgb(252, 249, 245)')
-  if(dark) expect(surface).not.toBe('rgb(252, 249, 245)')
+  if(!before && !dark) await expect(page.locator('body')).toHaveCSS('background-color','rgb(252, 249, 245)')
+  if(dark) await expect(page.locator('body')).not.toHaveCSS('background-color','rgb(252, 249, 245)')
 }
 async function safe(page:Page) {
   expect(externalRequests.get(page)).toEqual([])
@@ -133,6 +132,11 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
     await expect(page.getByRole('heading',{name:'PairFlip',exact:true})).toBeVisible()
     await page.getByRole('radio',{name:/^Easy/}).click()
     await expect(page.getByRole('radio',{name:/^Easy/})).toHaveAttribute('aria-checked','true')
+    if(!before) {
+      expect(await page.locator('main:has(> .pairflip-hub)').evaluate(node=>node.getBoundingClientRect().width)).toBe(width)
+      const levels=page.getByRole('radiogroup',{name:'난이도 선택'})
+      expect(await levels.evaluate(node=>{const parent=node.parentElement!.getBoundingClientRect();return [...node.children].every(child=>child.getBoundingClientRect().right<=parent.right+1)})).toBe(true)
+    }
     await shot(page,`pairflip-setup-${condition}`)
     await page.getByRole('button',{name:'게임 시작'}).click()
     await expect(page.locator('.pf-card')).toHaveCount(8)
@@ -140,6 +144,7 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
     await page.getByRole('button',{name:/힌트 사용/}).click()
     await expect(page.getByRole('button',{name:/힌트 사용 — 남은 1회/})).toBeVisible()
     await page.waitForTimeout(1100)
+    if(!before) for(const badge of await page.locator('.pf-card-front > span[aria-hidden="true"][class*="bg-white/70"]').all()) expect(await contrast(badge)).toBeGreaterThanOrEqual(4.5)
     for(const pair of MOCK_PAIRS) {
       const word=page.locator('.pf-card').filter({has:page.getByText(pair.word,{exact:true})})
       if(!await word.count()) continue
@@ -164,8 +169,16 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
       await page.locator('.wo-planet').nth(i).click()
       await expect(page.locator('.wo-panel')).toBeVisible()
       await shot(page,`orrery-observe-${condition}-${i}`)
-      await page.locator('.wo-chip').first().click()
+      const signal=await page.locator('.wo-signal').innerText()
+      const meaning=MOCK_PAIRS.find(pair=>pair.word===signal)!.meaning
+      const choices=page.locator('.wo-chip')
+      if(i%2===0) await choices.filter({hasText:new RegExp(`^${meaning}$`)}).click()
+      else await choices.filter({hasNotText:meaning}).first().click()
       await expect(page.locator('.wo-say')).toBeVisible()
+      if(!before) {
+        await expect(page.locator(i%2===0?'.wo-verdict--ok':'.wo-verdict--miss')).toBeVisible()
+        expect(await contrast(page.locator('.wo-verdict'))).toBeGreaterThanOrEqual(4.5)
+      }
       await page.getByRole('button',{name:'성계로 돌아가기',exact:true}).click()
     }
     await page.locator('.wo-sun').click()
@@ -183,6 +196,7 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
         await page.getByRole('button',{name:'새기다',exact:true}).click()
       } else await page.locator('.wo-choices .wo-chip').filter({hasText:new RegExp(`^${answer}$`)}).click()
       await expect(page.locator('.wo-reveal--seal')).toBeVisible()
+      if(!before) expect(await contrast(page.locator('.wo-verdict'))).toBeGreaterThanOrEqual(4.5)
       await shot(page,`orrery-reveal-${condition}-${i}`)
       await page.locator('.wo-reveal--seal .wo-cta').click()
     }
@@ -197,6 +211,10 @@ for(const width of [1440,1280]) for(const dark of [false,true]) {
       await expect(surface).toBeVisible()
       if(phase==='choice') await expect(page.getByRole('button',{name:/확정 \+80/})).toBeVisible()
       if(phase==='haul') await expect(page.locator('.pq-ask')).toHaveText(MOCK_PAIRS[0].meaning)
+      if(!before && !['loading','done'].includes(phase)) {
+        expect(await contrast(page.locator('.pq-hud-stat--pending .pq-hud-num'))).toBeGreaterThanOrEqual(4.5)
+        expect(await contrast(page.locator('.pq-hud-tier'))).toBeGreaterThanOrEqual(4.5)
+      }
       await shot(page,`pirate-${phase}-${condition}`)
       await safe(page)
     }

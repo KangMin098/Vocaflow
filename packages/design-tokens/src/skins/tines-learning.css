@@ -87,11 +87,13 @@
   :root[data-skin="tines"] .tines-module-hero[data-module-hero="SpellForge"] { background: var(--tint-peach); background-image: linear-gradient(color-mix(in srgb,var(--tint-peach-ink) 8%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--tint-peach-ink) 8%,transparent) 1px,transparent 1px); background-size: var(--learning-grid) var(--learning-grid); }
   :root[data-skin="tines"] .tines-module-hero[data-module-hero="PairFlip"] { background: var(--tint-green); }
   :root[data-skin="tines"] :is(.pairflip-hub,.pairflip-play,.pairflip-result) { --pf-envTop: var(--bg); --pf-envMid: var(--bg); --pf-envBottom: var(--bg); --pf-coverFrom: var(--p); --pf-coverMid: var(--p); --pf-coverTo: var(--p); --pf-gold: var(--p); --pf-goldLight: var(--on-p); --pf-goldDeep: var(--bd); --pf-wordFrom: var(--tint-lavender); --pf-wordMid: var(--tint-lavender); --pf-wordTo: var(--tint-lavender); --pf-wordBorder: var(--bd); --pf-meaningFrom: var(--tint-green); --pf-meaningMid: var(--tint-green); --pf-meaningTo: var(--tint-green); --pf-meaningBorder: var(--tint-green-ink); --pf-textWord: var(--tint-lavender-ink); --pf-textMeaning: var(--tint-green-ink); --pf-textMuted: var(--tint-lavender-ink); --pf-matchedEmerald: var(--success); --pf-matchedDeep: var(--success); --pf-matchedGlow: color-mix(in srgb,var(--success) 20%,transparent); --pf-shakeCoral: var(--error); --pf-shakeDeep: var(--error); --pf-shakeGlow: color-mix(in srgb,var(--error) 20%,transparent); }
-  :root[data-skin="tines"] .pairflip-hub { display: grid; grid-template-columns: .8fr 1.2fr; gap: var(--learning-gap); }
+  :root[data-skin="tines"] main:has(> .pairflip-hub) { max-width: var(--learning-max); padding-inline: 0; }
+  :root[data-skin="tines"] .pairflip-hub { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: var(--learning-gap); }
   :root[data-skin="tines"] .pairflip-hub > .tines-module-hero { grid-column: 1 / -1; }
   :root[data-skin="tines"] .pairflip-hub > details { grid-column: 1 / -1; grid-row: 3; }
   :root[data-skin="tines"] .pairflip-hub > section:last-child { grid-column: 2; grid-row: 2; border: 0; border-radius: var(--learning-card-radius); background: var(--tint-lavender); padding: 30px; box-shadow: none; }
   :root[data-skin="tines"] .pairflip-hub > [data-game-pool] { padding: 30px; border-radius: var(--learning-card-radius); background: var(--bg); border-block: 1px solid var(--bd); box-shadow: none; }
+  :root[data-skin="tines"] .pairflip-hub [role="radiogroup"][aria-label="난이도 선택"] { margin-inline: 0; }
   :root[data-skin="tines"] .pairflip-hub button[aria-label="게임 시작"] { border-radius: 999px; box-shadow: none !important; width: auto; padding: 14px 32px; }
   :root[data-skin="tines"] .pairflip-hub [role="radio"][aria-checked="true"] { background: var(--p) !important; color: var(--on-p); box-shadow: none !important; transform: none !important; border-radius: 14px; }
   :root[data-skin="tines"] .pairflip-hub [role="radio"][aria-checked="true"] span { color: inherit !important; }
@@ -104,6 +106,7 @@
   :root[data-skin="tines"] .pairflip-hud button { min-height: 44px; border-radius: 999px; }
   :root[data-skin="tines"] .pairflip-play footer [role="progressbar"] { background: var(--p) !important; }
   :root[data-skin="tines"] .pf-card-face { box-shadow: none !important; }
+  :root[data-skin="tines"] .pairflip-play .pf-card-front > span[aria-hidden="true"][class*="bg-white/70"] { background: var(--tint-green); color: var(--tint-green-ink) !important; }
   :root[data-skin="tines"] .pairflip-result { background: var(--bg) !important; }
   :root[data-skin="tines"] .pairflip-result > div { max-width: 1360px; display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; }
   :root[data-skin="tines"] .pairflip-result header { grid-row: span 3; justify-content: center; border: 0; border-radius: 32px; background: var(--tint-lavender); box-shadow: none; }
@@ -114,6 +117,9 @@
   :root[data-skin="tines"] :is(.pq-hud,.pq-deck,.pq-gate,.pq-mk) { --t1: var(--learning-ink); --t2: var(--learning-muted); --t3: var(--learning-subtle); --bg: var(--learning-bg); --bd: var(--learning-line); --combo: var(--p); --streak: var(--p); --success: var(--learning-success); --error: var(--learning-error); --pq-glass: var(--learning-bg); --pq-ring: 0 0 0 3px var(--p); color: var(--learning-ink); }
   :root[data-skin="tines"] .pq-hud { padding: 16px 40px; background: var(--bg); border-bottom: 1px solid var(--bd); }
   :root[data-skin="tines"] .pq-hud-tide { backdrop-filter: none; background: var(--bg); }
+  :root[data-skin="tines"] .pq-hud-stat--pending { background: var(--warning-light); border-color: var(--warning-ink); }
+  :root[data-skin="tines"] .pq-hud-stat--pending :is(.pq-hud-cap,.pq-hud-num) { color: var(--warning-ink); }
+  :root[data-skin="tines"] .pq-hud-tier { background: var(--tint-lavender); color: var(--tint-lavender-ink); border-color: currentColor; }
   :root[data-skin="tines"] :is(.pq-deck-inner,.pq-mk) { background: var(--bg); backdrop-filter: none; border-color: var(--bd); box-shadow: none; }
   :root[data-skin="tines"] .pq-deck { width: min(860px,calc(100vw - 80px)); bottom: 24px; }
   :root[data-skin="tines"] .pq-deck-inner { padding: 24px 32px; border-radius: 24px; }
@@ -166,6 +172,8 @@
   :root[data-skin="tines"] .wo-cta { background: var(--p); color: var(--on-p); border-color: var(--p); box-shadow: none; }
   :root[data-skin="tines"] .wo-cta--ghost { background: transparent; color: var(--p); border-color: var(--p); }
   :root[data-skin="tines"] .wo-say.is-ok { color: var(--success); }
+  :root[data-skin="tines"] .wo-verdict--ok { background: var(--success-light); color: var(--success-ink); border-color: currentColor; }
+  :root[data-skin="tines"] .wo-verdict--miss { background: var(--warning-light); color: var(--warning-ink); border-color: currentColor; }
   :root[data-skin="tines"] .wo-say.is-miss, :root[data-skin="tines"] .wo-gain[data-up="0"] { color: var(--error); }
   :root[data-skin="tines"] :is(.wo-flare-card,.wo-slot.is-on) { background: var(--warning-light); color: var(--warning-ink); border-color: var(--warning-ink); }
   :root[data-skin="tines"] .wo-root :is(button,[tabindex]):focus-visible { outline: 2px solid var(--p); outline-offset: 3px; box-shadow: none; }
