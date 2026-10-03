@@ -26,6 +26,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState, useTransition } from 'react'
 
 import { ActivityGlyph } from '@/components/plan/ActivityGlyph'
+import { LearningPathArt } from '@/components/ui/LearningPathArt'
 import { MATERIAL_ICON } from '@/lib/learner/activity-icons'
 
 import {
@@ -370,9 +371,10 @@ export function PlanClient({
 
   return (
     // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
-    <div className="flex w-full flex-col gap-5 py-6 md:py-8">
+    <div className="plan-workspace flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
-      <header>
+      <header className="plan-intro">
+        <LearningPathArt variant="calendar" className="plan-art hidden md:block" />
         {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
             공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
         <h1 className="flex items-center gap-2.5 font-editorial text-[24px] font-[600] text-[var(--t1)] md:text-[28px]">
@@ -411,7 +413,7 @@ export function PlanClient({
       <section
         ref={composerRef}
         aria-label="자료 추가·구성"
-        className="grid grid-cols-1 gap-4 md:grid-cols-2"
+        className="plan-composer grid grid-cols-1 gap-4 md:grid-cols-2"
       >
         {/* 좌: 고르기 */}
         <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">

@@ -14,7 +14,7 @@ export const metadata = {
 export default async function ReportsPage() {
   const reports = await fetchRecentReports(8)
   return (
-    <Screen width="content" background="bg2" padX="md">
+    <Screen width="content" background="bg2" padX="md" className="tines-reports">
       <ReportsClient reports={reports} />
     </Screen>
   )

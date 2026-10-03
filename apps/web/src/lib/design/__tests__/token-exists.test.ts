@@ -29,7 +29,7 @@
 // · `--sidebar-w` 처럼 JS 가 `style.setProperty` 로 넣는 것 — 그 사실을 아래 목록에 적는다.
 
 import { readFileSync, readdirSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join, resolve } from 'node:path'
 
 import { describe, expect, it } from 'vitest'
 
@@ -76,7 +76,11 @@ function stripComments(s: string): string {
 
 /** 정의된 변수 이름 전부 — `--x:` 꼴로 선언된 것. */
 function definedNames(): Set<string> {
-  const css = [TOKENS, GLOBALS].map((p) => readFileSync(p, 'utf8')).join('\n')
+  const globalSource = stripComments(readFileSync(GLOBALS, 'utf8'))
+  // 실제 globals가 가져오는 스킨을 따른다. 패키지의 모든 CSS를 무조건 허용하지 않는다.
+  const imported = [...globalSource.matchAll(/@import\s+['"]@vocaflow\/design-tokens\/([^'"]+)['"]/g)]
+    .map(match => join(dirname(TOKENS), match[1]))
+  const css = [TOKENS, GLOBALS, ...imported].map((p) => stripComments(readFileSync(p, 'utf8'))).join('\n')
   const set = new Set<string>()
   for (const m of css.matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)) set.add(m[1])
   return set
@@ -84,11 +88,33 @@ function definedNames(): Set<string> {
 
 const FILES = walk(SRC)
 const DEFINED = definedNames()
+const CSS_OWNERS = FILES.filter(file => /\.tsx?$/.test(file)).map(file => {
+  const source = stripComments(readFileSync(file, 'utf8'))
+  return [...source.matchAll(/(?:import|from)\s+['"](\.[^'"]+\.css)['"]/g)]
+    .map(match => resolve(dirname(file), match[1]))
+}).filter(files => files.length > 1)
+
+function coImportedNames(file: string): Set<string> {
+  if (!file.endsWith('.css')) return new Set()
+  // NodePopup처럼 같은 컴포넌트가 root CSS와 팝업 CSS를 함께 가져오면 CSS 상속이 가능하다.
+  // 정의 존재 검사이며 실제 선택자 상속·전경/면 대비는 브라우저 QA가 확인한다.
+  const peers = new Set(CSS_OWNERS.filter(files => files.includes(file)).flat())
+  return new Set([...peers].flatMap(peer => [...stripComments(readFileSync(peer, 'utf8')).matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)].map(match => match[1])))
+}
 
 describe('CSS 변수 — 부르는 이름이 실제로 정의돼 있다', () => {
   it('정의 목록을 실제로 읽었다', () => {
     // 0 이면 파일 경로가 틀린 것이다 — 그 상태로는 아래 검사가 전부 거짓 실패한다.
     expect(DEFINED.size, 'tokens.css / globals.css 에서 변수를 하나도 못 읽었다').toBeGreaterThan(80)
+  })
+
+  it('불러온 스킨과 공동 CSS 정의를 읽고 없는 이름은 허용하지 않는다', () => {
+    expect(DEFINED.has('--growth-feature-title')).toBe(true)
+    expect(DEFINED.has('--admin-header-height')).toBe(true)
+    const popup = coImportedNames(join(SRC, 'components/csat/diagnosis/map/popup.module.css'))
+    expect(popup.has('--p-w')).toBe(true)
+    expect(popup.has('--nonexistent-design-token')).toBe(false)
+    expect(DEFINED.has('--nonexistent-design-token')).toBe(false)
   })
 
   it('없는 변수를 부르는 곳이 없다', () => {
@@ -102,6 +128,7 @@ describe('CSS 변수 — 부르는 이름이 실제로 정의돼 있다', () => 
       // ⚠️ CSS 의 `--x:` 만 보면 안 된다. 아케이드·게임은 인라인 style 객체로
       //    `{ '--fall': ... }` 처럼 **JS 에서** 변수를 넘긴다 — 그것도 정의다.
       const local = new Set([
+        ...coImportedNames(path),
         ...[...src.matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)].map((m) => m[1]),
         // `{ '--fall': … }` · `{ ['--m-accent']: … }` · `{ ['--cn-group' as string]: … }` 전부.
         ...[...src.matchAll(/['"`](--[a-zA-Z0-9-]+)['"`][^\n:]{0,24}:/g)].map((m) => m[1]),

@@ -47,6 +47,7 @@ export function AreaHero({
   children,
   className = '',
   desktopSpot,
+  desktopArt,
 }: {
   kicker: string
   title: React.ReactNode
@@ -68,6 +69,7 @@ export function AreaHero({
   /** 실측한 하위 참조 화면을 PC에서만 적용한다. */
   className?: string
   desktopSpot?: string
+  desktopArt?: React.ReactNode
 }) {
   const hasTabs = !!tabs && tabs.length > 0
   return (
@@ -97,9 +99,10 @@ export function AreaHero({
           height={1328}
           priority
           sizes="(min-width: 768px) 240px, 50vw"
-          className={`hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px] ${desktopSpot ? 'md:hidden' : ''}`}
+          className={`hidden w-[50%] max-w-[240px] select-none justify-self-end rounded-[var(--r-xl)] sm:block md:w-[210px] lg:w-[240px] ${desktopSpot || desktopArt ? 'md:hidden' : ''}`}
         />
         {desktopSpot && <Image src={`/illustrations/tines/${desktopSpot}.webp`} alt="" width={320} height={320} sizes="240px" className="tines-library-art hidden select-none md:block" />}
+        {desktopArt && <div className="area-desktop-art hidden md:block">{desktopArt}</div>}
       </div>
       {hasTabs && (
         <nav aria-label="보기" className="mt-6 flex flex-wrap items-end gap-1.5">

@@ -61,6 +61,7 @@ import {
 import type { PublishedBook } from '@/lib/library/published-book'
 
 import { BookGridCard } from './BookGridCard'
+import { BooksSpotlight } from './BooksSpotlight'
 import { BookShelfRail } from './BookShelfRail'
 import {
   BookFilterBar,
@@ -429,7 +430,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
   }
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="books-explorer flex flex-col gap-8">
       {/* 미진단 cold-start 배너 */}
       {!diagnosed && (
         <Link
@@ -455,9 +456,10 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
         </Link>
       )}
 
-      {/* ① Spotlight — For You 코버플로우 (LibraryGrid 재사용, 자체 sheet) */}
+      {/* PC: Tines Blog의 이미지·본문 분할. 모바일: 기존 코버플로우. 추천 데이터는 동일하다. */}
       <section aria-label="오늘의 추천">
-        <LibraryGrid books={spotlight} userVLevel={userVLevel} />
+        <div className="md:hidden"><LibraryGrid books={spotlight} userVLevel={userVLevel} /></div>
+        <BooksSpotlight books={spotlight} onOpen={openDetail} />
       </section>
 
       {/* ② Rails */}
@@ -503,7 +505,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
       />
 
       {/* ③ Browse — 전체 탐색 */}
-      <section className="flex flex-col gap-4" aria-label="전체 도서 탐색">
+      <section className="books-browse flex flex-col gap-4" aria-label="전체 도서 탐색">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">전체 탐색</h2>
 
         <BookQuickPicks
@@ -543,7 +545,7 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
           <>
             <div
               role="list"
-              className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+              className="books-catalog grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
             >
               {visible.slice(0, shown).map((book) => (
                 <div role="listitem" key={book.id}>

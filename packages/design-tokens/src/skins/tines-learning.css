@@ -3,6 +3,121 @@
  * University의 격자 작업면. 참조 실측과 상태 검증: docs/design/tines-adoption.md.
  * 모바일·CSAT·관리자 컴포넌트는 대상이 아니다. 각 화면은 명시적 hook으로 적용한다.
  */
+/* Growth / Books: University의 64px 제목·40px 외곽, Blog의 미디어/본문,
+ * 고객 사례의 비대칭 기록. measured: refs/tines/growth-spec.json. PC만 적용.
+ */
+@media (min-width: 768px) {
+  :root[data-skin="tines"] {
+    --growth-title: 64px; --growth-title-line: 64px;
+    --growth-gap: 40px; --growth-section-gap: 64px;
+    --growth-card-title: 32px; --growth-feature-title: 44px; --growth-filter-width: 288px;
+    --growth-cover-width: 300px; --growth-feature-height: 400px;
+  }
+  :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports,.tines-books) { background: var(--bg); }
+  :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports,.tines-books) > main { max-width: var(--learning-max); padding-inline: var(--learning-inset); }
+  :root[data-skin="tines"] :is(.growth-story,.plan-workspace,.reports-journal,.tines-books > main > div) { padding-block: 64px 96px; }
+  :root[data-skin="tines"] :is(.growth-intro,.plan-intro,.reports-intro,.books-intro) h1 { font-family: var(--font-serif); font-size: var(--growth-title); line-height: var(--growth-title-line); font-weight: 400; letter-spacing: -.035em; word-break: keep-all; }
+  :root[data-skin="tines"] :is(.tines-growth,.tines-plan,.tines-reports,.tines-books) :is(a,button):focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+  :root[data-skin="tines"] .growth-story { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 32px var(--growth-gap); }
+  :root[data-skin="tines"] .growth-story > * { grid-column: 1 / -1; min-width: 0; }
+  :root[data-skin="tines"] .growth-story > .growth-intro { grid-column: 1; flex-direction: column; align-items: flex-start; justify-content: space-between; padding-block: 24px; }
+  :root[data-skin="tines"] .growth-intro h1 > span:first-child { color: inherit; }
+  :root[data-skin="tines"] .growth-art { width: var(--learning-art); align-self: center; }
+  :root[data-skin="tines"] .growth-story > .growth-first-rule { display: none; }
+  :root[data-skin="tines"] .growth-story > .growth-durability { grid-column: 2; grid-row: 1; border-radius: var(--learning-card-radius); padding: var(--learning-cell-pad); --p: var(--tint-green-ink); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); --t3: var(--tint-green-ink); --bd: color-mix(in srgb,var(--tint-green-ink) 25%,transparent); background: var(--tint-green); }
+  :root[data-skin="tines"] .growth-durability h2 { font-size: 80px; line-height: 1; }
+  :root[data-skin="tines"] .growth-durability aside { background: var(--learning-bg); border-radius: 0; border-left: 2px solid var(--tint-green-ink); }
+  :root[data-skin="tines"] .growth-recollection { gap: var(--growth-gap); grid-template-columns: 1.1fr .9fr; }
+  :root[data-skin="tines"] .growth-recollection > :first-child { border-radius: 0; background: transparent; padding: 24px 0; border-bottom: 1px solid var(--bd); }
+  :root[data-skin="tines"] .growth-recollection > :first-child > p:nth-child(2) { font-family: var(--font-serif); font-size: var(--growth-card-title); font-weight: 400; }
+  :root[data-skin="tines"] .growth-recollection > :last-child { border-radius: var(--learning-card-radius); padding: 32px; }
+  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div { gap: var(--learning-gap); }
+  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section { min-height: 180px; padding: 28px; border-radius: var(--learning-card-radius); background: var(--tint-lavender); border: 0; box-shadow: none; justify-content: space-between; }
+  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(2) { background: var(--tint-pink); --t1: var(--tint-pink-ink); --t2: var(--tint-pink-ink); --p: var(--tint-pink-ink); }
+  :root[data-skin="tines"] .growth-story > section[aria-label="학습 관리"] > div > section:nth-child(3) { background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --p: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .growth-story > section[aria-label="어휘의 무게중심"] { background: transparent; border-radius: 0; border-bottom: 1px solid var(--bd); padding: 24px 0; }
+  :root[data-skin="tines"] .plan-workspace { gap: 32px; }
+  :root[data-skin="tines"] .plan-intro { position: relative; padding: 48px 280px 48px 0; min-height: 270px; }
+  :root[data-skin="tines"] .plan-intro h1 > span { display: none; }
+  :root[data-skin="tines"] .plan-intro > p { margin-top: 24px; font-size: 17px; }
+  :root[data-skin="tines"] .plan-art { position: absolute; right: 0; top: 0; width: var(--learning-art); }
+  :root[data-skin="tines"] .plan-workspace > section[aria-label="오늘의 학습"] { background: var(--tint-green); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); padding: 28px; border: 0; border-radius: var(--learning-card-radius); box-shadow: none; }
+  :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] { border-radius: 0; background: transparent; border: 0; padding: 32px 0; border-block: 1px solid var(--bd); }
+  :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:first-child h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
+  :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:nth-child(2) > div { gap: 12px; }
+  :root[data-skin="tines"] .plan-workspace > section[aria-label="주간 보드"] > div:nth-child(2) > div > div { border-radius: 12px; box-shadow: none; min-height: 180px; }
+  :root[data-skin="tines"] .plan-composer { gap: var(--growth-gap); margin-top: 24px; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); }
+  :root[data-skin="tines"] .plan-composer > div { border: 0; border-radius: 0; background: transparent; box-shadow: none; padding: 24px 0; }
+  :root[data-skin="tines"] .plan-composer > div:last-child { padding: 32px; border-radius: var(--learning-card-radius); background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --t3: var(--tint-peach-ink); }
+  :root[data-skin="tines"] .plan-composer > div > h2 { font-family: var(--font-serif); font-size: 28px; font-weight: 400; }
+  :root[data-skin="tines"] .reports-journal { max-width: none; padding-inline: 0; gap: var(--growth-gap); }
+  :root[data-skin="tines"] .reports-intro { position: relative; min-height: 260px; padding-right: 300px; flex-wrap: wrap; gap: 24px; }
+  :root[data-skin="tines"] .reports-intro > span { display: none; }
+  :root[data-skin="tines"] .reports-intro > div { flex-basis: 100%; }
+  :root[data-skin="tines"] .reports-intro p { font-size: 17px; margin-top: 24px; }
+  :root[data-skin="tines"] .reports-art { position: absolute; right: 0; top: 0; width: var(--learning-art); }
+  :root[data-skin="tines"] .reports-intro > button { border-radius: 999px; }
+  :root[data-skin="tines"] .reports-archive { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 40px; }
+  :root[data-skin="tines"] .reports-archive > li:first-child { grid-column: 1 / -1; }
+  :root[data-skin="tines"] .report-entry { border: 0; border-top: 1px solid var(--bd); border-radius: 0; padding: 32px 0; box-shadow: none; background: transparent; gap: 24px; }
+  :root[data-skin="tines"] .reports-archive > li:first-child .report-entry { padding: var(--learning-cell-pad); border-radius: var(--learning-card-radius); background: var(--tint-peach); --t1: var(--tint-peach-ink); --t2: var(--tint-peach-ink); --p: var(--tint-peach-ink); --bd: color-mix(in srgb,var(--tint-peach-ink) 25%,transparent); }
+  :root[data-skin="tines"] .report-entry > header > span:first-child { font-family: var(--font-serif); font-size: 28px; }
+  :root[data-skin="tines"] .report-stat { background: transparent; border: 0; border-radius: 0; padding: 24px 0; text-align: left; }
+  :root[data-skin="tines"] .report-stat > p:first-child { font-family: var(--font-serif); font-size: 56px; font-weight: 400; }
+  :root[data-skin="tines"] .report-stat > p:last-child { font-size: 13px; margin-top: 12px; }
+  :root[data-skin="tines"] .report-entry > p:last-child { font-size: 24px; padding-top: 24px; }
+  :root[data-skin="tines"] .reports-empty { padding: 64px 40px; border: 0; border-radius: var(--learning-card-radius); background: var(--tint-green); --t1: var(--tint-green-ink); --t2: var(--tint-green-ink); }
+  :root[data-skin="tines"] .reports-empty > p:first-of-type { font-family: var(--font-serif); font-size: 32px; font-weight: 400; }
+  :root[data-skin="tines"] .books-intro { --t1: var(--learning-ink); --on-deep: var(--learning-ink); background: transparent; border-radius: 0; overflow: visible; padding: 24px 0 0; }
+  :root[data-skin="tines"] .books-intro > div:first-child { grid-template-columns: minmax(0,1fr) 320px; gap: var(--growth-gap); }
+  :root[data-skin="tines"] .books-intro h1 { font-size: 80px; line-height: 1; }
+  :root[data-skin="tines"] .books-intro p { color: var(--learning-ink); }
+  :root[data-skin="tines"] .books-intro > div > div > p:last-of-type { max-width: 600px; font-size: 17px; margin-top: 24px; }
+  :root[data-skin="tines"] .books-intro dl { gap: 24px; margin-top: 32px; }
+  :root[data-skin="tines"] .books-intro dl > div { border-radius: 0; background: transparent; padding: 0; border-right: 1px solid var(--learning-line); padding-right: 24px; }
+  :root[data-skin="tines"] .books-intro .area-desktop-art { width: 320px; }
+  :root[data-skin="tines"] .books-intro nav { margin-top: 40px; border-bottom: 1px solid var(--learning-line); }
+  :root[data-skin="tines"] .books-intro nav a { border-radius: 999px; margin-bottom: 16px; background: transparent; color: var(--learning-ink); border: 1px solid transparent; }
+  :root[data-skin="tines"] .books-intro nav a[aria-current="page"] { background: var(--p); color: var(--on-p); }
+  :root[data-skin="tines"] .books-intro nav a[aria-current="page"] > span { background: transparent; }
+  :root[data-skin="tines"] .books-explorer { gap: var(--growth-section-gap); padding-top: 32px; }
+  :root[data-skin="tines"] .books-feature { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); align-items: center; gap: var(--growth-gap); border-radius: 16px; }
+  :root[data-skin="tines"] .books-feature-media { display: flex; align-items: center; justify-content: center; min-height: var(--growth-feature-height); padding: 40px; background: var(--tint-pink); border: 1px solid var(--tint-pink-ink); border-radius: 24px; }
+  :root[data-skin="tines"] .books-feature-cover { position: relative; width: var(--growth-cover-width); aspect-ratio: 3 / 4; overflow: hidden; border-radius: 4px; }
+  :root[data-skin="tines"] .books-feature-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+  :root[data-skin="tines"] .books-feature-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; }
+  :root[data-skin="tines"] .books-feature h2 { font-family: var(--font-serif); font-size: var(--growth-feature-title); line-height: 1.04; font-weight: 400; overflow-wrap: anywhere; }
+  :root[data-skin="tines"] .books-feature-author { font-size: 14px; }
+  :root[data-skin="tines"] .books-feature-synopsis { font-size: 16px; line-height: 1.7; word-break: keep-all; }
+  :root[data-skin="tines"] .books-feature-meta { display: flex; flex-wrap: wrap; gap: 16px; font-family: var(--font-mono); font-size: 12px; }
+  :root[data-skin="tines"] .books-feature-action { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; border-bottom: 1px solid currentColor; font-size: 14px; }
+  :root[data-skin="tines"] .books-feature-nav { display: flex; align-items: center; gap: 12px; margin-top: 24px; border-bottom: 1px solid var(--bd); padding-bottom: 24px; }
+  :root[data-skin="tines"] .books-feature-nav p { margin-right: auto; font-family: var(--font-mono); font-size: 12px; }
+  :root[data-skin="tines"] .books-feature-nav button { min-height: 44px; min-width: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--bd); border-radius: 999px; }
+  :root[data-skin="tines"] .books-feature-nav button:disabled { opacity: .4; }
+  :root[data-skin="tines"] .books-explorer > section > div:first-child > h2,
+  :root[data-skin="tines"] .books-browse > h2 { font-family: var(--font-serif); font-size: var(--growth-card-title); font-weight: 400; }
+  :root[data-skin="tines"] .tines-books .book-cover-premium { border: 1px solid var(--bd); border-radius: 8px; box-shadow: none; transform: none; }
+  :root[data-skin="tines"] .tines-books :is(.book-spine3d,.book-foreedge,.book-cover-laminate,.book-cover-sheen,.book-cover-grain) { display: none; }
+  :root[data-skin="tines"] .tines-books [data-design-title] { font-family: var(--font-serif); font-size: 17px; min-height: 44px; }
+  :root[data-skin="tines"] .books-browse { display: grid; grid-template-columns: var(--growth-filter-width) minmax(0,1fr); gap: 24px 40px; align-items: start; }
+  :root[data-skin="tines"] .books-browse > * { grid-column: 1 / -1; min-width: 0; }
+  :root[data-skin="tines"] .books-browse > .books-filters { grid-column: 1; grid-row: 3 / span 2; border-radius: 0; border: 0; border-right: 1px solid var(--bd); padding-right: 24px; background: transparent; }
+  :root[data-skin="tines"] .books-filters > div { padding-inline: 0; flex-wrap: wrap; }
+  :root[data-skin="tines"] .books-filters > div > div:first-child { min-width: 0; }
+  :root[data-skin="tines"] .books-filters > div:not(:first-child) { flex-direction: column; align-items: flex-start; gap: 12px; }
+  :root[data-skin="tines"] .books-browse > .books-catalog { grid-column: 2; grid-row: 3; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 32px 24px; }
+  :root[data-skin="tines"] .books-browse > div:last-child:not(.books-filters):not(.books-catalog) { grid-column: 2; }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root[data-skin="tines"] .growth-story { grid-template-columns: 1fr; }
+  :root[data-skin="tines"] .growth-story > .growth-durability { grid-column: 1; grid-row: auto; }
+  :root[data-skin="tines"] .growth-intro { position: relative; padding-right: 220px; }
+  :root[data-skin="tines"] .growth-art { position: absolute; right: 0; bottom: 0; width: 200px; }
+  :root[data-skin="tines"] .books-browse { grid-template-columns: 240px minmax(0,1fr); gap: 24px; }
+  :root[data-skin="tines"] .books-browse > .books-catalog { grid-template-columns: repeat(3,minmax(0,1fr)); }
+  :root[data-skin="tines"] .books-feature-cover { width: 220px; }
+}
 @media (min-width: 768px) {
   :root[data-skin="tines"] {
     --learning-max: 1440px; --learning-inset: 40px;

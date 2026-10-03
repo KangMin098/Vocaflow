@@ -16,7 +16,14 @@ import { ModuleHero } from '../../src/components/hub/ModuleHero'
 import { Screen } from '../../src/components/ui/ios'
 import SettingsPage from '../../src/app/(main)/settings/page'
 import DiagnosticHistoryPage from '../../src/app/(main)/diagnostic/history/page'
-import { setNavigate } from './learning-boundary.mjs'
+import DashboardPage from '../../src/app/(main)/dashboard/page'
+import PlanPage from '../../src/app/(main)/plan/page'
+import ReportsPage from '../../src/app/(main)/reports/page'
+import { AreaHero } from '../../src/components/layout/AreaHero'
+import { LearningPathArt } from '../../src/components/ui/LearningPathArt'
+import { BooksExplorer } from '../../src/components/library/browse/BooksExplorer'
+import type { PublishedBook } from '../../src/lib/library/published-book'
+import { fixtureBooks, setNavigate } from './learning-boundary.mjs'
 
 const words = MOCK_PAIRS.map(pair => ({en:pair.word,ko:pair.meaning}))
 function App() {
@@ -25,6 +32,10 @@ function App() {
   if(route==='/diagnostic') return <DiagnosticClient />
   if(route==='/diagnostic/history') return <HistoryFixture />
   if(route==='/settings') return <SettingsPage />
+  if(route==='/dashboard') return <AsyncFixture load={DashboardPage} />
+  if(route==='/plan') return <AsyncFixture load={PlanPage} />
+  if(route==='/reports') return <AsyncFixture load={ReportsPage} />
+  if(route.split('?')[0]==='/library/books') return <BooksFixture showAll={route.includes('show=all')} />
   if(route==='/pairflip') return <Screen width="content" background="bg2" padX="md"><PairFlipHub poolWords={words} ownedTotal={words.length} /></Screen>
   if(route==='/pairflip/play') {
     const config = JSON.parse(sessionStorage.getItem(STORAGE_KEYS.config) ?? '{"level":"easy","mode":"word_meaning"}') as PairFlipConfig
@@ -35,6 +46,27 @@ function App() {
   if(route.startsWith('pirate:')) return <PirateFixture phase={route.split(':')[1] as PirateUIProps['phase']} />
   if(route.startsWith('hero:')) { const title=route.split(':')[1]; return <div style={{margin:'40px'}}><ModuleHero title={title} eyebrow={title} gradient={{from:'',to:''}} note="실제 세션에서 만날 단어를 확인하고 학습을 시작해요." stats={[{label:'이번 학습',value:words.length,unit:'단어'}]} /></div> }
   return <div data-destination={route}>{route}</div>
+}
+function BooksFixture({showAll}:{showAll:boolean}) {
+  const books = (new URLSearchParams(location.search).has('cold')?[]:fixtureBooks) as PublishedBook[]
+  return (
+    <Screen width="wide" background="bg2" padX="md" className="tines-books">
+      <div className="flex flex-col gap-5 py-6 md:py-8">
+        <AreaHero className="books-intro" desktopArt={<LearningPathArt variant="books" />}
+          kicker="서가 · 영어 원서" title="Books"
+          sub="큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요."
+          tile="tile-books" tint="green"
+          stats={books.length?[{label:'Books',value:String(books.length)}]:undefined}
+          tabs={[{href:'/library/books',label:'둘러보기',active:!showAll},{href:'/library/books?show=all',label:'전체 보기',active:showAll}]} />
+        <BooksExplorer books={books} userVLevel={5} userMastery="warm" showAll={showAll} />
+      </div>
+    </Screen>
+  )
+}
+function AsyncFixture({load}:{load:()=>Promise<React.ReactNode>}) {
+  const [content,setContent] = useState<React.ReactNode>(null)
+  useEffect(()=>{let active=true;void load().then(element=>{if(active)setContent(element)});return()=>{active=false}},[load])
+  return content
 }
 function HistoryFixture() {
   const [content,setContent] = useState<React.ReactNode>(null)

@@ -192,7 +192,7 @@ export function BookFilterBar({
   })()
 
   return (
-    <div className="flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60">
+    <div className="books-filters flex flex-col divide-y divide-[var(--bd)] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]/60">
       {/* 상단 — 검색 + 정렬 + 초기화 + 결과수 */}
       <div className="flex flex-wrap items-center gap-3 p-4">
         <div className="relative min-w-[180px] flex-1">

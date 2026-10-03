@@ -1,6 +1,37 @@
 // apps/web/src/components/ui/LearningPathArt.tsx
 // 자체 벡터: 펼친 책·카드·연결선을 화면의 양옆에 배치하는 학습 소품.
-export function LearningPathArt({ variant = 'books', className = '' }: { variant?: 'books' | 'cards'; className?: string }) {
+export function LearningPathArt({ variant = 'books', className = '' }: { variant?: 'books' | 'cards' | 'growth' | 'calendar' | 'report'; className?: string }) {
+  if (variant === 'growth' || variant === 'calendar' || variant === 'report') {
+    return (
+      <svg className={className} viewBox="0 0 280 240" fill="none" aria-hidden="true" focusable="false">
+        <g stroke="var(--tint-lavender-ink)" strokeWidth="1.3" strokeLinejoin="round">
+          <path d="m22 195 74-46 158 27-64 46Z" fill="var(--tint-pink)" />
+          {variant === 'growth' ? <>
+            <path d="M54 182v-36l40-16v36Zm48-18v-55l40-16v55Zm48-19V72l40-16v73Zm48-19V35l40-16v91Z" fill="var(--tint-green)" />
+            <path d="m54 146 14 8 26-10m8-35 14 8 26-10m8-35 14 8 26-10m8-35 14 8 26-10M68 154v35m48-72v54m48-91v73m48-110v90" />
+            <path d="M36 120C20 46 87 34 112 72s62 32 76-18" strokeDasharray="4 6" />
+          </> : variant === 'calendar' ? <>
+            <path d="m61 168 16-118 142 16-15 120Z" fill="var(--tint-peach)" />
+            <path d="m77 50 142 16-4 29-142-17Z" fill="var(--tint-lavender)" />
+            <path d="m103 39-4 28m85-19-4 28M87 112l103 13m-106 11 103 13m-106 11 103 13m-80-62-8 63m42-59-8 63m42-59-8 63" />
+            <path d="m115 135 9 11 20-21" strokeWidth="3" />
+            <circle cx="225" cy="157" r="22" fill="var(--tint-green)" />
+            <path d="m215 156 8 9 13-16" />
+          </> : <>
+            <path d="m64 185 15-139 130 19-15 141Z" fill="var(--bg)" />
+            <path d="m89 70 98 15m-101 9 64 10m-66 16 98 15m-101 7 98 15m-101 7 98 15" />
+            <path d="m98 108 18 3-4 35-18-3Z" fill="var(--tint-green)" />
+            <path d="m127 96 18 3-5 52-18-3Z" fill="var(--tint-peach)" />
+            <path d="m158 77 18 3-8 76-18-3Z" fill="var(--tint-lavender)" />
+            <circle cx="219" cy="78" r="26" fill="var(--tint-pink)" />
+            <path d="m208 78 8 8 14-18" />
+          </>}
+          <circle cx="42" cy="78" r="5" fill="var(--tint-peach)" />
+          <path d="m247 113 4 8 9 1-6 7 1 9-8-4-8 4 1-9-6-7 9-1Z" fill="var(--tint-lavender)" />
+        </g>
+      </svg>
+    )
+  }
   return (
     <svg className={className} viewBox="0 0 280 240" fill="none" aria-hidden="true" focusable="false">
       <g stroke="var(--tint-lavender-ink)" strokeWidth="1.3" strokeLinejoin="round">

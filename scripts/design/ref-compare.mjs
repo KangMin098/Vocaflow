@@ -17,8 +17,9 @@ import path from 'node:path'
 import { ROOT, chromium, openRef } from './lib/ref-page.mjs'
 
 // 기존 3B 게이트는 그대로 두고 PC Tines 표본 대조를 명시적으로 선택한다.
-if (process.argv.includes('--learning')) {
-  const spec=JSON.parse(fs.readFileSync(path.join(ROOT,'docs/design/refs/tines/learning-spec.json'),'utf8'))
+if (process.argv.includes('--learning') || process.argv.includes('--growth')) {
+  const growth=process.argv.includes('--growth')
+  const spec=JSON.parse(fs.readFileSync(path.join(ROOT,`docs/design/refs/tines/${growth?'growth':'learning'}-spec.json`),'utf8'))
   const args=process.argv.slice(2), at=args.indexOf('--base')
   const base=at>=0?args[at+1]:'http://127.0.0.1:3031'
   if(base!=='http://127.0.0.1:3031') throw new Error('대조는 DB 경계가 제거된 격리 서버(3031)에서 실행한다')
@@ -38,7 +39,7 @@ if (process.argv.includes('--learning')) {
       rows.push({항목:item.name,참조:item.reference,적용:Math.round(value*100)/100,차이:Math.round(Math.abs(value-item.reference)*100)/100})
     }
     console.table(rows)
-    const out=path.join(ROOT,'tmp/tines-adoption/remaining-compare.json')
+    const out=path.join(ROOT,`tmp/tines-adoption/${growth?'growth':'remaining'}-compare.json`)
     fs.mkdirSync(path.dirname(out),{recursive:true});fs.writeFileSync(out,JSON.stringify({viewport:spec.viewport,mode:'isolated-component',rows},null,2)+'\n')
     if(rows.some(row=>!Number.isFinite(row.차이)||row.차이>2)) throw new Error('참조 부품 허용 오차 2px 초과')
   } finally {await browser.close()}

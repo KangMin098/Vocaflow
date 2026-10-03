@@ -5,6 +5,7 @@
 
 import { ArrowRight, CalendarRange, Clock, RefreshCw } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
+import { LearningPathArt } from '@/components/ui/LearningPathArt'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
@@ -35,8 +36,9 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-5 px-4 py-10">
-      <header className="flex items-center gap-2">
+    <div className="reports-journal mx-auto flex max-w-2xl flex-col gap-5 px-4 py-10">
+      <header className="reports-intro flex items-center gap-2">
+        <LearningPathArt variant="report" className="reports-art hidden md:block" />
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
@@ -66,7 +68,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
       )}
 
       {reports.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-16 text-center">
+        <div className="reports-empty flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] px-6 py-16 text-center">
           <span className="select-none text-4xl" aria-hidden>
             🗓️
           </span>
@@ -90,7 +92,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
         </div>
       ) : (
         <>
-          <ul className="flex flex-col gap-4">
+          <ul className="reports-archive flex flex-col gap-4">
             {reports.map((r) => (
               <li key={r.week_start}>
                 <ReportCard report={r} />
@@ -117,7 +119,7 @@ function ReportCard({ report }: { report: WeeklyReport }) {
     .sort((a, b) => b[1] - a[1])
 
   return (
-    <article className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
+    <article className="report-entry flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5 shadow-[var(--sh-sm)]">
       <header className="flex items-center gap-2">
         <span className="font-mono text-[12px] tabular-nums text-[var(--t2)]">
           {formatWeek(report.week_start)}
@@ -158,7 +160,7 @@ function ReportCard({ report }: { report: WeeklyReport }) {
 
 function Stat({ label, value }: { label: string; value: number }) {
   return (
-    <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center">
+    <div className="report-stat rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3 text-center">
       <p className="font-display text-[20px] font-[800] tabular-nums leading-none text-[var(--t1)]">
         {value.toLocaleString()}
       </p>

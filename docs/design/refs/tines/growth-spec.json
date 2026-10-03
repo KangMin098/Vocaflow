@@ -1,0 +1,26 @@
+{
+  "capturedAt": "2026-10-03",
+  "viewport": { "width": 1440, "height": 900 },
+  "sources": [
+    { "name": "University", "url": "https://www.tines.com/university/", "capture": "tmp/tines-adoption/growth-reference/university-fold.png", "observed": { "headingSize": 64, "headingLineHeight": 64, "outerInset": 40 } },
+    { "name": "Blog", "url": "https://www.tines.com/blog/", "capture": "tmp/tines-adoption/growth-reference/blog-fold.png", "pattern": "이미지 왼쪽·본문 오른쪽의 편집형 배치" },
+    { "name": "Customers", "url": "https://www.tines.com/customers/", "capture": "tmp/tines-adoption/growth-reference/customers-fold.png", "pattern": "사례와 성과의 서로 다른 크기·색·배치" },
+    { "name": "Library", "url": "https://www.tines.com/library/", "capture": "tmp/tines-adoption/growth-reference/library-fold.png", "observed": { "headingSize": 44 }, "measurements": "docs/design/refs/tines/pc-refinement-spec.json" },
+    { "name": "Omada", "url": "https://www.tines.com/case-studies/omada-health/", "measurements": "docs/design/refs/tines/learning-spec.json" }
+  ],
+  "scope": "선택한 부품 치수만 대조한다. 내용·상용 글꼴·전체 픽셀 일치를 뜻하지 않는다. PC 전용이며 정상 화면 캡처와 격리 기능 검증을 병행한다.",
+  "comparisons": [
+    { "name": "University 회고 제목", "route": "/dashboard", "selector": ".growth-intro h1", "field": "size", "reference": 64 },
+    { "name": "University 회고 행 높이", "route": "/dashboard", "selector": ".growth-intro h1", "field": "lineHeight", "reference": 64 },
+    { "name": "University 계획 제목", "route": "/plan", "selector": ".plan-intro h1", "field": "size", "reference": 64 },
+    { "name": "University 계획 행 높이", "route": "/plan", "selector": ".plan-intro h1", "field": "lineHeight", "reference": 64 },
+    { "name": "University 계획 외곽", "route": "/plan", "selector": ".plan-intro", "field": "x", "reference": 40 },
+    { "name": "University 리포트 제목", "route": "/reports", "selector": ".reports-intro h1", "field": "size", "reference": 64 },
+    { "name": "University 리포트 행 높이", "route": "/reports", "selector": ".reports-intro h1", "field": "lineHeight", "reference": 64 },
+    { "name": "Omada 리포트 면 여백", "route": "/reports", "selector": ".report-entry", "field": "padding", "reference": 40 },
+    { "name": "Omada 리포트 면 모서리", "route": "/reports", "selector": ".report-entry", "field": "radius", "reference": 16 },
+    { "name": "Library 도서 제목", "route": "/library/books", "selector": ".books-feature h2", "field": "size", "reference": 44 },
+    { "name": "Library 도서 분류 레일", "route": "/library/books", "selector": ".books-filters", "field": "width", "reference": 288 },
+    { "name": "University 도서 외곽", "route": "/library/books", "selector": ".books-intro", "field": "x", "reference": 40 }
+  ]
+}

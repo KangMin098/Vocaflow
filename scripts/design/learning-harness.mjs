@@ -15,9 +15,9 @@ const src = path.join(ROOT,'apps/web/src'), out = path.join(ROOT,`tmp/tines-adop
 const original = file => execFileSync('git',['show',`c577441bd:${path.relative(ROOT,file).replaceAll('\\','/')}`],{cwd:ROOT,encoding:'utf8'})
 fs.mkdirSync(out,{recursive:true})
 const boundary = path.join(ROOT,'apps/web/tests/design/learning-boundary.mjs')
-const blocked = /supabase|\/actions$|\/flush-actions$|\/record-score$|\/flush-session$|\/SessionFrame$|\/Toast$|\/learning-records$/
+const blocked = /supabase|\/actions$|\/plan-actions$|\/weekly-report$|\/manage-overview$|\/memory-horizon$|\/recent-activity-query$|\/enroll$|\/flush-actions$|\/record-score$|\/flush-session$|\/SessionFrame$|\/Toast$|\/learning-records$/
 const bundled = await build({entryPoints:[path.join(ROOT,'apps/web/tests/design/learning-harness.tsx')],outfile:path.join(out,'bundle.js'),bundle:true,write:false,format:'iife',platform:'browser',jsx:'automatic',loader:{'.css':'css'},metafile:true,plugins:[{name:'db-isolation',setup(builder){builder.onResolve({filter:/.*/},args=>{
-  if(blocked.test(args.path) || ['next/navigation','next/image','next/link'].includes(args.path)) return {path:boundary}
+  if(blocked.test(args.path) || ['next/navigation','next/image','next/link'].includes(args.path) || (before && /LearningPathArt$/.test(args.path))) return {path:boundary}
   if(args.path.startsWith('@/')) return {path:path.resolve(src,args.path.slice(2)) + (path.extname(args.path)?'':resolveExtension(args.path.slice(2)))}
 });if(before) builder.onLoad({filter:/\.(tsx|ts)$/},args=>args.path.startsWith(src)?{contents:original(args.path),loader:args.path.endsWith('.tsx')?'tsx':'ts'}:null)}}]})
 function resolveExtension(relative) {for(const suffix of ['.tsx','.ts','.mjs','.js','/index.ts','/index.tsx']) if(fs.existsSync(path.join(src,relative+suffix))) return suffix;throw new Error(`소스 없음 ${relative}`)}

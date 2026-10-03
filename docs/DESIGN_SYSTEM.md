@@ -1,5 +1,7 @@
 # Design System
 
+> **PC Growth·Books 구획 다양화(2026-10-03)**: 같은 보라색 패널을 구역 전체에 반복하지 않는다. `tines-growth`는 열린 회고 제목/초록 지속시간/피치 활동/다색 관리, `tines-plan`은 열린 주간 보드와 자료 레일/피치 구성면, `tines-reports`는 최근 주의 큰 피치 기록과 열린 아카이브, `tines-books`는 열린 제목/벡터/추천 이미지·본문 분할/288px 필터 레일을 사용한다. `--growth-*`·기존 `--learning-*`로 치수를 공유하고 면/잉크 짝을 양 테마에 적용한다. Books 상세 팝업은 기존 공통 Dialog의 닫기·포커스 계약을 따른다. 모바일·3B 제외. [측정](design/refs/tines/growth-spec.json)·[실제 적용 범위](design/tines-adoption.md).
+
 > **PC 학습 화면 구조 변환(2026-10-03)**: `skins/tines-learning.css`의 명시적 화면 훅과 `--learning-*`를 사용한다. 진단은 Security의 열린 64px/62.08px 제목·양옆 자체 벡터, Omada의 48px/50.4px 큰 면·40px 패딩·16px 모서리·24px 간격, 4색 목표 구획이다. 설정은 기존 Library의 288px 레일·72px 간격과 열린 설정 행, 기록은 큰 제목 옆 시간축이다. PairFlip은 초록 허브·라벤더 작업면·분할 결과, Orrery는 전경과 배경을 함께 보정한 지도/관측/봉인, Pirate Quest는 불투명 HUD·상태별 선택 면이다. PC 안내 팝업은 공통 Dialog의 닫기·포커스 계약을 따른다. 전체 플랫폼 완료가 아니며 모바일·3B 범위는 제외한다. [측정 명세](design/refs/tines/learning-spec.json)·[상태별 검증](design/tines-adoption.md).
 
 > **PC `/hub` 정밀 적용(2026-10-03)**: 홈의 64px/67.2px 제목·56px/58.8px 구획 제목·다색 자체 책 정원 띠·실제 학습 액자와 5색 플랫폼 탭을 사용한다. `/3b/` 웹사이트의 1360px 흰 벤토·48px 모서리·30px 패딩·24px 간격·14px 다색 카드, University의 24px 선 격자를 학습 구획으로 대응했다. 치수는 `--hub-*`, 색은 기존 Tines의 면/잉크 짝을 상속한다. 모바일 제외. [명세](design/refs/tines/hub-spec.json)·[검증 기록](design/hub-tines.md).

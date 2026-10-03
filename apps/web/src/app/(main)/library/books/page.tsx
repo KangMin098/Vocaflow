@@ -6,6 +6,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 import { AreaHero } from '@/components/layout/AreaHero';
+import { LearningPathArt } from '@/components/ui/LearningPathArt';
 import { MATERIAL_TONE } from '@/lib/design/tone';
 import { Screen } from '@/components/ui/ios';
 import { createClient } from '@/lib/supabase/server';
@@ -382,10 +383,12 @@ export default async function LibraryBooksPage({
   const inProgressCount = books.filter((b) => b.enrollment_state === 'in_progress').length;
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md" className="tines-books">
       <div className="flex flex-col gap-5 py-6 md:py-8">
-        {/* DD-68 — 참조 도서관 머리: 도서 범주 색 진한 판 · 오른쪽 tile-books · 아랫변 탭(둘러보기 / 전체 보기 = ?show=all). 수치는 방금 받은 카탈로그에서 센다. */}
+        {/* PC는 열린 편집형 머리·벡터 삽화, 모바일은 기존 판을 유지한다. 수치는 받은 카탈로그에서 센다. */}
         <AreaHero
+          className="books-intro"
+          desktopArt={<LearningPathArt variant="books" />}
           kicker="서가 · 영어 원서"
           title={MATERIAL_LABEL.book}
           sub="큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요."

@@ -1,5 +1,7 @@
 # Vocaflow 디자인 적용 기준
 
+PC Growth는 보라색 공통 패널을 구역 전체에 반복하지 않는다. 회고(`/dashboard`)는 열린 제목 옆 초록 기억 기록과 피치 활동, 계획(`/plan`)은 열린 주간 보드·자료 레일·피치 구성면, 리포트(`/reports`)는 최근 주의 큰 피치 기록과 열린 아카이브, Books(`/library/books`)는 열린 제목·자체 벡터·이미지/본문 추천·왼쪽 필터 레일로 대응한다. 보라색 브랜드 잉크·동작색은 Tines의 일부이며 화면의 목적에 따라 면/잉크 짝과 배치를 다양하게 쓴다. [실측/대조](docs/design/refs/tines/growth-spec.json), `pnpm design:ref-compare --growth`. 모바일 및 관리자/CSAT는 제외한다.
+
 PC `/hub`는 Tines 홈의 큰 제목·다색 삽화 띠·제품 액자·색 탭·USP와 `/3b/` 웹사이트의 흰 벤토·다색 카드, University의 선 격자를 조합한다. [허브 실측 명세](docs/design/refs/tines/hub-spec.json)의 치수를 `--hub-*` 변수로 적용하며 `pnpm design:ref-compare --hub --base <URL>`로 확인한다. 실제 오늘의 흐름·학습 링크·발행 콘텐츠·기억 4색과 모바일 기존 구성은 보존한다. [적용/검증 기록](docs/design/hub-tines.md).
 
 PC Tines 표본의 하위 참조 대응은 단어장 → [Library](https://www.tines.com/library/), 받아쓰기 → [University](https://www.tines.com/university/)다. 재사용 시 [실측 명세](docs/design/refs/tines/pc-refinement-spec.json)의 치수를 `skins/tines.css`의 `--tines-*` 변수로 적용하고 `pnpm design:ref-compare --tines --base <URL>`로 확인한다. 관리자 전체는 3B 앱이며 아래 관리자 기준을 따른다. 범주 색만 입힌 작은 카드로 대체하거나 측정 항목 일치를 전체 화면 일치로 보고하지 않는다.
