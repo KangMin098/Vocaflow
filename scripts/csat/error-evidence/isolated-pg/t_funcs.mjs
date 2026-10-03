@@ -57,19 +57,24 @@ export default async function funcs(admin, ctx) {
   const c2 = await as(app, L4, `select public.csat_ec_add_student_claim($1, 19::smallint, $2, 'flow', null, null) as id`, [S.L4, TAX])
   record('함수', 'add_student_claim — supersede 없이 두 번째 활성 보고 거부', c1.ok && fails(c2, /duplicate|unique/), [c1.err, c2.err])
 
-  // ── AI ──
-  r = await as(app, SERVICE, `select public.csat_ec_ai_export($1, 18::smallint)`, [S.L4])
+  // ── AI(회차 단위) ──
+  // 전부 ② 기록을 대상에 넣은 draft 회차 — 대상이어도 적격이 아니면 판정 거부
+  const rq = Number((await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-1', $2, '{}') as id`, [TAX, TRAP_MAP])).rows[0].id)
+  await as(app, ADM, `select public.csat_ec_round_set_targets($1, $2::jsonb)`, [rq, JSON.stringify([{ session_id: S.L4, item_no: 18 }, { session_id: S.L1, item_no: 18 }])])
+  r = await as(app, SERVICE, `select public.csat_ec_ai_export($1, $2, 18::smallint)`, [rq, S.L4])
   record('품질', 'ai_export — 전부 ② 기록(rq-1 excluded) 거부', fails(r, /Pilot 적격/), r.err)
-  r = await as(app, SERVICE, `select public.csat_ec_ai_export($1, 18::smallint)`, [NIL])
-  record('함수', 'ai_export — 없는 세션 거부', fails(r, /Pilot 적격/), r.err)
-  const x = await as(app, SERVICE, `select public.csat_ec_ai_export($1, 18::smallint) as x`, [S.L1])
+  r = await as(app, SERVICE, `select public.csat_ec_ai_export($1, $2, 18::smallint)`, [rq, NIL])
+  record('함수', 'ai_export — 없는 세션 거부(회차 대상 아님)', fails(r, /대상이 아니다/), r.err)
+  r = await as(app, SERVICE, `select public.csat_ec_ai_export(999999, $1, 18::smallint)`, [S.L1])
+  record('함수', 'ai_export — 없는 회차 거부', fails(r, /draft 회차/), r.err)
+  const x = await as(app, SERVICE, `select public.csat_ec_ai_export($1, $2, 18::smallint) as x`, [rq, S.L1])
   const run = { session_id: S.L1, item_no: 18, taxonomy_version: TAX, model: 'test-model', prompt_version: 'p1', analyzer_version: 'a1',
-    quality_rule_version: 'rq-1', choice_trap_map: TRAP_MAP, input_hash: x.rows?.[0]?.x?.input_hash, input_refs: {}, outcome: 'proposed', output: { raw: 'ok' } }
+    quality_rule_version: 'rq-1', choice_trap_map: TRAP_MAP, input_hash: x.rows?.[0]?.x?.input_hash, outcome: 'proposed', output: { raw: 'ok' } }
   const claims = [{ code: 'S.modifier_scope', role: 'primary', confidence: 'medium', evidence: { summary: '수식 범위를 잘못 잡은 것으로 보인다', text_refs: [{ where: 'passage', quote: 'The second sentence adds detail' }] } }]
-  const imp = (rn, cl) => as(app, SERVICE, `select public.csat_ec_ai_import($1::jsonb, $2::jsonb) as id`, [JSON.stringify(rn), JSON.stringify(cl)])
+  const imp = (rn, cl, round = rq) => as(app, SERVICE, `select public.csat_ec_ai_import($1, $2::jsonb, $3::jsonb) as id`, [round, JSON.stringify(rn), JSON.stringify(cl)])
+  const aiFirst = await imp(run, claims)
   const retry = await imp(run, claims)
-  const existing = (await admin.query(`select id from public.csat_ec_ai_run where session_id = $1 and item_no = 18`, [S.L1])).rows
-  record('함수', 'ai_import — 같은 입력 · 판정기 재시도는 같은 id(멱등)', retry.ok && existing.length === 1 && Number(retry.rows[0].id) === Number(existing[0].id), retry.err ?? retry.rows)
+  record('함수', 'ai_import — 같은 입력 · 판정기 재시도는 같은 id(멱등)', aiFirst.ok && retry.ok && Number(retry.rows[0].id) === Number(aiFirst.rows[0].id), [aiFirst.err, retry.err])
   const diff = await imp(run, [{ ...claims[0], code: 'S.core' }])
   record('함수', 'ai_import — 같은 키 다른 claim 거부', fails(diff, /다른 결과/), diff.err)
   const badQuote = await imp({ ...run, model: 'm2' }, [{ ...claims[0], evidence: { summary: '원문에 없는 인용을 단 근거', text_refs: [{ where: 'passage', quote: 'this sentence does not exist' }] } }])
@@ -86,8 +91,9 @@ export default async function funcs(admin, ctx) {
   record('함수', 'ai_import — 원인 없음(claim 0) 정상 기록', noCause.ok, noCause.err)
   const staleHash = await imp({ ...run, model: 'm8', input_hash: 'f'.repeat(64) }, claims)
   record('함수', 'ai_import — 지금 입력과 다른 해시 거부', fails(staleHash, /입력 해시/), staleHash.err)
-  const draftTax = await imp({ ...run, model: 'm9', taxonomy_version: 'v8.0' }, claims)
-  record('함수', 'ai_import — 봉인 안 된 taxonomy 거부', fails(draftTax, /봉인된 taxonomy/), draftTax.err)
+  ctx.aiRound = rq
+  ctx.aiRun = run
+  ctx.aiClaims = claims
 
   // ── 회차 RPC ──
   r = await as(app, learner(U.OUT), `select public.csat_ec_round_create($1, 'rq-1', $2, '{}')`, [TAX, TRAP_MAP])
@@ -95,7 +101,7 @@ export default async function funcs(admin, ctx) {
   r = await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-2', $2, '{}')`, [TAX, TRAP_MAP])
   record('함수', 'round_create — 모르는 품질 규칙 거부', fails(r, /rq-1/), r.err)
   r = await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-1', 'v0.1:abc', '{}')`, [TAX])
-  record('함수', 'round_create — choice_trap_map 형식 거부', fails(r, /형식/), r.err)
+  record('함수', 'round_create — 승인 안 된 대응표 거부', fails(r, /승인된 선지 함정 대응표/), r.err)
   r = await as(app, ADM, `select public.csat_ec_round_create(null, 'rq-1', $1, '{}')`, [TRAP_MAP])
   record('함수', 'round_create — NULL taxonomy 거부', fails(r), r.err)
   const rd = await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-1', $2, '{"min_learners":1,"min_wrong":1,"min_control":0}') as id`, [TAX, TRAP_MAP])

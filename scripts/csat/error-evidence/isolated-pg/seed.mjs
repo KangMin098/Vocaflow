@@ -19,7 +19,8 @@ export const SERVICE = { role: 'service_role' }
 export const ANON = { role: 'anon' }
 export const EXAM = 'M2409'
 export const TAX = 'v9.0'   // TEST taxonomy — 검증 종료 후 클러스터째 폐기
-export const TRAP_MAP = 'v0.1:' + 'a'.repeat(64)
+// 승인된 대응표(docs/csat-learner/choice-traps/v0.1.json 의 LF 정규화 sha256) — 마이그레이션 manifest 와 같은 값
+export const TRAP_MAP = 'v0.1:1a90a6611e0cbc02e48e17db439a9fa9e61e608d84fb1d1f9307555a76096358'
 export const answerOf = (n) => (n % 5) + 1
 export const WRONG = Array.from({ length: 12 }, (_, i) => 18 + i)    // 18~29 오답
 export const CONTROL = [30, 31, 32, 33]                             // 정답 대조
@@ -89,14 +90,14 @@ export async function learnerEvidence(pool, uid, sid) {
   return out
 }
 
-/** AI 파이프라인(service_role): export → taxonomy → import (오답만) */
-export async function aiJudge(pool, sid, n) {
-  const ex = await as(pool, SERVICE, `select public.csat_ec_ai_export($1, $2::smallint) as x`, [sid, n])
+/** AI 파이프라인(service_role): draft 회차의 대상만 — export(서버 판정 입력 전문) → import(해시 · 출력 · claim) */
+export async function aiJudge(pool, round, sid, n) {
+  const ex = await as(pool, SERVICE, `select public.csat_ec_ai_export($1, $2, $3::smallint) as x`, [round, sid, n])
   if (!ex.ok) return ex
   const x = ex.rows[0].x
-  const run = { session_id: sid, item_no: n, taxonomy_version: TAX, model: 'test-model', prompt_version: 'p1', analyzer_version: 'a1',
-    quality_rule_version: 'rq-1', choice_trap_map: TRAP_MAP, input_hash: x.input_hash, input_refs: { item_id: x.item_id }, outcome: 'proposed', output: { raw: 'ok' } }
+  const run = { session_id: sid, item_no: n, taxonomy_version: x.taxonomy_version, model: 'test-model', prompt_version: 'p1', analyzer_version: 'a1',
+    quality_rule_version: x.quality_rule_version, choice_trap_map: x.choice_trap_map, input_hash: x.input_hash, outcome: 'proposed', output: { raw: 'ok' } }
   const claims = [{ code: 'S.modifier_scope', role: 'primary', confidence: 'medium',
     evidence: { summary: '수식 범위를 잘못 잡은 것으로 보인다', text_refs: [{ where: 'passage', quote: 'The second sentence adds detail' }] } }]
-  return as(pool, SERVICE, `select public.csat_ec_ai_import($1::jsonb, $2::jsonb) as id`, [JSON.stringify(run), JSON.stringify(claims)])
+  return as(pool, SERVICE, `select public.csat_ec_ai_import($1, $2::jsonb, $3::jsonb) as id`, [round, JSON.stringify(run), JSON.stringify(claims)])
 }

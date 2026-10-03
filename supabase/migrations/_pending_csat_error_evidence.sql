@@ -55,6 +55,33 @@ create table public.csat_ec_code (
 );
 
 -- ─────────────────────────────────────────────────────────────────────────────
+-- 5. 검수 회차 — 시작(blind_review) 뒤 입력 봉인
+-- ─────────────────────────────────────────────────────────────────────────────
+create table public.csat_ec_review_round (
+  id                    bigint generated always as identity primary key,
+  status                text not null default 'draft'
+                        check (status in ('draft', 'blind_review', 'reveal', 'adjudication', 'closed', 'cancelled')),
+  taxonomy_version      text not null references public.csat_ec_taxonomy_version(version) on delete restrict,
+  quality_rule_version  text not null,                -- rq-1 재현성(§15 G)
+  choice_trap_map       text not null,                -- 'v0.1:<sha256>'
+  eligibility           jsonb not null,               -- 선정 조건(품질 · 과정 증거 기준 · 유형 분산 등)
+  targets               jsonb not null default '[]',  -- [{session_id, item_no, item_id, input_hash, confirmation_revision, process_evidence_ids[], quality:{status,signals}, ai_run_id, claim_ids[]}]
+  targets_hash          text,                         -- 정규화한 targets 의 sha256 — blind 시작 때 채운다
+  created_by            uuid references auth.users(id) on delete set null,
+  created_at            timestamptz not null default now(),
+  blind_started_at      timestamptz,
+  revealed_at           timestamptz,
+  adjudication_at       timestamptz,
+  closed_at             timestamptz,
+  cancelled_at          timestamptz,
+  cancel_reason         text,
+  check (jsonb_typeof(targets) = 'array'),
+  check (blind_started_at is null or targets_hash is not null),
+  check (status in ('draft', 'cancelled') or blind_started_at is not null),   -- draft 에서 바로 취소(대상 삭제 등)도 허용
+  check ((status = 'cancelled') = (cancelled_at is not null))
+);
+
+-- ─────────────────────────────────────────────────────────────────────────────
 -- 3. AI 실행 — 입력은 원문 복사 대신 참조 + 정규화 해시. 학생 자유서술은 필요한 최소만(§10)
 -- ─────────────────────────────────────────────────────────────────────────────
 create table public.csat_ec_ai_run (
@@ -68,18 +95,20 @@ create table public.csat_ec_ai_run (
   analyzer_version      text not null,
   quality_rule_version  text not null,            -- 대상 선정에 쓴 Record Quality 규칙(rq-1 …)
   choice_trap_map       text not null,            -- 'v0.1:<sha256>' — 저장소 JSON 의 버전 · 내용 해시
-  input_hash            text not null check (input_hash ~ '^[0-9a-f]{64}$'),   -- 판정 입력 해시(csat_ec_judgment_input_hash — 문항 해시 + 유효 과정 증거 + 품질 규칙)
-  input_refs            jsonb not null,           -- 참조만: {item_id, process_evidence_ids[], chosen_option} — 원문은 문항 표에서
+  round_id              bigint not null references public.csat_ec_review_round(id) on delete restrict,   -- AI 판정은 draft 회차의 봉인 대상에만
+  input_hash            text not null check (input_hash ~ '^[0-9a-f]{64}$'),   -- = sha256(canonical_input::text)
+  canonical_input       jsonb not null,           -- AI 가 실제로 본 최소 입력 전문(서버 생성 · 불변) — csat_ec_canonical_input
   outcome               text not null check (outcome in ('proposed', 'no_cause', 'insufficient_evidence', 'no_fitting_code', 'failed')),
   output                jsonb not null,           -- 모델 출력 원문(검증 전) — 감사용
   failure               text,
   created_at            timestamptz not null default now(),
-  check ((outcome = 'failed') = (failure is not null))
+  check ((outcome = 'failed') = (failure is not null)),
+  check (input_hash = encode(extensions.digest(canonical_input::text, 'sha256'), 'hex'))   -- 해시와 전문이 늘 함께 맞는다
 );
 create index csat_ec_ai_run_response on public.csat_ec_ai_run (session_id, item_no, id desc);
 -- 같은 판정 입력 · 같은 판정기(모델 · 프롬프트 · 분석기 · 대응표 · taxonomy)로는 성공 실행 한 번 — 판정기를 바꾼 재판정은 새 행
 create unique index csat_ec_ai_run_success_once on public.csat_ec_ai_run
-  (session_id, item_no, taxonomy_version, model, prompt_version, analyzer_version, choice_trap_map, input_hash) where outcome <> 'failed';
+  (round_id, session_id, item_no, taxonomy_version, model, prompt_version, analyzer_version, choice_trap_map, input_hash) where outcome <> 'failed';
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- 4. 원인 claim — attempt 하나에 대한 가설. source = student(범주 자기보고) | ai(제안). 사람 판정은 7 에.
@@ -113,33 +142,6 @@ create unique index csat_ec_claim_supersede_once on public.csat_ec_claim (supers
 create unique index csat_ec_claim_student_root_once on public.csat_ec_claim (session_id, item_no) where source = 'student' and supersedes_id is null;   -- 첫 보고는 하나 → 활성 보고는 항상 체인의 끝 하나
 create index csat_ec_claim_response on public.csat_ec_claim (session_id, item_no);
 create index csat_ec_claim_user on public.csat_ec_claim (user_id);
-
--- ─────────────────────────────────────────────────────────────────────────────
--- 5. 검수 회차 — 시작(blind_review) 뒤 입력 봉인
--- ─────────────────────────────────────────────────────────────────────────────
-create table public.csat_ec_review_round (
-  id                    bigint generated always as identity primary key,
-  status                text not null default 'draft'
-                        check (status in ('draft', 'blind_review', 'reveal', 'adjudication', 'closed', 'cancelled')),
-  taxonomy_version      text not null references public.csat_ec_taxonomy_version(version) on delete restrict,
-  quality_rule_version  text not null,                -- rq-1 재현성(§15 G)
-  choice_trap_map       text not null,                -- 'v0.1:<sha256>'
-  eligibility           jsonb not null,               -- 선정 조건(품질 · 과정 증거 기준 · 유형 분산 등)
-  targets               jsonb not null default '[]',  -- [{session_id, item_no, item_id, input_hash, confirmation_revision, process_evidence_ids[], quality:{status,signals}, ai_run_id, claim_ids[]}]
-  targets_hash          text,                         -- 정규화한 targets 의 sha256 — blind 시작 때 채운다
-  created_by            uuid references auth.users(id) on delete set null,
-  created_at            timestamptz not null default now(),
-  blind_started_at      timestamptz,
-  revealed_at           timestamptz,
-  adjudication_at       timestamptz,
-  closed_at             timestamptz,
-  cancelled_at          timestamptz,
-  cancel_reason         text,
-  check (jsonb_typeof(targets) = 'array'),
-  check (blind_started_at is null or targets_hash is not null),
-  check (status in ('draft', 'cancelled') or blind_started_at is not null),   -- draft 에서 바로 취소(대상 삭제 등)도 허용
-  check ((status = 'cancelled') = (cancelled_at is not null))
-);
 
 -- ─────────────────────────────────────────────────────────────────────────────
 -- 6. 판정자 배정 — 회차 × 사람. reviewer_key 는 계정 삭제 뒤에도 남는 고정 식별
@@ -352,6 +354,21 @@ begin
      or (new.phase = 'adjudication' and v_round.status <> 'adjudication') then
     raise exception 'csat_ec: 회차 상태 % 에서 % 판정을 받을 수 없다', v_round.status, new.phase;
   end if;
+  -- 폐기된(deprecated) 코드로 새 판정 금지(과거 판정의 참조는 유지)
+  if exists (select 1 from unnest(array_remove(array[new.primary_code], null) || new.contributing_codes) x
+              where not exists (select 1 from public.csat_ec_code c where c.version = new.taxonomy_version and c.code = x and c.status = 'active')) then
+    raise exception 'csat_ec: 사전에 없거나 폐기된 코드로 판정할 수 없다';
+  end if;
+  -- 원인 축과 배제 축의 모순 금지 · 원인을 고르지 않은 판정(no_cause · insufficient_evidence · no_fitting_code)은 배제 축을 두지 않는다
+  if new.phase in ('blind', 'adjudication') then
+    if new.outcome <> 'code' and cardinality(new.excluded_axes) > 0 then
+      raise exception 'csat_ec: 원인을 고르지 않은 판정에는 배제 축을 둘 수 없다';
+    end if;
+    if exists (select 1 from unnest(array_remove(array[new.primary_code], null) || new.contributing_codes) x
+                where left(x, 1) = any (new.excluded_axes)) then
+      raise exception 'csat_ec: 고른 원인의 축을 배제할 수 없다';
+    end if;
+  end if;
   -- 보조 원인: 회차 버전 사전에 있는 코드 · 중복 없음 · 최대 2개
   if cardinality(new.contributing_codes) > 2
      or cardinality(new.contributing_codes) <> (select count(distinct x) from unnest(new.contributing_codes) x)
@@ -452,24 +469,47 @@ language sql stable set search_path = '' as $$ select 'user:' || (select auth.ui
 -- 공통 계산 ─────────────────────────────────────────────────────────────────────
 -- Record Quality rq-1 — apps/web/src/lib/csat/diagnosis/engine/record-quality.ts 와 같은 규칙(동치 테스트로 지킨다).
 --   답한 문항 < 20 → trusted · 고른 번호가 한 종류 → excluded_pending_review · 최빈 비율 ≥ 0.9 또는 같은 번호 최장 연속 ≥ 15 → suspicious
-create or replace function public.csat_ec_record_quality_rq1(p_session uuid) returns text
+create or replace function public.csat_ec_record_quality_rq1_signals(p_session uuid) returns jsonb
 language sql stable set search_path = '' as $$
   with a as (
     select item_no, chosen_option as c, row_number() over (order by item_no) as rn
       from public.csat_dx_response where session_id = p_session and chosen_option is not null
   ), runs as (
     select count(*) as n from (select c, rn - row_number() over (partition by c order by item_no) as grp from a) x group by c, grp
-  ), stats as (
-    select count(*) as answered, count(distinct c) as kinds,
-           coalesce((select max(cnt) from (select count(*) as cnt from a group by c) y), 0) as top
-      from a
+  ), counts as (
+    select c, count(*) as cnt from a group by c
+  ), s as (
+    select (select count(*) from a) as answered,
+           (select count(*) from counts) as kinds,
+           coalesce((select max(cnt) from counts), 0) as top,
+           (select min(c) from counts where cnt = (select max(cnt) from counts)) as dominant,
+           coalesce((select max(n) from runs), 0) as longest
   )
-  select case
-    when s.answered < 20 then 'trusted'
-    when s.kinds = 1 then 'excluded_pending_review'
-    when s.top::numeric / s.answered >= 0.9 or coalesce((select max(n) from runs), 0) >= 15 then 'suspicious'
-    else 'trusted' end
-  from stats s
+  select jsonb_build_object(
+    'rule', 'rq-1', 'answered', s.answered, 'dominant_option', s.dominant, 'dominant_count', s.top,
+    'dominant_ratio', case when s.answered > 0 then round(s.top::numeric / s.answered, 4) end,
+    'longest_streak', s.longest, 'distinct_options', s.kinds,
+    'status', case
+      when s.answered < 20 then 'trusted'
+      when s.kinds = 1 then 'excluded_pending_review'
+      when s.top::numeric / s.answered >= 0.9 or s.longest >= 15 then 'suspicious'
+      else 'trusted' end)
+  from s
+$$;
+
+-- 상태만 필요할 때 — 신호와 같은 계산(단일 원천)
+create or replace function public.csat_ec_record_quality_rq1(p_session uuid) returns text
+language sql stable set search_path = '' as $$
+  select public.csat_ec_record_quality_rq1_signals(p_session)->>'status'
+$$;
+
+-- 승인된 선지 함정 대응표 — 저장소 docs/csat-learner/choice-traps/v{n}.json 의 버전과 내용 sha256(LF 정규화).
+-- 새 버전을 쓰려면 이 함수를 마이그레이션으로 개정한다(호출자가 보낸 버전 · 해시를 믿지 않는다). 저장소 테스트가 파일 해시와 대조한다
+create or replace function public.csat_ec_choice_trap_map_approved(p_map text) returns boolean
+language sql immutable set search_path = '' as $$
+  select p_map in (
+    'v0.1:1a90a6611e0cbc02e48e17db439a9fa9e61e608d84fb1d1f9307555a76096358'
+  )
 $$;
 
 -- 응답 하나의 유효 정답 — 해시 · 판정자 큐 · AI 입력이 모두 이것만 쓴다(채점 로직과 같은 규칙)
@@ -514,11 +554,25 @@ language sql stable set search_path = '' as $$
 $$;
 
 -- 판정 입력 해시 — 문항 해시 + 유효 과정 증거(id · 종류 · 값, 작성순) + 품질 규칙
+-- AI · 판정자가 보는 최소 입력 전문 — 문항 원문 · 유효 정답 · 고른 답 · 선지 함정 원값 · 유효 과정 증거(범주 보고 제외) · 품질 규칙
+-- 학생 식별자 · 세션 id 는 넣지 않는다(개인정보 최소화 — 응답은 ai_run 의 키로 이미 연결된다)
+create or replace function public.csat_ec_canonical_input(p_session uuid, p_item_no smallint) returns jsonb
+language sql stable set search_path = '' as $$
+  select jsonb_build_object(
+    'format', 'ci-1', 'quality_rule', 'rq-1', 'item_id', r.item_id, 'stem', i.stem, 'passage', i.passage, 'choices', i.choices,
+    'answer', public.csat_ec_effective_answer(p_session, p_item_no), 'chosen_option', r.chosen_option,
+    'option_traps', (select coalesce(jsonb_agg(jsonb_build_array(o.option_no, o.trap_key) order by o.option_no), '[]')
+                       from public.csat_dx_option_trap o where o.item_id = r.item_id),
+    'process_evidence', (select coalesce(jsonb_agg(jsonb_build_array(e.id, e.kind, e.value) order by e.created_at, e.id), '[]')
+                           from public.csat_ec_valid_process_evidence(p_session, p_item_no) e))
+    from public.csat_dx_response r left join public.csat_items i on i.id = r.item_id
+   where r.session_id = p_session and r.item_no = p_item_no
+$$;
+
+-- 판정 입력 해시 = 전문의 sha256(전문과 해시가 늘 같은 원천)
 create or replace function public.csat_ec_judgment_input_hash(p_session uuid, p_item_no smallint) returns text
 language sql stable set search_path = '' as $$
-  select encode(extensions.digest(concat_ws('|', public.csat_ec_item_input_hash(p_session, p_item_no), 'rq-1',
-           coalesce((select jsonb_agg(jsonb_build_array(e.id, e.kind, e.value) order by e.created_at, e.id)
-                       from public.csat_ec_valid_process_evidence(p_session, p_item_no) e)::text, '[]')), 'sha256'), 'hex')
+  select encode(extensions.digest(public.csat_ec_canonical_input(p_session, p_item_no)::text, 'sha256'), 'hex')
 $$;
 
 -- Pilot 적격 — 입력 품질 trusted · 최신 학습자 확인이 「응시 · 선지별 판단」이고 지금 응답과 같은 답안 · 유효 과정 증거에 reason 이 있다
@@ -661,7 +715,7 @@ begin
     raise exception 'csat_ec: 봉인된 taxonomy 로만 회차를 만든다';
   end if;
   if p_quality_rule is distinct from 'rq-1' then raise exception 'csat_ec: 이 DB 가 아는 품질 규칙은 rq-1 뿐이다'; end if;
-  if coalesce(p_choice_trap_map, '') !~ '^v[0-9]+\.[0-9]+:[0-9a-f]{64}$' then raise exception 'csat_ec: choice_trap_map 은 「v0.1:<sha256>」 형식'; end if;
+  if not public.csat_ec_choice_trap_map_approved(p_choice_trap_map) then raise exception 'csat_ec: 승인된 선지 함정 대응표(버전:sha256)가 아니다'; end if;
   insert into public.csat_ec_review_round (taxonomy_version, quality_rule_version, choice_trap_map, eligibility, created_by)
   values (p_taxonomy, p_quality_rule, p_choice_trap_map, coalesce(p_eligibility, '{}'), (select auth.uid()))
   returning id into v_id;
@@ -691,7 +745,7 @@ begin
            'input_hash', public.csat_ec_judgment_input_hash(r.session_id, r.item_no),
            'confirmation_revision', (select max(c.revision) from public.csat_ec_session_confirmation c where c.session_id = r.session_id),
            'process_evidence_ids', coalesce((select jsonb_agg(e.id order by e.id) from public.csat_ec_valid_process_evidence(r.session_id, r.item_no) e), '[]'),
-           'quality', jsonb_build_object('rule', 'rq-1', 'status', public.csat_ec_record_quality_rq1(r.session_id)),
+           'quality', public.csat_ec_record_quality_rq1_signals(r.session_id),   -- 당시 신호 전부(rq-2 가 나와도 「왜 포함됐나」 재현)
            'ai_run_id', ar.id,
            'claim_ids', coalesce((select jsonb_agg(c.id order by c.id) from public.csat_ec_claim c
                                    where c.session_id = r.session_id and c.item_no = r.item_no and c.taxonomy_version = v.taxonomy_version
@@ -704,7 +758,7 @@ begin
     join public.csat_dx_response r on r.session_id = ref.sid and r.item_no = ref.no
     left join lateral (
       select a.id from public.csat_ec_ai_run a
-       where a.session_id = r.session_id and a.item_no = r.item_no and a.taxonomy_version = v.taxonomy_version
+       where a.round_id = v.id and a.session_id = r.session_id and a.item_no = r.item_no and a.taxonomy_version = v.taxonomy_version
          and a.outcome <> 'failed' and a.quality_rule_version = v.quality_rule_version and a.choice_trap_map = v.choice_trap_map
          and a.input_hash = public.csat_ec_judgment_input_hash(r.session_id, r.item_no)
        order by a.id desc limit 1) ar on true;
@@ -758,6 +812,7 @@ begin
   end if;
   if jsonb_array_length(v.targets) = 0 then raise exception 'csat_ec: 대상이 없다'; end if;
   if v.quality_rule_version <> 'rq-1' then raise exception 'csat_ec: 이 DB 가 아는 품질 규칙은 rq-1 뿐이다'; end if;
+  if not public.csat_ec_choice_trap_map_approved(v.choice_trap_map) then raise exception 'csat_ec: 승인된 선지 함정 대응표가 아니다'; end if;
   if exists (select 1 from jsonb_array_elements(v.targets) t
               where not exists (select 1 from public.csat_dx_response r
                                  where r.session_id = (t->>'session_id')::uuid and r.item_no = (t->>'item_no')::smallint)) then
@@ -799,7 +854,7 @@ begin
              where r.item_id is distinct from t->>'item_id'
                 or t->>'input_hash' is distinct from public.csat_ec_judgment_input_hash(r.session_id, r.item_no)
                 or (t->>'ai_run_id' is not null and not exists (
-                      select 1 from public.csat_ec_ai_run a where a.id = (t->>'ai_run_id')::bigint and a.session_id = r.session_id
+                      select 1 from public.csat_ec_ai_run a where a.id = (t->>'ai_run_id')::bigint and a.round_id = v.id and a.session_id = r.session_id
                          and a.item_no = r.item_no and a.taxonomy_version = v.taxonomy_version and a.outcome <> 'failed'
                          and a.input_hash = public.csat_ec_judgment_input_hash(r.session_id, r.item_no)
                          and a.quality_rule_version = v.quality_rule_version and a.choice_trap_map = v.choice_trap_map))
@@ -1062,19 +1117,22 @@ end $$;
 
 -- AI 파이프라인(service_role) ────────────────────────────────────────────────
 -- 판정 입력 — 과정 증거 중 범주 자기보고는 빼고(blind), 사람 판정 · 학생 범주 claim 은 주지 않는다.
-create or replace function public.csat_ec_ai_export(p_session uuid, p_item_no smallint)
+create or replace function public.csat_ec_ai_export(p_round bigint, p_session uuid, p_item_no smallint)
 returns jsonb language plpgsql stable security definer set search_path = '' as $$
+declare v public.csat_ec_review_round;
 begin
+  select * into v from public.csat_ec_review_round where id = p_round;
+  if v.id is null or v.status <> 'draft' then raise exception 'csat_ec: AI 판정은 draft 회차의 대상에만'; end if;
+  if not (v.targets @> jsonb_build_array(jsonb_build_object('session_id', p_session, 'item_no', p_item_no))) then
+    raise exception 'csat_ec: 이 회차의 대상이 아니다';
+  end if;
   if not public.csat_ec_pilot_eligible(p_session, p_item_no) then
     raise exception 'csat_ec: Pilot 적격(품질 · 학습자 확인 · 과정 증거) 못 갖춘 응답은 판정하지 않는다';
   end if;
-  return (
-    select jsonb_build_object(
-      'session_id', r.session_id, 'item_no', r.item_no, 'item_id', r.item_id, 'chosen_option', r.chosen_option, 'is_correct', r.is_correct,
-      'input_hash', public.csat_ec_judgment_input_hash(r.session_id, r.item_no), 'quality_rule_version', 'rq-1',
-      'process_evidence', coalesce((select jsonb_agg(jsonb_build_object('id', e.id, 'kind', e.kind, 'value', e.value) order by e.created_at, e.id)
-                                     from public.csat_ec_valid_process_evidence(r.session_id, r.item_no) e), '[]'))
-      from public.csat_dx_response r where r.session_id = p_session and r.item_no = p_item_no);
+  return jsonb_build_object('round_id', v.id, 'taxonomy_version', v.taxonomy_version, 'choice_trap_map', v.choice_trap_map,
+           'quality_rule_version', v.quality_rule_version,
+           'canonical_input', public.csat_ec_canonical_input(p_session, p_item_no),
+           'input_hash', public.csat_ec_judgment_input_hash(p_session, p_item_no));
 end $$;
 
 create or replace function public.csat_ec_ai_taxonomy(p_version text)
@@ -1082,41 +1140,48 @@ returns jsonb language sql stable security definer set search_path = '' as $$
   select jsonb_build_object('version', v.version, 'definitions_hash', v.definitions_hash,
            'codes', (select jsonb_agg(jsonb_build_object('code', c.code, 'axis', c.axis, 'label', c.label, 'definition', c.definition,
                                                           'inclusion', c.inclusion, 'exclusion', c.exclusion, 'status', c.status) order by c.code)
-                       from public.csat_ec_code c where c.version = v.version and c.axis in ('V', 'S', 'R', 'E')))
+                       from public.csat_ec_code c where c.version = v.version and c.axis in ('V', 'S', 'R', 'E') and c.status = 'active'))
     from public.csat_ec_taxonomy_version v where v.version = p_version and v.status = 'sealed'
 $$;
 
 -- 원자적 적재: 실행 1행 + (proposed 면) claim 들. 사람 판정 · 학생 범주 보고는 읽지 않는다.
-create or replace function public.csat_ec_ai_import(p_run jsonb, p_claims jsonb)
+-- 호출자는 회차 · 응답 키 · 판정기 정보 · 자기가 본 입력의 해시 · 출력 · claim 만 보낸다.
+-- 판정 입력 전문은 서버가 다시 만들어 저장한다(주입 불가). 해시가 다르면 AI 가 다른 입력을 본 것이므로 거부
+create or replace function public.csat_ec_ai_import(p_round bigint, p_run jsonb, p_claims jsonb)
 returns bigint language plpgsql security definer set search_path = '' as $$
-declare v_run bigint; v_user uuid; c jsonb; n_primary int := 0;
+declare v_run bigint; v_user uuid; c jsonb; n_primary int := 0; v public.csat_ec_review_round;
+        v_sid uuid := (p_run->>'session_id')::uuid; v_no smallint := (p_run->>'item_no')::smallint; v_input jsonb; v_hash text;
 begin
-  -- 세션 공유 잠금 — 학생 증거 작성(같은 세션 FOR SHARE)과는 함께 가능하지만 blind 시작(FOR UPDATE)과는 직렬화.
-  -- 증거 정정은 판정 입력 해시를 바꾸므로, 아래 해시 재검증이 같은 트랜잭션 안에서 정정을 잡는다
-  select s.user_id into v_user from public.csat_dx_session s where s.id = (p_run->>'session_id')::uuid for share;
-  -- 응답 단위 배타 잠금 — 같은 응답의 증거 작성과 직렬화: 잠금을 잡은 뒤의 해시 재검증이 정정을 확실히 잡는다
-  perform pg_advisory_xact_lock(hashtextextended('csat_ec_resp|' || (p_run->>'session_id') || '|' || (p_run->>'item_no'), 0));
+  -- 잠금 순서: 세션 → 응답 advisory → 회차
+  select s.user_id into v_user from public.csat_dx_session s where s.id = v_sid for share;
   if v_user is null then raise exception 'csat_ec: 없는 세션'; end if;
-  if p_run->>'quality_rule_version' <> 'rq-1' or not public.csat_ec_pilot_eligible((p_run->>'session_id')::uuid, (p_run->>'item_no')::smallint) then
+  perform pg_advisory_xact_lock(hashtextextended('csat_ec_resp|' || v_sid::text || '|' || v_no::text, 0));
+  select * into v from public.csat_ec_review_round where id = p_round for share;
+  if v.id is null or v.status <> 'draft' then raise exception 'csat_ec: AI 판정은 draft 회차의 대상에만'; end if;
+  if not (v.targets @> jsonb_build_array(jsonb_build_object('session_id', v_sid, 'item_no', v_no))) then
+    raise exception 'csat_ec: 이 회차의 대상이 아니다';
+  end if;
+  -- 판정기 출처는 회차 값과 같아야 한다(다른 taxonomy · 대응표 주입 불가)
+  if p_run->>'taxonomy_version' is distinct from v.taxonomy_version or p_run->>'choice_trap_map' is distinct from v.choice_trap_map
+     or p_run->>'quality_rule_version' is distinct from v.quality_rule_version then
+    raise exception 'csat_ec: taxonomy · 대응표 · 품질 규칙은 회차 값과 같아야 한다';
+  end if;
+  if not public.csat_ec_pilot_eligible(v_sid, v_no) then
     raise exception 'csat_ec: Pilot 적격(품질 · 학습자 확인 · 과정 증거) 못 갖춘 응답은 적재하지 않는다';
   end if;
-  -- 판정한 입력이 지금 입력과 같아야 한다(그 사이 문항 · 정답이 바뀌었으면 다시 판정)
-  if p_run->>'outcome' <> 'failed' and p_run->>'input_hash' is distinct from
-     public.csat_ec_judgment_input_hash((p_run->>'session_id')::uuid, (p_run->>'item_no')::smallint) then
+  v_input := public.csat_ec_canonical_input(v_sid, v_no);
+  v_hash := encode(extensions.digest(v_input::text, 'sha256'), 'hex');
+  if p_run->>'outcome' <> 'failed' and p_run->>'input_hash' is distinct from v_hash then
     raise exception 'csat_ec: 입력 해시가 지금 입력과 다르다';
   end if;
-  if not exists (select 1 from public.csat_ec_taxonomy_version where version = p_run->>'taxonomy_version' and status = 'sealed') then
-    raise exception 'csat_ec: 봉인된 taxonomy 로만 판정한다';
-  end if;
-  -- 재시도 멱등 — 같은 실행 키를 advisory 잠금으로 직렬화한 뒤, 성공 실행이 이미 있으면: 결과(출력 · claim)가 같으면 그 id, 다르면 거부
-  perform pg_advisory_xact_lock(hashtextextended(concat_ws('|', p_run->>'session_id', p_run->>'item_no', p_run->>'taxonomy_version', p_run->>'model',
-                                                           p_run->>'prompt_version', p_run->>'analyzer_version', p_run->>'choice_trap_map', p_run->>'input_hash'), 0));
+  -- 재시도 멱등 — 같은 실행 키 직렬화 뒤, 성공 실행이 이미 있으면 결과(출력 · claim)가 같을 때만 그 id
+  perform pg_advisory_xact_lock(hashtextextended(concat_ws('|', p_round, v_sid, v_no, v.taxonomy_version, p_run->>'model',
+                                                           p_run->>'prompt_version', p_run->>'analyzer_version', v.choice_trap_map, v_hash), 0));
   if p_run->>'outcome' <> 'failed' then
     select a.id into v_run from public.csat_ec_ai_run a
-     where a.session_id = (p_run->>'session_id')::uuid and a.item_no = (p_run->>'item_no')::smallint
-       and a.taxonomy_version = p_run->>'taxonomy_version' and a.model = p_run->>'model' and a.prompt_version = p_run->>'prompt_version'
-       and a.analyzer_version = p_run->>'analyzer_version' and a.choice_trap_map = p_run->>'choice_trap_map'
-       and a.input_hash = p_run->>'input_hash' and a.outcome <> 'failed';
+     where a.round_id = p_round and a.session_id = v_sid and a.item_no = v_no and a.taxonomy_version = v.taxonomy_version
+       and a.model = p_run->>'model' and a.prompt_version = p_run->>'prompt_version' and a.analyzer_version = p_run->>'analyzer_version'
+       and a.choice_trap_map = v.choice_trap_map and a.input_hash = v_hash and a.outcome <> 'failed';
     if v_run is not null then
       if (select a.outcome = p_run->>'outcome' and a.output = p_run->'output' from public.csat_ec_ai_run a where a.id = v_run)
          and coalesce((select jsonb_agg(jsonb_build_array(c.code, c.role, c.confidence, c.evidence) order by c.code) from public.csat_ec_claim c where c.ai_run_id = v_run), '[]')
@@ -1127,32 +1192,32 @@ begin
     end if;
   end if;
   insert into public.csat_ec_ai_run (session_id, item_no, taxonomy_version, model, prompt_version, analyzer_version, quality_rule_version,
-                                     choice_trap_map, input_hash, input_refs, outcome, output, failure)
-  values ((p_run->>'session_id')::uuid, (p_run->>'item_no')::smallint, p_run->>'taxonomy_version', p_run->>'model', p_run->>'prompt_version',
-          p_run->>'analyzer_version', p_run->>'quality_rule_version', p_run->>'choice_trap_map', p_run->>'input_hash',
-          p_run->'input_refs', p_run->>'outcome', p_run->'output', p_run->>'failure')
+                                     choice_trap_map, round_id, input_hash, canonical_input, outcome, output, failure)
+  values (v_sid, v_no, v.taxonomy_version, p_run->>'model', p_run->>'prompt_version', p_run->>'analyzer_version', v.quality_rule_version,
+          v.choice_trap_map, p_round, v_hash, v_input, p_run->>'outcome', p_run->'output', p_run->>'failure')
   returning id into v_run;
   if p_run->>'outcome' = 'proposed' then
     for c in select * from jsonb_array_elements(p_claims) loop
       if left(c->>'code', 1) not in ('V', 'S', 'R', 'E') then raise exception 'csat_ec: AI 는 V/S/R/E 원인만 제안한다'; end if;
-      -- 근거: 요약 + 인용 1개 이상, 인용은 그 문항 원문(발문 · 지문 · 선지)에 실제로 있어야 한다
+      -- 폐기된(deprecated) 코드로 새 제안 금지
+      if not exists (select 1 from public.csat_ec_code k where k.version = v.taxonomy_version and k.code = c->>'code' and k.status = 'active') then
+        raise exception 'csat_ec: 사전에 없거나 폐기된 코드다(%)', c->>'code';
+      end if;
+      -- 근거: 요약 + 인용 1개 이상, 인용은 표시한 원문(지문 · 발문 · 선지 n)에 실제로 있어야 한다 — 전문(v_input)에서 찾는다
       if coalesce(length(btrim(c->'evidence'->>'summary')), 0) < 10
          or coalesce(jsonb_array_length(c->'evidence'->'text_refs'), 0) = 0
          or exists (select 1 from jsonb_array_elements(c->'evidence'->'text_refs') q
                      where coalesce(length(btrim(q->>'quote')), 0) < 2
                         or coalesce(q->>'where', '') !~ '^(passage|stem|option:[1-5])$'
-                        or not exists (select 1 from public.csat_dx_response r join public.csat_items i on i.id = r.item_id
-                                        where r.session_id = (p_run->>'session_id')::uuid and r.item_no = (p_run->>'item_no')::smallint
-                                          and strpos(lower(coalesce(case when q->>'where' = 'passage' then i.passage
-                                                                         when q->>'where' = 'stem' then i.stem
-                                                                         else i.choices->>(split_part(q->>'where', ':', 2)::int - 1) end, '')),
-                                                     lower(btrim(q->>'quote'))) > 0)) then
+                        or strpos(lower(coalesce(case when q->>'where' = 'passage' then v_input->>'passage'
+                                                      when q->>'where' = 'stem' then v_input->>'stem'
+                                                      else v_input->'choices'->>(split_part(q->>'where', ':', 2)::int - 1) end, '')),
+                                  lower(btrim(q->>'quote'))) = 0) then
         raise exception 'csat_ec: AI 근거에 요약 · 출처 표시 인용이 없거나, 표시한 원문(지문 · 발문 · 선지 n)에 없는 인용이 있다';
       end if;
       if c->>'role' = 'primary' then n_primary := n_primary + 1; end if;
       insert into public.csat_ec_claim (session_id, item_no, user_id, source, ai_run_id, taxonomy_version, code, role, confidence, evidence)
-      values ((p_run->>'session_id')::uuid, (p_run->>'item_no')::smallint, v_user, 'ai', v_run, p_run->>'taxonomy_version',
-              c->>'code', c->>'role', c->>'confidence', c->'evidence');
+      values (v_sid, v_no, v_user, 'ai', v_run, v.taxonomy_version, c->>'code', c->>'role', c->>'confidence', c->'evidence');
     end loop;
     if n_primary <> 1 or jsonb_array_length(p_claims) > 2 then raise exception 'csat_ec: proposed 는 primary 1 · contributing ≤ 1'; end if;
   elsif jsonb_array_length(coalesce(p_claims, '[]')) > 0 then
@@ -1169,7 +1234,10 @@ begin
     'csat_ec_my_key()',
     'csat_ec_confirm_session(uuid,boolean,boolean)',
     'csat_ec_taxonomy_seal(text)',
-    'csat_ec_ai_export(uuid,smallint)',
+    'csat_ec_ai_export(bigint,uuid,smallint)',
+    'csat_ec_canonical_input(uuid,smallint)',
+    'csat_ec_record_quality_rq1_signals(uuid)',
+    'csat_ec_choice_trap_map_approved(text)',
     'csat_ec_ai_taxonomy(text)',
     'csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid)',
     'csat_ec_record_quality_rq1(uuid)',
@@ -1193,7 +1261,7 @@ begin
     'csat_ec_submit_verify(bigint,uuid,text,text)',
     'csat_ec_round_advance(bigint,text,text)',
     'csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text)',
-    'csat_ec_ai_import(jsonb,jsonb)',
+    'csat_ec_ai_import(bigint,jsonb,jsonb)',
     'csat_ec_forbid_update()', 'csat_ec_only_reviewer_null()', 'csat_ec_taxonomy_guard()', 'csat_ec_code_guard()',
     'csat_ec_round_guard()', 'csat_ec_assignment_insert_guard()', 'csat_ec_judgment_insert_guard()',
     'csat_ec_cancel_rounds_on_response_delete()', 'csat_ec_supersede_guard()'
@@ -1204,7 +1272,7 @@ end $$;
 
 grant execute on function public.csat_ec_confirm_session(uuid,boolean,boolean) to authenticated;
 grant execute on function public.csat_ec_taxonomy_seal(text) to authenticated;   -- 함수 안에서 is_admin()
-grant execute on function public.csat_ec_ai_export(uuid,smallint) to service_role;
+grant execute on function public.csat_ec_ai_export(bigint,uuid,smallint) to service_role;
 grant execute on function public.csat_ec_ai_taxonomy(text) to service_role;
 grant execute on function public.csat_ec_add_process_evidence(uuid,smallint,text,jsonb,uuid) to authenticated;
 grant execute on function public.csat_ec_add_student_claim(uuid,smallint,text,text,text,uuid) to authenticated;
@@ -1221,7 +1289,7 @@ grant execute on function public.csat_ec_round_material(bigint) to authenticated
 grant execute on function public.csat_ec_submit_verify(bigint,uuid,text,text) to authenticated;
 grant execute on function public.csat_ec_round_advance(bigint,text,text) to authenticated;
 grant execute on function public.csat_ec_submit_adjudication(bigint,uuid,smallint,text,text,text[],text[],text) to authenticated;
-grant execute on function public.csat_ec_ai_import(jsonb,jsonb) to service_role;
+grant execute on function public.csat_ec_ai_import(bigint,jsonb,jsonb) to service_role;
 -- csat_ec_my_key 는 다른 definer 함수 안에서만 쓰인다(직접 실행 권한 없음)
 
 commit;

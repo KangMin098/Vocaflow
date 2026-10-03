@@ -18,7 +18,7 @@ try {
     ctx.post = s.post
     await flow(s.admin, ctx)
     await lifecycle(s.admin, ctx)
-    for (const mod of ['t_rls.mjs', 't_funcs.mjs', 't_rq1.mjs', 't_hash.mjs', 't_seal.mjs', 't_p1fix.mjs', 't_concurrency.mjs', 't_delete.mjs']) {
+    for (const mod of ['t_rls.mjs', 't_funcs.mjs', 't_rq1.mjs', 't_hash.mjs', 't_seal.mjs', 't_p1fix.mjs', 't_p2fix.mjs', 't_concurrency.mjs', 't_delete.mjs']) {
       if (only.length && !only.includes(mod)) continue
       if (!fs.existsSync(path.join(ROOT, mod))) continue
       const m = await import('./' + mod)

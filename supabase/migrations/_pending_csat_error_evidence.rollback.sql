@@ -19,8 +19,8 @@ end $$;
 
 drop trigger if exists csat_ec_cancel_rounds_on_response_delete on public.csat_dx_response;
 
-drop function if exists public.csat_ec_ai_import(jsonb, jsonb);
-drop function if exists public.csat_ec_ai_export(uuid, smallint);
+drop function if exists public.csat_ec_ai_import(bigint, jsonb, jsonb);
+drop function if exists public.csat_ec_ai_export(bigint, uuid, smallint);
 drop function if exists public.csat_ec_ai_taxonomy(text);
 drop function if exists public.csat_ec_taxonomy_seal(text);
 drop function if exists public.csat_ec_submit_adjudication(bigint, uuid, smallint, text, text, text[], text[], text);
@@ -46,12 +46,15 @@ drop function if exists public.csat_ec_pilot_eligible(uuid, smallint);
 drop function if exists public.csat_ec_judgment_input_hash(uuid, smallint);
 drop function if exists public.csat_ec_valid_process_evidence(uuid, smallint);
 drop function if exists public.csat_ec_record_quality_rq1(uuid);
+drop function if exists public.csat_ec_record_quality_rq1_signals(uuid);
+drop function if exists public.csat_ec_canonical_input(uuid, smallint);
+drop function if exists public.csat_ec_choice_trap_map_approved(text);
 
 drop table if exists public.csat_ec_judgment;
 drop table if exists public.csat_ec_review_assignment;
-drop table if exists public.csat_ec_review_round;
 drop table if exists public.csat_ec_claim;
 drop table if exists public.csat_ec_ai_run;
+drop table if exists public.csat_ec_review_round;
 drop table if exists public.csat_ec_process_evidence;
 drop table if exists public.csat_ec_session_confirmation;
 drop table if exists public.csat_ec_code;

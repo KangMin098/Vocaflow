@@ -48,8 +48,17 @@ export default async function hash(admin, ctx) {
   record('해시', '글자 값 안 공백 차이 — 다른 해시(학생 글 · 원문은 의미가 있는 값으로 본다)', ws1.x !== ws1.y)
 
   // 회차 targets_hash — 같은 대상 · 같은 상태면 같은 해시, 대상이 다르면 다른 해시
-  const hashes = (await admin.query(`select targets_hash from public.csat_ec_review_round where targets_hash is not null order by id`)).rows.map((r) => r.targets_hash)
-  record('해시', '같은 대상 · 같은 입력으로 만든 회차들 — targets_hash 같음', new Set(hashes).size === 1 && hashes.length >= 1, `${hashes.length}회차 · 서로 다른 값 ${new Set(hashes).size}`)
+  // (AI 판정은 회차 단위라 AI 를 돌린 회차와 안 돌린 회차는 대상 정보가 다르다 — 같은 조건의 새 draft 들로 비교)
+  const mk = async (refs) => {
+    const id = Number((await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-1', $2, '{}') as id`, [TAX, TRAP_MAP])).rows[0].id)
+    await as(app, ADM, `select public.csat_ec_round_set_targets($1, $2::jsonb)`, [id, JSON.stringify(refs)])
+    return id
+  }
+  const ra = await mk(ctx.refs), rb = await mk([...ctx.refs].reverse()), rc2 = await mk(ctx.refs.slice(1))
+  const th = async (id) => (await admin.query(`select encode(extensions.digest(targets::text, 'sha256'), 'hex') h from public.csat_ec_review_round where id = $1`, [id])).rows[0].h
+  const [ha, hb, hc] = [await th(ra), await th(rb), await th(rc2)]
+  record('해시', '같은 대상(입력 순서만 다름) — 대상 해시 같음 · 대상이 다르면 다름', ha === hb && ha !== hc, { ha: ha.slice(0, 10), hb: hb.slice(0, 10), hc: hc.slice(0, 10) })
+  for (const id of [ra, rb, rc2]) await as(app, ADM, `select public.csat_ec_round_advance($1, 'cancelled', 'TEST')`, [id])
 
   // P2-13 — 회차 진행 중 문항 원문 직접 UPDATE: 반드시 감지 · 조용히 진행 안 함 · 취소 사유 기록
   const rc = await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-1', $2, '{}') as id`, [TAX, TRAP_MAP])

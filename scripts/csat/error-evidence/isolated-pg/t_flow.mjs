@@ -42,11 +42,6 @@ export async function flow(admin, ctx) {
     const e = await learnerEvidence(app, U[k], S[k])
     record('함수', `학습자 RPC(확인 · 과정 증거 · 범주 보고) — ${k}`, e.errors.length === 0, e.errors.slice(0, 3))
   }
-  // AI 판정(오답만)
-  let aiErr = []
-  for (const k of ['L1', 'L2', 'L3', 'L5']) for (const n of WRONG) { const r = await aiJudge(app, S[k], n); if (!r.ok) aiErr.push([k, n, r.err]) }
-  record('함수', 'AI export · import — 48건(학습자 4)', aiErr.length === 0, aiErr.slice(0, 3))
-
   // 회차
   const rc = await as(app, ADM, `select public.csat_ec_round_create($1, 'rq-1', $2, '{}'::jsonb) as id`, [TAX, TRAP_MAP])
   record('함수', 'round_create — 관리자', ok(rc), rc.err)
@@ -57,6 +52,13 @@ export async function flow(admin, ctx) {
   ctx.refsL5 = refs.filter((r) => r.session_id !== S.L3).concat([...WRONG, ...CONTROL].map((n) => ({ session_id: S.L5, item_no: n })))
   const st = await as(app, ADM, `select public.csat_ec_round_set_targets($1, $2::jsonb) as n`, [ctx.round, JSON.stringify(refs)])
   record('함수', 'round_set_targets — 48 대상(오답 36 · 대조 12)', ok(st) && Number(st.rows[0].n) === 48, st.ok ? st.rows[0] : st.err)
+  // AI 판정 — draft 회차의 대상(오답)만. 그 뒤 대상을 다시 설정해 AI 실행 · claim 을 봉인 대상에 넣는다
+  let aiErr = []
+  for (const k of ['L1', 'L2', 'L3']) for (const n of WRONG) { const r = await aiJudge(app, ctx.round, S[k], n); if (!r.ok) aiErr.push([k, n, r.err]) }
+  record('함수', 'AI export · import — 회차 대상 오답 36건', aiErr.length === 0, aiErr.slice(0, 3))
+  const st2 = await as(app, ADM, `select public.csat_ec_round_set_targets($1, $2::jsonb) as n`, [ctx.round, JSON.stringify(refs)])
+  const withAi = st2.ok && (await admin.query(`select count(*) n from public.csat_ec_review_round r, jsonb_array_elements(r.targets) t where r.id = $1 and t->>'ai_run_id' is not null`, [ctx.round])).rows[0].n
+  record('함수', 'round_set_targets 재실행 — AI 실행 36건이 대상에 연결', Number(withAi) === 36, st2.err ?? withAi)
   for (const [uid, slot] of [[U.RA, 'A'], [U.RB, 'B'], [U.ADJ, 'adjudicator']]) {
     const a = await as(app, ADM, `select public.csat_ec_round_assign($1, $2, $3)`, [ctx.round, uid, slot])
     record('함수', `round_assign — ${slot}`, ok(a), a.err)

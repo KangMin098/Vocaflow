@@ -3,7 +3,7 @@
   "area": "객체",
   "name": "실제 생성 개수",
   "pass": true,
-  "detail": "{\"tables\":\"9\",\"functions\":\"37\",\"triggers\":\"15\",\"policies\":\"5\",\"named_indexes\":\"26\",\"all_indexes\":\"26\",\"constraints\":\"81\",\"definer\":\"21\"}"
+  "detail": "{\"tables\":\"9\",\"functions\":\"40\",\"triggers\":\"15\",\"policies\":\"5\",\"named_indexes\":\"26\",\"all_indexes\":\"26\",\"constraints\":\"83\",\"definer\":\"21\"}"
  },
  {
   "area": "rollback",

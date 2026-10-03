@@ -49,8 +49,14 @@ export default async function rq1(admin) {
       await admin.query(`insert into public.csat_dx_response (session_id, item_no, item_id, chosen_option, is_correct) values ($1, $2, $3, $4, $5)`, [sid, i + 1, `${EXAM}#${i + 1}`, c, c === answerOf(i + 1)])
     }
     const sql = (await admin.query(`select public.csat_ec_record_quality_rq1($1) s`, [sid])).rows[0].s
-    const ts = recordQuality(choices.map((c, i) => ({ no: i + 1, chosen: c }))).status
+    const tq = recordQuality(choices.map((c, i) => ({ no: i + 1, chosen: c })))
+    const ts = tq.status
     if (sql !== ts) mism.push({ name, sql, ts })
+    // 신호까지 동치(P2-2) — 답한 수 · 최빈 번호 · 최빈 개수 · 최장 연속 · 종류
+    const sg = (await admin.query(`select public.csat_ec_record_quality_rq1_signals($1) g`, [sid])).rows[0].g
+    const tsSig = { answered: tq.signals.answered, dominant_option: tq.signals.dominantOption, dominant_count: Math.round(tq.signals.dominantRatio * tq.signals.answered), longest_streak: tq.signals.longestStreak, distinct_options: tq.signals.distinctOptions }
+    const sqlSig = { answered: sg.answered, dominant_option: sg.dominant_option, dominant_count: sg.dominant_count, longest_streak: sg.longest_streak, distinct_options: sg.distinct_options }
+    if (JSON.stringify(tsSig) !== JSON.stringify(sqlSig)) mism.push({ name, tsSig, sqlSig })
     record('rq-1', `${name} → SQL ${sql} · TS ${ts}`, sql === ts)
   }
   record('rq-1', `TS ↔ SQL 불일치 0 / ${Object.keys(FIXTURES).length} fixture`, mism.length === 0, mism)

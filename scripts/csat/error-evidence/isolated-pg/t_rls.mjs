@@ -53,7 +53,7 @@ export default async function rls(admin, ctx) {
   record('RLS', 'service_role — 판정자 RPC 실행 권한 없음', !svcRpc.ok && /permission denied/.test(svcRpc.err), svcRpc.err)
   const anonRpc = await as(app, ANON, `select public.csat_ec_confirm_session('00000000-0000-4000-8000-000000000000', true, true)`)
   record('RLS', 'anon — 학습자 RPC 실행 권한 없음', !anonRpc.ok && /permission denied/.test(anonRpc.err), anonRpc.err)
-  const learnerAi = await as(app, learner(U.L1), `select public.csat_ec_ai_export('00000000-0000-4000-8000-000000000000', 18::smallint)`)
+  const learnerAi = await as(app, learner(U.L1), `select public.csat_ec_ai_export(1, '00000000-0000-4000-8000-000000000000', 18::smallint)`)
   record('RLS', 'authenticated — AI RPC 실행 권한 없음', !learnerAi.ok && /permission denied/.test(learnerAi.err), learnerAi.err)
   const helper = await as(app, learner(U.L1), `select public.csat_ec_judgment_input_hash('00000000-0000-4000-8000-000000000000', 18::smallint)`)
   record('RLS', '계산 함수(해시 · 품질) — 직접 실행 권한 없음', !helper.ok && /permission denied/.test(helper.err), helper.err)
